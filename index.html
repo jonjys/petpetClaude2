@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>KARMA</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+/* ══════════════════════════════════════
+   KARMA — 2026-05-09
+   Clean app layout · Living pet · Video-first
+══════════════════════════════════════ */
+:root {
+  --bg:   #000;
+  --s1:   #0a0a0f;
+  --s2:   #111118;
+  --s3:   #1a1a24;
+  --s4:   #242432;
+  --line: rgba(255,255,255,.08);
+  --t1:   #f2f2fa;
+  --t2:   #888;
+  --t3:   #444;
+  --green:  #00ff88;
+  --blue:   #4488ff;
+  --pink:   #ff3377;
+  --gold:   #ffcc00;
+  --purple: #aa66ff;
+  --red:    #ff4455;
+  --orange: #ff8844;
+  --teal:   #00ddcc;
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sat: env(safe-area-inset-top, 0px);
+  --ff-head: 'Syne', sans-serif;
+  --ff-body: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body {
+  height: 100%; width: 100%; overflow: hidden;
+  background: var(--bg); color: var(--t1);
+  font-family: var(--ff-body);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* ── SHELL ── */
+#app {
+  width: 100%; height: 100%;
+  max-width: 430px; margin: 0 auto;
+  display: none; flex-direction: column;
+  position: relative;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 200;
+  height: calc(52px + var(--sat));
+  padding-top: var(--sat);
+  display: flex; align-items: center;
+  padding-left: 16px; padding-right: 16px; gap: 10px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.9), transparent);
+}
+.logo {
+  font-family: var(--ff-head);
+  font-size: 22px; font-weight: 900;
+  letter-spacing: -1px; flex-shrink: 0;
+}
+.logo span { color: var(--green); }
+.pills { display: flex; gap: 5px; flex: 1; overflow: hidden; }
+.pill {
+  padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; gap: 3px; white-space: nowrap;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.6); backdrop-filter: blur(8px);
+}
+.pill-y { color: var(--gold); }
+.pill-r { color: var(--red); }
+.pill-g { color: var(--green); }
+
+/* HAMBURGER */
+.menu-wrap { position: relative; flex-shrink: 0; }
+.ham {
+  width: 36px; height: 36px;
+  background: rgba(0,0,0,.6); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.12); border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 4px; cursor: pointer;
+}
+.ham span { display:block; width:14px; height:2px; background:var(--t1); border-radius:1px; transition:all .2s; }
+.ham.open span:nth-child(1) { transform:rotate(45deg) translate(4px,4px); }
+.ham.open span:nth-child(2) { opacity:0; }
+.ham.open span:nth-child(3) { transform:rotate(-45deg) translate(4px,-4px); }
+.dd {
+  position: fixed; top: calc(58px + var(--sat)); right: 12px; z-index: 999;
+  width: 220px;
+  background: var(--s1); border: 1px solid rgba(255,255,255,.14);
+  border-radius: 18px; box-shadow: 0 24px 64px rgba(0,0,0,.95);
+  overflow: hidden; opacity: 0; pointer-events: none;
+  transform: translateY(-8px) scale(.97); transform-origin: top right;
+  transition: all .16s;
+}
+.dd.open { opacity:1; pointer-events:all; transform:none; }
+.dd-head { padding: 13px 15px 10px; border-bottom: 1px solid var(--line); }
+.dd-nm { font-family: var(--ff-head); font-size: 14px; font-weight: 800; }
+.dd-sb { font-size: 11px; color: var(--t3); margin-top: 2px; }
+.dd-sec { padding: 4px 0; border-bottom: 1px solid var(--line); }
+.dd-sec:last-child { border-bottom: none; }
+.ddr {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 15px; cursor: pointer; font-size: 13px; font-weight: 600;
+  transition: background .1s;
+}
+.ddr:active { background: var(--s2); }
+.ddr-i { font-size: 16px; width: 22px; text-align: center; }
+
+/* ── VIEWS ── */
+.main { flex: 1; overflow: hidden; position: relative; }
+.view {
+  position: absolute; inset: 0;
+  overflow-y: auto; overflow-x: hidden;
+  display: none; flex-direction: column;
+  scrollbar-width: none; background: var(--bg);
+}
+.view::-webkit-scrollbar { display: none; }
+.view.active { display: flex; }
+.vend { height: 90px; flex-shrink: 0; }
+
+/* ── BOTTOM NAV ── */
+.bnav {
+  display: flex; align-items: center;
+  background: rgba(0,0,0,.95); backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 8px 0; padding-bottom: calc(8px + var(--sab));
+  flex-shrink: 0; z-index: 200;
+}
+.nb {
+  flex: 1; background: none; border: none; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px;
+}
+.nb .ni { font-size: 22px; transition: transform .2s; }
+.nb .nl { font-size: 9px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: .5px; }
+.nb.on .ni { transform: scale(1.15); filter: drop-shadow(0 0 8px var(--green)); }
+.nb.on .nl { color: var(--green); }
+.nb-center {
+  flex: 1; background: none; border: none; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+.nb-center-ico {
+  width: 54px; height: 54px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin-top: -20px;
+  box-shadow: 0 8px 24px rgba(255,51,119,.45);
+  transition: all .12s;
+}
+.nb-center:active .nb-center-ico { transform: scale(.88); }
+.nb-center .nl { font-size: 9px; font-weight: 700; color: var(--pink); text-transform: uppercase; letter-spacing: .5px; }
+
+/* PET COMPANION FLOATING */
+.pet-float {
+  position: fixed; right: 14px;
+  bottom: calc(90px + var(--sab));
+  z-index: 50; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.pf-body {
+  width: 54px; height: 54px; border-radius: 16px;
+  background: var(--s2); border: 2.5px solid var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; position: relative;
+  box-shadow: 0 0 20px rgba(0,255,136,.2);
+  animation: pfloat 3s ease-in-out infinite;
+}
+@keyframes pfloat {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
+}
+.pf-body.hungry { border-color: var(--red); box-shadow: 0 0 20px rgba(255,68,85,.3); animation: pshake .3s ease infinite alternate; }
+@keyframes pshake { from{transform:translateX(-2px);}to{transform:translateX(2px);} }
+.pf-body.happy { border-color: var(--gold); box-shadow: 0 0 20px rgba(255,204,0,.3); }
+.pf-mood {
+  position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%);
+  background: var(--s1); border: 1px solid var(--line);
+  border-radius: 8px; padding: 1px 6px; font-size: 10px; white-space: nowrap;
+}
+.pf-lv { font-size: 9px; font-weight: 800; color: var(--green); font-family: var(--ff-head); }
+
+/* ══════════════════════
+   🐾 PET VIEW — FULL REDESIGN
+══════════════════════ */
+#view-pet {
+  background: var(--bg);
+  padding-top: calc(52px + var(--sat));
+}
+
+/* BIG PET STAGE */
+.pet-stage {
+  width: 100%; aspect-ratio: 1/1; max-height: 380px;
+  position: relative; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.pet-stage-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 70%, rgba(0,255,136,.12) 0%, transparent 70%);
+  animation: bgpulse 3s ease-in-out infinite;
+}
+@keyframes bgpulse { 0%,100%{opacity:.7;}50%{opacity:1;} }
+/* Orbiting particles */
+.pet-particles {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.particle {
+  position: absolute; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--green); opacity: 0;
+  animation: orbit var(--dur) var(--delay) ease-in-out infinite;
+}
+@keyframes orbit {
+  0%   { opacity:0; transform:translate(var(--x0),var(--y0)) scale(0); }
+  20%  { opacity:.8; }
+  80%  { opacity:.6; }
+  100% { opacity:0; transform:translate(var(--x1),var(--y1)) scale(1.5); }
+}
+/* The pet itself */
+.pet-main-wrap {
+  position: relative; z-index: 5;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+}
+.pet-aura {
+  width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,136,.15) 0%, transparent 70%);
+  position: absolute; animation: aura 2s ease-in-out infinite;
+}
+@keyframes aura { 0%,100%{transform:scale(1);}50%{transform:scale(1.15);} }
+.pet-emoji-big {
+  font-size: 100px; z-index: 2; position: relative;
+  animation: petbounce 2.4s cubic-bezier(.36,.07,.19,.97) infinite;
+  cursor: pointer; user-select: none;
+  filter: drop-shadow(0 8px 24px rgba(0,255,136,.3));
+  transition: filter .3s;
+}
+@keyframes petbounce {
+  0%,100% { transform: translateY(0) scale(1); }
+  40%     { transform: translateY(-18px) scale(1.05); }
+  60%     { transform: translateY(-14px) scale(1.03); }
+}
+.pet-emoji-big:active {
+  animation: petpop .3s cubic-bezier(.34,1.56,.64,1);
+  filter: drop-shadow(0 0 40px rgba(0,255,136,.8));
+}
+@keyframes petpop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.35) rotate(8deg); }
+  100% { transform: scale(1); }
+}
+.pet-gear-badge {
+  position: absolute; bottom: 8px; right: -8px;
+  font-size: 24px; z-index: 6;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.6));
+}
+.pet-stage-name {
+  font-family: var(--ff-head); font-size: 13px; font-weight: 700;
+  color: var(--green); letter-spacing: 2px; text-transform: uppercase;
+  z-index: 2; margin-top: 10px;
+  background: rgba(0,255,136,.08); border: 1px solid rgba(0,255,136,.2);
+  padding: 4px 14px; border-radius: 20px;
+}
+
+/* Pet info card under stage */
+.pet-info-card {
+  margin: 0 16px 16px;
+  background: var(--s1); border: 1px solid var(--line);
+  border-radius: 20px; padding: 16px;
+}
+.pet-name-row {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
+}
+.pet-name-big {
+  font-family: var(--ff-head); font-size: 26px; font-weight: 900; line-height: 1;
+}
+.pet-lv-badge {
+  background: linear-gradient(135deg, var(--green), var(--teal));
+  color: var(--bg); font-family: var(--ff-head); font-size: 14px; font-weight: 800;
+  padding: 6px 14px; border-radius: 10px;
+}
+.pet-evol { font-size: 11px; color: var(--gold); font-weight: 700; margin-top: 4px; }
+/* XP bar */
+.xp-wrap { margin-bottom: 14px; }
+.xp-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--t3); margin-bottom: 5px; }
+.xp-track { height: 8px; background: var(--s3); border-radius: 100px; overflow: hidden; }
+.xp-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--teal)); border-radius: 100px; transition: width .7s cubic-bezier(.34,1.56,.64,1); position: relative; }
+.xp-fill::after { content:''; position:absolute; right:0; top:0; bottom:0; width:6px; background:rgba(255,255,255,.4); border-radius:100px; animation:xpshine 1.5s ease-in-out infinite; }
+@keyframes xpshine { 0%,100%{opacity:0;}50%{opacity:1;} }
+/* Stats 3-col */
+.stats-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.stat-box {
+  background: var(--s2); border: 1px solid var(--line);
+  border-radius: 14px; padding: 12px 8px; text-align: center;
+}
+.stat-val { font-family: var(--ff-head); font-size: 28px; font-weight: 900; line-height: 1; }
+.stat-bar { height: 3px; background: var(--s4); border-radius: 2px; overflow: hidden; margin-top: 5px; }
+.stat-fill { height: 100%; border-radius: 2px; }
+.stat-lbl { font-size: 9px; color: var(--t3); text-transform: uppercase; letter-spacing: .8px; margin-top: 4px; }
+
+/* Vitals */
+.vitals-card {
+  margin: 0 16px 16px;
+  background: var(--s1); border: 1px solid var(--line);
+  border-radius: 20px; padding: 16px;
+}
+.vitals-title { font-size: 10px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 14px; }
+.vital-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.vital-row:last-child { margin-bottom: 0; }
+.vital-icon { font-size: 18px; width: 24px; text-align: center; flex-shrink: 0; }
+.vital-name { font-size: 11px; font-weight: 700; color: var(--t2); width: 52px; flex-shrink: 0; text-transform: uppercase; }
+.vital-track { flex: 1; height: 7px; background: var(--s3); border-radius: 100px; overflow: hidden; }
+.vital-fill { height: 100%; border-radius: 100px; transition: width .5s ease; }
+.vital-val { font-size: 12px; font-weight: 700; width: 28px; text-align: right; flex-shrink: 0; }
+
+/* Care buttons — big and tappable */
+.care-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px; margin: 0 16px 16px;
+}
+.care-btn {
+  background: var(--s1); border: 1px solid var(--line);
+  border-radius: 18px; padding: 16px 8px; text-align: center;
+  cursor: pointer; transition: all .15s; -webkit-user-select: none;
+}
+.care-btn:active { transform: scale(.9); background: var(--s2); }
+.care-ico { font-size: 28px; display: block; margin-bottom: 6px; }
+.care-lbl { font-size: 12px; font-weight: 700; display: block; }
+.care-cost { font-size: 10px; color: var(--t3); display: block; margin-top: 2px; }
+
+/* Minigame */
+.minigame-card {
+  margin: 0 16px 16px;
+  background: var(--s1); border: 1px solid var(--line);
+  border-radius: 20px; padding: 20px; text-align: center;
+}
+.mg-title { font-family: var(--ff-head); font-size: 16px; margin-bottom: 4px; }
+.mg-sub { font-size: 12px; color: var(--t2); margin-bottom: 14px; }
+.mg-score { font-family: var(--ff-head); font-size: 52px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 16px; }
+.mg-tap {
+  width: 100px; height: 100px; border-radius: 50%; border: none;
+  background: linear-gradient(135deg, var(--green), var(--teal));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 44px; cursor: pointer; margin: 0 auto;
+  box-shadow: 0 0 0 0 rgba(0,255,136,.4);
+  animation: mgpulse 2s ease-in-out infinite;
+  transition: all .1s;
+}
+.mg-tap:active { transform: scale(.8); animation: none; }
+@keyframes mgpulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,255,136,.4); }
+  50%     { box-shadow: 0 0 0 16px rgba(0,255,136,0); }
+}
+.mg-rec { font-size: 12px; color: var(--t3); margin-top: 14px; }
+
+/* ══════════════════════
+   ⚡ FLASH (Video Feed) — Full-screen TikTok style
+══════════════════════ */
+#view-flash { padding: 0; }
+
+/* Flash top bar - minimal, overlaid on video */
+.flash-topbar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 100;
+  padding: calc(var(--sat) + 10px) 16px 10px;
+  display: flex; align-items: center; gap: 10px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.7), transparent);
+  pointer-events: none;
+}
+.flash-title { font-family: var(--ff-head); font-size: 20px; font-weight: 900; flex: 1; pointer-events: all; }
+.flash-tabs {
+  display: flex; gap: 16px; font-size: 14px; font-weight: 700;
+  pointer-events: all;
+}
+.ftab { color: rgba(255,255,255,.5); cursor: pointer; transition: all .15s; padding-bottom: 2px; }
+.ftab.on { color: #fff; border-bottom: 2px solid #fff; }
+
+/* Streak bar */
+.streak-bar {
+  position: absolute; top: calc(var(--sat) + 54px); left: 0; right: 0; z-index: 100;
+  display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 0 14px 8px;
+  pointer-events: all;
+}
+.streak-bar::-webkit-scrollbar { display: none; }
+.sb-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0; }
+.sb-ring {
+  width: 56px; height: 56px; border-radius: 50%; padding: 2.5px;
+  display: flex; align-items: center; justify-content: center; transition: transform .15s;
+}
+.sb-ring:active { transform: scale(.9); }
+.sb-ring.has-flash { background: conic-gradient(var(--pink), var(--purple), var(--green), var(--pink)); }
+.sb-ring.no-flash  { background: conic-gradient(var(--s3), var(--s3)); }
+.sb-ring.live      { background: conic-gradient(var(--red), var(--gold), var(--red)); animation: livering 1.5s infinite; }
+@keyframes livering { 0%,100%{box-shadow:0 0 0 0 rgba(255,68,85,.5);}50%{box-shadow:0 0 0 5px rgba(255,68,85,0);} }
+.sb-inner {
+  width: 49px; height: 49px; border-radius: 50%;
+  background: var(--s2); display: flex; align-items: center; justify-content: center; font-size: 24px;
+}
+.sb-name  { font-size: 9px; color: rgba(255,255,255,.6); max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; }
+.sb-streak { font-size: 9px; color: var(--red); font-weight: 800; text-align: center; }
+
+/* Video scroll feed */
+.video-feed {
+  flex: 1; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none;
+}
+.video-feed::-webkit-scrollbar { display: none; }
+.video-card {
+  scroll-snap-align: start; height: 100svh;
+  display: flex; flex-direction: column; position: relative;
+  background: var(--bg);
+}
+/* The "video" area */
+.vc-media {
+  flex: 1; position: relative; overflow: hidden;
+  background: var(--s1);
+  display: flex; align-items: center; justify-content: center;
+}
+.vc-bg-emoji { font-size: 130px; opacity: .05; user-select: none; }
+/* Gradient overlay on video */
+.vc-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(0,0,0,.2) 60%,
+    rgba(0,0,0,.8) 100%
+  );
+  pointer-events: none;
+}
+/* Right-side TikTok actions */
+.vc-actions {
+  position: absolute; right: 12px; bottom: 80px;
+  display: flex; flex-direction: column; gap: 18px; align-items: center; z-index: 10;
+}
+.vca {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  cursor: pointer;
+}
+.vca-ico {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(0,0,0,.5); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+  transition: transform .15s;
+}
+.vca:active .vca-ico { transform: scale(.8); }
+.vca-ico.liked { background: rgba(255,51,119,.3); border-color: var(--pink); }
+.vca-cnt { font-size: 11px; font-weight: 700; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.8); }
+/* Bottom info overlay */
+.vc-info {
+  position: absolute; bottom: 0; left: 0; right: 60px; padding: 16px 14px 20px;
+  z-index: 5;
+}
+.vc-user { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+.vc-ava {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 2px solid #fff; background: var(--s2);
+  display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+}
+.vc-uname { font-weight: 800; font-size: 14px; text-shadow: 0 1px 4px rgba(0,0,0,.8); }
+.vc-sub { font-size: 11px; color: rgba(255,255,255,.7); }
+.vc-caption { font-size: 14px; line-height: 1.6; text-shadow: 0 1px 4px rgba(0,0,0,.8); margin-bottom: 8px; }
+.vc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+/* Flash stamp - replaces POIDH */
+.flash-stamp {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: #fff; font-size: 10px; font-weight: 800;
+  padding: 4px 10px; border-radius: 20px; letter-spacing: .5px;
+}
+.live-stamp {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--red); color: #fff; font-size: 10px; font-weight: 800;
+  padding: 4px 10px; border-radius: 6px;
+}
+.ldot { width:5px;height:5px;border-radius:50%;background:#fff;animation:blink .8s infinite; }
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+.xp-chip {
+  display: inline-flex; background: rgba(0,255,136,.2);
+  border: 1px solid rgba(0,255,136,.5); color: var(--green);
+  font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px;
+}
+.streak-chip {
+  display: inline-flex; background: rgba(255,68,85,.15);
+  border: 1px solid rgba(255,68,85,.4); color: var(--red);
+  font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px;
+}
+
+/* ══════════════════════
+   ⭕ CIRCLES
+══════════════════════ */
+#view-circles { background: var(--bg); padding-top: calc(52px + var(--sat)); }
+.circles-hdr {
+  padding: 16px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.circles-title { font-family: var(--ff-head); font-size: 28px; font-weight: 900; }
+.circle-card {
+  margin: 0 14px 12px; border-radius: 20px; overflow: hidden; cursor: pointer; transition: transform .15s;
+}
+.circle-card:active { transform: scale(.97); }
+.cc-top {
+  height: 90px; display: flex; align-items: center; padding: 0 18px; gap: 14px; position: relative;
+}
+.cc-emoji { font-size: 40px; z-index: 2; }
+.cc-text { z-index: 2; flex: 1; }
+.cc-name { font-family: var(--ff-head); font-size: 18px; font-weight: 900; }
+.cc-sub { font-size: 12px; color: rgba(255,255,255,.7); }
+.cc-streak-badge {
+  z-index: 2; background: rgba(0,0,0,.5); backdrop-filter: blur(6px);
+  padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 800; color: #fff;
+}
+.cc-bottom {
+  background: var(--s1); border: 1px solid var(--line); border-top: none; padding: 12px 16px;
+}
+/* Flash status row in circle */
+.cc-flash-row {
+  display: flex; gap: 6px; margin-bottom: 10px;
+}
+.ccf-member { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.ccf-ring {
+  width: 38px; height: 38px; border-radius: 50%; padding: 2px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ccf-ring.done    { background: conic-gradient(var(--green), var(--teal), var(--green)); }
+.ccf-ring.pending { background: conic-gradient(var(--s3), var(--s3)); }
+.ccf-ring.missing { background: conic-gradient(var(--red), var(--red)); animation: blink2 1s infinite; }
+@keyframes blink2{0%,100%{opacity:1;}50%{opacity:.5;}}
+.ccf-inner { width:32px;height:32px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:16px; }
+.ccf-name { font-size:8px;color:var(--t3);max-width:38px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center; }
+.cc-last-msg { font-size: 12px; color: var(--t2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Circle chat window */
+.circ-win {
+  position: fixed; inset: 0; z-index: 600;
+  background: var(--bg); display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform .28s cubic-bezier(.32,.72,0,1);
+}
+.circ-win.open { transform: translateX(0); }
+.cw-hdr {
+  height: calc(54px + var(--sat)); padding-top: var(--sat);
+  display: flex; align-items: center; padding: 0 14px; padding-top: var(--sat);
+  gap: 10px; border-bottom: 1px solid var(--line); flex-shrink: 0;
+  background: var(--s1);
+}
+.cw-back { background: none; border: none; color: var(--t2); font-size: 24px; cursor: pointer; }
+.cw-title { font-family: var(--ff-head); font-size: 16px; font-weight: 900; flex: 1; }
+.cw-st { font-size: 10px; color: var(--green); }
+.cw-flash-btn {
+  padding: 7px 14px; border-radius: 20px; border: none; cursor: pointer;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: #fff; font-weight: 700; font-size: 12px; flex-shrink: 0;
+}
+.cw-daily-bar {
+  display: flex; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line);
+  overflow-x: auto; scrollbar-width: none; flex-shrink: 0;
+}
+.cw-daily-bar::-webkit-scrollbar { display: none; }
+.cdb-item { display: flex; flex-direction: column; align-items: center; gap: 3px; flex-shrink: 0; }
+.cdb-ring { width:44px;height:44px;border-radius:50%;padding:2px;display:flex;align-items:center;justify-content:center; }
+.cdb-ring.done    { background: conic-gradient(var(--green),var(--teal),var(--green)); }
+.cdb-ring.pending { background: conic-gradient(var(--s3),var(--s3)); }
+.cdb-ring.missing { background: conic-gradient(var(--red),var(--red)); animation:blink2 1s infinite; }
+.cdb-inner { width:38px;height:38px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:20px; }
+.cdb-name { font-size:9px;color:var(--t2);max-width:44px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center; }
+.cw-msgs { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;scrollbar-width:none; }
+.cw-msgs::-webkit-scrollbar { display:none; }
+.msg { max-width:80%;padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.5; }
+.msg.me { align-self:flex-end;background:linear-gradient(135deg,var(--green),var(--teal));color:var(--bg);font-weight:600;border-bottom-right-radius:4px; }
+.msg.them { align-self:flex-start;background:var(--s2);border:1px solid var(--line);border-bottom-left-radius:4px; }
+.msg-from { font-size:10px;color:var(--t2);margin-bottom:3px;font-weight:700; }
+.msg-t { font-size:9px;color:var(--t3);margin-top:3px; }
+/* Flash video message */
+.msg-flash {
+  align-self:flex-start; max-width:180px;
+  background:var(--s2);border:2px solid var(--pink);border-radius:16px;overflow:hidden;cursor:pointer;
+}
+.msg-flash-media {
+  height:120px;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:52px;
+  border-bottom:2px solid rgba(255,51,119,.3);position:relative;
+}
+.msg-flash-play {
+  position:absolute;width:40px;height:40px;border-radius:50%;
+  background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.msg-flash-meta { padding:8px 12px; }
+.msg-flash-user { font-size:12px;font-weight:800;color:var(--pink); }
+.msg-flash-streak { font-size:11px;color:var(--t2); }
+.cw-inp-row {
+  padding:10px 13px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;
+  background:var(--bg);padding-bottom:calc(10px + var(--sab));flex-shrink:0;
+}
+.cw-inp {
+  flex:1;background:var(--s2);border:1px solid var(--line);border-radius:24px;
+  padding:11px 16px;color:var(--t1);font-family:var(--ff-body);font-size:14px;outline:none;
+}
+.cw-inp:focus { border-color:rgba(0,255,136,.4); }
+.cw-snd {
+  width:42px;height:42px;background:linear-gradient(135deg,var(--green),var(--teal));
+  border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:17px;cursor:pointer;flex-shrink:0;color:var(--bg);transition:transform .12s;
+}
+.cw-snd:active { transform:scale(.86); }
+
+/* ══════════════════════
+   🎯 UPPDRAG
+══════════════════════ */
+#view-uppdrag { padding-top: calc(52px + var(--sat)); }
+.uppdrag-hdr {
+  padding: 16px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.uppdrag-title { font-family: var(--ff-head); font-size: 28px; font-weight: 900; }
+.ufilters {
+  display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none;
+  padding: 0 14px 12px; flex-shrink: 0;
+}
+.ufilters::-webkit-scrollbar { display: none; }
+.uf {
+  padding: 7px 14px; border-radius: 20px; background: var(--s1); border: 1px solid var(--line);
+  font-size: 12px; font-weight: 700; cursor: pointer; color: var(--t2); white-space: nowrap; transition: all .15s; flex-shrink: 0;
+}
+.uf.on { background: var(--green); color: var(--bg); border-color: var(--green); }
+.uc {
+  margin: 0 14px 12px; background: var(--s1); border: 1px solid var(--line);
+  border-radius: 20px; overflow: hidden; cursor: pointer; transition: all .12s;
+}
+.uc:active { transform: scale(.98); }
+.uc.vgold { border-color: rgba(255,204,0,.35); }
+.uc.vgreen { border-color: rgba(0,255,136,.32); box-shadow: 0 0 20px rgba(0,255,136,.06); }
+.uc-co {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-bottom: 1px solid var(--line);
+  background: rgba(255,204,0,.04);
+}
+.uc-co-logo {
+  width: 32px; height: 32px; border-radius: 9px; background: var(--s2);
+  display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+}
+.uc-co-name { font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 5px; }
+.uc-co-type { font-size: 10px; color: var(--t3); }
+.ver { display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;border:1px solid; }
+.ver-g { background:rgba(0,255,136,.1);border-color:rgba(0,255,136,.35);color:var(--green); }
+.ver-y { background:rgba(255,204,0,.1);border-color:rgba(255,204,0,.35);color:var(--gold); }
+.uc-body { padding: 14px; }
+.uc-title { font-family: var(--ff-head); font-size: 15px; font-weight: 800; line-height: 1.3; margin-bottom: 6px; }
+.uc-desc { font-size: 13px; color: var(--t2); line-height: 1.6; margin-bottom: 10px; }
+.uc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.uc-loc { font-size: 12px; color: var(--blue); margin-bottom: 12px; }
+.uc-bot { display: flex; align-items: center; justify-content: space-between; }
+.uc-rewards { display: flex; gap: 7px; align-items: center; }
+.uc-sek {
+  background: linear-gradient(135deg, var(--green), var(--teal));
+  color: var(--bg); font-size: 14px; font-weight: 800; padding: 7px 14px; border-radius: 9px;
+}
+.uc-coins {
+  background: rgba(255,204,0,.1); border: 1px solid rgba(255,204,0,.3);
+  color: var(--gold); font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 9px;
+}
+.uc-xp {
+  background: rgba(0,255,136,.08); border: 1px solid rgba(0,255,136,.25);
+  color: var(--green); font-size: 11px; font-weight: 700; padding: 5px 9px; border-radius: 8px;
+}
+.uc-foot {
+  padding: 9px 14px; border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px;
+}
+.uc-spots { color: var(--t3); }
+.uc-dead { color: var(--orange); font-weight: 700; }
+
+/* ══════════════════════
+   🗺️ MAP
+══════════════════════ */
+#view-map { padding: 0; }
+.map-wrap { display: flex; flex-direction: column; height: 100%; }
+.map-canvas { flex: 1; position: relative; min-height: 300px; }
+#realMap { width: 100%; height: 100%; }
+.leaflet-container { background: var(--s1) !important; }
+.leaflet-tile-pane { filter: brightness(.75) saturate(.8) hue-rotate(180deg) invert(1) hue-rotate(185deg) brightness(.62); }
+.map-top {
+  position: absolute; top: calc(var(--sat) + 10px); left: 0; right: 0; z-index: 500;
+  display: flex; align-items: flex-start; justify-content: space-between; padding: 0 12px; pointer-events: none;
+}
+.map-top > * { pointer-events: all; }
+.share-tog {
+  display: flex; background: rgba(0,0,0,.85); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.15); border-radius: 12px; overflow: hidden;
+}
+.sht { padding: 8px 13px; font-size: 11px; font-weight: 700; cursor: pointer; color: var(--t3); transition: all .15s; white-space: nowrap; }
+.sht.fo { background: var(--green); color: var(--bg); }
+.sht.po { background: var(--blue); color: #fff; }
+.map-ctrls { display: flex; flex-direction: column; gap: 5px; }
+.mctrl {
+  width: 38px; height: 38px; background: rgba(0,0,0,.85); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.15); border-radius: 11px;
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+  font-weight: 700; color: var(--t1); cursor: pointer; transition: all .12s;
+}
+.mctrl:active { background: var(--s2); }
+.mctrl.on { background: var(--green); color: var(--bg); }
+.gps-bar {
+  padding: 10px 16px; background: var(--s1); border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.gps-st { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; }
+.gps-dot { width:8px;height:8px;border-radius:50%;background:var(--t3); }
+.gps-dot.active { background:var(--green);box-shadow:0 0 6px var(--green);animation:gdp 1.5s infinite; }
+.gps-dot.searching { background:var(--gold);animation:gdp .8s infinite; }
+@keyframes gdp{0%,100%{opacity:1;}50%{opacity:.4;}}
+.map-panel { background: var(--bg); flex-shrink: 0; }
+.map-legend {
+  display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none;
+  padding: 8px 14px; border-bottom: 1px solid var(--line);
+}
+.map-legend::-webkit-scrollbar { display: none; }
+.leg { display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t3);white-space:nowrap;flex-shrink:0; }
+.leg-dot { width:10px;height:10px;border-radius:50%;border:2px solid;flex-shrink:0; }
+.nearby-area { max-height: 180px; overflow-y: auto; scrollbar-width: none; }
+.nearby-area::-webkit-scrollbar { display: none; }
+.nbr { display:flex;align-items:center;gap:11px;padding:10px 14px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .1s; }
+.nbr:active { background:var(--s1); }
+.nbr:last-child { border-bottom:none; }
+.nbr-ico { width:32px;height:32px;border-radius:9px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0; }
+.nbr-title { font-size:13px;font-weight:700; }
+.nbr-loc { font-size:11px;color:var(--t3); }
+.nbr-rwd { font-size:15px;font-weight:900;color:var(--gold); }
+
+/* ══════════════════════
+   🏆 LEADERBOARD
+══════════════════════ */
+#view-lb { padding-top: calc(52px + var(--sat)); }
+.lb-title { font-family: var(--ff-head); font-size: 28px; font-weight: 900; padding: 16px 16px 8px; }
+.lb-tabs { display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);flex-shrink:0; }
+.lb-tabs::-webkit-scrollbar { display:none; }
+.lt { padding:10px 14px;font-size:11px;font-weight:800;cursor:pointer;color:var(--t3);border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;transition:all .15s; }
+.lt.on { color:var(--green);border-bottom-color:var(--green); }
+.lb-podium { display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:24px 16px 18px;background:linear-gradient(180deg,rgba(0,255,136,.04),transparent); }
+.pod { display:flex;flex-direction:column;align-items:center; }
+.pod-av { width:54px;height:54px;border-radius:16px;background:var(--s2);border:2px solid;display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:5px; }
+.pod-rk { font-family:var(--ff-head);font-size:22px;font-weight:900;line-height:1; }
+.pod-nm { font-size:12px;font-weight:700;text-align:center;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+.pod-vl { font-size:12px;color:var(--t2); }
+.pod-pl { border-radius:8px 8px 0 0;width:80px;display:flex;flex-direction:column;align-items:center;padding:7px 4px 0; }
+.pod-pl.g { background:rgba(255,204,0,.1);border:1px solid rgba(255,204,0,.2);border-bottom:none; }
+.pod-pl.s { background:rgba(160,160,180,.07);border:1px solid rgba(160,160,180,.14);border-bottom:none; }
+.pod-pl.b { background:rgba(200,120,60,.07);border:1px solid rgba(200,120,60,.14);border-bottom:none; }
+.ph1{height:80px;}.ph2{height:60px;}.ph3{height:44px;}
+.lb-list { padding: 0 14px; }
+.lb-row { display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line); }
+.lb-row:last-child { border-bottom:none; }
+.lb-row.you { background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.14)!important;border-radius:14px;margin:5px 0;padding:12px 12px!important; }
+.lb-rk { font-family:var(--ff-head);font-size:20px;font-weight:900;color:var(--t3);width:28px;text-align:center;flex-shrink:0; }
+.lb-av { width:42px;height:42px;border-radius:12px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0; }
+.lb-nm { font-size:14px;font-weight:700;flex:1; }
+.lb-sb { font-size:11px;color:var(--t3); }
+.lb-vl { font-family:var(--ff-head);font-size:15px;font-weight:900;text-align:right; }
+
+/* ══════════════════════
+   👤 PROFILE
+══════════════════════ */
+#view-profile { padding-top: calc(52px + var(--sat)); }
+.prof-cover { height:90px;background:linear-gradient(135deg,rgba(0,255,136,.1),rgba(68,136,255,.05));position:relative;overflow:hidden;flex-shrink:0; }
+.prof-cover-pat { position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(0,255,136,.025) 22px,rgba(0,255,136,.025) 23px); }
+.prof-ava-wr { position:absolute;bottom:-32px;left:16px; }
+.prof-ava { width:76px;height:76px;border-radius:22px;background:var(--s2);border:4px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:38px;position:relative; }
+.prof-trust { position:absolute;bottom:-2px;right:-2px;background:var(--green);border:2px solid var(--bg);border-radius:8px;padding:2px 6px;font-size:9px;font-weight:800;color:var(--bg); }
+.prof-content { padding:40px 16px 14px;flex-shrink:0; }
+.prof-name { font-family:var(--ff-head);font-size:26px;font-weight:900; }
+.prof-handle { font-size:13px;color:var(--t3);margin-bottom:12px; }
+.prof-stats { display:flex;background:var(--s1);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:16px; }
+.ps { flex:1;text-align:center;padding:12px 6px;border-right:1px solid var(--line); }
+.ps:last-child { border-right:none; }
+.ps-v { font-family:var(--ff-head);font-size:20px;font-weight:900; }
+.ps-l { font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-top:2px; }
+.trust-card {
+  margin: 0 16px 14px;
+  background: rgba(0,255,136,.04); border: 1px solid rgba(0,255,136,.18);
+  border-radius: 20px; padding: 16px;
+}
+.trust-big { font-family:var(--ff-head);font-size:56px;font-weight:900;color:var(--green);line-height:1; }
+.tr-row { display:flex;align-items:center;gap:10px;margin-bottom:7px; }
+.tr-lbl { font-size:11px;color:var(--t3);width:90px;flex-shrink:0; }
+.tr-track { flex:1;height:5px;background:var(--s3);border-radius:100px;overflow:hidden; }
+.tr-fill { height:100%;border-radius:100px;background:linear-gradient(90deg,var(--green),var(--teal));transition:width .7s; }
+.tr-val { font-size:11px;font-weight:700;color:var(--green);width:30px;text-align:right;flex-shrink:0; }
+.badge-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 16px; }
+.badge { background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .12s; }
+.badge.earned { border-color:rgba(255,204,0,.4);background:rgba(255,204,0,.04); }
+.badge-e { font-size:24px;margin-bottom:4px; }
+.badge-l { font-size:8px;font-weight:700;color:var(--t3); }
+.badge.earned .badge-l { color:var(--gold); }
+.hist-item { display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line); }
+.hist-item:last-child { border-bottom:none; }
+.hdot { width:7px;height:7px;border-radius:50%;flex-shrink:0; }
+.htxt { flex:1;font-size:13px;line-height:1.4; }
+.htime { font-size:10px;color:var(--t3); }
+
+/* ══════════════════════
+   ATOMS / SHARED
+══════════════════════ */
+.card { background:var(--s1);border:1px solid var(--line);border-radius:20px;overflow:hidden; }
+.sh { display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px; }
+.sh-t { font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.8px; }
+.sh-a { font-size:12px;font-weight:700;color:var(--green);cursor:pointer; }
+.tag { display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;border:1px solid; }
+.tg { background:rgba(0,255,136,.09);border-color:rgba(0,255,136,.28);color:var(--green); }
+.tb { background:rgba(68,136,255,.09);border-color:rgba(68,136,255,.28);color:var(--blue); }
+.tp { background:rgba(170,102,255,.09);border-color:rgba(170,102,255,.28);color:var(--purple); }
+.ty { background:rgba(255,204,0,.09);border-color:rgba(255,204,0,.28);color:var(--gold); }
+.tr { background:rgba(255,68,85,.09);border-color:rgba(255,68,85,.28);color:var(--red); }
+.to { background:rgba(255,136,68,.09);border-color:rgba(255,136,68,.28);color:var(--orange); }
+.btn { font-family:var(--ff-body);font-weight:700;border-radius:12px;cursor:pointer;border:none;transition:all .12s;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-size:13px; }
+.btn:active { transform:scale(.94); }
+.btn-g { background:linear-gradient(135deg,var(--green),var(--teal));color:var(--bg);font-weight:800; }
+.btn-pk { background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;font-weight:800; }
+.btn-y { background:var(--gold);color:var(--bg);font-weight:800; }
+.btn-b { background:var(--blue);color:#fff; }
+.btn-ghost { background:var(--s2);color:var(--t1);border:1px solid var(--line); }
+.btn-sm { padding:7px 14px;font-size:12px; }
+.btn-md { padding:11px 20px;font-size:14px; }
+.btn-lg { padding:14px 24px;font-size:14px;font-weight:800; }
+.btn-full { width:100%; }
+.inp { width:100%;background:var(--s2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--t1);font-family:var(--ff-body);font-size:14px;outline:none;margin-bottom:11px;transition:border-color .15s; }
+.inp:focus { border-color:rgba(0,255,136,.5); }
+.inp::placeholder { color:var(--t3); }
+textarea.inp { resize:none;min-height:72px; }
+.lbl { font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px;display:block; }
+.r2 { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:11px; }
+.r2 .inp { margin-bottom:0; }
+.trow { display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px; }
+.topt { padding:7px 14px;border-radius:20px;background:var(--s2);border:1px solid var(--line);font-size:12px;font-weight:700;cursor:pointer;color:var(--t2);white-space:nowrap;transition:all .15s; }
+.topt.on { background:var(--green);color:var(--bg);border-color:var(--green); }
+
+/* MODALS */
+.modal { position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .2s; }
+.modal.open { opacity:1;pointer-events:all; }
+.ms { width:100%;max-width:430px;margin:0 auto;background:var(--s1);border-radius:24px 24px 0 0;border:1px solid rgba(255,255,255,.1);border-bottom:none;padding:14px 16px calc(30px + var(--sab));max-height:92svh;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1); }
+.ms::-webkit-scrollbar { display:none; }
+.modal.open .ms { transform:translateY(0); }
+.mh { width:36px;height:4px;background:var(--s4);border-radius:2px;margin:0 auto 16px; }
+.mt { font-family:var(--ff-head);font-size:18px;font-weight:900;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between; }
+.mx { width:30px;height:30px;background:var(--s2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;color:var(--t2);border:1px solid var(--line); }
+
+/* FULLSCREEN SLIDE */
+.fsw { position:fixed;inset:0;z-index:700;background:var(--bg);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s cubic-bezier(.32,.72,0,1); }
+.fsw.open { transform:translateX(0); }
+.fsh { height:calc(52px + var(--sat));padding-top:var(--sat);display:flex;align-items:center;padding:0 14px;padding-top:var(--sat);gap:10px;border-bottom:1px solid var(--line);flex-shrink:0;background:var(--s1); }
+.fbk { background:none;border:none;color:var(--t2);font-size:24px;cursor:pointer; }
+.ftl { font-family:var(--ff-head);font-size:16px;font-weight:900;flex:1; }
+.fbd { flex:1;overflow-y:auto;scrollbar-width:none; }
+.fbd::-webkit-scrollbar { display:none; }
+
+/* SPLASH */
+.splash { position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s; }
+.splash.show { opacity:1;pointer-events:all; }
+@keyframes spop { from{transform:scale(.15) rotate(-12deg);}to{transform:scale(1) rotate(0);} }
+.sp-ico { font-size:80px;margin-bottom:14px;animation:spop .45s cubic-bezier(.34,1.56,.64,1); }
+.sp-title { font-family:var(--ff-head);font-size:34px;font-weight:900;text-align:center;margin-bottom:8px; }
+.sp-sub { font-size:15px;color:var(--t2);text-align:center;margin-bottom:14px; }
+.sp-row { display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:12px 0 22px; }
+.sp-r { background:var(--s2);border:1px solid var(--line);border-radius:14px;padding:12px 18px;text-align:center;min-width:78px; }
+.sp-rv { font-family:var(--ff-head);font-size:22px;font-weight:900; }
+.sp-rl { font-size:10px;color:var(--t3);margin-top:3px; }
+
+/* TOAST */
+.toast { position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--s2);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 20px;font-size:13px;font-weight:700;z-index:9999;white-space:nowrap;opacity:0;transition:all .22s;pointer-events:none;max-width:calc(100vw - 28px);text-align:center; }
+.toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
+.toast.g { border-color:rgba(0,255,136,.5);color:var(--green); }
+.toast.r { border-color:rgba(255,68,85,.5);color:var(--red); }
+.toast.y { border-color:rgba(255,204,0,.5);color:var(--gold); }
+.toast.pk { border-color:rgba(255,51,119,.5);color:var(--pink); }
+@keyframes cpop { 0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-50px);} }
+.cpop { position:fixed;pointer-events:none;z-index:9999;font-size:14px;font-weight:800;color:var(--gold);animation:cpop .7s ease-out forwards; }
+
+/* ONBOARDING */
+.ob { position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:calc(54px + var(--sat)) 22px calc(40px + var(--sab)); }
+.ob-logo { font-family:var(--ff-head);font-size:54px;font-weight:900;letter-spacing:-3px;margin-bottom:6px; }
+.ob-logo span { color:var(--green); }
+.ob-tag { font-size:11px;color:var(--t3);letter-spacing:3px;text-transform:uppercase;margin-bottom:48px; }
+.ob-step { width:100%;max-width:350px; }
+.ob-prog { display:flex;gap:6px;margin-bottom:24px; }
+.ob-d { height:4px;flex:1;border-radius:2px;background:var(--s3);transition:background .3s; }
+.ob-d.on { background:var(--green); }
+.ob-h { font-family:var(--ff-head);font-size:30px;font-weight:900;margin-bottom:10px; }
+.ob-p { font-size:15px;color:var(--t2);line-height:1.7;margin-bottom:24px; }
+.ob-pets { display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:20px; }
+.obp { font-size:36px;cursor:pointer;padding:11px;background:var(--s2);border:2px solid var(--line);border-radius:16px;transition:all .15s; }
+.obp.sel { border-color:var(--green);background:rgba(0,255,136,.08);transform:scale(1.1); }
+.ob-loop { background:var(--s2);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:24px; }
+.ob-lr { display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line); }
+.ob-lr:last-child { border-bottom:none; }
+.ob-n { width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<!-- ════ ONBOARDING ════ -->
+<div class="ob" id="ob">
+  <div class="ob-logo"><span>K</span>ARMA</div>
+  <div class="ob-tag">Real Life · Game Engine</div>
+  <div class="ob-step" id="obs0">
+    <div class="ob-prog"><div class="ob-d on"></div><div class="ob-d"></div><div class="ob-d"></div></div>
+    <div class="ob-h">Ditt liv är spelet.</div>
+    <div class="ob-p">Posta dagliga 1-5 sek videor. Gör uppdrag IRL. Levla din pet. Tjäna pengar.</div>
+    <label class="lbl">DITT NAMN</label>
+    <input class="inp" id="obName" placeholder="Ex: ella_runs / axelsthlm" maxlength="18">
+    <button class="btn btn-g btn-lg btn-full" onclick="obNext(1)">NÄSTA →</button>
+  </div>
+  <div class="ob-step" id="obs1" style="display:none">
+    <div class="ob-prog"><div class="ob-d on"></div><div class="ob-d on"></div><div class="ob-d"></div></div>
+    <div class="ob-h">Välj din pet.</div>
+    <div class="ob-p">Din pet levlar när du lever IRL.</div>
+    <div class="ob-pets" id="obPetGrid"></div>
+    <label class="lbl">PET-NAMN</label>
+    <input class="inp" id="obPetName" placeholder="Ex: Eldrake / Luna / Shadow">
+    <button class="btn btn-g btn-lg btn-full" onclick="obNext(2)">NÄSTA →</button>
+  </div>
+  <div class="ob-step" id="obs2" style="display:none">
+    <div class="ob-prog"><div class="ob-d on"></div><div class="ob-d on"></div><div class="ob-d on"></div></div>
+    <div class="ob-h">Karma Loop.</div>
+    <div class="ob-loop">
+      <div class="ob-lr"><div class="ob-n" style="background:var(--pink);color:#fff">⚡</div><div style="font-size:14px;font-weight:700">Daglig <strong>Flash</strong> video (1–5 sek)</div></div>
+      <div class="ob-lr"><div class="ob-n" style="background:var(--purple);color:#fff">⭕</div><div style="font-size:14px;font-weight:700">Dela i din <strong>Karma Circle</strong></div></div>
+      <div class="ob-lr"><div class="ob-n" style="background:var(--green);color:var(--bg)">🗺</div><div style="font-size:14px;font-weight:700">Gör <strong>uppdrag</strong> på kartan</div></div>
+      <div class="ob-lr" style="border-bottom:none"><div class="ob-n" style="background:var(--gold);color:var(--bg)">💸</div><div style="font-size:14px;font-weight:800;color:var(--gold)">Tjäna pengar + XP!</div></div>
+    </div>
+    <button class="btn btn-g btn-lg btn-full" onclick="finishOB()">⚡ STARTA KARMA</button>
+  </div>
+</div>
+
+<!-- ════ APP ════ -->
+<div id="app">
+
+  <!-- TOPBAR (absolute, overlays content) -->
+  <div class="topbar">
+    <div class="logo"><span>K</span>ARMA</div>
+    <div class="pills">
+      <div class="pill pill-y">⚡<b id="hCoins">500</b></div>
+      <div class="pill pill-r">🔥<b id="hStreak">0</b>d</div>
+      <div class="pill pill-g">✅<b id="hTrust">42</b></div>
+    </div>
+    <div class="menu-wrap">
+      <div class="ham" id="hamBtn" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+      <div class="dd" id="dd">
+        <div class="dd-head"><div class="dd-nm" id="ddName">–</div><div class="dd-sb" id="ddSub">Level 1</div></div>
+        <div class="dd-sec">
+          <div class="ddr" onclick="cM();nav('pet')"><div class="ddr-i">🐾</div>Din Pet</div>
+          <div class="ddr" onclick="cM();nav('flash')"><div class="ddr-i">⚡</div>Flash Feed</div>
+          <div class="ddr" onclick="cM();nav('circles')"><div class="ddr-i">⭕</div>Karma Circles</div>
+          <div class="ddr" onclick="cM();nav('uppdrag')"><div class="ddr-i">🎯</div>Uppdrag</div>
+          <div class="ddr" onclick="cM();nav('map')"><div class="ddr-i">🗺️</div>Live Karta</div>
+        </div>
+        <div class="dd-sec">
+          <div class="ddr" onclick="cM();nav('lb')"><div class="ddr-i">🏆</div>Leaderboard</div>
+          <div class="ddr" onclick="cM();nav('profile')"><div class="ddr-i">👤</div>Profil</div>
+          <div class="ddr" onclick="cM();openModal('aiModal')"><div class="ddr-i">🤖</div>KARMA AI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PET COMPANION (floating, always visible) -->
+  <div class="pet-float" id="petFloat" onclick="nav('pet')">
+    <div class="pf-body" id="pfBody"><span id="pfEm">🐉</span><div class="pf-mood" id="pfMood">😊</div></div>
+    <div class="pf-lv" id="pfLv">LV1</div>
+  </div>
+
+  <!-- MAIN AREA -->
+  <div class="main">
+
+    <!-- 🐾 PET VIEW -->
+    <div class="view active" id="view-pet">
+
+      <!-- BIG ANIMATED PET STAGE -->
+      <div class="pet-stage">
+        <div class="pet-stage-bg"></div>
+        <!-- Floating particles -->
+        <div class="pet-particles" id="petParticles"></div>
+        <div class="pet-main-wrap">
+          <div class="pet-aura"></div>
+          <div style="position:relative">
+            <div class="pet-emoji-big" id="petEmojiBig" onclick="petTap()">🐉</div>
+            <div class="pet-gear-badge" id="petGearBadge"></div>
+          </div>
+          <div class="pet-stage-name" id="petStageName">BABY DRAGON</div>
+        </div>
+      </div>
+
+      <!-- Pet info card -->
+      <div class="pet-info-card">
+        <div class="pet-name-row">
+          <div>
+            <div class="pet-name-big" id="petNameBig">–</div>
+            <div class="pet-evol" id="petEvol">NEXT EVOL: LV5</div>
+          </div>
+          <div class="pet-lv-badge">LV <span id="petLvN">1</span></div>
+        </div>
+        <div class="xp-wrap">
+          <div class="xp-labels"><span>XP</span><span id="xpNums">0/100</span></div>
+          <div class="xp-track"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
+        </div>
+        <div class="stats-3">
+          <div class="stat-box">
+            <div class="stat-val" id="stA" style="color:var(--red)">0</div>
+            <div class="stat-bar"><div class="stat-fill" id="stAb" style="width:0%;background:var(--red)"></div></div>
+            <div class="stat-lbl">⚔️ Action</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" id="stC" style="color:var(--gold)">0</div>
+            <div class="stat-bar"><div class="stat-fill" id="stCb" style="width:0%;background:var(--gold)"></div></div>
+            <div class="stat-lbl">💰 Commerce</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" id="stS" style="color:var(--blue)">0</div>
+            <div class="stat-bar"><div class="stat-fill" id="stSb" style="width:0%;background:var(--blue)"></div></div>
+            <div class="stat-lbl">⭐ Social</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vitals -->
+      <div class="vitals-card">
+        <div class="vitals-title">VITALS</div>
+        <div class="vital-row">
+          <div class="vital-icon">🍖</div>
+          <div class="vital-name">HUNGER</div>
+          <div class="vital-track"><div class="vital-fill" id="vH" style="width:80%;background:var(--orange)"></div></div>
+          <div class="vital-val" id="vHv" style="color:var(--orange)">80</div>
+        </div>
+        <div class="vital-row">
+          <div class="vital-icon">⚡</div>
+          <div class="vital-name">ENERGY</div>
+          <div class="vital-track"><div class="vital-fill" id="vE" style="width:100%;background:var(--blue)"></div></div>
+          <div class="vital-val" id="vEv" style="color:var(--blue)">100</div>
+        </div>
+        <div class="vital-row">
+          <div class="vital-icon">💖</div>
+          <div class="vital-name">MOOD</div>
+          <div class="vital-track"><div class="vital-fill" id="vM" style="width:90%;background:var(--purple)"></div></div>
+          <div class="vital-val" id="vMv" style="color:var(--purple)">90</div>
+        </div>
+      </div>
+
+      <!-- Care buttons -->
+      <div class="sh"><div class="sh-t">CARE</div></div>
+      <div class="care-grid">
+        <div class="care-btn" onclick="pcFeed()">
+          <span class="care-ico">🍖</span><span class="care-lbl">MATA</span><span class="care-cost">−10⚡</span>
+        </div>
+        <div class="care-btn" onclick="pcTrain()">
+          <span class="care-ico">🏋️</span><span class="care-lbl">TRÄNA</span><span class="care-cost">+15XP</span>
+        </div>
+        <div class="care-btn" onclick="pcSleep()">
+          <span class="care-ico">😴</span><span class="care-lbl">SOVA</span><span class="care-cost">+40E</span>
+        </div>
+        <div class="care-btn" onclick="pcPlay()">
+          <span class="care-ico">🎮</span><span class="care-lbl">LEK</span><span class="care-cost">+5⚡</span>
+        </div>
+      </div>
+
+      <!-- Gear row -->
+      <div class="sh"><div class="sh-t">GEAR</div><div class="sh-a" onclick="openGearShop()">SHOP →</div></div>
+      <div id="gearRow" style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 16px"></div>
+
+      <!-- Minigame -->
+      <div class="sh" style="margin-top:16px"><div class="sh-t">MINISPEL</div></div>
+      <div class="minigame-card">
+        <div class="mg-title">🎯 Tryck-spelet</div>
+        <div class="mg-sub">Tryck snabbt! Var 10:e = +5 XP</div>
+        <div class="mg-score" id="mgScore">0</div>
+        <button class="mg-tap" onclick="mgTap()" id="mgBtn"><span id="mgEm">🐉</span></button>
+        <div class="mg-rec">Rekord: <span id="mgRec" style="color:var(--green);font-weight:800">0</span></div>
+      </div>
+
+      <div class="vend"></div>
+    </div>
+
+    <!-- ⚡ FLASH (video-first feed) -->
+    <div class="view" id="view-flash" style="padding:0;position:relative">
+      <!-- Overlaid topbar for flash -->
+      <div class="flash-topbar">
+        <div class="flash-title">⚡ Flash</div>
+        <div class="flash-tabs">
+          <div class="ftab on" onclick="setFlashTab('forYou',this)">För dig</div>
+          <div class="ftab" onclick="setFlashTab('circles',this)">Circles</div>
+          <div class="ftab" onclick="setFlashTab('uppdrag',this)">Uppdrag</div>
+        </div>
+      </div>
+      <!-- Streak circles -->
+      <div class="streak-bar" id="streakBar"></div>
+      <!-- Full-screen video feed -->
+      <div class="video-feed" id="videoFeed"></div>
+    </div>
+
+    <!-- ⭕ CIRCLES -->
+    <div class="view" id="view-circles">
+      <div class="circles-hdr">
+        <div class="circles-title">Circles</div>
+        <button class="btn btn-pk btn-sm" onclick="openModal('createCircleModal')">+ Skapa</button>
+      </div>
+      <div id="circleList"></div>
+      <div class="vend"></div>
+    </div>
+
+    <!-- 🎯 UPPDRAG -->
+    <div class="view" id="view-uppdrag">
+      <div style="padding:calc(52px + var(--sat)) 16px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+        <div style="font-family:var(--ff-head);font-size:28px;font-weight:900">Uppdrag</div>
+        <button class="btn btn-y btn-sm" onclick="openModal('createUppdragModal')">🏢 Posta</button>
+      </div>
+      <div class="ufilters" id="ufilters">
+        <div class="uf on" data-uf="all">ALLA</div>
+        <div class="uf" data-uf="brand">🏢 BRAND</div>
+        <div class="uf" data-uf="reel">🎬 FLASH</div>
+        <div class="uf" data-uf="task">🛠️ TASK</div>
+        <div class="uf" data-uf="photo">📸 FOTO</div>
+        <div class="uf" data-uf="review">⭐ RECENSION</div>
+        <div class="uf" data-uf="mine">📋 MINA</div>
+      </div>
+      <div id="uppdragList"></div>
+      <div class="vend"></div>
+    </div>
+
+    <!-- 🗺️ MAP -->
+    <div class="view" id="view-map" style="padding:0">
+      <div class="map-wrap">
+        <div class="map-canvas">
+          <div id="realMap"></div>
+          <div class="map-top">
+            <div class="share-tog">
+              <div class="sht fo" id="shF" onclick="setShare('friends')">👥 VÄNNER</div>
+              <div class="sht" id="shP" onclick="setShare('public')">🌍 ALLA</div>
+            </div>
+            <div class="map-ctrls">
+              <div class="mctrl" id="locBtn" onclick="locateMe()">◎</div>
+              <div class="mctrl" onclick="nav('uppdrag')">🎯</div>
+            </div>
+          </div>
+        </div>
+        <div class="gps-bar">
+          <div class="gps-st"><div class="gps-dot searching" id="gpsDot"></div><span id="gpsText">Tryck ◎ för GPS</span></div>
+          <span class="tag tg" id="shareChip">PRIVAT</span>
+        </div>
+        <div class="map-panel">
+          <div class="map-legend">
+            <div class="leg"><div class="leg-dot" style="border-color:var(--green);background:rgba(0,255,136,.2)"></div>DU</div>
+            <div class="leg"><div class="leg-dot" style="border-color:var(--gold);background:rgba(255,204,0,.2)"></div>UPPDRAG</div>
+            <div class="leg"><div class="leg-dot" style="border-color:var(--blue);background:rgba(68,136,255,.2)"></div>VÄNNER</div>
+            <div class="leg"><div class="leg-dot" style="border-color:var(--pink);background:rgba(255,51,119,.2)"></div>FLASH</div>
+          </div>
+          <div style="padding:9px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between">
+            <div class="sh-t">NÄRA DIG</div>
+            <div class="sh-a" onclick="nav('uppdrag')">ALLA →</div>
+          </div>
+          <div class="nearby-area" id="nearbyList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🏆 LEADERBOARD -->
+    <div class="view" id="view-lb">
+      <div class="lb-title">Leaderboard</div>
+      <div class="lb-tabs" id="lbTabs">
+        <div class="lt on" onclick="renderLB('money',this)">💸 PENGAR</div>
+        <div class="lt" onclick="renderLB('xp',this)">⚡ XP</div>
+        <div class="lt" onclick="renderLB('streak',this)">🔥 STREAK</div>
+        <div class="lt" onclick="renderLB('uppdrag',this)">🎯 UPPDRAG</div>
+        <div class="lt" onclick="renderLB('circles',this)">⭕ CIRCLES</div>
+      </div>
+      <div id="lbPodium"></div>
+      <div class="lb-list" id="lbList"></div>
+      <div class="vend"></div>
+    </div>
+
+    <!-- 👤 PROFILE -->
+    <div class="view" id="view-profile">
+      <div class="prof-cover"><div class="prof-cover-pat"></div></div>
+      <div class="prof-ava-wr"><div class="prof-ava"><span id="profAvaEm">🐉</span><div class="prof-trust" id="profTrustTag">BRONZE</div></div></div>
+      <div class="prof-content">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
+          <div><div class="prof-name" id="profName">–</div><div class="prof-handle" id="profHandle">@–</div></div>
+          <button class="btn btn-ghost btn-sm" onclick="shareProfile()">📤 Dela</button>
+        </div>
+        <div class="prof-stats">
+          <div class="ps"><div class="ps-v" id="pnFlash">0</div><div class="ps-l">FLASH</div></div>
+          <div class="ps"><div class="ps-v" id="pnUp">0</div><div class="ps-l">UPPDRAG</div></div>
+          <div class="ps"><div class="ps-v" id="pnSEK">0</div><div class="ps-l">SEK</div></div>
+          <div class="ps"><div class="ps-v" id="pnLvl">1</div><div class="ps-l">LEVEL</div></div>
+        </div>
+      </div>
+      <div style="padding:0 16px;display:flex;flex-direction:column;gap:12px">
+        <div class="trust-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <div><div class="sh-t" style="margin-bottom:3px">TRUST SCORE</div><div class="trust-big" id="trustBig">42</div></div>
+            <div style="text-align:right"><div class="tag tg" id="trustLvl">BRONZE</div><div style="font-size:10px;color:var(--t3);margin-top:6px">SILVER @ 70</div></div>
+          </div>
+          <div class="tr-row"><div class="tr-lbl">Uppdrag</div><div class="tr-track"><div class="tr-fill" id="tr1" style="width:0%"></div></div><div class="tr-val" id="tv1">0</div></div>
+          <div class="tr-row"><div class="tr-lbl">Flash streak</div><div class="tr-track"><div class="tr-fill" id="tr2" style="width:0%"></div></div><div class="tr-val" id="tv2">0d</div></div>
+          <div class="tr-row"><div class="tr-lbl">SEK tjänat</div><div class="tr-track"><div class="tr-fill" id="tr3" style="width:0%"></div></div><div class="tr-val" id="tv3">0</div></div>
+        </div>
+        <div><div class="sh-t" style="margin-bottom:10px">BADGES</div><div class="badge-grid" id="badgeGrid"></div></div>
+        <div class="card"><div style="padding:12px 14px 7px;border-bottom:1px solid var(--line)"><div class="sh-t">HISTORY</div></div><div id="histList"></div></div>
+        <div class="vend"></div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bnav">
+    <button class="nb on" data-v="pet"><div class="ni">🐾</div><div class="nl">PET</div></button>
+    <button class="nb" data-v="flash"><div class="ni">⚡</div><div class="nl">FLASH</div></button>
+    <button class="nb-center" id="createBtn" onclick="openModal('flashModal')">
+      <div class="nb-center-ico">🎬</div>
+      <div class="nl">SKAPA</div>
+    </button>
+    <button class="nb" data-v="circles"><div class="ni">⭕</div><div class="nl">CIRCLES</div></button>
+    <button class="nb" data-v="map"><div class="ni">🗺️</div><div class="nl">KARTA</div></button>
+  </div>
+
+</div><!-- /app -->
+
+<!-- ════ WINDOWS ════ -->
+
+<!-- Circle window -->
+<div class="circ-win" id="circleWin">
+  <div class="cw-hdr">
+    <button class="cw-back" onclick="cWin('circleWin')">←</button>
+    <div style="font-size:24px;flex-shrink:0" id="cwEm">⭕</div>
+    <div style="flex:1"><div class="cw-title" id="cwName">Circle</div><div class="cw-st" id="cwSt">● Online</div></div>
+    <button class="cw-flash-btn" onclick="openModal('flashModal')">⚡ Flash</button>
+  </div>
+  <!-- Daily Flash status bar -->
+  <div class="cw-daily-bar" id="cwDailyBar"></div>
+  <!-- Messages -->
+  <div class="cw-msgs" id="cwMsgs"></div>
+  <div class="cw-inp-row">
+    <span style="font-size:20px;cursor:pointer;flex-shrink:0" onclick="openModal('flashModal')">⚡</span>
+    <input class="cw-inp" id="cwInp" placeholder="Skriv i cirkeln..." onkeydown="if(event.key==='Enter')sendCircleMsg()">
+    <button class="cw-snd" onclick="sendCircleMsg()">→</button>
+  </div>
+</div>
+
+<!-- AI Chat -->
+<div class="fsw" id="aiWin">
+  <div class="fsh">
+    <button class="fbk" onclick="cWin('aiWin')">←</button>
+    <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🤖</div>
+    <div><div class="ftl" style="font-size:15px">KARMA AI</div><div style="font-size:10px;color:var(--green)">● Alltid online</div></div>
+  </div>
+  <div class="cw-msgs" id="aiMsgs"><div class="msg them">Hej! 👋 Fråga om Flash, Circles, uppdrag, din pet eller strategi!</div></div>
+  <div class="cw-inp-row">
+    <input class="cw-inp" id="aiInp" placeholder="Fråga AI..." onkeydown="if(event.key==='Enter')sendAI()">
+    <button class="cw-snd" onclick="sendAI()" style="background:var(--purple)">→</button>
+  </div>
+</div>
+
+<!-- Gear Shop -->
+<div class="fsw" id="gearWin">
+  <div class="fsh"><button class="fbk" onclick="cWin('gearWin')">←</button><div class="ftl">⚡ Gear Shop</div><div class="pill pill-y">⚡<b id="gcLbl">0</b></div></div>
+  <div class="fbd" style="padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:11px" id="gearGrid"></div>
+</div>
+
+<!-- Detail Window -->
+<div class="fsw" id="detailWin">
+  <div class="fsh"><button class="fbk" onclick="cWin('detailWin')">←</button><div class="ftl" id="detailTitle">Detail</div></div>
+  <div class="fbd" style="padding:16px" id="detailBody"></div>
+</div>
+
+<!-- ════ MODALS ════ -->
+
+<!-- FLASH UPLOAD -->
+<div class="modal" id="flashModal">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt">⚡ Skapa Flash <div class="mx" onclick="closeModal('flashModal')">✕</div></div>
+    <div style="background:linear-gradient(135deg,rgba(255,51,119,.08),rgba(170,102,255,.05));border:1px solid rgba(255,51,119,.22);border-radius:14px;padding:13px;margin-bottom:14px">
+      <div style="font-size:14px;font-weight:800;color:var(--pink);margin-bottom:4px">⚡ Flash = 1–5 sekunders video</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.6">Vad gör du just nu? Spela in. Posta varje dag = streak. Missar du = streak resets.</div>
+    </div>
+    <div id="flashUpArea" style="height:160px;border:2px dashed rgba(255,255,255,.15);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-bottom:14px;position:relative;overflow:hidden;transition:all .2s" onclick="$('flashFileIn').click()">
+      <img id="flashPrev" style="position:absolute;inset:0;object-fit:cover;width:100%;height:100%;display:none;border-radius:14px">
+      <div id="flashPH" style="text-align:center"><div style="font-size:44px;opacity:.15;margin-bottom:8px">🎬</div><div style="font-size:14px;font-weight:700;color:var(--t3)">Tryck för VIDEO</div><div style="font-size:12px;color:var(--t3);margin-top:4px">1–5 sekunder</div></div>
+    </div>
+    <input type="file" id="flashFileIn" accept="image/*,video/*" style="display:none" onchange="handleFlashUpload(this)">
+    <label class="lbl">DELA MED</label>
+    <div class="trow" id="flashShareRow">
+      <div class="topt on" onclick="G.flashShare='circles';sa('#flashShareRow',this)">⭕ Mina Circles</div>
+      <div class="topt" onclick="G.flashShare='all';sa('#flashShareRow',this)">🌍 Alla</div>
+      <div class="topt" onclick="G.flashShare='uppdrag';sa('#flashShareRow',this)">🎯 Uppdrag</div>
+    </div>
+    <label class="lbl">CAPTION</label>
+    <input class="inp" id="flashCaption" placeholder="Vad gör du? #tags">
+    <button class="btn btn-pk btn-lg btn-full" onclick="submitFlash()">⚡ POSTA FLASH</button>
+  </div>
+</div>
+
+<!-- CREATE CIRCLE -->
+<div class="modal" id="createCircleModal">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt">⭕ Skapa Karma Circle <div class="mx" onclick="closeModal('createCircleModal')">✕</div></div>
+    <div style="background:rgba(170,102,255,.07);border:1px solid rgba(170,102,255,.2);border-radius:14px;padding:13px;margin-bottom:14px;font-size:13px;color:var(--t2);line-height:1.65">
+      Privat grupp (2–20 pers). Alla måste posta daglig Flash. Missar någon = hela gruppen tappar streaken. Minecraft-crew vibes!
+    </div>
+    <label class="lbl">CIRCLE-NAMN</label><input class="inp" id="circleNameIn" placeholder="Ex: Tumba Runners / GOAT Squad">
+    <label class="lbl">EMOJI</label>
+    <div class="trow" id="circleEmoRow">
+      <div class="topt on" onclick="G.circleEm='🔥';sa('#circleEmoRow',this)">🔥</div>
+      <div class="topt" onclick="G.circleEm='⭕';sa('#circleEmoRow',this)">⭕</div>
+      <div class="topt" onclick="G.circleEm='💎';sa('#circleEmoRow',this)">💎</div>
+      <div class="topt" onclick="G.circleEm='⚡';sa('#circleEmoRow',this)">⚡</div>
+      <div class="topt" onclick="G.circleEm='🐉';sa('#circleEmoRow',this)">🐉</div>
+      <div class="topt" onclick="G.circleEm='🏆';sa('#circleEmoRow',this)">🏆</div>
+    </div>
+    <label class="lbl">FÄRG</label>
+    <div class="trow" id="circleColRow">
+      <div class="topt on" style="border-color:var(--pink);color:var(--pink)" onclick="G.circleCol='#ff3377';sa('#circleColRow',this)">🩷</div>
+      <div class="topt" style="border-color:var(--green);color:var(--green)" onclick="G.circleCol='#00ff88';sa('#circleColRow',this)">💚</div>
+      <div class="topt" style="border-color:var(--blue);color:var(--blue)" onclick="G.circleCol='#4488ff';sa('#circleColRow',this)">💙</div>
+      <div class="topt" style="border-color:var(--gold);color:var(--gold)" onclick="G.circleCol='#ffcc00';sa('#circleColRow',this)">💛</div>
+      <div class="topt" style="border-color:var(--purple);color:var(--purple)" onclick="G.circleCol='#aa66ff';sa('#circleColRow',this)">💜</div>
+    </div>
+    <button class="btn btn-pk btn-lg btn-full" style="margin-top:4px" onclick="submitCircle()">⭕ SKAPA CIRCLE</button>
+  </div>
+</div>
+
+<!-- UPPDRAG -->
+<div class="modal" id="createUppdragModal">
+  <div class="ms" style="max-height:93svh">
+    <div class="mh"></div>
+    <div class="mt">🏢 Posta Uppdrag <div class="mx" onclick="closeModal('createUppdragModal')">✕</div></div>
+    <div style="background:rgba(255,204,0,.06);border:1px solid rgba(255,204,0,.22);border-radius:14px;padding:12px;margin-bottom:14px;font-size:12px;color:var(--t2);line-height:1.65">
+      🔒 Ange org-nr → automatisk verifiering → <strong style="color:var(--green)">✓ VERIFIERAD</strong> bricka + högre synlighet
+    </div>
+    <label class="lbl">NAMN / FÖRETAG</label><input class="inp" id="upCo" placeholder="Ex: Espresso House / Anna Berg">
+    <label class="lbl">ORG-NUMMER (valfritt)</label><input class="inp" id="upOrg" placeholder="556xxx-xxxx">
+    <label class="lbl">TITEL</label><input class="inp" id="upTitle" placeholder='"Hämta mitt skräp @ Tumba"'>
+    <label class="lbl">BESKRIVNING</label><textarea class="inp" id="upDesc" placeholder="Vad ska göras?"></textarea>
+    <label class="lbl">TYP</label>
+    <div class="trow" id="upTypeRow">
+      <div class="topt on" onclick="G.cType='reel';sa('#upTypeRow',this)">🎬 FLASH</div>
+      <div class="topt" onclick="G.cType='task';sa('#upTypeRow',this)">🛠️ TASK</div>
+      <div class="topt" onclick="G.cType='photo';sa('#upTypeRow',this)">📸 FOTO</div>
+      <div class="topt" onclick="G.cType='review';sa('#upTypeRow',this)">⭐ RECENSION</div>
+    </div>
+    <label class="lbl">PLATS</label><input class="inp" id="upLoc" placeholder="Ex: Tumba, Stockholm">
+    <div class="r2">
+      <div><label class="lbl">BELÖNING (KR)</label><input class="inp" id="upSEK" type="number" placeholder="500" style="margin-bottom:0"></div>
+      <div><label class="lbl">MAX VINNARE</label><input class="inp" id="upWin" type="number" placeholder="1" style="margin-bottom:0"></div>
+    </div>
+    <div style="background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.18);border-radius:12px;padding:11px;margin:10px 0;font-size:12px;color:var(--t2);line-height:1.65">
+      💳 Swish-betalning automatiskt när proof godkänns<br>⚡ Kostar <strong style="color:var(--gold)">50 coins</strong> att publicera
+    </div>
+    <button class="btn btn-y btn-lg btn-full" onclick="submitUppdrag()">🏢 PUBLICERA (−50⚡)</button>
+  </div>
+</div>
+
+<!-- AI MODAL -->
+<div class="modal" id="aiModal">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt">🤖 KARMA AI <div class="mx" onclick="closeModal('aiModal')">✕</div></div>
+    <div style="height:220px;background:var(--s2);border-radius:14px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px;scrollbar-width:none" id="aiMsgsModal"><div class="msg them">Hej! 👋 Fråga mig om Flash, Circles, uppdrag, din pet eller strategi!</div></div>
+    <div style="display:flex;gap:8px">
+      <input class="inp" id="aiInpM" style="margin-bottom:0" placeholder="Fråga AI..." onkeydown="if(event.key==='Enter')sendAIModal()">
+      <button class="btn btn-p btn-md" onclick="sendAIModal()">→</button>
+    </div>
+  </div>
+</div>
+
+<!-- SPLASHES -->
+<div class="splash" id="rewardSplash">
+  <div class="sp-ico" id="spIco">⚡</div>
+  <div style="font-size:11px;color:var(--green);letter-spacing:2px;margin-bottom:5px" id="spLbl">UPPDRAG TAGET!</div>
+  <div class="sp-title" id="spTitle">Mission!</div>
+  <div class="sp-sub" id="spSub">Gör det. Posta Flash.</div>
+  <div class="sp-row" id="spRewards"></div>
+  <button class="btn btn-g btn-lg" onclick="cSplash('rewardSplash')">KLAR →</button>
+</div>
+
+<div class="splash" id="lvlSplash">
+  <div style="font-size:80px;margin-bottom:14px" id="lvlPet">🐉</div>
+  <div style="font-size:12px;color:var(--green);letter-spacing:2px;margin-bottom:5px">LEVEL UP!</div>
+  <div class="sp-title" id="lvlTitle" style="color:var(--green)">LEVEL 2!</div>
+  <div class="sp-sub" id="lvlSub">Grattis!</div>
+  <button class="btn btn-g btn-lg" onclick="cSplash('lvlSplash')">🔥 SICK!</button>
+</div>
+
+<div class="splash" id="streakSplash">
+  <div class="sp-ico">⚡</div>
+  <div style="font-size:12px;color:var(--pink);letter-spacing:2px;margin-bottom:5px">FLASH STREAK!</div>
+  <div class="sp-title" id="streakTitle" style="color:var(--pink)">🔥 7 DAGAR!</div>
+  <div class="sp-sub">Du är på fire!</div>
+  <div class="sp-row"><div class="sp-r"><div class="sp-rv" style="color:var(--red)" id="streakDays">7</div><div class="sp-rl">DAGAR</div></div><div class="sp-r"><div class="sp-rv" style="color:var(--gold)">+50</div><div class="sp-rl">BONUS XP</div></div></div>
+  <button class="btn btn-pk btn-lg" onclick="cSplash('streakSplash')">🔥 LET'S GO!</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ════════════════════════════════════
+   KARMA 2026-05-09-1045
+   Game State + Renderers
+════════════════════════════════════ */
+const G = {
+  name:'', petEmoji:'🐉', petName:'Eldraken',
+  level:1, exp:0, coins:500, streak:0,
+  hunger:80, energy:100, mood:90,
+  actionStat:0, commerceStat:0, socialStat:0,
+  trustScore:42, totalSEK:0,
+  gear:[], equippedGear:null,
+  postCount:0, bountiesDone:0,
+  likedPosts:new Set(),
+  hist:[{c:'var(--green)',t:'Välkommen till KARMA! ⚡',time:'just nu'}],
+  brands:[], circles:[], myUppdrag:[],
+  flashShare:'circles', flashImg:null,
+  flashTab:'forYou', upFilter:'all', circleEm:'🔥', circleCol:'#ff3377',
+  cType:'reel', shareMode:'friends', currentCircle:null,
+  mapInit:false, lMap:null, uMarker:null, userLat:null, userLon:null,
+  mgScore:0, mgRecord:0, mgTimer:null,
+};
+
+/* ── EVOLUTION DATA ── */
+const EVOL = {
+  '🐉':[{l:1,e:'🐉',s:'BABY DRAGON',g:''},{l:5,e:'🐲',s:'FIRE DRAGON',g:'🔥'},{l:10,e:'🐲',s:'ELDER DRAGON',g:'👑'},{l:20,e:'🐲',s:'LEGEND',g:'⚡'}],
+  '🐺':[{l:1,e:'🐺',s:'PUP',g:''},{l:5,e:'🐺',s:'WOLF',g:'🦴'},{l:10,e:'🐺',s:'ALPHA',g:'👑'},{l:20,e:'🐺',s:'DIRE WOLF',g:'⚡'}],
+  '🦊':[{l:1,e:'🦊',s:'KIT',g:''},{l:5,e:'🦊',s:'SWIFT FOX',g:'🌙'},{l:10,e:'🦊',s:'SPIRIT FOX',g:'👑'},{l:20,e:'🦊',s:'DEMON FOX',g:'⚡'}],
+  '🐱':[{l:1,e:'🐱',s:'KITTEN',g:''},{l:5,e:'😺',s:'STREET CAT',g:'🎀'},{l:10,e:'😼',s:'SHADOW CAT',g:'👑'},{l:20,e:'🐈‍⬛',s:'LEGEND CAT',g:'⚡'}],
+  '🐸':[{l:1,e:'🐸',s:'FROGLET',g:''},{l:5,e:'🐸',s:'LEAP FROG',g:'🍄'},{l:10,e:'🐸',s:'POISON FROG',g:'👑'},{l:20,e:'🐸',s:'GOD FROG',g:'⚡'}],
+  '🦋':[{l:1,e:'🐛',s:'CATERPILLAR',g:''},{l:5,e:'🦋',s:'BUTTERFLY',g:'🌸'},{l:10,e:'🦋',s:'SPIRIT WING',g:'✨'},{l:20,e:'🦋',s:'LEGEND WING',g:'⚡'}],
+  '🐻':[{l:1,e:'🐻',s:'CUB',g:''},{l:5,e:'🐻',s:'GRIZZLY',g:'🍯'},{l:10,e:'🐻‍❄️',s:'POLAR BEAST',g:'👑'},{l:20,e:'🐻',s:'SPIRIT BEAR',g:'⚡'}],
+  '🦁':[{l:1,e:'🦁',s:'CUB',g:''},{l:5,e:'🦁',s:'LION',g:''},{l:10,e:'🦁',s:'KING',g:'👑'},{l:20,e:'🦁',s:'GOD LION',g:'⚡'}],
+};
+const PETS = ['🐉','🐺','🦊','🐱','🐸','🦋','🐻','🦁','🐯','🐨'];
+const gS  = () => { const t=EVOL[G.petEmoji]||EVOL['🐉']; let s=t[0]; for(const x of t)if(G.level>=x.l)s=x; return s; };
+const gNE = () => { const t=EVOL[G.petEmoji]||EVOL['🐉']; for(const x of t)if(G.level<x.l)return x.l; return null; };
+const xpN = l => { const b=[100,100,150,150,200,200,250,300,350,400]; return l<=10?b[Math.min(l-1,9)]:Math.floor(400*Math.pow(1.3,l-10)); };
+
+/* ── APP DATA ── */
+const UPPDRAG_DATA = [
+  {id:'u1',type:'brand',cType:'reel',co:'Espresso House',coEm:'☕',verified:true,verLevel:'gold',title:'Flash-reel med Mocca Tea @ Plattan',desc:'30 sek Flash när du dricker vår nya Mocca Tea. Tagga @espressohouse.',req:['⚡ FLASH 30 SEK','📍 PLATS'],loc:'Sergels Torg, Stockholm',sek:150,coins:120,xp:80,winners:5,claimed:1,deadline:'10 maj',live:true,featured:true},
+  {id:'u2',type:'task',cType:'task',co:'Anna Berg',coEm:'👤',verified:false,verLevel:'none',title:'Hämta mitt skräp @ Tumba',desc:'Sjuk och behöver hjälp. 2 påsar skräp → container 200m bort.',req:['📍 TUMBA','📸 FOTO BEVIS'],loc:'Tumba, Stockholm',sek:500,coins:50,xp:40,winners:1,claimed:0,deadline:'Idag',live:false,featured:false},
+  {id:'u3',type:'brand',cType:'reel',co:'Stadium',coEm:'👟',verified:true,verLevel:'premium',title:'Nike Air Flash @ Stadium',desc:'15–60 sek Flash med Nike Air. Taggar du @stadium? +100 SEK bonus!',req:['⚡ FLASH 60 SEK','👟 STADIUM'],loc:'Valfri Stadium-butik',sek:500,coins:200,xp:150,winners:1,claimed:0,deadline:'18 maj',live:false,featured:true},
+  {id:'u4',type:'task',cType:'task',co:'Marcus L.',coEm:'👤',verified:false,verLevel:'none',title:'Plocka äpplen i trädgården',desc:'Ca 2h arbete. Betalar + lunch.',req:['📍 SOLLENTUNA','⏱ CA 2H'],loc:'Sollentuna, Stockholm',sek:300,coins:60,xp:50,winners:1,claimed:0,deadline:'12 maj',live:false,featured:false},
+  {id:'u5',type:'review',cType:'review',co:'Webhallen',coEm:'🎮',verified:true,verLevel:'gold',title:'Flash-recensera nytt spel',desc:'Köp spel, spela 2h, posta Flash-recension.',req:['⭐ FLASH RECENSION','🎮 KVITTO'],loc:'Webhallen',sek:100,coins:80,xp:60,winners:10,claimed:3,deadline:'15 maj',live:false,featured:false},
+];
+
+const FLASH_DATA = [
+  {id:'f1',user:'ella_sthlm',pet:'🐉',lvl:9,up:'Mocca Tea @ Plattan',cap:'Faktiskt gott ☕ + 150 SEK Swish 🙏 #espressoh #karma',xp:'+80 XP',likes:347,streak:7,live:false},
+  {id:'f2',user:'maxruns',pet:'🐺',lvl:11,up:'Nike Air Flash',cap:'LEVEL 11 💀 Stadium uppdrag done. Min varg är legend fr fr #nike #stadium',xp:'+150 XP',likes:1204,streak:14,live:true,expire:'3h'},
+  {id:'f3',user:'sagas_world',pet:'🦋',lvl:7,up:'Daglig Flash #24',cap:'Thrift haul + vintage vibes på Drottninggatan 🤌 #fashion #karma',xp:'+20 XP',likes:567,streak:24,live:false},
+  {id:'f4',user:'carlos_leo',pet:'🦊',lvl:5,up:'Graffiti mural',cap:'Hittade denna jätten på Hornstull efter 6h 😭 #streetart #sthlm',xp:'+45 XP',likes:189,streak:3,live:false},
+];
+
+const STREAK_USERS = [
+  {user:'+ Lägg till',em:'➕',status:'add'},
+  {user:'ella_sthlm',em:'🐉',streak:7,status:'has_flash'},
+  {user:'maxruns',em:'🐺',streak:14,status:'live'},
+  {user:'sagas',em:'🦋',streak:24,status:'has_flash'},
+  {user:'carlos',em:'🦊',streak:3,status:'no_flash'},
+  {user:'linnea',em:'🐱',streak:0,status:'no_flash'},
+];
+
+const CIRCLES_DATA = [
+  {id:'c1',name:'Tumba Runners',em:'🏃',col:'#00ff88',members:['🐉','🐺','🦊','🐱','🦋'],names:['Du','ella_sthlm','maxruns','sagas','carlos'],statuses:['done','done','done','pending','missing'],streak:7,lastMsg:'ella_sthlm: STREAK 7 DAGAR! 🔥',msgs:[
+    {from:'ella_sthlm',em:'🐉',txt:'STREAK 7 DAGAR! 🔥',t:'08:30',me:false},
+    {from:'maxruns',em:'🐺',txt:'Lets go!! 💪',t:'08:35',me:false},
+    {from:'Du',em:null,txt:'Postade Flash! 5 sek löpning 😂',t:'09:10',me:true},
+    {from:'sagas',em:'🦋',txt:'Jag missar idag sorry 😭',t:'09:45',me:false},
+    {from:'ella_sthlm',em:'🐉',txt:'NEJ!! Du förstör streaken!!',t:'09:46',me:false},
+    {from:'Du',em:null,txt:'sagas!! 😭😭',t:'09:47',me:true},
+  ]},
+  {id:'c2',name:'STHLM DROPS',em:'⚡',col:'#ff3377',members:['🐉','🐸','🐻'],names:['Du','sagas','linnea'],statuses:['done','done','done'],streak:3,lastMsg:'linnea: 🔥🔥',msgs:[
+    {from:'sagas',em:'🐸',txt:'Ny Flash! 👑',t:'10:00',me:false},
+    {from:'linnea',em:'🐻',txt:'🔥🔥',t:'10:05',me:false},
+  ]},
+];
+
+const GEAR_ITEMS = [
+  {id:'g1',em:'👑',nm:'ROYAL CROWN',cost:300,st:'+10 Social'},
+  {id:'g2',em:'🔥',nm:'FIRE AURA',cost:500,st:'+15 Action'},
+  {id:'g3',em:'🕶️',nm:'DARK SHADES',cost:200,st:'+5 Social'},
+  {id:'g4',em:'⚡',nm:'LIGHTNING',cost:400,st:'+12 Action'},
+  {id:'g5',em:'💎',nm:'DIAMOND',cost:800,st:'+20 Commerce'},
+  {id:'g6',em:'🎩',nm:'TOP HAT',cost:350,st:'+8 Social'},
+  {id:'g7',em:'🌙',nm:'MOON HALO',cost:450,st:'+14 Social'},
+  {id:'g8',em:'🐉',nm:'DRAGON WINGS',cost:1200,st:'+30 All'},
+];
+
+const LB_DATA = {
+  money:[{rank:1,name:'ella_sthlm',pet:'🐉',lvl:9,val:'2 450 SEK',ch:'+150',trust:95},{rank:2,name:'maxruns',pet:'🐺',lvl:11,val:'1 890 SEK',ch:'+80',trust:88},{rank:3,name:'sagas_world',pet:'🦋',lvl:7,val:'1 200 SEK',ch:'-20',trust:72},{rank:4,isYou:true,val:'0 SEK',ch:'0',trust:42}],
+  xp:[{rank:1,name:'maxruns',pet:'🐺',lvl:11,val:'12 400 XP',ch:'+200',trust:88},{rank:2,name:'ella_sthlm',pet:'🐉',lvl:9,val:'9 200 XP',ch:'+180',trust:95},{rank:3,name:'sagas',pet:'🦋',lvl:7,val:'6 800 XP',ch:'+90',trust:72},{rank:4,isYou:true,val:'0 XP',ch:'0',trust:42}],
+  streak:[{rank:1,name:'sagas',pet:'🦋',lvl:7,val:'24d 🔥',ch:'↑',trust:72},{rank:2,name:'maxruns',pet:'🐺',lvl:11,val:'14d',ch:'↑',trust:88},{rank:3,name:'ella_sthlm',pet:'🐉',lvl:9,val:'7d',ch:'↑',trust:95},{rank:4,isYou:true,val:'0d',ch:'↑',trust:42}],
+  uppdrag:[{rank:1,name:'sagas_world',pet:'🦋',lvl:7,val:'34',ch:'+3',trust:72},{rank:2,name:'ella_sthlm',pet:'🐉',lvl:9,val:'28',ch:'+2',trust:95},{rank:3,name:'maxruns',pet:'🐺',lvl:11,val:'22',ch:'+1',trust:88},{rank:4,isYou:true,val:'0',ch:'0',trust:42}],
+  circles:[{rank:1,name:'Tumba Runners',pet:'🏃',lvl:null,val:'🔥 7d',ch:'+1',trust:88},{rank:2,name:'STHLM DROPS',pet:'⚡',lvl:null,val:'🔥 3d',ch:'+1',trust:75},{rank:3,name:'Göteborg Crew',pet:'🌊',lvl:null,val:'🔥 2d',ch:'↑',trust:60},{rank:4,name:'Din Circle',pet:'⭕',lvl:null,val:'Skapa!',ch:'',trust:0}],
+};
+
+const BADGES_DEF = [
+  {e:'⚡',l:'First Flash',ok:()=>G.streak>=1},
+  {e:'🔥',l:'7-Day Streak',ok:()=>G.streak>=7},
+  {e:'💸',l:'100 SEK',ok:()=>G.totalSEK>=100},
+  {e:'💰',l:'1000 Coins',ok:()=>G.coins>=1000},
+  {e:'⭐',l:'100 Social',ok:()=>G.socialStat>=100},
+  {e:'⚔️',l:'100 Action',ok:()=>G.actionStat>=100},
+  {e:'👑',l:'Level 10',ok:()=>G.level>=10},
+  {e:'✅',l:'Trusted 70+',ok:()=>G.trustScore>=70},
+  {e:'🌟',l:'Evolved',ok:()=>G.level>=5},
+  {e:'⭕',l:'Circle Leader',ok:()=>G.circles&&G.circles.length>0},
+  {e:'🗺️',l:'GPS Found',ok:()=>G.userLat!==null},
+  {e:'🏆',l:'Legend Lv20',ok:()=>G.level>=20},
+];
+
+const AI_REPLIES = [
+  '💡 Flash-streaks är nyckeln! Posta varje dag kl 08 = +2 XP/dag bonus.',
+  'Karma Circles med 5+ vänner = group streak bonus × 1.5 XP!',
+  'Prova Nike Air uppdraget — 500 SEK! Flash 30 sek räcker.',
+  'Din pet behöver Action-XP. Ta ett uppdrag nära dig!',
+  'Trust Score 70+ = Silver badge. Gör 5 uppdrag till.',
+  'ella_sthlm leder med 2 450 SEK. Du kan slå det!',
+  'Skapa ett Karma Circle med dina vänner! Daglig streak = XP bonus.',
+  'Flash i Circles = privat. Perfekt för dagliga uppdateringar.',
+  '⚡ Pet-tips: Träna din pet varje dag för +15 XP och bättre Action-stat.',
+];
+
+/* ── HELPERS ── */
+const $ = id => document.getElementById(id);
+let toastT;
+function showT(m, t='g') {
+  const e = $('toast'); e.textContent = m;
+  e.className = `toast show ${t}`;
+  clearTimeout(toastT);
+  toastT = setTimeout(() => e.className = 'toast', 2800);
+}
+function vibe(p=30) { try { navigator.vibrate && navigator.vibrate(p); } catch(e) {} }
+function addH(t, c='var(--green)') {
+  G.hist.unshift({c, t, time:'just nu'});
+  if(G.hist.length > 30) G.hist.pop();
+}
+function closeModal(id) { $(id) && $(id).classList.remove('open'); }
+function openModal(id)  { $(id) && $(id).classList.add('open'); }
+function cWin(id)  { $(id) && $(id).classList.remove('open'); }
+function oWin(id)  { $(id) && $(id).classList.add('open'); }
+function cSplash(id) { $(id) && $(id).classList.remove('show'); }
+function cp(n) {
+  const d = document.createElement('div');
+  d.className = 'cpop'; d.textContent = `+${n}💰`;
+  d.style.cssText = 'left:50%;top:45%';
+  document.body.appendChild(d);
+  setTimeout(() => d.remove(), 700);
+}
+function sa(sel, el) {
+  document.querySelectorAll(sel + ' .topt').forEach(x => x.className = 'topt');
+  el.classList.add('on');
+}
+function distKm(la1,lo1,la2,lo2) {
+  const R=6371e3, f1=la1*Math.PI/180, f2=la2*Math.PI/180,
+    df=(la2-la1)*Math.PI/180, dl=(lo2-lo1)*Math.PI/180;
+  const a = Math.sin(df/2)**2 + Math.cos(f1)*Math.cos(f2)*Math.sin(dl/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+function fmtD(m) { return m<1000 ? Math.round(m)+'m' : +(m/1000).toFixed(1)+'km'; }
+function save() {
+  try {
+    const d = {n:G.name,p:G.petEmoji,pn:G.petName,l:G.level,c:G.coins,st:G.streak,x:G.exp,as:G.actionStat,cs:G.commerceStat,ss:G.socialStat,g:JSON.stringify(G.gear||[]),eg:G.equippedGear||'',sek:G.totalSEK,ts:G.trustScore,posts:G.postCount,b:G.bountiesDone,hu:G.hunger,en:G.energy,mo:G.mood,circles:JSON.stringify(G.circles||[])};
+    for(const k in d) localStorage.setItem(`k0509_${k}`, d[k]);
+  } catch(e) {}
+}
+
+/* ── GAME LOOP ── */
+function gainCoins(n) { G.coins += n; updateHUD(); if(n>0) { cp(n); vibe(20); } }
+function gainXP(n, stat) {
+  G.exp += n;
+  if(stat==='action')    G.actionStat    += Math.ceil(n/4);
+  else if(stat==='commerce') G.commerceStat += Math.ceil(n/4);
+  else if(stat==='social')   G.socialStat   += Math.ceil(n/4);
+  G.trustScore = Math.min(100, G.trustScore + Math.ceil(n/20));
+  if(G.exp >= xpN(G.level)) { G.exp -= xpN(G.level); G.level++; triggerLvlUp(); }
+  updateHUD(); updatePet();
+}
+function triggerLvlUp() {
+  vibe([50,30,100]); const s = gS();
+  $('lvlPet').textContent = s.e;
+  $('lvlTitle').textContent = `LEVEL ${G.level}!`;
+  $('lvlSub').textContent = `${G.petName} — ${s.s}`;
+  $('lvlSplash').classList.add('show');
+  petReact('happy'); addH(`⬆️ Level ${G.level}!`);
+}
+function pcFeed()  { if(G.coins<10){showT('❌ Need 10 coins!','r');return;} G.coins-=10; G.hunger=Math.min(100,G.hunger+30); G.mood=Math.min(100,G.mood+5); petReact('happy'); addH(`🍖 ${G.petName} matad`); showT('🍖 +30 HUNGER','g'); updateHUD(); updatePet(); }
+function pcTrain() { if(G.energy<20){showT('❌ Low energy!','r');return;} G.energy-=20; gainXP(15,'action'); petReact('happy'); showT('🏋️ +15 XP','g'); }
+function pcSleep() { G.energy=Math.min(100,G.energy+40); G.mood=Math.min(100,G.mood+10); showT('😴 +40 ENERGY','g'); updateHUD(); updatePet(); }
+function pcPlay()  { if(G.energy<10){showT('❌ Low energy!','r');return;} G.energy-=10; G.mood=Math.min(100,G.mood+25); gainCoins(5); gainXP(5,'social'); petReact('happy'); showT('🎮 +5⚡ +5XP','g'); }
+function petTap()  { gainXP(1,'social'); gainCoins(1); vibe(15); showT('+1XP +1⚡','g'); }
+function petReact(m) {
+  const b = $('pfBody');
+  const moods = {happy:'🤩', hungry:'😢', default: G.mood>70?'😊':G.mood>40?'😐':'😕'};
+  if(m==='happy') { b.className='pf-body happy'; $('pfMood').textContent='🤩'; }
+  else if(m==='hungry') { b.className='pf-body hungry'; $('pfMood').textContent='😢'; }
+  setTimeout(() => { if(m!=='hungry') b.className='pf-body'; $('pfMood').textContent=moods.default; }, 3000);
+}
+
+/* ── HUD + PET RENDER ── */
+function updateHUD() {
+  $('hCoins').textContent = G.coins.toLocaleString();
+  $('hStreak').textContent = G.streak;
+  $('hTrust').textContent = G.trustScore;
+  $('gcLbl').textContent = G.coins.toLocaleString();
+  const s = gS();
+  $('pfEm').textContent = s.e + (G.equippedGear || s.g || '');
+  $('pfLv').textContent = `LV${G.level}`;
+  if(G.hunger < 25) petReact('hungry');
+  $('ddName').textContent = G.name || '–';
+  $('ddSub').textContent = `Level ${G.level} · 🔥${G.streak}d`;
+  $('profAvaEm').textContent = s.e;
+  $('profName').textContent = G.name;
+  $('profHandle').textContent = `@${(G.name||'').toLowerCase().replace(/\s+/g,'_')}`;
+  $('pnFlash').textContent = G.postCount;
+  $('pnUp').textContent = G.bountiesDone;
+  $('pnSEK').textContent = G.totalSEK;
+  $('pnLvl').textContent = G.level;
+  const tl = G.trustScore>=90?'GOLD':G.trustScore>=70?'SILVER':'BRONZE';
+  $('profTrustTag').textContent = tl;
+  $('trustBig').textContent = G.trustScore;
+  $('trustLvl').textContent = tl;
+  $('tr1').style.width = Math.min(100,G.bountiesDone*3)+'%'; $('tv1').textContent = G.bountiesDone;
+  $('tr2').style.width = Math.min(100,G.streak*4)+'%';       $('tv2').textContent = G.streak+'d';
+  $('tr3').style.width = Math.min(100,G.totalSEK/20)+'%';    $('tv3').textContent = G.totalSEK;
+  save();
+}
+
+function updatePet() {
+  const s = gS();
+  const need = xpN(G.level);
+  const pct  = Math.min(100, (G.exp/need)*100);
+
+  // Big pet emoji + stage
+  $('petEmojiBig').textContent = s.e;
+  $('petGearBadge').textContent = G.equippedGear || s.g || '';
+  $('petStageName').textContent = s.s;
+  $('petNameBig').textContent = G.petName;
+  const ne = gNE();
+  $('petEvol').textContent = ne ? `NEXT EVOL: LV${ne}` : 'MAX EVOLUTION ⚡';
+  $('petLvN').textContent = G.level;
+  $('xpFill').style.width = pct + '%';
+  $('xpNums').textContent = `${G.exp}/${need}`;
+
+  // Stats
+  $('stA').textContent = G.actionStat;    $('stAb').style.width = Math.min(100,G.actionStat)+'%';
+  $('stC').textContent = G.commerceStat;  $('stCb').style.width = Math.min(100,G.commerceStat)+'%';
+  $('stS').textContent = G.socialStat;    $('stSb').style.width = Math.min(100,G.socialStat)+'%';
+
+  // Vitals
+  $('vH').style.width  = G.hunger+'%';  $('vHv').textContent = G.hunger;
+  $('vE').style.width  = G.energy+'%';  $('vEv').textContent = G.energy;
+  $('vM').style.width  = G.mood+'%';    $('vMv').textContent = G.mood;
+
+  // Minigame pet emoji
+  $('mgEm').textContent = s.e;
+
+  // Gear row
+  renderGearRow();
+  renderBadges();
+  renderHistList();
+
+  // Update particles based on level
+  initParticles();
+}
+
+/* ── PARTICLES ── */
+function initParticles() {
+  const el = $('petParticles'); el.innerHTML = '';
+  const lvl = G.level;
+  const count = Math.min(20, 4 + lvl * 2);
+  const colors = [
+    'var(--green)', 'var(--teal)', 'var(--pink)', 'var(--gold)', 'var(--purple)'
+  ];
+  for(let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const angle = Math.random() * Math.PI * 2;
+    const r0 = 60 + Math.random() * 40;
+    const r1 = 100 + Math.random() * 80;
+    p.style.cssText = `
+      --x0: ${Math.cos(angle)*r0}px; --y0: ${Math.sin(angle)*r0}px;
+      --x1: ${Math.cos(angle)*r1}px; --y1: ${Math.sin(angle)*r1}px;
+      --dur: ${1.5 + Math.random()*2}s; --delay: ${Math.random()*2}s;
+      left: calc(50% - 3px); top: calc(50% - 3px);
+      background: ${colors[i%colors.length]};
+    `;
+    el.appendChild(p);
+  }
+}
+
+/* ── GEAR ── */
+function renderGearRow() {
+  const el = $('gearRow'); if(!el) return;
+  if(!G.gear.length) {
+    el.innerHTML = `<div style="width:52px;height:52px;border-radius:14px;background:var(--s1);border:1px dashed var(--t3);display:flex;align-items:center;justify-content:center;font-size:20px;opacity:.4;cursor:pointer" onclick="openGearShop()">+</div><span style="font-size:13px;color:var(--t3);align-self:center;padding-left:10px">Inget gear</span>`;
+    return;
+  }
+  el.innerHTML = G.gear.map(gid => {
+    const g = GEAR_ITEMS.find(x=>x.id===gid); if(!g) return '';
+    const eq = G.equippedGear === g.em;
+    return `<div style="width:52px;height:52px;border-radius:14px;background:var(--s1);border:2px solid ${eq?'var(--green)':'var(--line)'};display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;flex-shrink:0;position:relative;${eq?'box-shadow:0 0 12px rgba(0,255,136,.25)':''};transition:all .15s" onclick="equipGear('${g.em}','${g.id}')"><span>${g.em}</span>${eq?'<div style="position:absolute;top:-6px;right:-6px;background:var(--green);color:var(--bg);font-size:8px;font-weight:900;padding:1px 5px;border-radius:4px">ON</div>':''}</div>`;
+  }).join('') + `<div style="width:52px;height:52px;border-radius:14px;background:var(--s1);border:1px dashed var(--t3);display:flex;align-items:center;justify-content:center;font-size:20px;opacity:.4;cursor:pointer;flex-shrink:0" onclick="openGearShop()">+</div>`;
+}
+function equipGear(em, id) {
+  G.equippedGear = G.equippedGear === em ? null : em;
+  updateHUD(); updatePet();
+  showT(G.equippedGear ? `⚡ ${em} EQUIPPED!` : 'GEAR REMOVED', 'g');
+  vibe(30);
+}
+function openGearShop() {
+  $('gearGrid').innerHTML = GEAR_ITEMS.map(g => `
+    <div style="background:var(--s2);border:1px solid ${G.gear.includes(g.id)?'var(--green)':'var(--line)'};border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .12s" onclick="buyGear('${g.id}')">
+      <div style="font-size:38px;margin-bottom:8px">${g.em}</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:3px">${g.nm}</div>
+      <div style="font-size:11px;color:var(--t3);margin-bottom:8px">${g.st}</div>
+      <div style="font-size:14px;font-weight:800;color:${G.gear.includes(g.id)?'var(--green)':'var(--gold)'};">${G.gear.includes(g.id)?'✓ ÄGER':`${g.cost}⚡`}</div>
+    </div>`).join('');
+  oWin('gearWin');
+}
+function buyGear(id) {
+  if(G.gear.includes(id)) { showT('Äger redan!','y'); return; }
+  const g = GEAR_ITEMS.find(x=>x.id===id); if(!g) return;
+  if(G.coins < g.cost) { showT(`❌ Behöver ${g.cost-G.coins} mer`,'r'); return; }
+  G.coins -= g.cost; G.gear.push(id); G.equippedGear = g.em;
+  gainXP(10,'commerce'); vibe([30,20,60]);
+  showT(`⚡ ${g.em} UNLOCKED!`,'g');
+  openGearShop(); updateHUD(); updatePet();
+}
+
+/* ── MINIGAME ── */
+function mgTap() {
+  G.mgScore++;
+  $('mgScore').textContent = G.mgScore;
+  if(G.mgScore > G.mgRecord) { G.mgRecord = G.mgScore; $('mgRec').textContent = G.mgRecord; }
+  $('mgBtn').style.transform = 'scale(.8)';
+  setTimeout(() => $('mgBtn').style.transform = 'scale(1)', 100);
+  if(G.mgScore % 10 === 0) { gainXP(5,'action'); gainCoins(1); showT('🎯 +5XP +1⚡','g'); }
+  clearTimeout(G.mgTimer);
+  G.mgTimer = setTimeout(() => { G.mgScore = 0; $('mgScore').textContent = '0'; showT(`Rekord: ${G.mgRecord}!`,'y'); }, 1500);
+}
+
+/* ── FLASH FEED (Video-first) ── */
+function renderFlashFeed() {
+  // Streak bar
+  $('streakBar').innerHTML = STREAK_USERS.map(s => `
+    <div class="sb-item" onclick="showT('${s.status==='add'?'+ Lägg till vän':'⚡ '+s.user}','pk')">
+      <div class="sb-ring ${s.status==='has_flash'?'has-flash':s.status==='live'?'live':'no-flash'}">
+        <div class="sb-inner">${s.em}</div>
+      </div>
+      <div class="sb-name">${s.user}</div>
+      ${s.streak ? `<div class="sb-streak">🔥${s.streak}</div>` : ''}
+    </div>`).join('');
+
+  // Video cards - full screen TikTok style
+  $('videoFeed').innerHTML = FLASH_DATA.map(p => `
+    <div class="video-card">
+      <div class="vc-media">
+        <div class="vc-bg-emoji">${p.pet}</div>
+        <!-- Gradient overlay -->
+        <div class="vc-overlay"></div>
+        <!-- Right side actions (TikTok style) -->
+        <div class="vc-actions">
+          <div class="vca" onclick="likeFlash('${p.id}',this)">
+            <div class="vca-ico ${G.likedPosts.has(p.id)?'liked':''}" id="fli${p.id}">${G.likedPosts.has(p.id)?'❤️':'🤍'}</div>
+            <div class="vca-cnt" id="flc${p.id}">${p.likes}</div>
+          </div>
+          <div class="vca" onclick="showT('💬 Snart!','p')">
+            <div class="vca-ico">💬</div>
+            <div class="vca-cnt">${~~(p.likes/8)}</div>
+          </div>
+          <div class="vca" onclick="doShare('${p.id}')">
+            <div class="vca-ico">↗️</div>
+            <div class="vca-cnt">Dela</div>
+          </div>
+          <div class="vca" onclick="showT('🎵 Ljud snart!','p')">
+            <div class="vca-ico">🎵</div>
+            <div class="vca-cnt">Ljud</div>
+          </div>
+          <div class="vca" onclick="showT('⭕ Dela till Circles!','pk')">
+            <div class="vca-ico">⭕</div>
+            <div class="vca-cnt">Circle</div>
+          </div>
+        </div>
+        <!-- Bottom info -->
+        <div class="vc-info">
+          <div class="vc-user">
+            <div class="vc-ava">${p.pet}</div>
+            <div><div class="vc-uname">@${p.user}</div><div class="vc-sub">LV${p.lvl}</div></div>
+          </div>
+          <div class="vc-caption">${p.cap}</div>
+          <div class="vc-tags">
+            <span class="flash-stamp">⚡ FLASH</span>
+            ${p.live ? `<span class="live-stamp"><div class="ldot"></div>LIVE</span>` : ''}
+            ${p.streak>=7 ? `<span class="streak-chip">🔥 ${p.streak}d</span>` : ''}
+            <span class="xp-chip">${p.xp}</span>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function setFlashTab(t, el) {
+  G.flashTab = t;
+  document.querySelectorAll('.ftab').forEach(x => x.classList.remove('on'));
+  el.classList.add('on');
+  showT(t==='forYou'?'🔥 För dig':t==='circles'?'⭕ Circles':'🎯 Uppdrag','g');
+}
+
+function likeFlash(id, btn) {
+  const p = FLASH_DATA.find(x=>x.id===id); if(!p) return;
+  if(G.likedPosts.has(id)) { G.likedPosts.delete(id); p.likes--; }
+  else { G.likedPosts.add(id); p.likes++; gainXP(2,'social'); vibe(15); }
+  const ico = $(`fli${id}`);
+  ico.textContent = G.likedPosts.has(id) ? '❤️' : '🤍';
+  ico.className = `vca-ico ${G.likedPosts.has(id)?'liked':''}`;
+  $(`flc${id}`).textContent = p.likes;
+}
+function doShare(id) {
+  const p = FLASH_DATA.find(x=>x.id===id); if(!p) return;
+  if(navigator.share) navigator.share({title:'KARMA Flash',text:p.cap});
+  else { navigator.clipboard?.writeText(p.cap); showT('📋 Kopierat!','g'); }
+}
+
+/* Flash upload */
+function handleFlashUpload(input) {
+  const f = input.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    G.flashImg = e.target.result;
+    $('flashPrev').src = G.flashImg; $('flashPrev').style.display = 'block';
+    $('flashPH').style.display = 'none';
+    $('flashUpArea').style.borderColor = 'var(--pink)';
+  };
+  r.readAsDataURL(f);
+}
+function submitFlash() {
+  const cap = $('flashCaption').value.trim();
+  if(!G.flashImg && !cap) { showT('❌ Lägg till video eller text','r'); return; }
+  G.streak++; G.postCount++;
+  FLASH_DATA.unshift({id:'fl'+Date.now(), user:G.name||'Du', pet:gS().e, lvl:G.level, up:'Daglig Flash #'+G.postCount, cap:cap||'⚡ Flash!', xp:'+20 XP', likes:0, streak:G.streak, live:false});
+  gainXP(20,'social'); gainCoins(10);
+  G.flashImg = null; $('flashCaption').value = '';
+  $('flashPrev').style.display = 'none'; $('flashPH').style.display = '';
+  $('flashUpArea').style.borderColor = '';
+  closeModal('flashModal');
+  renderFlashFeed(); updateHUD(); updatePet();
+  vibe([30,20,80]); addH(`⚡ Flash #${G.streak} postad!`, 'var(--pink)');
+  showT(`⚡ FLASH! 🔥 ${G.streak}d STREAK`, 'pk');
+  if(G.streak % 7 === 0) { $('streakDays').textContent=G.streak; $('streakTitle').textContent=`🔥 ${G.streak} DAGAR!`; $('streakSplash').classList.add('show'); }
+  nav('flash');
+}
+
+/* ── CIRCLES ── */
+function renderCircles() {
+  const all = [...CIRCLES_DATA, ...G.circles];
+  $('circleList').innerHTML = all.map(c => `
+    <div class="circle-card" onclick="openCircle('${c.id}')">
+      <div class="cc-top" style="background:linear-gradient(135deg,${c.col}33,${c.col}11)">
+        <div class="cc-emoji">${c.em}</div>
+        <div class="cc-text">
+          <div class="cc-name">${c.name}</div>
+          <div class="cc-sub">${c.members.length} members</div>
+        </div>
+        <div class="cc-streak-badge">🔥 ${c.streak}d</div>
+      </div>
+      <div class="cc-bottom">
+        <div class="cc-flash-row">
+          ${c.members.map((em,i) => `
+            <div class="ccf-member">
+              <div class="ccf-ring ${(c.statuses||[])[i]||'pending'}">
+                <div class="ccf-inner">${em}</div>
+              </div>
+              <div class="ccf-name">${(c.names||[])[i]||''}</div>
+            </div>`).join('')}
+        </div>
+        <div class="cc-last-msg">${c.lastMsg||''}</div>
+      </div>
+    </div>`).join('');
+}
+
+function openCircle(id) {
+  const c = [...CIRCLES_DATA, ...G.circles].find(x=>x.id===id); if(!c) return;
+  G.currentCircle = id;
+  $('cwEm').textContent = c.em;
+  $('cwName').textContent = c.name;
+  $('cwSt').textContent = `${c.members.length} members · 🔥 ${c.streak}d streak`;
+  // Daily flash status
+  $('cwDailyBar').innerHTML = c.members.map((em,i) => `
+    <div class="cdb-item">
+      <div class="cdb-ring ${(c.statuses||[])[i]||'pending'}">
+        <div class="cdb-inner">${em}</div>
+      </div>
+      <div class="cdb-name">${(c.names||[])[i]||''}</div>
+    </div>`).join('');
+  // Messages
+  $('cwMsgs').innerHTML = (c.msgs||[]).map(m => {
+    if(m.isFlash) return `
+      <div class="msg-flash">
+        <div class="msg-flash-media"><div style="font-size:50px">${m.em||'⚡'}</div><div class="msg-flash-play">▶</div></div>
+        <div class="msg-flash-meta"><div class="msg-flash-user">${m.from}</div><div class="msg-flash-streak">🔥 Flash!</div></div>
+      </div>`;
+    return `<div>${m.me?'':m.em?`<div class="msg-from">${m.em} ${m.from}</div>`:''}<div class="msg ${m.me?'me':'them'}">${m.txt}</div><div class="msg-t" style="text-align:${m.me?'right':'left'}">${m.t}</div></div>`;
+  }).join('');
+  $('cwMsgs').scrollTop = $('cwMsgs').scrollHeight;
+  oWin('circleWin');
+}
+
+function sendCircleMsg() {
+  const inp = $('cwInp'); const txt = inp.value.trim(); if(!txt) return;
+  inp.value = '';
+  const c = [...CIRCLES_DATA,...G.circles].find(x=>x.id===G.currentCircle);
+  if(c) { if(!c.msgs)c.msgs=[]; c.msgs.push({from:G.name,em:gS().e,txt,t:'nu',me:true}); c.lastMsg=`Du: ${txt}`; }
+  const d = document.createElement('div');
+  d.innerHTML = `<div><div class="msg me">${txt}</div><div class="msg-t" style="text-align:right">nu</div></div>`;
+  $('cwMsgs').appendChild(d); $('cwMsgs').scrollTop = $('cwMsgs').scrollHeight;
+  vibe(15); gainXP(1,'social');
+  const replies = ['🔥 Yes!','Haha bro 😂','🔥🔥🔥','GG!','⚡⚡⚡','Ok! 💪'];
+  setTimeout(() => {
+    const d2 = document.createElement('div');
+    d2.innerHTML = `<div><div class="msg-from">🐉 ella_sthlm</div><div class="msg them">${replies[~~(Math.random()*replies.length)]}</div><div class="msg-t">nu</div></div>`;
+    $('cwMsgs').appendChild(d2); $('cwMsgs').scrollTop = $('cwMsgs').scrollHeight;
+  }, 800 + Math.random()*1000);
+}
+
+function submitCircle() {
+  const name = $('circleNameIn').value.trim(); if(!name) { showT('❌ Ange namn','r'); return; }
+  const nc = {id:'circ_'+Date.now(),name,em:G.circleEm,col:G.circleCol,members:[gS().e],names:[G.name],statuses:['done'],streak:0,lastMsg:'Du skapade cirkeln!',msgs:[]};
+  G.circles.push(nc); closeModal('createCircleModal'); $('circleNameIn').value='';
+  renderCircles(); vibe([30,20,60]); addH(`⭕ Skapade Circle: ${name}`,'var(--pink)');
+  showT(`⭕ ${name} skapad!`,'pk');
+}
+
+/* ── UPPDRAG ── */
+function verBadge(u) {
+  if(u.verLevel==='premium') return `<span class="ver ver-y">⭐ PREMIUM</span>`;
+  if(u.verLevel==='gold')    return `<span class="ver ver-g">✓ VERIFIERAD</span>`;
+  return u.co ? `<span style="font-size:10px;color:var(--t3)">⏳ Ej verifierad</span>` : '';
+}
+function renderUppdrag() {
+  const all = [...UPPDRAG_DATA,...G.myUppdrag];
+  const src = G.upFilter==='mine' ? G.myUppdrag
+    : G.upFilter==='all' ? all
+    : all.filter(u => u.type===G.upFilter || u.cType===G.upFilter);
+  $('uppdragList').innerHTML = src.length ? src.map(u => `
+    <div class="uc ${u.co&&u.verified?'vgreen':''} ${u.featured?'vgold':''}" onclick="openUppdragDetail('${u.id}')">
+      ${u.co ? `<div class="uc-co">
+        <div class="uc-co-logo">${u.coEm||'👤'}</div>
+        <div style="flex:1">
+          <div class="uc-co-name">${u.co} ${verBadge(u)}</div>
+          <div class="uc-co-type">${u.verLevel==='premium'?'⭐ Premium':u.verLevel==='gold'?'✓ Verifierat':'Ej verifierat'}</div>
+        </div>
+        ${u.live?'<span class="tag tr" style="font-size:9px">🔴 LIVE</span>':''}
+      </div>` : ''}
+      <div class="uc-body">
+        <div class="uc-title">${u.title}</div>
+        <div class="uc-desc">${u.desc.substring(0,100)}${u.desc.length>100?'...':''}</div>
+        <div class="uc-tags">${u.req.map(r=>`<span class="tag tb" style="font-size:9px">${r}</span>`).join('')}</div>
+        ${u.loc ? `<div class="uc-loc">📍 ${u.loc}</div>` : ''}
+        <div class="uc-bot">
+          <div class="uc-rewards">
+            ${u.sek ? `<div class="uc-sek">💸 ${u.sek} SEK</div>` : ''}
+            <div class="uc-coins">⚡ ${u.coins}</div>
+            <div class="uc-xp">+${u.xp}XP</div>
+          </div>
+          <button class="btn btn-g btn-sm" onclick="event.stopPropagation();claimUppdrag('${u.id}')">TA →</button>
+        </div>
+      </div>
+      <div class="uc-foot">
+        <div class="uc-spots">🏆 ${u.claimed}/${u.winners>=999?'∞':u.winners} platser</div>
+        <div class="uc-dead">⏱ ${u.deadline}</div>
+      </div>
+    </div>`).join('')
+    : `<div style="text-align:center;padding:48px 20px"><div style="font-size:48px;opacity:.15;margin-bottom:12px">🎯</div><div style="font-size:14px;color:var(--t3)">Inga uppdrag.</div></div>`;
+}
+document.querySelectorAll('#ufilters .uf').forEach(f => f.addEventListener('click', () => {
+  document.querySelectorAll('#ufilters .uf').forEach(x => x.classList.remove('on'));
+  f.classList.add('on'); G.upFilter = f.dataset.uf; renderUppdrag();
+}));
+function openUppdragDetail(id) {
+  const u = [...UPPDRAG_DATA,...G.myUppdrag].find(x=>x.id===id); if(!u) return;
+  $('detailTitle').textContent = 'Uppdrag';
+  $('detailBody').innerHTML = `
+    ${u.co ? `<div style="display:flex;align-items:center;gap:12px;padding:14px;background:var(--s2);border-radius:16px;margin-bottom:16px">
+      <div style="font-size:32px">${u.coEm||'👤'}</div>
+      <div><div style="font-family:var(--ff-head);font-size:16px;font-weight:800">${u.co}</div><div style="margin-top:4px">${verBadge(u)}</div></div>
+    </div>` : ''}
+    <div style="font-family:var(--ff-head);font-size:20px;font-weight:900;margin-bottom:8px">${u.title}</div>
+    <div style="font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:12px">${u.desc}</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">${u.req.map(r=>`<span class="tag tb">${r}</span>`).join('')}</div>
+    ${u.loc ? `<div style="font-size:13px;color:var(--blue);margin-bottom:14px">📍 ${u.loc}</div>` : ''}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+      ${u.sek ? `<div class="uc-sek">💸 ${u.sek} SEK via Swish</div>` : ''}
+      <div class="uc-coins">⚡ ${u.coins}</div>
+      <div class="uc-xp">+${u.xp} XP</div>
+    </div>
+    <div style="background:var(--s2);border-radius:14px;padding:13px;font-size:13px;color:var(--t3);line-height:1.65;margin-bottom:16px">
+      🏆 ${u.winners>=999?'Obegränsat':u.winners+' platser'} · ${u.claimed} tagna · Deadline: ${u.deadline}
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <button class="btn btn-g btn-lg" onclick="claimUppdrag('${u.id}')">⚡ TA UPPDRAGET</button>
+      <button class="btn btn-ghost btn-lg" onclick="cWin('detailWin')">STÄNG</button>
+    </div>`;
+  oWin('detailWin');
+}
+function claimUppdrag(id) {
+  const u = [...UPPDRAG_DATA,...G.myUppdrag].find(x=>x.id===id); if(!u) return;
+  vibe([50,30,100,30,80]);
+  $('spIco').textContent = '🎯';
+  $('spLbl').textContent = 'UPPDRAG TAGET!';
+  $('spTitle').textContent = u.title.substring(0,36);
+  $('spSub').textContent = 'Gör det. Posta Flash.';
+  $('spRewards').innerHTML = `
+    ${u.sek ? `<div class="sp-r"><div class="sp-rv" style="color:var(--green)">💸 ${u.sek}</div><div class="sp-rl">SEK</div></div>` : ''}
+    <div class="sp-r"><div class="sp-rv" style="color:var(--gold)">⚡ ${u.coins}</div><div class="sp-rl">COINS</div></div>
+    <div class="sp-r"><div class="sp-rv" style="color:var(--green)">+${u.xp}</div><div class="sp-rl">XP</div></div>`;
+  $('rewardSplash').classList.add('show');
+  petReact('happy'); addH(`🎯 Tog uppdrag: ${u.title.substring(0,28)}`);
+  cWin('detailWin');
+}
+function submitUppdrag() {
+  const title = $('upTitle').value.trim(); if(!title) { showT('❌ Ange titel','r'); return; }
+  if(G.coins < 50) { showT('❌ Behöver 50 coins','r'); return; }
+  G.coins -= 50;
+  const org = $('upOrg').value.trim(); const verified = org.length > 5;
+  const nu = {id:'nu'+Date.now(),type:G.cType||'task',cType:G.cType||'task',co:$('upCo').value||G.name,coEm:'👤',verified,verLevel:verified?'gold':'none',title,desc:$('upDesc').value||'',req:[G.cType?.toUpperCase()||'TASK'],loc:$('upLoc').value||'',sek:parseInt($('upSEK').value)||0,coins:100,xp:60,winners:parseInt($('upWin').value)||1,claimed:0,deadline:'Snart',live:false,featured:false};
+  G.myUppdrag.unshift(nu); UPPDRAG_DATA.unshift(nu);
+  closeModal('createUppdragModal'); $('upTitle').value=''; $('upDesc').value='';
+  renderUppdrag(); updateHUD();
+  vibe([30,20,50]); addH(`🏢 Postade uppdrag: ${title}`,'var(--gold)');
+  showT(verified ? '🏢 LIVE! ✓ VERIFIERAT' : '🏢 PUBLICERAT! −50⚡', 'g');
+}
+
+/* ── LEADERBOARD ── */
+function renderLB(cat, el) {
+  document.querySelectorAll('#lbTabs .lt').forEach(x => x.classList.remove('on'));
+  if(el) el.classList.add('on');
+  const data = LB_DATA[cat] || LB_DATA.money;
+  const top3 = data.slice(0,3);
+  $('lbPodium').innerHTML = `<div class="lb-podium">
+    ${top3[1] ? `<div class="pod"><div class="pod-av" style="border-color:#c0c0c8">${top3[1].isYou?gS().e:top3[1].pet||'?'}</div><div class="pod-rk" style="color:#c0c0c8">2</div><div class="pod-nm">${top3[1].isYou?G.name:top3[1].name}</div><div class="pod-vl">${top3[1].val}</div><div class="pod-pl s ph2"></div></div>` : ''}
+    ${top3[0] ? `<div class="pod"><div class="pod-av" style="border-color:var(--gold)">${top3[0].isYou?gS().e:top3[0].pet||'?'}</div><div class="pod-rk" style="color:var(--gold)">1</div><div class="pod-nm">${top3[0].isYou?G.name:top3[0].name}</div><div class="pod-vl" style="color:var(--gold)">${top3[0].val}</div><div class="pod-pl g ph1"></div></div>` : ''}
+    ${top3[2] ? `<div class="pod"><div class="pod-av" style="border-color:#cd7f32">${top3[2].isYou?gS().e:top3[2].pet||'?'}</div><div class="pod-rk" style="color:#cd7f32">3</div><div class="pod-nm">${top3[2].isYou?G.name:top3[2].name}</div><div class="pod-vl">${top3[2].val}</div><div class="pod-pl b ph3"></div></div>` : ''}
+  </div>`;
+  $('lbList').innerHTML = data.map(r => `
+    <div class="lb-row ${r.isYou?'you':''}">
+      <div class="lb-rk">${r.rank}</div>
+      <div class="lb-av">${r.isYou?gS().e:r.pet||'?'}</div>
+      <div style="flex:1"><div class="lb-nm">${r.isYou?G.name:r.name||'?'} ${r.isYou?'<span class="tag tg" style="font-size:9px">YOU</span>':''}</div><div class="lb-sb">Trust ${r.trust||42}</div></div>
+      <div><div class="lb-vl" style="color:${r.isYou?'var(--green)':'var(--t1)'}">${r.isYou&&cat==='money'?G.totalSEK+' SEK':r.isYou&&cat==='streak'?G.streak+'d':r.val}</div><div style="font-size:10px;font-weight:700;color:var(--green)">${r.ch||''}</div></div>
+    </div>`).join('');
+}
+
+/* ── PROFILE ── */
+function renderBadges() {
+  const el = $('badgeGrid'); if(!el) return;
+  el.innerHTML = BADGES_DEF.map(b => `
+    <div class="badge ${b.ok()?'earned':''}" onclick="showT('${b.ok()?'✅ '+b.l:'🔒 '+b.l}','${b.ok()?'g':'r'}')">
+      <div class="badge-e" style="${!b.ok()?'filter:grayscale(1) opacity(.2)':''}">${b.e}</div>
+      <div class="badge-l">${b.l}</div>
+    </div>`).join('');
+}
+function renderHistList() {
+  const el = $('histList'); if(!el) return;
+  el.innerHTML = G.hist.slice(0,14).map(h => `
+    <div class="hist-item">
+      <div class="hdot" style="background:${h.c||'var(--green)'}"></div>
+      <div class="htxt">${h.t}</div>
+      <div class="htime">${h.time}</div>
+    </div>`).join('');
+}
+function shareProfile() {
+  const txt = `⚡ ${G.name} on KARMA!\n${gS().s} · LV${G.level}\n🔥 ${G.streak}d Flash streak\n💸 ${G.totalSEK} SEK · 🎯 ${G.bountiesDone} uppdrag\nReal life. Game engine.`;
+  if(navigator.share) navigator.share({title:'KARMA',text:txt});
+  else { navigator.clipboard?.writeText(txt); showT('📋 Kopierat!','g'); }
+}
+
+/* ── AI ── */
+function sendAI() {
+  const inp = $('aiInp'); const txt = inp.value.trim(); if(!txt) return;
+  inp.value = '';
+  const m = $('aiMsgs');
+  const d = document.createElement('div'); d.innerHTML = `<div class="msg me">${txt}</div>`;
+  m.appendChild(d); m.scrollTop = m.scrollHeight;
+  setTimeout(() => {
+    const r = AI_REPLIES[~~(Math.random()*AI_REPLIES.length)];
+    const d2 = document.createElement('div'); d2.innerHTML = `<div class="msg them">${r}</div>`;
+    m.appendChild(d2); m.scrollTop = m.scrollHeight;
+  }, 600 + Math.random()*400);
+}
+function sendAIModal() {
+  const inp = $('aiInpM'); const txt = inp.value.trim(); if(!txt) return;
+  inp.value = '';
+  const m = $('aiMsgsModal');
+  const d = document.createElement('div'); d.innerHTML = `<div class="msg me" style="margin-left:auto">${txt}</div>`;
+  m.appendChild(d); m.scrollTop = m.scrollHeight;
+  setTimeout(() => {
+    const r = AI_REPLIES[~~(Math.random()*AI_REPLIES.length)];
+    const d2 = document.createElement('div'); d2.innerHTML = `<div class="msg them">${r}</div>`;
+    m.appendChild(d2); m.scrollTop = m.scrollHeight;
+  }, 600 + Math.random()*400);
+}
+
+/* ── GPS MAP ── */
+function initMap(lat, lon) {
+  if(G.mapInit) return; G.mapInit = true;
+  const m = L.map('realMap', {zoomControl:false, attributionControl:false}).setView([lat,lon], 15);
+  G.lMap = m;
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19}).addTo(m);
+  // You marker
+  const yIco = L.divIcon({
+    html: `<div style="width:46px;height:46px;background:rgba(0,255,136,.2);border:3px solid #00ff88;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 0 8px rgba(0,255,136,.1)">${gS().e}</div>`,
+    className:'', iconAnchor:[23,23]
+  });
+  G.uMarker = L.marker([lat,lon], {icon:yIco}).addTo(m).bindPopup(`<b>${G.name||'Du'}</b>`);
+  // Uppdrag pins
+  [
+    {em:'☕',nm:'Espresso House',lat:lat+.003,lon:lon+.004,sek:150,id:'u1'},
+    {em:'👤',nm:'Anna Berg - Skräp',lat:lat+.001,lon:lon-.003,sek:500,id:'u2'},
+    {em:'👟',nm:'Stadium Nike',lat:lat-.005,lon:lon+.006,sek:500,id:'u3'},
+    {em:'👤',nm:'Marcus - Äpplen',lat:lat-.006,lon:lon+.001,sek:300,id:'u4'},
+  ].forEach(p => {
+    const ico = L.divIcon({
+      html: `<div style="position:relative"><div style="width:38px;height:38px;background:rgba(255,204,0,.2);border:2px solid #ffcc00;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 4px 14px rgba(0,0,0,.5)">${p.em}</div>${p.sek?`<div style="position:absolute;top:-13px;right:-8px;background:#ffcc00;color:#000;font-size:9px;font-weight:900;padding:2px 5px;border-radius:4px">${p.sek} SEK</div>`:''}<div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #ffcc00;margin:0 auto"></div></div>`,
+      className:'', iconAnchor:[19,44]
+    });
+    L.marker([p.lat,p.lon], {icon:ico}).addTo(m).bindPopup(`<b>${p.nm}</b>`).on('click', () => openUppdragDetail(p.id));
+  });
+  // Friends
+  [{em:'🐉',nm:'ella_sthlm',lat:lat+.006,lon:lon-.002},{em:'🐺',nm:'maxruns',lat:lat-.003,lon:lon+.007}].forEach(f => {
+    const ico = L.divIcon({
+      html: `<div style="width:36px;height:36px;background:rgba(0,255,136,.1);border:2px solid #00ff88;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px">${f.em}</div>`,
+      className:'', iconAnchor:[18,18]
+    });
+    L.marker([f.lat,f.lon], {icon:ico}).addTo(m).bindPopup(`<b>${f.nm}</b>`);
+  });
+  renderNearby(lat, lon);
+}
+function locateMe() {
+  const btn=$('locBtn'), dot=$('gpsDot'), txt=$('gpsText');
+  btn.classList.add('on'); btn.textContent='⌛';
+  dot.className='gps-dot searching'; txt.textContent='Söker GPS...';
+  const fallback = (lat=59.3293, lon=18.0686) => {
+    G.userLat=lat; G.userLon=lon;
+    if(!G.mapInit) initMap(lat, lon);
+    else if(G.lMap) { G.lMap.setView([lat,lon],16); if(G.uMarker) G.uMarker.setLatLng([lat,lon]); }
+    renderNearby(lat, lon);
+    btn.textContent='◎'; btn.classList.remove('on');
+  };
+  if(!navigator.geolocation) {
+    dot.className='gps-dot'; txt.textContent='GPS ej tillgänglig – visar Stockholm';
+    showT('⚠️ GPS ej tillgänglig','y'); fallback(); return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const {latitude:lat, longitude:lon} = pos.coords;
+      dot.className='gps-dot active'; txt.textContent=`📍 ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+      showT('📍 Position hittad!','g'); vibe(30);
+      addH(`📍 GPS: ${lat.toFixed(3)}, ${lon.toFixed(3)}`);
+      fallback(lat, lon);
+    },
+    () => { dot.className='gps-dot'; txt.textContent='GPS nekad – visar Stockholm'; showT('⚠️ GPS nekad','y'); fallback(); },
+    {timeout:10000, enableHighAccuracy:true}
+  );
+}
+function renderNearby(lat, lon) {
+  if(!lat) lat=G.userLat||59.3293; if(!lon) lon=G.userLon||18.0686;
+  const sorted = UPPDRAG_DATA.map(u => {
+    const d = distKm(lat,lon, lat+(Math.random()-.5)*.015, lon+(Math.random()-.5)*.015);
+    return {...u, d};
+  }).sort((a,b) => a.d-b.d);
+  $('nearbyList').innerHTML = sorted.slice(0,5).map(u => `
+    <div class="nbr" onclick="openUppdragDetail('${u.id}')">
+      <div class="nbr-ico">${u.coEm||'🎯'}</div>
+      <div style="flex:1;min-width:0"><div class="nbr-title">${u.title.substring(0,32)}${u.title.length>32?'...':''}</div><div class="nbr-loc">${u.co||u.loc||''}</div></div>
+      <div style="text-align:right;flex-shrink:0"><div class="nbr-rwd">${u.sek?u.sek+' SEK':u.coins+'⚡'}</div><div style="font-size:10px;color:var(--t3)">${fmtD(u.d)}</div></div>
+    </div>`).join('');
+}
+function setShare(m) {
+  G.shareMode = m;
+  $('shF').className = `sht${m==='friends'?' fo':''}`;
+  $('shP').className = `sht${m==='public'?' po':''}`;
+  if(m==='public') { $('shareChip').textContent='PUBLIK'; $('shareChip').className='tag tpk'; showT('🌍 Location PUBLIK!','y'); vibe([30,20,40]); }
+  else             { $('shareChip').textContent='PRIVAT'; $('shareChip').className='tag tg';  showT('👥 Privat','g'); }
+}
+
+/* ── NAV ── */
+function nav(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nb[data-v]').forEach(b => b.classList.remove('on'));
+  const v = $(`view-${name}`); if(v) v.classList.add('active');
+  const btn = document.querySelector(`.nb[data-v="${name}"]`); if(btn) btn.classList.add('on');
+  vibe(8);
+  const R = {
+    pet:     () => { initParticles(); updatePet(); },
+    flash:   () => renderFlashFeed(),
+    circles: () => renderCircles(),
+    uppdrag: () => renderUppdrag(),
+    map:     () => { setTimeout(() => { if(!G.mapInit) locateMe(); }, 200); renderNearby(); },
+    lb:      () => renderLB('money', document.querySelector('#lbTabs .lt')),
+    profile: () => { updateHUD(); renderBadges(); renderHistList(); },
+  };
+  if(R[name]) R[name]();
+}
+document.querySelectorAll('.nb[data-v]').forEach(b => b.addEventListener('click', () => nav(b.dataset.v)));
+
+/* ── MENU ── */
+function toggleMenu() {
+  const dd=$('dd'), h=$('hamBtn'), o=dd.classList.contains('open');
+  dd.classList.toggle('open',!o); h.classList.toggle('open',!o);
+  if(!o) setTimeout(() => document.addEventListener('click', closeMenuOut, {once:true,capture:true}), 100);
+}
+function closeMenuOut(e) { if(!e.target.closest('.menu-wrap')) cM(); }
+function cM() { $('dd').classList.remove('open'); $('hamBtn').classList.remove('open'); }
+
+/* ── ONBOARDING ── */
+let obPet = '🐉';
+$('obPetGrid').innerHTML = PETS.map(p =>
+  `<div class="obp ${p===obPet?'sel':''}" data-p="${p}" onclick="pickPet(this)">${p}</div>`
+).join('');
+function pickPet(el) {
+  document.querySelectorAll('.obp').forEach(x => x.classList.remove('sel'));
+  el.classList.add('sel'); obPet = el.dataset.p; vibe(15);
+}
+function obNext(step) {
+  if(step===1) { const n=$('obName').value.trim(); if(!n){showT('❌ Skriv ditt namn','r');return;} G.name=n; }
+  if(step===2) { const pn=$('obPetName').value.trim(); if(!pn){showT('❌ Ge din pet ett namn','r');return;} G.petName=pn; G.petEmoji=obPet; }
+  document.querySelectorAll('.ob-step').forEach(s => s.style.display='none');
+  $(`obs${step}`).style.display = 'block'; vibe(20);
+}
+function finishOB() {
+  $('ob').style.display = 'none';
+  $('app').style.display = 'flex';
+  save(); updateHUD(); nav('pet');
+  vibe([50,30,100,30,80]);
+  showT(`⚡ WELCOME ${G.name.toUpperCase()}!`, 'g');
+  addH(`🎮 ${G.name} joined KARMA!`);
+  initParticles();
+}
+
+/* ── LOAD SAVED DATA ── */
+try {
+  const sn = localStorage.getItem('k0509_n');
+  if(sn) {
+    G.name       = sn;
+    G.petEmoji   = localStorage.getItem('k0509_p')  || '🐉';
+    G.petName    = localStorage.getItem('k0509_pn') || 'Eldraken';
+    G.level      = parseInt(localStorage.getItem('k0509_l')  || '1');
+    G.coins      = parseInt(localStorage.getItem('k0509_c')  || '500');
+    G.streak     = parseInt(localStorage.getItem('k0509_st') || '0');
+    G.exp        = parseInt(localStorage.getItem('k0509_x')  || '0');
+    G.actionStat    = parseInt(localStorage.getItem('k0509_as') || '0');
+    G.commerceStat  = parseInt(localStorage.getItem('k0509_cs') || '0');
+    G.socialStat    = parseInt(localStorage.getItem('k0509_ss') || '0');
+    try { G.gear = JSON.parse(localStorage.getItem('k0509_g') || '[]'); } catch(e) { G.gear=[]; }
+    G.equippedGear  = localStorage.getItem('k0509_eg') || null;
+    G.totalSEK      = parseInt(localStorage.getItem('k0509_sek') || '0');
+    G.trustScore    = parseInt(localStorage.getItem('k0509_ts')  || '42');
+    G.postCount     = parseInt(localStorage.getItem('k0509_posts')|| '0');
+    G.bountiesDone  = parseInt(localStorage.getItem('k0509_b')   || '0');
+    G.hunger        = parseInt(localStorage.getItem('k0509_hu')  || '80');
+    G.energy        = parseInt(localStorage.getItem('k0509_en')  || '100');
+    G.mood          = parseInt(localStorage.getItem('k0509_mo')  || '90');
+    try { G.circles = JSON.parse(localStorage.getItem('k0509_circles')||'[]'); } catch(e) { G.circles=[]; }
+    $('ob').style.display = 'none';
+    $('app').style.display = 'flex';
+    updateHUD(); nav('pet'); initParticles();
+  }
+} catch(e) {}
+
+/* Hunger drain */
+setInterval(() => {
+  if(!G.name) return;
+  G.hunger  = Math.max(0, G.hunger  - 2);
+  G.energy  = Math.max(0, G.energy  - 1);
+  if(G.hunger < 20) showT(`⚠️ ${G.petName} är hungrig!`, 'r');
+  updateHUD();
+  if(document.querySelector('#view-pet.active')) updatePet();
+}, 120000);
+setInterval(save, 8000);
+</script>
+</body>
+</html>
