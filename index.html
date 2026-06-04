@@ -873,6 +873,7 @@ textarea.inp { resize:none;min-height:72px; }
 .toast.r { border-color:rgba(255,68,85,.5);color:var(--red); }
 .toast.y { border-color:rgba(255,204,0,.5);color:var(--gold); }
 .toast.pk { border-color:rgba(255,51,119,.5);color:var(--pink); }
+.toast.p  { border-color:rgba(255,51,119,.5);color:var(--pink); }
 @keyframes cpop { 0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-50px);} }
 .cpop { position:fixed;pointer-events:none;z-index:9999;font-size:14px;font-weight:800;color:var(--gold);animation:cpop .7s ease-out forwards; }
 
@@ -1049,16 +1050,16 @@ textarea.inp { resize:none;min-height:72px; }
       <div class="sh"><div class="sh-t">CARE</div></div>
       <div class="care-grid">
         <div class="care-btn" onclick="pcFeed()">
-          <span class="care-ico">🍖</span><span class="care-lbl">MATA</span><span class="care-cost">−10⚡</span>
+          <span class="care-ico">🍖</span><span class="care-lbl">MATA</span><span class="care-cost">−10💰</span>
         </div>
         <div class="care-btn" onclick="pcTrain()">
-          <span class="care-ico">🏋️</span><span class="care-lbl">TRÄNA</span><span class="care-cost">+15XP</span>
+          <span class="care-ico">🏋️</span><span class="care-lbl">TRÄNA</span><span class="care-cost">−20E +15XP</span>
         </div>
         <div class="care-btn" onclick="pcSleep()">
-          <span class="care-ico">😴</span><span class="care-lbl">SOVA</span><span class="care-cost">+40E</span>
+          <span class="care-ico">😴</span><span class="care-lbl">SOVA</span><span class="care-cost">+40E +10😊</span>
         </div>
         <div class="care-btn" onclick="pcPlay()">
-          <span class="care-ico">🎮</span><span class="care-lbl">LEK</span><span class="care-cost">+5⚡</span>
+          <span class="care-ico">🎮</span><span class="care-lbl">LEK</span><span class="care-cost">−10E +5💰</span>
         </div>
       </div>
 
@@ -1368,7 +1369,7 @@ textarea.inp { resize:none;min-height:72px; }
     <div style="height:220px;background:var(--s2);border-radius:14px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px;scrollbar-width:none" id="aiMsgsModal"><div class="msg them">Hej! 👋 Fråga mig om Flash, Circles, uppdrag, din pet eller strategi!</div></div>
     <div style="display:flex;gap:8px">
       <input class="inp" id="aiInpM" style="margin-bottom:0" placeholder="Fråga AI..." onkeydown="if(event.key==='Enter')sendAIModal()">
-      <button class="btn btn-p btn-md" onclick="sendAIModal()">→</button>
+      <button class="btn btn-pk btn-md" onclick="sendAIModal()">→</button>
     </div>
   </div>
 </div>
@@ -1435,6 +1436,8 @@ const EVOL = {
   '🦋':[{l:1,e:'🐛',s:'CATERPILLAR',g:''},{l:5,e:'🦋',s:'BUTTERFLY',g:'🌸'},{l:10,e:'🦋',s:'SPIRIT WING',g:'✨'},{l:20,e:'🦋',s:'LEGEND WING',g:'⚡'}],
   '🐻':[{l:1,e:'🐻',s:'CUB',g:''},{l:5,e:'🐻',s:'GRIZZLY',g:'🍯'},{l:10,e:'🐻‍❄️',s:'POLAR BEAST',g:'👑'},{l:20,e:'🐻',s:'SPIRIT BEAR',g:'⚡'}],
   '🦁':[{l:1,e:'🦁',s:'CUB',g:''},{l:5,e:'🦁',s:'LION',g:''},{l:10,e:'🦁',s:'KING',g:'👑'},{l:20,e:'🦁',s:'GOD LION',g:'⚡'}],
+  '🐯':[{l:1,e:'🐯',s:'CUB',g:''},{l:5,e:'🐯',s:'TIGER',g:'🌿'},{l:10,e:'🐯',s:'APEX TIGER',g:'👑'},{l:20,e:'🐯',s:'SPIRIT TIGER',g:'⚡'}],
+  '🐨':[{l:1,e:'🐨',s:'JOEY',g:''},{l:5,e:'🐨',s:'KOALA',g:'🍃'},{l:10,e:'🐨',s:'ELDER KOALA',g:'👑'},{l:20,e:'🐨',s:'DREAM KOALA',g:'⚡'}],
 };
 const PETS = ['🐉','🐺','🦊','🐱','🐸','🦋','🐻','🦁','🐯','🐨'];
 const gS  = () => { const t=EVOL[G.petEmoji]||EVOL['🐉']; let s=t[0]; for(const x of t)if(G.level>=x.l)s=x; return s; };
@@ -1443,18 +1446,18 @@ const xpN = l => { const b=[100,100,150,150,200,200,250,300,350,400]; return l<=
 
 /* ── APP DATA ── */
 const UPPDRAG_DATA = [
-  {id:'u1',type:'brand',cType:'reel',co:'Espresso House',coEm:'☕',verified:true,verLevel:'gold',title:'Flash-reel med Mocca Tea @ Plattan',desc:'30 sek Flash när du dricker vår nya Mocca Tea. Tagga @espressohouse.',req:['⚡ FLASH 30 SEK','📍 PLATS'],loc:'Sergels Torg, Stockholm',sek:150,coins:120,xp:80,winners:5,claimed:1,deadline:'10 maj',live:true,featured:true},
-  {id:'u2',type:'task',cType:'task',co:'Anna Berg',coEm:'👤',verified:false,verLevel:'none',title:'Hämta mitt skräp @ Tumba',desc:'Sjuk och behöver hjälp. 2 påsar skräp → container 200m bort.',req:['📍 TUMBA','📸 FOTO BEVIS'],loc:'Tumba, Stockholm',sek:500,coins:50,xp:40,winners:1,claimed:0,deadline:'Idag',live:false,featured:false},
-  {id:'u3',type:'brand',cType:'reel',co:'Stadium',coEm:'👟',verified:true,verLevel:'premium',title:'Nike Air Flash @ Stadium',desc:'15–60 sek Flash med Nike Air. Taggar du @stadium? +100 SEK bonus!',req:['⚡ FLASH 60 SEK','👟 STADIUM'],loc:'Valfri Stadium-butik',sek:500,coins:200,xp:150,winners:1,claimed:0,deadline:'18 maj',live:false,featured:true},
-  {id:'u4',type:'task',cType:'task',co:'Marcus L.',coEm:'👤',verified:false,verLevel:'none',title:'Plocka äpplen i trädgården',desc:'Ca 2h arbete. Betalar + lunch.',req:['📍 SOLLENTUNA','⏱ CA 2H'],loc:'Sollentuna, Stockholm',sek:300,coins:60,xp:50,winners:1,claimed:0,deadline:'12 maj',live:false,featured:false},
-  {id:'u5',type:'review',cType:'review',co:'Webhallen',coEm:'🎮',verified:true,verLevel:'gold',title:'Flash-recensera nytt spel',desc:'Köp spel, spela 2h, posta Flash-recension.',req:['⭐ FLASH RECENSION','🎮 KVITTO'],loc:'Webhallen',sek:100,coins:80,xp:60,winners:10,claimed:3,deadline:'15 maj',live:false,featured:false},
+  {id:'u1',type:'brand',cType:'reel',co:'Espresso House',coEm:'☕',verified:true,verLevel:'gold',title:'Flash-reel med Mocca Tea @ Plattan',desc:'30 sek Flash när du dricker vår nya Mocca Tea. Tagga @espressohouse.',req:['⚡ FLASH 30 SEK','📍 PLATS'],loc:'Sergels Torg, Stockholm',sek:150,coins:120,xp:80,winners:5,claimed:1,deadline:'10 maj',live:true,featured:true,latOff:.003,lonOff:.004},
+  {id:'u2',type:'task',cType:'task',co:'Anna Berg',coEm:'👤',verified:false,verLevel:'none',title:'Hämta mitt skräp @ Tumba',desc:'Sjuk och behöver hjälp. 2 påsar skräp → container 200m bort.',req:['📍 TUMBA','📸 FOTO BEVIS'],loc:'Tumba, Stockholm',sek:500,coins:50,xp:40,winners:1,claimed:0,deadline:'Idag',live:false,featured:false,latOff:.001,lonOff:-.003},
+  {id:'u3',type:'brand',cType:'reel',co:'Stadium',coEm:'👟',verified:true,verLevel:'premium',title:'Nike Air Flash @ Stadium',desc:'15–60 sek Flash med Nike Air. Taggar du @stadium? +100 SEK bonus!',req:['⚡ FLASH 60 SEK','👟 STADIUM'],loc:'Valfri Stadium-butik',sek:500,coins:200,xp:150,winners:1,claimed:0,deadline:'18 maj',live:false,featured:true,latOff:-.005,lonOff:.006},
+  {id:'u4',type:'task',cType:'task',co:'Marcus L.',coEm:'👤',verified:false,verLevel:'none',title:'Plocka äpplen i trädgården',desc:'Ca 2h arbete. Betalar + lunch.',req:['📍 SOLLENTUNA','⏱ CA 2H'],loc:'Sollentuna, Stockholm',sek:300,coins:60,xp:50,winners:1,claimed:0,deadline:'12 maj',live:false,featured:false,latOff:-.006,lonOff:.001},
+  {id:'u5',type:'review',cType:'review',co:'Webhallen',coEm:'🎮',verified:true,verLevel:'gold',title:'Flash-recensera nytt spel',desc:'Köp spel, spela 2h, posta Flash-recension.',req:['⭐ FLASH RECENSION','🎮 KVITTO'],loc:'Webhallen',sek:100,coins:80,xp:60,winners:10,claimed:3,deadline:'15 maj',live:false,featured:false,latOff:.004,lonOff:-.002},
 ];
 
 const FLASH_DATA = [
-  {id:'f1',user:'ella_sthlm',pet:'🐉',lvl:9,up:'Mocca Tea @ Plattan',cap:'Faktiskt gott ☕ + 150 SEK Swish 🙏 #espressoh #karma',xp:'+80 XP',likes:347,streak:7,live:false},
-  {id:'f2',user:'maxruns',pet:'🐺',lvl:11,up:'Nike Air Flash',cap:'LEVEL 11 💀 Stadium uppdrag done. Min varg är legend fr fr #nike #stadium',xp:'+150 XP',likes:1204,streak:14,live:true,expire:'3h'},
-  {id:'f3',user:'sagas_world',pet:'🦋',lvl:7,up:'Daglig Flash #24',cap:'Thrift haul + vintage vibes på Drottninggatan 🤌 #fashion #karma',xp:'+20 XP',likes:567,streak:24,live:false},
-  {id:'f4',user:'carlos_leo',pet:'🦊',lvl:5,up:'Graffiti mural',cap:'Hittade denna jätten på Hornstull efter 6h 😭 #streetart #sthlm',xp:'+45 XP',likes:189,streak:3,live:false},
+  {id:'f1',user:'ella_sthlm',pet:'🐉',lvl:9,up:'Mocca Tea @ Plattan',cap:'Faktiskt gott ☕ + 150 SEK Swish 🙏 #espressoh #karma',xp:'+80 XP',likes:347,streak:7,live:false,tab:'uppdrag'},
+  {id:'f2',user:'maxruns',pet:'🐺',lvl:11,up:'Nike Air Flash',cap:'LEVEL 11 💀 Stadium uppdrag done. Min varg är legend fr fr #nike #stadium',xp:'+150 XP',likes:1204,streak:14,live:true,expire:'3h',tab:'uppdrag'},
+  {id:'f3',user:'sagas_world',pet:'🦋',lvl:7,up:'Daglig Flash #24',cap:'Thrift haul + vintage vibes på Drottninggatan 🤌 #fashion #karma',xp:'+20 XP',likes:567,streak:24,live:false,tab:'circles'},
+  {id:'f4',user:'carlos_leo',pet:'🦊',lvl:5,up:'Graffiti mural',cap:'Hittade denna jätten på Hornstull efter 6h 😭 #streetart #sthlm',xp:'+45 XP',likes:189,streak:3,live:false,tab:'forYou'},
 ];
 
 const STREAK_USERS = [
@@ -1566,7 +1569,7 @@ function distKm(la1,lo1,la2,lo2) {
 function fmtD(m) { return m<1000 ? Math.round(m)+'m' : +(m/1000).toFixed(1)+'km'; }
 function save() {
   try {
-    const d = {n:G.name,p:G.petEmoji,pn:G.petName,l:G.level,c:G.coins,st:G.streak,x:G.exp,as:G.actionStat,cs:G.commerceStat,ss:G.socialStat,g:JSON.stringify(G.gear||[]),eg:G.equippedGear||'',sek:G.totalSEK,ts:G.trustScore,posts:G.postCount,b:G.bountiesDone,hu:G.hunger,en:G.energy,mo:G.mood,circles:JSON.stringify(G.circles||[])};
+    const d = {n:G.name,p:G.petEmoji,pn:G.petName,l:G.level,c:G.coins,st:G.streak,x:G.exp,as:G.actionStat,cs:G.commerceStat,ss:G.socialStat,g:JSON.stringify(G.gear||[]),eg:G.equippedGear||'',sek:G.totalSEK,ts:G.trustScore,posts:G.postCount,b:G.bountiesDone,hu:G.hunger,en:G.energy,mo:G.mood,circles:JSON.stringify(G.circles||[]),mr:G.mgRecord};
     for(const k in d) localStorage.setItem(`k0509_${k}`, d[k]);
   } catch(e) {}
 }
@@ -1579,7 +1582,7 @@ function gainXP(n, stat) {
   else if(stat==='commerce') G.commerceStat += Math.ceil(n/4);
   else if(stat==='social')   G.socialStat   += Math.ceil(n/4);
   G.trustScore = Math.min(100, G.trustScore + Math.ceil(n/20));
-  if(G.exp >= xpN(G.level)) { G.exp -= xpN(G.level); G.level++; triggerLvlUp(); }
+  while(G.exp >= xpN(G.level)) { G.exp -= xpN(G.level); G.level++; triggerLvlUp(); }
   updateHUD(); updatePet();
 }
 function triggerLvlUp() {
@@ -1590,10 +1593,10 @@ function triggerLvlUp() {
   $('lvlSplash').classList.add('show');
   petReact('happy'); addH(`⬆️ Level ${G.level}!`);
 }
-function pcFeed()  { if(G.coins<10){showT('❌ Need 10 coins!','r');return;} G.coins-=10; G.hunger=Math.min(100,G.hunger+30); G.mood=Math.min(100,G.mood+5); petReact('happy'); addH(`🍖 ${G.petName} matad`); showT('🍖 +30 HUNGER','g'); updateHUD(); updatePet(); }
-function pcTrain() { if(G.energy<20){showT('❌ Low energy!','r');return;} G.energy-=20; gainXP(15,'action'); petReact('happy'); showT('🏋️ +15 XP','g'); }
-function pcSleep() { G.energy=Math.min(100,G.energy+40); G.mood=Math.min(100,G.mood+10); showT('😴 +40 ENERGY','g'); updateHUD(); updatePet(); }
-function pcPlay()  { if(G.energy<10){showT('❌ Low energy!','r');return;} G.energy-=10; G.mood=Math.min(100,G.mood+25); gainCoins(5); gainXP(5,'social'); petReact('happy'); showT('🎮 +5⚡ +5XP','g'); }
+function pcFeed()  { if(G.coins<10){showT('❌ Need 10 coins!','r');return;} G.coins-=10; G.hunger=Math.min(100,G.hunger+30); G.mood=Math.min(100,G.mood+5); petReact('happy'); addH(`🍖 ${G.petName} matad`); showT('🍖 +30 HUNGER','g'); vibe(20); updateHUD(); updatePet(); }
+function pcTrain() { if(G.energy<20){showT('❌ Ingen energi! Sov först.','r');return;} G.energy-=20; gainXP(15,'action'); petReact('happy'); addH(`🏋️ ${G.petName} tränade`); showT('🏋️ −20E +15XP','g'); vibe(20); updateHUD(); updatePet(); }
+function pcSleep() { G.energy=Math.min(100,G.energy+40); G.mood=Math.min(100,G.mood+10); petReact('happy'); addH(`😴 ${G.petName} sov`); showT('😴 +40E +10😊','g'); vibe(15); updateHUD(); updatePet(); }
+function pcPlay()  { if(G.energy<10){showT('❌ Ingen energi! Sov först.','r');return;} G.energy-=10; G.mood=Math.min(100,G.mood+25); gainCoins(5); gainXP(5,'social'); petReact('happy'); addH(`🎮 ${G.petName} lekte`); showT('🎮 −10E +5💰 +5XP','g'); }
 function petTap()  { gainXP(1,'social'); gainCoins(1); vibe(15); showT('+1XP +1⚡','g'); }
 function petReact(m) {
   const b = $('pfBody');
@@ -1612,7 +1615,8 @@ function updateHUD() {
   const s = gS();
   $('pfEm').textContent = s.e + (G.equippedGear || s.g || '');
   $('pfLv').textContent = `LV${G.level}`;
-  if(G.hunger < 25) petReact('hungry');
+  if(G.hunger < 25) { petReact('hungry'); }
+  else { const b=$('pfBody'); if(b&&b.classList.contains('hungry')){ b.className='pf-body'; const m=G.mood>70?'😊':G.mood>40?'😐':'😕'; $('pfMood').textContent=m; } }
   $('ddName').textContent = G.name || '–';
   $('ddSub').textContent = `Level ${G.level} · 🔥${G.streak}d`;
   $('profAvaEm').textContent = s.e;
@@ -1748,6 +1752,10 @@ function mgTap() {
 
 /* ── FLASH FEED (Video-first) ── */
 function renderFlashFeed() {
+  // Filter by active tab
+  const feed = G.flashTab === 'forYou' ? FLASH_DATA
+    : FLASH_DATA.filter(p => p.tab === G.flashTab || p.tab === 'forYou');
+
   // Streak bar
   $('streakBar').innerHTML = STREAK_USERS.map(s => `
     <div class="sb-item" onclick="showT('${s.status==='add'?'+ Lägg till vän':'⚡ '+s.user}','pk')">
@@ -1759,7 +1767,7 @@ function renderFlashFeed() {
     </div>`).join('');
 
   // Video cards - full screen TikTok style
-  $('videoFeed').innerHTML = FLASH_DATA.map(p => `
+  $('videoFeed').innerHTML = (feed.length ? feed : FLASH_DATA).map(p => `
     <div class="video-card">
       <div class="vc-media">
         <div class="vc-bg-emoji">${p.pet}</div>
@@ -1810,6 +1818,7 @@ function setFlashTab(t, el) {
   G.flashTab = t;
   document.querySelectorAll('.ftab').forEach(x => x.classList.remove('on'));
   el.classList.add('on');
+  renderFlashFeed();
   showT(t==='forYou'?'🔥 För dig':t==='circles'?'⭕ Circles':'🎯 Uppdrag','g');
 }
 
@@ -1944,7 +1953,8 @@ function verBadge(u) {
   return u.co ? `<span style="font-size:10px;color:var(--t3)">⏳ Ej verifierad</span>` : '';
 }
 function renderUppdrag() {
-  const all = [...UPPDRAG_DATA,...G.myUppdrag];
+  const allMap = new Map(); [...UPPDRAG_DATA,...G.myUppdrag].forEach(u => allMap.set(u.id,u));
+  const all = [...allMap.values()];
   const src = G.upFilter==='mine' ? G.myUppdrag
     : G.upFilter==='all' ? all
     : all.filter(u => u.type===G.upFilter || u.cType===G.upFilter);
@@ -2011,17 +2021,22 @@ function openUppdragDetail(id) {
 }
 function claimUppdrag(id) {
   const u = [...UPPDRAG_DATA,...G.myUppdrag].find(x=>x.id===id); if(!u) return;
+  gainXP(u.xp||0, 'action');
+  gainCoins(u.coins||0);
+  if(u.sek) G.totalSEK += u.sek;
+  G.bountiesDone++;
   vibe([50,30,100,30,80]);
   $('spIco').textContent = '🎯';
-  $('spLbl').textContent = 'UPPDRAG TAGET!';
+  $('spLbl').textContent = 'UPPDRAG KLART!';
   $('spTitle').textContent = u.title.substring(0,36);
-  $('spSub').textContent = 'Gör det. Posta Flash.';
+  $('spSub').textContent = u.sek ? `💸 ${u.sek} SEK via Swish!` : 'Gör det. Posta Flash.';
   $('spRewards').innerHTML = `
     ${u.sek ? `<div class="sp-r"><div class="sp-rv" style="color:var(--green)">💸 ${u.sek}</div><div class="sp-rl">SEK</div></div>` : ''}
     <div class="sp-r"><div class="sp-rv" style="color:var(--gold)">⚡ ${u.coins}</div><div class="sp-rl">COINS</div></div>
     <div class="sp-r"><div class="sp-rv" style="color:var(--green)">+${u.xp}</div><div class="sp-rl">XP</div></div>`;
   $('rewardSplash').classList.add('show');
-  petReact('happy'); addH(`🎯 Tog uppdrag: ${u.title.substring(0,28)}`);
+  petReact('happy'); addH(`🎯 Klar: ${u.title.substring(0,28)}`,'var(--gold)');
+  updateHUD(); updatePet();
   cWin('detailWin');
 }
 function submitUppdrag() {
@@ -2030,7 +2045,7 @@ function submitUppdrag() {
   G.coins -= 50;
   const org = $('upOrg').value.trim(); const verified = org.length > 5;
   const nu = {id:'nu'+Date.now(),type:G.cType||'task',cType:G.cType||'task',co:$('upCo').value||G.name,coEm:'👤',verified,verLevel:verified?'gold':'none',title,desc:$('upDesc').value||'',req:[G.cType?.toUpperCase()||'TASK'],loc:$('upLoc').value||'',sek:parseInt($('upSEK').value)||0,coins:100,xp:60,winners:parseInt($('upWin').value)||1,claimed:0,deadline:'Snart',live:false,featured:false};
-  G.myUppdrag.unshift(nu); UPPDRAG_DATA.unshift(nu);
+  G.myUppdrag.unshift(nu);
   closeModal('createUppdragModal'); $('upTitle').value=''; $('upDesc').value='';
   renderUppdrag(); updateHUD();
   vibe([30,20,50]); addH(`🏢 Postade uppdrag: ${title}`,'var(--gold)');
@@ -2172,7 +2187,7 @@ function locateMe() {
 function renderNearby(lat, lon) {
   if(!lat) lat=G.userLat||59.3293; if(!lon) lon=G.userLon||18.0686;
   const sorted = UPPDRAG_DATA.map(u => {
-    const d = distKm(lat,lon, lat+(Math.random()-.5)*.015, lon+(Math.random()-.5)*.015);
+    const d = distKm(lat, lon, lat+(u.latOff||0), lon+(u.lonOff||0));
     return {...u, d};
   }).sort((a,b) => a.d-b.d);
   $('nearbyList').innerHTML = sorted.slice(0,5).map(u => `
@@ -2186,7 +2201,7 @@ function setShare(m) {
   G.shareMode = m;
   $('shF').className = `sht${m==='friends'?' fo':''}`;
   $('shP').className = `sht${m==='public'?' po':''}`;
-  if(m==='public') { $('shareChip').textContent='PUBLIK'; $('shareChip').className='tag tpk'; showT('🌍 Location PUBLIK!','y'); vibe([30,20,40]); }
+  if(m==='public') { $('shareChip').textContent='PUBLIK'; $('shareChip').className='tag tb'; showT('🌍 Location PUBLIK!','y'); vibe([30,20,40]); }
   else             { $('shareChip').textContent='PRIVAT'; $('shareChip').className='tag tg';  showT('👥 Privat','g'); }
 }
 
@@ -2268,6 +2283,8 @@ try {
     G.energy        = parseInt(localStorage.getItem('k0509_en')  || '100');
     G.mood          = parseInt(localStorage.getItem('k0509_mo')  || '90');
     try { G.circles = JSON.parse(localStorage.getItem('k0509_circles')||'[]'); } catch(e) { G.circles=[]; }
+    G.mgRecord = parseInt(localStorage.getItem('k0509_mr') || '0');
+    $('mgRec').textContent = G.mgRecord;
     $('ob').style.display = 'none';
     $('app').style.display = 'flex';
     updateHUD(); nav('pet'); initParticles();
