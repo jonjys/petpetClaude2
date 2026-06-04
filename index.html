@@ -235,9 +235,8 @@ html, body {
 @keyframes aura { 0%,100%{transform:scale(1);}50%{transform:scale(1.15);} }
 .pet-emoji-big {
   font-size: 100px; z-index: 2; position: relative;
-  animation: petbounce 2.4s cubic-bezier(.36,.07,.19,.97) infinite;
+  animation: petbounce 2.4s cubic-bezier(.36,.07,.19,.97) infinite, neonPulse 2s ease-in-out infinite;
   cursor: pointer; user-select: none;
-  filter: drop-shadow(0 8px 24px rgba(0,255,136,.3));
   transition: filter .3s;
 }
 @keyframes petbounce {
@@ -877,8 +876,73 @@ textarea.inp { resize:none;min-height:72px; }
 @keyframes cpop { 0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-50px);} }
 .cpop { position:fixed;pointer-events:none;z-index:9999;font-size:14px;font-weight:800;color:var(--gold);animation:cpop .7s ease-out forwards; }
 
+/* ══ FETASTE ADDITIONS ══ */
+@keyframes neonPulse {
+  0%,100% { filter:drop-shadow(0 0 12px var(--pet-col,#00ff88)) drop-shadow(0 8px 24px rgba(0,0,0,.4)); }
+  50%     { filter:drop-shadow(0 0 32px var(--pet-col,#00ff88)) drop-shadow(0 0 64px var(--pet-col,#00ff88)); }
+}
+@keyframes confettiFall {
+  0%   { transform:translateY(0) rotate(0deg) scale(1); opacity:1; }
+  100% { transform:translateY(105vh) rotate(720deg) scale(.2); opacity:0; }
+}
+@keyframes floatUp {
+  0%   { opacity:1; transform:translateX(-50%) translateY(0) scale(1); }
+  55%  { opacity:1; transform:translateX(-50%) translateY(-42px) scale(1.35); }
+  100% { opacity:0; transform:translateX(-50%) translateY(-84px) scale(.7); }
+}
+.fltxt {
+  position:fixed; pointer-events:none; z-index:9999;
+  font-family:var(--ff-head); font-size:20px; font-weight:900;
+  animation:floatUp .85s ease-out forwards; white-space:nowrap; text-align:center;
+}
+@keyframes comboPop {
+  0%   { transform:translate(-50%,-60%) scale(0) rotate(-10deg); opacity:0; }
+  45%  { transform:translate(-50%,-60%) scale(1.45) rotate(5deg); opacity:1; }
+  100% { transform:translate(-50%,-60%) scale(1) rotate(0deg); opacity:1; }
+}
+@keyframes comboGlow {
+  0%,100% { text-shadow:0 0 10px currentColor; }
+  50%     { text-shadow:0 0 30px currentColor, 0 0 60px currentColor; }
+}
+.combo-badge {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-60%);
+  z-index:20; pointer-events:none;
+  font-family:var(--ff-head); font-weight:900; text-align:center; line-height:1.15;
+  animation:comboPop .32s cubic-bezier(.34,1.56,.64,1) both, comboGlow 1s ease-in-out infinite;
+}
+@keyframes screenShake {
+  0%,100% { transform:translate(0); }
+  15%     { transform:translate(-7px,-2px) rotate(-.5deg); }
+  30%     { transform:translate(7px,2px) rotate(.5deg); }
+  45%     { transform:translate(-4px,-1px); }
+  60%     { transform:translate(4px,1px); }
+  75%     { transform:translate(-2px); }
+}
+.shake { animation:screenShake .38s ease both; }
+@keyframes staggerIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+.stagger>* { animation:staggerIn .3s ease both; }
+.stagger>*:nth-child(1){animation-delay:.04s;}.stagger>*:nth-child(2){animation-delay:.09s;}
+.stagger>*:nth-child(3){animation-delay:.14s;}.stagger>*:nth-child(4){animation-delay:.19s;}
+.stagger>*:nth-child(5){animation-delay:.24s;}.stagger>*:nth-child(6){animation-delay:.29s;}
+.stagger>*:nth-child(7){animation-delay:.34s;}.stagger>*:nth-child(8){animation-delay:.39s;}
+/* Dynamic pet color tokens */
+.pf-body { border-color:var(--pet-col,var(--green)) !important; box-shadow:0 0 24px color-mix(in srgb,var(--pet-col,#00ff88) 40%,transparent) !important; }
+.pet-aura { background:radial-gradient(circle,color-mix(in srgb,var(--pet-col,#00ff88) 20%,transparent) 0%,transparent 70%) !important; }
+.pet-stage-bg { background:radial-gradient(ellipse at 50% 70%,color-mix(in srgb,var(--pet-col,#00ff88) 14%,transparent) 0%,transparent 70%) !important; }
+.xp-fill { background:linear-gradient(90deg,var(--pet-col,var(--green)),var(--teal)) !important; }
+.pet-lv-badge { background:linear-gradient(135deg,var(--pet-col,var(--green)),var(--teal)) !important; }
+/* Level badge glow */
+.pet-lv-badge { box-shadow:0 4px 18px color-mix(in srgb,var(--pet-col,#00ff88) 45%,transparent); }
+/* Care button hover */
+.care-btn { transition:all .15s; }
+.care-btn:hover { background:var(--s2); border-color:rgba(255,255,255,.22); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.4); }
+/* Flash card stagger */
+.video-card { animation:staggerIn .35s ease both; }
 /* ONBOARDING */
 .ob { position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:calc(54px + var(--sat)) 22px calc(40px + var(--sab)); }
+.ob::before { content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 30%,rgba(0,255,136,.07) 0%,transparent 55%),radial-gradient(ellipse at 75% 70%,rgba(170,102,255,.07) 0%,transparent 55%);animation:bgshift 8s ease-in-out infinite alternate;pointer-events:none;z-index:-1; }
+@keyframes bgshift { from{filter:hue-rotate(0deg);}to{filter:hue-rotate(40deg);} }
 .ob-logo { font-family:var(--ff-head);font-size:54px;font-weight:900;letter-spacing:-3px;margin-bottom:6px; }
 .ob-logo span { color:var(--green); }
 .ob-tag { font-size:11px;color:var(--t3);letter-spacing:3px;text-transform:uppercase;margin-bottom:48px; }
@@ -1426,6 +1490,92 @@ const G = {
   mgScore:0, mgRecord:0, mgTimer:null,
 };
 
+/* ── SOUND ENGINE ── */
+const SFX = (() => {
+  let ctx = null;
+  const ac = () => { if(!ctx) try{ctx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){} return ctx; };
+  function tone(f,type='sine',dur=.1,vol=.1,delay=0,bend=null){
+    try{
+      const a=ac(); if(!a)return;
+      const o=a.createOscillator(),g=a.createGain(),now=a.currentTime+delay;
+      o.connect(g);g.connect(a.destination);
+      o.type=type; o.frequency.setValueAtTime(f,now);
+      if(bend)o.frequency.exponentialRampToValueAtTime(bend,now+dur);
+      g.gain.setValueAtTime(0,now);g.gain.linearRampToValueAtTime(vol,now+.01);
+      g.gain.exponentialRampToValueAtTime(.001,now+dur);
+      o.start(now);o.stop(now+dur+.01);
+    }catch(e){}
+  }
+  return {
+    tap:   ()=>{tone(900,'sine',.055,.08,0,500);},
+    coin:  ()=>{[760,1000,1280].forEach((f,i)=>tone(f,'triangle',.16,.09,i*.055));},
+    xp:    ()=>{tone(540,'triangle',.11,.07,0,860);},
+    lvl:   ()=>{[523,659,784,1047].forEach((f,i)=>tone(f,'square',.2,.1,i*.1));},
+    flash: ()=>{[380,560,840,1180].forEach((f,i)=>tone(f,'sine',.15,.09,i*.06));},
+    nav:   ()=>{tone(640,'sine',.065,.04);},
+    care:  ()=>{tone(480,'triangle',.1,.08,0,680);},
+    err:   ()=>{tone(220,'sawtooth',.2,.09,0,130);},
+    combo: (n)=>{tone(400+n*110,'square',.13,.11,0,420+n*160);},
+    streak:()=>{[600,750,900,1200,900,1200].forEach((f,i)=>tone(f,'sine',.18,.1,i*.07));},
+  };
+})();
+
+/* ── PET COLORS ── */
+const PET_COLORS = {
+  '🐉':'#00ff88','🐲':'#00ff88',
+  '🐺':'#4488ff',
+  '🦊':'#ff8844',
+  '🐱':'#ff66bb','😺':'#ff66bb','😼':'#ff66bb','🐈‍⬛':'#ff66bb',
+  '🐸':'#00ddcc',
+  '🦋':'#aa66ff','🐛':'#8899ff',
+  '🐻':'#ffaa44','🐻‍❄️':'#88ccff',
+  '🦁':'#ffcc00',
+  '🐯':'#ff6644',
+  '🐨':'#88dd88',
+};
+function petCol() { return PET_COLORS[gS().e] || PET_COLORS[G.petEmoji] || '#00ff88'; }
+
+/* ── CONFETTI ── */
+function confetti(count=64) {
+  const cols=['#00ff88','#ff3377','#4488ff','#ffcc00','#aa66ff','#ff8844','#00ddcc','#fff'];
+  for(let i=0;i<count;i++){
+    const d=document.createElement('div');
+    const col=cols[~~(Math.random()*cols.length)];
+    const x=10+Math.random()*80,size=5+Math.random()*9;
+    const delay=Math.random()*.55,dur=.9+Math.random()*1.1;
+    d.style.cssText=`position:fixed;left:${x}vw;top:-20px;width:${size}px;height:${size}px;background:${col};border-radius:${Math.random()<.45?'50%':'3px'};z-index:9998;pointer-events:none;animation:confettiFall ${dur}s ease-in ${delay}s both`;
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),(dur+delay+.2)*1000);
+  }
+}
+
+/* ── FLOAT TEXT ── */
+function floatTxt(txt,color='#00ff88',xPct,top='38%'){
+  const d=document.createElement('div');
+  d.className='fltxt';
+  d.textContent=txt;
+  d.style.cssText+=`left:${xPct||'50%'};top:${top};color:${color};text-shadow:0 0 14px ${color}`;
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),900);
+}
+
+/* ── COMBO SYSTEM ── */
+let _combo=0,_comboT=null,_comboMax=0;
+function showComboBadge(mult,count){
+  let el=document.getElementById('comboBadge');
+  if(!el){el=document.createElement('div');el.id='comboBadge';el.className='combo-badge';const wr=document.getElementById('petEmojiBig');if(wr&&wr.parentElement)wr.parentElement.appendChild(el);}
+  const labels={2:'DOUBLE!',3:'TRIPLE!',5:'LEGENDARY! 🔥'};
+  const colors={2:'#ffcc00',3:'#ff8844',5:'#ff3377'};
+  const c=colors[mult]||'#ffcc00';
+  el.innerHTML=`<div style="font-size:${mult===5?30:22}px;color:${c}">${labels[mult]||'COMBO!'}</div><div style="font-size:12px;color:rgba(255,255,255,.55)">${count} taps</div>`;
+  el.style.animation='none';el.offsetHeight;
+  el.style.animation='comboPop .32s cubic-bezier(.34,1.56,.64,1) both, comboGlow .9s ease-in-out infinite';
+}
+function hideComboBadge(){const el=document.getElementById('comboBadge');if(el)el.remove();}
+
+/* ── SCREEN SHAKE ── */
+function shakeApp(){const a=$('app');if(!a)return;a.classList.remove('shake');a.offsetHeight;a.classList.add('shake');setTimeout(()=>a.classList.remove('shake'),400);}
+
 /* ── EVOLUTION DATA ── */
 const EVOL = {
   '🐉':[{l:1,e:'🐉',s:'BABY DRAGON',g:''},{l:5,e:'🐲',s:'FIRE DRAGON',g:'🔥'},{l:10,e:'🐲',s:'ELDER DRAGON',g:'👑'},{l:20,e:'🐲',s:'LEGEND',g:'⚡'}],
@@ -1575,29 +1725,63 @@ function save() {
 }
 
 /* ── GAME LOOP ── */
-function gainCoins(n) { G.coins += n; updateHUD(); if(n>0) { cp(n); vibe(20); } }
+function gainCoins(n) {
+  G.coins += n; updateHUD();
+  if(n>0) { if(n>=5) SFX.coin(); cp(n); vibe(12); }
+}
 function gainXP(n, stat) {
   G.exp += n;
-  if(stat==='action')    G.actionStat    += Math.ceil(n/4);
+  if(stat==='action')        G.actionStat   += Math.ceil(n/4);
   else if(stat==='commerce') G.commerceStat += Math.ceil(n/4);
   else if(stat==='social')   G.socialStat   += Math.ceil(n/4);
   G.trustScore = Math.min(100, G.trustScore + Math.ceil(n/20));
+  if(n>=10) SFX.xp();
   while(G.exp >= xpN(G.level)) { G.exp -= xpN(G.level); G.level++; triggerLvlUp(); }
   updateHUD(); updatePet();
 }
 function triggerLvlUp() {
-  vibe([50,30,100]); const s = gS();
+  vibe([50,30,100,30,80]); SFX.lvl(); confetti(70);
+  const s = gS();
   $('lvlPet').textContent = s.e;
   $('lvlTitle').textContent = `LEVEL ${G.level}!`;
   $('lvlSub').textContent = `${G.petName} — ${s.s}`;
   $('lvlSplash').classList.add('show');
   petReact('happy'); addH(`⬆️ Level ${G.level}!`);
+  shakeApp();
 }
-function pcFeed()  { if(G.coins<10){showT('❌ Need 10 coins!','r');return;} G.coins-=10; G.hunger=Math.min(100,G.hunger+30); G.mood=Math.min(100,G.mood+5); petReact('happy'); addH(`🍖 ${G.petName} matad`); showT('🍖 +30 HUNGER','g'); vibe(20); updateHUD(); updatePet(); }
-function pcTrain() { if(G.energy<20){showT('❌ Ingen energi! Sov först.','r');return;} G.energy-=20; gainXP(15,'action'); petReact('happy'); addH(`🏋️ ${G.petName} tränade`); showT('🏋️ −20E +15XP','g'); vibe(20); updateHUD(); updatePet(); }
-function pcSleep() { G.energy=Math.min(100,G.energy+40); G.mood=Math.min(100,G.mood+10); petReact('happy'); addH(`😴 ${G.petName} sov`); showT('😴 +40E +10😊','g'); vibe(15); updateHUD(); updatePet(); }
-function pcPlay()  { if(G.energy<10){showT('❌ Ingen energi! Sov först.','r');return;} G.energy-=10; G.mood=Math.min(100,G.mood+25); gainCoins(5); gainXP(5,'social'); petReact('happy'); addH(`🎮 ${G.petName} lekte`); showT('🎮 −10E +5💰 +5XP','g'); }
-function petTap()  { gainXP(1,'social'); gainCoins(1); vibe(15); showT('+1XP +1⚡','g'); }
+function pcFeed()  {
+  if(G.coins<10){SFX.err();showT('❌ Need 10 coins!','r');vibe([40,20,40]);return;}
+  G.coins-=10; G.hunger=Math.min(100,G.hunger+30); G.mood=Math.min(100,G.mood+5);
+  SFX.care(); petReact('happy'); addH(`🍖 ${G.petName} matad`);
+  floatTxt('🍖 +30 HUNGER',petCol()); showT('🍖 Maten!','g'); vibe(20); updateHUD(); updatePet();
+}
+function pcTrain() {
+  if(G.energy<20){SFX.err();showT('❌ Ingen energi! Sov först.','r');vibe([40,20,40]);return;}
+  G.energy-=20; gainXP(15,'action'); SFX.care(); petReact('happy');
+  addH(`🏋️ ${G.petName} tränade`); floatTxt('+15 XP',petCol()); showT('🏋️ −20E +15XP','g'); vibe(20); updateHUD(); updatePet();
+}
+function pcSleep() {
+  G.energy=Math.min(100,G.energy+40); G.mood=Math.min(100,G.mood+10);
+  SFX.care(); petReact('happy'); addH(`😴 ${G.petName} sov`);
+  floatTxt('😴 +40 ENERGY','#4488ff'); showT('😴 +40E +10😊','g'); vibe(15); updateHUD(); updatePet();
+}
+function pcPlay()  {
+  if(G.energy<10){SFX.err();showT('❌ Ingen energi! Sov först.','r');vibe([40,20,40]);return;}
+  G.energy-=10; G.mood=Math.min(100,G.mood+25); gainCoins(5); gainXP(5,'social');
+  SFX.care(); petReact('happy'); addH(`🎮 ${G.petName} lekte`);
+  floatTxt('🎮 LEKTE!',petCol()); showT('🎮 −10E +5💰 +5XP','g');
+}
+function petTap() {
+  SFX.tap();
+  _combo++; clearTimeout(_comboT);
+  _comboT = setTimeout(() => { _combo=0; _comboMax=0; hideComboBadge(); }, 1200);
+  const mult = _combo>=10?5:_combo>=6?3:_combo>=3?2:1;
+  if(mult>1){ SFX.combo(mult); if(mult>_comboMax){ _comboMax=mult; vibe([15,10,15,10,30]); } showComboBadge(mult,_combo); }
+  gainXP(mult,'social'); gainCoins(mult);
+  const col=petCol();
+  floatTxt(mult>1?`x${mult} COMBO! +${mult}XP`:`+1XP`,col,null,'36%');
+  vibe(10);
+}
 function petReact(m) {
   const b = $('pfBody');
   const moods = {happy:'🤩', hungry:'😢', default: G.mood>70?'😊':G.mood>40?'😐':'😕'};
@@ -1638,6 +1822,10 @@ function updateHUD() {
 
 function updatePet() {
   const s = gS();
+  // Apply pet color theme
+  const col = petCol();
+  document.documentElement.style.setProperty('--pet-col', col);
+
   const need = xpN(G.level);
   const pct  = Math.min(100, (G.exp/need)*100);
 
@@ -1678,10 +1866,9 @@ function updatePet() {
 function initParticles() {
   const el = $('petParticles'); el.innerHTML = '';
   const lvl = G.level;
-  const count = Math.min(20, 4 + lvl * 2);
-  const colors = [
-    'var(--green)', 'var(--teal)', 'var(--pink)', 'var(--gold)', 'var(--purple)'
-  ];
+  const count = Math.min(28, 5 + lvl * 2);
+  const col = petCol();
+  const colors = [col, col, 'var(--teal)', 'var(--pink)', 'var(--gold)', 'var(--purple)'];
   for(let i = 0; i < count; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
@@ -1742,12 +1929,24 @@ function buyGear(id) {
 function mgTap() {
   G.mgScore++;
   $('mgScore').textContent = G.mgScore;
-  if(G.mgScore > G.mgRecord) { G.mgRecord = G.mgScore; $('mgRec').textContent = G.mgRecord; }
-  $('mgBtn').style.transform = 'scale(.8)';
-  setTimeout(() => $('mgBtn').style.transform = 'scale(1)', 100);
-  if(G.mgScore % 10 === 0) { gainXP(5,'action'); gainCoins(1); showT('🎯 +5XP +1⚡','g'); }
+  const isRecord = G.mgScore > G.mgRecord;
+  if(isRecord) { G.mgRecord = G.mgScore; $('mgRec').textContent = G.mgRecord; }
+  SFX.tap();
+  $('mgBtn').style.transform = 'scale(.75)';
+  setTimeout(() => $('mgBtn').style.transform = 'scale(1)', 90);
+  if(G.mgScore % 10 === 0) {
+    gainXP(5,'action'); gainCoins(1);
+    SFX.combo(Math.min(5,~~(G.mgScore/10)));
+    floatTxt(`🎯 +5XP`,petCol());
+    showT(`🎯 +5XP +1💰 (${G.mgScore} taps!)`, 'g');
+  }
   clearTimeout(G.mgTimer);
-  G.mgTimer = setTimeout(() => { G.mgScore = 0; $('mgScore').textContent = '0'; showT(`Rekord: ${G.mgRecord}!`,'y'); }, 1500);
+  G.mgTimer = setTimeout(() => {
+    const best = G.mgScore >= G.mgRecord && G.mgScore > 0;
+    if(best) { SFX.xp(); showT(`🏆 Nytt rekord: ${G.mgRecord}!`,'y'); }
+    else if(G.mgScore>0) showT(`Rekord: ${G.mgRecord}!`,'y');
+    G.mgScore = 0; $('mgScore').textContent = '0';
+  }, 1500);
 }
 
 /* ── FLASH FEED (Video-first) ── */
@@ -1825,7 +2024,7 @@ function setFlashTab(t, el) {
 function likeFlash(id, btn) {
   const p = FLASH_DATA.find(x=>x.id===id); if(!p) return;
   if(G.likedPosts.has(id)) { G.likedPosts.delete(id); p.likes--; }
-  else { G.likedPosts.add(id); p.likes++; gainXP(2,'social'); vibe(15); }
+  else { G.likedPosts.add(id); p.likes++; gainXP(2,'social'); SFX.coin(); vibe(15); floatTxt('❤️ +2XP','#ff3377'); }
   const ico = $(`fli${id}`);
   ico.textContent = G.likedPosts.has(id) ? '❤️' : '🤍';
   ico.className = `vca-ico ${G.likedPosts.has(id)?'liked':''}`;
@@ -1855,21 +2054,26 @@ function submitFlash() {
   G.streak++; G.postCount++;
   FLASH_DATA.unshift({id:'fl'+Date.now(), user:G.name||'Du', pet:gS().e, lvl:G.level, up:'Daglig Flash #'+G.postCount, cap:cap||'⚡ Flash!', xp:'+20 XP', likes:0, streak:G.streak, live:false});
   gainXP(20,'social'); gainCoins(10);
+  SFX.flash(); confetti(45);
   G.flashImg = null; $('flashCaption').value = '';
   $('flashPrev').style.display = 'none'; $('flashPH').style.display = '';
   $('flashUpArea').style.borderColor = '';
   closeModal('flashModal');
   renderFlashFeed(); updateHUD(); updatePet();
-  vibe([30,20,80]); addH(`⚡ Flash #${G.streak} postad!`, 'var(--pink)');
+  vibe([30,20,80,20,80]); addH(`⚡ Flash #${G.streak} postad!`, 'var(--pink)');
   showT(`⚡ FLASH! 🔥 ${G.streak}d STREAK`, 'pk');
-  if(G.streak % 7 === 0) { $('streakDays').textContent=G.streak; $('streakTitle').textContent=`🔥 ${G.streak} DAGAR!`; $('streakSplash').classList.add('show'); }
+  if(G.streak % 7 === 0) {
+    SFX.streak(); confetti(90);
+    $('streakDays').textContent=G.streak; $('streakTitle').textContent=`🔥 ${G.streak} DAGAR!`;
+    $('streakSplash').classList.add('show');
+  }
   nav('flash');
 }
 
 /* ── CIRCLES ── */
 function renderCircles() {
   const all = [...CIRCLES_DATA, ...G.circles];
-  $('circleList').innerHTML = all.map(c => `
+  $('circleList').innerHTML = '<div class="stagger">' + all.map(c => `
     <div class="circle-card" onclick="openCircle('${c.id}')">
       <div class="cc-top" style="background:linear-gradient(135deg,${c.col}33,${c.col}11)">
         <div class="cc-emoji">${c.em}</div>
@@ -1891,7 +2095,7 @@ function renderCircles() {
         </div>
         <div class="cc-last-msg">${c.lastMsg||''}</div>
       </div>
-    </div>`).join('');
+    </div>`).join('') + '</div>';
 }
 
 function openCircle(id) {
@@ -1958,7 +2162,7 @@ function renderUppdrag() {
   const src = G.upFilter==='mine' ? G.myUppdrag
     : G.upFilter==='all' ? all
     : all.filter(u => u.type===G.upFilter || u.cType===G.upFilter);
-  $('uppdragList').innerHTML = src.length ? src.map(u => `
+  $('uppdragList').innerHTML = '<div class="stagger">' + (src.length ? src.map(u => `
     <div class="uc ${u.co&&u.verified?'vgreen':''} ${u.featured?'vgold':''}" onclick="openUppdragDetail('${u.id}')">
       ${u.co ? `<div class="uc-co">
         <div class="uc-co-logo">${u.coEm||'👤'}</div>
@@ -1987,7 +2191,7 @@ function renderUppdrag() {
         <div class="uc-dead">⏱ ${u.deadline}</div>
       </div>
     </div>`).join('')
-    : `<div style="text-align:center;padding:48px 20px"><div style="font-size:48px;opacity:.15;margin-bottom:12px">🎯</div><div style="font-size:14px;color:var(--t3)">Inga uppdrag.</div></div>`;
+    : `<div style="text-align:center;padding:48px 20px"><div style="font-size:48px;opacity:.15;margin-bottom:12px">🎯</div><div style="font-size:14px;color:var(--t3)">Inga uppdrag.</div></div>`) + '</div>';
 }
 document.querySelectorAll('#ufilters .uf').forEach(f => f.addEventListener('click', () => {
   document.querySelectorAll('#ufilters .uf').forEach(x => x.classList.remove('on'));
@@ -2025,6 +2229,7 @@ function claimUppdrag(id) {
   gainCoins(u.coins||0);
   if(u.sek) G.totalSEK += u.sek;
   G.bountiesDone++;
+  SFX.flash(); confetti(50);
   vibe([50,30,100,30,80]);
   $('spIco').textContent = '🎯';
   $('spLbl').textContent = 'UPPDRAG KLART!';
@@ -2211,7 +2416,7 @@ function nav(name) {
   document.querySelectorAll('.nb[data-v]').forEach(b => b.classList.remove('on'));
   const v = $(`view-${name}`); if(v) v.classList.add('active');
   const btn = document.querySelector(`.nb[data-v="${name}"]`); if(btn) btn.classList.add('on');
-  vibe(8);
+  SFX.nav(); vibe(8);
   const R = {
     pet:     () => { initParticles(); updatePet(); },
     flash:   () => renderFlashFeed(),
@@ -2253,6 +2458,7 @@ function finishOB() {
   $('ob').style.display = 'none';
   $('app').style.display = 'flex';
   save(); updateHUD(); nav('pet');
+  SFX.lvl(); confetti(80);
   vibe([50,30,100,30,80]);
   showT(`⚡ WELCOME ${G.name.toUpperCase()}!`, 'g');
   addH(`🎮 ${G.name} joined KARMA!`);
