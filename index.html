@@ -939,10 +939,205 @@ textarea.inp { resize:none;min-height:72px; }
 .care-btn:hover { background:var(--s2); border-color:rgba(255,255,255,.22); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.4); }
 /* Flash card stagger */
 .video-card { animation:staggerIn .35s ease both; }
-/* ONBOARDING */
-.ob { position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:calc(54px + var(--sat)) 22px calc(40px + var(--sab)); }
-.ob::before { content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 30%,rgba(0,255,136,.07) 0%,transparent 55%),radial-gradient(ellipse at 75% 70%,rgba(170,102,255,.07) 0%,transparent 55%);animation:bgshift 8s ease-in-out infinite alternate;pointer-events:none;z-index:-1; }
-@keyframes bgshift { from{filter:hue-rotate(0deg);}to{filter:hue-rotate(40deg);} }
+/* ══════════════════════
+   🎮 GAMES VIEW
+══════════════════════ */
+#view-games { padding-top:calc(52px + var(--sat)); background:radial-gradient(ellipse at 50% 0%,rgba(68,136,255,.1) 0%,transparent 60%),var(--bg); }
+.games-hdr { padding:16px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+.games-title { font-family:var(--ff-head); font-size:28px; font-weight:900; }
+.game-tabs { display:flex; gap:8px; padding:0 14px 14px; flex-shrink:0; }
+.gtab { padding:8px 18px; border-radius:20px; background:var(--s1); border:1px solid var(--line); font-size:13px; font-weight:700; cursor:pointer; color:var(--t2); transition:all .15s; flex-shrink:0; }
+.gtab.on { background:var(--blue); color:#fff; border-color:var(--blue); box-shadow:0 4px 18px rgba(68,136,255,.4); }
+
+/* Game Card Container */
+.game-panel { display:none; padding:0 14px; }
+.game-panel.active { display:block; }
+
+/* ── BATTLE GAME ── */
+.battle-arena {
+  background:var(--s1); border:1px solid var(--line); border-radius:24px;
+  padding:20px 16px; margin-bottom:14px; position:relative; overflow:hidden;
+}
+.battle-arena::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%,rgba(255,51,119,.07) 0%,transparent 60%); pointer-events:none; }
+.battle-fighters { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.fighter { text-align:center; }
+.fighter-em { font-size:72px; display:block; filter:drop-shadow(0 0 20px var(--pet-col,#00ff88)); animation:petbounce 2.4s ease-in-out infinite; }
+.fighter.enemy .fighter-em { animation-direction:reverse; filter:drop-shadow(0 0 20px var(--pink)); }
+.fighter-name { font-family:var(--ff-head); font-size:13px; font-weight:800; margin-top:6px; }
+.fighter-lv { font-size:10px; color:var(--t3); }
+.hp-wrap { margin-bottom:10px; }
+.hp-label { display:flex; justify-content:space-between; font-size:10px; font-weight:700; color:var(--t3); margin-bottom:4px; }
+.hp-track { height:10px; background:var(--s3); border-radius:100px; overflow:hidden; }
+.hp-fill { height:100%; border-radius:100px; transition:width .4s cubic-bezier(.34,1.56,.64,1); }
+.hp-fill.you { background:linear-gradient(90deg,var(--green),var(--teal)); }
+.hp-fill.enemy { background:linear-gradient(90deg,var(--red),var(--pink)); }
+.vs-badge { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--pink),var(--purple)); display:flex; align-items:center; justify-content:center; font-family:var(--ff-head); font-size:14px; font-weight:900; color:#fff; box-shadow:0 0 20px rgba(255,51,119,.4); flex-shrink:0; }
+.battle-moves { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:6px; }
+.move-btn {
+  background:var(--s2); border:1.5px solid var(--line); border-radius:16px;
+  padding:14px 8px; text-align:center; cursor:pointer; transition:all .15s;
+}
+.move-btn:active { transform:scale(.9); }
+.move-ico { font-size:28px; display:block; margin-bottom:5px; }
+.move-name { font-size:11px; font-weight:800; }
+.move-cost { font-size:9px; color:var(--t3); margin-top:2px; }
+.battle-log { background:var(--s2); border-radius:12px; padding:12px 14px; font-size:12px; color:var(--t2); line-height:1.6; margin-top:10px; min-height:44px; }
+@keyframes hitShake { 0%,100%{transform:translateX(0);}25%{transform:translateX(-10px);}75%{transform:translateX(10px);} }
+.fighter.hit { animation:hitShake .25s ease; }
+
+/* ── SPEED TAP GAME ── */
+.speed-arena {
+  position:relative; height:360px; background:var(--s1); border:1px solid var(--line);
+  border-radius:24px; overflow:hidden; margin-bottom:14px; touch-action:none;
+}
+.speed-arena-bg { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%,rgba(0,255,136,.04) 0%,transparent 70%); }
+.speed-hud { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; }
+.speed-score-big { font-family:var(--ff-head); font-size:48px; font-weight:900; color:var(--green); line-height:1; }
+.speed-timer-ring { width:56px; height:56px; position:relative; }
+.speed-tap-target {
+  position:absolute; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:28px; border:3px solid; animation:targetPop .15s cubic-bezier(.34,1.56,.64,1) both;
+  box-shadow:0 0 16px currentColor; transition:transform .1s;
+}
+.speed-tap-target:active { transform:scale(.7); }
+@keyframes targetPop { from{transform:scale(0);}to{transform:scale(1);} }
+@keyframes targetShrink { from{transform:scale(1);}to{transform:scale(0) rotate(180deg);opacity:0;} }
+.target-timer { position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); width:100%; height:3px; background:rgba(255,255,255,.2); border-radius:2px; overflow:hidden; }
+.target-timer-fill { height:100%; background:currentColor; transition:none; }
+.speed-start-btn { display:flex; align-items:center; justify-content:center; height:100%; }
+
+/* ── MEMORY GAME ── */
+.memory-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:14px; margin-bottom:14px; }
+.mem-card {
+  aspect-ratio:1; border-radius:14px; background:var(--s2); border:2px solid var(--line);
+  display:flex; align-items:center; justify-content:center; font-size:28px;
+  cursor:pointer; transition:all .22s cubic-bezier(.34,1.56,.64,1);
+  perspective:200px; user-select:none;
+}
+.mem-card.flipped { background:var(--s1); border-color:var(--green); transform:rotateY(180deg); }
+.mem-card.matched { border-color:var(--gold); background:rgba(255,204,0,.08); animation:matchPop .35s cubic-bezier(.34,1.56,.64,1); }
+.mem-card.back { color:transparent; background:linear-gradient(135deg,var(--s2),var(--s3)); }
+@keyframes matchPop { 0%{transform:scale(1);}50%{transform:scale(1.18);}100%{transform:scale(1);} }
+.mem-stats { display:flex; justify-content:space-around; background:var(--s1); border:1px solid var(--line); border-radius:16px; padding:12px 16px; margin:0 14px 14px; }
+.mem-stat { text-align:center; }
+.mem-stat-v { font-family:var(--ff-head); font-size:24px; font-weight:900; }
+.mem-stat-l { font-size:9px; color:var(--t3); text-transform:uppercase; letter-spacing:.8px; }
+
+/* ══════════════════════
+   📅 DAILY MISSIONS
+══════════════════════ */
+.missions-card {
+  margin:0 16px 16px; background:var(--s1); border:1px solid var(--line);
+  border-radius:20px; overflow:hidden;
+}
+.missions-hdr { display:flex; align-items:center; justify-content:space-between; padding:14px 16px 10px; }
+.missions-title { font-size:11px; font-weight:700; color:var(--t3); text-transform:uppercase; letter-spacing:.8px; }
+.missions-refresh { font-size:10px; color:var(--t3); }
+.mission-row { padding:10px 16px; border-top:1px solid var(--line); display:flex; align-items:center; gap:12px; cursor:pointer; transition:background .1s; }
+.mission-row:active { background:var(--s2); }
+.mission-row.done { opacity:.55; }
+.m-ico { font-size:22px; width:30px; text-align:center; flex-shrink:0; }
+.m-info { flex:1; min-width:0; }
+.m-name { font-size:13px; font-weight:700; }
+.m-prog-wrap { height:4px; background:var(--s3); border-radius:2px; margin-top:5px; overflow:hidden; }
+.m-prog { height:100%; background:linear-gradient(90deg,var(--green),var(--teal)); border-radius:2px; transition:width .5s ease; }
+.m-rwd { font-size:12px; font-weight:800; color:var(--gold); flex-shrink:0; }
+.mission-row.done .m-rwd::before { content:'✓ '; color:var(--green); }
+
+/* ══════════════════════
+   🎰 SPIN WHEEL
+══════════════════════ */
+.spin-wrap { display:flex; flex-direction:column; align-items:center; padding:20px; }
+.spin-outer { position:relative; width:260px; height:260px; margin-bottom:20px; }
+.spin-canvas { width:260px; height:260px; border-radius:50%; position:relative; overflow:hidden; border:4px solid rgba(255,255,255,.15); box-shadow:0 0 40px rgba(0,255,136,.2); transition:transform 3s cubic-bezier(.17,.67,.12,1); }
+.spin-pointer { position:absolute; top:-12px; left:50%; transform:translateX(-50%); font-size:26px; z-index:10; filter:drop-shadow(0 2px 6px rgba(0,0,0,.8)); }
+.spin-segment { position:absolute; width:50%; height:50%; transform-origin:100% 100%; display:flex; align-items:center; justify-content:flex-start; padding:18px 0 0 10px; font-size:20px; }
+.spin-won { font-family:var(--ff-head); font-size:22px; font-weight:900; color:var(--green); text-align:center; margin-bottom:16px; }
+
+/* ══════════════════════
+   ⚡ STORIES
+══════════════════════ */
+.stories-bar { display:flex; gap:10px; overflow-x:auto; scrollbar-width:none; padding:8px 14px 4px; }
+.stories-bar::-webkit-scrollbar { display:none; }
+.story-item { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; flex-shrink:0; }
+.story-ring-wrap { position:relative; }
+.story-ring {
+  width:58px; height:58px; border-radius:50%; padding:3px;
+  background:conic-gradient(var(--pink),var(--purple),var(--blue),var(--pink));
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .15s;
+}
+.story-ring:active { transform:scale(.9); }
+.story-ring.seen { background:conic-gradient(var(--s3),var(--s3)); }
+.story-ring.add-btn { background:var(--s2); border:2px dashed rgba(255,255,255,.2); }
+.story-inner { width:50px; height:50px; border-radius:50%; background:var(--s2); display:flex; align-items:center; justify-content:center; font-size:24px; }
+.story-name { font-size:9px; color:rgba(255,255,255,.6); max-width:62px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:center; }
+/* Story overlay */
+.story-overlay { position:fixed; inset:0; z-index:950; background:#000; display:flex; flex-direction:column; transform:translateY(100%); transition:transform .28s cubic-bezier(.32,.72,0,1); }
+.story-overlay.open { transform:translateY(0); }
+.story-ov-bar { display:flex; gap:3px; padding:12px 12px 8px; }
+.story-seg { flex:1; height:3px; background:rgba(255,255,255,.25); border-radius:2px; overflow:hidden; }
+.story-seg-fill { height:100%; background:#fff; width:0%; transition:width linear; }
+.story-ov-hdr { display:flex; align-items:center; gap:10px; padding:0 14px 10px; }
+.story-ov-content { flex:1; display:flex; align-items:center; justify-content:center; font-size:100px; position:relative; }
+.story-close { position:absolute; top:14px; right:14px; width:34px; height:34px; background:rgba(0,0,0,.5); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; z-index:10; }
+
+/* ══════════════════════
+   🏰 TERRITORY ZONES
+══════════════════════ */
+.world-view { display:none; flex-direction:column; height:100%; }
+.world-view.active { display:flex; }
+.zone-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; padding:10px 12px; flex:1; }
+.zone { aspect-ratio:1; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; cursor:pointer; transition:all .15s; position:relative; border:2px solid transparent; }
+.zone:active { transform:scale(.88); }
+.zone.mine { border-color:var(--pet-col,var(--green)) !important; box-shadow:0 0 12px color-mix(in srgb,var(--pet-col,#00ff88) 50%,transparent); }
+.zone.friend { opacity:.75; }
+.zone.unclaimed { background:var(--s1); border-color:var(--line); }
+.zone-lv { position:absolute; bottom:-2px; right:-2px; background:var(--bg); border-radius:4px; font-size:8px; font-weight:800; padding:1px 4px; }
+.world-hud { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:var(--s1); border-top:1px solid var(--line); flex-shrink:0; }
+
+/* ══════════════════════
+   🎯 SEASON PASS
+══════════════════════ */
+.sp-card { margin:0 16px 14px; background:linear-gradient(135deg,rgba(170,102,255,.08),rgba(68,136,255,.05)); border:1px solid rgba(170,102,255,.25); border-radius:20px; padding:16px; overflow:hidden; position:relative; }
+.sp-card::before { content:'SEASON 1'; position:absolute; right:16px; top:12px; font-size:9px; font-weight:800; color:rgba(170,102,255,.6); letter-spacing:2px; }
+.sp-track { display:flex; gap:0; margin:12px 0 6px; }
+.sp-node { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; border:2px solid; flex-shrink:0; position:relative; cursor:pointer; transition:all .15s; }
+.sp-node:active { transform:scale(.88); }
+.sp-node.done { background:var(--purple); border-color:var(--purple); box-shadow:0 0 12px rgba(170,102,255,.5); }
+.sp-node.current { background:rgba(170,102,255,.2); border-color:var(--purple); animation:spPulse 1.5s ease-in-out infinite; }
+.sp-node.locked { background:var(--s2); border-color:var(--line); opacity:.5; }
+@keyframes spPulse { 0%,100%{box-shadow:0 0 8px rgba(170,102,255,.3);}50%{box-shadow:0 0 20px rgba(170,102,255,.7);} }
+.sp-line { flex:1; height:2px; background:var(--s3); align-self:center; }
+.sp-line.done { background:linear-gradient(90deg,var(--purple),var(--blue)); }
+.sp-label { font-size:10px; color:var(--t3); }
+
+/* VIEW BACKGROUNDS */
+#view-pet   { background:radial-gradient(ellipse at 50% 0%,rgba(0,255,136,.05) 0%,transparent 50%),var(--bg); }
+#view-flash { background:var(--bg); }
+#view-lb    { background:radial-gradient(ellipse at 50% 0%,rgba(255,204,0,.05) 0%,transparent 50%),var(--bg); }
+#view-profile { background:var(--bg); }
+#view-map   { background:var(--bg); }
+#view-uppdrag { background:radial-gradient(ellipse at 80% 0%,rgba(255,204,0,.04) 0%,transparent 50%),var(--bg); }
+
+/* GLASS effect */
+.glass { background:rgba(255,255,255,.04) !important; backdrop-filter:blur(16px); }
+
+/* Active nav glow */
+.nb.on .ni { filter:drop-shadow(0 0 10px var(--pet-col,var(--green))) !important; }
+.nb.on .nl { color:var(--pet-col,var(--green)) !important; }
+
+/* Pet speech bubble */
+@keyframes bubblePop { 0%{transform:scale(0) translateY(10px);opacity:0;}60%{transform:scale(1.08) translateY(-2px);opacity:1;}100%{transform:scale(1) translateY(0);opacity:1;} }
+.pet-bubble { position:absolute; top:-60px; left:50%; transform:translateX(-50%); background:var(--s1); border:1.5px solid var(--line); border-radius:14px; padding:7px 14px; font-size:12px; font-weight:600; white-space:nowrap; z-index:10; animation:bubblePop .3s cubic-bezier(.34,1.56,.64,1) both; pointer-events:none; }
+.pet-bubble::after { content:''; position:absolute; bottom:-7px; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:var(--line); }
+
+/* Streak fire on HUD */
+@keyframes fireDance { 0%,100%{transform:scaleY(1) rotate(-2deg);}50%{transform:scaleY(1.15) rotate(2deg);} }
+.streak-fire { display:inline-block; animation:fireDance .6s ease-in-out infinite; }
+
+/* Reward splash upgrade */
+.splash { background:radial-gradient(ellipse at 50% 40%,rgba(0,255,136,.08) 0%,rgba(0,0,0,.97) 60%) !important; }
 .ob-logo { font-family:var(--ff-head);font-size:54px;font-weight:900;letter-spacing:-3px;margin-bottom:6px; }
 .ob-logo span { color:var(--green); }
 .ob-tag { font-size:11px;color:var(--t3);letter-spacing:3px;text-transform:uppercase;margin-bottom:48px; }
@@ -1020,9 +1215,14 @@ textarea.inp { resize:none;min-height:72px; }
           <div class="ddr" onclick="cM();nav('map')"><div class="ddr-i">🗺️</div>Live Karta</div>
         </div>
         <div class="dd-sec">
+          <div class="ddr" onclick="cM();nav('circles')"><div class="ddr-i">⭕</div>Karma Circles</div>
+          <div class="ddr" onclick="cM();nav('uppdrag')"><div class="ddr-i">🎯</div>Uppdrag</div>
+        </div>
+        <div class="dd-sec">
           <div class="ddr" onclick="cM();nav('lb')"><div class="ddr-i">🏆</div>Leaderboard</div>
           <div class="ddr" onclick="cM();nav('profile')"><div class="ddr-i">👤</div>Profil</div>
           <div class="ddr" onclick="cM();openModal('aiModal')"><div class="ddr-i">🤖</div>KARMA AI</div>
+          <div class="ddr" onclick="cM();openSpinWheel()"><div class="ddr-i">🎰</div>Daglig Spin</div>
         </div>
       </div>
     </div>
@@ -1127,6 +1327,15 @@ textarea.inp { resize:none;min-height:72px; }
         </div>
       </div>
 
+      <!-- Daily missions -->
+      <div class="missions-card" id="missionsCard">
+        <div class="missions-hdr">
+          <div class="missions-title">📅 Dagliga uppdrag</div>
+          <div class="missions-refresh" id="missionsRefresh">Ny omgång imorgon</div>
+        </div>
+        <div id="missionsList"></div>
+      </div>
+
       <!-- Gear row -->
       <div class="sh"><div class="sh-t">GEAR</div><div class="sh-a" onclick="openGearShop()">SHOP →</div></div>
       <div id="gearRow" style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 16px"></div>
@@ -1155,6 +1364,8 @@ textarea.inp { resize:none;min-height:72px; }
           <div class="ftab" onclick="setFlashTab('uppdrag',this)">Uppdrag</div>
         </div>
       </div>
+      <!-- Stories bar -->
+      <div class="stories-bar" id="storiesBar"></div>
       <!-- Streak circles -->
       <div class="streak-bar" id="streakBar"></div>
       <!-- Full-screen video feed -->
@@ -1226,6 +1437,83 @@ textarea.inp { resize:none;min-height:72px; }
       </div>
     </div>
 
+    <!-- 🎮 GAMES -->
+    <div class="view" id="view-games">
+      <div class="games-hdr">
+        <div class="games-title">🎮 Games</div>
+        <div style="font-size:11px;color:var(--blue);font-weight:700" id="gamesXPToday">+0 XP idag</div>
+      </div>
+      <div class="game-tabs">
+        <div class="gtab on" onclick="switchGame('battle',this)">🥊 BATTLE</div>
+        <div class="gtab" onclick="switchGame('speed',this)">⚡ REACT</div>
+        <div class="gtab" onclick="switchGame('memory',this)">🧠 MEMORY</div>
+      </div>
+
+      <!-- BATTLE -->
+      <div class="game-panel active" id="gp-battle">
+        <div class="battle-arena">
+          <div class="hp-wrap">
+            <div class="hp-label"><span>DU</span><span id="bHpYouLbl">100 HP</span></div>
+            <div class="hp-track"><div class="hp-fill you" id="bHpYou" style="width:100%"></div></div>
+          </div>
+          <div class="battle-fighters">
+            <div class="fighter" id="bFightYou">
+              <span class="fighter-em" id="bEmYou">🐉</span>
+              <div class="fighter-name" id="bNameYou">Du</div>
+              <div class="fighter-lv" id="bLvYou">LV1</div>
+            </div>
+            <div class="vs-badge">VS</div>
+            <div class="fighter enemy" id="bFightEnemy">
+              <span class="fighter-em" id="bEmEnemy">🐺</span>
+              <div class="fighter-name" id="bNameEnemy">maxruns</div>
+              <div class="fighter-lv" id="bLvEnemy">LV11</div>
+            </div>
+          </div>
+          <div class="hp-wrap">
+            <div class="hp-label"><span id="bNameEnemyLbl">maxruns</span><span id="bHpEnemyLbl">100 HP</span></div>
+            <div class="hp-track"><div class="hp-fill enemy" id="bHpEnemy" style="width:100%"></div></div>
+          </div>
+          <div class="battle-log" id="battleLog">Välj ditt drag för att starta striden!</div>
+        </div>
+        <div class="battle-moves">
+          <div class="move-btn" onclick="battleMove('attack')"><span class="move-ico">⚔️</span><div class="move-name">ATTACK</div><div class="move-cost">15–25 dmg</div></div>
+          <div class="move-btn" onclick="battleMove('defend')"><span class="move-ico">🛡️</span><div class="move-name">DEFEND</div><div class="move-cost">−50% skada</div></div>
+          <div class="move-btn" onclick="battleMove('special')"><span class="move-ico">⚡</span><div class="move-name">SPECIAL</div><div class="move-cost">35–50 dmg −20E</div></div>
+        </div>
+        <button class="btn btn-ghost btn-full btn-sm" style="margin:8px 0" onclick="initBattle()">🔄 Ny motståndare</button>
+      </div>
+
+      <!-- SPEED TAP -->
+      <div class="game-panel" id="gp-speed">
+        <div class="speed-arena" id="speedArena">
+          <div class="speed-arena-bg"></div>
+          <div id="speedHud" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;position:relative;z-index:5">
+            <div><div style="font-size:10px;color:var(--t3);font-weight:700">POÄNG</div><div class="speed-score-big" id="speedScore">0</div></div>
+            <div style="text-align:right"><div style="font-size:10px;color:var(--t3);font-weight:700">TID</div><div style="font-family:var(--ff-head);font-size:36px;font-weight:900;color:var(--gold)" id="speedTimer">30</div></div>
+          </div>
+          <div class="speed-start-btn" id="speedStartArea">
+            <button class="btn btn-g btn-lg" onclick="startSpeedGame()">⚡ STARTA</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin:10px 0">
+          <div class="sp-r" style="flex:1;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center"><div style="font-family:var(--ff-head);font-size:22px;color:var(--gold)" id="speedBest">0</div><div style="font-size:9px;color:var(--t3)">REKORD</div></div>
+          <div class="sp-r" style="flex:1;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center"><div style="font-family:var(--ff-head);font-size:22px;color:var(--green)" id="speedXPToday">0</div><div style="font-size:9px;color:var(--t3)">XP IDAG</div></div>
+        </div>
+      </div>
+
+      <!-- MEMORY -->
+      <div class="game-panel" id="gp-memory">
+        <div class="mem-stats">
+          <div class="mem-stat"><div class="mem-stat-v" id="memMoves">0</div><div class="mem-stat-l">Drag</div></div>
+          <div class="mem-stat"><div class="mem-stat-v" id="memTime">0s</div><div class="mem-stat-l">Tid</div></div>
+          <div class="mem-stat"><div class="mem-stat-v" id="memPairs">0/8</div><div class="mem-stat-l">Par</div></div>
+        </div>
+        <div class="memory-grid" id="memGrid"></div>
+        <button class="btn btn-ghost btn-full btn-sm" onclick="initMemory()">🔄 Nytt spel</button>
+      </div>
+      <div class="vend"></div>
+    </div>
+
     <!-- 🏆 LEADERBOARD -->
     <div class="view" id="view-lb">
       <div class="lb-title">Leaderboard</div>
@@ -1257,6 +1545,9 @@ textarea.inp { resize:none;min-height:72px; }
           <div class="ps"><div class="ps-v" id="pnLvl">1</div><div class="ps-l">LEVEL</div></div>
         </div>
       </div>
+      <!-- Season Pass -->
+      <div class="sp-card" id="seasonCard"></div>
+
       <div style="padding:0 16px;display:flex;flex-direction:column;gap:12px">
         <div class="trust-card">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
@@ -1283,11 +1574,40 @@ textarea.inp { resize:none;min-height:72px; }
       <div class="nb-center-ico">🎬</div>
       <div class="nl">SKAPA</div>
     </button>
-    <button class="nb" data-v="circles"><div class="ni">⭕</div><div class="nl">CIRCLES</div></button>
+    <button class="nb" data-v="games"><div class="ni">🎮</div><div class="nl">GAMES</div></button>
     <button class="nb" data-v="map"><div class="ni">🗺️</div><div class="nl">KARTA</div></button>
   </div>
 
 </div><!-- /app -->
+
+<!-- STORY OVERLAY -->
+<div class="story-overlay" id="storyOverlay">
+  <div class="story-ov-bar" id="storySegments"></div>
+  <div class="story-ov-hdr">
+    <div style="width:40px;height:40px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:20px" id="storyUserEm">🐉</div>
+    <div><div style="font-weight:800;font-size:14px" id="storyUserName">ella_sthlm</div><div style="font-size:11px;color:var(--t2)">Story • 2h sedan</div></div>
+    <div style="margin-left:auto;cursor:pointer;font-size:22px" onclick="closeStory()">✕</div>
+  </div>
+  <div class="story-ov-content" id="storyContent">🐉</div>
+  <div style="padding:14px 16px;font-size:14px;color:var(--t2);text-align:center" id="storyCaption"></div>
+</div>
+
+<!-- SPIN WHEEL -->
+<div class="modal" id="spinModal">
+  <div class="ms" style="text-align:center">
+    <div class="mh"></div>
+    <div class="mt" style="justify-content:center">🎰 Daglig Spin <div class="mx" onclick="closeModal('spinModal')">✕</div></div>
+    <div class="spin-wrap" id="spinWrap">
+      <div class="spin-outer">
+        <div class="spin-pointer">▼</div>
+        <div class="spin-canvas" id="spinCanvas"></div>
+      </div>
+      <div class="spin-won" id="spinResult" style="min-height:28px"></div>
+      <button class="btn btn-g btn-lg btn-full" id="spinBtn" onclick="doSpin()">🎰 SNURRA!</button>
+      <div style="font-size:11px;color:var(--t3);margin-top:8px" id="spinCooldown"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ════ WINDOWS ════ -->
 
@@ -1754,6 +2074,7 @@ function pcFeed()  {
   G.coins-=10; G.hunger=Math.min(100,G.hunger+30); G.mood=Math.min(100,G.mood+5);
   SFX.care(); petReact('happy'); addH(`🍖 ${G.petName} matad`);
   floatTxt('🍖 +30 HUNGER',petCol()); showT('🍖 Maten!','g'); vibe(20); updateHUD(); updatePet();
+  progressMission('feed');
 }
 function pcTrain() {
   if(G.energy<20){SFX.err();showT('❌ Ingen energi! Sov först.','r');vibe([40,20,40]);return;}
@@ -1778,6 +2099,7 @@ function petTap() {
   const mult = _combo>=10?5:_combo>=6?3:_combo>=3?2:1;
   if(mult>1){ SFX.combo(mult); if(mult>_comboMax){ _comboMax=mult; vibe([15,10,15,10,30]); } showComboBadge(mult,_combo); }
   gainXP(mult,'social'); gainCoins(mult);
+  progressMission('tap');
   const col=petCol();
   floatTxt(mult>1?`x${mult} COMBO! +${mult}XP`:`+1XP`,col,null,'36%');
   vibe(10);
@@ -2067,6 +2389,7 @@ function submitFlash() {
     $('streakDays').textContent=G.streak; $('streakTitle').textContent=`🔥 ${G.streak} DAGAR!`;
     $('streakSplash').classList.add('show');
   }
+  progressMission('flash');
   nav('flash');
 }
 
@@ -2418,13 +2741,14 @@ function nav(name) {
   const btn = document.querySelector(`.nb[data-v="${name}"]`); if(btn) btn.classList.add('on');
   SFX.nav(); vibe(8);
   const R = {
-    pet:     () => { initParticles(); updatePet(); },
-    flash:   () => renderFlashFeed(),
+    pet:     () => { initParticles(); updatePet(); renderMissions(); },
+    flash:   () => { renderFlashFeed(); renderStories(); },
     circles: () => renderCircles(),
     uppdrag: () => renderUppdrag(),
     map:     () => { setTimeout(() => { if(!G.mapInit) locateMe(); }, 200); renderNearby(); },
     lb:      () => renderLB('money', document.querySelector('#lbTabs .lt')),
-    profile: () => { updateHUD(); renderBadges(); renderHistList(); },
+    profile: () => { updateHUD(); renderBadges(); renderHistList(); renderSeasonPass(); },
+    games:   () => { initBattle(); renderMissions(); $('gamesXPToday').textContent=`+${gamesXPToday} XP idag`; },
   };
   if(R[name]) R[name]();
 }
@@ -2463,6 +2787,7 @@ function finishOB() {
   showT(`⚡ WELCOME ${G.name.toUpperCase()}!`, 'g');
   addH(`🎮 ${G.name} joined KARMA!`);
   initParticles();
+  loadMissions(); renderStories(); renderSeasonPass();
 }
 
 /* ── LOAD SAVED DATA ── */
@@ -2494,8 +2819,364 @@ try {
     $('ob').style.display = 'none';
     $('app').style.display = 'flex';
     updateHUD(); nav('pet'); initParticles();
+    loadMissions(); renderStories(); renderSeasonPass();
   }
 } catch(e) {}
+
+/* ══════════════════════════════════════════
+   🎮 GAMES SYSTEM
+══════════════════════════════════════════ */
+let gamesXPToday = 0;
+function switchGame(id, el) {
+  document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t => t.classList.remove('on'));
+  $(`gp-${id}`).classList.add('active'); el.classList.add('on');
+  if(id==='battle') initBattle();
+  if(id==='memory') initMemory();
+}
+
+/* ── BATTLE ── */
+const BATTLE_ENEMIES = [
+  {name:'ella_sthlm',em:'🐉',lv:9,hp:90},{name:'maxruns',em:'🐺',lv:11,hp:110},
+  {name:'sagas',em:'🦋',lv:7,hp:75},{name:'carlos',em:'🦊',lv:5,hp:60},
+  {name:'linnea',em:'🐱',lv:6,hp:65},{name:'Ghost',em:'🐸',lv:12,hp:115},
+];
+let B = {youHP:100,enemyHP:100,enemyMaxHP:100,defending:false,eDef:false,done:false,enemy:null};
+function initBattle() {
+  B.enemy = BATTLE_ENEMIES[~~(Math.random()*BATTLE_ENEMIES.length)];
+  B.youHP = 100; B.enemyMaxHP = 60+B.enemy.lv*5; B.enemyHP = B.enemyMaxHP;
+  B.defending = false; B.eDef = false; B.done = false;
+  const s = gS();
+  $('bEmYou').textContent = s.e; $('bNameYou').textContent = G.name||'Du'; $('bLvYou').textContent = `LV${G.level}`;
+  $('bEmEnemy').textContent = B.enemy.em; $('bNameEnemy').textContent = B.enemy.name; $('bLvEnemy').textContent = `LV${B.enemy.lv}`;
+  $('bNameEnemyLbl').textContent = B.enemy.name;
+  updateBattleHP(); $('battleLog').textContent = `${B.enemy.name} utmanar dig! Välj ditt drag.`;
+}
+function updateBattleHP() {
+  const yp = Math.max(0,(B.youHP/100)*100), ep = Math.max(0,(B.enemyHP/B.enemyMaxHP)*100);
+  $('bHpYou').style.width=yp+'%'; $('bHpYouLbl').textContent=Math.max(0,B.youHP)+' HP';
+  $('bHpEnemy').style.width=ep+'%'; $('bHpEnemyLbl').textContent=Math.max(0,B.enemyHP)+' HP';
+}
+function battleMove(move) {
+  if(B.done) { initBattle(); return; }
+  let dmg=0, log='';
+  if(move==='attack'){ dmg=15+~~(Math.random()*11); B.defending=false; log=`⚔️ Du attackerar för ${dmg} dmg!`; }
+  else if(move==='defend'){ B.defending=true; dmg=0; log='🛡️ Du förbereder försvar!'; }
+  else if(move==='special'){
+    if(G.energy<20){showT('❌ Ingen energi!','r');SFX.err();return;}
+    G.energy-=20; dmg=35+~~(Math.random()*16); B.defending=false; log=`⚡ SPECIALATTACK! ${dmg} dmg!!`;
+    floatTxt(`⚡ ${dmg}!`,'#ff3377'); SFX.combo(3);
+  }
+  B.enemyHP -= dmg;
+  if(dmg>0){ SFX.tap(); $('bFightEnemy').classList.remove('hit'); $('bFightEnemy').offsetHeight; $('bFightEnemy').classList.add('hit'); }
+  setTimeout(() => {
+    if(B.enemyHP<=0){ battleWin(log); return; }
+    // Enemy turn
+    const eDmg = B.eDef ? 0 : (8+~~(Math.random()*15));
+    const finalDmg = B.defending ? Math.ceil(eDmg*.5) : eDmg;
+    if(finalDmg>0){ B.youHP-=finalDmg; $('bFightYou').classList.remove('hit'); $('bFightYou').offsetHeight; $('bFightYou').classList.add('hit'); SFX.err(); }
+    B.eDef = Math.random()<.3;
+    log += B.defending&&finalDmg<eDmg ? ` 🛡️ Du blockade! (${finalDmg} dmg)` : ` ${B.enemy.name} svarar med ${finalDmg} dmg.`;
+    $('battleLog').textContent = log; updateBattleHP(); B.defending=false;
+    if(B.youHP<=0){ battleLose(); }
+  }, 500);
+}
+function battleWin(log) {
+  B.done=true; const xpW=20+B.enemy.lv*3, coinW=10+B.enemy.lv;
+  gainXP(xpW,'action'); gainCoins(coinW); gamesXPToday+=xpW;
+  progressMission('battle');
+  const bw=parseInt(localStorage.getItem('k0509_battleWins')||'0')+1; localStorage.setItem('k0509_battleWins',bw);
+  $('battleLog').textContent = `🏆 VICTORY! +${xpW} XP +${coinW} 💰`; updateBattleHP();
+  confetti(50); SFX.lvl(); vibe([30,20,60,20,80]);
+  setTimeout(initBattle, 3000);
+}
+function battleLose() {
+  B.done=true; $('battleLog').textContent = `💀 Du förlorade... Träna och försök igen!`;
+  B.youHP=0; updateBattleHP(); SFX.err(); vibe([60,40,60]);
+  setTimeout(initBattle, 2500);
+}
+
+/* ── SPEED TAP ── */
+let speedState={running:false,score:0,best:parseInt(localStorage.getItem('k0509_speedBest')||'0'),timer:30,interval:null,spawnInterval:null,level:1};
+function startSpeedGame() {
+  $('speedStartArea').style.display='none';
+  speedState.running=true; speedState.score=0; speedState.timer=30; speedState.level=1;
+  $('speedScore').textContent='0'; $('speedTimer').textContent='30';
+  document.querySelectorAll('.speed-tap-target').forEach(t=>t.remove());
+  speedState.interval = setInterval(() => {
+    speedState.timer--;
+    $('speedTimer').textContent=speedState.timer;
+    if(speedState.timer<=10) $('speedTimer').style.color='var(--red)';
+    if(speedState.timer<=0){ endSpeedGame(); }
+  }, 1000);
+  spawnTarget();
+  speedState.spawnInterval = setInterval(spawnTarget, Math.max(600, 1400-speedState.level*80));
+}
+function spawnTarget() {
+  if(!speedState.running) return;
+  const arena=$('speedArena'), colors=['#00ff88','#ff3377','#4488ff','#ffcc00','#aa66ff','#ff8844'];
+  const t=document.createElement('div'); t.className='speed-tap-target';
+  const sz=44+~~(Math.random()*20), x=sz/2+Math.random()*(arena.clientWidth-sz-16), y=60+Math.random()*(arena.clientHeight-sz-80);
+  const col=colors[~~(Math.random()*colors.length)];
+  t.style.cssText=`width:${sz}px;height:${sz}px;left:${x}px;top:${y}px;color:${col};border-color:${col};background:${col}22`;
+  t.textContent=['🐉','🐺','🦊','🐱','🐸','⚡','💎','⭐'][~~(Math.random()*8)];
+  const lifetime=Math.max(700, 2000-speedState.level*100);
+  let start=Date.now();
+  const bar=document.createElement('div'); bar.className='target-timer';
+  const fill=document.createElement('div'); fill.className='target-timer-fill'; fill.style.cssText=`background:${col};width:100%;transition:width ${lifetime}ms linear`;
+  bar.appendChild(fill); t.appendChild(bar);
+  t.onclick=()=>{ if(!speedState.running)return; speedState.score++; $('speedScore').textContent=speedState.score; if(speedState.score%5===0){ speedState.level++; SFX.combo(Math.min(5,~~(speedState.level/2))); } SFX.tap(); floatTxt('+1','#ffcc00',x+'px',(y+arena.getBoundingClientRect().top)+'px'); t.style.animation='targetShrink .15s ease both'; setTimeout(()=>t.remove(),150); vibe(8); };
+  arena.appendChild(t);
+  requestAnimationFrame(()=>fill.style.width='0%');
+  setTimeout(()=>{ if(t.parentElement){ t.style.animation='targetShrink .15s ease both'; setTimeout(()=>t.remove(),150); } }, lifetime);
+}
+function endSpeedGame() {
+  speedState.running=false; clearInterval(speedState.interval); clearInterval(speedState.spawnInterval);
+  document.querySelectorAll('.speed-tap-target').forEach(t=>t.remove());
+  const sc=speedState.score, isNew=sc>speedState.best;
+  if(isNew){ speedState.best=sc; localStorage.setItem('k0509_speedBest',sc); $('speedBest').textContent=sc; }
+  const xpW=Math.min(50,sc*2); gainXP(xpW,'action'); gamesXPToday+=xpW;
+  SFX.flash(); if(isNew) confetti(60);
+  showT(isNew?`🏆 Nytt rekord: ${sc}! +${xpW}XP`:`${sc} träffar! +${xpW}XP`,'g');
+  $('speedStartArea').style.display='flex'; $('speedTimer').style.color='var(--gold)';
+  $('speedXPToday').textContent=gamesXPToday;
+}
+
+/* ── MEMORY ── */
+const MEM_PETS=['🐉','🐺','🦊','🐱','🐸','🦋','🐻','🦁'];
+let memState={cards:[],flipped:[],matched:0,moves:0,timer:0,tInterval:null,canFlip:true};
+function initMemory() {
+  clearInterval(memState.tInterval); memState={cards:[],flipped:[],matched:0,moves:0,timer:0,tInterval:null,canFlip:true};
+  $('memMoves').textContent='0'; $('memTime').textContent='0s'; $('memPairs').textContent='0/8';
+  const pairs=[...MEM_PETS,...MEM_PETS].sort(()=>Math.random()-.5);
+  const grid=$('memGrid'); grid.innerHTML='';
+  pairs.forEach((em,i)=>{
+    const c=document.createElement('div'); c.className='mem-card back'; c.dataset.em=em; c.dataset.i=i;
+    c.textContent='🃏'; c.onclick=()=>memFlip(c);
+    grid.appendChild(c); memState.cards.push(c);
+  });
+  memState.tInterval=setInterval(()=>{ memState.timer++; $('memTime').textContent=memState.timer+'s'; },1000);
+}
+function memFlip(card) {
+  if(!memState.canFlip||card.classList.contains('flipped')||card.classList.contains('matched')) return;
+  if(!memState.timer&&memState.moves===0) {} // started on first flip
+  card.classList.remove('back'); card.classList.add('flipped'); card.textContent=card.dataset.em;
+  SFX.tap(); memState.flipped.push(card);
+  if(memState.flipped.length===2){
+    memState.canFlip=false; memState.moves++;
+    $('memMoves').textContent=memState.moves;
+    setTimeout(()=>{
+      const [a,b]=memState.flipped;
+      if(a.dataset.em===b.dataset.em){ a.classList.add('matched'); b.classList.add('matched'); memState.matched++; $('memPairs').textContent=`${memState.matched}/8`; SFX.coin(); gainCoins(5); floatTxt('+5💰',petCol()); if(memState.matched===8) memWin(); }
+      else { a.classList.remove('flipped'); b.classList.remove('flipped'); a.classList.add('back'); b.classList.add('back'); a.textContent='🃏'; b.textContent='🃏'; SFX.err(); }
+      memState.flipped=[]; memState.canFlip=true;
+    },900);
+  }
+}
+function memWin() {
+  clearInterval(memState.tInterval);
+  const bonus=Math.max(10, 80-memState.moves*2);
+  gainXP(bonus,'action'); gamesXPToday+=bonus; confetti(60); SFX.lvl();
+  progressMission('memory');
+  showT(`🧠 KLAR! ${memState.moves} drag · ${memState.timer}s · +${bonus}XP`,'g');
+  setTimeout(initMemory, 2500);
+}
+
+/* ══════════════════════════════════════════
+   📅 DAILY MISSIONS
+══════════════════════════════════════════ */
+const ALL_MISSIONS = [
+  {id:'tap20',icon:'👆',name:'Tryck på peten 20 gånger',max:20,reward:'50💰',xp:20,type:'tap'},
+  {id:'flash1',icon:'⚡',name:'Posta en Flash',max:1,reward:'+30XP',xp:30,type:'flash'},
+  {id:'feed3',icon:'🍖',name:'Mata peten 3 gånger',max:3,reward:'20💰',xp:10,type:'feed'},
+  {id:'combo3',icon:'🔥',name:'Bygg x3 Combo!',max:1,reward:'+25XP',xp:25,type:'combo'},
+  {id:'uppdrag1',icon:'🎯',name:'Klara ett uppdrag',max:1,reward:'100💰',xp:40,type:'uppdrag'},
+  {id:'battle1',icon:'🥊',name:'Vinn en strid',max:1,reward:'+35XP',xp:35,type:'battle'},
+  {id:'memory1',icon:'🧠',name:'Slutför Memory-spelet',max:1,reward:'30💰',xp:20,type:'memory'},
+  {id:'sleep2',icon:'😴',name:'Låt peten sova 2 gånger',max:2,reward:'+15XP',xp:15,type:'sleep'},
+];
+function getTodayKey(){ return new Date().toISOString().slice(0,10); }
+function loadMissions() {
+  const key=getTodayKey(), saved=localStorage.getItem('k0509_dm');
+  if(saved){ try{ const d=JSON.parse(saved); if(d.date===key){ G.dailyMissions=d.missions; return; } }catch(e){} }
+  // Pick 3 random missions for today
+  const pool=[...ALL_MISSIONS].sort(()=>Math.random()-.5).slice(0,3);
+  G.dailyMissions=pool.map(m=>({...m,progress:0,done:false}));
+  saveMissions();
+}
+function saveMissions() {
+  localStorage.setItem('k0509_dm', JSON.stringify({date:getTodayKey(), missions:G.dailyMissions}));
+}
+function renderMissions() {
+  if(!G.dailyMissions) loadMissions();
+  const el=$('missionsList'); if(!el) return;
+  el.innerHTML=G.dailyMissions.map((m,i)=>`
+    <div class="mission-row ${m.done?'done':''}">
+      <div class="m-ico">${m.icon}</div>
+      <div class="m-info">
+        <div class="m-name">${m.name}</div>
+        <div class="m-prog-wrap"><div class="m-prog" style="width:${Math.min(100,(m.progress/m.max)*100)}%"></div></div>
+        <div style="font-size:10px;color:var(--t3);margin-top:3px">${m.progress}/${m.max}</div>
+      </div>
+      <div class="m-rwd">${m.done?'KLAR':m.reward}</div>
+    </div>`).join('');
+}
+function progressMission(type) {
+  if(!G.dailyMissions) return;
+  G.dailyMissions.forEach((m,i)=>{
+    if(m.done||m.type!==type) return;
+    m.progress=Math.min(m.max,(m.progress||0)+1);
+    if(m.progress>=m.max&&!m.done){
+      m.done=true; gainXP(m.xp,'action'); gainCoins(m.type==='uppdrag'?100:m.type==='battle'?35:20);
+      confetti(40); SFX.coin(); showT(`📅 Uppdrag klart: ${m.name}!`,'g');
+      floatTxt('📅 MISSION!',petCol());
+    }
+  });
+  saveMissions(); renderMissions();
+}
+
+/* ══════════════════════════════════════════
+   🎰 SPIN WHEEL
+══════════════════════════════════════════ */
+const SPIN_PRIZES=[
+  {label:'50 Coins',ico:'💰',color:'#ffcc00',action:()=>{gainCoins(50);}},
+  {label:'100 XP',ico:'⚡',color:'#00ff88',action:()=>{gainXP(100,'social');}},
+  {label:'200 Coins',ico:'💎',color:'#4488ff',action:()=>{gainCoins(200);}},
+  {label:'50 XP',ico:'🌟',color:'#aa66ff',action:()=>{gainXP(50,'action');}},
+  {label:'Gear Gratis',ico:'🎁',color:'#ff3377',action:()=>{if(GEAR_ITEMS.length){const g=GEAR_ITEMS.find(x=>!G.gear.includes(x.id));if(g){G.gear.push(g.id);showT(`🎁 ${g.em} FREE!`,'g');}else gainCoins(300);}}},
+  {label:'75 Coins',ico:'🔥',color:'#ff8844',action:()=>{gainCoins(75);}},
+  {label:'150 XP',ico:'🏆',color:'#00ddcc',action:()=>{gainXP(150,'commerce');}},
+  {label:'2x Streak',ico:'🎉',color:'#ff66bb',action:()=>{G.streak+=1;showT('🎉 +1 Streak dag!','pk');}},
+];
+function buildSpinWheel() {
+  const c=$('spinCanvas'); if(!c) return;
+  const seg=360/SPIN_PRIZES.length;
+  c.innerHTML=SPIN_PRIZES.map((p,i)=>`
+    <div class="spin-segment" style="transform:rotate(${i*seg}deg) skewY(${-(90-seg)}deg);background:${p.color}22;border:1px solid ${p.color}44">
+      <div style="transform:skewY(${90-seg}deg) rotate(${seg/2}deg);font-size:22px;line-height:1">${p.ico}</div>
+    </div>`).join('');
+}
+let spinDeg=0, spinDone=false;
+function openSpinWheel() {
+  buildSpinWheel(); openModal('spinModal');
+  const today=getTodayKey(), lastSpin=localStorage.getItem('k0509_spin');
+  spinDone=lastSpin===today;
+  const btn=$('spinBtn'), cd=$('spinCooldown');
+  if(spinDone){ btn.disabled=true; btn.textContent='Imorgon igen!'; btn.className='btn btn-ghost btn-lg btn-full'; cd.textContent='Du har redan snurrat idag.'; }
+  else { btn.disabled=false; btn.textContent='🎰 SNURRA!'; btn.className='btn btn-g btn-lg btn-full'; cd.textContent=''; }
+  $('spinResult').textContent='';
+}
+function doSpin() {
+  if(spinDone) return;
+  const idx=~~(Math.random()*SPIN_PRIZES.length);
+  const extraSpins=5+~~(Math.random()*3);
+  const targetDeg=spinDeg+(extraSpins*360)+(idx*(360/SPIN_PRIZES.length));
+  spinDeg=targetDeg;
+  $('spinCanvas').style.transition='transform 3s cubic-bezier(.17,.67,.12,1)';
+  $('spinCanvas').style.transform=`rotate(${spinDeg}deg)`;
+  SFX.streak(); vibe([20,10,20,10,20]);
+  setTimeout(()=>{
+    const prize=SPIN_PRIZES[SPIN_PRIZES.length-1-idx] || SPIN_PRIZES[idx]; // account for wheel direction
+    const p=SPIN_PRIZES[idx];
+    $('spinResult').textContent=`${p.ico} ${p.label}!`;
+    p.action(); confetti(60); SFX.lvl(); vibe([50,30,80]);
+    localStorage.setItem('k0509_spin', getTodayKey());
+    spinDone=true;
+    $('spinBtn').disabled=true; $('spinBtn').textContent='Imorgon igen!';
+    $('spinBtn').className='btn btn-ghost btn-lg btn-full';
+    progressMission('spin');
+  },3200);
+}
+
+/* ══════════════════════════════════════════
+   ⚡ STORIES
+══════════════════════════════════════════ */
+const STORIES_DATA=[
+  {user:'ella_sthlm',em:'🐉',content:'🏃‍♀️',caption:'Morgonrundan klar! 5km #karma',seen:false},
+  {user:'maxruns',em:'🐺',content:'🏋️',caption:'Gym session. Level 11 grind! 💪',seen:false},
+  {user:'sagas',em:'🦋',content:'🛍️',caption:'Vintage haul Drottninggatan',seen:false},
+  {user:'Du',em:null,content:null,caption:'Din story',isMe:true},
+];
+let storyIdx=0, storyTimer=null;
+function renderStories() {
+  const el=$('storiesBar'); if(!el) return;
+  el.innerHTML=STORIES_DATA.map((s,i)=>`
+    <div class="story-item" onclick="${s.isMe?'showT(\'📸 Lägg till story!\',\'pk\')':'openStory('+i+')'}">
+      <div class="story-ring-wrap">
+        <div class="story-ring${s.seen?' seen':''}${s.isMe?' add-btn':''}">
+          <div class="story-inner">${s.isMe?'➕':(s.em||gS().e)}</div>
+        </div>
+      </div>
+      <div class="story-name">${s.isMe?'Din story':s.user}</div>
+    </div>`).join('');
+}
+function openStory(idx) {
+  const s=STORIES_DATA[idx]; if(!s||s.isMe) return;
+  storyIdx=idx; s.seen=true;
+  $('storyUserEm').textContent=s.em; $('storyUserName').textContent=s.user;
+  $('storyContent').textContent=s.content||'⚡'; $('storyCaption').textContent=s.caption||'';
+  const segs=$('storySegments');
+  segs.innerHTML=STORIES_DATA.filter(x=>!x.isMe).map((_,i)=>`<div class="story-seg"><div class="story-seg-fill" id="sseg${i}"></div></div>`).join('');
+  $('storyOverlay').classList.add('open');
+  const fill=$(`sseg${idx}`); if(fill){ fill.style.transition='width 5s linear'; fill.style.width='100%'; }
+  storyTimer=setTimeout(()=>closeStory(),5000);
+}
+function closeStory(){ $('storyOverlay').classList.remove('open'); clearTimeout(storyTimer); renderStories(); }
+
+/* ══════════════════════════════════════════
+   🎯 SEASON PASS
+══════════════════════════════════════════ */
+const SP_NODES=[
+  {ico:'💰',label:'100 SEK Mål',need:100,type:'sek'},
+  {ico:'⚡',label:'LV 5',need:5,type:'level'},
+  {ico:'🔥',label:'7d Streak',need:7,type:'streak'},
+  {ico:'🎮',label:'10 Battles',need:10,type:'battles'},
+  {ico:'👑',label:'Gear',need:1,type:'gear'},
+  {ico:'⭕',label:'Circle',need:1,type:'circles'},
+  {ico:'🎯',label:'5 Uppdrag',need:5,type:'uppdrag'},
+  {ico:'💎',label:'LV 10',need:10,type:'level'},
+  {ico:'🏆',label:'Legend',need:20,type:'level'},
+  {ico:'⚡',label:'KARMA PRO',need:999,type:'special'},
+];
+function renderSeasonPass() {
+  const el=$('seasonCard'); if(!el) return;
+  const progress=SP_NODES.map((n,i)=>{
+    if(n.type==='sek') return G.totalSEK>=n.need;
+    if(n.type==='level') return G.level>=n.need;
+    if(n.type==='streak') return G.streak>=n.need;
+    if(n.type==='gear') return G.gear.length>=n.need;
+    if(n.type==='circles') return (G.circles.length+CIRCLES_DATA.length)>=n.need;
+    if(n.type==='uppdrag') return G.bountiesDone>=n.need;
+    if(n.type==='battles') return (parseInt(localStorage.getItem('k0509_battleWins')||'0'))>=n.need;
+    return false;
+  });
+  const curr=progress.findIndex(p=>!p);
+  el.innerHTML=`
+    <div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">🎯 SEASON PASS</div>
+    <div class="sp-track" style="overflow-x:auto;scrollbar-width:none;padding-bottom:6px">
+      ${SP_NODES.map((n,i)=>`
+        ${i>0?`<div class="sp-line${progress[i-1]?' done':''}"></div>`:''}
+        <div class="sp-node ${progress[i]?'done':i===curr?'current':'locked'}" title="${n.label}" onclick="showT('${progress[i]?'✅':i===curr?'🔥':'🔒'} ${n.label}','${progress[i]?'g':i===curr?'y':'r'}')">${n.ico}</div>
+      `).join('')}
+    </div>
+    <div class="sp-label">${curr>=0?`Nästa: ${SP_NODES[curr].label}`:'🏆 FULLSTÄNDIG!'}</div>`;
+}
+
+/* ══════════════════════════════════════════
+   🐾 PET SPEECH BUBBLE
+══════════════════════════════════════════ */
+const PET_PHRASES=['Träna mig! 💪','Jag är hungrig... 🍖','Snurra hjulet! 🎰','Vinn en strid! 🥊','Posta Flash! ⚡','Levla upp! ⬆️','Du är bäst! 🔥','Gör ett uppdrag! 🎯'];
+let bubbleT=null;
+function showPetBubble() {
+  if(G.mood < 40) return;
+  const wr=document.getElementById('petEmojiBig'); if(!wr) return;
+  const old=document.getElementById('petBubble'); if(old) old.remove();
+  const b=document.createElement('div'); b.id='petBubble'; b.className='pet-bubble';
+  b.textContent=PET_PHRASES[~~(Math.random()*PET_PHRASES.length)];
+  wr.parentElement.appendChild(b);
+  clearTimeout(bubbleT); bubbleT=setTimeout(()=>b.remove(),3500);
+}
+setInterval(()=>{ if(G.name&&document.querySelector('#view-pet.active')&&G.mood>50) showPetBubble(); },28000);
 
 /* Hunger drain */
 setInterval(() => {
