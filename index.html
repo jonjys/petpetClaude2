@@ -1368,6 +1368,81 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 /* ── XP ANIM ── */
 @keyframes xpRain { 0%{transform:translateY(0) scale(1);opacity:1} 100%{transform:translateY(-80px) scale(.5);opacity:0} }
 .xp-rain { position:fixed; font-size:13px; font-weight:900; pointer-events:none; z-index:600; animation:xpRain .9s ease both; color:var(--pet-col,var(--green)); }
+
+/* ════ ROUND 4: WORLD BOSS · LUCKY BOX · EVENTS · PRESTIGE · RADIO · RAID ════ */
+.boss-banner { background:linear-gradient(135deg,rgba(255,34,85,.14),rgba(255,68,85,.06)); border:1.5px solid rgba(255,34,85,.35); border-radius:16px; padding:11px 13px; margin:0 14px 8px; display:flex; align-items:center; gap:10px; position:relative; overflow:hidden; }
+.boss-banner::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,34,85,.05),transparent); animation:bossShine 3s linear infinite; pointer-events:none; }
+@keyframes bossShine { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+.boss-em-big { font-size:34px; animation:bossPulse 2s ease-in-out infinite; flex-shrink:0; filter:drop-shadow(0 0 12px rgba(255,34,85,.6)); }
+@keyframes bossPulse { 0%,100%{transform:scale(1) rotate(-5deg)} 50%{transform:scale(1.12) rotate(5deg)} }
+.boss-info { flex:1; min-width:0; }
+.boss-lbl { font-size:9px; font-weight:700; color:rgba(255,100,120,.9); letter-spacing:1.5px; text-transform:uppercase; }
+.boss-name-big { font-family:var(--ff-head); font-size:14px; font-weight:900; color:var(--red); line-height:1.1; }
+.boss-hp-bar { height:6px; background:rgba(255,255,255,.08); border-radius:3px; overflow:hidden; margin:5px 0 3px; }
+.boss-hp-inner { height:100%; background:linear-gradient(90deg,#ff1144,#ff8844); border-radius:3px; transition:width .6s cubic-bezier(.4,0,.2,1); }
+.boss-hp-txt { font-size:10px; color:var(--t3); font-weight:700; display:flex; justify-content:space-between; }
+.boss-att-btn { padding:9px 13px; background:linear-gradient(135deg,#ff1144,#ff6600); color:#fff; font-family:var(--ff-head); font-size:12px; font-weight:900; border-radius:14px; cursor:pointer; flex-shrink:0; border:none; transition:all .15s; box-shadow:0 2px 12px rgba(255,34,85,.45); }
+.boss-att-btn:active { transform:scale(.87); }
+.event-banner { background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,68,.07)); border:1.5px solid rgba(255,204,0,.4); border-radius:14px; padding:9px 13px; margin:0 14px 8px; display:flex; align-items:center; gap:10px; }
+.ev-ico { font-size:26px; animation:evBounce 1.4s ease-in-out infinite; flex-shrink:0; }
+@keyframes evBounce { 0%,100%{transform:scale(1) rotate(-5deg)} 50%{transform:scale(1.2) rotate(5deg)} }
+.ev-name { font-family:var(--ff-head); font-size:13px; font-weight:900; color:var(--gold); }
+.ev-timer { font-size:10px; color:var(--t2); font-weight:700; margin-top:2px; }
+.ev-pill { background:linear-gradient(135deg,var(--gold),var(--orange)); color:#000; font-family:var(--ff-head); font-size:13px; font-weight:900; padding:6px 12px; border-radius:20px; flex-shrink:0; }
+.lucky-box-ico { font-size:80px; display:block; text-align:center; cursor:pointer; animation:luckyBob 1.8s ease-in-out infinite; filter:drop-shadow(0 0 24px var(--gold)); margin:10px 0 6px; }
+@keyframes luckyBob { 0%,100%{transform:translateY(0) rotate(-8deg)} 50%{transform:translateY(-14px) rotate(8deg)} }
+.lucky-box-ico.pop { animation:luckyPop .6s cubic-bezier(.17,.67,.3,1.3) both; }
+@keyframes luckyPop { 0%{transform:scale(1)} 30%{transform:scale(1.5) rotate(-20deg)} 65%{transform:scale(.85) rotate(15deg)} 100%{transform:scale(1.1)} }
+.lucky-reveal { font-size:56px; display:block; text-align:center; animation:revealDrop .5s cubic-bezier(.17,.67,.3,1.3) .1s both; opacity:0; }
+@keyframes revealDrop { 0%{transform:scale(0) rotate(-30deg);opacity:0} 100%{transform:scale(1) rotate(0);opacity:1} }
+.lucky-prize-n { font-family:var(--ff-head); font-size:22px; font-weight:900; color:var(--gold); text-align:center; animation:fadeInUp .4s ease .4s both; opacity:0; }
+.lucky-prize-d { font-size:13px; color:var(--t2); text-align:center; margin:4px 0 16px; animation:fadeInUp .4s ease .6s both; opacity:0; }
+#luckyDropBar { position:fixed; bottom:calc(82px + var(--sab)); right:12px; z-index:601; transform:translateX(140%); transition:transform .4s cubic-bezier(.17,.67,.3,1.3); cursor:pointer; }
+#luckyDropBar.show { transform:translateX(0); }
+.ldb-inner { background:linear-gradient(135deg,var(--gold),var(--orange)); color:#000; font-family:var(--ff-head); font-size:13px; font-weight:900; padding:11px 16px; border-radius:22px; box-shadow:0 4px 28px rgba(255,204,0,.65); display:flex; align-items:center; gap:7px; }
+.ldi-ico { font-size:24px; animation:luckyBob .9s ease-in-out infinite; }
+.prestige-card { background:linear-gradient(135deg,rgba(255,204,0,.1),rgba(255,136,68,.07)); border:2px solid rgba(255,204,0,.45); border-radius:18px; padding:16px; position:relative; overflow:hidden; margin-bottom:12px; }
+.prestige-card::before { content:'★'; position:absolute; top:-10px; right:12px; font-size:80px; opacity:.04; font-family:var(--ff-head); pointer-events:none; }
+.prestige-btn { width:100%; padding:14px; background:linear-gradient(135deg,rgba(255,204,0,.18),rgba(255,136,68,.12)); border:2px solid rgba(255,204,0,.55); border-radius:14px; cursor:pointer; font-family:var(--ff-head); font-size:15px; font-weight:900; color:var(--gold); display:flex; align-items:center; justify-content:center; gap:8px; transition:all .2s; }
+.prestige-btn:active { transform:scale(.96); }
+.prestige-btn:disabled { opacity:.3; cursor:not-allowed; transform:none; }
+.p-star { display:inline-block; animation:starSpin 2s linear infinite; }
+@keyframes starSpin { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+.prestige-badge-pill { display:inline-flex; align-items:center; background:linear-gradient(135deg,var(--gold),var(--orange)); color:#000; font-size:10px; font-weight:900; padding:2px 8px; border-radius:10px; }
+.radio-btn { width:36px; height:36px; border-radius:10px; background:rgba(0,0,0,.6); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; flex-shrink:0; transition:all .25s; }
+.radio-btn.on { border-color:var(--green); box-shadow:0 0 14px rgba(0,255,136,.35); animation:radioPulse 1.5s ease-in-out infinite; }
+@keyframes radioPulse { 0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,.3)} 50%{box-shadow:0 0 0 8px rgba(0,255,136,0)} }
+.radio-note { position:fixed; pointer-events:none; z-index:350; font-size:16px; animation:noteRise 2.5s ease both; }
+@keyframes noteRise { 0%{opacity:.9;transform:translateY(0) rotate(-10deg)} 100%{opacity:0;transform:translateY(-100px) rotate(20deg) scale(.4)} }
+.raid-boss-card { text-align:center; padding:16px 14px 12px; background:radial-gradient(ellipse at 50% 0%,rgba(255,34,85,.2) 0%,transparent 70%); border:1px solid rgba(255,34,85,.3); border-radius:18px; margin-bottom:10px; }
+.raid-boss-em { font-size:68px; display:block; margin-bottom:4px; filter:drop-shadow(0 0 30px rgba(255,34,85,.8)); animation:bossHover 2.5s ease-in-out infinite; }
+@keyframes bossHover { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-10px) scale(1.06)} }
+.raid-phase-badge { font-size:9px; font-weight:900; letter-spacing:2px; text-transform:uppercase; padding:3px 9px; border-radius:10px; display:inline-block; margin-bottom:8px; }
+.raid-phase-badge.p1 { background:rgba(255,34,85,.2); color:var(--red); }
+.raid-phase-badge.p2 { background:rgba(255,136,0,.2); color:var(--orange); }
+.raid-phase-badge.p3 { background:rgba(170,102,255,.2); color:var(--purple); }
+.raid-phase-badge.p4 { background:rgba(255,204,0,.2); color:var(--gold); }
+.raid-hp-bar { height:8px; background:rgba(255,255,255,.08); border-radius:4px; overflow:hidden; margin-bottom:4px; }
+.raid-hp-inner { height:100%; border-radius:4px; transition:width .7s cubic-bezier(.4,0,.2,1); }
+.raid-hp-inner.p1 { background:linear-gradient(90deg,#ff1144,#ff6644); }
+.raid-hp-inner.p2 { background:linear-gradient(90deg,#ff6600,#ffcc00); }
+.raid-hp-inner.p3 { background:linear-gradient(90deg,var(--purple),var(--blue)); }
+.raid-hp-inner.p4 { background:linear-gradient(90deg,var(--gold),var(--green)); }
+.raid-dmg-row { display:flex; justify-content:space-between; font-size:11px; color:var(--t3); font-weight:700; margin-bottom:10px; }
+.raid-you-hp { display:flex; align-items:center; gap:8px; margin-bottom:10px; font-size:11px; color:var(--t2); font-weight:700; }
+.raid-you-hp-bar { flex:1; height:6px; background:rgba(255,255,255,.07); border-radius:3px; overflow:hidden; }
+.raid-you-hp-fill { height:100%; background:linear-gradient(90deg,var(--green),#00ffaa); border-radius:3px; transition:width .4s; }
+.raid-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+.raid-btn { padding:12px 6px; border-radius:14px; border:1px solid var(--line); background:var(--s2); cursor:pointer; text-align:center; font-size:12px; font-weight:800; transition:all .15s; line-height:1.4; }
+.raid-btn:active { transform:scale(.9); }
+.raid-btn.sp { border-color:rgba(255,34,85,.45); background:rgba(255,34,85,.08); color:var(--red); }
+.raid-btn.def { border-color:rgba(68,136,255,.45); background:rgba(68,136,255,.08); color:var(--blue); }
+.raid-btn.heal { border-color:rgba(0,255,136,.45); background:rgba(0,255,136,.08); color:var(--green); }
+.raid-btn.ult { border-color:rgba(255,204,0,.45); background:rgba(255,204,0,.08); color:var(--gold); }
+.raid-log { font-size:12px; color:var(--t2); text-align:center; padding:4px 0; min-height:20px; }
+.raid-reward-txt { font-size:12px; color:var(--gold); font-weight:800; text-align:center; margin-top:4px; }
+#featToast { position:fixed; top:calc(62px + var(--sat)); left:50%; transform:translateX(-50%) translateY(-20px); z-index:800; background:linear-gradient(135deg,rgba(255,204,0,.95),rgba(255,136,68,.95)); color:#000; font-family:var(--ff-head); font-size:13px; font-weight:900; padding:9px 22px; border-radius:22px; opacity:0; transition:all .4s cubic-bezier(.4,0,.2,1); pointer-events:none; box-shadow:0 4px 24px rgba(255,204,0,.55); white-space:nowrap; }
+#featToast.on { opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
@@ -1417,6 +1492,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="pill pill-r">🔥<b id="hStreak">0</b>d</div>
       <div class="pill pill-g">✅<b id="hTrust">42</b></div>
     </div>
+    <div class="radio-btn" id="radioBtn" onclick="toggleRadio()" title="Karma Radio">♪</div>
     <div class="notif-wrap">
       <div class="notif-btn" onclick="toggleNotif()" id="notifBtn">🔔</div>
       <div class="notif-badge" id="notifBadge" style="display:none">0</div>
@@ -1446,6 +1522,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openModal('aiModal')"><div class="ddr-i">🤖</div>KARMA AI</div>
           <div class="ddr" onclick="cM();openSpinWheel()"><div class="ddr-i">🎰</div>Daglig Spin</div>
           <div class="ddr" onclick="cM();oWin('shopWin');renderShop()"><div class="ddr-i">🛒</div>Shop</div>
+          <div class="ddr" onclick="cM();openLuckyModal()"><div class="ddr-i">🎁</div>Lucky Box</div>
+          <div class="ddr" onclick="cM();nav('games');setTimeout(()=>switchGame('raid',document.querySelector('.gtab:last-child')),300)"><div class="ddr-i">💀</div>Boss Raid</div>
+          <div class="ddr" onclick="cM();toggleRadio()"><div class="ddr-i">🎵</div>Karma Radio</div>
         </div>
       </div>
     </div>
@@ -1691,10 +1770,28 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="games-title">🎮 Games</div>
         <div style="font-size:11px;color:var(--blue);font-weight:700" id="gamesXPToday">+0 XP idag</div>
       </div>
+      <!-- Live Event Banner -->
+      <div class="event-banner" id="eventBanner" style="display:none">
+        <div class="ev-ico" id="evIco">⚡</div>
+        <div><div class="ev-name" id="evName">EVENT</div><div class="ev-timer" id="evTimer">Laddar...</div></div>
+        <div class="ev-pill" id="evPill">x2</div>
+      </div>
+      <!-- World Boss Banner -->
+      <div class="boss-banner" id="bossBanner">
+        <div class="boss-em-big" id="bossEmBig">🐲</div>
+        <div class="boss-info">
+          <div class="boss-lbl">⚠️ WORLD BOSS</div>
+          <div class="boss-name-big" id="bossNameBig">OMEGA DRAGON</div>
+          <div class="boss-hp-bar"><div class="boss-hp-inner" id="bossHpFill" style="width:100%"></div></div>
+          <div class="boss-hp-txt"><span id="bossHpTxt">100,000 HP</span><span id="bossYourDmg">Du: 0 dmg</span></div>
+        </div>
+        <button class="boss-att-btn" onclick="attackWorldBoss()">⚔️ ATTACK!</button>
+      </div>
       <div class="game-tabs">
         <div class="gtab on" onclick="switchGame('battle',this)">🥊 BATTLE</div>
         <div class="gtab" onclick="switchGame('speed',this)">⚡ REACT</div>
         <div class="gtab" onclick="switchGame('memory',this)">🧠 MEMORY</div>
+        <div class="gtab" onclick="switchGame('raid',this)">💀 RAID</div>
       </div>
 
       <!-- BATTLE -->
@@ -1759,6 +1856,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="memory-grid" id="memGrid"></div>
         <button class="btn btn-ghost btn-full btn-sm" onclick="initMemory()">🔄 Nytt spel</button>
       </div>
+
+      <!-- RAID -->
+      <div class="game-panel" id="gp-raid">
+        <div class="raid-boss-card" id="raidBossCard">
+          <span class="raid-boss-em" id="raidBossEm">💀</span>
+          <div class="raid-phase-badge p1" id="raidPhaseBadge">FASE 1</div>
+          <div style="font-family:var(--ff-head);font-size:16px;font-weight:900;margin-bottom:6px" id="raidBossName">SHADOW BEAST</div>
+          <div class="raid-hp-bar"><div class="raid-hp-inner p1" id="raidHpFill" style="width:100%"></div></div>
+          <div class="raid-dmg-row"><span id="raidHpTxt">0/0 HP</span><span id="raidPhaseInfo">Fase 1/4</span></div>
+        </div>
+        <div class="raid-you-hp">
+          <span>❤️ DIN HP</span>
+          <div class="raid-you-hp-bar"><div class="raid-you-hp-fill" id="raidYouHpFill" style="width:100%"></div></div>
+          <span id="raidYouHpTxt">100</span>
+        </div>
+        <div class="raid-grid">
+          <div class="raid-btn sp" onclick="raidMove('slash')">⚔️ SLASH<br><small>30-50 dmg</small></div>
+          <div class="raid-btn sp" onclick="raidMove('blast')">💥 BLAST<br><small>50-80 dmg</small></div>
+          <div class="raid-btn def" onclick="raidMove('shield')">🛡️ SHIELD<br><small>Block nästa</small></div>
+          <div class="raid-btn heal" onclick="raidMove('heal')">💚 HEAL<br><small>+25 HP</small></div>
+        </div>
+        <div class="raid-btn ult" style="width:100%;margin-bottom:8px" onclick="raidMove('ultimate')">⚡ ULTIMATE — <small id="raidUltCd">Redo!</small></div>
+        <div class="raid-log" id="raidLog">Välj ett drag för att starta raiden!</div>
+        <div class="raid-reward-txt" id="raidReward"></div>
+      </div>
+
       <div class="vend"></div>
     </div>
 
@@ -1800,6 +1923,17 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       </div>
       <!-- Season Pass -->
       <div class="sp-card" id="seasonCard"></div>
+
+      <div id="prestigeSection" style="padding:0 16px 0;display:none">
+        <div class="prestige-card" id="prestigeCard">
+          <div style="font-size:10px;font-weight:900;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px">✨ PRESTIGE</div>
+          <div style="font-family:var(--ff-head);font-size:18px;font-weight:900;color:var(--gold);margin-bottom:2px" id="prestigeTitle">PRESTIGE I</div>
+          <div style="font-size:12px;color:var(--t2);margin-bottom:12px" id="prestigeDesc">+15% XP permanent • Alla stats bevarade</div>
+          <div style="display:flex;gap:8px;margin-bottom:10px" id="prestigeStars"></div>
+          <button class="prestige-btn" id="prestigeDoBtn" onclick="doPrestige()">⭐ PRESTIGE UPP</button>
+          <div style="font-size:10px;color:var(--t3);margin-top:6px;text-align:center" id="prestigeReq">Kräver Level 20</div>
+        </div>
+      </div>
 
       <div style="padding:0 16px;display:flex;flex-direction:column;gap:12px">
         <div class="trust-card">
@@ -1864,6 +1998,27 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
   <div class="story-ov-content" id="storyContent">🐉</div>
   <div style="padding:14px 16px;font-size:14px;color:var(--t2);text-align:center" id="storyCaption"></div>
+</div>
+
+<!-- LUCKY BOX MODAL -->
+<div class="modal" id="luckyModal">
+  <div class="ms" style="text-align:center">
+    <div class="mh"></div>
+    <div class="mt" style="justify-content:center">🎁 LUCKY BOX <div class="mx" onclick="closeModal('luckyModal')">✕</div></div>
+    <div style="padding:16px">
+      <div id="luckyBoxState">
+        <span class="lucky-box-ico" id="luckyBoxIco" onclick="openLuckyBox()">🎁</span>
+        <div style="font-size:13px;color:var(--t2);text-align:center;margin-bottom:16px">Tryck på lådan för att öppna!</div>
+        <div style="font-size:11px;color:var(--t3);text-align:center" id="luckyBoxCd"></div>
+      </div>
+      <div id="luckyRevealState" style="display:none">
+        <span class="lucky-reveal" id="luckyRevealIco">⭐</span>
+        <div class="lucky-prize-n" id="luckyPrizeName">500 COINS!</div>
+        <div class="lucky-prize-d" id="luckyPrizeDesc">Grattis, du vann priset!</div>
+        <button class="btn btn-g btn-full" onclick="closeModal('luckyModal')">🎉 Awesome!</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- SPIN WHEEL -->
@@ -3098,8 +3253,8 @@ function nav(name) {
     uppdrag: () => renderUppdrag(),
     map:     () => { setTimeout(() => { if(!G.mapInit) locateMe(); }, 200); renderNearby(); renderTerritory(); },
     lb:      () => renderLB('money', document.querySelector('#lbTabs .lt')),
-    profile: () => { updateHUD(); renderBadges(); renderHistList(); renderSeasonPass(); updateProfileRank(); },
-    games:   () => { initBattle(); renderMissions(); $('gamesXPToday').textContent=`+${gamesXPToday} XP idag`; },
+    profile: () => { updateHUD(); renderBadges(); renderHistList(); renderSeasonPass(); updateProfileRank(); renderPrestigeBtn(); },
+    games:   () => { initBattle(); renderMissions(); $('gamesXPToday').textContent=`+${gamesXPToday} XP idag`; renderWorldBoss(); renderEventBanner(); },
   };
   if(R[name]) R[name]();
 }
@@ -4006,6 +4161,463 @@ setInterval(() => {
   if(document.querySelector('#view-pet.active')) updatePet();
 }, 120000);
 setInterval(save, 8000);
+
+/* ══════════════════════════════════════════
+   🌍 WORLD BOSS SYSTEM
+══════════════════════════════════════════ */
+const WORLD_BOSSES = [
+  {id:'wb1',name:'OMEGA DRAGON',em:'🐲',maxHp:100000,phase:['Sovande','Vaken','Rasande','BERSERKER']},
+  {id:'wb2',name:'CYBER TITAN',em:'🤖',maxHp:150000,phase:['Kalibrerar','Aktiv','Överhettad','KÄRN-MELTDOWN']},
+  {id:'wb3',name:'SHADOW OVERLORD',em:'👁️',maxHp:120000,phase:['Lurking','Manifesterad','Korrupt','APOKALYPS']},
+  {id:'wb4',name:'STORM KING',em:'⚡',maxHp:180000,phase:['Mulet','Åskvädret','Orkanen','DOMEDAGEN']},
+];
+let _wb = JSON.parse(localStorage.getItem('k0509_wb')||'null');
+if(!_wb) {
+  const b=WORLD_BOSSES[0];
+  _wb={idx:0,hp:b.maxHp,maxHp:b.maxHp,yourDmg:0,kills:0,lastReset:Date.now()};
+}
+function saveWB(){ localStorage.setItem('k0509_wb',JSON.stringify(_wb)); }
+function renderWorldBoss(){
+  const bdata=WORLD_BOSSES[_wb.idx%WORLD_BOSSES.length];
+  const pct=Math.max(0,_wb.hp/_wb.maxHp);
+  const phase=Math.floor((1-pct)*4);
+  const el=$('bossHpFill'); if(el) el.style.width=(pct*100)+'%';
+  const nt=$('bossHpTxt'); if(nt) nt.textContent=_wb.hp.toLocaleString()+' HP';
+  const yd=$('bossYourDmg'); if(yd) yd.textContent='Du: '+_wb.yourDmg.toLocaleString()+' dmg';
+  const be=$('bossEmBig'); if(be) be.textContent=bdata.em;
+  const bn=$('bossNameBig'); if(bn) bn.textContent=bdata.name+(phase>0?' — '+bdata.phase[phase]:'');
+  if(el){
+    el.style.background=phase>=3?'linear-gradient(90deg,#ff00ff,#ff1144)':
+                         phase>=2?'linear-gradient(90deg,#aa44ff,#ff1144)':
+                         'linear-gradient(90deg,#ff1144,#ff8844)';
+  }
+}
+function initWorldBoss(){
+  if(Date.now()-_wb.lastReset>86400000*3){
+    const nb=WORLD_BOSSES[(_wb.idx+1)%WORLD_BOSSES.length];
+    _wb={idx:_wb.idx+1,hp:nb.maxHp,maxHp:nb.maxHp,yourDmg:0,kills:_wb.kills,lastReset:Date.now()};
+    saveWB();
+    showFeatToast('🐲 NYTT WORLD BOSS!');
+  }
+  renderWorldBoss();
+}
+function attackWorldBoss(){
+  if(!G.name){showT('❌ Logga in först!','r');return;}
+  const atk=Math.floor(Math.random()*500+200+(G.level*50));
+  _wb.hp=Math.max(0,_wb.hp-atk);
+  _wb.yourDmg+=atk;
+  saveWB();
+  gainXP(Math.floor(atk/10),'action');
+  gainCoins(Math.floor(atk/50));
+  SFX.hit();
+  vibe([30,10,50]);
+  showT(`⚔️ Du träffade för ${atk.toLocaleString()} dmg!`,'g');
+  pushNotif('⚔️',`World Boss attack: ${atk.toLocaleString()} dmg!`);
+  if(_wb.hp<=0) bossKilled();
+  else renderWorldBoss();
+}
+function bossKilled(){
+  const bdata=WORLD_BOSSES[_wb.idx%WORLD_BOSSES.length];
+  _wb.kills++;
+  gainXP(2000,'action'); gainCoins(1000);
+  confetti(80); vibe([100,50,100,50,200]);
+  showFeatToast('🏆 WORLD BOSS BESEGRAD!');
+  pushNotif('🏆','Du var med och besegrade '+bdata.name+'! +2000 XP +1000 Coins!');
+  setTimeout(()=>{
+    const nb=WORLD_BOSSES[(_wb.idx+1)%WORLD_BOSSES.length];
+    _wb={idx:_wb.idx+1,hp:nb.maxHp,maxHp:nb.maxHp,yourDmg:0,kills:_wb.kills,lastReset:Date.now()};
+    saveWB(); renderWorldBoss();
+  },3000);
+}
+
+/* ══════════════════════════════════════════
+   🎁 LUCKY BOX SYSTEM
+══════════════════════════════════════════ */
+const LUCKY_PRIZES = [
+  {ico:'💎',name:'GEM-JACKPOT',desc:'+1000 Coins + 500 XP',coins:1000,xp:500,rarity:'legendary'},
+  {ico:'⚡',name:'XP-STORM',desc:'+750 XP burst',coins:0,xp:750,rarity:'epic'},
+  {ico:'💰',name:'Coin Rain',desc:'+500 Coins',coins:500,xp:0,rarity:'rare'},
+  {ico:'🔥',name:'2x XP Boost',desc:'2x XP i 15 min',coins:0,xp:0,boost:'xp',rarity:'rare'},
+  {ico:'⭐',name:'Star Prize',desc:'+300 XP + 200 Coins',coins:200,xp:300,rarity:'uncommon'},
+  {ico:'🎯',name:'Uppdrag Skip',desc:'+150 XP + 100 Coins',coins:100,xp:150,rarity:'common'},
+  {ico:'🍀',name:'Lucky Coin',desc:'+250 Coins',coins:250,xp:0,rarity:'common'},
+  {ico:'✨',name:'XP Bonus',desc:'+200 XP',coins:0,xp:200,rarity:'common'},
+];
+const LUCKY_WEIGHTS=[1,3,5,5,10,20,25,31];
+let _luckyTimer=null;
+function pickLuckyPrize(){
+  const total=LUCKY_WEIGHTS.reduce((a,b)=>a+b,0);
+  let r=Math.random()*total;
+  for(let i=0;i<LUCKY_PRIZES.length;i++){r-=LUCKY_WEIGHTS[i];if(r<=0)return LUCKY_PRIZES[i];}
+  return LUCKY_PRIZES[LUCKY_PRIZES.length-1];
+}
+function showLuckyDrop(){
+  const bar=$('luckyDropBar'); if(!bar) return;
+  bar.classList.add('show');
+  clearTimeout(_luckyTimer);
+  _luckyTimer=setTimeout(()=>bar.classList.remove('show'),8000);
+}
+let _xpSinceLucky=0;
+function checkLuckyDrop(xpGained){
+  _xpSinceLucky+=xpGained;
+  if(_xpSinceLucky>=200){
+    _xpSinceLucky=0;
+    if(Math.random()<0.35) showLuckyDrop();
+  }
+}
+function openLuckyModal(){
+  $('luckyDropBar').classList.remove('show');
+  const cd=parseInt(localStorage.getItem('k0509_lbcd')||'0');
+  if(Date.now()<cd){
+    const left=Math.ceil((cd-Date.now())/60000);
+    $('luckyBoxCd').textContent=`Nästa låda om ${left} min`;
+  } else {
+    $('luckyBoxCd').textContent='';
+  }
+  $('luckyBoxState').style.display='';
+  $('luckyRevealState').style.display='none';
+  $('luckyBoxIco').textContent='🎁';
+  $('luckyBoxIco').classList.remove('pop');
+  openModal('luckyModal');
+}
+function openLuckyBox(){
+  const cd=parseInt(localStorage.getItem('k0509_lbcd')||'0');
+  if(Date.now()<cd){
+    const left=Math.ceil((cd-Date.now())/60000);
+    showT(`⏳ Nästa låda om ${left} min`,'r'); return;
+  }
+  const prize=pickLuckyPrize();
+  $('luckyBoxIco').classList.add('pop');
+  localStorage.setItem('k0509_lbcd', Date.now()+900000);
+  setTimeout(()=>{
+    $('luckyBoxState').style.display='none';
+    $('luckyRevealState').style.display='';
+    $('luckyRevealIco').textContent=prize.ico;
+    $('luckyPrizeName').textContent=prize.name+'!';
+    $('luckyPrizeDesc').textContent=prize.desc;
+    if(prize.coins>0) gainCoins(prize.coins);
+    if(prize.xp>0) gainXP(prize.xp,'action');
+    if(prize.boost==='xp') G_shop.xpBoost=Date.now()+900000;
+    SFX.lvl(); confetti(50); vibe([50,30,80,30,120]);
+    showFeatToast(prize.ico+' '+prize.name+'!');
+    pushNotif(prize.ico,'Lucky Box: '+prize.name+' — '+prize.desc);
+    checkAchievements();
+  },600);
+}
+
+/* ══════════════════════════════════════════
+   ⚡ LIVE EVENTS SYSTEM
+══════════════════════════════════════════ */
+const LIVE_EVENTS=[
+  {id:'e1',name:'DOUBLE XP',ico:'⚡',desc:'Dubbelt XP i alla aktiviteter!',mult:'xp',val:2,dur:3600000,col:'#ffcc00'},
+  {id:'e2',name:'COIN MANIA',ico:'💰',desc:'Dubbelt coins på allt!',mult:'coin',val:2,dur:1800000,col:'#00ff88'},
+  {id:'e3',name:'BOSS RAGE',ico:'🐲',desc:'World boss tar 3x skada!',mult:'boss',val:3,dur:7200000,col:'#ff1144'},
+  {id:'e4',name:'LUCKY STREAK',ico:'🍀',desc:'Lucky drops 3x vanligare!',mult:'lucky',val:3,dur:3600000,col:'#aa44ff'},
+  {id:'e5',name:'XP STORM',ico:'🌪️',desc:'PET-aktiviteter ger 5x XP!',mult:'pet',val:5,dur:1800000,col:'#4488ff'},
+  {id:'e6',name:'SOCIAL BOOST',ico:'🤝',desc:'Flash & Circles ger 2x XP!',mult:'social',val:2,dur:5400000,col:'#ff6600'},
+];
+let _currentEvent=null;
+let _eventEnd=0;
+function getCurrentEvent(){ return (_currentEvent&&Date.now()<_eventEnd)?_currentEvent:null; }
+function initEvents(){
+  const stored=JSON.parse(localStorage.getItem('k0509_ev')||'null');
+  if(stored&&Date.now()<stored.end){
+    _currentEvent=LIVE_EVENTS.find(e=>e.id===stored.id)||null;
+    _eventEnd=stored.end;
+  } else {
+    startNextEvent();
+  }
+  renderEventBanner();
+}
+function startNextEvent(){
+  const ev=LIVE_EVENTS[Math.floor(Math.random()*LIVE_EVENTS.length)];
+  _currentEvent=ev;
+  _eventEnd=Date.now()+ev.dur;
+  localStorage.setItem('k0509_ev',JSON.stringify({id:ev.id,end:_eventEnd}));
+  showFeatToast(ev.ico+' '+ev.name+' — LIVE!');
+  pushNotif(ev.ico,'<b>Live Event!</b> '+ev.name+': '+ev.desc);
+}
+function renderEventBanner(){
+  const b=$('eventBanner'); if(!b) return;
+  const ev=getCurrentEvent();
+  if(!ev){b.style.display='none'; setTimeout(startNextEvent,1800000+Math.random()*3600000); return;}
+  b.style.display='flex';
+  $('evIco').textContent=ev.ico;
+  $('evName').textContent=ev.name;
+  $('evPill').textContent=ev.val+'x';
+  b.style.borderColor=ev.col+'88';
+  const updateTimer=()=>{
+    const left=_eventEnd-Date.now();
+    if(left<=0){b.style.display='none';setTimeout(startNextEvent,900000+Math.random()*1800000);return;}
+    const m=Math.floor(left/60000), s=Math.floor((left%60000)/1000);
+    const et=$('evTimer'); if(et) et.textContent=`${m}:${s.toString().padStart(2,'0')} kvar`;
+  };
+  updateTimer();
+  setInterval(updateTimer,5000);
+}
+function getEventMult(type){
+  const ev=getCurrentEvent(); if(!ev) return 1;
+  if(ev.mult===type) return ev.val;
+  return 1;
+}
+
+/* ══════════════════════════════════════════
+   ⭐ PRESTIGE SYSTEM
+══════════════════════════════════════════ */
+if(!G.prestige) G.prestige=0;
+const PRESTIGE_REQ=[20,40,70,100,150];
+const PRESTIGE_BONUS=[0.15,0.20,0.25,0.30,0.40];
+function canPrestige(){ return G.level>=(PRESTIGE_REQ[Math.min(G.prestige,PRESTIGE_REQ.length-1)]||999); }
+function getPrestigeMult(){ return 1+PRESTIGE_BONUS.slice(0,G.prestige).reduce((a,b)=>a+b,0); }
+function doPrestige(){
+  if(!canPrestige()){showT('❌ Kräver Level '+PRESTIGE_REQ[Math.min(G.prestige,PRESTIGE_REQ.length-1)],'r');return;}
+  G.prestige++;
+  G.level=1; G.exp=0;
+  gainCoins(500*G.prestige);
+  save();
+  confetti(100); vibe([100,50,100,50,200,100]);
+  showFeatToast('⭐ PRESTIGE '+G.prestige+'!');
+  pushNotif('⭐','<b>PRESTIGE '+G.prestige+'!</b> Du har ascendat! +'+Math.floor(getPrestigeMult()*100-100)+'% XP permanent.');
+  checkAchievements();
+  renderPrestigeBtn();
+  updateHUD();
+}
+function renderPrestigeBtn(){
+  const sec=$('prestigeSection'); if(!sec) return;
+  if(G.prestige===0&&!canPrestige()){sec.style.display='none';return;}
+  sec.style.display='';
+  const req=PRESTIGE_REQ[Math.min(G.prestige,PRESTIGE_REQ.length-1)]||999;
+  $('prestigeTitle').textContent='PRESTIGE '+(G.prestige>0?G.prestige+' → '+(G.prestige+1):'I');
+  const mult=getPrestigeMult();
+  $('prestigeDesc').textContent=(G.prestige>0?`+${Math.floor(mult*100-100)}% XP aktivt `:'')+`Nästa: +${Math.floor(PRESTIGE_BONUS[Math.min(G.prestige,PRESTIGE_BONUS.length-1)]*100)}% XP bonus`;
+  $('prestigeReq').textContent=canPrestige()?'🟢 Redo att prestige!':'Kräver Level '+req+' (du är '+G.level+')';
+  $('prestigeDoBtn').disabled=!canPrestige();
+  const stars=$('prestigeStars'); if(stars){
+    stars.innerHTML=Array.from({length:Math.min(5,G.prestige)}).map(()=>'<span class="p-star">⭐</span>').join('');
+  }
+}
+
+/* ══════════════════════════════════════════
+   🎵 KARMA RADIO
+══════════════════════════════════════════ */
+let _radioOn=false, _radioCtx=null, _radioNoteTimer=null;
+const RADIO_TRACKS=[
+  {name:'Lo-Fi Karma',bpm:75,scale:[261,293,329,349,392,440,494]},
+  {name:'Neon Groove',bpm:120,scale:[220,261,311,349,392,440,523]},
+  {name:'Chill Beats',bpm:85,scale:[196,220,261,294,330,392,440]},
+  {name:'Hyper Wave',bpm:140,scale:[293,329,392,440,523,587,659]},
+];
+let _radioTrack=RADIO_TRACKS[0];
+function toggleRadio(){
+  _radioOn=!_radioOn;
+  const btn=$('radioBtn');
+  if(btn) btn.classList.toggle('on',_radioOn);
+  if(_radioOn){startRadio();}else{stopRadio();}
+}
+function startRadio(){
+  if(!_radioCtx) _radioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  _radioTrack=RADIO_TRACKS[Math.floor(Math.random()*RADIO_TRACKS.length)];
+  showT('🎵 '+_radioTrack.name+' — spelar nu','g');
+  const bps=_radioTrack.bpm/60;
+  let step=0;
+  function playNote(){
+    if(!_radioOn) return;
+    const ctx=_radioCtx;
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    const scale=_radioTrack.scale;
+    const freq=scale[step%scale.length]*(Math.random()<0.1?2:1);
+    osc.type=Math.random()<0.5?'sine':'triangle';
+    osc.frequency.value=freq;
+    gain.gain.setValueAtTime(0.04,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.35);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime+0.35);
+    const note=document.createElement('div');
+    note.className='radio-note';
+    note.textContent=['♪','♫','♬','♩'][Math.floor(Math.random()*4)];
+    note.style.cssText=`left:${Math.random()*280+70}px;top:${Math.random()*300+100}px;color:var(--green);`;
+    document.body.appendChild(note);
+    setTimeout(()=>note.remove(),2500);
+    step++;
+    _radioNoteTimer=setTimeout(playNote, (1000/bps)*(0.5+Math.random()*0.5));
+  }
+  playNote();
+}
+function stopRadio(){
+  clearTimeout(_radioNoteTimer);
+  showT('⏹ Radio stoppad','');
+}
+
+/* ══════════════════════════════════════════
+   💀 BOSS RAID GAME
+══════════════════════════════════════════ */
+const RAID_BOSSES=[
+  {name:'SHADOW BEAST',em:'💀',maxHp:800,phases:[{l:0.75,cls:'p1',lbl:'Fas 1'},{l:0.5,cls:'p2',lbl:'Fas 2'},{l:0.25,cls:'p3',lbl:'Fas 3'},{l:0,cls:'p4',lbl:'FINAL'}]},
+  {name:'VOID SPIDER',em:'🕷️',maxHp:1200,phases:[{l:0.75,cls:'p1',lbl:'Sovande'},{l:0.5,cls:'p2',lbl:'Vaken'},{l:0.25,cls:'p3',lbl:'Rasande'},{l:0,cls:'p4',lbl:'BERSERK'}]},
+  {name:'ICE WYVERN',em:'🐉',maxHp:1500,phases:[{l:0.75,cls:'p1',lbl:'Fryst'},{l:0.5,cls:'p2',lbl:'Töar'},{l:0.25,cls:'p3',lbl:'Isblast'},{l:0,cls:'p4',lbl:'BLIZZARD'}]},
+  {name:'THUNDER GOD',em:'⚡',maxHp:2000,phases:[{l:0.75,cls:'p1',lbl:'Laddar'},{l:0.5,cls:'p2',lbl:'Aktiv'},{l:0.25,cls:'p3',lbl:'Överladdat'},{l:0,cls:'p4',lbl:'RAGNAROK'}]},
+];
+let raidState={active:false,bossIdx:0,bossHp:0,bossMaxHp:0,youHp:100,youMaxHp:100,ultCd:0,shield:false,log:[]};
+function initRaid(){
+  const idx=Math.floor(Math.random()*RAID_BOSSES.length);
+  const boss=RAID_BOSSES[idx];
+  const scaledHp=boss.maxHp+G.level*50;
+  raidState={active:true,bossIdx:idx,bossHp:scaledHp,bossMaxHp:scaledHp,youHp:100+G.level*5,youMaxHp:100+G.level*5,ultCd:0,shield:false,log:[]};
+  renderRaid();
+}
+function getPhase(rs){
+  const pct=rs.bossHp/rs.bossMaxHp;
+  const boss=RAID_BOSSES[rs.bossIdx];
+  for(let p of boss.phases){ if(pct>p.l) return p; }
+  return boss.phases[boss.phases.length-1];
+}
+function renderRaid(){
+  const rs=raidState;
+  const boss=RAID_BOSSES[rs.bossIdx];
+  const phase=getPhase(rs);
+  const bp=$('raidBossEm'); if(bp) bp.textContent=boss.em;
+  const bn=$('raidBossName'); if(bn) bn.textContent=boss.name;
+  const pb=$('raidPhaseBadge'); if(pb){pb.textContent=phase.lbl;pb.className='raid-phase-badge '+phase.cls;}
+  const hf=$('raidHpFill'); if(hf){hf.style.width=(rs.bossHp/rs.bossMaxHp*100)+'%';hf.className='raid-hp-inner '+phase.cls;}
+  const ht=$('raidHpTxt'); if(ht) ht.textContent=rs.bossHp.toLocaleString()+'/'+rs.bossMaxHp.toLocaleString();
+  const pi=$('raidPhaseInfo'); if(pi) pi.textContent='Fas '+(boss.phases.indexOf(phase)+1)+'/'+boss.phases.length;
+  const yf=$('raidYouHpFill'); if(yf) yf.style.width=(rs.youHp/rs.youMaxHp*100)+'%';
+  const yt=$('raidYouHpTxt'); if(yt) yt.textContent=rs.youHp;
+  const uc=$('raidUltCd'); if(uc) uc.textContent=rs.ultCd>0?`${rs.ultCd} drag`:'Redo!';
+  const rl=$('raidLog'); if(rl) rl.textContent=rs.log[rs.log.length-1]||'';
+}
+function raidMove(type){
+  if(!raidState.active){initRaid();return;}
+  const rs=raidState;
+  const phase=getPhase(rs);
+  let msg='';
+  let playerDmg=0, bossDmg=0;
+  if(type==='slash'){
+    playerDmg=Math.floor(Math.random()*20+30+(G.level*3));
+    msg=`⚔️ Slash: ${playerDmg} dmg!`;
+  } else if(type==='blast'){
+    playerDmg=Math.floor(Math.random()*30+50+(G.level*5));
+    const cost=20;
+    if(G.energy<cost){showT('❌ Inte tillräckligt med energi!','r');return;}
+    G.energy=Math.max(0,G.energy-cost); updateHUD();
+    msg=`💥 Blast: ${playerDmg} dmg! (−${cost} energi)`;
+  } else if(type==='shield'){
+    rs.shield=true;
+    msg='🛡️ Shield aktiverat! Nästa attack blockeras.';
+    gainXP(5,'action');
+  } else if(type==='heal'){
+    const heal=Math.floor(Math.random()*15+25);
+    rs.youHp=Math.min(rs.youMaxHp, rs.youHp+heal);
+    msg=`💚 Helade ${heal} HP!`;
+    gainXP(8,'action');
+  } else if(type==='ultimate'){
+    if(rs.ultCd>0){showT(`⏳ Ultimate om ${rs.ultCd} drag`,'r');return;}
+    playerDmg=Math.floor(Math.random()*100+150+(G.level*10));
+    rs.ultCd=5;
+    msg=`⚡ ULTIMATE: ${playerDmg} dmg!`;
+    confetti(25); vibe([50,30,100]);
+  }
+  rs.bossHp=Math.max(0,rs.bossHp-playerDmg);
+  if(rs.ultCd>0&&type!=='ultimate') rs.ultCd--;
+  SFX.hit();
+  if(rs.bossHp<=0){raidWin();return;}
+  const pct=rs.bossHp/rs.bossMaxHp;
+  const bossAtk=Math.floor((Math.random()*20+15)*(1+(1-pct)));
+  bossDmg=rs.shield?0:bossAtk;
+  rs.shield=false;
+  if(bossDmg>0){
+    rs.youHp=Math.max(0,rs.youHp-bossDmg);
+    msg+=` | Boss: ${bossDmg} dmg`;
+    vibe(40);
+  } else if(bossAtk>0){
+    msg+=' | 🛡️ Blockad!';
+  }
+  rs.log.push(msg);
+  if(rs.youHp<=0){
+    const rl=$('raidLog'); if(rl) rl.textContent='💀 Du dog! Raid misslyckad...';
+    const rr=$('raidReward'); if(rr) rr.textContent='Try again!';
+    rs.active=false;
+    const rb=$('raidBossCard'); if(rb){rb.style.animation='hitFlash .4s 3';setTimeout(()=>{if(rb)rb.style.animation='';},1200);}
+    gainXP(50,'action');
+    setTimeout(initRaid,2500);
+    return;
+  }
+  renderRaid();
+  progressChallenge('battle',0);
+}
+function raidWin(){
+  const rs=raidState;
+  const boss=RAID_BOSSES[rs.bossIdx];
+  const xpGain=500+G.level*50;
+  const coinGain=200+G.level*20;
+  gainXP(xpGain,'action');
+  gainCoins(coinGain);
+  SFX.lvl(); confetti(80); vibe([100,50,100,50,200]);
+  const rl=$('raidLog'); if(rl) rl.textContent=`🏆 ${boss.name} BESEGRAD!`;
+  const rr=$('raidReward'); if(rr) rr.textContent=`+${xpGain} XP  +${coinGain} Coins!`;
+  showFeatToast('🏆 RAID KLAR! +'+xpGain+' XP');
+  pushNotif('🏆','<b>Raid Victory!</b> '+boss.name+' besegrad! +'+xpGain+' XP +'+coinGain+' Coins');
+  progressChallenge('battle',1);
+  checkAchievements();
+  rs.active=false;
+  setTimeout(initRaid,3500);
+}
+
+/* ══════════════════════════════════════════
+   🍞 FEATURE TOAST
+══════════════════════════════════════════ */
+let _ftTimer=null;
+function showFeatToast(msg){
+  const t=$('featToast'); if(!t) return;
+  t.textContent=msg;
+  t.classList.add('on');
+  clearTimeout(_ftTimer);
+  _ftTimer=setTimeout(()=>t.classList.remove('on'),3000);
+}
+
+/* ══════════════════════════════════════════
+   🔌 WIRE IN: nav, switchGame, gainXP patch
+══════════════════════════════════════════ */
+const _origSwitchGame=window.switchGame||(()=>{});
+const _origSwitchGameExists=typeof switchGame!=='undefined';
+
+const _raidSwitchProxy=function(id,el){
+  document.querySelectorAll('.game-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(t=>t.classList.remove('on'));
+  if(el) el.classList.add('on');
+  const gp=$('gp-'+id); if(gp) gp.classList.add('active');
+  if(id==='raid') initRaid();
+  if(id==='battle') initBattle();
+  if(id==='speed') {}
+  if(id==='memory') initMemory();
+};
+window.switchGame=_raidSwitchProxy;
+
+const _origGainXP=gainXP;
+gainXP=function(n,stat){
+  _origGainXP(n,stat);
+  checkLuckyDrop(n);
+};
+
+/* Init new systems */
+initWorldBoss();
+initEvents();
+if(G.name) renderPrestigeBtn();
+
+setInterval(save, 8000);
 </script>
+
+<!-- LUCKY DROP BAR -->
+<div id="luckyDropBar" onclick="openLuckyModal()">
+  <div class="ldb-inner" style="display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(255,204,0,.95),rgba(255,136,68,.95));padding:10px 16px;border-radius:20px;box-shadow:0 4px 20px rgba(255,204,0,.5)">
+    <div class="ldi-ico">🎁</div>
+    <div style="font-family:var(--ff-head);font-size:12px;font-weight:900;color:#000;line-height:1.2">LUCKY BOX<br><span style="font-size:10px;font-weight:700">Tryck för att öppna!</span></div>
+  </div>
+</div>
+
+<!-- FEATURE TOAST -->
+<div id="featToast"></div>
+
 </body>
 </html>
