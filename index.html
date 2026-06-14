@@ -1443,6 +1443,86 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .raid-reward-txt { font-size:12px; color:var(--gold); font-weight:800; text-align:center; margin-top:4px; }
 #featToast { position:fixed; top:calc(62px + var(--sat)); left:50%; transform:translateX(-50%) translateY(-20px); z-index:800; background:linear-gradient(135deg,rgba(255,204,0,.95),rgba(255,136,68,.95)); color:#000; font-family:var(--ff-head); font-size:13px; font-weight:900; padding:9px 22px; border-radius:22px; opacity:0; transition:all .4s cubic-bezier(.4,0,.2,1); pointer-events:none; box-shadow:0 4px 24px rgba(255,204,0,.55); white-space:nowrap; }
 #featToast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+/* ══ RIPPLE ══ */
+.ripple-circle { position:fixed; pointer-events:none; border-radius:50%; background:rgba(0,255,136,.35); transform:scale(0); animation:rippleExp .6s ease-out both; z-index:9999; }
+@keyframes rippleExp { 0%{transform:scale(0);opacity:1} 100%{transform:scale(4);opacity:0} }
+
+/* ══ POTT ══ */
+.pott-chip { display:flex; align-items:center; gap:5px; background:linear-gradient(135deg,rgba(255,204,0,.15),rgba(255,136,0,.1)); border:1px solid rgba(255,204,0,.4); border-radius:20px; padding:4px 10px; cursor:pointer; animation:pottPulse 2s ease-in-out infinite; }
+@keyframes pottPulse { 0%,100%{border-color:rgba(255,204,0,.4)} 50%{border-color:rgba(255,204,0,.9);box-shadow:0 0 12px rgba(255,204,0,.4)} }
+.pott-chip-lbl { font-size:10px; font-weight:900; color:var(--gold); font-family:var(--ff-head); }
+.pott-chip-val { font-size:11px; font-weight:900; color:var(--gold); }
+.pott-modal-inner { padding:16px; }
+.pott-tier { background:var(--s2); border:1px solid var(--line); border-radius:16px; padding:14px; margin-bottom:10px; position:relative; overflow:hidden; }
+.pott-tier.hot { border-color:rgba(255,204,0,.5); background:linear-gradient(135deg,rgba(255,204,0,.07),rgba(255,136,0,.05)); }
+.pott-tier-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.pott-tier-name { font-family:var(--ff-head); font-size:15px; font-weight:900; }
+.pott-tier-amt { font-family:var(--ff-head); font-size:18px; font-weight:900; color:var(--gold); }
+.pott-cd { font-size:10px; color:var(--t3); font-weight:700; }
+.pott-tickets { font-size:11px; color:var(--green); font-weight:800; margin-bottom:8px; }
+.pott-bar { height:4px; background:rgba(255,255,255,.06); border-radius:2px; overflow:hidden; margin-bottom:10px; }
+.pott-bar-fill { height:100%; background:linear-gradient(90deg,var(--gold),var(--orange)); border-radius:2px; transition:width .5s; }
+.pott-claim-btn { width:100%; padding:10px; background:linear-gradient(135deg,var(--gold),var(--orange)); color:#000; font-family:var(--ff-head); font-size:13px; font-weight:900; border-radius:12px; border:none; cursor:pointer; transition:all .2s; }
+.pott-claim-btn:disabled { opacity:.3; cursor:not-allowed; }
+.pott-winner-row { font-size:11px; color:var(--t2); padding:4px 0; border-top:1px solid var(--line); margin-top:8px; }
+.pott-jackpot-badge { position:absolute; top:10px; right:10px; background:linear-gradient(135deg,var(--gold),var(--orange)); color:#000; font-size:9px; font-weight:900; padding:2px 8px; border-radius:10px; }
+
+/* ══ KARMA RUNNER ══ */
+#runnerCanvas { width:100%; height:220px; display:block; border-radius:16px; background:linear-gradient(180deg,#0a0014 0%,#000 60%,#0a0028 100%); }
+.runner-hud { display:flex; justify-content:space-between; padding:8px 12px; }
+.runner-stat { text-align:center; }
+.runner-stat-v { font-family:var(--ff-head); font-size:20px; font-weight:900; color:var(--green); }
+.runner-stat-l { font-size:9px; color:var(--t3); font-weight:700; }
+.runner-start-overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:16px; background:rgba(0,0,0,.65); backdrop-filter:blur(4px); }
+.runner-wrap { position:relative; }
+
+/* ══ FISHING ══ */
+#fishCanvas { width:100%; height:240px; display:block; border-radius:16px; }
+.fish-hud { display:flex; justify-content:space-between; padding:8px 12px 4px; }
+.fish-stat { text-align:center; }
+.fish-stat-v { font-family:var(--ff-head); font-size:18px; font-weight:900; }
+.fish-catch-log { padding:8px 12px; min-height:32px; font-size:12px; color:var(--t2); text-align:center; font-weight:700; }
+.fish-btn-row { display:flex; gap:10px; padding:8px 0; }
+.fish-cast-btn { flex:1; padding:14px; border-radius:16px; font-family:var(--ff-head); font-size:15px; font-weight:900; border:none; cursor:pointer; transition:all .15s; }
+.fish-cast-btn.cast { background:linear-gradient(135deg,var(--blue),var(--teal)); color:#fff; box-shadow:0 4px 20px rgba(68,136,255,.4); }
+.fish-cast-btn.reel { background:linear-gradient(135deg,var(--green),var(--teal)); color:#000; box-shadow:0 4px 20px rgba(0,255,136,.4); animation:reelPulse .5s ease-in-out infinite; }
+@keyframes reelPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+.fish-cast-btn:disabled { opacity:.3; cursor:not-allowed; animation:none; }
+
+/* ══ BOUNTY VERIFY ══ */
+.verify-step { text-align:center; padding:20px 16px; }
+.verify-big-ico { font-size:56px; display:block; margin-bottom:12px; }
+.verify-code-display { font-family:var(--ff-head); font-size:36px; font-weight:900; letter-spacing:8px; color:var(--green); text-align:center; padding:16px; background:rgba(0,255,136,.06); border:1px solid rgba(0,255,136,.2); border-radius:14px; margin:12px 0; }
+.verify-steps-row { display:flex; gap:6px; justify-content:center; margin-bottom:16px; }
+.verify-dot { width:32px; height:6px; border-radius:3px; background:var(--line); transition:all .3s; }
+.verify-dot.done { background:var(--green); }
+.step-counter-ring { width:100px; height:100px; margin:0 auto 12px; position:relative; }
+.scr-svg { width:100%; height:100%; }
+.friend-verify-row { display:flex; align-items:center; gap:10px; padding:12px; background:var(--s2); border-radius:12px; margin:8px 0; cursor:pointer; border:1px solid var(--line); transition:all .2s; }
+.friend-verify-row:active { transform:scale(.96); }
+.friend-verify-row.confirmed { border-color:var(--green); background:rgba(0,255,136,.06); }
+
+/* ══ SOCIAL PETS ══ */
+.friends-pets-row { display:flex; gap:10px; overflow-x:auto; padding:12px 16px 4px; scrollbar-width:none; }
+.friend-pet-card { flex-shrink:0; text-align:center; background:var(--s2); border:1px solid var(--line); border-radius:14px; padding:10px 12px; min-width:72px; cursor:pointer; transition:all .2s; }
+.friend-pet-card:active { transform:scale(.93); }
+.fp-em { font-size:28px; display:block; }
+.fp-name { font-size:9px; font-weight:800; color:var(--t2); margin-top:4px; white-space:nowrap; }
+.fp-lv { font-size:9px; color:var(--green); font-weight:900; }
+.fp-online { width:8px; height:8px; border-radius:50%; background:var(--green); margin:2px auto 0; animation:onlinePing 1.5s ease-in-out infinite; }
+.fp-offline { width:8px; height:8px; border-radius:50%; background:var(--t3); margin:2px auto 0; }
+@keyframes onlinePing { 0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,.4)} 50%{box-shadow:0 0 0 4px rgba(0,255,136,0)} }
+.friend-streak-banner { margin:8px 14px; padding:12px 14px; background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,0,.07)); border:1px solid rgba(255,204,0,.35); border-radius:14px; display:flex; align-items:center; gap:10px; cursor:pointer; }
+.fsb-fire { font-size:28px; animation:fireShake .5s ease-in-out infinite alternate; }
+@keyframes fireShake { 0%{transform:rotate(-5deg) scale(1)} 100%{transform:rotate(5deg) scale(1.1)} }
+.fsb-txt { flex:1; }
+.fsb-title { font-family:var(--ff-head); font-size:13px; font-weight:900; color:var(--gold); }
+.fsb-sub { font-size:11px; color:var(--t2); margin-top:2px; }
+.daily-streak-popup { position:fixed; inset:0; z-index:700; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.8); backdrop-filter:blur(8px); }
+.dsp-card { background:var(--s1); border:2px solid var(--gold); border-radius:24px; padding:28px 24px; text-align:center; max-width:320px; width:90%; }
+.dsp-fire { font-size:64px; animation:fireShake .4s ease-in-out infinite alternate; display:block; margin-bottom:8px; }
+.dsp-days { font-family:var(--ff-head); font-size:56px; font-weight:900; color:var(--gold); line-height:1; }
+.dsp-lbl { font-size:14px; color:var(--t2); font-weight:700; margin-bottom:20px; }
 </style>
 </head>
 <body>
@@ -1492,6 +1572,13 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="pill pill-r">🔥<b id="hStreak">0</b>d</div>
       <div class="pill pill-g">✅<b id="hTrust">42</b></div>
     </div>
+    <div class="pott-chip" onclick="openPottModal()">
+  <span>💰</span>
+  <div>
+    <div class="pott-chip-lbl">POTT</div>
+    <div class="pott-chip-val" id="pottTopVal">1 247 kr</div>
+  </div>
+</div>
     <div class="radio-btn" id="radioBtn" onclick="toggleRadio()" title="Karma Radio">♪</div>
     <div class="notif-wrap">
       <div class="notif-btn" onclick="toggleNotif()" id="notifBtn">🔔</div>
@@ -1636,6 +1723,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <span class="care-ico">🎮</span><span class="care-lbl">LEK</span><span class="care-cost">−10E +5💰</span>
         </div>
       </div>
+
+      <!-- Friend Streak Banner -->
+      <div class="friend-streak-banner" id="friendStreakBanner" onclick="openFriendStreak()">
+        <div class="fsb-fire">🔥</div>
+        <div class="fsb-txt">
+          <div class="fsb-title">Daily Streak med <span id="friendStreakName">ella_sthlm</span>!</div>
+          <div class="fsb-sub">🔥 <span id="friendStreakDays">5</span> dagar i rad · Tryck för att streaka!</div>
+        </div>
+        <div style="color:var(--gold);font-size:18px">→</div>
+      </div>
+      <!-- Friends Pets Row -->
+      <div style="padding:6px 16px 0"><div class="sh-t">VÄNNERS PETS</div></div>
+      <div class="friends-pets-row" id="friendsPetsRow"></div>
 
       <!-- Daily Challenge -->
       <div class="challenge-card" id="challengeCard" style="display:none">
@@ -1792,6 +1892,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="gtab" onclick="switchGame('speed',this)">⚡ REACT</div>
         <div class="gtab" onclick="switchGame('memory',this)">🧠 MEMORY</div>
         <div class="gtab" onclick="switchGame('raid',this)">💀 RAID</div>
+        <div class="gtab" onclick="switchGame('runner',this)">🏃 RUNNER</div>
+        <div class="gtab" onclick="switchGame('fish',this)">🎣 FISH</div>
       </div>
 
       <!-- BATTLE -->
@@ -1880,6 +1982,45 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="raid-btn ult" style="width:100%;margin-bottom:8px" onclick="raidMove('ultimate')">⚡ ULTIMATE — <small id="raidUltCd">Redo!</small></div>
         <div class="raid-log" id="raidLog">Välj ett drag för att starta raiden!</div>
         <div class="raid-reward-txt" id="raidReward"></div>
+      </div>
+
+      <!-- RUNNER -->
+      <div class="game-panel" id="gp-runner">
+        <div class="runner-hud">
+          <div class="runner-stat"><div class="runner-stat-v" id="runnerScore">0</div><div class="runner-stat-l">POÄNG</div></div>
+          <div class="runner-stat"><div class="runner-stat-v" id="runnerBest">0</div><div class="runner-stat-l">REKORD</div></div>
+          <div class="runner-stat"><div class="runner-stat-v" id="runnerCombo">x1</div><div class="runner-stat-l">COMBO</div></div>
+          <div class="runner-stat"><div class="runner-stat-v" id="runnerXP">0</div><div class="runner-stat-l">XP</div></div>
+        </div>
+        <div class="runner-wrap">
+          <canvas id="runnerCanvas" width="400" height="220"></canvas>
+          <div class="runner-start-overlay" id="runnerOverlay">
+            <div style="font-size:40px;margin-bottom:8px" id="runnerPetEm">🐉</div>
+            <div style="font-family:var(--ff-head);font-size:20px;font-weight:900;color:var(--green);margin-bottom:6px">KARMA RUNNER</div>
+            <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Tryck/tap för att hoppa! Dubbel-tap = dubbelhopp</div>
+            <button class="btn btn-g btn-lg" onclick="startRunner()">▶ STARTA</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;padding:8px 0 0">
+          <div style="flex:1;background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;font-size:10px;color:var(--t3)">TAP = HOPPA</div>
+          <div style="flex:1;background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;font-size:10px;color:var(--t3)">2x TAP = DUBBELHOPP</div>
+          <div style="flex:1;background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;font-size:10px;color:var(--gold)">MYNT = COMBO</div>
+        </div>
+      </div>
+
+      <!-- FISH -->
+      <div class="game-panel" id="gp-fish">
+        <div class="fish-hud">
+          <div class="fish-stat"><div class="fish-stat-v" id="fishCount" style="color:var(--blue)">0</div><div style="font-size:9px;color:var(--t3)">FÅNGADE</div></div>
+          <div class="fish-stat"><div class="fish-stat-v" id="fishBest" style="color:var(--gold);font-size:11px">–</div><div style="font-size:9px;color:var(--t3)">BÄST</div></div>
+          <div class="fish-stat"><div class="fish-stat-v" id="fishXP" style="color:var(--green)">0</div><div style="font-size:9px;color:var(--t3)">XP</div></div>
+          <div class="fish-stat"><div class="fish-stat-v" id="fishCoins" style="color:var(--gold)">0</div><div style="font-size:9px;color:var(--t3)">COINS</div></div>
+        </div>
+        <canvas id="fishCanvas" width="400" height="240"></canvas>
+        <div class="fish-catch-log" id="fishLog">Kasta ditt spö för att börja fiska! 🎣</div>
+        <div class="fish-btn-row">
+          <button class="fish-cast-btn cast" id="fishBtn" onclick="fishAction()">🎣 KASTA SPÖET</button>
+        </div>
       </div>
 
       <div class="vend"></div>
@@ -2018,6 +2159,24 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <button class="btn btn-g btn-full" onclick="closeModal('luckyModal')">🎉 Awesome!</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- POTT MODAL -->
+<div class="modal" id="pottModal">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt">💰 KARMA POTTEN <div class="mx" onclick="closeModal('pottModal')">✕</div></div>
+    <div class="pott-modal-inner" id="pottInner"></div>
+  </div>
+</div>
+
+<!-- BOUNTY VERIFY MODAL -->
+<div class="modal" id="verifyModal">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt">✅ Verifiera uppdrag <div class="mx" onclick="closeModal('verifyModal')">✕</div></div>
+    <div id="verifyInner" style="padding:16px"></div>
   </div>
 </div>
 
@@ -4151,6 +4310,725 @@ function updateProfileRank() {
   const fo=$('profFollowing'); if(fo) fo.textContent=38+G.circles.length*3;
 }
 
+/* ══════════════════════════════════════════
+   💰 REAL MONEY POTT SYSTEM
+══════════════════════════════════════════ */
+const POTT_TIERS = [
+  {id:'h',name:'⏰ Timme-potten',emoji:'⏰',base:150,max:400,interval:3600000,actMin:10,desc:'Dras varje timme! Aktiva spelare vinner.'},
+  {id:'d',name:'☀️ Dags-potten',emoji:'☀️',base:800,max:2500,interval:86400000,actMin:50,desc:'Dras varje dygn. Premiumbonus!'},
+  {id:'w',name:'📅 Vecko-potten',emoji:'📅',base:3000,max:12000,interval:604800000,actMin:200,desc:'Veckans stora pott. 100+ vinnare delar!'},
+  {id:'m',name:'🏆 MÅNADS-JACKPOT',emoji:'🏆',base:25000,max:75000,interval:2592000000,actMin:1000,desc:'PREMIUM ONLY. Månadsjackpot byggd från alla premium-prenumerationer!',premium:true},
+];
+let _pottState = JSON.parse(localStorage.getItem('k0509_pott') || 'null');
+if(!_pottState) {
+  const now = Date.now();
+  _pottState = {
+    actions: 0,
+    h: { amount: 150 + Math.floor(Math.random()*250), nextDraw: now + 3600000 - (now % 3600000), claimed: false },
+    d: { amount: 800 + Math.floor(Math.random()*1700), nextDraw: now + 86400000 - (now % 86400000), claimed: false },
+    w: { amount: 3000 + Math.floor(Math.random()*9000), nextDraw: now + 604800000 - (now % 604800000), claimed: false },
+    m: { amount: 25000 + Math.floor(Math.random()*50000), nextDraw: now + 2592000000 - (now % 2592000000), claimed: false },
+  };
+  localStorage.setItem('k0509_pott', JSON.stringify(_pottState));
+}
+
+function savePott() { localStorage.setItem('k0509_pott', JSON.stringify(_pottState)); }
+
+function pottAction(n=1) {
+  _pottState.actions = (_pottState.actions || 0) + n;
+  savePott();
+  updatePottChip();
+}
+
+function getPottTickets(tier) {
+  const req = POTT_TIERS.find(t=>t.id===tier.id).actMin;
+  return Math.min(50, Math.floor((_pottState.actions / req) * 10));
+}
+
+function updatePottChip() {
+  const chip = $('pottTopVal');
+  if(!chip) return;
+  const now = Date.now();
+  let best = 0;
+  POTT_TIERS.forEach(t => {
+    const s = _pottState[t.id];
+    if(s && s.amount > best) best = s.amount;
+  });
+  chip.textContent = best.toLocaleString('sv-SE') + ' kr';
+}
+
+function openPottModal() {
+  renderPottModal();
+  openModal('pottModal');
+}
+
+const PAST_WINNERS = [
+  {name:'ella_sthlm 🐉',prize:'847 kr',when:'2h sedan'},
+  {name:'maxruns 🐺',prize:'2 340 kr',when:'igår'},
+  {name:'sagas_world 🦋',prize:'12 500 kr',when:'förra veckan'},
+  {name:'carlos 🦊',prize:'1 100 kr',when:'4h sedan'},
+];
+
+function renderPottModal() {
+  const now = Date.now();
+  const html = POTT_TIERS.map(t => {
+    const s = _pottState[t.id];
+    const tickets = getPottTickets(t);
+    const pct = Math.min(100, (_pottState.actions / t.actMin) * 100);
+    const timeLeft = Math.max(0, s.nextDraw - now);
+    const h = Math.floor(timeLeft/3600000);
+    const m = Math.floor((timeLeft%3600000)/60000);
+    const cdStr = timeLeft<=0 ? '🟢 DRAS NU!' : `${h}h ${m}m kvar`;
+    const won = timeLeft <= 0 && !s.claimed;
+    const winner = PAST_WINNERS[Math.floor(Math.random()*PAST_WINNERS.length)];
+    return `<div class="pott-tier ${t.premium?'hot':''}">
+      ${t.premium?'<div class="pott-jackpot-badge">PREMIUM</div>':''}
+      <div class="pott-tier-hdr">
+        <div class="pott-tier-name">${t.name}</div>
+        <div class="pott-tier-amt">${s.amount.toLocaleString('sv-SE')} kr</div>
+      </div>
+      <div class="pott-cd">${cdStr}</div>
+      <div class="pott-tickets">🎟️ ${tickets} lotter • ${t.desc}</div>
+      <div class="pott-bar"><div class="pott-bar-fill" style="width:${pct}%"></div></div>
+      <button class="pott-claim-btn" ${won&&!t.premium?'':'disabled'} onclick="claimPott('${t.id}')">
+        ${won&&!t.premium?'🎉 HÄMTA VINSTEN!':t.premium?'⭐ Kräver Premium':'⏳ Väntar på dragning...'}
+      </button>
+      <div class="pott-winner-row">🏆 Senaste vinnare: <b>${winner.name}</b> vann <b>${winner.prize}</b> ${winner.when}</div>
+    </div>`;
+  }).join('');
+  const info = `<div style="background:var(--s2);border-radius:12px;padding:12px;margin-bottom:12px;font-size:11px;color:var(--t2);line-height:1.6">
+    <b style="color:var(--gold)">💡 Hur fungerar det?</b><br>
+    Varje Premium-prenumeration bidrar till potten. 15% av alla intäkter delas ut dagligen, veckovis och månadsvis till aktiva spelare. Ju mer du gör i appen, desto fler lotter får du!
+  </div>`;
+  $('pottInner').innerHTML = info + html;
+}
+
+function claimPott(tierId) {
+  const s = _pottState[tierId];
+  const tier = POTT_TIERS.find(t=>t.id===tierId);
+  if(!s || s.claimed) { showT('❌ Redan hämtad!','r'); return; }
+  const prize = s.amount;
+  s.claimed = true;
+  s.nextDraw = Date.now() + tier.interval;
+  s.amount = tier.base + Math.floor(Math.random() * (tier.max - tier.base));
+  savePott();
+  gainCoins(Math.floor(prize / 10));
+  gainXP(500, 'commerce');
+  confetti(100); vibe([100,50,100,50,200]);
+  showFeatToast(`🎉 Du vann ${prize.toLocaleString('sv-SE')} kr!`);
+  pushNotif('🎉', `<b>POTT-VINST!</b> Du vann ${prize.toLocaleString('sv-SE')} kr från ${tier.name}!`);
+  closeModal('pottModal');
+}
+
+updatePottChip();
+setInterval(() => {
+  updatePottChip();
+  if(_pottState) {
+    POTT_TIERS.forEach(t => {
+      if(_pottState[t.id] && !_pottState[t.id].claimed) {
+        _pottState[t.id].amount = Math.min(t.max, (_pottState[t.id].amount || t.base) + Math.floor(Math.random()*3));
+      }
+    });
+    savePott(); updatePottChip();
+  }
+}, 60000);
+
+/* ══════════════════════════════════════════
+   🏃 KARMA RUNNER GAME
+══════════════════════════════════════════ */
+let runnerState = { running: false, score: 0, best: parseInt(localStorage.getItem('k0509_runBest')||'0'), combo: 1, xpToday: 0 };
+let runnerRAF = null;
+const RUNNER = {
+  canvas: null, ctx: null,
+  pet: { x:60, y:180, vy:0, onGround:true, jumps:0, em: '🐉', w:32, h:32 },
+  ground: 200,
+  obstacles: [],
+  coins: [],
+  particles: [],
+  speed: 4,
+  frame: 0,
+  lastOb: 0,
+  bgStars: [],
+};
+function initRunnerStatics() {
+  RUNNER.bgStars = Array.from({length:40}, () => ({
+    x: Math.random()*400, y: Math.random()*160, r: Math.random()*1.5+.5,
+    speed: Math.random()*.5+.2, twinkle: Math.random()*Math.PI*2
+  }));
+}
+function startRunner() {
+  const canvas = $('runnerCanvas');
+  if(!canvas) return;
+  RUNNER.canvas = canvas;
+  RUNNER.ctx = canvas.getContext('2d');
+  RUNNER.pet.em = G.petEmoji || '🐉';
+  RUNNER.pet.y = RUNNER.ground - RUNNER.pet.h;
+  RUNNER.pet.vy = 0; RUNNER.pet.onGround = true; RUNNER.pet.jumps = 0;
+  RUNNER.obstacles = []; RUNNER.coins = []; RUNNER.particles = [];
+  RUNNER.speed = 4; RUNNER.frame = 0; RUNNER.lastOb = 0;
+  runnerState.running = true; runnerState.score = 0; runnerState.combo = 1;
+  $('runnerOverlay').style.display = 'none';
+  initRunnerStatics();
+  canvas.ontouchstart = canvas.onclick = runnerJump;
+  cancelAnimationFrame(runnerRAF);
+  runnerLoop();
+  updateRunnerHUD();
+}
+function runnerJump() {
+  if(!runnerState.running) { startRunner(); return; }
+  const p = RUNNER.pet;
+  if(p.jumps < 2) {
+    p.vy = -11;
+    p.onGround = false;
+    p.jumps++;
+    SFX.tap && SFX.tap();
+    for(let i=0;i<6;i++) RUNNER.particles.push({x:p.x+16,y:p.y+p.h,vx:(Math.random()-.5)*3,vy:-Math.random()*3-1,life:20,col:'#00ff88',r:3});
+  }
+}
+function runnerLoop() {
+  if(!runnerState.running) return;
+  runnerRAF = requestAnimationFrame(runnerLoop);
+  const {ctx, canvas, pet, bgStars} = RUNNER;
+  const W=400, H=220;
+  ctx.clearRect(0,0,W,H);
+  const bg=ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#050010'); bg.addColorStop(.7,'#000'); bg.addColorStop(1,'#000814');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  RUNNER.frame++;
+  bgStars.forEach(s => {
+    s.x -= s.speed;
+    if(s.x < 0) s.x = W;
+    s.twinkle += .05;
+    const alpha = 0.4 + Math.sin(s.twinkle) * 0.3;
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+  const gg = ctx.createLinearGradient(0, RUNNER.ground, 0, H);
+  gg.addColorStop(0,'rgba(0,255,136,.15)'); gg.addColorStop(1,'rgba(0,255,136,0)');
+  ctx.fillStyle = gg;
+  ctx.fillRect(0, RUNNER.ground, W, H - RUNNER.ground);
+  ctx.strokeStyle = 'rgba(0,255,136,.6)';
+  ctx.lineWidth = 2;
+  ctx.shadowBlur = 8; ctx.shadowColor = '#00ff88';
+  ctx.beginPath(); ctx.moveTo(0, RUNNER.ground); ctx.lineTo(W, RUNNER.ground); ctx.stroke();
+  ctx.shadowBlur = 0;
+  ctx.strokeStyle = 'rgba(0,255,136,.08)';
+  ctx.lineWidth = 1;
+  const gridOffset = (RUNNER.frame * RUNNER.speed * 0.5) % 40;
+  for(let x = -gridOffset; x < W; x += 40) {
+    ctx.beginPath(); ctx.moveTo(x, RUNNER.ground); ctx.lineTo(x, H); ctx.stroke();
+  }
+  if(RUNNER.frame % 300 === 0) RUNNER.speed = Math.min(12, RUNNER.speed + 0.5);
+  if(RUNNER.frame - RUNNER.lastOb > Math.max(60, 120 - RUNNER.frame * 0.05)) {
+    const type = Math.random() < 0.3 ? 'tall' : 'low';
+    RUNNER.obstacles.push({
+      x: W + 20, w: type==='tall'?22:36, h: type==='tall'?52:28,
+      col: Math.random()<0.5?'#ff1144':'#ff6600', type
+    });
+    RUNNER.lastOb = RUNNER.frame;
+  }
+  if(RUNNER.frame % 90 === 0 && Math.random() < 0.5) {
+    const yPos = RUNNER.ground - 30 - Math.random()*60;
+    for(let i=0;i<3;i++) RUNNER.coins.push({x: 450 + i*28, y: yPos, r: 8, collected: false});
+  }
+  RUNNER.obstacles = RUNNER.obstacles.filter(ob => {
+    ob.x -= RUNNER.speed;
+    if(ob.x + ob.w < 0) return false;
+    ctx.shadowBlur = 12; ctx.shadowColor = ob.col;
+    ctx.fillStyle = ob.col;
+    const oy = RUNNER.ground - ob.h;
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(ob.x, oy, ob.w, ob.h, 4) : ctx.rect(ob.x, oy, ob.w, ob.h);
+    ctx.fill();
+    ctx.fillStyle = ob.col;
+    ctx.beginPath();
+    const midX = ob.x + ob.w/2;
+    ctx.moveTo(ob.x, oy); ctx.lineTo(midX, oy-14); ctx.lineTo(ob.x+ob.w, oy);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    const px=pet.x+6, py=pet.y+4, pw=pet.w-12, ph=pet.h-8;
+    if(px+pw>ob.x && px<ob.x+ob.w && py+ph>oy && py<oy+ob.h+14) {
+      runnerDie();
+      return false;
+    }
+    return true;
+  });
+  RUNNER.coins = RUNNER.coins.filter(c => {
+    c.x -= RUNNER.speed;
+    if(c.x < -10) return false;
+    if(!c.collected) {
+      if(Math.abs(pet.x+16-c.x)<20 && Math.abs(pet.y+16-c.y)<20) {
+        c.collected=true;
+        runnerState.score += 10 * runnerState.combo;
+        runnerState.combo = Math.min(8, runnerState.combo + 1);
+        for(let i=0;i<5;i++) RUNNER.particles.push({x:c.x,y:c.y,vx:(Math.random()-.5)*4,vy:-Math.random()*3-2,life:18,col:'#ffcc00',r:3});
+        updateRunnerHUD();
+        return false;
+      }
+      ctx.shadowBlur=8; ctx.shadowColor='#ffcc00';
+      ctx.fillStyle='#ffcc00';
+      ctx.beginPath(); ctx.arc(c.x,c.y,c.r,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle='rgba(0,0,0,.4)';
+      ctx.font='bold 7px sans-serif'; ctx.textAlign='center';
+      ctx.fillText('$',c.x,c.y+3);
+      ctx.shadowBlur=0;
+    }
+    return !c.collected;
+  });
+  RUNNER.particles = RUNNER.particles.filter(p => {
+    p.x+=p.vx; p.y+=p.vy; p.vy+=0.3; p.life--;
+    if(p.life<=0) return false;
+    ctx.globalAlpha=p.life/20;
+    ctx.fillStyle=p.col;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    ctx.globalAlpha=1;
+    return true;
+  });
+  pet.vy += 0.6;
+  pet.y += pet.vy;
+  if(pet.y >= RUNNER.ground - pet.h) {
+    pet.y = RUNNER.ground - pet.h;
+    pet.vy = 0; pet.onGround = true; pet.jumps = 0;
+  }
+  ctx.font = `${pet.h}px serif`;
+  ctx.textAlign = 'center';
+  ctx.fillText(pet.em, pet.x + pet.w/2, pet.y + pet.h - 2);
+  if(RUNNER.frame % 6 === 0) {
+    runnerState.score++;
+    if(runnerState.score % 50 === 0) {
+      updateRunnerHUD();
+      runnerState.xpToday += 2;
+    }
+  }
+  ctx.fillStyle='rgba(0,255,136,.8)';
+  ctx.font='bold 14px Syne, sans-serif'; ctx.textAlign='right';
+  ctx.fillText(`${runnerState.score}`, W-12, 24);
+  ctx.font='bold 10px sans-serif'; ctx.fillStyle='rgba(255,255,255,.4)';
+  ctx.fillText(`x${runnerState.combo} COMBO`, W-12, 40);
+}
+function updateRunnerHUD() {
+  const s=$('runnerScore'); if(s) s.textContent=runnerState.score;
+  const b=$('runnerBest'); if(b) b.textContent=Math.max(runnerState.best,runnerState.score);
+  const c=$('runnerCombo'); if(c) c.textContent='x'+runnerState.combo;
+  const x=$('runnerXP'); if(x) x.textContent=runnerState.xpToday;
+}
+function runnerDie() {
+  runnerState.running = false;
+  cancelAnimationFrame(runnerRAF);
+  const ctx = RUNNER.ctx;
+  ctx.fillStyle = 'rgba(255,0,0,.3)';
+  ctx.fillRect(0,0,400,220);
+  for(let i=0;i<20;i++) RUNNER.particles.push({
+    x:RUNNER.pet.x+16, y:RUNNER.pet.y+16,
+    vx:(Math.random()-.5)*8, vy:-Math.random()*6-2,
+    life:30, col:['#ff1144','#ff6600','#ffcc00'][Math.floor(Math.random()*3)], r:4
+  });
+  if(runnerState.score > runnerState.best) {
+    runnerState.best = runnerState.score;
+    localStorage.setItem('k0509_runBest', runnerState.best);
+    showFeatToast('🏆 NYTT REKORD: '+runnerState.best+'!');
+  }
+  const xp = Math.floor(runnerState.score / 5);
+  if(xp > 0) { gainXP(xp, 'action'); gainCoins(Math.floor(runnerState.score/20)); }
+  SFX.hit();
+  progressChallenge('battle', 0);
+  vibe([80,30,80]);
+  setTimeout(() => {
+    const ov = $('runnerOverlay'); if(!ov) return;
+    ov.style.display='flex';
+    ov.innerHTML=`<div style="font-size:36px;margin-bottom:8px">💀</div>
+      <div style="font-family:var(--ff-head);font-size:18px;font-weight:900;color:var(--red);margin-bottom:4px">GAME OVER</div>
+      <div style="font-size:13px;color:var(--t2);margin-bottom:4px">Poäng: <b style="color:var(--gold)">${runnerState.score}</b></div>
+      <div style="font-size:12px;color:var(--green);margin-bottom:16px">+${xp} XP intjänat!</div>
+      <button class="btn btn-g btn-lg" onclick="startRunner()">▶ IGEN!</button>`;
+  }, 800);
+  updateRunnerHUD();
+  checkAchievements();
+}
+
+/* ══════════════════════════════════════════
+   🎣 FISHING GAME
+══════════════════════════════════════════ */
+const FISH_TYPES = [
+  {name:'Liten Abborre',em:'🐟',rarity:'common',xp:20,coins:10,chance:0.35,size:'S',color:'#4488ff'},
+  {name:'Gös',em:'🐠',rarity:'common',xp:30,coins:15,chance:0.25,size:'M',color:'#00ddcc'},
+  {name:'Gädda',em:'🐡',rarity:'uncommon',xp:60,coins:40,chance:0.18,size:'L',color:'#00ff88'},
+  {name:'Lax',em:'🐬',rarity:'rare',xp:120,coins:80,chance:0.10,size:'XL',color:'#aa66ff'},
+  {name:'Tonfisk',em:'🐋',rarity:'epic',xp:300,coins:200,chance:0.07,size:'XXL',color:'#ff8844'},
+  {name:'LEGENDFISK',em:'🦈',rarity:'legendary',xp:800,coins:500,chance:0.02,size:'LEGEND',color:'#ffcc00'},
+  {name:'Gammal Sko',em:'👟',rarity:'junk',xp:5,coins:1,chance:0.03,size:'S',color:'#666'},
+];
+const FISH_RARITY_COL = {common:'#888',uncommon:'var(--green)',rare:'var(--blue)',epic:'var(--purple)',legendary:'var(--gold)',junk:'#444'};
+
+let fishState = {
+  phase: 'idle',
+  castTimer: null, biteTimer: null, reelWindow: false,
+  count: parseInt(localStorage.getItem('k0509_fishCount')||'0'),
+  best: localStorage.getItem('k0509_fishBest')||'–',
+  xpToday: 0, coinsToday: 0,
+  lineY: 0, floatX: 220, floatY: 120,
+  biteAnim: 0, waterAnim: 0,
+  fish: null,
+};
+let fishRAF = null;
+function fishStartDraw() {
+  cancelAnimationFrame(fishRAF);
+  function loop() {
+    drawFishCanvas();
+    fishRAF = requestAnimationFrame(loop);
+  }
+  loop();
+}
+function drawFishCanvas() {
+  const canvas = $('fishCanvas'); if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W=400,H=240;
+  ctx.clearRect(0,0,W,H);
+  const sky=ctx.createLinearGradient(0,0,0,H*0.4);
+  sky.addColorStop(0,'#050018'); sky.addColorStop(1,'#0a0030');
+  ctx.fillStyle=sky; ctx.fillRect(0,0,W,H*0.4);
+  ctx.fillStyle='rgba(255,255,255,.6)';
+  [[50,20],[120,10],[200,30],[300,15],[350,25],[80,8],[250,12]].forEach(([x,y])=>{
+    ctx.beginPath(); ctx.arc(x,y,1,0,Math.PI*2); ctx.fill();
+  });
+  ctx.fillStyle='rgba(255,255,200,.9)';
+  ctx.beginPath(); ctx.arc(340,30,16,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='#050018';
+  ctx.beginPath(); ctx.arc(348,27,13,0,Math.PI*2); ctx.fill();
+  fishState.waterAnim += 0.04;
+  const waterTop = H*0.4;
+  const waterGrad=ctx.createLinearGradient(0,waterTop,0,H);
+  waterGrad.addColorStop(0,'#001830'); waterGrad.addColorStop(0.4,'#000c20'); waterGrad.addColorStop(1,'#000510');
+  ctx.fillStyle=waterGrad; ctx.fillRect(0,waterTop,W,H-waterTop);
+  ctx.strokeStyle='rgba(68,136,255,.4)'; ctx.lineWidth=2;
+  ctx.shadowBlur=4; ctx.shadowColor='#4488ff';
+  ctx.beginPath();
+  for(let x=0;x<W;x+=2) {
+    const y=waterTop+Math.sin(x*0.03+fishState.waterAnim)*4+Math.sin(x*0.07-fishState.waterAnim*.7)*2;
+    x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke(); ctx.shadowBlur=0;
+  const rodBase={x:60,y:80};
+  const rodTip={x:210,y:110};
+  ctx.strokeStyle='rgba(180,120,60,.9)'; ctx.lineWidth=3;
+  ctx.shadowBlur=0;
+  ctx.beginPath(); ctx.moveTo(rodBase.x,rodBase.y); ctx.lineTo(rodTip.x,rodTip.y); ctx.stroke();
+  if(fishState.phase!=='idle') {
+    ctx.strokeStyle='rgba(255,255,255,.5)'; ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(rodTip.x,rodTip.y);
+    ctx.quadraticCurveTo(fishState.floatX-20,fishState.floatY-30,fishState.floatX,fishState.floatY);
+    ctx.stroke();
+    const bobAmt = fishState.phase==='bite'?Math.sin(fishState.biteAnim*4)*8:Math.sin(fishState.waterAnim*2)*3;
+    fishState.biteAnim += 0.15;
+    const fx=fishState.floatX, fy=fishState.floatY+bobAmt;
+    ctx.fillStyle='#ff4444'; ctx.strokeStyle='#fff'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.ellipse(fx,fy,5,10,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle='#ff8844';
+    ctx.beginPath(); ctx.ellipse(fx,fy-4,3,4,0,0,Math.PI*2); ctx.fill();
+    [1,2,3].forEach(r => {
+      ctx.strokeStyle=`rgba(68,136,255,${.2/r})`;
+      ctx.lineWidth=1;
+      ctx.beginPath(); ctx.ellipse(fx,waterTop+1,r*10,r*3,0,0,Math.PI*2); ctx.stroke();
+    });
+    if(fishState.phase==='bite') {
+      ctx.fillStyle=`rgba(255,204,0,${.6+Math.sin(fishState.biteAnim*3)*.4})`;
+      ctx.font='bold 20px serif';
+      ctx.textAlign='center';
+      ctx.fillText('❗', fx, fy-20);
+      ctx.fillStyle='rgba(255,0,0,.8)';
+      ctx.font='bold 10px Syne,sans-serif';
+      ctx.fillText('TRYCK!', fx, fy-32);
+    }
+  }
+  ctx.font='28px serif'; ctx.textAlign='center';
+  ctx.fillText('🧍', rodBase.x-20, rodBase.y+20);
+  ctx.fillStyle='rgba(255,255,255,.2)';
+  ctx.font='10px sans-serif'; ctx.textAlign='right';
+  ctx.fillText('↓ DJUP: 3.2m | TEMP: 12°C | BETESFISK: Aktiv', W-10, H-8);
+}
+
+function fishAction() {
+  const btn=$('fishBtn');
+  if(fishState.phase==='idle') {
+    fishCast();
+  } else if(fishState.phase==='bite') {
+    fishReel();
+  } else if(fishState.phase==='waiting') {
+    clearTimeout(fishState.biteTimer);
+    fishState.phase='idle';
+    btn.className='fish-cast-btn cast'; btn.textContent='🎣 KASTA SPÖET';
+    $('fishLog').textContent='⏫ För tidigt! Vänta tills flötet dyker.';
+    vibe(40);
+  }
+}
+function fishCast() {
+  fishState.phase='casting';
+  fishState.floatX=280+Math.random()*60;
+  fishState.floatY=135+Math.random()*20;
+  $('fishBtn').disabled=true;
+  $('fishLog').textContent='🎣 Kastar...';
+  SFX.hit && SFX.hit();
+  setTimeout(()=>{
+    fishState.phase='waiting';
+    $('fishBtn').disabled=false;
+    $('fishBtn').className='fish-cast-btn cast'; $('fishBtn').textContent='⬆️ För tidigt - hämta hem';
+    const waitTime=2000+Math.random()*6000;
+    $('fishLog').textContent='👀 Väntar på napp... Håll ut!';
+    fishState.biteTimer=setTimeout(fishBite,waitTime);
+    fishStartDraw();
+  },800);
+}
+function fishBite() {
+  fishState.phase='bite';
+  fishState.reelWindow=true;
+  const btn=$('fishBtn');
+  btn.className='fish-cast-btn reel'; btn.textContent='🎣 DRA IN! DRA IN!';
+  $('fishLog').innerHTML='<span style="color:var(--gold);font-size:14px;font-weight:900">⚡ NAPP! TRYCK NU!</span>';
+  vibe([50,30,50,30,50]);
+  SFX.coin && SFX.coin();
+  fishState.biteTimer=setTimeout(()=>{
+    if(fishState.phase==='bite') {
+      fishState.phase='idle';
+      fishState.reelWindow=false;
+      btn.className='fish-cast-btn cast'; btn.textContent='🎣 KASTA SPÖET';
+      $('fishLog').textContent='😫 Fisken kom undan! Försök igen.';
+      vibe(60);
+    }
+  }, 2000);
+}
+function fishReel() {
+  clearTimeout(fishState.biteTimer);
+  fishState.phase='idle';
+  fishState.reelWindow=false;
+  let r=Math.random(), cumulative=0;
+  let caught=FISH_TYPES[0];
+  for(const f of FISH_TYPES) {
+    cumulative+=f.chance;
+    if(r<cumulative){caught=f;break;}
+  }
+  fishState.count++;
+  localStorage.setItem('k0509_fishCount', fishState.count);
+  fishState.xpToday+=caught.xp;
+  fishState.coinsToday+=caught.coins;
+  gainXP(caught.xp,'action');
+  gainCoins(caught.coins);
+  if(caught.rarity==='epic'||caught.rarity==='legendary') {
+    confetti(60); vibe([100,50,100]);
+    fishState.best=caught.name;
+    localStorage.setItem('k0509_fishBest',caught.name);
+    showFeatToast(`${caught.em} ${caught.name}!`);
+  } else {
+    vibe(30);
+  }
+  const rarityColor=FISH_RARITY_COL[caught.rarity]||'#888';
+  $('fishLog').innerHTML=`<span style="color:${rarityColor};font-size:13px;font-weight:900">${caught.em} ${caught.name}</span> <span style="color:var(--t3)">(${caught.size}) · +${caught.xp} XP · +${caught.coins} Coins</span>`;
+  const btn=$('fishBtn');
+  btn.className='fish-cast-btn cast'; btn.textContent='🎣 KASTA IGEN!';
+  updateFishHUD();
+  checkAchievements();
+  SFX.lvl && SFX.lvl();
+}
+function updateFishHUD() {
+  const fc=$('fishCount'); if(fc) fc.textContent=fishState.count;
+  const fb=$('fishBest'); if(fb) fb.textContent=fishState.best;
+  const fx=$('fishXP'); if(fx) fx.textContent=fishState.xpToday;
+  const fco=$('fishCoins'); if(fco) fco.textContent=fishState.coinsToday;
+}
+function initFish() {
+  fishState.phase='idle';
+  fishState.count=parseInt(localStorage.getItem('k0509_fishCount')||'0');
+  fishState.best=localStorage.getItem('k0509_fishBest')||'–';
+  fishState.xpToday=0; fishState.coinsToday=0;
+  updateFishHUD();
+  fishStartDraw();
+}
+
+/* ══════════════════════════════════════════
+   ✅ BOUNTY VERIFICATION SYSTEM
+══════════════════════════════════════════ */
+let _verifyState = {uppdrag:null, step:0, code:'', stepCount:0, confirmed:false};
+const FRIENDS_LIST=['ella_sthlm 🐉','maxruns 🐺','sagas 🦋','carlos 🦊','linnea 🐱'];
+
+function openVerifyModal(uppdrag) {
+  _verifyState={uppdrag,step:0,code:Math.floor(1000+Math.random()*9000)+'',stepCount:0,confirmed:false};
+  renderVerifyStep(0);
+  openModal('verifyModal');
+}
+
+function renderVerifyStep(step) {
+  _verifyState.step=step;
+  const u=_verifyState.uppdrag||{title:'Uppdrag',type:'task',reward:100,icon:'🎯'};
+  const steps=[
+    {ico:'📋',title:'Bekräfta uppdrag',desc:`Bekräftar att du gjort: <b>${u.title||'Uppdrag'}</b>`,action:'Nästa →'},
+    {ico:'🔢',title:'Verifieringskod',desc:'Ange koden du fått från platsen/varumärket:',action:'Verifiera'},
+    {ico:'👥',title:'Vän-verifiering',desc:'Låt en vän bekräfta att du gjort uppdraget.',action:'Skicka förfrågan'},
+    {ico:'🏆',title:'Klart!',desc:'Uppdrag verifierat och belonat!',action:'HÄMTA BELÖNING'},
+  ];
+  const s=steps[step];
+  const dots=steps.map((_,i)=>`<div class="verify-dot ${i<=step?'done':''}" style="${i===step?'background:var(--green)':i<step?'background:rgba(0,255,136,.5)':''}"></div>`).join('');
+
+  let content='';
+  if(step===0) {
+    content=`<div class="verify-step">
+      <span class="verify-big-ico">${u.icon||'🎯'}</span>
+      <div style="font-family:var(--ff-head);font-size:16px;font-weight:900;margin-bottom:8px">${u.title||'Uppdrag'}</div>
+      <div style="font-size:13px;color:var(--t2);margin-bottom:16px">Belöning: <b style="color:var(--gold)">${u.xp||100} XP + ${u.reward||50} Coins</b></div>
+      <div style="font-size:12px;color:var(--t3);margin-bottom:20px">Tips: Ta en bild, notera plats, eller visa kvitto för extra XP!</div>
+      <button class="btn btn-g btn-full" onclick="renderVerifyStep(1)">📸 Nästa: Verifiera →</button>
+    </div>`;
+  } else if(step===1) {
+    const typeSpecific = u.type==='steps'
+      ? `<div style="padding:16px 0"><div class="step-counter-ring"><svg class="scr-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--green)" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="${264-264*Math.min(1,_verifyState.stepCount/10000)}" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:50% 50%"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--ff-head);font-size:20px;font-weight:900;color:var(--green)">${_verifyState.stepCount.toLocaleString()}</div></div><div style="font-size:12px;color:var(--t2);text-align:center">Steg mot 10 000</div><button class="btn btn-y btn-sm" style="margin:10px auto;display:block" onclick="simulateSteps()">📱 Synka steg</button></div>`
+      : `<div class="verify-code-display" id="verifyCodeInput">${_verifyState.code}</div><div style="font-size:11px;color:var(--t3);text-align:center;margin-bottom:12px">Stämmer koden med vad du fick?</div>`;
+    content=`<div class="verify-step">
+      <span class="verify-big-ico">🔢</span>
+      <div style="font-family:var(--ff-head);font-size:16px;font-weight:900;margin-bottom:6px">Verifiera</div>
+      ${typeSpecific}
+      <button class="btn btn-g btn-full" onclick="renderVerifyStep(2)">✅ Bekräftat → Nästa</button>
+    </div>`;
+  } else if(step===2) {
+    const friendRows=FRIENDS_LIST.slice(0,3).map((f,i)=>`
+      <div class="friend-verify-row" id="fvr${i}" onclick="confirmFriendVerify(${i},'${f}')">
+        <div style="font-size:22px">👤</div>
+        <div><div style="font-size:13px;font-weight:800">${f}</div><div style="font-size:10px;color:var(--t3)">Tryck för att skicka verifieringsbegäran</div></div>
+        <div id="fvrStatus${i}" style="margin-left:auto;font-size:11px;color:var(--t3)">→</div>
+      </div>`).join('');
+    content=`<div class="verify-step">
+      <span class="verify-big-ico">👥</span>
+      <div style="font-family:var(--ff-head);font-size:16px;font-weight:900;margin-bottom:6px">Vän-bekräftelse</div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:14px">Välj en vän som kan bekräfta att du gjort uppdraget IRL!</div>
+      ${friendRows}
+      <button class="btn btn-ghost btn-full btn-sm" style="margin-top:10px" onclick="skipFriendVerify()">Hoppa över (−50 XP bonus)</button>
+    </div>`;
+  } else if(step===3) {
+    const u2=_verifyState.uppdrag||{xp:100,reward:50,title:'Uppdrag'};
+    const bonusXP=_verifyState.confirmed?150:0;
+    content=`<div class="verify-step">
+      <span class="verify-big-ico">🏆</span>
+      <div style="font-family:var(--ff-head);font-size:20px;font-weight:900;color:var(--green);margin-bottom:4px">VERIFIERAT!</div>
+      <div style="font-size:13px;color:var(--t2);margin-bottom:16px">${u2.title||'Uppdraget'} är bekräftat!</div>
+      <div style="background:var(--s2);border-radius:12px;padding:12px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:800;color:var(--gold)">Belöning:</div>
+        <div style="font-size:20px;font-weight:900;color:var(--green)">+${(u2.xp||100)+bonusXP} XP</div>
+        <div style="font-size:14px;font-weight:800;color:var(--gold)">+${u2.reward||50} Coins</div>
+        ${_verifyState.confirmed?'<div style="font-size:11px;color:var(--green)">+150 XP VÄNBONUS inkluderat!</div>':''}
+      </div>
+      <button class="btn btn-g btn-lg btn-full" onclick="claimVerifyReward()">🎉 HÄMTA BELÖNING!</button>
+    </div>`;
+  }
+
+  $('verifyInner').innerHTML=`<div class="verify-steps-row">${dots}</div>${content}`;
+}
+function simulateSteps() {
+  _verifyState.stepCount=Math.min(10000,_verifyState.stepCount+Math.floor(Math.random()*2000+1500));
+  renderVerifyStep(1);
+  showT(`🦶 ${_verifyState.stepCount.toLocaleString()} steg!`,'g');
+}
+function confirmFriendVerify(i,name) {
+  const el=$(`fvr${i}`); if(!el) return;
+  el.classList.add('confirmed');
+  $(`fvrStatus${i}`).textContent='✅ Bekräftad!';
+  _verifyState.confirmed=true;
+  pushNotif('👥',`<b>${name}</b> bekräftade ditt uppdrag!`);
+  setTimeout(()=>renderVerifyStep(2),600);
+}
+function skipFriendVerify() {
+  _verifyState.confirmed=false;
+  renderVerifyStep(3);
+}
+function claimVerifyReward() {
+  const u=_verifyState.uppdrag||{xp:100,reward:50};
+  const bonus=_verifyState.confirmed?150:0;
+  gainXP((u.xp||100)+bonus,'commerce');
+  gainCoins(u.reward||50);
+  G.bountiesDone=(G.bountiesDone||0)+1;
+  save();
+  confetti(60); vibe([80,40,80]);
+  closeModal('verifyModal');
+  checkAchievements();
+  progressChallenge('uppdrag',1);
+  pottAction(5);
+  showFeatToast('🎯 Uppdrag klart! +'+((u.xp||100)+bonus)+' XP');
+}
+
+/* ══════════════════════════════════════════
+   🐾 SOCIAL PET SYSTEM
+══════════════════════════════════════════ */
+const DEMO_FRIENDS = [
+  {name:'ella_sthlm',em:'🐉',lv:9,online:true,streak:7},
+  {name:'maxruns',em:'🐺',lv:11,online:true,streak:14},
+  {name:'sagas',em:'🦋',lv:7,online:false,streak:3},
+  {name:'carlos',em:'🦊',lv:5,online:false,streak:2},
+  {name:'linnea',em:'🐱',lv:6,online:true,streak:5},
+  {name:'ghost',em:'🐸',lv:12,online:true,streak:21},
+];
+function renderFriendsPets() {
+  const el=$('friendsPetsRow'); if(!el) return;
+  el.innerHTML=DEMO_FRIENDS.map(f=>`
+    <div class="friend-pet-card" onclick="showFriendCard('${f.name}',this)">
+      <span class="fp-em">${f.em}</span>
+      <div class="fp-name">${f.name.replace('_sthlm','')}</div>
+      <div class="fp-lv">LV${f.lv}</div>
+      <div class="${f.online?'fp-online':'fp-offline'}"></div>
+    </div>`).join('');
+}
+function showFriendCard(name, el) {
+  el.style.transform='scale(.9)';
+  setTimeout(()=>el.style.transform='',200);
+  const f=DEMO_FRIENDS.find(x=>x.name===name);
+  if(!f) return;
+  showT(`${f.em} ${f.name} — LV${f.lv} — 🔥${f.streak}d streak`,'g');
+  pushNotif(f.em,`<b>${f.name}</b> hälsar! LV${f.lv} — 🔥${f.streak}d streak`);
+}
+
+let _friendStreak=JSON.parse(localStorage.getItem('k0509_fstr')||'{"name":"ella_sthlm","days":5,"claimed":false}');
+function openFriendStreak() {
+  const today=getTodayKey();
+  if(_friendStreak.lastClaim===today) {
+    showT('✅ Redan streakat idag!','g'); return;
+  }
+  _friendStreak.days++;
+  _friendStreak.lastClaim=today;
+  localStorage.setItem('k0509_fstr',JSON.stringify(_friendStreak));
+  gainXP(100,'social'); gainCoins(25);
+  confetti(40); vibe([50,30,50]);
+  showFeatToast('🔥 +1 Streak med '+_friendStreak.name+'!');
+  pushNotif('🔥',`<b>Friend Streak!</b> Du och ${_friendStreak.name} har ${_friendStreak.days} dagars streak!`);
+  updateFriendStreakUI();
+}
+function updateFriendStreakUI() {
+  const n=$('friendStreakName'); if(n) n.textContent=_friendStreak.name;
+  const d=$('friendStreakDays'); if(d) d.textContent=_friendStreak.days;
+}
+
+/* ══════════════════════════════════════════
+   🔥 DAILY STREAK POPUP
+══════════════════════════════════════════ */
+function showStreakPopup() {
+  if(!G.name) return;
+  const today=getTodayKey();
+  if(localStorage.getItem('k0509_spop')===today) return;
+  localStorage.setItem('k0509_spop',today);
+  const popup=document.createElement('div');
+  popup.className='daily-streak-popup';
+  popup.innerHTML=`<div class="dsp-card">
+    <span class="dsp-fire">🔥</span>
+    <div class="dsp-days">${G.streak}</div>
+    <div class="dsp-lbl">DAGARS STREAK!</div>
+    <div style="font-size:13px;color:var(--t2);margin-bottom:20px">Du är på fire! Fortsätt idag för att hålla streaken.</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-g btn-lg" style="flex:1" onclick="this.closest('.daily-streak-popup').remove();gainXP(50,'social');gainCoins(20);showFeatToast('🔥 Streak bonus +50 XP!')">🔥 FORTSÄTT!</button>
+    </div>
+    <div style="font-size:11px;color:var(--t3);margin-top:10px">+50 XP för att öppna appen idag!</div>
+  </div>`;
+  document.body.appendChild(popup);
+  confetti(30);
+}
+if(G.name) { setTimeout(showStreakPopup, 1500); renderFriendsPets(); updateFriendStreakUI(); }
+
 /* Hunger drain */
 setInterval(() => {
   if(!G.name) return;
@@ -4589,8 +5467,9 @@ const _raidSwitchProxy=function(id,el){
   const gp=$('gp-'+id); if(gp) gp.classList.add('active');
   if(id==='raid') initRaid();
   if(id==='battle') initBattle();
-  if(id==='speed') {}
   if(id==='memory') initMemory();
+  if(id==='runner'){ const ov=$('runnerOverlay'); if(ov) ov.style.display='flex'; }
+  if(id==='fish') initFish();
 };
 window.switchGame=_raidSwitchProxy;
 
@@ -4598,6 +5477,7 @@ const _origGainXP=gainXP;
 gainXP=function(n,stat){
   _origGainXP(n,stat);
   checkLuckyDrop(n);
+  if(n>=5&&typeof pottAction==='function') pottAction(1);
 };
 
 /* Init new systems */
