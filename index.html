@@ -1443,6 +1443,124 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .raid-reward-txt { font-size:12px; color:var(--gold); font-weight:800; text-align:center; margin-top:4px; }
 #featToast { position:fixed; top:calc(62px + var(--sat)); left:50%; transform:translateX(-50%) translateY(-20px); z-index:800; background:linear-gradient(135deg,rgba(255,204,0,.95),rgba(255,136,68,.95)); color:#000; font-family:var(--ff-head); font-size:13px; font-weight:900; padding:9px 22px; border-radius:22px; opacity:0; transition:all .4s cubic-bezier(.4,0,.2,1); pointer-events:none; box-shadow:0 4px 24px rgba(255,204,0,.55); white-space:nowrap; }
 #featToast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+/* ══════════════════════════════════════════
+   ROUND 6 — NEO-BRUTALISM · BATTLE2 · DNA · KC
+══════════════════════════════════════════ */
+:root {
+  --green: #39FF14;
+  --pink: #FF007F;
+  --blue: #0066FF;
+  --neon-pink: #FF007F;
+  --elec-blue: #0066FF;
+  --kc-col: #FF007F;
+}
+
+/* GLOBAL NEO-BRUTALISM */
+.card,.game-panel.active,.battle-arena,.vitals-card,.pet-info-card,
+.trust-card,.raid-boss-card,.pott-tier,.challenge-card,.evol-node {
+  border:2.5px solid rgba(255,255,255,.25) !important;
+  box-shadow:4px 4px 0 rgba(255,255,255,.08) !important;
+}
+.btn { transition:transform .08s,box-shadow .08s !important; }
+.btn:active { transform:translate(3px,3px) !important; box-shadow:0 0 0 transparent !important; }
+.care-btn { transition:transform .08s,box-shadow .08s; }
+.care-btn:active { transform:translate(3px,3px) !important; box-shadow:0 0 0 !important; }
+.move-btn { border:2px solid rgba(255,255,255,.2) !important; }
+.move-btn:active { transform:translate(3px,3px) !important; box-shadow:none !important; }
+.raid-btn:active,.boss-att-btn:active,.pott-claim-btn:active,.fish-cast-btn:active,.prestige-btn:active { transform:translate(3px,3px) !important; }
+
+/* TOPBAR FIX — smaller, works on all screens */
+.topbar { gap:6px !important; }
+.pills { gap:4px !important; }
+.pill { padding:3px 7px !important; font-size:10px !important; }
+.pott-chip { padding:3px 7px !important; }
+.pott-chip-lbl { font-size:9px !important; }
+.pott-chip-val { font-size:10px !important; }
+
+/* KC CURRENCY */
+.kc-pill { color:var(--neon-pink); border-color:rgba(255,0,127,.3) !important; }
+.kc-pill b { color:var(--neon-pink); }
+
+/* FLASH FEED FIX */
+.vc-card { max-height:320px !important; overflow:hidden !important; }
+.vc-list { display:flex !important; flex-direction:column !important; gap:10px !important; overflow-y:auto !important; -webkit-overflow-scrolling:touch !important; }
+
+/* ══ BATTLE 2.0 — JUDGMENT RING ══ */
+.battle2-wrap { padding:0 14px 14px; }
+.b2-fighters { display:flex; align-items:center; justify-content:space-between; padding:10px 0 6px; }
+.b2-fighter { text-align:center; flex:1; }
+.b2-em { font-size:44px; display:block; filter:drop-shadow(0 0 14px var(--neon-pink)); transition:all .2s; }
+.b2-em.hit { animation:b2Hit .35s ease; }
+@keyframes b2Hit { 0%,100%{transform:scale(1)} 30%{transform:scale(1.4) rotate(-15deg)} 60%{transform:scale(.8)} }
+.b2-name { font-family:var(--ff-head); font-size:12px; font-weight:900; }
+.b2-lv { font-size:10px; color:var(--t3); }
+.b2-vs { font-family:var(--ff-head); font-size:22px; font-weight:900; color:var(--red); text-shadow:0 0 12px var(--red); }
+.b2-hp-row { display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+.b2-hp-lbl { font-size:10px; font-weight:900; min-width:24px; color:var(--t2); }
+.b2-hp-track { flex:1; height:8px; background:rgba(255,255,255,.07); border-radius:4px; overflow:hidden; }
+.b2-hp-fill { height:100%; border-radius:4px; transition:width .4s; }
+.b2-hp-fill.you { background:linear-gradient(90deg,var(--green),#00ff88); box-shadow:0 0 8px var(--green); }
+.b2-hp-fill.enemy { background:linear-gradient(90deg,var(--red),#ff6644); box-shadow:0 0 8px var(--red); }
+.b2-hp-val { font-size:10px; font-weight:900; min-width:32px; text-align:right; }
+.b2-elem-row { display:flex; justify-content:center; gap:8px; margin:6px 0; }
+.b2-elem { padding:3px 10px; border-radius:20px; font-size:11px; font-weight:900; border:2px solid currentColor; cursor:pointer; transition:all .1s; }
+.b2-elem:active { transform:scale(.9); }
+.b2-elem.fire { color:#ff6644; } .b2-elem.water { color:#4488ff; }
+.b2-elem.nature { color:#44ff88; } .b2-elem.electric { color:#ffcc00; }
+.b2-elem.disabled { opacity:.25; pointer-events:none; }
+#judgmentCanvas { display:block; margin:8px auto; border-radius:50%; cursor:pointer; }
+.b2-log { font-family:var(--ff-head); font-size:13px; font-weight:900; text-align:center; min-height:22px; padding:4px 0; color:var(--t1); }
+.b2-cd-row { display:flex; gap:6px; justify-content:center; margin-top:6px; font-size:10px; color:var(--t3); }
+.b2-cd-item { padding:2px 8px; background:var(--s2); border-radius:8px; border:1px solid var(--line); }
+
+/* ══ DNA MIXER ══ */
+.dna-modal-body { padding:16px; }
+.dna-parents { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:16px; }
+.dna-parent { text-align:center; padding:12px 16px; background:var(--s2); border:2px solid var(--line); border-radius:16px; cursor:pointer; transition:all .2s; flex:1; }
+.dna-parent.selected { border-color:var(--green); box-shadow:0 0 16px rgba(57,255,20,.3); }
+.dna-parent:active { transform:scale(.93); }
+.dna-parent-em { font-size:38px; display:block; }
+.dna-parent-nm { font-size:11px; font-weight:800; margin-top:4px; }
+.dna-plus { font-family:var(--ff-head); font-size:28px; font-weight:900; color:var(--neon-pink); flex-shrink:0; }
+.dna-result-wrap { text-align:center; padding:16px; background:var(--s2); border:2px solid var(--line); border-radius:16px; margin-bottom:14px; }
+.dna-result-em { font-size:56px; display:block; margin-bottom:4px; }
+.dna-result-name { font-family:var(--ff-head); font-size:18px; font-weight:900; color:var(--gold); margin-bottom:4px; }
+.dna-result-rarity { display:inline-block; padding:3px 12px; border-radius:12px; font-size:10px; font-weight:900; letter-spacing:1px; text-transform:uppercase; }
+.rarity-common { background:rgba(136,136,136,.2); color:#888; border:1px solid #888; }
+.rarity-rare { background:rgba(68,136,255,.2); color:var(--blue); border:1px solid var(--blue); }
+.rarity-epic { background:rgba(170,102,255,.2); color:var(--purple); border:1px solid var(--purple); }
+.rarity-legendary { background:rgba(255,204,0,.2); color:var(--gold); border:1px solid var(--gold); }
+.dna-anim { animation:dnaSplice .8s ease both; }
+@keyframes dnaSplice { 0%{transform:scale(0) rotate(-180deg);opacity:0} 60%{transform:scale(1.3) rotate(10deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
+.dna-stat-row { display:flex; justify-content:space-between; font-size:11px; margin-top:8px; gap:6px; }
+.dna-stat { flex:1; text-align:center; padding:6px; background:rgba(255,255,255,.04); border-radius:8px; }
+.dna-splice-btn { width:100%; padding:14px; border-radius:14px; font-family:var(--ff-head); font-size:16px; font-weight:900; border:none; cursor:pointer; color:#000; transition:all .15s; position:relative; overflow:hidden; }
+.dna-splice-btn:active { transform:translate(3px,3px) !important; }
+.dna-lab-bg { background:linear-gradient(135deg,rgba(57,255,20,.12),rgba(255,0,127,.08)); }
+
+/* ══ FLOATING PET COMPANION ══ */
+#floatPet { position:fixed; bottom:calc(90px + var(--sab)); right:12px; z-index:500; cursor:pointer; user-select:none; transition:all .3s cubic-bezier(.34,1.56,.64,1); }
+#floatPet:active { transform:scale(.85); }
+.fp-bubble { position:absolute; bottom:100%; right:0; background:var(--s1); border:2px solid var(--green); border-radius:14px 14px 0 14px; padding:6px 10px; font-size:11px; font-weight:800; white-space:nowrap; opacity:0; transition:opacity .3s; pointer-events:none; color:var(--green); margin-bottom:4px; }
+.fp-bubble.show { opacity:1; }
+#fpEm { font-size:30px; display:block; filter:drop-shadow(0 0 8px var(--green)); animation:fpBob 2.5s ease-in-out infinite; }
+@keyframes fpBob { 0%,100%{transform:translateY(0) rotate(-5deg)} 50%{transform:translateY(-6px) rotate(5deg)} }
+
+/* ══ FISHING TIMING BAR ══ */
+.fish-timing-wrap { padding:8px 0; }
+.fish-bar-track { height:28px; background:rgba(255,255,255,.05); border-radius:14px; position:relative; overflow:hidden; border:2px solid rgba(255,255,255,.1); margin-bottom:8px; }
+.fish-bar-zone { position:absolute; top:0; height:100%; border-radius:12px; }
+.fish-bar-zone.hit { background:rgba(57,255,20,.35); }
+.fish-bar-zone.perfect { background:rgba(255,204,0,.55); }
+.fish-bar-cursor { position:absolute; top:0; width:5px; height:100%; background:#fff; border-radius:3px; box-shadow:0 0 10px #fff; transition:left .016s linear; }
+.fish-bar-lbl { display:flex; justify-content:space-between; font-size:10px; color:var(--t3); font-weight:800; }
+.fish-catch-result { text-align:center; min-height:44px; display:flex; align-items:center; justify-content:center; flex-direction:column; }
+.fish-result-em { font-size:36px; display:block; animation:fishPop .4s cubic-bezier(.17,.67,.3,1.3) both; }
+@keyframes fishPop { 0%{transform:scale(0)} 70%{transform:scale(1.3)} 100%{transform:scale(1)} }
+
+/* ══ SPIN WHEEL FIX ══ */
+#spinCanvasNew { display:block; margin:0 auto; border-radius:50%; cursor:pointer; }
+.spin-new-wrap { text-align:center; padding:12px 0; }
 /* ══ RIPPLE ══ */
 .ripple-circle { position:fixed; pointer-events:none; border-radius:50%; background:rgba(0,255,136,.35); transform:scale(0); animation:rippleExp .6s ease-out both; z-index:9999; }
 @keyframes rippleExp { 0%{transform:scale(0);opacity:1} 100%{transform:scale(4);opacity:0} }
@@ -1569,16 +1687,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="logo"><span>K</span>ARMA</div>
     <div class="pills">
       <div class="pill pill-y">⚡<b id="hCoins">500</b></div>
+      <div class="pill kc-pill">💎<b id="hKC">0</b>KC</div>
       <div class="pill pill-r">🔥<b id="hStreak">0</b>d</div>
-      <div class="pill pill-g">✅<b id="hTrust">42</b></div>
     </div>
     <div class="pott-chip" onclick="openPottModal()">
-  <span>💰</span>
-  <div>
-    <div class="pott-chip-lbl">POTT</div>
-    <div class="pott-chip-val" id="pottTopVal">1 247 kr</div>
-  </div>
-</div>
+      <span>💰</span>
+      <div>
+        <div class="pott-chip-lbl">POTT</div>
+        <div class="pott-chip-val" id="pottTopVal">1 247 kr</div>
+      </div>
+    </div>
     <div class="radio-btn" id="radioBtn" onclick="toggleRadio()" title="Karma Radio">♪</div>
     <div class="notif-wrap">
       <div class="notif-btn" onclick="toggleNotif()" id="notifBtn">🔔</div>
@@ -1610,6 +1728,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSpinWheel()"><div class="ddr-i">🎰</div>Daglig Spin</div>
           <div class="ddr" onclick="cM();oWin('shopWin');renderShop()"><div class="ddr-i">🛒</div>Shop</div>
           <div class="ddr" onclick="cM();openLuckyModal()"><div class="ddr-i">🎁</div>Lucky Box</div>
+          <div class="ddr" onclick="cM();openDnaModal()"><div class="ddr-i">🧬</div>DNA Mixer</div>
           <div class="ddr" onclick="cM();nav('games');setTimeout(()=>switchGame('raid',document.querySelector('.gtab:last-child')),300)"><div class="ddr-i">💀</div>Boss Raid</div>
           <div class="ddr" onclick="cM();toggleRadio()"><div class="ddr-i">🎵</div>Karma Radio</div>
         </div>
@@ -1896,38 +2015,53 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="gtab" onclick="switchGame('fish',this)">🎣 FISH</div>
       </div>
 
-      <!-- BATTLE -->
+      <!-- BATTLE 2.0 -->
       <div class="game-panel active" id="gp-battle">
-        <div class="battle-arena">
-          <div class="hp-wrap">
-            <div class="hp-label"><span>DU</span><span id="bHpYouLbl">100 HP</span></div>
-            <div class="hp-track"><div class="hp-fill you" id="bHpYou" style="width:100%"></div></div>
-          </div>
-          <div class="battle-fighters">
-            <div class="fighter" id="bFightYou">
-              <span class="fighter-em" id="bEmYou">🐉</span>
-              <div class="fighter-name" id="bNameYou">Du</div>
-              <div class="fighter-lv" id="bLvYou">LV1</div>
+        <div class="battle2-wrap">
+          <!-- Fighters -->
+          <div class="b2-fighters">
+            <div class="b2-fighter">
+              <span class="b2-em" id="b2EmYou">🐉</span>
+              <div class="b2-name" id="b2NameYou">Du</div>
+              <div class="b2-lv" id="b2LvYou">LV1</div>
+              <div style="font-size:10px;margin-top:2px" id="b2ElemYou">🔥 Fire</div>
             </div>
-            <div class="vs-badge">VS</div>
-            <div class="fighter enemy" id="bFightEnemy">
-              <span class="fighter-em" id="bEmEnemy">🐺</span>
-              <div class="fighter-name" id="bNameEnemy">maxruns</div>
-              <div class="fighter-lv" id="bLvEnemy">LV11</div>
+            <div class="b2-vs">VS</div>
+            <div class="b2-fighter">
+              <span class="b2-em" id="b2EmEnemy">🐺</span>
+              <div class="b2-name" id="b2NameEnemy">maxruns</div>
+              <div class="b2-lv" id="b2LvEnemy">LV11</div>
+              <div style="font-size:10px;margin-top:2px" id="b2ElemEnemy">💧 Water</div>
             </div>
           </div>
-          <div class="hp-wrap">
-            <div class="hp-label"><span id="bNameEnemyLbl">maxruns</span><span id="bHpEnemyLbl">100 HP</span></div>
-            <div class="hp-track"><div class="hp-fill enemy" id="bHpEnemy" style="width:100%"></div></div>
+          <!-- HP Bars -->
+          <div class="b2-hp-row">
+            <div class="b2-hp-lbl">❤️</div>
+            <div class="b2-hp-track"><div class="b2-hp-fill you" id="b2HpYou" style="width:100%"></div></div>
+            <div class="b2-hp-val" id="b2HpYouV">100</div>
           </div>
-          <div class="battle-log" id="battleLog">Välj ditt drag för att starta striden!</div>
+          <div class="b2-hp-row">
+            <div class="b2-hp-lbl">💀</div>
+            <div class="b2-hp-track"><div class="b2-hp-fill enemy" id="b2HpEnemy" style="width:100%"></div></div>
+            <div class="b2-hp-val" id="b2HpEnemyV">100</div>
+          </div>
+          <!-- Judgment Ring -->
+          <canvas id="judgmentCanvas" width="220" height="220"></canvas>
+          <div class="b2-log" id="b2Log">Tryck på ringen för att attackera!</div>
+          <!-- Element Abilities -->
+          <div class="b2-elem-row" id="b2Elems">
+            <div class="b2-elem fire" onclick="b2UseElem('fire')" id="be-fire">🔥 Eld <small id="bcd-fire"></small></div>
+            <div class="b2-elem water" onclick="b2UseElem('water')" id="be-water">💧 Vatten <small id="bcd-water"></small></div>
+            <div class="b2-elem nature" onclick="b2UseElem('nature')" id="be-nature">🌿 Natur <small id="bcd-nature"></small></div>
+            <div class="b2-elem electric" onclick="b2UseElem('electric')" id="be-electric">⚡ El <small id="bcd-electric"></small></div>
+          </div>
+          <div class="b2-cd-row" id="b2StatusRow">
+            <div class="b2-cd-item" id="b2TurnLbl">Din tur</div>
+            <div class="b2-cd-item" id="b2StreakLbl">Streak: 0</div>
+            <div class="b2-cd-item" id="b2RoundLbl">Runda 1</div>
+          </div>
+          <button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px" onclick="initBattle2()">🔄 Ny strid</button>
         </div>
-        <div class="battle-moves">
-          <div class="move-btn" onclick="battleMove('attack')"><span class="move-ico">⚔️</span><div class="move-name">ATTACK</div><div class="move-cost">15–25 dmg</div></div>
-          <div class="move-btn" onclick="battleMove('defend')"><span class="move-ico">🛡️</span><div class="move-name">DEFEND</div><div class="move-cost">−50% skada</div></div>
-          <div class="move-btn" onclick="battleMove('special')"><span class="move-ico">⚡</span><div class="move-name">SPECIAL</div><div class="move-cost">35–50 dmg −20E</div></div>
-        </div>
-        <button class="btn btn-ghost btn-full btn-sm" style="margin:8px 0" onclick="initBattle()">🔄 Ny motståndare</button>
       </div>
 
       <!-- SPEED TAP -->
@@ -2017,6 +2151,15 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="fish-stat"><div class="fish-stat-v" id="fishCoins" style="color:var(--gold)">0</div><div style="font-size:9px;color:var(--t3)">COINS</div></div>
         </div>
         <canvas id="fishCanvas" width="400" height="240"></canvas>
+        <div id="fishBarWrap" style="display:none;padding:8px 0">
+          <div class="fish-bar-lbl"><span>MISS</span><span>HIT ZON</span><span>PERFECT</span></div>
+          <div class="fish-bar-track">
+            <div class="fish-bar-zone hit" id="fishHitZone"></div>
+            <div class="fish-bar-zone perfect" id="fishPerfectZone"></div>
+            <div class="fish-bar-cursor" id="fishBarCursor"></div>
+          </div>
+          <div class="fish-bar-lbl"><span style="color:var(--t3)">← Markören rör sig</span><span style="color:var(--green)">Tryck i grön zon!</span><span style="color:var(--gold)">Guld = PERFECT</span></div>
+        </div>
         <div class="fish-catch-log" id="fishLog">Kasta ditt spö för att börja fiska! 🎣</div>
         <div class="fish-btn-row">
           <button class="fish-cast-btn cast" id="fishBtn" onclick="fishAction()">🎣 KASTA SPÖET</button>
@@ -2168,6 +2311,46 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="mh"></div>
     <div class="mt">💰 KARMA POTTEN <div class="mx" onclick="closeModal('pottModal')">✕</div></div>
     <div class="pott-modal-inner" id="pottInner"></div>
+  </div>
+</div>
+
+<!-- DNA MIXER MODAL -->
+<div class="modal" id="dnaModal">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt" style="background:linear-gradient(135deg,rgba(57,255,20,.15),rgba(255,0,127,.1))">🧬 DNA MIXER <span style="font-size:10px;color:var(--neon-pink);font-weight:900;margin-left:6px">UNIQUE</span><div class="mx" onclick="closeModal('dnaModal')">✕</div></div>
+    <div class="dna-modal-body dna-lab-bg">
+      <div style="font-size:11px;color:var(--t2);text-align:center;margin-bottom:12px">Mixa din pet med en väns pet för att skapa en unik hybrid!</div>
+      <div class="dna-parents">
+        <div class="dna-parent selected" id="dnaParent1" onclick="selectDnaParent(1)">
+          <span class="dna-parent-em" id="dnaP1Em">🐉</span>
+          <div class="dna-parent-nm" id="dnaP1Name">Din pet</div>
+          <div style="font-size:9px;color:var(--green)">LV<span id="dnaP1Lv">1</span></div>
+        </div>
+        <div class="dna-plus">+</div>
+        <div class="dna-parent" id="dnaParent2" onclick="selectDnaParent(2)">
+          <span class="dna-parent-em" id="dnaP2Em">❓</span>
+          <div class="dna-parent-nm" id="dnaP2Name">Välj vän</div>
+          <div style="font-size:9px;color:var(--t3)">Tryck för att välja</div>
+        </div>
+      </div>
+      <div id="dnaFriendPick" style="display:none;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:800;color:var(--t2);margin-bottom:6px">Välj en väns pet att mixa med:</div>
+        <div id="dnaFriendList"></div>
+      </div>
+      <div class="dna-result-wrap" id="dnaResultWrap" style="display:none">
+        <span class="dna-result-em" id="dnaResultEm">🌟</span>
+        <div class="dna-result-name" id="dnaResultName">HYBRID</div>
+        <div class="dna-result-rarity" id="dnaResultRarity">COMMON</div>
+        <div class="dna-stat-row" id="dnaResultStats"></div>
+      </div>
+      <div id="dnaSpliceAnim" style="display:none;text-align:center;padding:20px 0">
+        <div style="font-size:48px;animation:dnaSplice .6s ease infinite alternate">🧬</div>
+        <div style="font-family:var(--ff-head);font-size:14px;color:var(--green);margin-top:8px">SPLICING…</div>
+      </div>
+      <div style="font-size:11px;color:var(--t3);text-align:center;margin-bottom:10px" id="dnaCostLbl">Kostnad: <b style="color:var(--neon-pink)">20 KC</b> · Du har <b id="kcForDna">0</b> KC</div>
+      <button class="dna-splice-btn btn-g" id="dnaSpliceBtn" onclick="doSplice()" style="background:linear-gradient(135deg,var(--green),var(--elec-blue));color:#000">🧬 SPLICE!</button>
+    </div>
   </div>
 </div>
 
@@ -5029,6 +5212,548 @@ function showStreakPopup() {
 }
 if(G.name) { setTimeout(showStreakPopup, 1500); renderFriendsPets(); updateFriendStreakUI(); }
 
+/* ══════════════════════════════════════════
+   💎 KC — KARMA COIN CURRENCY
+══════════════════════════════════════════ */
+if(!G.kc) G.kc=0;
+function gainKC(n){G.kc=Math.max(0,(G.kc||0)+n);save();updateKCHUD();if(n>0)showT(`💎 +${n} KC`,'g');}
+function spendKC(n){if((G.kc||0)<n){showT(`❌ Behöver ${n} KC`,'r');return false;}G.kc-=n;save();updateKCHUD();return true;}
+function updateKCHUD(){const el=$('hKC');if(el)el.textContent=G.kc||0;}
+updateKCHUD();
+
+/* ══════════════════════════════════════════
+   ⚔️ BATTLE 2.0 — JUDGMENT RING (Shadow Hearts style)
+══════════════════════════════════════════ */
+const ELEMENTS=['fire','water','nature','electric'];
+const ELEM_NAMES={fire:'🔥 Eld',water:'💧 Vatten',nature:'🌿 Natur',electric:'⚡ El'};
+const ELEM_ADV={fire:'nature',water:'fire',nature:'water',electric:'water'};
+const B2_ENEMIES=[
+  {name:'ella_sthlm',em:'🐉',lv:9,hp:120,elem:'water',atk:18,special:'💧 Tidvatten'},
+  {name:'maxruns',em:'🐺',lv:11,hp:145,elem:'fire',atk:22,special:'🔥 Wildfire'},
+  {name:'sagas',em:'🦋',lv:7,hp:95,elem:'nature',atk:14,special:'🌿 Pollenexplosion'},
+  {name:'carlos',em:'🦊',lv:5,hp:80,elem:'electric',atk:12,special:'⚡ Thunderbolt'},
+  {name:'Ghost',em:'🐸',lv:12,hp:160,elem:'water',atk:26,special:'💀 Soul Strike'},
+  {name:'BOSS_Omega',em:'🐲',lv:20,hp:300,elem:'fire',atk:40,special:'🐲 Dragon Rage'},
+];
+const B2_PET_ELEMS=['fire','water','nature','electric'];
+let B2={
+  youHP:100,youMaxHP:100,enemyHP:100,enemyMaxHP:100,
+  enemy:null,youElem:'fire',turn:'player',round:1,streak:0,
+  done:false,elemCDs:{fire:0,water:0,nature:0,electric:0},
+  defending:false,
+};
+let jrAngle=0,jrSpeed=2.8,jrRunning=false,jrRAF=null;
+let jrZones=[];
+
+function initBattle2(){
+  B2.enemy=B2_ENEMIES[Math.floor(Math.random()*B2_ENEMIES.length)];
+  const petElem=B2_PET_ELEMS[Math.floor(Math.random()*B2_PET_ELEMS.length)];
+  B2.youElem=petElem;
+  B2.youHP=100+G.level*5; B2.youMaxHP=B2.youHP;
+  B2.enemyHP=B2.enemy.hp+B2.enemy.lv*5; B2.enemyMaxHP=B2.enemyHP;
+  B2.turn='player'; B2.round=1; B2.streak=0; B2.done=false;
+  B2.elemCDs={fire:0,water:0,nature:0,electric:0}; B2.defending=false;
+  const s=gS();
+  $('b2EmYou').textContent=s.e; $('b2NameYou').textContent=G.name||'Du'; $('b2LvYou').textContent='LV'+G.level;
+  $('b2ElemYou').textContent=ELEM_NAMES[petElem];
+  $('b2EmEnemy').textContent=B2.enemy.em; $('b2NameEnemy').textContent=B2.enemy.name; $('b2LvEnemy').textContent='LV'+B2.enemy.lv;
+  $('b2ElemEnemy').textContent=ELEM_NAMES[B2.enemy.elem];
+  updateB2HP(); updateB2Status(); updateElemButtons();
+  startJudgmentRing();
+}
+function updateB2HP(){
+  const yp=Math.max(0,B2.youHP/B2.youMaxHP*100);
+  const ep=Math.max(0,B2.enemyHP/B2.enemyMaxHP*100);
+  const yf=$('b2HpYou'),ef=$('b2HpEnemy');
+  if(yf){yf.style.width=yp+'%';}
+  if(ef){ef.style.width=ep+'%';}
+  const yv=$('b2HpYouV'),ev=$('b2HpEnemyV');
+  if(yv) yv.textContent=Math.max(0,Math.floor(B2.youHP));
+  if(ev) ev.textContent=Math.max(0,Math.floor(B2.enemyHP));
+}
+function updateB2Status(){
+  const tl=$('b2TurnLbl'),sl=$('b2StreakLbl'),rl=$('b2RoundLbl');
+  if(tl) tl.textContent=B2.turn==='player'?'⚡ Din tur':'💀 Fiendens tur';
+  if(sl) sl.textContent='Streak: '+B2.streak;
+  if(rl) rl.textContent='Runda '+B2.round;
+}
+function updateElemButtons(){
+  ELEMENTS.forEach(e=>{
+    const btn=$('be-'+e); const cd=$('bcd-'+e);
+    if(!btn) return;
+    const cdVal=B2.elemCDs[e]||0;
+    btn.className='b2-elem '+e+(cdVal>0?' disabled':'');
+    if(cd) cd.textContent=cdVal>0?'('+cdVal+')':'';
+  });
+}
+
+/* Judgment Ring */
+function buildJRZones(){
+  jrZones=[];
+  const baseHit=0.22-B2.round*0.005;
+  const basePerfect=0.08-B2.round*0.003;
+  const offset=Math.random()*Math.PI*2;
+  for(let i=0;i<(B2.round<=2?2:3);i++){
+    const start=offset+i*(Math.PI*2/3)+Math.random()*0.3;
+    jrZones.push({start,hit:Math.max(.12,baseHit),perfect:Math.max(.04,basePerfect),color:['#ff6644','#4488ff','#44ff88'][i%3]});
+  }
+}
+function startJudgmentRing(){
+  const canvas=$('judgmentCanvas'); if(!canvas) return;
+  buildJRZones();
+  jrAngle=0;
+  jrSpeed=2.5+B2.round*0.12+B2.enemy.lv*0.05;
+  jrRunning=true;
+  canvas.ontouchstart=canvas.onclick=judgeRingTap;
+  cancelAnimationFrame(jrRAF);
+  drawJR();
+}
+function drawJR(){
+  if(!jrRunning) return;
+  jrRAF=requestAnimationFrame(drawJR);
+  const canvas=$('judgmentCanvas'); if(!canvas) return;
+  const ctx=canvas.getContext('2d'); const W=220,H=220,R=90,cx=110,cy=110;
+  ctx.clearRect(0,0,W,H);
+  // Outer ring bg
+  ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.strokeStyle='rgba(255,255,255,.08)'; ctx.lineWidth=22; ctx.stroke();
+  // Zone rings
+  jrZones.forEach(z=>{
+    // Hit zone (green)
+    ctx.beginPath(); ctx.arc(cx,cy,R,z.start,z.start+z.hit*Math.PI*2);
+    ctx.strokeStyle='rgba(57,255,20,.45)'; ctx.lineWidth=22; ctx.stroke();
+    // Perfect zone (gold) — center of hit
+    const pStart=z.start+z.hit*Math.PI*2*.5-z.perfect*Math.PI;
+    ctx.beginPath(); ctx.arc(cx,cy,R,pStart,pStart+z.perfect*Math.PI*2);
+    ctx.strokeStyle='rgba(255,204,0,.85)'; ctx.lineWidth=22; ctx.stroke();
+  });
+  // Inner circle
+  ctx.beginPath(); ctx.arc(cx,cy,R-14,0,Math.PI*2);
+  ctx.fillStyle='rgba(0,0,0,.85)'; ctx.fill();
+  // Pet emoji center
+  ctx.font='38px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(B2.turn==='player'?(gS().e||'⚔️'):'💀',cx,cy);
+  // Spinning needle
+  jrAngle+=jrSpeed*Math.PI/180;
+  const nx=cx+Math.cos(jrAngle)*R;
+  const ny=cy+Math.sin(jrAngle)*R;
+  ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(nx,ny);
+  ctx.strokeStyle='#fff'; ctx.lineWidth=3; ctx.lineCap='round';
+  ctx.shadowBlur=10; ctx.shadowColor='#fff'; ctx.stroke(); ctx.shadowBlur=0;
+  // Needle dot
+  ctx.beginPath(); ctx.arc(nx,ny,6,0,Math.PI*2);
+  ctx.fillStyle='#fff'; ctx.fill();
+}
+function judgeRingTap(e){
+  if(e&&e.preventDefault) e.preventDefault();
+  if(B2.done||B2.turn!=='player') return;
+  const norm=((jrAngle%(Math.PI*2))+Math.PI*2)%(Math.PI*2);
+  let hit=false,perfect=false;
+  jrZones.forEach(z=>{
+    const zEnd=(z.start+z.hit*Math.PI*2);
+    const inHit=isInArc(norm,z.start,zEnd);
+    if(inHit){
+      hit=true;
+      const pStart=z.start+z.hit*Math.PI*2*.5-z.perfect*Math.PI;
+      if(isInArc(norm,pStart,pStart+z.perfect*Math.PI*2)) perfect=true;
+    }
+  });
+  let dmg=0,result='';
+  if(perfect){
+    dmg=Math.floor((20+G.level*3+Math.random()*20)*1.8);
+    result=`💥 PERFECT! ${dmg} dmg!`;
+    B2.streak++; confetti(20); SFX.combo&&SFX.combo(2);
+    vibe([50,20,80]); gainKC(1);
+  } else if(hit){
+    dmg=Math.floor(15+G.level*2+Math.random()*15);
+    result=`⚔️ HIT! ${dmg} dmg`;
+    B2.streak++; SFX.tap&&SFX.tap(); vibe(30);
+  } else {
+    result='❌ MISS! Enemy counters!';
+    B2.streak=0; SFX.err&&SFX.err(); vibe([40,20,40]);
+    dmg=0;
+    const counterDmg=Math.floor(B2.enemy.atk*.7);
+    B2.youHP-=counterDmg;
+    result+=` -${counterDmg} HP`;
+  }
+  // Element advantage
+  if(dmg>0&&ELEM_ADV[B2.youElem]===B2.enemy.elem){
+    dmg=Math.floor(dmg*1.5);
+    result+=' ⚡ ELEMENT BOOST!';
+  }
+  B2.enemyHP-=dmg;
+  const log=$('b2Log'); if(log) log.textContent=result;
+  const ee=$('b2EmEnemy'); if(ee&&dmg>0){ee.classList.remove('hit');void ee.offsetWidth;ee.classList.add('hit');}
+  updateB2HP();
+  if(B2.enemyHP<=0){setTimeout(()=>b2Win(),400);return;}
+  if(B2.youHP<=0){setTimeout(()=>b2Lose(),400);return;}
+  B2.turn='enemy';
+  updateB2Status();
+  setTimeout(()=>b2EnemyTurn(),900);
+}
+function isInArc(angle,start,end){
+  const s=((start%(Math.PI*2))+Math.PI*2)%(Math.PI*2);
+  const e=((end%(Math.PI*2))+Math.PI*2)%(Math.PI*2);
+  if(s<=e) return angle>=s&&angle<=e;
+  return angle>=s||angle<=e;
+}
+function b2EnemyTurn(){
+  if(B2.done) return;
+  const useSpecial=Math.random()<.25;
+  let dmg=useSpecial?Math.floor(B2.enemy.atk*1.6+Math.random()*15):Math.floor(B2.enemy.atk*(.5+Math.random()*.8));
+  if(B2.defending) dmg=Math.floor(dmg*.5);
+  if(ELEM_ADV[B2.enemy.elem]===B2.youElem) dmg=Math.floor(dmg*1.4);
+  B2.youHP-=dmg;
+  const log=$('b2Log');
+  if(log) log.textContent=useSpecial?`${B2.enemy.em} ${B2.enemy.special}! ${dmg} dmg!`:`${B2.enemy.name} attackerar! ${dmg} dmg`;
+  const ye=$('b2EmYou'); if(ye){ye.classList.remove('hit');void ye.offsetWidth;ye.classList.add('hit');}
+  vibe([30,10,30]); SFX.err&&SFX.err();
+  updateB2HP();
+  B2.round++; B2.defending=false; B2.turn='player';
+  Object.keys(B2.elemCDs).forEach(e=>{if(B2.elemCDs[e]>0)B2.elemCDs[e]--;});
+  updateB2Status(); updateElemButtons();
+  if(B2.youHP<=0){b2Lose();return;}
+  buildJRZones();
+}
+function b2UseElem(elem){
+  if(B2.done||B2.turn!=='player') return;
+  if(B2.elemCDs[elem]>0){showT('⏳ Cooldown: '+B2.elemCDs[elem]+' drag','r');return;}
+  const costs={fire:0,water:0,nature:0,electric:0};
+  let dmg=Math.floor(40+G.level*4+Math.random()*25);
+  if(ELEM_ADV[elem]===B2.enemy.elem){dmg=Math.floor(dmg*2);confetti(30);showFeatToast('⚡ SUPER EFFECTIVE!');}
+  B2.enemyHP-=dmg;
+  B2.elemCDs[elem]=3; B2.streak=2;
+  const log=$('b2Log'); if(log) log.textContent=`${ELEM_NAMES[elem]} — ${dmg} dmg! Super!`;
+  const ee=$('b2EmEnemy'); if(ee){ee.classList.remove('hit');void ee.offsetWidth;ee.classList.add('hit');}
+  SFX.lvl&&SFX.lvl(); vibe([50,30,80]); gainKC(1); gainXP(5,'action');
+  updateB2HP(); updateElemButtons();
+  if(B2.enemyHP<=0){setTimeout(()=>b2Win(),400);return;}
+  B2.turn='enemy'; updateB2Status();
+  setTimeout(()=>b2EnemyTurn(),900);
+}
+function b2Win(){
+  B2.done=true; jrRunning=false; cancelAnimationFrame(jrRAF);
+  const xpW=25+B2.enemy.lv*4+B2.streak*5;
+  const coinW=15+B2.enemy.lv*2;
+  gainXP(xpW,'action'); gainCoins(coinW); gainKC(3); gamesXPToday+=xpW;
+  progressMission&&progressMission('battle'); progressChallenge&&progressChallenge('battle',1);
+  const bw=parseInt(localStorage.getItem('k0509_battleWins')||'0')+1; localStorage.setItem('k0509_battleWins',bw);
+  const log=$('b2Log'); if(log) log.textContent=`🏆 VICTORY! +${xpW} XP +${coinW} 💰 +3 KC`;
+  confetti(60); SFX.lvl&&SFX.lvl(); vibe([50,30,100,30,150]);
+  pushNotif('⚔️',`<b>Battle vunnen!</b> +${xpW} XP vs ${B2.enemy.name}`);
+  checkAchievements(); pottAction(3);
+  setTimeout(()=>initBattle2(),3500);
+}
+function b2Lose(){
+  B2.done=true; jrRunning=false; cancelAnimationFrame(jrRAF);
+  gainXP(8,'action');
+  const log=$('b2Log'); if(log) log.textContent=`💀 Game over! +8 XP för försöket`;
+  SFX.err&&SFX.err(); vibe([80,40,80]);
+  setTimeout(()=>initBattle2(),2500);
+}
+// Wire old initBattle to new system
+function initBattle(){initBattle2();}
+function battleMove(){judgeRingTap(null);}
+
+/* ══════════════════════════════════════════
+   🎣 FISHING — TIMING BAR (Stardew Valley style)
+══════════════════════════════════════════ */
+let fishBar={running:false,cursor:0,dir:1,speed:1.8,hitZone:{s:.3,e:.65},perfectZone:{s:.45,e:.55},raf:null,active:false,waitTimer:null};
+
+function fishCast(){
+  cancelAnimationFrame(fishBar.raf);
+  clearTimeout(fishBar.waitTimer);
+  fishState.phase='waiting';
+  fishState.floatX=255+Math.random()*70; fishState.floatY=138+Math.random()*20;
+  const btn=$('fishBtn'); if(btn){btn.className='fish-cast-btn cast';btn.textContent='⬆️ Väntar på napp…';btn.disabled=true;}
+  $('fishLog').textContent='👀 Spöet kastat! Väntar…';
+  fishStartDraw();
+  const wait=1800+Math.random()*6000;
+  fishState.waitTimer=setTimeout(()=>{
+    fishState.phase='bite';
+    if(btn){btn.disabled=false;btn.className='fish-cast-btn reel';btn.textContent='🎣 TAP NÄR MARKÖREN ÄR I ZONEN!';}
+    $('fishLog').innerHTML='<span style="color:var(--gold);font-weight:900">🎣 NAPP! Håll markören i grön zonen!</span>';
+    vibe([50,30,50]);
+    startFishBar();
+  },wait);
+}
+function startFishBar(){
+  const bw=$('fishBarWrap'); if(bw) bw.style.display='';
+  const hz=fishBar.hitZone; const pz=fishBar.perfectZone;
+  fishBar.cursor=0; fishBar.dir=1; fishBar.running=true;
+  fishBar.speed=1.5+Math.random()*.8;
+  // Randomize zones
+  const hw=0.18+Math.random()*.18;
+  const hs=Math.random()*(1-hw-.05)+.05;
+  fishBar.hitZone={s:hs,e:hs+hw};
+  const pw=0.06+Math.random()*.08;
+  const ps=hs+hw/2-pw/2;
+  fishBar.perfectZone={s:ps,e:ps+pw};
+  renderFishBarZones();
+  cancelAnimationFrame(fishBar.raf);
+  function loop(){
+    if(!fishBar.running) return;
+    fishBar.cursor+=fishBar.dir*fishBar.speed*0.012;
+    if(fishBar.cursor>=1){fishBar.cursor=1;fishBar.dir=-1;}
+    if(fishBar.cursor<=0){fishBar.cursor=0;fishBar.dir=1;}
+    const cur=$('fishBarCursor'); if(cur) cur.style.left=(fishBar.cursor*100)+'%';
+    fishBar.raf=requestAnimationFrame(loop);
+  }
+  loop();
+}
+function renderFishBarZones(){
+  const ht=$('fishHitZone'),pt=$('fishPerfectZone'); if(!ht||!pt) return;
+  const hz=fishBar.hitZone,pz=fishBar.perfectZone;
+  ht.style.left=(hz.s*100)+'%'; ht.style.width=((hz.e-hz.s)*100)+'%';
+  pt.style.left=(pz.s*100)+'%'; pt.style.width=((pz.e-pz.s)*100)+'%';
+}
+function fishAction(){
+  const btn=$('fishBtn');
+  if(fishState.phase==='idle'){fishCast();return;}
+  if(fishState.phase==='waiting'){
+    clearTimeout(fishState.waitTimer); cancelAnimationFrame(fishBar.raf); fishBar.running=false;
+    fishState.phase='idle';
+    if(btn){btn.className='fish-cast-btn cast';btn.textContent='🎣 KASTA SPÖET';btn.disabled=false;}
+    $('fishLog').textContent='⬆️ För tidigt. Kasta igen!'; vibe(30);
+    return;
+  }
+  if(fishState.phase==='bite'){
+    fishBar.running=false; cancelAnimationFrame(fishBar.raf);
+    const c=fishBar.cursor,hz=fishBar.hitZone,pz=fishBar.perfectZone;
+    let quality='miss';
+    if(c>=pz.s&&c<=pz.e) quality='perfect';
+    else if(c>=hz.s&&c<=hz.e) quality='hit';
+    fishReelResult(quality);
+  }
+}
+function fishReelResult(quality){
+  clearTimeout(fishState.waitTimer); fishState.phase='idle';
+  const btn=$('fishBtn'); if(btn){btn.disabled=false;btn.className='fish-cast-btn cast';btn.textContent='🎣 KASTA IGEN!';}
+  const bw=$('fishBarWrap'); if(bw) bw.style.display='none';
+  if(quality==='miss'){
+    $('fishLog').textContent='❌ MISS! Fisken kom undan… Bättre timing behövs!';
+    vibe(60); return;
+  }
+  let r=Math.random(),cum=0; let caught=FISH_TYPES[0];
+  for(const f of FISH_TYPES){cum+=f.chance;if(r<cum){caught=f;break;}}
+  if(quality==='perfect'&&caught.rarity==='common'&&Math.random()<.5){caught=FISH_TYPES[2];} // upgrade on perfect
+  fishState.count++; localStorage.setItem('k0509_fishCount',fishState.count);
+  fishState.xpToday+=caught.xp; fishState.coinsToday+=caught.coins;
+  gainXP(caught.xp,'action'); gainCoins(caught.coins);
+  if(quality==='perfect'){gainKC(2);gainXP(30,'action');}
+  if(caught.rarity==='epic'||caught.rarity==='legendary'){
+    confetti(70); vibe([100,50,100]); fishState.best=caught.name;
+    localStorage.setItem('k0509_fishBest',caught.name);
+    showFeatToast(caught.em+' '+caught.name+'!');
+  } else vibe(35);
+  const rc=FISH_RARITY_COL[caught.rarity]||'#888';
+  const qBadge=quality==='perfect'?'<b style="color:var(--gold)"> ⭐ PERFECT!</b>':'';
+  $('fishLog').innerHTML=`<span style="color:${rc};font-size:14px;font-weight:900">${caught.em} ${caught.name}</span>${qBadge}<br><span style="font-size:11px;color:var(--t3)">+${caught.xp} XP · +${caught.coins} Coins · ${caught.size}</span>`;
+  updateFishHUD(); checkAchievements(); SFX.lvl&&SFX.lvl(); pottAction(2);
+}
+function initFish(){
+  fishState.phase='idle';
+  fishState.count=parseInt(localStorage.getItem('k0509_fishCount')||'0');
+  fishState.best=localStorage.getItem('k0509_fishBest')||'–';
+  fishBar.running=false; cancelAnimationFrame(fishBar.raf);
+  updateFishHUD(); fishStartDraw();
+  const bw=$('fishBarWrap'); if(bw) bw.style.display='none';
+}
+
+/* ══════════════════════════════════════════
+   🎰 SPIN WHEEL — Canvas rebuild
+══════════════════════════════════════════ */
+function buildSpinWheel(){
+  const canvas=$('spinCanvas'); if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  if(!ctx){return;}
+  const W=canvas.width||260,H=canvas.height||260;
+  const n=SPIN_PRIZES.length,cx=W/2,cy=H/2,R=cx-4;
+  const seg=Math.PI*2/n;
+  ctx.clearRect(0,0,W,H);
+  SPIN_PRIZES.forEach((p,i)=>{
+    const a=i*seg-Math.PI/2;
+    // Segment
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,R,a,a+seg);
+    ctx.closePath();
+    ctx.fillStyle=p.color+'33';
+    ctx.strokeStyle=p.color;
+    ctx.lineWidth=2;
+    ctx.fill(); ctx.stroke();
+    // Icon
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(a+seg/2);
+    ctx.translate(R*.65,0);
+    ctx.font='20px serif';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.shadowBlur=6; ctx.shadowColor=p.color;
+    ctx.fillText(p.ico,0,0);
+    ctx.shadowBlur=0;
+    // Label
+    ctx.rotate(Math.PI/2);
+    ctx.font='bold 8px Syne,sans-serif';
+    ctx.fillStyle='#fff';
+    ctx.fillText(p.label,0,0);
+    ctx.restore();
+  });
+  // Center circle
+  ctx.beginPath(); ctx.arc(cx,cy,20,0,Math.PI*2);
+  ctx.fillStyle='#000'; ctx.strokeStyle='rgba(255,255,255,.3)'; ctx.lineWidth=2;
+  ctx.fill(); ctx.stroke();
+  ctx.font='bold 12px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillStyle='#fff'; ctx.fillText('SPIN',cx,cy);
+}
+
+/* ══════════════════════════════════════════
+   🧬 DNA MIXER
+══════════════════════════════════════════ */
+const DNA_FRIENDS=[
+  {name:'ella_sthlm',em:'🐉',lv:9,elem:'water',rarity:'rare'},
+  {name:'maxruns',em:'🐺',lv:11,elem:'fire',rarity:'epic'},
+  {name:'sagas',em:'🦋',lv:7,elem:'nature',rarity:'uncommon'},
+  {name:'carlos',em:'🦊',lv:5,elem:'electric',rarity:'common'},
+  {name:'ghost',em:'🐸',lv:12,elem:'water',rarity:'legendary'},
+];
+const DNA_HYBRIDS=[
+  {em:'🐉🐺',name:'Dragon Wolf',rarity:'rare',bonus:'ATK+25'},
+  {em:'🦋🐉',name:'Sky Dragon',rarity:'epic',bonus:'SPD+30 ATK+15'},
+  {em:'🐸🦊',name:'Shadow Fox',rarity:'uncommon',bonus:'DEF+20'},
+  {em:'🦋🐺',name:'Storm Wolf',rarity:'epic',bonus:'ALL+20'},
+  {em:'🐉🐸',name:'Poison Drake',rarity:'rare',bonus:'ATK+20 ELEM'},
+  {em:'🌟',name:'LEGENDARY FUSION',rarity:'legendary',bonus:'ALL STATS+50'},
+];
+let _dnaSelectedFriend=null;
+function openDnaModal(){
+  if(!G.name){showT('❌ Logga in först','r');return;}
+  const p1=$('dnaP1Em'); if(p1) p1.textContent=gS().e||'🐉';
+  const p1n=$('dnaP1Name'); if(p1n) p1n.textContent=G.petName||'Din pet';
+  const p1l=$('dnaP1Lv'); if(p1l) p1l.textContent=G.level;
+  $('dnaResultWrap').style.display='none';
+  $('dnaSpliceAnim').style.display='none';
+  $('dnaFriendPick').style.display='none';
+  _dnaSelectedFriend=null;
+  const kcd=$('kcForDna'); if(kcd) kcd.textContent=G.kc||0;
+  openModal('dnaModal');
+}
+function selectDnaParent(n){
+  if(n===2){
+    const fp=$('dnaFriendPick'); if(fp) fp.style.display=fp.style.display==='none'?'':'none';
+    const fl=$('dnaFriendList'); if(!fl) return;
+    fl.innerHTML=DNA_FRIENDS.map((f,i)=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--s2);border-radius:10px;margin-bottom:6px;cursor:pointer;border:1px solid ${_dnaSelectedFriend===i?'var(--green)':'var(--line)'}" onclick="chooseDnaFriend(${i})">
+        <span style="font-size:22px">${f.em}</span>
+        <div><div style="font-size:12px;font-weight:800">${f.name}</div><div style="font-size:10px;color:var(--t3)">LV${f.lv} · ${f.rarity}</div></div>
+        ${_dnaSelectedFriend===i?'<div style="margin-left:auto;color:var(--green)">✓</div>':''}
+      </div>`).join('');
+  }
+}
+function chooseDnaFriend(i){
+  _dnaSelectedFriend=i;
+  const f=DNA_FRIENDS[i];
+  const p2=$('dnaP2Em'); if(p2) p2.textContent=f.em;
+  const p2n=$('dnaP2Name'); if(p2n) p2n.textContent=f.name;
+  $('dnaFriendPick').style.display='none';
+  $('dnaParent2').classList.add('selected');
+  previewDnaResult();
+}
+function previewDnaResult(){
+  if(_dnaSelectedFriend===null) return;
+  const f=DNA_FRIENDS[_dnaSelectedFriend];
+  const myRarity=G.prestige>0?'epic':'rare';
+  const rarities=['common','uncommon','rare','epic','legendary'];
+  const ri=Math.max(rarities.indexOf(myRarity),rarities.indexOf(f.rarity));
+  const actualRarity=ri>=4?'legendary':ri>=3?'epic':ri>=2?'rare':ri>=1?'uncommon':'common';
+  const hybrid=DNA_HYBRIDS[Math.floor(Math.random()*DNA_HYBRIDS.length)];
+  const rw=$('dnaResultWrap'); if(rw) rw.style.display='';
+  const re=$('dnaResultEm'); if(re) re.textContent=hybrid.em;
+  const rn=$('dnaResultName'); if(rn) rn.textContent=hybrid.name;
+  const rr=$('dnaResultRarity'); if(rr){rr.textContent=actualRarity.toUpperCase();rr.className='dna-result-rarity rarity-'+actualRarity;}
+  const rs=$('dnaResultStats'); if(rs) rs.innerHTML=`<div class="dna-stat"><div style="font-size:12px;font-weight:900;color:var(--green)">${hybrid.bonus}</div><div style="font-size:9px;color:var(--t3)">BONUS</div></div>`;
+}
+function doSplice(){
+  if(_dnaSelectedFriend===null){showT('❌ Välj en vän att mixa med!','r');return;}
+  if(!spendKC(20)) return;
+  $('dnaResultWrap').style.display='none';
+  $('dnaSpliceAnim').style.display='';
+  SFX.lvl&&SFX.lvl(); vibe([50,30,80,30,120]);
+  setTimeout(()=>{
+    $('dnaSpliceAnim').style.display='none';
+    const re=$('dnaResultEm'); if(re) re.classList.add('dna-anim');
+    $('dnaResultWrap').style.display='';
+    const rr=$('dnaResultRarity'); const rarity=rr?rr.textContent.toLowerCase():'common';
+    gainXP(rarity==='legendary'?500:rarity==='epic'?300:rarity==='rare'?150:100,'action');
+    gainCoins(rarity==='legendary'?500:rarity==='epic'?200:100);
+    if(rarity==='legendary'){confetti(100);showFeatToast('🧬 LEGENDARY FUSION!');}
+    else confetti(50);
+    pushNotif('🧬',`<b>DNA Splice!</b> Du skapade ${$('dnaResultName').textContent}! (${rr?.textContent})`);
+    checkAchievements(); pottAction(5);
+  },2200);
+}
+
+/* ══════════════════════════════════════════
+   🐾 FLOATING PET COMPANION
+══════════════════════════════════════════ */
+const FP_MSGS={
+  pet:['Levla upp mig! 🔥','Mata mig! 🍖','Jag vill leka! 🎮','Träna mer! 💪'],
+  flash:['Posta något fett! 📸','Streak streak streak! 🔥','Flash och tjäna! 💰'],
+  games:['Spela! Vinn! Dominera! ⚔️','Judgment Ring = skill! 🎯','Fiska eller fight! 🎣'],
+  map:['Utforska! Fånga territorier! 🗺️','Bounties = pengar! 💸'],
+  profile:['Din profil = din brand! 👑','Prestige upp! ⭐'],
+  uppdrag:['Gör uppdraget! Tjäna SEK! 💰','IRL moves = IRL pengar! 🎯'],
+  default:['*viftar med svansen* 🐾','Jag gillar dig! ❤️','Levla! 🚀','GG no re! 🏆'],
+};
+let _fpVisible=false,_fpMsgTimer=null;
+function initFloatPet(){
+  const fp=$('floatPet'); if(!fp||!G.name) return;
+  fp.style.display='';
+  $('fpEm').textContent=gS()?.e||G.petEmoji||'🐉';
+  _fpVisible=true;
+  showFpMsg(null);
+}
+function showFpMsg(view){
+  const msgs=FP_MSGS[view]||FP_MSGS.default;
+  const msg=msgs[Math.floor(Math.random()*msgs.length)];
+  const bubble=$('fpBubble'); if(!bubble) return;
+  bubble.textContent=msg; bubble.classList.add('show');
+  clearTimeout(_fpMsgTimer);
+  _fpMsgTimer=setTimeout(()=>bubble.classList.remove('show'),3500);
+}
+function toggleFloatPet(){
+  const bubble=$('fpBubble'); if(!bubble) return;
+  if(bubble.classList.contains('show')) bubble.classList.remove('show');
+  else showFpMsg(null);
+  SFX.tap&&SFX.tap();
+}
+// Wire into nav to update fp message
+const _origNav=window.nav||(()=>{});
+
+/* ══════════════════════════════════════════
+   🔗 WIRE: initBattle → Battle2, KC HUD
+══════════════════════════════════════════ */
+// Update HUD to show KC
+const _origUpdateHUD=typeof updateHUD==='function'?updateHUD:()=>{};
+function updateHUD(){
+  _origUpdateHUD();
+  updateKCHUD();
+}
+
+// Earn KC from various activities
+const _origGainXP2=gainXP;
+gainXP=function(n,stat){
+  _origGainXP2(n,stat);
+  if(n>=50) gainKC(1); // 1 KC per 50 XP milestone
+};
+
+// Float pet on load
+if(G.name){
+  setTimeout(initFloatPet,800);
+  setTimeout(initBattle2,100); // init battle 2.0
+}
+
 /* Hunger drain */
 setInterval(() => {
   if(!G.name) return;
@@ -5487,6 +6212,12 @@ if(G.name) renderPrestigeBtn();
 
 setInterval(save, 8000);
 </script>
+
+<!-- FLOATING PET COMPANION -->
+<div id="floatPet" onclick="toggleFloatPet()" style="display:none">
+  <div class="fp-bubble" id="fpBubble">Hej! 👋</div>
+  <span id="fpEm">🐉</span>
+</div>
 
 <!-- LUCKY DROP BAR -->
 <div id="luckyDropBar" onclick="openLuckyModal()">
