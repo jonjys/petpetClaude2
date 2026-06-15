@@ -676,8 +676,8 @@ html, body {
 ══════════════════════ */
 #view-map { padding: 0; }
 .map-wrap { display: flex; flex-direction: column; height: 100%; }
-.map-canvas { flex: 1; position: relative; min-height: 300px; }
-#realMap { width: 100%; height: 100%; }
+.map-canvas { flex: 1; position: relative; min-height: 260px; max-height: calc(100vh - 200px); overflow:hidden; }
+#realMap { position:absolute; inset:0; width:100%; height:100%; }
 .leaflet-container { background: var(--s1) !important; }
 .leaflet-tile-pane { filter: brightness(.75) saturate(.8) hue-rotate(180deg) invert(1) hue-rotate(185deg) brightness(.62); }
 .map-top {
@@ -1482,8 +1482,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .kc-pill b { color:var(--neon-pink); }
 
 /* FLASH FEED FIX */
-.vc-card { max-height:320px !important; overflow:hidden !important; }
-.vc-list { display:flex !important; flex-direction:column !important; gap:10px !important; overflow-y:auto !important; -webkit-overflow-scrolling:touch !important; }
+.video-card { max-height:100svh !important; }
+.video-feed { scroll-snap-type:y mandatory !important; }
 
 /* ══ BATTLE 2.0 — JUDGMENT RING ══ */
 .battle2-wrap { padding:0 14px 14px; }
@@ -1716,10 +1716,6 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();nav('circles')"><div class="ddr-i">⭕</div>Karma Circles</div>
           <div class="ddr" onclick="cM();nav('uppdrag')"><div class="ddr-i">🎯</div>Uppdrag</div>
           <div class="ddr" onclick="cM();nav('map')"><div class="ddr-i">🗺️</div>Live Karta</div>
-        </div>
-        <div class="dd-sec">
-          <div class="ddr" onclick="cM();nav('circles')"><div class="ddr-i">⭕</div>Karma Circles</div>
-          <div class="ddr" onclick="cM();nav('uppdrag')"><div class="ddr-i">🎯</div>Uppdrag</div>
         </div>
         <div class="dd-sec">
           <div class="ddr" onclick="cM();nav('lb')"><div class="ddr-i">🏆</div>Leaderboard</div>
@@ -2371,7 +2367,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="spin-wrap" id="spinWrap">
       <div class="spin-outer">
         <div class="spin-pointer">▼</div>
-        <div class="spin-canvas" id="spinCanvas"></div>
+        <canvas id="spinCanvas" width="260" height="260" style="border-radius:50%;cursor:pointer;box-shadow:0 0 30px rgba(0,255,136,.25)"></canvas>
       </div>
       <div class="spin-won" id="spinResult" style="min-height:28px"></div>
       <button class="btn btn-g btn-lg btn-full" id="spinBtn" onclick="doSpin()">🎰 SNURRA!</button>
@@ -3904,13 +3900,40 @@ const SPIN_PRIZES=[
   {label:'150 XP',ico:'🏆',color:'#00ddcc',action:()=>{gainXP(150,'commerce');}},
   {label:'2x Streak',ico:'🎉',color:'#ff66bb',action:()=>{G.streak+=1;showT('🎉 +1 Streak dag!','pk');}},
 ];
-function buildSpinWheel() {
-  const c=$('spinCanvas'); if(!c) return;
-  const seg=360/SPIN_PRIZES.length;
-  c.innerHTML=SPIN_PRIZES.map((p,i)=>`
-    <div class="spin-segment" style="transform:rotate(${i*seg}deg) skewY(${-(90-seg)}deg);background:${p.color}22;border:1px solid ${p.color}44">
-      <div style="transform:skewY(${90-seg}deg) rotate(${seg/2}deg);font-size:22px;line-height:1">${p.ico}</div>
-    </div>`).join('');
+function buildSpinWheel(){
+  const canvas=$('spinCanvas'); if(!canvas||!canvas.getContext) return;
+  const ctx=canvas.getContext('2d');
+  const W=260,H=260,cx=130,cy=130,R=122;
+  const n=SPIN_PRIZES.length, seg=Math.PI*2/n;
+  ctx.clearRect(0,0,W,H);
+  // Outer glow ring
+  ctx.beginPath(); ctx.arc(cx,cy,R+4,0,Math.PI*2);
+  ctx.strokeStyle='rgba(0,255,136,.3)'; ctx.lineWidth=3; ctx.stroke();
+  SPIN_PRIZES.forEach((p,i)=>{
+    const a0=i*seg-Math.PI/2, a1=a0+seg;
+    // Slice fill
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,R,a0,a1); ctx.closePath();
+    ctx.fillStyle=p.color+'28'; ctx.fill();
+    ctx.strokeStyle=p.color+'88'; ctx.lineWidth=1.5; ctx.stroke();
+    // Icon
+    ctx.save();
+    ctx.translate(cx,cy); ctx.rotate(a0+seg/2); ctx.translate(R*0.65,0);
+    ctx.font='18px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.shadowBlur=8; ctx.shadowColor=p.color; ctx.fillStyle='#fff';
+    ctx.fillText(p.ico,0,0); ctx.shadowBlur=0;
+    // Label
+    ctx.rotate(Math.PI/2); ctx.font='bold 7px Syne,sans-serif';
+    ctx.fillStyle='rgba(255,255,255,.8)'; ctx.fillText(p.label,0,10);
+    ctx.restore();
+  });
+  // Center hub
+  ctx.beginPath(); ctx.arc(cx,cy,22,0,Math.PI*2);
+  const hubGrad=ctx.createRadialGradient(cx,cy,0,cx,cy,22);
+  hubGrad.addColorStop(0,'#1a1a1a'); hubGrad.addColorStop(1,'#000');
+  ctx.fillStyle=hubGrad; ctx.fill();
+  ctx.strokeStyle='rgba(0,255,136,.6)'; ctx.lineWidth=2; ctx.stroke();
+  ctx.font='bold 9px Syne,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillStyle='#00ff88'; ctx.fillText('SPIN',cx,cy);
 }
 let spinDeg=0, spinDone=false;
 function openSpinWheel() {
@@ -4834,27 +4857,39 @@ function runnerDie() {
 /* ══════════════════════════════════════════
    🎣 FISHING GAME
 ══════════════════════════════════════════ */
-const FISH_TYPES = [
-  {name:'Liten Abborre',em:'🐟',rarity:'common',xp:20,coins:10,chance:0.35,size:'S',color:'#4488ff'},
-  {name:'Gös',em:'🐠',rarity:'common',xp:30,coins:15,chance:0.25,size:'M',color:'#00ddcc'},
-  {name:'Gädda',em:'🐡',rarity:'uncommon',xp:60,coins:40,chance:0.18,size:'L',color:'#00ff88'},
-  {name:'Lax',em:'🐬',rarity:'rare',xp:120,coins:80,chance:0.10,size:'XL',color:'#aa66ff'},
-  {name:'Tonfisk',em:'🐋',rarity:'epic',xp:300,coins:200,chance:0.07,size:'XXL',color:'#ff8844'},
-  {name:'LEGENDFISK',em:'🦈',rarity:'legendary',xp:800,coins:500,chance:0.02,size:'LEGEND',color:'#ffcc00'},
-  {name:'Gammal Sko',em:'👟',rarity:'junk',xp:5,coins:1,chance:0.03,size:'S',color:'#666'},
+const FISH_TYPES=[
+  {id:'mort',name:'Mört',em:'🐟',rarity:'common',xp:12,coins:8,chance:.22,size:'15cm',depth:[0,1,2],col:'#4488ff'},
+  {id:'abborre',name:'Abborre',em:'🎣',rarity:'common',xp:15,coins:10,chance:.18,size:'22cm',depth:[0,1],col:'#00ddcc'},
+  {id:'gadda',name:'Gädda',em:'🐠',rarity:'uncommon',xp:35,coins:30,chance:.15,size:'55cm',depth:[0,1],col:'#00ff88'},
+  {id:'lax',name:'Lax',em:'🐡',rarity:'uncommon',xp:45,coins:40,chance:.12,size:'70cm',depth:[1,2],col:'#aa66ff'},
+  {id:'oring',name:'Öring',em:'🐬',rarity:'rare',xp:70,coins:65,chance:.09,size:'42cm',depth:[0,1,2],col:'#4488ff'},
+  {id:'gos',name:'Gös',em:'🦑',rarity:'rare',xp:85,coins:80,chance:.07,size:'75cm',depth:[1,2],col:'#00ff88'},
+  {id:'karp',name:'Karp',em:'🐙',rarity:'rare',xp:90,coins:85,chance:.06,size:'90cm',depth:[0],col:'#ffcc00'},
+  {id:'havsabb',name:'Havsabborre',em:'🦈',rarity:'epic',xp:180,coins:150,chance:.05,size:'62cm',depth:[1,2],col:'#ff8844'},
+  {id:'guldfisk',name:'Guldfisk',em:'🐠',rarity:'epic',xp:250,coins:220,chance:.03,size:'28cm',depth:[0],col:'#ffcc00'},
+  {id:'monstergadda',name:'Monstergädda',em:'🦷',rarity:'legendary',xp:600,coins:500,chance:.015,size:'2.3m',depth:[2],col:'#ff3377'},
+  {id:'skatt',name:'Skattekista',em:'💎',rarity:'legendary',xp:400,coins:0,kc:15,chance:.008,size:'–',depth:[2],col:'#ffcc00'},
+  {id:'spok',name:'Spöklax',em:'👻',rarity:'mythic',xp:1200,coins:1000,kc:50,chance:.004,size:'???',depth:[2],col:'#aa66ff'},
+  {id:'sko',name:'Gammal Sko',em:'👟',rarity:'junk',xp:5,coins:2,chance:.028,size:'–',depth:[0,1,2],col:'#444'},
 ];
-const FISH_RARITY_COL = {common:'#888',uncommon:'var(--green)',rare:'var(--blue)',epic:'var(--purple)',legendary:'var(--gold)',junk:'#444'};
+const FISH_RARITY_COL={common:'#888',uncommon:'#00ff88',rare:'#4488ff',epic:'#aa66ff',legendary:'#ffcc00',mythic:'#ff3377',junk:'#333'};
+const FISH_WEATHER=['☀️ Soligt','🌧️ Regn','⛈️ Storm','🌙 Natt','🌫️ Dimma'];
+const FISH_DEPTH_NAMES=['🌊 Ytvatten','🌊🌊 Djupvatten','🌑 Abyssal'];
+const FISH_DEPTH_BONUS=[1,1.3,1.8]; // xp/coin multiplier per depth
 
-let fishState = {
-  phase: 'idle',
-  castTimer: null, biteTimer: null, reelWindow: false,
-  count: parseInt(localStorage.getItem('k0509_fishCount')||'0'),
-  best: localStorage.getItem('k0509_fishBest')||'–',
-  xpToday: 0, coinsToday: 0,
-  lineY: 0, floatX: 220, floatY: 120,
-  biteAnim: 0, waterAnim: 0,
-  fish: null,
+let fishState={
+  phase:'idle', waitTimer:null, biteTimer:null,
+  count:parseInt(localStorage.getItem('k0509_fishCount')||'0'),
+  best:localStorage.getItem('k0509_fishBest')||'–',
+  xpToday:0, coinsToday:0,
+  floatX:240, floatY:148, biteAnim:0, waterAnim:0,
+  depth:1, weather:Math.floor(Math.random()*5),
+  collection:JSON.parse(localStorage.getItem('k0509_fishColl')||'[]'),
+  bgFish:[], bubbles:[], castArc:0,
 };
+// Init background fish
+for(let i=0;i<6;i++) fishState.bgFish.push({x:Math.random()*380+10,y:140+Math.random()*80,vx:(Math.random()-.5)*1.2,vy:(Math.random()-.5)*.4,em:['🐟','🐠','🐡'][Math.floor(Math.random()*3)],sz:10+Math.random()*8});
+for(let i=0;i<12;i++) fishState.bubbles.push({x:Math.random()*380,y:140+Math.random()*90,r:1+Math.random()*3,speed:.3+Math.random()*.7,alpha:.2+Math.random()*.5});
 let fishRAF = null;
 function fishStartDraw() {
   cancelAnimationFrame(fishRAF);
@@ -5563,50 +5598,7 @@ function initFish(){
 /* ══════════════════════════════════════════
    🎰 SPIN WHEEL — Canvas rebuild
 ══════════════════════════════════════════ */
-function buildSpinWheel(){
-  const canvas=$('spinCanvas'); if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  if(!ctx){return;}
-  const W=canvas.width||260,H=canvas.height||260;
-  const n=SPIN_PRIZES.length,cx=W/2,cy=H/2,R=cx-4;
-  const seg=Math.PI*2/n;
-  ctx.clearRect(0,0,W,H);
-  SPIN_PRIZES.forEach((p,i)=>{
-    const a=i*seg-Math.PI/2;
-    // Segment
-    ctx.beginPath();
-    ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,R,a,a+seg);
-    ctx.closePath();
-    ctx.fillStyle=p.color+'33';
-    ctx.strokeStyle=p.color;
-    ctx.lineWidth=2;
-    ctx.fill(); ctx.stroke();
-    // Icon
-    ctx.save();
-    ctx.translate(cx,cy);
-    ctx.rotate(a+seg/2);
-    ctx.translate(R*.65,0);
-    ctx.font='20px serif';
-    ctx.textAlign='center';
-    ctx.textBaseline='middle';
-    ctx.shadowBlur=6; ctx.shadowColor=p.color;
-    ctx.fillText(p.ico,0,0);
-    ctx.shadowBlur=0;
-    // Label
-    ctx.rotate(Math.PI/2);
-    ctx.font='bold 8px Syne,sans-serif';
-    ctx.fillStyle='#fff';
-    ctx.fillText(p.label,0,0);
-    ctx.restore();
-  });
-  // Center circle
-  ctx.beginPath(); ctx.arc(cx,cy,20,0,Math.PI*2);
-  ctx.fillStyle='#000'; ctx.strokeStyle='rgba(255,255,255,.3)'; ctx.lineWidth=2;
-  ctx.fill(); ctx.stroke();
-  ctx.font='bold 12px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.fillStyle='#fff'; ctx.fillText('SPIN',cx,cy);
-}
+// buildSpinWheel defined above — no duplicate needed
 
 /* ══════════════════════════════════════════
    🧬 DNA MIXER
