@@ -1925,6 +1925,86 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .video-card { scroll-snap-align:start; min-height:100svh; overflow:hidden; }
 
 /* ══════════════════════════════════════
+   ROUND 31 — Missions, Friends, Care
+══════════════════════════════════════ */
+
+/* ── MISSION CARD UPGRADE ── */
+.missions-card {
+  background:linear-gradient(135deg,rgba(255,204,0,.04),rgba(0,255,136,.02)) !important;
+  border-color:rgba(255,204,0,.18) !important;
+}
+.missions-hdr {
+  background:linear-gradient(90deg,rgba(255,204,0,.06),transparent);
+  border-bottom:1px solid rgba(255,204,0,.12);
+}
+.missions-title { color:var(--gold) !important; }
+.m-prog-wrap { height:5px !important; border-radius:3px !important; }
+.m-prog { border-radius:3px !important; }
+.mission-row {
+  transition:background .12s,border-left-color .3s;
+  border-left:3px solid transparent; padding-left:13px !important;
+}
+.mission-row:not(.done):hover { background:rgba(255,255,255,.02); }
+.mission-row[data-type="feed"]     { border-left-color:var(--orange); }
+.mission-row[data-type="battle"]   { border-left-color:var(--red); }
+.mission-row[data-type="flash"]    { border-left-color:var(--pink); }
+.mission-row[data-type="uppdrag"]  { border-left-color:var(--gold); }
+.mission-row[data-type="social"]   { border-left-color:var(--blue); }
+.mission-row[data-type="runner"]   { border-left-color:var(--green); }
+.m-done-chip {
+  display:inline-flex; align-items:center; gap:3px;
+  background:rgba(0,255,136,.12); color:var(--green);
+  font-size:9px; font-weight:900; padding:3px 8px; border-radius:10px;
+  border:1px solid rgba(0,255,136,.25);
+}
+.m-rwd-chip {
+  background:rgba(255,204,0,.1); border:1px solid rgba(255,204,0,.25);
+  color:var(--gold); font-size:11px; font-weight:900;
+  padding:4px 9px; border-radius:10px;
+}
+.missions-complete-bar {
+  height:3px; overflow:hidden;
+  background:rgba(255,255,255,.05);
+  border-radius:0 0 20px 20px;
+}
+.missions-complete-fill {
+  height:100%; background:linear-gradient(90deg,var(--gold),var(--green));
+  transition:width .6s ease;
+}
+
+/* ── FRIENDS ACTIVITY UPGRADE ── */
+.friend-act-card {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px;
+  background:var(--s1); border:1px solid rgba(255,255,255,.05);
+  border-radius:14px; transition:background .1s;
+}
+.friend-act-card:active { background:var(--s2); }
+.fac-ava {
+  width:36px; height:36px; border-radius:50%;
+  background:var(--s2); border:2px solid rgba(255,255,255,.1);
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; flex-shrink:0;
+}
+.fac-info { flex:1; min-width:0; }
+.fac-user { font-weight:800; font-size:12px; }
+.fac-action { font-size:11px; color:var(--t2); margin-top:1px; }
+.fac-xp {
+  background:rgba(0,255,136,.1); border:1px solid rgba(0,255,136,.2);
+  color:var(--green); font-size:10px; font-weight:900;
+  padding:3px 8px; border-radius:10px; flex-shrink:0;
+}
+.fac-time { font-size:9px; color:var(--t3); margin-top:2px; }
+
+/* ── CARE GRID SPIN BADGE ── */
+.care-spin-badge {
+  position:absolute; top:-5px; right:-5px;
+  background:var(--gold); color:#000;
+  font-size:7px; font-weight:900; padding:2px 5px; border-radius:8px;
+  pointer-events:none; z-index:10;
+}
+
+/* ══════════════════════════════════════
    ROUND 30 — Level-up, Splashes, Ach
 ══════════════════════════════════════ */
 
@@ -2666,9 +2746,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="missions-card" id="missionsCard">
         <div class="missions-hdr">
           <div class="missions-title">📅 Dagliga uppdrag</div>
-          <div class="missions-refresh" id="missionsRefresh">Ny omgång imorgon</div>
+          <div id="missionsDoneCount" style="font-size:11px;font-weight:900;color:var(--gold)">0/3</div>
         </div>
         <div id="missionsList"></div>
+        <div class="missions-complete-bar"><div class="missions-complete-fill" id="missionsFill" style="width:0%"></div></div>
       </div>
 
       <!-- Global game stats -->
@@ -5122,15 +5203,18 @@ function saveMissions() {
 function renderMissions() {
   if(!G.dailyMissions) loadMissions();
   const el=$('missionsList'); if(!el) return;
+  const done=G.dailyMissions.filter(m=>m.done).length;
+  const dc=$('missionsDoneCount'); if(dc) dc.textContent=`${done}/${G.dailyMissions.length}`;
+  const fill=$('missionsFill'); if(fill) fill.style.width=Math.round(done/G.dailyMissions.length*100)+'%';
   el.innerHTML=G.dailyMissions.map((m,i)=>`
-    <div class="mission-row ${m.done?'done':''}">
+    <div class="mission-row ${m.done?'done':''}" data-type="${m.type||''}">
       <div class="m-ico">${m.icon}</div>
       <div class="m-info">
         <div class="m-name">${m.name}</div>
         <div class="m-prog-wrap"><div class="m-prog" style="width:${Math.min(100,(m.progress/m.max)*100)}%"></div></div>
         <div style="font-size:10px;color:var(--t3);margin-top:3px">${m.progress}/${m.max}</div>
       </div>
-      <div class="m-rwd">${m.done?'KLAR':m.reward}</div>
+      <div>${m.done?'<div class="m-done-chip">✓ KLAR</div>':`<div class="m-rwd-chip">${m.reward}</div>`}</div>
     </div>`).join('');
 }
 function progressMission(type) {
@@ -6618,19 +6702,16 @@ const FRIENDS_ACTIVITY=[
 let _actIdx=0;
 function renderFriendsActivity(){
   const el=$('friendsActivity'); if(!el) return;
-  // Rotate through activities with a staggered "live" feel
-  const shown=FRIENDS_ACTIVITY.slice(0,4);
+  const shown=FRIENDS_ACTIVITY.slice(0,5);
   el.innerHTML=shown.map((a,i)=>`
-    <div style="display:flex;align-items:center;gap:9px;padding:7px 10px;background:var(--s1);border-radius:12px;border:1px solid var(--line)">
-      <div style="font-size:18px">${a.em}</div>
-      <div style="flex:1;min-width:0">
-        <span style="font-weight:800;font-size:12px">@${a.user}</span>
-        <span style="font-size:11px;color:var(--t2)"> ${a.action}</span>
+    <div class="friend-act-card" style="animation:fadeUp .3s ease ${i*60}ms both">
+      <div class="fac-ava">${a.em}</div>
+      <div class="fac-info">
+        <div class="fac-user">@${a.user}</div>
+        <div class="fac-action">${a.action}</div>
+        <div class="fac-time">${a.t}</div>
       </div>
-      <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:10px;color:var(--green);font-weight:800">${a.xp}</div>
-        <div style="font-size:9px;color:var(--t3)">${a.t}</div>
-      </div>
+      <div class="fac-xp">${a.xp}</div>
     </div>`).join('');
 }
 function renderFriendsPets() {
