@@ -1801,6 +1801,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fish-coll-item.caught { background:rgba(0,0,0,.5); }
 .fish-coll-item:active { transform:scale(.88); }
 
+/* ══ FISH FIGHT & UPGRADES ══ */
+#fishFightWrap { display:none; padding:4px 0 6px; }
+.fish-fight-lbl { display:flex; justify-content:space-between; font-size:10px; color:var(--t3); font-weight:800; margin-bottom:5px; }
+.fish-fight-track { height:52px; background:rgba(255,255,255,.04); border-radius:14px; position:relative; overflow:hidden; border:2px solid rgba(255,100,0,.4); margin-bottom:7px; }
+.fish-fight-zone { position:absolute; top:0; height:100%; background:rgba(0,255,136,.28); border-radius:0; }
+.fish-fight-fish { position:absolute; top:50%; transform:translateY(-50%); font-size:26px; line-height:1; transition:none; }
+.fish-fight-btn { width:100%; padding:14px; border-radius:16px; font-family:var(--ff-head); font-size:15px; font-weight:900; background:linear-gradient(135deg,#ff4455,#ff007f); color:#fff; border:none; cursor:pointer; letter-spacing:1px; box-shadow:0 4px 20px rgba(255,68,85,.5); animation:fightBtnPulse .45s ease-in-out infinite; }
+.fish-fight-btn:active { transform:scale(.95); animation:none; }
+@keyframes fightBtnPulse { 0%,100%{box-shadow:0 4px 20px rgba(255,68,85,.4)} 50%{box-shadow:0 8px 36px rgba(255,0,127,.8),0 0 20px rgba(255,68,85,.6)} }
+.fish-hp-bar { height:7px; border-radius:6px; background:rgba(255,255,255,.07); margin-bottom:3px; overflow:hidden; }
+.fish-hp-fill { height:100%; border-radius:6px; background:linear-gradient(90deg,var(--green),var(--teal)); transition:width .15s; }
+.fish-streak-row { display:flex; align-items:center; justify-content:space-between; padding:3px 2px 2px; min-height:24px; }
+.fish-streak-badge { font-family:var(--ff-head); font-size:11px; font-weight:900; padding:2px 9px; border-radius:10px; background:linear-gradient(135deg,var(--gold),#ff8800); color:#000; animation:streakPop .3s ease; }
+@keyframes streakPop { 0%{transform:scale(0) rotate(-10deg)} 70%{transform:scale(1.2)} 100%{transform:scale(1)} }
+#fishWeatherRow { font-size:11px; color:var(--t3); font-weight:700; }
+.fish-hotspot-ring { position:absolute; border-radius:50%; pointer-events:none; }
+
 /* ══ MAP FIX ══ */
 .map-canvas { flex:1; position:relative; min-height:260px; overflow:hidden; }
 #realMap { position:absolute; inset:0; width:100%; height:100%; }
@@ -2426,6 +2443,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
             <div class="fish-bar-cursor" id="fishBarCursor"></div>
           </div>
           <div class="fish-bar-lbl" style="margin-top:4px"><span style="color:var(--t3)">← Rör sig →</span><span style="color:var(--green)">Tryck i grön!</span><span style="color:var(--gold)">Guld = PERFECT</span></div>
+        </div>
+        <!-- Fish fight mini-game (hidden until epic+ bite) -->
+        <div id="fishFightWrap">
+          <div class="fish-fight-lbl">
+            <span id="fishFightHits" style="color:var(--green);font-size:11px">0/3 PULLS</span>
+            <span style="color:var(--gold)">⚔️ FISKSTRID!</span>
+            <span id="fishFightTimer" style="color:var(--red);font-size:11px">10s</span>
+          </div>
+          <div class="fish-hp-bar"><div class="fish-hp-fill" id="fishHpFill" style="width:100%"></div></div>
+          <div class="fish-fight-track">
+            <div class="fish-fight-zone" id="fishFightZone"></div>
+            <div class="fish-fight-fish" id="fishFightFish">🐟</div>
+          </div>
+          <button class="fish-fight-btn" onclick="fishFightTap()">🎣 HALA IN!</button>
+        </div>
+        <!-- Weather + streak row -->
+        <div class="fish-streak-row">
+          <div id="fishWeatherRow">☀️ Soligt</div>
+          <div class="fish-streak-badge" id="fishStreakBadge" style="display:none">🔥 0x</div>
         </div>
         <!-- Catch log -->
         <div class="fish-catch-log" id="fishLog">Välj djup och kasta ditt spö! 🎣</div>
@@ -5472,6 +5508,8 @@ let fishState={
   depth:1, weather:Math.floor(Math.random()*5),
   collection:JSON.parse(localStorage.getItem('k0509_fishColl')||'[]'),
   bgFish:[], bubbles:[], castArc:0,
+  streak:0, hotSpot:null, pendingFight:null,
+  weatherTimer:null,
 };
 // Init background fish
 for(let i=0;i<6;i++) fishState.bgFish.push({x:Math.random()*380+10,y:140+Math.random()*80,vx:(Math.random()-.5)*1.2,vy:(Math.random()-.5)*.4,em:['🐟','🐠','🐡'][Math.floor(Math.random()*3)],sz:10+Math.random()*8});
@@ -5562,11 +5600,34 @@ function drawFishCanvas(){
       ctx.fillText('NAPP!',fx,fy-34); ctx.shadowBlur=0;
     }
   }
+  // Hot spot glow (when waiting for bite)
+  if(fishState.hotSpot && fishState.phase==='waiting'){
+    const hs=fishState.hotSpot;
+    const t=fishState.waterAnim;
+    const pulse=Math.sin(t*3)*.5+.5;
+    ctx.save();
+    ctx.globalAlpha=0.25+pulse*0.3;
+    const hsG=ctx.createRadialGradient(hs.x,hs.y,0,hs.x,hs.y,hs.r);
+    hsG.addColorStop(0,'rgba(255,204,0,.9)');hsG.addColorStop(1,'rgba(255,204,0,0)');
+    ctx.fillStyle=hsG; ctx.beginPath(); ctx.arc(hs.x,hs.y,hs.r,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle=`rgba(255,204,0,${0.4+pulse*0.5})`; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(hs.x,hs.y,hs.r*(0.9+pulse*.1),0,Math.PI*2); ctx.stroke();
+    ctx.font='bold 9px DM Sans,sans-serif'; ctx.textAlign='center';
+    ctx.fillStyle=`rgba(255,204,0,${0.6+pulse*0.4})`;
+    ctx.fillText('✦ HOT',hs.x,hs.y-hs.r-4);
+    ctx.restore();
+  }
   // Depth & weather HUD
   const depCol=dep===0?'#4488ff':dep===1?'#00ddcc':'#aa66ff';
   ctx.fillStyle='rgba(0,0,0,.6)'; ctx.fillRect(W-100,4,96,18);
   ctx.font='bold 9px DM Sans,sans-serif'; ctx.textAlign='right'; ctx.fillStyle=depCol;
   ctx.fillText(FISH_DEPTH_NAMES[dep]+' · '+FISH_WEATHER[fishState.weather],W-6,15);
+  // Streak display on canvas
+  if(fishState.streak>=2){
+    ctx.fillStyle='rgba(0,0,0,.65)'; ctx.fillRect(4,4,68,18);
+    ctx.font='bold 9px Syne,sans-serif'; ctx.textAlign='left';
+    ctx.fillStyle='#ffcc00'; ctx.fillText('🔥 '+fishState.streak+'x STREAK',8,15);
+  }
 }
 
 // Old fish functions removed — see new versions below at fishBar section
@@ -6052,8 +6113,9 @@ function fishCast(){
   clearTimeout(fishBar.waitTimer);
   fishState.phase='waiting';
   fishState.floatX=255+Math.random()*70; fishState.floatY=138+Math.random()*20;
+  fishState.hotSpot=Math.random()<.35?{x:80+Math.random()*240,y:148+Math.random()*38,r:20+Math.random()*14}:null;
   const btn=$('fishBtn'); if(btn){btn.className='fish-cast-btn cast';btn.textContent='⬆️ Väntar på napp…';btn.disabled=true;}
-  $('fishLog').textContent='👀 Spöet kastat! Väntar…';
+  $('fishLog').textContent=fishState.hotSpot?'🔥 HOT SPOT! Bonus fisk möjlig!':'👀 Spöet kastat! Väntar…';
   fishStartDraw();
   const wait=1800+Math.random()*6000;
   fishState.waitTimer=setTimeout(()=>{
@@ -6114,37 +6176,121 @@ function fishAction(){
   }
 }
 function fishReelResult(quality){
-  clearTimeout(fishState.waitTimer); fishState.phase='idle';
-  const btn=$('fishBtn'); if(btn){btn.disabled=false;btn.className='fish-cast-btn cast';btn.textContent='🎣 KASTA IGEN!';}
+  clearTimeout(fishState.waitTimer);
   const bw=$('fishBarWrap'); if(bw) bw.style.display='none';
   if(quality==='miss'){
+    fishState.phase='idle'; fishState.streak=0; updateFishStreakBadge();
+    const btn=$('fishBtn'); if(btn){btn.disabled=false;btn.className='fish-cast-btn cast';btn.textContent='🎣 KASTA IGEN!';}
     $('fishLog').textContent='❌ MISS! Fisken kom undan… Jobba på timingen!';
     vibe(60); return;
   }
-  // Filter by depth
   const depthFish=FISH_TYPES.filter(f=>f.depth.includes(fishState.depth));
   const totalChance=depthFish.reduce((s,f)=>s+f.chance,0);
   let r=Math.random()*totalChance,cum=0; let caught=depthFish[0];
   for(const f of depthFish){cum+=f.chance;if(r<cum){caught=f;break;}}
-  // Perfect upgrade bonus
   if(quality==='perfect'&&caught.rarity==='common'&&Math.random()<.6){
-    const uncommons=depthFish.filter(f=>f.rarity==='uncommon');
-    if(uncommons.length) caught=uncommons[Math.floor(Math.random()*uncommons.length)];
+    const u=depthFish.filter(f=>f.rarity==='uncommon');
+    if(u.length) caught=u[Math.floor(Math.random()*u.length)];
   }
-  // Storm bonus: chance of legendary
   if(fishState.weather===2&&Math.random()<.05){
     const legs=depthFish.filter(f=>f.rarity==='legendary'||f.rarity==='mythic');
     if(legs.length) caught=legs[0];
   }
+  if(fishState.hotSpot&&(caught.rarity==='common'||caught.rarity==='uncommon')&&Math.random()<.35){
+    const rares=depthFish.filter(f=>f.rarity==='rare');
+    if(rares.length) caught=rares[Math.floor(Math.random()*rares.length)];
+  }
+  fishState.hotSpot=null;
+  if(caught.rarity==='epic'||caught.rarity==='legendary'||caught.rarity==='mythic'){
+    startFishFight(caught,quality);
+  } else {
+    fishState.phase='idle';
+    const btn=$('fishBtn'); if(btn){btn.disabled=false;btn.className='fish-cast-btn cast';btn.textContent='🎣 KASTA IGEN!';}
+    completeFishCatch(caught,quality);
+  }
+}
+
+let fishFight={running:false,fishX:.5,fishDir:1,speed:2.5,zone:{s:.35,e:.65},hits:0,misses:0,raf:null,timerSec:10,timerInterval:null};
+
+function startFishFight(caught,quality){
+  fishState.pendingFight={caught,quality}; fishState.phase='fight';
+  fishFight.running=true; fishFight.hits=0; fishFight.misses=0;
+  fishFight.fishX=.5; fishFight.fishDir=Math.random()>.5?1:-1;
+  fishFight.speed=caught.rarity==='mythic'?4.2:caught.rarity==='legendary'?3.2:2.4;
+  fishFight.timerSec=10;
+  const zw=caught.rarity==='mythic'?.17:caught.rarity==='legendary'?.22:.3;
+  fishFight.zone={s:.5-zw/2,e:.5+zw/2};
+  const fw=$('fishFightWrap'); if(fw) fw.style.display='';
+  const fz=$('fishFightZone'); if(fz){fz.style.left=(fishFight.zone.s*100)+'%';fz.style.width=((fishFight.zone.e-fishFight.zone.s)*100)+'%';}
+  const ff=$('fishFightFish'); if(ff){ff.textContent=caught.em;ff.style.left='50%';}
+  const btn=$('fishBtn'); if(btn){btn.disabled=true;btn.textContent='⚔️ FISKSTRID!';}
+  updateFishFightUI();
+  cancelAnimationFrame(fishFight.raf);
+  function fightLoop(){
+    if(!fishFight.running) return;
+    fishFight.fishX+=fishFight.fishDir*fishFight.speed*0.008;
+    if(Math.random()<.025) fishFight.fishDir*=-1;
+    if(fishFight.fishX>=.95){fishFight.fishX=.95;fishFight.fishDir=-1;}
+    if(fishFight.fishX<=.05){fishFight.fishX=.05;fishFight.fishDir=1;}
+    const ff=$('fishFightFish'); if(ff) ff.style.left=(fishFight.fishX*100-1.5)+'%';
+    fishFight.raf=requestAnimationFrame(fightLoop);
+  }
+  fightLoop();
+  clearInterval(fishFight.timerInterval);
+  fishFight.timerInterval=setInterval(()=>{
+    fishFight.timerSec--;
+    const t=$('fishFightTimer'); if(t){t.textContent=fishFight.timerSec+'s';t.style.color=fishFight.timerSec<=3?'#ff4455':'var(--t2)';}
+    if(fishFight.timerSec<=0){clearInterval(fishFight.timerInterval);endFishFight(false);}
+  },1000);
+  const rc=FISH_RARITY_COL[caught.rarity]||'#888';
+  $('fishLog').innerHTML=`<span style="color:${rc};font-weight:900">⚔️ ${caught.em} ${caught.name} kämpar! Tap i grön zon!</span>`;
+}
+function fishFightTap(){
+  if(!fishFight.running) return;
+  const inZone=fishFight.fishX>=fishFight.zone.s&&fishFight.fishX<=fishFight.zone.e;
+  if(inZone){
+    fishFight.hits++; vibe([25,10,25]);
+    const ff=$('fishFightFish'); if(ff){ff.style.transform='translateY(-50%) scale(1.35)';setTimeout(()=>{if(ff)ff.style.transform='translateY(-50%)';},180);}
+    fishFight.speed+=0.35; fishFight.fishDir*=-1;
+    if(fishFight.hits>=3){clearInterval(fishFight.timerInterval);endFishFight(true);}
+  } else {
+    fishFight.misses++; vibe(55);
+    const hp=$('fishHpFill'); if(hp) hp.style.width=(100-fishFight.misses*33.3)+'%';
+    if(fishFight.misses>=3){clearInterval(fishFight.timerInterval);endFishFight(false);}
+  }
+  updateFishFightUI();
+}
+function updateFishFightUI(){
+  const h=$('fishFightHits'); if(h) h.textContent=fishFight.hits+'/3 PULLS';
+  const t=$('fishFightTimer'); if(t) t.textContent=fishFight.timerSec+'s';
+  const hp=$('fishHpFill'); if(hp) hp.style.width=(100-fishFight.misses*33.3)+'%';
+}
+function endFishFight(won){
+  fishFight.running=false; cancelAnimationFrame(fishFight.raf); clearInterval(fishFight.timerInterval);
+  const fw=$('fishFightWrap'); if(fw) fw.style.display='none';
+  const btn=$('fishBtn'); if(btn){btn.disabled=false;btn.className='fish-cast-btn cast';btn.textContent='🎣 KASTA IGEN!';}
+  if(!fishState.pendingFight) return;
+  const {caught,quality}=fishState.pendingFight; fishState.pendingFight=null; fishState.phase='idle';
+  if(!won){
+    fishState.streak=0; updateFishStreakBadge();
+    const rc=FISH_RARITY_COL[caught.rarity]||'#888';
+    $('fishLog').innerHTML=`<span style="color:var(--red);font-weight:900">💔 ${caught.em} ${caught.name} slapp undan!</span>`;
+    vibe([80,40,80]); return;
+  }
+  completeFishCatch(caught,quality);
+}
+
+function completeFishCatch(caught,quality){
   const depMul=FISH_DEPTH_BONUS[fishState.depth];
-  const xpFinal=Math.round(caught.xp*depMul);
-  const coinFinal=Math.round((caught.coins||0)*depMul);
+  const sMul=fishState.streak>=4?2:fishState.streak>=2?1.5:1;
+  const xpFinal=Math.round(caught.xp*depMul*sMul);
+  const coinFinal=Math.round((caught.coins||0)*depMul*sMul);
   const kcFinal=(caught.kc||0)+(quality==='perfect'?2:0)+(caught.rarity==='mythic'?20:0);
   fishState.count++; localStorage.setItem('k0509_fishCount',fishState.count);
   fishState.xpToday+=xpFinal; fishState.coinsToday+=coinFinal;
   gainXP(xpFinal,'action'); if(coinFinal>0) gainCoins(coinFinal);
   if(kcFinal>0) gainKC(kcFinal);
-  // Collection
+  fishState.streak++; updateFishStreakBadge();
   if(!fishState.collection.includes(caught.id)){
     fishState.collection.push(caught.id);
     localStorage.setItem('k0509_fishColl',JSON.stringify(fishState.collection));
@@ -6158,8 +6304,25 @@ function fishReelResult(quality){
   const rc=FISH_RARITY_COL[caught.rarity]||'#888';
   const qBadge=quality==='perfect'?'<b style="color:var(--gold)"> ⭐ PERFECT!</b>':'';
   const kcBadge=kcFinal>0?`<b style="color:var(--pink)"> 💎+${kcFinal}KC</b>`:'';
-  $('fishLog').innerHTML=`<span style="color:${rc};font-size:15px;font-weight:900">${caught.em} ${caught.name}</span>${qBadge}${kcBadge}<br><span style="font-size:11px;color:var(--t3)">+${xpFinal} XP · ${coinFinal>0?'+'+coinFinal+' Coins':''} · ${caught.size}</span>`;
+  const sBadge=fishState.streak>=2?` <b style="color:var(--gold)">🔥${fishState.streak}x</b>`:'';
+  $('fishLog').innerHTML=`<span style="color:${rc};font-size:15px;font-weight:900">${caught.em} ${caught.name}</span>${qBadge}${kcBadge}${sBadge}<br><span style="font-size:11px;color:var(--t3)">+${xpFinal} XP · ${coinFinal>0?'+'+coinFinal+' ':''}${caught.size}</span>`;
   updateFishHUD(); checkAchievements(); SFX.lvl&&SFX.lvl(); pottAction(2);
+}
+function updateFishStreakBadge(){
+  const b=$('fishStreakBadge'); if(!b) return;
+  if(fishState.streak>=2){b.style.display='';b.textContent='🔥 '+fishState.streak+'x'+(fishState.streak>=4?' ×2 XP!':' STREAK');}
+  else b.style.display='none';
+}
+const FISH_WEATHER_TIPS=['☀️ Soligt – normal fiske','🌧️ Regn – 15% mer fisk','⛈️ Storm – legendarisk chans!','🌙 Natt – sällsynta fiskar','🌫️ Dimma – mystiska möten'];
+function updateFishWeatherRow(){
+  const wx=$('fishWeatherRow'); if(wx) wx.textContent=FISH_WEATHER_TIPS[fishState.weather]||FISH_WEATHER[fishState.weather];
+}
+function startFishWeatherRotation(){
+  if(fishState.weatherTimer) clearInterval(fishState.weatherTimer);
+  fishState.weatherTimer=setInterval(()=>{
+    const old=fishState.weather; fishState.weather=Math.floor(Math.random()*5);
+    if(fishState.weather!==old){updateFishWeatherRow();showT('🌤️ Vädret: '+FISH_WEATHER[fishState.weather],'g');}
+  },150000);
 }
 function updateFishHUD(){
   const d=$('fishCount'); if(d) d.textContent=fishState.count;
@@ -6198,8 +6361,11 @@ function initFish(){
   for(let i=0;i<6;i++) fishState.bgFish.push({x:Math.random()*370+15,y:120+Math.random()*60,vx:(Math.random()-.5)*1.2,vy:(Math.random()-.5)*.35,em:['🐟','🐠','🐡'][Math.floor(Math.random()*3)],sz:9+Math.random()*8});
   for(let i=0;i<12;i++) fishState.bubbles.push({x:Math.random()*390,y:120+Math.random()*70,r:1+Math.random()*2.5,speed:.3+Math.random()*.6,alpha:.2+Math.random()*.5});
   fishState.weather=Math.floor(Math.random()*5);
+  fishState.streak=0; fishState.hotSpot=null; fishState.pendingFight=null;
+  fishFight.running=false; cancelAnimationFrame(fishFight.raf); clearInterval(fishFight.timerInterval);
+  const fw=$('fishFightWrap'); if(fw) fw.style.display='none';
   const btn=$('fishBtn'); if(btn){btn.disabled=false;btn.className='fish-cast-btn cast';btn.textContent='🎣 KASTA SPÖET';}
-  updateFishHUD(); fishStartDraw();
+  updateFishHUD(); updateFishStreakBadge(); updateFishWeatherRow(); fishStartDraw(); startFishWeatherRotation();
   if($('fishLog')) $('fishLog').textContent='Välj djup och kasta ditt spö! 🎣';
 }
 
