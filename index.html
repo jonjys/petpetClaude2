@@ -634,8 +634,9 @@ html, body {
 #view-uppdrag { padding-top: calc(52px + var(--sat)); }
 .uppdrag-hdr {
   padding: 16px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+  background:linear-gradient(180deg,rgba(255,204,0,.06),transparent);
 }
-.uppdrag-title { font-family: var(--ff-head); font-size: 28px; font-weight: 900; }
+.uppdrag-title { font-family: var(--ff-head); font-size: 30px; font-weight: 900; background:linear-gradient(135deg,var(--gold),var(--orange)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .ufilters {
   display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none;
   padding: 0 14px 12px; flex-shrink: 0;
@@ -1006,8 +1007,8 @@ textarea.inp { resize:none;min-height:72px; }
    🎮 GAMES VIEW
 ══════════════════════ */
 #view-games { padding-top:calc(52px + var(--sat)); background:radial-gradient(ellipse at 50% 0%,rgba(68,136,255,.1) 0%,transparent 60%),var(--bg); }
-.games-hdr { padding:16px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
-.games-title { font-family:var(--ff-head); font-size:28px; font-weight:900; }
+.games-hdr { padding:16px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; background:linear-gradient(180deg,rgba(68,136,255,.06),transparent); }
+.games-title { font-family:var(--ff-head); font-size:30px; font-weight:900; background:linear-gradient(135deg,#00ccff,var(--blue),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .game-tabs { display:flex; gap:8px; padding:0 14px 14px; flex-shrink:0; }
 .gtab { padding:8px 18px; border-radius:20px; background:var(--s1); border:1px solid var(--line); font-size:13px; font-weight:700; cursor:pointer; color:var(--t2); transition:all .15s; flex-shrink:0; }
 .gtab.on { background:var(--blue); color:#fff; border-color:var(--blue); box-shadow:0 4px 18px rgba(68,136,255,.4); }
@@ -1915,6 +1916,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .dna-splice-btn { letter-spacing:1px; box-shadow:0 6px 30px rgba(0,255,136,.35); }
 .dna-splice-btn::after { content:''; position:absolute; top:0; left:-100%; width:60%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent); animation:shimmerBtn 2.2s ease-in-out infinite; }
 @keyframes shimmerBtn { to{left:140%} }
+
+/* ══ ROUND 34 — Game Tabs, Map, Uppdrag ══ */
+.gtab[onclick*="'battle'"].on { background:var(--red); border-color:var(--red); box-shadow:0 4px 18px rgba(255,68,85,.45); }
+.gtab[onclick*="'speed'"].on { background:var(--gold); border-color:var(--gold); color:#000; box-shadow:0 4px 18px rgba(255,204,0,.45); }
+.gtab[onclick*="'memory'"].on { background:var(--purple); border-color:var(--purple); box-shadow:0 4px 18px rgba(170,102,255,.45); }
+.gtab[onclick*="'raid'"].on { background:#cc0033; border-color:#cc0033; color:#fff; box-shadow:0 4px 18px rgba(200,0,50,.45); }
+.gtab[onclick*="'runner'"].on { background:var(--green); border-color:var(--green); color:#000; box-shadow:0 4px 18px rgba(0,255,136,.45); }
+.gtab[onclick*="'katch'"].on { background:var(--teal); border-color:var(--teal); color:#000; box-shadow:0 4px 18px rgba(0,220,200,.45); }
+.gtab[onclick*="'fish'"].on { background:var(--blue); border-color:var(--blue); box-shadow:0 4px 18px rgba(68,136,255,.45); }
+.gps-bar { background:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.25)); border-top:1px solid rgba(0,255,136,.12); }
+.gps-dot.found { box-shadow:0 0 8px rgba(0,255,136,.6); }
+.gps-dot.searching { background:var(--gold)!important; animation:gpsPing 1s ease-in-out infinite; }
+@keyframes gpsPing { 0%,100%{box-shadow:0 0 0 0 rgba(255,204,0,.4)} 50%{box-shadow:0 0 0 6px rgba(255,204,0,0)} }
 
 /* ══ FISH FIGHT & UPGRADES ══ */
 #fishFightWrap { display:none; padding:4px 0 6px; }
@@ -2868,7 +2882,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <!-- ⭕ CIRCLES -->
     <div class="view" id="view-circles">
       <div class="circles-hdr">
-        <div class="circles-title">Circles</div>
+        <div>
+          <div class="circles-title">Circles</div>
+          <div style="font-size:10px;color:var(--pink);font-weight:800;letter-spacing:1px;opacity:.8">DIN GRUPP · DIN RÖST · DIN STREAK</div>
+        </div>
         <button class="btn btn-pk btn-sm" onclick="openModal('createCircleModal')">+ Skapa</button>
       </div>
       <!-- Live users indicator -->
@@ -2889,8 +2906,11 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
     <!-- 🎯 UPPDRAG -->
     <div class="view" id="view-uppdrag">
-      <div style="padding:calc(52px + var(--sat)) 16px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
-        <div style="font-family:var(--ff-head);font-size:28px;font-weight:900">Uppdrag</div>
+      <div class="uppdrag-hdr">
+        <div>
+          <div class="uppdrag-title">Uppdrag</div>
+          <div style="font-size:10px;color:var(--gold);font-weight:800;letter-spacing:1px">EARN KC · FÅNGA MERCH · BYGG DIN BRAND</div>
+        </div>
         <button class="btn btn-y btn-sm" onclick="openModal('createUppdragModal')">🏢 Posta</button>
       </div>
       <div class="ufilters" id="ufilters">
