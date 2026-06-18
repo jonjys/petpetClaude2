@@ -821,6 +821,19 @@ html, body {
 .tr-fill { height:100%;border-radius:100px;background:linear-gradient(90deg,var(--green),var(--teal));transition:width .7s; }
 .tr-val { font-size:11px;font-weight:700;color:var(--green);width:30px;text-align:right;flex-shrink:0; }
 .badge-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 16px; }
+/* Global game stats grid */
+.global-stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:0 14px 14px; }
+.gstat-box { background:var(--s1); border:1.5px solid var(--line); border-radius:14px; padding:11px 6px; text-align:center; transition:all .15s; }
+.gstat-box:active { transform:scale(.93); }
+.gstat-ico { font-size:20px; margin-bottom:3px; }
+.gstat-val { font-family:var(--ff-head); font-size:22px; font-weight:900; line-height:1; }
+.gstat-lbl { font-size:8px; color:var(--t3); font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-top:3px; }
+/* Achievement rarity colors */
+.ach-r-common { color:var(--t2); }
+.ach-r-uncommon { color:var(--green); }
+.ach-r-rare { color:var(--blue); }
+.ach-r-epic { color:var(--purple); }
+.ach-r-legendary { color:var(--gold); }
 .badge { background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .12s; }
 .badge.earned { border-color:rgba(255,204,0,.4);background:rgba(255,204,0,.04); }
 .badge-e { font-size:24px;margin-bottom:4px; }
@@ -2201,6 +2214,12 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div id="missionsList"></div>
       </div>
 
+      <!-- Global game stats -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 14px 6px">
+        <div class="sh-t">📊 MINA STATS</div>
+        <div style="font-size:9px;color:var(--green);font-weight:700" id="totalAchCount">0 achievements</div>
+      </div>
+      <div class="global-stats-grid" id="globalStatsGrid"></div>
       <!-- Gear row -->
       <div class="sh"><div class="sh-t">GEAR</div><div class="sh-a" onclick="openGearShop()">SHOP →</div></div>
       <div id="gearRow" style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 16px"></div>
@@ -3602,6 +3621,7 @@ function updatePet() {
   // Update particles based on level
   initParticles();
   updateCareWarnings();
+  renderGlobalStats();
 }
 function updateCareWarnings(){
   const feedBtn=document.querySelector('#careGrid .care-btn[onclick="pcFeed()"]');
@@ -5089,33 +5109,67 @@ function claimDailyBonus() {
    🏆 ACHIEVEMENT UNLOCK
 ══════════════════════════════════════════ */
 let _unlockedAch = new Set(JSON.parse(localStorage.getItem('k0509_ach')||'[]'));
+const ALL_ACHIEVEMENTS=[
+  {id:'first_tap', ico:'👆', name:'First Tap', desc:'Du tappade din pet för första gången!', rarity:'common', cond:()=>true},
+  {id:'lv5', ico:'⭐', name:'LV 5 Uppnådd', desc:'Levlat upp till level 5!', rarity:'common', cond:()=>G.level>=5},
+  {id:'lv10', ico:'🌟', name:'LV 10 Legend', desc:'Levlat upp till level 10!', rarity:'uncommon', cond:()=>G.level>=10},
+  {id:'lv15', ico:'💫', name:'LV 15 Elite', desc:'Levlat upp till level 15!', rarity:'rare', cond:()=>G.level>=15},
+  {id:'lv20', ico:'🔱', name:'LV 20 GOAT', desc:'Levlat upp till level 20 — LEGENDARISK!', rarity:'legendary', cond:()=>G.level>=20},
+  {id:'coins1000', ico:'💰', name:'Tusenaire', desc:'Samlat 1000+ coins!', rarity:'common', cond:()=>G.coins>=1000},
+  {id:'coins5000', ico:'💎', name:'Rik', desc:'Samlat 5000+ coins!', rarity:'uncommon', cond:()=>G.coins>=5000},
+  {id:'streak7', ico:'🔥', name:'7 Dagars Streak', desc:'Postat varje dag i en vecka!', rarity:'uncommon', cond:()=>G.streak>=7},
+  {id:'streak14', ico:'🔥🔥', name:'2 Veckors Streak', desc:'14 dagars streak!', rarity:'rare', cond:()=>G.streak>=14},
+  {id:'streak30', ico:'🏅', name:'30 Dagars Streak', desc:'En månads streak — respekt!', rarity:'epic', cond:()=>G.streak>=30},
+  {id:'battle5', ico:'⚔️', name:'Battle Master', desc:'Vunnit 5 strider!', rarity:'uncommon', cond:()=>(G.battleWins||0)>=5},
+  {id:'battle15', ico:'🗡️', name:'Veteran', desc:'Vunnit 15 battles!', rarity:'rare', cond:()=>(G.battleWins||0)>=15},
+  {id:'battle30', ico:'🏆', name:'Champion', desc:'Vunnit 30 battles!', rarity:'epic', cond:()=>(G.battleWins||0)>=30},
+  {id:'bounty3', ico:'🎯', name:'Bounty Hunter', desc:'Klarat 3 uppdrag!', rarity:'common', cond:()=>G.bountiesDone>=3},
+  {id:'bounty10', ico:'🏹', name:'Uppdrag Expert', desc:'Klarat 10 uppdrag!', rarity:'rare', cond:()=>G.bountiesDone>=10},
+  {id:'social50', ico:'🌍', name:'Social Star', desc:'50+ Flash-posts!', rarity:'rare', cond:()=>G.postCount>=50},
+  {id:'fish1', ico:'🎣', name:'Första Fisken', desc:'Fångade din första fisk!', rarity:'common', cond:()=>typeof fishState!=='undefined'&&fishState.count>=1},
+  {id:'fish5', ico:'🐟', name:'Liten Fiskare', desc:'Fångat 5 fiskar!', rarity:'common', cond:()=>typeof fishState!=='undefined'&&fishState.count>=5},
+  {id:'fish_epic', ico:'🦈', name:'Episk Fångst', desc:'Fångat en episk fisk!', rarity:'rare', cond:()=>typeof fishState!=='undefined'&&fishState.collection.some(f=>{const fish=FISH_TYPES&&FISH_TYPES.find(t=>t.id===f);return fish&&(fish.rarity==='epic'||fish.rarity==='legendary'||fish.rarity==='mythic');})},
+  {id:'fish_legendary', ico:'👻', name:'Spöklax!', desc:'Fångat det mystiska Spöklaxet!', rarity:'legendary', cond:()=>typeof fishState!=='undefined'&&fishState.collection.includes('spok')},
+  {id:'fish_streak3', ico:'🎣🔥', name:'Fiskstreak', desc:'3x fångst-streak i fishing!', rarity:'uncommon', cond:()=>typeof fishState!=='undefined'&&(fishState.streak||0)>=3},
+  {id:'kc50', ico:'💎', name:'KC Samlare', desc:'Tjänat 50+ KC totalt!', rarity:'uncommon', cond:()=>(G.kc||0)>=50},
+  {id:'kc200', ico:'💎💎', name:'KC Rik', desc:'Tjänat 200+ KC totalt!', rarity:'rare', cond:()=>(G.kc||0)>=200},
+  {id:'runner100', ico:'🏃', name:'Sprinter', desc:'Scorer 100+ i Runner!', rarity:'uncommon', cond:()=>typeof runnerState!=='undefined'&&runnerState.best>=100},
+  {id:'runner500', ico:'⚡', name:'Speed Demon', desc:'Scorer 500+ i Runner!', rarity:'epic', cond:()=>typeof runnerState!=='undefined'&&runnerState.best>=500},
+];
 function checkAchievements() {
   if(!G.name) return;
-  const checks = [
-    {id:'first_tap', ico:'👆', name:'First Tap', desc:'Du tappade din pet för första gången!', cond: ()=>true},
-    {id:'lv5', ico:'⭐', name:'LV 5 Uppnådd', desc:'Levlat upp till level 5!', cond: ()=>G.level>=5},
-    {id:'lv10', ico:'🌟', name:'LV 10 Legend', desc:'Levlat upp till level 10!', cond: ()=>G.level>=10},
-    {id:'lv20', ico:'💫', name:'LV 20 GOAT', desc:'Levlat upp till level 20 — LEGENDARISK!', cond: ()=>G.level>=20},
-    {id:'coins1000', ico:'💰', name:'Tusenaire', desc:'Samlat 1000+ coins!', cond: ()=>G.coins>=1000},
-    {id:'streak7', ico:'🔥', name:'7 Dagars Streak', desc:'Postat varje dag i en vecka!', cond: ()=>G.streak>=7},
-    {id:'streak30', ico:'🏅', name:'30 Dagars Streak', desc:'En månads streak — respekt!', cond: ()=>G.streak>=30},
-    {id:'battle5', ico:'⚔️', name:'Battle Master', desc:'Vunnit 5 strider!', cond: ()=>parseInt(localStorage.getItem('k0509_battleWins')||'0')>=5},
-    {id:'bounty3', ico:'🎯', name:'Bounty Hunter', desc:'Klarat 3 uppdrag!', cond: ()=>G.bountiesDone>=3},
-    {id:'social50', ico:'🌍', name:'Social Star', desc:'50+ Flash-posts!', cond: ()=>G.postCount>=50},
-  ];
-  for(const c of checks) {
+  for(const c of ALL_ACHIEVEMENTS) {
     if(!_unlockedAch.has(c.id) && c.cond()) {
       _unlockedAch.add(c.id);
       localStorage.setItem('k0509_ach', JSON.stringify([..._unlockedAch]));
-      showAchievementUnlock(c.ico, c.name, c.desc);
+      const rarCol={common:'#888',uncommon:'#00ff88',rare:'#4488ff',epic:'#aa66ff',legendary:'#ffcc00'}[c.rarity]||'#fff';
+      showAchievementUnlock(c.ico, c.name, c.desc, rarCol);
       pushNotif(c.ico, `<b>Badge upplåst:</b> ${c.name}`);
+      updateAchCount();
       break;
     }
   }
 }
-function showAchievementUnlock(ico, name, desc) {
+function updateAchCount(){
+  const el=$('totalAchCount'); if(el) el.textContent=_unlockedAch.size+'/'+ALL_ACHIEVEMENTS.length+' achievements';
+}
+function renderGlobalStats(){
+  const grid=$('globalStatsGrid'); if(!grid) return;
+  const stats=[
+    {ico:'🎣',label:'Fiskar',val:typeof fishState!=='undefined'?fishState.count:0,col:'var(--blue)'},
+    {ico:'⚔️',label:'Battles',val:G.battleWins||0,col:'var(--red)'},
+    {ico:'🏃',label:'Runner',val:typeof runnerState!=='undefined'?runnerState.best:0,col:'var(--green)'},
+    {ico:'💎',label:'KC',val:G.kc||0,col:'var(--teal)'},
+    {ico:'🔥',label:'Streak',val:G.streak||0,col:'var(--orange)'},
+    {ico:'⭐',label:'Level',val:G.level||1,col:'var(--gold)'},
+  ];
+  grid.innerHTML=stats.map(s=>`<div class="gstat-box"><div class="gstat-ico">${s.ico}</div><div class="gstat-val" style="color:${s.col}">${s.val}</div><div class="gstat-lbl">${s.label}</div></div>`).join('');
+  updateAchCount();
+}
+function showAchievementUnlock(ico, name, desc, col) {
   const ov=$('achieveOverlay'); if(!ov) return;
   $('achBig').textContent=ico; $('achName').textContent=name; $('achDesc').textContent=desc;
+  if(col){ $('achName').style.color=col; } else { $('achName').style.color=''; }
   ov.classList.add('open');
   SFX.lvl(); confetti(80); vibe([50,30,100,30,80]);
 }
