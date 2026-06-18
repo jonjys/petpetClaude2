@@ -4480,7 +4480,14 @@ function renderSeasonPass() {
 /* ══════════════════════════════════════════
    🐾 PET SPEECH BUBBLE
 ══════════════════════════════════════════ */
-const PET_PHRASES=['Träna mig! 💪','Jag är hungrig... 🍖','Snurra hjulet! 🎰','Vinn en strid! 🥊','Posta Flash! ⚡','Levla upp! ⬆️','Du är bäst! 🔥','Gör ett uppdrag! 🎯'];
+const PET_PHRASES=[
+  'Träna mig! 💪','Jag är hungrig... 🍖','Snurra hjulet! 🎰',
+  'Vinn en strid! 🥊','Posta Flash! ⚡','Levla upp! ⬆️',
+  'Du är bäst! 🔥','Gör ett uppdrag! 🎯','Check-in på kartan! 📍',
+  'Kolla KC shop! 💎','Öppna Lucky Box! 🎁','Battle med vänner! ⚔️',
+  'Spela KATCH! 💎','Fånga fisk! 🎣','Potta idag? 💰',
+  G.kc>10?`Du har ${G.kc} KC! 💎`:'Samla KC i spelen! 💎',
+];
 let bubbleT=null;
 function showPetBubble() {
   if(G.mood < 40) return;
