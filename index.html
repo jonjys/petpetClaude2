@@ -1925,6 +1925,69 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .video-card { scroll-snap-align:start; min-height:100svh; overflow:hidden; }
 
 /* ══════════════════════════════════════
+   ROUND 28 — Profile, Uppdrag, Tabs
+══════════════════════════════════════ */
+
+/* ── PROFILE COVER UPGRADE ── */
+.prof-cover {
+  height:148px !important;
+}
+.prof-cover-float {
+  position:absolute; inset:0; pointer-events:none; overflow:hidden;
+}
+.pcf-em {
+  position:absolute; font-size:18px; opacity:.12;
+  animation:pcfFloat var(--d,5s) var(--delay,0s) ease-in-out infinite;
+}
+@keyframes pcfFloat {
+  0%   { transform:translateY(0)   rotate(0deg); opacity:.08; }
+  50%  { transform:translateY(-35px) rotate(10deg); opacity:.18; }
+  100% { transform:translateY(0)   rotate(0deg); opacity:.08; }
+}
+.prof-ava {
+  border:4px solid var(--bg) !important;
+  box-shadow:0 0 0 2.5px var(--pet-col,var(--green)),0 8px 28px rgba(0,0,0,.6) !important;
+}
+
+/* ── UPPDRAG FILL BAR ── */
+.uc-fill-track {
+  height:3px; background:rgba(255,255,255,.07); border-radius:0 0 20px 20px; overflow:hidden;
+}
+.uc-fill-inner {
+  height:100%; border-radius:2px;
+  background:linear-gradient(90deg,var(--green),var(--teal));
+  transition:width .6s ease;
+}
+.uc-fill-inner.hot { background:linear-gradient(90deg,var(--red),var(--orange)); }
+.uc-foot { flex-wrap:wrap; gap:4px; }
+
+/* ── FLASH TAB COUNTS ── */
+.ftab-cnt {
+  display:inline-block; background:rgba(255,255,255,.12); color:rgba(255,255,255,.6);
+  font-size:9px; font-weight:900; padding:0 5px; border-radius:8px;
+  margin-left:4px; line-height:1.5;
+}
+.ftab.on .ftab-cnt { background:rgba(255,255,255,.25); color:#fff; }
+
+/* ── PROFILE STAT COLORS ── */
+.ps:nth-child(1) .ps-v { color:var(--pink) !important; }
+.ps:nth-child(2) .ps-v { color:var(--gold) !important; }
+.ps:nth-child(3) .ps-v { color:var(--green) !important; }
+.ps:nth-child(4) .ps-v { color:var(--blue) !important; }
+.ps:nth-child(5) .ps-v { color:var(--red) !important; }
+.ps:nth-child(6) .ps-v { color:var(--teal) !important; }
+.ps:nth-child(7) .ps-v { color:var(--purple) !important; }
+.ps:nth-child(8) .ps-v { color:var(--orange) !important; }
+
+/* ── CARE GRID SPIN PULSE ── */
+.care-btn[data-accent="gold"] {
+  animation:careWarn 2s ease-in-out infinite;
+}
+.care-btn[data-accent="gold"]::before {
+  background:rgba(255,204,0,.18) !important;
+}
+
+/* ══════════════════════════════════════
    ROUND 27 — Shop, Battle, Leaderboard
 ══════════════════════════════════════ */
 
@@ -2511,10 +2574,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="flash-topbar">
         <div class="flash-title">⚡ Flash</div>
         <div class="flash-tabs">
-          <div class="ftab on" onclick="setFlashTab('forYou',this)">För dig</div>
-          <div class="ftab" onclick="setFlashTab('circles',this)">Circles</div>
-          <div class="ftab" onclick="setFlashTab('explore',this)">Utforska</div>
-          <div class="ftab" onclick="setFlashTab('uppdrag',this)">Uppdrag</div>
+          <div class="ftab on" onclick="setFlashTab('forYou',this)">För dig<span class="ftab-cnt">4</span></div>
+          <div class="ftab" onclick="setFlashTab('circles',this)">Circles<span class="ftab-cnt">12</span></div>
+          <div class="ftab" onclick="setFlashTab('explore',this)">Utforska<span class="ftab-cnt">🔥</span></div>
+          <div class="ftab" onclick="setFlashTab('uppdrag',this)">Uppdrag<span class="ftab-cnt">3</span></div>
         </div>
         <div onclick="openDmList()" style="font-size:20px;cursor:pointer;padding:0 8px 0 4px;position:relative" title="Meddelanden">
           💬
@@ -2918,7 +2981,18 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
     <!-- 👤 PROFILE -->
     <div class="view" id="view-profile">
-      <div class="prof-cover"><div class="prof-cover-pat"></div><div class="prof-cover-glow"></div></div>
+      <div class="prof-cover">
+        <div class="prof-cover-pat"></div>
+        <div class="prof-cover-glow"></div>
+        <div class="prof-cover-float" id="profCoverFloat">
+          <span class="pcf-em" style="left:8%;top:20%;--d:5.2s;--delay:0s">⭐</span>
+          <span class="pcf-em" style="left:22%;top:55%;--d:4.8s;--delay:.8s">🔥</span>
+          <span class="pcf-em" style="left:40%;top:30%;--d:6s;--delay:1.4s">💎</span>
+          <span class="pcf-em" style="left:58%;top:60%;--d:5.5s;--delay:.3s">⚡</span>
+          <span class="pcf-em" style="left:74%;top:25%;--d:4.6s;--delay:1.1s">🌟</span>
+          <span class="pcf-em" style="left:88%;top:50%;--d:5.8s;--delay:.6s">💫</span>
+        </div>
+      </div>
       <div class="prof-ava-wr"><div class="prof-ava"><span id="profAvaEm">🐉</span><div class="prof-trust" id="profTrustTag">BRONZE</div></div></div>
       <div class="prof-content">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">
@@ -4319,6 +4393,7 @@ function renderUppdrag() {
         <div class="uc-spots">🏆 ${u.claimed}/${u.winners>=999?'∞':u.winners} platser</div>
         <div class="uc-dead">⏱ ${u.deadline}</div>
       </div>
+      ${u.winners<999 ? `<div class="uc-fill-track"><div class="uc-fill-inner ${u.claimed/u.winners>.7?'hot':''}" style="width:${Math.min(100,Math.round(u.claimed/u.winners*100))}%"></div></div>` : ''}
     </div>`).join('')
     : `<div style="text-align:center;padding:48px 20px"><div style="font-size:48px;opacity:.15;margin-bottom:12px">🎯</div><div style="font-size:14px;color:var(--t3)">Inga uppdrag.</div></div>`) + '</div>';
 }
@@ -8327,6 +8402,22 @@ nav = function(name) {
 };
 /* Update indicator and XP ring on init */
 setTimeout(() => { updateNbIndicator('pet'); updatePetXPRing(); }, 120);
+
+/* ── Profile cover float refresh ── */
+function refreshProfCover() {
+  const el = $('profCoverFloat'); if(!el) return;
+  const s = gS();
+  const ems = [s.e, '⭐','🔥','💎','⚡','🌟','💫','✨'];
+  el.querySelectorAll('.pcf-em').forEach((span, i) => {
+    span.textContent = ems[i % ems.length];
+  });
+}
+// Hook into profile nav
+const _origNavForProf = nav;
+nav = function(name) {
+  _origNavForProf(name);
+  if(name === 'profile') setTimeout(refreshProfCover, 50);
+};
 </script>
 
 <!-- FLOATING PET COMPANION -->
