@@ -5231,6 +5231,47 @@ function runnerLoop() {
     ctx.beginPath(); ctx.moveTo(x, RUNNER.ground); ctx.lineTo(x, H); ctx.stroke();
   }
   if(RUNNER.frame % 300 === 0) RUNNER.speed = Math.min(12, RUNNER.speed + 0.5);
+  // Power-up spawning
+  if(RUNNER._pupSpawnAt && RUNNER.frame >= RUNNER._pupSpawnAt){ spawnRunnerPup(); RUNNER._pupSpawnAt=RUNNER.frame+350+Math.floor(Math.random()*200); }
+  // Process active power-ups
+  Object.entries(RUNNER_PUPS).forEach(([k,p])=>{ if(p.active){p.timer--;if(p.timer<=0){p.active=false;updateRunnerPupHud();}}});
+  // Draw & collect power-up items
+  RUNNER.items=RUNNER.items||[];
+  RUNNER.items=RUNNER.items.filter(it=>{
+    it.x-=RUNNER.speed;
+    if(it.x<-30) return false;
+    ctx.shadowBlur=12; ctx.shadowColor='#ffcc00';
+    ctx.font='24px serif'; ctx.textAlign='center';
+    ctx.fillText(it.em,it.x+12,it.y+20);
+    ctx.shadowBlur=0;
+    // Pulsing ring
+    ctx.strokeStyle='rgba(255,204,0,.5)'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(it.x+12,it.y+12,16+Math.sin(RUNNER.frame*.1)*3,0,Math.PI*2); ctx.stroke();
+    // Collect
+    if(Math.abs(pet.x+16-(it.x+12))<22 && Math.abs(pet.y+16-(it.y+12))<22){
+      RUNNER_PUPS[it.type].active=true; RUNNER_PUPS[it.type].timer=420;
+      updateRunnerPupHud();
+      showT(`${it.em} ${RUNNER_PUPS[it.type].label}!`,'g'); vibe([30,20,50]);
+      for(let i=0;i<8;i++) RUNNER.particles.push({x:it.x+12,y:it.y+12,vx:(Math.random()-.5)*5,vy:-Math.random()*4-1,life:22,col:'#ffcc00',r:3});
+      return false;
+    }
+    return true;
+  });
+  // Speed power-up effect
+  if(RUNNER_PUPS.speed.active) RUNNER.speed=Math.min(14,RUNNER.speed+0.02);
+  // Shield: draw shield aura
+  if(RUNNER_PUPS.shield.active){
+    ctx.strokeStyle='rgba(68,136,255,.6)'; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.arc(pet.x+16,pet.y+16,22+Math.sin(RUNNER.frame*.1)*2,0,Math.PI*2); ctx.stroke();
+  }
+  // Magnet: auto-collect nearby coins
+  if(RUNNER_PUPS.magnet.active){
+    RUNNER.coins.forEach(c=>{
+      if(!c.collected&&Math.abs(pet.x+16-c.x)<80&&Math.abs(pet.y+16-c.y)<80){
+        c.x+=(pet.x+16-c.x)*.12; c.y+=(pet.y+16-c.y)*.12;
+      }
+    });
+  }
   if(RUNNER.frame - RUNNER.lastOb > Math.max(60, 120 - RUNNER.frame * 0.05)) {
     const type = Math.random() < 0.3 ? 'tall' : 'low';
     RUNNER.obstacles.push({
@@ -5260,6 +5301,7 @@ function runnerLoop() {
     ctx.shadowBlur = 0;
     const px=pet.x+6, py=pet.y+4, pw=pet.w-12, ph=pet.h-8;
     if(px+pw>ob.x && px<ob.x+ob.w && py+ph>oy && py<oy+ob.h+14) {
+      if(RUNNER_PUPS.shield.active){ RUNNER_PUPS.shield.active=false; RUNNER_PUPS.shield.timer=0; updateRunnerPupHud(); vibe([80,30,80]); showT('🛡 SHIELD parerade!','g'); return false; }
       runnerDie();
       return false;
     }
