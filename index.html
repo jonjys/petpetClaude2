@@ -1954,6 +1954,40 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 @keyframes vsFlash { 0%,100%{text-shadow:0 0 10px rgba(255,34,85,.4)} 50%{text-shadow:0 0 30px rgba(255,34,85,.9),0 0 60px rgba(255,34,85,.4)} }
 .b2-em { filter:drop-shadow(0 0 20px var(--pet-col,rgba(0,255,136,.6))); }
 
+/* ══ ROUND 36 — Pet Home Screen Cinematic Upgrade ══ */
+/* Pet info card */
+.pet-info-card { background:linear-gradient(180deg,rgba(0,4,22,.96),rgba(0,2,12,.85)) !important; border-color:rgba(0,255,136,.12) !important; }
+.pet-name-big { font-size:24px; background:linear-gradient(135deg,#fff,rgba(255,255,255,.75)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+/* Stat boxes colored borders */
+.stat-box:nth-child(1) { border-color:rgba(255,68,85,.25)!important; background:rgba(255,68,85,.04)!important; }
+.stat-box:nth-child(2) { border-color:rgba(255,204,0,.25)!important; background:rgba(255,204,0,.04)!important; }
+.stat-box:nth-child(3) { border-color:rgba(68,136,255,.25)!important; background:rgba(68,136,255,.04)!important; }
+.stat-val { font-size:24px; }
+/* Pet stage vitals bars — thicker and more visible */
+.psv-bar { height:6px; background:rgba(255,255,255,.08); border-radius:4px; }
+.psv-fill { box-shadow:0 0 6px currentColor; }
+/* Care buttons — subtle colored tint per accent */
+.care-btn[data-accent="orange"] { background:rgba(255,136,0,.07)!important; }
+.care-btn[data-accent="red"] { background:rgba(255,68,85,.07)!important; }
+.care-btn[data-accent="blue"] { background:rgba(68,136,255,.07)!important; }
+.care-btn[data-accent="purple"] { background:rgba(170,102,255,.07)!important; }
+.care-btn[data-accent="gold"] { background:rgba(255,204,0,.07)!important; }
+.care-btn[data-accent="green"] { background:rgba(0,255,136,.07)!important; }
+.care-btn[data-accent="pink"] { background:rgba(255,51,119,.07)!important; }
+.care-btn[data-accent="teal"] { background:rgba(0,221,204,.07)!important; }
+.care-ico { font-size:28px; }
+.care-lbl { font-size:10px; }
+/* Care section header */
+.care-section-hdr { display:flex; align-items:center; justify-content:space-between; padding:6px 14px 8px; }
+.care-section-title { font-family:var(--ff-head); font-size:13px; font-weight:900; color:#fff; letter-spacing:.5px; }
+/* Pet stage name pill */
+.pet-stage-name { font-size:13px; letter-spacing:3px; padding:4px 16px; box-shadow:0 0 16px rgba(0,255,136,.2); }
+/* XP bar upgrade */
+.xp-track { height:9px; background:rgba(255,255,255,.05); }
+.xp-fill { box-shadow:0 0 8px var(--green); }
+/* Missions card */
+.missions-card { border:1px solid rgba(255,204,0,.18); box-shadow:0 4px 20px rgba(255,204,0,.05); }
+
 /* ══ FISH FIGHT & UPGRADES ══ */
 #fishFightWrap { display:none; padding:4px 0 6px; }
 .fish-fight-lbl { display:flex; justify-content:space-between; font-size:10px; color:var(--t3); font-weight:800; margin-bottom:5px; }
@@ -2754,8 +2788,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       </div>
 
       <!-- Care buttons — 4×2 grid -->
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 14px 6px">
-        <div class="sh-t">🎮 CARE</div>
+      <div class="care-section-hdr">
+        <div class="care-section-title">🎮 CARE</div>
         <div style="font-size:9px;color:var(--t3);font-weight:700" id="careStatusChip"></div>
       </div>
       <div class="care-grid" id="careGrid">
