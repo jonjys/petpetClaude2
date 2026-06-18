@@ -1848,6 +1848,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fish-coll-item.caught { background:rgba(0,0,0,.5); }
 .fish-coll-item:active { transform:scale(.88); }
 
+/* ══ RADIO NOW PLAYING ══ */
+#radioNowPlaying { position:fixed; bottom:calc(76px + var(--sab)); left:50%; transform:translateX(-50%) translateY(140%); z-index:498; background:rgba(8,8,18,.97); backdrop-filter:blur(20px); border:1px solid rgba(0,255,136,.28); border-radius:24px; padding:9px 14px; display:flex; align-items:center; gap:10px; min-width:240px; max-width:310px; transition:transform .38s cubic-bezier(.32,.72,0,1); }
+#radioNowPlaying.show { transform:translateX(-50%) translateY(0); }
+.rnp-bars { display:flex; gap:2px; align-items:flex-end; height:20px; flex-shrink:0; }
+.rnp-bar { width:3px; border-radius:2px; background:var(--green); box-shadow:0 0 4px var(--green); }
+.rnp-bar-a { animation:rnpPulse .35s ease-in-out infinite alternate; }
+.rnp-bar-b { animation:rnpPulse .5s .12s ease-in-out infinite alternate; }
+.rnp-bar-c { animation:rnpPulse .25s .05s ease-in-out infinite alternate; }
+.rnp-bar-d { animation:rnpPulse .42s .18s ease-in-out infinite alternate; }
+.rnp-bar-e { animation:rnpPulse .32s .08s ease-in-out infinite alternate; }
+@keyframes rnpPulse { from{height:3px} to{height:18px} }
+.rnp-info { flex:1; overflow:hidden; }
+.rnp-lbl { font-size:8px; color:var(--t3); font-weight:900; letter-spacing:1px; text-transform:uppercase; margin-bottom:1px; }
+.rnp-song { font-family:var(--ff-head); font-size:12px; font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--green); }
+.rnp-next { font-size:8px; color:var(--t3); margin-top:1px; }
+.rnp-stop { width:28px; height:28px; border-radius:8px; background:rgba(255,68,85,.12); border:1px solid rgba(255,68,85,.25); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:12px; flex-shrink:0; }
+/* Circles upgrades */
+.circ-trending { padding:0 14px 4px; }
+.circ-trending-hdr { font-size:10px; font-weight:900; color:var(--t3); text-transform:uppercase; letter-spacing:.8px; margin-bottom:8px; display:flex; align-items:center; justify-content:space-between; }
+.circ-trending-scroll { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
+.circ-trending-scroll::-webkit-scrollbar { display:none; }
+.circ-trend-pill { flex-shrink:0; padding:7px 14px; border-radius:14px; border:1.5px solid rgba(255,255,255,.1); background:var(--s1); font-size:11px; font-weight:800; cursor:pointer; white-space:nowrap; transition:all .12s; }
+.circ-trend-pill:active { transform:scale(.93); }
+.circ-live-row { display:flex; align-items:center; gap:6px; padding:4px 14px 8px; font-size:10px; color:var(--t3); font-weight:700; }
+.circ-live-dot { width:6px; height:6px; border-radius:50%; background:var(--green); animation:viewPulse 1.4s infinite; flex-shrink:0; }
+
 /* ══ FISH FIGHT & UPGRADES ══ */
 #fishFightWrap { display:none; padding:4px 0 6px; }
 .fish-fight-lbl { display:flex; justify-content:space-between; font-size:10px; color:var(--t3); font-weight:800; margin-bottom:5px; }
@@ -2229,6 +2255,18 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="circles-title">Circles</div>
         <button class="btn btn-pk btn-sm" onclick="openModal('createCircleModal')">+ Skapa</button>
       </div>
+      <!-- Live users indicator -->
+      <div class="circ-live-row">
+        <div class="circ-live-dot"></div>
+        <span id="circLiveCount">847 online just nu</span>
+        <span style="margin-left:auto;color:var(--pink);font-size:9px" id="circActiveCount">12 aktiva Circles</span>
+      </div>
+      <!-- Trending topics -->
+      <div class="circ-trending">
+        <div class="circ-trending-hdr"><span>🔥 TRENDING</span><span style="font-size:9px;color:var(--green);cursor:pointer" onclick="showT('Uppdateras var 10:e minut!','g')">LIVE</span></div>
+        <div class="circ-trending-scroll" id="circTrending"></div>
+      </div>
+      <div style="padding:0 14px 8px"><div class="sh-t">🏠 DINA CIRCLES</div></div>
       <div id="circleList"></div>
       <div class="vend"></div>
     </div>
@@ -2927,6 +2965,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 <!-- Activity ticker -->
 <div id="actTicker"><div class="at-dot"></div><span id="actTickerMsg">ella_sthlm levlade upp! 🎉</span></div>
+
+<!-- Radio now playing strip -->
+<div id="radioNowPlaying">
+  <div class="rnp-bars">
+    <div class="rnp-bar rnp-bar-a" style="height:10px"></div>
+    <div class="rnp-bar rnp-bar-b" style="height:18px"></div>
+    <div class="rnp-bar rnp-bar-c" style="height:6px"></div>
+    <div class="rnp-bar rnp-bar-d" style="height:14px"></div>
+    <div class="rnp-bar rnp-bar-e" style="height:10px"></div>
+  </div>
+  <div class="rnp-info">
+    <div class="rnp-lbl">🎵 KARMA RADIO</div>
+    <div class="rnp-song" id="rnpSong">Laddar spår...</div>
+    <div class="rnp-next" id="rnpNext">Generativ musik</div>
+  </div>
+  <div class="rnp-stop" onclick="toggleRadio()" title="Stoppa">⏹</div>
+</div>
 
 <!-- XP multiplier chip -->
 <div id="xpMultChip">x2 XP BOOST 🔥</div>
@@ -3807,7 +3862,23 @@ function submitFlash() {
 }
 
 /* ── CIRCLES ── */
+const CIRC_TRENDING_TOPICS=[
+  {em:'🔥',tag:'#KarmaStreak',cnt:'2.4k'},
+  {em:'🎣',tag:'#FishingChamp',cnt:'891'},
+  {em:'⚔️',tag:'#BattleArena',cnt:'1.2k'},
+  {em:'🌙',tag:'#NightGrind',cnt:'445'},
+  {em:'💎',tag:'#KCHunters',cnt:'678'},
+  {em:'🏃',tag:'#RunnerCrew',cnt:'932'},
+  {em:'⭐',tag:'#LevelUp',cnt:'3.1k'},
+  {em:'🎯',tag:'#Uppdrag',cnt:'567'},
+];
+function renderCirclesTrending(){
+  const ct=$('circTrending'); if(!ct) return;
+  const lc=$('circLiveCount'); if(lc) lc.textContent=(800+Math.floor(Math.random()*200)+G.level*5)+' online just nu';
+  ct.innerHTML=CIRC_TRENDING_TOPICS.map(t=>`<div class="circ-trend-pill" onclick="showT('${t.tag} — ${t.cnt} inlägg idag!','g')">${t.em} ${t.tag} <span style="color:var(--t3);font-size:8px;margin-left:3px">${t.cnt}</span></div>`).join('');
+}
 function renderCircles() {
+  renderCirclesTrending();
   const all = [...CIRCLES_DATA, ...G.circles];
   $('circleList').innerHTML = '<div class="stagger">' + all.map(c => `
     <div class="circle-card" onclick="openCircle('${c.id}')">
@@ -7618,6 +7689,8 @@ function toggleRadio(){
 function startRadio(){
   if(!_radioCtx) _radioCtx=new(window.AudioContext||window.webkitAudioContext)();
   _radioTrack=RADIO_TRACKS[Math.floor(Math.random()*RADIO_TRACKS.length)];
+  const rnp=$('radioNowPlaying'); if(rnp) rnp.classList.add('show');
+  const rnpSong=$('rnpSong'); if(rnpSong) rnpSong.textContent=_radioTrack.name;
   showT('🎵 '+_radioTrack.name+' — spelar nu','g');
   const bps=_radioTrack.bpm/60;
   let step=0;
@@ -7647,6 +7720,7 @@ function startRadio(){
 }
 function stopRadio(){
   clearTimeout(_radioNoteTimer);
+  const rnp=$('radioNowPlaying'); if(rnp) rnp.classList.remove('show');
   showT('⏹ Radio stoppad','');
 }
 
