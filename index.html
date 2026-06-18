@@ -2180,6 +2180,18 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="uf" data-uf="review">⭐ RECENSION</div>
         <div class="uf" data-uf="mine">📋 MINA</div>
       </div>
+      <!-- Featured sponsor banner -->
+      <div id="sponsorBanner" style="margin:0 14px 10px;padding:14px;background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,0,.08));border:1.5px solid rgba(255,204,0,.4);border-radius:18px;cursor:pointer" onclick="setUpFilter('brand')">
+        <div style="font-size:8px;font-weight:900;color:var(--gold);letter-spacing:2px;margin-bottom:4px">⭐ FEATURED SPONSOR</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:30px" id="sbLogo">👟</div>
+          <div style="flex:1">
+            <div style="font-family:var(--ff-head);font-size:14px;font-weight:900" id="sbName">Stadium × KARMA</div>
+            <div style="font-size:10px;color:var(--t2)" id="sbDesc">Flash-kampanj · 500 SEK belöning</div>
+          </div>
+          <div style="font-family:var(--ff-head);font-size:16px;font-weight:900;color:var(--gold)" id="sbPot">500 SEK</div>
+        </div>
+      </div>
       <div id="uppdragList"></div>
       <div class="vend"></div>
     </div>
@@ -3066,6 +3078,10 @@ const UPPDRAG_DATA = [
   {id:'u3',type:'brand',cType:'reel',co:'Stadium',coEm:'👟',verified:true,verLevel:'premium',title:'Nike Air Flash @ Stadium',desc:'15–60 sek Flash med Nike Air. Taggar du @stadium? +100 SEK bonus!',req:['⚡ FLASH 60 SEK','👟 STADIUM'],loc:'Valfri Stadium-butik',sek:500,coins:200,xp:150,winners:1,claimed:0,deadline:'18 maj',live:false,featured:true,latOff:-.005,lonOff:.006},
   {id:'u4',type:'task',cType:'task',co:'Marcus L.',coEm:'👤',verified:false,verLevel:'none',title:'Plocka äpplen i trädgården',desc:'Ca 2h arbete. Betalar + lunch.',req:['📍 SOLLENTUNA','⏱ CA 2H'],loc:'Sollentuna, Stockholm',sek:300,coins:60,xp:50,winners:1,claimed:0,deadline:'12 maj',live:false,featured:false,latOff:-.006,lonOff:.001},
   {id:'u5',type:'review',cType:'review',co:'Webhallen',coEm:'🎮',verified:true,verLevel:'gold',title:'Flash-recensera nytt spel',desc:'Köp spel, spela 2h, posta Flash-recension.',req:['⭐ FLASH RECENSION','🎮 KVITTO'],loc:'Webhallen',sek:100,coins:80,xp:60,winners:10,claimed:3,deadline:'15 maj',live:false,featured:false,latOff:.004,lonOff:-.002},
+  {id:'u6',type:'brand',cType:'reel',co:'MAX Burgers',coEm:'🍔',verified:true,verLevel:'premium',title:'MAX Burger Challenge Flash',desc:'Ät en Limitless Burger, posta 30-sek Flash-reaktion. Tagga @maxburgers!',req:['⚡ FLASH 30 SEK','📍 MAX BURGERS','🍔 BURGER SYNLIG'],loc:'Valfri MAX Burgers',sek:200,coins:160,xp:100,winners:20,claimed:4,deadline:'20 maj',live:false,featured:true,latOff:.002,lonOff:.003},
+  {id:'u7',type:'brand',cType:'reel',co:'Daniel Wellington',coEm:'⌚',verified:true,verLevel:'gold',title:'DW Watch Outfit Flash',desc:'Flash med Daniel Wellington klocka i outfit. Kod: KARMA20 (-20%). 1000+ följare föredras.',req:['⚡ FLASH 60 SEK','⌚ DW KLOCKA SYNLIG'],loc:'Valfri plats',sek:800,coins:300,xp:200,winners:3,claimed:0,deadline:'30 maj',live:false,featured:true,latOff:-.001,lonOff:.004},
+  {id:'u8',type:'task',cType:'task',co:'ICA Supermarket',coEm:'🛒',verified:true,verLevel:'gold',title:'Hjälp granne med ICA-shopping',desc:'Hämta matkasse från ICA och leverera. 30–45 min. Swish direkt.',req:['📍 STOCKHOLM','🛒 ICA KVITTO'],loc:'Centrala Stockholm',sek:150,coins:40,xp:30,winners:5,claimed:1,deadline:'Idag',live:true,featured:false,latOff:.003,lonOff:-.001},
+  {id:'u9',type:'brand',cType:'photo',co:'Oatly',coEm:'🥛',verified:true,verLevel:'premium',title:'Oatly Latte Photo Drop',desc:'Foto-Flash med Oatly barista i din favoritcafé. Tagg @oatly + #plantbased.',req:['📸 FOTOBEWIS','🥛 OATLY PRODUKT','☕ CAFÉ MILJÖ'],loc:'Valfri café',sek:300,coins:200,xp:120,winners:15,claimed:2,deadline:'25 maj',live:false,featured:true,latOff:.005,lonOff:-.003},
 ];
 
 const FLASH_DATA = [
@@ -3703,10 +3719,11 @@ function renderUppdrag() {
       ${u.co ? `<div class="uc-co">
         <div class="uc-co-logo">${u.coEm||'👤'}</div>
         <div style="flex:1">
-          <div class="uc-co-name">${u.co} ${verBadge(u)}</div>
-          <div class="uc-co-type">${u.verLevel==='premium'?'⭐ Premium':u.verLevel==='gold'?'✓ Verifierat':'Ej verifierat'}</div>
+          <div class="uc-co-name">${u.co} ${verBadge(u)}${u.featured?'<span style="background:var(--gold);color:#000;font-size:7px;font-weight:900;padding:1px 5px;border-radius:5px;margin-left:4px">FEATURED</span>':''}</div>
+          <div class="uc-co-type">${u.verLevel==='premium'?'⭐ Premium Sponsor':u.verLevel==='gold'?'✓ Verifierad Brand':'Privat uppdrag'}</div>
         </div>
         ${u.live?'<span class="tag tr" style="font-size:9px">🔴 LIVE</span>':''}
+        ${u.type==='brand'?'<span style="background:rgba(170,102,255,.2);color:var(--purple);font-size:8px;font-weight:900;padding:2px 6px;border-radius:6px">SPONSOR</span>':''}
       </div>` : ''}
       <div class="uc-body">
         <div class="uc-title">${u.title}</div>
@@ -3718,6 +3735,7 @@ function renderUppdrag() {
             ${u.sek ? `<div class="uc-sek">💸 ${u.sek} SEK</div>` : ''}
             <div class="uc-coins">⚡ ${u.coins}</div>
             <div class="uc-xp">+${u.xp}XP</div>
+            ${u.kc ? `<div style="color:var(--purple);font-size:10px;font-weight:900">💎${u.kc}KC</div>` : ''}
           </div>
           <button class="btn btn-g btn-sm" onclick="event.stopPropagation();claimUppdrag('${u.id}')">TA →</button>
         </div>
@@ -3733,6 +3751,22 @@ document.querySelectorAll('#ufilters .uf').forEach(f => f.addEventListener('clic
   document.querySelectorAll('#ufilters .uf').forEach(x => x.classList.remove('on'));
   f.classList.add('on'); G.upFilter = f.dataset.uf; renderUppdrag();
 }));
+function setUpFilter(filter){
+  document.querySelectorAll('#ufilters .uf').forEach(x=>{x.classList.toggle('on',x.dataset.uf===filter);});
+  G.upFilter=filter; renderUppdrag();
+}
+function rotateSponsorBanner(){
+  const featured=UPPDRAG_DATA.filter(u=>u.featured&&u.verified);
+  if(!featured.length) return;
+  const f=featured[Math.floor(Date.now()/8000)%featured.length];
+  const logo=$('sbLogo'),nm=$('sbName'),desc=$('sbDesc'),pot=$('sbPot');
+  if(logo) logo.textContent=f.coEm||'⭐';
+  if(nm) nm.textContent=f.co+' × KARMA';
+  if(desc) desc.textContent=f.title.substring(0,40)+'…';
+  if(pot) pot.textContent=f.sek+' SEK';
+}
+rotateSponsorBanner();
+setInterval(rotateSponsorBanner,8000);
 function openUppdragDetail(id) {
   const u = [...UPPDRAG_DATA,...G.myUppdrag].find(x=>x.id===id); if(!u) return;
   $('detailTitle').textContent = 'Uppdrag';
