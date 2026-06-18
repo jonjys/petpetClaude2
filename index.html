@@ -2472,6 +2472,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="lt" onclick="renderLB('streak',this)">🔥 STREAK</div>
         <div class="lt" onclick="renderLB('uppdrag',this)">🎯 UPPDRAG</div>
         <div class="lt" onclick="renderLB('circles',this)">⭕ CIRCLES</div>
+        <div class="lt" onclick="renderLB('kc',this)">💎 KC</div>
+        <div class="lt" onclick="renderLB('battle',this)">⚔️ BATTLE</div>
       </div>
       <div id="lbPodium"></div>
       <div class="lb-list" id="lbList"></div>
@@ -3137,6 +3139,8 @@ const LB_DATA = {
   streak:[{rank:1,name:'sagas',pet:'🦋',lvl:7,val:'24d 🔥',ch:'↑',trust:72},{rank:2,name:'maxruns',pet:'🐺',lvl:11,val:'14d',ch:'↑',trust:88},{rank:3,name:'ella_sthlm',pet:'🐉',lvl:9,val:'7d',ch:'↑',trust:95},{rank:4,isYou:true,val:'0d',ch:'↑',trust:42}],
   uppdrag:[{rank:1,name:'sagas_world',pet:'🦋',lvl:7,val:'34',ch:'+3',trust:72},{rank:2,name:'ella_sthlm',pet:'🐉',lvl:9,val:'28',ch:'+2',trust:95},{rank:3,name:'maxruns',pet:'🐺',lvl:11,val:'22',ch:'+1',trust:88},{rank:4,isYou:true,val:'0',ch:'0',trust:42}],
   circles:[{rank:1,name:'Tumba Runners',pet:'🏃',lvl:null,val:'🔥 7d',ch:'+1',trust:88},{rank:2,name:'STHLM DROPS',pet:'⚡',lvl:null,val:'🔥 3d',ch:'+1',trust:75},{rank:3,name:'Göteborg Crew',pet:'🌊',lvl:null,val:'🔥 2d',ch:'↑',trust:60},{rank:4,name:'Din Circle',pet:'⭕',lvl:null,val:'Skapa!',ch:'',trust:0}],
+  kc:[{rank:1,name:'ghost',pet:'🐸',lvl:12,val:'847 💎',ch:'+48',trust:88},{rank:2,name:'ella_sthlm',pet:'🐉',lvl:9,val:'612 💎',ch:'+35',trust:95},{rank:3,name:'maxruns',pet:'🐺',lvl:11,val:'498 💎',ch:'+22',trust:88},{rank:4,isYou:true,val:'0 💎',ch:'0',trust:42}],
+  battle:[{rank:1,name:'maxruns',pet:'🐺',lvl:11,val:'148 wins',ch:'+8',trust:88},{rank:2,name:'ghost',pet:'🐸',lvl:12,val:'132 wins',ch:'+12',trust:95},{rank:3,name:'ella_sthlm',pet:'🐉',lvl:9,val:'87 wins',ch:'+5',trust:88},{rank:4,isYou:true,val:'0 wins',ch:'0',trust:42}],
 };
 
 const BADGES_DEF = [
@@ -3857,7 +3861,7 @@ function renderLB(cat, el) {
       <div class="lb-rk">${r.rank}</div>
       <div class="lb-av">${r.isYou?gS().e:r.pet||'?'}</div>
       <div style="flex:1"><div class="lb-nm">${r.isYou?G.name:r.name||'?'} ${r.isYou?'<span class="tag tg" style="font-size:9px">DU</span>':''}</div><div class="lb-sb">Trust ${r.trust||42}</div></div>
-      <div style="text-align:right"><div class="lb-vl" style="color:${r.isYou?'var(--green)':'var(--t1)'}">${r.isYou&&cat==='money'?G.totalSEK+' SEK':r.isYou&&cat==='streak'?G.streak+'d':r.val}</div><div class="${trCls}">${tr||'−'}</div></div>
+      <div style="text-align:right"><div class="lb-vl" style="color:${r.isYou?'var(--green)':'var(--t1)'}">${r.isYou?cat==='money'?G.totalSEK+' SEK':cat==='streak'?G.streak+'d 🔥':cat==='xp'?G.exp+' XP':cat==='uppdrag'?G.bountiesDone:cat==='kc'?(G.kc||0)+' 💎':cat==='battle'?G.battleWins+' wins':r.val:r.val}</div><div class="${trCls}">${tr||'−'}</div></div>
     </div>`;
   }).join('');
 }
@@ -4743,13 +4747,13 @@ function clearNotifs() { _notifs=[]; _notifCount=0; $('notifBadge').style.displa
    🎁 DAILY LOGIN BONUS
 ══════════════════════════════════════════ */
 const DAILY_REWARDS = [
-  {ico:'💰',title:'Dag 1',desc:'+100 Coins',coins:100,xp:50},
-  {ico:'⚡',title:'Dag 2',desc:'+150 XP',coins:50,xp:150},
-  {ico:'🎯',title:'Dag 3',desc:'+200 Coins',coins:200,xp:80},
-  {ico:'🔥',title:'Dag 4',desc:'+250 XP + Coins',coins:150,xp:250},
-  {ico:'💎',title:'Dag 5',desc:'+500 Coins',coins:500,xp:100},
-  {ico:'👑',title:'Dag 6',desc:'+400 XP',coins:200,xp:400},
-  {ico:'🏆',title:'Dag 7',desc:'MEGA BONUS!',coins:1000,xp:500},
+  {ico:'💰',title:'Dag 1',desc:'+100 Coins +20 XP',coins:100,xp:20,kc:0},
+  {ico:'⚡',title:'Dag 2',desc:'+150 XP +50 Coins',coins:50,xp:150,kc:0},
+  {ico:'🎯',title:'Dag 3',desc:'+200 Coins +1 KC',coins:200,xp:80,kc:1},
+  {ico:'🔥',title:'Dag 4',desc:'+250 XP +150 Coins +2 KC',coins:150,xp:250,kc:2},
+  {ico:'💎',title:'Dag 5',desc:'+500 Coins +200 XP +3 KC',coins:500,xp:200,kc:3},
+  {ico:'👑',title:'Dag 6',desc:'+400 XP +300 Coins +5 KC',coins:300,xp:400,kc:5},
+  {ico:'🏆',title:'Dag 7',desc:'🔥 MEGA BONUS! +1000 Coins +500 XP +10 KC',coins:1000,xp:500,kc:10},
 ];
 function checkDailyBonus() {
   if(!G.name) return;
@@ -4779,10 +4783,12 @@ function claimDailyBonus() {
   const day = (parseInt(localStorage.getItem('k0509_loginStreak')||'1')-1)%7;
   const r = DAILY_REWARDS[day];
   gainCoins(r.coins); gainXP(r.xp,'social');
-  confetti(50); SFX.lvl();
-  showT(`🎁 ${r.title}: ${r.desc}!`, 'g');
+  if(r.kc>0) gainKC(r.kc);
+  confetti(day===6?120:50); SFX.lvl(); vibe(day===6?[100,50,100,50,200]:[50,20,80]);
+  showFeatToast(`🎁 ${r.title}: ${r.desc}`);
   closeModal('dailyModal');
   pushNotif('🎁', `<b>Daglig belöning!</b> ${r.desc} hämtad.`);
+  if(day===6) showT('🏆 7-DAGARS BONUS! KC belöning!','g');
 }
 
 /* ══════════════════════════════════════════
