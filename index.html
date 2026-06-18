@@ -2125,6 +2125,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="mg-rec">Rekord: <span id="mgRec" style="color:var(--green);font-weight:800">0</span></div>
       </div>
 
+      <!-- Friends Activity Feed -->
+      <div style="padding:6px 16px 4px"><div class="sh-t">🔔 VÄNNERS AKTIVITET</div></div>
+      <div id="friendsActivity" style="padding:0 16px;display:flex;flex-direction:column;gap:6px"></div>
+
       <div class="vend"></div>
     </div>
 
@@ -4012,7 +4016,7 @@ function nav(name) {
   const btn = document.querySelector(`.nb[data-v="${name}"]`); if(btn) btn.classList.add('on');
   SFX.nav(); vibe(8);
   const R = {
-    pet:     () => { initParticles(); updatePet(); renderMissions(); },
+    pet:     () => { initParticles(); updatePet(); renderMissions(); renderFriendsActivity(); },
     flash:   () => { renderFlashFeed(); renderStories(); },
     circles: () => renderCircles(),
     uppdrag: () => renderUppdrag(),
@@ -5672,6 +5676,32 @@ const DEMO_FRIENDS = [
   {name:'linnea',em:'🐱',lv:6,online:true,streak:5},
   {name:'ghost',em:'🐸',lv:12,online:true,streak:21},
 ];
+const FRIENDS_ACTIVITY=[
+  {em:'🐉',user:'ella_sthlm',action:'klarade BATTLE 2.0',ico:'⚔️',t:'2m',xp:'+120 XP'},
+  {em:'🐺',user:'maxruns',action:'nådde LV 12!',ico:'⬆️',t:'8m',xp:'+500 XP'},
+  {em:'🐸',user:'ghost',action:'postade Flash på Drottninggatan',ico:'⚡',t:'15m',xp:'+20 XP'},
+  {em:'🦋',user:'sagas',action:'vann dagliga potten',ico:'💰',t:'1h',xp:'+200 XP'},
+  {em:'🦊',user:'carlos',action:'klarade Espresso House uppdrag',ico:'🎯',t:'2h',xp:'+80 XP'},
+  {em:'🐱',user:'linnea',action:'fångade Monstergädda 🐠',ico:'🎣',t:'3h',xp:'+600 XP'},
+];
+let _actIdx=0;
+function renderFriendsActivity(){
+  const el=$('friendsActivity'); if(!el) return;
+  // Rotate through activities with a staggered "live" feel
+  const shown=FRIENDS_ACTIVITY.slice(0,4);
+  el.innerHTML=shown.map((a,i)=>`
+    <div style="display:flex;align-items:center;gap:9px;padding:7px 10px;background:var(--s1);border-radius:12px;border:1px solid var(--line)">
+      <div style="font-size:18px">${a.em}</div>
+      <div style="flex:1;min-width:0">
+        <span style="font-weight:800;font-size:12px">@${a.user}</span>
+        <span style="font-size:11px;color:var(--t2)"> ${a.action}</span>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div style="font-size:10px;color:var(--green);font-weight:800">${a.xp}</div>
+        <div style="font-size:9px;color:var(--t3)">${a.t}</div>
+      </div>
+    </div>`).join('');
+}
 function renderFriendsPets() {
   const el=$('friendsPetsRow'); if(!el) return;
   el.innerHTML=DEMO_FRIENDS.map(f=>`
@@ -5734,7 +5764,7 @@ function showStreakPopup() {
   document.body.appendChild(popup);
   confetti(30);
 }
-if(G.name) { setTimeout(showStreakPopup, 1500); renderFriendsPets(); updateFriendStreakUI(); }
+if(G.name) { setTimeout(showStreakPopup, 1500); renderFriendsPets(); updateFriendStreakUI(); renderFriendsActivity(); }
 
 /* ══════════════════════════════════════════
    💎 KC — KARMA COIN CURRENCY
@@ -6550,7 +6580,13 @@ function drawKatch(){
         KATCH.score+=it.v*(1+(KATCH.level-1)*.2|0);
         for(let i=0;i<6;i++) KATCH.particles.push({x:it.x,y:it.y,vx:(Math.random()-.5)*5,vy:-Math.random()*4-2,life:18,col:it.col,r:3});
         $('katchScore').textContent=KATCH.score;
-        if(KATCH.score>=(KATCH.level*50)){KATCH.level++;KATCH.spawnRate=Math.max(20,KATCH.spawnRate-8);$('katchLevel').textContent=KATCH.level;showT('⬆️ Level '+KATCH.level+'!','g');}
+        if(KATCH.score>=(KATCH.level*50)){
+          KATCH.level++;KATCH.spawnRate=Math.max(20,KATCH.spawnRate-8);
+          $('katchLevel').textContent=KATCH.level;
+          showFeatToast('💎 KATCH LEVEL '+KATCH.level+'!');
+          confetti(30); vibe([50,20,80]);
+          gainKC(1); gainXP(20,'action');
+        }
         vibe(10);
       }
       return false;
