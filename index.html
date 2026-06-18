@@ -197,7 +197,7 @@ html, body {
 
 /* BIG PET STAGE */
 .pet-stage {
-  width: 100%; height: 240px;
+  width: 100%; height: 264px;
   position: relative; display: flex; align-items: center; justify-content: center;
   overflow: hidden; flex-shrink: 0;
 }
@@ -234,7 +234,7 @@ html, body {
 }
 @keyframes aura { 0%,100%{transform:scale(1);}50%{transform:scale(1.15);} }
 .pet-emoji-big {
-  font-size: 82px; z-index: 2; position: relative;
+  font-size: 90px; z-index: 2; position: relative;
   animation: petbounce 2.4s cubic-bezier(.36,.07,.19,.97) infinite, neonPulse 2s ease-in-out infinite;
   cursor: pointer; user-select: none;
   transition: filter .3s;
@@ -337,22 +337,23 @@ html, body {
 .vital-fill { height: 100%; border-radius: 100px; transition: width .5s ease; }
 .vital-val { font-size: 12px; font-weight: 700; width: 28px; text-align: right; flex-shrink: 0; }
 
-/* Care buttons — horizontal scrollable row */
+/* Care buttons — 4-col grid */
 .care-grid {
-  display: flex; gap: 8px; margin: 0 14px 12px;
-  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 8px; margin: 0 14px 14px;
 }
-.care-grid::-webkit-scrollbar { display: none; }
 .care-btn {
-  flex-shrink: 0; min-width: 74px;
-  background: var(--s1); border: 1px solid var(--line);
-  border-radius: 16px; padding: 10px 8px; text-align: center;
+  background: var(--s1); border: 1.5px solid var(--line);
+  border-radius: 16px; padding: 13px 4px 10px; text-align: center;
   cursor: pointer; transition: all .12s; -webkit-user-select: none;
+  position: relative; overflow: hidden;
 }
-.care-btn:active { transform: scale(.88); background: var(--s2); }
-.care-ico { font-size: 24px; display: block; margin-bottom: 4px; }
-.care-lbl { font-size: 11px; font-weight: 700; display: block; }
-.care-cost { font-size: 9px; color: var(--t3); display: block; margin-top: 1px; white-space: nowrap; }
+.care-btn:active { transform: scale(.91); background: var(--s2); }
+.care-btn.warn { border-color: var(--red) !important; animation: careWarn 1s ease-in-out infinite; }
+@keyframes careWarn { 0%,100%{box-shadow:0 0 0 rgba(255,68,85,0)} 50%{box-shadow:0 0 12px rgba(255,68,85,.5)} }
+.care-ico { font-size: 26px; display: block; margin-bottom: 5px; }
+.care-lbl { font-size: 9px; font-weight: 900; display: block; letter-spacing: .3px; text-transform: uppercase; }
+.care-cost { font-size: 7.5px; color: var(--t3); display: block; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Minigame */
 .minigame-card {
@@ -956,9 +957,25 @@ textarea.inp { resize:none;min-height:72px; }
 .pet-lv-badge { background:linear-gradient(135deg,var(--pet-col,var(--green)),var(--teal)) !important; }
 /* Level badge glow */
 .pet-lv-badge { box-shadow:0 4px 18px color-mix(in srgb,var(--pet-col,#00ff88) 45%,transparent); }
-/* Care button hover */
+/* Care button hover + accent colors */
 .care-btn { transition:all .15s; }
 .care-btn:hover { background:var(--s2); border-color:rgba(255,255,255,.22); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.4); }
+.care-btn[data-accent="orange"] { border-color:rgba(255,136,0,.3); }
+.care-btn[data-accent="orange"]:hover { border-color:rgba(255,136,0,.7); box-shadow:0 6px 20px rgba(255,136,0,.2); }
+.care-btn[data-accent="red"] { border-color:rgba(255,68,85,.3); }
+.care-btn[data-accent="red"]:hover { border-color:rgba(255,68,85,.7); box-shadow:0 6px 20px rgba(255,68,85,.2); }
+.care-btn[data-accent="blue"] { border-color:rgba(68,136,255,.3); }
+.care-btn[data-accent="blue"]:hover { border-color:rgba(68,136,255,.7); box-shadow:0 6px 20px rgba(68,136,255,.2); }
+.care-btn[data-accent="purple"] { border-color:rgba(170,102,255,.3); }
+.care-btn[data-accent="purple"]:hover { border-color:rgba(170,102,255,.7); box-shadow:0 6px 20px rgba(170,102,255,.2); }
+.care-btn[data-accent="gold"] { border-color:rgba(255,204,0,.3); }
+.care-btn[data-accent="gold"]:hover { border-color:rgba(255,204,0,.7); box-shadow:0 6px 20px rgba(255,204,0,.2); }
+.care-btn[data-accent="green"] { border-color:rgba(0,255,136,.3); }
+.care-btn[data-accent="green"]:hover { border-color:rgba(0,255,136,.7); box-shadow:0 6px 20px rgba(0,255,136,.2); }
+.care-btn[data-accent="pink"] { border-color:rgba(255,51,119,.3); }
+.care-btn[data-accent="pink"]:hover { border-color:rgba(255,51,119,.7); box-shadow:0 6px 20px rgba(255,51,119,.2); }
+.care-btn[data-accent="teal"] { border-color:rgba(0,221,204,.3); }
+.care-btn[data-accent="teal"]:hover { border-color:rgba(0,221,204,.7); box-shadow:0 6px 20px rgba(0,221,204,.2); }
 /* Flash card stagger */
 .video-card { animation:staggerIn .35s ease both; }
 /* ══════════════════════
@@ -2033,34 +2050,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         </div>
       </div>
 
-      <!-- Care buttons — horizontal scroll -->
+      <!-- Care buttons — 4×2 grid -->
       <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 14px 6px">
-        <div class="sh-t">CARE</div>
-        <div style="font-size:10px;color:var(--t3)">← svep →</div>
+        <div class="sh-t">🎮 CARE</div>
+        <div style="font-size:9px;color:var(--t3);font-weight:700" id="careStatusChip"></div>
       </div>
-      <div class="care-grid">
-        <div class="care-btn" onclick="pcFeed()">
+      <div class="care-grid" id="careGrid">
+        <div class="care-btn" data-accent="orange" onclick="pcFeed()">
           <span class="care-ico">🍖</span><span class="care-lbl">MATA</span><span class="care-cost">−10💰</span>
         </div>
-        <div class="care-btn" onclick="pcTrain()">
-          <span class="care-ico">🏋️</span><span class="care-lbl">TRÄNA</span><span class="care-cost">−20E +15XP</span>
+        <div class="care-btn" data-accent="red" onclick="pcTrain()">
+          <span class="care-ico">🏋️</span><span class="care-lbl">TRÄNA</span><span class="care-cost">+15XP</span>
         </div>
-        <div class="care-btn" onclick="pcSleep()">
-          <span class="care-ico">😴</span><span class="care-lbl">SOVA</span><span class="care-cost">+40E +10😊</span>
+        <div class="care-btn" data-accent="blue" onclick="pcSleep()">
+          <span class="care-ico">😴</span><span class="care-lbl">SOVA</span><span class="care-cost">+40⚡</span>
         </div>
-        <div class="care-btn" onclick="pcPlay()">
-          <span class="care-ico">🎮</span><span class="care-lbl">LEK</span><span class="care-cost">−10E +5💰</span>
+        <div class="care-btn" data-accent="purple" onclick="pcPlay()">
+          <span class="care-ico">🎮</span><span class="care-lbl">LEK</span><span class="care-cost">+5💰</span>
         </div>
-        <div class="care-btn" onclick="openSpinWheel()">
-          <span class="care-ico">🎰</span><span class="care-lbl">SPIN</span><span class="care-cost">Gratis/dag</span>
+        <div class="care-btn" data-accent="gold" onclick="openSpinWheel()">
+          <span class="care-ico">🎰</span><span class="care-lbl">SPIN</span><span class="care-cost">1×/dag</span>
         </div>
-        <div class="care-btn" onclick="openDnaModal()">
-          <span class="care-ico">🧬</span><span class="care-lbl">DNA MIX</span><span class="care-cost">−20KC</span>
+        <div class="care-btn" data-accent="green" onclick="openDnaModal()">
+          <span class="care-ico">🧬</span><span class="care-lbl">DNA</span><span class="care-cost">−20KC</span>
         </div>
-        <div class="care-btn" onclick="openLuckyModal()">
+        <div class="care-btn" data-accent="pink" onclick="openLuckyModal()">
           <span class="care-ico">🎁</span><span class="care-lbl">LUCKY</span><span class="care-cost">Box!</span>
         </div>
-        <div class="care-btn" onclick="openKcShop()">
+        <div class="care-btn" data-accent="teal" onclick="openKcShop()">
           <span class="care-ico">💎</span><span class="care-lbl">KC SHOP</span><span class="care-cost" id="kcShopBadge">Shop</span>
         </div>
       </div>
@@ -3423,6 +3440,20 @@ function updatePet() {
 
   // Update particles based on level
   initParticles();
+  updateCareWarnings();
+}
+function updateCareWarnings(){
+  const feedBtn=document.querySelector('#careGrid .care-btn[onclick="pcFeed()"]');
+  if(feedBtn) feedBtn.classList.toggle('warn',G.hunger<30);
+  const sleepBtn=document.querySelector('#careGrid .care-btn[onclick="pcSleep()"]');
+  if(sleepBtn) sleepBtn.classList.toggle('warn',G.energy<25);
+  const chip=$('careStatusChip');
+  if(chip){
+    if(G.hunger<30) chip.textContent='⚠️ Hungrig!';
+    else if(G.energy<25) chip.textContent='⚠️ Trött!';
+    else if(G.mood>85) chip.textContent='🤩 Euforisk!';
+    else chip.textContent='';
+  }
 }
 
 /* ── PARTICLES ── */
