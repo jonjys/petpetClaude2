@@ -1930,6 +1930,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .gps-dot.searching { background:var(--gold)!important; animation:gpsPing 1s ease-in-out infinite; }
 @keyframes gpsPing { 0%,100%{box-shadow:0 0 0 0 rgba(255,204,0,.4)} 50%{box-shadow:0 0 0 6px rgba(255,204,0,0)} }
 
+/* ══ ROUND 35 — All Game Panels Cinematic ══ */
+/* Runner HUD */
+.runner-hud { background:linear-gradient(180deg,rgba(0,6,24,.96),rgba(0,3,14,.8)); border-radius:16px; border:1px solid rgba(0,255,136,.1); padding:10px 14px 8px; margin-bottom:6px; }
+.runner-stat-v { font-size:22px; }
+.runner-stat-l { font-size:9px; color:var(--t3); font-weight:700; margin-top:1px; }
+/* Speed/React arena */
+.speed-arena { background:linear-gradient(135deg,rgba(0,0,20,.97),rgba(0,4,32,.9)); border-color:rgba(255,204,0,.18); }
+.speed-arena-bg { background:radial-gradient(ellipse at 50% 50%,rgba(255,204,0,.07),rgba(0,255,136,.03),transparent 65%); }
+/* Memory stats */
+.mem-stats { background:linear-gradient(180deg,rgba(0,4,22,.96),rgba(0,2,14,.8)); border-color:rgba(170,102,255,.15); }
+.mem-stat-v { color:var(--purple)!important; }
+/* Raid game */
+.raid-boss-card { background:radial-gradient(ellipse at 50% 0%,rgba(255,34,85,.22) 0%,rgba(0,0,12,.95) 70%) !important; border-color:rgba(255,34,85,.38); }
+.raid-you-hp { background:rgba(0,4,14,.65); border:1px solid rgba(0,255,136,.14); border-radius:14px; padding:8px 12px; }
+.raid-btn.sp { box-shadow:0 2px 14px rgba(255,34,85,.18); }
+.raid-btn.def { box-shadow:0 2px 14px rgba(68,136,255,.18); }
+.raid-btn.heal { box-shadow:0 2px 14px rgba(0,255,136,.18); }
+.raid-btn.ult { padding:14px 6px; font-size:14px; box-shadow:0 2px 14px rgba(255,204,0,.18); }
+/* Battle arena b2 (already has bg from R27, just add more glow) */
+.b2-arena-bg::before { background:radial-gradient(ellipse at 50% 50%,rgba(255,34,85,.18) 0%,rgba(0,0,10,.98) 65%) !important; }
+.b2-vs { font-family:var(--ff-head); font-size:26px; font-weight:900; color:var(--red); animation:vsFlash 1.8s ease-in-out infinite; }
+@keyframes vsFlash { 0%,100%{text-shadow:0 0 10px rgba(255,34,85,.4)} 50%{text-shadow:0 0 30px rgba(255,34,85,.9),0 0 60px rgba(255,34,85,.4)} }
+.b2-em { filter:drop-shadow(0 0 20px var(--pet-col,rgba(0,255,136,.6))); }
+
 /* ══ FISH FIGHT & UPGRADES ══ */
 #fishFightWrap { display:none; padding:4px 0 6px; }
 .fish-fight-lbl { display:flex; justify-content:space-between; font-size:10px; color:var(--t3); font-weight:800; margin-bottom:5px; }
@@ -3099,8 +3123,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           </div>
         </div>
         <div style="display:flex;gap:8px;margin:10px 0">
-          <div class="sp-r" style="flex:1;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center"><div style="font-family:var(--ff-head);font-size:22px;color:var(--gold)" id="speedBest">0</div><div style="font-size:9px;color:var(--t3)">REKORD</div></div>
-          <div class="sp-r" style="flex:1;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center"><div style="font-family:var(--ff-head);font-size:22px;color:var(--green)" id="speedXPToday">0</div><div style="font-size:9px;color:var(--t3)">XP IDAG</div></div>
+          <div class="sp-r" style="flex:1;background:linear-gradient(135deg,rgba(255,204,0,.07),rgba(0,0,0,.5));border:1px solid rgba(255,204,0,.2);border-radius:14px;padding:10px;text-align:center"><div style="font-family:var(--ff-head);font-size:24px;font-weight:900;color:var(--gold)" id="speedBest">0</div><div style="font-size:9px;color:var(--t3);font-weight:700;letter-spacing:.5px">REKORD</div></div>
+          <div class="sp-r" style="flex:1;background:linear-gradient(135deg,rgba(0,255,136,.07),rgba(0,0,0,.5));border:1px solid rgba(0,255,136,.2);border-radius:14px;padding:10px;text-align:center"><div style="font-family:var(--ff-head);font-size:24px;font-weight:900;color:var(--green)" id="speedXPToday">0</div><div style="font-size:9px;color:var(--t3);font-weight:700;letter-spacing:.5px">XP IDAG</div></div>
         </div>
       </div>
 
