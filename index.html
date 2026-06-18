@@ -258,6 +258,13 @@ html, body {
   font-size: 24px; z-index: 6;
   filter: drop-shadow(0 2px 6px rgba(0,0,0,.6));
 }
+.pet-accessory-hat {
+  position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
+  font-size: 34px; z-index: 7; pointer-events: none;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.7));
+  animation: hatFloat 3s ease-in-out infinite;
+}
+@keyframes hatFloat { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(-4px);} }
 .pet-stage-name {
   font-family: var(--ff-head); font-size: 12px; font-weight: 700;
   color: var(--green); letter-spacing: 2px; text-transform: uppercase;
@@ -1754,6 +1761,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .step-rwds { display:flex; gap:5px; }
 .step-rwd { flex:1; text-align:center; background:var(--s2); border-radius:9px; padding:5px 3px; font-size:8px; color:var(--t3); font-weight:700; }
 .step-rwd.done { background:rgba(0,255,136,.08); color:var(--green); border:1px solid rgba(0,255,136,.18); }
+/* ══ KC SHOP ══ */
+.kcs-tab { padding:6px 14px; border-radius:20px; font-size:11px; font-weight:800; color:var(--t2); background:var(--s2); cursor:pointer; white-space:nowrap; transition:all .15s; border:1.5px solid transparent; }
+.kcs-tab.on { color:var(--purple); border-color:var(--purple); background:rgba(170,102,255,.1); }
+.kcs-item { background:var(--s2); border:1.5px solid var(--line); border-radius:14px; padding:12px 8px; text-align:center; cursor:pointer; transition:all .15s; }
+.kcs-item:active { transform:scale(.94); }
+.kcs-item.owned { border-color:var(--green); background:rgba(0,255,136,.04); }
+.kcs-item.equipped { border-color:var(--gold); background:rgba(255,204,0,.07); }
+.kcs-em { font-size:30px; display:block; margin-bottom:5px; }
+.kcs-nm { font-size:10px; font-weight:800; color:#fff; margin-bottom:2px; }
+.kcs-st { font-size:8.5px; color:var(--t3); margin-bottom:6px; }
+.kcs-price { font-size:11px; font-weight:900; color:var(--purple); }
+.kcs-price.owned-lbl { color:var(--green); }
+/* ══ DM ══ */
+.dm-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); cursor:pointer; }
+.dm-item:last-child { border:none; }
+.dm-ava { width:40px; height:40px; border-radius:50%; background:var(--s2); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+.dm-info { flex:1; min-width:0; }
+.dm-user { font-size:13px; font-weight:800; }
+.dm-prev { font-size:11px; color:var(--t3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:1px; }
+.dm-unread { width:8px; height:8px; background:var(--pink); border-radius:50%; flex-shrink:0; }
+.dm-msg { display:flex; max-width:78%; }
+.dm-msg.me { align-self:flex-end; flex-direction:row-reverse; }
+.dm-bubble { padding:8px 12px; border-radius:16px; font-size:13px; line-height:1.4; word-break:break-word; }
+.dm-msg.them .dm-bubble { background:var(--s2); border-bottom-left-radius:4px; }
+.dm-msg.me .dm-bubble { background:var(--pink); color:#fff; border-bottom-right-radius:4px; }
 /* ══ FISH GAME v3 ══ */
 #fishCanvas { width:100%; height:200px; display:block; border-radius:14px; background:#000410; }
 .fish-depth-row { display:flex; gap:5px; padding:6px 0 4px; overflow-x:auto; scrollbar-width:none; }
@@ -1896,7 +1928,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="pet-particles" id="petParticles"></div>
         <div class="pet-main-wrap">
           <div class="pet-aura"></div>
-          <div style="position:relative">
+          <div style="position:relative;display:inline-block">
+            <div class="pet-accessory-hat" id="petHat"></div>
             <div class="pet-emoji-big" id="petEmojiBig" onclick="petTap()">🐉</div>
             <div class="pet-gear-badge" id="petGearBadge"></div>
           </div>
@@ -2009,6 +2042,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="care-btn" onclick="openLuckyModal()">
           <span class="care-ico">🎁</span><span class="care-lbl">LUCKY</span><span class="care-cost">Box!</span>
         </div>
+        <div class="care-btn" onclick="openKcShop()">
+          <span class="care-ico">💎</span><span class="care-lbl">KC SHOP</span><span class="care-cost" id="kcShopBadge">Shop</span>
+        </div>
       </div>
 
       <!-- Step Tracker -->
@@ -2101,6 +2137,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ftab" onclick="setFlashTab('circles',this)">Circles</div>
           <div class="ftab" onclick="setFlashTab('explore',this)">Utforska</div>
           <div class="ftab" onclick="setFlashTab('uppdrag',this)">Uppdrag</div>
+        </div>
+        <div onclick="openDmList()" style="font-size:20px;cursor:pointer;padding:0 8px 0 4px;position:relative" title="Meddelanden">
+          💬
+          <div id="dmDot" style="display:none;position:absolute;top:0;right:6px;width:8px;height:8px;background:var(--pink);border-radius:50%"></div>
         </div>
       </div>
       <!-- Trending strip -->
@@ -2609,6 +2649,52 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="evol-em" id="evolEm">🐉</div>
   <div class="evol-title" id="evolTitle">EVOLUTION!</div>
   <div class="evol-sub" id="evolSub">Level 5 uppnådd!</div>
+</div>
+
+<!-- KC SHOP MODAL -->
+<div class="modal" id="kcShopModal">
+  <div class="ms">
+    <div class="mh" style="background:linear-gradient(135deg,rgba(170,102,255,.2),rgba(0,102,255,.1))"></div>
+    <div class="mt" style="background:linear-gradient(135deg,rgba(170,102,255,.15),rgba(0,102,255,.08))">
+      💎 KC MARKETPLACE <span style="font-size:9px;color:var(--gold);font-weight:900;margin-left:4px">BETA</span>
+      <div class="mx" onclick="closeModal('kcShopModal')">✕</div>
+    </div>
+    <div style="padding:10px 14px 4px;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-size:13px;color:var(--t2)">Ditt saldo:</div>
+      <div style="font-family:var(--ff-head);font-size:20px;font-weight:900;color:var(--purple)">💎 <span id="kcShopBalance">0</span> KC</div>
+    </div>
+    <div style="display:flex;gap:6px;padding:6px 14px;overflow-x:auto;scrollbar-width:none">
+      <div class="kcs-tab on" onclick="kcShopTab('acc',this)">👑 Gear</div>
+      <div class="kcs-tab" onclick="kcShopTab('boost',this)">⚡ Boosts</div>
+      <div class="kcs-tab" onclick="kcShopTab('theme',this)">🎨 Teman</div>
+    </div>
+    <div id="kcShopItems" style="padding:0 14px 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;max-height:55vh;overflow-y:auto;scrollbar-width:none"></div>
+  </div>
+</div>
+
+<!-- DM MODAL -->
+<div class="modal" id="dmModal">
+  <div class="ms" style="display:flex;flex-direction:column;height:85vh">
+    <div class="mh"></div>
+    <div class="mt">
+      💬 <span id="dmUserName">ella_sthlm</span>
+      <div class="mx" onclick="closeModal('dmModal')">✕</div>
+    </div>
+    <div id="dmMsgs" style="flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;scrollbar-width:none"></div>
+    <div style="padding:10px 14px;display:flex;gap:8px;border-top:1px solid var(--line)">
+      <input id="dmInput" class="inp" placeholder="Skriv ett meddelande..." style="flex:1;font-size:14px" onkeydown="if(event.key==='Enter')sendDm()">
+      <button class="btn btn-pk btn-sm" onclick="sendDm()">Skicka</button>
+    </div>
+  </div>
+</div>
+
+<!-- DM LIST MODAL -->
+<div class="modal" id="dmListModal">
+  <div class="ms">
+    <div class="mh"></div>
+    <div class="mt">💬 Meddelanden <div class="mx" onclick="closeModal('dmListModal')">✕</div></div>
+    <div id="dmList" style="padding:8px 14px 16px;display:flex;flex-direction:column;gap:2px"></div>
+  </div>
 </div>
 
 <!-- BOUNTY VERIFY MODAL -->
@@ -3218,7 +3304,11 @@ function updatePet() {
 
   // Big pet emoji + stage
   $('petEmojiBig').textContent = s.e;
-  $('petGearBadge').textContent = G.equippedGear || s.g || '';
+  const _hatItems=['👑','🎩','🌙','💎'];
+  const _eq=G.equippedGear||s.g||'';
+  const _isHat=_hatItems.includes(_eq);
+  const _hat=$('petHat');if(_hat) _hat.textContent=_isHat?_eq:'';
+  $('petGearBadge').textContent=_isHat?'':_eq;
   $('petStageName').textContent = s.s;
   $('petNameBig').textContent = G.petName;
   const ne = gNE();
@@ -5454,7 +5544,10 @@ if(G.name) { setTimeout(showStreakPopup, 1500); renderFriendsPets(); updateFrien
 if(!G.kc) G.kc=0;
 function gainKC(n){G.kc=Math.max(0,(G.kc||0)+n);save();updateKCHUD();if(n>0)showT(`💎 +${n} KC`,'g');}
 function spendKC(n){if((G.kc||0)<n){showT(`❌ Behöver ${n} KC`,'r');return false;}G.kc-=n;save();updateKCHUD();return true;}
-function updateKCHUD(){const el=$('hKC');if(el)el.textContent=G.kc||0;}
+function updateKCHUD(){
+  const el=$('hKC');if(el)el.textContent=G.kc||0;
+  const sb=$('kcShopBadge');if(sb)sb.textContent='💎'+(G.kc||0);
+}
 updateKCHUD();
 
 /* ══════════════════════════════════════════
@@ -5597,15 +5690,19 @@ function judgeRingTap(e){
   let dmg=0,result='';
   if(perfect){
     dmg=Math.floor((20+G.level*3+Math.random()*20)*1.8);
-    result=`💥 PERFECT! ${dmg} dmg!`;
+    _b2PerfectStreak=(_b2PerfectStreak||0)+1;
+    if(_b2PerfectStreak>=3){setTimeout(b2TriggerUltra,200);}
+    result=`💥 PERFECT! ${dmg} dmg!${_b2PerfectStreak>=2?' 🔥x'+_b2PerfectStreak:''}`;
     B2.streak++; confetti(20); SFX.combo&&SFX.combo(2);
     vibe([50,20,80]); gainKC(1);
   } else if(hit){
     dmg=Math.floor(15+G.level*2+Math.random()*15);
+    _b2PerfectStreak=0;
     result=`⚔️ HIT! ${dmg} dmg`;
     B2.streak++; SFX.tap&&SFX.tap(); vibe(30);
   } else {
     result='❌ MISS! Enemy counters!';
+    _b2PerfectStreak=0;
     B2.streak=0; SFX.err&&SFX.err(); vibe([40,20,40]);
     dmg=0;
     const counterDmg=Math.floor(B2.enemy.atk*.7);
@@ -6301,14 +6398,7 @@ function katchEnd(){
    ⚡ BATTLE ULTRA COMBO
 ══════════════════════════════════════════════════ */
 let _b2PerfectStreak=0;
-const _origJudgeRingTap=window.judgeRingTap;
-// Patch judgeRingTap to track perfect streak and trigger ultra
-const _b2OrigJRT=judgeRingTap;
-judgeRingTap=function(e){
-  _b2OrigJRT(e);
-  // The original function sets quality; we check the log text
-};
-// Patch b2ApplyDamage to track perfects
+// Perfect streak tracked inline in judgeRingTap; reset on miss/hit, trigger ultra at 3
 function b2TriggerUltra(){
   _b2PerfectStreak=0;
   const uf=$('b2UltraFlash'),ut=$('b2UltraTxt');
@@ -6395,7 +6485,8 @@ const _origNav_R8=nav;
 nav=function(name){
   _origNav_R8(name);
   if(name==='profile'){ renderTrophyShelf(); renderTournament(); updateStepUI(); }
-  if(name==='pet'){ updateStepUI(); }
+  if(name==='pet'){ updateStepUI(); updateKcShopBadge(); }
+  if(name==='flash'){ updateDmDot(); }
 };
 
 /* ══════════════════════════════════════════════════
@@ -6426,6 +6517,208 @@ gainXP=function(n,stat){
     if(evolMilestones[newLv]) showEvolCutscene(s.e,'LEVEL '+newLv,evolMilestones[newLv]);
   }
 };
+
+/* ══════════════════════════════════════════════════
+   💎 KC MARKETPLACE
+══════════════════════════════════════════════════ */
+const KC_SHOP_ACC=[
+  {id:'kc_crown',em:'👑',nm:'ROYAL CROWN',st:'+10 Social',kc:15},
+  {id:'kc_hat',em:'🎩',nm:'TOP HAT',st:'+8 Social',kc:10},
+  {id:'kc_shades',em:'🕶️',nm:'DARK SHADES',st:'+5 Social',kc:8},
+  {id:'kc_moon',em:'🌙',nm:'MOON HALO',st:'+14 Social',kc:20},
+  {id:'kc_gem',em:'💎',nm:'DIAMOND',st:'+20 Commerce',kc:30},
+  {id:'kc_fire',em:'🔥',nm:'FIRE AURA',st:'+15 Action',kc:18},
+  {id:'kc_zap',em:'⚡',nm:'LIGHTNING',st:'+12 Action',kc:16},
+  {id:'kc_wings',em:'🐉',nm:'DRAGON WINGS',st:'+30 All',kc:50},
+];
+const KC_SHOP_BOOST=[
+  {id:'kc_xp2',em:'📈',nm:'2x XP (1h)',st:'Dubbel XP under 1 timme',kc:5},
+  {id:'kc_coin2',em:'💰',nm:'2x Coins (1h)',st:'Dubbla mynt under 1 timme',kc:5},
+  {id:'kc_lucky2',em:'🎁',nm:'Lucky Drop+',st:'Ökad Lucky drop chans',kc:8},
+  {id:'kc_fish+',em:'🎣',nm:'Fish Bonus',st:'Ökad XP från fiske',kc:6},
+];
+const KC_SHOP_THEME=[
+  {id:'kc_t_space',em:'🚀',nm:'SPACE THEME',st:'Rymdbakgrund till pet-rum',kc:12},
+  {id:'kc_t_beach',em:'🏖',nm:'BEACH THEME',st:'Strandbakgrund till pet-rum',kc:12},
+  {id:'kc_t_forest',em:'🌲',nm:'FOREST THEME',st:'Skogsbakgrund till pet-rum',kc:12},
+  {id:'kc_t_gaming',em:'🎮',nm:'GAMING THEME',st:'Gaming-bakgrund till pet-rum',kc:15},
+];
+let _kcTab='acc';
+function openKcShop(){
+  if(!G.kcPurchases) G.kcPurchases={};
+  _kcTab='acc';
+  document.querySelectorAll('.kcs-tab').forEach((t,i)=>{t.classList.toggle('on',i===0);});
+  renderKcShop();
+  openModal('kcShopModal');
+}
+function kcShopTab(t,el){
+  _kcTab=t;
+  document.querySelectorAll('.kcs-tab').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  renderKcShop();
+}
+function renderKcShop(){
+  const bal=$('kcShopBalance');if(bal) bal.textContent=G.kc||0;
+  const items=_kcTab==='acc'?KC_SHOP_ACC:_kcTab==='boost'?KC_SHOP_BOOST:KC_SHOP_THEME;
+  const el=$('kcShopItems'); if(!el) return;
+  el.innerHTML=items.map(it=>{
+    const owned=G.kcPurchases&&G.kcPurchases[it.id];
+    const equipped=G.equippedGear===it.em;
+    return `<div class="kcs-item${owned?' owned':''}${equipped?' equipped':''}" onclick="buyKcItem('${it.id}','${_kcTab}')">
+      <span class="kcs-em">${it.em}</span>
+      <div class="kcs-nm">${it.nm}</div>
+      <div class="kcs-st">${it.st}</div>
+      <div class="kcs-price ${owned?'owned-lbl':''}">${owned?(equipped?'✓ EQUIPPED':'✓ Äger · Tap för equip'):'💎 '+it.kc+' KC'}</div>
+    </div>`;
+  }).join('');
+}
+function buyKcItem(id,tab){
+  if(!G.kcPurchases) G.kcPurchases={};
+  const items=tab==='acc'?KC_SHOP_ACC:tab==='boost'?KC_SHOP_BOOST:KC_SHOP_THEME;
+  const it=items.find(x=>x.id===id); if(!it) return;
+  if(G.kcPurchases[it.id]){
+    // Already owned — equip it if it's acc
+    if(tab==='acc'){
+      G.equippedGear=G.equippedGear===it.em?null:it.em;
+      save(); updatePet(); renderKcShop();
+      showT(G.equippedGear?`⚡ ${it.em} EQUIPPED!`:'GEAR REMOVED','g');
+    } else { showT('Redan aktiverad!','y'); }
+    return;
+  }
+  if((G.kc||0)<it.kc){showT(`Behöver ${it.kc} KC — du har ${G.kc||0}!`,'r');return;}
+  G.kc-=it.kc;
+  G.kcPurchases[it.id]=true;
+  if(tab==='acc'){G.equippedGear=it.em;G.gear=G.gear||[];if(!G.gear.includes(id))G.gear.push(id);}
+  if(tab==='theme'){
+    const tm=id.replace('kc_t_','');
+    setPetTheme(tm,document.querySelector(`.theme-chip[onclick*="${tm}"]`));
+  }
+  save(); updatePet(); renderKcShop(); updateKCHUD();
+  showT(`💎 ${it.nm} köpt!`,'g'); vibe([40,20,60]);
+}
+
+/* ══════════════════════════════════════════════════
+   💬 DM SYSTEM
+══════════════════════════════════════════════════ */
+const DM_CONTACTS=[
+  {user:'ella_sthlm',em:'🐉',pet:'🐉',last:'Coolt spel! 🔥',time:'2m'},
+  {user:'maxruns',em:'🐺',pet:'🌟',last:'GG på battle!!',time:'14m'},
+  {user:'sagas',em:'🦋',pet:'🎵',last:'Skicka mig din pet!',time:'1h'},
+  {user:'ghost',em:'🐸',pet:'👻',last:'wanna race?',time:'3h'},
+  {user:'carlos',em:'🦊',pet:'🎮',last:'KC trade?',time:'5h'},
+];
+const DM_MOCK={
+  ella_sthlm:[
+    {from:'them',txt:'Hej! Såg din pet 🐉 den är sjukt cool'},
+    {from:'them',txt:'Hur har du farmat så mycket XP?'},
+    {from:'me',txt:'Tack! Jag tränar varje dag 🏋️'},
+    {from:'them',txt:'Coolt spel! 🔥 Vi borde race snart'},
+  ],
+  maxruns:[
+    {from:'them',txt:'GG på battle!! Du var stark'},
+    {from:'me',txt:'Tack du med! Close fight'},
+    {from:'them',txt:'Rematch imorgon?'},
+  ],
+  sagas:[
+    {from:'them',txt:'Skicka mig din pet code!'},
+    {from:'me',txt:'Haha inte än 😄'},
+  ],
+  ghost:[
+    {from:'them',txt:'wanna race? Runner challenge'},
+  ],
+  carlos:[
+    {from:'them',txt:'KC trade? Jag har 50 KC'},
+  ],
+};
+let _dmUser=null;
+function openDmList(){
+  if(!G.dmRead) G.dmRead={};
+  const el=$('dmList'); if(!el) return;
+  el.innerHTML=DM_CONTACTS.map(c=>`
+    <div class="dm-item" onclick="openDm('${c.user}')">
+      <div class="dm-ava">${c.em}</div>
+      <div class="dm-info">
+        <div class="dm-user">@${c.user}</div>
+        <div class="dm-prev">${c.last}</div>
+      </div>
+      ${!G.dmRead[c.user]?'<div class="dm-unread"></div>':''}
+    </div>`).join('');
+  openModal('dmListModal');
+}
+function openDm(user){
+  _dmUser=user;
+  const c=DM_CONTACTS.find(x=>x.user===user);
+  if(!G.dmRead) G.dmRead={};
+  G.dmRead[user]=true; save();
+  const nm=$('dmUserName'); if(nm) nm.textContent='@'+user+' '+(c?c.em:'');
+  const msgs=$('dmMsgs'); if(!msgs) return;
+  const thread=[...(DM_MOCK[user]||[]),...(G.dmSent&&G.dmSent[user]||[])];
+  msgs.innerHTML=thread.map(m=>`
+    <div class="dm-msg ${m.from}">
+      <div class="dm-bubble">${m.txt}</div>
+    </div>`).join('');
+  msgs.scrollTop=msgs.scrollHeight;
+  closeModal('dmListModal');
+  openModal('dmModal');
+}
+function sendDm(){
+  const inp=$('dmInput'); if(!inp||!_dmUser) return;
+  const txt=inp.value.trim(); if(!txt) return;
+  if(!G.dmSent) G.dmSent={};
+  if(!G.dmSent[_dmUser]) G.dmSent[_dmUser]=[];
+  G.dmSent[_dmUser].push({from:'me',txt});
+  inp.value='';
+  save();
+  const msgs=$('dmMsgs'); if(!msgs) return;
+  const bubble=document.createElement('div');
+  bubble.className='dm-msg me';
+  bubble.innerHTML=`<div class="dm-bubble">${txt}</div>`;
+  msgs.appendChild(bubble);
+  msgs.scrollTop=msgs.scrollHeight;
+  // Auto-reply after 1.2s
+  const replies=['😊 nice!','🔥 ok!','Coolt!','👍','Haha ja!','⚡ let\'s go!'];
+  setTimeout(()=>{
+    const r=replies[Math.floor(Math.random()*replies.length)];
+    if(!G.dmSent[_dmUser]) return;
+    G.dmSent[_dmUser].push({from:'them',txt:r});
+    save();
+    const rb=document.createElement('div');
+    rb.className='dm-msg them';
+    rb.innerHTML=`<div class="dm-bubble">${r}</div>`;
+    msgs.appendChild(rb);
+    msgs.scrollTop=msgs.scrollHeight;
+    vibe(20);
+  },1200+Math.random()*800);
+  vibe(15); gainXP(1,'social');
+}
+
+/* ══════════════════════════════════════════════════
+   🏅 PREMIUM BADGE + PROFILE DM BUTTON
+══════════════════════════════════════════════════ */
+// Add DM button to flash nav area
+(function(){
+  const prof=$('view-profile');
+  if(!prof) return;
+  const shareBtn=prof.querySelector('[onclick="shareProfile()"]');
+  if(shareBtn&&shareBtn.parentElement){
+    const dmBtn=document.createElement('button');
+    dmBtn.className='btn btn-ghost btn-sm';
+    dmBtn.textContent='💬 DM';
+    dmBtn.onclick=openDmList;
+    shareBtn.parentElement.appendChild(dmBtn);
+  }
+})();
+// KC shop badge update
+function updateKcShopBadge(){
+  const b=$('kcShopBadge');if(b) b.textContent='💎'+(G.kc||0);
+}
+setInterval(updateKcShopBadge,5000);
+function updateDmDot(){
+  const dot=$('dmDot');if(!dot) return;
+  const hasUnread=DM_CONTACTS.some(c=>!(G.dmRead&&G.dmRead[c.user]));
+  dot.style.display=hasUnread?'block':'none';
+}
+updateDmDot();
 
 /* Hunger drain */
 setInterval(() => {
