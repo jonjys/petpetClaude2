@@ -1439,6 +1439,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .ev-name { font-family:var(--ff-head); font-size:13px; font-weight:900; color:var(--gold); }
 .ev-timer { font-size:10px; color:var(--t2); font-weight:700; margin-top:2px; }
 .ev-pill { background:linear-gradient(135deg,var(--gold),var(--orange)); color:#000; font-family:var(--ff-head); font-size:13px; font-weight:900; padding:6px 12px; border-radius:20px; flex-shrink:0; }
+/* Featured game of the day */
+.feat-game-card { margin:0 14px 8px; background:linear-gradient(135deg,rgba(0,255,136,.08),rgba(68,136,255,.05)); border:1.5px solid rgba(0,255,136,.28); border-radius:18px; padding:10px 14px; display:flex; align-items:center; gap:12px; position:relative; overflow:hidden; cursor:pointer; transition:all .15s; }
+.feat-game-card:active { transform:scale(.97); }
+.feat-game-card::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(0,255,136,.06),transparent); animation:bossShine 2.8s linear infinite; pointer-events:none; }
+.feat-game-ico { font-size:38px; flex-shrink:0; animation:evBounce 2.2s ease-in-out infinite; }
+.feat-game-info { flex:1; }
+.feat-game-badge { font-size:8px; font-weight:900; letter-spacing:2px; color:var(--green); text-transform:uppercase; margin-bottom:2px; }
+.feat-game-name { font-family:var(--ff-head); font-size:17px; font-weight:900; line-height:1.2; }
+.feat-game-bonus { font-size:10px; color:var(--t2); margin-top:3px; font-weight:700; }
+.feat-play-btn { background:linear-gradient(135deg,var(--green),var(--teal)); color:#000; font-family:var(--ff-head); font-size:11px; font-weight:900; padding:8px 13px; border-radius:12px; border:none; cursor:pointer; flex-shrink:0; white-space:nowrap; }
+/* Session XP chips */
+.sess-xp-row { display:flex; gap:6px; padding:0 14px 10px; overflow-x:auto; scrollbar-width:none; }
+.sess-xp-row::-webkit-scrollbar { display:none; }
+.sess-xp-chip { flex-shrink:0; background:var(--s1); border:1px solid var(--line); border-radius:10px; padding:4px 9px; font-size:9px; font-weight:700; color:var(--t3); transition:all .2s; white-space:nowrap; }
+.sess-xp-chip.active { border-color:rgba(0,255,136,.35); color:var(--green); background:rgba(0,255,136,.06); }
+/* Runner difficulty */
+.runner-diff-row { display:flex; gap:8px; padding:6px 0 8px; justify-content:center; }
+.runner-diff-btn { padding:8px 18px; border-radius:12px; font-family:var(--ff-head); font-size:12px; font-weight:900; border:1.5px solid rgba(255,255,255,.1); background:var(--s2); color:var(--t3); cursor:pointer; transition:all .12s; }
+.runner-diff-btn.on { border-color:var(--green); color:var(--green); background:rgba(0,255,136,.08); }
 .lucky-box-ico { font-size:80px; display:block; text-align:center; cursor:pointer; animation:luckyBob 1.8s ease-in-out infinite; filter:drop-shadow(0 0 24px var(--gold)); margin:10px 0 6px; }
 @keyframes luckyBob { 0%,100%{transform:translateY(0) rotate(-8deg)} 50%{transform:translateY(-14px) rotate(8deg)} }
 .lucky-box-ico.pop { animation:luckyPop .6s cubic-bezier(.17,.67,.3,1.3) both; }
@@ -2289,6 +2308,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="games-title">🎮 Games</div>
         <div style="font-size:11px;color:var(--blue);font-weight:700" id="gamesXPToday">+0 XP idag</div>
       </div>
+      <!-- Featured Game of the Day -->
+      <div class="feat-game-card" id="featGameCard" onclick="openFeatGame()">
+        <div class="feat-game-ico" id="featGameIco">🎣</div>
+        <div class="feat-game-info">
+          <div class="feat-game-badge">⭐ DAGENS SPEL</div>
+          <div class="feat-game-name" id="featGameName">KARMA FISHER</div>
+          <div class="feat-game-bonus" id="featGameBonus">Hot spot frequency +100%!</div>
+        </div>
+        <button class="feat-play-btn" onclick="openFeatGame();event.stopPropagation()">SPELA →</button>
+      </div>
       <!-- Live Event Banner -->
       <div class="event-banner" id="eventBanner" style="display:none">
         <div class="ev-ico" id="evIco">⚡</div>
@@ -2314,6 +2343,15 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="gtab" onclick="switchGame('runner',this)">🏃 RUNNER</div>
         <div class="gtab" onclick="switchGame('katch',this)">💎 KATCH</div>
         <div class="gtab" onclick="switchGame('fish',this)">🎣 FISH</div>
+      </div>
+      <!-- Session XP tracker -->
+      <div class="sess-xp-row" id="sessXpRow">
+        <div class="sess-xp-chip" id="sx-battle">⚔️ 0 XP</div>
+        <div class="sess-xp-chip" id="sx-runner">🏃 0 XP</div>
+        <div class="sess-xp-chip" id="sx-katch">💎 0 XP</div>
+        <div class="sess-xp-chip" id="sx-fish">🎣 0 XP</div>
+        <div class="sess-xp-chip" id="sx-raid">💀 0 XP</div>
+        <div class="sess-xp-chip" id="sx-total" style="border-color:rgba(255,204,0,.3);color:var(--gold)">🏆 0 TOTAL</div>
       </div>
 
       <!-- BATTLE 2.0 -->
@@ -2434,7 +2472,12 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="runner-start-overlay" id="runnerOverlay">
             <div style="font-size:40px;margin-bottom:8px" id="runnerPetEm">🐉</div>
             <div style="font-family:var(--ff-head);font-size:20px;font-weight:900;color:var(--green);margin-bottom:6px">KARMA RUNNER</div>
-            <div style="font-size:12px;color:var(--t2);margin-bottom:16px">Tryck/tap för att hoppa! Dubbel-tap = dubbelhopp</div>
+            <div style="font-size:12px;color:var(--t2);margin-bottom:10px">Tryck/tap = hoppa · Dubbel = dubbelhopp</div>
+            <div class="runner-diff-row">
+              <button class="runner-diff-btn" onclick="setRunnerDiff('easy',this)">🟢 EASY</button>
+              <button class="runner-diff-btn on" onclick="setRunnerDiff('normal',this)">⚡ NORMAL</button>
+              <button class="runner-diff-btn" onclick="setRunnerDiff('hard',this)">🔥 HARD</button>
+            </div>
             <button class="btn btn-g btn-lg" onclick="startRunner()">▶ STARTA</button>
           </div>
         </div>
@@ -4157,7 +4200,7 @@ function nav(name) {
     map:     () => { setTimeout(() => { if(!G.mapInit) locateMe(); }, 200); renderNearby(); renderTerritory(); },
     lb:      () => renderLB('money', document.querySelector('#lbTabs .lt')),
     profile: () => { updateHUD(); renderBadges(); renderHistList(); renderSeasonPass(); updateProfileRank(); renderPrestigeBtn(); },
-    games:   () => { initBattle(); renderMissions(); $('gamesXPToday').textContent=`+${gamesXPToday} XP idag`; renderWorldBoss(); renderEventBanner(); },
+    games:   () => { initBattle(); renderMissions(); $('gamesXPToday').textContent=`+${gamesXPToday} XP idag`; renderWorldBoss(); renderEventBanner(); renderFeaturedGame(); },
   };
   if(R[name]) R[name]();
 }
@@ -4244,6 +4287,48 @@ try {
    🎮 GAMES SYSTEM
 ══════════════════════════════════════════ */
 let gamesXPToday = 0;
+const FEAT_GAMES=[
+  {id:'fish',ico:'🎣',name:'KARMA FISHER',bonus:'Hot spot frekvens ×2 idag!'},
+  {id:'battle',ico:'⚔️',name:'BATTLE ARENA',bonus:'XP ×1.5 på battle wins!'},
+  {id:'runner',ico:'🏃',name:'KARMA RUNNER',bonus:'Coins ×2 i runner!'},
+  {id:'katch',ico:'💎',name:'KARMA KATCH',bonus:'KC-chans +50% idag!'},
+  {id:'raid',ico:'💀',name:'BOSS RAID',bonus:'Boss skada ×2!'},
+];
+let _featGame=null;
+function renderFeaturedGame(){
+  const idx=Math.floor(Date.now()/86400000)%FEAT_GAMES.length;
+  const g=FEAT_GAMES[idx]; _featGame=g;
+  const ico=$('featGameIco'); if(ico) ico.textContent=g.ico;
+  const nm=$('featGameName'); if(nm) nm.textContent=g.name;
+  const bn=$('featGameBonus'); if(bn) bn.textContent=g.bonus;
+}
+function openFeatGame(){
+  if(!_featGame) return;
+  nav('games');
+  setTimeout(()=>{
+    const tab=document.querySelector(`.gtab[onclick*="'${_featGame.id}'"]`);
+    if(tab) switchGame(_featGame.id,tab);
+    showT(_featGame.ico+' '+_featGame.bonus,'g');
+  },150);
+}
+let _gameSessionXP={battle:0,runner:0,katch:0,fish:0,raid:0};
+function updateSessionXP(game,xp){
+  if(!xp||xp<=0) return;
+  _gameSessionXP[game]=(_gameSessionXP[game]||0)+xp;
+  gamesXPToday+=xp;
+  const icons={battle:'⚔️',runner:'🏃',katch:'💎',fish:'🎣',raid:'💀'};
+  const el=$('sx-'+game); if(el){el.textContent=(icons[game]||'')+' '+_gameSessionXP[game]+' XP';el.classList.add('active');}
+  const tot=$('sx-total'); if(tot) tot.textContent='🏆 '+gamesXPToday+' TOTAL';
+  const hud=$('gamesXPToday'); if(hud) hud.textContent=`+${gamesXPToday} XP idag`;
+}
+let _runnerDiff='normal';
+function setRunnerDiff(diff,btn){
+  _runnerDiff=diff;
+  document.querySelectorAll('.runner-diff-btn').forEach(b=>b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+}
+let _runnerMilestoneIdx=0;
+const RUNNER_MILESTONES=[50,100,200,500,1000];
 function switchGame(id, el) {
   document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.gtab').forEach(t => t.classList.remove('on'));
@@ -5318,8 +5403,10 @@ function startRunner() {
   RUNNER.pet.em = G.petEmoji || '🐉';
   RUNNER.pet.y = RUNNER.ground - RUNNER.pet.h;
   RUNNER.pet.vy = 0; RUNNER.pet.onGround = true; RUNNER.pet.jumps = 0;
-  RUNNER.obstacles = []; RUNNER.coins = []; RUNNER.particles = [];
-  RUNNER.speed = 4; RUNNER.frame = 0; RUNNER.lastOb = 0;
+  RUNNER.obstacles = []; RUNNER.coins = []; RUNNER.particles = []; RUNNER.items = [];
+  const diffSpeeds={easy:3,normal:4,hard:6};
+  RUNNER.speed = diffSpeeds[_runnerDiff]||4; RUNNER.frame = 0; RUNNER.lastOb = 0;
+  RUNNER.milestonePopups=[]; _runnerMilestoneIdx=0;
   runnerState.running = true; runnerState.score = 0; runnerState.combo = 1;
   // Ghost runners — friends to beat
   RUNNER.ghosts = [
@@ -5518,12 +5605,33 @@ function runnerLoop() {
       updateRunnerHUD();
       runnerState.xpToday += 2;
     }
+    // Milestone check
+    if(_runnerMilestoneIdx<RUNNER_MILESTONES.length&&runnerState.score>=RUNNER_MILESTONES[_runnerMilestoneIdx]){
+      const m=RUNNER_MILESTONES[_runnerMilestoneIdx];
+      RUNNER.milestonePopups.push({text:m+'m!',x:W/2,y:80,life:70,maxLife:70});
+      _runnerMilestoneIdx++;
+      vibe([30,15,40]);
+    }
   }
+  // Draw milestone popups
+  RUNNER.milestonePopups=(RUNNER.milestonePopups||[]).filter(mp=>{
+    mp.life--;mp.y-=.6;
+    const alpha=Math.min(1,mp.life/15)*(mp.life/mp.maxLife);
+    ctx.globalAlpha=alpha;
+    ctx.font='bold 20px Syne,sans-serif';ctx.textAlign='center';
+    ctx.fillStyle='#ffcc00';
+    ctx.shadowBlur=20;ctx.shadowColor='#ffcc00';
+    ctx.fillText('🏆 '+mp.text,mp.x,mp.y);
+    ctx.shadowBlur=0;ctx.globalAlpha=1;
+    return mp.life>0;
+  });
   ctx.fillStyle='rgba(0,255,136,.8)';
   ctx.font='bold 14px Syne, sans-serif'; ctx.textAlign='right';
   ctx.fillText(`${runnerState.score}`, W-12, 24);
   ctx.font='bold 10px sans-serif'; ctx.fillStyle='rgba(255,255,255,.4)';
   ctx.fillText(`x${runnerState.combo} COMBO`, W-12, 40);
+  // Difficulty indicator
+  if(runnerState.score<10){const dc={easy:'🟢 EASY',normal:'⚡ NORMAL',hard:'🔥 HARD'}[_runnerDiff]||'';ctx.font='bold 9px DM Sans,sans-serif';ctx.fillStyle='rgba(255,255,255,.4)';ctx.textAlign='left';ctx.fillText(dc,8,16);}
 }
 function updateRunnerHUD() {
   const s=$('runnerScore'); if(s) s.textContent=runnerState.score;
@@ -5547,8 +5655,9 @@ function runnerDie() {
     localStorage.setItem('k0509_runBest', runnerState.best);
     showFeatToast('🏆 NYTT REKORD: '+runnerState.best+'!');
   }
-  const xp = Math.floor(runnerState.score / 5);
-  if(xp > 0) { gainXP(xp, 'action'); gainCoins(Math.floor(runnerState.score/20)); }
+  const diffMult={easy:.8,normal:1,hard:1.5}[_runnerDiff]||1;
+  const xp = Math.floor(runnerState.score / 5 * diffMult);
+  if(xp > 0) { gainXP(xp, 'action'); gainCoins(Math.floor(runnerState.score/20)); updateSessionXP('runner',xp); }
   SFX.hit();
   progressChallenge('battle', 0);
   vibe([80,30,80]);
@@ -6177,7 +6286,7 @@ function b2Win(){
   const xpW=(25+B2.enemy.lv*4+B2.streak*5)*legMult;
   const coinW=(15+B2.enemy.lv*2)*legMult;
   const kcW=B2.enemy.legendary?15:3;
-  gainXP(xpW,'action'); gainCoins(coinW); gainKC(kcW); gamesXPToday+=xpW;
+  gainXP(xpW,'action'); gainCoins(coinW); gainKC(kcW); gamesXPToday+=xpW; updateSessionXP('battle',xpW);
   if(B2.enemy.legendary){showFeatToast('🏆 LEGENDARY BEATEN! +'+xpW+'XP +'+kcW+'KC!');confetti(120);}
   progressMission&&progressMission('battle'); progressChallenge&&progressChallenge('battle',1);
   const bw=parseInt(localStorage.getItem('k0509_battleWins')||'0')+1; localStorage.setItem('k0509_battleWins',bw); G.battleWins=bw;
@@ -6401,7 +6510,7 @@ function completeFishCatch(caught,quality){
   const kcBadge=kcFinal>0?`<b style="color:var(--pink)"> 💎+${kcFinal}KC</b>`:'';
   const sBadge=fishState.streak>=2?` <b style="color:var(--gold)">🔥${fishState.streak}x</b>`:'';
   $('fishLog').innerHTML=`<span style="color:${rc};font-size:15px;font-weight:900">${caught.em} ${caught.name}</span>${qBadge}${kcBadge}${sBadge}<br><span style="font-size:11px;color:var(--t3)">+${xpFinal} XP · ${coinFinal>0?'+'+coinFinal+' ':''}${caught.size}</span>`;
-  updateFishHUD(); checkAchievements(); SFX.lvl&&SFX.lvl(); pottAction(2);
+  updateSessionXP('fish',xpFinal); updateFishHUD(); checkAchievements(); SFX.lvl&&SFX.lvl(); pottAction(2);
 }
 function updateFishStreakBadge(){
   const b=$('fishStreakBadge'); if(!b) return;
