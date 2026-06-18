@@ -1925,6 +1925,76 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .video-card { scroll-snap-align:start; min-height:100svh; overflow:hidden; }
 
 /* ══════════════════════════════════════
+   ROUND 30 — Level-up, Splashes, Ach
+══════════════════════════════════════ */
+
+/* ── LEVEL-UP SPLASH UPGRADE ── */
+#lvlSplash {
+  background:radial-gradient(ellipse at 50% 30%,rgba(0,255,136,.18) 0%,rgba(0,0,0,.98) 65%) !important;
+}
+#lvlSplash .sp-title {
+  font-size:62px !important; line-height:1; margin-bottom:4px;
+  text-shadow:0 0 40px rgba(0,255,136,.6),0 0 80px rgba(0,255,136,.2);
+}
+.lvl-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:linear-gradient(135deg,var(--green),var(--teal));
+  color:#000; font-family:var(--ff-head); font-size:11px; font-weight:900;
+  padding:5px 16px; border-radius:20px; letter-spacing:2px;
+  margin-bottom:10px;
+  animation:bonusPop .4s .2s cubic-bezier(.34,1.56,.64,1) both;
+}
+.lvl-stars {
+  display:flex; gap:4px; justify-content:center; margin:12px 0;
+  animation:bonusPop .4s .5s cubic-bezier(.34,1.56,.64,1) both;
+}
+.lvl-star {
+  font-size:22px;
+  animation:starSpin 1s ease-in-out infinite;
+}
+.lvl-star:nth-child(2) { animation-delay:.15s; font-size:28px; }
+.lvl-star:nth-child(3) { animation-delay:.3s; }
+@keyframes starSpin {
+  0%,100% { transform:scale(1) rotate(0); }
+  50% { transform:scale(1.3) rotate(20deg); }
+}
+.lvl-next-xp {
+  font-size:12px; color:rgba(255,255,255,.4); margin-top:8px;
+  animation:fadeInUp .4s .8s ease both;
+}
+
+/* ── STREAK SPLASH UPGRADE ── */
+#streakSplash {
+  background:radial-gradient(ellipse at 50% 30%,rgba(255,68,85,.15) 0%,rgba(0,0,0,.97) 65%) !important;
+}
+#streakSplash .sp-title { text-shadow:0 0 30px rgba(255,68,85,.5); }
+
+/* ── ACHIEVEMENT UPGRADE ── */
+.ach-big {
+  position:relative;
+}
+.ach-big::before {
+  content:''; position:absolute; inset:-20px;
+  border-radius:50%;
+  background:conic-gradient(var(--gold) 0%,var(--orange) 25%,var(--gold) 50%,#fff 75%,var(--gold) 100%);
+  z-index:-1; opacity:.15;
+  animation:achRing 3s linear infinite;
+}
+@keyframes achRing { to{transform:rotate(360deg)} }
+#achieveOverlay {
+  background:radial-gradient(ellipse at 50% 30%,rgba(255,204,0,.1) 0%,rgba(0,0,0,.95) 65%) !important;
+}
+
+/* ── REWARD SPLASH UPGRADE ── */
+.sp-r {
+  background:rgba(0,255,136,.06) !important;
+  border:1.5px solid rgba(0,255,136,.2) !important;
+  transition:transform .2s;
+}
+.sp-r:active { transform:scale(.93); }
+.sp-rv { color:var(--green) !important; }
+
+/* ══════════════════════════════════════
    ROUND 29 — Onboarding, Runner, LB
 ══════════════════════════════════════ */
 
@@ -3562,11 +3632,15 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <div class="splash" id="lvlSplash">
-  <div style="font-size:80px;margin-bottom:14px" id="lvlPet">🐉</div>
-  <div style="font-size:12px;color:var(--green);letter-spacing:2px;margin-bottom:5px">LEVEL UP!</div>
+  <div class="lvl-badge">⬆ LEVEL UP!</div>
+  <div style="font-size:90px;margin-bottom:6px;animation:achDrop .6s cubic-bezier(.17,.67,.3,1.3) both" id="lvlPet">🐉</div>
   <div class="sp-title" id="lvlTitle" style="color:var(--green)">LEVEL 2!</div>
   <div class="sp-sub" id="lvlSub">Grattis!</div>
-  <button class="btn btn-g btn-lg" onclick="cSplash('lvlSplash')">🔥 SICK!</button>
+  <div class="lvl-stars">
+    <span class="lvl-star">⭐</span><span class="lvl-star">🌟</span><span class="lvl-star">⭐</span>
+  </div>
+  <div class="lvl-next-xp" id="lvlNextXP">Nästa level: 100 XP</div>
+  <button class="btn btn-g btn-lg ob-btn-glow" style="margin-top:16px" onclick="cSplash('lvlSplash');vibe([30,20,60,20,100])">🔥 SICK!</button>
 </div>
 
 <div class="splash" id="streakSplash">
@@ -3870,6 +3944,7 @@ function triggerLvlUp() {
   $('lvlPet').textContent = s.e;
   $('lvlTitle').textContent = `LEVEL ${G.level}!`;
   $('lvlSub').textContent = `${G.petName} — ${s.s}`;
+  const nxp=$('lvlNextXP'); if(nxp) nxp.textContent=`Nästa level: ${xpN(G.level)} XP`;
   $('lvlSplash').classList.add('show');
   petReact('happy'); addH(`⬆️ Level ${G.level}!`);
   shakeApp();
