@@ -1878,14 +1878,43 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .rnp-next { font-size:8px; color:var(--t3); margin-top:1px; }
 .rnp-stop { width:28px; height:28px; border-radius:8px; background:rgba(255,68,85,.12); border:1px solid rgba(255,68,85,.25); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:12px; flex-shrink:0; }
 /* Circles upgrades */
-.circ-trending { padding:0 14px 4px; }
-.circ-trending-hdr { font-size:10px; font-weight:900; color:var(--t3); text-transform:uppercase; letter-spacing:.8px; margin-bottom:8px; display:flex; align-items:center; justify-content:space-between; }
-.circ-trending-scroll { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
+.circ-trending { margin:0 14px 10px; background:rgba(0,0,0,.45); border:1px solid rgba(255,51,119,.14); border-radius:18px; overflow:hidden; }
+.circ-trending-hdr { background:linear-gradient(135deg,rgba(255,51,119,.1),rgba(170,102,255,.07)); padding:9px 13px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,51,119,.1); font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.8px; }
+.circ-trending-scroll { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding:8px 12px 10px; }
 .circ-trending-scroll::-webkit-scrollbar { display:none; }
-.circ-trend-pill { flex-shrink:0; padding:7px 14px; border-radius:14px; border:1.5px solid rgba(255,255,255,.1); background:var(--s1); font-size:11px; font-weight:800; cursor:pointer; white-space:nowrap; transition:all .12s; }
+.circ-trend-pill { flex-shrink:0; padding:7px 14px; border-radius:14px; border:1.5px solid rgba(255,51,119,.2); background:rgba(255,51,119,.07); font-size:11px; font-weight:800; cursor:pointer; white-space:nowrap; transition:all .12s; color:var(--pink); }
 .circ-trend-pill:active { transform:scale(.93); }
-.circ-live-row { display:flex; align-items:center; gap:6px; padding:4px 14px 8px; font-size:10px; color:var(--t3); font-weight:700; }
-.circ-live-dot { width:6px; height:6px; border-radius:50%; background:var(--green); animation:viewPulse 1.4s infinite; flex-shrink:0; }
+.circ-live-row { display:flex; align-items:center; gap:8px; margin:0 14px 8px; padding:8px 12px; font-size:10px; color:var(--t2); font-weight:700; background:rgba(0,255,136,.04); border:1px solid rgba(0,255,136,.12); border-radius:12px; }
+.circ-live-dot { width:7px; height:7px; border-radius:50%; background:var(--green); animation:viewPulse 1.4s infinite; flex-shrink:0; }
+.circles-hdr { background:linear-gradient(180deg,rgba(255,51,119,.05),transparent); }
+.circles-title { background:linear-gradient(135deg,var(--pink),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; font-size:30px; }
+
+/* ══ LUCKY BOX ROUND 33 ══ */
+#luckyModal .ms { background:radial-gradient(ellipse at 50% 0%,rgba(255,204,0,.14),rgba(0,0,0,.98) 65%); }
+#luckyModal .mt { background:linear-gradient(135deg,rgba(255,204,0,.15),rgba(255,136,0,.1)); justify-content:center; font-family:var(--ff-head); font-size:17px; }
+.lucky-box-wrap { position:relative; display:inline-block; margin:8px 0 4px; }
+.lucky-box-ring { position:absolute; inset:-10px; border-radius:50%; background:conic-gradient(var(--gold),var(--orange),transparent 40%,var(--gold)); animation:spinRing 3s linear infinite; opacity:.55; pointer-events:none; border-radius:50%; width:calc(100% + 20px); height:calc(100% + 20px); }
+@keyframes spinRing { to{transform:rotate(360deg)} }
+.lucky-box-tap { font-size:12px; color:var(--t3); margin-bottom:6px; animation:blink 1.2s ease-in-out infinite; }
+.lucky-rarity-pill { font-size:10px; font-weight:900; letter-spacing:2px; text-transform:uppercase; padding:4px 14px; border-radius:20px; display:inline-block; margin:8px 0 6px; }
+.lucky-reveal { font-size:72px; display:block; text-align:center; animation:revealDrop .5s cubic-bezier(.17,.67,.3,1.3) .1s both; opacity:0; filter:drop-shadow(0 0 30px var(--gold)); }
+.lucky-prize-n { font-size:26px; }
+
+/* ══ DNA MIXER ROUND 33 ══ */
+#dnaModal .mt { background:linear-gradient(135deg,rgba(0,255,136,.14),rgba(255,0,127,.1)); justify-content:flex-start; }
+.dna-lab-bg { background:radial-gradient(ellipse at 50% 0%,rgba(0,255,80,.08),rgba(255,0,127,.06),transparent 70%) !important; }
+.dna-strand-deco { text-align:center; font-size:22px; letter-spacing:6px; margin-bottom:10px; opacity:.65; animation:dnaPulse 2s ease-in-out infinite; }
+@keyframes dnaPulse { 0%,100%{opacity:.5;letter-spacing:6px} 50%{opacity:.9;letter-spacing:10px} }
+.dna-parent { background:rgba(0,0,0,.5); }
+.dna-parent.selected { background:rgba(0,255,136,.07); box-shadow:0 0 20px rgba(0,255,136,.2); }
+.dna-parent-em { font-size:44px; }
+.dna-plus { font-size:32px; animation:dnaPulse 1.8s ease-in-out infinite; }
+.dna-result-wrap { background:rgba(0,0,0,.6); border-width:2px; position:relative; overflow:hidden; }
+.dna-result-wrap::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%,rgba(255,204,0,.12),transparent 70%); pointer-events:none; }
+.dna-result-em { font-size:64px; filter:drop-shadow(0 0 20px var(--gold)); }
+.dna-splice-btn { letter-spacing:1px; box-shadow:0 6px 30px rgba(0,255,136,.35); }
+.dna-splice-btn::after { content:''; position:absolute; top:0; left:-100%; width:60%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent); animation:shimmerBtn 2.2s ease-in-out infinite; }
+@keyframes shimmerBtn { to{left:140%} }
 
 /* ══ FISH FIGHT & UPGRADES ══ */
 #fishFightWrap { display:none; padding:4px 0 6px; }
@@ -3403,15 +3432,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="mt" style="justify-content:center">🎁 LUCKY BOX <div class="mx" onclick="closeModal('luckyModal')">✕</div></div>
     <div style="padding:16px">
       <div id="luckyBoxState">
-        <span class="lucky-box-ico" id="luckyBoxIco" onclick="openLuckyBox()">🎁</span>
-        <div style="font-size:13px;color:var(--t2);text-align:center;margin-bottom:16px">Tryck på lådan för att öppna!</div>
+        <div class="lucky-box-wrap">
+          <div class="lucky-box-ring"></div>
+          <span class="lucky-box-ico" id="luckyBoxIco" onclick="openLuckyBox()">🎁</span>
+        </div>
+        <div class="lucky-box-tap">Tryck på lådan för att öppna!</div>
         <div style="font-size:11px;color:var(--t3);text-align:center" id="luckyBoxCd"></div>
       </div>
       <div id="luckyRevealState" style="display:none">
         <span class="lucky-reveal" id="luckyRevealIco">⭐</span>
         <div class="lucky-prize-n" id="luckyPrizeName">500 COINS!</div>
+        <div class="lucky-rarity-pill" id="luckyRarityPill" style="background:rgba(255,204,0,.15);border:1px solid var(--gold);color:var(--gold)">RARE</div>
         <div class="lucky-prize-d" id="luckyPrizeDesc">Grattis, du vann priset!</div>
-        <button class="btn btn-g btn-full" onclick="closeModal('luckyModal')">🎉 Awesome!</button>
+        <button class="btn btn-g btn-full" onclick="closeModal('luckyModal')" style="margin-top:8px">🎉 Awesome!</button>
       </div>
     </div>
   </div>
@@ -3432,6 +3465,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="mh"></div>
     <div class="mt" style="background:linear-gradient(135deg,rgba(57,255,20,.15),rgba(255,0,127,.1))">🧬 DNA MIXER <span style="font-size:10px;color:var(--neon-pink);font-weight:900;margin-left:6px">UNIQUE</span><div class="mx" onclick="closeModal('dnaModal')">✕</div></div>
     <div class="dna-modal-body dna-lab-bg">
+      <div class="dna-strand-deco">🧬 🔬 🧬 🔬 🧬</div>
       <div style="font-size:11px;color:var(--t2);text-align:center;margin-bottom:12px">Mixa din pet med en väns pet för att skapa en unik hybrid!</div>
       <div class="dna-parents">
         <div class="dna-parent selected" id="dnaParent1" onclick="selectDnaParent(1)">
@@ -8349,10 +8383,18 @@ function openLuckyBox(){
     $('luckyRevealIco').textContent=prize.ico;
     $('luckyPrizeName').textContent=prize.name+'!';
     $('luckyPrizeDesc').textContent=prize.desc;
+    // Rarity pill styling
+    const rarPill=$('luckyRarityPill');
+    if(rarPill){
+      const rc={legendary:'var(--gold)',epic:'var(--purple)',rare:'var(--blue)',uncommon:'var(--green)',common:'var(--t2)'}[prize.rarity||'common']||'var(--t2)';
+      const rarN={legendary:'LEGENDARISK',epic:'EPISK',rare:'SÄLLSYNT',uncommon:'OVANLIG',common:'VANLIG'}[prize.rarity||'common']||prize.rarity;
+      rarPill.textContent=rarN; rarPill.style.borderColor=rc; rarPill.style.color=rc; rarPill.style.background=`rgba(0,0,0,.4)`;
+    }
     if(prize.coins>0) gainCoins(prize.coins);
     if(prize.xp>0) gainXP(prize.xp,'action');
     if(prize.boost==='xp') G_shop.xpBoost=Date.now()+900000;
-    SFX.lvl(); confetti(50); vibe([50,30,80,30,120]);
+    const confAmt=prize.rarity==='legendary'?120:prize.rarity==='epic'?80:40;
+    SFX.lvl(); confetti(confAmt); vibe([50,30,80,30,120]);
     showFeatToast(prize.ico+' '+prize.name+'!');
     pushNotif(prize.ico,'Lucky Box: '+prize.name+' — '+prize.desc);
     checkAchievements();
