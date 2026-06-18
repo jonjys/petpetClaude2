@@ -1925,6 +1925,140 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .video-card { scroll-snap-align:start; min-height:100svh; overflow:hidden; }
 
 /* ══════════════════════════════════════
+   ROUND 27 — Shop, Battle, Leaderboard
+══════════════════════════════════════ */
+
+/* ── SHOP WINDOW HEADER ── */
+.shop-win-hdr {
+  padding:calc(var(--sat)+12px) 16px 0; flex-shrink:0;
+  background:linear-gradient(160deg,rgba(255,204,0,.08),rgba(170,102,255,.06));
+  position:relative; overflow:hidden;
+}
+.shop-win-hdr::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,204,0,.3),transparent);
+}
+.swh-top { display:flex; align-items:center; gap:10px; padding-bottom:14px; }
+.swh-title {
+  font-family:var(--ff-head); font-size:26px; font-weight:900;
+  background:linear-gradient(120deg,var(--gold),var(--orange));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  flex:1;
+}
+.swh-coins {
+  background:rgba(255,204,0,.12); border:1px solid rgba(255,204,0,.3);
+  border-radius:20px; padding:6px 12px;
+  font-size:13px; font-weight:900; color:var(--gold);
+}
+.shop-hot-deal {
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:14px; padding:10px 12px;
+  background:linear-gradient(135deg,rgba(255,68,34,.12),rgba(255,136,68,.08));
+  border:1.5px solid rgba(255,68,34,.35); border-radius:14px;
+  cursor:pointer;
+}
+.shd-badge {
+  font-size:8px; font-weight:900; letter-spacing:1.5px; color:var(--red);
+  text-transform:uppercase; background:rgba(255,68,34,.15); padding:2px 7px;
+  border-radius:6px; margin-bottom:3px;
+}
+.shd-name { font-family:var(--ff-head); font-size:14px; font-weight:900; }
+.shd-desc { font-size:10px; color:var(--t3); }
+.shd-price {
+  font-family:var(--ff-head); font-size:20px; font-weight:900;
+  color:var(--gold); margin-left:auto; flex-shrink:0;
+}
+
+/* ── SHOP THEME CARD UPGRADED ── */
+.shop-theme-card {
+  background:var(--s2); border:2px solid var(--line);
+  border-radius:16px; padding:12px 8px; cursor:pointer;
+  transition:all .18s; position:relative; text-align:center; overflow:hidden;
+}
+.shop-theme-card:active { transform:scale(.94); }
+.shop-theme-card.owned { border-color:rgba(0,255,136,.4); }
+.shop-theme-card.equip { border-color:var(--gold); background:rgba(255,204,0,.06); }
+.stc-swatch {
+  width:100%; height:40px; border-radius:10px; margin-bottom:8px;
+}
+.stc-name { font-size:11px; font-weight:800; margin-bottom:2px; }
+.stc-price { font-size:10px; color:var(--t2); }
+.stc-badge {
+  position:absolute; top:-5px; right:-5px; background:var(--green);
+  color:#000; font-size:8px; font-weight:900; padding:2px 6px; border-radius:8px;
+}
+.stc-badge.eq { background:var(--gold); }
+
+/* ── BATTLE ARENA BG ── */
+.b2-arena-bg {
+  position:absolute; inset:0; pointer-events:none; z-index:0; overflow:hidden;
+}
+.b2-arena-bg::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 50% 30%,rgba(255,51,119,.06) 0%,transparent 70%),
+             radial-gradient(ellipse at 50% 70%,rgba(68,136,255,.06) 0%,transparent 70%);
+}
+.b2-arena-bg::after {
+  content:''; position:absolute;
+  left:50%; top:30%; width:180px; height:180px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(255,0,0,.04),transparent 70%);
+  animation:arenaPulse 2.5s ease-in-out infinite;
+}
+@keyframes arenaPulse {
+  0%,100% { opacity:.5; transform:translate(-50%,-50%) scale(1); }
+  50%      { opacity:1; transform:translate(-50%,-50%) scale(1.3); }
+}
+.battle2-wrap { position:relative; z-index:1; }
+
+/* ── BATTLE FIGHTER ── */
+.b2-em { font-size:52px !important; }
+.b2-vs {
+  font-size:28px !important; letter-spacing:-1px;
+  text-shadow:0 0 20px var(--red), 0 0 40px rgba(255,68,85,.4) !important;
+  animation:vsPulse 1.5s ease-in-out infinite;
+}
+@keyframes vsPulse { 0%,100%{text-shadow:0 0 20px var(--red),0 0 40px rgba(255,68,85,.4)} 50%{text-shadow:0 0 30px var(--red),0 0 60px rgba(255,68,85,.6)} }
+.b2-hp-track { height:10px !important; border-radius:5px !important; }
+.b2-hp-fill { height:100% !important; }
+.b2-log {
+  font-size:15px !important; background:var(--s1) !important;
+  border:1px solid rgba(255,255,255,.07) !important;
+  border-radius:12px !important; padding:10px 14px !important;
+  margin:8px 0 !important;
+}
+.b2-turn-badge {
+  display:inline-block; background:linear-gradient(135deg,var(--green),var(--teal));
+  color:#000; font-size:9px; font-weight:900; padding:3px 10px;
+  border-radius:20px; letter-spacing:.5px;
+  animation:turnBlink .9s ease-in-out infinite;
+}
+@keyframes turnBlink { 0%,100%{opacity:1} 50%{opacity:.6} }
+.b2-enemy-turn-badge {
+  display:inline-block; background:linear-gradient(135deg,var(--red),var(--orange));
+  color:#fff; font-size:9px; font-weight:900; padding:3px 10px;
+  border-radius:20px; letter-spacing:.5px;
+}
+
+/* ── LEADERBOARD PODIUM UPGRADE ── */
+.lb-podium {
+  background:linear-gradient(180deg,rgba(255,204,0,.06),transparent) !important;
+  border-bottom:1px solid rgba(255,204,0,.1);
+}
+.pod-av {
+  transition:transform .2s;
+}
+.pod:first-child .pod-av { transform:scale(1.1); }
+.pod-crown {
+  font-size:18px; margin-bottom:2px; animation:crownBob 2s ease-in-out infinite;
+}
+@keyframes crownBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+.lb-row { transition:background .15s; }
+.lb-rk.gold   { color:var(--gold)!important; text-shadow:0 0 12px rgba(255,204,0,.6); }
+.lb-rk.silver { color:#c0c0c8!important; }
+.lb-rk.bronze { color:#cd7f32!important; }
+
+/* ══════════════════════════════════════
    ROUND 26 — Intro, Nav, Flash, Games
 ══════════════════════════════════════ */
 
@@ -2550,6 +2684,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
       <!-- BATTLE 2.0 -->
       <div class="game-panel active" id="gp-battle" style="position:relative">
+        <div class="b2-arena-bg"></div>
         <div id="b2UltraFlash"><div id="b2UltraTxt">⚡ ULTRA!</div></div>
         <div class="battle2-wrap">
           <!-- Fighters -->
@@ -2882,7 +3017,22 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 <!-- SHOP WINDOW -->
 <div class="fsw" id="shopWin">
-  <div class="fsh"><button class="fbk" onclick="cWin('shopWin')">←</button><div class="ftl">🛒 Shop</div><div style="font-size:12px;color:var(--gold);font-weight:800">💰 <span id="shopCoinLbl">0</span></div></div>
+  <div class="shop-win-hdr">
+    <div class="swh-top">
+      <button class="fbk" onclick="cWin('shopWin')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:var(--t1);font-size:18px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">←</button>
+      <div class="swh-title">🛒 Shop</div>
+      <div class="swh-coins">💰 <span id="shopCoinLbl">0</span></div>
+    </div>
+    <div class="shop-hot-deal" id="shopHotDeal" onclick="switchShopTab('themes',document.querySelector('.stab'))">
+      <div style="font-size:28px" id="shdIco">🔥</div>
+      <div style="flex:1">
+        <div class="shd-badge">🔥 HETT ERBJUDANDE</div>
+        <div class="shd-name" id="shdName">Fire Mode Theme</div>
+        <div class="shd-desc" id="shdDesc">Exklusivt färgschema med eldröd glöd</div>
+      </div>
+      <div class="shd-price" id="shdPrice">500💰</div>
+    </div>
+  </div>
   <div class="shop-tabs">
     <div class="stab on" onclick="switchShopTab('themes',this)">🎨 Teman</div>
     <div class="stab" onclick="switchShopTab('skins',this)">✨ Skins</div>
@@ -2890,10 +3040,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
   <div class="fbd" style="padding:0;overflow-y:auto">
     <div class="shop-panel active" id="sp-themes">
-      <div class="shop-grid" id="shopThemeGrid"></div>
+      <div class="shop-grid" id="shopThemeGrid" style="padding:12px 14px 16px"></div>
     </div>
     <div class="shop-panel" id="sp-skins">
-      <div class="shop-grid" id="shopSkinGrid"></div>
+      <div class="shop-grid" id="shopSkinGrid" style="padding:12px 14px 16px"></div>
     </div>
     <div class="shop-panel" id="sp-boosts">
       <div id="shopBoostList" style="padding:12px 16px"></div>
@@ -4259,15 +4409,16 @@ function renderLB(cat, el) {
   const data = LB_DATA[cat] || LB_DATA.money;
   const top3 = data.slice(0,3);
   $('lbPodium').innerHTML = `<div class="lb-podium">
-    ${top3[1] ? `<div class="pod"><div class="pod-av" style="border-color:#c0c0c8">${top3[1].isYou?gS().e:top3[1].pet||'?'}</div><div class="pod-rk" style="color:#c0c0c8">2</div><div class="pod-nm">${top3[1].isYou?G.name:top3[1].name}</div><div class="pod-vl">${top3[1].val}</div><div class="pod-pl s ph2"></div></div>` : ''}
-    ${top3[0] ? `<div class="pod"><div class="pod-av" style="border-color:var(--gold)">${top3[0].isYou?gS().e:top3[0].pet||'?'}</div><div class="pod-rk" style="color:var(--gold)">1</div><div class="pod-nm">${top3[0].isYou?G.name:top3[0].name}</div><div class="pod-vl" style="color:var(--gold)">${top3[0].val}</div><div class="pod-pl g ph1"></div></div>` : ''}
-    ${top3[2] ? `<div class="pod"><div class="pod-av" style="border-color:#cd7f32">${top3[2].isYou?gS().e:top3[2].pet||'?'}</div><div class="pod-rk" style="color:#cd7f32">3</div><div class="pod-nm">${top3[2].isYou?G.name:top3[2].name}</div><div class="pod-vl">${top3[2].val}</div><div class="pod-pl b ph3"></div></div>` : ''}
+    ${top3[1] ? `<div class="pod"><div class="pod-av" style="border-color:#c0c0c8;box-shadow:0 0 12px rgba(192,192,200,.3)">${top3[1].isYou?gS().e:top3[1].pet||'?'}</div><div class="pod-rk" style="color:#c0c0c8">🥈</div><div class="pod-nm">${top3[1].isYou?G.name:top3[1].name}</div><div class="pod-vl">${top3[1].val}</div><div class="pod-pl s ph2"></div></div>` : ''}
+    ${top3[0] ? `<div class="pod"><div class="pod-crown">👑</div><div class="pod-av" style="border-color:var(--gold);box-shadow:0 0 24px rgba(255,204,0,.5),0 0 48px rgba(255,204,0,.2)">${top3[0].isYou?gS().e:top3[0].pet||'?'}</div><div class="pod-rk" style="color:var(--gold);font-size:26px">🥇</div><div class="pod-nm" style="font-weight:900;color:var(--gold)">${top3[0].isYou?G.name:top3[0].name}</div><div class="pod-vl" style="color:var(--gold)">${top3[0].val}</div><div class="pod-pl g ph1"></div></div>` : ''}
+    ${top3[2] ? `<div class="pod"><div class="pod-av" style="border-color:#cd7f32;box-shadow:0 0 12px rgba(205,127,50,.3)">${top3[2].isYou?gS().e:top3[2].pet||'?'}</div><div class="pod-rk" style="color:#cd7f32">🥉</div><div class="pod-nm">${top3[2].isYou?G.name:top3[2].name}</div><div class="pod-vl">${top3[2].val}</div><div class="pod-pl b ph3"></div></div>` : ''}
   </div>`;
   const trends=[null,'↑3','↑1',null,'↓2',null,'↑5','↓1',null,null];
   $('lbList').innerHTML = data.map((r,i) => {
     const tr=trends[i]; const trCls=tr?(tr[0]==='↑'?'rank-up':'rank-dn'):'rank-eq';
+    const rkCls = i===0?'gold':i===1?'silver':i===2?'bronze':'';
     return `<div class="lb-row ${r.isYou?'you':''}" onclick="showT('${r.isYou?'📊 Du är #'+r.rank:'👤 '+r.name}','g')">
-      <div class="lb-rk">${r.rank}</div>
+      <div class="lb-rk ${rkCls}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':r.rank}</div>
       <div class="lb-av">${r.isYou?gS().e:r.pet||'?'}</div>
       <div style="flex:1"><div class="lb-nm">${r.isYou?G.name:r.name||'?'} ${r.isYou?'<span class="tag tg" style="font-size:9px">DU</span>':''}</div><div class="lb-sb">Trust ${r.trust||42}</div></div>
       <div style="text-align:right"><div class="lb-vl" style="color:${r.isYou?'var(--green)':'var(--t1)'}">${r.isYou?cat==='money'?G.totalSEK+' SEK':cat==='streak'?G.streak+'d 🔥':cat==='xp'?G.exp+' XP':cat==='uppdrag'?G.bountiesDone:cat==='kc'?(G.kc||0)+' 💎':cat==='battle'?G.battleWins+' wins':r.val:r.val}</div><div class="${trCls}">${tr||'−'}</div></div>
@@ -4989,14 +5140,24 @@ function saveOwned(){ localStorage.setItem('k0509_oth',JSON.stringify([...ownedT
 
 function renderShop() {
   const cl=$('shopCoinLbl'); if(cl) cl.textContent=G.coins.toLocaleString();
-  // Themes
+  // Hot deal — pick most expensive unowned theme
+  const hd=$('shopHotDeal');
+  if(hd){
+    const hotTheme=SHOP_THEMES.filter(t=>!ownedThemes.has(t.id)).sort((a,b)=>b.price-a.price)[0]||SHOP_THEMES[SHOP_THEMES.length-1];
+    const shdIco=$('shdIco'); if(shdIco) shdIco.textContent=hotTheme.ico;
+    const shdNm=$('shdName'); if(shdNm) shdNm.textContent=hotTheme.name+' Theme';
+    const shdPr=$('shdPrice'); if(shdPr) shdPr.textContent=(ownedThemes.has(hotTheme.id)?'✓ Ägd':'💰'+hotTheme.price);
+    hd.onclick=()=>shopBuyTheme(hotTheme.id);
+  }
+  // Themes with gradient swatch
   const tg=$('shopThemeGrid'); if(tg) tg.innerHTML=SHOP_THEMES.map(t=>`
-    <div class="shop-item ${ownedThemes.has(t.id)?'owned':''} ${G_shop.theme===t.id?'equip':''}" onclick="shopBuyTheme('${t.id}')">
-      ${G_shop.theme===t.id?'<div class="si-badge eq">ON</div>':''}
-      ${ownedThemes.has(t.id)&&G_shop.theme!==t.id?'<div class="si-badge">✓</div>':''}
-      <div class="si-ico" style="width:44px;height:44px;border-radius:12px;background:${t.col}22;border:2px solid ${t.col};margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:22px">${t.ico}</div>
-      <div class="si-name">${t.name}</div>
-      <div class="si-price">${ownedThemes.has(t.id)?'<span style="color:var(--green)">Ägd</span>':t.price===0?'GRATIS':'💰'+t.price}</div>
+    <div class="shop-theme-card ${ownedThemes.has(t.id)?'owned':''} ${G_shop.theme===t.id?'equip':''}" onclick="shopBuyTheme('${t.id}')">
+      ${G_shop.theme===t.id?'<div class="stc-badge eq">ON</div>':''}
+      ${ownedThemes.has(t.id)&&G_shop.theme!==t.id?'<div class="stc-badge">✓</div>':''}
+      <div class="stc-swatch" style="background:linear-gradient(135deg,${t.col},${t.teal||t.col}88)"></div>
+      <div style="font-size:20px;margin-bottom:4px">${t.ico}</div>
+      <div class="stc-name">${t.name}</div>
+      <div class="stc-price">${ownedThemes.has(t.id)?'<span style="color:var(--green)">✓ Ägd</span>':t.price===0?'<span style="color:var(--green)">GRATIS</span>':'💰 '+t.price}</div>
     </div>`).join('');
   // Skins
   const sg=$('shopSkinGrid'); if(sg) sg.innerHTML=SHOP_SKINS.map(s=>`
