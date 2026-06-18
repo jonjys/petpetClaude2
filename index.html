@@ -5791,6 +5791,10 @@ const B2_ENEMIES=[
   {name:'carlos',em:'🦊',lv:5,hp:80,elem:'electric',atk:12,special:'⚡ Thunderbolt'},
   {name:'Ghost',em:'🐸',lv:12,hp:160,elem:'water',atk:26,special:'💀 Soul Strike'},
   {name:'BOSS_Omega',em:'🐲',lv:20,hp:300,elem:'fire',atk:40,special:'🐲 Dragon Rage'},
+  {name:'Linnea',em:'🐱',lv:8,hp:110,elem:'nature',atk:16,special:'🌱 Nature Burst'},
+  {name:'BOSS_Cyber',em:'🤖',lv:18,hp:260,elem:'electric',atk:35,special:'⚡ Core Meltdown'},
+  {name:'BOSS_Shadow',em:'👁️',lv:25,hp:400,elem:'water',atk:50,special:'👁️ Void Strike',legendary:true},
+  {name:'??UNKNOWN??',em:'❓',lv:30,hp:500,elem:'fire',atk:60,special:'💥 KARMA BREAK',legendary:true},
 ];
 const B2_PET_ELEMS=['fire','water','nature','electric'];
 let B2={
@@ -5803,10 +5807,11 @@ let jrAngle=0,jrSpeed=2.8,jrRunning=false,jrRAF=null;
 let jrZones=[];
 
 function initBattle2(){
-  B2.enemy=B2_ENEMIES[Math.floor(Math.random()*B2_ENEMIES.length)];
+  const eligible=B2_ENEMIES.filter(e=>!e.legendary||(G.level>=15));
+  B2.enemy=eligible[Math.floor(Math.random()*eligible.length)];
   const petElem=B2_PET_ELEMS[Math.floor(Math.random()*B2_PET_ELEMS.length)];
   B2.youElem=petElem;
-  B2.youHP=100+G.level*5; B2.youMaxHP=B2.youHP;
+  B2.youHP=100+G.level*8+(G.actionStat||0)*2; B2.youMaxHP=B2.youHP;
   B2.enemyHP=B2.enemy.hp+B2.enemy.lv*5; B2.enemyMaxHP=B2.enemyHP;
   B2.turn='player'; B2.round=1; B2.streak=0; B2.done=false;
   B2.elemCDs={fire:0,water:0,nature:0,electric:0}; B2.defending=false;
@@ -5816,6 +5821,10 @@ function initBattle2(){
   $('b2EmEnemy').textContent=B2.enemy.em; $('b2NameEnemy').textContent=B2.enemy.name; $('b2LvEnemy').textContent='LV'+B2.enemy.lv;
   $('b2ElemEnemy').textContent=ELEM_NAMES[B2.enemy.elem];
   updateB2HP(); updateB2Status(); updateElemButtons();
+  if(B2.enemy.legendary){
+    const log=$('b2Log');if(log)log.innerHTML='<b style="color:var(--gold);font-size:14px">⚠️ LEGENDARY BOSS! ×3 BELÖNING!</b>';
+    vibe([100,50,100,50,100]);
+  }
   startJudgmentRing();
 }
 function updateB2HP(){
@@ -5994,9 +6003,12 @@ function b2UseElem(elem){
 }
 function b2Win(){
   B2.done=true; jrRunning=false; cancelAnimationFrame(jrRAF);
-  const xpW=25+B2.enemy.lv*4+B2.streak*5;
-  const coinW=15+B2.enemy.lv*2;
-  gainXP(xpW,'action'); gainCoins(coinW); gainKC(3); gamesXPToday+=xpW;
+  const legMult=B2.enemy.legendary?3:1;
+  const xpW=(25+B2.enemy.lv*4+B2.streak*5)*legMult;
+  const coinW=(15+B2.enemy.lv*2)*legMult;
+  const kcW=B2.enemy.legendary?15:3;
+  gainXP(xpW,'action'); gainCoins(coinW); gainKC(kcW); gamesXPToday+=xpW;
+  if(B2.enemy.legendary){showFeatToast('🏆 LEGENDARY BEATEN! +'+xpW+'XP +'+kcW+'KC!');confetti(120);}
   progressMission&&progressMission('battle'); progressChallenge&&progressChallenge('battle',1);
   const bw=parseInt(localStorage.getItem('k0509_battleWins')||'0')+1; localStorage.setItem('k0509_battleWins',bw);
   const log=$('b2Log'); if(log) log.textContent=`🏆 VICTORY! +${xpW} XP +${coinW} 💰 +3 KC`;
