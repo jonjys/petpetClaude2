@@ -1923,9 +1923,133 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 /* ══ VIDEO FEED FIX ══ */
 .video-card { scroll-snap-align:start; min-height:100svh; overflow:hidden; }
+
+/* ══════════════════════════════════════
+   ROUND 26 — Intro, Nav, Flash, Games
+══════════════════════════════════════ */
+
+/* ── INTRO SPLASH ── */
+#introSplash {
+  position:fixed;inset:0;z-index:9999;background:#000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+}
+#introSplash.out { animation:iSplOut .6s cubic-bezier(.4,0,1,1) forwards; pointer-events:none; }
+@keyframes iSplOut { 0%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(1.08)} }
+.ispl-ring {
+  width:96px;height:96px;border-radius:50%;
+  background:linear-gradient(#000,#000) padding-box,
+             conic-gradient(var(--green) 0%,var(--blue) 35%,var(--pink) 70%,var(--green) 100%) border-box;
+  border:3px solid transparent;
+  display:flex;align-items:center;justify-content:center;
+  font-size:46px;animation:iRingSpin 1.8s linear infinite,iPop .65s cubic-bezier(.2,1.5,.4,1) both;
+}
+@keyframes iRingSpin { to{filter:hue-rotate(360deg)} }
+@keyframes iPop { from{opacity:0;transform:scale(.15)} to{opacity:1;transform:scale(1)} }
+.ispl-logo {
+  font-family:var(--ff-head);font-size:42px;font-weight:900;letter-spacing:-2px;margin-top:6px;
+  background:linear-gradient(120deg,var(--green),var(--blue),var(--pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:iFadeUp .5s .35s ease both;
+}
+.ispl-sub {
+  font-size:10px;letter-spacing:4px;color:var(--t3);text-transform:uppercase;
+  animation:iFadeUp .5s .5s ease both;
+}
+.ispl-bar {
+  width:130px;height:2px;border-radius:1px;background:rgba(255,255,255,.08);
+  margin-top:26px;overflow:hidden;animation:iFadeUp .5s .55s ease both;
+}
+.ispl-fill {
+  height:100%;border-radius:1px;width:0%;
+  background:linear-gradient(90deg,var(--green),var(--blue),var(--pink));
+  animation:iLoad 1.35s .65s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes iLoad { to{width:100%} }
+@keyframes iFadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── BNAV SLIDING INDICATOR ── */
+#nbIndicator {
+  position:absolute;bottom:calc(var(--sab)+2px);left:0;
+  width:30px;height:3px;border-radius:2px;
+  background:var(--green);box-shadow:0 0 10px var(--green);
+  transition:left .22s cubic-bezier(.4,0,.2,1),background .2s,box-shadow .2s;
+  pointer-events:none;
+}
+.nb.on .ni { animation:navBounce .3s cubic-bezier(.15,1.5,.4,1); }
+@keyframes navBounce { 50%{transform:scale(1.45) translateY(-3px)} 100%{transform:scale(1.2)} }
+
+/* ── FLASH CARD GRADIENT BACKGROUNDS ── */
+.vc-grad-0{background:linear-gradient(155deg,#08061a,#100a28)!important}
+.vc-grad-1{background:linear-gradient(155deg,#061208,#081a0e)!important}
+.vc-grad-2{background:linear-gradient(155deg,#160608,#200a0e)!important}
+.vc-grad-3{background:linear-gradient(155deg,#06101a,#081422)!important}
+.vc-grad-4{background:linear-gradient(155deg,#12061a,#1a0820)!important}
+
+/* ── FLASH CARD PROGRESS BAR ── */
+.vc-progress {
+  position:absolute;top:0;left:0;right:0;height:3px;z-index:20;
+}
+.vc-prog-fill {
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue));
+  animation:vcProg 8s linear forwards;
+}
+@keyframes vcProg { to{width:100%} }
+
+/* ── FLASH CARD MUSIC STRIP ── */
+.vc-music {
+  display:flex;align-items:center;gap:7px;margin-top:7px;
+  font-size:11px;color:rgba(255,255,255,.75);overflow:hidden;
+}
+.vc-music-disc {
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;
+  background:var(--s2);border:1.5px solid rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+  animation:discSpin 4s linear infinite;
+}
+@keyframes discSpin { to{transform:rotate(360deg)} }
+.vc-music-txt { overflow:hidden;white-space:nowrap;flex:1; }
+.vc-music-scroll { display:inline-block;animation:musicMarquee 9s linear infinite; }
+@keyframes musicMarquee { 0%{transform:translateX(0)} 100%{transform:translateX(-55%)} }
+
+/* ── GAMES HEADER STATS ── */
+.games-hdr-stats {
+  display:flex;gap:6px;padding:0 14px 10px;flex-shrink:0;
+}
+.ghs-chip {
+  flex:1;background:var(--s2);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:8px 4px;text-align:center;
+}
+.ghs-val {
+  font-family:var(--ff-head);font-size:16px;font-weight:900;line-height:1;
+}
+.ghs-lbl {
+  font-size:8px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;
+}
+
+/* ── PET STAGE XP RING ── */
+.pet-stage-xp-ring {
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-48%);
+  width:140px;height:140px;pointer-events:none;z-index:1;
+}
+.psr-bg  { fill:none;stroke:rgba(255,255,255,.05);stroke-width:3.5; }
+.psr-fill {
+  fill:none;stroke:var(--pet-col,var(--green));stroke-width:3.5;stroke-linecap:round;
+  transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);
+  filter:drop-shadow(0 0 5px var(--pet-col,var(--green)));
+}
 </style>
 </head>
 <body>
+
+<!-- ════ INTRO SPLASH ════ -->
+<div id="introSplash" style="display:none">
+  <div class="ispl-ring">K</div>
+  <div class="ispl-logo">KARMA</div>
+  <div class="ispl-sub">Level Up Your Life</div>
+  <div class="ispl-bar"><div class="ispl-fill"></div></div>
+</div>
 
 <!-- ════ ONBOARDING ════ -->
 <div class="ob" id="ob">
@@ -2033,6 +2157,12 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="pet-main-wrap">
           <div class="pet-aura"></div>
           <div style="position:relative;display:inline-block">
+            <svg class="pet-stage-xp-ring" viewBox="0 0 140 140" id="petXpRingSvg">
+              <circle class="psr-bg"   cx="70" cy="70" r="62"/>
+              <circle class="psr-fill" id="petXpRingFill" cx="70" cy="70" r="62"
+                stroke-dasharray="389.6" stroke-dashoffset="389.6"
+                transform="rotate(-90 70 70)"/>
+            </svg>
             <div class="pet-accessory-hat" id="petHat"></div>
             <div class="pet-emoji-big" id="petEmojiBig" onclick="petTap()">🐉</div>
             <div class="pet-gear-badge" id="petGearBadge"></div>
@@ -2364,6 +2494,13 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="games-hdr">
         <div class="games-title">🎮 Games</div>
         <div style="font-size:11px;color:var(--blue);font-weight:700" id="gamesXPToday">+0 XP idag</div>
+      </div>
+      <!-- Games quick stats -->
+      <div class="games-hdr-stats" id="gamesHdrStats">
+        <div class="ghs-chip"><div class="ghs-val" id="ghsBattles" style="color:var(--red)">0</div><div class="ghs-lbl">⚔️ Battles</div></div>
+        <div class="ghs-chip"><div class="ghs-val" id="ghsRunner" style="color:var(--green)">0m</div><div class="ghs-lbl">🏃 Runner</div></div>
+        <div class="ghs-chip"><div class="ghs-val" id="ghsFish" style="color:var(--blue)">0</div><div class="ghs-lbl">🎣 Fish</div></div>
+        <div class="ghs-chip"><div class="ghs-val" id="ghsKC" style="color:var(--teal)">0</div><div class="ghs-lbl">💎 KC</div></div>
       </div>
       <!-- Featured Game of the Day -->
       <div class="feat-game-card" id="featGameCard" onclick="openFeatGame()">
@@ -2730,6 +2867,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
   <!-- BOTTOM NAV -->
   <div class="bnav">
+    <div id="nbIndicator"></div>
     <button class="nb on" data-v="pet"><div class="ni">🐾</div><div class="nl">Pet</div></button>
     <button class="nb" data-v="flash"><div class="ni">⚡</div><div class="nl">Flash</div></button>
     <button class="nb-center" id="createBtn" onclick="openModal('flashModal')">
@@ -3751,9 +3889,12 @@ function renderFlashFeed() {
     const views = p.views || (1400 + ci*389 + p.likes*29);
     const viewStr = views>=1000 ? (views/1000).toFixed(1)+'k' : views;
     const followed = G.followedUsers && G.followedUsers.has(p.user);
+    const gradClass = `vc-grad-${ci % 5}`;
+    const music = FLASH_MUSIC[ci % FLASH_MUSIC.length];
     return `
     <div class="video-card" id="vc${p.id}">
-      <div class="vc-media" ondblclick="doubleTapLike(event,'${p.id}',this)" style="cursor:pointer">
+      <div class="vc-media ${gradClass}" ondblclick="doubleTapLike(event,'${p.id}',this)" style="cursor:pointer">
+        <div class="vc-progress"><div class="vc-prog-fill"></div></div>
         <div class="vc-bg-emoji">${p.pet}</div>
         <div class="vc-overlay"></div>
         <div class="vc-actions">
@@ -3790,6 +3931,10 @@ function renderFlashFeed() {
             ${p.live?`<span class="live-stamp"><div class="ldot"></div>LIVE</span>`:''}
             ${p.streak>=7?`<span class="streak-chip">🔥 ${p.streak}d</span>`:''}
             <span class="xp-chip">${p.xp}</span>
+          </div>
+          <div class="vc-music">
+            <div class="vc-music-disc">🎵</div>
+            <div class="vc-music-txt"><span class="vc-music-scroll">${music} &nbsp;&nbsp;&nbsp; ${music}</span></div>
           </div>
           <div class="vc-live-row">
             ${p.live?`<div class="live-dot"></div>`:''}
@@ -4365,6 +4510,7 @@ try {
     G.bio = localStorage.getItem('k0509_bio') || '';
     $('mgRec').textContent = G.mgRecord;
     $('ob').style.display = 'none';
+    initIntroSplash();
     $('app').style.display = 'flex';
     updateHUD(); nav('pet'); initParticles();
     loadMissions(); renderStories(); renderSeasonPass();
@@ -7937,6 +8083,89 @@ initEvents();
 if(G.name) renderPrestigeBtn();
 
 setInterval(save, 8000);
+
+/* ══════════════════════════════════════
+   ROUND 26 — Intro, Nav Indicator,
+   Flash cinematic, Games stats, XP ring
+══════════════════════════════════════ */
+
+/* ── INTRO SPLASH ── */
+function initIntroSplash() {
+  const sp = $('introSplash');
+  if(!sp) return;
+  sp.style.display = 'flex';
+  setTimeout(() => {
+    sp.classList.add('out');
+    setTimeout(() => { sp.style.display = 'none'; }, 600);
+  }, 2100);
+}
+
+/* ── NAV INDICATOR ── */
+function updateNbIndicator(viewName) {
+  const ind = $('nbIndicator');
+  if(!ind) return;
+  const btn = document.querySelector(`.nb[data-v="${viewName}"]`);
+  if(!btn) { ind.style.opacity='0'; return; }
+  const bnav = btn.closest('.bnav');
+  if(!bnav) return;
+  const br = bnav.getBoundingClientRect();
+  const bb = btn.getBoundingClientRect();
+  const cx = bb.left - br.left + bb.width / 2;
+  ind.style.left = (cx - 15) + 'px';
+  ind.style.opacity = '1';
+  // Color per tab
+  const cols = {pet:'var(--green)',flash:'var(--pink)',games:'var(--blue)',profile:'var(--purple)'};
+  const col = cols[viewName] || 'var(--green)';
+  ind.style.background = col;
+  ind.style.boxShadow = `0 0 10px ${col}`;
+}
+
+/* ── PET XP RING ── */
+function updatePetXPRing() {
+  const ring = $('petXpRingFill');
+  if(!ring) return;
+  const circumference = 389.6;
+  const need = xpN(G.level);
+  const pct = Math.min(1, G.exp / need);
+  ring.style.strokeDashoffset = (circumference * (1 - pct)).toFixed(1);
+}
+
+/* ── GAMES HEADER STATS ── */
+function renderGamesHdrStats() {
+  const b = $('ghsBattles'); if(b) b.textContent = G.battleWins || 0;
+  const r = $('ghsRunner');  if(r) r.textContent = (typeof runnerState !== 'undefined' ? runnerState.best : 0) + 'm';
+  const f = $('ghsFish');    if(f) f.textContent = typeof fishState !== 'undefined' ? (fishState.count || 0) : 0;
+  const k = $('ghsKC');      if(k) k.textContent = G.kc || 0;
+}
+
+/* ── FLASH MUSIC TRACKS ── */
+const FLASH_MUSIC = [
+  '🎵 KARMA — Theme Song · Original · 2026',
+  '🎵 ella_sthlm · Lo-Fi Beats · KARMA Mix',
+  '🎵 STHLM NIGHTS — maxruns remix',
+  '🎵 Urban Flash Vol.3 · Daily Grind',
+  '🎵 Karma Radio · Late Night Session',
+  '🎵 carlos_leo · Street Vibes · Original',
+  '🎵 Level Up OST · KARMA Games Soundtrack',
+  '🎵 sagas_world · Thrift Day · Acoustic',
+];
+
+/* Hook updatePetXPRing into updatePet */
+const _origUpdatePet = updatePet;
+updatePet = function() {
+  _origUpdatePet();
+  updatePetXPRing();
+};
+
+/* Hook renderGamesHdrStats into games nav */
+const _origNav = nav;
+nav = function(name) {
+  _origNav(name);
+  updateNbIndicator(name);
+  if(name === 'games') renderGamesHdrStats();
+};
+/* Update indicator and XP ring on init */
+setTimeout(() => { updateNbIndicator('pet'); updatePetXPRing(); }, 120);
 </script>
 
 <!-- FLOATING PET COMPANION -->
