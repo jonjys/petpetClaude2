@@ -2214,6 +2214,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         </div>
         <div class="gps-bar">
           <div class="gps-st"><div class="gps-dot searching" id="gpsDot"></div><span id="gpsText">Tryck ◎ för GPS</span></div>
+          <button class="btn btn-g btn-sm" id="checkInBtn" onclick="doCheckIn()" style="font-size:10px;padding:5px 10px">📍 CHECK-IN</button>
           <span class="tag tg" id="shareChip">PRIVAT</span>
         </div>
         <div class="terr-strip" id="terrStrip"></div>
@@ -3327,7 +3328,14 @@ function updatePet() {
   const _isHat=_hatItems.includes(_eq);
   const _hat=$('petHat');if(_hat) _hat.textContent=_isHat?_eq:'';
   $('petGearBadge').textContent=_isHat?'':_eq;
-  $('petStageName').textContent = s.s;
+  // Mood glow on pet
+  const _petEl=$('petEmojiBig');
+  if(_petEl){
+    const _glow=G.mood>85?'0 0 40px rgba(0,255,136,.8)':G.mood>50?'0 0 20px rgba(0,255,136,.35)':G.hunger<20?'0 0 20px rgba(255,100,0,.5)':'none';
+    _petEl.style.filter=`drop-shadow(${_glow})`;
+  }
+  const _mood=G.hunger<20?'😵 HUNGRIG!':G.energy<15?'😴 TRÖTT':G.mood>85?'🤩 EUFORISK':G.mood>65?'😊 Glad':G.mood>40?'😐 Neutral':'😔 Ledsen';
+  $('petStageName').textContent = _mood;
   $('petNameBig').textContent = G.petName;
   const ne = gNE();
   $('petEvol').textContent = ne ? `NEXT EVOL: LV${ne}` : 'MAX EVOLUTION ⚡';
@@ -3905,6 +3913,7 @@ function initMap(lat, lon) {
   if(G.mapInit) return; G.mapInit = true;
   const m = L.map('realMap', {zoomControl:false, attributionControl:false}).setView([lat,lon], 15);
   G.lMap = m;
+  window._mapInstance = m;
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19}).addTo(m);
   // You marker
   const yIco = L.divIcon({
@@ -3932,6 +3941,18 @@ function initMap(lat, lon) {
       className:'', iconAnchor:[18,18]
     });
     L.marker([f.lat,f.lon], {icon:ico}).addTo(m).bindPopup(`<b>${f.nm}</b>`);
+  });
+  // Flash post pins — recent activity
+  FLASH_DATA.forEach((p,i)=>{
+    const fLat=lat+(Math.random()-.5)*.012;
+    const fLon=lon+(Math.random()-.5)*.018;
+    const ico=L.divIcon({
+      html:`<div style="background:rgba(255,0,127,.15);border:2px solid #FF007F;border-radius:8px;padding:3px 5px;font-size:14px;white-space:nowrap;display:flex;align-items:center;gap:3px;box-shadow:0 2px 8px rgba(0,0,0,.5)">
+        ${p.pet}<span style="font-size:8px;color:#fff;font-weight:900">⚡</span>
+      </div>`,
+      className:'', iconAnchor:[18,16]
+    });
+    L.marker([fLat,fLon],{icon:ico}).addTo(m).bindPopup(`<b>@${p.user}</b><br>${p.cap.substring(0,50)}`);
   });
   renderNearby(lat, lon);
 }
@@ -4898,6 +4919,37 @@ function claimTerritory(id) {
   t.owner=G.name; gainXP(25,'action'); gainCoins(t.owner?0:20);
   SFX.coin(); confetti(30); vibe([30,20,50]);
   renderTerritory(); checkAchievements();
+}
+
+/* ══════════════════════════════════════════
+   📍 IRL CHECK-IN
+══════════════════════════════════════════ */
+function doCheckIn(){
+  const now=Date.now();
+  const lastCI=parseInt(localStorage.getItem('k0509_lastCI')||'0');
+  if(now-lastCI<3600000){
+    const left=Math.ceil((3600000-(now-lastCI))/60000);
+    showT(`⏰ Check-in om ${left} min!`,'y'); return;
+  }
+  if(!G.userLat){showT('📍 Aktivera GPS först!','r');return;}
+  localStorage.setItem('k0509_lastCI',String(now));
+  const xpReward=50+G.streak*5;
+  const kcReward=Math.floor(Math.random()*3)+1;
+  gainXP(xpReward,'social'); gainKC(kcReward);
+  confetti(50); vibe([50,20,80,20,100]);
+  pottAction(3);
+  showFeatToast(`📍 CHECK-IN! +${xpReward}XP +${kcReward}KC!`);
+  pushNotif('📍',`Check-in → +${xpReward} XP · +${kcReward} KC earned!`);
+  // Add a flash map pin near user location
+  if(window._mapInstance){
+    try{
+      const em=gS().e||'🐉';
+      const pin=L.divIcon({html:`<div style="font-size:20px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))">${em}</div>`,className:'',iconSize:[28,28]});
+      L.marker([G.userLat,G.userLon],{icon:pin}).addTo(window._mapInstance)
+        .bindPopup(`<b>${G.name}</b> checked in!`).openPopup();
+    }catch(e){}
+  }
+  updateKCHUD(); updateHUD();
 }
 
 /* ══════════════════════════════════════════
