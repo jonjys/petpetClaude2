@@ -4093,6 +4093,7 @@ try {
     G.mood          = parseInt(localStorage.getItem('k0509_mo')  || '90');
     try { G.circles = JSON.parse(localStorage.getItem('k0509_circles')||'[]'); } catch(e) { G.circles=[]; }
     G.mgRecord = parseInt(localStorage.getItem('k0509_mr') || '0');
+    G.battleWins = parseInt(localStorage.getItem('k0509_battleWins') || '0');
     $('mgRec').textContent = G.mgRecord;
     $('ob').style.display = 'none';
     $('app').style.display = 'flex';
@@ -6010,8 +6011,8 @@ function b2Win(){
   gainXP(xpW,'action'); gainCoins(coinW); gainKC(kcW); gamesXPToday+=xpW;
   if(B2.enemy.legendary){showFeatToast('🏆 LEGENDARY BEATEN! +'+xpW+'XP +'+kcW+'KC!');confetti(120);}
   progressMission&&progressMission('battle'); progressChallenge&&progressChallenge('battle',1);
-  const bw=parseInt(localStorage.getItem('k0509_battleWins')||'0')+1; localStorage.setItem('k0509_battleWins',bw);
-  const log=$('b2Log'); if(log) log.textContent=`🏆 VICTORY! +${xpW} XP +${coinW} 💰 +3 KC`;
+  const bw=parseInt(localStorage.getItem('k0509_battleWins')||'0')+1; localStorage.setItem('k0509_battleWins',bw); G.battleWins=bw;
+  const log=$('b2Log'); if(log) log.textContent=`🏆 VICTORY! +${xpW} XP +${coinW} 💰 +${kcW} KC`;
   confetti(60); SFX.lvl&&SFX.lvl(); vibe([50,30,100,30,150]);
   pushNotif('⚔️',`<b>Battle vunnen!</b> +${xpW} XP vs ${B2.enemy.name}`);
   checkAchievements(); pottAction(3);
