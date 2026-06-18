@@ -1770,11 +1770,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 @keyframes liveBlink { 0%,100%{opacity:1;} 50%{opacity:.5;} }
 /* ══ KARMA KATCH ══ */
 #katchCanvas { width:100%; height:300px; display:block; border-radius:14px; background:linear-gradient(180deg,#000818,#000); }
-.katch-hud { display:flex; justify-content:space-between; padding:8px 14px 4px; }
-.katch-sv { font-family:var(--ff-head); font-size:22px; font-weight:900; color:var(--green); }
-.katch-sl { font-size:9px; color:var(--t3); font-weight:700; }
-.katch-wrap { position:relative; }
-.katch-overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(0,0,0,.7); border-radius:14px; z-index:5; }
+.katch-hud { display:flex; justify-content:space-between; padding:10px 14px 6px; background:linear-gradient(180deg,rgba(0,4,22,.96),rgba(0,2,14,.8)); border-radius:16px; border:1px solid rgba(0,220,204,.1); margin-bottom:6px; }
+.katch-sv { font-family:var(--ff-head); font-size:22px; font-weight:900; color:var(--teal); }
+.katch-sl { font-size:9px; color:var(--t3); font-weight:700; margin-top:1px; }
+.katch-wrap { position:relative; border-radius:16px; overflow:hidden; }
+.katch-wrap::after { content:''; position:absolute; inset:0; border:1.5px solid rgba(0,220,204,.2); border-radius:16px; pointer-events:none; z-index:6; }
+.katch-overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:linear-gradient(180deg,rgba(0,4,22,.88),rgba(0,0,0,.82)); backdrop-filter:blur(6px); border-radius:16px; z-index:5; }
+/* KATCH overlay inner content */
+.katch-overlay-em { font-size:64px; animation:achDrop .5s cubic-bezier(.34,1.56,.64,1); filter:drop-shadow(0 0 20px var(--teal)); }
+.katch-overlay-title { font-family:var(--ff-head); font-size:22px; font-weight:900; background:linear-gradient(135deg,var(--teal),var(--blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin:8px 0 4px; }
+.katch-overlay-sub { font-size:11px; color:rgba(255,255,255,.5); text-align:center; margin-bottom:16px; }
 /* ══ RUNNER POWERUPS ══ */
 .runner-pup-hud { display:flex; gap:5px; padding:2px 14px 5px; min-height:22px; }
 .pup-chip { font-size:9px; font-weight:900; padding:2px 7px; border-radius:8px; animation:pupGlow .5s ease-in-out infinite alternate; }
@@ -2011,6 +2016,13 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .theme-chip.on { border-color:var(--pet-col,var(--green)); color:var(--pet-col,var(--green)); background:rgba(0,255,136,.08); box-shadow:0 0 12px rgba(0,255,136,.2); }
 /* Room theme section header */
 .sh-t { letter-spacing:1px !important; }
+
+/* ══ ROUND 38 — KATCH, Spin, KC Shop ══ */
+#kcShopModal .ms { background:radial-gradient(ellipse at 50% 0%,rgba(170,102,255,.1),rgba(0,0,0,.98) 60%); }
+#kcShopModal .mt { background:linear-gradient(135deg,rgba(170,102,255,.15),rgba(0,102,255,.08)); font-family:var(--ff-head); font-size:17px; }
+.spin-won { font-size:26px; text-shadow:0 0 20px var(--green); }
+.spin-outer { filter:drop-shadow(0 0 20px rgba(0,255,136,.2)); }
+.katch-stat { text-align:center; }
 
 /* ══ FISH FIGHT & UPGRADES ══ */
 #fishFightWrap { display:none; padding:4px 0 6px; }
@@ -3335,10 +3347,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="katch-wrap">
           <canvas id="katchCanvas" width="400" height="300" onclick="katchTap(event)"></canvas>
           <div class="katch-overlay" id="katchOverlay">
-            <div style="font-size:48px;margin-bottom:8px">💎</div>
-            <div style="font-family:var(--ff-head);font-size:22px;font-weight:900;color:var(--green);margin-bottom:6px">KARMA KATCH</div>
-            <div style="font-size:12px;color:var(--t2);margin-bottom:20px">Fånga 💎KC · Undvik 💀 · Håll i baskets!</div>
-            <button class="btn btn-g btn-lg" onclick="startKatch()">▶ STARTA</button>
+            <div class="katch-overlay-em">💎</div>
+            <div class="katch-overlay-title">KARMA KATCH</div>
+            <div class="katch-overlay-sub">Fånga 💎KC · Undvik 💀 · Svep korgen!</div>
+            <button class="btn btn-lg ob-btn-glow" style="background:linear-gradient(135deg,var(--teal),var(--blue));color:#000;font-family:var(--ff-head);font-weight:900" onclick="startKatch()">▶ STARTA</button>
           </div>
         </div>
         <div style="font-size:11px;color:var(--t2);text-align:center;padding:6px 0" id="katchLog">Svep korgen för att fånga!</div>
@@ -3666,9 +3678,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 <!-- SPIN WHEEL -->
 <div class="modal" id="spinModal">
-  <div class="ms" style="text-align:center">
+  <div class="ms" id="spinModalSheet" style="text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(0,255,136,.1),rgba(0,0,0,.98) 65%)">
     <div class="mh"></div>
-    <div class="mt" style="justify-content:center">🎰 Daglig Spin <div class="mx" onclick="closeModal('spinModal')">✕</div></div>
+    <div class="mt" style="justify-content:center;background:linear-gradient(135deg,rgba(0,255,136,.12),rgba(68,136,255,.08));font-family:var(--ff-head);font-size:17px">🎰 Daglig Spin <div class="mx" onclick="closeModal('spinModal')">✕</div></div>
     <div class="spin-wrap" id="spinWrap">
       <div class="spin-outer">
         <div class="spin-pointer">▼</div>
