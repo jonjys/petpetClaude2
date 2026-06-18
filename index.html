@@ -1604,6 +1604,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .pott-bar-fill { height:100%; background:linear-gradient(90deg,var(--gold),var(--orange)); border-radius:2px; transition:width .5s; }
 .pott-claim-btn { width:100%; padding:10px; background:linear-gradient(135deg,var(--gold),var(--orange)); color:#000; font-family:var(--ff-head); font-size:13px; font-weight:900; border-radius:12px; border:none; cursor:pointer; transition:all .2s; }
 .pott-claim-btn:disabled { opacity:.3; cursor:not-allowed; }
+@keyframes pottGlow { from{opacity:.03;} to{opacity:.12;} }
 .pott-winner-row { font-size:11px; color:var(--t2); padding:4px 0; border-top:1px solid var(--line); margin-top:8px; }
 .pott-jackpot-badge { position:absolute; top:10px; right:10px; background:linear-gradient(135deg,var(--gold),var(--orange)); color:#000; font-size:9px; font-weight:900; padding:2px 8px; border-radius:10px; }
 
@@ -3277,7 +3278,8 @@ function updateHUD() {
   $('ddName').textContent = G.name || '–';
   $('ddSub').textContent = `Level ${G.level} · 🔥${G.streak}d`;
   $('profAvaEm').textContent = s.e;
-  $('profName').textContent = G.name;
+  const _isPrem = G.level>=10 || G.trustScore>=70;
+  $('profName').innerHTML = G.name + (_isPrem ? ' <span class="prem-badge">⭐ PREMIUM</span>' : '');
   $('profHandle').textContent = `@${(G.name||'').toLowerCase().replace(/\s+/g,'_')}`;
   $('pnFlash').textContent = G.postCount;
   $('pnUp').textContent = G.bountiesDone;
@@ -4947,36 +4949,77 @@ const PAST_WINNERS = [
 
 function renderPottModal() {
   const now = Date.now();
+  const totalPot = POTT_TIERS.reduce((s,t)=>s+(_pottState[t.id].amount||t.base),0);
+  const players = 847 + Math.floor(_pottState.actions * 12 + G.level * 23);
   const html = POTT_TIERS.map(t => {
     const s = _pottState[t.id];
     const tickets = getPottTickets(t);
+    const kcTickets = (_pottState['kc_'+t.id]||0);
     const pct = Math.min(100, (_pottState.actions / t.actMin) * 100);
     const timeLeft = Math.max(0, s.nextDraw - now);
     const h = Math.floor(timeLeft/3600000);
     const m = Math.floor((timeLeft%3600000)/60000);
-    const cdStr = timeLeft<=0 ? '🟢 DRAS NU!' : `${h}h ${m}m kvar`;
+    const ss = Math.floor((timeLeft%60000)/1000);
+    const cdStr = timeLeft<=0 ? '🟢 DRAS NU!' : `${h}h ${m}m ${ss}s`;
     const won = timeLeft <= 0 && !s.claimed;
     const winner = PAST_WINNERS[Math.floor(Math.random()*PAST_WINNERS.length)];
-    return `<div class="pott-tier ${t.premium?'hot':''}">
+    const growRate = t.id==='h'?'+3 kr/min':t.id==='d'?'+28 kr/min':t.id==='w'?'+180 kr/min':'+2 000 kr/dag';
+    return `<div class="pott-tier ${t.premium?'hot':''}" style="${won?'border-color:var(--green);background:rgba(0,255,136,.06)':''}">
       ${t.premium?'<div class="pott-jackpot-badge">PREMIUM</div>':''}
+      ${won?'<div style="position:absolute;inset:0;border-radius:16px;animation:pottGlow 1s ease-in-out infinite alternate;pointer-events:none;background:rgba(0,255,136,.03)"></div>':''}
       <div class="pott-tier-hdr">
         <div class="pott-tier-name">${t.name}</div>
-        <div class="pott-tier-amt">${s.amount.toLocaleString('sv-SE')} kr</div>
+        <div>
+          <div class="pott-tier-amt" id="pottAmt_${t.id}">${s.amount.toLocaleString('sv-SE')} kr</div>
+          <div style="font-size:8px;color:var(--green);font-weight:800;text-align:right">${growRate}</div>
+        </div>
       </div>
-      <div class="pott-cd">${cdStr}</div>
-      <div class="pott-tickets">🎟️ ${tickets} lotter • ${t.desc}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <div class="pott-cd" id="pottCd_${t.id}">${cdStr}</div>
+        <div style="font-size:9px;color:var(--t3)">👥 ${Math.floor(players*(t.id==='h'?.3:t.id==='d'?.5:t.id==='w'?.8:1))} deltar</div>
+      </div>
+      <div class="pott-tickets">🎟️ ${tickets+kcTickets} lotter${kcTickets>0?` (inkl. ${kcTickets} KC-lotter)`:''} • ${t.desc}</div>
       <div class="pott-bar"><div class="pott-bar-fill" style="width:${pct}%"></div></div>
-      <button class="pott-claim-btn" ${won&&!t.premium?'':'disabled'} onclick="claimPott('${t.id}')">
-        ${won&&!t.premium?'🎉 HÄMTA VINSTEN!':t.premium?'⭐ Kräver Premium':'⏳ Väntar på dragning...'}
-      </button>
-      <div class="pott-winner-row">🏆 Senaste vinnare: <b>${winner.name}</b> vann <b>${winner.prize}</b> ${winner.when}</div>
+      <div style="display:flex;gap:6px;margin-bottom:6px">
+        <button class="pott-claim-btn" style="flex:1" ${won&&!t.premium?'':'disabled'} onclick="claimPott('${t.id}')">
+          ${won&&!t.premium?'🎉 HÄMTA VINSTEN!':t.premium?'⭐ Kräver Premium':'⏳ Väntar...'}
+        </button>
+        ${!t.premium?`<button class="pott-claim-btn" style="flex:0 0 auto;padding:10px 10px;background:linear-gradient(135deg,var(--purple),var(--blue));font-size:10px" onclick="pottBoostKC('${t.id}')">💎+5 lotter (5KC)</button>`:''}
+      </div>
+      <div class="pott-winner-row">🏆 Senaste: <b>${winner.name}</b> vann <b>${winner.prize}</b> · ${winner.when}</div>
     </div>`;
   }).join('');
-  const info = `<div style="background:var(--s2);border-radius:12px;padding:12px;margin-bottom:12px;font-size:11px;color:var(--t2);line-height:1.6">
-    <b style="color:var(--gold)">💡 Hur fungerar det?</b><br>
-    Varje Premium-prenumeration bidrar till potten. 15% av alla intäkter delas ut dagligen, veckovis och månadsvis till aktiva spelare. Ju mer du gör i appen, desto fler lotter får du!
+  const info = `
+  <div style="background:linear-gradient(135deg,rgba(255,204,0,.1),rgba(255,136,0,.06));border:1px solid rgba(255,204,0,.3);border-radius:14px;padding:14px;margin-bottom:12px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+      <div style="font-size:10px;font-weight:900;color:var(--gold);letter-spacing:1px">TOTAL JACKPOT POOL</div>
+      <div style="font-size:9px;color:var(--t3)">👥 ${players.toLocaleString()} aktiva spelare</div>
+    </div>
+    <div style="font-family:var(--ff-head);font-size:32px;font-weight:900;color:var(--gold);text-shadow:0 0 20px rgba(255,204,0,.4)">
+      ${totalPot.toLocaleString('sv-SE')} kr
+    </div>
+    <div style="font-size:9px;color:var(--t2);margin-top:6px">🎟️ Dina lotter: ${Math.max(1,POTT_TIERS.reduce((a,t)=>a+getPottTickets(t),0))} st · Dina KC: 💎${G.kc||0}</div>
   </div>`;
   $('pottInner').innerHTML = info + html;
+  // Live countdown updates
+  clearInterval(_pottCdInterval);
+  _pottCdInterval = setInterval(()=>{
+    const n=Date.now();
+    POTT_TIERS.forEach(ti=>{
+      const el=$('pottCd_'+ti.id); if(!el) return;
+      const tl=Math.max(0,_pottState[ti.id].nextDraw-n);
+      const hh=Math.floor(tl/3600000),mm=Math.floor((tl%3600000)/60000),ss=Math.floor((tl%60000)/1000);
+      el.textContent=tl<=0?'🟢 DRAS NU!':hh+'h '+mm+'m '+ss+'s';
+    });
+  },1000);
+}
+let _pottCdInterval=null;
+function pottBoostKC(tierId){
+  if((G.kc||0)<5){showT('Behöver 5 KC!','r');return;}
+  G.kc-=5; _pottState['kc_'+tierId]=(_pottState['kc_'+tierId]||0)+5;
+  savePott(); save(); updateKCHUD();
+  showT('💎 +5 extra lotter tillagda!','g'); vibe([30,15,50]);
+  renderPottModal();
 }
 
 function claimPott(tierId) {
@@ -5043,6 +5086,11 @@ function startRunner() {
   RUNNER.obstacles = []; RUNNER.coins = []; RUNNER.particles = [];
   RUNNER.speed = 4; RUNNER.frame = 0; RUNNER.lastOb = 0;
   runnerState.running = true; runnerState.score = 0; runnerState.combo = 1;
+  // Ghost runners — friends to beat
+  RUNNER.ghosts = [
+    {name:'ella',em:'🐉',targetScore:parseInt(localStorage.getItem('k0509_ghost_ella')||String(80+Math.floor(Math.random()*120))),y:RUNNER.ground-32,opacity:0},
+    {name:'max',em:'🐺',targetScore:parseInt(localStorage.getItem('k0509_ghost_max')||String(60+Math.floor(Math.random()*100))),y:RUNNER.ground-32,opacity:0},
+  ];
   $('runnerOverlay').style.display = 'none';
   initRunnerStatics();
   canvas.ontouchstart = canvas.onclick = runnerJump;
@@ -5168,6 +5216,22 @@ function runnerLoop() {
     pet.y = RUNNER.ground - pet.h;
     pet.vy = 0; pet.onGround = true; pet.jumps = 0;
   }
+  // Ghost runners
+  if(RUNNER.ghosts){
+    RUNNER.ghosts.forEach(g=>{
+      const ghostScore=Math.floor(RUNNER.frame/6);
+      const diff=(ghostScore-runnerState.score)*2;
+      const gx=Math.max(20,Math.min(380,pet.x-diff));
+      g.opacity=Math.min(.45,g.opacity+.01);
+      ctx.globalAlpha=g.opacity;
+      ctx.font=`${pet.h}px serif`; ctx.textAlign='center';
+      ctx.fillText(g.em,gx+16,RUNNER.ground-4);
+      ctx.globalAlpha=.7;
+      ctx.font='bold 8px sans-serif'; ctx.fillStyle=diff>0?'#ff4455':'#00ff88';
+      ctx.fillText(g.name,gx+16,RUNNER.ground-36);
+      ctx.globalAlpha=1;
+    });
+  }
   ctx.font = `${pet.h}px serif`;
   ctx.textAlign = 'center';
   ctx.fillText(pet.em, pet.x + pet.w/2, pet.y + pet.h - 2);
@@ -5214,11 +5278,17 @@ function runnerDie() {
   setTimeout(() => {
     const ov = $('runnerOverlay'); if(!ov) return;
     ov.style.display='flex';
+    const ghostResults=RUNNER.ghosts?RUNNER.ghosts.map(g=>{
+      const beat=runnerState.score>g.targetScore;
+      if(beat) localStorage.setItem('k0509_ghost_'+g.name,String(runnerState.score));
+      return `<div style="font-size:10px;color:${beat?'var(--green)':'var(--red)'};margin-bottom:2px">${beat?'✓ Slog':'✗ Tappad mot'} ${g.em} ${g.name}: ${g.targetScore}</div>`;
+    }).join(''):'';
     ov.innerHTML=`<div style="font-size:36px;margin-bottom:8px">💀</div>
       <div style="font-family:var(--ff-head);font-size:18px;font-weight:900;color:var(--red);margin-bottom:4px">GAME OVER</div>
       <div style="font-size:13px;color:var(--t2);margin-bottom:4px">Poäng: <b style="color:var(--gold)">${runnerState.score}</b></div>
-      <div style="font-size:12px;color:var(--green);margin-bottom:16px">+${xp} XP intjänat!</div>
-      <button class="btn btn-g btn-lg" onclick="startRunner()">▶ IGEN!</button>`;
+      <div style="font-size:12px;color:var(--green);margin-bottom:6px">+${xp} XP intjänat!</div>
+      ${ghostResults}
+      <button class="btn btn-g btn-lg" style="margin-top:10px" onclick="startRunner()">▶ IGEN!</button>`;
   }, 800);
   updateRunnerHUD();
   checkAchievements();
@@ -6249,7 +6319,9 @@ const TOURN_PLAYERS=[
 ];
 function renderTournament(){
   const list=$('tournList'); if(!list) return;
-  const myScore=(G.actionStat||0)*10+(G.streak||0)*50+(G.level||1)*200;
+  const runnerScore=parseInt(localStorage.getItem('k0509_hiscore')||'0');
+  const katchScore=parseInt(localStorage.getItem('k0509_katchBest')||'0');
+  const myScore=(G.actionStat||0)*10+(G.streak||0)*50+(G.level||1)*200+(G.battleWins||0)*80+Math.floor(runnerScore/10)+Math.floor(katchScore/5)+(G.kc||0)*3;
   const all=[...TOURN_PLAYERS,{name:G.name||'Du',em:gS().e||'🐉',score:myScore,kc:myScore>TOURN_PLAYERS[2].score?10:0}]
     .sort((a,b)=>b.score-a.score);
   list.innerHTML=all.slice(0,6).map((p,i)=>{
