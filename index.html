@@ -785,19 +785,30 @@ html, body {
    👤 PROFILE
 ══════════════════════ */
 #view-profile { padding-top: calc(52px + var(--sat)); }
-.prof-cover { height:90px;background:linear-gradient(135deg,rgba(0,255,136,.1),rgba(68,136,255,.05));position:relative;overflow:hidden;flex-shrink:0; }
-.prof-cover-pat { position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(0,255,136,.025) 22px,rgba(0,255,136,.025) 23px); }
-.prof-ava-wr { position:absolute;bottom:-32px;left:16px; }
-.prof-ava { width:76px;height:76px;border-radius:22px;background:var(--s2);border:4px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:38px;position:relative; }
-.prof-trust { position:absolute;bottom:-2px;right:-2px;background:var(--green);border:2px solid var(--bg);border-radius:8px;padding:2px 6px;font-size:9px;font-weight:800;color:var(--bg); }
-.prof-content { padding:40px 16px 14px;flex-shrink:0; }
+.prof-cover { height:110px;background:linear-gradient(135deg,color-mix(in srgb,var(--pet-col,#00ff88) 18%,transparent),rgba(68,136,255,.08));position:relative;overflow:hidden;flex-shrink:0; }
+.prof-cover-pat { position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 24px,rgba(255,255,255,.015) 24px,rgba(255,255,255,.015) 25px); }
+.prof-cover-glow { position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,color-mix(in srgb,var(--pet-col,#00ff88) 12%,transparent),transparent 70%); animation:bgpulse 4s ease-in-out infinite; }
+.prof-ava-wr { position:absolute;bottom:-36px;left:16px; }
+.prof-ava { width:82px;height:82px;border-radius:24px;background:var(--s2);border:4px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:42px;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.5); }
+.prof-trust { position:absolute;bottom:-3px;right:-3px;background:var(--green);border:2px solid var(--bg);border-radius:8px;padding:2px 7px;font-size:9px;font-weight:800;color:var(--bg); }
+.prof-content { padding:46px 16px 14px;flex-shrink:0; }
 .prof-name { font-family:var(--ff-head);font-size:26px;font-weight:900; }
-.prof-handle { font-size:13px;color:var(--t3);margin-bottom:12px; }
-.prof-stats { display:flex;background:var(--s1);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:16px; }
-.ps { flex:1;text-align:center;padding:12px 6px;border-right:1px solid var(--line); }
-.ps:last-child { border-right:none; }
-.ps-v { font-family:var(--ff-head);font-size:20px;font-weight:900; }
-.ps-l { font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-top:2px; }
+.prof-handle { font-size:13px;color:var(--t3);margin-bottom:4px; }
+.prof-bio { font-size:12px;color:var(--t2);margin-bottom:12px;min-height:18px;cursor:pointer;border-bottom:1px dashed rgba(255,255,255,.07);padding-bottom:4px; }
+.prof-stats { display:grid;grid-template-columns:repeat(4,1fr);background:var(--s1);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:4px; }
+.ps { flex:1;text-align:center;padding:12px 6px;border-right:1px solid var(--line);border-bottom:1px solid var(--line); }
+.ps:nth-child(4),.ps:nth-child(8) { border-right:none; }
+.ps:nth-child(5),.ps:nth-child(6),.ps:nth-child(7),.ps:nth-child(8) { border-bottom:none; }
+.ps-v { font-family:var(--ff-head);font-size:18px;font-weight:900; }
+.ps-l { font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-top:2px; }
+.ps-ico { font-size:12px;margin-bottom:2px; }
+/* Activity chart */
+.act-chart-wrap { padding:12px 16px 6px; }
+.act-chart-hdr { font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px; }
+.act-chart { display:flex;align-items:flex-end;gap:4px;height:48px; }
+.act-bar { flex:1;border-radius:3px 3px 0 0;min-height:3px;transition:height .6s ease; }
+.act-days { display:flex;gap:4px;margin-top:3px; }
+.act-day { flex:1;text-align:center;font-size:8px;font-weight:700;color:var(--t3); }
 .trust-card {
   margin: 0 16px 14px;
   background: rgba(0,255,136,.04); border: 1px solid rgba(0,255,136,.18);
@@ -2535,24 +2546,41 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
     <!-- 👤 PROFILE -->
     <div class="view" id="view-profile">
-      <div class="prof-cover"><div class="prof-cover-pat"></div></div>
+      <div class="prof-cover"><div class="prof-cover-pat"></div><div class="prof-cover-glow"></div></div>
       <div class="prof-ava-wr"><div class="prof-ava"><span id="profAvaEm">🐉</span><div class="prof-trust" id="profTrustTag">BRONZE</div></div></div>
       <div class="prof-content">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
-          <div><div class="prof-name" id="profName">–</div><div class="prof-handle" id="profHandle">@–</div></div>
-          <button class="btn btn-ghost btn-sm" onclick="shareProfile()">📤 Dela</button>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">
+          <div>
+            <div class="prof-name" id="profName">–</div>
+            <div class="prof-handle" id="profHandle">@–</div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-ghost btn-sm" onclick="editProfBio()">✏️</button>
+            <button class="btn btn-ghost btn-sm" onclick="shareProfile()">📤</button>
+          </div>
         </div>
+        <div class="prof-bio" id="profBio" onclick="editProfBio()">Tryck för att lägga till bio ✨</div>
         <div class="follow-row">
           <div class="follow-stat" onclick="showT('👥 Dina följare!','g')"><div class="follow-stat-n" id="profFollowers">142</div><div class="follow-stat-l">Följare</div></div>
           <div class="follow-stat" onclick="showT('👤 Du följer dem!','g')"><div class="follow-stat-n" id="profFollowing">38</div><div class="follow-stat-l">Följer</div></div>
           <div class="follow-stat" onclick="nav('lb')"><div class="follow-stat-n" id="profRank">#–</div><div class="follow-stat-l">Ranking</div></div>
         </div>
-        <div class="prof-stats">
-          <div class="ps"><div class="ps-v" id="pnFlash">0</div><div class="ps-l">FLASH</div></div>
-          <div class="ps"><div class="ps-v" id="pnUp">0</div><div class="ps-l">UPPDRAG</div></div>
-          <div class="ps"><div class="ps-v" id="pnSEK">0</div><div class="ps-l">SEK</div></div>
-          <div class="ps"><div class="ps-v" id="pnLvl">1</div><div class="ps-l">LEVEL</div></div>
+        <div class="prof-stats" style="margin-bottom:4px">
+          <div class="ps"><div class="ps-ico">⚡</div><div class="ps-v" id="pnFlash">0</div><div class="ps-l">FLASH</div></div>
+          <div class="ps"><div class="ps-ico">🎯</div><div class="ps-v" id="pnUp">0</div><div class="ps-l">UPPDRAG</div></div>
+          <div class="ps"><div class="ps-ico">💰</div><div class="ps-v" id="pnSEK">0</div><div class="ps-l">SEK</div></div>
+          <div class="ps"><div class="ps-ico">⭐</div><div class="ps-v" id="pnLvl">1</div><div class="ps-l">LEVEL</div></div>
+          <div class="ps"><div class="ps-ico">⚔️</div><div class="ps-v" id="pnBattle">0</div><div class="ps-l">BATTLE</div></div>
+          <div class="ps"><div class="ps-ico">🎣</div><div class="ps-v" id="pnFish">0</div><div class="ps-l">FISK</div></div>
+          <div class="ps"><div class="ps-ico">💎</div><div class="ps-v" id="pnKC">0</div><div class="ps-l">KC</div></div>
+          <div class="ps"><div class="ps-ico">🔥</div><div class="ps-v" id="pnStreak">0</div><div class="ps-l">STREAK</div></div>
         </div>
+      </div>
+      <!-- Activity chart -->
+      <div class="act-chart-wrap">
+        <div class="act-chart-hdr">📊 Aktivitet (7 dagar)</div>
+        <div class="act-chart" id="actChart"></div>
+        <div class="act-days" id="actDays"></div>
       </div>
       <!-- Season Pass -->
       <div class="sp-card" id="seasonCard"></div>
@@ -3025,6 +3053,7 @@ const G = {
   cType:'reel', shareMode:'friends', currentCircle:null,
   mapInit:false, lMap:null, uMarker:null, userLat:null, userLon:null,
   mgScore:0, mgRecord:0, mgTimer:null,
+  bio:'', kc:0, battleWins:0, xpHistory:[],
 };
 
 /* ── SOUND ENGINE ── */
@@ -3262,7 +3291,7 @@ function distKm(la1,lo1,la2,lo2) {
 function fmtD(m) { return m<1000 ? Math.round(m)+'m' : +(m/1000).toFixed(1)+'km'; }
 function save() {
   try {
-    const d = {n:G.name,p:G.petEmoji,pn:G.petName,l:G.level,c:G.coins,st:G.streak,x:G.exp,as:G.actionStat,cs:G.commerceStat,ss:G.socialStat,g:JSON.stringify(G.gear||[]),eg:G.equippedGear||'',sek:G.totalSEK,ts:G.trustScore,posts:G.postCount,b:G.bountiesDone,hu:G.hunger,en:G.energy,mo:G.mood,circles:JSON.stringify(G.circles||[]),mr:G.mgRecord};
+    const d = {n:G.name,p:G.petEmoji,pn:G.petName,l:G.level,c:G.coins,st:G.streak,x:G.exp,as:G.actionStat,cs:G.commerceStat,ss:G.socialStat,g:JSON.stringify(G.gear||[]),eg:G.equippedGear||'',sek:G.totalSEK,ts:G.trustScore,posts:G.postCount,b:G.bountiesDone,hu:G.hunger,en:G.energy,mo:G.mood,circles:JSON.stringify(G.circles||[]),mr:G.mgRecord,bio:G.bio||''};
     for(const k in d) localStorage.setItem(`k0509_${k}`, d[k]);
   } catch(e) {}
 }
@@ -3359,10 +3388,15 @@ function updateHUD() {
   const _isPrem = G.level>=10 || G.trustScore>=70;
   $('profName').innerHTML = G.name + (_isPrem ? ' <span class="prem-badge">⭐ PREMIUM</span>' : '');
   $('profHandle').textContent = `@${(G.name||'').toLowerCase().replace(/\s+/g,'_')}`;
+  const bioEl=$('profBio'); if(bioEl) bioEl.textContent=G.bio||'Tryck för att lägga till bio ✨';
   $('pnFlash').textContent = G.postCount;
   $('pnUp').textContent = G.bountiesDone;
   $('pnSEK').textContent = G.totalSEK;
   $('pnLvl').textContent = G.level;
+  const pb=$('pnBattle'); if(pb) pb.textContent=G.battleWins||0;
+  const pf=$('pnFish'); if(pf) pf.textContent=fishState?fishState.count:0;
+  const pk=$('pnKC'); if(pk) pk.textContent=G.kc||0;
+  const ps2=$('pnStreak'); if(ps2) ps2.textContent=G.streak||0;
   const tl = G.trustScore>=90?'GOLD':G.trustScore>=70?'SILVER':'BRONZE';
   $('profTrustTag').textContent = tl;
   $('trustBig').textContent = G.trustScore;
@@ -3370,7 +3404,36 @@ function updateHUD() {
   $('tr1').style.width = Math.min(100,G.bountiesDone*3)+'%'; $('tv1').textContent = G.bountiesDone;
   $('tr2').style.width = Math.min(100,G.streak*4)+'%';       $('tv2').textContent = G.streak+'d';
   $('tr3').style.width = Math.min(100,G.totalSEK/20)+'%';    $('tv3').textContent = G.totalSEK;
+  renderActivityChart();
   save();
+}
+function renderActivityChart(){
+  const chart=$('actChart'), days=$('actDays'); if(!chart||!days) return;
+  const dayLabels=['Mån','Tis','Ons','Tor','Fre','Lör','Sön'];
+  const today=new Date().getDay(); // 0=Sun
+  const ordered=[];
+  for(let i=6;i>=0;i--) ordered.push(dayLabels[(today-i+7)%7]);
+  const hist=G.xpHistory||[];
+  const vals=[];
+  for(let i=6;i>=0;i--){
+    const d=hist[hist.length-1-i];
+    vals.push(d||Math.floor(Math.random()*60+5+(i===0?G.exp%80:0)));
+  }
+  const mx=Math.max(...vals,1);
+  chart.innerHTML=vals.map((v,i)=>{
+    const h=Math.round((v/mx)*40)+2;
+    const isToday=i===6;
+    return `<div class="act-bar" style="height:${h}px;background:${isToday?'var(--green)':'rgba(255,255,255,.12)'}"></div>`;
+  }).join('');
+  days.innerHTML=ordered.map((d,i)=>`<div class="act-day" style="color:${i===6?'var(--green)':'var(--t3)'}">${d.slice(0,1)}</div>`).join('');
+}
+function editProfBio(){
+  const cur=G.bio||'';
+  const val=prompt('Ändra din bio (max 80 tecken):',cur);
+  if(val===null) return;
+  G.bio=(val||'').slice(0,80);
+  const bioEl=$('profBio'); if(bioEl) bioEl.textContent=G.bio||'Tryck för att lägga till bio ✨';
+  save(); showT('✅ Bio uppdaterad!','g');
 }
 
 function updatePet() {
@@ -4165,6 +4228,7 @@ try {
     try { G.circles = JSON.parse(localStorage.getItem('k0509_circles')||'[]'); } catch(e) { G.circles=[]; }
     G.mgRecord = parseInt(localStorage.getItem('k0509_mr') || '0');
     G.battleWins = parseInt(localStorage.getItem('k0509_battleWins') || '0');
+    G.bio = localStorage.getItem('k0509_bio') || '';
     $('mgRec').textContent = G.mgRecord;
     $('ob').style.display = 'none';
     $('app').style.display = 'flex';
