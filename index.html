@@ -1925,6 +1925,66 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .video-card { scroll-snap-align:start; min-height:100svh; overflow:hidden; }
 
 /* ══════════════════════════════════════
+   ROUND 29 — Onboarding, Runner, LB
+══════════════════════════════════════ */
+
+/* ── ONBOARDING DRAMATIC UPGRADE ── */
+.ob {
+  background:radial-gradient(ellipse at 50% -10%,rgba(0,255,136,.1) 0%,transparent 60%),
+             radial-gradient(ellipse at 80% 80%,rgba(170,102,255,.06) 0%,transparent 50%),
+             var(--bg) !important;
+}
+.ob-logo {
+  background:linear-gradient(120deg,var(--green),var(--teal),#4af);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 2px 24px rgba(0,255,136,.25));
+}
+.ob-logo span { -webkit-text-fill-color:var(--green); }
+.ob-tag { color:rgba(255,255,255,.35) !important; }
+.ob-step { animation:staggerIn .4s ease both; }
+.ob-h {
+  background:linear-gradient(120deg,var(--t1),rgba(255,255,255,.7));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.ob-loop { background:rgba(255,255,255,.03) !important; border-color:rgba(255,255,255,.06) !important; }
+.ob-btn-glow { box-shadow:0 0 24px rgba(0,255,136,.4),0 0 48px rgba(0,255,136,.15); }
+
+/* ── RUNNER OVERLAY UPGRADE ── */
+.runner-start-overlay {
+  background:linear-gradient(180deg,rgba(0,0,18,.9),rgba(0,0,0,.75)) !important;
+}
+.runner-best-dsp {
+  background:rgba(255,204,0,.08); border:1px solid rgba(255,204,0,.25);
+  border-radius:14px; padding:10px 24px; margin-bottom:14px; text-align:center;
+}
+.rbd-val {
+  font-family:var(--ff-head); font-size:38px; font-weight:900; color:var(--gold); line-height:1;
+}
+.rbd-lbl { font-size:9px; color:var(--t3); text-transform:uppercase; letter-spacing:1.5px; margin-top:2px; }
+
+/* ── LEADERBOARD HEADER UPGRADE ── */
+.lb-title {
+  background:linear-gradient(120deg,var(--gold),var(--green));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  padding-bottom:4px !important;
+}
+.lb-live-strip {
+  display:flex; align-items:center; gap:8px;
+  padding:2px 16px 10px; font-size:11px; color:var(--t3);
+}
+.lb-live-dot { width:6px;height:6px;border-radius:50%;background:var(--green);animation:viewPulse 1.5s infinite;flex-shrink:0; }
+.lb-season-chip {
+  margin-left:auto;
+  background:linear-gradient(135deg,var(--gold),var(--orange));
+  color:#000; font-size:9px; font-weight:900; padding:3px 10px; border-radius:20px;
+}
+
+/* ── KATCH OVERLAY UPGRADE ── */
+.katch-overlay {
+  background:linear-gradient(180deg,rgba(0,0,28,.92),rgba(0,0,0,.8)) !important;
+}
+
+/* ══════════════════════════════════════
    ROUND 28 — Profile, Uppdrag, Tabs
 ══════════════════════════════════════ */
 
@@ -2258,7 +2318,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="ob-p">Posta dagliga 1-5 sek videor. Gör uppdrag IRL. Levla din pet. Tjäna pengar.</div>
     <label class="lbl">DITT NAMN</label>
     <input class="inp" id="obName" placeholder="Ex: ella_runs / axelsthlm" maxlength="18">
-    <button class="btn btn-g btn-lg btn-full" onclick="obNext(1)">NÄSTA →</button>
+    <button class="btn btn-g btn-lg btn-full ob-btn-glow" onclick="obNext(1)">NÄSTA →</button>
   </div>
   <div class="ob-step" id="obs1" style="display:none">
     <div class="ob-prog"><div class="ob-d on"></div><div class="ob-d on"></div><div class="ob-d"></div></div>
@@ -2267,7 +2327,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="ob-pets" id="obPetGrid"></div>
     <label class="lbl">PET-NAMN</label>
     <input class="inp" id="obPetName" placeholder="Ex: Eldrake / Luna / Shadow">
-    <button class="btn btn-g btn-lg btn-full" onclick="obNext(2)">NÄSTA →</button>
+    <button class="btn btn-g btn-lg btn-full ob-btn-glow" onclick="obNext(2)">NÄSTA →</button>
   </div>
   <div class="ob-step" id="obs2" style="display:none">
     <div class="ob-prog"><div class="ob-d on"></div><div class="ob-d on"></div><div class="ob-d on"></div></div>
@@ -2278,7 +2338,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="ob-lr"><div class="ob-n" style="background:var(--green);color:var(--bg)">🗺</div><div style="font-size:14px;font-weight:700">Gör <strong>uppdrag</strong> på kartan</div></div>
       <div class="ob-lr" style="border-bottom:none"><div class="ob-n" style="background:var(--gold);color:var(--bg)">💸</div><div style="font-size:14px;font-weight:800;color:var(--gold)">Tjäna pengar + XP!</div></div>
     </div>
-    <button class="btn btn-g btn-lg btn-full" onclick="finishOB()">⚡ STARTA KARMA</button>
+    <button class="btn btn-g btn-lg btn-full ob-btn-glow" style="margin-top:8px" onclick="finishOB()">⚡ STARTA KARMA</button>
   </div>
 </div>
 
@@ -2862,15 +2922,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="runner-wrap">
           <canvas id="runnerCanvas" width="400" height="220"></canvas>
           <div class="runner-start-overlay" id="runnerOverlay">
-            <div style="font-size:40px;margin-bottom:8px" id="runnerPetEm">🐉</div>
-            <div style="font-family:var(--ff-head);font-size:20px;font-weight:900;color:var(--green);margin-bottom:6px">KARMA RUNNER</div>
-            <div style="font-size:12px;color:var(--t2);margin-bottom:10px">Tryck/tap = hoppa · Dubbel = dubbelhopp</div>
+            <div style="font-size:50px;margin-bottom:8px;filter:drop-shadow(0 0 16px rgba(0,255,136,.5))" id="runnerPetEm">🐉</div>
+            <div style="font-family:var(--ff-head);font-size:22px;font-weight:900;background:linear-gradient(120deg,var(--green),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px">KARMA RUNNER</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:12px">TAP = HOPPA · 2× TAP = DUBBELHOPP</div>
+            <div class="runner-best-dsp">
+              <div class="rbd-val" id="runnerBestOverlay">0</div>
+              <div class="rbd-lbl">🏆 Ditt rekord</div>
+            </div>
             <div class="runner-diff-row">
               <button class="runner-diff-btn" onclick="setRunnerDiff('easy',this)">🟢 EASY</button>
               <button class="runner-diff-btn on" onclick="setRunnerDiff('normal',this)">⚡ NORMAL</button>
               <button class="runner-diff-btn" onclick="setRunnerDiff('hard',this)">🔥 HARD</button>
             </div>
-            <button class="btn btn-g btn-lg" onclick="startRunner()">▶ STARTA</button>
+            <button class="btn btn-g btn-lg ob-btn-glow" onclick="startRunner()">▶ STARTA</button>
           </div>
         </div>
         <div style="display:flex;gap:8px;padding:8px 0 0">
@@ -2965,6 +3029,11 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <!-- 🏆 LEADERBOARD -->
     <div class="view" id="view-lb">
       <div class="lb-title">Leaderboard</div>
+      <div class="lb-live-strip">
+        <div class="lb-live-dot"></div>
+        <span id="lbLiveCount">2,847 spelare online</span>
+        <div class="lb-season-chip">⭐ SÄSONG 1</div>
+      </div>
       <div class="lb-tabs" id="lbTabs">
         <div class="lt on" onclick="renderLB('money',this)">💸 PENGAR</div>
         <div class="lt" onclick="renderLB('xp',this)">⚡ XP</div>
@@ -4798,6 +4867,7 @@ function switchGame(id, el) {
   $(`gp-${id}`).classList.add('active'); el.classList.add('on');
   if(id==='battle') initBattle();
   if(id==='memory') initMemory();
+  if(id==='runner') updateRunnerBestOverlay();
 }
 
 /* ── BATTLE ── */
@@ -8402,6 +8472,12 @@ nav = function(name) {
 };
 /* Update indicator and XP ring on init */
 setTimeout(() => { updateNbIndicator('pet'); updatePetXPRing(); }, 120);
+
+/* ── Runner best overlay ── */
+function updateRunnerBestOverlay() {
+  const el = $('runnerBestOverlay');
+  if(el && typeof runnerState !== 'undefined') el.textContent = (runnerState.best || 0) + 'm';
+}
 
 /* ── Profile cover float refresh ── */
 function refreshProfCover() {
