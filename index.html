@@ -94,26 +94,26 @@ html, body {
 .ham.open span:nth-child(3) { transform:rotate(-45deg) translate(4px,-4px); }
 .dd {
   position: fixed; top: calc(58px + var(--sat)); right: 12px; z-index: 999;
-  width: 220px;
-  background: var(--s1); border: 1px solid rgba(255,255,255,.14);
-  border-radius: 18px; box-shadow: 0 24px 64px rgba(0,0,0,.95);
+  width: 224px;
+  background: linear-gradient(160deg,rgba(10,4,28,.98),rgba(4,2,14,.97)); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px; box-shadow: 0 24px 64px rgba(0,0,0,.97),0 0 40px rgba(0,255,136,.04);
   overflow: hidden; opacity: 0; pointer-events: none;
-  transform: translateY(-8px) scale(.97); transform-origin: top right;
-  transition: all .16s;
+  transform: translateY(-10px) scale(.95); transform-origin: top right;
+  transition: all .2s cubic-bezier(.34,1.56,.64,1);
 }
-.dd.open { opacity:1; pointer-events:all; transform:none; }
-.dd-head { padding: 13px 15px 10px; border-bottom: 1px solid var(--line); }
-.dd-nm { font-family: var(--ff-head); font-size: 14px; font-weight: 800; }
+.dd.open { opacity:1; pointer-events:all; transform:translateY(0) scale(1); }
+.dd-head { padding: 14px 16px 11px; border-bottom: 1px solid rgba(255,255,255,.06); background:rgba(0,255,136,.03); }
+.dd-nm { font-family: var(--ff-head); font-size: 15px; font-weight: 900; }
 .dd-sb { font-size: 11px; color: var(--t3); margin-top: 2px; }
-.dd-sec { padding: 4px 0; border-bottom: 1px solid var(--line); }
+.dd-sec { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
 .dd-sec:last-child { border-bottom: none; }
 .ddr {
   display: flex; align-items: center; gap: 10px;
-  padding: 11px 15px; cursor: pointer; font-size: 13px; font-weight: 600;
-  transition: background .1s;
+  padding: 11px 16px; cursor: pointer; font-size: 13px; font-weight: 700;
+  transition: background .1s; font-family: var(--ff-head); letter-spacing:.2px;
 }
-.ddr:active { background: var(--s2); }
-.ddr-i { font-size: 16px; width: 22px; text-align: center; }
+.ddr:active { background: rgba(255,255,255,.04); }
+.ddr-i { font-size: 17px; width: 22px; text-align: center; }
 
 /* ── VIEWS ── */
 .main { flex: 1; overflow: hidden; position: relative; }
@@ -1897,18 +1897,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .kcs-price { font-size:11px; font-weight:900; color:var(--purple); }
 .kcs-price.owned-lbl { color:var(--green); }
 /* ══ DM ══ */
-.dm-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); cursor:pointer; }
+.dm-item { display:flex; align-items:center; gap:10px; padding:10px 6px; border-bottom:1px solid rgba(255,255,255,.05); cursor:pointer; border-radius:12px; transition:background .12s; }
+.dm-item:active { background:rgba(255,255,255,.03); }
 .dm-item:last-child { border:none; }
-.dm-ava { width:40px; height:40px; border-radius:50%; background:var(--s2); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+.dm-ava { width:40px; height:40px; border-radius:50%; background:rgba(14,6,30,.8); border:1.5px solid rgba(255,51,119,.2); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
 .dm-info { flex:1; min-width:0; }
-.dm-user { font-size:13px; font-weight:800; }
+.dm-user { font-size:13px; font-weight:800; font-family:var(--ff-head); }
 .dm-prev { font-size:11px; color:var(--t3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:1px; }
-.dm-unread { width:8px; height:8px; background:var(--pink); border-radius:50%; flex-shrink:0; }
+.dm-unread { width:8px; height:8px; background:var(--pink); border-radius:50%; flex-shrink:0; box-shadow:0 0 6px rgba(255,51,119,.5); }
 .dm-msg { display:flex; max-width:78%; }
 .dm-msg.me { align-self:flex-end; flex-direction:row-reverse; }
-.dm-bubble { padding:8px 12px; border-radius:16px; font-size:13px; line-height:1.4; word-break:break-word; }
-.dm-msg.them .dm-bubble { background:var(--s2); border-bottom-left-radius:4px; }
-.dm-msg.me .dm-bubble { background:var(--pink); color:#fff; border-bottom-right-radius:4px; }
+.dm-bubble { padding:9px 13px; border-radius:16px; font-size:13px; line-height:1.4; word-break:break-word; }
+.dm-msg.them .dm-bubble { background:rgba(14,6,30,.85); border:1px solid rgba(255,255,255,.07); border-bottom-left-radius:4px; }
+.dm-msg.me .dm-bubble { background:linear-gradient(135deg,var(--pink),#cc1155); color:#fff; border-bottom-right-radius:4px; box-shadow:0 4px 14px rgba(255,51,119,.25); }
 /* ══ FISH GAME v3 ══ */
 #fishCanvas { width:100%; height:200px; display:block; border-radius:14px; background:#000410; }
 .fish-depth-row { display:flex; gap:5px; padding:6px 0 4px; overflow-x:auto; scrollbar-width:none; }
