@@ -353,10 +353,12 @@ html, body {
   cursor: pointer; transition: all .12s; -webkit-user-select: none;
   position: relative; overflow: hidden;
 }
-.care-btn:active { transform: scale(.91); background: var(--s2); }
+.care-btn:active { transform: scale(.89); }
+.care-btn:active::after { content:''; position:absolute; inset:0; border-radius:inherit; background:rgba(255,255,255,.06); animation:careTapRipple .35s ease-out forwards; pointer-events:none; }
+@keyframes careTapRipple { from{transform:scale(1);opacity:1} to{transform:scale(1.12);opacity:0} }
 .care-btn.warn { border-color: var(--red) !important; animation: careWarn 1s ease-in-out infinite; }
-@keyframes careWarn { 0%,100%{box-shadow:0 0 0 rgba(255,68,85,0)} 50%{box-shadow:0 0 12px rgba(255,68,85,.5)} }
-.care-ico { font-size: 26px; display: block; margin-bottom: 5px; }
+@keyframes careWarn { 0%,100%{box-shadow:0 0 0 rgba(255,68,85,0)} 50%{box-shadow:0 0 14px rgba(255,68,85,.45)} }
+.care-ico { font-size: 28px; display: block; margin-bottom: 5px; }
 .care-lbl { font-size: 9px; font-weight: 900; display: block; letter-spacing: .3px; text-transform: uppercase; }
 .care-cost { font-size: 7.5px; color: var(--t3); display: block; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
@@ -1488,10 +1490,11 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .ev-timer { font-size:10px; color:var(--t2); font-weight:700; margin-top:2px; }
 .ev-pill { background:linear-gradient(135deg,var(--gold),var(--orange)); color:#000; font-family:var(--ff-head); font-size:13px; font-weight:900; padding:6px 12px; border-radius:20px; flex-shrink:0; }
 /* Featured game of the day */
-.feat-game-card { margin:0 14px 8px; background:linear-gradient(135deg,rgba(0,255,136,.08),rgba(68,136,255,.05)); border:1.5px solid rgba(0,255,136,.28); border-radius:18px; padding:10px 14px; display:flex; align-items:center; gap:12px; position:relative; overflow:hidden; cursor:pointer; transition:all .15s; }
+.feat-game-card { margin:0 14px 8px; background:linear-gradient(135deg,rgba(0,255,136,.1),rgba(68,136,255,.06)); border:1.5px solid rgba(0,255,136,.32); border-radius:18px; padding:11px 14px; display:flex; align-items:center; gap:12px; position:relative; overflow:hidden; cursor:pointer; transition:all .15s; box-shadow:0 4px 24px rgba(0,255,136,.08); }
 .feat-game-card:active { transform:scale(.97); }
-.feat-game-card::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(0,255,136,.06),transparent); animation:bossShine 2.8s linear infinite; pointer-events:none; }
-.feat-game-ico { font-size:38px; flex-shrink:0; animation:evBounce 2.2s ease-in-out infinite; }
+.feat-game-card::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(0,255,136,.08),transparent); animation:bossShine 2.5s linear infinite; pointer-events:none; }
+.feat-game-card::after { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(0,255,136,.5),transparent); pointer-events:none; }
+.feat-game-ico { font-size:42px; flex-shrink:0; animation:evBounce 2.2s ease-in-out infinite; filter:drop-shadow(0 0 12px rgba(0,255,136,.4)); }
 .feat-game-info { flex:1; }
 .feat-game-badge { font-size:8px; font-weight:900; letter-spacing:2px; color:var(--green); text-transform:uppercase; margin-bottom:2px; }
 .feat-game-name { font-family:var(--ff-head); font-size:17px; font-weight:900; line-height:1.2; }
@@ -2627,14 +2630,20 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   display:flex;gap:6px;padding:0 14px 10px;flex-shrink:0;
 }
 .ghs-chip {
-  flex:1;background:var(--s2);border:1px solid rgba(255,255,255,.07);
-  border-radius:12px;padding:8px 4px;text-align:center;
+  flex:1;background:linear-gradient(180deg,rgba(0,4,22,.96),rgba(0,2,10,.85));border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;padding:9px 4px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.3);
+  transition:transform .12s;cursor:pointer;
 }
+.ghs-chip:active { transform:scale(.93); }
+.ghs-chip:nth-child(1) { border-color:rgba(255,68,85,.2); }
+.ghs-chip:nth-child(2) { border-color:rgba(0,255,136,.2); }
+.ghs-chip:nth-child(3) { border-color:rgba(68,136,255,.2); }
+.ghs-chip:nth-child(4) { border-color:rgba(0,221,204,.2); }
 .ghs-val {
-  font-family:var(--ff-head);font-size:16px;font-weight:900;line-height:1;
+  font-family:var(--ff-head);font-size:18px;font-weight:900;line-height:1;
 }
 .ghs-lbl {
-  font-size:8px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;
+  font-size:8px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-top:3px;font-weight:800;
 }
 
 /* ── PET STAGE XP RING ── */
