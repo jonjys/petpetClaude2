@@ -1199,9 +1199,9 @@ textarea.inp { resize:none;min-height:72px; }
 .zone:active { transform:scale(.88); }
 .zone.mine { border-color:var(--pet-col,var(--green)) !important; box-shadow:0 0 12px color-mix(in srgb,var(--pet-col,#00ff88) 50%,transparent); }
 .zone.friend { opacity:.75; }
-.zone.unclaimed { background:var(--s1); border-color:var(--line); }
-.zone-lv { position:absolute; bottom:-2px; right:-2px; background:var(--bg); border-radius:4px; font-size:8px; font-weight:800; padding:1px 4px; }
-.world-hud { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:var(--s1); border-top:1px solid var(--line); flex-shrink:0; }
+.zone.unclaimed { background:rgba(10,4,22,.8); border-color:rgba(255,255,255,.06); }
+.zone-lv { position:absolute; bottom:-2px; right:-2px; background:rgba(0,0,0,.8); border-radius:4px; font-size:8px; font-weight:800; padding:1px 4px; }
+.world-hud { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:linear-gradient(180deg,rgba(6,2,16,.98),rgba(2,1,8,.97)); border-top:1px solid rgba(255,255,255,.05); flex-shrink:0; }
 
 /* ══════════════════════
    🎯 SEASON PASS
@@ -1436,7 +1436,7 @@ textarea.inp { resize:none;min-height:72px; }
 /* ── EVOLUTION TREE ── */
 .evol-tree { display:flex; align-items:center; gap:3px; padding:12px 16px 8px; overflow-x:auto; scrollbar-width:none; }
 .evol-node { display:flex; flex-direction:column; align-items:center; gap:4px; flex-shrink:0; }
-.evol-em { font-size:24px; width:50px; height:50px; display:flex; align-items:center; justify-content:center; border-radius:16px; background:var(--s3); border:2px solid var(--line); transition:all .3s; }
+.evol-em { font-size:24px; width:50px; height:50px; display:flex; align-items:center; justify-content:center; border-radius:16px; background:rgba(10,4,22,.85); border:2px solid rgba(255,255,255,.08); transition:all .3s; box-shadow:0 3px 12px rgba(0,0,0,.4); }
 .evol-node.done .evol-em { border-color:rgba(255,255,255,.22); opacity:.5; }
 .evol-node.current .evol-em { border-color:var(--pet-col,var(--green)); background:rgba(0,255,136,.1); box-shadow:0 0 20px color-mix(in srgb,var(--pet-col,var(--green)) 50%,transparent); transform:scale(1.12); }
 .evol-node.locked .evol-em { filter:grayscale(1) opacity(.18); }
@@ -2204,13 +2204,13 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .friend-act-card {
   display:flex; align-items:center; gap:10px;
   padding:10px 12px;
-  background:var(--s1); border:1px solid rgba(255,255,255,.05);
-  border-radius:14px; transition:background .1s;
+  background:linear-gradient(180deg,rgba(8,4,18,.95),rgba(4,2,10,.9)); border:1px solid rgba(255,255,255,.06);
+  border-radius:14px; transition:background .12s;
 }
-.friend-act-card:active { background:var(--s2); }
+.friend-act-card:active { background:rgba(255,255,255,.03); }
 .fac-ava {
   width:36px; height:36px; border-radius:50%;
-  background:var(--s2); border:2px solid rgba(255,255,255,.1);
+  background:rgba(14,6,30,.8); border:2px solid rgba(255,255,255,.1);
   display:flex; align-items:center; justify-content:center;
   font-size:18px; flex-shrink:0;
 }
