@@ -674,8 +674,8 @@ html, body {
 }
 .ufilters::-webkit-scrollbar { display: none; }
 .uf {
-  padding: 7px 14px; border-radius: 20px; background: var(--s1); border: 1px solid var(--line);
-  font-size: 12px; font-weight: 700; cursor: pointer; color: var(--t2); white-space: nowrap; transition: all .15s; flex-shrink: 0;
+  padding: 7px 14px; border-radius: 20px; background: rgba(10,4,22,.8); border: 1px solid rgba(255,255,255,.08);
+  font-size: 12px; font-weight: 700; cursor: pointer; color: var(--t2); white-space: nowrap; transition: all .15s; flex-shrink: 0; font-family: var(--ff-head);
 }
 .uf.on { background: linear-gradient(135deg,var(--gold),var(--orange)); color: #000; border-color: var(--gold); box-shadow:0 3px 14px rgba(255,180,0,.3); font-weight:900; }
 .uc {
@@ -1345,7 +1345,7 @@ textarea.inp { resize:none;min-height:72px; }
 
 /* ── Territory strip ── */
 .terr-strip { display:flex; gap:7px; padding:8px 14px; overflow-x:auto; scrollbar-width:none; border-top:1px solid var(--line); background:rgba(0,0,0,.5); flex-shrink:0; }
-.terr-pill { display:flex; align-items:center; gap:5px; padding:5px 11px; border-radius:20px; white-space:nowrap; border:1px solid var(--line); font-size:11px; font-weight:700; background:var(--s2); cursor:pointer; transition:all .15s; }
+.terr-pill { display:flex; align-items:center; gap:5px; padding:5px 11px; border-radius:20px; white-space:nowrap; border:1px solid rgba(255,255,255,.08); font-size:11px; font-weight:700; background:rgba(10,4,22,.8); cursor:pointer; transition:all .15s; }
 .terr-pill.mine { border-color:var(--green); color:var(--green); background:rgba(0,255,136,.07); }
 .terr-pill.rival { border-color:var(--red); color:var(--red); background:rgba(255,68,85,.07); }
 .terr-pill:active { transform:scale(.94); }
@@ -1523,7 +1523,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 /* Session XP chips */
 .sess-xp-row { display:flex; gap:6px; padding:0 14px 10px; overflow-x:auto; scrollbar-width:none; }
 .sess-xp-row::-webkit-scrollbar { display:none; }
-.sess-xp-chip { flex-shrink:0; background:var(--s1); border:1px solid var(--line); border-radius:10px; padding:4px 9px; font-size:9px; font-weight:700; color:var(--t3); transition:all .2s; white-space:nowrap; }
+.sess-xp-chip { flex-shrink:0; background:rgba(10,4,22,.8); border:1px solid rgba(255,255,255,.07); border-radius:10px; padding:4px 9px; font-size:9px; font-weight:700; color:var(--t3); transition:all .2s; white-space:nowrap; }
 .sess-xp-chip.active { border-color:rgba(0,255,136,.35); color:var(--green); background:rgba(0,255,136,.06); }
 /* Runner difficulty */
 .runner-diff-row { display:flex; gap:8px; padding:6px 0 8px; justify-content:center; }
@@ -1820,7 +1820,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 @keyframes reactPop { 0%{transform:scale(0);} 60%{transform:scale(1.6);} 100%{transform:scale(1.2);} }
 /* ══ EXPLORE FEED ══ */
 .explore-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; padding:2px; }
-.explore-tile { position:relative; aspect-ratio:.6; background:var(--s2); overflow:hidden; cursor:pointer; border-radius:6px; }
+.explore-tile { position:relative; aspect-ratio:.6; background:rgba(10,4,22,.9); overflow:hidden; cursor:pointer; border-radius:8px; }
 .explore-tile-em { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:55px; opacity:.18; }
 .explore-tile-grad { position:absolute; bottom:0; left:0; right:0; padding:8px 7px; background:linear-gradient(transparent,rgba(0,0,0,.9)); }
 .explore-tile-user { font-size:10px; font-weight:800; color:#fff; }
