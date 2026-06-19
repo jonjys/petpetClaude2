@@ -311,7 +311,7 @@ html, body {
 /* XP bar */
 .xp-wrap { margin-bottom: 10px; }
 .xp-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--t3); margin-bottom: 4px; }
-.xp-track { height: 7px; background: var(--s3); border-radius: 100px; overflow: hidden; }
+.xp-track { height: 7px; background: rgba(255,255,255,.06); border-radius: 100px; overflow: hidden; }
 .xp-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--teal)); border-radius: 100px; transition: width .7s cubic-bezier(.34,1.56,.64,1); position: relative; }
 .xp-fill::after { content:''; position:absolute; right:0; top:0; bottom:0; width:5px; background:rgba(255,255,255,.4); border-radius:100px; animation:xpshine 1.5s ease-in-out infinite; }
 @keyframes xpshine { 0%,100%{opacity:0;}50%{opacity:1;} }
@@ -319,12 +319,12 @@ html, body {
 .stats-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 .stat-fill { height:100%; border-radius:2px; box-shadow:0 0 6px currentColor; }
 .stat-box {
-  background: var(--s2); border: 1px solid var(--line);
-  border-radius: 12px; padding: 9px 6px; text-align: center;
+  background: linear-gradient(180deg,rgba(10,4,22,.95),rgba(4,2,12,.9)); border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px; padding: 10px 6px; text-align: center; box-shadow:0 3px 12px rgba(0,0,0,.35);
 }
 .stat-val { font-family: var(--ff-head); font-size: 22px; font-weight: 900; line-height: 1; }
-.stat-bar { height: 5px; background: var(--s4); border-radius: 2px; overflow: hidden; margin-top: 5px; }
-.stat-lbl { font-size: 8px; color: var(--t3); text-transform: uppercase; letter-spacing: .8px; margin-top: 3px; }
+.stat-bar { height: 5px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; margin-top: 5px; }
+.stat-lbl { font-size: 8px; color: var(--t3); text-transform: uppercase; letter-spacing: .8px; margin-top: 3px; font-weight:800; }
 
 /* Vitals — now a compact inline card */
 .vitals-card {
@@ -348,10 +348,10 @@ html, body {
   gap: 8px; margin: 0 14px 14px;
 }
 .care-btn {
-  background: var(--s1); border: 1.5px solid var(--line);
+  background: linear-gradient(180deg,rgba(10,4,22,.95),rgba(4,2,12,.9)); border: 1.5px solid rgba(255,255,255,.08);
   border-radius: 16px; padding: 13px 4px 10px; text-align: center;
-  cursor: pointer; transition: all .12s; -webkit-user-select: none;
-  position: relative; overflow: hidden;
+  cursor: pointer; transition: all .15s; -webkit-user-select: none;
+  position: relative; overflow: hidden; box-shadow:0 4px 14px rgba(0,0,0,.4);
 }
 .care-btn:active { transform: scale(.89); }
 .care-btn:active::after { content:''; position:absolute; inset:0; border-radius:inherit; background:rgba(255,255,255,.06); animation:careTapRipple .35s ease-out forwards; pointer-events:none; }
@@ -1213,9 +1213,9 @@ textarea.inp { resize:none;min-height:72px; }
 .sp-node:active { transform:scale(.88); }
 .sp-node.done { background:var(--purple); border-color:var(--purple); box-shadow:0 0 12px rgba(170,102,255,.5); }
 .sp-node.current { background:rgba(170,102,255,.2); border-color:var(--purple); animation:spPulse 1.5s ease-in-out infinite; }
-.sp-node.locked { background:var(--s2); border-color:var(--line); opacity:.5; }
+.sp-node.locked { background:rgba(10,4,22,.8); border-color:rgba(255,255,255,.08); opacity:.45; }
 @keyframes spPulse { 0%,100%{box-shadow:0 0 8px rgba(170,102,255,.3);}50%{box-shadow:0 0 20px rgba(170,102,255,.7);} }
-.sp-line { flex:1; height:2px; background:var(--s3); align-self:center; }
+.sp-line { flex:1; height:2px; background:rgba(255,255,255,.06); align-self:center; }
 .sp-line.done { background:linear-gradient(90deg,var(--purple),var(--blue)); }
 .sp-label { font-size:10px; color:var(--t3); }
 
@@ -1236,7 +1236,7 @@ textarea.inp { resize:none;min-height:72px; }
 
 /* Pet speech bubble */
 @keyframes bubblePop { 0%{transform:scale(0) translateY(10px);opacity:0;}60%{transform:scale(1.08) translateY(-2px);opacity:1;}100%{transform:scale(1) translateY(0);opacity:1;} }
-.pet-bubble { position:absolute; top:-60px; left:50%; transform:translateX(-50%); background:var(--s1); border:1.5px solid var(--line); border-radius:14px; padding:7px 14px; font-size:12px; font-weight:600; white-space:nowrap; z-index:10; animation:bubblePop .3s cubic-bezier(.34,1.56,.64,1) both; pointer-events:none; }
+.pet-bubble { position:absolute; top:-60px; left:50%; transform:translateX(-50%); background:rgba(12,5,28,.95); border:1.5px solid rgba(255,255,255,.12); border-radius:14px; padding:7px 14px; font-size:12px; font-weight:700; white-space:nowrap; z-index:10; animation:bubblePop .3s cubic-bezier(.34,1.56,.64,1) both; pointer-events:none; backdrop-filter:blur(8px); }
 .pet-bubble::after { content:''; position:absolute; bottom:-7px; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:var(--line); }
 
 /* Streak fire on HUD */
