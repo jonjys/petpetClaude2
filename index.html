@@ -6635,12 +6635,14 @@ let fishState={
   depth:1, weather:Math.floor(Math.random()*5),
   collection:JSON.parse(localStorage.getItem('k0509_fishColl')||'[]'),
   bgFish:[], bubbles:[], castArc:0,
+  rainDrops:[], castSplash:{active:false,t:0,x:0,y:0},
   streak:0, hotSpot:null, pendingFight:null,
   weatherTimer:null,
 };
 // Init background fish
 for(let i=0;i<8;i++) fishState.bgFish.push({x:Math.random()*380+10,y:110+Math.random()*100,vx:(Math.random()-.5)*1.3,vy:(Math.random()-.5)*.4,em:['🐟','🐠','🐡'][Math.floor(Math.random()*3)],sz:10+Math.random()*9});
 for(let i=0;i<14;i++) fishState.bubbles.push({x:Math.random()*380,y:110+Math.random()*105,r:1+Math.random()*2.8,speed:.3+Math.random()*.7,alpha:.2+Math.random()*.5});
+for(let i=0;i<22;i++) fishState.rainDrops.push({x:Math.random()*400,y:Math.random()*100,speed:3.5+Math.random()*3.5,len:6+Math.random()*7,slant:.8+Math.random()*.6});
 let fishRAF = null;
 function fishStartDraw() {
   cancelAnimationFrame(fishRAF);
@@ -6678,9 +6680,19 @@ function drawFishCanvas(){
     ctx.fillStyle='rgba(190,190,240,.08)';ctx.beginPath();ctx.arc(340,22,22,0,Math.PI*2);ctx.fill();
   }
   // Storm lightning flash
-  if(wx===2&&Math.random()<.007){ctx.fillStyle='rgba(255,240,120,.18)';ctx.fillRect(0,0,W,wTop);}
-  // Rain
-  if(wx===1||wx===2){for(let i=0;i<(wx===2?18:9);i++){const rx=Math.random()*W,ry=Math.random()*wTop;ctx.strokeStyle=`rgba(140,190,255,${wx===2?.55:.35})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(rx,ry);ctx.lineTo(rx+(wx===2?3:2),ry+(wx===2?10:7));ctx.stroke();}}
+  if(wx===2&&Math.random()<.007){ctx.fillStyle='rgba(255,240,120,.22)';ctx.fillRect(0,0,W,wTop);}
+  // Fog overlay
+  if(wx===4){const fogG=ctx.createLinearGradient(0,0,W*.6,H*.6);fogG.addColorStop(0,'rgba(170,190,230,.28)');fogG.addColorStop(.5,'rgba(170,190,230,.12)');fogG.addColorStop(1,'rgba(170,190,230,0)');ctx.fillStyle=fogG;ctx.fillRect(0,0,W,H);}
+  // Persistent rain drops
+  if(wx===1||wx===2){
+    const alpha=wx===2?.65:.42;
+    fishState.rainDrops.forEach(d=>{
+      d.y+=d.speed; d.x+=d.slant*.5;
+      if(d.y>wTop||d.x>W){d.y=Math.random()*20;d.x=Math.random()*W;}
+      ctx.strokeStyle=`rgba(140,190,255,${alpha})`;ctx.lineWidth=.9;
+      ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(d.x+d.slant,d.y+d.len);ctx.stroke();
+    });
+  }
   // Water
   fishState.waterAnim+=.04;
   const waterG=ctx.createLinearGradient(0,wTop,0,H);
@@ -6720,6 +6732,32 @@ function drawFishCanvas(){
       // Tentacles
       for(let t=0;t<4;t++){ctx.strokeStyle='rgba(200,100,255,.3)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(jx-6+t*4,jy2+7);ctx.quadraticCurveTo(jx-4+t*4+Math.sin(jt+t)*4,jy2+16,jx-4+t*4,jy2+22);ctx.stroke();}
     });
+    // Anglerfish (bioluminescent deep creature)
+    const af=fishState.waterAnim;
+    const afX=55+Math.sin(af*.38)*28, afY=H-26+Math.cos(af*.28)*7;
+    const lurePulse=.5+Math.sin(af*3.5)*.5;
+    const bodyG2=ctx.createRadialGradient(afX,afY,0,afX,afY,21);
+    bodyG2.addColorStop(0,'rgba(25,0,45,.98)');bodyG2.addColorStop(1,'rgba(8,0,18,.85)');
+    ctx.fillStyle=bodyG2;ctx.beginPath();ctx.ellipse(afX,afY,20,11,-.18,0,Math.PI*2);ctx.fill();
+    // Fin detail
+    ctx.fillStyle='rgba(50,0,80,.7)';ctx.beginPath();ctx.ellipse(afX-8,afY-6,6,3,-.5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(50,0,80,.7)';ctx.beginPath();ctx.ellipse(afX-8,afY+6,6,3,.5,0,Math.PI*2);ctx.fill();
+    // Glowing lure
+    const lx=afX+28+Math.sin(af*2.2)*5, ly=afY-20+Math.cos(af*1.6)*6;
+    ctx.strokeStyle='rgba(90,0,120,.8)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(afX+10,afY-9);ctx.quadraticCurveTo(afX+22,afY-28,lx,ly);ctx.stroke();
+    const lureG=ctx.createRadialGradient(lx,ly,0,lx,ly,9+lurePulse*5);
+    lureG.addColorStop(0,`rgba(220,130,255,${.85+lurePulse*.15})`);lureG.addColorStop(1,'rgba(200,80,255,0)');
+    ctx.fillStyle=lureG;ctx.beginPath();ctx.arc(lx,ly,9+lurePulse*5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=`rgba(245,200,255,${.95+lurePulse*.05})`;ctx.beginPath();ctx.arc(lx,ly,2.8,0,Math.PI*2);ctx.fill();
+    // Teeth
+    ctx.fillStyle='rgba(210,210,255,.7)';
+    for(let t=0;t<4;t++){ctx.beginPath();ctx.moveTo(afX-7+t*6,afY+10);ctx.lineTo(afX-4+t*6,afY+17);ctx.lineTo(afX-1+t*6,afY+10);ctx.fill();}
+    // Glowing eye
+    const eyeG=ctx.createRadialGradient(afX+14,afY-2,0,afX+14,afY-2,5);
+    eyeG.addColorStop(0,'rgba(220,80,255,.95)');eyeG.addColorStop(1,'rgba(150,0,200,0)');
+    ctx.fillStyle=eyeG;ctx.beginPath();ctx.arc(afX+14,afY-2,5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(afX+15,afY-3,1.2,0,Math.PI*2);ctx.fill();
   }
   // Mid-depth treasure
   if(dep>=1){
@@ -6731,6 +6769,15 @@ function drawFishCanvas(){
   if(dep>=1){for(let i=0;i<5;i++){const px=(fishState.waterAnim*15+i*80)%W,py=wTop+35+i*22;ctx.fillStyle=`rgba(${dep===2?'150,0,255':'68,136,255'},${.06+i*.015})`;ctx.beginPath();ctx.arc(px,py,1.5,0,Math.PI*2);ctx.fill();}}
   // Bubbles
   fishState.bubbles.forEach(b=>{b.y-=b.speed;if(b.y<wTop)b.y=H;ctx.strokeStyle=`rgba(100,180,255,${b.alpha})`;ctx.lineWidth=1;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.stroke();});
+  // Cast splash rings
+  if(fishState.castSplash.active){
+    const cs=fishState.castSplash; cs.t+=.055;
+    [1,1.6,2.4].forEach((m,i)=>{
+      const rad=cs.t*38*m, al=Math.max(0,.85-cs.t*m*.7);
+      if(al>0){ctx.strokeStyle=`rgba(150,210,255,${al})`;ctx.lineWidth=2-i*.45;ctx.beginPath();ctx.ellipse(cs.x,wTop+2,rad*.75,rad*.18,0,0,Math.PI*2);ctx.stroke();}
+    });
+    if(cs.t>1.6) fishState.castSplash.active=false;
+  }
   // Water surface shimmer
   ctx.strokeStyle=`rgba(${dep===2?'120,60,255':'68,136,255'},.55)`; ctx.lineWidth=2;
   ctx.shadowBlur=8; ctx.shadowColor=dep===2?'#6030ff':'#4488ff';
@@ -6760,10 +6807,13 @@ function drawFishCanvas(){
     const bobAmt=fishState.phase==='bite'?Math.sin(fishState.biteAnim*5)*12:Math.sin(fishState.waterAnim*2)*3;
     fishState.biteAnim+=.18;
     const fx=fishState.floatX, fy=fishState.floatY+bobAmt;
-    // Fishing line
-    ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.lineWidth=1;
+    // Fishing line — tension glow during bite
+    const isBiting=fishState.phase==='bite';
+    const lineCol=isBiting?`rgba(255,${70+Math.sin(fishState.biteAnim*7)*70},40,.8)`:'rgba(255,255,255,.35)';
+    if(isBiting){ctx.shadowBlur=10;ctx.shadowColor='rgba(255,80,30,.7)';}
+    ctx.strokeStyle=lineCol; ctx.lineWidth=isBiting?1.8:1;
     ctx.beginPath(); ctx.moveTo(rodTip.x,rodTip.y);
-    ctx.quadraticCurveTo(fx-20,fy-50,fx,fy); ctx.stroke();
+    ctx.quadraticCurveTo(fx-20,fy-50,fx,fy); ctx.stroke(); ctx.shadowBlur=0;
     // Float body
     ctx.fillStyle='#cc2222'; ctx.strokeStyle='rgba(255,255,255,.85)'; ctx.lineWidth=1.5;
     ctx.beginPath(); ctx.ellipse(fx,fy,4.5,10,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
@@ -6798,6 +6848,10 @@ function drawFishCanvas(){
     ctx.fillText('✦ HOT SPOT',hs.x,hs.y-hs.r-5);
     ctx.restore();
   }
+  // Cinematic vignette
+  const vigG=ctx.createRadialGradient(W*.5,H*.5,H*.1,W*.5,H*.5,H*.95);
+  vigG.addColorStop(0,'rgba(0,0,0,0)');vigG.addColorStop(.7,'rgba(0,0,0,0)');vigG.addColorStop(1,'rgba(0,0,0,.6)');
+  ctx.fillStyle=vigG;ctx.fillRect(0,0,W,H);
   // HUD: Depth & weather pill (top right)
   const depCol=dep===0?'#4488ff':dep===1?'#00ddcc':'#cc44ff';
   ctx.fillStyle='rgba(0,0,0,.7)'; ctx.beginPath(); ctx.roundRect(W-108,5,104,20,8); ctx.fill();
@@ -7294,6 +7348,7 @@ function fishCast(){
   fishState.phase='waiting';
   fishState.floatX=255+Math.random()*70; fishState.floatY=138+Math.random()*20;
   fishState.hotSpot=Math.random()<.35?{x:80+Math.random()*240,y:148+Math.random()*38,r:20+Math.random()*14}:null;
+  fishState.castSplash={active:true,t:0,x:fishState.floatX,y:fishState.floatY};
   const btn=$('fishBtn'); if(btn){btn.className='fish-cast-btn cast';btn.textContent='⬆️ Väntar på napp…';btn.disabled=true;}
   $('fishLog').textContent=fishState.hotSpot?'🔥 HOT SPOT! Bonus fisk möjlig!':'👀 Spöet kastat! Väntar…';
   fishStartDraw();
@@ -7562,9 +7617,10 @@ function initFish(){
   fishState.collection=JSON.parse(localStorage.getItem('k0509_fishColl')||'[]');
   fishBar.running=false; cancelAnimationFrame(fishBar.raf);
   const bw=$('fishBarWrap'); if(bw) bw.style.display='none';
-  fishState.bgFish=[]; fishState.bubbles=[];
+  fishState.bgFish=[]; fishState.bubbles=[]; fishState.rainDrops=[]; fishState.castSplash={active:false,t:0,x:0,y:0};
   for(let i=0;i<8;i++) fishState.bgFish.push({x:Math.random()*370+15,y:110+Math.random()*90,vx:(Math.random()-.5)*1.3,vy:(Math.random()-.5)*.4,em:['🐟','🐠','🐡'][Math.floor(Math.random()*3)],sz:9+Math.random()*9});
   for(let i=0;i<14;i++) fishState.bubbles.push({x:Math.random()*390,y:110+Math.random()*100,r:1+Math.random()*2.5,speed:.3+Math.random()*.6,alpha:.2+Math.random()*.5});
+  for(let i=0;i<22;i++) fishState.rainDrops.push({x:Math.random()*400,y:Math.random()*100,speed:3.5+Math.random()*3.5,len:6+Math.random()*7,slant:.8+Math.random()*.6});
   fishState.weather=Math.floor(Math.random()*5);
   fishState.streak=0; fishState.hotSpot=null; fishState.pendingFight=null;
   fishFight.running=false; cancelAnimationFrame(fishFight.raf); clearInterval(fishFight.timerInterval);
