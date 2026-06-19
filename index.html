@@ -6957,6 +6957,16 @@ function drawFishCanvas(){
     ctx.shadowBlur=6; ctx.shadowColor='#ffaa00';
     ctx.fillText('🔥 '+fishState.streak+'x STREAK',9,18); ctx.shadowBlur=0;
   }
+  // Night hour bonus indicator
+  const hr=new Date().getHours();
+  if(hr>=22||hr<4){
+    const nb=.5+Math.sin(fishState.waterAnim*2)*.5;
+    ctx.fillStyle=`rgba(0,0,0,${.7+nb*.1})`; ctx.beginPath(); ctx.roundRect(5,fishState.streak>=2?30:5,80,20,8); ctx.fill();
+    ctx.font='bold 9px Syne,sans-serif'; ctx.textAlign='left';
+    ctx.fillStyle=`rgba(200,170,255,${.8+nb*.2})`;
+    ctx.shadowBlur=8; ctx.shadowColor='rgba(170,100,255,.8)';
+    ctx.fillText('🌙 NATTFISKE',9,fishState.streak>=2?44:18); ctx.shadowBlur=0;
+  }
 }
 
 // Old fish functions removed — see new versions below at fishBar section
@@ -7448,7 +7458,11 @@ function fishCast(){
   fishState.waitTimer=setTimeout(()=>{
     fishState.phase='bite';
     if(btn){btn.disabled=false;btn.className='fish-cast-btn reel';btn.textContent='🎣 TAP NÄR MARKÖREN ÄR I ZONEN!';}
-    $('fishLog').innerHTML='<span style="color:var(--gold);font-weight:900">🎣 NAPP! Håll markören i grön zonen!</span>';
+    const isStormAbyss=fishState.weather===2&&fishState.depth===2;
+    const isNight=(new Date().getHours()>=22||new Date().getHours()<4)&&fishState.depth===2;
+    if(isStormAbyss) $('fishLog').innerHTML='<span style="color:#ff4444;font-weight:900;font-size:14px">⛈️ STORMKYSS FRÅN DJUPET!</span>';
+    else if(isNight) $('fishLog').innerHTML='<span style="color:#cc88ff;font-weight:900">🌙 NATTVARELSE!!</span>';
+    else $('fishLog').innerHTML='<span style="color:var(--gold);font-weight:900">🎣 NAPP! Håll markören i grön zonen!</span>';
     vibe([50,30,50]);
     startFishBar();
   },wait);
@@ -7522,6 +7536,12 @@ function fishReelResult(quality){
   if(fishState.weather===2&&Math.random()<.05){
     const legs=depthFish.filter(f=>f.rarity==='legendary'||f.rarity==='mythic');
     if(legs.length) caught=legs[0];
+  }
+  // Night hour bonus (22:00-04:00): double mythic chance at abyssal
+  const _hr=new Date().getHours();
+  if((_hr>=22||_hr<4)&&fishState.depth===2&&Math.random()<.04){
+    const mythics=depthFish.filter(f=>f.rarity==='mythic');
+    if(mythics.length){caught=mythics[0];showT('🌙 NATTFISKE BONUS — MYTISK!','pk');}
   }
   if(fishState.hotSpot&&(caught.rarity==='common'||caught.rarity==='uncommon')&&Math.random()<.35){
     const rares=depthFish.filter(f=>f.rarity==='rare');
