@@ -861,21 +861,22 @@ html, body {
 .badge-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 16px; }
 /* Global game stats grid */
 .global-stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:0 14px 14px; }
-.gstat-box { background:var(--s1); border:1.5px solid var(--line); border-radius:14px; padding:11px 6px; text-align:center; transition:all .15s; }
+.gstat-box { background:linear-gradient(180deg,rgba(10,4,22,.96),rgba(4,2,12,.94)); border:1.5px solid rgba(255,255,255,.07); border-radius:16px; padding:12px 6px; text-align:center; transition:all .15s; box-shadow:0 4px 12px rgba(0,0,0,.4); }
 .gstat-box:active { transform:scale(.93); }
-.gstat-ico { font-size:20px; margin-bottom:3px; }
+.gstat-ico { font-size:22px; margin-bottom:4px; filter:drop-shadow(0 2px 6px rgba(255,255,255,.15)); }
 .gstat-val { font-family:var(--ff-head); font-size:22px; font-weight:900; line-height:1; }
-.gstat-lbl { font-size:8px; color:var(--t3); font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-top:3px; }
+.gstat-lbl { font-size:8px; color:var(--t3); font-weight:800; text-transform:uppercase; letter-spacing:.6px; margin-top:4px; }
 /* Achievement rarity colors */
 .ach-r-common { color:var(--t2); }
 .ach-r-uncommon { color:var(--green); }
 .ach-r-rare { color:var(--blue); }
 .ach-r-epic { color:var(--purple); }
 .ach-r-legendary { color:var(--gold); }
-.badge { background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .12s; }
-.badge.earned { border-color:rgba(255,204,0,.4);background:rgba(255,204,0,.04); }
-.badge-e { font-size:24px;margin-bottom:4px; }
-.badge-l { font-size:8px;font-weight:700;color:var(--t3); }
+.badge { background:linear-gradient(180deg,rgba(10,4,22,.95),rgba(4,2,12,.9));border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:13px 6px;text-align:center;cursor:pointer;transition:all .15s;box-shadow:0 3px 12px rgba(0,0,0,.35); }
+.badge:active { transform:scale(.93); }
+.badge.earned { border-color:rgba(255,204,0,.35);background:linear-gradient(180deg,rgba(20,14,0,.95),rgba(10,6,0,.9));box-shadow:0 4px 18px rgba(255,204,0,.1); }
+.badge-e { font-size:26px;margin-bottom:5px;filter:drop-shadow(0 2px 8px rgba(255,255,255,.15)); }
+.badge-l { font-size:8px;font-weight:800;color:var(--t3);letter-spacing:.3px; }
 .badge.earned .badge-l { color:var(--gold); }
 .hist-item { display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line); }
 .hist-item:last-child { border-bottom:none; }
@@ -1287,9 +1288,9 @@ textarea.inp { resize:none;min-height:72px; }
 
 /* ── Daily login bonus ── */
 .daily-days { display:flex; gap:5px; justify-content:center; margin:12px 0; }
-.day-item { width:36px; height:52px; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; background:var(--s3); border:2px solid var(--line); font-size:10px; font-weight:700; color:var(--t3); }
-.day-item.done { background:rgba(0,255,136,.1); border-color:var(--green); color:var(--green); }
-.day-item.today { background:rgba(255,204,0,.12); border-color:var(--gold); color:var(--gold); animation:todayGlow 1.6s ease-in-out infinite; }
+.day-item { width:38px; height:54px; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; background:rgba(10,4,22,.85); border:2px solid rgba(255,255,255,.07); font-size:10px; font-weight:700; color:var(--t3); box-shadow:0 3px 10px rgba(0,0,0,.4); }
+.day-item.done { background:rgba(0,10,4,.9); border-color:rgba(0,255,136,.4); color:var(--green); }
+.day-item.today { background:rgba(20,14,0,.9); border-color:var(--gold); color:var(--gold); animation:todayGlow 1.6s ease-in-out infinite; box-shadow:0 4px 20px rgba(255,204,0,.2); }
 @keyframes todayGlow { 0%,100%{box-shadow:0 0 0 0 rgba(255,204,0,.3)} 50%{box-shadow:0 0 0 8px rgba(255,204,0,0)} }
 .day-ico { font-size:20px; line-height:1; }
 .day-lbl { font-size:8px; letter-spacing:.5px; text-transform:uppercase; }
