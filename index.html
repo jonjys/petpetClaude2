@@ -948,7 +948,7 @@ textarea.inp { resize:none;min-height:72px; }
 .sp-title { font-family:var(--ff-head);font-size:34px;font-weight:900;text-align:center;margin-bottom:8px; }
 .sp-sub { font-size:15px;color:var(--t2);text-align:center;margin-bottom:14px; }
 .sp-row { display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:12px 0 22px; }
-.sp-r { background:var(--s2);border:1px solid var(--line);border-radius:14px;padding:12px 18px;text-align:center;min-width:78px; }
+.sp-r { background:linear-gradient(180deg,rgba(10,4,22,.95),rgba(4,2,12,.9));border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 18px;text-align:center;min-width:78px;box-shadow:0 4px 14px rgba(0,0,0,.4); }
 .sp-rv { font-family:var(--ff-head);font-size:22px;font-weight:900; }
 .sp-rl { font-size:10px;color:var(--t3);margin-top:3px; }
 
@@ -1527,7 +1527,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .sess-xp-chip.active { border-color:rgba(0,255,136,.35); color:var(--green); background:rgba(0,255,136,.06); }
 /* Runner difficulty */
 .runner-diff-row { display:flex; gap:8px; padding:6px 0 8px; justify-content:center; }
-.runner-diff-btn { padding:8px 18px; border-radius:12px; font-family:var(--ff-head); font-size:12px; font-weight:900; border:1.5px solid rgba(255,255,255,.1); background:var(--s2); color:var(--t3); cursor:pointer; transition:all .12s; }
+.runner-diff-btn { padding:8px 18px; border-radius:12px; font-family:var(--ff-head); font-size:12px; font-weight:900; border:1.5px solid rgba(255,255,255,.08); background:rgba(10,4,22,.8); color:var(--t3); cursor:pointer; transition:all .12s; }
 .runner-diff-btn.on { border-color:var(--green); color:var(--green); background:rgba(0,255,136,.08); }
 .lucky-box-ico { font-size:80px; display:block; text-align:center; cursor:pointer; animation:luckyBob 1.8s ease-in-out infinite; filter:drop-shadow(0 0 24px var(--gold)); margin:10px 0 6px; }
 @keyframes luckyBob { 0%,100%{transform:translateY(0) rotate(-8deg)} 50%{transform:translateY(-14px) rotate(8deg)} }
@@ -1854,19 +1854,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 @keyframes ultraPop { from{transform:scale(0) rotate(-12deg);} to{transform:scale(1);} }
 /* ══ TROPHY ROOM ══ */
 .trophy-shelf { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:0 14px 14px; }
-.trophy-item { background:var(--s2); border:1.5px solid var(--line); border-radius:12px; padding:8px 4px; text-align:center; transition:all .18s; cursor:pointer; }
+.trophy-item { background:linear-gradient(180deg,rgba(10,4,22,.96),rgba(4,2,12,.94)); border:1.5px solid rgba(255,255,255,.07); border-radius:14px; padding:9px 4px; text-align:center; transition:all .18s; cursor:pointer; box-shadow:0 3px 12px rgba(0,0,0,.4); }
 .trophy-item:active { transform:scale(.9); }
-.trophy-item.gold { border-color:var(--gold); background:rgba(255,204,0,.06); }
-.trophy-item.green { border-color:var(--green); background:rgba(0,255,136,.06); }
-.trophy-item.blue { border-color:var(--blue); background:rgba(68,136,255,.06); }
-.trophy-item.locked { opacity:.28; filter:grayscale(1); }
+.trophy-item.gold { border-color:rgba(255,204,0,.4); background:rgba(20,14,0,.95); box-shadow:0 4px 18px rgba(255,204,0,.1); }
+.trophy-item.green { border-color:rgba(0,255,136,.4); background:rgba(0,10,4,.95); box-shadow:0 4px 18px rgba(0,255,136,.1); }
+.trophy-item.blue { border-color:rgba(68,136,255,.4); background:rgba(0,4,14,.95); box-shadow:0 4px 18px rgba(68,136,255,.1); }
+.trophy-item.locked { opacity:.22; filter:grayscale(1); }
 .trophy-em { font-size:22px; display:block; margin-bottom:3px; }
 .trophy-lbl { font-size:7.5px; font-weight:800; color:var(--t3); line-height:1.3; }
 /* ══ DAILY TOURNAMENT ══ */
 .tourn-card { margin:0 14px 14px; background:linear-gradient(135deg,rgba(255,204,0,.07),rgba(255,136,0,.04)); border:1.5px solid rgba(255,204,0,.3); border-radius:18px; padding:14px 14px 8px; }
 .tourn-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
 .tourn-title { font-family:var(--ff-head); font-size:14px; font-weight:900; color:var(--gold); }
-.tourn-cd { font-size:10px; font-weight:800; color:var(--t2); background:var(--s2); padding:3px 8px; border-radius:8px; }
+.tourn-cd { font-size:10px; font-weight:800; color:var(--t2); background:rgba(10,4,22,.8); padding:3px 8px; border-radius:8px; border:1px solid rgba(255,255,255,.07); }
 .tourn-row { display:flex; align-items:center; gap:8px; padding:5px 0; border-bottom:1px solid var(--line); }
 .tourn-row:last-child { border:none; padding-bottom:0; }
 .tourn-rk { font-family:var(--ff-head); font-size:14px; font-weight:900; width:22px; text-align:center; flex-shrink:0; }
@@ -1876,17 +1876,17 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 /* ══ PREMIUM BADGE ══ */
 .prem-badge { display:inline-flex; align-items:center; gap:3px; background:linear-gradient(135deg,var(--gold),#ff8c00); color:#000; font-size:8px; font-weight:900; padding:2px 6px; border-radius:7px; vertical-align:middle; margin-left:4px; letter-spacing:.3px; }
 /* ══ STEP TRACKER ══ */
-.step-card { margin:0 14px 12px; background:var(--s1); border:1px solid var(--line); border-radius:18px; padding:14px; }
+.step-card { margin:0 14px 12px; background:linear-gradient(180deg,rgba(0,6,18,.97),rgba(0,2,10,.95)); border:1px solid rgba(0,255,136,.1); border-radius:18px; padding:14px; box-shadow:0 4px 20px rgba(0,0,0,.5); }
 .step-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
 .step-ttl { font-family:var(--ff-head); font-size:13px; font-weight:900; }
 .step-sync { font-size:10px; color:var(--blue); font-weight:800; cursor:pointer; }
-.step-num { font-family:var(--ff-head); font-size:38px; font-weight:900; color:var(--green); text-align:center; line-height:1; }
+.step-num { font-family:var(--ff-head); font-size:38px; font-weight:900; color:var(--green); text-align:center; line-height:1; text-shadow:0 0 20px rgba(0,255,136,.3); }
 .step-goal { font-size:10px; color:var(--t3); text-align:center; margin:2px 0 10px; }
-.step-track { height:7px; background:var(--s3); border-radius:100px; overflow:hidden; margin-bottom:8px; }
-.step-fill { height:100%; background:linear-gradient(90deg,var(--green),var(--teal)); border-radius:100px; transition:width .8s cubic-bezier(.34,1.56,.64,1); }
+.step-track { height:7px; background:rgba(255,255,255,.06); border-radius:100px; overflow:hidden; margin-bottom:8px; }
+.step-fill { height:100%; background:linear-gradient(90deg,var(--green),var(--teal)); border-radius:100px; transition:width .8s cubic-bezier(.34,1.56,.64,1); box-shadow:0 0 8px rgba(0,255,136,.4); }
 .step-rwds { display:flex; gap:5px; }
-.step-rwd { flex:1; text-align:center; background:var(--s2); border-radius:9px; padding:5px 3px; font-size:8px; color:var(--t3); font-weight:700; }
-.step-rwd.done { background:rgba(0,255,136,.08); color:var(--green); border:1px solid rgba(0,255,136,.18); }
+.step-rwd { flex:1; text-align:center; background:rgba(10,4,22,.8); border-radius:9px; padding:5px 3px; font-size:8px; color:var(--t3); font-weight:700; border:1px solid rgba(255,255,255,.06); }
+.step-rwd.done { background:rgba(0,255,136,.08); color:var(--green); border:1px solid rgba(0,255,136,.2); }
 /* ══ KC SHOP ══ */
 .kcs-tab { padding:6px 14px; border-radius:20px; font-size:11px; font-weight:800; color:var(--t2); background:rgba(10,4,24,.8); cursor:pointer; white-space:nowrap; transition:all .15s; border:1.5px solid rgba(255,255,255,.07); font-family:var(--ff-head); }
 .kcs-tab:active { transform:scale(.94); }
@@ -1924,7 +1924,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
-.fish-coll-item { border-radius:9px; border:1.5px solid rgba(255,255,255,.08); background:var(--s2); padding:5px 3px; text-align:center; transition:all .2s; }
+.fish-coll-item { border-radius:10px; border:1.5px solid rgba(255,255,255,.07); background:rgba(10,4,22,.85); padding:5px 3px; text-align:center; transition:all .2s; box-shadow:0 3px 10px rgba(0,0,0,.4); }
 .fish-coll-item.caught { background:rgba(0,0,0,.5); }
 .fish-coll-item:active { transform:scale(.88); }
 
