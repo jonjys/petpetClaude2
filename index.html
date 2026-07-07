@@ -2090,6 +2090,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fish-te-rv { font-family:var(--ff-head);font-size:20px;font-weight:900; }
 .fish-te-rl { font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:2px; }
 
+/* ══ RANDOM ENCOUNTER ══ */
+.re-card { position:fixed;bottom:calc(100px + var(--sab));left:14px;right:14px;z-index:600;border-radius:20px;padding:14px 16px;display:flex;align-items:center;gap:12px;transform:translateY(120px);opacity:0;transition:all .45s cubic-bezier(.34,1.56,.64,1);pointer-events:none; }
+.re-card.show { transform:translateY(0);opacity:1;pointer-events:all; }
+.re-ico { font-size:36px;flex-shrink:0;filter:drop-shadow(0 0 14px rgba(255,204,0,.6)); }
+.re-body { flex:1;min-width:0; }
+.re-title { font-size:13px;font-weight:900;font-family:var(--ff-head); }
+.re-desc { font-size:11px;color:rgba(255,255,255,.65);margin-top:2px; }
+.re-cd { width:100%;height:3px;background:rgba(255,255,255,.15);border-radius:2px;margin-top:7px;overflow:hidden; }
+.re-cd-fill { height:100%;border-radius:2px;transition:width linear; }
+.re-tap { background:linear-gradient(135deg,var(--gold),#ff8844);border:none;border-radius:12px;padding:8px 14px;font-family:var(--ff-head);font-size:11px;font-weight:900;color:#000;cursor:pointer;flex-shrink:0;transition:all .12s; }
+.re-tap:active { transform:scale(.9); }
+
+/* ══ SESSION SCORE HUD ══ */
+.session-hud { position:fixed;bottom:calc(70px + var(--sab));left:50%;transform:translateX(-50%);z-index:400;display:flex;gap:10px;pointer-events:none;opacity:0;transition:opacity .3s; }
+.session-hud.show { opacity:1; }
+.session-hud-chip { background:rgba(0,0,0,.8);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:800;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:5px;white-space:nowrap; }
+
 /* ══ OFFLINE EARNINGS SPLASH ══ */
 .oe-splash { position:fixed;inset:0;z-index:901;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.93);backdrop-filter:blur(18px);opacity:0;pointer-events:none;transition:opacity .4s; }
 .oe-splash.show { opacity:1;pointer-events:all; }
@@ -4319,6 +4336,17 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <button class="btn btn-pk btn-full" style="margin-top:4px" onclick="closeARCard()">✨ ACCEPTERA VÄLSIGNELSEN</button>
     </div>
   </div>
+</div>
+
+<!-- RANDOM ENCOUNTER CARD -->
+<div class="re-card" id="reCard" style="background:linear-gradient(160deg,rgba(30,12,60,.96),rgba(10,4,24,.98));border:2px solid rgba(255,204,0,.3)">
+  <div class="re-ico" id="reIco">⭐</div>
+  <div class="re-body">
+    <div class="re-title" id="reTitle">RANDOM EVENT!</div>
+    <div class="re-desc" id="reDesc">Något händer...</div>
+    <div class="re-cd"><div class="re-cd-fill" id="reCDFill" style="width:100%;background:linear-gradient(90deg,var(--gold),var(--orange))"></div></div>
+  </div>
+  <button class="re-tap" id="reTapBtn" onclick="claimRandomEvent()">HÄMTA!</button>
 </div>
 
 <!-- OFFLINE EARNINGS SPLASH -->
@@ -10644,6 +10672,67 @@ completeFishCatch = function(caught, quality) {
   _fishTournAddScore(caught);
   _origCompleteFishCatch(caught, quality);
 };
+
+// ══════════════════════════════════════════
+//   🎲 RANDOM ENCOUNTER SYSTEM
+// ══════════════════════════════════════════
+const RE_EVENTS = [
+  {ico:'⭐',title:'STJÄRNFALL!',desc:'En stjärna föll ner! Fånga den och ta +100 XP.',col:'#ffcc00',fn:()=>{gainXP(100,'action');confetti(40);}},
+  {ico:'🎁',title:'MYSTERIELÅDA!',desc:'En mystisk låda dök upp. Öppna den!',col:'#aa66ff',fn:()=>{gainXP(50,'action');gainCoins(25);gainKC(3);}},
+  {ico:'💎',title:'KC-KRISTALL!',desc:'En lysande kristall glimmar framför dig.',col:'#00ddcc',fn:()=>{gainKC(15);confetti(30);}},
+  {ico:'🌙',title:'MÅNENS GÅVA!',desc:'Månen skickar energi. Hunger + Energi fylls!',col:'#4488ff',fn:()=>{G.hunger=Math.min(100,(G.hunger||70)+35);G.energy=Math.min(100,(G.energy||60)+35);save();}},
+  {ico:'🔥',title:'ELDEN TÄNDS!',desc:'Din pet EXPLODERAR av energi! TRIPLE XP!',col:'#ff8844',fn:()=>{gainXP(150,'action');confetti(60);}},
+  {ico:'💰',title:'GULDREGN!',desc:'Mynt regnar från himlen. Fånga dem!',col:'#ffcc00',fn:()=>{gainCoins(60);confetti(50);}},
+  {ico:'🐟',title:'MAGISK FISK!',desc:'En kosmisk fisk visade sig. +20 KC!',col:'#4488ff',fn:()=>{gainKC(20);gainXP(30,'action');}},
+  {ico:'⚡',title:'BLIXTENERGI!',desc:'En blixt träffar dig! +200 XP och XP-boost!',col:'#aa66ff',fn:()=>{gainXP(200,'action');G_shop.xpBoost=Date.now()+1800000;saveShop();confetti(80);}},
+  {ico:'🌸',title:'KÖRSBÄRSREGN!',desc:'Blomblad faller. Allt levlar upp!',col:'#ff3377',fn:()=>{gainXP(80,'action');gainCoins(30);G.mood=Math.min(100,(G.mood||70)+20);save();}},
+  {ico:'🔮',title:'ORAKLETS SYN!',desc:'Oraklet viskar hemliga ord i ditt öra.',col:'#cc88ff',fn:()=>{gainXP(120,'action');gainKC(8);}},
+];
+
+let _reTimer=null, _reCurEvent=null, _reActive=false;
+
+function _reTrigger() {
+  if(_reActive||!G.name) return;
+  const ev = RE_EVENTS[Math.floor(Math.random()*RE_EVENTS.length)];
+  _reCurEvent = ev; _reActive = true;
+  const card=$('reCard'), ico=$('reIco'), title=$('reTitle'), desc=$('reDesc'), fill=$('reCDFill');
+  if(!card) return;
+  card.style.background = `linear-gradient(160deg,rgba(30,12,60,.96),rgba(10,4,24,.98))`;
+  card.style.borderColor = ev.col+'44';
+  if(ico){ ico.textContent=ev.ico; ico.style.filter=`drop-shadow(0 0 14px ${ev.col}66)`; }
+  if(title){ title.textContent=ev.title; title.style.color=ev.col; }
+  if(desc) desc.textContent=ev.desc;
+  if(fill) fill.style.background=`linear-gradient(90deg,${ev.col},${ev.col}88)`;
+  card.classList.add('show');
+  SFX.lvl && SFX.lvl(); vibe([20,10,40]);
+  // Auto-dismiss after 10s
+  let t=100;
+  const cd=setInterval(()=>{t-=1;if(fill)fill.style.width=t+'%';if(t<=0){clearInterval(cd);_reDismiss();}},100);
+  _reTimer=cd;
+}
+
+function claimRandomEvent() {
+  if(!_reCurEvent||!_reActive) return;
+  clearInterval(_reTimer);
+  _reCurEvent.fn();
+  const btn=$('reTapBtn'); if(btn){btn.textContent='✅ HÄMTAT!';btn.style.background='rgba(0,255,136,.2)';btn.style.color='var(--green)';}
+  kjLog('cosmic','🎲 RANDOM EVENT: '+_reCurEvent.title,_reCurEvent.desc,_reCurEvent.ico);
+  setTimeout(_reDismiss,1200);
+}
+
+function _reDismiss() {
+  _reActive=false; _reCurEvent=null;
+  const card=$('reCard'); if(card) card.classList.remove('show');
+  const btn=$('reTapBtn'); if(btn){btn.textContent='HÄMTA!';btn.style.background='';btn.style.color='';}
+}
+
+// Schedule random encounters: every 4-10 minutes randomly
+function _reSchedule() {
+  const delay = (240+Math.random()*360)*1000; // 4-10 min
+  setTimeout(()=>{_reTrigger();_reSchedule();}, delay);
+}
+if(typeof G !== 'undefined' && G.name) setTimeout(_reSchedule, 5000);
+else setTimeout(()=>{if(G.name)_reSchedule();},3000);
 
 </script>
 
