@@ -1351,6 +1351,29 @@ textarea.inp { resize:none;min-height:72px; }
 .kj-portal .kj-stem { background:linear-gradient(180deg,rgba(255,51,119,.35),transparent); }
 .kj-portal .kj-card { background:linear-gradient(160deg,rgba(38,4,18,.9),rgba(16,2,8,.95));border:1px solid rgba(255,51,119,.22); }
 
+/* ══ DAILY FORTUNE CARD ══ */
+.dfc { position:fixed;inset:0;z-index:853;background:radial-gradient(ellipse at 50% 30%,rgba(16,4,36,.97),#000 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateY(100%);transition:transform .42s cubic-bezier(.32,.72,0,1);overflow:hidden; }
+.dfc.open { transform:translateY(0); }
+.dfc-canvas { position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none; }
+.dfc-title { font-family:var(--ff-head);font-size:13px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:32px;position:relative;z-index:2; }
+.dfc-wrap { position:relative;z-index:2;perspective:1200px;width:280px;height:370px; }
+.dfc-card { width:100%;height:100%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.34,1.1,.64,1);cursor:pointer; }
+.dfc-card.flipped { transform:rotateY(180deg); }
+.dfc-face { position:absolute;inset:0;border-radius:28px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center; }
+.dfc-back { background:linear-gradient(160deg,rgba(28,8,60,.98),rgba(8,2,20,.99));border:2px solid rgba(170,102,255,.3);box-shadow:0 0 60px rgba(170,102,255,.12),0 30px 80px rgba(0,0,0,.8); }
+.dfc-rune { font-size:80px;filter:drop-shadow(0 0 24px rgba(170,102,255,.6));animation:dfcRune 3s ease-in-out infinite; }
+@keyframes dfcRune { 0%,100%{transform:scale(1) rotate(0deg);}50%{transform:scale(1.08) rotate(8deg);} }
+.dfc-back-hint { font-size:12px;font-weight:700;color:rgba(255,255,255,.35);margin-top:20px;letter-spacing:1.5px;text-transform:uppercase; }
+.dfc-back-hint span { color:rgba(170,102,255,.7); }
+.dfc-front { transform:rotateY(180deg);padding:30px 24px;text-align:center; }
+.dfc-front-ico { font-size:72px;margin-bottom:14px;filter:drop-shadow(0 0 28px var(--dfc-col,#ffcc00));animation:dfcIco 2s ease-in-out infinite; }
+@keyframes dfcIco { 0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-8px) scale(1.06);} }
+.dfc-front-name { font-family:var(--ff-head);font-size:22px;font-weight:900;margin-bottom:8px;letter-spacing:.5px; }
+.dfc-front-eff { font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:20px;max-width:220px; }
+.dfc-claim { border:none;border-radius:18px;padding:14px 36px;font-family:var(--ff-head);font-size:14px;font-weight:900;cursor:pointer;transition:all .15s;margin-top:4px; }
+.dfc-claim:active { transform:scale(.93); }
+.dfc-close { position:absolute;top:calc(var(--sat)+14px);right:16px;z-index:3;background:rgba(255,255,255,.08);border:none;border-radius:50%;width:38px;height:38px;font-size:16px;color:#fff;cursor:pointer; }
+
 .nb.on .nl { color:var(--pet-col,var(--green)) !important; }
 
 /* Pet speech bubble */
@@ -2894,6 +2917,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();nav('games');setTimeout(()=>switchGame('raid',document.querySelector('.gtab:last-child')),300)"><div class="ddr-i">💀</div>Boss Raid</div>
           <div class="ddr" onclick="cM();openAR()" style="background:linear-gradient(135deg,rgba(40,8,80,.6),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(170,102,255,.8))">🌌</div><span style="background:linear-gradient(135deg,#cc88ff,#4488ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">ASTRAL RIFT</span></div>
           <div class="ddr" onclick="cM();openNP()" style="background:linear-gradient(135deg,rgba(60,4,30,.6),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">💫</div><span style="background:linear-gradient(135deg,#ff3377,#aa66ff,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">NEON PORTAL</span></div>
+          <div class="ddr" onclick="cM();openDFC()" style="background:linear-gradient(135deg,rgba(60,20,0,.55),rgba(30,10,60,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">🔮</div><span style="background:linear-gradient(135deg,#ffcc00,#ff8844,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">DAGLIG FÖRMÖGENHET</span></div>
           <div class="ddr" onclick="cM();openKJ()" style="background:linear-gradient(135deg,rgba(60,16,0,.5),rgba(20,40,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">📖</div><span style="background:linear-gradient(135deg,#ff3377,#ffcc00,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">KARMA JOURNAL</span></div>
           <div class="ddr" onclick="cM();toggleRadio()"><div class="ddr-i">🎵</div>Karma Radio</div>
         </div>
@@ -4143,6 +4167,27 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="ar-card-name" id="arCardName">SYNEN</div>
       <div class="ar-card-eff" id="arCardEff">Din välsignelse uppenbaras...</div>
       <button class="btn btn-pk btn-full" style="margin-top:4px" onclick="closeARCard()">✨ ACCEPTERA VÄLSIGNELSEN</button>
+    </div>
+  </div>
+</div>
+
+<!-- DAILY FORTUNE CARD -->
+<div class="dfc" id="dfcPanel">
+  <canvas class="dfc-canvas" id="dfcCanvas"></canvas>
+  <button class="dfc-close" onclick="closeDFC()">✕</button>
+  <div class="dfc-title">⟡ DAGLIG FÖRMÖGENHET ⟡</div>
+  <div class="dfc-wrap">
+    <div class="dfc-card" id="dfcCard" onclick="dfcFlip()">
+      <div class="dfc-face dfc-back">
+        <div class="dfc-rune">🔮</div>
+        <div class="dfc-back-hint">TRYCK FÖR ATT<br><span>AVSLÖJA DIN FÖRMÖGENHET</span></div>
+      </div>
+      <div class="dfc-face dfc-front" id="dfcFront">
+        <div class="dfc-front-ico" id="dfcIco">⭐</div>
+        <div class="dfc-front-name" id="dfcName">FORTUNE</div>
+        <div class="dfc-front-eff" id="dfcEff">...</div>
+        <button class="dfc-claim" id="dfcClaimBtn" onclick="event.stopPropagation();dfcClaim()">✨ HÄMTA VÄLSIGNELSE</button>
+      </div>
     </div>
   </div>
 </div>
@@ -8175,6 +8220,7 @@ gainXP=function(n,stat){
 if(G.name){
   setTimeout(initFloatPet,800);
   setTimeout(initBattle2,100); // init battle 2.0
+  setTimeout(_dfcAutoCheck,2500); // daily fortune auto-show
 }
 
 /* ══════════════════════════════════════════════════
@@ -9758,6 +9804,104 @@ function _kjInitCanvas() {
     ctx.arc(x, y, r, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(255,255,255,${a})`;
     ctx.fill();
+  }
+}
+
+// ══════════════════════════════════════════
+//   🔮 DAILY FORTUNE CARD
+// ══════════════════════════════════════════
+const DFC_CARDS = [
+  {id:'sun',ico:'🌅',name:'SOLENS UPPKOMST',eff:'En ny sol reser sig. Dess strålar fyller dig med kraft.',col:'#ffcc00',fn:()=>{gainXP(150,'action');showFeatToast('🌅 +150 XP — Solens välsignelse!');}},
+  {id:'moon',ico:'🌙',name:'MÅNENS HEMLIGHET',eff:'Månens silver rinner genom ditt blod. Fiskarna söker dig.',col:'#4488ff',fn:()=>{gainKC(30);showFeatToast('🌙 +30 KC — Månens gåva!');}},
+  {id:'storm',ico:'⚡',name:'STORMVINDEN',eff:'Stormen river loss allt som hindrar dig. Coins flödar fritt.',col:'#aa66ff',fn:()=>{gainCoins(80);showFeatToast('⚡ +80 Coins — Stormens skatt!');}},
+  {id:'oracle',ico:'🔮',name:'ORAKLET TALAR',eff:'Oraklet ser din framtid. Den lyser starkt med tre gåvor.',col:'#cc88ff',fn:()=>{gainXP(100,'action');gainCoins(20);gainKC(10);showFeatToast('🔮 +100 XP +20 Coins +10 KC!');}},
+  {id:'tide',ico:'🌊',name:'TIDEVATTNET',eff:'Havet lyfter dig. Energi och hunger återstaller sig.',col:'#00ddcc',fn:()=>{G.energy=Math.min(100,(G.energy||60)+60);G.hunger=Math.min(100,(G.hunger||70)+40);save();showFeatToast('🌊 Energi+60 Hunger+40!');}},
+  {id:'eagle',ico:'🦅',name:'ÖRNEN',eff:'Örnen ser långt. XP-boost aktiveras i en timme.',col:'#ff8844',fn:()=>{G_shop.xpBoost=Date.now()+3600000;saveShop();gainXP(50,'action');showFeatToast('🦅 2x XP Boost 1h!');}},
+  {id:'flame',ico:'💜',name:'LILA FLAMMAN',eff:'En mystisk flamma tänds i ditt hjärta. Humöret skjuter i höjden.',col:'#aa66ff',fn:()=>{gainXP(75,'action');G.mood=Math.min(100,(G.mood||70)+30);save();showFeatToast('💜 +75 XP Mood+30!');}},
+  {id:'bloom',ico:'🌸',name:'KÖRSBÄRSBLOMMAN',eff:'Blomman blommar och läker allt. Energi fylls till max.',col:'#ff3377',fn:()=>{G.energy=100;G.hunger=100;gainXP(100,'action');save();showFeatToast('🌸 Energi & Hunger FULL!');}},
+  {id:'crown',ico:'👑',name:'KRONAN',eff:'Du bär kronan idag. Coins och KC välsignas.',col:'#ffcc00',fn:()=>{gainCoins(50);gainKC(50);showFeatToast('👑 +50 Coins +50 KC!');}},
+  {id:'star',ico:'🌟',name:'STJÄRNFALLET',eff:'En stjärna faller direkt i din hand. +250 XP!',col:'#4488ff',fn:()=>{gainXP(250,'action');confetti(80);showFeatToast('🌟 STJÄRNFALL +250 XP!');}},
+  {id:'fire',ico:'🔥',name:'ELDEN',eff:'Elden bränner klart. XP och Coins strömmar mot dig.',col:'#ff8844',fn:()=>{gainXP(125,'action');gainCoins(40);showFeatToast('🔥 +125 XP +40 Coins!');}},
+  {id:'diamond',ico:'💎',name:'DIAMANTEN',eff:'En rå diamant uppenbarar sig. 75 KC direkt i fickan.',col:'#00ddcc',fn:()=>{gainKC(75);showFeatToast('💎 +75 KC — Diamantens gåva!');}},
+];
+let _dfcFlipped = false, _dfcClaimed = false, _dfcCard = null;
+
+function openDFC() {
+  const el = $('dfcPanel'); if(!el) return;
+  const today = getTodayKey();
+  const claimed = localStorage.getItem('k0509_dfc_'+today);
+  // Pick daily fortune (deterministic from date + level)
+  const seed = today.replace(/-/g,'').split('').reduce((a,c)=>a+c.charCodeAt(0),0) + (G.level||1);
+  _dfcCard = DFC_CARDS[seed % DFC_CARDS.length];
+  // Style front
+  const front = $('dfcFront');
+  if(front) front.style.cssText += `;background:linear-gradient(160deg,rgba(${_hexToRgb(_dfcCard.col)},.12),rgba(0,0,0,.95));border:2px solid ${_dfcCard.col}44;box-shadow:0 0 60px ${_dfcCard.col}18;--dfc-col:${_dfcCard.col}`;
+  const ico=$('dfcIco'), nm=$('dfcName'), eff=$('dfcEff'), btn=$('dfcClaimBtn');
+  if(ico) ico.textContent = _dfcCard.ico;
+  if(nm){ nm.textContent = _dfcCard.name; nm.style.color = _dfcCard.col; }
+  if(eff) eff.textContent = _dfcCard.eff;
+  if(btn){ 
+    if(claimed){ btn.textContent='✅ Redan hämtad idag'; btn.disabled=true; btn.style.background='rgba(255,255,255,.08)'; btn.style.color='rgba(255,255,255,.4)'; }
+    else { btn.textContent='✨ HÄMTA VÄLSIGNELSE'; btn.disabled=false; btn.style.background=`linear-gradient(135deg,${_dfcCard.col},${_dfcCard.col}aa)`; btn.style.color='#000'; }
+  }
+  // Reset card flip state
+  const card = $('dfcCard');
+  if(card){ card.classList.remove('flipped'); }
+  _dfcFlipped = false;
+  _dfcClaimed = !!claimed;
+  el.classList.add('open');
+  _dfcInitCanvas();
+}
+function closeDFC() {
+  const el = $('dfcPanel'); if(el) el.classList.remove('open');
+}
+function dfcFlip() {
+  if(_dfcFlipped) return;
+  const card = $('dfcCard'); if(!card) return;
+  card.classList.add('flipped');
+  _dfcFlipped = true;
+  SFX.lvl && SFX.lvl(); vibe([20,10,40]);
+  confetti(30);
+}
+function dfcClaim() {
+  if(_dfcClaimed || !_dfcCard) return;
+  const today = getTodayKey();
+  _dfcClaimed = true;
+  localStorage.setItem('k0509_dfc_'+today, '1');
+  _dfcCard.fn(); vibe([50,30,80,30,50]);
+  confetti(60);
+  kjLog('cosmic','🔮 DAGLIG FÖRMÖGENHET: '+_dfcCard.name,_dfcCard.eff,_dfcCard.ico);
+  const btn = $('dfcClaimBtn');
+  if(btn){ btn.textContent='✅ Välsignelse mottagen!'; btn.disabled=true; btn.style.background='rgba(0,255,136,.15)'; btn.style.color='var(--green)'; }
+}
+function _hexToRgb(hex){
+  const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+  return r+','+g+','+b;
+}
+function _dfcInitCanvas(){
+  const cv=$('dfcCanvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'), dpr=window.devicePixelRatio||1;
+  cv.width=cv.offsetWidth*dpr; cv.height=cv.offsetHeight*dpr;
+  ctx.scale(dpr,dpr);
+  const W=cv.offsetWidth,H=cv.offsetHeight;
+  // Radial nebula
+  const g=ctx.createRadialGradient(W*.5,H*.35,0,W*.5,H*.35,W*.7);
+  const col=_dfcCard?_dfcCard.col:'#aa66ff';
+  g.addColorStop(0,col+'18'); g.addColorStop(.5,col+'06'); g.addColorStop(1,'transparent');
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  // Star field
+  for(let i=0;i<100;i++){
+    const x=Math.random()*W, y=Math.random()*H, r=Math.random()*.9+.2;
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${Math.random()*.4+.04})`; ctx.fill();
+  }
+}
+// Auto-show daily fortune once per session if not claimed
+function _dfcAutoCheck(){
+  const today=getTodayKey(), claimed=localStorage.getItem('k0509_dfc_'+today);
+  if(!claimed && !localStorage.getItem('k0509_dfc_shown_'+today)){
+    localStorage.setItem('k0509_dfc_shown_'+today,'1');
+    setTimeout(openDFC, 2800);
   }
 }
 
