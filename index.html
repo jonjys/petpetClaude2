@@ -2513,6 +2513,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .craft-btn.cannot { background:rgba(255,255,255,.05);color:rgba(255,255,255,.25);cursor:not-allowed; }
 .craft-btn.crafting { animation:craftSpin .6s ease-in-out infinite; }
 @keyframes craftSpin { 0%,100%{transform:scale(1)} 50%{transform:scale(.95);filter:brightness(1.3)} }
+
+/* ══ DAILY XP RACE ══ */
+.race-panel { padding:12px 16px; }
+.race-hdr { display:flex;align-items:center;justify-content:space-between;margin-bottom:16px; }
+.race-title-txt { font-family:var(--ff-head);font-size:16px;font-weight:900;background:linear-gradient(135deg,#ffcc00,#ff8844);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.race-live-dot { width:7px;height:7px;border-radius:50%;background:var(--green);animation:lbLiveDot 1s ease-in-out infinite; }
+.race-refresh { font-size:9px;color:rgba(255,255,255,.3); }
+.race-row { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;margin-bottom:8px;position:relative;overflow:hidden;transition:all .3s; }
+.race-row.you { border:2px solid rgba(255,204,0,.3);background:linear-gradient(160deg,rgba(28,20,0,.9),rgba(14,10,0,.95));box-shadow:0 0 20px rgba(255,204,0,.08); }
+.race-row.rival { background:linear-gradient(160deg,rgba(10,4,22,.85),rgba(4,2,10,.9));border:1.5px solid rgba(255,255,255,.05); }
+.race-row-flash { position:absolute;inset:0;pointer-events:none;opacity:0; }
+.race-row.rank-up .race-row-flash { background:rgba(0,255,136,.08);animation:raceFlash .5s ease-out; }
+.race-row.rank-dn .race-row-flash { background:rgba(255,68,85,.08);animation:raceFlash .5s ease-out; }
+@keyframes raceFlash { 0%{opacity:1} 100%{opacity:0} }
+.race-pos { font-family:var(--ff-head);font-size:16px;font-weight:900;min-width:24px;text-align:center; }
+.race-pos.p1 { color:#ffcc00; }
+.race-pos.p2 { color:#c0c0c0; }
+.race-pos.p3 { color:#cd7f32; }
+.race-ava { font-size:24px;flex:0 0 28px;text-align:center; }
+.race-info { flex:1;min-width:0; }
+.race-name { font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.race-xp-bar-bg { height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-top:4px; }
+.race-xp-bar-fill { height:100%;border-radius:3px;transition:width .6s cubic-bezier(.34,1.56,.64,1); }
+.race-xp-v { font-size:11px;font-weight:900;min-width:60px;text-align:right; }
+.race-delta { font-size:11px;font-weight:900;min-width:24px;text-align:right; }
+.race-delta.up { color:var(--green); }
+.race-delta.dn { color:var(--red); }
+.race-delta.same { color:rgba(255,255,255,.3); }
+.race-ticker { background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.15);border-radius:12px;padding:8px 12px;margin-bottom:12px;font-size:10px;color:var(--green);font-weight:700;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -4122,9 +4151,11 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="lt" onclick="renderLB('circles',this)">⭕ CIRCLES</div>
         <div class="lt" onclick="renderLB('kc',this)">💎 KC</div>
         <div class="lt" onclick="renderLB('battle',this)">⚔️ BATTLE</div>
+        <div class="lt" onclick="renderLB('race',this)">🏁 DAILY RACE</div>
       </div>
       <div id="lbPodium"></div>
       <div class="lb-list" id="lbList"></div>
+      <div id="racePanel" class="race-panel" style="display:none"></div>
       <div class="vend"></div>
     </div>
 
@@ -12327,6 +12358,99 @@ completeFishCatch=function(caught,quality){
 };
 const _origClaimRE=claimRandomEvent;
 window.claimRandomEvent=function(){_origClaimRE.apply(this,arguments);gainMat('moon',1);};
+
+// ═══════════════════════════════════════════════
+// LIVE DAILY XP RACE
+// ═══════════════════════════════════════════════
+const _RACE_RIVALS=[
+  {id:'r1',name:'ella_sthlm',   pet:'🐉',col:'#aa66ff'},
+  {id:'r2',name:'maxruns',      pet:'🐺',col:'#4488ff'},
+  {id:'r3',name:'ghost_fisk',   pet:'🐸',col:'#00ddcc'},
+  {id:'r4',name:'sagas_world',  pet:'🦋',col:'#ff3377'},
+  {id:'r5',name:'nocturnal_k',  pet:'🐱',col:'#ff8844'},
+];
+let _raceData={you:0,rivals:{},ticks:0,lastTick:0};
+const _raceKey='k0509_race_'+getTodayKey();
+function _raceLoad(){
+  try{const d=JSON.parse(localStorage.getItem(_raceKey)||'null');if(d)_raceData=d;}catch(e){}
+  if(!_raceData.rivals||typeof _raceData.rivals!=='object')_raceData.rivals={};
+  _RACE_RIVALS.forEach(r=>{ if(!_raceData.rivals[r.id]){_raceData.rivals[r.id]=Math.floor(20+Math.random()*80);} });
+  const ssd=typeof _ssdGet==='function'?_ssdGet():null;
+  if(ssd) _raceData.you=Math.max(_raceData.you||0,ssd.xp||0);
+}
+function _raceSave(){try{localStorage.setItem(_raceKey,JSON.stringify(_raceData));}catch(e){}}
+function _raceTickRivals(){
+  _raceLoad();
+  const now=Date.now();
+  if(now-(_raceData.lastTick||0)<20000) return;
+  _raceData.lastTick=now; _raceData.ticks++;
+  _RACE_RIVALS.forEach(r=>{
+    const base=_raceData.rivals[r.id]||0;
+    const gain=Math.floor(Math.random()*25);
+    _raceData.rivals[r.id]=base+gain;
+  });
+  _raceSave();
+}
+function _raceRanking(){
+  _raceLoad();
+  const all=[{id:'you',name:G.name||'Du',pet:G.petName||'🐉',xp:_raceData.you,isYou:true}];
+  _RACE_RIVALS.forEach(r=>all.push({id:r.id,name:r.name,pet:r.pet,xp:_raceData.rivals[r.id]||0,col:r.col,isYou:false}));
+  return all.sort((a,b)=>b.xp-a.xp);
+}
+function renderRacePanel(){
+  const p=$('racePanel'); if(!p) return;
+  _raceTickRivals();
+  const ranking=_raceRanking();
+  const maxXP=Math.max(1,...ranking.map(r=>r.xp));
+  const posColors=['#ffcc00','#c0c0c0','#cd7f32'];
+  const ticker=ranking[0]?ranking[0].name+(ranking[0].isYou?' (du!)':'')+' leder med '+ranking[0].xp+' XP idag!':'';
+  let html='<div class="race-ticker">🏁 '+ticker+'</div>'+
+    '<div class="race-hdr"><div class="race-title-txt">DAGENS XP RACE</div><div style="display:flex;align-items:center;gap:6px"><div class="race-live-dot"></div><span class="race-refresh" id="raceRefTxt">Uppdateras snart</span></div></div>';
+  ranking.forEach((r,i)=>{
+    const pct=Math.round((r.xp/maxXP)*100);
+    const posClass=i<3?'p'+(i+1):'';
+    const barCol=r.isYou?'var(--gold)':r.col||'#4488ff';
+    html+='<div class="race-row '+(r.isYou?'you':'rival')+'" id="rr_'+r.id+'">'+
+      '<div class="race-row-flash"></div>'+
+      '<div class="race-pos '+posClass+'">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1))+'</div>'+
+      '<span class="race-ava">'+(r.pet||'🐾')+'</span>'+
+      '<div class="race-info">'+
+        '<div class="race-name" style="color:'+(r.isYou?'#ffcc00':r.col||'#fff')+'">'+(r.isYou?'⭐ '+r.name+' (du)':r.name)+'</div>'+
+        '<div class="race-xp-bar-bg"><div class="race-xp-bar-fill" style="width:'+pct+'%;background:'+barCol+'"></div></div>'+
+      '</div>'+
+      '<div class="race-xp-v" style="color:'+barCol+'">'+r.xp+'</div>'+
+    '</div>';
+  });
+  p.innerHTML=html;
+  // Schedule next tick
+  setTimeout(()=>{ if($('racePanel').style.display!=='none'){renderRacePanel();} }, 20000);
+}
+// Update you XP in race when gaining XP
+const _origGainXPR=gainXP;
+window.gainXP=function(n,stat){
+  _origGainXPR(n,stat);
+  _raceLoad();
+  const ssd=typeof _ssdGet==='function'?_ssdGet():null;
+  _raceData.you=Math.max(_raceData.you,ssd?ssd.xp:0);
+  _raceSave();
+};
+// Hook renderLB for race tab
+const _origRenderLB=typeof renderLB==='function'?renderLB:null;
+if(_origRenderLB){
+  window.renderLB=function(type,el){
+    const rp=$('racePanel'); const lbL=$('lbList'); const lbP=$('lbPodium');
+    if(type==='race'){
+      document.querySelectorAll('.lt').forEach(t=>t.classList.remove('on'));
+      if(el) el.classList.add('on');
+      if(lbL) lbL.style.display='none'; if(lbP) lbP.style.display='none';
+      if(rp){rp.style.display='';renderRacePanel();}
+    } else {
+      if(rp) rp.style.display='none';
+      if(lbL) lbL.style.display=''; if(lbP) lbP.style.display='';
+      _origRenderLB(type,el);
+    }
+  };
+}
 
 </script>
 
