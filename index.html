@@ -2005,6 +2005,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 #b2UltraTxt { font-family:var(--ff-head); font-size:38px; font-weight:900; color:#FF007F; text-shadow:0 0 40px #FF007F,0 0 80px #FF007F; animation:ultraPop .4s cubic-bezier(.34,1.56,.64,1); }
 @keyframes ultraPop { from{transform:scale(0) rotate(-12deg);} to{transform:scale(1);} }
 
+
+/* ══ EVOLUTION CINEMATIC ══ */
+.evol-cine { position:fixed;inset:0;z-index:9500;background:radial-gradient(ellipse at 50% 50%,rgba(170,102,255,.3),rgba(0,0,0,.97) 60%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity .5s; }
+.evol-cine.show { opacity:1;pointer-events:all; }
+.evol-cine-ring { width:160px;height:160px;border-radius:50%;border:3px solid rgba(170,102,255,.6);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 0 40px rgba(170,102,255,.4),inset 0 0 40px rgba(170,102,255,.1); }
+.evol-cine-ring::before { content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(255,204,0,.3);animation:evolRingPulse 1.2s ease-in-out infinite; }
+@keyframes evolRingPulse { 0%,100%{transform:scale(1);opacity:.3} 50%{transform:scale(1.08);opacity:.8} }
+.evol-pet-old { font-size:48px;line-height:1;position:absolute;animation:evolFadeOut 1.2s .3s ease-in-out both; }
+@keyframes evolFadeOut { 0%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(2) rotate(20deg)} }
+.evol-pet-new { font-size:72px;line-height:1;animation:evolBurst 1s 1.2s cubic-bezier(.34,1.56,.64,1) both;filter:drop-shadow(0 0 30px rgba(170,102,255,.8)); }
+@keyframes evolBurst { 0%{opacity:0;transform:scale(0) rotate(-20deg)} 100%{opacity:1;transform:scale(1) rotate(0deg)} }
+.evol-title { font:900 13px/1 var(--ff-head);color:rgba(255,255,255,.5);letter-spacing:.2em;text-align:center;animation:evolSlideUp .6s 1.8s both; }
+.evol-name { font:900 28px/1 var(--ff-head);text-align:center;letter-spacing:.08em;animation:evolSlideUp .6s 2s cubic-bezier(.34,1.56,.64,1) both; }
+.evol-level { font:800 14px/1 var(--ff-body);color:rgba(255,255,255,.5);text-align:center;animation:evolSlideUp .5s 2.2s both; }
+@keyframes evolSlideUp { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+.evol-particles { position:absolute;inset:0;pointer-events:none; }
+
 /* ══ WAVE ARENA ══ */
 .wa-panel { padding:8px 12px 80px;display:flex;flex-direction:column;gap:8px; }
 .wa-hud { display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:4px 0; }
@@ -2518,6 +2535,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ EVOLUTION CINEMATIC ══ */
+.evol-cine { position:fixed;inset:0;z-index:9500;background:radial-gradient(ellipse at 50% 50%,rgba(170,102,255,.3),rgba(0,0,0,.97) 60%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity .5s; }
+.evol-cine.show { opacity:1;pointer-events:all; }
+.evol-cine-ring { width:160px;height:160px;border-radius:50%;border:3px solid rgba(170,102,255,.6);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 0 40px rgba(170,102,255,.4),inset 0 0 40px rgba(170,102,255,.1); }
+.evol-cine-ring::before { content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(255,204,0,.3);animation:evolRingPulse 1.2s ease-in-out infinite; }
+@keyframes evolRingPulse { 0%,100%{transform:scale(1);opacity:.3} 50%{transform:scale(1.08);opacity:.8} }
+.evol-pet-old { font-size:48px;line-height:1;position:absolute;animation:evolFadeOut 1.2s .3s ease-in-out both; }
+@keyframes evolFadeOut { 0%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(2) rotate(20deg)} }
+.evol-pet-new { font-size:72px;line-height:1;animation:evolBurst 1s 1.2s cubic-bezier(.34,1.56,.64,1) both;filter:drop-shadow(0 0 30px rgba(170,102,255,.8)); }
+@keyframes evolBurst { 0%{opacity:0;transform:scale(0) rotate(-20deg)} 100%{opacity:1;transform:scale(1) rotate(0deg)} }
+.evol-title { font:900 13px/1 var(--ff-head);color:rgba(255,255,255,.5);letter-spacing:.2em;text-align:center;animation:evolSlideUp .6s 1.8s both; }
+.evol-name { font:900 28px/1 var(--ff-head);text-align:center;letter-spacing:.08em;animation:evolSlideUp .6s 2s cubic-bezier(.34,1.56,.64,1) both; }
+.evol-level { font:800 14px/1 var(--ff-body);color:rgba(255,255,255,.5);text-align:center;animation:evolSlideUp .5s 2.2s both; }
+@keyframes evolSlideUp { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+.evol-particles { position:absolute;inset:0;pointer-events:none; }
 
 /* ══ WAVE ARENA ══ */
 .wa-panel { padding:8px 12px 80px;display:flex;flex-direction:column;gap:8px; }
@@ -5160,6 +5194,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <button class="season-daily-btn" id="seasonDailyBtn" onclick="claimSeasonDaily()">🎁 DAGLIG SÄSONGSBONUS</button>
     </div>
   </div>
+</div>
+
+<!-- EVOLUTION CINEMATIC -->
+<div class="evol-cine" id="evolCine" onclick="closeEvolCine()">
+  <canvas class="evol-particles" id="evolCanvas"></canvas>
+  <div class="evol-title" id="evolCineTitle">EVOLUTION!</div>
+  <div class="evol-cine-ring">
+    <div class="evol-pet-old" id="evolPetOld">🐉</div>
+    <div class="evol-pet-new" id="evolPetNew">🐲</div>
+  </div>
+  <div class="evol-name" id="evolCineName">FIRE DRAGON</div>
+  <div class="evol-level" id="evolCineLevel">LEVEL 5 UPPNÅDD</div>
+  <div style="font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.35);margin-top:8px;animation:evolSlideUp .5s 2.5s both">Tryck för att fortsätta</div>
 </div>
 
 <!-- BOSS FISH ENCOUNTER -->
@@ -13686,6 +13733,76 @@ function _waDefeat(){
 Poäng: '+_wa.score+' | Försök igen!';
   SFX.err&&SFX.err(); vibe&&vibe([60,40,60]);
 }
+
+
+
+// EVOLUTION CINEMATIC
+let _prevEvolTier = -1;
+function _getEvolTierIdx(level) {
+  const tiers=[1,5,10,20];
+  let idx=-1;
+  for(let i=0;i<tiers.length;i++){ if(level>=tiers[i]) idx=i; }
+  return idx;
+}
+
+function showEvolCine(oldEmoji, newStage) {
+  const el=$('evolCine'); if(!el) return;
+  const old=$('evolPetOld'); if(old) old.textContent=oldEmoji||G.petEmoji;
+  const nw=$('evolPetNew'); if(nw) nw.textContent=newStage.e;
+  const nm=$('evolCineName'); if(nm){ nm.textContent=newStage.s; nm.style.color='var(--purple)'; }
+  const lv=$('evolCineLevel'); if(lv) lv.textContent='LEVEL '+newStage.l+' UPPNÅDD';
+  const tt=$('evolCineTitle'); if(tt) tt.textContent='✨ EVOLUTION!';
+  el.classList.add('show');
+  _evolParticles();
+  SFX.lvl&&SFX.lvl();
+  vibe&&vibe([60,40,100,40,200,40,100]);
+  setTimeout(closeEvolCine, 5000);
+}
+function closeEvolCine() { const el=$('evolCine'); if(el) el.classList.remove('show'); }
+
+function _evolParticles() {
+  const c=$('evolCanvas'); if(!c) return;
+  c.width=window.innerWidth; c.height=window.innerHeight;
+  const ctx=c.getContext('2d');
+  const pts=[];
+  const cols=['#aa66ff','#ff3377','#ffcc00','#00ff88','#4488ff','#ffffff'];
+  for(let i=0;i<80;i++) pts.push({
+    x:c.width/2,y:c.height/2,
+    vx:(Math.random()-0.5)*12,vy:(Math.random()-0.5)*12-(Math.random()*6),
+    col:cols[Math.floor(Math.random()*cols.length)],
+    size:Math.random()*6+2,life:1
+  });
+  let raf;
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.3; p.life-=0.015;
+      if(p.life<=0) return;
+      ctx.globalAlpha=p.life;
+      ctx.fillStyle=p.col;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
+    });
+    if(pts.some(p=>p.life>0)) raf=requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,c.width,c.height);
+  }
+  draw();
+}
+
+// Hook into triggerLvlUp to show evolution cinematic
+const _origTLU2=triggerLvlUp;
+window.triggerLvlUp=function(){
+  const prevTier=_getEvolTierIdx(G.level-1);
+  const newTier=_getEvolTierIdx(G.level);
+  _origTLU2.apply(this,arguments);
+  if(newTier>prevTier&&newTier>0){
+    const tree=EVOL[G.petEmoji]||EVOL['🐉'];
+    const newStage=tree.find(s=>s.l===G.level);
+    if(newStage){
+      const oldStage=tree[newTier-1];
+      setTimeout(()=>showEvolCine(oldStage?oldStage.e:G.petEmoji, newStage), 800);
+    }
+  }
+};
 
 
 </script>
