@@ -2251,6 +2251,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .ssd-xp-bar-bg { height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden; }
 .ssd-xp-bar-fill { height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),#00ddcc);transition:width 1s cubic-bezier(.34,1.56,.64,1); }
 .ssd-lv-lbl { display:flex;justify-content:space-between;font-size:9px;font-weight:700;color:rgba(255,255,255,.35);margin-bottom:4px; }
+
+/* ══ PET BOND SYSTEM ══ */
+.bond-section { margin-top:14px;padding:14px;border-radius:16px;background:linear-gradient(160deg,rgba(255,51,119,.06),rgba(170,102,255,.04));border:1.5px solid rgba(255,51,119,.15); }
+.bond-hdr { display:flex;align-items:center;justify-content:space-between;margin-bottom:8px; }
+.bond-tier-name { font-family:var(--ff-head);font-size:12px;font-weight:900; }
+.bond-pts { font-size:9px;font-weight:700;color:rgba(255,255,255,.4); }
+.bond-dots { display:flex;gap:5px;margin-bottom:8px; }
+.bond-dot { width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.1);transition:all .3s; }
+.bond-dot.filled { background:var(--bond-col,#ff3377);box-shadow:0 0 8px var(--bond-col,#ff3377); }
+.bond-bar-bg { height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden; }
+.bond-bar-fill { height:100%;border-radius:3px;background:linear-gradient(90deg,var(--bond-col,#ff3377),#aa66ff);transition:width .8s cubic-bezier(.34,1.56,.64,1); }
+.bond-perk { font-size:9px;color:rgba(255,255,255,.45);margin-top:6px;line-height:1.5; }
+.bond-perk span { color:var(--bond-col,#ff3377);font-weight:800; }
+/* Bond level up splash */
+.bond-splash { position:fixed;inset:0;z-index:902;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .4s; }
+.bond-splash.show { opacity:1;pointer-events:all; }
+.bond-splash-canvas { position:absolute;inset:0;width:100%;height:100%; }
+.bond-splash-card { position:relative;z-index:1;border-radius:32px;padding:40px 32px;text-align:center;background:linear-gradient(160deg,rgba(36,4,24,.97),rgba(10,2,20,.98));border:2px solid rgba(255,51,119,.3);box-shadow:0 0 80px rgba(255,51,119,.2),0 0 160px rgba(170,102,255,.1);width:82vw;max-width:320px; }
+.bond-splash-ico { font-size:56px;display:block;margin-bottom:12px;animation:bondPulse 1.5s ease-in-out infinite; }
+@keyframes bondPulse { 0%,100%{transform:scale(1);filter:drop-shadow(0 0 12px rgba(255,51,119,.5))} 50%{transform:scale(1.12);filter:drop-shadow(0 0 24px rgba(255,51,119,.8))} }
+.bond-splash-sup { font-size:9px;font-weight:900;letter-spacing:2px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:6px; }
+.bond-splash-title { font-family:var(--ff-head);font-size:28px;font-weight:900;margin-bottom:4px; }
+.bond-splash-tier { font-family:var(--ff-head);font-size:20px;font-weight:900;margin-bottom:16px; }
+.bond-splash-perk { font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;background:rgba(255,51,119,.08);border-radius:14px;padding:12px 16px;border:1px solid rgba(255,51,119,.15);margin-bottom:20px; }
+.bond-splash-perk strong { color:#ff3377; }
+.bond-splash-btn { background:linear-gradient(135deg,#ff3377,#aa66ff);border:none;border-radius:24px;padding:14px 40px;font-family:var(--ff-head);font-size:14px;font-weight:900;color:#fff;cursor:pointer;width:100%; }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -3182,6 +3208,21 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="xp-wrap">
           <div class="xp-labels"><span>XP <span id="moodBoostChip"></span></span><span id="xpNums">0/100</span></div>
           <div class="xp-track"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
+        </div>
+        <!-- BOND METER -->
+        <div class="bond-section" id="bondSection">
+          <div class="bond-hdr">
+            <span class="bond-tier-name" id="bondTierName">OKÄND</span>
+            <span class="bond-pts" id="bondPts">0 / 100</span>
+          </div>
+          <div class="bond-dots" id="bondDots">
+            <div class="bond-dot" id="bd0"></div>
+            <div class="bond-dot" id="bd1"></div>
+            <div class="bond-dot" id="bd2"></div>
+            <div class="bond-dot" id="bd3"></div>
+          </div>
+          <div class="bond-bar-bg"><div class="bond-bar-fill" id="bondBarFill" style="width:0%"></div></div>
+          <div class="bond-perk" id="bondPerkText">Tillbringa tid med ditt husdjur!</div>
         </div>
         <!-- Evolution tree -->
         <div class="evol-tree" id="evolTree"></div>
@@ -4387,6 +4428,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="ar-card-eff" id="arCardEff">Din välsignelse uppenbaras...</div>
       <button class="btn btn-pk btn-full" style="margin-top:4px" onclick="closeARCard()">✨ ACCEPTERA VÄLSIGNELSEN</button>
     </div>
+  </div>
+</div>
+
+<!-- BOND LEVEL UP SPLASH -->
+<div class="bond-splash" id="bondSplash">
+  <canvas class="bond-splash-canvas" id="bondSplashCanvas"></canvas>
+  <div class="bond-splash-card">
+    <span class="bond-splash-ico" id="bondSplashIco">💖</span>
+    <div class="bond-splash-sup">BAND UPPGRADERAT</div>
+    <div class="bond-splash-title" id="bondSplashTitle" style="color:#ff3377">BOND UP!</div>
+    <div class="bond-splash-tier" id="bondSplashTier">VÄN</div>
+    <div class="bond-splash-perk" id="bondSplashPerk">Ny förmåga upplåst!</div>
+    <button class="bond-splash-btn" onclick="closeBondSplash()">💖 HÄFTIGT!</button>
   </div>
 </div>
 
@@ -11004,6 +11058,118 @@ document.addEventListener('DOMContentLoaded',()=>{
     };
   }
 })();
+
+// ═══════════════════════════════════════════════
+// PET BOND SYSTEM
+// ═══════════════════════════════════════════════
+const BOND_TIERS = [
+  {id:'okand',    name:'OKÄND',     ico:'💔', col:'#888888', min:0,    max:100,  perk:'Tillbringa tid med ditt husdjur!'},
+  {id:'bekant',   name:'BEKANT',    ico:'💛', col:'#ffcc00', min:100,  max:300,  perk:'<span>+1 extra coin</span> per kram!'},
+  {id:'van',      name:'VÄN',       ico:'💚', col:'#00ff88', min:300,  max:600,  perk:'<span>-3 coins</span> att mata — omtanke lönar sig!'},
+  {id:'bastis',   name:'BÄSTIS',    ico:'💙', col:'#4488ff', min:600,  max:1000, perk:'<span>+10 energi bonus</span> när du sover!'},
+  {id:'sjalsfrand',name:'SJÄLSFRÄND',ico:'💜',col:'#aa66ff', min:1000, max:1000, perk:'<span>Sällsynt fisk-magnet</span> — sällsynthet +20%!'},
+];
+function getBondTier(pts) {
+  for(let i=BOND_TIERS.length-1;i>=0;i--) { if((pts||0)>=BOND_TIERS[i].min) return i; }
+  return 0;
+}
+function addBond(n) {
+  if(!G.bond) G.bond=0;
+  const prevTier=getBondTier(G.bond);
+  G.bond=Math.min(1000,G.bond+n);
+  save();
+  const newTier=getBondTier(G.bond);
+  if(newTier>prevTier) showBondSplash(newTier);
+  updateBondUI();
+}
+function updateBondUI() {
+  const pts=G.bond||0;
+  const ti=getBondTier(pts);
+  const t=BOND_TIERS[ti];
+  const next=BOND_TIERS[ti+1];
+  const tn=$('bondTierName'); if(tn){tn.textContent=t.ico+' '+t.name;tn.style.color=t.col;}
+  // dots
+  for(let i=0;i<4;i++){const d=$('bd'+i);if(d){d.style.setProperty('--bond-col',BOND_TIERS[i+1]?BOND_TIERS[i+1].col:t.col);if(i<ti)d.classList.add('filled');else d.classList.remove('filled');}}
+  // bar
+  const fill=$('bondBarFill');
+  if(fill) {
+    if(ti>=BOND_TIERS.length-1) { fill.style.width='100%'; }
+    else { const pct=Math.min(100,Math.round(((pts-t.min)/(next.min-t.min))*100)); setTimeout(()=>{fill.style.width=pct+'%';},100); }
+    fill.style.background='linear-gradient(90deg,'+t.col+',#aa66ff)';
+  }
+  const ptEl=$('bondPts');
+  if(ptEl) { if(ti>=BOND_TIERS.length-1) ptEl.textContent='MAX BOND!'; else ptEl.textContent=pts+' / '+(next?next.min:1000); }
+  const pk=$('bondPerkText'); if(pk) pk.innerHTML=t.perk;
+  const bs=$('bondSection'); if(bs) bs.style.setProperty('--bond-col',t.col);
+}
+function showBondSplash(tierIdx) {
+  const t=BOND_TIERS[tierIdx]; if(!t) return;
+  const ico=$('bondSplashIco'); if(ico) ico.textContent=t.ico;
+  const tit=$('bondSplashTitle'); if(tit){tit.textContent='BOND UP!';tit.style.color=t.col;}
+  const tier=$('bondSplashTier'); if(tier){tier.textContent=t.name;tier.style.color=t.col;}
+  const pk=$('bondSplashPerk'); if(pk) pk.innerHTML='Ny förmåga: '+t.perk;
+  const sp=$('bondSplash'); if(sp) sp.classList.add('show');
+  vibe([30,15,60,15,30,15,80]); SFX.lvl&&SFX.lvl();
+  _bondSplashCanvas();
+  kjLog('bond','BOND LEVEL UP! '+t.ico,'Ny förmåga: '+t.name,t.ico);
+  setTimeout(closeBondSplash, 5000);
+}
+function closeBondSplash() { const s=$('bondSplash'); if(s) s.classList.remove('show'); }
+function _bondSplashCanvas() {
+  const c=$('bondSplashCanvas'); if(!c) return;
+  c.width=window.innerWidth; c.height=window.innerHeight;
+  const ctx=c.getContext('2d'); if(!ctx) return;
+  const pts=[]; const cols=['#ff3377','#aa66ff','#ff8844','#ffcc00','#00ff88','#4488ff'];
+  for(let i=0;i<80;i++) pts.push({x:c.width/2,y:c.height/2,vx:(Math.random()-0.5)*8,vy:(Math.random()-.7)*10,r:Math.random()*4+2,col:cols[Math.floor(Math.random()*cols.length)],a:1,g:.18});
+  let raf;
+  function draw() {
+    if(!$('bondSplash').classList.contains('show')){cancelAnimationFrame(raf);ctx.clearRect(0,0,c.width,c.height);return;}
+    ctx.fillStyle='rgba(0,0,0,.1)'; ctx.fillRect(0,0,c.width,c.height);
+    pts.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.a-=.012;if(p.a<0)p.a=0;
+      ctx.globalAlpha=p.a;ctx.fillStyle=p.col;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();});
+    ctx.globalAlpha=1; raf=requestAnimationFrame(draw);
+  }
+  draw();
+}
+// ── Bond perks applied in actions ───────────────────────────────────────────
+const _origPcFeed=pcFeed;
+window.pcFeed=function(){
+  if(G.coins<(getBondTier(G.bond||0)>=2?7:10)){SFX.err();showT('❌ Need '+(getBondTier(G.bond||0)>=2?7:10)+' coins!','r');vibe([40,20,40]);return;}
+  G.coins-=(getBondTier(G.bond||0)>=2?7:10); G.hunger=Math.min(100,G.hunger+30); G.mood=Math.min(100,G.mood+5);
+  SFX.care(); petReact('happy'); addH('🍖 '+G.petName+' matad');
+  floatTxt('🍖 +30 HUNGER',petCol()); showT('🍖 Maten!','g'); vibe(20); updateHUD(); updatePet();
+  progressMission('feed'); progressChallenge('feed');
+  addBond(3); ssdLog('💛','Mat','BOND +3','#ff3377');
+};
+const _origPcSleep=pcSleep;
+window.pcSleep=function(){
+  const bonusE=getBondTier(G.bond||0)>=3?10:0;
+  G.energy=Math.min(100,G.energy+40+bonusE); G.mood=Math.min(100,G.mood+10);
+  SFX.care(); petReact('happy'); addH('😴 '+G.petName+' sov');
+  floatTxt('😴 +'+(40+bonusE)+' ENERGY','#4488ff'); showT('😴 +'+(40+bonusE)+'E +10😊','g'); vibe(15); updateHUD(); updatePet();
+  addBond(2);
+};
+const _origPcPlay=pcPlay;
+window.pcPlay=function(){
+  if(G.energy<10){SFX.err();showT('❌ Ingen energi! Sov först.','r');vibe([40,20,40]);return;}
+  G.energy-=10; G.mood=Math.min(100,G.mood+25); gainCoins(5); gainXP(5,'social');
+  SFX.care(); petReact('happy'); addH('🎮 '+G.petName+' lekte');
+  floatTxt('🎮 LEKTE!',petCol()); showT('🎮 −10E +5💰 +5XP','g');
+  addBond(4); ssdLog('🎮','Lekte','BOND +4','#ff3377');
+};
+// Hook petTap for bond tracking + perk
+const _origPetTap=petTap;
+window.petTap=function(){
+  _origPetTap.apply(this,arguments);
+  addBond(1);
+  if(getBondTier(G.bond||0)>=1) gainCoins(1);
+};
+// Hook updateHUD to also update bond UI
+const _origUpdateHUD=updateHUD;
+window.updateHUD=function(){
+  _origUpdateHUD.apply(this,arguments);
+  updateBondUI();
+};
 
 </script>
 
