@@ -2071,6 +2071,24 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fish-bait-cost { font-size:8px;font-weight:700;display:block;margin-top:2px;color:inherit;opacity:.75; }
 .fish-wx-banner { padding:5px 12px;border-radius:10px;font-size:10px;font-weight:800;text-align:center;transition:all .35s;overflow:hidden;max-height:0;opacity:0; }
 .fish-wx-banner.show { max-height:32px;opacity:1;margin-bottom:4px; }
+.fish-tourn-bar { display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:14px;margin-bottom:6px;background:linear-gradient(135deg,rgba(255,51,119,.18),rgba(170,102,255,.12));border:1.5px solid rgba(255,51,119,.35);display:none; }
+.fish-tourn-bar.active { display:flex; }
+.fish-tourn-score { font-family:var(--ff-head);font-size:20px;font-weight:900;color:var(--pink); }
+.fish-tourn-timer { font-family:var(--ff-head);font-size:18px;font-weight:900;color:var(--gold); }
+.fish-tourn-lbl { font-size:9px;font-weight:800;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase; }
+.fish-tourn-btn { padding:7px 14px;border-radius:12px;font-family:var(--ff-head);font-size:11px;font-weight:900;border:none;cursor:pointer;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;transition:all .12s; }
+.fish-tourn-btn:active { transform:scale(.93); }
+.fish-tourn-end { position:fixed;inset:0;z-index:860;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s; }
+.fish-tourn-end.show { opacity:1;pointer-events:all; }
+.fish-te-card { background:linear-gradient(160deg,rgba(40,4,60,.97),rgba(12,2,28,.98));border:2px solid rgba(255,51,119,.4);border-radius:28px;padding:28px 24px;text-align:center;max-width:310px;width:86%;box-shadow:0 0 80px rgba(255,51,119,.15); }
+.fish-te-tier { font-size:52px;animation:teIco .6s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes teIco { from{transform:scale(0) rotate(-15deg);opacity:0;}to{transform:none;opacity:1;} }
+.fish-te-title { font-family:var(--ff-head);font-size:24px;font-weight:900;margin:10px 0 4px; }
+.fish-te-score { font-size:14px;color:rgba(255,255,255,.6);margin-bottom:18px; }
+.fish-te-rewards { display:flex;gap:10px;justify-content:center;margin-bottom:22px; }
+.fish-te-rew { background:rgba(255,255,255,.06);border-radius:12px;padding:10px 16px; }
+.fish-te-rv { font-family:var(--ff-head);font-size:20px;font-weight:900; }
+.fish-te-rl { font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:2px; }
 
 /* ══ OFFLINE EARNINGS SPLASH ══ */
 .oe-splash { position:fixed;inset:0;z-index:901;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.93);backdrop-filter:blur(18px);opacity:0;pointer-events:none;transition:opacity .4s; }
@@ -3605,6 +3623,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="fish-depth-opt on" onclick="setFishDepth(0,this)">🌊 Ytvatten</div>
           <div class="fish-depth-opt" onclick="setFishDepth(1,this)">🌊🌊 Djupvatten</div>
           <div class="fish-depth-opt" onclick="setFishDepth(2,this)">🌑 Abyssal</div>
+          <button class="fish-tourn-btn" onclick="startFishTourn()" id="fishTournBtn">⚔️ TURNERING</button>
         </div>
         <!-- Animated canvas scene -->
         <div class="fish-scene-wrap">
@@ -3645,6 +3664,20 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="fish-streak-row">
           <div id="fishWeatherRow">☀️ Soligt</div>
           <div class="fish-streak-badge" id="fishStreakBadge" style="display:none">🔥 0x</div>
+        </div>
+        <!-- Tournament bar -->
+        <div class="fish-tourn-bar" id="fishTournBar">
+          <div>
+            <div class="fish-tourn-score" id="fishTournScore">0</div>
+            <div class="fish-tourn-lbl">POÄNG</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:10px;font-weight:900;color:var(--pink);letter-spacing:1px">⚔️ TURNERING PÅGÅR</div>
+          </div>
+          <div>
+            <div class="fish-tourn-timer" id="fishTournTimer">3:00</div>
+            <div class="fish-tourn-lbl" style="text-align:right">KVAR</div>
+          </div>
         </div>
         <!-- Bait selector -->
         <div class="fish-bait-row" id="fishBaitRow">
@@ -4409,6 +4442,17 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
   <div class="kj-body" id="kjBody">
     <div class="kj-empty" id="kjEmpty">📖<br><br>Ditt äventyr börjar just nu.<br>Upplev saker för att fylla din journal!</div>
+  </div>
+</div>
+
+<!-- FISHING TOURNAMENT END -->
+<div class="fish-tourn-end" id="fishTournEnd" onclick="closeFishTourn()">
+  <div class="fish-te-card" onclick="event.stopPropagation()">
+    <div class="fish-te-tier" id="fishTETier">🥇</div>
+    <div class="fish-te-title" id="fishTETitle" style="color:var(--gold)">TURNERING SLUT!</div>
+    <div class="fish-te-score" id="fishTEScore">Poäng: 0</div>
+    <div class="fish-te-rewards" id="fishTERewards"></div>
+    <button class="btn btn-pk btn-full" onclick="closeFishTourn()">⚔️ TILLBAKA TILL VATTEN</button>
   </div>
 </div>
 
@@ -10509,6 +10553,96 @@ const _origGainXPOE = gainXP;
 gainXP = function(n, stat) {
   _origGainXPOE(n, stat);
   localStorage.setItem('k0509_lastActive', String(Date.now()));
+};
+
+// ══════════════════════════════════════════
+//   ⚔️ FISHING TOURNAMENT MODE
+// ══════════════════════════════════════════
+const FISH_TOURN_TIERS = [
+  {min:200, id:'diamond', ico:'💎', name:'DIAMANT!',   col:'#66aaff', xp:300, coins:100, kc:20},
+  {min:100, id:'gold',    ico:'🥇', name:'GULD!',      col:'#ffcc00', xp:150, coins:50,  kc:10},
+  {min:50,  id:'silver',  ico:'🥈', name:'SILVER!',    col:'#c0c0c0', xp:75,  coins:25,  kc:5},
+  {min:1,   id:'bronze',  ico:'🥉', name:'BRONZE!',    col:'#cd7f32', xp:30,  coins:10,  kc:2},
+  {min:0,   id:'none',    ico:'😞', name:'INGEN FÅNGST',col:'#666',   xp:10,  coins:0,   kc:0},
+];
+const FISH_RARITY_SCORE = {junk:0,common:1,uncommon:2,rare:5,epic:15,legendary:40,mythic:100};
+const FISH_TOURN_CDKEY = 'k0509_tournCD';
+
+if(!fishState.tourney) fishState.tourney = {active:false,score:0,timeLeft:180,timer:null};
+
+function startFishTourn() {
+  const cd = parseInt(localStorage.getItem(FISH_TOURN_CDKEY)||'0');
+  if(cd > Date.now()) {
+    const left = Math.ceil((cd-Date.now())/60000);
+    showT('⚔️ CD: '+left+' min kvar!','y'); return;
+  }
+  if(fishState.tourney.active) { showT('Turnering pågår redan!','y'); return; }
+  fishState.tourney = {active:true,score:0,timeLeft:180,timer:null};
+  const bar=$('fishTournBar'); if(bar) bar.classList.add('active');
+  const btn=$('fishTournBtn'); if(btn) btn.style.display='none';
+  $('fishTournScore').textContent='0';
+  $('fishTournTimer').textContent='3:00';
+  showFeatToast('⚔️ TURNERING STARTAD! 3 minuter!');
+  confetti(40); vibe([30,20,60,20,30]);
+  fishState.tourney.timer = setInterval(_fishTournTick, 1000);
+}
+
+function _fishTournTick() {
+  fishState.tourney.timeLeft--;
+  const t=fishState.tourney.timeLeft;
+  const m=Math.floor(t/60), s=t%60;
+  const timerEl=$('fishTournTimer');
+  if(timerEl){ timerEl.textContent=m+':'+(s<10?'0':'')+s; if(t<=10) timerEl.style.color='var(--red)'; else timerEl.style.color='var(--gold)'; }
+  if(t<=0) endFishTourn();
+  if(t===30) { showFeatToast('⚔️ 30 sekunder kvar!'); vibe([50,30,50]); }
+}
+
+function _fishTournAddScore(caught) {
+  if(!fishState.tourney.active) return;
+  const base = FISH_RARITY_SCORE[caught.rarity]||0;
+  const depBonus = [1,1.5,2.5][fishState.depth]||1;
+  const pts = Math.round(base*depBonus);
+  fishState.tourney.score += pts;
+  $('fishTournScore').textContent=fishState.tourney.score;
+  if(pts>0) floatTxt('+'+pts+'pts','#ff3377',null,'42%');
+}
+
+function endFishTourn() {
+  clearInterval(fishState.tourney.timer);
+  fishState.tourney.active=false;
+  const bar=$('fishTournBar'); if(bar) bar.classList.remove('active');
+  const btn=$('fishTournBtn'); if(btn) btn.style.display='';
+  const score=fishState.tourney.score;
+  const tier=FISH_TOURN_TIERS.find(t=>score>=t.min)||FISH_TOURN_TIERS[FISH_TOURN_TIERS.length-1];
+  // Apply rewards
+  gainXP(tier.xp,'action'); if(tier.coins>0) gainCoins(tier.coins); if(tier.kc>0) gainKC(tier.kc);
+  // Set cooldown (30 min)
+  localStorage.setItem(FISH_TOURN_CDKEY, String(Date.now()+30*60000));
+  // Show result
+  const end=$('fishTournEnd'); if(!end) return;
+  $('fishTETier').textContent=tier.ico;
+  const tt=$('fishTETitle'); if(tt){ tt.textContent=tier.name; tt.style.color=tier.col; }
+  $('fishTEScore').textContent='Slutpoäng: '+score+' · '+tier.name;
+  const rw=$('fishTERewards');
+  if(rw) rw.innerHTML=`
+    <div class="fish-te-rew"><div class="fish-te-rv" style="color:var(--green)">+${tier.xp}</div><div class="fish-te-rl">XP</div></div>
+    ${tier.coins?`<div class="fish-te-rew"><div class="fish-te-rv" style="color:var(--gold)">+${tier.coins}</div><div class="fish-te-rl">COINS</div></div>`:''}
+    ${tier.kc?`<div class="fish-te-rew"><div class="fish-te-rv" style="color:var(--teal)">+${tier.kc}</div><div class="fish-te-rl">KC</div></div>`:''}`;
+  confetti(tier.id==='diamond'?120:tier.id==='gold'?80:40);
+  vibe([80,40,80,40,100]);
+  end.classList.add('show');
+  kjLog('fish','⚔️ FISKTURNERING: '+tier.name,'Poäng: '+score+' · +'+tier.xp+' XP',tier.ico);
+}
+
+function closeFishTourn() {
+  const end=$('fishTournEnd'); if(end) end.classList.remove('show');
+}
+
+// Hook into completeFishCatch to add tournament scoring
+const _origCompleteFishCatch = completeFishCatch;
+completeFishCatch = function(caught, quality) {
+  _fishTournAddScore(caught);
+  _origCompleteFishCatch(caught, quality);
 };
 
 </script>
