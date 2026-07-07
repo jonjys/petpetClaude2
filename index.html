@@ -2454,6 +2454,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .combo-surge.fire10 .csn-combo { color:#ffcc00;text-shadow:-3px 0 rgba(255,0,0,.4),3px 0 rgba(0,0,255,.4),0 0 30px rgba(255,204,0,.5); }
 .combo-surge.fire15 .csn-combo { color:#ff3377;text-shadow:-4px 0 rgba(255,0,0,.5),4px 0 rgba(0,0,255,.5),0 0 40px rgba(255,51,119,.6); }
 .combo-surge.fire20 .csn-combo { color:#aa66ff;text-shadow:-5px 0 rgba(255,0,120,.6),5px 0 rgba(0,120,255,.6),0 0 50px rgba(170,102,255,.8),0 0 80px rgba(170,102,255,.4); }
+
+/* ══ MORNING RITUAL ══ */
+.morning-panel { position:fixed;inset:0;z-index:903;background:radial-gradient(ellipse at 50% 20%,rgba(16,4,40,.98),rgba(0,0,0,.99) 75%);display:flex;align-items:center;justify-content:center;padding:20px;transform:scale(0);opacity:0;transition:all .45s cubic-bezier(.34,1.56,.64,1); }
+.morning-panel.show { transform:scale(1);opacity:1; }
+.morning-card { width:100%;max-width:340px;border-radius:32px;overflow:hidden;background:linear-gradient(160deg,rgba(16,4,40,.97),rgba(6,2,16,.98));border:2px solid rgba(170,102,255,.25);box-shadow:0 0 80px rgba(170,102,255,.15),0 0 160px rgba(0,0,0,.8);position:relative; }
+.morning-canvas { position:absolute;inset:0;width:100%;height:100%;pointer-events:none; }
+.morning-inner { position:relative;z-index:1;padding:28px 24px 20px; }
+.morning-greeting { font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px; }
+.morning-title { font-family:var(--ff-head);font-size:26px;font-weight:900;line-height:1.2;margin-bottom:4px; }
+.morning-date { font-size:11px;color:rgba(255,255,255,.4);margin-bottom:20px; }
+.morning-stats-row { display:flex;gap:10px;margin-bottom:16px; }
+.morning-stat { flex:1;border-radius:14px;padding:12px 8px;text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06); }
+.morning-stat-v { font-family:var(--ff-head);font-size:20px;font-weight:900; }
+.morning-stat-l { font-size:8px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.6px;margin-top:3px; }
+.morning-wx { display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);margin-bottom:12px; }
+.morning-wx-ico { font-size:24px; }
+.morning-wx-info { flex:1; }
+.morning-wx-name { font-size:13px;font-weight:900; }
+.morning-wx-eff { font-size:10px;color:rgba(255,255,255,.45);margin-top:2px; }
+.morning-challenge-row { padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);margin-bottom:16px; }
+.morning-ch-lbl { font-size:9px;font-weight:900;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px; }
+.morning-ch-item { font-size:12px;font-weight:700;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:6px; }
+.morning-btn { width:100%;border:none;border-radius:20px;padding:16px;font-family:var(--ff-head);font-size:15px;font-weight:900;color:#000;cursor:pointer;background:linear-gradient(135deg,#aa66ff,#4488ff);box-shadow:0 4px 20px rgba(170,102,255,.35);transition:all .15s; }
+.morning-btn:active { transform:scale(.97); }
+.morning-bonus-chip { background:rgba(0,255,136,.12);border:1px solid rgba(0,255,136,.3);border-radius:10px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--green);text-align:center;margin-bottom:12px; }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -4657,6 +4682,40 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="ar-card-name" id="arCardName">SYNEN</div>
       <div class="ar-card-eff" id="arCardEff">Din välsignelse uppenbaras...</div>
       <button class="btn btn-pk btn-full" style="margin-top:4px" onclick="closeARCard()">✨ ACCEPTERA VÄLSIGNELSEN</button>
+    </div>
+  </div>
+</div>
+
+<!-- MORNING RITUAL -->
+<div class="morning-panel" id="morningPanel">
+  <div class="morning-card">
+    <canvas class="morning-canvas" id="morningCanvas"></canvas>
+    <div class="morning-inner">
+      <div class="morning-greeting" id="morningGreeting">GOD MORGON!</div>
+      <div class="morning-title" id="morningTitle">Hej <span id="morningName">–</span>!</div>
+      <div class="morning-date" id="morningDate"></div>
+      <!-- Stats row -->
+      <div class="morning-stats-row">
+        <div class="morning-stat"><div class="morning-stat-v" id="mrnStreak" style="color:var(--orange)">0</div><div class="morning-stat-l">🔥 STREAK</div></div>
+        <div class="morning-stat"><div class="morning-stat-v" id="mrnLevel" style="color:var(--green)">1</div><div class="morning-stat-l">⚡ LEVEL</div></div>
+        <div class="morning-stat"><div class="morning-stat-v" id="mrnKC" style="color:var(--blue)">0</div><div class="morning-stat-l">💠 KC</div></div>
+      </div>
+      <!-- Today's weather -->
+      <div class="morning-wx">
+        <span class="morning-wx-ico" id="mrnWxIco">☀️</span>
+        <div class="morning-wx-info">
+          <div class="morning-wx-name" id="mrnWxName">SOLSKEN</div>
+          <div class="morning-wx-eff" id="mrnWxEff">+20% XP idag</div>
+        </div>
+      </div>
+      <!-- Today's challenge preview -->
+      <div class="morning-challenge-row">
+        <div class="morning-ch-lbl">DAGENS UTMANINGAR</div>
+        <div class="morning-ch-item" id="mrnChallenges">Laddar...</div>
+      </div>
+      <!-- Bonus chip -->
+      <div class="morning-bonus-chip">🌟 MORGON-BONUS: +50 XP & +25 coins</div>
+      <button class="morning-btn" onclick="claimMorning()">🌅 STARTA DAGEN!</button>
     </div>
   </div>
 </div>
@@ -12035,6 +12094,83 @@ window.petTap=function(){
     triggerComboSurge(_combo);
   }
 };
+
+// ═══════════════════════════════════════════════
+// MORNING RITUAL
+// ═══════════════════════════════════════════════
+const _mrnKey = () => 'k0509_mrn_'+getTodayKey();
+function _checkMorning() {
+  if(!G.name) return;
+  if(localStorage.getItem(_mrnKey())) return;
+  const h=new Date().getHours();
+  // Show anytime before 14:00 (2pm) for the first time today
+  if(h>14) { localStorage.setItem(_mrnKey(),'skip'); return; }
+  setTimeout(showMorningPanel, 1800);
+}
+function showMorningPanel() {
+  if(localStorage.getItem(_mrnKey())) return;
+  const p=$('morningPanel'); if(!p) return;
+  // Fill data
+  const now=new Date(); const h=now.getHours();
+  const greet=h<6?'NATTUGLA! 🦉':h<12?'GOD MORGON! 🌅':h<17?'GOD EFTERMIDDAG! ☀️':'GOD KVÄLL! 🌙';
+  const g=$('morningGreeting'); if(g) g.textContent=greet;
+  const nm=$('morningName'); if(nm) nm.textContent=G.petName||G.name||'Champ';
+  const date=$('morningDate'); if(date) date.textContent=now.toLocaleDateString('sv-SE',{weekday:'long',day:'numeric',month:'long'});
+  const st=$('mrnStreak'); if(st) st.textContent=G.streak||0;
+  const lv=$('mrnLevel'); if(lv) lv.textContent=G.level||1;
+  const kc=$('mrnKC'); if(kc) kc.textContent=G.kc||0;
+  // Weather
+  const wx=typeof getGlobalWeather==='function'?getGlobalWeather():null;
+  if(wx) {
+    const wi=$('mrnWxIco'); if(wi) wi.textContent=wx.ico;
+    const wn=$('mrnWxName'); if(wn){wn.textContent=wx.name;wn.style.color=wx.col;}
+    const we=$('mrnWxEff'); if(we) we.textContent=wx.eff;
+  }
+  // Challenges
+  const dcbData=typeof _dcbLoad==='function'?_dcbLoad():null;
+  const chEl=$('mrnChallenges');
+  if(chEl&&dcbData) {
+    chEl.innerHTML=dcbData.challenges.slice(0,2).map(cs=>{
+      const c=DCB_POOL&&DCB_POOL.find(x=>x.id===cs.id);
+      return c?'<div style="margin-bottom:3px">'+c.ico+' '+c.title+'</div>':'';
+    }).join('');
+  }
+  p.classList.add('show');
+  _mrnInitCanvas();
+  vibe([20,10,30]);
+}
+function claimMorning() {
+  localStorage.setItem(_mrnKey(),'claimed');
+  gainXP(50,'action'); gainCoins(25);
+  confetti(50); vibe([30,15,50,15,30]);
+  showT('🌅 MORGON-BONUS! +50XP +25 coins','g');
+  kjLog('cosmic','MORGON RITUAL',new Date().toLocaleDateString('sv-SE'),'🌅');
+  ssdLog('🌅','Morgon Ritual','+50XP +25 coins','var(--purple)');
+  const p=$('morningPanel'); if(p) { p.classList.remove('show'); }
+  showFloatBubble('🌅 En ny dag börjar!','magic');
+}
+function _mrnInitCanvas() {
+  const c=$('morningCanvas'); if(!c) return;
+  const card=c.parentElement; if(!card) return;
+  c.width=card.offsetWidth||320; c.height=card.offsetHeight||420;
+  const ctx=c.getContext('2d'); if(!ctx) return;
+  const pts=[]; const cols=['#aa66ff','#4488ff','#ff3377','#ffcc00'];
+  for(let i=0;i<40;i++) pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+.5,dx:(Math.random()-.5)*.4,dy:-(Math.random()*.6+.2),a:Math.random(),col:cols[Math.floor(Math.random()*cols.length)]});
+  let raf;
+  function draw() {
+    if(!$('morningPanel').classList.contains('show')){cancelAnimationFrame(raf);ctx.clearRect(0,0,c.width,c.height);return;}
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(p=>{
+      p.x+=p.dx; p.y+=p.dy; p.a+=.02;
+      if(p.y<-10){p.y=c.height+10;p.x=Math.random()*c.width;}
+      ctx.globalAlpha=.2+Math.sin(p.a)*.15;
+      ctx.fillStyle=p.col; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    });
+    ctx.globalAlpha=1; raf=requestAnimationFrame(draw);
+  }
+  draw();
+}
+setTimeout(_checkMorning, 3200);
 
 </script>
 
