@@ -2394,6 +2394,43 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .ahm-stats-row { display:flex;gap:12px;margin-top:10px; }
 .ahm-sval { font-family:var(--ff-head);font-size:16px;font-weight:900;color:var(--green); }
 .ahm-slbl { font-size:8px;color:rgba(255,255,255,.35);font-weight:700;text-transform:uppercase;letter-spacing:.5px; }
+
+/* ══ FISH ENCYCLOPEDIA ══ */
+.fenc { position:fixed;inset:0;z-index:858;background:radial-gradient(ellipse at 50% 0%,rgba(0,8,30,.98),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden; }
+.fenc.open { transform:translateY(0); }
+.fenc-hdr { padding:calc(var(--sat)+16px) 18px 12px;position:relative;z-index:2; }
+.fenc-title { font-family:var(--ff-head);font-size:22px;font-weight:900;background:linear-gradient(135deg,#4488ff,#00ddcc,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.fenc-sub { font-size:11px;color:rgba(255,255,255,.4);margin-top:2px; }
+.fenc-prog-bar { height:6px;background:rgba(255,255,255,.07);border-radius:3px;margin-top:8px;overflow:hidden; }
+.fenc-prog-fill { height:100%;border-radius:3px;background:linear-gradient(90deg,#4488ff,#00ddcc,#00ff88);transition:width .8s cubic-bezier(.34,1.56,.64,1); }
+.fenc-filters { display:flex;gap:6px;padding:6px 16px;overflow-x:auto;scrollbar-width:none; }
+.fenc-filters::-webkit-scrollbar { display:none; }
+.fenc-ftab { flex:0 0 auto;padding:5px 13px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer;border:1.5px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);transition:all .15s;background:transparent;font-family:var(--ff-head); }
+.fenc-ftab.on { border-color:var(--blue);color:var(--blue);background:rgba(68,136,255,.1); }
+.fenc-body { overflow-y:auto;height:100%;padding:0 14px calc(90px + var(--sab));scrollbar-width:none; }
+.fenc-body::-webkit-scrollbar { display:none; }
+.fenc-rarity-spectrum { display:flex;gap:3px;padding:10px 0;margin-bottom:6px; }
+.fenc-rar-chip { flex:1;padding:5px 4px;text-align:center;border-radius:8px;font-size:9px;font-weight:900; }
+.fenc-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+.fenc-card { border-radius:18px;padding:14px 12px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden; }
+.fenc-card.unknown { background:rgba(6,2,14,.7);border:1.5px solid rgba(255,255,255,.05);filter:brightness(.7); }
+.fenc-card.caught { border:2px solid transparent; }
+.fenc-card.r-junk.caught      { background:linear-gradient(160deg,rgba(12,12,12,.9),rgba(6,6,6,.95));border-color:rgba(80,80,80,.3); }
+.fenc-card.r-common.caught    { background:linear-gradient(160deg,rgba(12,12,20,.9),rgba(6,6,10,.95));border-color:rgba(136,136,136,.3); }
+.fenc-card.r-uncommon.caught  { background:linear-gradient(160deg,rgba(0,22,10,.9),rgba(0,10,5,.95));border-color:rgba(0,255,136,.3);box-shadow:0 0 14px rgba(0,255,136,.07); }
+.fenc-card.r-rare.caught      { background:linear-gradient(160deg,rgba(0,10,28,.9),rgba(0,5,14,.95));border-color:rgba(68,136,255,.35);box-shadow:0 0 18px rgba(68,136,255,.1); }
+.fenc-card.r-epic.caught      { background:linear-gradient(160deg,rgba(18,4,36,.9),rgba(8,2,18,.95));border-color:rgba(170,102,255,.4);box-shadow:0 0 22px rgba(170,102,255,.12); }
+.fenc-card.r-legendary.caught { background:linear-gradient(160deg,rgba(30,18,0,.9),rgba(14,8,0,.95));border-color:rgba(255,204,0,.45);box-shadow:0 0 26px rgba(255,204,0,.15); }
+.fenc-card.r-mythic.caught    { background:linear-gradient(160deg,rgba(40,0,16,.9),rgba(18,0,8,.95));border-color:rgba(255,51,119,.5);box-shadow:0 0 30px rgba(255,51,119,.2);animation:mythicGlow 2.5s ease-in-out infinite; }
+.fenc-fish-ico { font-size:36px;text-align:center;margin-bottom:8px;display:block; }
+.fenc-fish-ico.unknown { filter:grayscale(1) brightness(.3); }
+.fenc-fish-name { font-size:12px;font-weight:900;text-align:center;line-height:1.3; }
+.fenc-fish-rar { font-size:8px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;text-align:center;margin-top:4px; }
+.fenc-fish-stats { margin-top:8px;display:flex;flex-direction:column;gap:3px; }
+.fenc-fish-stat { display:flex;justify-content:space-between;font-size:9px; }
+.fenc-fish-stat-k { color:rgba(255,255,255,.35); }
+.fenc-fish-stat-v { font-weight:700; }
+.fenc-new-badge { position:absolute;top:8px;right:8px;background:var(--green);color:#000;font-size:7px;font-weight:900;padding:2px 6px;border-radius:6px; }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -3254,6 +3291,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openKJ()" style="background:linear-gradient(135deg,rgba(60,16,0,.5),rgba(20,40,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">📖</div><span style="background:linear-gradient(135deg,#ff3377,#ffcc00,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">KARMA JOURNAL</span></div>
           <div class="ddr" onclick="cM();openSSD()" style="background:linear-gradient(135deg,rgba(0,32,16,.55),rgba(0,10,30,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,255,136,.7))">📊</div><span style="background:linear-gradient(135deg,#00ff88,#4488ff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">DAGENS STATS</span></div>
           <div class="ddr" onclick="cM();openDCB()" style="background:linear-gradient(135deg,rgba(40,10,0,.55),rgba(20,6,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,136,68,.7))">🎯</div><span style="background:linear-gradient(135deg,#ff8844,#ffcc00,#ff3377);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">UTMANINGAR</span></div>
+          <div class="ddr" onclick="cM();nav('games');setTimeout(()=>openFENC(),300)" style="background:linear-gradient(135deg,rgba(0,10,30,.55),rgba(0,5,16,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(68,136,255,.7))">🐟</div><span style="background:linear-gradient(135deg,#4488ff,#00ddcc,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">FISKLEXIKON</span></div>
           <div class="ddr" onclick="cM();toggleRadio()"><div class="ddr-i">🎵</div>Karma Radio</div>
         </div>
       </div>
@@ -4610,6 +4648,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="bond-splash-tier" id="bondSplashTier">VÄN</div>
     <div class="bond-splash-perk" id="bondSplashPerk">Ny förmåga upplåst!</div>
     <button class="bond-splash-btn" onclick="closeBondSplash()">💖 HÄFTIGT!</button>
+  </div>
+</div>
+
+<!-- FISH ENCYCLOPEDIA -->
+<div class="fenc" id="fencPanel">
+  <div class="fenc-hdr">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer" onclick="closeFENC()">←</button>
+      <div>
+        <div class="fenc-title">FISKLEXIKON</div>
+        <div class="fenc-sub" id="fencSub">0/13 funna</div>
+      </div>
+    </div>
+    <div class="fenc-prog-bar"><div class="fenc-prog-fill" id="fencProgFill" style="width:0%"></div></div>
+  </div>
+  <div class="fenc-filters">
+    <button class="fenc-ftab on" onclick="filterFENC('all',this)">Alla</button>
+    <button class="fenc-ftab" onclick="filterFENC('caught',this)">Fångade</button>
+    <button class="fenc-ftab" onclick="filterFENC('mythic',this)">⭐ Legendarisk+</button>
+    <button class="fenc-ftab" onclick="filterFENC('rare',this)">💙 Sällsynt+</button>
+  </div>
+  <div class="fenc-body">
+    <div class="fenc-rarity-spectrum">
+      <div class="fenc-rar-chip" style="background:rgba(80,80,80,.3);color:#888">JUNK</div>
+      <div class="fenc-rar-chip" style="background:rgba(136,136,136,.2);color:#aaa">COM</div>
+      <div class="fenc-rar-chip" style="background:rgba(0,255,136,.15);color:#00ff88">UNK</div>
+      <div class="fenc-rar-chip" style="background:rgba(68,136,255,.2);color:#4488ff">RARE</div>
+      <div class="fenc-rar-chip" style="background:rgba(170,102,255,.2);color:#aa66ff">EPIC</div>
+      <div class="fenc-rar-chip" style="background:rgba(255,204,0,.2);color:#ffcc00">LEG</div>
+      <div class="fenc-rar-chip" style="background:rgba(255,51,119,.25);color:#ff3377">MYT</div>
+    </div>
+    <div class="fenc-grid" id="fencGrid"></div>
   </div>
 </div>
 
@@ -11835,6 +11905,83 @@ function renderHeatmap() {
     };
   }
 })();
+
+// ═══════════════════════════════════════════════
+// FISH ENCYCLOPEDIA
+// ═══════════════════════════════════════════════
+function _fencKey(id) { return 'k0509_fenc_'+id; }
+function _fencGet(id) { try{return JSON.parse(localStorage.getItem(_fencKey(id))||'null')||{count:0,firstCatch:null,bestWt:null};}catch(e){return{count:0,firstCatch:null,bestWt:null};} }
+function _fencRecord(fish) {
+  if(!fish||!fish.id) return;
+  const d=_fencGet(fish.id);
+  d.count=(d.count||0)+1;
+  if(!d.firstCatch) d.firstCatch=new Date().toLocaleDateString('sv-SE');
+  const wt=fish.wt||(parseFloat(fish.size)||0);
+  if(wt>0&&(!d.bestWt||wt>d.bestWt)) d.bestWt=wt;
+  try{localStorage.setItem(_fencKey(fish.id),JSON.stringify(d));}catch(e){}
+}
+let _fencFilter='all';
+function openFENC() {
+  const p=$('fencPanel'); if(!p) return;
+  p.classList.add('open'); _renderFENC();
+}
+function closeFENC() { const p=$('fencPanel'); if(p) p.classList.remove('open'); }
+function filterFENC(f,el) {
+  _fencFilter=f;
+  document.querySelectorAll('.fenc-ftab').forEach(t=>t.classList.remove('on'));
+  if(el) el.classList.add('on');
+  _renderFENC();
+}
+const FENC_RARITY_ORDER={junk:0,common:1,uncommon:2,rare:3,epic:4,legendary:5,mythic:6};
+function _renderFENC() {
+  const coll=fishState?fishState.collection:[];
+  const total=FISH_TYPES.length;
+  const caught=coll.length;
+  // Header
+  const sub=$('fencSub'); if(sub) sub.textContent=caught+'/'+total+' funna';
+  const fill=$('fencProgFill'); if(fill) setTimeout(()=>{fill.style.width=Math.round((caught/total)*100)+'%';},80);
+  // Filter fish list
+  let fish=[...FISH_TYPES].sort((a,b)=>FENC_RARITY_ORDER[b.rarity]-FENC_RARITY_ORDER[a.rarity]);
+  if(_fencFilter==='caught') fish=fish.filter(f=>coll.includes(f.id));
+  else if(_fencFilter==='mythic') fish=fish.filter(f=>(FENC_RARITY_ORDER[f.rarity]||0)>=5);
+  else if(_fencFilter==='rare') fish=fish.filter(f=>(FENC_RARITY_ORDER[f.rarity]||0)>=3);
+  // Sort: caught first, then by rarity
+  fish.sort((a,b)=>{
+    const ac=coll.includes(a.id)?1:0, bc=coll.includes(b.id)?1:0;
+    if(ac!==bc) return bc-ac;
+    return (FENC_RARITY_ORDER[b.rarity]||0)-(FENC_RARITY_ORDER[a.rarity]||0);
+  });
+  const grid=$('fencGrid'); if(!grid) return;
+  const rarCols={junk:'#666',common:'#aaa',uncommon:'#00ff88',rare:'#4488ff',epic:'#aa66ff',legendary:'#ffcc00',mythic:'#ff3377'};
+  const rarNames={junk:'SKRÄP',common:'VANLIG',uncommon:'OVANLIG',rare:'SÄLLSYNT',epic:'EPISK',legendary:'LEGENDARISK',mythic:'MYTISK'};
+  grid.innerHTML=fish.map(f=>{
+    const isCaught=coll.includes(f.id);
+    const enc=_fencGet(f.id);
+    const col=rarCols[f.rarity]||'#aaa';
+    const cls='fenc-card r-'+f.rarity+' '+(isCaught?'caught':'unknown');
+    if(!isCaught) {
+      return '<div class="'+cls+'"><span class="fenc-fish-ico unknown">❓</span><div class="fenc-fish-name" style="color:rgba(255,255,255,.2)">???</div><div class="fenc-fish-rar" style="color:'+col+'">'+rarNames[f.rarity]+'</div></div>';
+    }
+    const statRows=enc.count?'<div class="fenc-fish-stats">'+
+      '<div class="fenc-fish-stat"><span class="fenc-fish-stat-k">Fångad</span><span class="fenc-fish-stat-v">'+enc.count+'×</span></div>'+
+      (enc.firstCatch?'<div class="fenc-fish-stat"><span class="fenc-fish-stat-k">Första</span><span class="fenc-fish-stat-v">'+enc.firstCatch+'</span></div>':'')+
+      (enc.bestWt?'<div class="fenc-fish-stat"><span class="fenc-fish-stat-k">Rekord</span><span class="fenc-fish-stat-v">'+enc.bestWt.toFixed(1)+'kg</span></div>':'')+
+      '<div class="fenc-fish-stat"><span class="fenc-fish-stat-k">XP</span><span class="fenc-fish-stat-v" style="color:var(--green)">+'+f.xp+'</span></div>'+
+    '</div>':'';
+    const isNew=enc.count===1;
+    return '<div class="'+cls+'">'+(isNew?'<div class="fenc-new-badge">NY!</div>':'')+
+      '<span class="fenc-fish-ico">'+f.em+'</span>'+
+      '<div class="fenc-fish-name" style="color:'+col+'">'+f.name+'</div>'+
+      '<div class="fenc-fish-rar" style="color:'+col+'">'+rarNames[f.rarity]+'</div>'+
+      statRows+'</div>';
+  }).join('');
+}
+// Hook completeFishCatch to record in encyclopedia
+const _origCFC4=completeFishCatch;
+completeFishCatch=function(caught,quality){
+  _origCFC4(caught,quality);
+  if(caught&&caught.id&&caught.rarity!=='junk') _fencRecord(caught);
+};
 
 </script>
 
