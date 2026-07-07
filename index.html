@@ -2009,6 +2009,26 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ DAILY FORTUNE CARD ══ */
+.fortune-overlay { position:fixed;inset:0;z-index:904;background:radial-gradient(ellipse at 50% 30%,rgba(20,8,50,.97),rgba(0,0,0,.99) 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;opacity:0;pointer-events:none;transition:opacity .5s; }
+.fortune-overlay.show { opacity:1;pointer-events:all; }
+.fortune-card-wrap { perspective:800px; }
+.fortune-card { width:200px;height:320px;border-radius:20px;position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.4,0,.2,1);cursor:pointer; }
+.fortune-card.revealed { transform:rotateY(180deg); }
+.fortune-card-side { position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center; }
+.fortune-card-face { background:linear-gradient(135deg,rgba(40,15,80,.95),rgba(20,8,40,.9));border:2px solid rgba(170,102,255,.4);box-shadow:0 0 30px rgba(170,102,255,.2); }
+.fortune-card-face-pattern { font-size:48px;line-height:1;opacity:.3;margin-bottom:10px; }
+.fortune-card-face-ico { font-size:36px;line-height:1;opacity:.7; }
+.fortune-card-face-txt { font:700 10px/1 var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:.2em;margin-top:8px; }
+.fortune-card-back { transform:rotateY(180deg);padding:20px;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:flex-start; }
+.fortune-ico-big { font-size:56px;line-height:1;margin-bottom:4px; }
+.fortune-card-title { font:900 15px/1 var(--ff-head);text-align:center;letter-spacing:.08em; }
+.fortune-card-prophecy { font:600 11px/1.5 var(--ff-body);color:rgba(255,255,255,.6);text-align:center;flex:1; }
+.fortune-effect-chip { padding:5px 12px;border-radius:10px;font:700 10px/1 var(--ff-head);letter-spacing:.04em;border:1px solid; }
+.fortune-btn-row { display:flex;gap:10px; }
+.fortune-btn { padding:12px 24px;border:none;border-radius:12px;font:800 12px/1 var(--ff-head);color:#fff;cursor:pointer;letter-spacing:.05em; }
+
 /* ══ ROUND 100 MEGA MILESTONE ══ */
 .r100-overlay { position:fixed;inset:0;z-index:9800;background:radial-gradient(ellipse at 50% 40%,rgba(30,10,80,.98),rgba(0,0,0,.99) 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;pointer-events:none;transition:opacity .6s; }
 .r100-overlay.show { opacity:1;pointer-events:all; }
@@ -2628,6 +2648,26 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ DAILY FORTUNE CARD ══ */
+.fortune-overlay { position:fixed;inset:0;z-index:904;background:radial-gradient(ellipse at 50% 30%,rgba(20,8,50,.97),rgba(0,0,0,.99) 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;opacity:0;pointer-events:none;transition:opacity .5s; }
+.fortune-overlay.show { opacity:1;pointer-events:all; }
+.fortune-card-wrap { perspective:800px; }
+.fortune-card { width:200px;height:320px;border-radius:20px;position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.4,0,.2,1);cursor:pointer; }
+.fortune-card.revealed { transform:rotateY(180deg); }
+.fortune-card-side { position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center; }
+.fortune-card-face { background:linear-gradient(135deg,rgba(40,15,80,.95),rgba(20,8,40,.9));border:2px solid rgba(170,102,255,.4);box-shadow:0 0 30px rgba(170,102,255,.2); }
+.fortune-card-face-pattern { font-size:48px;line-height:1;opacity:.3;margin-bottom:10px; }
+.fortune-card-face-ico { font-size:36px;line-height:1;opacity:.7; }
+.fortune-card-face-txt { font:700 10px/1 var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:.2em;margin-top:8px; }
+.fortune-card-back { transform:rotateY(180deg);padding:20px;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:flex-start; }
+.fortune-ico-big { font-size:56px;line-height:1;margin-bottom:4px; }
+.fortune-card-title { font:900 15px/1 var(--ff-head);text-align:center;letter-spacing:.08em; }
+.fortune-card-prophecy { font:600 11px/1.5 var(--ff-body);color:rgba(255,255,255,.6);text-align:center;flex:1; }
+.fortune-effect-chip { padding:5px 12px;border-radius:10px;font:700 10px/1 var(--ff-head);letter-spacing:.04em;border:1px solid; }
+.fortune-btn-row { display:flex;gap:10px; }
+.fortune-btn { padding:12px 24px;border:none;border-radius:12px;font:800 12px/1 var(--ff-head);color:#fff;cursor:pointer;letter-spacing:.05em; }
 
 /* ══ ROUND 100 MEGA MILESTONE ══ */
 .r100-overlay { position:fixed;inset:0;z-index:9800;background:radial-gradient(ellipse at 50% 40%,rgba(30,10,80,.98),rgba(0,0,0,.99) 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;pointer-events:none;transition:opacity .6s; }
@@ -5373,6 +5413,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="season-claim-row">
       <button class="season-daily-btn" id="seasonDailyBtn" onclick="claimSeasonDaily()">🎁 DAGLIG SÄSONGSBONUS</button>
     </div>
+  </div>
+</div>
+
+<!-- DAILY FORTUNE CARD -->
+<div class="fortune-overlay" id="fortuneOverlay">
+  <div style="font:900 11px/1 var(--ff-head);color:rgba(170,102,255,.7);letter-spacing:.25em">✦ DAGENS ÖDESFORTUÑA ✦</div>
+  <div class="fortune-card-wrap">
+    <div class="fortune-card" id="fortuneCard" onclick="revealFortune()">
+      <div class="fortune-card-side fortune-card-face">
+        <div class="fortune-card-face-pattern">✦</div>
+        <div class="fortune-card-face-ico">🔮</div>
+        <div class="fortune-card-face-txt">AVSLÖJA</div>
+      </div>
+      <div class="fortune-card-side fortune-card-back" id="fortuneCardBack" style="background:linear-gradient(135deg,rgba(40,15,80,.95),rgba(20,8,40,.9));border:2px solid var(--purple)">
+        <div class="fortune-ico-big" id="fortuneIco">🌙</div>
+        <div class="fortune-card-title" id="fortuneTitle">???</div>
+        <div class="fortune-card-prophecy" id="fortuneProphecy">...</div>
+        <div class="fortune-effect-chip" id="fortuneChip" style="background:rgba(170,102,255,.15);border-color:var(--purple);color:var(--purple)">–</div>
+      </div>
+    </div>
+  </div>
+  <div style="font:500 11px/1.5 var(--ff-body);color:rgba(255,255,255,.3);text-align:center;max-width:240px" id="fortuneRevealHint">Tryck på kortet för att avslöja din dagliga fortune!</div>
+  <div class="fortune-btn-row" id="fortuneBtnRow" style="display:none">
+    <button class="fortune-btn" style="background:linear-gradient(135deg,var(--purple),var(--pink))" onclick="claimFortune()">✦ ACCEPTERA</button>
+    <button class="fortune-btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)" onclick="closeFortune()">Stäng</button>
   </div>
 </div>
 
@@ -14351,6 +14416,78 @@ function _r100Fireworks() {
 
 // Auto-trigger on load (only once)
 document.addEventListener('DOMContentLoaded', _checkR100);
+
+
+
+// DAILY FORTUNE CARD
+const FORTUNES = [
+  {ico:'☀️',name:'SOLENS VÄLSIGNELSE',col:'#ffcc00',prophecy:'Ljuset faller på dig idag. Ditt husdjur strålar och alla uppdrag verkar lättare.',effect:'+30% XP HELA DAGEN',effectFn:()=>{localStorage.setItem('k0509_ftBonus','xp30_'+getTodayKey());}},
+  {ico:'🌙',name:'MÅNANS HEMLIGHET',col:'#aa66ff',prophecy:'Natten bär på dolda skatter. Fisk dyker djupare och sällsyntare idag.',effect:'+25% FISHCHANS',effectFn:()=>{localStorage.setItem('k0509_ftBonus','fish25_'+getTodayKey());}},
+  {ico:'⚡',name:'STORMENS KRAFT',col:'#4488ff',prophecy:'En stormvind blåser in. Battle-segrar ger dubbel belöning under kvällen.',effect:'+2x BATTLE COINS',effectFn:()=>{localStorage.setItem('k0509_ftBonus','battle2x_'+getTodayKey());}},
+  {ico:'🌸',name:'BLOMMANS FRED',col:'#ff3377',prophecy:'Allt som planteras idag bär frukt. Bond med din pet ökar snabbare.',effect:'+50% BOND POINTS',effectFn:()=>{localStorage.setItem('k0509_ftBonus','bond50_'+getTodayKey());}},
+  {ico:'💎',name:'KRISTALLENS KLARHET',col:'#00ddcc',prophecy:'Sinnet är kristallklart. Flash-kortövningar ger extra XP idag.',effect:'+40% FLASH XP',effectFn:()=>{localStorage.setItem('k0509_ftBonus','flash40_'+getTodayKey());}},
+  {ico:'🔥',name:'ELDENS PASSION',col:'#ff8844',prophecy:'Elden brinner starkt! Varje tap ger extra energi och bonus coins.',effect:'+1 COIN / TAP',effectFn:()=>{localStorage.setItem('k0509_ftBonus','tap1_'+getTodayKey());}},
+  {ico:'🌊',name:'HAVETS LUGN',col:'#00ff88',prophecy:'Havet är stilla. Din pet återhämtar sig snabbare idag.',effect:'+20 ENERGI NU',effectFn:()=>{G.energy=Math.min(100,G.energy+20);save();}},
+  {ico:'⭐',name:'STJÄRNORNAS VÄG',col:'#ffffff',prophecy:'Du är på rätt väg. En extra bonus väntar när du loggar in imorgon.',effect:'+100 BONUS XP IMORGON',effectFn:()=>{localStorage.setItem('k0509_ftTomorrow','1');}},
+  {ico:'🌪️',name:'KAOSVINDENS PRÖVNING',col:'#ff4455',prophecy:'Kaos råder idag. Men de som uthärdar provet belönas rikligt.',effect:'+50% XP NÄSTA BATTLE',effectFn:()=>{localStorage.setItem('k0509_ftBonus','nextbattle50_'+getTodayKey());}},
+  {ico:'🌈',name:'REGNBÅGENS GÅVA',col:'#aa66ff',prophecy:'Regnbågen bär alla färger. En slumpmässig stor belöning väntar.',effect:'MYSTISK BELÖNING',effectFn:()=>{const r=Math.random();if(r<0.3)gainKC(10);else if(r<0.6)gainCoins(200);else gainXP(300,'action');}},
+];
+
+let _todayFortune=null;
+let _fortuneRevealed=false;
+
+function _getFortune(){
+  const key='k0509_fortune_'+getTodayKey();
+  const stored=localStorage.getItem(key);
+  if(stored!==null) return FORTUNES[parseInt(stored)];
+  const idx=Math.floor(Math.random()*FORTUNES.length);
+  localStorage.setItem(key,idx);
+  return FORTUNES[idx];
+}
+
+function checkFortune(){
+  const claimed=localStorage.getItem('k0509_fortuneClaimed_'+getTodayKey());
+  if(claimed) return;
+  _todayFortune=_getFortune();
+  _fortuneRevealed=false;
+  const ov=$('fortuneOverlay'); if(!ov) return;
+  const card=$('fortuneCard'); if(card) card.classList.remove('revealed');
+  const btnRow=$('fortuneBtnRow'); if(btnRow) btnRow.style.display='none';
+  const hint=$('fortuneRevealHint'); if(hint) hint.style.display='block';
+  ov.classList.add('show');
+}
+
+function revealFortune(){
+  if(_fortuneRevealed) return;
+  _fortuneRevealed=true;
+  const f=_todayFortune||_getFortune();
+  const card=$('fortuneCard'); if(card) card.classList.add('revealed');
+  // fill back
+  const back=$('fortuneCardBack');
+  if(back){ back.style.background=`linear-gradient(135deg,rgba(20,8,40,.97),rgba(10,4,20,.97))`; back.style.borderColor=f.col; }
+  const ic=$('fortuneIco'); if(ic) ic.textContent=f.ico;
+  const nm=$('fortuneTitle'); if(nm){ nm.textContent=f.name; nm.style.color=f.col; }
+  const pr=$('fortuneProphecy'); if(pr) pr.textContent=f.prophecy;
+  const ch=$('fortuneChip'); if(ch){ ch.textContent=f.effect; ch.style.borderColor=f.col; ch.style.color=f.col; ch.style.background=f.col+'22'; }
+  const hint=$('fortuneRevealHint'); if(hint) hint.style.display='none';
+  const btnRow=$('fortuneBtnRow'); if(btnRow) btnRow.style.display='flex';
+  SFX.lvl&&SFX.lvl();
+}
+
+function claimFortune(){
+  const f=_todayFortune||_getFortune();
+  localStorage.setItem('k0509_fortuneClaimed_'+getTodayKey(),'1');
+  f.effectFn&&f.effectFn();
+  gainXP(50,'action');
+  showT(f.ico+' '+f.name+': '+f.effect,'g');
+  closeFortune();
+  ssdLog&&ssdLog(f.ico,f.name,f.effect,f.col);
+}
+
+function closeFortune(){ const ov=$('fortuneOverlay'); if(ov) ov.classList.remove('show'); }
+
+// Check fortune at startup (after morning ritual)
+document.addEventListener('DOMContentLoaded',()=>{ setTimeout(checkFortune,4500); });
 
 
 </script>
