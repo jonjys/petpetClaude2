@@ -1265,6 +1265,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 /* Active nav glow */
 .nb.on .ni { filter:drop-shadow(0 0 10px var(--pet-col,var(--green))) !important; }
+
+/* ══ NEON PORTAL ══ */
+.np { position:fixed;inset:0;z-index:851;background:#000;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);overflow:hidden; }
+.np.open { transform:translateY(0); }
+.np-bg { position:absolute;inset:0;width:100%;height:100%;z-index:0; }
+.np-hdr { height:calc(56px + var(--sat));padding-top:var(--sat);display:flex;align-items:center;justify-content:space-between;padding-left:14px;padding-right:14px;flex-shrink:0;position:relative;z-index:2; }
+.np-title { font-family:var(--ff-head);font-size:19px;font-weight:900;background:linear-gradient(135deg,#ff3377,#aa66ff,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 12px rgba(255,51,119,.45)); }
+.np-body { flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px 20px;position:relative;z-index:2; }
+.np-stats { display:flex;justify-content:space-between;width:100%;max-width:340px;margin-bottom:18px;font-size:12px;font-weight:700; }
+.np-bal { color:var(--gold);font-family:var(--ff-head); }
+.np-pity-txt { color:rgba(255,255,255,.45); }
+.np-portal-wrap { position:relative;margin-bottom:24px; }
+#npPortalC { border-radius:50%;display:block;filter:drop-shadow(0 0 24px rgba(255,51,119,.3)); }
+.np-btns { display:flex;gap:12px;width:100%;max-width:340px;margin-bottom:12px; }
+.np-btn { flex:1;padding:16px 8px;border-radius:20px;border:none;cursor:pointer;text-align:center;transition:all .15s;position:relative; }
+.np-btn:active { transform:scale(.93); }
+.np-btn-1 { background:linear-gradient(135deg,rgba(40,80,200,.4),rgba(20,40,120,.85));border:2px solid rgba(68,136,255,.4); }
+.np-btn-5 { background:linear-gradient(135deg,rgba(180,80,10,.25),rgba(120,40,200,.35));border:2px solid rgba(255,204,0,.38); }
+.np-btn-label { font-family:var(--ff-head);font-size:16px;font-weight:900;color:#fff; }
+.np-btn-cost { font-size:12px;color:rgba(255,255,255,.55);margin-top:2px; }
+.np-btn-save { font-size:10px;color:var(--gold);font-weight:900;margin-top:2px; }
+.np-pbar { width:100%;max-width:340px;height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-bottom:5px; }
+.np-pbar-fill { height:100%;background:linear-gradient(90deg,var(--purple),var(--gold));border-radius:3px;transition:width .5s; }
+.np-pbar-lbl { font-size:10px;color:rgba(255,255,255,.3);text-align:center; }
+.np-reveal { position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s; }
+.np-reveal.show { opacity:1;pointer-events:all; }
+.np-r-card { width:220px;border-radius:24px;padding:28px 20px 24px;text-align:center;margin-bottom:16px;animation:arCardIn .48s cubic-bezier(.34,1.56,.64,1) both; }
+.np-r-card.common { background:linear-gradient(160deg,rgba(10,20,60,.97),rgba(4,8,28,.98));border:2px solid rgba(68,136,255,.55);box-shadow:0 0 40px rgba(68,136,255,.12); }
+.np-r-card.rare { background:linear-gradient(160deg,rgba(20,8,50,.97),rgba(8,2,28,.98));border:2px solid rgba(170,102,255,.6);box-shadow:0 0 50px rgba(170,102,255,.18); }
+.np-r-card.epic { background:linear-gradient(160deg,rgba(40,28,4,.97),rgba(16,10,0,.98));border:2px solid rgba(255,204,0,.7);box-shadow:0 0 60px rgba(255,204,0,.2);animation:arCardIn .48s cubic-bezier(.34,1.56,.64,1) both,epicPulse 1.2s ease-in-out 0.5s infinite; }
+.np-r-card.legendary { background:linear-gradient(160deg,rgba(50,4,20,.97),rgba(20,2,8,.98));border:2px solid #ff3377;box-shadow:0 0 80px rgba(255,51,119,.28);animation:arCardIn .48s cubic-bezier(.34,1.56,.64,1) both,legRainbow 1.5s linear 0.5s infinite; }
+@keyframes epicPulse{0%,100%{box-shadow:0 0 40px rgba(255,204,0,.18);}50%{box-shadow:0 0 80px rgba(255,204,0,.42);}}
+@keyframes legRainbow{0%{border-color:#ff3377;box-shadow:0 0 80px rgba(255,51,119,.38);}33%{border-color:#ffcc00;box-shadow:0 0 80px rgba(255,204,0,.38);}66%{border-color:#00ff88;box-shadow:0 0 80px rgba(0,255,136,.38);}100%{border-color:#ff3377;box-shadow:0 0 80px rgba(255,51,119,.38);}}
+.np-r-ico { font-size:64px;display:block;margin-bottom:10px; }
+.np-r-rarity { font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px; }
+.np-r-name { font-family:var(--ff-head);font-size:18px;font-weight:900;color:#fff;margin-bottom:6px; }
+.np-r-eff { font-size:13px;color:rgba(255,255,255,.72); }
+.np-multi-grid { display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:320px;margin-bottom:16px; }
+.np-mini { width:86px;border-radius:14px;padding:11px 6px;text-align:center; }
+.np-mini.common { background:rgba(10,20,60,.9);border:1.5px solid rgba(68,136,255,.4); }
+.np-mini.rare { background:rgba(20,8,50,.9);border:1.5px solid rgba(170,102,255,.5); }
+.np-mini.epic { background:rgba(30,20,0,.9);border:1.5px solid var(--gold);box-shadow:0 0 14px rgba(255,204,0,.18); }
+.np-mini.legendary { background:rgba(40,4,16,.9);border:1.5px solid var(--pink);box-shadow:0 0 18px rgba(255,51,119,.25);animation:legRainbow 1.5s linear infinite; }
+.np-mini-ico { font-size:26px;display:block;margin-bottom:3px; }
+.np-mini-nm { font-size:9px;font-weight:900;color:#fff;margin-bottom:2px; }
+.np-mini-rar { font-size:8px;font-weight:900;letter-spacing:.8px;text-transform:uppercase; }
 .nb.on .nl { color:var(--pet-col,var(--green)) !important; }
 
 /* Pet speech bubble */
@@ -2807,6 +2853,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDnaModal()"><div class="ddr-i">🧬</div>DNA Mixer</div>
           <div class="ddr" onclick="cM();nav('games');setTimeout(()=>switchGame('raid',document.querySelector('.gtab:last-child')),300)"><div class="ddr-i">💀</div>Boss Raid</div>
           <div class="ddr" onclick="cM();openAR()" style="background:linear-gradient(135deg,rgba(40,8,80,.6),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(170,102,255,.8))">🌌</div><span style="background:linear-gradient(135deg,#cc88ff,#4488ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">ASTRAL RIFT</span></div>
+          <div class="ddr" onclick="cM();openNP()" style="background:linear-gradient(135deg,rgba(60,4,30,.6),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">💫</div><span style="background:linear-gradient(135deg,#ff3377,#aa66ff,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">NEON PORTAL</span></div>
           <div class="ddr" onclick="cM();toggleRadio()"><div class="ddr-i">🎵</div>Karma Radio</div>
         </div>
       </div>
@@ -2956,6 +3003,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         </div>
         <div class="care-btn" data-accent="purple" onclick="openAR()" style="background:linear-gradient(160deg,rgba(40,8,80,.9),rgba(20,4,50,.95));border-color:rgba(170,102,255,.35);box-shadow:0 0 16px rgba(170,102,255,.12)">
           <span class="care-ico" style="filter:drop-shadow(0 0 8px rgba(170,102,255,.7))">🌌</span><span class="care-lbl">ASTRAL</span><span class="care-cost" style="color:rgba(170,102,255,.9)">Rift</span>
+        </div>
+        <div class="care-btn" data-accent="pink" onclick="openNP()" style="background:linear-gradient(160deg,rgba(60,4,30,.9),rgba(20,2,10,.95));border-color:rgba(255,51,119,.35);box-shadow:0 0 16px rgba(255,51,119,.1)">
+          <span class="care-ico" style="filter:drop-shadow(0 0 8px rgba(255,51,119,.8))">💫</span><span class="care-lbl">PORTAL</span><span class="care-cost" style="color:rgba(255,51,119,.9)">50💰</span>
         </div>
       </div>
 
@@ -3990,6 +4040,42 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <input class="inp" id="aiInpM" style="margin-bottom:0" placeholder="Fråga AI..." onkeydown="if(event.key==='Enter')sendAIModal()">
       <button class="btn btn-pk btn-md" onclick="sendAIModal()">→</button>
     </div>
+  </div>
+</div>
+
+<!-- NEON PORTAL -->
+<div class="np" id="neonPortal">
+  <canvas class="np-bg" id="npBg"></canvas>
+  <div class="np-hdr">
+    <button class="ar-back" onclick="closeNP()">←</button>
+    <div class="np-title">💫 NEON PORTAL</div>
+    <div style="width:38px"></div>
+  </div>
+  <div class="np-body">
+    <div class="np-stats">
+      <div class="np-bal">💰 <span id="npBal">500</span></div>
+      <div class="np-pity-txt">Epic om <span id="npEpLeft">20</span> pulls</div>
+    </div>
+    <div class="np-portal-wrap">
+      <canvas id="npPortalC" width="240" height="240"></canvas>
+    </div>
+    <div class="np-btns">
+      <button class="np-btn np-btn-1" onclick="doNPPull(1)">
+        <div class="np-btn-label">1× PULL</div>
+        <div class="np-btn-cost">50 Coins</div>
+      </button>
+      <button class="np-btn np-btn-5" onclick="doNPPull(5)">
+        <div class="np-btn-label">5× PULL</div>
+        <div class="np-btn-cost">220 Coins</div>
+        <div class="np-btn-save">SPARA 30!</div>
+      </button>
+    </div>
+    <div class="np-pbar"><div class="np-pbar-fill" id="npPbarFill" style="width:0%"></div></div>
+    <div class="np-pbar-lbl">EPIC GARANTI: <span id="npEpProg">0</span>/20</div>
+  </div>
+  <div class="np-reveal" id="npReveal">
+    <div id="npRevealCards"></div>
+    <button class="btn btn-ghost btn-full" style="max-width:280px;margin-top:14px" onclick="closeNPReveal()">Stäng</button>
   </div>
 </div>
 
@@ -9168,6 +9254,157 @@ nav = function(name) {
   _origNavForProf(name);
   if(name === 'profile') setTimeout(refreshProfCover, 50);
 };
+
+/* ══════════════════════════════════════
+   NEON PORTAL — Gacha Pull System
+══════════════════════════════════════ */
+let _npAnim=null, _npPulling=false;
+let _npEpPity=parseInt(localStorage.getItem('k0509_npEp')||'0');
+let _npLegPity=parseInt(localStorage.getItem('k0509_npLeg')||'0');
+const NP_REWARDS={
+  common:[
+    {ico:'⚡',name:'XP STOFT',eff:'+30 XP',fn:()=>gainXP(30,'action')},
+    {ico:'💰',name:'GULD',eff:'+15 Coins',fn:()=>gainCoins(15)},
+    {ico:'🔋',name:'ENERGI',eff:'Energi +15',fn:()=>{G.energy=Math.min(100,(G.energy||60)+15);save();}},
+    {ico:'🌾',name:'HUNGER',eff:'Hunger +20',fn:()=>{G.hunger=Math.min(100,(G.hunger||80)+20);save();}},
+  ],
+  rare:[
+    {ico:'🌟',name:'STJÄRNLJUS',eff:'+100 XP',fn:()=>gainXP(100,'action')},
+    {ico:'💎',name:'ÄDELSTEN',eff:'+50 Coins',fn:()=>gainCoins(50)},
+    {ico:'🎯',name:'PRECISION',eff:'+80 XP & Mood +20',fn:()=>{gainXP(80,'action');G.mood=Math.min(100,(G.mood||60)+20);save();}},
+  ],
+  epic:[
+    {ico:'🔮',name:'KOSMISK KRAFT',eff:'+250 XP!',fn:()=>gainXP(250,'action')},
+    {ico:'💸',name:'GULDREGN',eff:'+120 Coins!',fn:()=>gainCoins(120)},
+    {ico:'⚙️',name:'GEAR BOOST',eff:'+180 XP + 60 Coins',fn:()=>{gainXP(180,'action');gainCoins(60);}},
+  ],
+  legendary:[
+    {ico:'👑',name:'LEGENDARY HAUL',eff:'+500 XP + 150 Coins!',fn:()=>{gainXP(500,'action');gainCoins(150);}},
+    {ico:'🌈',name:'RAINBOW WISH',eff:'+350 XP + 100 Coins + Full Vitals!',fn:()=>{gainXP(350,'action');gainCoins(100);G.energy=100;G.mood=100;G.hunger=100;save();}},
+  ]
+};
+function _npRarCol(r){ return {common:'#4488ff',rare:'#aa66ff',epic:'#ffcc00',legendary:'#ff3377'}[r]||'#4488ff'; }
+function _npGetRarity(){
+  _npEpPity++; _npLegPity++;
+  localStorage.setItem('k0509_npEp',_npEpPity); localStorage.setItem('k0509_npLeg',_npLegPity);
+  if(_npLegPity>=100){_npLegPity=0;_npEpPity=0;localStorage.setItem('k0509_npLeg','0');localStorage.setItem('k0509_npEp','0');return'legendary';}
+  if(_npEpPity>=20){_npEpPity=0;localStorage.setItem('k0509_npEp','0');return'epic';}
+  const r=Math.random();
+  if(r<.02)return'legendary'; if(r<.10)return'epic'; if(r<.35)return'rare'; return'common';
+}
+function _npGetReward(rar){ const p=NP_REWARDS[rar]; return p[~~(Math.random()*p.length)]; }
+function openNP(){
+  const el=$('neonPortal'); if(!el) return;
+  el.classList.add('open'); _npInitPortal(); _npUpdateUI();
+}
+function closeNP(){
+  const el=$('neonPortal'); if(el) el.classList.remove('open');
+  if(_npAnim){cancelAnimationFrame(_npAnim);_npAnim=null;}
+}
+function closeNPReveal(){ const el=$('npReveal'); if(el) el.classList.remove('show'); }
+function _npUpdateUI(){
+  const b=$('npBal'); if(b) b.textContent=G.coins.toLocaleString();
+  const el=$('npEpLeft'); if(el) el.textContent=20-_npEpPity;
+  const pf=$('npPbarFill'); if(pf) pf.style.width=`${(_npEpPity/20)*100}%`;
+  const ep=$('npEpProg'); if(ep) ep.textContent=_npEpPity;
+}
+function doNPPull(count){
+  if(_npPulling) return;
+  const cost=count===1?50:220;
+  if(G.coins<cost){showT(`❌ Behöver ${cost} Coins`,'r');vibe([40,20,40]);return;}
+  G.coins-=cost; updateHUD(); _npUpdateUI();
+  _npPulling=true; SFX.coin(); vibe([20,10,30,10,50]);
+  setTimeout(()=>{
+    _npPulling=false;
+    const results=Array.from({length:count},()=>{const r=_npGetRarity(),rw=_npGetReward(r);rw.fn();return{rarity:r,...rw};});
+    _npShowReveal(results); _npUpdateUI(); updateHUD();
+  },1400);
+}
+function _npShowReveal(results){
+  const rv=$('npReveal'), cards=$('npRevealCards'); if(!rv||!cards) return;
+  const rarOrder=['common','rare','epic','legendary'];
+  const best=results.reduce((a,b)=>rarOrder.indexOf(b.rarity)>rarOrder.indexOf(a.rarity)?b:a,results[0]);
+  const bestIdx=rarOrder.indexOf(best.rarity);
+  if(results.length===1){
+    const r=results[0], col=_npRarCol(r.rarity);
+    cards.innerHTML=`<div class="np-r-card ${r.rarity}">
+      <span class="np-r-ico" style="filter:drop-shadow(0 0 20px ${col})">${r.ico}</span>
+      <div class="np-r-rarity" style="color:${col}">${r.rarity.toUpperCase()}</div>
+      <div class="np-r-name">${r.name}</div>
+      <div class="np-r-eff">${r.eff}</div>
+    </div>`;
+  } else {
+    cards.innerHTML=`<div class="np-multi-grid">${results.map((r,i)=>{
+      const col=_npRarCol(r.rarity);
+      return `<div class="np-mini ${r.rarity}" style="animation:arCardIn .4s cubic-bezier(.34,1.56,.64,1) ${i*.07}s both">
+        <span class="np-mini-ico" style="filter:drop-shadow(0 0 8px ${col})">${r.ico}</span>
+        <div class="np-mini-nm">${r.name}</div>
+        <div class="np-mini-rar" style="color:${col}">${r.rarity}</div>
+      </div>`;
+    }).join('')}</div>`;
+  }
+  if(bestIdx>=3){confetti(90);SFX.lvl();vibe([80,40,80,40,100,40,80]);}
+  else if(bestIdx>=2){confetti(55);SFX.lvl();vibe([40,20,60,20,40]);}
+  else if(bestIdx>=1){confetti(25);SFX.xp();}
+  rv.classList.add('show');
+}
+function _npInitPortal(){
+  const pv=$('npPortalC'), bg=$('npBg'); if(!pv) return;
+  const pCtx=pv.getContext('2d'), W=240, H=240, CX=120, CY=120;
+  pv.width=W; pv.height=H;
+  if(bg){bg.width=window.innerWidth||390;bg.height=window.innerHeight||844;}
+  const bgCtx=bg?bg.getContext('2d'):null;
+  const orbs=Array.from({length:70},(_,i)=>({ang:Math.random()*Math.PI*2,r:18+Math.random()*86,spd:.0015+Math.random()*.007,size:.8+Math.random()*2.5,ho:Math.random()*120}));
+  let hue=0, fr=0;
+  function draw(){
+    _npAnim=requestAnimationFrame(draw); fr++;
+    // BG canvas aurora
+    if(bgCtx){
+      const bW=bg.width, bH=bg.height;
+      bgCtx.clearRect(0,0,bW,bH);
+      const gg=bgCtx.createRadialGradient(bW*.5,bH*.4,0,bW*.5,bH*.4,bW*.75);
+      gg.addColorStop(0,`hsla(${hue},55%,5%,1)`); gg.addColorStop(.6,`hsla(${(hue+160)%360},40%,2%,1)`); gg.addColorStop(1,'#000');
+      bgCtx.fillStyle=gg; bgCtx.fillRect(0,0,bW,bH);
+    }
+    // Portal canvas
+    pCtx.clearRect(0,0,W,H);
+    const spd=_npPulling?.18:.028;
+    // Swirl rings
+    for(let ring=0;ring<7;ring++){
+      const rr=16+ring*14, ph=fr*spd*(1+ring*.12);
+      pCtx.beginPath();
+      for(let i=0;i<=360;i+=3){
+        const a=i*Math.PI/180, wave=Math.sin(a*4+ph+ring)*5;
+        const x=CX+Math.cos(a)*(rr+wave), y=CY+Math.sin(a)*(rr+wave);
+        i===0?pCtx.moveTo(x,y):pCtx.lineTo(x,y);
+      }
+      pCtx.closePath();
+      const rh=(hue+ring*30)%360;
+      pCtx.strokeStyle=`hsla(${rh},90%,${55+ring*4}%,${.7-ring*.08})`;
+      pCtx.lineWidth=_npPulling?3:2;
+      pCtx.stroke();
+    }
+    // Orbiting particles
+    orbs.forEach(o=>{
+      o.ang+=o.spd*(_npPulling?7:1);
+      const x=CX+Math.cos(o.ang)*o.r, y=CY+Math.sin(o.ang)*o.r;
+      pCtx.beginPath(); pCtx.arc(x,y,o.size,0,Math.PI*2);
+      pCtx.fillStyle=`hsla(${(hue+o.ho)%360},100%,70%,${.45+Math.sin(fr*.04+o.ang)*.3})`;
+      pCtx.fill();
+    });
+    // Center glow
+    const cg=pCtx.createRadialGradient(CX,CY,0,CX,CY,28);
+    const ca=_npPulling?.75:.38;
+    cg.addColorStop(0,`hsla(${hue},100%,85%,${ca})`); cg.addColorStop(1,'transparent');
+    pCtx.fillStyle=cg; pCtx.fillRect(0,0,W,H);
+    // Core dot
+    pCtx.beginPath(); pCtx.arc(CX,CY,_npPulling?12:7,0,Math.PI*2);
+    pCtx.fillStyle=`hsla(${hue},100%,92%,1)`; pCtx.fill();
+    hue=(hue+.5)%360;
+  }
+  if(_npAnim) cancelAnimationFrame(_npAnim);
+  draw();
+}
 
 /* ══════════════════════════════════════
    ASTRAL RIFT — Cosmic Shrine
