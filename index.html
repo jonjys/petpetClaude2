@@ -2277,6 +2277,17 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .bond-splash-perk { font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;background:rgba(255,51,119,.08);border-radius:14px;padding:12px 16px;border:1px solid rgba(255,51,119,.15);margin-bottom:20px; }
 .bond-splash-perk strong { color:#ff3377; }
 .bond-splash-btn { background:linear-gradient(135deg,#ff3377,#aa66ff);border:none;border-radius:24px;padding:14px 40px;font-family:var(--ff-head);font-size:14px;font-weight:900;color:#fff;cursor:pointer;width:100%; }
+
+/* ══ COSMIC WEATHER SYSTEM ══ */
+.gwx-bar { position:absolute;top:calc(var(--sat)+52px);left:0;right:0;z-index:199;display:flex;align-items:center;justify-content:center;padding:5px 16px;pointer-events:none;transition:opacity .4s; }
+.gwx-inner { display:flex;align-items:center;gap:8px;padding:4px 14px 4px 8px;border-radius:20px;background:linear-gradient(135deg,rgba(0,0,0,.72),rgba(8,4,20,.8));border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(8px);transition:all .5s; }
+.gwx-inner.pulse { animation:gwxPulse .8s ease-out; }
+@keyframes gwxPulse { 0%{box-shadow:0 0 0 rgba(255,255,255,0)} 50%{box-shadow:0 0 24px var(--gwx-col,rgba(255,204,0,.6))} 100%{box-shadow:0 0 0 rgba(255,255,255,0)} }
+.gwx-ico { font-size:14px; }
+.gwx-name { font-family:var(--ff-head);font-size:10px;font-weight:900;letter-spacing:.5px; }
+.gwx-eff { font-size:8px;font-weight:700;opacity:.65;margin-left:2px; }
+.gwx-dot { width:5px;height:5px;border-radius:50%;background:var(--gwx-col,#ffcc00);animation:gwxDot 2s ease-in-out infinite; }
+@keyframes gwxDot { 0%,100%{opacity:.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.3)} }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -3139,6 +3150,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();toggleRadio()"><div class="ddr-i">🎵</div>Karma Radio</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- COSMIC WEATHER BAR -->
+  <div class="gwx-bar" id="gwxBar">
+    <div class="gwx-inner" id="gwxInner" style="--gwx-col:#ffcc00">
+      <div class="gwx-dot"></div>
+      <span class="gwx-ico" id="gwxIco">☀️</span>
+      <span class="gwx-name" id="gwxName">SOLSKEN</span>
+      <span class="gwx-eff" id="gwxEff">+20% XP</span>
     </div>
   </div>
 
@@ -6627,10 +6648,13 @@ function getXpMult() {
   let m=1;
   if(G_shop.xpBoost>Date.now()) m*=2;
   if(G.mood>=85) m*=1.5;
+  if(typeof gwxXpMul==='function') m*=gwxXpMul();
   return m;
 }
 function getCoinMult() {
-  return (G_shop.coinBoost>Date.now()) ? 2 : 1;
+  let m=(G_shop.coinBoost>Date.now()) ? 2 : 1;
+  if(typeof gwxCoinMul==='function') m*=gwxCoinMul();
+  return m;
 }
 function updateMoodChip(){
   const el=$('moodBoostChip'); if(!el) return;
@@ -11170,6 +11194,64 @@ window.updateHUD=function(){
   _origUpdateHUD.apply(this,arguments);
   updateBondUI();
 };
+
+// ═══════════════════════════════════════════════
+// COSMIC WEATHER SYSTEM
+// ═══════════════════════════════════════════════
+const GLOBAL_WEATHERS = [
+  {id:'sun',    ico:'☀️',  name:'SOLSKEN',  col:'#ffcc00', eff:'+20% XP',         xpMul:1.2, coinMul:1,   kcMul:1,   fishMul:1},
+  {id:'moon',   ico:'🌙',  name:'MÅNLJUS',  col:'#aa66ff', eff:'+25% KC',         xpMul:1,   coinMul:1,   kcMul:1.25,fishMul:1.1},
+  {id:'storm',  ico:'⛈️',  name:'STORM',    col:'#4488ff', eff:'+50% fisk-sällsynt',xpMul:1, coinMul:1,   kcMul:1.2, fishMul:1.5},
+  {id:'bloom',  ico:'🌸',  name:'BLOMNING', col:'#ff3377', eff:'+30% CARE XP',    xpMul:1.3, coinMul:1.1, kcMul:1,   fishMul:1},
+  {id:'cosmos', ico:'🌌',  name:'KOSMOS',   col:'#aa66ff', eff:'+35% XP + KC',    xpMul:1.35,coinMul:1,   kcMul:1.35,fishMul:1.2},
+  {id:'ice',    ico:'❄️',  name:'ISÅLDER',  col:'#00ddcc', eff:'+40% energi',     xpMul:1,   coinMul:1.1, kcMul:1,   fishMul:1.1},
+  {id:'fire',   ico:'🔥',  name:'ELDSTORM', col:'#ff8844', eff:'+50% coins',      xpMul:1.2, coinMul:1.5, kcMul:1,   fishMul:1},
+  {id:'chaos',  ico:'🌀',  name:'KAOS',     col:'#ff3377', eff:'2× slumpsats!',   xpMul:2,   coinMul:2,   kcMul:2,   fishMul:1.8},
+];
+const _gwxKey='k0509_gwx';
+function _gwxPick() {
+  const now=Date.now();
+  const raw=localStorage.getItem(_gwxKey);
+  if(raw) { try { const d=JSON.parse(raw); if(d.expires>now) return d; } catch(e){} }
+  const w=GLOBAL_WEATHERS[Math.floor(Math.random()*GLOBAL_WEATHERS.length)];
+  const d={id:w.id,expires:now+30*60*1000};
+  localStorage.setItem(_gwxKey,JSON.stringify(d));
+  return d;
+}
+function getGlobalWeather() {
+  const d=_gwxPick();
+  return GLOBAL_WEATHERS.find(w=>w.id===d.id)||GLOBAL_WEATHERS[0];
+}
+function _gwxRender(pulse) {
+  const w=getGlobalWeather();
+  const ico=$('gwxIco'); if(ico) ico.textContent=w.ico;
+  const nm=$('gwxName'); if(nm){nm.textContent=w.name;nm.style.color=w.col;}
+  const ef=$('gwxEff'); if(ef) ef.textContent=w.eff;
+  const inn=$('gwxInner');
+  if(inn) { inn.style.setProperty('--gwx-col',w.col); inn.style.borderColor=w.col+'33'; }
+  const dot=inn&&inn.querySelector('.gwx-dot'); if(dot) dot.style.background=w.col;
+  if(pulse&&inn){inn.classList.remove('pulse');void inn.offsetWidth;inn.classList.add('pulse');}
+}
+function _gwxSchedule() {
+  const raw=localStorage.getItem(_gwxKey);
+  let msLeft=30*60*1000;
+  if(raw){try{const d=JSON.parse(raw);msLeft=Math.max(30000,d.expires-Date.now());}catch(e){}}
+  setTimeout(()=>{
+    localStorage.removeItem(_gwxKey);
+    const w=getGlobalWeather(); _gwxRender(true);
+    showFeatToast(w.ico,'VÄDER ÄNDRAT',''+w.name+' — '+w.eff,w.col);
+    kjLog('cosmic','KOSMISKT VÄDER: '+w.name,w.eff,w.ico);
+    ssdLog(w.ico,'Väder: '+w.name,w.eff,w.col);
+    _gwxSchedule();
+  }, msLeft);
+}
+// Boost multipliers — called by gainXP/gainCoins/gainKC wrappers
+function gwxXpMul()  { return getGlobalWeather().xpMul||1; }
+function gwxCoinMul(){ return getGlobalWeather().coinMul||1; }
+function gwxKCMul()  { return getGlobalWeather().kcMul||1; }
+function gwxFishMul(){ return getGlobalWeather().fishMul||1; }
+// Startup
+setTimeout(()=>{ _gwxRender(false); _gwxSchedule(); }, 800);
 
 </script>
 
