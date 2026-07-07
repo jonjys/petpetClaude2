@@ -1351,6 +1351,30 @@ textarea.inp { resize:none;min-height:72px; }
 .kj-portal .kj-stem { background:linear-gradient(180deg,rgba(255,51,119,.35),transparent); }
 .kj-portal .kj-card { background:linear-gradient(160deg,rgba(38,4,18,.9),rgba(16,2,8,.95));border:1px solid rgba(255,51,119,.22); }
 
+
+/* ══ WORD BLITZ GAME ══ */
+.wb-panel { padding:8px 12px 80px;display:flex;flex-direction:column;gap:10px; }
+.wb-hud { display:grid;grid-template-columns:repeat(4,1fr);gap:6px; }
+.wb-stat { background:rgba(255,255,255,.04);border-radius:10px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px; }
+.wb-stat-v { font:800 16px/1 var(--ff-head); }
+.wb-stat-l { font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.04em; }
+.wb-timer-bar-bg { height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden; }
+.wb-timer-bar-fill { height:100%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:4px;transition:width .1s linear; }
+.wb-word-display { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:90px;justify-content:center; }
+.wb-current-word { font:900 28px/1 var(--ff-head);letter-spacing:.12em;color:rgba(255,255,255,.9); }
+.wb-current-word span.correct { color:var(--green); }
+.wb-current-word span.wrong { color:var(--red); }
+.wb-typed-display { font:700 11px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.08em;height:18px; }
+.wb-keyboard { display:grid;grid-template-columns:repeat(5,1fr);gap:6px; }
+.wb-key { height:46px;border-radius:10px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);font:800 15px/1 var(--ff-head);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .1s;letter-spacing:.04em; }
+.wb-key:active { transform:scale(.92);background:rgba(255,255,255,.15); }
+.wb-key.correct-hint { border-color:var(--green);background:rgba(0,255,136,.1);color:var(--green); }
+.wb-key.backspace { grid-column:span 2;background:rgba(255,68,85,.1);border-color:rgba(255,68,85,.2);color:var(--red); }
+.wb-difficulty-row { display:flex;gap:8px;flex-wrap:wrap; }
+.wb-diff-chip { flex:1;padding:8px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);font:700 10px/1 var(--ff-head);color:rgba(255,255,255,.5);cursor:pointer;text-align:center;transition:all .18s; }
+.wb-diff-chip.sel { border-color:var(--green);color:var(--green);background:rgba(0,255,136,.07); }
+.wb-result { text-align:center;padding:10px;display:flex;flex-direction:column;align-items:center;gap:8px; }
+
 /* ══ DAILY FORTUNE CARD ══ */
 .dfc { position:fixed;inset:0;z-index:853;background:radial-gradient(ellipse at 50% 30%,rgba(16,4,36,.97),#000 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateY(100%);transition:transform .42s cubic-bezier(.32,.72,0,1);overflow:hidden; }
 .dfc.open { transform:translateY(0); }
@@ -2010,6 +2034,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ WORD BLITZ GAME ══ */
+.wb-panel { padding:8px 12px 80px;display:flex;flex-direction:column;gap:10px; }
+.wb-hud { display:grid;grid-template-columns:repeat(4,1fr);gap:6px; }
+.wb-stat { background:rgba(255,255,255,.04);border-radius:10px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px; }
+.wb-stat-v { font:800 16px/1 var(--ff-head); }
+.wb-stat-l { font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.04em; }
+.wb-timer-bar-bg { height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden; }
+.wb-timer-bar-fill { height:100%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:4px;transition:width .1s linear; }
+.wb-word-display { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:90px;justify-content:center; }
+.wb-current-word { font:900 28px/1 var(--ff-head);letter-spacing:.12em;color:rgba(255,255,255,.9); }
+.wb-current-word span.correct { color:var(--green); }
+.wb-current-word span.wrong { color:var(--red); }
+.wb-typed-display { font:700 11px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.08em;height:18px; }
+.wb-keyboard { display:grid;grid-template-columns:repeat(5,1fr);gap:6px; }
+.wb-key { height:46px;border-radius:10px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);font:800 15px/1 var(--ff-head);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .1s;letter-spacing:.04em; }
+.wb-key:active { transform:scale(.92);background:rgba(255,255,255,.15); }
+.wb-key.correct-hint { border-color:var(--green);background:rgba(0,255,136,.1);color:var(--green); }
+.wb-key.backspace { grid-column:span 2;background:rgba(255,68,85,.1);border-color:rgba(255,68,85,.2);color:var(--red); }
+.wb-difficulty-row { display:flex;gap:8px;flex-wrap:wrap; }
+.wb-diff-chip { flex:1;padding:8px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);font:700 10px/1 var(--ff-head);color:rgba(255,255,255,.5);cursor:pointer;text-align:center;transition:all .18s; }
+.wb-diff-chip.sel { border-color:var(--green);color:var(--green);background:rgba(0,255,136,.07); }
+.wb-result { text-align:center;padding:10px;display:flex;flex-direction:column;align-items:center;gap:8px; }
+
 /* ══ DAILY FORTUNE CARD ══ */
 .fortune-overlay { position:fixed;inset:0;z-index:904;background:radial-gradient(ellipse at 50% 30%,rgba(20,8,50,.97),rgba(0,0,0,.99) 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;opacity:0;pointer-events:none;transition:opacity .5s; }
 .fortune-overlay.show { opacity:1;pointer-events:all; }
@@ -2649,6 +2697,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ WORD BLITZ GAME ══ */
+.wb-panel { padding:8px 12px 80px;display:flex;flex-direction:column;gap:10px; }
+.wb-hud { display:grid;grid-template-columns:repeat(4,1fr);gap:6px; }
+.wb-stat { background:rgba(255,255,255,.04);border-radius:10px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px; }
+.wb-stat-v { font:800 16px/1 var(--ff-head); }
+.wb-stat-l { font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.04em; }
+.wb-timer-bar-bg { height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden; }
+.wb-timer-bar-fill { height:100%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:4px;transition:width .1s linear; }
+.wb-word-display { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:90px;justify-content:center; }
+.wb-current-word { font:900 28px/1 var(--ff-head);letter-spacing:.12em;color:rgba(255,255,255,.9); }
+.wb-current-word span.correct { color:var(--green); }
+.wb-current-word span.wrong { color:var(--red); }
+.wb-typed-display { font:700 11px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.08em;height:18px; }
+.wb-keyboard { display:grid;grid-template-columns:repeat(5,1fr);gap:6px; }
+.wb-key { height:46px;border-radius:10px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);font:800 15px/1 var(--ff-head);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .1s;letter-spacing:.04em; }
+.wb-key:active { transform:scale(.92);background:rgba(255,255,255,.15); }
+.wb-key.correct-hint { border-color:var(--green);background:rgba(0,255,136,.1);color:var(--green); }
+.wb-key.backspace { grid-column:span 2;background:rgba(255,68,85,.1);border-color:rgba(255,68,85,.2);color:var(--red); }
+.wb-difficulty-row { display:flex;gap:8px;flex-wrap:wrap; }
+.wb-diff-chip { flex:1;padding:8px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);font:700 10px/1 var(--ff-head);color:rgba(255,255,255,.5);cursor:pointer;text-align:center;transition:all .18s; }
+.wb-diff-chip.sel { border-color:var(--green);color:var(--green);background:rgba(0,255,136,.07); }
+.wb-result { text-align:center;padding:10px;display:flex;flex-direction:column;align-items:center;gap:8px; }
 
 /* ══ DAILY FORTUNE CARD ══ */
 .fortune-overlay { position:fixed;inset:0;z-index:904;background:radial-gradient(ellipse at 50% 30%,rgba(20,8,50,.97),rgba(0,0,0,.99) 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;opacity:0;pointer-events:none;transition:opacity .5s; }
@@ -4340,6 +4412,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="gtab" onclick="switchGame('katch',this)">💎 KATCH</div>
         <div class="gtab" onclick="switchGame('reflex',this)">⚡ REFLEX</div>
         <div class="gtab" onclick="switchGame('wave',this)">🌊 WAVES</div>
+        <div class="gtab" onclick="switchGame('wordblitz',this)">📝 BLITZ</div>
         <div class="gtab" onclick="switchGame('fish',this)">🎣 FISH</div>
       </div>
       <!-- Session XP tracker -->
@@ -4666,6 +4739,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           </div>
           <div style="text-align:center;margin-top:8px" id="waStartWrap">
             <button class="btn btn-lg" style="background:linear-gradient(135deg,var(--red),#ff8844);color:#fff;font-family:var(--ff-head);font-weight:900;padding:14px 40px" onclick="waStart()">🌊 STARTA WAVES!</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-panel" id="gp-wordblitz">
+        <div class="wb-panel">
+          <div class="wb-hud">
+            <div class="wb-stat"><div class="wb-stat-v" id="wbScore" style="color:var(--green)">0</div><div class="wb-stat-l">POÄNG</div></div>
+            <div class="wb-stat"><div class="wb-stat-v" id="wbStreak" style="color:var(--gold)">0</div><div class="wb-stat-l">STREAK</div></div>
+            <div class="wb-stat"><div class="wb-stat-v" id="wbBest" style="color:var(--purple)">0</div><div class="wb-stat-l">REKORD</div></div>
+            <div class="wb-stat"><div class="wb-stat-v" id="wbWords" style="color:var(--blue)">0</div><div class="wb-stat-l">ORD</div></div>
+          </div>
+          <div class="wb-timer-bar-bg"><div class="wb-timer-bar-fill" id="wbTimerFill" style="width:100%"></div></div>
+          <div class="wb-word-display">
+            <div class="wb-current-word" id="wbWordDisplay">?????</div>
+            <div class="wb-typed-display" id="wbTypedDisplay">Starta spelet!</div>
+          </div>
+          <div class="wb-keyboard" id="wbKeyboard"></div>
+          <div id="wbResult" class="wb-result" style="display:none">
+            <div style="font-size:40px" id="wbResultIco">🏆</div>
+            <div style="font:900 20px/1 var(--ff-head);background:linear-gradient(135deg,var(--green),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent" id="wbResultTitle">SPEL SLUT!</div>
+            <div style="font:600 12px/1.6 var(--ff-body);color:rgba(255,255,255,.6)" id="wbResultStats"></div>
+            <button class="btn btn-lg" style="background:linear-gradient(135deg,var(--green),var(--teal));color:#000;font-family:var(--ff-head);font-weight:900;padding:14px 40px" onclick="wbStart()">📝 SPELA IGEN</button>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:4px">
+            <div class="wb-difficulty-row" id="wbDiffRow" style="flex:1"></div>
+          </div>
+          <div style="text-align:center" id="wbStartWrap">
+            <button class="btn btn-lg" style="background:linear-gradient(135deg,var(--green),var(--teal));color:#000;font-family:var(--ff-head);font-weight:900;padding:14px 40px" onclick="wbStart()">📝 STARTA WORD BLITZ!</button>
           </div>
         </div>
       </div>
@@ -14488,6 +14590,140 @@ function closeFortune(){ const ov=$('fortuneOverlay'); if(ov) ov.classList.remov
 
 // Check fortune at startup (after morning ritual)
 document.addEventListener('DOMContentLoaded',()=>{ setTimeout(checkFortune,4500); });
+
+
+
+// WORD BLITZ GAME
+const WB_WORDS = {
+  easy:   ['KAT','HUJ','FIS','PET','XP','KC','MAT','SOV','LEK','BON','TAP','WIN','RUN','FLY','JOY'],
+  medium: ['STORM','BONUS','LEVEL','FLASH','KATCH','QUEST','MATCH','POWER','SPEED','CRAFT','ARENA','MAGIC'],
+  hard:   ['LEVIATAN','MEGADON','KRISTALL','TORNADO','CHAMPION','KARMAAPP','STARDUST','EVOLVING','DRAGONPET'],
+};
+const WB_ALPHABET='ABCDEFGHIJKLMNOPRSTUVXY';
+let _wb={running:false,word:'',typed:'',score:0,streak:0,wordsCleared:0,timeLeft:7,timer:null,difficulty:'medium',best:parseInt(localStorage.getItem('k0509_wbBest')||0)};
+
+function wbStart(){
+  clearInterval(_wb.timer);
+  _wb={..._wb,running:true,word:'',typed:'',score:0,streak:0,wordsCleared:0,timeLeft:7};
+  $('wbStartWrap').style.display='none';
+  $('wbResult').style.display='none';
+  $('wbKeyboard').style.display='grid';
+  _wb.best=parseInt(localStorage.getItem('k0509_wbBest')||0);
+  _wbRenderKeyboard();
+  _wbNextWord();
+}
+
+function _wbNextWord(){
+  const pool=WB_WORDS[_wb.difficulty]||WB_WORDS.medium;
+  _wb.word=pool[Math.floor(Math.random()*pool.length)];
+  _wb.typed='';
+  _wb.timeLeft=Math.max(3, 8-_wb.wordsCleared*0.3)|0;
+  _wbRenderWord();
+  _wbStartTimer();
+}
+
+function _wbStartTimer(){
+  clearInterval(_wb.timer);
+  const total=_wb.timeLeft;
+  const startT=Date.now();
+  _wb.timer=setInterval(()=>{
+    const elapsed=(Date.now()-startT)/1000;
+    const left=Math.max(0,total-elapsed);
+    const pct=left/total*100;
+    const fill=$('wbTimerFill');
+    if(fill){ fill.style.width=pct+'%'; fill.style.background=pct<30?'linear-gradient(90deg,var(--red),#ff8844)':'linear-gradient(90deg,var(--green),var(--teal))'; }
+    if(left<=0){ clearInterval(_wb.timer); _wbTimeUp(); }
+  },50);
+}
+
+function _wbTimeUp(){
+  _wb.streak=0;
+  _wb.running=false;
+  _wbEnd();
+}
+
+function _wbKey(letter){
+  if(!_wb.running) return;
+  _wb.typed+=letter;
+  _wbRenderWord();
+  SFX.coin&&SFX.coin();
+  if(_wb.typed===_wb.word){
+    // correct!
+    clearInterval(_wb.timer);
+    const pts=(10+_wb.word.length*3)*(_wb.streak>=3?2:1);
+    _wb.score+=pts;
+    _wb.streak++;
+    _wb.wordsCleared++;
+    gainXP(pts/5|0,'action');
+    _progressDCB_maybe();
+    if(_wb.streak>=3) showFloatBubble&&showFloatBubble('🔥 STREAK x'+_wb.streak,'good');
+    $('wbScore').textContent=_wb.score;
+    $('wbStreak').textContent=_wb.streak;
+    $('wbWords').textContent=_wb.wordsCleared;
+    const typed=$('wbTypedDisplay');
+    if(typed){ typed.textContent='✓ +'+pts+' pts'; typed.style.color='var(--green)'; }
+    setTimeout(_wbNextWord, 500);
+  } else if(_wb.typed.length>_wb.word.length||!_wb.word.startsWith(_wb.typed)){
+    // wrong
+    _wb.typed=_wb.typed.slice(0,-1);
+    _wbRenderWord();
+    SFX.err&&SFX.err(); vibe&&vibe(20);
+    const typed=$('wbTypedDisplay');
+    if(typed){ typed.textContent='✗ Fel! Radera och försök igen'; typed.style.color='var(--red)'; }
+  }
+}
+
+function _wbBackspace(){
+  _wb.typed=_wb.typed.slice(0,-1);
+  _wbRenderWord();
+}
+
+function _wbRenderWord(){
+  const el=$('wbWordDisplay'); if(!el) return;
+  el.innerHTML=_wb.word.split('').map((ch,i)=>{
+    if(i<_wb.typed.length) return `<span class="correct">${ch}</span>`;
+    return `<span style="color:rgba(255,255,255,.3)">${ch}</span>`;
+  }).join('');
+  const typed=$('wbTypedDisplay');
+  if(typed&&_wb.typed.length<_wb.word.length){ typed.textContent='Skriv: '+_wb.word.split('').filter((_,i)=>i<_wb.typed.length).join('')+'_'; typed.style.color='rgba(255,255,255,.4)'; }
+}
+
+function _wbRenderKeyboard(){
+  const kb=$('wbKeyboard'); if(!kb) return;
+  const letters=WB_ALPHABET.split('');
+  kb.innerHTML=letters.map(l=>`<div class="wb-key" onclick="wbKey('${l}')">${l}</div>`).join('')+
+    `<div class="wb-key backspace" onclick="_wbBackspace()">⌫ DEL</div>`;
+}
+function wbKey(l){ _wbKey(l); }
+
+function _wbEnd(){
+  clearInterval(_wb.timer);
+  _wb.running=false;
+  $('wbKeyboard').style.display='none';
+  $('wbResult').style.display='flex';
+  const best=Math.max(_wb.score,_wb.best);
+  if(_wb.score>_wb.best){ localStorage.setItem('k0509_wbBest',_wb.score); _wb.best=_wb.score; }
+  $('wbBest').textContent=best;
+  const xpGain=Math.floor(_wb.score/3);
+  gainXP(xpGain,'action'); gainCoins(Math.floor(_wb.score/8));
+  $('wbResultIco').textContent=_wb.score>100?'🏆':_wb.score>50?'⭐':'💪';
+  $('wbResultTitle').textContent=_wb.score>100?'WORD MASTER!':_wb.score>50?'BRA JOBBAT!':'FÖRSÖK IGEN!';
+  $('wbResultStats').textContent='Poäng: '+_wb.score+' | Ord: '+_wb.wordsCleared+' | +'+xpGain+' XP';
+  ssdTrackXP&&ssdTrackXP(xpGain);
+}
+
+function _progressDCB_maybe(){ progressDCB&&progressDCB('flash',1); }
+
+// Difficulty chips
+document.addEventListener('DOMContentLoaded',()=>{
+  const dr=$('wbDiffRow');
+  if(dr) dr.innerHTML=['easy','medium','hard'].map(d=>`<div class="wb-diff-chip${d===_wb.difficulty?' sel':''}" onclick="_wbSetDiff('${d}',this)">${d.toUpperCase()}</div>`).join('');
+});
+function _wbSetDiff(d,el){
+  _wb.difficulty=d;
+  document.querySelectorAll('.wb-diff-chip').forEach(c=>c.classList.remove('sel'));
+  if(el) el.classList.add('sel');
+}
 
 
 </script>
