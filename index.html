@@ -6923,6 +6923,36 @@ function drawFishCanvas(){
   }
   // Storm lightning flash
   if(wx===2&&Math.random()<.007){ctx.fillStyle='rgba(255,240,120,.22)';ctx.fillRect(0,0,W,wTop);}
+  // Aurora borealis (norrsken) — clear / night
+  if(wx===0||wx===3){
+    const aT=fishState.waterAnim*.35;
+    ['rgba(0,200,120',`rgba(0,130,255`,'rgba(180,50,255'].forEach((col,bi)=>{
+      const aG=ctx.createLinearGradient(0,4+bi*10,0,4+bi*10+18);
+      aG.addColorStop(0,'transparent'); aG.addColorStop(.45,`${col},${.055+Math.sin(aT+bi*1.4)*.04})`); aG.addColorStop(1,'transparent');
+      ctx.fillStyle=aG; ctx.beginPath();
+      for(let ax=0;ax<=W;ax+=5){const ay=9+bi*11+Math.sin(ax*.018+aT+bi)*9+Math.sin(ax*.04-aT*.7)*4;ax===0?ctx.moveTo(ax,ay-9):ctx.lineTo(ax,ay-9);}
+      for(let ax=W;ax>=0;ax-=5){const ay=9+bi*11+Math.sin(ax*.018+aT+bi)*9+Math.sin(ax*.04-aT*.7)*4;ctx.lineTo(ax,ay+9);}
+      ctx.closePath(); ctx.fill();
+    });
+  }
+  // Storm clouds
+  if(wx===2){
+    const cT=fishState.waterAnim*.18;
+    [[55,13],[170,7],[290,15],[380,10]].forEach(([cx,cy])=>{
+      const cx2=cx+Math.sin(cT)*5;
+      ctx.fillStyle='rgba(14,10,22,.9)';
+      ctx.beginPath(); ctx.arc(cx2,cy,25,Math.PI,0,false); ctx.arc(cx2+17,cy-7,16,Math.PI,0,false); ctx.arc(cx2-12,cy-5,15,Math.PI,0,false); ctx.lineTo(cx2+42,cy+4); ctx.lineTo(cx2-38,cy+4); ctx.closePath(); ctx.fill();
+    });
+  }
+  // Birds V-shape (clear sky)
+  if(wx===0){
+    const bt=fishState.waterAnim*.55;
+    [[0,28],[70,18],[140,32]].forEach(([ox,oy],bi)=>{
+      const bx=((ox+bt*22+bi*130)%(W+20))-10, by=oy;
+      ctx.strokeStyle='rgba(200,220,255,.48)'; ctx.lineWidth=.9;
+      ctx.beginPath(); ctx.moveTo(bx-5,by); ctx.quadraticCurveTo(bx,by-3,bx+5,by); ctx.stroke();
+    });
+  }
   // Fog overlay
   if(wx===4){const fogG=ctx.createLinearGradient(0,0,W*.6,H*.6);fogG.addColorStop(0,'rgba(170,190,230,.28)');fogG.addColorStop(.5,'rgba(170,190,230,.12)');fogG.addColorStop(1,'rgba(170,190,230,0)');ctx.fillStyle=fogG;ctx.fillRect(0,0,W,H);}
   // Persistent rain drops
@@ -6943,6 +6973,35 @@ function drawFishCanvas(){
   else if(dep===1){waterG.addColorStop(0,'#000e20');waterG.addColorStop(.5,'#000812');waterG.addColorStop(1,'#000408');}
   else{waterG.addColorStop(0,'#050010');waterG.addColorStop(.5,'#020008');waterG.addColorStop(1,'#010004');}
   ctx.fillStyle=waterG; ctx.fillRect(0,wTop,W,H-wTop);
+  // Rocky shore silhouette (left side, adds scene depth)
+  ctx.fillStyle='rgba(4,2,10,.95)';
+  ctx.beginPath(); ctx.moveTo(0,wTop+1); ctx.lineTo(0,H); ctx.lineTo(32,H);
+  ctx.lineTo(30,wTop+19); ctx.lineTo(24,wTop+9); ctx.lineTo(20,wTop+17); ctx.lineTo(14,wTop+4); ctx.lineTo(8,wTop+13); ctx.lineTo(4,wTop+3);
+  ctx.closePath(); ctx.fill();
+  // Right shore
+  ctx.beginPath(); ctx.moveTo(W,wTop+1); ctx.lineTo(W,H); ctx.lineTo(W-22,H);
+  ctx.lineTo(W-20,wTop+22); ctx.lineTo(W-26,wTop+12); ctx.lineTo(W-18,wTop+5); ctx.lineTo(W-12,wTop+15); ctx.lineTo(W-6,wTop+3);
+  ctx.closePath(); ctx.fill();
+  // Moon reflection shimmer (night)
+  if(wx===3){
+    const mrX=W*.84, mrt=fishState.waterAnim;
+    const mrG2=ctx.createLinearGradient(mrX,wTop,mrX,wTop+58);
+    mrG2.addColorStop(0,'rgba(190,185,240,.25)'); mrG2.addColorStop(1,'rgba(190,185,240,0)');
+    ctx.fillStyle=mrG2; ctx.beginPath(); ctx.ellipse(mrX+Math.sin(mrt*.28)*4,wTop+29,5+Math.sin(mrt*.75),29,0,0,Math.PI*2); ctx.fill();
+    for(let mi=0;mi<5;mi++){ctx.strokeStyle=`rgba(190,185,240,${.13-mi*.02})`;ctx.lineWidth=.7;ctx.beginPath();ctx.ellipse(mrX+Math.sin(mrt*.38+mi)*5,wTop+mi*5+4,6+mi*2.8,1.5,0,0,Math.PI*2);ctx.stroke();}
+  }
+  // Night fireflies above water
+  if(wx===3){
+    const ft=fishState.waterAnim;
+    [[70,wTop-15],[185,wTop-22],[315,wTop-10],[362,wTop-18]].forEach(([ffx0,ffy0],fi)=>{
+      const ffx=ffx0+Math.sin(ft*.55+fi*1.5)*13, ffy=ffy0+Math.cos(ft*.38+fi)*8;
+      const glow=.4+Math.sin(ft*1.5+fi)*.4;
+      const ffG=ctx.createRadialGradient(ffx,ffy,0,ffx,ffy,5);
+      ffG.addColorStop(0,`rgba(170,255,70,${glow})`); ffG.addColorStop(1,'rgba(170,255,70,0)');
+      ctx.fillStyle=ffG; ctx.beginPath(); ctx.arc(ffx,ffy,5,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle=`rgba(200,255,90,${glow})`; ctx.beginPath(); ctx.arc(ffx,ffy,1.5,0,Math.PI*2); ctx.fill();
+    });
+  }
   // Underwater light shafts (surface only)
   if(dep===0){
     ctx.save(); ctx.globalAlpha=.04+Math.sin(fishState.waterAnim*.7)*.025;
