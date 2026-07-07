@@ -1353,6 +1353,37 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WORLD BOSS EVENT ══ */
+.wb-event-panel { position:fixed;inset:0;z-index:868;background:radial-gradient(ellipse at 50% 0%,rgba(40,0,10,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.wb-event-panel.open { transform:translateY(0); }
+.wbe-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(255,68,85,.2); }
+.wbe-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--red),var(--gold),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.wbe-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:14px;padding-bottom:100px; }
+.wbe-phase-chip { display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font:800 11px/1 var(--ff-head);letter-spacing:.05em; }
+.wbe-boss-card { background:rgba(255,68,85,.06);border:2px solid rgba(255,68,85,.3);border-radius:18px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:10px;position:relative;overflow:hidden; }
+.wbe-boss-ico { font-size:72px;line-height:1;filter:drop-shadow(0 0 30px rgba(255,68,85,.7));animation:wbeBob 1.8s ease-in-out infinite alternate; }
+@keyframes wbeBob { from{transform:translateY(-6px) scale(1)} to{transform:translateY(6px) scale(1.04)} }
+.wbe-boss-name { font:900 22px/1 var(--ff-head);color:var(--red);letter-spacing:.06em; }
+.wbe-boss-phase { font:700 10px/1 var(--ff-body);color:rgba(255,255,255,.45);letter-spacing:.1em; }
+.wbe-hp-section { width:100%;display:flex;flex-direction:column;gap:4px; }
+.wbe-hp-bar-bg { height:14px;background:rgba(255,255,255,.08);border-radius:7px;overflow:hidden;border:1px solid rgba(255,68,85,.2); }
+.wbe-hp-bar-fill { height:100%;background:linear-gradient(90deg,#ff1133,#ff8844);border-radius:7px;transition:width .5s; }
+.wbe-hp-labels { display:flex;justify-content:space-between;font:700 10px/1 var(--ff-body); }
+.wbe-hit-btn { width:100%;padding:18px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--red),#ff8844);font:900 16px/1 var(--ff-head);color:#fff;cursor:pointer;letter-spacing:.08em;transition:all .18s;box-shadow:0 0 20px rgba(255,68,85,.4); }
+.wbe-hit-btn:active { transform:scale(.96); }
+.wbe-hit-btn:disabled { opacity:.4;pointer-events:none; }
+.wbe-countdown { font:700 11px/1 var(--ff-body);color:rgba(255,255,255,.4);text-align:center; }
+.wbe-rewards-row { display:flex;gap:8px;flex-wrap:wrap; }
+.wbe-reward-chip { flex:1;min-width:80px;padding:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:4px;font:600 10px/1.3 var(--ff-body);color:rgba(255,255,255,.55);text-align:center; }
+.wbe-reward-val { font:800 13px/1 var(--ff-head);color:var(--gold); }
+.wbe-contrib-row { display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,.04);border-radius:12px;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.wbe-contrib-val { font:800 13px/1 var(--ff-head);color:var(--red); }
+.wbe-leaderboard { display:flex;flex-direction:column;gap:6px; }
+.wbe-lb-row { display:flex;align-items:center;gap:10px;padding:8px 10px;background:rgba(255,255,255,.04);border-radius:10px;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.wbe-lb-rank { font:800 13px/1 var(--ff-head);color:var(--gold);min-width:20px; }
+.wbe-lb-dmg { font:800 11px/1 var(--ff-body);color:var(--red);margin-left:auto; }
+
 /* ══ AMBIENT SOUNDSCAPE ══ */
 .amb-fab { position:fixed;bottom:calc(var(--sab)+90px);right:14px;z-index:800;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.6);border:1.5px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s; }
 .amb-fab.active { border-color:var(--teal);box-shadow:0 0 12px rgba(0,221,204,.4);background:rgba(0,221,204,.1); }
@@ -2051,6 +2082,37 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ WORLD BOSS EVENT ══ */
+.wb-event-panel { position:fixed;inset:0;z-index:868;background:radial-gradient(ellipse at 50% 0%,rgba(40,0,10,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.wb-event-panel.open { transform:translateY(0); }
+.wbe-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(255,68,85,.2); }
+.wbe-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--red),var(--gold),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.wbe-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:14px;padding-bottom:100px; }
+.wbe-phase-chip { display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font:800 11px/1 var(--ff-head);letter-spacing:.05em; }
+.wbe-boss-card { background:rgba(255,68,85,.06);border:2px solid rgba(255,68,85,.3);border-radius:18px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:10px;position:relative;overflow:hidden; }
+.wbe-boss-ico { font-size:72px;line-height:1;filter:drop-shadow(0 0 30px rgba(255,68,85,.7));animation:wbeBob 1.8s ease-in-out infinite alternate; }
+@keyframes wbeBob { from{transform:translateY(-6px) scale(1)} to{transform:translateY(6px) scale(1.04)} }
+.wbe-boss-name { font:900 22px/1 var(--ff-head);color:var(--red);letter-spacing:.06em; }
+.wbe-boss-phase { font:700 10px/1 var(--ff-body);color:rgba(255,255,255,.45);letter-spacing:.1em; }
+.wbe-hp-section { width:100%;display:flex;flex-direction:column;gap:4px; }
+.wbe-hp-bar-bg { height:14px;background:rgba(255,255,255,.08);border-radius:7px;overflow:hidden;border:1px solid rgba(255,68,85,.2); }
+.wbe-hp-bar-fill { height:100%;background:linear-gradient(90deg,#ff1133,#ff8844);border-radius:7px;transition:width .5s; }
+.wbe-hp-labels { display:flex;justify-content:space-between;font:700 10px/1 var(--ff-body); }
+.wbe-hit-btn { width:100%;padding:18px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--red),#ff8844);font:900 16px/1 var(--ff-head);color:#fff;cursor:pointer;letter-spacing:.08em;transition:all .18s;box-shadow:0 0 20px rgba(255,68,85,.4); }
+.wbe-hit-btn:active { transform:scale(.96); }
+.wbe-hit-btn:disabled { opacity:.4;pointer-events:none; }
+.wbe-countdown { font:700 11px/1 var(--ff-body);color:rgba(255,255,255,.4);text-align:center; }
+.wbe-rewards-row { display:flex;gap:8px;flex-wrap:wrap; }
+.wbe-reward-chip { flex:1;min-width:80px;padding:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:4px;font:600 10px/1.3 var(--ff-body);color:rgba(255,255,255,.55);text-align:center; }
+.wbe-reward-val { font:800 13px/1 var(--ff-head);color:var(--gold); }
+.wbe-contrib-row { display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,.04);border-radius:12px;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.wbe-contrib-val { font:800 13px/1 var(--ff-head);color:var(--red); }
+.wbe-leaderboard { display:flex;flex-direction:column;gap:6px; }
+.wbe-lb-row { display:flex;align-items:center;gap:10px;padding:8px 10px;background:rgba(255,255,255,.04);border-radius:10px;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.wbe-lb-rank { font:800 13px/1 var(--ff-head);color:var(--gold);min-width:20px; }
+.wbe-lb-dmg { font:800 11px/1 var(--ff-body);color:var(--red);margin-left:auto; }
+
 /* ══ AMBIENT SOUNDSCAPE ══ */
 .amb-fab { position:fixed;bottom:calc(var(--sab)+90px);right:14px;z-index:800;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.6);border:1.5px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s; }
 .amb-fab.active { border-color:var(--teal);box-shadow:0 0 12px rgba(0,221,204,.4);background:rgba(0,221,204,.1); }
@@ -2729,6 +2791,37 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ WORLD BOSS EVENT ══ */
+.wb-event-panel { position:fixed;inset:0;z-index:868;background:radial-gradient(ellipse at 50% 0%,rgba(40,0,10,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.wb-event-panel.open { transform:translateY(0); }
+.wbe-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(255,68,85,.2); }
+.wbe-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--red),var(--gold),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.wbe-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:14px;padding-bottom:100px; }
+.wbe-phase-chip { display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font:800 11px/1 var(--ff-head);letter-spacing:.05em; }
+.wbe-boss-card { background:rgba(255,68,85,.06);border:2px solid rgba(255,68,85,.3);border-radius:18px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:10px;position:relative;overflow:hidden; }
+.wbe-boss-ico { font-size:72px;line-height:1;filter:drop-shadow(0 0 30px rgba(255,68,85,.7));animation:wbeBob 1.8s ease-in-out infinite alternate; }
+@keyframes wbeBob { from{transform:translateY(-6px) scale(1)} to{transform:translateY(6px) scale(1.04)} }
+.wbe-boss-name { font:900 22px/1 var(--ff-head);color:var(--red);letter-spacing:.06em; }
+.wbe-boss-phase { font:700 10px/1 var(--ff-body);color:rgba(255,255,255,.45);letter-spacing:.1em; }
+.wbe-hp-section { width:100%;display:flex;flex-direction:column;gap:4px; }
+.wbe-hp-bar-bg { height:14px;background:rgba(255,255,255,.08);border-radius:7px;overflow:hidden;border:1px solid rgba(255,68,85,.2); }
+.wbe-hp-bar-fill { height:100%;background:linear-gradient(90deg,#ff1133,#ff8844);border-radius:7px;transition:width .5s; }
+.wbe-hp-labels { display:flex;justify-content:space-between;font:700 10px/1 var(--ff-body); }
+.wbe-hit-btn { width:100%;padding:18px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--red),#ff8844);font:900 16px/1 var(--ff-head);color:#fff;cursor:pointer;letter-spacing:.08em;transition:all .18s;box-shadow:0 0 20px rgba(255,68,85,.4); }
+.wbe-hit-btn:active { transform:scale(.96); }
+.wbe-hit-btn:disabled { opacity:.4;pointer-events:none; }
+.wbe-countdown { font:700 11px/1 var(--ff-body);color:rgba(255,255,255,.4);text-align:center; }
+.wbe-rewards-row { display:flex;gap:8px;flex-wrap:wrap; }
+.wbe-reward-chip { flex:1;min-width:80px;padding:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:4px;font:600 10px/1.3 var(--ff-body);color:rgba(255,255,255,.55);text-align:center; }
+.wbe-reward-val { font:800 13px/1 var(--ff-head);color:var(--gold); }
+.wbe-contrib-row { display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(255,255,255,.04);border-radius:12px;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.wbe-contrib-val { font:800 13px/1 var(--ff-head);color:var(--red); }
+.wbe-leaderboard { display:flex;flex-direction:column;gap:6px; }
+.wbe-lb-row { display:flex;align-items:center;gap:10px;padding:8px 10px;background:rgba(255,255,255,.04);border-radius:10px;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.wbe-lb-rank { font:800 13px/1 var(--ff-head);color:var(--gold);min-width:20px; }
+.wbe-lb-dmg { font:800 11px/1 var(--ff-body);color:var(--red);margin-left:auto; }
 
 /* ══ AMBIENT SOUNDSCAPE ══ */
 .amb-fab { position:fixed;bottom:calc(var(--sab)+90px);right:14px;z-index:800;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.6);border:1.5px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s; }
@@ -4008,6 +4101,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGacha()" style="background:linear-gradient(135deg,rgba(170,102,255,.15),rgba(255,51,119,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">🎰</div><span style="background:linear-gradient(135deg,var(--purple),var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">LOOT PULLS</span></div>
           <div class="ddr" onclick="cM();openTrophyRoom()" style="background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,68,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">🏆</div><span style="background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">TROPHY ROOM</span></div>
           <div class="ddr" onclick="cM();openStudio()" style="background:linear-gradient(135deg,rgba(255,51,119,.12),rgba(170,102,255,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">✨</div><span style="background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">PET STUDIO</span></div>
+          <div class="ddr" onclick="cM();openWBE()" style="background:linear-gradient(135deg,rgba(255,68,85,.12),rgba(255,136,68,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,68,85,.9))">⚔️</div><span style="background:linear-gradient(135deg,var(--red),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">WORLD BOSS</span></div>
           <div class="ddr" onclick="cM();openSeasonPanel()" style="background:linear-gradient(135deg,rgba(0,180,80,.12),rgba(0,100,40,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,255,136,.7))">🌸</div><span style="background:linear-gradient(135deg,var(--green),var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">SÄSONG</span></div>
           <div class="ddr" onclick="cM();openSkillTree()" style="background:linear-gradient(135deg,rgba(10,4,36,.55),rgba(5,2,18,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(170,102,255,.8))">🌟</div><span style="background:linear-gradient(135deg,var(--purple),var(--pink),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">SKILL TREE</span></div>
           <div class="ddr" onclick="cM();openCraft()" style="background:linear-gradient(135deg,rgba(20,8,0,.55),rgba(10,4,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,136,68,.7))">⚗️</div><span style="background:linear-gradient(135deg,#ff8844,#ffcc00,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">WORKSHOP</span></div>
@@ -5585,6 +5679,44 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="fortune-btn-row" id="fortuneBtnRow" style="display:none">
     <button class="fortune-btn" style="background:linear-gradient(135deg,var(--purple),var(--pink))" onclick="claimFortune()">✦ ACCEPTERA</button>
     <button class="fortune-btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)" onclick="closeFortune()">Stäng</button>
+  </div>
+</div>
+
+<!-- WORLD BOSS EVENT -->
+<div class="wb-event-panel" id="wbEventPanel">
+  <div class="wbe-hdr">
+    <button style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer" onclick="closeWBE()">←</button>
+    <div class="wbe-hdr-title">⚔️ WORLD BOSS</div>
+    <div class="wbe-phase-chip" id="wbePhaseChip" style="background:rgba(255,68,85,.15);border:1px solid rgba(255,68,85,.4);color:var(--red)">FAS 1</div>
+  </div>
+  <div class="wbe-scroll">
+    <div class="wbe-boss-card">
+      <span class="wbe-boss-ico" id="wbeBossIco">💀</span>
+      <div class="wbe-boss-name" id="wbeBossName">DOOM TITAN</div>
+      <div class="wbe-boss-phase" id="wbeBossPhase">VECKOLIG VÄRLDSBOSS</div>
+      <div class="wbe-hp-section">
+        <div class="wbe-hp-bar-bg"><div class="wbe-hp-bar-fill" id="wbeHpFill" style="width:100%"></div></div>
+        <div class="wbe-hp-labels"><span id="wbeHpCur" style="color:var(--red)">100M</span><span id="wbeHpMax" style="color:rgba(255,255,255,.3)">100M HP</span></div>
+      </div>
+    </div>
+    <button class="wbe-hit-btn" id="wbeHitBtn" onclick="wbeAttack()">⚔️ ATTACKERA BOSS!</button>
+    <div class="wbe-countdown" id="wbeCountdown">⏳ Återställs om: –</div>
+    <div style="font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.08em">DIN CONTRIBUTION</div>
+    <div class="wbe-contrib-row">
+      <span>Din skada</span>
+      <span class="wbe-contrib-val" id="wbeMyDmg">0</span>
+      <span>Rang</span>
+      <span class="wbe-contrib-val" id="wbeMyRank">#–</span>
+    </div>
+    <div style="font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.08em">BELÖNINGAR VID SEGER</div>
+    <div class="wbe-rewards-row">
+      <div class="wbe-reward-chip"><div class="wbe-reward-val">500</div>XP</div>
+      <div class="wbe-reward-chip"><div class="wbe-reward-val">50</div>KC</div>
+      <div class="wbe-reward-chip"><div class="wbe-reward-val">1000</div>💰</div>
+      <div class="wbe-reward-chip"><div class="wbe-reward-val">🏆</div>BOSS BADGE</div>
+    </div>
+    <div style="font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.08em">TOPPLISTAN DENNA VECKA</div>
+    <div class="wbe-leaderboard" id="wbeLB"></div>
   </div>
 </div>
 
@@ -14896,6 +15028,105 @@ function _ambRain(){
   src.connect(filt); filt.connect(filt2); filt2.connect(g); g.connect(ac.destination);
   src.start();
   _ambNodes=[src];
+}
+
+
+
+// WORLD BOSS EVENT SYSTEM
+const WBE_BOSSES = [
+  {ico:'💀',name:'DOOM TITAN',phase:'FAS 1: RESER SIG',maxHP:1000000,atkMul:1},
+  {ico:'🔥',name:'INFERNO OVERLORD',phase:'FAS 2: FULL KRAFT',maxHP:2000000,atkMul:1.5},
+  {ico:'👁️',name:'CHAOS EYE',phase:'FAS 3: RASERI',maxHP:3000000,atkMul:2},
+];
+
+function _wbeWeekKey(){ const d=new Date(); const day=d.getDay(); const msPerDay=86400000; const monday=new Date(d-((day===0?6:day-1)*msPerDay)); return 'k0509_wbe_'+monday.toISOString().slice(0,10); }
+
+function _wbeLoad(){
+  const key=_wbeWeekKey();
+  const raw=localStorage.getItem(key);
+  if(raw) try{return JSON.parse(raw);}catch(e){}
+  // new week — pick random boss, init simulated global damage
+  const b=WBE_BOSSES[Math.floor(Math.random()*WBE_BOSSES.length)];
+  const simDmg=Math.floor(b.maxHP*(0.1+Math.random()*0.4));
+  const d={boss:WBE_BOSSES.indexOf(b),simDmg,myDmg:0,lastCooldown:0,claimed:false};
+  localStorage.setItem(key,JSON.stringify(d));
+  return d;
+}
+
+function _wbeSave(d){ localStorage.setItem(_wbeWeekKey(),JSON.stringify(d)); }
+
+function openWBE(){
+  const p=$('wbEventPanel'); if(!p) return;
+  p.classList.add('open');
+  _renderWBE();
+}
+function closeWBE(){ const p=$('wbEventPanel'); if(p) p.classList.remove('open'); }
+
+function _renderWBE(){
+  const d=_wbeLoad();
+  const b=WBE_BOSSES[d.boss]||WBE_BOSSES[0];
+  const totalDmg=d.simDmg+d.myDmg;
+  const pct=Math.max(0,Math.min(100,100-totalDmg/b.maxHP*100));
+  const defeated=totalDmg>=b.maxHP;
+  const ico=$('wbeBossIco'); if(ico) ico.textContent=defeated?'💀':b.ico;
+  const nm=$('wbeBossName'); if(nm) nm.textContent=b.name;
+  const ph=$('wbeBossPhase'); if(ph) ph.textContent=defeated?'BESEGRAD DENNA VECKA!':b.phase;
+  const pc=$('wbePhaseChip'); if(pc) pc.textContent=defeated?'✓ KLAR':b.phase.split(':')[0];
+  const hpf=$('wbeHpFill'); if(hpf) hpf.style.width=pct+'%';
+  const hpc=$('wbeHpCur'); if(hpc){ const rem=Math.max(0,b.maxHP-totalDmg); hpc.textContent=rem>1000000?(rem/1000000).toFixed(1)+'M':rem>1000?(rem/1000).toFixed(0)+'K':rem; }
+  const hpm=$('wbeHpMax'); if(hpm) hpm.textContent=(b.maxHP/1000000).toFixed(0)+'M HP';
+  const btn=$('wbeHitBtn'); if(btn){ btn.disabled=defeated||!!d.claimed; btn.textContent=defeated?'🏆 BOSS BESEGRAD!':'⚔️ ATTACKERA BOSS!'; }
+  const md=$('wbeMyDmg'); if(md) md.textContent=d.myDmg>=1000?(d.myDmg/1000).toFixed(1)+'K':d.myDmg;
+  // countdown
+  const now=Date.now(); const weekMs=7*24*60*60*1000;
+  const weekStart=new Date(_wbeWeekKey()+' 00:00:00').getTime();
+  const weekEnd=weekStart+weekMs;
+  const msLeft=Math.max(0,weekEnd-now);
+  const h=Math.floor(msLeft/3600000),m=Math.floor((msLeft%3600000)/60000);
+  const cd=$('wbeCountdown'); if(cd) cd.textContent='⏳ Återställs om: '+h+'h '+m+'m';
+  // fake rank
+  const rank=$('wbeMyRank'); if(rank) rank.textContent='#'+Math.max(1,Math.floor(150-d.myDmg/500));
+  // leaderboard (simulated)
+  const lb=$('wbeLB');
+  if(lb){
+    const fakeNames=['StarKing','DragonPet','FireFox99','ShadowWolf','NeonBear'];
+    const fakeDmgs=fakeNames.map((_,i)=>Math.floor(d.simDmg/(5-i)*1.2+Math.random()*10000));
+    fakeDmgs.sort((a,b)=>b-a);
+    const rows=[{name:'Du',dmg:d.myDmg,isYou:true},...fakeDmgs.map((dmg,i)=>({name:fakeNames[i],dmg,isYou:false}))].sort((a,b)=>b.dmg-a.dmg).slice(0,6);
+    lb.innerHTML=rows.map((r,i)=>`<div class="wbe-lb-row" style="${r.isYou?'border:1px solid rgba(255,68,85,.3);background:rgba(255,68,85,.06)':''}"><span class="wbe-lb-rank">${i===0?'👑':i===1?'🥈':i===2?'🥉':(i+1)}</span><span>${r.name}${r.isYou?' (Du)':''}</span><span class="wbe-lb-dmg">${r.dmg>=1000?(r.dmg/1000).toFixed(1)+'K':r.dmg} dmg</span></div>`).join('');
+  }
+  // claim if defeated and not yet claimed
+  if(defeated&&!d.claimed) _wbeClaimReward(d);
+}
+
+function wbeAttack(){
+  const d=_wbeLoad();
+  const b=WBE_BOSSES[d.boss]||WBE_BOSSES[0];
+  const now=Date.now();
+  if(now-d.lastCooldown<3000){ showT('⏳ Cooldown!','r'); return; }
+  d.lastCooldown=now;
+  const baseDmg=5000+G.level*500+(G.actionStat||0)*100;
+  const skillMul=hasSkill&&hasSkill('power_tap')?1.5:1;
+  const dmg=Math.floor(baseDmg*skillMul*(0.8+Math.random()*.4));
+  d.myDmg+=dmg;
+  // also advance sim a bit (represent others attacking)
+  d.simDmg+=Math.floor(Math.random()*20000+5000);
+  _wbeSave(d);
+  gainXP(50,'action'); gainCoins(20);
+  showFloatBubble&&showFloatBubble('⚔️ -'+Math.round(dmg/1000)+'K!','good');
+  SFX.err&&SFX.err(); vibe&&vibe([30,20,60]);
+  ssdLog&&ssdLog('⚔️',b.name,'-'+Math.round(dmg/1000)+'K dmg','#ff4455');
+  _renderWBE();
+}
+
+function _wbeClaimReward(d){
+  if(d.claimed) return;
+  d.claimed=true;
+  _wbeSave(d);
+  gainXP(500,'action'); gainKC(50); gainCoins(1000);
+  gainMat&&gainMat('crystl',5);
+  showT('🏆 BOSS BESEGRAD! +500XP +50KC +1000💰','g');
+  confetti&&confetti(100);
 }
 
 
