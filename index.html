@@ -1355,6 +1355,32 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PRESTIGE SHOP ══ */
+.pshop-panel { position:fixed;inset:0;z-index:870;background:radial-gradient(ellipse at 50% 0%,rgba(20,12,0,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.pshop-panel.open { transform:translateY(0); }
+.pshop-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(255,204,0,.18); }
+.pshop-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.pshop-pp-badge { display:flex;align-items:center;gap:4px;padding:5px 12px;background:rgba(255,204,0,.12);border:1px solid rgba(255,204,0,.3);border-radius:20px;font:800 13px/1 var(--ff-body);color:var(--gold); }
+.pshop-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;padding-bottom:100px; }
+.pshop-prestige-row { display:flex;align-items:center;gap:10px;padding:12px;background:rgba(255,204,0,.06);border:1.5px solid rgba(255,204,0,.2);border-radius:14px; }
+.pshop-prestige-ico { font-size:32px;line-height:1; }
+.pshop-prestige-info { flex:1;min-width:0; }
+.pshop-prestige-name { font:800 13px/1 var(--ff-head);color:var(--gold); }
+.pshop-prestige-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.pshop-prestige-mult { font:700 11px/1 var(--ff-body);color:var(--green);margin-top:4px; }
+.pshop-section-title { font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.1em; }
+.pshop-item { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.09);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s; }
+.pshop-item:active { transform:scale(.98); }
+.pshop-item.owned { border-color:rgba(255,204,0,.3);background:rgba(255,204,0,.06); }
+.pshop-item.locked { opacity:.45;pointer-events:none; }
+.pshop-item-ico { font-size:28px;line-height:1;flex-shrink:0; }
+.pshop-item-info { flex:1;min-width:0; }
+.pshop-item-name { font:800 12px/1 var(--ff-head);color:#fff; }
+.pshop-item-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.pshop-item-cost { font:800 12px/1 var(--ff-body);color:var(--gold);flex-shrink:0; }
+.pshop-item-owned-tag { font:700 10px/1 var(--ff-body);color:var(--gold);flex-shrink:0; }
+
 /* ══ PET TRAINING DOJO ══ */
 .dojo-panel { position:fixed;inset:0;z-index:869;background:radial-gradient(ellipse at 50% 0%,rgba(30,10,0,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .dojo-panel.open { transform:translateY(0); }
@@ -2125,6 +2151,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ PRESTIGE SHOP ══ */
+.pshop-panel { position:fixed;inset:0;z-index:870;background:radial-gradient(ellipse at 50% 0%,rgba(20,12,0,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.pshop-panel.open { transform:translateY(0); }
+.pshop-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(255,204,0,.18); }
+.pshop-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.pshop-pp-badge { display:flex;align-items:center;gap:4px;padding:5px 12px;background:rgba(255,204,0,.12);border:1px solid rgba(255,204,0,.3);border-radius:20px;font:800 13px/1 var(--ff-body);color:var(--gold); }
+.pshop-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;padding-bottom:100px; }
+.pshop-prestige-row { display:flex;align-items:center;gap:10px;padding:12px;background:rgba(255,204,0,.06);border:1.5px solid rgba(255,204,0,.2);border-radius:14px; }
+.pshop-prestige-ico { font-size:32px;line-height:1; }
+.pshop-prestige-info { flex:1;min-width:0; }
+.pshop-prestige-name { font:800 13px/1 var(--ff-head);color:var(--gold); }
+.pshop-prestige-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.pshop-prestige-mult { font:700 11px/1 var(--ff-body);color:var(--green);margin-top:4px; }
+.pshop-section-title { font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.1em; }
+.pshop-item { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.09);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s; }
+.pshop-item:active { transform:scale(.98); }
+.pshop-item.owned { border-color:rgba(255,204,0,.3);background:rgba(255,204,0,.06); }
+.pshop-item.locked { opacity:.45;pointer-events:none; }
+.pshop-item-ico { font-size:28px;line-height:1;flex-shrink:0; }
+.pshop-item-info { flex:1;min-width:0; }
+.pshop-item-name { font:800 12px/1 var(--ff-head);color:#fff; }
+.pshop-item-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.pshop-item-cost { font:800 12px/1 var(--ff-body);color:var(--gold);flex-shrink:0; }
+.pshop-item-owned-tag { font:700 10px/1 var(--ff-body);color:var(--gold);flex-shrink:0; }
+
 /* ══ PET TRAINING DOJO ══ */
 .dojo-panel { position:fixed;inset:0;z-index:869;background:radial-gradient(ellipse at 50% 0%,rgba(30,10,0,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .dojo-panel.open { transform:translateY(0); }
@@ -2875,6 +2927,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ PRESTIGE SHOP ══ */
+.pshop-panel { position:fixed;inset:0;z-index:870;background:radial-gradient(ellipse at 50% 0%,rgba(20,12,0,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.pshop-panel.open { transform:translateY(0); }
+.pshop-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(255,204,0,.18); }
+.pshop-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.pshop-pp-badge { display:flex;align-items:center;gap:4px;padding:5px 12px;background:rgba(255,204,0,.12);border:1px solid rgba(255,204,0,.3);border-radius:20px;font:800 13px/1 var(--ff-body);color:var(--gold); }
+.pshop-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;padding-bottom:100px; }
+.pshop-prestige-row { display:flex;align-items:center;gap:10px;padding:12px;background:rgba(255,204,0,.06);border:1.5px solid rgba(255,204,0,.2);border-radius:14px; }
+.pshop-prestige-ico { font-size:32px;line-height:1; }
+.pshop-prestige-info { flex:1;min-width:0; }
+.pshop-prestige-name { font:800 13px/1 var(--ff-head);color:var(--gold); }
+.pshop-prestige-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.pshop-prestige-mult { font:700 11px/1 var(--ff-body);color:var(--green);margin-top:4px; }
+.pshop-section-title { font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.1em; }
+.pshop-item { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.09);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s; }
+.pshop-item:active { transform:scale(.98); }
+.pshop-item.owned { border-color:rgba(255,204,0,.3);background:rgba(255,204,0,.06); }
+.pshop-item.locked { opacity:.45;pointer-events:none; }
+.pshop-item-ico { font-size:28px;line-height:1;flex-shrink:0; }
+.pshop-item-info { flex:1;min-width:0; }
+.pshop-item-name { font:800 12px/1 var(--ff-head);color:#fff; }
+.pshop-item-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.pshop-item-cost { font:800 12px/1 var(--ff-body);color:var(--gold);flex-shrink:0; }
+.pshop-item-owned-tag { font:700 10px/1 var(--ff-body);color:var(--gold);flex-shrink:0; }
 
 /* ══ PET TRAINING DOJO ══ */
 .dojo-panel { position:fixed;inset:0;z-index:869;background:radial-gradient(ellipse at 50% 0%,rgba(30,10,0,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
@@ -4224,6 +4302,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGacha()" style="background:linear-gradient(135deg,rgba(170,102,255,.15),rgba(255,51,119,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">🎰</div><span style="background:linear-gradient(135deg,var(--purple),var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">LOOT PULLS</span></div>
           <div class="ddr" onclick="cM();openTrophyRoom()" style="background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,68,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">🏆</div><span style="background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">TROPHY ROOM</span></div>
           <div class="ddr" onclick="cM();openStudio()" style="background:linear-gradient(135deg,rgba(255,51,119,.12),rgba(170,102,255,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">✨</div><span style="background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">PET STUDIO</span></div>
+          <div class="ddr" onclick="cM();openPShop()" style="background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,255,255,.05),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">⭐</div><span style="background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">PRESTIGE BUTIK</span></div>
           <div class="ddr" onclick="cM();openDojo()" style="background:linear-gradient(135deg,rgba(255,136,68,.12),rgba(255,204,0,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,136,68,.9))">🥋</div><span style="background:linear-gradient(135deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">TRAINING DOJO</span></div>
           <div class="ddr" onclick="cM();openWBE()" style="background:linear-gradient(135deg,rgba(255,68,85,.12),rgba(255,136,68,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,68,85,.9))">⚔️</div><span style="background:linear-gradient(135deg,var(--red),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">WORLD BOSS</span></div>
           <div class="ddr" onclick="cM();openSeasonPanel()" style="background:linear-gradient(135deg,rgba(0,180,80,.12),rgba(0,100,40,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,255,136,.7))">🌸</div><span style="background:linear-gradient(135deg,var(--green),var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">SÄSONG</span></div>
@@ -5804,6 +5883,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <button class="fortune-btn" style="background:linear-gradient(135deg,var(--purple),var(--pink))" onclick="claimFortune()">✦ ACCEPTERA</button>
     <button class="fortune-btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)" onclick="closeFortune()">Stäng</button>
   </div>
+</div>
+
+<!-- PRESTIGE SHOP -->
+<div class="pshop-panel" id="pshopPanel">
+  <div class="pshop-hdr">
+    <button style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer" onclick="closePShop()">←</button>
+    <div class="pshop-hdr-title">⭐ PRESTIGE BUTIK</div>
+    <div class="pshop-pp-badge">⭐ <span id="pshopPP">0</span> PP</div>
+  </div>
+  <div class="pshop-scroll" id="pshopScroll"></div>
 </div>
 
 <!-- PET TRAINING DOJO -->
@@ -11189,6 +11278,8 @@ function doPrestige(){
   G.prestige++;
   G.level=1; G.exp=0;
   gainCoins(500*G.prestige);
+  if(!G.prestigePP) G.prestigePP=0;
+  G.prestigePP+=10;
   save();
   confetti(100); vibe([100,50,100,50,200,100]);
   showFeatToast('⭐ PRESTIGE '+G.prestige+'!');
@@ -15432,6 +15523,100 @@ function _dojoEnd(score,max,id){
   ssdTrackXP&&ssdTrackXP(xp);
   progressDCB&&progressDCB('tap',score);
 }
+
+
+
+// PRESTIGE SHOP
+const PSHOP_ITEMS = [
+  {id:'xp5',ico:'⚡',name:'+5% Permanent XP',desc:'All XP ökar med 5% för alltid.',cost:1,effect:()=>{if(!G.pshopOwned)G.pshopOwned=[];G.pshopOwned.push('xp5');},
+   active:(G)=>G.pshopOwned&&G.pshopOwned.includes('xp5')},
+  {id:'coin10',ico:'💰',name:'+10% Permanent Coins',desc:'Alla coin-intäkter ökar med 10%.',cost:1,
+   active:(G)=>G.pshopOwned&&G.pshopOwned.includes('coin10')},
+  {id:'energy20',ico:'⚡',name:'+20 Max Energy',desc:'Din max energi ökar permanent.',cost:2,
+   active:(G)=>G.pshopOwned&&G.pshopOwned.includes('energy20')},
+  {id:'fish_bonus',ico:'🎣',name:'Fiskmagneten',desc:'Alltid minst RARE fisk i Abyssal-djup.',cost:2,
+   active:(G)=>G.pshopOwned&&G.pshopOwned.includes('fish_bonus')},
+  {id:'kc_passive',ico:'💎',name:'KC Passiv',desc:'Tjäna +1 KC var 30:e minut automatiskt.',cost:3,
+   active:(G)=>G.pshopOwned&&G.pshopOwned.includes('kc_passive')},
+  {id:'bond_boost2',ico:'💜',name:'Bond Accelerator',desc:'+100% Bond från alla handlingar.',cost:3,
+   active:(G)=>G.pshopOwned&&G.pshopOwned.includes('bond_boost2')},
+  {id:'gacha_rate',ico:'🎰',name:'Lucky Puller',desc:'+5% chans för EPIC+ i gacha.',cost:4,
+   active:(G)=>G.pshopOwned&&G.pshopOwned.includes('gacha_rate')},
+  {id:'boss_dmg',ico:'⚔️',name:'Boss Slayer',desc:'+50% skada mot World Boss och Boss Fish.',cost:4,
+   active:(G)=>G.pshopOwned&&G.pshopOwned.includes('boss_dmg')},
+  {id:'golden_pet',ico:'🌟',name:'GYLLENE SKIN',desc:'Din pet visas med gyllene glow på alla sidor.',cost:5,
+   active:(G)=>G.pshopOwned&&G.pshopOwned.includes('golden_pet')},
+  {id:'legendary_title',ico:'👑',name:'LEGENDARISK TITEL',desc:'Titel: 👑 LEGEND PRESTIGE synlig i alla vyer.',cost:5,
+   active:(G)=>G.pshopOwned&&G.pshopOwned.includes('legendary_title')},
+];
+
+function openPShop(){
+  const p=$('pshopPanel'); if(!p) return;
+  p.classList.add('open');
+  _renderPShop();
+}
+function closePShop(){ const p=$('pshopPanel'); if(p) p.classList.remove('open'); }
+
+function _renderPShop(){
+  if(!G.prestigePP) G.prestigePP=0;
+  if(!G.pshopOwned) G.pshopOwned=[];
+  const ppEl=$('pshopPP'); if(ppEl) ppEl.textContent=G.prestigePP;
+  const scroll=$('pshopScroll'); if(!scroll) return;
+  const presMultPct=Math.round((getPrestigeMult()-1)*100);
+  scroll.innerHTML=`
+  <div class="pshop-prestige-row">
+    <span class="pshop-prestige-ico">${G.prestige>=3?'🔱':G.prestige>=2?'🌟':G.prestige>=1?'⭐':'🔲'}</span>
+    <div class="pshop-prestige-info">
+      <div class="pshop-prestige-name">PRESTIGE NIVÅ ${G.prestige||0}</div>
+      <div class="pshop-prestige-desc">Varje prestige ger 10 PP och +XP multiplikator.</div>
+      <div class="pshop-prestige-mult">Nuvarande multiplikator: +${presMultPct}% XP</div>
+    </div>
+  </div>
+  <div class="pshop-section-title">PERMANENTA UPPGRADERINGAR</div>`+
+  PSHOP_ITEMS.map(item=>{
+    const owned=G.pshopOwned.includes(item.id);
+    const canBuy=!owned&&(G.prestigePP||0)>=item.cost;
+    return `<div class="pshop-item${owned?' owned':!canBuy?' locked':''}" onclick="_buyPShop('${item.id}')">
+      <span class="pshop-item-ico">${item.ico}</span>
+      <div class="pshop-item-info">
+        <div class="pshop-item-name">${item.name}</div>
+        <div class="pshop-item-desc">${item.desc}</div>
+      </div>
+      ${owned?'<div class="pshop-item-owned-tag">✓ ÄGD</div>':'<div class="pshop-item-cost">⭐ '+item.cost+' PP</div>'}
+    </div>`;
+  }).join('');
+}
+
+function _buyPShop(id){
+  if(!G.pshopOwned) G.pshopOwned=[];
+  const item=PSHOP_ITEMS.find(i=>i.id===id);
+  if(!item) return;
+  if(G.pshopOwned.includes(id)){ showT('✓ Redan ägd!','r'); return; }
+  if((G.prestigePP||0)<item.cost){ showT('❌ Behöver '+item.cost+' PP!','r'); SFX.err&&SFX.err(); return; }
+  G.prestigePP-=item.cost;
+  G.pshopOwned.push(id);
+  // Apply effects
+  if(id==='energy20') G.energyMax=(G.energyMax||100)+20;
+  if(id==='kc_passive') setInterval(()=>{gainKC(1);showFloatBubble&&showFloatBubble('💎 +1 KC','good');},1800000);
+  if(id==='golden_pet') document.documentElement.style.setProperty('--pet-glow','0 0 30px rgba(255,204,0,.6)');
+  save();
+  showT('⭐ '+item.name+' köpt!','g'); SFX.lvl&&SFX.lvl();
+  _renderPShop();
+}
+
+// Hook getXpMult to include prestige shop bonus
+const _origGetXpMult2=getXpMult;
+getXpMult=function(){
+  let m=_origGetXpMult2();
+  if(G.pshopOwned&&G.pshopOwned.includes('xp5')) m*=1.05;
+  return m;
+};
+const _origGetCoinMult2=getCoinMult;
+getCoinMult=function(){
+  let m=_origGetCoinMult2();
+  if(G.pshopOwned&&G.pshopOwned.includes('coin10')) m*=1.10;
+  return m;
+};
 
 
 </script>
