@@ -1312,6 +1312,45 @@ textarea.inp { resize:none;min-height:72px; }
 .np-mini-ico { font-size:26px;display:block;margin-bottom:3px; }
 .np-mini-nm { font-size:9px;font-weight:900;color:#fff;margin-bottom:2px; }
 .np-mini-rar { font-size:8px;font-weight:900;letter-spacing:.8px;text-transform:uppercase; }
+
+/* ══ KARMA JOURNAL ══ */
+.kj { position:fixed;inset:0;z-index:852;background:#000;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);overflow:hidden; }
+.kj.open { transform:translateY(0); }
+.kj-canvas { position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none; }
+.kj-hdr { position:relative;z-index:2;padding:calc(var(--sat)+16px) 18px 14px;display:flex;align-items:center;gap:14px;background:linear-gradient(180deg,rgba(4,2,10,.98) 70%,transparent); }
+.kj-title { font-family:var(--ff-head);font-size:20px;font-weight:900;background:linear-gradient(135deg,#ff3377,#ffcc00,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.kj-body { position:relative;z-index:1;overflow-y:auto;height:100%;padding:calc(var(--sat)+88px) 16px calc(90px + var(--sab));scrollbar-width:none; }
+.kj-body::-webkit-scrollbar { display:none; }
+.kj-empty { text-align:center;padding:60px 20px;color:rgba(255,255,255,.3);font-size:15px;line-height:1.9; }
+.kj-entry { display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;animation:kjSlideIn .36s cubic-bezier(.32,.72,0,1) both; }
+@keyframes kjSlideIn { from{opacity:0;transform:translateX(-20px);}to{opacity:1;transform:none;} }
+.kj-line { display:flex;flex-direction:column;align-items:center;flex-shrink:0; }
+.kj-dot { width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0; }
+.kj-stem { width:2px;height:18px;margin-top:3px; }
+.kj-card { flex:1;border-radius:16px;padding:11px 14px; }
+.kj-card-top { display:flex;align-items:center;justify-content:space-between;margin-bottom:4px; }
+.kj-card-title { font-size:13px;font-weight:800; }
+.kj-card-time { font-size:10px;color:rgba(255,255,255,.38); }
+.kj-card-desc { font-size:11px;color:rgba(255,255,255,.58);line-height:1.55; }
+.kj-lv .kj-dot { background:linear-gradient(135deg,#ffcc00,#ff8844);box-shadow:0 0 16px rgba(255,204,0,.45); }
+.kj-lv .kj-stem { background:linear-gradient(180deg,rgba(255,204,0,.35),transparent); }
+.kj-lv .kj-card { background:linear-gradient(160deg,rgba(38,16,0,.9),rgba(16,6,0,.95));border:1px solid rgba(255,204,0,.22); }
+.kj-fish .kj-dot { background:linear-gradient(135deg,#4488ff,#00ddcc);box-shadow:0 0 16px rgba(68,136,255,.45); }
+.kj-fish .kj-stem { background:linear-gradient(180deg,rgba(68,136,255,.35),transparent); }
+.kj-fish .kj-card { background:linear-gradient(160deg,rgba(0,18,44,.9),rgba(0,8,22,.95));border:1px solid rgba(68,136,255,.22); }
+.kj-quest .kj-dot { background:linear-gradient(135deg,#00ff88,#00ddcc);box-shadow:0 0 16px rgba(0,255,136,.45); }
+.kj-quest .kj-stem { background:linear-gradient(180deg,rgba(0,255,136,.35),transparent); }
+.kj-quest .kj-card { background:linear-gradient(160deg,rgba(0,24,14,.9),rgba(0,10,6,.95));border:1px solid rgba(0,255,136,.22); }
+.kj-cosmic .kj-dot { background:linear-gradient(135deg,#aa66ff,#4488ff);box-shadow:0 0 16px rgba(170,102,255,.45); }
+.kj-cosmic .kj-stem { background:linear-gradient(180deg,rgba(170,102,255,.35),transparent); }
+.kj-cosmic .kj-card { background:linear-gradient(160deg,rgba(24,8,50,.9),rgba(10,4,26,.95));border:1px solid rgba(170,102,255,.22); }
+.kj-gear .kj-dot { background:linear-gradient(135deg,#ff8844,#ff3377);box-shadow:0 0 16px rgba(255,136,68,.45); }
+.kj-gear .kj-stem { background:linear-gradient(180deg,rgba(255,136,68,.35),transparent); }
+.kj-gear .kj-card { background:linear-gradient(160deg,rgba(38,8,0,.9),rgba(16,4,0,.95));border:1px solid rgba(255,136,68,.22); }
+.kj-portal .kj-dot { background:linear-gradient(135deg,#ff3377,#aa66ff);box-shadow:0 0 16px rgba(255,51,119,.45); }
+.kj-portal .kj-stem { background:linear-gradient(180deg,rgba(255,51,119,.35),transparent); }
+.kj-portal .kj-card { background:linear-gradient(160deg,rgba(38,4,18,.9),rgba(16,2,8,.95));border:1px solid rgba(255,51,119,.22); }
+
 .nb.on .nl { color:var(--pet-col,var(--green)) !important; }
 
 /* Pet speech bubble */
@@ -2855,6 +2894,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();nav('games');setTimeout(()=>switchGame('raid',document.querySelector('.gtab:last-child')),300)"><div class="ddr-i">💀</div>Boss Raid</div>
           <div class="ddr" onclick="cM();openAR()" style="background:linear-gradient(135deg,rgba(40,8,80,.6),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(170,102,255,.8))">🌌</div><span style="background:linear-gradient(135deg,#cc88ff,#4488ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">ASTRAL RIFT</span></div>
           <div class="ddr" onclick="cM();openNP()" style="background:linear-gradient(135deg,rgba(60,4,30,.6),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">💫</div><span style="background:linear-gradient(135deg,#ff3377,#aa66ff,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">NEON PORTAL</span></div>
+          <div class="ddr" onclick="cM();openKJ()" style="background:linear-gradient(135deg,rgba(60,16,0,.5),rgba(20,40,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">📖</div><span style="background:linear-gradient(135deg,#ff3377,#ffcc00,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">KARMA JOURNAL</span></div>
           <div class="ddr" onclick="cM();toggleRadio()"><div class="ddr-i">🎵</div>Karma Radio</div>
         </div>
       </div>
@@ -4107,6 +4147,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+<!-- KARMA JOURNAL -->
+<div class="kj" id="karmaJournal">
+  <canvas class="kj-canvas" id="kjCanvas"></canvas>
+  <div class="kj-hdr">
+    <button class="ar-back" onclick="closeKJ()">←</button>
+    <div>
+      <div class="kj-title">📖 KARMA JOURNAL</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:2px">Din legendariska historia</div>
+    </div>
+    <div style="margin-left:auto;text-align:right">
+      <div style="font-size:22px;font-weight:900;font-family:var(--ff-head);color:var(--gold)" id="kjCount">0</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.8px">HÄNDELSER</div>
+    </div>
+  </div>
+  <div class="kj-body" id="kjBody">
+    <div class="kj-empty" id="kjEmpty">📖<br><br>Ditt äventyr börjar just nu.<br>Upplev saker för att fylla din journal!</div>
+  </div>
+</div>
+
 <!-- SPLASHES -->
 <div class="splash" id="rewardSplash">
   <div class="sp-ico" id="spIco">⚡</div>
@@ -4456,6 +4515,7 @@ function triggerLvlUp() {
   // Particle burst from pet emoji
   setTimeout(()=>{spawnComboBurst(22,'#ffcc00');spawnComboBurst(10,petCol());},200);
   pushNotif('⬆️', `<b>Level ${G.level} uppnådd!</b> ${G.petName} — ${s.s}`);
+  kjLog('lv','LEVEL '+G.level+' UPPNÅDD!',G.petName+' — '+s.s+' '+s.e,'⬆️');
   setTimeout(checkAchievements, 1500);
 }
 function pcFeed()  {
@@ -4713,6 +4773,7 @@ function buyGear(id) {
   if(G.coins < g.cost) { showT(`❌ Behöver ${g.cost-G.coins} mer`,'r'); return; }
   G.coins -= g.cost; G.gear.push(id); G.equippedGear = g.em;
   gainXP(10,'commerce'); vibe([30,20,60]);
+  kjLog('gear',g.em+' '+g.nm+' UNLOCKAT!',g.st+' · Kostade '+g.cost+' coins',g.em);
   showT(`⚡ ${g.em} UNLOCKED!`,'g');
   openGearShop(); updateHUD(); updatePet();
 }
@@ -7280,6 +7341,7 @@ function claimVerifyReward() {
   gainXP((u.xp||100)+bonus,'commerce');
   gainCoins(u.reward||50);
   G.bountiesDone=(G.bountiesDone||0)+1;
+  kjLog('quest','UPPDRAG KLART! #'+G.bountiesDone,'+'+((_verifyState.uppdrag||{}).xp||100)+' XP · 🎯 Uppdrag avklarat','🎯');
   save();
   confetti(60); vibe([80,40,80]);
   closeModal('verifyModal');
@@ -7857,6 +7919,8 @@ function completeFishCatch(caught,quality){
     confetti(caught.rarity==='mythic'?120:80); vibe([100,50,100,50,100]);
     fishState.best=caught.name; localStorage.setItem('k0509_fishBest',caught.name);
     showFeatToast(caught.em+' '+caught.name+' FÅNGAD!');
+    const _rarLbl={epic:'💜 EPISK',legendary:'👑 LEGENDARISK',mythic:'🌟 MYTISK'}[caught.rarity]||'';
+    kjLog('fish',caught.em+' '+caught.name+' FÅNGAD!',_rarLbl+' · +'+xpFinal+' XP',caught.em);
   } else vibe(35);
   const rc=FISH_RARITY_COL[caught.rarity]||'#888';
   const qBadge=quality==='perfect'?'<b style="color:var(--gold)"> ⭐ PERFECT!</b>':'';
@@ -9403,9 +9467,9 @@ function _npShowReveal(results){
       </div>`;
     }).join('')}</div>`;
   }
-  if(bestIdx>=3){confetti(90);SFX.lvl();vibe([80,40,80,40,100,40,80]);}
-  else if(bestIdx>=2){confetti(55);SFX.lvl();vibe([40,20,60,20,40]);}
-  else if(bestIdx>=1){confetti(25);SFX.xp();}
+  if(bestIdx>=3){confetti(90);SFX.lvl();vibe([80,40,80,40,100,40,80]);kjLog('portal','👑 LEGENDARISK PULL: '+best.name,best.eff,'💫');}
+  else if(bestIdx>=2){confetti(55);SFX.lvl();vibe([40,20,60,20,40]);kjLog('portal','✨ EPISK PULL: '+best.name,best.eff,'💫');}
+  else if(bestIdx>=1){confetti(25);SFX.xp();kjLog('portal','🔵 RÄR PULL: '+best.name,best.eff,'💫');}
   rv.classList.add('show');
 }
 function _npInitPortal(){
@@ -9529,6 +9593,7 @@ function doAR(id){
   SFX.lvl(); vibe([30,20,60,20,30]);
   if(id==='med'){
     gainXP(75,'action'); gainCoins(5); confetti(30);
+    kjLog('cosmic','🧘 KOSMISK MEDITATION','+75 XP & +5 Coins — Kosmisk ro uppnådd i Astral Rift','🧘');
     _arParticles('#aa66ff',14);
     showT('🧘 +75 XP & +5 Coins — Kosmisk ro uppnådd!','pk');
   } else if(id==='vis'){
@@ -9538,6 +9603,7 @@ function doAR(id){
     const ico=$('arCardIco'), nm=$('arCardName'), ef=$('arCardEff'), rv=$('arReveal');
     if(ico) ico.textContent=b.ico; if(nm) nm.textContent=b.name; if(ef) ef.textContent=b.eff;
     if(rv) rv.classList.add('show');
+    kjLog('cosmic','⭐ ASTRAL VÄLSIGNELSE: '+b.name,b.eff,'🌌');
     confetti(55); _arParticles('#cc88ff',24);
     _arRenderBless();
   } else if(id==='com'){
@@ -9607,6 +9673,94 @@ function _arInitCanvas(){
   if(_arAnim) cancelAnimationFrame(_arAnim);
   draw();
 }
+// ══════════════════════════════════════════
+//   📖 KARMA JOURNAL — Personal Epic Timeline
+// ══════════════════════════════════════════
+
+function openKJ() {
+  const el = $('karmaJournal');
+  if (!el) return;
+  el.classList.add('open');
+  _kjRender();
+  _kjInitCanvas();
+}
+function closeKJ() {
+  const el = $('karmaJournal');
+  if (el) el.classList.remove('open');
+}
+function kjLog(type, title, desc, ico) {
+  try {
+    const events = JSON.parse(localStorage.getItem('k0509_kj') || '[]');
+    events.unshift({ type, title, desc, ico, ts: Date.now() });
+    if (events.length > 60) events.length = 60;
+    localStorage.setItem('k0509_kj', JSON.stringify(events));
+  } catch(e) {}
+}
+function _kjTimeAgo(ts) {
+  const d = Date.now() - ts;
+  if (d < 60000) return 'just nu';
+  if (d < 3600000) return Math.floor(d / 60000) + 'm sedan';
+  if (d < 86400000) return Math.floor(d / 3600000) + 'h sedan';
+  return Math.floor(d / 86400000) + 'd sedan';
+}
+function _kjRender() {
+  let events = [];
+  try { events = JSON.parse(localStorage.getItem('k0509_kj') || '[]'); } catch(e) {}
+  const cEl = $('kjCount');
+  if (cEl) cEl.textContent = events.length;
+  const emptyEl = $('kjEmpty');
+  if (emptyEl) emptyEl.style.display = events.length ? 'none' : 'block';
+  const body = $('kjBody');
+  if (!body) return;
+  [...body.querySelectorAll('.kj-entry')].forEach(e => e.remove());
+  events.forEach((ev, i) => {
+    const el = document.createElement('div');
+    el.className = `kj-entry kj-${ev.type}`;
+    el.style.animationDelay = (i * 0.035) + 's';
+    const hasStem = i < events.length - 1;
+    el.innerHTML = `
+      <div class="kj-line">
+        <div class="kj-dot">${ev.ico}</div>
+        ${hasStem ? '<div class="kj-stem"></div>' : ''}
+      </div>
+      <div class="kj-card">
+        <div class="kj-card-top">
+          <div class="kj-card-title">${ev.title}</div>
+          <div class="kj-card-time">${_kjTimeAgo(ev.ts)}</div>
+        </div>
+        <div class="kj-card-desc">${ev.desc}</div>
+      </div>`;
+    body.appendChild(el);
+  });
+}
+function _kjInitCanvas() {
+  const cv = $('kjCanvas');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  cv.width = cv.offsetWidth * dpr;
+  cv.height = cv.offsetHeight * dpr;
+  ctx.scale(dpr, dpr);
+  const W = cv.offsetWidth, H = cv.offsetHeight;
+  const grad = ctx.createLinearGradient(0, 0, W, H * 0.5);
+  grad.addColorStop(0, 'rgba(255,51,119,.05)');
+  grad.addColorStop(0.33, 'rgba(255,204,0,.04)');
+  grad.addColorStop(0.66, 'rgba(0,255,136,.04)');
+  grad.addColorStop(1, 'transparent');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+  // Tiny stars
+  for (let i = 0; i < 80; i++) {
+    const x = Math.random() * W, y = Math.random() * H;
+    const a = Math.random() * 0.35 + 0.05;
+    const r = Math.random() * 1.2 + 0.3;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${a})`;
+    ctx.fill();
+  }
+}
+
 </script>
 
 <!-- FLOATING PET COMPANION -->
