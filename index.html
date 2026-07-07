@@ -2063,6 +2063,14 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fish-depth-opt { flex:1; padding:7px 6px; border-radius:10px; font-size:10px; font-weight:800; text-align:center; cursor:pointer; border:1.5px solid rgba(255,255,255,.08); color:var(--t3); white-space:nowrap; transition:all .15s; background:rgba(10,4,22,.7); font-family:var(--ff-head); letter-spacing:.3px; }
 .fish-depth-opt.on { border-color:var(--blue); color:var(--blue); background:rgba(68,136,255,.12); text-shadow:0 0 10px rgba(68,136,255,.5); }
 .fish-depth-opt:active { transform:scale(.93); }
+.fish-bait-row { display:flex;gap:6px;padding:5px 0 2px;overflow-x:auto;scrollbar-width:none; }
+.fish-bait-row::-webkit-scrollbar { display:none; }
+.fish-bait-opt { flex:0 0 auto;padding:7px 11px;border-radius:12px;font-size:10px;font-weight:800;text-align:center;cursor:pointer;border:1.5px solid rgba(255,255,255,.07);color:rgba(255,255,255,.45);white-space:nowrap;transition:all .15s;background:rgba(10,4,22,.75);font-family:var(--ff-head);letter-spacing:.3px; }
+.fish-bait-opt.on { border-color:var(--teal);color:var(--teal);background:rgba(0,221,204,.12);box-shadow:0 0 14px rgba(0,221,204,.2); }
+.fish-bait-opt:active { transform:scale(.92); }
+.fish-bait-cost { font-size:8px;font-weight:700;display:block;margin-top:2px;color:inherit;opacity:.75; }
+.fish-wx-banner { padding:5px 12px;border-radius:10px;font-size:10px;font-weight:800;text-align:center;transition:all .35s;overflow:hidden;max-height:0;opacity:0; }
+.fish-wx-banner.show { max-height:32px;opacity:1;margin-bottom:4px; }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -3542,6 +3550,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div id="fishWeatherRow">☀️ Soligt</div>
           <div class="fish-streak-badge" id="fishStreakBadge" style="display:none">🔥 0x</div>
         </div>
+        <!-- Bait selector -->
+        <div class="fish-bait-row" id="fishBaitRow">
+          <div class="fish-bait-opt on" onclick="setFishBait(0,this)">🪱 Mask<span class="fish-bait-cost">Gratis</span></div>
+          <div class="fish-bait-opt" onclick="setFishBait(1,this)">🥩 Kött<span class="fish-bait-cost">5💎 KC</span></div>
+          <div class="fish-bait-opt" onclick="setFishBait(2,this)">⚡ Storm<span class="fish-bait-cost">10💎 KC</span></div>
+          <div class="fish-bait-opt" onclick="setFishBait(3,this)">🌊 Djup<span class="fish-bait-cost">12💎 KC</span></div>
+          <div class="fish-bait-opt" onclick="setFishBait(4,this)">💎 Guld<span class="fish-bait-cost">20💎 KC</span></div>
+        </div>
+        <!-- Weather banner -->
+        <div class="fish-wx-banner" id="fishWxBanner"></div>
         <!-- Catch log -->
         <div class="fish-catch-log" id="fishLog">Välj djup och kasta ditt spö! 🎣</div>
         <!-- Action button -->
@@ -7864,6 +7882,17 @@ function fishReelResult(quality){
     const rares=depthFish.filter(f=>f.rarity==='rare');
     if(rares.length) caught=rares[Math.floor(Math.random()*rares.length)];
   }
+  // Djupkrok bait: +60% rare upgrade chance
+  const _ab=fishState.activeBait||0;
+  if(_ab===3&&(caught.rarity==='common'||caught.rarity==='uncommon')&&Math.random()<.6){
+    const rar=depthFish.filter(f=>f.rarity==='rare'||f.rarity==='epic');
+    if(rar.length) caught=rar[Math.floor(Math.random()*rar.length)];
+  }
+  // Stormkrok: extra legendary in storm
+  if(_ab===2&&fishState.weather===2&&Math.random()<.1){
+    const legs=depthFish.filter(f=>f.rarity==='legendary'||f.rarity==='mythic');
+    if(legs.length) caught=legs[0];
+  }
   fishState.hotSpot=null;
   if(caught.rarity==='epic'||caught.rarity==='legendary'||caught.rarity==='mythic'){
     startFishFight(caught,quality);
@@ -7947,9 +7976,13 @@ function endFishFight(won){
 function completeFishCatch(caught,quality){
   const depMul=FISH_DEPTH_BONUS[fishState.depth];
   const sMul=fishState.streak>=4?2:fishState.streak>=2?1.5:1;
-  const xpFinal=Math.round(caught.xp*depMul*sMul);
+  const _baitId=fishState.activeBait||0;
+  const _xpBaitMul=_baitId===4?2:1;
+  const _kcBaitAdd=_baitId===1?1:0;
+  const _kcBaitMul=_baitId===2?2:1;
+  const xpFinal=Math.round(caught.xp*depMul*sMul*_xpBaitMul);
   const coinFinal=Math.round((caught.coins||0)*depMul*sMul);
-  const kcFinal=(caught.kc||0)+(quality==='perfect'?2:0)+(caught.rarity==='mythic'?20:0);
+  const kcFinal=((caught.kc||0)*_kcBaitMul+_kcBaitAdd)+(quality==='perfect'?2:0)+(caught.rarity==='mythic'?20:0);
   fishState.count++; localStorage.setItem('k0509_fishCount',fishState.count);
   fishState.xpToday+=xpFinal; fishState.coinsToday+=coinFinal;
   gainXP(xpFinal,'action'); if(coinFinal>0) gainCoins(coinFinal);
@@ -9904,6 +9937,63 @@ function _dfcAutoCheck(){
     setTimeout(openDFC, 2800);
   }
 }
+
+// ── FISHING BAIT SYSTEM ──
+const FISH_BAITS = [
+  {id:0,name:'Mask',eff:'Normal fiske',kcCost:0,col:'rgba(255,255,255,.4)'},
+  {id:1,name:'Kött',eff:'+1 KC per fångst',kcCost:5,col:'#ff8844'},
+  {id:2,name:'Stormkrok',eff:'2x KC belöning',kcCost:10,col:'#aa66ff'},
+  {id:3,name:'Djupkrok',eff:'+60% Rare uppgradering',kcCost:12,col:'#4488ff'},
+  {id:4,name:'Guld-krok',eff:'2x XP allt',kcCost:20,col:'#ffcc00'},
+];
+if(!fishState.bait) fishState.bait = 0;
+
+function setFishBait(id, el) {
+  if(fishState.phase !== 'idle') { showT('Vänta tills spöet är inne!','y'); return; }
+  const bait = FISH_BAITS[id];
+  if(bait.kcCost > 0 && (G.kc||0) < bait.kcCost) {
+    showT('❌ Behöver '+bait.kcCost+' KC för '+bait.name,'r'); vibe([30,20,30]); return;
+  }
+  fishState.bait = id;
+  document.querySelectorAll('.fish-bait-opt').forEach(x=>x.classList.remove('on'));
+  if(el) el.classList.add('on');
+  if(id > 0) showT(bait.name+' vald! '+bait.eff,'g');
+}
+
+const _origFishCast = fishCast;
+fishCast = function() {
+  const bait = FISH_BAITS[fishState.bait || 0];
+  if(bait.kcCost > 0) {
+    if(!spendKC(bait.kcCost)) return;
+    showT(bait.name+' aktiverat! '+bait.eff,'pk');
+  }
+  fishState.activeBait = fishState.bait || 0;
+  _origFishCast();
+};
+
+// Enhance weather change banner
+const _origStartFishWeatherRotation = startFishWeatherRotation;
+startFishWeatherRotation = function() {
+  if(fishState.weatherTimer) clearInterval(fishState.weatherTimer);
+  fishState.weatherTimer = setInterval(()=>{
+    const old = fishState.weather;
+    fishState.weather = Math.floor(Math.random() * 5);
+    if(fishState.weather !== old) {
+      updateFishWeatherRow();
+      const wxColors=['rgba(255,204,0,.15)','rgba(68,136,255,.15)','rgba(170,102,255,.15)','rgba(68,68,136,.2)','rgba(200,200,200,.08)'];
+      const wxMsgs=['☀️ Soligt väder! Normal fiske.','🌧️ Regn börjar! +15% chans!','⛈️ STORM! Legendariska fiskar möjliga!','🌙 Natten faller... Sällsynta varelser!','🌫️ Dimma sänker sig. Mystik väntar!'];
+      const banner = $('fishWxBanner');
+      if(banner) {
+        banner.textContent = wxMsgs[fishState.weather];
+        banner.style.background = wxColors[fishState.weather];
+        banner.style.color = ['#ffcc00','#4488ff','#aa66ff','#8888ff','#aaaaaa'][fishState.weather];
+        banner.classList.add('show');
+        setTimeout(()=>banner.classList.remove('show'), 4000);
+      }
+      showFeatToast(wxMsgs[fishState.weather]);
+    }
+  }, 150000);
+};
 
 </script>
 
