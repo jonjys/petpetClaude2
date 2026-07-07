@@ -2374,6 +2374,26 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .rfx-rs-v { font-family:var(--ff-head);font-size:18px;font-weight:900; }
 .rfx-rs-l { font-size:9px;color:rgba(255,255,255,.4);margin-top:2px; }
 .rfx-daily-cd { font-size:10px;color:rgba(255,255,255,.3);margin-top:10px;text-align:center; }
+
+/* ══ DAILY ACTIVITY HEATMAP ══ */
+.act-heatmap-section { margin:0 0 16px;padding:14px;border-radius:20px;background:linear-gradient(160deg,rgba(6,2,16,.92),rgba(2,1,8,.96));border:1.5px solid rgba(255,255,255,.06); }
+.ahm-title { font-size:10px;font-weight:900;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;display:flex;align-items:center;gap:6px; }
+.ahm-title::after { content:'';flex:1;height:1px;background:rgba(255,255,255,.05); }
+.ahm-grid { display:grid;grid-template-columns:repeat(7,1fr);gap:3px; }
+.ahm-day { aspect-ratio:1;border-radius:3px;cursor:pointer;transition:all .15s;position:relative; }
+.ahm-day:hover { transform:scale(1.3);z-index:1; }
+.ahm-day.l0 { background:rgba(255,255,255,.04); }
+.ahm-day.l1 { background:rgba(0,255,136,.15);box-shadow:0 0 4px rgba(0,255,136,.08); }
+.ahm-day.l2 { background:rgba(0,255,136,.35);box-shadow:0 0 6px rgba(0,255,136,.15); }
+.ahm-day.l3 { background:rgba(0,255,136,.6);box-shadow:0 0 8px rgba(0,255,136,.25); }
+.ahm-day.l4 { background:rgba(0,255,136,.9);box-shadow:0 0 12px rgba(0,255,136,.4); }
+.ahm-day.today { outline:2px solid var(--green);outline-offset:1px; }
+.ahm-legend { display:flex;align-items:center;gap:5px;margin-top:8px;justify-content:flex-end; }
+.ahm-legend-lbl { font-size:9px;color:rgba(255,255,255,.3); }
+.ahm-legend-sq { width:10px;height:10px;border-radius:2px; }
+.ahm-stats-row { display:flex;gap:12px;margin-top:10px; }
+.ahm-sval { font-family:var(--ff-head);font-size:16px;font-weight:900;color:var(--green); }
+.ahm-slbl { font-size:8px;color:rgba(255,255,255,.35);font-weight:700;text-transform:uppercase;letter-spacing:.5px; }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -4031,6 +4051,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ps"><div class="ps-ico">🎣</div><div class="ps-v" id="pnFish">0</div><div class="ps-l">FISK</div></div>
           <div class="ps"><div class="ps-ico">💎</div><div class="ps-v" id="pnKC">0</div><div class="ps-l">KC</div></div>
           <div class="ps"><div class="ps-ico">🔥</div><div class="ps-v" id="pnStreak">0</div><div class="ps-l">STREAK</div></div>
+        </div>
+      </div>
+      <!-- ACTIVITY HEATMAP -->
+      <div class="act-heatmap-section" id="actHeatmapSection" style="margin:0 16px 16px">
+        <div class="ahm-title">AKTIVITETSHISTORIK (30 dagar)</div>
+        <div class="ahm-grid" id="ahmGrid"></div>
+        <div class="ahm-legend">
+          <span class="ahm-legend-lbl">Mer</span>
+          <div class="ahm-legend-sq" style="background:rgba(0,255,136,.9)"></div>
+          <div class="ahm-legend-sq" style="background:rgba(0,255,136,.6)"></div>
+          <div class="ahm-legend-sq" style="background:rgba(0,255,136,.35)"></div>
+          <div class="ahm-legend-sq" style="background:rgba(0,255,136,.15)"></div>
+          <div class="ahm-legend-sq" style="background:rgba(255,255,255,.04)"></div>
+          <span class="ahm-legend-lbl">Mindre</span>
+        </div>
+        <div class="ahm-stats-row">
+          <div><div class="ahm-sval" id="ahmStreak">0</div><div class="ahm-slbl">NUV. STREAK</div></div>
+          <div><div class="ahm-sval" id="ahmBestStreak">0</div><div class="ahm-slbl">BÄST STREAK</div></div>
+          <div><div class="ahm-sval" id="ahmActiveDays">0</div><div class="ahm-slbl">AKTIVA DAGAR</div></div>
         </div>
       </div>
       <!-- Activity chart -->
@@ -6033,7 +6072,7 @@ function nav(name) {
     uppdrag: () => renderUppdrag(),
     map:     () => { setTimeout(() => { if(!G.mapInit) locateMe(); }, 200); renderNearby(); renderTerritory(); },
     lb:      () => renderLB('money', document.querySelector('#lbTabs .lt')),
-    profile: () => { updateHUD(); renderBadges(); renderHistList(); renderSeasonPass(); updateProfileRank(); renderPrestigeBtn(); },
+    profile: () => { updateHUD(); renderBadges(); renderHistList(); renderSeasonPass(); updateProfileRank(); renderPrestigeBtn(); renderHeatmap(); },
     games:   () => { initBattle(); renderMissions(); $('gamesXPToday').textContent=`+${gamesXPToday} XP idag`; renderWorldBoss(); renderEventBanner(); renderFeaturedGame(); },
   };
   if(R[name]) R[name]();
@@ -6777,11 +6816,13 @@ function getXpMult() {
   if(G.mood>=85) m*=1.5;
   if(typeof gwxXpMul==='function') m*=gwxXpMul();
   if(typeof getPrestigeMult==='function') m*=getPrestigeMult();
+  if(typeof getEventMult==='function') m*=getEventMult('xp')*getEventMult('pet');
   return m;
 }
 function getCoinMult() {
   let m=(G_shop.coinBoost>Date.now()) ? 2 : 1;
   if(typeof gwxCoinMul==='function') m*=gwxCoinMul();
+  if(typeof getEventMult==='function') m*=getEventMult('coin');
   return m;
 }
 function updateMoodChip(){
@@ -11730,6 +11771,70 @@ function _startPetDialogue() {
   setTimeout(_randThought, 15000+Math.random()*30000);
 }
 setTimeout(_startPetDialogue, 3000);
+
+// ═══════════════════════════════════════════════
+// DAILY ACTIVITY HEATMAP
+// ═══════════════════════════════════════════════
+const _ahmActKey = d => 'k0509_ahm_'+d;
+function _ahmToday() { return getTodayKey(); }
+function _ahmRecord(xpGained) {
+  const k=_ahmActKey(_ahmToday());
+  const cur=parseInt(localStorage.getItem(k)||'0');
+  localStorage.setItem(k, String(cur+xpGained));
+}
+function _ahmGetLast30() {
+  const days=[]; const now=new Date();
+  for(let i=29;i>=0;i--) {
+    const d=new Date(now); d.setDate(d.getDate()-i);
+    const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    const xp=parseInt(localStorage.getItem(_ahmActKey(key))||'0');
+    days.push({key,xp,isToday:i===0});
+  }
+  return days;
+}
+function renderHeatmap() {
+  const grid=$('ahmGrid'); if(!grid) return;
+  const days=_ahmGetLast30();
+  // Determine max for level scaling
+  const maxXp=Math.max(1,...days.map(d=>d.xp));
+  // Pad to 35 cells (5 weeks x 7) - put empty cells at start
+  const padCount=35-days.length;
+  let html='';
+  for(let i=0;i<padCount;i++) html+='<div class="ahm-day l0" style="opacity:.3"></div>';
+  days.forEach(d=>{
+    const pct=d.xp/maxXp;
+    const lv=d.xp===0?0:pct<.2?1:pct<.5?2:pct<.8?3:4;
+    const title=d.key+(d.xp?': '+d.xp+' XP':'');
+    html+='<div class="ahm-day l'+lv+(d.isToday?' today':'')+'" title="'+title+'"></div>';
+  });
+  grid.innerHTML=html;
+  // Stats
+  const active=days.filter(d=>d.xp>0).length;
+  const ahAs=$('ahmActiveDays'); if(ahAs) ahAs.textContent=active;
+  const ahSt=$('ahmStreak'); if(ahSt) ahSt.textContent=G.streak||0;
+  const bestSk=parseInt(localStorage.getItem('k0509_bestStreak')||String(G.streak||0));
+  const ahBs=$('ahmBestStreak'); if(ahBs) ahBs.textContent=bestSk;
+}
+// Record XP in heatmap when gained
+(function(){
+  const _ogXP2=gainXP;
+  window.gainXP=function(n,stat){
+    _ogXP2(n,stat);
+    const actual=Math.max(1,Math.ceil(n*(typeof getXpMult==='function'?getXpMult():1)));
+    _ahmRecord(actual);
+  };
+})();
+// Track best streak
+(function(){
+  const _ogSF2=submitFlash;
+  if(typeof _ogSF2==='function'){
+    window.submitFlash=function(){
+      _ogSF2.apply(this,arguments);
+      const best=parseInt(localStorage.getItem('k0509_bestStreak')||'0');
+      if((G.streak||0)>best) localStorage.setItem('k0509_bestStreak',String(G.streak));
+    };
+  }
+})();
 
 </script>
 
