@@ -2072,6 +2072,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fish-wx-banner { padding:5px 12px;border-radius:10px;font-size:10px;font-weight:800;text-align:center;transition:all .35s;overflow:hidden;max-height:0;opacity:0; }
 .fish-wx-banner.show { max-height:32px;opacity:1;margin-bottom:4px; }
 
+/* ══ KARMA RANK SYSTEM ══ */
+.rank-badge { display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:900;letter-spacing:.5px;border:1px solid transparent; }
+.rank-badge.bronze { background:linear-gradient(135deg,rgba(180,100,40,.2),rgba(120,60,20,.3));border-color:rgba(180,100,40,.4);color:#cd7f32; }
+.rank-badge.silver { background:linear-gradient(135deg,rgba(180,180,190,.15),rgba(120,120,130,.25));border-color:rgba(190,190,200,.4);color:#c0c0c0; }
+.rank-badge.gold { background:linear-gradient(135deg,rgba(255,204,0,.2),rgba(200,150,0,.3));border-color:rgba(255,204,0,.45);color:#ffcc00; }
+.rank-badge.platinum { background:linear-gradient(135deg,rgba(68,200,255,.15),rgba(30,150,200,.25));border-color:rgba(68,200,255,.4);color:#44c8ff; }
+.rank-badge.diamond { background:linear-gradient(135deg,rgba(68,136,255,.2),rgba(30,80,200,.3));border-color:rgba(100,160,255,.45);color:#66aaff; }
+.rank-badge.master { background:linear-gradient(135deg,rgba(170,102,255,.2),rgba(100,50,200,.3));border-color:rgba(170,102,255,.5);color:#aa66ff; }
+.rank-badge.legend { background:linear-gradient(135deg,rgba(255,51,119,.2),rgba(255,204,0,.15),rgba(170,102,255,.2));border-color:rgba(255,204,0,.5);color:#ffcc00;animation:rankLegend 2s ease-in-out infinite; }
+@keyframes rankLegend { 0%,100%{box-shadow:0 0 0 0 rgba(255,204,0,0);}50%{box-shadow:0 0 0 4px rgba(255,204,0,.15);} }
+.rank-up-splash { position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s; }
+.rank-up-splash.show { opacity:1;pointer-events:all; }
+.rank-up-ico { font-size:80px;animation:rankUpIco .6s cubic-bezier(.34,1.56,.64,1) both;filter:drop-shadow(0 0 40px var(--rank-col,#ffcc00)); }
+@keyframes rankUpIco { from{transform:scale(0) rotate(-20deg);opacity:0;}to{transform:none;opacity:1;} }
+.rank-up-title { font-family:var(--ff-head);font-size:28px;font-weight:900;margin-top:16px;animation:rankUpIco .5s .1s cubic-bezier(.34,1.56,.64,1) both; }
+.rank-up-sub { font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;animation:rankUpIco .5s .2s cubic-bezier(.34,1.56,.64,1) both; }
+
 /* ══ PET EVOLUTION SHOWCASE ══ */
 .es { position:fixed;inset:0;z-index:855;background:#000;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);overflow:hidden; }
 .es.open { transform:translateY(0); }
@@ -3702,7 +3719,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px">
           <div>
             <div class="prof-name" id="profName">–</div>
-            <div class="prof-handle" id="profHandle">@–</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+              <div class="prof-handle" id="profHandle">@–</div>
+              <span class="rank-badge-slot" data-small="1"></span>
+            </div>
           </div>
           <div style="display:flex;gap:6px">
             <button class="btn btn-ghost btn-sm" onclick="editProfBio()">✏️</button>
@@ -4252,6 +4272,15 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <button class="btn btn-pk btn-full" style="margin-top:4px" onclick="closeARCard()">✨ ACCEPTERA VÄLSIGNELSEN</button>
     </div>
   </div>
+</div>
+
+<!-- RANK UP SPLASH -->
+<div class="rank-up-splash" id="rankUpSplash" onclick="closeRankSplash()">
+  <div class="rank-up-ico" id="rankUpIco">🥉</div>
+  <div class="rank-up-title" id="rankUpTitle" style="color:var(--gold)">RANK UP!</div>
+  <div class="rank-up-sub" id="rankUpSub">Du har nått en ny rang</div>
+  <div id="rankUpBadge" style="margin-top:18px"></div>
+  <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:28px">Tryck för att fortsätta</div>
 </div>
 
 <!-- PET EVOLUTION SHOWCASE -->
@@ -10308,6 +10337,84 @@ function _esInitCanvas() {
     ctx.fillStyle=`rgba(255,255,255,${Math.random()*.5+.05})`; ctx.fill();
   }
 }
+
+// ══════════════════════════════════════════
+//   🏅 KARMA RANK SYSTEM
+// ══════════════════════════════════════════
+const RANK_TIERS = [
+  {id:'bronze',  name:'BRONZE',   ico:'🥉', col:'#cd7f32', min:0},
+  {id:'silver',  name:'SILVER',   ico:'🥈', col:'#c0c0c0', min:1000},
+  {id:'gold',    name:'GOLD',     ico:'🥇', col:'#ffcc00', min:5000},
+  {id:'platinum',name:'PLATINUM', ico:'💠', col:'#44c8ff', min:15000},
+  {id:'diamond', name:'DIAMOND',  ico:'💎', col:'#66aaff', min:35000},
+  {id:'master',  name:'MASTER',   ico:'🔮', col:'#aa66ff', min:75000},
+  {id:'legend',  name:'LEGEND',   ico:'👑', col:'#ffcc00', min:150000},
+];
+
+function getKarmaScore() {
+  return (G.exp||0) + Math.floor((G.coins||0)/10) + (G.kc||0)*5 + (G.level||1)*200 + (G.streak||0)*50;
+}
+
+function getKarmaRank(score) {
+  let rank = RANK_TIERS[0];
+  for(const t of RANK_TIERS) { if(score >= t.min) rank = t; }
+  return rank;
+}
+
+function getRankBadgeHTML(rank, small) {
+  const sz = small ? 'font-size:9px;padding:2px 7px' : 'font-size:11px;padding:4px 12px';
+  return `<span class="rank-badge ${rank.id}" style="${sz}">${rank.ico} ${rank.name}</span>`;
+}
+
+function checkRankUp() {
+  const score = getKarmaScore();
+  const rank = getKarmaRank(score);
+  const stored = localStorage.getItem('k0509_rank') || 'bronze';
+  if(rank.id !== stored) {
+    const oldIdx = RANK_TIERS.findIndex(t=>t.id===stored);
+    const newIdx = RANK_TIERS.findIndex(t=>t.id===rank.id);
+    if(newIdx > oldIdx) {
+      localStorage.setItem('k0509_rank', rank.id);
+      showRankUp(rank);
+    } else {
+      localStorage.setItem('k0509_rank', rank.id);
+    }
+  }
+}
+
+function showRankUp(rank) {
+  const el = $('rankUpSplash'); if(!el) return;
+  el.style.setProperty('--rank-col', rank.col);
+  const ico=$('rankUpIco'), title=$('rankUpTitle'), sub=$('rankUpSub'), badge=$('rankUpBadge');
+  if(ico) ico.textContent = rank.ico;
+  if(title){ title.textContent = 'RANK UP → '+rank.name+'!'; title.style.color = rank.col; }
+  if(sub) sub.textContent = 'Du har klättrat till '+rank.name+' rang!';
+  if(badge) badge.innerHTML = getRankBadgeHTML(rank, false);
+  el.classList.add('show');
+  confetti(100); vibe([50,30,100,30,100,30,80]); SFX.lvl && SFX.lvl();
+  kjLog('lv','🏅 RANK UP: '+rank.name,'Ny rang uppnådd! '+rank.ico+' '+rank.name,rank.ico);
+}
+
+function closeRankSplash() {
+  const el=$('rankUpSplash'); if(el) el.classList.remove('show');
+}
+
+function updateRankBadge() {
+  const score = getKarmaScore();
+  const rank = getKarmaRank(score);
+  // Update all rank badge placeholders
+  document.querySelectorAll('.rank-badge-slot').forEach(el => {
+    el.innerHTML = getRankBadgeHTML(rank, el.dataset.small==='1');
+  });
+}
+
+// Wire rank check into updateHUD
+const _origUpdateHUDRank = updateHUD;
+updateHUD = function() {
+  _origUpdateHUDRank();
+  updateRankBadge();
+  checkRankUp();
+};
 
 </script>
 
