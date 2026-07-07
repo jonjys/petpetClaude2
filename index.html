@@ -2071,6 +2071,37 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fish-bait-cost { font-size:8px;font-weight:700;display:block;margin-top:2px;color:inherit;opacity:.75; }
 .fish-wx-banner { padding:5px 12px;border-radius:10px;font-size:10px;font-weight:800;text-align:center;transition:all .35s;overflow:hidden;max-height:0;opacity:0; }
 .fish-wx-banner.show { max-height:32px;opacity:1;margin-bottom:4px; }
+
+/* ══ ACHIEVEMENT WALL ══ */
+.aw { position:fixed;inset:0;z-index:854;background:radial-gradient(ellipse at 50% 0%,rgba(26,8,52,.97),#000 70%);transform:translateY(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);overflow:hidden; }
+.aw.open { transform:translateY(0); }
+.aw-hdr { padding:calc(var(--sat)+16px) 18px 14px;background:linear-gradient(180deg,rgba(4,2,10,.98) 70%,transparent);position:relative;z-index:2; }
+.aw-title { font-family:var(--ff-head);font-size:20px;font-weight:900;background:linear-gradient(135deg,#ffcc00,#ff8844,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.aw-progress-bar { height:6px;background:rgba(255,255,255,.08);border-radius:3px;margin-top:10px;overflow:hidden; }
+.aw-progress-fill { height:100%;background:linear-gradient(90deg,#ffcc00,#aa66ff);border-radius:3px;transition:width .7s cubic-bezier(.34,1.56,.64,1); }
+.aw-stats-row { display:flex;gap:14px;margin-top:8px; }
+.aw-stat { font-size:11px;font-weight:700; }
+.aw-filters { display:flex;gap:6px;padding:8px 16px 6px;overflow-x:auto;scrollbar-width:none; }
+.aw-filters::-webkit-scrollbar { display:none; }
+.aw-ftab { flex:0 0 auto;padding:5px 13px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer;border:1.5px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);transition:all .15s;background:transparent;font-family:var(--ff-head); }
+.aw-ftab.on { border-color:var(--gold);color:var(--gold);background:rgba(255,204,0,.1); }
+.aw-body { overflow-y:auto;height:100%;padding:0 14px calc(90px + var(--sab)) 14px;position:relative;z-index:1;scrollbar-width:none; }
+.aw-body::-webkit-scrollbar { display:none; }
+.aw-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:10px; }
+.aw-card { border-radius:18px;padding:14px 12px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden; }
+.aw-card.locked { background:rgba(10,4,22,.6);border:1.5px solid rgba(255,255,255,.05); }
+.aw-card.unlocked { border:2px solid transparent; }
+.aw-card.r-common.unlocked { background:linear-gradient(160deg,rgba(14,24,14,.9),rgba(4,12,4,.95));border-color:rgba(136,136,136,.35); }
+.aw-card.r-uncommon.unlocked { background:linear-gradient(160deg,rgba(0,28,16,.9),rgba(0,12,6,.95));border-color:rgba(0,255,136,.35);box-shadow:0 0 16px rgba(0,255,136,.08); }
+.aw-card.r-rare.unlocked { background:linear-gradient(160deg,rgba(0,14,44,.9),rgba(0,6,22,.95));border-color:rgba(68,136,255,.4);box-shadow:0 0 20px rgba(68,136,255,.12); }
+.aw-card.r-epic.unlocked { background:linear-gradient(160deg,rgba(20,6,48,.9),rgba(8,2,20,.95));border-color:rgba(170,102,255,.45);box-shadow:0 0 24px rgba(170,102,255,.15); }
+.aw-card.r-legendary.unlocked { background:linear-gradient(160deg,rgba(38,20,0,.9),rgba(16,8,0,.95));border-color:rgba(255,204,0,.5);box-shadow:0 0 28px rgba(255,204,0,.18); }
+.aw-ico { font-size:32px;display:block;text-align:center;margin-bottom:8px; }
+.aw-ico.locked-ico { filter:grayscale(1);opacity:.2; }
+.aw-name { font-size:11px;font-weight:900;text-align:center;line-height:1.3; }
+.aw-desc { font-size:9px;color:rgba(255,255,255,.45);text-align:center;margin-top:4px;line-height:1.5; }
+.aw-rar { font-size:8px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;text-align:center;margin-top:5px; }
+.aw-card.unlocked .aw-new-badge { position:absolute;top:8px;right:8px;background:var(--green);color:#000;font-size:8px;font-weight:900;padding:2px 6px;border-radius:6px; }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -2925,6 +2956,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();nav('games');setTimeout(()=>switchGame('raid',document.querySelector('.gtab:last-child')),300)"><div class="ddr-i">💀</div>Boss Raid</div>
           <div class="ddr" onclick="cM();openAR()" style="background:linear-gradient(135deg,rgba(40,8,80,.6),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(170,102,255,.8))">🌌</div><span style="background:linear-gradient(135deg,#cc88ff,#4488ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">ASTRAL RIFT</span></div>
           <div class="ddr" onclick="cM();openNP()" style="background:linear-gradient(135deg,rgba(60,4,30,.6),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">💫</div><span style="background:linear-gradient(135deg,#ff3377,#aa66ff,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">NEON PORTAL</span></div>
+          <div class="ddr" onclick="cM();openAW()" style="background:linear-gradient(135deg,rgba(40,16,0,.55),rgba(10,4,26,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">🏆</div><span style="background:linear-gradient(135deg,#ffcc00,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">ACHIEVEMENT WALL</span></div>
           <div class="ddr" onclick="cM();openDFC()" style="background:linear-gradient(135deg,rgba(60,20,0,.55),rgba(30,10,60,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">🔮</div><span style="background:linear-gradient(135deg,#ffcc00,#ff8844,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">DAGLIG FÖRMÖGENHET</span></div>
           <div class="ddr" onclick="cM();openKJ()" style="background:linear-gradient(135deg,rgba(60,16,0,.5),rgba(20,40,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">📖</div><span style="background:linear-gradient(135deg,#ff3377,#ffcc00,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">KARMA JOURNAL</span></div>
           <div class="ddr" onclick="cM();toggleRadio()"><div class="ddr-i">🎵</div>Karma Radio</div>
@@ -4186,6 +4218,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="ar-card-eff" id="arCardEff">Din välsignelse uppenbaras...</div>
       <button class="btn btn-pk btn-full" style="margin-top:4px" onclick="closeARCard()">✨ ACCEPTERA VÄLSIGNELSEN</button>
     </div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENT WALL -->
+<div class="aw" id="achieveWall">
+  <div class="aw-hdr">
+    <div style="display:flex;align-items:center;gap:14px">
+      <button class="ar-back" onclick="closeAW()">←</button>
+      <div>
+        <div class="aw-title">🏆 ACHIEVEMENT WALL</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:1px" id="awSubTitle">Dina legendariska bedrifter</div>
+      </div>
+    </div>
+    <div class="aw-progress-bar"><div class="aw-progress-fill" id="awProgress" style="width:0%"></div></div>
+    <div class="aw-stats-row" id="awStatsRow"></div>
+  </div>
+  <div class="aw-filters" id="awFilters">
+    <div class="aw-ftab on" onclick="filterAW('all',this)">Alla</div>
+    <div class="aw-ftab" onclick="filterAW('unlocked',this)">✅ Upplåsta</div>
+    <div class="aw-ftab" onclick="filterAW('legendary',this)" style="color:rgba(255,204,0,.5)">👑 Legendary</div>
+    <div class="aw-ftab" onclick="filterAW('epic',this)" style="color:rgba(170,102,255,.5)">💜 Epic</div>
+    <div class="aw-ftab" onclick="filterAW('rare',this)" style="color:rgba(68,136,255,.5)">🔵 Rare</div>
+  </div>
+  <div class="aw-body">
+    <div class="aw-grid" id="awGrid"></div>
   </div>
 </div>
 
@@ -9994,6 +10051,72 @@ startFishWeatherRotation = function() {
     }
   }, 150000);
 };
+
+// ══════════════════════════════════════════
+//   🏆 ACHIEVEMENT WALL
+// ══════════════════════════════════════════
+let _awFilter = 'all';
+
+function openAW() {
+  const el = $('achieveWall'); if(!el) return;
+  checkAchievements();
+  el.classList.add('open');
+  _awRender();
+}
+function closeAW() {
+  const el = $('achieveWall'); if(el) el.classList.remove('open');
+}
+function filterAW(f, el) {
+  _awFilter = f;
+  document.querySelectorAll('.aw-ftab').forEach(x=>x.classList.remove('on'));
+  if(el) el.classList.add('on');
+  _awRender();
+}
+function _awRender() {
+  const grid = $('awGrid'); if(!grid) return;
+  const rarCol = {common:'#888',uncommon:'#00ff88',rare:'#4488ff',epic:'#aa66ff',legendary:'#ffcc00'};
+  const rarLabel = {common:'COMMON',uncommon:'UNCOMMON',rare:'RARE',epic:'EPIC',legendary:'LEGENDARY'};
+  const total = ALL_ACHIEVEMENTS.length;
+  const unlocked = _unlockedAch.size;
+  const pct = Math.round((unlocked/total)*100);
+  const prog = $('awProgress'); if(prog) prog.style.width = pct+'%';
+  const sub = $('awSubTitle'); if(sub) sub.textContent = unlocked+'/'+total+' upplåsta · '+pct+'%';
+  // Stats row
+  const stats = $('awStatsRow');
+  if(stats) {
+    const counts = {legendary:0,epic:0,rare:0,uncommon:0,common:0};
+    _unlockedAch.forEach(id=>{const a=ALL_ACHIEVEMENTS.find(x=>x.id===id);if(a)counts[a.rarity]=(counts[a.rarity]||0)+1;});
+    stats.innerHTML = [
+      {r:'legendary',ico:'👑',col:'#ffcc00'},
+      {r:'epic',ico:'💜',col:'#aa66ff'},
+      {r:'rare',ico:'🔵',col:'#4488ff'},
+      {r:'uncommon',ico:'🟢',col:'#00ff88'},
+      {r:'common',ico:'⚪',col:'#888'},
+    ].map(r=>`<div class="aw-stat" style="color:${r.col}">${r.ico} ${counts[r.r]||0}</div>`).join('');
+  }
+  // Filter achievements
+  let list = ALL_ACHIEVEMENTS;
+  if(_awFilter === 'unlocked') list = list.filter(a=>_unlockedAch.has(a.id));
+  else if(['legendary','epic','rare','uncommon','common'].includes(_awFilter)) list = list.filter(a=>a.rarity===_awFilter);
+  // Sort: unlocked first, then by rarity score
+  const rarScore = {legendary:5,epic:4,rare:3,uncommon:2,common:1};
+  list = [...list].sort((a,b)=>{
+    const uA = _unlockedAch.has(a.id)?1:0, uB = _unlockedAch.has(b.id)?1:0;
+    if(uA!==uB) return uB-uA;
+    return (rarScore[b.rarity]||0)-(rarScore[a.rarity]||0);
+  });
+  grid.innerHTML = list.map(a=>{
+    const isUnlocked = _unlockedAch.has(a.id);
+    const col = rarCol[a.rarity]||'#fff';
+    const lbl = rarLabel[a.rarity]||a.rarity.toUpperCase();
+    return `<div class="aw-card r-${a.rarity} ${isUnlocked?'unlocked':'locked'}">
+      <span class="aw-ico ${isUnlocked?'':'locked-ico'}">${a.ico}</span>
+      <div class="aw-name" style="color:${isUnlocked?col:'rgba(255,255,255,.3)'}">${isUnlocked?a.name:'???'}</div>
+      <div class="aw-desc">${isUnlocked?a.desc:'Låst badge'}</div>
+      <div class="aw-rar" style="color:${isUnlocked?col:'rgba(255,255,255,.15)'}">${lbl}</div>
+    </div>`;
+  }).join('');
+}
 
 </script>
 
