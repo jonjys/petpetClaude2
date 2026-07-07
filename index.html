@@ -2288,6 +2288,49 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .gwx-eff { font-size:8px;font-weight:700;opacity:.65;margin-left:2px; }
 .gwx-dot { width:5px;height:5px;border-radius:50%;background:var(--gwx-col,#ffcc00);animation:gwxDot 2s ease-in-out infinite; }
 @keyframes gwxDot { 0%,100%{opacity:.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.3)} }
+
+/* ══ DAILY CHALLENGE BOARD ══ */
+.dcb { position:fixed;inset:0;z-index:857;background:radial-gradient(ellipse at 50% 0%,rgba(22,6,50,.98),#000 65%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden; }
+.dcb.open { transform:translateY(0); }
+.dcb-hdr { padding:calc(var(--sat)+16px) 18px 14px;position:relative;z-index:2; }
+.dcb-title { font-family:var(--ff-head);font-size:22px;font-weight:900;background:linear-gradient(135deg,#ff8844,#ffcc00,#ff3377);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.dcb-subtitle { font-size:11px;color:rgba(255,255,255,.4);margin-top:3px; }
+.dcb-refresh { font-size:10px;font-weight:700;color:rgba(255,255,255,.3);margin-top:4px; }
+.dcb-overall { height:6px;background:rgba(255,255,255,.06);border-radius:3px;margin-top:10px;overflow:hidden; }
+.dcb-overall-fill { height:100%;border-radius:3px;background:linear-gradient(90deg,#ff8844,#ffcc00);transition:width .8s cubic-bezier(.34,1.56,.64,1); }
+.dcb-body { overflow-y:auto;height:100%;padding:0 16px calc(90px + var(--sab));scrollbar-width:none; }
+.dcb-body::-webkit-scrollbar { display:none; }
+.dcb-card { border-radius:22px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden;transition:all .2s; }
+.dcb-card.done { opacity:.7; }
+.dcb-card-bg { position:absolute;inset:0;opacity:.06;font-size:80px;display:flex;align-items:center;justify-content:flex-end;padding-right:16px;pointer-events:none; }
+.dcb-card-top { display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;position:relative;z-index:1; }
+.dcb-card-ico { font-size:28px;flex:0 0 36px;text-align:center; }
+.dcb-card-info { flex:1; }
+.dcb-card-title { font-family:var(--ff-head);font-size:14px;font-weight:900;line-height:1.3; }
+.dcb-card-desc { font-size:10px;color:rgba(255,255,255,.5);margin-top:3px;line-height:1.5; }
+.dcb-card-done-badge { background:var(--green);color:#000;font-size:9px;font-weight:900;padding:3px 8px;border-radius:8px;margin-top:5px;display:inline-block; }
+.dcb-prog-wrap { position:relative;z-index:1; }
+.dcb-prog-row { display:flex;justify-content:space-between;align-items:center;margin-bottom:5px; }
+.dcb-prog-txt { font-size:10px;font-weight:800; }
+.dcb-prog-pct { font-size:9px;color:rgba(255,255,255,.35); }
+.dcb-bar-bg { height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden; }
+.dcb-bar-fill { height:100%;border-radius:4px;transition:width .8s cubic-bezier(.34,1.56,.64,1); }
+.dcb-reward-row { display:flex;gap:8px;margin-top:10px;position:relative;z-index:1; }
+.dcb-rew { display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:10px;background:rgba(255,255,255,.05);font-size:10px;font-weight:700; }
+/* Type-specific gradients */
+.dcb-card.t-battle { background:linear-gradient(160deg,rgba(36,4,4,.92),rgba(16,2,2,.96));border:2px solid rgba(255,68,85,.3); }
+.dcb-card.t-flash { background:linear-gradient(160deg,rgba(4,12,36,.92),rgba(2,6,18,.96));border:2px solid rgba(68,136,255,.3); }
+.dcb-card.t-tap { background:linear-gradient(160deg,rgba(4,30,14,.92),rgba(2,14,6,.96));border:2px solid rgba(0,255,136,.3); }
+.dcb-card.t-feed { background:linear-gradient(160deg,rgba(30,12,0,.92),rgba(14,6,0,.96));border:2px solid rgba(255,136,68,.3); }
+.dcb-card.t-memory { background:linear-gradient(160deg,rgba(20,6,40,.92),rgba(10,2,20,.96));border:2px solid rgba(170,102,255,.3); }
+.dcb-card.t-earn { background:linear-gradient(160deg,rgba(30,24,0,.92),rgba(14,12,0,.96));border:2px solid rgba(255,204,0,.3); }
+.dcb-card.t-fish { background:linear-gradient(160deg,rgba(0,14,30,.92),rgba(0,6,16,.96));border:2px solid rgba(0,220,204,.3); }
+.dcb-card.t-uppdrag { background:linear-gradient(160deg,rgba(20,2,30,.92),rgba(10,1,16,.96));border:2px solid rgba(255,51,119,.3); }
+/* All challenges done banner */
+.dcb-allclear { text-align:center;padding:30px 20px;border-radius:22px;background:linear-gradient(160deg,rgba(0,32,14,.92),rgba(0,12,6,.96));border:2px solid rgba(0,255,136,.3);margin-top:20px; }
+.dcb-allclear-ico { font-size:48px;margin-bottom:10px; }
+.dcb-allclear-title { font-family:var(--ff-head);font-size:20px;font-weight:900;color:var(--green);margin-bottom:6px; }
+.dcb-allclear-sub { font-size:12px;color:rgba(255,255,255,.5); }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -3147,6 +3190,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDFC()" style="background:linear-gradient(135deg,rgba(60,20,0,.55),rgba(30,10,60,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">🔮</div><span style="background:linear-gradient(135deg,#ffcc00,#ff8844,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">DAGLIG FÖRMÖGENHET</span></div>
           <div class="ddr" onclick="cM();openKJ()" style="background:linear-gradient(135deg,rgba(60,16,0,.5),rgba(20,40,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">📖</div><span style="background:linear-gradient(135deg,#ff3377,#ffcc00,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">KARMA JOURNAL</span></div>
           <div class="ddr" onclick="cM();openSSD()" style="background:linear-gradient(135deg,rgba(0,32,16,.55),rgba(0,10,30,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,255,136,.7))">📊</div><span style="background:linear-gradient(135deg,#00ff88,#4488ff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">DAGENS STATS</span></div>
+          <div class="ddr" onclick="cM();openDCB()" style="background:linear-gradient(135deg,rgba(40,10,0,.55),rgba(20,6,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,136,68,.7))">🎯</div><span style="background:linear-gradient(135deg,#ff8844,#ffcc00,#ff3377);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">UTMANINGAR</span></div>
           <div class="ddr" onclick="cM();toggleRadio()"><div class="ddr-i">🎵</div>Karma Radio</div>
         </div>
       </div>
@@ -4462,6 +4506,24 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="bond-splash-tier" id="bondSplashTier">VÄN</div>
     <div class="bond-splash-perk" id="bondSplashPerk">Ny förmåga upplåst!</div>
     <button class="bond-splash-btn" onclick="closeBondSplash()">💖 HÄFTIGT!</button>
+  </div>
+</div>
+
+<!-- DAILY CHALLENGE BOARD -->
+<div class="dcb" id="dcbPanel">
+  <div class="dcb-hdr">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer" onclick="closeDCB()">←</button>
+      <div>
+        <div class="dcb-title">DAGLIGA UTMANINGAR</div>
+        <div class="dcb-subtitle" id="dcbSubtitle">0/3 klara</div>
+      </div>
+    </div>
+    <div class="dcb-overall"><div class="dcb-overall-fill" id="dcbOverallFill" style="width:0%"></div></div>
+    <div class="dcb-refresh" id="dcbRefresh"></div>
+  </div>
+  <div class="dcb-body" id="dcbBody">
+    <!-- Challenges rendered by JS -->
   </div>
 </div>
 
@@ -11252,6 +11314,130 @@ function gwxKCMul()  { return getGlobalWeather().kcMul||1; }
 function gwxFishMul(){ return getGlobalWeather().fishMul||1; }
 // Startup
 setTimeout(()=>{ _gwxRender(false); _gwxSchedule(); }, 800);
+
+// ═══════════════════════════════════════════════
+// DAILY CHALLENGE BOARD (multi-challenge)
+// ═══════════════════════════════════════════════
+const DCB_POOL = [
+  {id:'dcb_battle3',  ico:'⚔️',  title:'Battle Champion',     desc:'Vinn 3 strider idag!',           type:'battle',  max:3,   xp:500, coins:200, kc:5,  col:'var(--red)'},
+  {id:'dcb_flash3',   ico:'🔥',  title:'Flash Addict',         desc:'Posta 3 Flash-videos idag!',     type:'flash',   max:3,   xp:400, coins:150, kc:4,  col:'var(--blue)'},
+  {id:'dcb_tap100',   ico:'✋',  title:'Super Tapper',         desc:'Klappa din pet 100 gånger!',     type:'tap',     max:100, xp:300, coins:100, kc:3,  col:'var(--green)'},
+  {id:'dcb_feed5',    ico:'🍖',  title:'Care Master',          desc:'Mata/träna/sov 5 gånger!',       type:'feed',    max:5,   xp:350, coins:120, kc:3,  col:'var(--orange)'},
+  {id:'dcb_memory3',  ico:'🧠',  title:'Memory King',          desc:'Klara Memory Match 3 gånger!',   type:'memory',  max:3,   xp:450, coins:180, kc:5,  col:'var(--purple)'},
+  {id:'dcb_earn500',  ico:'💰',  title:'Coin Grinder',         desc:'Samla 500 coins idag!',          type:'earn',    max:500, xp:400, coins:200, kc:4,  col:'var(--gold)'},
+  {id:'dcb_fish5',    ico:'🎣',  title:'Fiskemästare',         desc:'Fånga 5 fiskar idag!',            type:'fish',    max:5,   xp:300, coins:120, kc:5,  col:'var(--teal)'},
+  {id:'dcb_uppdrag3', ico:'📋',  title:'Uppdragsjägare',       desc:'Slutför 3 uppdrag idag!',        type:'uppdrag', max:3,   xp:450, coins:160, kc:6,  col:'#ff3377'},
+  {id:'dcb_battle5',  ico:'🗡️',  title:'Oövervinnerlig',       desc:'Vinn 5 strider idag!',           type:'battle',  max:5,   xp:700, coins:300, kc:8,  col:'var(--red)'},
+  {id:'dcb_tap200',   ico:'👆',  title:'Klapp-Maskin',         desc:'Klappa din pet 200 gånger!',     type:'tap',     max:200, xp:500, coins:200, kc:5,  col:'var(--green)'},
+  {id:'dcb_earn1000', ico:'🤑',  title:'Miljonär',             desc:'Samla 1000 coins idag!',         type:'earn',    max:1000,xp:600, coins:400, kc:8,  col:'var(--gold)'},
+  {id:'dcb_fish10',   ico:'🦈',  title:'Haj-Jägare',           desc:'Fånga 10 fiskar idag!',           type:'fish',    max:10,  xp:500, coins:200, kc:8,  col:'var(--teal)'},
+];
+const _dcbSaveKey = () => 'k0509_dcb_'+getTodayKey();
+function _dcbLoad() {
+  const raw=localStorage.getItem(_dcbSaveKey());
+  if(raw) { try { return JSON.parse(raw); } catch(e){} }
+  // Pick 3 diverse challenges for today (no duplicate types if possible)
+  const shuffled=[...DCB_POOL].sort(()=>Math.random()-.5);
+  const usedTypes=new Set(); const picks=[];
+  for(const c of shuffled) { if(!usedTypes.has(c.type)&&picks.length<3){picks.push({id:c.id,progress:0,done:false});usedTypes.add(c.type);} }
+  while(picks.length<3){const c=shuffled[picks.length];picks.push({id:c.id,progress:0,done:false});}
+  const d={date:getTodayKey(),challenges:picks};
+  localStorage.setItem(_dcbSaveKey(),JSON.stringify(d)); return d;
+}
+function _dcbSave(d) { try{localStorage.setItem(_dcbSaveKey(),JSON.stringify(d));}catch(e){} }
+function openDCB() {
+  const p=$('dcbPanel'); if(!p) return;
+  p.classList.add('open'); renderDCB();
+}
+function closeDCB() { const p=$('dcbPanel'); if(p) p.classList.remove('open'); }
+function renderDCB() {
+  const data=_dcbLoad();
+  const body=$('dcbBody'); if(!body) return;
+  const chs=data.challenges;
+  const done=chs.filter(c=>c.done).length;
+  const sub=$('dcbSubtitle'); if(sub) sub.textContent=done+'/'+chs.length+' klara';
+  const of=$('dcbOverallFill'); if(of) setTimeout(()=>{of.style.width=Math.round((done/chs.length)*100)+'%';},80);
+  // Refresh countdown
+  const rf=$('dcbRefresh');
+  if(rf) {
+    const now=new Date(); const midnight=new Date(now);
+    midnight.setHours(24,0,0,0);
+    const h=Math.floor((midnight-now)/3600000), m=Math.floor(((midnight-now)%3600000)/60000);
+    rf.textContent='Återställs om '+h+'h '+m+'m';
+  }
+  // Render challenge cards
+  if(done===chs.length) {
+    body.innerHTML='<div class="dcb-allclear"><div class="dcb-allclear-ico">🏆</div><div class="dcb-allclear-title">ALLA UTMANINGAR KLARA!</div><div class="dcb-allclear-sub">Kom tillbaka imorgon för nya utmaningar!</div></div>'+
+      chs.map(cs=>_dcbCardHTML(cs,data)).join('');
+    return;
+  }
+  body.innerHTML=chs.map(cs=>_dcbCardHTML(cs,data)).join('');
+  // Animate bars
+  setTimeout(()=>{
+    chs.forEach((cs,i)=>{
+      const c=DCB_POOL.find(x=>x.id===cs.id); if(!c) return;
+      const fill=body.querySelector('[data-bar-id="bar'+i+'"]');
+      if(fill) { const pct=Math.min(100,Math.round((cs.progress/c.max)*100)); fill.style.width=pct+'%'; }
+    });
+  },120);
+}
+function _dcbCardHTML(cs, data) {
+  const c=DCB_POOL.find(x=>x.id===cs.id); if(!c) return '';
+  const i=data.challenges.indexOf(cs);
+  const pct=Math.min(100,Math.round((cs.progress/c.max)*100));
+  const typeClass='t-'+c.type;
+  return '<div class="dcb-card '+typeClass+(cs.done?' done':'')+'" id="dcbCard'+i+'">'+
+    '<div class="dcb-card-bg">'+c.ico+'</div>'+
+    '<div class="dcb-card-top">'+
+      '<span class="dcb-card-ico">'+c.ico+'</span>'+
+      '<div class="dcb-card-info">'+
+        '<div class="dcb-card-title" style="color:'+c.col+'">'+c.title+'</div>'+
+        '<div class="dcb-card-desc">'+c.desc+'</div>'+
+        (cs.done?'<span class="dcb-card-done-badge">✅ KLAR!</span>':'')+
+      '</div>'+
+    '</div>'+
+    '<div class="dcb-prog-wrap">'+
+      '<div class="dcb-prog-row"><span class="dcb-prog-txt" style="color:'+c.col+'">'+cs.progress+' / '+c.max+'</span><span class="dcb-prog-pct">'+pct+'%</span></div>'+
+      '<div class="dcb-bar-bg"><div class="dcb-bar-fill" data-bar-id="bar'+i+'" style="width:0%;background:'+c.col+'"></div></div>'+
+    '</div>'+
+    '<div class="dcb-reward-row">'+
+      '<div class="dcb-rew">⚡ +'+c.xp+'XP</div>'+
+      '<div class="dcb-rew">🪙 +'+c.coins+'</div>'+
+      '<div class="dcb-rew">💠 +'+c.kc+'KC</div>'+
+    '</div>'+
+  '</div>';
+}
+function progressDCB(type, amount=1) {
+  const data=_dcbLoad();
+  let changed=false;
+  data.challenges.forEach((cs,i)=>{
+    if(cs.done) return;
+    const c=DCB_POOL.find(x=>x.id===cs.id); if(!c||c.type!==type) return;
+    cs.progress=Math.min(c.max,(cs.progress||0)+amount);
+    if(cs.progress>=c.max&&!cs.done) {
+      cs.done=true;
+      gainXP(c.xp,'action'); gainCoins(c.coins); gainKC(c.kc);
+      confetti(60); vibe([50,20,80,20,50]); SFX.lvl&&SFX.lvl();
+      showT('🏆 UTMANING KLAR! '+c.title,'g');
+      kjLog('quest','UTMANING KLAR: '+c.title,'+'+c.xp+'XP +'+c.coins+' coins +'+c.kc+'KC',c.ico);
+      ssdLog(c.ico,'Utmaning: '+c.title,'KLAR!',c.col);
+    }
+    changed=true;
+  });
+  if(changed) { _dcbSave(data); if($('dcbPanel')&&$('dcbPanel').classList.contains('open')) renderDCB(); }
+}
+// Extend existing progressChallenge to also update DCB
+const _origPC=progressChallenge;
+window.progressChallenge=function(type,amount=1){
+  _origPC(type,amount);
+  progressDCB(type,amount);
+};
+// Also hook progressMission to track fish/uppdrag
+const _origPM=progressMission;
+window.progressMission=function(type,amount=1){
+  _origPM(type,amount);
+  if(type==='fish'||type==='uppdrag') progressDCB(type,amount);
+};
 
 </script>
 
