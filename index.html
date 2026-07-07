@@ -1352,6 +1352,21 @@ textarea.inp { resize:none;min-height:72px; }
 .kj-portal .kj-card { background:linear-gradient(160deg,rgba(38,4,18,.9),rgba(16,2,8,.95));border:1px solid rgba(255,51,119,.22); }
 
 
+
+/* ══ AMBIENT SOUNDSCAPE ══ */
+.amb-fab { position:fixed;bottom:calc(var(--sab)+90px);right:14px;z-index:800;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.6);border:1.5px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s; }
+.amb-fab.active { border-color:var(--teal);box-shadow:0 0 12px rgba(0,221,204,.4);background:rgba(0,221,204,.1); }
+.amb-panel { position:fixed;bottom:calc(var(--sab)+140px);right:14px;z-index:801;width:220px;background:rgba(8,4,20,.95);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:14px;backdrop-filter:blur(16px);box-shadow:0 16px 40px rgba(0,0,0,.8);opacity:0;pointer-events:none;transform:scale(.9) translateY(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1); }
+.amb-panel.open { opacity:1;pointer-events:all;transform:scale(1) translateY(0); }
+.amb-panel-title { font:800 10px/1 var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:.1em;margin-bottom:10px; }
+.amb-mode-row { display:flex;flex-direction:column;gap:6px;margin-bottom:10px; }
+.amb-mode-btn { display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.08);cursor:pointer;transition:all .18s;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.amb-mode-btn.active { border-color:var(--teal);background:rgba(0,221,204,.08);color:var(--teal); }
+.amb-mode-ico { font-size:16px;line-height:1; }
+.amb-vol-row { display:flex;align-items:center;gap:8px;font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.4); }
+.amb-vol-slider { flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:rgba(255,255,255,.1);outline:none;cursor:pointer; }
+.amb-vol-slider::-webkit-slider-thumb { -webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--teal);cursor:pointer; }
+
 /* ══ WORD BLITZ GAME ══ */
 .wb-panel { padding:8px 12px 80px;display:flex;flex-direction:column;gap:10px; }
 .wb-hud { display:grid;grid-template-columns:repeat(4,1fr);gap:6px; }
@@ -2035,6 +2050,21 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ AMBIENT SOUNDSCAPE ══ */
+.amb-fab { position:fixed;bottom:calc(var(--sab)+90px);right:14px;z-index:800;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.6);border:1.5px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s; }
+.amb-fab.active { border-color:var(--teal);box-shadow:0 0 12px rgba(0,221,204,.4);background:rgba(0,221,204,.1); }
+.amb-panel { position:fixed;bottom:calc(var(--sab)+140px);right:14px;z-index:801;width:220px;background:rgba(8,4,20,.95);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:14px;backdrop-filter:blur(16px);box-shadow:0 16px 40px rgba(0,0,0,.8);opacity:0;pointer-events:none;transform:scale(.9) translateY(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1); }
+.amb-panel.open { opacity:1;pointer-events:all;transform:scale(1) translateY(0); }
+.amb-panel-title { font:800 10px/1 var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:.1em;margin-bottom:10px; }
+.amb-mode-row { display:flex;flex-direction:column;gap:6px;margin-bottom:10px; }
+.amb-mode-btn { display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.08);cursor:pointer;transition:all .18s;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.amb-mode-btn.active { border-color:var(--teal);background:rgba(0,221,204,.08);color:var(--teal); }
+.amb-mode-ico { font-size:16px;line-height:1; }
+.amb-vol-row { display:flex;align-items:center;gap:8px;font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.4); }
+.amb-vol-slider { flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:rgba(255,255,255,.1);outline:none;cursor:pointer; }
+.amb-vol-slider::-webkit-slider-thumb { -webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--teal);cursor:pointer; }
+
 /* ══ WORD BLITZ GAME ══ */
 .wb-panel { padding:8px 12px 80px;display:flex;flex-direction:column;gap:10px; }
 .wb-hud { display:grid;grid-template-columns:repeat(4,1fr);gap:6px; }
@@ -2698,6 +2728,21 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ AMBIENT SOUNDSCAPE ══ */
+.amb-fab { position:fixed;bottom:calc(var(--sab)+90px);right:14px;z-index:800;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.6);border:1.5px solid rgba(255,255,255,.15);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s; }
+.amb-fab.active { border-color:var(--teal);box-shadow:0 0 12px rgba(0,221,204,.4);background:rgba(0,221,204,.1); }
+.amb-panel { position:fixed;bottom:calc(var(--sab)+140px);right:14px;z-index:801;width:220px;background:rgba(8,4,20,.95);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:14px;backdrop-filter:blur(16px);box-shadow:0 16px 40px rgba(0,0,0,.8);opacity:0;pointer-events:none;transform:scale(.9) translateY(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1); }
+.amb-panel.open { opacity:1;pointer-events:all;transform:scale(1) translateY(0); }
+.amb-panel-title { font:800 10px/1 var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:.1em;margin-bottom:10px; }
+.amb-mode-row { display:flex;flex-direction:column;gap:6px;margin-bottom:10px; }
+.amb-mode-btn { display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.08);cursor:pointer;transition:all .18s;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.amb-mode-btn.active { border-color:var(--teal);background:rgba(0,221,204,.08);color:var(--teal); }
+.amb-mode-ico { font-size:16px;line-height:1; }
+.amb-vol-row { display:flex;align-items:center;gap:8px;font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.4); }
+.amb-vol-slider { flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:rgba(255,255,255,.1);outline:none;cursor:pointer; }
+.amb-vol-slider::-webkit-slider-thumb { -webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--teal);cursor:pointer; }
 
 /* ══ WORD BLITZ GAME ══ */
 .wb-panel { padding:8px 12px 80px;display:flex;flex-direction:column;gap:10px; }
@@ -5541,6 +5586,20 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <button class="fortune-btn" style="background:linear-gradient(135deg,var(--purple),var(--pink))" onclick="claimFortune()">✦ ACCEPTERA</button>
     <button class="fortune-btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)" onclick="closeFortune()">Stäng</button>
   </div>
+</div>
+
+<!-- AMBIENT SOUNDSCAPE FAB -->
+<div class="amb-fab" id="ambFab" onclick="toggleAmbPanel()">🔇</div>
+<div class="amb-panel" id="ambPanel">
+  <div class="amb-panel-title">🎵 AMBIENT LJUD</div>
+  <div class="amb-mode-row">
+    <div class="amb-mode-btn" id="ambBtn-off" onclick="setAmbMode('off')"><span class="amb-mode-ico">🔇</span> Av</div>
+    <div class="amb-mode-btn" id="ambBtn-ocean" onclick="setAmbMode('ocean')"><span class="amb-mode-ico">🌊</span> Hav</div>
+    <div class="amb-mode-btn" id="ambBtn-forest" onclick="setAmbMode('forest')"><span class="amb-mode-ico">🌿</span> Skog</div>
+    <div class="amb-mode-btn" id="ambBtn-space" onclick="setAmbMode('space')"><span class="amb-mode-ico">🌌</span> Rymden</div>
+    <div class="amb-mode-btn" id="ambBtn-rain" onclick="setAmbMode('rain')"><span class="amb-mode-ico">🌧️</span> Regn</div>
+  </div>
+  <div class="amb-vol-row">🔉 <input type="range" class="amb-vol-slider" id="ambVol" min="0" max="100" value="40" oninput="setAmbVol(this.value)"> 🔊</div>
 </div>
 
 <!-- ROUND 100 MEGA MILESTONE -->
@@ -14723,6 +14782,120 @@ function _wbSetDiff(d,el){
   _wb.difficulty=d;
   document.querySelectorAll('.wb-diff-chip').forEach(c=>c.classList.remove('sel'));
   if(el) el.classList.add('sel');
+}
+
+
+
+// AMBIENT SOUNDSCAPE
+let _ambCtx=null,_ambMode='off',_ambVol=0.4;
+let _ambNodes=[];
+
+function _ambAC(){
+  if(!_ambCtx) try{_ambCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}
+  return _ambCtx;
+}
+
+function toggleAmbPanel(){
+  const p=$('ambPanel'); if(!p) return;
+  p.classList.toggle('open');
+  if(p.classList.contains('open')) setTimeout(()=>document.addEventListener('click',e=>{if(!p.contains(e.target)&&e.target.id!=='ambFab')p.classList.remove('open');},{once:true}),100);
+}
+
+function setAmbMode(mode){
+  _ambMode=mode;
+  _stopAmb();
+  document.querySelectorAll('.amb-mode-btn').forEach(b=>b.classList.remove('active'));
+  const btn=$('ambBtn-'+mode); if(btn) btn.classList.add('active');
+  const fab=$('ambFab');
+  if(mode==='off'){ if(fab){fab.textContent='🔇';fab.classList.remove('active');} return; }
+  if(fab){
+    fab.textContent={ocean:'🌊',forest:'🌿',space:'🌌',rain:'🌧️'}[mode]||'🎵';
+    fab.classList.add('active');
+  }
+  if(mode==='ocean') _ambOcean();
+  else if(mode==='forest') _ambForest();
+  else if(mode==='space') _ambSpace();
+  else if(mode==='rain') _ambRain();
+}
+
+function setAmbVol(v){ _ambVol=v/100; _ambNodes.forEach(n=>{ try{if(n.gain)n.gain.value=_ambVol*n._baseVol;}catch(e){} }); }
+
+function _stopAmb(){
+  _ambNodes.forEach(n=>{ try{n.stop&&n.stop();n.disconnect&&n.disconnect();}catch(e){} });
+  _ambNodes=[];
+}
+
+function _ambOcean(){
+  const ac=_ambAC(); if(!ac) return;
+  // white noise for waves
+  const buf=ac.createBuffer(1,ac.sampleRate*4,ac.sampleRate);
+  const ch=buf.getChannelData(0);
+  for(let i=0;i<ch.length;i++) ch[i]=Math.random()*2-1;
+  const src=ac.createBufferSource(); src.buffer=buf; src.loop=true;
+  const filt=ac.createBiquadFilter(); filt.type='lowpass'; filt.frequency.value=400;
+  const g=ac.createGain(); g.gain.value=_ambVol*0.4; g._baseVol=0.4;
+  src.connect(filt); filt.connect(g); g.connect(ac.destination);
+  src.start();
+  // LFO for wave rhythm
+  const lfo=ac.createOscillator(); lfo.frequency.value=0.15;
+  const lfoG=ac.createGain(); lfoG.gain.value=0.2;
+  lfo.connect(lfoG); lfoG.connect(g.gain);
+  lfo.start();
+  _ambNodes=[src,lfo];
+}
+
+function _ambForest(){
+  const ac=_ambAC(); if(!ac) return;
+  // high-pass filtered noise = wind/leaves
+  const buf=ac.createBuffer(1,ac.sampleRate*3,ac.sampleRate);
+  const ch=buf.getChannelData(0);
+  for(let i=0;i<ch.length;i++) ch[i]=Math.random()*2-1;
+  const src=ac.createBufferSource(); src.buffer=buf; src.loop=true;
+  const filt=ac.createBiquadFilter(); filt.type='bandpass'; filt.frequency.value=2000; filt.Q.value=0.8;
+  const g=ac.createGain(); g.gain.value=_ambVol*0.25; g._baseVol=0.25;
+  src.connect(filt); filt.connect(g); g.connect(ac.destination);
+  src.start();
+  // chirp osc
+  function chirp(t){
+    const o=ac.createOscillator(),og=ac.createGain(),now=ac.currentTime+t;
+    o.type='sine'; o.frequency.setValueAtTime(2400+Math.random()*800,now);
+    o.frequency.exponentialRampToValueAtTime(1800+Math.random()*600,now+.15);
+    og.gain.setValueAtTime(0,now); og.gain.linearRampToValueAtTime(_ambVol*0.15,now+.03);
+    og.gain.exponentialRampToValueAtTime(.001,now+.18);
+    o.connect(og); og.connect(ac.destination); o.start(now); o.stop(now+.2);
+  }
+  [0,.8,1.6,2.4,3.5,4.2,5.1].forEach(t=>chirp(t));
+  _ambNodes=[src];
+}
+
+function _ambSpace(){
+  const ac=_ambAC(); if(!ac) return;
+  const osc=ac.createOscillator(); osc.type='sine'; osc.frequency.value=80;
+  const osc2=ac.createOscillator(); osc2.type='triangle'; osc2.frequency.value=120;
+  const g=ac.createGain(); g.gain.value=_ambVol*0.15; g._baseVol=0.15;
+  const g2=ac.createGain(); g2.gain.value=_ambVol*0.1; g2._baseVol=0.1;
+  // slow LFO
+  const lfo=ac.createOscillator(); lfo.frequency.value=0.05;
+  const lfoG=ac.createGain(); lfoG.gain.value=40;
+  lfo.connect(lfoG); lfoG.connect(osc.frequency);
+  osc.connect(g); g.connect(ac.destination);
+  osc2.connect(g2); g2.connect(ac.destination);
+  osc.start(); osc2.start(); lfo.start();
+  _ambNodes=[osc,osc2,lfo];
+}
+
+function _ambRain(){
+  const ac=_ambAC(); if(!ac) return;
+  const buf=ac.createBuffer(1,ac.sampleRate*2,ac.sampleRate);
+  const ch=buf.getChannelData(0);
+  for(let i=0;i<ch.length;i++) ch[i]=Math.random()*2-1;
+  const src=ac.createBufferSource(); src.buffer=buf; src.loop=true;
+  const filt=ac.createBiquadFilter(); filt.type='highpass'; filt.frequency.value=600;
+  const filt2=ac.createBiquadFilter(); filt2.type='lowpass'; filt2.frequency.value=3000;
+  const g=ac.createGain(); g.gain.value=_ambVol*0.35; g._baseVol=0.35;
+  src.connect(filt); filt.connect(filt2); filt2.connect(g); g.connect(ac.destination);
+  src.start();
+  _ambNodes=[src];
 }
 
 
