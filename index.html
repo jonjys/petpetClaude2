@@ -2481,6 +2481,27 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .morning-bonus-chip { background:rgba(0,255,136,.12);border:1px solid rgba(0,255,136,.3);border-radius:10px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--green);text-align:center;margin-bottom:12px; }
 
 
+
+/* ══ BOSS FISH ENCOUNTER ══ */
+.boss-overlay { position:fixed;inset:0;z-index:862;background:radial-gradient(ellipse at 50% 60%,rgba(0,20,60,.97),#000 90%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .45s; }
+.boss-overlay.show { opacity:1;pointer-events:all; }
+.boss-warning { font:900 13px/1 var(--ff-head);color:var(--red);letter-spacing:.25em;text-align:center;margin-bottom:4px;text-shadow:0 0 20px rgba(255,68,85,.8);animation:bossWarn .6s ease-in-out infinite alternate; }
+@keyframes bossWarn { from{opacity:.6;letter-spacing:.2em} to{opacity:1;letter-spacing:.32em} }
+.boss-name { font:900 26px/1 var(--ff-head);text-align:center;margin:8px 0; }
+.boss-ico { font-size:80px;line-height:1;text-align:center;filter:drop-shadow(0 0 30px rgba(255,68,85,.6));margin:10px 0;animation:bossBob 1.4s ease-in-out infinite alternate; }
+@keyframes bossBob { from{transform:translateY(-8px) scale(1)} to{transform:translateY(8px) scale(1.06)} }
+.boss-hp-bar-bg { width:100%;max-width:320px;height:18px;background:rgba(255,255,255,.1);border-radius:9px;border:1.5px solid rgba(255,68,85,.4);overflow:hidden;margin:6px 0; }
+.boss-hp-bar-fill { height:100%;background:linear-gradient(90deg,var(--red),#ff8844);border-radius:9px;transition:width .35s; }
+.boss-hp-txt { font:800 12px/1 var(--ff-body);color:var(--red);text-align:center;margin-bottom:8px; }
+.boss-desc { font:500 11px/1.5 var(--ff-body);color:rgba(255,255,255,.55);text-align:center;max-width:280px;margin-bottom:14px; }
+.boss-cast-btn { padding:14px 40px;background:linear-gradient(135deg,var(--blue),var(--purple));border:none;border-radius:14px;font:800 15px/1 var(--ff-head);color:#fff;cursor:pointer;letter-spacing:.08em;transition:all .15s;box-shadow:0 0 20px rgba(68,136,255,.4); }
+.boss-cast-btn:active { transform:scale(.96); }
+.boss-cast-btn:disabled { opacity:.4;pointer-events:none; }
+.boss-cast-status { font:600 11px/1.4 var(--ff-body);color:rgba(255,255,255,.5);text-align:center;min-height:30px;margin-top:6px; }
+.boss-hit-flash { font:900 32px/1 var(--ff-head);color:var(--red);text-align:center;animation:bossHit .4s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes bossHit { 0%{transform:scale(1.8);opacity:0} 100%{transform:scale(1);opacity:1} }
+.boss-reward { font:800 14px/1.6 var(--ff-body);color:var(--gold);text-align:center;margin-top:8px; }
+
 /* ══ PET SKILL TREE ══ */
 .skill-panel { position:fixed;inset:0;z-index:861;background:radial-gradient(ellipse at 50% 0%,rgba(10,4,36,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .skill-panel.open { transform:translateY(0); }
@@ -4843,6 +4864,18 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="bond-splash-perk" id="bondSplashPerk">Ny förmåga upplåst!</div>
     <button class="bond-splash-btn" onclick="closeBondSplash()">💖 HÄFTIGT!</button>
   </div>
+</div>
+
+<!-- BOSS FISH ENCOUNTER -->
+<div class="boss-overlay" id="bossOverlay">
+  <div class="boss-warning">⚠ BOSS ENCOUNTER ⚠</div>
+  <div class="boss-name" id="bossName">???</div>
+  <div class="boss-ico" id="bossIco">🐉</div>
+  <div class="boss-hp-bar-bg"><div class="boss-hp-bar-fill" id="bossHpBar" style="width:100%"></div></div>
+  <div class="boss-hp-txt">HP: <span id="bossHpTxt">0</span> / <span id="bossHpMax">0</span></div>
+  <div class="boss-desc" id="bossDesc">En mäktig fisk lurar i djupet!</div>
+  <button class="boss-cast-btn" id="bossCastBtn" onclick="bossCast()">🎣 KASTA</button>
+  <div class="boss-cast-status" id="bossCastStatus"></div>
 </div>
 
 <!-- SKILL TREE -->
@@ -12738,6 +12771,100 @@ setInterval(()=>{
 
 // skill effect helpers
 function hasSkill(id){ return (G.activeSkills||[]).includes(id); }
+
+
+
+// BOSS FISH ENCOUNTER
+const BOSS_FISH = [
+  {ico:'🐳',name:'LEVIATAN',hp:6,dmgMin:1,dmgMax:2,xp:800,coins:300,kc:15,desc:'En uråldrig val som aldrig förlorat en kamp.'},
+  {ico:'🦈',name:'MEGALODON',hp:5,dmgMin:1,dmgMax:2,xp:600,coins:250,kc:12,desc:'Tidens farligaste rovfisk dyker upp!'},
+  {ico:'🐙',name:'KRAKEN',hp:8,dmgMin:1,dmgMax:3,xp:1000,coins:400,kc:20,desc:'Åtta armar, oändlig hunger.'},
+  {ico:'🐟',name:'ELDTORPEDEN',hp:4,dmgMin:2,dmgMax:3,xp:500,coins:200,kc:10,desc:'En lysande fisk som flyger genom vattnet.'},
+  {ico:'🐡',name:'KUGUFUGU REX',hp:5,dmgMin:1,dmgMax:2,xp:550,coins:220,kc:11,desc:'Gigantisk blåsfisk med dödlig gift.'},
+];
+let _bossActive=null;
+let _bossHp=0;
+let _bossCooldown=false;
+
+function _maybeSpawnBoss() {
+  if(_bossActive) return;
+  const chance = hasSkill&&hasSkill('fish_sense') ? 0.06 : 0.04;
+  if(Math.random()>chance) return;
+  const b=BOSS_FISH[Math.floor(Math.random()*BOSS_FISH.length)];
+  _bossActive=b;
+  _bossHp=b.hp;
+  const ov=$('bossOverlay');
+  if(!ov) return;
+  $('bossName').textContent=b.name;
+  $('bossIco').textContent=b.ico;
+  $('bossHpTxt').textContent=_bossHp;
+  $('bossHpMax').textContent=b.hp;
+  $('bossDesc').textContent=b.desc;
+  $('bossHpBar').style.width='100%';
+  $('bossCastStatus').textContent='';
+  const btn=$('bossCastBtn');
+  if(btn){btn.disabled=false;btn.textContent='🎣 KASTA';}
+  ov.classList.add('show');
+  SFX.err&&SFX.err();
+  showFloatBubble&&showFloatBubble('⚠ BOSS!','warn');
+  vibe&&vibe([60,40,60,40,60]);
+}
+
+function bossCast() {
+  if(!_bossActive||_bossCooldown) return;
+  _bossCooldown=true;
+  const btn=$('bossCastBtn');
+  if(btn){btn.disabled=true;btn.textContent='...';}
+  const st=$('bossCastStatus');
+  if(st) st.innerHTML='<div class="boss-hit-flash">🎣</div>';
+  setTimeout(()=>{
+    const dmg=_bossActive.dmgMin+Math.floor(Math.random()*(_bossActive.dmgMax-_bossActive.dmgMin+1));
+    _bossHp=Math.max(0,_bossHp-dmg);
+    const pct=Math.round(_bossHp/_bossActive.hp*100);
+    const hpBar=$('bossHpBar'); if(hpBar) hpBar.style.width=pct+'%';
+    const hpTxt=$('bossHpTxt'); if(hpTxt) hpTxt.textContent=_bossHp;
+    if(st) st.innerHTML=`<div class="boss-hit-flash" style="color:var(--gold)">-${dmg} HP!</div>`;
+    if(_bossHp<=0){
+      _bossDefeated();
+    } else {
+      _bossCooldown=false;
+      if(btn){btn.disabled=false;btn.textContent='🎣 KASTA IGEN';}
+    }
+  },900);
+}
+
+function _bossDefeated() {
+  const b=_bossActive;
+  const btn=$('bossCastBtn');
+  if(btn){btn.disabled=true;btn.textContent='🏆 BESEGRAD!';}
+  const xpGain=b.xp*(hasSkill&&hasSkill('battle_aura')?1.2:1)|0;
+  const coinGain=b.coins*(hasSkill&&hasSkill('wealth_aura')?1.3:1)|0;
+  gainXP(xpGain,'action');
+  gainCoins(coinGain);
+  gainKC(b.kc);
+  gainMat&&gainMat('coral',3);
+  gainMat&&gainMat('crystl',2);
+  const st=$('bossCastStatus');
+  if(st) st.innerHTML=`<div class="boss-reward">🏆 BOSS BESEGRAD!<br>+${xpGain} XP • +${coinGain} 💰 • +${b.kc} KC<br>+3 🪸 +2 ⚡</div>`;
+  progressDCB&&progressDCB('fish',1);
+  ssdTrackXP&&ssdTrackXP(xpGain);
+  ssdLog&&ssdLog('🏆',b.name,'BOSS DEFEATED','#ff4455');
+  showFloatBubble&&showFloatBubble('🏆 BOSS BESEGRAD!','good');
+  vibe&&vibe([100,50,100,50,200]);
+  setTimeout(()=>{
+    const ov=$('bossOverlay');
+    if(ov) ov.classList.remove('show');
+    _bossActive=null;
+    _bossCooldown=false;
+  }, 3000);
+}
+
+// Hook into completeFishCatch to maybe spawn boss
+const _origCFC6=completeFishCatch;
+completeFishCatch=function(caught,quality){
+  _origCFC6(caught,quality);
+  setTimeout(_maybeSpawnBoss,400);
+};
 
 
 </script>
