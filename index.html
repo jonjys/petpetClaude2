@@ -1359,6 +1359,35 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ RELATIONSHIP NETWORK ══ */
+.rnet-panel { position:fixed;inset:0;z-index:872;background:radial-gradient(ellipse at 50% 0%,rgba(0,15,30,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.rnet-panel.open { transform:translateY(0); }
+.rnet-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(0,221,204,.15); }
+.rnet-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--teal),var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.rnet-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;padding-bottom:100px; }
+.rnet-your-pet { display:flex;align-items:center;gap:12px;padding:14px;background:rgba(0,221,204,.06);border:1.5px solid rgba(0,221,204,.2);border-radius:14px; }
+.rnet-your-ico { font-size:40px;line-height:1; }
+.rnet-your-name { font:800 14px/1 var(--ff-head);color:var(--teal); }
+.rnet-your-sub { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.rnet-section { font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.1em;margin-top:4px; }
+.rnet-rel-card { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;transition:all .2s; }
+.rnet-rel-top { display:flex;align-items:center;gap:10px; }
+.rnet-rel-ico { font-size:32px;line-height:1;flex-shrink:0; }
+.rnet-rel-info { flex:1;min-width:0; }
+.rnet-rel-name { font:800 12px/1 var(--ff-head);color:#fff; }
+.rnet-rel-type { font:700 9px/1 var(--ff-body);padding:2px 7px;border-radius:8px;display:inline-block;margin-top:3px; }
+.rnet-rel-type.friend { background:rgba(0,255,136,.12);color:var(--green); }
+.rnet-rel-type.rival { background:rgba(255,68,85,.12);color:var(--red); }
+.rnet-rel-type.mentor { background:rgba(255,204,0,.12);color:var(--gold); }
+.rnet-rel-type.partner { background:rgba(170,102,255,.12);color:var(--purple); }
+.rnet-rel-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:4px; }
+.rnet-str-bg { height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-top:8px; }
+.rnet-str-fill { height:100%;border-radius:3px;transition:width .4s; }
+.rnet-rel-bonus { font:700 9px/1 var(--ff-body);margin-top:4px; }
+.rnet-interact-btn { padding:7px 14px;border-radius:10px;border:1.5px solid;font:700 10px/1 var(--ff-head);cursor:pointer;transition:all .18s;margin-left:auto;flex-shrink:0;background:transparent;display:block; }
+.rnet-interact-btn:active { transform:scale(.94); }
+
 /* ══ MULTIPLIER HUD ══ */
 .mult-hud { position:fixed;top:calc(var(--sat)+56px);left:10px;z-index:799;display:flex;flex-direction:column;gap:4px;pointer-events:none; }
 .mult-pill { display:flex;align-items:center;gap:4px;padding:3px 8px 3px 5px;border-radius:12px;backdrop-filter:blur(8px);border:1px solid;font:700 10px/1 var(--ff-body);white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all .3s;pointer-events:none; }
@@ -2213,6 +2242,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ RELATIONSHIP NETWORK ══ */
+.rnet-panel { position:fixed;inset:0;z-index:872;background:radial-gradient(ellipse at 50% 0%,rgba(0,15,30,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.rnet-panel.open { transform:translateY(0); }
+.rnet-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(0,221,204,.15); }
+.rnet-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--teal),var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.rnet-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;padding-bottom:100px; }
+.rnet-your-pet { display:flex;align-items:center;gap:12px;padding:14px;background:rgba(0,221,204,.06);border:1.5px solid rgba(0,221,204,.2);border-radius:14px; }
+.rnet-your-ico { font-size:40px;line-height:1; }
+.rnet-your-name { font:800 14px/1 var(--ff-head);color:var(--teal); }
+.rnet-your-sub { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.rnet-section { font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.1em;margin-top:4px; }
+.rnet-rel-card { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;transition:all .2s; }
+.rnet-rel-top { display:flex;align-items:center;gap:10px; }
+.rnet-rel-ico { font-size:32px;line-height:1;flex-shrink:0; }
+.rnet-rel-info { flex:1;min-width:0; }
+.rnet-rel-name { font:800 12px/1 var(--ff-head);color:#fff; }
+.rnet-rel-type { font:700 9px/1 var(--ff-body);padding:2px 7px;border-radius:8px;display:inline-block;margin-top:3px; }
+.rnet-rel-type.friend { background:rgba(0,255,136,.12);color:var(--green); }
+.rnet-rel-type.rival { background:rgba(255,68,85,.12);color:var(--red); }
+.rnet-rel-type.mentor { background:rgba(255,204,0,.12);color:var(--gold); }
+.rnet-rel-type.partner { background:rgba(170,102,255,.12);color:var(--purple); }
+.rnet-rel-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:4px; }
+.rnet-str-bg { height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-top:8px; }
+.rnet-str-fill { height:100%;border-radius:3px;transition:width .4s; }
+.rnet-rel-bonus { font:700 9px/1 var(--ff-body);margin-top:4px; }
+.rnet-interact-btn { padding:7px 14px;border-radius:10px;border:1.5px solid;font:700 10px/1 var(--ff-head);cursor:pointer;transition:all .18s;margin-left:auto;flex-shrink:0;background:transparent;display:block; }
+.rnet-interact-btn:active { transform:scale(.94); }
+
 /* ══ MULTIPLIER HUD ══ */
 .mult-hud { position:fixed;top:calc(var(--sat)+56px);left:10px;z-index:799;display:flex;flex-direction:column;gap:4px;pointer-events:none; }
 .mult-pill { display:flex;align-items:center;gap:4px;padding:3px 8px 3px 5px;border-radius:12px;backdrop-filter:blur(8px);border:1px solid;font:700 10px/1 var(--ff-body);white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all .3s;pointer-events:none; }
@@ -3047,6 +3105,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ RELATIONSHIP NETWORK ══ */
+.rnet-panel { position:fixed;inset:0;z-index:872;background:radial-gradient(ellipse at 50% 0%,rgba(0,15,30,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.rnet-panel.open { transform:translateY(0); }
+.rnet-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(0,221,204,.15); }
+.rnet-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--teal),var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.rnet-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;padding-bottom:100px; }
+.rnet-your-pet { display:flex;align-items:center;gap:12px;padding:14px;background:rgba(0,221,204,.06);border:1.5px solid rgba(0,221,204,.2);border-radius:14px; }
+.rnet-your-ico { font-size:40px;line-height:1; }
+.rnet-your-name { font:800 14px/1 var(--ff-head);color:var(--teal); }
+.rnet-your-sub { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.rnet-section { font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.1em;margin-top:4px; }
+.rnet-rel-card { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;transition:all .2s; }
+.rnet-rel-top { display:flex;align-items:center;gap:10px; }
+.rnet-rel-ico { font-size:32px;line-height:1;flex-shrink:0; }
+.rnet-rel-info { flex:1;min-width:0; }
+.rnet-rel-name { font:800 12px/1 var(--ff-head);color:#fff; }
+.rnet-rel-type { font:700 9px/1 var(--ff-body);padding:2px 7px;border-radius:8px;display:inline-block;margin-top:3px; }
+.rnet-rel-type.friend { background:rgba(0,255,136,.12);color:var(--green); }
+.rnet-rel-type.rival { background:rgba(255,68,85,.12);color:var(--red); }
+.rnet-rel-type.mentor { background:rgba(255,204,0,.12);color:var(--gold); }
+.rnet-rel-type.partner { background:rgba(170,102,255,.12);color:var(--purple); }
+.rnet-rel-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:4px; }
+.rnet-str-bg { height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-top:8px; }
+.rnet-str-fill { height:100%;border-radius:3px;transition:width .4s; }
+.rnet-rel-bonus { font:700 9px/1 var(--ff-body);margin-top:4px; }
+.rnet-interact-btn { padding:7px 14px;border-radius:10px;border:1.5px solid;font:700 10px/1 var(--ff-head);cursor:pointer;transition:all .18s;margin-left:auto;flex-shrink:0;background:transparent;display:block; }
+.rnet-interact-btn:active { transform:scale(.94); }
 
 /* ══ MULTIPLIER HUD ══ */
 .mult-hud { position:fixed;top:calc(var(--sat)+56px);left:10px;z-index:799;display:flex;flex-direction:column;gap:4px;pointer-events:none; }
@@ -4476,6 +4563,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGacha()" style="background:linear-gradient(135deg,rgba(170,102,255,.15),rgba(255,51,119,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">🎰</div><span style="background:linear-gradient(135deg,var(--purple),var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">LOOT PULLS</span></div>
           <div class="ddr" onclick="cM();openTrophyRoom()" style="background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,68,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">🏆</div><span style="background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">TROPHY ROOM</span></div>
           <div class="ddr" onclick="cM();openStudio()" style="background:linear-gradient(135deg,rgba(255,51,119,.12),rgba(170,102,255,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">✨</div><span style="background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">PET STUDIO</span></div>
+          <div class="ddr" onclick="cM();openRNet()" style="background:linear-gradient(135deg,rgba(0,221,204,.1),rgba(68,136,255,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,221,204,.8))">🤝</div><span style="background:linear-gradient(135deg,var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">RELATIONER</span></div>
           <div class="ddr" onclick="cM();openExped()" style="background:linear-gradient(135deg,rgba(68,136,255,.1),rgba(0,221,204,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(68,136,255,.8))">🗺️</div><span style="background:linear-gradient(135deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">EXPEDITIONER</span></div>
           <div class="ddr" onclick="cM();openPShop()" style="background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,255,255,.05),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">⭐</div><span style="background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">PRESTIGE BUTIK</span></div>
           <div class="ddr" onclick="cM();openDojo()" style="background:linear-gradient(135deg,rgba(255,136,68,.12),rgba(255,204,0,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,136,68,.9))">🥋</div><span style="background:linear-gradient(135deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">TRAINING DOJO</span></div>
@@ -6058,6 +6146,15 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <button class="fortune-btn" style="background:linear-gradient(135deg,var(--purple),var(--pink))" onclick="claimFortune()">✦ ACCEPTERA</button>
     <button class="fortune-btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)" onclick="closeFortune()">Stäng</button>
   </div>
+</div>
+
+<!-- RELATIONSHIP NETWORK -->
+<div class="rnet-panel" id="rnetPanel">
+  <div class="rnet-hdr">
+    <button style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer" onclick="closeRNet()">←</button>
+    <div class="rnet-hdr-title">🤝 RELATIONER</div>
+  </div>
+  <div class="rnet-scroll" id="rnetScroll"></div>
 </div>
 
 <!-- PET BIRTHDAY & ANNIVERSARY -->
@@ -16077,6 +16174,98 @@ function _updateMultHud(){
 
 setInterval(_updateMultHud, 10000);
 document.addEventListener('DOMContentLoaded',()=>setTimeout(_updateMultHud,3000));
+
+
+
+// RELATIONSHIP NETWORK
+const RNET_NPCS = [
+  {id:'luna', ico:'🦊', name:'Luna', type:'friend', typeLabel:'VÄN',
+   desc:'En energisk räv som alltid peppar dig. Stärker din moral!',
+   bonus:'+5% XP när bond >300',bonusCol:'var(--green)',
+   interactCooldown:3600000,interactTxt:'🎈 LEKA',
+   interactFn:()=>{gainXP(50,'social');addBond&&addBond(5);}},
+  {id:'rex', ico:'🐉', name:'Rex den Store', type:'rival', typeLabel:'RIVAL',
+   desc:'En mäktig drake som utmanar dig ständigt. Motstånd gör dig starkare!',
+   bonus:'+10% Battle XP mot Rex',bonusCol:'var(--red)',
+   interactCooldown:7200000,interactTxt:'⚔️ UTMANA',
+   interactFn:()=>{gainXP(100,'action');G.battleWins=(G.battleWins||0)+1;save();}},
+  {id:'sage', ico:'🦉', name:'Sage', type:'mentor', typeLabel:'MENTOR',
+   desc:'En gammal vis uggla som lär dig livets hemligheter.',
+   bonus:'+15% Flash XP',bonusCol:'var(--gold)',
+   interactCooldown:14400000,interactTxt:'📚 LÄRDOM',
+   interactFn:()=>{gainXP(150,'action');gainCoins(30);}},
+  {id:'crystal', ico:'🦄', name:'Crystal', type:'partner', typeLabel:'PARTNER',
+   desc:'En magisk enhörning som delar din resa mot legendarisk status.',
+   bonus:'+2 KC dagligen',bonusCol:'var(--purple)',
+   interactCooldown:86400000,interactTxt:'💜 SYNKA',
+   interactFn:()=>{gainKC(2);addBond&&addBond(10);}},
+  {id:'blaze', ico:'🐺', name:'Blaze', type:'rival', typeLabel:'RIVAL',
+   desc:'En snabb varg som alltid försöker slå ditt rekord.',
+   bonus:'+20% Reflex XP',bonusCol:'var(--orange)',
+   interactCooldown:3600000,interactTxt:'⚡ TÄVLA',
+   interactFn:()=>{gainXP(80,'action');gainCoins(20);}},
+];
+
+function openRNet(){
+  const p=$('rnetPanel'); if(!p) return;
+  p.classList.add('open');
+  _renderRNet();
+}
+function closeRNet(){ const p=$('rnetPanel'); if(p) p.classList.remove('open'); }
+
+function _getRNetData(id){
+  const key='k0509_rnet_'+id;
+  return JSON.parse(localStorage.getItem(key)||'{"strength":10,"lastInteract":0}');
+}
+function _saveRNetData(id,d){ localStorage.setItem('k0509_rnet_'+id,JSON.stringify(d)); }
+
+function _renderRNet(){
+  const scroll=$('rnetScroll'); if(!scroll) return;
+  const stage=gS();
+  let html=`<div class="rnet-your-pet">
+    <span class="rnet-your-ico">${G.petEmoji||'🐉'}</span>
+    <div><div class="rnet-your-name">${G.petName||'Pet'}</div><div class="rnet-your-sub">${stage.s||'BABY'} • Level ${G.level} • ${RNET_NPCS.length} relationer</div></div>
+  </div>
+  <div class="rnet-section">DITT NÄTVERK</div>`;
+  html+=RNET_NPCS.map(npc=>{
+    const d=_getRNetData(npc.id);
+    const str=Math.min(100,d.strength||10);
+    const now=Date.now();
+    const ready=now-d.lastInteract>=npc.interactCooldown;
+    const minLeft=Math.max(0,Math.ceil((npc.interactCooldown-(now-d.lastInteract))/60000));
+    const col=npc.type==='friend'?'var(--green)':npc.type==='rival'?'var(--red)':npc.type==='mentor'?'var(--gold)':'var(--purple)';
+    return `<div class="rnet-rel-card">
+      <div class="rnet-rel-top">
+        <span class="rnet-rel-ico">${npc.ico}</span>
+        <div class="rnet-rel-info">
+          <div class="rnet-rel-name">${npc.name}</div>
+          <div class="rnet-rel-type ${npc.type}">${npc.typeLabel}</div>
+          <div class="rnet-rel-desc">${npc.desc}</div>
+        </div>
+        <button class="rnet-interact-btn" style="border-color:${col};color:${col}" onclick="_rnetInteract('${npc.id}')" ${ready?'':'disabled'}>
+          ${ready?npc.interactTxt:'⏳'+minLeft+'m'}
+        </button>
+      </div>
+      <div class="rnet-str-bg"><div class="rnet-str-fill" style="width:${str}%;background:${col}"></div></div>
+      <div class="rnet-rel-bonus" style="color:${npc.bonusCol}">✦ ${npc.bonus} (styrka ${str}%)</div>
+    </div>`;
+  }).join('');
+  scroll.innerHTML=html;
+}
+
+function _rnetInteract(id){
+  const npc=RNET_NPCS.find(n=>n.id===id); if(!npc) return;
+  const d=_getRNetData(id);
+  const now=Date.now();
+  if(now-d.lastInteract<npc.interactCooldown){ showT('⏳ Cooldown!','r'); return; }
+  d.lastInteract=now;
+  d.strength=Math.min(100,(d.strength||10)+10);
+  _saveRNetData(id,d);
+  npc.interactFn();
+  showT(npc.ico+' Interagerade med '+npc.name+'! +10 Styrka','g');
+  SFX.coin&&SFX.coin();
+  _renderRNet();
+}
 
 
 </script>
