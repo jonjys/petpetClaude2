@@ -1357,6 +1357,22 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET BIRTHDAY & ANNIVERSARY ══ */
+.bday-overlay { position:fixed;inset:0;z-index:905;background:radial-gradient(ellipse at 50% 30%,rgba(20,8,50,.97),rgba(0,0,0,.98) 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;opacity:0;pointer-events:none;transition:opacity .5s; }
+.bday-overlay.show { opacity:1;pointer-events:all; }
+.bday-confetti-canvas { position:absolute;inset:0;pointer-events:none; }
+.bday-badge { font-size:72px;line-height:1;animation:bdayBounce 0.8s cubic-bezier(.34,1.56,.64,1) infinite alternate; }
+@keyframes bdayBounce { from{transform:scale(1) rotate(-5deg)} to{transform:scale(1.1) rotate(5deg)} }
+.bday-title { font:900 30px/1 var(--ff-head);text-align:center;background:linear-gradient(135deg,var(--pink),var(--purple),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em; }
+.bday-sub { font:700 12px/1.4 var(--ff-body);color:rgba(255,255,255,.5);text-align:center;max-width:260px; }
+.bday-age { font:900 18px/1 var(--ff-head);color:var(--gold);text-align:center; }
+.bday-gifts { display:flex;gap:10px;flex-wrap:wrap;justify-content:center; }
+.bday-gift { padding:8px 16px;border-radius:14px;font:800 12px/1 var(--ff-head);border:1.5px solid; }
+.bday-btn { padding:14px 40px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:14px;font:900 14px/1 var(--ff-head);color:#fff;cursor:pointer;letter-spacing:.06em;margin-top:4px; }
+.bday-profile-row { display:flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(255,255,255,.05);border-radius:12px;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.5); }
+.bday-profile-ico { font-size:20px;line-height:1; }
+
 /* ══ EXPEDITION SYSTEM ══ */
 .exped-panel { position:fixed;inset:0;z-index:871;background:radial-gradient(ellipse at 50% 0%,rgba(0,20,40,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .exped-panel.open { transform:translateY(0); }
@@ -2182,6 +2198,22 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ PET BIRTHDAY & ANNIVERSARY ══ */
+.bday-overlay { position:fixed;inset:0;z-index:905;background:radial-gradient(ellipse at 50% 30%,rgba(20,8,50,.97),rgba(0,0,0,.98) 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;opacity:0;pointer-events:none;transition:opacity .5s; }
+.bday-overlay.show { opacity:1;pointer-events:all; }
+.bday-confetti-canvas { position:absolute;inset:0;pointer-events:none; }
+.bday-badge { font-size:72px;line-height:1;animation:bdayBounce 0.8s cubic-bezier(.34,1.56,.64,1) infinite alternate; }
+@keyframes bdayBounce { from{transform:scale(1) rotate(-5deg)} to{transform:scale(1.1) rotate(5deg)} }
+.bday-title { font:900 30px/1 var(--ff-head);text-align:center;background:linear-gradient(135deg,var(--pink),var(--purple),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em; }
+.bday-sub { font:700 12px/1.4 var(--ff-body);color:rgba(255,255,255,.5);text-align:center;max-width:260px; }
+.bday-age { font:900 18px/1 var(--ff-head);color:var(--gold);text-align:center; }
+.bday-gifts { display:flex;gap:10px;flex-wrap:wrap;justify-content:center; }
+.bday-gift { padding:8px 16px;border-radius:14px;font:800 12px/1 var(--ff-head);border:1.5px solid; }
+.bday-btn { padding:14px 40px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:14px;font:900 14px/1 var(--ff-head);color:#fff;cursor:pointer;letter-spacing:.06em;margin-top:4px; }
+.bday-profile-row { display:flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(255,255,255,.05);border-radius:12px;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.5); }
+.bday-profile-ico { font-size:20px;line-height:1; }
+
 /* ══ EXPEDITION SYSTEM ══ */
 .exped-panel { position:fixed;inset:0;z-index:871;background:radial-gradient(ellipse at 50% 0%,rgba(0,20,40,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .exped-panel.open { transform:translateY(0); }
@@ -2987,6 +3019,22 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ PET BIRTHDAY & ANNIVERSARY ══ */
+.bday-overlay { position:fixed;inset:0;z-index:905;background:radial-gradient(ellipse at 50% 30%,rgba(20,8,50,.97),rgba(0,0,0,.98) 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;opacity:0;pointer-events:none;transition:opacity .5s; }
+.bday-overlay.show { opacity:1;pointer-events:all; }
+.bday-confetti-canvas { position:absolute;inset:0;pointer-events:none; }
+.bday-badge { font-size:72px;line-height:1;animation:bdayBounce 0.8s cubic-bezier(.34,1.56,.64,1) infinite alternate; }
+@keyframes bdayBounce { from{transform:scale(1) rotate(-5deg)} to{transform:scale(1.1) rotate(5deg)} }
+.bday-title { font:900 30px/1 var(--ff-head);text-align:center;background:linear-gradient(135deg,var(--pink),var(--purple),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em; }
+.bday-sub { font:700 12px/1.4 var(--ff-body);color:rgba(255,255,255,.5);text-align:center;max-width:260px; }
+.bday-age { font:900 18px/1 var(--ff-head);color:var(--gold);text-align:center; }
+.bday-gifts { display:flex;gap:10px;flex-wrap:wrap;justify-content:center; }
+.bday-gift { padding:8px 16px;border-radius:14px;font:800 12px/1 var(--ff-head);border:1.5px solid; }
+.bday-btn { padding:14px 40px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:14px;font:900 14px/1 var(--ff-head);color:#fff;cursor:pointer;letter-spacing:.06em;margin-top:4px; }
+.bday-profile-row { display:flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(255,255,255,.05);border-radius:12px;font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.5); }
+.bday-profile-ico { font-size:20px;line-height:1; }
 
 /* ══ EXPEDITION SYSTEM ══ */
 .exped-panel { position:fixed;inset:0;z-index:871;background:radial-gradient(ellipse at 50% 0%,rgba(0,20,40,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
@@ -5973,6 +6021,18 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+<!-- PET BIRTHDAY & ANNIVERSARY -->
+<div class="bday-overlay" id="bdayOverlay">
+  <canvas class="bday-confetti-canvas" id="bdayCanvas"></canvas>
+  <div class="bday-badge" id="bdayBadge">🎂</div>
+  <div class="bday-title" id="bdayTitle">GRATTIS PÅ DAGEN!</div>
+  <div class="bday-age" id="bdayAge"></div>
+  <div class="bday-sub" id="bdaySub">Din pet fyller år idag! Fira med en speciell belöning.</div>
+  <div class="bday-gifts" id="bdayGifts"></div>
+  <button class="bday-btn" onclick="claimBday()">🎁 HÄMTA PRESENTER!</button>
+  <div style="font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.3);cursor:pointer;margin-top:4px" onclick="closeBday()">Stäng</div>
+</div>
+
 <!-- EXPEDITION SYSTEM -->
 <div class="exped-panel" id="expedPanel">
   <div class="exped-hdr">
@@ -6518,7 +6578,7 @@ const G = {
   cType:'reel', shareMode:'friends', currentCircle:null,
   mapInit:false, lMap:null, uMarker:null, userLat:null, userLon:null,
   mgScore:0, mgRecord:0, mgTimer:null,
-  bio:'', kc:0, battleWins:0, xpHistory:[],
+  bio:'', kc:0, battleWins:0, xpHistory:[], createdAt:null, fishCaught:0,
 };
 
 /* ── SOUND ENGINE ── */
@@ -15826,6 +15886,108 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   }
 });
+
+
+
+// PET BIRTHDAY & ANNIVERSARY SYSTEM
+function _bdayInit(){
+  if(!G.createdAt){
+    G.createdAt=Date.now();
+    save();
+  }
+}
+
+function _getBdayInfo(){
+  if(!G.createdAt) return null;
+  const created=new Date(G.createdAt);
+  const now=new Date();
+  const ageMs=now-created;
+  const ageDays=Math.floor(ageMs/86400000);
+  const ageMonths=Math.floor(ageDays/30);
+  const ageYears=Math.floor(ageDays/365);
+  // Check if today is birthday (same month/day as creation)
+  const isBirthday=now.getMonth()===created.getMonth()&&now.getDate()===created.getDate()&&ageDays>0;
+  // Check if monthly anniversary (same day of month, every month)
+  const isMonthly=now.getDate()===created.getDate()&&ageDays>=30;
+  return {ageDays,ageMonths,ageYears,isBirthday,isMonthly,created};
+}
+
+function _checkBday(){
+  _bdayInit();
+  const info=_getBdayInfo(); if(!info) return;
+  const key='k0509_bday_'+getTodayKey();
+  if(localStorage.getItem(key)) return;
+  if(info.isBirthday){
+    _showBday('birthday',info);
+  } else if(info.isMonthly&&info.ageMonths>0){
+    _showBday('monthly',info);
+  }
+}
+
+function _showBday(type,info){
+  const ov=$('bdayOverlay'); if(!ov) return;
+  const isAnniv=type==='monthly'&&!info.isBirthday;
+  $('bdayBadge').textContent=info.ageYears>=1?'🎂':isAnniv?'🎊':'🎈';
+  $('bdayTitle').textContent=info.ageYears>=1?'🎂 ÅRSDAG! 🎂':isAnniv?'🎊 MÅNADSDAG!':'🎈 FÖD ELSFIRARE!';
+  $('bdayAge').textContent=info.ageYears>=1?info.ageYears+' år med '+G.petName+'!':info.ageMonths>0?info.ageMonths+' månader med '+G.petName+'!':info.ageDays+' dagar med '+G.petName+'!';
+  $('bdaySub').textContent=info.ageYears>=1?'En hel år! Fira med legendarisk belöning!':isAnniv?'En månad till med din trogna pet!':'Fira med en speciell bonus!';
+  const bonusXP=info.ageYears>=1?1000:info.ageMonths>=6?500:200;
+  const bonusCoins=info.ageYears>=1?500:info.ageMonths>=6?200:100;
+  const bonusKC=info.ageYears>=1?20:info.ageMonths>=6?5:2;
+  $('bdayGifts').innerHTML=[
+    {val:'+'+bonusXP+' XP',col:'var(--purple)',bg:'rgba(170,102,255,.15)'},
+    {val:'+'+bonusCoins+' 💰',col:'var(--gold)',bg:'rgba(255,204,0,.12)'},
+    {val:'+'+bonusKC+' KC',col:'var(--blue)',bg:'rgba(68,136,255,.12)'},
+    info.ageYears>=1?{val:'🎂 BIRTHDAY BADGE',col:'var(--pink)',bg:'rgba(255,51,119,.12)'}:null,
+  ].filter(Boolean).map(g=>`<div class="bday-gift" style="background:${g.bg};border-color:${g.col};color:${g.col}">${g.val}</div>`).join('');
+  ov._bonusXP=bonusXP; ov._bonusCoins=bonusCoins; ov._bonusKC=bonusKC;
+  ov.classList.add('show');
+  _bdayConfetti();
+  SFX.lvl&&SFX.lvl(); vibe&&vibe([100,50,100,50,200]);
+}
+
+function claimBday(){
+  const ov=$('bdayOverlay'); if(!ov) return;
+  localStorage.setItem('k0509_bday_'+getTodayKey(),'1');
+  gainXP(ov._bonusXP||200,'action');
+  gainCoins(ov._bonusCoins||100);
+  gainKC(ov._bonusKC||2);
+  showT('🎂 Grattis! +'+ov._bonusXP+' XP +'+ov._bonusCoins+'💰 +'+ov._bonusKC+' KC','g');
+  closeBday();
+}
+function closeBday(){ const ov=$('bdayOverlay'); if(ov) ov.classList.remove('show'); }
+
+function _bdayConfetti(){
+  const c=$('bdayCanvas'); if(!c) return;
+  c.width=window.innerWidth; c.height=window.innerHeight;
+  const ctx=c.getContext('2d');
+  const pieces=[];
+  const shapes=['🎈','🎊','🎉','⭐','💫','✨'];
+  for(let i=0;i<40;i++) pieces.push({
+    x:Math.random()*c.width,y:-20,
+    vx:(Math.random()-0.5)*4,vy:Math.random()*3+2,
+    rot:Math.random()*360,rspd:(Math.random()-0.5)*5,
+    shape:shapes[Math.floor(Math.random()*shapes.length)],
+    size:18+Math.random()*14
+  });
+  let f=0;
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pieces.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.rspd;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      ctx.font=p.size+'px serif'; ctx.textAlign='center'; ctx.fillText(p.shape,0,0);
+      ctx.restore();
+    });
+    f++;
+    if(f<200) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,c.width,c.height);
+  }
+  draw();
+}
+
+// Trigger on load
+document.addEventListener('DOMContentLoaded',()=>setTimeout(_checkBday,6000));
 
 
 </script>
