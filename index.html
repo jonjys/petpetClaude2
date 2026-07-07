@@ -2004,6 +2004,39 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 @keyframes ultraAnim { 0%{background:rgba(255,0,127,.0);} 20%{background:rgba(255,0,127,.35);} 60%{background:rgba(255,0,127,.2);} 100%{background:rgba(255,0,127,.0);} }
 #b2UltraTxt { font-family:var(--ff-head); font-size:38px; font-weight:900; color:#FF007F; text-shadow:0 0 40px #FF007F,0 0 80px #FF007F; animation:ultraPop .4s cubic-bezier(.34,1.56,.64,1); }
 @keyframes ultraPop { from{transform:scale(0) rotate(-12deg);} to{transform:scale(1);} }
+
+/* ══ WAVE ARENA ══ */
+.wa-panel { padding:8px 12px 80px;display:flex;flex-direction:column;gap:8px; }
+.wa-hud { display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:4px 0; }
+.wa-stat { background:rgba(255,255,255,.04);border-radius:10px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:2px; }
+.wa-stat-v { font:800 16px/1 var(--ff-head); }
+.wa-stat-l { font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.04em; }
+.wa-enemy-card { background:rgba(255,68,85,.07);border:1.5px solid rgba(255,68,85,.2);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px; }
+.wa-enemy-row { display:flex;align-items:center;gap:10px; }
+.wa-enemy-ico { font-size:40px;line-height:1;animation:waBob 1.2s ease-in-out infinite alternate; }
+@keyframes waBob { from{transform:translateY(-4px)} to{transform:translateY(4px)} }
+.wa-enemy-name { font:900 15px/1 var(--ff-head);color:var(--red); }
+.wa-enemy-sub { font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.wa-hp-bg { height:10px;background:rgba(255,255,255,.08);border-radius:5px;overflow:hidden; }
+.wa-hp-fill { height:100%;background:linear-gradient(90deg,var(--red),#ff8844);border-radius:5px;transition:width .3s; }
+.wa-moves { display:grid;grid-template-columns:1fr 1fr;gap:8px; }
+.wa-move { padding:12px 8px;border-radius:12px;border:1.5px solid rgba(255,255,255,.12);font:700 11px/1.3 var(--ff-head);color:#fff;cursor:pointer;text-align:center;transition:all .15s;background:rgba(255,255,255,.04); }
+.wa-move:active { transform:scale(.95); }
+.wa-move.power { border-color:rgba(255,68,85,.4);background:rgba(255,68,85,.1); }
+.wa-move.magic { border-color:rgba(170,102,255,.4);background:rgba(170,102,255,.1); }
+.wa-move.heal  { border-color:rgba(0,255,136,.4);background:rgba(0,255,136,.1); }
+.wa-move.swift { border-color:rgba(255,204,0,.4);background:rgba(255,204,0,.1); }
+.wa-move.disabled { opacity:.35;pointer-events:none; }
+.wa-log { background:rgba(0,0,0,.3);border-radius:10px;padding:10px 12px;font:500 11px/1.6 var(--ff-body);color:rgba(255,255,255,.6);min-height:44px; }
+.wa-you-hp-row { display:flex;align-items:center;gap:8px;font:700 11px/1 var(--ff-body); }
+.wa-you-hp-bg { flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden; }
+.wa-you-hp-fill { height:100%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:4px;transition:width .3s; }
+.wa-wave-badge { display:inline-flex;align-items:center;gap:4px;padding:4px 12px;background:rgba(255,204,0,.15);border:1px solid rgba(255,204,0,.3);border-radius:20px;font:800 12px/1 var(--ff-head);color:var(--gold); }
+.wa-result { text-align:center;padding:20px 10px;display:flex;flex-direction:column;align-items:center;gap:8px; }
+.wa-result-ico { font-size:56px;line-height:1;animation:waBob 1.2s ease-in-out infinite alternate; }
+.wa-result-title { font:900 22px/1 var(--ff-head);background:linear-gradient(135deg,var(--gold),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.wa-result-rewards { font:600 12px/1.8 var(--ff-body);color:rgba(255,255,255,.7); }
+
 /* ══ TROPHY ROOM ══ */
 .trophy-shelf { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:0 14px 14px; }
 .trophy-item { background:linear-gradient(180deg,rgba(10,4,22,.96),rgba(4,2,12,.94)); border:1.5px solid rgba(255,255,255,.07); border-radius:14px; padding:9px 4px; text-align:center; transition:all .18s; cursor:pointer; box-shadow:0 3px 12px rgba(0,0,0,.4); }
@@ -2484,6 +2517,39 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ WAVE ARENA ══ */
+.wa-panel { padding:8px 12px 80px;display:flex;flex-direction:column;gap:8px; }
+.wa-hud { display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:4px 0; }
+.wa-stat { background:rgba(255,255,255,.04);border-radius:10px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:2px; }
+.wa-stat-v { font:800 16px/1 var(--ff-head); }
+.wa-stat-l { font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.04em; }
+.wa-enemy-card { background:rgba(255,68,85,.07);border:1.5px solid rgba(255,68,85,.2);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px; }
+.wa-enemy-row { display:flex;align-items:center;gap:10px; }
+.wa-enemy-ico { font-size:40px;line-height:1;animation:waBob 1.2s ease-in-out infinite alternate; }
+@keyframes waBob { from{transform:translateY(-4px)} to{transform:translateY(4px)} }
+.wa-enemy-name { font:900 15px/1 var(--ff-head);color:var(--red); }
+.wa-enemy-sub { font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.wa-hp-bg { height:10px;background:rgba(255,255,255,.08);border-radius:5px;overflow:hidden; }
+.wa-hp-fill { height:100%;background:linear-gradient(90deg,var(--red),#ff8844);border-radius:5px;transition:width .3s; }
+.wa-moves { display:grid;grid-template-columns:1fr 1fr;gap:8px; }
+.wa-move { padding:12px 8px;border-radius:12px;border:1.5px solid rgba(255,255,255,.12);font:700 11px/1.3 var(--ff-head);color:#fff;cursor:pointer;text-align:center;transition:all .15s;background:rgba(255,255,255,.04); }
+.wa-move:active { transform:scale(.95); }
+.wa-move.power { border-color:rgba(255,68,85,.4);background:rgba(255,68,85,.1); }
+.wa-move.magic { border-color:rgba(170,102,255,.4);background:rgba(170,102,255,.1); }
+.wa-move.heal  { border-color:rgba(0,255,136,.4);background:rgba(0,255,136,.1); }
+.wa-move.swift { border-color:rgba(255,204,0,.4);background:rgba(255,204,0,.1); }
+.wa-move.disabled { opacity:.35;pointer-events:none; }
+.wa-log { background:rgba(0,0,0,.3);border-radius:10px;padding:10px 12px;font:500 11px/1.6 var(--ff-body);color:rgba(255,255,255,.6);min-height:44px; }
+.wa-you-hp-row { display:flex;align-items:center;gap:8px;font:700 11px/1 var(--ff-body); }
+.wa-you-hp-bg { flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden; }
+.wa-you-hp-fill { height:100%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:4px;transition:width .3s; }
+.wa-wave-badge { display:inline-flex;align-items:center;gap:4px;padding:4px 12px;background:rgba(255,204,0,.15);border:1px solid rgba(255,204,0,.3);border-radius:20px;font:800 12px/1 var(--ff-head);color:var(--gold); }
+.wa-result { text-align:center;padding:20px 10px;display:flex;flex-direction:column;align-items:center;gap:8px; }
+.wa-result-ico { font-size:56px;line-height:1;animation:waBob 1.2s ease-in-out infinite alternate; }
+.wa-result-title { font:900 22px/1 var(--ff-head);background:linear-gradient(135deg,var(--gold),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.wa-result-rewards { font:600 12px/1.8 var(--ff-body);color:rgba(255,255,255,.7); }
 
 /* ══ TROPHY ROOM ══ */
 .trophy-panel { position:fixed;inset:0;z-index:865;background:radial-gradient(ellipse at 50% 0%,rgba(16,8,40,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
@@ -4019,6 +4085,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div class="gtab" onclick="switchGame('runner',this)">🏃 RUNNER</div>
         <div class="gtab" onclick="switchGame('katch',this)">💎 KATCH</div>
         <div class="gtab" onclick="switchGame('reflex',this)">⚡ REFLEX</div>
+        <div class="gtab" onclick="switchGame('wave',this)">🌊 WAVES</div>
         <div class="gtab" onclick="switchGame('fish',this)">🎣 FISH</div>
       </div>
       <!-- Session XP tracker -->
@@ -4301,6 +4368,50 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div style="text-align:center;margin-top:10px" id="rfxStartWrap">
             <button class="btn btn-lg" style="background:linear-gradient(135deg,#4488ff,#aa66ff);color:#fff;font-family:var(--ff-head);font-weight:900;padding:14px 40px" onclick="startReflex()">⚡ STARTA REFLEX!</button>
             <div class="rfx-daily-cd" id="rfxCDInfo"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-panel" id="gp-wave">
+        <div class="wa-panel" id="waPanel">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div class="wa-wave-badge">🌊 VÅG <span id="waWaveNum">1</span>/5</div>
+            <div style="font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.4)">Besegra alla vågor!</div>
+          </div>
+          <div class="wa-hud">
+            <div class="wa-stat"><div class="wa-stat-v" id="waScore" style="color:var(--gold)">0</div><div class="wa-stat-l">POÄNG</div></div>
+            <div class="wa-stat"><div class="wa-stat-v" id="waWins" style="color:var(--green)">0</div><div class="wa-stat-l">VINSTER</div></div>
+            <div class="wa-stat"><div class="wa-stat-v" id="waBest" style="color:var(--purple)">0</div><div class="wa-stat-l">REKORD</div></div>
+            <div class="wa-stat"><div class="wa-stat-v" id="waKC" style="color:var(--blue)">0</div><div class="wa-stat-l">KC</div></div>
+          </div>
+          <div class="wa-you-hp-row">
+            <span>❤️</span>
+            <div class="wa-you-hp-bg"><div class="wa-you-hp-fill" id="waYouHpFill" style="width:100%"></div></div>
+            <span id="waYouHpTxt" style="font:700 11px/1 var(--ff-body);color:var(--green);min-width:50px;text-align:right">100/100</span>
+          </div>
+          <div class="wa-enemy-card" id="waEnemyCard">
+            <div class="wa-enemy-row">
+              <span class="wa-enemy-ico" id="waEnemyIco">❓</span>
+              <div><div class="wa-enemy-name" id="waEnemyName">???</div><div class="wa-enemy-sub" id="waEnemySub">Väntar...</div></div>
+            </div>
+            <div class="wa-hp-bg"><div class="wa-hp-fill" id="waEnemyHpFill" style="width:100%"></div></div>
+            <div style="font:600 10px/1 var(--ff-body);color:var(--red);text-align:right" id="waEnemyHpTxt">–</div>
+          </div>
+          <div class="wa-moves" id="waMoves">
+            <div class="wa-move power" id="waMove0" onclick="waDoMove(0)">⚔️ ATTACK<br><span style="font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.5)">12-18 skada</span></div>
+            <div class="wa-move magic" id="waMove1" onclick="waDoMove(1)">✨ MAGI<br><span style="font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.5)">20-28 skada</span></div>
+            <div class="wa-move heal" id="waMove2" onclick="waDoMove(2)">💚 LÄKNING<br><span style="font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.5)">+25 HP</span></div>
+            <div class="wa-move swift" id="waMove3" onclick="waDoMove(3)">⚡ BLIXTHUGG<br><span style="font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.5)">8-30 skada</span></div>
+          </div>
+          <div class="wa-log" id="waLog">Välkommen till Wave Arena! Tryck STARTA för att börja.</div>
+          <div id="waResult" class="wa-result" style="display:none">
+            <div class="wa-result-ico" id="waResultIco">🏆</div>
+            <div class="wa-result-title" id="waResultTitle">SEGER!</div>
+            <div class="wa-result-rewards" id="waResultRewards"></div>
+            <button class="btn btn-lg" style="background:linear-gradient(135deg,var(--red),var(--purple));color:#fff;font-family:var(--ff-head);font-weight:900;padding:14px 36px;margin-top:8px" onclick="waStart()">🌊 SPELA IGEN</button>
+          </div>
+          <div style="text-align:center;margin-top:8px" id="waStartWrap">
+            <button class="btn btn-lg" style="background:linear-gradient(135deg,var(--red),#ff8844);color:#fff;font-family:var(--ff-head);font-weight:900;padding:14px 40px" onclick="waStart()">🌊 STARTA WAVES!</button>
           </div>
         </div>
       </div>
@@ -13446,6 +13557,135 @@ completeFishCatch=function(caught,quality){
     localStorage.setItem('k0509_abyssal',v);
   }
 };
+
+
+
+// WAVE ARENA
+const WA_WAVES = [
+  [{ico:'🐺',name:'VARGEN',sub:'Tier 1 — Jägaren',hp:60,atk:8,xp:40,coins:15}],
+  [{ico:'🐻',name:'BJÖRNEN',sub:'Tier 2 — Kraftfull',hp:90,atk:12,xp:60,coins:20}],
+  [{ico:'🦁',name:'LEJONET',sub:'Tier 3 — Kung',hp:120,atk:16,xp:80,coins:30}],
+  [{ico:'🐉',name:'DRAKEN',sub:'Tier 4 — Elitfiende',hp:150,atk:20,xp:100,coins:40}],
+  [{ico:'👹',name:'SLUTBOSSEN',sub:'🔥 FINAL BOSS',hp:220,atk:24,xp:200,coins:100,kc:5}],
+];
+let _wa={running:false,wave:0,youHP:100,youHPmax:100,enemyHP:0,enemyHPmax:0,enemy:null,score:0,busy:false,totalXP:0,totalCoins:0,totalKC:0};
+
+function waStart(){
+  _wa={running:true,wave:0,youHP:100,youHPmax:100,enemyHP:0,enemyHPmax:0,enemy:null,score:0,busy:false,totalXP:0,totalCoins:0,totalKC:0};
+  $('waStartWrap').style.display='none';
+  $('waResult').style.display='none';
+  $('waMoves').style.display='grid';
+  _waNextWave();
+}
+
+function _waNextWave(){
+  if(_wa.wave>=WA_WAVES.length){ _waVictory(); return; }
+  const e=WA_WAVES[_wa.wave][0];
+  _wa.enemy={...e};
+  _wa.enemyHP=e.hp;
+  _wa.enemyHPmax=e.hp;
+  $('waWaveNum').textContent=_wa.wave+1;
+  $('waEnemyIco').textContent=e.ico;
+  $('waEnemyName').textContent=e.name;
+  $('waEnemySub').textContent=e.sub;
+  _waUpdateUI();
+  $('waLog').textContent='⚔️ Våg '+(_wa.wave+1)+': '+e.name+' attackerar!';
+}
+
+function waDoMove(idx){
+  if(!_wa.running||_wa.busy) return;
+  _wa.busy=true;
+  const moves=[
+    {name:'ATTACK', dmgMin:12,dmgMax:18},
+    {name:'MAGI', dmgMin:20,dmgMax:28},
+    {name:'LÄKNING', heal:25},
+    {name:'BLIXTHUGG', dmgMin:8,dmgMax:30},
+  ];
+  const move=moves[idx];
+  let log='';
+  if(move.heal){
+    _wa.youHP=Math.min(_wa.youHPmax,_wa.youHP+move.heal);
+    log='💚 Du läkte +'+move.heal+' HP! ';
+  } else {
+    const bonusMul=(hasSkill&&hasSkill('battle_aura'))?1.2:1;
+    const dmg=Math.round((move.dmgMin+Math.floor(Math.random()*(move.dmgMax-move.dmgMin+1)))*bonusMul);
+    _wa.enemyHP=Math.max(0,_wa.enemyHP-dmg);
+    _wa.score+=dmg;
+    log='⚔️ Du gjorde '+dmg+' skada! ';
+  }
+  // enemy counter-attack
+  setTimeout(()=>{
+    if(_wa.enemyHP<=0){
+      // wave cleared
+      const e=_wa.enemy;
+      const xpG=e.xp*(hasSkill&&hasSkill('battle_aura')?1.2:1)|0;
+      gainXP(xpG,'action'); gainCoins(e.coins);
+      if(e.kc) gainKC(e.kc);
+      gainMat&&gainMat('crystl',1);
+      _wa.totalXP+=xpG; _wa.totalCoins+=e.coins; _wa.totalKC+=(e.kc||0);
+      _wa.score+=e.xp;
+      log+='💥 '+e.name+' besegrad! +'+xpG+' XP';
+      $('waLog').textContent=log;
+      const bw=parseInt(localStorage.getItem('k0509_battleWins')||'0')+1;
+      localStorage.setItem('k0509_battleWins',bw); G.battleWins=(G.battleWins||0)+1;
+      progressMission&&progressMission('battle'); progressChallenge&&progressChallenge('battle');
+      progressDCB&&progressDCB('battle',1);
+      _wa.wave++;
+      setTimeout(()=>{ _wa.busy=false; _waNextWave(); }, 1400);
+    } else {
+      // enemy attacks back
+      const eDmg=Math.floor(_wa.enemy.atk*(.8+Math.random()*.4));
+      _wa.youHP=Math.max(0,_wa.youHP-eDmg);
+      log+=_wa.enemy.ico+' '+_wa.enemy.name+' gjorde '+eDmg+' skada!';
+      $('waLog').textContent=log;
+      if(_wa.youHP<=0){ _waDefeat(); return; }
+      _wa.busy=false;
+    }
+    _waUpdateUI();
+  }, 600);
+}
+
+function _waUpdateUI(){
+  const yp=_wa.youHP/_wa.youHPmax*100;
+  const ef=$('waYouHpFill'); if(ef) ef.style.width=yp+'%';
+  const et=$('waYouHpTxt'); if(et) et.textContent=_wa.youHP+'/'+_wa.youHPmax;
+  const ep=_wa.enemyHP/_wa.enemyHPmax*100;
+  const ef2=$('waEnemyHpFill'); if(ef2) ef2.style.width=ep+'%';
+  const et2=$('waEnemyHpTxt'); if(et2) et2.textContent=_wa.enemyHP+'/'+_wa.enemyHPmax;
+  const sc=$('waScore'); if(sc) sc.textContent=_wa.score;
+  const best=parseInt(localStorage.getItem('k0509_waBest')||0);
+  const wb=$('waBest'); if(wb) wb.textContent=best;
+  const ww=$('waWins'); if(ww) ww.textContent=parseInt(localStorage.getItem('k0509_waWins')||0);
+  const wkc=$('waKC'); if(wkc) wkc.textContent=_wa.totalKC;
+}
+
+function _waVictory(){
+  _wa.running=false;
+  const prev=parseInt(localStorage.getItem('k0509_waBest')||0);
+  if(_wa.score>prev) localStorage.setItem('k0509_waBest',_wa.score);
+  const wins=(parseInt(localStorage.getItem('k0509_waWins')||0))+1;
+  localStorage.setItem('k0509_waWins',wins);
+  gainXP(100,'action'); gainCoins(50); gainKC(3);
+  $('waMoves').style.display='none';
+  $('waResult').style.display='flex';
+  $('waResultIco').textContent='🏆';
+  $('waResultTitle').textContent='ALLA 5 VÅGOR KLARA!';
+  $('waResultRewards').textContent='+'+_wa.totalXP+' XP • +'+_wa.totalCoins+' 💰 • +'+(_wa.totalKC+3)+' KC
++100 bonus XP för full clear!';
+  SFX.lvl&&SFX.lvl(); confetti&&confetti(60); vibe&&vibe([50,30,100,30,150]);
+  ssdLog&&ssdLog('🌊','WAVE ARENA','Full Clear!','#ffcc00');
+}
+
+function _waDefeat(){
+  _wa.running=false;
+  $('waMoves').style.display='none';
+  $('waResult').style.display='flex';
+  $('waResultIco').textContent='💀';
+  $('waResultTitle').textContent='DU FÖLL...';
+  $('waResultRewards').textContent='Nådde våg '+(_wa.wave+1)+'/5
+Poäng: '+_wa.score+' | Försök igen!';
+  SFX.err&&SFX.err(); vibe&&vibe([60,40,60]);
+}
 
 
 </script>
