@@ -2072,6 +2072,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fish-wx-banner { padding:5px 12px;border-radius:10px;font-size:10px;font-weight:800;text-align:center;transition:all .35s;overflow:hidden;max-height:0;opacity:0; }
 .fish-wx-banner.show { max-height:32px;opacity:1;margin-bottom:4px; }
 
+/* ══ PET EVOLUTION SHOWCASE ══ */
+.es { position:fixed;inset:0;z-index:855;background:#000;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);overflow:hidden; }
+.es.open { transform:translateY(0); }
+.es-canvas { position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none; }
+.es-body { position:relative;z-index:1;height:100%;overflow-y:auto;padding:calc(var(--sat)+16px) 20px calc(90px + var(--sab));scrollbar-width:none; }
+.es-body::-webkit-scrollbar { display:none; }
+.es-hdr { display:flex;align-items:center;gap:14px;margin-bottom:28px; }
+.es-title { font-family:var(--ff-head);font-size:18px;font-weight:900;background:linear-gradient(135deg,#aa66ff,#4488ff,#00ddcc);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.es-pet-stage { width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:52px;margin:0 auto 8px;position:relative; }
+.es-pet-stage.current { animation:esCurPulse 2.5s ease-in-out infinite; }
+@keyframes esCurPulse { 0%,100%{box-shadow:0 0 0 0 var(--es-col,rgba(170,102,255,0));}50%{box-shadow:0 0 0 16px var(--es-col,rgba(170,102,255,0));} }
+.es-path { display:flex;align-items:flex-start;justify-content:center;gap:0;padding:20px 0;position:relative; }
+.es-stage { flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1; }
+.es-stage-ico { width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;transition:all .3s;position:relative; }
+.es-stage-ico.done { box-shadow:0 0 20px var(--es-col,rgba(170,102,255,.4)); }
+.es-stage-ico.locked { filter:brightness(.25); }
+.es-stage-ico.current-stage { border:3px solid var(--es-col,#aa66ff);box-shadow:0 0 30px var(--es-col,rgba(170,102,255,.5));animation:esStag 2s ease-in-out infinite; }
+@keyframes esStag { 0%,100%{transform:scale(1);}50%{transform:scale(1.08);} }
+.es-connector { flex:0 0 20px;height:3px;margin-top:34px;border-radius:2px;align-self:flex-start; }
+.es-connector.done { background:linear-gradient(90deg,var(--es-col,#aa66ff),rgba(170,102,255,.3)); }
+.es-connector.locked { background:rgba(255,255,255,.06); }
+.es-lv { font-size:9px;font-weight:900;color:rgba(255,255,255,.45);margin-top:6px;text-align:center; }
+.es-name { font-size:9px;font-weight:700;text-align:center;margin-top:2px;max-width:72px; }
+.es-name.done { color:var(--es-col,#aa66ff); }
+.es-name.locked { color:rgba(255,255,255,.2); }
+.es-info-card { border-radius:20px;padding:18px;margin-top:16px;position:relative;overflow:hidden; }
+.es-next-lbl { font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px; }
+.es-next-name { font-size:20px;font-weight:900;font-family:var(--ff-head);margin-bottom:4px; }
+.es-xp-to-next { font-size:12px;color:rgba(255,255,255,.6);margin-bottom:12px; }
+.es-xp-bar { height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden; }
+.es-xp-fill { height:100%;border-radius:4px;transition:width .8s cubic-bezier(.34,1.56,.64,1); }
+
 /* ══ ACHIEVEMENT WALL ══ */
 .aw { position:fixed;inset:0;z-index:854;background:radial-gradient(ellipse at 50% 0%,rgba(26,8,52,.97),#000 70%);transform:translateY(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);overflow:hidden; }
 .aw.open { transform:translateY(0); }
@@ -2956,6 +2988,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();nav('games');setTimeout(()=>switchGame('raid',document.querySelector('.gtab:last-child')),300)"><div class="ddr-i">💀</div>Boss Raid</div>
           <div class="ddr" onclick="cM();openAR()" style="background:linear-gradient(135deg,rgba(40,8,80,.6),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(170,102,255,.8))">🌌</div><span style="background:linear-gradient(135deg,#cc88ff,#4488ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">ASTRAL RIFT</span></div>
           <div class="ddr" onclick="cM();openNP()" style="background:linear-gradient(135deg,rgba(60,4,30,.6),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">💫</div><span style="background:linear-gradient(135deg,#ff3377,#aa66ff,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">NEON PORTAL</span></div>
+          <div class="ddr" onclick="cM();openES()" style="background:linear-gradient(135deg,rgba(20,4,50,.55),rgba(4,10,40,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(170,102,255,.8))">✨</div><span style="background:linear-gradient(135deg,#aa66ff,#4488ff,#00ddcc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">EVOLUTION</span></div>
           <div class="ddr" onclick="cM();openAW()" style="background:linear-gradient(135deg,rgba(40,16,0,.55),rgba(10,4,26,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">🏆</div><span style="background:linear-gradient(135deg,#ffcc00,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">ACHIEVEMENT WALL</span></div>
           <div class="ddr" onclick="cM();openDFC()" style="background:linear-gradient(135deg,rgba(60,20,0,.55),rgba(30,10,60,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">🔮</div><span style="background:linear-gradient(135deg,#ffcc00,#ff8844,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">DAGLIG FÖRMÖGENHET</span></div>
           <div class="ddr" onclick="cM();openKJ()" style="background:linear-gradient(135deg,rgba(60,16,0,.5),rgba(20,40,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">📖</div><span style="background:linear-gradient(135deg,#ff3377,#ffcc00,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">KARMA JOURNAL</span></div>
@@ -4217,6 +4250,40 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="ar-card-name" id="arCardName">SYNEN</div>
       <div class="ar-card-eff" id="arCardEff">Din välsignelse uppenbaras...</div>
       <button class="btn btn-pk btn-full" style="margin-top:4px" onclick="closeARCard()">✨ ACCEPTERA VÄLSIGNELSEN</button>
+    </div>
+  </div>
+</div>
+
+<!-- PET EVOLUTION SHOWCASE -->
+<div class="es" id="evolShowcase">
+  <canvas class="es-canvas" id="esCanvas"></canvas>
+  <div class="es-body">
+    <div class="es-hdr">
+      <button class="ar-back" onclick="closeES()">←</button>
+      <div>
+        <div class="es-title">✨ EVOLUTION SHOWCASE</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:1px" id="esSubTitle">Din pets kosmiska resa</div>
+      </div>
+    </div>
+    <!-- Current pet big display -->
+    <div style="text-align:center;margin-bottom:24px">
+      <div class="es-pet-stage current" id="esPetBig" style="background:linear-gradient(160deg,rgba(20,6,50,.9),rgba(8,2,22,.95))">🐉</div>
+      <div style="font-family:var(--ff-head);font-size:18px;font-weight:900;margin-top:8px" id="esCurrentName">BABY DRAGON</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:3px" id="esLevelInfo">Level 1 · 0/100 XP</div>
+    </div>
+    <!-- Evolution path -->
+    <div class="es-path" id="esPath"></div>
+    <!-- Info card: next evolution -->
+    <div class="es-info-card" id="esInfoCard" style="background:linear-gradient(160deg,rgba(20,6,50,.88),rgba(8,2,20,.95));border:1px solid rgba(170,102,255,.2)">
+      <div class="es-next-lbl">NÄSTA EVOLUTION</div>
+      <div class="es-next-name" id="esNextName" style="color:#aa66ff">–</div>
+      <div class="es-xp-to-next" id="esXpToNext"></div>
+      <div class="es-xp-bar"><div class="es-xp-fill" id="esXpFill" style="width:0%;background:linear-gradient(90deg,#aa66ff,#4488ff)"></div></div>
+    </div>
+    <!-- All pets -->
+    <div style="margin-top:20px">
+      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">VÄLJ ANNAT HUSDJUR</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap" id="esPetPicker"></div>
     </div>
   </div>
 </div>
@@ -10116,6 +10183,109 @@ function _awRender() {
       <div class="aw-rar" style="color:${isUnlocked?col:'rgba(255,255,255,.15)'}">${lbl}</div>
     </div>`;
   }).join('');
+}
+
+// ══════════════════════════════════════════
+//   ✨ PET EVOLUTION SHOWCASE
+// ══════════════════════════════════════════
+let _esViewPet = null;
+
+function openES() {
+  const el = $('evolShowcase'); if(!el) return;
+  _esViewPet = G.petEmoji || '🐉';
+  el.classList.add('open');
+  _esRender();
+  _esInitCanvas();
+}
+function closeES() {
+  const el = $('evolShowcase'); if(el) el.classList.remove('open');
+}
+function _esRender() {
+  const pet = _esViewPet || G.petEmoji || '🐉';
+  const tree = EVOL[pet] || EVOL['🐉'];
+  const lvl = G.level || 1;
+  const petColors = {'🐉':'#aa66ff','🐺':'#4488ff','🦊':'#ff8844','🐱':'#ff3377','🐸':'#00ff88','🦋':'#ff3377','🐻':'#ff8844','🦁':'#ffcc00','🐯':'#ff8844','🐨':'#00ddcc'};
+  const col = petColors[pet] || '#aa66ff';
+  // Current state
+  const cur = gS ? (pet===G.petEmoji?gS():{...tree.filter(s=>lvl>=s.l).pop()}) : tree[0];
+  const nextLvl = gNE ? (pet===G.petEmoji?gNE():tree.find(s=>s.l>lvl)?.l||null) : null;
+  // Big pet display
+  const big = $('esPetBig');
+  if(big){ big.textContent = cur.e+(cur.g||''); big.style.setProperty('--es-col',col+'44'); big.style.background=`linear-gradient(160deg,rgba(20,6,50,.9),rgba(8,2,22,.95))`; big.style.border=`2px solid ${col}44`; }
+  const cName = $('esCurrentName'); if(cName){ cName.textContent = cur.s; cName.style.color=col; }
+  const lvlInfo = $('esLevelInfo'); if(lvlInfo) lvlInfo.textContent=`Level ${lvl} · ${G.exp||0}/${xpN(lvl)} XP`;
+  // Evolution path
+  const path = $('esPath');
+  if(path) {
+    let html = '';
+    tree.forEach((stage, i) => {
+      const isUnlocked = lvl >= stage.l;
+      const isCurrent = isUnlocked && (i===tree.length-1 || lvl<tree[i+1].l);
+      const cls = isCurrent?'current-stage':isUnlocked?'done':'locked';
+      const nameClass = isUnlocked?'done':'locked';
+      html += `<div class="es-stage">
+        <div class="es-stage-ico ${cls}" style="${isUnlocked?'background:linear-gradient(160deg,rgba(30,8,60,.9),rgba(12,4,30,.95));border-color:'+col:'background:rgba(8,2,16,.8);border:1.5px solid rgba(255,255,255,.06)'}">
+          ${stage.e+(stage.g||'')}
+        </div>
+        <div class="es-lv">LV${stage.l}</div>
+        <div class="es-name ${nameClass}" style="${isUnlocked?'color:'+col:''}">${isUnlocked?stage.s:'???'}</div>
+      </div>`;
+      if(i < tree.length-1) {
+        const connDone = lvl>=tree[i+1].l;
+        html += `<div class="es-connector ${connDone?'done':'locked'}" style="${connDone?'background:'+col+'66':''}"></div>`;
+      }
+    });
+    path.innerHTML = html;
+  }
+  // Next evolution info
+  const nextStage = tree.find(s=>s.l>lvl);
+  const infoCard = $('esInfoCard');
+  if(infoCard){
+    infoCard.style.borderColor = nextStage?col+'33':'rgba(0,255,136,.2)';
+  }
+  const nextName = $('esNextName');
+  const xpToNext = $('esXpToNext');
+  const xpFill = $('esXpFill');
+  if(nextStage) {
+    if(nextName){ nextName.textContent=nextStage.s+(nextStage.g?' '+nextStage.g:''); nextName.style.color=col; }
+    const lvlsLeft=nextStage.l-lvl;
+    if(xpToNext) xpToNext.textContent=lvlsLeft+' level'+(lvlsLeft>1?'s':'')+' kvar · LV'+nextStage.l+' krävs';
+    const pct=Math.round(((lvl-tree.findIndex(s=>s.l===cur.l&&s.s===cur.s))-tree.indexOf(tree.find(x=>x.l===cur.l)))/Math.max(1,(nextStage.l-cur.l))*100);
+    if(xpFill){ xpFill.style.width=Math.min(100,Math.max(5,((lvl-cur.l)/(nextStage.l-cur.l))*100))+'%'; xpFill.style.background=`linear-gradient(90deg,${col},${col}88)`; }
+  } else {
+    if(nextName){ nextName.textContent='MAX EVOLUTION ✨'; nextName.style.color='#ffcc00'; }
+    if(xpToNext) xpToNext.textContent='Du har nått den ultimata evolutionen!';
+    if(xpFill){ xpFill.style.width='100%'; xpFill.style.background='linear-gradient(90deg,#ffcc00,#ff8844)'; }
+  }
+  // Pet picker
+  const picker = $('esPetPicker');
+  if(picker) {
+    picker.innerHTML = PETS.map(p=>{
+      const isOwned = p===G.petEmoji;
+      const isCur = p===_esViewPet;
+      return `<div onclick="_esViewPet='${p}';_esRender();" style="width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;background:${isCur?'rgba(170,102,255,.2)':'rgba(10,4,22,.7)'};border:1.5px solid ${isCur?'#aa66ff':'rgba(255,255,255,.08)'};transition:all .15s;${isOwned?'box-shadow:0 0 12px rgba(0,255,136,.25)':''}" title="${p}">${p}${isOwned?'<span style="position:absolute;font-size:8px">✓</span>':''}</div>`;
+    }).join('');
+  }
+}
+function _esInitCanvas() {
+  const cv = $('esCanvas'); if(!cv) return;
+  const ctx = cv.getContext('2d'), dpr = window.devicePixelRatio||1;
+  cv.width = cv.offsetWidth*dpr; cv.height = cv.offsetHeight*dpr;
+  ctx.scale(dpr, dpr);
+  const W=cv.offsetWidth, H=cv.offsetHeight;
+  const pet = _esViewPet || G.petEmoji || '🐉';
+  const petColors = {'🐉':'170,102,255','🐺':'68,136,255','🦊':'255,136,68','🐱':'255,51,119','🐸':'0,255,136','🦋':'255,51,119','🐻':'255,136,68','🦁':'255,204,0','🐯':'255,136,68','🐨':'0,221,204'};
+  const rgb = petColors[pet] || '170,102,255';
+  // Nebula background
+  const g = ctx.createRadialGradient(W*.5,H*.3,0,W*.5,H*.3,W*.65);
+  g.addColorStop(0,`rgba(${rgb},.08)`); g.addColorStop(.5,`rgba(${rgb},.03)`); g.addColorStop(1,'transparent');
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  // Stars
+  for(let i=0;i<130;i++){
+    const x=Math.random()*W, y=Math.random()*H, r=Math.random()*.8+.2;
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${Math.random()*.5+.05})`; ctx.fill();
+  }
 }
 
 </script>
