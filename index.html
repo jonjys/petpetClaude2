@@ -2200,6 +2200,57 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .aw-desc { font-size:9px;color:rgba(255,255,255,.45);text-align:center;margin-top:4px;line-height:1.5; }
 .aw-rar { font-size:8px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;text-align:center;margin-top:5px; }
 .aw-card.unlocked .aw-new-badge { position:absolute;top:8px;right:8px;background:var(--green);color:#000;font-size:8px;font-weight:900;padding:2px 6px;border-radius:6px; }
+
+/* ══ SESSION STATS DASHBOARD ══ */
+.ssd { position:fixed;inset:0;z-index:856;background:#000;transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden; }
+.ssd.open { transform:translateY(0); }
+.ssd-canvas { position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none; }
+.ssd-body { position:relative;z-index:1;height:100%;overflow-y:auto;padding:calc(var(--sat)+16px) 20px calc(90px + var(--sab));scrollbar-width:none; }
+.ssd-body::-webkit-scrollbar { display:none; }
+.ssd-hdr { display:flex;align-items:center;gap:12px;margin-bottom:24px; }
+.ssd-back { width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer; }
+.ssd-htitle { flex:1;font-family:var(--ff-head);font-size:20px;font-weight:900;background:linear-gradient(135deg,#00ff88,#4488ff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.ssd-date { font-size:10px;font-weight:700;color:rgba(255,255,255,.35);margin-left:auto; }
+.ssd-big-row { display:flex;gap:10px;margin-bottom:14px; }
+.ssd-big { flex:1;border-radius:20px;padding:16px 12px;text-align:center;position:relative;overflow:hidden; }
+.ssd-big.xp { background:linear-gradient(160deg,rgba(0,32,16,.9),rgba(0,12,6,.95));border:2px solid rgba(0,255,136,.25);box-shadow:0 0 24px rgba(0,255,136,.08); }
+.ssd-big.coins { background:linear-gradient(160deg,rgba(36,20,0,.9),rgba(16,8,0,.95));border:2px solid rgba(255,204,0,.25);box-shadow:0 0 24px rgba(255,204,0,.08); }
+.ssd-big.kc { background:linear-gradient(160deg,rgba(0,18,36,.9),rgba(0,8,18,.95));border:2px solid rgba(68,136,255,.25);box-shadow:0 0 24px rgba(68,136,255,.08); }
+.ssd-big-ico { font-size:24px;margin-bottom:4px;display:block; }
+.ssd-big-val { font-family:var(--ff-head);font-size:28px;font-weight:900;line-height:1; }
+.ssd-big.xp .ssd-big-val { color:var(--green); }
+.ssd-big.coins .ssd-big-val { color:var(--gold); }
+.ssd-big.kc .ssd-big-val { color:var(--blue); }
+.ssd-big-lbl { font-size:9px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.8px;margin-top:4px; }
+.ssd-section { margin-bottom:16px; }
+.ssd-sec-title { font-size:10px;font-weight:900;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;display:flex;align-items:center;gap:6px; }
+.ssd-sec-title::after { content:'';flex:1;height:1px;background:rgba(255,255,255,.06); }
+.ssd-stat-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+.ssd-stat { border-radius:16px;padding:14px;background:linear-gradient(160deg,rgba(10,4,22,.9),rgba(4,2,10,.95));border:1.5px solid rgba(255,255,255,.06); }
+.ssd-stat-v { font-family:var(--ff-head);font-size:22px;font-weight:900;margin-bottom:2px; }
+.ssd-stat-l { font-size:9px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.7px; }
+.ssd-act-list { display:flex;flex-direction:column;gap:7px; }
+.ssd-act { display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:linear-gradient(160deg,rgba(10,4,22,.88),rgba(4,2,10,.92));border:1.5px solid rgba(255,255,255,.05); }
+.ssd-act-ico { font-size:20px;flex:0 0 28px;text-align:center; }
+.ssd-act-txt { flex:1; }
+.ssd-act-name { font-size:12px;font-weight:700;line-height:1.3; }
+.ssd-act-time { font-size:9px;color:rgba(255,255,255,.35); }
+.ssd-act-val { font-size:11px;font-weight:900; }
+.ssd-fish-best { border-radius:20px;padding:18px;background:linear-gradient(160deg,rgba(0,14,36,.9),rgba(0,6,18,.95));border:2px solid rgba(68,136,255,.2);display:flex;align-items:center;gap:14px; }
+.ssd-fish-ico { font-size:40px; }
+.ssd-fish-info { flex:1; }
+.ssd-fish-name { font-size:15px;font-weight:900; }
+.ssd-fish-sub { font-size:10px;color:rgba(255,255,255,.45);margin-top:3px; }
+.ssd-fish-rar { font-size:9px;font-weight:900;letter-spacing:.8px;padding:3px 8px;border-radius:8px;display:inline-block;margin-top:5px; }
+.ssd-streak-card { border-radius:20px;padding:18px;background:linear-gradient(160deg,rgba(36,8,0,.9),rgba(16,4,0,.95));border:2px solid rgba(255,136,68,.25);display:flex;align-items:center;gap:16px; }
+.ssd-streak-num { font-family:var(--ff-head);font-size:48px;font-weight:900;color:var(--orange);line-height:1; }
+.ssd-streak-info { flex:1; }
+.ssd-streak-lbl { font-size:11px;font-weight:900;color:var(--orange); }
+.ssd-streak-sub { font-size:10px;color:rgba(255,255,255,.4);margin-top:3px; }
+.ssd-xp-bar-wrap { margin-top:8px; }
+.ssd-xp-bar-bg { height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden; }
+.ssd-xp-bar-fill { height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),#00ddcc);transition:width 1s cubic-bezier(.34,1.56,.64,1); }
+.ssd-lv-lbl { display:flex;justify-content:space-between;font-size:9px;font-weight:700;color:rgba(255,255,255,.35);margin-bottom:4px; }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -3058,6 +3109,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAW()" style="background:linear-gradient(135deg,rgba(40,16,0,.55),rgba(10,4,26,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">🏆</div><span style="background:linear-gradient(135deg,#ffcc00,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">ACHIEVEMENT WALL</span></div>
           <div class="ddr" onclick="cM();openDFC()" style="background:linear-gradient(135deg,rgba(60,20,0,.55),rgba(30,10,60,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">🔮</div><span style="background:linear-gradient(135deg,#ffcc00,#ff8844,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">DAGLIG FÖRMÖGENHET</span></div>
           <div class="ddr" onclick="cM();openKJ()" style="background:linear-gradient(135deg,rgba(60,16,0,.5),rgba(20,40,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.7))">📖</div><span style="background:linear-gradient(135deg,#ff3377,#ffcc00,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">KARMA JOURNAL</span></div>
+          <div class="ddr" onclick="cM();openSSD()" style="background:linear-gradient(135deg,rgba(0,32,16,.55),rgba(0,10,30,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,255,136,.7))">📊</div><span style="background:linear-gradient(135deg,#00ff88,#4488ff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">DAGENS STATS</span></div>
           <div class="ddr" onclick="cM();toggleRadio()"><div class="ddr-i">🎵</div>Karma Radio</div>
         </div>
       </div>
@@ -4334,6 +4386,69 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="ar-card-name" id="arCardName">SYNEN</div>
       <div class="ar-card-eff" id="arCardEff">Din välsignelse uppenbaras...</div>
       <button class="btn btn-pk btn-full" style="margin-top:4px" onclick="closeARCard()">✨ ACCEPTERA VÄLSIGNELSEN</button>
+    </div>
+  </div>
+</div>
+
+<!-- SESSION STATS DASHBOARD -->
+<div class="ssd" id="ssdPanel">
+  <canvas class="ssd-canvas" id="ssdCanvas"></canvas>
+  <div class="ssd-body">
+    <div class="ssd-hdr">
+      <button class="ssd-back" onclick="closeSSD()">←</button>
+      <span class="ssd-htitle">DAGENS STATS</span>
+      <span class="ssd-date" id="ssdDate"></span>
+    </div>
+    <!-- Big 3 stats -->
+    <div class="ssd-big-row">
+      <div class="ssd-big xp"><span class="ssd-big-ico">⚡</span><div class="ssd-big-val" id="ssdXP">0</div><div class="ssd-big-lbl">XP IDAG</div></div>
+      <div class="ssd-big coins"><span class="ssd-big-ico">🪙</span><div class="ssd-big-val" id="ssdCoins">0</div><div class="ssd-big-lbl">COINS</div></div>
+      <div class="ssd-big kc"><span class="ssd-big-ico">💠</span><div class="ssd-big-val" id="ssdKC">0</div><div class="ssd-big-lbl">KC</div></div>
+    </div>
+    <!-- Level progress -->
+    <div class="ssd-section">
+      <div class="ssd-sec-title">LEVEL PROGRESS</div>
+      <div class="ssd-xp-bar-wrap">
+        <div class="ssd-lv-lbl"><span id="ssdLvLbl">LV 1</span><span id="ssdXPLeft"></span></div>
+        <div class="ssd-xp-bar-bg"><div class="ssd-xp-bar-fill" id="ssdXPFill" style="width:0%"></div></div>
+      </div>
+    </div>
+    <!-- Stats grid -->
+    <div class="ssd-section">
+      <div class="ssd-sec-title">SESSIONSDATA</div>
+      <div class="ssd-stat-grid">
+        <div class="ssd-stat"><div class="ssd-stat-v" id="ssdActions" style="color:var(--pink)">0</div><div class="ssd-stat-l">AKTIVITETER</div></div>
+        <div class="ssd-stat"><div class="ssd-stat-v" id="ssdFishCt" style="color:var(--blue)">0</div><div class="ssd-stat-l">FÅNGSTER</div></div>
+        <div class="ssd-stat"><div class="ssd-stat-v" id="ssdTime" style="color:var(--purple)">0m</div><div class="ssd-stat-l">TID IDAG</div></div>
+        <div class="ssd-stat"><div class="ssd-stat-v" id="ssdComboPeak" style="color:var(--orange)">0</div><div class="ssd-stat-l">MAX COMBO</div></div>
+      </div>
+    </div>
+    <!-- Best fish -->
+    <div class="ssd-section" id="ssdFishSection">
+      <div class="ssd-sec-title">BÄSTA FÅNGST IDAG</div>
+      <div class="ssd-fish-best" id="ssdFishBest">
+        <span class="ssd-fish-ico">🎣</span>
+        <div class="ssd-fish-info">
+          <div class="ssd-fish-name">Ingen fångst än</div>
+          <div class="ssd-fish-sub">Gå fiska!</div>
+        </div>
+      </div>
+    </div>
+    <!-- Streak -->
+    <div class="ssd-section">
+      <div class="ssd-sec-title">STREAK</div>
+      <div class="ssd-streak-card">
+        <div class="ssd-streak-num" id="ssdStreak">0</div>
+        <div class="ssd-streak-info">
+          <div class="ssd-streak-lbl">DAGAR I RAD 🔥</div>
+          <div class="ssd-streak-sub" id="ssdStreakSub">Håll igång streken!</div>
+        </div>
+      </div>
+    </div>
+    <!-- Recent activity -->
+    <div class="ssd-section">
+      <div class="ssd-sec-title">SENASTE AKTIVITETER</div>
+      <div class="ssd-act-list" id="ssdActList"></div>
     </div>
   </div>
 </div>
@@ -10733,6 +10848,162 @@ function _reSchedule() {
 }
 if(typeof G !== 'undefined' && G.name) setTimeout(_reSchedule, 5000);
 else setTimeout(()=>{if(G.name)_reSchedule();},3000);
+
+// ═══════════════════════════════════════════════
+// SESSION STATS DASHBOARD
+// ═══════════════════════════════════════════════
+const _ssdKey = () => 'k0509_ssd_' + getTodayKey();
+function _ssdGet() {
+  try { return JSON.parse(localStorage.getItem(_ssdKey()) || 'null') || {xp:0,coins:0,kc:0,actions:0,fish:0,comboPeak:0,start:Date.now(),best:{},log:[]}; }
+  catch(e) { return {xp:0,coins:0,kc:0,actions:0,fish:0,comboPeak:0,start:Date.now(),best:{},log:[]}; }
+}
+function _ssdSave(d) { try { localStorage.setItem(_ssdKey(), JSON.stringify(d)); } catch(e){} }
+function ssdTrackXP(n) { const d=_ssdGet(); d.xp+=n; d.actions++; _ssdSave(d); }
+function ssdTrackCoins(n) { const d=_ssdGet(); d.coins+=n; _ssdSave(d); }
+function ssdTrackKC(n) { const d=_ssdGet(); d.kc+=n; _ssdSave(d); }
+function ssdTrackFish(fish) {
+  const d=_ssdGet(); d.fish++;
+  const _rs={junk:0,common:1,uncommon:2,rare:5,epic:15,legendary:40,mythic:100};
+  const _score = _rs[fish.rarity]||0;
+  if(!d.best.rarity || (_rs[fish.rarity]||0) > (_rs[d.best.rarity]||0)) d.best = fish;
+  _ssdSave(d);
+}
+function ssdTrackCombo(n) { const d=_ssdGet(); if(n>d.comboPeak) { d.comboPeak=n; _ssdSave(d); } }
+function ssdLog(ico, name, val, col) {
+  const d=_ssdGet();
+  d.log.unshift({ico,name,val,col,ts:Date.now()});
+  if(d.log.length>12) d.log=d.log.slice(0,12);
+  _ssdSave(d);
+}
+function openSSD() {
+  const p=$('ssdPanel'); if(!p) return;
+  p.classList.add('open'); _ssdRender(); _ssdInitCanvas();
+}
+function closeSSD() { const p=$('ssdPanel'); if(p) p.classList.remove('open'); }
+function _ssdRender() {
+  const d = _ssdGet();
+  // Date
+  const now=new Date(); const ds=$('ssdDate');
+  if(ds) ds.textContent=now.toLocaleDateString('sv-SE',{weekday:'short',month:'short',day:'numeric'}).toUpperCase();
+  // Big 3
+  const xEl=$('ssdXP'); if(xEl) xEl.textContent=d.xp.toLocaleString();
+  const cEl=$('ssdCoins'); if(cEl) cEl.textContent=d.coins.toLocaleString();
+  const kEl=$('ssdKC'); if(kEl) kEl.textContent=d.kc.toLocaleString();
+  // Level bar
+  const lvLbl=$('ssdLvLbl'); const xLeft=$('ssdXPLeft'); const xFill=$('ssdXPFill');
+  if(lvLbl) lvLbl.textContent='LV '+G.level;
+  const need=xpN(G.level);
+  if(xLeft) xLeft.textContent=Math.max(0,need-G.exp)+' XP kvar';
+  if(xFill) { const pct=Math.min(100,Math.round((G.exp/need)*100)); setTimeout(()=>{xFill.style.width=pct+'%';},80); }
+  // Stats grid
+  const acEl=$('ssdActions'); if(acEl) acEl.textContent=d.actions;
+  const fcEl=$('ssdFishCt'); if(fcEl) fcEl.textContent=d.fish;
+  // Time
+  const mins=Math.max(0,Math.round((Date.now()-d.start)/60000));
+  const tmEl=$('ssdTime'); if(tmEl) { if(mins>=60) tmEl.textContent=Math.floor(mins/60)+'h '+(mins%60)+'m'; else tmEl.textContent=mins+'m'; }
+  const cpEl=$('ssdComboPeak'); if(cpEl) cpEl.textContent=d.comboPeak;
+  // Best fish
+  const fbEl=$('ssdFishBest');
+  if(fbEl && d.best && d.best.ico) {
+    const rarCols={junk:'#888',common:'#aaa',uncommon:'var(--green)',rare:'var(--blue)',epic:'var(--purple)',legendary:'var(--gold)',mythic:'#ff3377'};
+    fbEl.innerHTML=`<span class="ssd-fish-ico">${d.best.ico||'🐟'}</span><div class="ssd-fish-info"><div class="ssd-fish-name">${d.best.name||'Okänd'}</div><div class="ssd-fish-sub">${d.best.depth||''} ${d.best.wt?d.best.wt.toFixed(1)+'kg':''}</div><span class="ssd-fish-rar" style="background:${rarCols[d.best.rarity]||'#888'}22;color:${rarCols[d.best.rarity]||'#888'};border:1px solid ${rarCols[d.best.rarity]||'#888'}44">${(d.best.rarity||'').toUpperCase()}</span></div>`;
+  }
+  // Streak
+  const stEl=$('ssdStreak'); if(stEl) stEl.textContent=G.streak||0;
+  const stSub=$('ssdStreakSub'); if(stSub) {
+    const s=G.streak||0;
+    if(s>=100) stSub.textContent='LEGENDARISK STREAK! 👑';
+    else if(s>=30) stSub.textContent='Månadslegend! 🏅';
+    else if(s>=7) stSub.textContent='En hel vecka! ⚡';
+    else if(s>=3) stSub.textContent='På väg upp! 🔥';
+    else stSub.textContent='Håll igång streken!';
+  }
+  // Activity log
+  const alEl=$('ssdActList');
+  if(alEl) {
+    if(!d.log||d.log.length===0) {
+      alEl.innerHTML='<div style="text-align:center;color:rgba(255,255,255,.3);font-size:12px;padding:20px 0">Inga aktiviteter än idag</div>';
+    } else {
+      alEl.innerHTML=d.log.slice(0,8).map(e=>{
+        const ago=Math.round((Date.now()-e.ts)/60000);
+        const agoStr=ago<1?'just nu':ago<60?ago+'min sedan':Math.floor(ago/60)+'h sedan';
+        return `<div class="ssd-act"><span class="ssd-act-ico">${e.ico}</span><div class="ssd-act-txt"><div class="ssd-act-name">${e.name}</div><div class="ssd-act-time">${agoStr}</div></div><span class="ssd-act-val" style="color:${e.col||'var(--green)'}">${e.val||''}</span></div>`;
+      }).join('');
+    }
+  }
+}
+function _ssdInitCanvas() {
+  const c=$('ssdCanvas'); if(!c) return;
+  c.width=c.offsetWidth||window.innerWidth; c.height=c.offsetHeight||window.innerHeight;
+  const ctx=c.getContext('2d'); if(!ctx) return;
+  const pts=[];
+  for(let i=0;i<60;i++) pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+.4,dx:(Math.random()-.5)*.3,dy:(Math.random()-.5)*.3,a:Math.random(),col:['#00ff88','#4488ff','#aa66ff','#ffcc00'][Math.floor(Math.random()*4)]});
+  let _raf;
+  function draw() {
+    if(!$('ssdPanel').classList.contains('open')) { cancelAnimationFrame(_raf); return; }
+    ctx.clearRect(0,0,c.width,c.height);
+    // Nebula
+    const g=ctx.createRadialGradient(c.width*.5,c.height*.35,0,c.width*.5,c.height*.35,c.width*.7);
+    g.addColorStop(0,'rgba(0,50,25,.12)'); g.addColorStop(.5,'rgba(0,20,60,.06)'); g.addColorStop(1,'transparent');
+    ctx.fillStyle=g; ctx.fillRect(0,0,c.width,c.height);
+    // Stars
+    pts.forEach(p=>{
+      p.x+=p.dx; p.y+=p.dy; p.a+=.015;
+      if(p.x<0)p.x=c.width; if(p.x>c.width)p.x=0;
+      if(p.y<0)p.y=c.height; if(p.y>c.height)p.y=0;
+      ctx.globalAlpha=.3+Math.sin(p.a)*.25;
+      ctx.fillStyle=p.col; ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    });
+    ctx.globalAlpha=1;
+    _raf=requestAnimationFrame(draw);
+  }
+  draw();
+}
+// ── Wire up pfLv tap ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  const lv=$('pfLv'); if(lv) { lv.style.cursor='pointer'; lv.addEventListener('click',e=>{e.stopPropagation();openSSD();}); }
+});
+// ── Hook gainXP / gainCoins / gainKC ────────────────────────────────────────
+(function(){
+  const _origGX = gainXP;
+  window.gainXP = function(n, stat) {
+    _origGX(n, stat);
+    const actual=Math.ceil(n*(typeof getXpMult==='function'?getXpMult():1));
+    ssdTrackXP(actual);
+    if(actual>=5) ssdLog('⚡','XP Intjänad','+'+actual+' XP','var(--green)');
+  };
+  const _origGC = gainCoins;
+  window.gainCoins = function(n) {
+    _origGC(n);
+    const actual=Math.ceil(n*(typeof getCoinMult==='function'?getCoinMult():1));
+    ssdTrackCoins(actual);
+    if(actual>=10) ssdLog('🪙','Coins','+'+actual,'var(--gold)');
+  };
+  const _origGKC = gainKC;
+  window.gainKC = function(n) {
+    _origGKC(n);
+    if(n>0) { ssdTrackKC(n); ssdLog('💠','KC Kristall','+'+n+' KC','var(--blue)'); }
+  };
+  // Hook completeFishCatch after tournament hook
+  const _origCFC2 = completeFishCatch;
+  completeFishCatch = function(caught, quality) {
+    _origCFC2(caught, quality);
+    if(caught && caught.rarity && caught.rarity !== 'junk') ssdTrackFish(caught);
+    if(caught && caught.rarity && caught.rarity !== 'junk') {
+      const rarLabel={common:'COMMON',uncommon:'OVANLIG',rare:'SÄLLSYNT',epic:'EPISK',legendary:'LEGENDARISK',mythic:'MYTISK'};
+      ssdLog(caught.ico||'🐟', caught.name||'Fisk', rarLabel[caught.rarity]||caught.rarity, caught.col||'var(--blue)');
+    }
+  };
+  // Track combo peaks
+  const _origSubmitFlash = typeof submitFlash==='function'?submitFlash:null;
+  if(_origSubmitFlash) {
+    window.submitFlash = function() {
+      _origSubmitFlash.apply(this,arguments);
+      if(_combo>0) ssdTrackCombo(_combo);
+    };
+  }
+})();
 
 </script>
 
