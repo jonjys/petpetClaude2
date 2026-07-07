@@ -1358,6 +1358,19 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MULTIPLIER HUD ══ */
+.mult-hud { position:fixed;top:calc(var(--sat)+56px);left:10px;z-index:799;display:flex;flex-direction:column;gap:4px;pointer-events:none; }
+.mult-pill { display:flex;align-items:center;gap:4px;padding:3px 8px 3px 5px;border-radius:12px;backdrop-filter:blur(8px);border:1px solid;font:700 10px/1 var(--ff-body);white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all .3s;pointer-events:none; }
+.mult-pill.active { opacity:1;transform:translateX(0); }
+.mult-pill-ico { font-size:11px;line-height:1; }
+.mult-pill.xp-pill { background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.25);color:var(--green); }
+.mult-pill.coin-pill { background:rgba(255,204,0,.08);border-color:rgba(255,204,0,.25);color:var(--gold); }
+.mult-pill.bond-pill { background:rgba(170,102,255,.08);border-color:rgba(170,102,255,.25);color:var(--purple); }
+.mult-pill.wx-pill { background:rgba(0,221,204,.08);border-color:rgba(0,221,204,.25);color:var(--teal); }
+.mult-pill.event-pill { background:rgba(255,51,119,.08);border-color:rgba(255,51,119,.25);color:var(--pink); }
+.mult-pill.fortune-pill { background:rgba(170,102,255,.1);border-color:rgba(170,102,255,.3);color:var(--purple); }
+
 /* ══ PET BIRTHDAY & ANNIVERSARY ══ */
 .bday-overlay { position:fixed;inset:0;z-index:905;background:radial-gradient(ellipse at 50% 30%,rgba(20,8,50,.97),rgba(0,0,0,.98) 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;opacity:0;pointer-events:none;transition:opacity .5s; }
 .bday-overlay.show { opacity:1;pointer-events:all; }
@@ -2199,6 +2212,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ MULTIPLIER HUD ══ */
+.mult-hud { position:fixed;top:calc(var(--sat)+56px);left:10px;z-index:799;display:flex;flex-direction:column;gap:4px;pointer-events:none; }
+.mult-pill { display:flex;align-items:center;gap:4px;padding:3px 8px 3px 5px;border-radius:12px;backdrop-filter:blur(8px);border:1px solid;font:700 10px/1 var(--ff-body);white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all .3s;pointer-events:none; }
+.mult-pill.active { opacity:1;transform:translateX(0); }
+.mult-pill-ico { font-size:11px;line-height:1; }
+.mult-pill.xp-pill { background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.25);color:var(--green); }
+.mult-pill.coin-pill { background:rgba(255,204,0,.08);border-color:rgba(255,204,0,.25);color:var(--gold); }
+.mult-pill.bond-pill { background:rgba(170,102,255,.08);border-color:rgba(170,102,255,.25);color:var(--purple); }
+.mult-pill.wx-pill { background:rgba(0,221,204,.08);border-color:rgba(0,221,204,.25);color:var(--teal); }
+.mult-pill.event-pill { background:rgba(255,51,119,.08);border-color:rgba(255,51,119,.25);color:var(--pink); }
+.mult-pill.fortune-pill { background:rgba(170,102,255,.1);border-color:rgba(170,102,255,.3);color:var(--purple); }
+
 /* ══ PET BIRTHDAY & ANNIVERSARY ══ */
 .bday-overlay { position:fixed;inset:0;z-index:905;background:radial-gradient(ellipse at 50% 30%,rgba(20,8,50,.97),rgba(0,0,0,.98) 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;opacity:0;pointer-events:none;transition:opacity .5s; }
 .bday-overlay.show { opacity:1;pointer-events:all; }
@@ -3020,6 +3046,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ MULTIPLIER HUD ══ */
+.mult-hud { position:fixed;top:calc(var(--sat)+56px);left:10px;z-index:799;display:flex;flex-direction:column;gap:4px;pointer-events:none; }
+.mult-pill { display:flex;align-items:center;gap:4px;padding:3px 8px 3px 5px;border-radius:12px;backdrop-filter:blur(8px);border:1px solid;font:700 10px/1 var(--ff-body);white-space:nowrap;opacity:0;transform:translateX(-8px);transition:all .3s;pointer-events:none; }
+.mult-pill.active { opacity:1;transform:translateX(0); }
+.mult-pill-ico { font-size:11px;line-height:1; }
+.mult-pill.xp-pill { background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.25);color:var(--green); }
+.mult-pill.coin-pill { background:rgba(255,204,0,.08);border-color:rgba(255,204,0,.25);color:var(--gold); }
+.mult-pill.bond-pill { background:rgba(170,102,255,.08);border-color:rgba(170,102,255,.25);color:var(--purple); }
+.mult-pill.wx-pill { background:rgba(0,221,204,.08);border-color:rgba(0,221,204,.25);color:var(--teal); }
+.mult-pill.event-pill { background:rgba(255,51,119,.08);border-color:rgba(255,51,119,.25);color:var(--pink); }
+.mult-pill.fortune-pill { background:rgba(170,102,255,.1);border-color:rgba(170,102,255,.3);color:var(--purple); }
 
 /* ══ PET BIRTHDAY & ANNIVERSARY ══ */
 .bday-overlay { position:fixed;inset:0;z-index:905;background:radial-gradient(ellipse at 50% 30%,rgba(20,8,50,.97),rgba(0,0,0,.98) 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;opacity:0;pointer-events:none;transition:opacity .5s; }
@@ -6112,6 +6151,15 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div style="font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.08em">TOPPLISTAN DENNA VECKA</div>
     <div class="wbe-leaderboard" id="wbeLB"></div>
   </div>
+</div>
+
+<!-- MULTIPLIER HUD -->
+<div class="mult-hud" id="multHud">
+  <div class="mult-pill xp-pill" id="multXP"><span class="mult-pill-ico">⚡</span><span id="multXPVal">x1.0 XP</span></div>
+  <div class="mult-pill coin-pill" id="multCoin"><span class="mult-pill-ico">💰</span><span id="multCoinVal">x1.0 💰</span></div>
+  <div class="mult-pill wx-pill" id="multWX" style="display:none"><span class="mult-pill-ico">🌤️</span><span id="multWXVal">Väder</span></div>
+  <div class="mult-pill event-pill" id="multEvent" style="display:none"><span class="mult-pill-ico">⚡</span><span id="multEventVal">Event</span></div>
+  <div class="mult-pill fortune-pill" id="multFortune" style="display:none"><span class="mult-pill-ico">🔮</span><span id="multFortuneVal">Fortune</span></div>
 </div>
 
 <!-- AMBIENT SOUNDSCAPE FAB -->
@@ -15988,6 +16036,47 @@ function _bdayConfetti(){
 
 // Trigger on load
 document.addEventListener('DOMContentLoaded',()=>setTimeout(_checkBday,6000));
+
+
+
+// MULTIPLIER HUD
+function _updateMultHud(){
+  try {
+    const xpM=typeof getXpMult==='function'?getXpMult():1;
+    const coinM=typeof getCoinMult==='function'?getCoinMult():1;
+    // XP pill
+    const xpEl=$('multXP'); const xpVal=$('multXPVal');
+    if(xpEl&&xpVal){
+      xpVal.textContent='x'+xpM.toFixed(2)+' XP';
+      xpEl.classList.toggle('active',xpM>1.01);
+    }
+    // Coin pill
+    const cEl=$('multCoin'); const cVal=$('multCoinVal');
+    if(cEl&&cVal){
+      cVal.textContent='x'+coinM.toFixed(2)+' 💰';
+      cEl.classList.toggle('active',coinM>1.01);
+    }
+    // Weather
+    const wx=typeof getGlobalWeather==='function'?getGlobalWeather():null;
+    const wxEl=$('multWX'); const wxVal=$('multWXVal');
+    if(wxEl&&wxVal&&wx){
+      const mul=typeof gwxXpMul==='function'?gwxXpMul():1;
+      wxEl.style.display=mul>1?'flex':'none';
+      wxVal.textContent=wx.ico+' x'+mul.toFixed(1)+' XP';
+    }
+    // Fortune
+    const ftKey=localStorage.getItem('k0509_ftBonus');
+    const ftEl=$('multFortune'); const ftVal=$('multFortuneVal');
+    if(ftEl&&ftVal){
+      const hasBonus=ftKey&&ftKey.endsWith(getTodayKey());
+      ftEl.style.display=hasBonus?'flex':'none';
+      if(hasBonus) ftVal.textContent='🔮 '+ftKey.split('_')[0];
+    }
+  } catch(e){}
+}
+
+setInterval(_updateMultHud, 10000);
+document.addEventListener('DOMContentLoaded',()=>setTimeout(_updateMultHud,3000));
 
 
 </script>
