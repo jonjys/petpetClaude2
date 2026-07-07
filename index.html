@@ -2483,6 +2483,40 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ PET CUSTOMIZATION STUDIO ══ */
+.studio-panel { position:fixed;inset:0;z-index:864;background:#000;transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.studio-panel.open { transform:translateY(0); }
+.studio-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(255,255,255,.08); }
+.studio-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.studio-scroll { flex:1;overflow-y:auto;padding:14px 16px 120px; }
+.studio-section { margin-bottom:22px; }
+.studio-label { font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:.1em;margin-bottom:10px; }
+/* preview card */
+.studio-preview { width:100%;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:20px;transition:background .3s; }
+.studio-prev-pet { font-size:56px;line-height:1;filter:drop-shadow(0 0 24px var(--studio-col,#00ff88));transition:filter .3s; }
+.studio-prev-name { font:900 20px/1 var(--ff-head);color:var(--studio-col,#00ff88);letter-spacing:.08em;transition:color .3s; }
+/* name input */
+.studio-name-row { display:flex;gap:8px; }
+.studio-name-input { flex:1;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 14px;font:700 14px/1 var(--ff-body);color:#fff;outline:none; }
+.studio-name-input:focus { border-color:var(--studio-col,#00ff88); }
+.studio-save-btn { padding:10px 18px;background:var(--studio-col,#00ff88);border:none;border-radius:10px;font:800 12px/1 var(--ff-head);color:#000;cursor:pointer;transition:all .15s;white-space:nowrap; }
+/* color palette */
+.studio-color-grid { display:grid;grid-template-columns:repeat(5,1fr);gap:8px; }
+.studio-color-swatch { width:100%;aspect-ratio:1;border-radius:12px;cursor:pointer;border:3px solid transparent;transition:all .18s;display:flex;align-items:center;justify-content:center;font-size:20px; }
+.studio-color-swatch.sel { border-color:#fff;transform:scale(1.12);box-shadow:0 0 14px currentColor; }
+/* bg mood */
+.studio-bg-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+.studio-bg-card { border-radius:14px;padding:16px 10px;border:2px solid transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s; }
+.studio-bg-card.sel { border-color:#fff;box-shadow:0 0 16px rgba(255,255,255,.2); }
+.studio-bg-ico { font-size:28px;line-height:1; }
+.studio-bg-name { font:800 10px/1 var(--ff-head);color:#fff;letter-spacing:.06em; }
+.studio-bg-desc { font:500 9px/1.3 var(--ff-body);color:rgba(255,255,255,.5);text-align:center; }
+/* title selector */
+.studio-title-scroll { display:flex;gap:8px;overflow-x:auto;padding-bottom:4px; }
+.studio-title-chip { flex-shrink:0;padding:7px 14px;border-radius:20px;border:1.5px solid rgba(255,255,255,.15);font:700 10px/1 var(--ff-head);color:rgba(255,255,255,.7);cursor:pointer;white-space:nowrap;transition:all .18s; }
+.studio-title-chip.sel { border-color:var(--studio-col,#00ff88);color:var(--studio-col,#00ff88);background:rgba(255,255,255,.06); }
+
 /* ══ SEASONAL CALENDAR ══ */
 .season-panel { position:fixed;inset:0;z-index:863;background:#000;transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .season-panel.open { transform:translateY(0); }
@@ -3496,6 +3530,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSSD()" style="background:linear-gradient(135deg,rgba(0,32,16,.55),rgba(0,10,30,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,255,136,.7))">📊</div><span style="background:linear-gradient(135deg,#00ff88,#4488ff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">DAGENS STATS</span></div>
           <div class="ddr" onclick="cM();openDCB()" style="background:linear-gradient(135deg,rgba(40,10,0,.55),rgba(20,6,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,136,68,.7))">🎯</div><span style="background:linear-gradient(135deg,#ff8844,#ffcc00,#ff3377);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">UTMANINGAR</span></div>
           <div class="ddr" onclick="cM();nav('games');setTimeout(()=>openFENC(),300)" style="background:linear-gradient(135deg,rgba(0,10,30,.55),rgba(0,5,16,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(68,136,255,.7))">🐟</div><span style="background:linear-gradient(135deg,#4488ff,#00ddcc,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">FISKLEXIKON</span></div>
+          <div class="ddr" onclick="cM();openStudio()" style="background:linear-gradient(135deg,rgba(255,51,119,.12),rgba(170,102,255,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">✨</div><span style="background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">PET STUDIO</span></div>
           <div class="ddr" onclick="cM();openSeasonPanel()" style="background:linear-gradient(135deg,rgba(0,180,80,.12),rgba(0,100,40,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,255,136,.7))">🌸</div><span style="background:linear-gradient(135deg,var(--green),var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">SÄSONG</span></div>
           <div class="ddr" onclick="cM();openSkillTree()" style="background:linear-gradient(135deg,rgba(10,4,36,.55),rgba(5,2,18,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(170,102,255,.8))">🌟</div><span style="background:linear-gradient(135deg,var(--purple),var(--pink),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">SKILL TREE</span></div>
           <div class="ddr" onclick="cM();openCraft()" style="background:linear-gradient(135deg,rgba(20,8,0,.55),rgba(10,4,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,136,68,.7))">⚗️</div><span style="background:linear-gradient(135deg,#ff8844,#ffcc00,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">WORKSHOP</span></div>
@@ -4895,6 +4930,46 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="bond-splash-tier" id="bondSplashTier">VÄN</div>
     <div class="bond-splash-perk" id="bondSplashPerk">Ny förmåga upplåst!</div>
     <button class="bond-splash-btn" onclick="closeBondSplash()">💖 HÄFTIGT!</button>
+  </div>
+</div>
+
+<!-- PET CUSTOMIZATION STUDIO -->
+<div class="studio-panel" id="studioPanel">
+  <div class="studio-hdr">
+    <button style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer" onclick="closeStudio()">←</button>
+    <div class="studio-hdr-title">✨ PET STUDIO</div>
+  </div>
+  <div class="studio-scroll">
+    <!-- live preview -->
+    <div class="studio-preview" id="studioPreview">
+      <div class="studio-prev-pet" id="studioPrevPet">🐉</div>
+      <div class="studio-prev-name" id="studioPrevName">Eldraken</div>
+      <div style="font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.35)" id="studioPrevTitle">🌟 LEGEND</div>
+    </div>
+    <!-- pet name -->
+    <div class="studio-section">
+      <div class="studio-label">PET-NAMN</div>
+      <div class="studio-name-row">
+        <input class="studio-name-input" id="studioNameInput" maxlength="18" placeholder="Ge din pet ett namn...">
+        <button class="studio-save-btn" onclick="saveStudioName()">SPARA</button>
+      </div>
+    </div>
+    <!-- accent color -->
+    <div class="studio-section">
+      <div class="studio-label">ACCENTFÄRG</div>
+      <div class="studio-color-grid" id="studioColorGrid"></div>
+    </div>
+    <!-- bg mood -->
+    <div class="studio-section">
+      <div class="studio-label">BAKGRUNDSSTÄMNING</div>
+      <div class="studio-bg-grid" id="studioBgGrid"></div>
+    </div>
+    <!-- title badge -->
+    <div class="studio-section">
+      <div class="studio-label">TITEL</div>
+      <div class="studio-title-scroll" id="studioTitleScroll"></div>
+    </div>
+    <button style="width:100%;padding:14px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:14px;font:800 14px/1 var(--ff-head);color:#fff;cursor:pointer;letter-spacing:.06em;margin-top:10px" onclick="applyStudio()">✨ APPLICERA STIL</button>
   </div>
 </div>
 
@@ -13117,6 +13192,100 @@ pcSleep=function(){
 function _trackCraft(){ const v=parseInt(localStorage.getItem('k0509_craftCount')||0)+1; localStorage.setItem('k0509_craftCount',v); }
 // patch combo
 function _trackMaxCombo(n){ const v=parseInt(localStorage.getItem('k0509_maxCombo')||0); if(n>v) localStorage.setItem('k0509_maxCombo',n); }
+
+
+
+// PET CUSTOMIZATION STUDIO
+const STUDIO_COLORS = [
+  {id:'green',  col:'#00ff88', ico:'💚'},
+  {id:'pink',   col:'#ff3377', ico:'💗'},
+  {id:'blue',   col:'#4488ff', ico:'💙'},
+  {id:'gold',   col:'#ffcc00', ico:'💛'},
+  {id:'purple', col:'#aa66ff', ico:'💜'},
+  {id:'teal',   col:'#00ddcc', ico:'🩵'},
+  {id:'orange', col:'#ff8844', ico:'🧡'},
+  {id:'red',    col:'#ff4455', ico:'❤️'},
+  {id:'white',  col:'#ffffff', ico:'🤍'},
+  {id:'cyan',   col:'#00ffff', ico:'🔵'},
+];
+const STUDIO_BGS = [
+  {id:'aurora',  ico:'🌌', name:'AURORA',   desc:'Nordljusvågor',   bg:'radial-gradient(ellipse at 50% 80%,rgba(0,30,60,.97),rgba(0,50,20,.95),#000)'},
+  {id:'neon',    ico:'🌃', name:'NEONSTAD', desc:'Cyberpunk-gator', bg:'radial-gradient(ellipse at 50% 100%,rgba(20,0,40,.97),rgba(40,0,20,.95),#000)'},
+  {id:'nature',  ico:'🌿', name:'NATUR',    desc:'Gröna skogar',   bg:'radial-gradient(ellipse at 50% 20%,rgba(0,30,10,.97),rgba(5,20,0,.95),#000)'},
+  {id:'space',   ico:'🚀', name:'RYMDEN',   desc:'Stjärnornas hem', bg:'radial-gradient(ellipse at 50% 50%,rgba(5,0,20,.99),rgba(0,0,10,.98),#000)'},
+];
+const STUDIO_TITLES = [
+  '🌟 LEGEND','⚡ DESTROYER','🎣 FISKEMÄSTARE','💎 DIAMANT',
+  '🔥 ELDSJÄL','🌊 HAVETS KUNG','🐲 DRAKMÄSTARE','👑 KEJSARE',
+  '💜 BESTIS','🚀 RYMDFARARE','🌈 REGNBÅGE','⚔️ KRIGARE',
+];
+
+function openStudio() {
+  if(!G.accentCol) G.accentCol='green';
+  if(!G.bgMood) G.bgMood='aurora';
+  if(!G.petTitle) G.petTitle='🌟 LEGEND';
+  const p=$('studioPanel'); if(!p) return;
+  p.classList.add('open');
+  _renderStudio();
+}
+function closeStudio() { const p=$('studioPanel'); if(p) p.classList.remove('open'); }
+
+function _renderStudio() {
+  // preview
+  const col=STUDIO_COLORS.find(c=>c.id===(G.accentCol||'green'))||STUDIO_COLORS[0];
+  document.documentElement.style.setProperty('--studio-col',col.col);
+  const pp=$('studioPrevPet'); if(pp) pp.textContent=G.petEmoji||'🐉';
+  const pn=$('studioPrevName'); if(pn){ pn.textContent=G.petName||'Pet'; pn.style.color=col.col; }
+  const pt=$('studioPrevTitle'); if(pt) pt.textContent=G.petTitle||'🌟 LEGEND';
+  const ni=$('studioNameInput'); if(ni) ni.value=G.petName||'';
+  // colors
+  const cg=$('studioColorGrid');
+  if(cg) cg.innerHTML=STUDIO_COLORS.map(c=>`<div class="studio-color-swatch${c.id===(G.accentCol||'green')?' sel':''}" style="background:${c.col}40;color:${c.col};border-color:${c.id===(G.accentCol||'green')?'#fff':'transparent'}" onclick="pickStudioColor('${c.id}')">${c.ico}</div>`).join('');
+  // bgs
+  const bg=$('studioBgGrid');
+  if(bg) bg.innerHTML=STUDIO_BGS.map(b=>`<div class="studio-bg-card${b.id===(G.bgMood||'aurora')?' sel':''}" style="background:${b.bg}" onclick="pickStudioBg('${b.id}')"><span class="studio-bg-ico">${b.ico}</span><div class="studio-bg-name">${b.name}</div><div class="studio-bg-desc">${b.desc}</div></div>`).join('');
+  // titles
+  const ts=$('studioTitleScroll');
+  if(ts) ts.innerHTML=STUDIO_TITLES.map(t=>`<div class="studio-title-chip${t===(G.petTitle||'🌟 LEGEND')?' sel':''}" onclick="pickStudioTitle('${t}')">${t}</div>`).join('');
+}
+
+function pickStudioColor(id) { G.accentCol=id; save(); _renderStudio(); _applyAccentCol(); }
+function pickStudioBg(id) { G.bgMood=id; save(); _renderStudio(); }
+function pickStudioTitle(t) { G.petTitle=t; save(); _renderStudio(); }
+function saveStudioName() {
+  const v=($('studioNameInput').value||'').trim().slice(0,18);
+  if(!v){ showT('❌ Ange ett namn!','r'); return; }
+  G.petName=v; save();
+  const pp=$('studioPrevName'); if(pp) pp.textContent=v;
+  showT('✅ Namn sparat!','g');
+  updatePet&&updatePet();
+}
+
+function applyStudio() {
+  _applyAccentCol();
+  _applyBgMood();
+  updatePet&&updatePet();
+  const tn=$('petTitleBadge'); if(tn) tn.textContent=G.petTitle||'🌟 LEGEND';
+  showT('✨ Stil applicerad!','g');
+  SFX.lvl&&SFX.lvl();
+  closeStudio();
+}
+
+function _applyAccentCol() {
+  const col=STUDIO_COLORS.find(c=>c.id===(G.accentCol||'green'))||STUDIO_COLORS[0];
+  document.documentElement.style.setProperty('--green',col.col);
+}
+
+function _applyBgMood() {
+  const bg=STUDIO_BGS.find(b=>b.id===(G.bgMood||'aurora'))||STUDIO_BGS[0];
+  const petView=$('view-pet');
+  if(petView) petView.style.background=bg.bg;
+}
+
+// Apply saved studio settings on load
+document.addEventListener('DOMContentLoaded',()=>{
+  setTimeout(()=>{ _applyAccentCol(); _applyBgMood(); },500);
+});
 
 
 </script>
