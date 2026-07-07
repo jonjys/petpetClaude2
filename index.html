@@ -1824,6 +1824,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 #floatPet { position:fixed; bottom:calc(90px + var(--sab)); right:12px; z-index:500; cursor:pointer; user-select:none; transition:all .3s cubic-bezier(.34,1.56,.64,1); }
 #floatPet:active { transform:scale(.85); }
 .fp-bubble { position:absolute; bottom:100%; right:0; background:rgba(10,4,22,.92); border:2px solid var(--green); border-radius:14px 14px 0 14px; padding:6px 10px; font-size:11px; font-weight:800; white-space:nowrap; opacity:0; transition:opacity .3s; pointer-events:none; color:var(--green); margin-bottom:4px; }
+.fp-bubble.type-good    { border-color:var(--green);color:var(--green); }
+.fp-bubble.type-gold    { border-color:var(--gold);color:var(--gold); }
+.fp-bubble.type-magic   { border-color:var(--purple);color:var(--purple); }
+.fp-bubble.type-info    { border-color:var(--blue);color:var(--blue); }
+.fp-bubble.type-danger  { border-color:var(--red);color:var(--red); }
+.fp-bubble.type-warm    { border-color:var(--orange);color:var(--orange); }
+.fp-bubble { animation:none; }
+.fp-bubble.show { animation:fpPop .25s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes fpPop { 0%{transform:scale(0) translateY(8px);opacity:0} 100%{transform:scale(1) translateY(0);opacity:1} }
+
 .fp-bubble.show { opacity:1; }
 #fpEm { font-size:30px; display:block; filter:drop-shadow(0 0 8px var(--green)); animation:fpBob 2.5s ease-in-out infinite; }
 @keyframes fpBob { 0%,100%{transform:translateY(0) rotate(-5deg)} 50%{transform:translateY(-6px) rotate(5deg)} }
@@ -6766,6 +6776,7 @@ function getXpMult() {
   if(G_shop.xpBoost>Date.now()) m*=2;
   if(G.mood>=85) m*=1.5;
   if(typeof gwxXpMul==='function') m*=gwxXpMul();
+  if(typeof getPrestigeMult==='function') m*=getPrestigeMult();
   return m;
 }
 function getCoinMult() {
@@ -11633,6 +11644,92 @@ window.switchGame=function(id,el){
   _origSG(id,el);
   if(id==='reflex'){ const b=parseInt(localStorage.getItem('k0509_rfx_best')||'0'); $('rfxBest')&&($('rfxBest').textContent=b); $('rfxResult')&&($('rfxResult').style.display='none'); $('rfxStartWrap')&&($('rfxStartWrap').style.display=''); }
 };
+
+// ═══════════════════════════════════════════════
+// PET MOOD DIALOGUE
+// ═══════════════════════════════════════════════
+let _fbT=null;
+function showFloatBubble(text, type='good') {
+  const b=$('fpBubble'); if(!b) return;
+  b.className='fp-bubble type-'+type;
+  b.textContent=text;
+  b.classList.add('show');
+  clearTimeout(_fbT);
+  _fbT=setTimeout(()=>{b.classList.remove('show');},3800);
+}
+// Context-aware phrases
+const PET_CONTEXT_LINES={
+  lvlup:    ['⬆️ Nu är vi starkare!','🔥 LEVEL UP BABY!','✨ Ingen kan stoppa oss!','⭐ Nästa nivå, let's go!'],
+  fish_epic:['🎣 Episk fångst!','🦈 Otrolig!','💎 Det var en MONSTER!','🏆 Vi är fiskelegendar!'],
+  fish_leg: ['👑 LEGENDARISK!','🌟 Jag kan inte tro det!','🔥 MYTISK KRAFT!','💜 Det var magiskt!'],
+  battle_w: ['⚔️ SEGER!','💪 Ingen slår oss!','🔥 Jag visste det!','🏆 Oövervinnerliga!'],
+  care_fed: ['🍖 Mmm, gott!','😋 Tack för maten!','💚 Jag mår bättre nu!'],
+  care_slp: ['😴 Ahh, skönt...','💤 Sovit gott!','⚡ Full energi nu!'],
+  care_trn: ['💪 Starkare varje dag!','🏋️ Kände det i musklerna!','🔥 Träning är kärlek!'],
+  care_ply: ['🎮 Det var kul!','😄 Mer mer mer!','🎉 Livet är bra!'],
+  weather:  ['🌤️ Vädret ändras!','⛈️ Spännande storm!','🌸 Härligt väder idag!','🌌 Kosmiska vibrationer!'],
+  random:   ['💭 Vad ska vi göra nu?','🌟 Idag känns bra!','✨ Jag gillar dig!','🎵 Du hör musiken?','💫 Vi är ett team!','🦋 Vilka är vi ens?','👀 Jag ser dig!','🔮 Framtiden ser ljus ut!'],
+  hunger:   ['🍖 Hungrig nu...','😰 Lite mat?','😟 Magen kurrar...'],
+  energy:   ['😴 Trött...','⚡ Behöver vila...','💤 Får jag sova?'],
+  streak:   ['🔥 Streak-mästare!','🏅 Daglig dedikation!','👑 Du är legendarisk!'],
+  bond:     ['💖 Vi är bästisar!','💜 Djupare band!','🫀 Jag älskar dig!'],
+};
+function _petLine(ctx) {
+  const lines=PET_CONTEXT_LINES[ctx]; if(!lines||!lines.length) return null;
+  return lines[Math.floor(Math.random()*lines.length)];
+}
+// Hook into major events
+const _origTLU=triggerLvlUp;
+window.triggerLvlUp=function(){
+  _origTLU.apply(this,arguments);
+  setTimeout(()=>showFloatBubble(_petLine('lvlup'),'gold'),600);
+};
+const _origCFC3=completeFishCatch;
+completeFishCatch=function(caught,quality){
+  _origCFC3(caught,quality);
+  if(caught&&caught.rarity==='legendary') setTimeout(()=>showFloatBubble(_petLine('fish_leg'),'magic'),400);
+  else if(caught&&(caught.rarity==='epic'||caught.rarity==='mythic')) setTimeout(()=>showFloatBubble(_petLine('fish_epic'),'info'),400);
+};
+const _origPcFeedD=pcFeed;
+window.pcFeed=function(){
+  _origPcFeedD.apply(this,arguments);
+  setTimeout(()=>showFloatBubble(_petLine('care_fed'),'good'),300);
+};
+const _origPcSleepD=pcSleep;
+window.pcSleep=function(){
+  _origPcSleepD.apply(this,arguments);
+  setTimeout(()=>showFloatBubble(_petLine('care_slp'),'info'),300);
+};
+const _origPcTrainD=pcTrain;
+window.pcTrain=function(){
+  _origPcTrainD.apply(this,arguments);
+  setTimeout(()=>showFloatBubble(_petLine('care_trn'),'warm'),300);
+};
+const _origPcPlayD=pcPlay;
+window.pcPlay=function(){
+  _origPcPlayD.apply(this,arguments);
+  setTimeout(()=>showFloatBubble(_petLine('care_ply'),'good'),300);
+};
+const _origShowBondSplash=showBondSplash;
+window.showBondSplash=function(ti){
+  _origShowBondSplash(ti);
+  setTimeout(()=>showFloatBubble(_petLine('bond'),'magic'),800);
+};
+// Weather change hook
+const _origGwxSchedule=typeof _gwxSchedule==='function'?_gwxSchedule:null;
+// Random thoughts every 90-180 seconds
+function _startPetDialogue() {
+  function _randThought() {
+    if(!G.name) return;
+    if(G.hunger<30) showFloatBubble(_petLine('hunger'),'danger');
+    else if(G.energy<25) showFloatBubble(_petLine('energy'),'info');
+    else if(G.streak>0&&Math.random()<.3) showFloatBubble(_petLine('streak'),'gold');
+    else showFloatBubble(_petLine('random'),'good');
+    setTimeout(_randThought, 90000+Math.random()*90000);
+  }
+  setTimeout(_randThought, 15000+Math.random()*30000);
+}
+setTimeout(_startPetDialogue, 3000);
 
 </script>
 
