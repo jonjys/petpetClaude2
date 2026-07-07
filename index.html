@@ -1360,6 +1360,30 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET MICRO-ANIMATIONS ══ */
+.pf-body.bounce { animation:petBounce .5s cubic-bezier(.34,1.56,.64,1); }
+.pf-body.shake  { animation:petShake .4s ease-in-out; }
+.pf-body.spin   { animation:petSpin .6s cubic-bezier(.34,1.56,.64,1); }
+.pf-body.float  { animation:petFloat 2s ease-in-out infinite alternate; }
+.pf-body.sleep  { animation:petSleep 3s ease-in-out infinite alternate; }
+.pf-body.rage   { animation:petRage .15s ease-in-out infinite alternate; }
+@keyframes petBounce { 0%{transform:scale(1)} 40%{transform:scale(1.25) translateY(-12px)} 70%{transform:scale(.95)} 100%{transform:scale(1)} }
+@keyframes petShake  { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+@keyframes petSpin   { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+@keyframes petFloat  { from{transform:translateY(0)} to{transform:translateY(-8px)} }
+@keyframes petSleep  { from{transform:scale(1) rotate(-2deg)} to{transform:scale(1.04) rotate(2deg)} }
+@keyframes petRage   { from{transform:scale(1.08) rotate(-3deg)} to{transform:scale(1.12) rotate(3deg)} }
+/* mood overlays on pet area */
+.pet-mood-glow { position:absolute;inset:0;border-radius:50%;pointer-events:none;transition:opacity .5s;opacity:0; }
+.pet-mood-glow.hungry  { background:radial-gradient(circle,rgba(255,68,85,.12),transparent 70%);opacity:1; }
+.pet-mood-glow.happy   { background:radial-gradient(circle,rgba(0,255,136,.08),transparent 70%);opacity:1; }
+.pet-mood-glow.sleepy  { background:radial-gradient(circle,rgba(68,136,255,.1),transparent 70%);opacity:1; }
+.pet-mood-glow.excited { background:radial-gradient(circle,rgba(255,204,0,.12),transparent 70%);opacity:1; }
+/* emote pop floating */
+.pet-emote-pop { position:fixed;z-index:700;font-size:28px;line-height:1;animation:emotePop 1.8s ease-out both;pointer-events:none; }
+@keyframes emotePop { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-60px) scale(1.4)} }
+
 /* ══ RELATIONSHIP NETWORK ══ */
 .rnet-panel { position:fixed;inset:0;z-index:872;background:radial-gradient(ellipse at 50% 0%,rgba(0,15,30,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .rnet-panel.open { transform:translateY(0); }
@@ -2243,6 +2267,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ PET MICRO-ANIMATIONS ══ */
+.pf-body.bounce { animation:petBounce .5s cubic-bezier(.34,1.56,.64,1); }
+.pf-body.shake  { animation:petShake .4s ease-in-out; }
+.pf-body.spin   { animation:petSpin .6s cubic-bezier(.34,1.56,.64,1); }
+.pf-body.float  { animation:petFloat 2s ease-in-out infinite alternate; }
+.pf-body.sleep  { animation:petSleep 3s ease-in-out infinite alternate; }
+.pf-body.rage   { animation:petRage .15s ease-in-out infinite alternate; }
+@keyframes petBounce { 0%{transform:scale(1)} 40%{transform:scale(1.25) translateY(-12px)} 70%{transform:scale(.95)} 100%{transform:scale(1)} }
+@keyframes petShake  { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+@keyframes petSpin   { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+@keyframes petFloat  { from{transform:translateY(0)} to{transform:translateY(-8px)} }
+@keyframes petSleep  { from{transform:scale(1) rotate(-2deg)} to{transform:scale(1.04) rotate(2deg)} }
+@keyframes petRage   { from{transform:scale(1.08) rotate(-3deg)} to{transform:scale(1.12) rotate(3deg)} }
+/* mood overlays on pet area */
+.pet-mood-glow { position:absolute;inset:0;border-radius:50%;pointer-events:none;transition:opacity .5s;opacity:0; }
+.pet-mood-glow.hungry  { background:radial-gradient(circle,rgba(255,68,85,.12),transparent 70%);opacity:1; }
+.pet-mood-glow.happy   { background:radial-gradient(circle,rgba(0,255,136,.08),transparent 70%);opacity:1; }
+.pet-mood-glow.sleepy  { background:radial-gradient(circle,rgba(68,136,255,.1),transparent 70%);opacity:1; }
+.pet-mood-glow.excited { background:radial-gradient(circle,rgba(255,204,0,.12),transparent 70%);opacity:1; }
+/* emote pop floating */
+.pet-emote-pop { position:fixed;z-index:700;font-size:28px;line-height:1;animation:emotePop 1.8s ease-out both;pointer-events:none; }
+@keyframes emotePop { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-60px) scale(1.4)} }
+
 /* ══ RELATIONSHIP NETWORK ══ */
 .rnet-panel { position:fixed;inset:0;z-index:872;background:radial-gradient(ellipse at 50% 0%,rgba(0,15,30,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .rnet-panel.open { transform:translateY(0); }
@@ -3106,6 +3154,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ PET MICRO-ANIMATIONS ══ */
+.pf-body.bounce { animation:petBounce .5s cubic-bezier(.34,1.56,.64,1); }
+.pf-body.shake  { animation:petShake .4s ease-in-out; }
+.pf-body.spin   { animation:petSpin .6s cubic-bezier(.34,1.56,.64,1); }
+.pf-body.float  { animation:petFloat 2s ease-in-out infinite alternate; }
+.pf-body.sleep  { animation:petSleep 3s ease-in-out infinite alternate; }
+.pf-body.rage   { animation:petRage .15s ease-in-out infinite alternate; }
+@keyframes petBounce { 0%{transform:scale(1)} 40%{transform:scale(1.25) translateY(-12px)} 70%{transform:scale(.95)} 100%{transform:scale(1)} }
+@keyframes petShake  { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+@keyframes petSpin   { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+@keyframes petFloat  { from{transform:translateY(0)} to{transform:translateY(-8px)} }
+@keyframes petSleep  { from{transform:scale(1) rotate(-2deg)} to{transform:scale(1.04) rotate(2deg)} }
+@keyframes petRage   { from{transform:scale(1.08) rotate(-3deg)} to{transform:scale(1.12) rotate(3deg)} }
+/* mood overlays on pet area */
+.pet-mood-glow { position:absolute;inset:0;border-radius:50%;pointer-events:none;transition:opacity .5s;opacity:0; }
+.pet-mood-glow.hungry  { background:radial-gradient(circle,rgba(255,68,85,.12),transparent 70%);opacity:1; }
+.pet-mood-glow.happy   { background:radial-gradient(circle,rgba(0,255,136,.08),transparent 70%);opacity:1; }
+.pet-mood-glow.sleepy  { background:radial-gradient(circle,rgba(68,136,255,.1),transparent 70%);opacity:1; }
+.pet-mood-glow.excited { background:radial-gradient(circle,rgba(255,204,0,.12),transparent 70%);opacity:1; }
+/* emote pop floating */
+.pet-emote-pop { position:fixed;z-index:700;font-size:28px;line-height:1;animation:emotePop 1.8s ease-out both;pointer-events:none; }
+@keyframes emotePop { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-60px) scale(1.4)} }
 
 /* ══ RELATIONSHIP NETWORK ══ */
 .rnet-panel { position:fixed;inset:0;z-index:872;background:radial-gradient(ellipse at 50% 0%,rgba(0,15,30,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
@@ -16266,6 +16338,104 @@ function _rnetInteract(id){
   SFX.coin&&SFX.coin();
   _renderRNet();
 }
+
+
+
+// PET MICRO-ANIMATION SYSTEM
+const PET_EMOTES = {
+  happy:['✨','💫','🌟','😊','💚'],
+  feed: ['🍖','😋','💖','✨'],
+  sleep:['💤','🌙','😴','⭐'],
+  play: ['🎮','🎉','🥳','💃'],
+  train:['💪','⚡','🔥','🏋️'],
+  fish: ['🎣','🐟','💦','✨'],
+  level:['⬆️','🏆','✨','🌟','💥'],
+  bond: ['💜','💖','✨','🤗'],
+  boss: ['⚔️','💥','🔥','👊'],
+};
+
+function petMicroAnim(type='bounce'){
+  const b=$('pfBody'); if(!b) return;
+  b.classList.remove('bounce','shake','spin','float','sleep','rage');
+  void b.offsetWidth; // reflow
+  b.classList.add(type);
+  if(type==='float'||type==='sleep') return; // continuous
+  setTimeout(()=>b.classList.remove(type),800);
+}
+
+function spawnPetEmote(emoteType){
+  const emotes=PET_EMOTES[emoteType]||PET_EMOTES.happy;
+  const e=emotes[Math.floor(Math.random()*emotes.length)];
+  const pfEl=$('petFrame')||$('pfBody');
+  if(!pfEl) return;
+  const rect=pfEl.getBoundingClientRect();
+  const div=document.createElement('div');
+  div.className='pet-emote-pop';
+  div.textContent=e;
+  div.style.left=(rect.left+rect.width/2-14+((Math.random()-.5)*40))+'px';
+  div.style.top=(rect.top+rect.height/4)+'px';
+  document.body.appendChild(div);
+  setTimeout(()=>div.remove(),1900);
+}
+
+function petMoodGlow(mood){
+  const glow=$('petMoodGlow');
+  if(!glow) return;
+  glow.className='pet-mood-glow '+mood;
+}
+
+// Extend petReact
+const _origPetReact=petReact;
+petReact=function(m){
+  _origPetReact.apply(this,arguments);
+  if(m==='happy'){ petMicroAnim('bounce'); spawnPetEmote('happy'); petMoodGlow('happy'); }
+  else if(m==='hungry'){ petMicroAnim('shake'); petMoodGlow('hungry'); }
+  else if(m==='excited'){ petMicroAnim('spin'); spawnPetEmote('happy'); petMoodGlow('excited'); }
+  else if(m==='sleep'){ petMicroAnim('sleep'); petMoodGlow('sleepy'); }
+  else if(m==='rage'){ petMicroAnim('rage'); petMoodGlow('hungry'); }
+};
+
+// Contextual emotes for actions
+const _origPcFeedM=pcFeed;
+pcFeed=function(){
+  _origPcFeedM.apply(this,arguments);
+  spawnPetEmote('feed'); petMicroAnim('bounce');
+};
+const _origPcSleepM=pcSleep;
+pcSleep=function(){
+  _origPcSleepM.apply(this,arguments);
+  spawnPetEmote('sleep'); petMicroAnim('sleep');
+};
+const _origPcPlayM=pcPlay;
+pcPlay=function(){
+  _origPcPlayM.apply(this,arguments);
+  spawnPetEmote('play'); petMicroAnim('spin');
+};
+
+// Time-of-day idle animation
+function _petIdleAnim(){
+  const h=new Date().getHours();
+  const b=$('pfBody');
+  if(!b) return;
+  if(G.mood>70&&G.energy>60) petMicroAnim('bounce');
+  else if(G.energy<20) petMicroAnim('sleep');
+  else if(G.hunger<30) petMicroAnim('shake');
+  else petMicroAnim('float');
+}
+setInterval(_petIdleAnim,30000);
+
+// Mood glow div - inject into pet frame
+document.addEventListener('DOMContentLoaded',()=>{
+  const pf=$('pfBody');
+  if(pf&&!$('petMoodGlow')){
+    const g=document.createElement('div');
+    g.id='petMoodGlow';
+    g.className='pet-mood-glow';
+    pf.style.position='relative';
+    pf.insertBefore(g,pf.firstChild);
+  }
+  setTimeout(()=>{if(G.mood>70) petMoodGlow('happy');else if(G.hunger<30) petMoodGlow('hungry');},2000);
+});
 
 
 </script>
