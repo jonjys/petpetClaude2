@@ -172,7 +172,7 @@ html, body {
 }
 .pf-body {
   width: 54px; height: 54px; border-radius: 16px;
-  background: var(--s2); border: 2.5px solid var(--green);
+  background: linear-gradient(135deg,rgba(12,4,26,.92),rgba(6,2,14,.96)); border: 2.5px solid var(--green);
   display: flex; align-items: center; justify-content: center;
   font-size: 26px; position: relative;
   box-shadow: 0 0 20px rgba(0,255,136,.2);
@@ -187,7 +187,7 @@ html, body {
 .pf-body.happy { border-color: var(--gold); box-shadow: 0 0 20px rgba(255,204,0,.3); }
 .pf-mood {
   position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%);
-  background: var(--s1); border: 1px solid var(--line);
+  background: rgba(10,4,22,.88); border: 1px solid rgba(255,255,255,.1);
   border-radius: 8px; padding: 1px 6px; font-size: 10px; white-space: nowrap;
 }
 .pf-lv { font-size: 9px; font-weight: 800; color: var(--green); font-family: var(--ff-head); }
@@ -293,7 +293,7 @@ html, body {
 /* Pet info card under stage */
 .pet-info-card {
   margin: 0 14px 12px;
-  background: var(--s1); border: 1px solid var(--line);
+  background: linear-gradient(160deg,rgba(12,4,28,.9),rgba(4,2,10,.95)); border: 1px solid rgba(255,255,255,.07);
   border-radius: 18px; padding: 12px 14px;
 }
 .pet-name-row {
@@ -330,7 +330,7 @@ html, body {
 .vitals-card {
   display: none; /* replaced by stage overlay vitals */
   margin: 0 14px 12px;
-  background: var(--s1); border: 1px solid var(--line);
+  background: linear-gradient(160deg,rgba(12,4,28,.9),rgba(4,2,10,.95)); border: 1px solid rgba(255,255,255,.07);
   border-radius: 18px; padding: 14px;
 }
 .vitals-title { font-size: 10px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 14px; }
@@ -365,7 +365,7 @@ html, body {
 /* Minigame */
 .minigame-card {
   margin: 0 16px 16px;
-  background: var(--s1); border: 1px solid var(--line);
+  background: linear-gradient(160deg,rgba(10,4,22,.92),rgba(4,2,10,.97)); border: 1px solid rgba(255,255,255,.07);
   border-radius: 20px; padding: 20px; text-align: center;
 }
 .mg-title { font-family: var(--ff-head); font-size: 16px; margin-bottom: 4px; }
@@ -431,7 +431,7 @@ html, body {
 }
 .sb-ring:active { transform: scale(.9); }
 .sb-ring.has-flash { background: conic-gradient(var(--pink), var(--purple), var(--green), var(--pink)); }
-.sb-ring.no-flash  { background: conic-gradient(var(--s3), var(--s3)); }
+.sb-ring.no-flash  { background: conic-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)); }
 .sb-ring.live      { background: conic-gradient(var(--red), var(--gold), var(--red)); animation: livering 1.5s infinite; }
 @keyframes livering { 0%,100%{box-shadow:0 0 0 0 rgba(255,68,85,.5);}50%{box-shadow:0 0 0 5px rgba(255,68,85,0);} }
 .sb-inner {
@@ -578,7 +578,7 @@ html, body {
   display: flex; align-items: center; justify-content: center;
 }
 .ccf-ring.done    { background: conic-gradient(var(--green), var(--teal), var(--green)); }
-.ccf-ring.pending { background: conic-gradient(var(--s3), var(--s3)); }
+.ccf-ring.pending { background: conic-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)); }
 .ccf-ring.missing { background: conic-gradient(var(--red), var(--red)); animation: blink2 1s infinite; }
 @keyframes blink2{0%,100%{opacity:1;}50%{opacity:.5;}}
 .ccf-inner { width:32px;height:32px;border-radius:50%;background:rgba(10,4,22,.85);display:flex;align-items:center;justify-content:center;font-size:16px; }
@@ -615,7 +615,7 @@ html, body {
 .cdb-item { display: flex; flex-direction: column; align-items: center; gap: 3px; flex-shrink: 0; }
 .cdb-ring { width:44px;height:44px;border-radius:50%;padding:2px;display:flex;align-items:center;justify-content:center; }
 .cdb-ring.done    { background: conic-gradient(var(--green),var(--teal),var(--green)); }
-.cdb-ring.pending { background: conic-gradient(var(--s3),var(--s3)); }
+.cdb-ring.pending { background: conic-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)); }
 .cdb-ring.missing { background: conic-gradient(var(--red),var(--red)); animation:blink2 1s infinite; }
 .cdb-inner { width:38px;height:38px;border-radius:50%;background:rgba(10,4,22,.85);display:flex;align-items:center;justify-content:center;font-size:20px; }
 .cdb-name { font-size:9px;color:var(--t2);max-width:44px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center; }
@@ -740,7 +740,7 @@ html, body {
 .map-wrap { display: flex; flex-direction: column; height: 100%; }
 .map-canvas { flex: 1; position: relative; min-height: 260px; max-height: calc(100vh - 200px); overflow:hidden; }
 #realMap { position:absolute; inset:0; width:100%; height:100%; }
-.leaflet-container { background: var(--s1) !important; }
+.leaflet-container { background: rgba(10,4,22,.95) !important; }
 .leaflet-tile-pane { filter: brightness(.75) saturate(.8) hue-rotate(180deg) invert(1) hue-rotate(185deg) brightness(.62); }
 .map-top {
   position: absolute; top: calc(var(--sat) + 10px); left: 0; right: 0; z-index: 500;
@@ -764,7 +764,7 @@ html, body {
 .mctrl:active { background: rgba(255,255,255,.09); }
 .mctrl.on { background: var(--green); color: var(--bg); }
 .gps-bar {
-  padding: 10px 16px; background: var(--s1); border-top: 1px solid var(--line);
+  padding: 10px 16px; background: linear-gradient(180deg,rgba(8,3,18,.97),rgba(4,2,10,.99)); border-top: 1px solid rgba(255,255,255,.06);
   display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
 }
 .gps-st { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; }
@@ -1474,7 +1474,7 @@ textarea.inp { resize:none;min-height:72px; }
 
 /* ── shimmer loading ── */
 @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-.shimmer { background:linear-gradient(90deg,var(--s2) 25%,var(--s3) 50%,var(--s2) 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:8px; }
+.shimmer { background:linear-gradient(90deg,rgba(14,6,30,.9) 25%,rgba(22,10,44,.95) 50%,rgba(14,6,30,.9) 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:8px; }
 
 /* ════ ROUND 3 UPGRADES ════ */
 
@@ -1556,7 +1556,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .cwm { display:flex; flex-direction:column; align-items:center; gap:3px; flex-shrink:0; cursor:pointer; }
 .cwm-ava { width:38px; height:38px; border-radius:50%; background:rgba(10,4,22,.8); border:2px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; font-size:18px; position:relative; }
 .cwm-ava.on-line { border-color:var(--green); }
-.cwm-pip { position:absolute; bottom:-1px; right:-1px; width:10px; height:10px; border-radius:50%; border:2px solid var(--s1); }
+.cwm-pip { position:absolute; bottom:-1px; right:-1px; width:10px; height:10px; border-radius:50%; border:2px solid rgba(2,0,8,.95); }
 .cwm-name { font-size:9px; font-weight:700; color:var(--t2); max-width:42px; text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .cw-react-bar { display:flex; gap:6px; padding:2px 10px 8px; }
 .cw-react { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:3px 8px; font-size:13px; cursor:pointer; transition:all .15s; }
@@ -1761,7 +1761,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 /* ══ FLOATING PET COMPANION ══ */
 #floatPet { position:fixed; bottom:calc(90px + var(--sab)); right:12px; z-index:500; cursor:pointer; user-select:none; transition:all .3s cubic-bezier(.34,1.56,.64,1); }
 #floatPet:active { transform:scale(.85); }
-.fp-bubble { position:absolute; bottom:100%; right:0; background:var(--s1); border:2px solid var(--green); border-radius:14px 14px 0 14px; padding:6px 10px; font-size:11px; font-weight:800; white-space:nowrap; opacity:0; transition:opacity .3s; pointer-events:none; color:var(--green); margin-bottom:4px; }
+.fp-bubble { position:absolute; bottom:100%; right:0; background:rgba(10,4,22,.92); border:2px solid var(--green); border-radius:14px 14px 0 14px; padding:6px 10px; font-size:11px; font-weight:800; white-space:nowrap; opacity:0; transition:opacity .3s; pointer-events:none; color:var(--green); margin-bottom:4px; }
 .fp-bubble.show { opacity:1; }
 #fpEm { font-size:30px; display:block; filter:drop-shadow(0 0 8px var(--green)); animation:fpBob 2.5s ease-in-out infinite; }
 @keyframes fpBob { 0%,100%{transform:translateY(0) rotate(-5deg)} 50%{transform:translateY(-6px) rotate(5deg)} }
@@ -2552,7 +2552,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 /* ── SHOP THEME CARD UPGRADED ── */
 .shop-theme-card {
-  background:var(--s2); border:2px solid var(--line);
+  background:linear-gradient(160deg,rgba(14,6,30,.9),rgba(6,2,14,.95)); border:2px solid rgba(255,255,255,.08);
   border-radius:16px; padding:12px 8px; cursor:pointer;
   transition:all .18s; position:relative; text-align:center; overflow:hidden;
 }
@@ -2603,7 +2603,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .b2-hp-track { height:10px !important; border-radius:5px !important; }
 .b2-hp-fill { height:100% !important; }
 .b2-log {
-  font-size:15px !important; background:var(--s1) !important;
+  font-size:15px !important; background:rgba(10,4,22,.88) !important;
   border:1px solid rgba(255,255,255,.07) !important;
   border-radius:12px !important; padding:10px 14px !important;
   margin:8px 0 !important;
@@ -2718,7 +2718,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 }
 .vc-music-disc {
   width:22px;height:22px;border-radius:50%;flex-shrink:0;
-  background:var(--s2);border:1.5px solid rgba(255,255,255,.2);
+  background:rgba(10,4,22,.85);border:1.5px solid rgba(255,255,255,.18);
   display:flex;align-items:center;justify-content:center;font-size:11px;
   animation:discSpin 4s linear infinite;
 }
@@ -3686,7 +3686,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 <div class="story-overlay" id="storyOverlay">
   <div class="story-ov-bar" id="storySegments"></div>
   <div class="story-ov-hdr">
-    <div style="width:40px;height:40px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:20px" id="storyUserEm">🐉</div>
+    <div style="width:40px;height:40px;border-radius:50%;background:rgba(14,6,30,.9);display:flex;align-items:center;justify-content:center;font-size:20px" id="storyUserEm">🐉</div>
     <div><div style="font-weight:800;font-size:14px" id="storyUserName">ella_sthlm</div><div style="font-size:11px;color:var(--t2)">Story • 2h sedan</div></div>
     <div style="margin-left:auto;cursor:pointer;font-size:22px" onclick="closeStory()">✕</div>
   </div>
@@ -4036,7 +4036,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="ms" style="background:radial-gradient(ellipse at 50% 0%,rgba(170,102,255,.13),rgba(0,0,0,.98) 65%)">
     <div class="mh"></div>
     <div class="mt" style="background:linear-gradient(135deg,rgba(170,102,255,.16),rgba(68,136,255,.1));font-family:var(--ff-head);font-size:17px">🤖 KARMA AI <div class="mx" onclick="closeModal('aiModal')">✕</div></div>
-    <div style="height:220px;background:var(--s2);border-radius:14px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px;scrollbar-width:none" id="aiMsgsModal"><div class="msg them">Hej! 👋 Fråga mig om Flash, Circles, uppdrag, din pet eller strategi!</div></div>
+    <div style="height:220px;background:rgba(10,4,22,.9);border-radius:14px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px;scrollbar-width:none" id="aiMsgsModal"><div class="msg them">Hej! 👋 Fråga mig om Flash, Circles, uppdrag, din pet eller strategi!</div></div>
     <div style="display:flex;gap:8px">
       <input class="inp" id="aiInpM" style="margin-bottom:0" placeholder="Fråga AI..." onkeydown="if(event.key==='Enter')sendAIModal()">
       <button class="btn btn-pk btn-md" onclick="sendAIModal()">→</button>
@@ -4682,14 +4682,14 @@ function initParticles() {
 function renderGearRow() {
   const el = $('gearRow'); if(!el) return;
   if(!G.gear.length) {
-    el.innerHTML = `<div style="width:52px;height:52px;border-radius:14px;background:var(--s1);border:1px dashed var(--t3);display:flex;align-items:center;justify-content:center;font-size:20px;opacity:.4;cursor:pointer" onclick="openGearShop()">+</div><span style="font-size:13px;color:var(--t3);align-self:center;padding-left:10px">Inget gear</span>`;
+    el.innerHTML = `<div style="width:52px;height:52px;border-radius:14px;background:rgba(10,4,22,.85);border:1px dashed rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:20px;opacity:.4;cursor:pointer" onclick="openGearShop()">+</div><span style="font-size:13px;color:var(--t3);align-self:center;padding-left:10px">Inget gear</span>`;
     return;
   }
   el.innerHTML = G.gear.map(gid => {
     const g = GEAR_ITEMS.find(x=>x.id===gid); if(!g) return '';
     const eq = G.equippedGear === g.em;
-    return `<div style="width:52px;height:52px;border-radius:14px;background:var(--s1);border:2px solid ${eq?'var(--green)':'var(--line)'};display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;flex-shrink:0;position:relative;${eq?'box-shadow:0 0 12px rgba(0,255,136,.25)':''};transition:all .15s" onclick="equipGear('${g.em}','${g.id}')"><span>${g.em}</span>${eq?'<div style="position:absolute;top:-6px;right:-6px;background:var(--green);color:var(--bg);font-size:8px;font-weight:900;padding:1px 5px;border-radius:4px">ON</div>':''}</div>`;
-  }).join('') + `<div style="width:52px;height:52px;border-radius:14px;background:var(--s1);border:1px dashed var(--t3);display:flex;align-items:center;justify-content:center;font-size:20px;opacity:.4;cursor:pointer;flex-shrink:0" onclick="openGearShop()">+</div>`;
+    return `<div style="width:52px;height:52px;border-radius:14px;background:rgba(10,4,22,.85);border:2px solid ${eq?'var(--green)':'rgba(255,255,255,.08)'};display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;flex-shrink:0;position:relative;${eq?'box-shadow:0 0 12px rgba(0,255,136,.25)':''};transition:all .15s" onclick="equipGear('${g.em}','${g.id}')"><span>${g.em}</span>${eq?'<div style="position:absolute;top:-6px;right:-6px;background:var(--green);color:var(--bg);font-size:8px;font-weight:900;padding:1px 5px;border-radius:4px">ON</div>':''}</div>`;
+  }).join('') + `<div style="width:52px;height:52px;border-radius:14px;background:rgba(10,4,22,.85);border:1px dashed rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:20px;opacity:.4;cursor:pointer;flex-shrink:0" onclick="openGearShop()">+</div>`;
 }
 function equipGear(em, id) {
   G.equippedGear = G.equippedGear === em ? null : em;
@@ -4699,7 +4699,7 @@ function equipGear(em, id) {
 }
 function openGearShop() {
   $('gearGrid').innerHTML = GEAR_ITEMS.map(g => `
-    <div style="background:var(--s2);border:1px solid ${G.gear.includes(g.id)?'var(--green)':'var(--line)'};border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .12s" onclick="buyGear('${g.id}')">
+    <div style="background:linear-gradient(160deg,rgba(14,6,30,.9),rgba(6,2,14,.95));border:1px solid ${G.gear.includes(g.id)?'var(--green)':'rgba(255,255,255,.08)'};border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .12s" onclick="buyGear('${g.id}')">
       <div style="font-size:38px;margin-bottom:8px">${g.em}</div>
       <div style="font-size:13px;font-weight:700;margin-bottom:3px">${g.nm}</div>
       <div style="font-size:11px;color:var(--t3);margin-bottom:8px">${g.st}</div>
@@ -5076,7 +5076,7 @@ function openUppdragDetail(id) {
   const u = [...UPPDRAG_DATA,...G.myUppdrag].find(x=>x.id===id); if(!u) return;
   $('detailTitle').textContent = 'Uppdrag';
   $('detailBody').innerHTML = `
-    ${u.co ? `<div style="display:flex;align-items:center;gap:12px;padding:14px;background:var(--s2);border-radius:16px;margin-bottom:16px">
+    ${u.co ? `<div style="display:flex;align-items:center;gap:12px;padding:14px;background:linear-gradient(160deg,rgba(14,6,30,.9),rgba(6,2,14,.95));border-radius:16px;margin-bottom:16px">
       <div style="font-size:32px">${u.coEm||'👤'}</div>
       <div><div style="font-family:var(--ff-head);font-size:16px;font-weight:800">${u.co}</div><div style="margin-top:4px">${verBadge(u)}</div></div>
     </div>` : ''}
@@ -5089,7 +5089,7 @@ function openUppdragDetail(id) {
       <div class="uc-coins">⚡ ${u.coins}</div>
       <div class="uc-xp">+${u.xp} XP</div>
     </div>
-    <div style="background:var(--s2);border-radius:14px;padding:13px;font-size:13px;color:var(--t3);line-height:1.65;margin-bottom:16px">
+    <div style="background:linear-gradient(160deg,rgba(14,6,30,.9),rgba(6,2,14,.95));border-radius:14px;padding:13px;font-size:13px;color:var(--t3);line-height:1.65;margin-bottom:16px">
       🏆 ${u.winners>=999?'Obegränsat':u.winners+' platser'} · ${u.claimed} tagna · Deadline: ${u.deadline}
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
@@ -7245,7 +7245,7 @@ function renderVerifyStep(step) {
       <span class="verify-big-ico">🏆</span>
       <div style="font-family:var(--ff-head);font-size:20px;font-weight:900;color:var(--green);margin-bottom:4px">VERIFIERAT!</div>
       <div style="font-size:13px;color:var(--t2);margin-bottom:16px">${u2.title||'Uppdraget'} är bekräftat!</div>
-      <div style="background:var(--s2);border-radius:12px;padding:12px;margin-bottom:16px">
+      <div style="background:linear-gradient(160deg,rgba(14,6,30,.9),rgba(6,2,14,.95));border-radius:12px;padding:12px;margin-bottom:16px">
         <div style="font-size:13px;font-weight:800;color:var(--gold)">Belöning:</div>
         <div style="font-size:20px;font-weight:900;color:var(--green)">+${(u2.xp||100)+bonusXP} XP</div>
         <div style="font-size:14px;font-weight:800;color:var(--gold)">+${u2.reward||50} Coins</div>
@@ -8003,7 +8003,7 @@ function selectDnaParent(n){
     const fp=$('dnaFriendPick'); if(fp) fp.style.display=fp.style.display==='none'?'':'none';
     const fl=$('dnaFriendList'); if(!fl) return;
     fl.innerHTML=DNA_FRIENDS.map((f,i)=>`
-      <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--s2);border-radius:10px;margin-bottom:6px;cursor:pointer;border:1px solid ${_dnaSelectedFriend===i?'var(--green)':'var(--line)'}" onclick="chooseDnaFriend(${i})">
+      <div style="display:flex;align-items:center;gap:10px;padding:8px;background:linear-gradient(160deg,rgba(14,6,30,.9),rgba(6,2,14,.95));border-radius:10px;margin-bottom:6px;cursor:pointer;border:1px solid ${_dnaSelectedFriend===i?'var(--green)':'rgba(255,255,255,.1)'}" onclick="chooseDnaFriend(${i})">
         <span style="font-size:22px">${f.em}</span>
         <div><div style="font-size:12px;font-weight:800">${f.name}</div><div style="font-size:10px;color:var(--t3)">LV${f.lv} · ${f.rarity}</div></div>
         ${_dnaSelectedFriend===i?'<div style="margin-left:auto;color:var(--green)">✓</div>':''}
