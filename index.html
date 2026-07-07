@@ -2542,6 +2542,13 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .race-delta.dn { color:var(--red); }
 .race-delta.same { color:rgba(255,255,255,.3); }
 .race-ticker { background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.15);border-radius:12px;padding:8px 12px;margin-bottom:12px;font-size:10px;color:var(--green);font-weight:700;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; }
+
+/* ══ VIEW BACKGROUND FX ══ */
+.vbg-canvas { position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.65; }
+#view-pet { position:relative; }
+#view-games { position:relative; }
+#view-lb { position:relative; }
+#view-profile { position:relative; }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -3431,6 +3438,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
     <!-- 🐾 PET VIEW -->
     <div class="view active" id="view-pet">
+      <canvas class="vbg-canvas" id="bgPet"></canvas>
 
       <!-- BIG ANIMATED PET STAGE -->
       <div class="pet-stage">
@@ -3801,6 +3809,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
     <!-- 🎮 GAMES -->
     <div class="view" id="view-games">
+      <canvas class="vbg-canvas" id="bgGames"></canvas>
       <div class="games-hdr">
         <div class="games-title">🎮 Games</div>
         <div style="font-size:11px;color:var(--blue);font-weight:700" id="gamesXPToday">+0 XP idag</div>
@@ -4137,6 +4146,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
     <!-- 🏆 LEADERBOARD -->
     <div class="view" id="view-lb">
+      <canvas class="vbg-canvas" id="bgLB"></canvas>
       <div class="lb-title">Leaderboard</div>
       <div class="lb-live-strip">
         <div class="lb-live-dot"></div>
@@ -4161,6 +4171,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
     <!-- 👤 PROFILE -->
     <div class="view" id="view-profile">
+      <canvas class="vbg-canvas" id="bgProfile"></canvas>
       <div class="prof-cover">
         <div class="prof-cover-pat"></div>
         <div class="prof-cover-glow"></div>
@@ -12451,6 +12462,112 @@ if(_origRenderLB){
     }
   };
 }
+
+// ═══════════════════════════════════════════════
+// ANIMATED VIEW BACKGROUNDS
+// ═══════════════════════════════════════════════
+let _vbgRAFs={};
+function _vbgStop(id){if(_vbgRAFs[id]){cancelAnimationFrame(_vbgRAFs[id]);delete _vbgRAFs[id];}}
+function _vbgSize(c){const p=c.parentElement;c.width=p?p.offsetWidth||window.innerWidth:window.innerWidth;c.height=p?p.offsetHeight||window.innerHeight:window.innerHeight;}
+// PET VIEW: Aurora borealis
+function _vbgPet(){
+  const c=$('bgPet'); if(!c) return; _vbgSize(c);
+  const ctx=c.getContext('2d'); if(!ctx) return;
+  let t=0;
+  const waves=[
+    {y:.25,freq:.003,amp:30,col:'rgba(0,255,136,.08)',speed:.4},
+    {y:.35,freq:.004,amp:25,col:'rgba(68,136,255,.06)',speed:.3},
+    {y:.45,freq:.005,amp:20,col:'rgba(170,102,255,.05)',speed:.5},
+  ];
+  function draw(){
+    if(!$('view-pet').classList.contains('active')){_vbgStop('pet');return;}
+    ctx.clearRect(0,0,c.width,c.height);
+    waves.forEach(w=>{
+      ctx.beginPath();
+      for(let x=0;x<=c.width;x+=4){
+        const y=c.height*w.y+Math.sin(x*w.freq+t*w.speed)*w.amp;
+        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.lineTo(c.width,c.height); ctx.lineTo(0,c.height); ctx.closePath();
+      ctx.fillStyle=w.col; ctx.fill();
+    });
+    t+=.04; _vbgRAFs.pet=requestAnimationFrame(draw);
+  }
+  draw();
+}
+// GAMES VIEW: Neon grid
+function _vbgGames(){
+  const c=$('bgGames'); if(!c) return; _vbgSize(c);
+  const ctx=c.getContext('2d'); if(!ctx) return;
+  let t=0;
+  function draw(){
+    if(!$('view-games').classList.contains('active')){_vbgStop('games');return;}
+    ctx.clearRect(0,0,c.width,c.height);
+    const gs=40; const offset=(t*0.5)%gs;
+    ctx.strokeStyle='rgba(68,136,255,.04)'; ctx.lineWidth=1;
+    for(let x=offset;x<c.width;x+=gs){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,c.height);ctx.stroke();}
+    for(let y=offset;y<c.height;y+=gs){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(c.width,y);ctx.stroke();}
+    // Moving dots
+    const d=Math.floor(t/60)%3;
+    const dotX=(Math.sin(t*.015)*c.width*.4+c.width*.5);
+    const dotY=(Math.cos(t*.012)*c.height*.3+c.height*.5);
+    const g=ctx.createRadialGradient(dotX,dotY,0,dotX,dotY,80);
+    g.addColorStop(0,'rgba(68,136,255,.08)'); g.addColorStop(1,'transparent');
+    ctx.fillStyle=g; ctx.fillRect(0,0,c.width,c.height);
+    t+=.5; _vbgRAFs.games=requestAnimationFrame(draw);
+  }
+  draw();
+}
+// LEADERBOARD: Rising golden particles
+function _vbgLB(){
+  const c=$('bgLB'); if(!c) return; _vbgSize(c);
+  const ctx=c.getContext('2d'); if(!ctx) return;
+  const pts=[];
+  for(let i=0;i<30;i++) pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+.5,speed:.3+Math.random()*.6,a:Math.random(),col:Math.random()<.5?'rgba(255,204,0,.5)':'rgba(255,136,68,.4)'});
+  function draw(){
+    if(!$('view-lb').classList.contains('active')){_vbgStop('lb');return;}
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(p=>{
+      p.y-=p.speed; p.a+=.02;
+      if(p.y<-10){p.y=c.height+10;p.x=Math.random()*c.width;}
+      ctx.globalAlpha=.2+Math.sin(p.a)*.15;
+      ctx.fillStyle=p.col; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    });
+    ctx.globalAlpha=1; _vbgRAFs.lb=requestAnimationFrame(draw);
+  }
+  draw();
+}
+// PROFILE: Star field
+function _vbgProfile(){
+  const c=$('bgProfile'); if(!c) return; _vbgSize(c);
+  const ctx=c.getContext('2d'); if(!ctx) return;
+  const stars=[];
+  for(let i=0;i<50;i++) stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+.3,a:Math.random()*Math.PI*2,s:Math.random()*.015+.008,col:['rgba(170,102,255,.5)','rgba(68,136,255,.4)','rgba(255,204,0,.4)'][Math.floor(Math.random()*3)]});
+  function draw(){
+    if(!$('view-profile').classList.contains('active')){_vbgStop('profile');return;}
+    ctx.clearRect(0,0,c.width,c.height);
+    stars.forEach(s=>{
+      s.a+=s.s; ctx.globalAlpha=.15+Math.sin(s.a)*.12;
+      ctx.fillStyle=s.col; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+    });
+    ctx.globalAlpha=1; _vbgRAFs.profile=requestAnimationFrame(draw);
+  }
+  draw();
+}
+// Hook nav to start/stop bg anims
+const _origNav=nav;
+window.nav=function(id){
+  _origNav(id);
+  _vbgStop('pet');_vbgStop('games');_vbgStop('lb');_vbgStop('profile');
+  setTimeout(()=>{
+    if(id==='pet') _vbgPet();
+    else if(id==='games') _vbgGames();
+    else if(id==='lb') _vbgLB();
+    else if(id==='profile') _vbgProfile();
+  },50);
+};
+// Start on initial view
+setTimeout(()=>_vbgPet(), 1500);
 
 </script>
 
