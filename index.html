@@ -2431,6 +2431,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fenc-fish-stat-k { color:rgba(255,255,255,.35); }
 .fenc-fish-stat-v { font-weight:700; }
 .fenc-new-badge { position:absolute;top:8px;right:8px;background:var(--green);color:#000;font-size:7px;font-weight:900;padding:2px 6px;border-radius:6px; }
+
+/* ══ COMBO SURGE SCREEN ══ */
+.combo-surge { position:fixed;inset:0;z-index:9000;pointer-events:none;display:flex;align-items:center;justify-content:center;overflow:hidden; }
+.combo-surge-flash { position:absolute;inset:0;opacity:0; }
+.combo-surge.fire5  .combo-surge-flash { background:radial-gradient(ellipse at 50% 50%,rgba(255,136,68,.25),transparent 70%); }
+.combo-surge.fire10 .combo-surge-flash { background:radial-gradient(ellipse at 50% 50%,rgba(255,204,0,.35),transparent 65%); }
+.combo-surge.fire15 .combo-surge-flash { background:radial-gradient(ellipse at 50% 50%,rgba(255,51,119,.4),transparent 60%); }
+.combo-surge.fire20 .combo-surge-flash { background:radial-gradient(ellipse at 50% 50%,rgba(170,102,255,.5),transparent 55%); }
+.combo-surge.run { animation:surgeFade .7s ease-out forwards; }
+.combo-surge.run .combo-surge-flash { animation:surgeFlash .5s ease-out forwards; }
+@keyframes surgeFade { 0%{opacity:1} 80%{opacity:1} 100%{opacity:0} }
+@keyframes surgeFlash { 0%{opacity:0} 15%{opacity:1} 100%{opacity:0} }
+.combo-surge-txt { position:relative;font-family:var(--ff-head);font-weight:900;text-align:center;transform:scale(0);z-index:1; }
+.combo-surge.run .combo-surge-txt { animation:surgeTxt .65s cubic-bezier(.17,.67,.3,1.3) forwards; }
+@keyframes surgeTxt { 0%{transform:scale(0) rotate(-8deg);opacity:0} 30%{transform:scale(1.1) rotate(2deg);opacity:1} 60%{transform:scale(1);opacity:1} 85%{transform:scale(1.05);opacity:1} 100%{transform:scale(0);opacity:0} }
+.csn-combo { font-size:72px;line-height:1;display:block; }
+.csn-label { font-size:20px;letter-spacing:3px;display:block;margin-top:6px; }
+.csn-xtag { font-size:14px;letter-spacing:2px;display:block;margin-top:4px;opacity:.7; }
+/* Chromatic aberration via multiple text-shadows */
+.combo-surge.fire5  .csn-combo { color:#ff8844;text-shadow:-3px 0 rgba(255,136,68,.5),3px 0 rgba(255,136,68,.3); }
+.combo-surge.fire10 .csn-combo { color:#ffcc00;text-shadow:-3px 0 rgba(255,0,0,.4),3px 0 rgba(0,0,255,.4),0 0 30px rgba(255,204,0,.5); }
+.combo-surge.fire15 .csn-combo { color:#ff3377;text-shadow:-4px 0 rgba(255,0,0,.5),4px 0 rgba(0,0,255,.5),0 0 40px rgba(255,51,119,.6); }
+.combo-surge.fire20 .csn-combo { color:#aa66ff;text-shadow:-5px 0 rgba(255,0,120,.6),5px 0 rgba(0,120,255,.6),0 0 50px rgba(170,102,255,.8),0 0 80px rgba(170,102,255,.4); }
 .fish-collection { padding:10px 0 4px; }
 .fish-coll-hdr { font-size:11px; font-weight:800; color:var(--t2); margin-bottom:7px; display:flex; align-items:center; }
 .fish-coll-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
@@ -11983,6 +12006,36 @@ completeFishCatch=function(caught,quality){
   if(caught&&caught.id&&caught.rarity!=='junk') _fencRecord(caught);
 };
 
+// ═══════════════════════════════════════════════
+// COMBO SURGE SCREEN
+// ═══════════════════════════════════════════════
+let _csSurgeT=null;
+function triggerComboSurge(combo) {
+  const el=$('comboSurge'); if(!el) return;
+  clearTimeout(_csSurgeT);
+  el.className='combo-surge'; // reset
+  void el.offsetWidth; // force reflow
+  // Pick tier
+  let tier,label,tag,cls;
+  if(combo>=20)      {tier=4;label='MEGA COMBO!';tag='UNSTOPPABLE!';cls='fire20';}
+  else if(combo>=15) {tier=3;label='HYPER COMBO!';tag='ON FIRE!';cls='fire15';}
+  else if(combo>=10) {tier=2;label='SUPER COMBO!';tag='INCREDIBLE!';cls='fire10';}
+  else               {tier=1;label='COMBO!';tag='KEEP GOING!';cls='fire5';}
+  const numEl=$('csComboNum'); if(numEl) numEl.textContent=combo+'x';
+  const lblEl=$('csComboLbl'); if(lblEl) lblEl.textContent=label;
+  const tagEl=$('csComboTag'); if(tagEl) tagEl.textContent=tag;
+  el.classList.add(cls,'run');
+  _csSurgeT=setTimeout(()=>{el.className='combo-surge';},750);
+}
+// Hook into petTap combo milestones
+const _origPetTap2=petTap;
+window.petTap=function(){
+  _origPetTap2.apply(this,arguments);
+  if(_combo===5||_combo===10||_combo===15||_combo===20||(_combo>20&&_combo%5===0)) {
+    triggerComboSurge(_combo);
+  }
+};
+
 </script>
 
 <!-- FLOATING PET COMPANION -->
@@ -12002,5 +12055,13 @@ completeFishCatch=function(caught,quality){
 <!-- FEATURE TOAST -->
 <div id="featToast"></div>
 
+<div class="combo-surge" id="comboSurge">
+  <div class="combo-surge-flash"></div>
+  <div class="combo-surge-txt" id="comboSurgeTxt">
+    <span class="csn-combo" id="csComboNum">5x</span>
+    <span class="csn-label" id="csComboLbl">COMBO!</span>
+    <span class="csn-xtag" id="csComboTag">KEEP GOING!</span>
+  </div>
+</div>
 </body>
 </html>
