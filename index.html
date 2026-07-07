@@ -2008,6 +2008,21 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ ROUND 100 MEGA MILESTONE ══ */
+.r100-overlay { position:fixed;inset:0;z-index:9800;background:radial-gradient(ellipse at 50% 40%,rgba(30,10,80,.98),rgba(0,0,0,.99) 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;pointer-events:none;transition:opacity .6s; }
+.r100-overlay.show { opacity:1;pointer-events:all; }
+.r100-canvas { position:absolute;inset:0;pointer-events:none; }
+.r100-badge { width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#fff,var(--gold));display:flex;align-items:center;justify-content:center;font-size:52px;box-shadow:0 0 50px rgba(255,204,0,.6),0 0 100px rgba(255,204,0,.2);animation:r100Pulse 1.5s ease-in-out infinite alternate; }
+@keyframes r100Pulse { from{transform:scale(1);box-shadow:0 0 40px rgba(255,204,0,.5)} to{transform:scale(1.06);box-shadow:0 0 70px rgba(255,204,0,.8)} }
+.r100-title { font:900 36px/1 var(--ff-head);text-align:center;letter-spacing:.12em;background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.r100-sub { font:700 13px/1 var(--ff-head);color:rgba(255,255,255,.5);letter-spacing:.25em;text-align:center; }
+.r100-rewards { display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px; }
+.r100-reward-chip { padding:8px 16px;border-radius:20px;font:800 12px/1 var(--ff-head);letter-spacing:.04em;border:1.5px solid; }
+.r100-claim-btn { padding:16px 48px;background:linear-gradient(135deg,var(--gold),#ff8844);border:none;border-radius:16px;font:900 16px/1 var(--ff-head);color:#000;cursor:pointer;letter-spacing:.08em;box-shadow:0 0 30px rgba(255,204,0,.5);transition:all .2s;margin-top:8px; }
+.r100-claim-btn:active { transform:scale(.96); }
+.r100-claim-btn:disabled { opacity:.5;pointer-events:none; }
+
 /* ══ PET CARD SHOWCASE ══ */
 .showcase-panel { position:fixed;inset:0;z-index:867;background:#000;transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .showcase-panel.open { transform:translateY(0); }
@@ -2612,6 +2627,21 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ ROUND 100 MEGA MILESTONE ══ */
+.r100-overlay { position:fixed;inset:0;z-index:9800;background:radial-gradient(ellipse at 50% 40%,rgba(30,10,80,.98),rgba(0,0,0,.99) 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;pointer-events:none;transition:opacity .6s; }
+.r100-overlay.show { opacity:1;pointer-events:all; }
+.r100-canvas { position:absolute;inset:0;pointer-events:none; }
+.r100-badge { width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#fff,var(--gold));display:flex;align-items:center;justify-content:center;font-size:52px;box-shadow:0 0 50px rgba(255,204,0,.6),0 0 100px rgba(255,204,0,.2);animation:r100Pulse 1.5s ease-in-out infinite alternate; }
+@keyframes r100Pulse { from{transform:scale(1);box-shadow:0 0 40px rgba(255,204,0,.5)} to{transform:scale(1.06);box-shadow:0 0 70px rgba(255,204,0,.8)} }
+.r100-title { font:900 36px/1 var(--ff-head);text-align:center;letter-spacing:.12em;background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.r100-sub { font:700 13px/1 var(--ff-head);color:rgba(255,255,255,.5);letter-spacing:.25em;text-align:center; }
+.r100-rewards { display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px; }
+.r100-reward-chip { padding:8px 16px;border-radius:20px;font:800 12px/1 var(--ff-head);letter-spacing:.04em;border:1.5px solid; }
+.r100-claim-btn { padding:16px 48px;background:linear-gradient(135deg,var(--gold),#ff8844);border:none;border-radius:16px;font:900 16px/1 var(--ff-head);color:#000;cursor:pointer;letter-spacing:.08em;box-shadow:0 0 30px rgba(255,204,0,.5);transition:all .2s;margin-top:8px; }
+.r100-claim-btn:active { transform:scale(.96); }
+.r100-claim-btn:disabled { opacity:.5;pointer-events:none; }
 
 /* ══ PET CARD SHOWCASE ══ */
 .showcase-panel { position:fixed;inset:0;z-index:867;background:#000;transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
@@ -5344,6 +5374,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <button class="season-daily-btn" id="seasonDailyBtn" onclick="claimSeasonDaily()">🎁 DAGLIG SÄSONGSBONUS</button>
     </div>
   </div>
+</div>
+
+<!-- ROUND 100 MEGA MILESTONE -->
+<div class="r100-overlay" id="r100Overlay">
+  <canvas class="r100-canvas" id="r100Canvas"></canvas>
+  <div class="r100-badge">🏆</div>
+  <div class="r100-title">ROUND 100!</div>
+  <div class="r100-sub">MEGA PLATTFORM UPPNÅDD</div>
+  <div style="font:500 11px/1.6 var(--ff-body);color:rgba(255,255,255,.45);text-align:center;max-width:260px">100 features byggda. Din pet-plattform har nått legendarisk status. Tack för att du är med!</div>
+  <div class="r100-rewards">
+    <div class="r100-reward-chip" style="background:rgba(255,204,0,.15);border-color:var(--gold);color:var(--gold)">+500 XP</div>
+    <div class="r100-reward-chip" style="background:rgba(170,102,255,.15);border-color:var(--purple);color:var(--purple)">+100 KC</div>
+    <div class="r100-reward-chip" style="background:rgba(0,255,136,.1);border-color:var(--green);color:var(--green)">+1000 💰</div>
+    <div class="r100-reward-chip" style="background:rgba(255,51,119,.1);border-color:var(--pink);color:var(--pink)">🏆 HUNDRA BADGE</div>
+  </div>
+  <button class="r100-claim-btn" id="r100ClaimBtn" onclick="claimR100()">🏆 HÄMTA MEGA BELÖNING!</button>
+  <div style="font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.25);margin-top:6px;cursor:pointer" onclick="closeR100()">Stäng</div>
 </div>
 
 <!-- PET CARD SHOWCASE -->
@@ -14233,6 +14280,77 @@ function shareShowcard(){
   if(navigator.share) navigator.share({title:'KARMA Pet Kort',text:txt}).catch(()=>{});
   else { navigator.clipboard?.writeText(txt); showT('📋 Kopierat!','g'); }
 }
+
+
+
+// ROUND 100 MEGA MILESTONE
+function _checkR100() {
+  if(localStorage.getItem('k0509_r100claimed')) return;
+  setTimeout(showR100, 2000);
+}
+
+function showR100() {
+  const ov=$('r100Overlay'); if(!ov) return;
+  ov.classList.add('show');
+  _r100Fireworks();
+  SFX.lvl&&SFX.lvl();
+  vibe&&vibe([100,50,100,50,200,50,100,50,200]);
+}
+
+function closeR100() { const ov=$('r100Overlay'); if(ov) ov.classList.remove('show'); }
+
+function claimR100() {
+  if(localStorage.getItem('k0509_r100claimed')) return;
+  localStorage.setItem('k0509_r100claimed','1');
+  gainXP(500,'action');
+  gainCoins(1000);
+  gainKC(100);
+  // Add special badge to BADGES_DEF dynamically
+  if(typeof BADGES_DEF!=='undefined') BADGES_DEF.push({e:'🏆',l:'Hundra Ronder',ok:()=>true});
+  const btn=$('r100ClaimBtn'); if(btn){btn.disabled=true;btn.textContent='✓ HÄMTAD!';}
+  showT('🏆 ROUND 100 BELÖNING! +500XP +1000💰 +100KC','g');
+  confetti&&confetti(120);
+  setTimeout(closeR100, 3000);
+}
+
+function _r100Fireworks() {
+  const c=$('r100Canvas'); if(!c) return;
+  c.width=window.innerWidth; c.height=window.innerHeight;
+  const ctx=c.getContext('2d');
+  const bursts=[];
+  const cols=['#ffcc00','#aa66ff','#ff3377','#00ff88','#4488ff','#ff8844','#ffffff'];
+  function addBurst(x,y){
+    const col=cols[Math.floor(Math.random()*cols.length)];
+    for(let i=0;i<30;i++) bursts.push({
+      x,y,vx:(Math.random()-0.5)*14,vy:(Math.random()-0.5)*14-6,
+      col,size:Math.random()*4+2,life:1,trail:[]
+    });
+  }
+  // initial bursts
+  for(let i=0;i<8;i++) addBurst(Math.random()*c.width,Math.random()*c.height*0.7);
+  let frame=0;
+  function draw(){
+    ctx.fillStyle='rgba(0,0,0,.12)';
+    ctx.fillRect(0,0,c.width,c.height);
+    frame++;
+    if(frame%30===0) addBurst(Math.random()*c.width,Math.random()*c.height*0.8);
+    bursts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.25; p.life-=0.012;
+      if(p.life<=0) return;
+      ctx.globalAlpha=p.life;
+      ctx.fillStyle=p.col;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2); ctx.fill();
+    });
+    const alive=bursts.filter(p=>p.life>0);
+    bursts.length=0; bursts.push(...alive);
+    if(frame<300) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,c.width,c.height);
+  }
+  draw();
+}
+
+// Auto-trigger on load (only once)
+document.addEventListener('DOMContentLoaded', _checkR100);
 
 
 </script>
