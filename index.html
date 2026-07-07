@@ -1354,6 +1354,47 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET TRAINING DOJO ══ */
+.dojo-panel { position:fixed;inset:0;z-index:869;background:radial-gradient(ellipse at 50% 0%,rgba(30,10,0,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.dojo-panel.open { transform:translateY(0); }
+.dojo-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(255,136,68,.18); }
+.dojo-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--orange),var(--gold),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.dojo-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;padding-bottom:100px; }
+.dojo-stat-bar { display:grid;grid-template-columns:repeat(3,1fr);gap:8px; }
+.dojo-stat-card { background:rgba(255,255,255,.04);border-radius:12px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:4px;border:1.5px solid transparent; }
+.dojo-stat-card.highlight { border-color:rgba(255,136,68,.4);background:rgba(255,136,68,.07); }
+.dojo-stat-v { font:800 18px/1 var(--ff-head); }
+.dojo-stat-l { font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.05em; }
+.dojo-challenge-list { display:flex;flex-direction:column;gap:10px; }
+.dojo-challenge-card { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.09);border-radius:14px;padding:14px;cursor:pointer;transition:all .2s; }
+.dojo-challenge-card:active { transform:scale(.98); }
+.dojo-challenge-card.locked { opacity:.45; }
+.dojo-challenge-card.highlight { border-color:rgba(255,136,68,.4);background:rgba(255,136,68,.06); }
+.dojo-ch-top { display:flex;align-items:center;gap:10px; }
+.dojo-ch-ico { font-size:28px;line-height:1; }
+.dojo-ch-name { font:800 12px/1.2 var(--ff-head);color:#fff; }
+.dojo-ch-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.dojo-ch-reward { font:700 10px/1 var(--ff-body);margin-left:auto;color:var(--orange);flex-shrink:0; }
+.dojo-ch-cd { font:600 9px/1 var(--ff-body);color:rgba(255,255,255,.3);margin-top:6px; }
+/* arena overlay */
+.dojo-arena { position:fixed;inset:0;z-index:9700;background:rgba(0,0,0,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:16px;opacity:0;pointer-events:none;transition:opacity .3s; }
+.dojo-arena.show { opacity:1;pointer-events:all; }
+.dojo-arena-title { font:900 16px/1 var(--ff-head);color:var(--orange);letter-spacing:.12em; }
+.dojo-arena-timer-ring { width:80px;height:80px;border-radius:50%;border:3px solid rgba(255,136,68,.3);display:flex;align-items:center;justify-content:center;font:900 24px/1 var(--ff-head);color:var(--orange);position:relative; }
+.dojo-arena-content { width:100%;max-width:320px;display:flex;flex-direction:column;align-items:center;gap:12px; }
+.dojo-circle-grid { display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:280px; }
+.dojo-circle { width:64px;height:64px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font:900 18px/1 var(--ff-head);transition:all .15s;border:3px solid transparent;box-shadow:0 0 20px currentColor; }
+.dojo-circle:active { transform:scale(.88); }
+.dojo-circle.target { border-color:#fff;animation:dojoTarget .4s ease-in-out infinite alternate; }
+@keyframes dojoTarget { from{transform:scale(1)} to{transform:scale(1.1)} }
+.dojo-num-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:240px; }
+.dojo-num-btn { padding:16px 8px;border-radius:12px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);font:900 18px/1 var(--ff-head);color:#fff;cursor:pointer;text-align:center;transition:all .15s; }
+.dojo-num-btn:active { transform:scale(.92);background:rgba(255,136,68,.2); }
+.dojo-arena-score { font:800 14px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.dojo-arena-result { display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center; }
+.dojo-result-title { font:900 24px/1 var(--ff-head);background:linear-gradient(135deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+
 /* ══ WORLD BOSS EVENT ══ */
 .wb-event-panel { position:fixed;inset:0;z-index:868;background:radial-gradient(ellipse at 50% 0%,rgba(40,0,10,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .wb-event-panel.open { transform:translateY(0); }
@@ -2083,6 +2124,47 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+/* ══ PET TRAINING DOJO ══ */
+.dojo-panel { position:fixed;inset:0;z-index:869;background:radial-gradient(ellipse at 50% 0%,rgba(30,10,0,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.dojo-panel.open { transform:translateY(0); }
+.dojo-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(255,136,68,.18); }
+.dojo-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--orange),var(--gold),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.dojo-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;padding-bottom:100px; }
+.dojo-stat-bar { display:grid;grid-template-columns:repeat(3,1fr);gap:8px; }
+.dojo-stat-card { background:rgba(255,255,255,.04);border-radius:12px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:4px;border:1.5px solid transparent; }
+.dojo-stat-card.highlight { border-color:rgba(255,136,68,.4);background:rgba(255,136,68,.07); }
+.dojo-stat-v { font:800 18px/1 var(--ff-head); }
+.dojo-stat-l { font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.05em; }
+.dojo-challenge-list { display:flex;flex-direction:column;gap:10px; }
+.dojo-challenge-card { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.09);border-radius:14px;padding:14px;cursor:pointer;transition:all .2s; }
+.dojo-challenge-card:active { transform:scale(.98); }
+.dojo-challenge-card.locked { opacity:.45; }
+.dojo-challenge-card.highlight { border-color:rgba(255,136,68,.4);background:rgba(255,136,68,.06); }
+.dojo-ch-top { display:flex;align-items:center;gap:10px; }
+.dojo-ch-ico { font-size:28px;line-height:1; }
+.dojo-ch-name { font:800 12px/1.2 var(--ff-head);color:#fff; }
+.dojo-ch-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.dojo-ch-reward { font:700 10px/1 var(--ff-body);margin-left:auto;color:var(--orange);flex-shrink:0; }
+.dojo-ch-cd { font:600 9px/1 var(--ff-body);color:rgba(255,255,255,.3);margin-top:6px; }
+/* arena overlay */
+.dojo-arena { position:fixed;inset:0;z-index:9700;background:rgba(0,0,0,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:16px;opacity:0;pointer-events:none;transition:opacity .3s; }
+.dojo-arena.show { opacity:1;pointer-events:all; }
+.dojo-arena-title { font:900 16px/1 var(--ff-head);color:var(--orange);letter-spacing:.12em; }
+.dojo-arena-timer-ring { width:80px;height:80px;border-radius:50%;border:3px solid rgba(255,136,68,.3);display:flex;align-items:center;justify-content:center;font:900 24px/1 var(--ff-head);color:var(--orange);position:relative; }
+.dojo-arena-content { width:100%;max-width:320px;display:flex;flex-direction:column;align-items:center;gap:12px; }
+.dojo-circle-grid { display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:280px; }
+.dojo-circle { width:64px;height:64px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font:900 18px/1 var(--ff-head);transition:all .15s;border:3px solid transparent;box-shadow:0 0 20px currentColor; }
+.dojo-circle:active { transform:scale(.88); }
+.dojo-circle.target { border-color:#fff;animation:dojoTarget .4s ease-in-out infinite alternate; }
+@keyframes dojoTarget { from{transform:scale(1)} to{transform:scale(1.1)} }
+.dojo-num-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:240px; }
+.dojo-num-btn { padding:16px 8px;border-radius:12px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);font:900 18px/1 var(--ff-head);color:#fff;cursor:pointer;text-align:center;transition:all .15s; }
+.dojo-num-btn:active { transform:scale(.92);background:rgba(255,136,68,.2); }
+.dojo-arena-score { font:800 14px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.dojo-arena-result { display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center; }
+.dojo-result-title { font:900 24px/1 var(--ff-head);background:linear-gradient(135deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+
 /* ══ WORLD BOSS EVENT ══ */
 .wb-event-panel { position:fixed;inset:0;z-index:868;background:radial-gradient(ellipse at 50% 0%,rgba(40,0,10,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .wb-event-panel.open { transform:translateY(0); }
@@ -2792,6 +2874,47 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ PET TRAINING DOJO ══ */
+.dojo-panel { position:fixed;inset:0;z-index:869;background:radial-gradient(ellipse at 50% 0%,rgba(30,10,0,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.dojo-panel.open { transform:translateY(0); }
+.dojo-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(255,136,68,.18); }
+.dojo-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--orange),var(--gold),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.08em;flex:1; }
+.dojo-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;padding-bottom:100px; }
+.dojo-stat-bar { display:grid;grid-template-columns:repeat(3,1fr);gap:8px; }
+.dojo-stat-card { background:rgba(255,255,255,.04);border-radius:12px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:4px;border:1.5px solid transparent; }
+.dojo-stat-card.highlight { border-color:rgba(255,136,68,.4);background:rgba(255,136,68,.07); }
+.dojo-stat-v { font:800 18px/1 var(--ff-head); }
+.dojo-stat-l { font:500 9px/1 var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:.05em; }
+.dojo-challenge-list { display:flex;flex-direction:column;gap:10px; }
+.dojo-challenge-card { background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.09);border-radius:14px;padding:14px;cursor:pointer;transition:all .2s; }
+.dojo-challenge-card:active { transform:scale(.98); }
+.dojo-challenge-card.locked { opacity:.45; }
+.dojo-challenge-card.highlight { border-color:rgba(255,136,68,.4);background:rgba(255,136,68,.06); }
+.dojo-ch-top { display:flex;align-items:center;gap:10px; }
+.dojo-ch-ico { font-size:28px;line-height:1; }
+.dojo-ch-name { font:800 12px/1.2 var(--ff-head);color:#fff; }
+.dojo-ch-desc { font:500 10px/1.3 var(--ff-body);color:rgba(255,255,255,.45);margin-top:3px; }
+.dojo-ch-reward { font:700 10px/1 var(--ff-body);margin-left:auto;color:var(--orange);flex-shrink:0; }
+.dojo-ch-cd { font:600 9px/1 var(--ff-body);color:rgba(255,255,255,.3);margin-top:6px; }
+/* arena overlay */
+.dojo-arena { position:fixed;inset:0;z-index:9700;background:rgba(0,0,0,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:16px;opacity:0;pointer-events:none;transition:opacity .3s; }
+.dojo-arena.show { opacity:1;pointer-events:all; }
+.dojo-arena-title { font:900 16px/1 var(--ff-head);color:var(--orange);letter-spacing:.12em; }
+.dojo-arena-timer-ring { width:80px;height:80px;border-radius:50%;border:3px solid rgba(255,136,68,.3);display:flex;align-items:center;justify-content:center;font:900 24px/1 var(--ff-head);color:var(--orange);position:relative; }
+.dojo-arena-content { width:100%;max-width:320px;display:flex;flex-direction:column;align-items:center;gap:12px; }
+.dojo-circle-grid { display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:280px; }
+.dojo-circle { width:64px;height:64px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font:900 18px/1 var(--ff-head);transition:all .15s;border:3px solid transparent;box-shadow:0 0 20px currentColor; }
+.dojo-circle:active { transform:scale(.88); }
+.dojo-circle.target { border-color:#fff;animation:dojoTarget .4s ease-in-out infinite alternate; }
+@keyframes dojoTarget { from{transform:scale(1)} to{transform:scale(1.1)} }
+.dojo-num-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:240px; }
+.dojo-num-btn { padding:16px 8px;border-radius:12px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);font:900 18px/1 var(--ff-head);color:#fff;cursor:pointer;text-align:center;transition:all .15s; }
+.dojo-num-btn:active { transform:scale(.92);background:rgba(255,136,68,.2); }
+.dojo-arena-score { font:800 14px/1 var(--ff-body);color:rgba(255,255,255,.6); }
+.dojo-arena-result { display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center; }
+.dojo-result-title { font:900 24px/1 var(--ff-head);background:linear-gradient(135deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
 
 /* ══ WORLD BOSS EVENT ══ */
 .wb-event-panel { position:fixed;inset:0;z-index:868;background:radial-gradient(ellipse at 50% 0%,rgba(40,0,10,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
@@ -4101,6 +4224,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGacha()" style="background:linear-gradient(135deg,rgba(170,102,255,.15),rgba(255,51,119,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">🎰</div><span style="background:linear-gradient(135deg,var(--purple),var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">LOOT PULLS</span></div>
           <div class="ddr" onclick="cM();openTrophyRoom()" style="background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,68,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">🏆</div><span style="background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">TROPHY ROOM</span></div>
           <div class="ddr" onclick="cM();openStudio()" style="background:linear-gradient(135deg,rgba(255,51,119,.12),rgba(170,102,255,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">✨</div><span style="background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">PET STUDIO</span></div>
+          <div class="ddr" onclick="cM();openDojo()" style="background:linear-gradient(135deg,rgba(255,136,68,.12),rgba(255,204,0,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,136,68,.9))">🥋</div><span style="background:linear-gradient(135deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">TRAINING DOJO</span></div>
           <div class="ddr" onclick="cM();openWBE()" style="background:linear-gradient(135deg,rgba(255,68,85,.12),rgba(255,136,68,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,68,85,.9))">⚔️</div><span style="background:linear-gradient(135deg,var(--red),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">WORLD BOSS</span></div>
           <div class="ddr" onclick="cM();openSeasonPanel()" style="background:linear-gradient(135deg,rgba(0,180,80,.12),rgba(0,100,40,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,255,136,.7))">🌸</div><span style="background:linear-gradient(135deg,var(--green),var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">SÄSONG</span></div>
           <div class="ddr" onclick="cM();openSkillTree()" style="background:linear-gradient(135deg,rgba(10,4,36,.55),rgba(5,2,18,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(170,102,255,.8))">🌟</div><span style="background:linear-gradient(135deg,var(--purple),var(--pink),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">SKILL TREE</span></div>
@@ -5679,6 +5803,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="fortune-btn-row" id="fortuneBtnRow" style="display:none">
     <button class="fortune-btn" style="background:linear-gradient(135deg,var(--purple),var(--pink))" onclick="claimFortune()">✦ ACCEPTERA</button>
     <button class="fortune-btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)" onclick="closeFortune()">Stäng</button>
+  </div>
+</div>
+
+<!-- PET TRAINING DOJO -->
+<div class="dojo-panel" id="dojoPanel">
+  <div class="dojo-hdr">
+    <button style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer" onclick="closeDojo()">←</button>
+    <div class="dojo-hdr-title">🥋 TRAINING DOJO</div>
+  </div>
+  <div class="dojo-scroll">
+    <div class="dojo-stat-bar" id="dojoStatBar"></div>
+    <div style="font:800 11px/1 var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:.1em;margin-top:4px">TRÄNINGSUTMANINGAR</div>
+    <div class="dojo-challenge-list" id="dojoChallengeList"></div>
+  </div>
+</div>
+<div class="dojo-arena" id="dojoArena">
+  <div class="dojo-arena-title" id="dojoArenaTitle">DOJO TRÄNING</div>
+  <div class="dojo-arena-timer-ring" id="dojoArenaTimer">10</div>
+  <div class="dojo-arena-content" id="dojoArenaContent"></div>
+  <div class="dojo-arena-score" id="dojoArenaScore"></div>
+  <div id="dojoArenaResult" class="dojo-arena-result" style="display:none">
+    <div class="dojo-result-title" id="dojoResultTitle">KLAR!</div>
+    <div style="font:600 12px/1.6 var(--ff-body);color:rgba(255,255,255,.6)" id="dojoResultStats"></div>
+    <button style="padding:12px 32px;background:linear-gradient(135deg,var(--orange),var(--gold));border:none;border-radius:12px;font:800 13px/1 var(--ff-head);color:#000;cursor:pointer;margin-top:6px" onclick="closeDojo()">← TILLBAKA</button>
   </div>
 </div>
 
@@ -15127,6 +15275,162 @@ function _wbeClaimReward(d){
   gainMat&&gainMat('crystl',5);
   showT('🏆 BOSS BESEGRAD! +500XP +50KC +1000💰','g');
   confetti&&confetti(100);
+}
+
+
+
+// PET TRAINING DOJO
+const DOJO_CHALLENGES = [
+  {id:'color_tap', ico:'🎨', name:'FÄRGBLIXTEN', desc:'Tryck rätt färgad cirkel 8 ggr!', stat:'action', reward:'+20 Action XP', cooldown:1800000,
+   fn:_dojoColorTap},
+  {id:'num_seq', ico:'🔢', name:'SIFFERSERIEN', desc:'Välj rätt nästa tal 5 gånger!', stat:'commerce', reward:'+20 Commerce XP', cooldown:1800000,
+   fn:_dojoNumSeq},
+  {id:'rhythm_tap', ico:'🥁', name:'RYTMBANSEN', desc:'Tryck i rätt takt 10 gånger!', stat:'social', reward:'+20 Social XP', cooldown:1800000,
+   fn:_dojoRhythm},
+];
+let _dojoCurrent=null,_dojoTimer=null,_dojoTimeLeft=0,_dojoScore=0;
+
+function openDojo(){
+  const p=$('dojoPanel'); if(!p) return;
+  p.classList.add('open');
+  _renderDojo();
+}
+function closeDojo(){
+  const p=$('dojoPanel'); if(p) p.classList.remove('open');
+  const a=$('dojoArena'); if(a) a.classList.remove('show');
+  clearInterval(_dojoTimer);
+}
+
+function _renderDojo(){
+  const sb=$('dojoStatBar');
+  if(sb) sb.innerHTML=[
+    {label:'ACTION',val:G.actionStat||0,col:'var(--orange)'},
+    {label:'COMMERCE',val:G.commerceStat||0,col:'var(--green)'},
+    {label:'SOCIAL',val:G.socialStat||0,col:'var(--blue)'},
+  ].map(s=>`<div class="dojo-stat-card${s.col==='var(--orange)'?' highlight':''}"><div class="dojo-stat-v" style="color:${s.col}">${s.val}</div><div class="dojo-stat-l">${s.label}</div></div>`).join('');
+  const list=$('dojoChallengeList');
+  if(!list) return;
+  list.innerHTML=DOJO_CHALLENGES.map(ch=>{
+    const cdKey='k0509_dojo_'+ch.id;
+    const lastTime=parseInt(localStorage.getItem(cdKey)||0);
+    const ready=Date.now()-lastTime>ch.cooldown;
+    const minLeft=Math.max(0,Math.ceil((ch.cooldown-(Date.now()-lastTime))/60000));
+    return `<div class="dojo-challenge-card${ready?'':' locked'}" onclick="${ready?'_startDojoChallenge(''+ch.id+'')':'showT('⏳ Cooldown '+minLeft+'min','r')'}">
+      <div class="dojo-ch-top">
+        <span class="dojo-ch-ico">${ch.ico}</span>
+        <div><div class="dojo-ch-name">${ch.name}</div><div class="dojo-ch-desc">${ch.desc}</div></div>
+        <div class="dojo-ch-reward">${ch.reward}</div>
+      </div>
+      ${!ready?'<div class="dojo-ch-cd">⏳ Redo om '+minLeft+' min</div>':''}
+    </div>`;
+  }).join('');
+}
+
+function _startDojoChallenge(id){
+  _dojoCurrent=DOJO_CHALLENGES.find(c=>c.id===id);
+  if(!_dojoCurrent) return;
+  const arena=$('dojoArena'); if(!arena) return;
+  arena.classList.add('show');
+  $('dojoArenaTitle').textContent=_dojoCurrent.ico+' '+_dojoCurrent.name;
+  $('dojoArenaResult').style.display='none';
+  $('dojoArenaContent').innerHTML='';
+  $('dojoArenaScore').textContent='';
+  _dojoCurrent.fn();
+}
+
+function _dojoColorTap(){
+  const cols=['#ff4455','#00ff88','#4488ff','#ffcc00','#aa66ff'];
+  const colNames=['RÖDD','GRÖN','BLÅ','GULD','LILA'];
+  let target=0,hits=0,total=8;
+  _dojoTimeLeft=20;
+  function pick(){
+    target=Math.floor(Math.random()*cols.length);
+    const content=$('dojoArenaContent'); if(!content) return;
+    content.innerHTML=`<div style="font:800 13px/1 var(--ff-head);color:${cols[target]};letter-spacing:.06em;margin-bottom:8px">TRYCK: ${colNames[target]}</div>
+    <div class="dojo-circle-grid">${cols.map((c,i)=>`<div class="dojo-circle" style="background:${c}33;color:${c}" onclick="_dojoColorHit(${i})">${colNames[i][0]}</div>`).join('')}</div>`;
+  }
+  pick();
+  _dojoStartTimer(20,()=>_dojoEnd(hits,total,'color_tap'));
+  window._dojoColorHit=function(idx){
+    if(idx===target){ hits++; $('dojoArenaScore').textContent=hits+'/'+total+' rätt!'; SFX.coin&&SFX.coin(); if(hits>=total){clearInterval(_dojoTimer);_dojoEnd(hits,total,'color_tap');return;} pick(); }
+    else { SFX.err&&SFX.err(); vibe&&vibe(15); }
+  };
+}
+
+function _dojoNumSeq(){
+  let hits=0,total=5;
+  _dojoTimeLeft=25;
+  function ask(){
+    const a=Math.floor(Math.random()*6)+1,b=Math.floor(Math.random()*6)+1,op=['+','-','×'][Math.floor(Math.random()*3)];
+    let ans=op==='+'?a+b:op==='-'?a-b:a*b;
+    const wrong=[ans+1,ans-1,ans+2,ans-2].filter(n=>n!==ans&&n>=0);
+    const opts=[ans,wrong[0],wrong[1],wrong[2]].sort(()=>Math.random()-.5);
+    const content=$('dojoArenaContent'); if(!content) return;
+    content.innerHTML=`<div style="font:900 28px/1 var(--ff-head);color:var(--gold);margin-bottom:12px">${a} ${op} ${b} = ?</div>
+    <div class="dojo-num-grid">${opts.map(n=>`<div class="dojo-num-btn" onclick="_dojoNumHit(${n},${ans})">${n}</div>`).join('')}</div>`;
+    window._dojoNumHit=function(v,correct){
+      if(v===correct){ hits++; $('dojoArenaScore').textContent=hits+'/'+total+' rätt!'; SFX.coin&&SFX.coin(); if(hits>=total){clearInterval(_dojoTimer);_dojoEnd(hits,total,'num_seq');return;} ask(); }
+      else { SFX.err&&SFX.err(); vibe&&vibe(15); }
+    };
+  }
+  ask();
+  _dojoStartTimer(25,()=>_dojoEnd(hits,total,'num_seq'));
+}
+
+function _dojoRhythm(){
+  let hits=0,total=10,beatActive=false;
+  _dojoTimeLeft=20;
+  const content=$('dojoArenaContent'); if(!content) return;
+  content.innerHTML=`<div style="font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:10px">Tryck när cirkeln LYSER!</div>
+  <div id="dojoBeatCircle" style="width:100px;height:100px;border-radius:50%;background:rgba(255,136,68,.1);border:3px solid rgba(255,136,68,.3);display:flex;align-items:center;justify-content:center;font-size:36px;cursor:pointer;transition:all .15s" onclick="_dojoRhythmTap()">🥁</div>`;
+  let beatInterval=setInterval(()=>{
+    beatActive=true;
+    const c=$('dojoBeatCircle'); if(c){c.style.background='rgba(255,136,68,.4)';c.style.borderColor='var(--orange)';c.style.boxShadow='0 0 20px rgba(255,136,68,.6)';}
+    SFX.tap&&SFX.tap();
+    setTimeout(()=>{beatActive=false;const c2=$('dojoBeatCircle');if(c2){c2.style.background='rgba(255,136,68,.1)';c2.style.borderColor='rgba(255,136,68,.3)';c2.style.boxShadow='none';}},300);
+  },800);
+  window._dojoRhythmTap=function(){
+    if(beatActive){hits++;$('dojoArenaScore').textContent=hits+'/'+total+' hits!';SFX.coin&&SFX.coin();}
+    else{SFX.err&&SFX.err();}
+    if(hits>=total){clearInterval(beatInterval);clearInterval(_dojoTimer);_dojoEnd(hits,total,'rhythm_tap');}
+  };
+  _dojoStartTimer(20,()=>{clearInterval(beatInterval);_dojoEnd(hits,total,'rhythm_tap');});
+}
+
+function _dojoStartTimer(sec,cb){
+  _dojoTimeLeft=sec;
+  $('dojoArenaTimer').textContent=sec;
+  clearInterval(_dojoTimer);
+  _dojoTimer=setInterval(()=>{
+    _dojoTimeLeft--;
+    $('dojoArenaTimer').textContent=_dojoTimeLeft;
+    if(_dojoTimeLeft<=3) $('dojoArenaTimer').style.color='var(--red)';
+    if(_dojoTimeLeft<=0){clearInterval(_dojoTimer);cb();}
+  },1000);
+}
+
+function _dojoEnd(score,max,id){
+  clearInterval(_dojoTimer);
+  const ch=DOJO_CHALLENGES.find(c=>c.id===id);
+  if(!ch) return;
+  localStorage.setItem('k0509_dojo_'+id,Date.now());
+  const perfect=score>=max;
+  const xp=perfect?200:Math.floor(score/max*150)+30;
+  gainXP(xp,'action');
+  gainCoins(perfect?50:20);
+  if(ch.stat==='action') G.actionStat=(G.actionStat||0)+20;
+  else if(ch.stat==='commerce') G.commerceStat=(G.commerceStat||0)+20;
+  else if(ch.stat==='social') G.socialStat=(G.socialStat||0)+20;
+  save();
+  $('dojoArenaContent').innerHTML='';
+  $('dojoArenaScore').textContent='';
+  $('dojoArenaTimer').textContent='';
+  $('dojoArenaTimer').style.color='var(--orange)';
+  const res=$('dojoArenaResult'); if(res) res.style.display='flex';
+  $('dojoResultTitle').textContent=perfect?'PERFEKT! 🏆':score>0?'BRA JOBBAT! ⭐':'FÖRSÖK IGEN 💪';
+  $('dojoResultStats').textContent=score+'/'+max+' rätt | +'+xp+' XP | +20 '+ch.stat.toUpperCase()+' STAT';
+  ssdTrackXP&&ssdTrackXP(xp);
+  progressDCB&&progressDCB('tap',score);
 }
 
 
