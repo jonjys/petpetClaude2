@@ -2006,6 +2006,49 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 @keyframes ultraPop { from{transform:scale(0) rotate(-12deg);} to{transform:scale(1);} }
 
 
+
+/* ══ GACHA PULL ══ */
+.gacha-panel { position:fixed;inset:0;z-index:866;background:radial-gradient(ellipse at 50% 30%,rgba(14,4,40,.99),#000 75%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.gacha-panel.open { transform:translateY(0); }
+.gacha-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(170,102,255,.15); }
+.gacha-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--purple),var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.1em;flex:1; }
+.gacha-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;align-items:center;gap:14px; }
+.gacha-pity-bar-bg { width:100%;max-width:320px;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden; }
+.gacha-pity-fill { height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:4px;transition:width .4s; }
+.gacha-pity-txt { font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.4);text-align:center; }
+.gacha-banner { width:100%;max-width:320px;background:linear-gradient(135deg,rgba(30,10,70,.8),rgba(50,10,40,.8));border:1.5px solid rgba(170,102,255,.3);border-radius:16px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px; }
+.gacha-pool-preview { display:flex;gap:6px;flex-wrap:wrap;justify-content:center; }
+.gacha-pool-chip { padding:4px 10px;border-radius:10px;font:700 11px/1 var(--ff-body);border:1px solid; }
+.gacha-pull-btns { display:flex;gap:10px;width:100%;max-width:320px; }
+.gacha-pull-btn { flex:1;padding:14px 8px;border:none;border-radius:14px;font:800 13px/1.3 var(--ff-head);cursor:pointer;transition:all .18s;display:flex;flex-direction:column;align-items:center;gap:3px; }
+.gacha-pull-btn:active { transform:scale(.96); }
+.gacha-pull-btn.x1 { background:linear-gradient(135deg,rgba(68,136,255,.3),rgba(170,102,255,.3));border:1.5px solid rgba(170,102,255,.4);color:#fff; }
+.gacha-pull-btn.x10 { background:linear-gradient(135deg,rgba(255,51,119,.25),rgba(170,102,255,.35));border:1.5px solid rgba(255,51,119,.5);color:#fff; }
+.gacha-pull-btn:disabled { opacity:.4;pointer-events:none; }
+/* flip card */
+.gacha-reveal-area { position:fixed;inset:0;z-index:9600;background:rgba(0,0,0,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;opacity:0;pointer-events:none;transition:opacity .3s; }
+.gacha-reveal-area.show { opacity:1;pointer-events:all; }
+.gacha-cards-row { display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:360px; }
+.gacha-card { width:76px;height:104px;border-radius:12px;perspective:600px;cursor:pointer; }
+.gacha-card-inner { width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1); }
+.gacha-card.flipped .gacha-card-inner { transform:rotateY(180deg); }
+.gacha-card-face, .gacha-card-back { position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px; }
+.gacha-card-face { background:linear-gradient(135deg,rgba(60,20,120,.9),rgba(30,10,60,.9));border:1.5px solid rgba(170,102,255,.4); }
+.gacha-card-face-ico { font-size:22px;line-height:1;animation:gachaFacePulse 1.5s ease-in-out infinite alternate; }
+@keyframes gachaFacePulse { from{opacity:.5;transform:scale(.95)} to{opacity:1;transform:scale(1.05)} }
+.gacha-card-back { transform:rotateY(180deg); }
+.gacha-card-back.r-legendary { background:linear-gradient(135deg,rgba(255,204,0,.2),rgba(255,136,0,.3));border:2px solid var(--gold);box-shadow:0 0 20px rgba(255,204,0,.4); }
+.gacha-card-back.r-epic { background:linear-gradient(135deg,rgba(170,102,255,.2),rgba(255,51,119,.2));border:2px solid var(--purple);box-shadow:0 0 16px rgba(170,102,255,.4); }
+.gacha-card-back.r-rare { background:linear-gradient(135deg,rgba(68,136,255,.2),rgba(0,221,204,.15));border:1.5px solid var(--blue);box-shadow:0 0 10px rgba(68,136,255,.3); }
+.gacha-card-back.r-common { background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15); }
+.gacha-card-back-ico { font-size:26px;line-height:1; }
+.gacha-card-back-name { font:700 8px/1.2 var(--ff-head);color:#fff;text-align:center;padding:0 4px; }
+.gacha-card-back-val { font:800 9px/1 var(--ff-body);color:var(--green); }
+.gacha-pull-result-txt { font:800 14px/1.4 var(--ff-body);color:rgba(255,255,255,.7);text-align:center; }
+.gacha-history { width:100%;max-width:320px; }
+.gacha-hist-row { display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font:500 11px/1 var(--ff-body);color:rgba(255,255,255,.5); }
+.gacha-hist-rarity { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
+
 /* ══ EVOLUTION CINEMATIC ══ */
 .evol-cine { position:fixed;inset:0;z-index:9500;background:radial-gradient(ellipse at 50% 50%,rgba(170,102,255,.3),rgba(0,0,0,.97) 60%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity .5s; }
 .evol-cine.show { opacity:1;pointer-events:all; }
@@ -2536,6 +2579,49 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+/* ══ GACHA PULL ══ */
+.gacha-panel { position:fixed;inset:0;z-index:866;background:radial-gradient(ellipse at 50% 30%,rgba(14,4,40,.99),#000 75%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
+.gacha-panel.open { transform:translateY(0); }
+.gacha-hdr { display:flex;align-items:center;gap:10px;padding:calc(var(--sat)+14px) 16px 12px;border-bottom:1px solid rgba(170,102,255,.15); }
+.gacha-hdr-title { font:900 18px/1 var(--ff-head);background:linear-gradient(135deg,var(--purple),var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.1em;flex:1; }
+.gacha-scroll { flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;align-items:center;gap:14px; }
+.gacha-pity-bar-bg { width:100%;max-width:320px;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden; }
+.gacha-pity-fill { height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:4px;transition:width .4s; }
+.gacha-pity-txt { font:600 10px/1 var(--ff-body);color:rgba(255,255,255,.4);text-align:center; }
+.gacha-banner { width:100%;max-width:320px;background:linear-gradient(135deg,rgba(30,10,70,.8),rgba(50,10,40,.8));border:1.5px solid rgba(170,102,255,.3);border-radius:16px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px; }
+.gacha-pool-preview { display:flex;gap:6px;flex-wrap:wrap;justify-content:center; }
+.gacha-pool-chip { padding:4px 10px;border-radius:10px;font:700 11px/1 var(--ff-body);border:1px solid; }
+.gacha-pull-btns { display:flex;gap:10px;width:100%;max-width:320px; }
+.gacha-pull-btn { flex:1;padding:14px 8px;border:none;border-radius:14px;font:800 13px/1.3 var(--ff-head);cursor:pointer;transition:all .18s;display:flex;flex-direction:column;align-items:center;gap:3px; }
+.gacha-pull-btn:active { transform:scale(.96); }
+.gacha-pull-btn.x1 { background:linear-gradient(135deg,rgba(68,136,255,.3),rgba(170,102,255,.3));border:1.5px solid rgba(170,102,255,.4);color:#fff; }
+.gacha-pull-btn.x10 { background:linear-gradient(135deg,rgba(255,51,119,.25),rgba(170,102,255,.35));border:1.5px solid rgba(255,51,119,.5);color:#fff; }
+.gacha-pull-btn:disabled { opacity:.4;pointer-events:none; }
+/* flip card */
+.gacha-reveal-area { position:fixed;inset:0;z-index:9600;background:rgba(0,0,0,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;opacity:0;pointer-events:none;transition:opacity .3s; }
+.gacha-reveal-area.show { opacity:1;pointer-events:all; }
+.gacha-cards-row { display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:360px; }
+.gacha-card { width:76px;height:104px;border-radius:12px;perspective:600px;cursor:pointer; }
+.gacha-card-inner { width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1); }
+.gacha-card.flipped .gacha-card-inner { transform:rotateY(180deg); }
+.gacha-card-face, .gacha-card-back { position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px; }
+.gacha-card-face { background:linear-gradient(135deg,rgba(60,20,120,.9),rgba(30,10,60,.9));border:1.5px solid rgba(170,102,255,.4); }
+.gacha-card-face-ico { font-size:22px;line-height:1;animation:gachaFacePulse 1.5s ease-in-out infinite alternate; }
+@keyframes gachaFacePulse { from{opacity:.5;transform:scale(.95)} to{opacity:1;transform:scale(1.05)} }
+.gacha-card-back { transform:rotateY(180deg); }
+.gacha-card-back.r-legendary { background:linear-gradient(135deg,rgba(255,204,0,.2),rgba(255,136,0,.3));border:2px solid var(--gold);box-shadow:0 0 20px rgba(255,204,0,.4); }
+.gacha-card-back.r-epic { background:linear-gradient(135deg,rgba(170,102,255,.2),rgba(255,51,119,.2));border:2px solid var(--purple);box-shadow:0 0 16px rgba(170,102,255,.4); }
+.gacha-card-back.r-rare { background:linear-gradient(135deg,rgba(68,136,255,.2),rgba(0,221,204,.15));border:1.5px solid var(--blue);box-shadow:0 0 10px rgba(68,136,255,.3); }
+.gacha-card-back.r-common { background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15); }
+.gacha-card-back-ico { font-size:26px;line-height:1; }
+.gacha-card-back-name { font:700 8px/1.2 var(--ff-head);color:#fff;text-align:center;padding:0 4px; }
+.gacha-card-back-val { font:800 9px/1 var(--ff-body);color:var(--green); }
+.gacha-pull-result-txt { font:800 14px/1.4 var(--ff-body);color:rgba(255,255,255,.7);text-align:center; }
+.gacha-history { width:100%;max-width:320px; }
+.gacha-hist-row { display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font:500 11px/1 var(--ff-body);color:rgba(255,255,255,.5); }
+.gacha-hist-rarity { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
 
 /* ══ EVOLUTION CINEMATIC ══ */
 .evol-cine { position:fixed;inset:0;z-index:9500;background:radial-gradient(ellipse at 50% 50%,rgba(170,102,255,.3),rgba(0,0,0,.97) 60%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity .5s; }
@@ -3669,6 +3755,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSSD()" style="background:linear-gradient(135deg,rgba(0,32,16,.55),rgba(0,10,30,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,255,136,.7))">📊</div><span style="background:linear-gradient(135deg,#00ff88,#4488ff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">DAGENS STATS</span></div>
           <div class="ddr" onclick="cM();openDCB()" style="background:linear-gradient(135deg,rgba(40,10,0,.55),rgba(20,6,0,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,136,68,.7))">🎯</div><span style="background:linear-gradient(135deg,#ff8844,#ffcc00,#ff3377);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">UTMANINGAR</span></div>
           <div class="ddr" onclick="cM();nav('games');setTimeout(()=>openFENC(),300)" style="background:linear-gradient(135deg,rgba(0,10,30,.55),rgba(0,5,16,.4),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(68,136,255,.7))">🐟</div><span style="background:linear-gradient(135deg,#4488ff,#00ddcc,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">FISKLEXIKON</span></div>
+          <div class="ddr" onclick="cM();openGacha()" style="background:linear-gradient(135deg,rgba(170,102,255,.15),rgba(255,51,119,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">🎰</div><span style="background:linear-gradient(135deg,var(--purple),var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">LOOT PULLS</span></div>
           <div class="ddr" onclick="cM();openTrophyRoom()" style="background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,68,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,204,0,.9))">🏆</div><span style="background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">TROPHY ROOM</span></div>
           <div class="ddr" onclick="cM();openStudio()" style="background:linear-gradient(135deg,rgba(255,51,119,.12),rgba(170,102,255,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(255,51,119,.8))">✨</div><span style="background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">PET STUDIO</span></div>
           <div class="ddr" onclick="cM();openSeasonPanel()" style="background:linear-gradient(135deg,rgba(0,180,80,.12),rgba(0,100,40,.08),transparent)"><div class="ddr-i" style="filter:drop-shadow(0 0 6px rgba(0,255,136,.7))">🌸</div><span style="background:linear-gradient(135deg,var(--green),var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">SÄSONG</span></div>
@@ -5194,6 +5281,48 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <button class="season-daily-btn" id="seasonDailyBtn" onclick="claimSeasonDaily()">🎁 DAGLIG SÄSONGSBONUS</button>
     </div>
   </div>
+</div>
+
+<!-- GACHA LOOT PULL -->
+<div class="gacha-panel" id="gachaPanel">
+  <div class="gacha-hdr">
+    <button style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer" onclick="closeGacha()">←</button>
+    <div class="gacha-hdr-title">🎰 LOOT PULLS</div>
+    <div style="display:flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(170,102,255,.15);border:1px solid rgba(170,102,255,.3);border-radius:20px;font:700 13px/1 var(--ff-body);color:var(--purple)">💎 <span id="gachaKC">0</span> KC</div>
+  </div>
+  <div class="gacha-scroll">
+    <div style="font:500 11px/1.5 var(--ff-body);color:rgba(255,255,255,.4);text-align:center;max-width:280px">Dra loot för att vinna XP, Coins, KC och materials. Garanterad EPIC var 10:e pull!</div>
+    <div class="gacha-pity-bar-bg"><div class="gacha-pity-fill" id="gachaPityFill" style="width:0%"></div></div>
+    <div class="gacha-pity-txt" id="gachaPityTxt">Pity: 0/10</div>
+    <div class="gacha-banner">
+      <div style="font:900 16px/1 var(--ff-head);color:var(--purple);letter-spacing:.06em">KARMA LOOT POOL</div>
+      <div class="gacha-pool-preview">
+        <div class="gacha-pool-chip" style="background:rgba(255,204,0,.15);border-color:var(--gold);color:var(--gold)">⭐ LEGENDARISK</div>
+        <div class="gacha-pool-chip" style="background:rgba(170,102,255,.12);border-color:var(--purple);color:var(--purple)">💜 EPIC</div>
+        <div class="gacha-pool-chip" style="background:rgba(68,136,255,.1);border-color:var(--blue);color:var(--blue)">🔵 RARE</div>
+        <div class="gacha-pool-chip" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.6)">⚪ COMMON</div>
+      </div>
+    </div>
+    <div class="gacha-pull-btns">
+      <button class="gacha-pull-btn x1" id="gachaPull1Btn" onclick="gachaPull(1)">
+        <span style="font-size:22px">🎰</span>
+        <span>1x PULL</span>
+        <span style="font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.5)">3 KC</span>
+      </button>
+      <button class="gacha-pull-btn x10" id="gachaPull10Btn" onclick="gachaPull(10)">
+        <span style="font-size:22px">🎆</span>
+        <span>10x PULL</span>
+        <span style="font:600 11px/1 var(--ff-body);color:rgba(255,255,255,.5)">25 KC</span>
+      </button>
+    </div>
+    <div class="gacha-history" id="gachaHistory"></div>
+  </div>
+</div>
+<div class="gacha-reveal-area" id="gachaRevealArea" onclick="_gachaFlipAll()">
+  <div style="font:900 14px/1 var(--ff-head);color:rgba(255,255,255,.5);letter-spacing:.15em">TRYCK FÖR ATT AVSLÖJA</div>
+  <div class="gacha-cards-row" id="gachaCardsRow"></div>
+  <div class="gacha-pull-result-txt" id="gachaPullResultTxt"></div>
+  <button style="padding:12px 32px;background:linear-gradient(135deg,var(--purple),var(--pink));border:none;border-radius:12px;font:800 13px/1 var(--ff-head);color:#fff;cursor:pointer;margin-top:8px" onclick="closeGachaReveal()">FORTSÄTT</button>
 </div>
 
 <!-- EVOLUTION CINEMATIC -->
@@ -13803,6 +13932,147 @@ window.triggerLvlUp=function(){
     }
   }
 };
+
+
+
+// GACHA LOOT PULL SYSTEM
+const GACHA_POOL = [
+  // COMMON (55%)
+  {id:'xp50',ico:'⚡',name:'+50 XP',val:'+50 XP',rarity:'common',col:'rgba(255,255,255,.6)',fn:()=>gainXP(50,'action')},
+  {id:'coins30',ico:'💰',name:'+30 Coins',val:'+30 💰',rarity:'common',col:'rgba(255,255,255,.6)',fn:()=>gainCoins(30)},
+  {id:'herb2',ico:'🌿',name:'2x Örtblad',val:'+2 🌿',rarity:'common',col:'rgba(255,255,255,.6)',fn:()=>gainMat('herb',2)},
+  {id:'water2',ico:'💧',name:'2x Källvatten',val:'+2 💧',rarity:'common',col:'rgba(255,255,255,.6)',fn:()=>gainMat('water',2)},
+  {id:'coral1',ico:'🪸',name:'1x Korall',val:'+1 🪸',rarity:'common',col:'rgba(255,255,255,.6)',fn:()=>gainMat('coral',1)},
+  // RARE (30%)
+  {id:'xp150',ico:'🌟',name:'+150 XP',val:'+150 XP',rarity:'rare',col:'var(--blue)',fn:()=>gainXP(150,'action')},
+  {id:'coins100',ico:'💎',name:'+100 Coins',val:'+100 💰',rarity:'rare',col:'var(--blue)',fn:()=>gainCoins(100)},
+  {id:'kc3',ico:'💎',name:'+3 KC',val:'+3 KC',rarity:'rare',col:'var(--blue)',fn:()=>gainKC(3)},
+  {id:'dust3',ico:'✨',name:'3x Stardust',val:'+3 ✨',rarity:'rare',col:'var(--blue)',fn:()=>gainMat('dust',3)},
+  {id:'crystl2',ico:'⚡',name:'2x Kristall',val:'+2 ⚡',rarity:'rare',col:'var(--blue)',fn:()=>gainMat('crystl',2)},
+  // EPIC (12%)
+  {id:'xp400',ico:'🔥',name:'+400 XP',val:'+400 XP',rarity:'epic',col:'var(--purple)',fn:()=>gainXP(400,'action')},
+  {id:'coins300',ico:'💜',name:'+300 Coins',val:'+300 💰',rarity:'epic',col:'var(--purple)',fn:()=>gainCoins(300)},
+  {id:'kc8',ico:'💜',name:'+8 KC',val:'+8 KC',rarity:'epic',col:'var(--purple)',fn:()=>gainKC(8)},
+  {id:'bond50',ico:'💜',name:'+50 Bond',val:'+50 💜',rarity:'epic',col:'var(--purple)',fn:()=>addBond&&addBond(50)},
+  // LEGENDARY (3%)
+  {id:'xp1000',ico:'👑',name:'+1000 XP',val:'+1000 XP',rarity:'legendary',col:'var(--gold)',fn:()=>gainXP(1000,'action')},
+  {id:'kc20',ico:'👑',name:'+20 KC',val:'+20 KC',rarity:'legendary',col:'var(--gold)',fn:()=>gainKC(20)},
+  {id:'coins1000',ico:'👑',name:'+1000 Coins',val:'+1000 💰',rarity:'legendary',col:'var(--gold)',fn:()=>gainCoins(1000)},
+];
+
+let _gachaPity=parseInt(localStorage.getItem('k0509_gachaPity')||0);
+let _gachaHistory=JSON.parse(localStorage.getItem('k0509_gachaHist')||'[]');
+let _gachaPending=[];
+
+function openGacha(){
+  const p=$('gachaPanel'); if(!p) return;
+  p.classList.add('open');
+  _renderGacha();
+}
+function closeGacha(){ const p=$('gachaPanel'); if(p) p.classList.remove('open'); }
+
+function _renderGacha(){
+  const kc=$('gachaKC'); if(kc) kc.textContent=G.kc||0;
+  const pf=$('gachaPityFill'); if(pf) pf.style.width=(_gachaPity/10*100)+'%';
+  const pt=$('gachaPityTxt'); if(pt) pt.textContent='Pity: '+_gachaPity+'/10 (garanterad EPIC)';
+  const btn1=$('gachaPull1Btn'); if(btn1) btn1.disabled=(G.kc||0)<3;
+  const btn10=$('gachaPull10Btn'); if(btn10) btn10.disabled=(G.kc||0)<25;
+  const hist=$('gachaHistory');
+  if(hist&&_gachaHistory.length){
+    hist.innerHTML='<div style="font:800 10px/1 var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:.08em;margin-bottom:8px">SENASTE PULLS</div>'+
+      _gachaHistory.slice(0,8).map(h=>`<div class="gacha-hist-row"><div class="gacha-hist-rarity" style="background:${h.rarity==='legendary'?'var(--gold)':h.rarity==='epic'?'var(--purple)':h.rarity==='rare'?'var(--blue)':'rgba(255,255,255,.3)'}"></div><span>${h.ico} ${h.name}</span><span style="margin-left:auto;color:${h.col||'rgba(255,255,255,.4)'}">${h.val}</span></div>`).join('');
+  }
+}
+
+function _gachaDraw(forcedRarity){
+  let r=Math.random();
+  let rarity;
+  if(forcedRarity) rarity=forcedRarity;
+  else if(r<0.03) rarity='legendary';
+  else if(r<0.15) rarity='epic';
+  else if(r<0.45) rarity='rare';
+  else rarity='common';
+  const pool=GACHA_POOL.filter(x=>x.rarity===rarity);
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+
+function gachaPull(count){
+  const cost=count===1?3:25;
+  if((G.kc||0)<cost){ SFX.err&&SFX.err(); showT('❌ Behöver '+cost+' KC!','r'); return; }
+  G.kc-=cost; save();
+  const results=[];
+  for(let i=0;i<count;i++){
+    _gachaPity++;
+    let item;
+    if(_gachaPity>=10){ item=_gachaDraw('epic'); _gachaPity=0; }
+    else { item=_gachaDraw(); if(item.rarity==='epic'||item.rarity==='legendary') _gachaPity=0; }
+    results.push(item);
+  }
+  localStorage.setItem('k0509_gachaPity',_gachaPity);
+  _gachaPending=results;
+  _showGachaReveal(results);
+}
+
+function _showGachaReveal(results){
+  const area=$('gachaRevealArea'); if(!area) return;
+  const row=$('gachaCardsRow'); if(!row) return;
+  row.innerHTML=results.map((_,i)=>`
+    <div class="gacha-card" id="gc${i}" onclick="_gachaFlipOne(${i})">
+      <div class="gacha-card-inner">
+        <div class="gacha-card-face"><span class="gacha-card-face-ico">🎰</span><span style="font:700 8px/1 var(--ff-head);color:rgba(255,255,255,.4)">KARMA</span></div>
+        <div class="gacha-card-back r-${results[i].rarity}">
+          <span class="gacha-card-back-ico">${results[i].ico}</span>
+          <span class="gacha-card-back-name">${results[i].name}</span>
+          <span class="gacha-card-back-val">${results[i].val}</span>
+        </div>
+      </div>
+    </div>`).join('');
+  $('gachaPullResultTxt').textContent='';
+  area.classList.add('show');
+  _gachaRevealFlipped=0;
+}
+
+let _gachaRevealFlipped=0;
+function _gachaFlipOne(i){
+  const card=$('gc'+i); if(!card||card.classList.contains('flipped')) return;
+  card.classList.add('flipped');
+  const item=_gachaPending[i];
+  if(item.rarity==='legendary'||item.rarity==='epic'){
+    SFX.lvl&&SFX.lvl(); vibe&&vibe([40,20,80]);
+  } else { SFX.coin&&SFX.coin(); }
+  _gachaRevealFlipped++;
+  if(_gachaRevealFlipped===_gachaPending.length){
+    $('gachaPullResultTxt').textContent='Klicka igen för att hämta belöningar!';
+  }
+}
+
+function _gachaFlipAll(){
+  const all=document.querySelectorAll('.gacha-card:not(.flipped)');
+  if(all.length===0) return;
+  all.forEach((c,i)=>setTimeout(()=>c.classList.add('flipped'),i*100));
+  _gachaRevealFlipped=_gachaPending.length;
+  setTimeout(()=>$('gachaPullResultTxt').textContent='Klicka FORTSÄTT för att hämta!',all.length*100+200);
+}
+
+function closeGachaReveal(){
+  const area=$('gachaRevealArea'); if(!area) return;
+  area.classList.remove('show');
+  // Apply all rewards
+  let legendCount=0,epicCount=0;
+  _gachaPending.forEach(item=>{
+    item.fn();
+    _gachaHistory.unshift(item);
+    if(item.rarity==='legendary') legendCount++;
+    else if(item.rarity==='epic') epicCount++;
+  });
+  if(_gachaHistory.length>20) _gachaHistory=_gachaHistory.slice(0,20);
+  localStorage.setItem('k0509_gachaHist',JSON.stringify(_gachaHistory));
+  if(legendCount) showT('👑 LEGENDARISK PULL! '+legendCount+'x','g');
+  else if(epicCount) showT('💜 EPIC PULL! '+epicCount+'x','g');
+  else showT('🎰 Pull klar!','g');
+  _gachaPending=[];
+  _renderGacha();
+}
 
 
 </script>
