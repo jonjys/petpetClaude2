@@ -4376,12 +4376,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <div class="splash" id="streakSplash">
-  <div class="sp-ico">⚡</div>
-  <div style="font-size:12px;color:var(--pink);letter-spacing:2px;margin-bottom:5px">FLASH STREAK!</div>
+  <div class="sp-ico" id="streakIco">⚡</div>
+  <div style="font-size:11px;color:var(--pink);letter-spacing:2px;margin-bottom:5px" id="streakSuper">FLASH STREAK!</div>
   <div class="sp-title" id="streakTitle" style="color:var(--pink)">🔥 7 DAGAR!</div>
-  <div class="sp-sub">Du är på fire!</div>
-  <div class="sp-row"><div class="sp-r"><div class="sp-rv" style="color:var(--red)" id="streakDays">7</div><div class="sp-rl">DAGAR</div></div><div class="sp-r"><div class="sp-rv" style="color:var(--gold)">+50</div><div class="sp-rl">BONUS XP</div></div></div>
-  <button class="btn btn-pk btn-lg" onclick="cSplash('streakSplash')">🔥 LET'S GO!</button>
+  <div class="sp-sub" id="streakSub">Du är på fire!</div>
+  <div class="sp-row" id="streakRewards">
+    <div class="sp-r"><div class="sp-rv" style="color:var(--red)" id="streakDays">7</div><div class="sp-rl">DAGAR</div></div>
+    <div class="sp-r"><div class="sp-rv" style="color:var(--gold)" id="streakXPR">+50</div><div class="sp-rl">XP</div></div>
+    <div class="sp-r" id="streakKCR" style="display:none"><div class="sp-rv" style="color:var(--teal)" id="streakKCV">+5</div><div class="sp-rl">KC</div></div>
+  </div>
+  <button class="btn btn-pk btn-lg" id="streakBtn" onclick="cSplash('streakSplash')">🔥 LET'S GO!</button>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -5143,8 +5147,25 @@ function submitFlash() {
   vibe([30,20,80,20,80]); addH(`⚡ Flash #${G.streak} postad!`, 'var(--pink)');
   showT(`⚡ FLASH! 🔥 ${G.streak}d STREAK`, 'pk');
   if(G.streak % 7 === 0) {
-    SFX.streak(); confetti(90);
-    $('streakDays').textContent=G.streak; $('streakTitle').textContent=`🔥 ${G.streak} DAGAR!`;
+    const _smil=[
+      {d:100,ico:'💫',super:'CENTURY CHAMPION!',title:'💫 100 DAGAR LEGEND!',sub:'Du är en sann legend. Ofattbart!',col:'var(--gold)',xp:500,kc:100,coins:300,btn:'👑 LEGENDARISK!'},
+      {d:30, ico:'🏅',super:'MONTHLY LEGEND!',title:'🏅 30 DAGAR!',sub:'En hel månads streak — respekt!',col:'#aa66ff',xp:250,kc:25,coins:100,btn:'🔥 RESPEKT!'},
+      {d:14, ico:'🔥🔥',super:'FORTNIGHT FIGHTER!',title:'🔥 14 DAGAR!',sub:'Två veckors streak i rad — amazing!',col:'var(--orange)',xp:100,kc:10,coins:30,btn:'⚡ AMAZING!'},
+      {d:7,  ico:'⚡',super:'WEEK WARRIOR!',title:'🔥 '+G.streak+' DAGAR!',sub:'En veckas streak — du kör!',col:'var(--pink)',xp:50,kc:5,coins:0,btn:'🔥 LET'S GO!'},
+    ];
+    const mil=_smil.find(m=>G.streak===m.d)||_smil[_smil.length-1];
+    const isSpecial=_smil.slice(0,3).some(m=>G.streak===m.d);
+    gainXP(mil.xp,'social'); if(mil.kc>0) gainKC(mil.kc); if(mil.coins>0) gainCoins(mil.coins);
+    $('streakDays').textContent=G.streak;
+    $('streakIco').textContent=mil.ico;
+    $('streakSuper').textContent=mil.super; $('streakSuper').style.color=mil.col;
+    $('streakTitle').textContent=mil.title; $('streakTitle').style.color=mil.col;
+    $('streakSub').textContent=mil.sub;
+    $('streakXPR').textContent='+'+mil.xp;
+    if(mil.kc>0){$('streakKCR').style.display='';$('streakKCV').textContent='+'+mil.kc+'💎';}else{$('streakKCR').style.display='none';}
+    $('streakBtn').textContent=mil.btn;
+    kjLog('quest','🔥 '+G.streak+' DAGARS STREAK!',mil.super+' · +'+mil.xp+' XP'+(mil.kc?' +'+mil.kc+' KC':''),mil.ico);
+    SFX.streak(); confetti(isSpecial?140:90);
     $('streakSplash').classList.add('show');
   }
   progressMission('flash'); progressChallenge('flash');
