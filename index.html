@@ -2072,6 +2072,20 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 .fish-wx-banner { padding:5px 12px;border-radius:10px;font-size:10px;font-weight:800;text-align:center;transition:all .35s;overflow:hidden;max-height:0;opacity:0; }
 .fish-wx-banner.show { max-height:32px;opacity:1;margin-bottom:4px; }
 
+/* ══ OFFLINE EARNINGS SPLASH ══ */
+.oe-splash { position:fixed;inset:0;z-index:901;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.93);backdrop-filter:blur(18px);opacity:0;pointer-events:none;transition:opacity .4s; }
+.oe-splash.show { opacity:1;pointer-events:all; }
+.oe-card { background:linear-gradient(160deg,rgba(20,8,50,.97),rgba(6,2,18,.98));border:2px solid rgba(170,102,255,.3);border-radius:28px;padding:30px 28px;text-align:center;max-width:320px;width:88%;box-shadow:0 0 80px rgba(170,102,255,.12); }
+.oe-pet { font-size:72px;animation:oePet 2s ease-in-out infinite; }
+@keyframes oePet { 0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-10px) rotate(3deg);} }
+.oe-title { font-family:var(--ff-head);font-size:22px;font-weight:900;background:linear-gradient(135deg,#aa66ff,#4488ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:14px 0 4px; }
+.oe-away { font-size:12px;color:rgba(255,255,255,.5);margin-bottom:18px; }
+.oe-rewards { display:flex;gap:10px;justify-content:center;margin-bottom:20px; }
+.oe-rew { background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:10px 16px;min-width:80px; }
+.oe-rew-v { font-family:var(--ff-head);font-size:22px;font-weight:900;color:var(--green); }
+.oe-rew-l { font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.8px;margin-top:3px; }
+.oe-flavor { font-size:12px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:20px;font-style:italic; }
+
 /* ══ KARMA RANK SYSTEM ══ */
 .rank-badge { display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:900;letter-spacing:.5px;border:1px solid transparent; }
 .rank-badge.bronze { background:linear-gradient(135deg,rgba(180,100,40,.2),rgba(120,60,20,.3));border-color:rgba(180,100,40,.4);color:#cd7f32; }
@@ -4271,6 +4285,22 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       <div class="ar-card-eff" id="arCardEff">Din välsignelse uppenbaras...</div>
       <button class="btn btn-pk btn-full" style="margin-top:4px" onclick="closeARCard()">✨ ACCEPTERA VÄLSIGNELSEN</button>
     </div>
+  </div>
+</div>
+
+<!-- OFFLINE EARNINGS SPLASH -->
+<div class="oe-splash" id="oeSplash" onclick="closeOE()">
+  <div class="oe-card" onclick="event.stopPropagation()">
+    <div class="oe-pet" id="oePet">🐉</div>
+    <div class="oe-title">VÄLKOMMEN TILLBAKA!</div>
+    <div class="oe-away" id="oeAway">Du var borta ett tag…</div>
+    <div class="oe-flavor" id="oeFlavor">"Din pet funderade på dig."</div>
+    <div class="oe-rewards" id="oeRewards">
+      <div class="oe-rew"><div class="oe-rew-v" id="oeXP" style="color:var(--green)">+0</div><div class="oe-rew-l">XP</div></div>
+      <div class="oe-rew"><div class="oe-rew-v" id="oeCoins" style="color:var(--gold)">+0</div><div class="oe-rew-l">COINS</div></div>
+      <div class="oe-rew" id="oeKCWrap" style="display:none"><div class="oe-rew-v" id="oeKC" style="color:var(--teal)">+0</div><div class="oe-rew-l">KC</div></div>
+    </div>
+    <button class="btn btn-gn btn-full" onclick="closeOE()">🐾 LET'S GO!</button>
   </div>
 </div>
 
@@ -8428,6 +8458,7 @@ if(G.name){
   setTimeout(initFloatPet,800);
   setTimeout(initBattle2,100); // init battle 2.0
   setTimeout(_dfcAutoCheck,2500); // daily fortune auto-show
+  setTimeout(checkOfflineEarnings,1200); // offline passive earnings
 }
 
 /* ══════════════════════════════════════════════════
@@ -10414,6 +10445,70 @@ updateHUD = function() {
   _origUpdateHUDRank();
   updateRankBadge();
   checkRankUp();
+};
+
+// ══════════════════════════════════════════
+//   💤 OFFLINE EARNINGS SYSTEM
+// ══════════════════════════════════════════
+function _oeFmt(ms) {
+  const s=Math.floor(ms/1000), m=Math.floor(s/60), h=Math.floor(m/60);
+  if(h>0) return h+'h '+m%60+'m';
+  if(m>0) return m+'m';
+  return s+'s';
+}
+
+function checkOfflineEarnings() {
+  if(!G.name) return;
+  const last = parseInt(localStorage.getItem('k0509_lastActive')||'0');
+  const now = Date.now();
+  if(!last) { localStorage.setItem('k0509_lastActive', String(now)); return; }
+  const away = now - last;
+  const minAway = 30 * 60 * 1000; // 30 minutes minimum
+  const maxAway = 8 * 60 * 60 * 1000; // 8 hours cap
+  if(away < minAway) { localStorage.setItem('k0509_lastActive', String(now)); return; }
+  const earnTime = Math.min(away, maxAway);
+  const mins = Math.floor(earnTime / 60000);
+  const xpEarned = Math.floor(mins * 0.8);
+  const coinsEarned = Math.floor(mins * 0.3);
+  const kcEarned = mins >= 120 ? Math.floor(mins / 60) : 0; // 1 KC per hour, minimum 2h
+  localStorage.setItem('k0509_lastActive', String(now));
+  // Apply rewards
+  gainXP(xpEarned, 'action');
+  if(coinsEarned > 0) gainCoins(coinsEarned);
+  if(kcEarned > 0) gainKC(kcEarned);
+  // Pet mood drops when away long
+  if(away > 2*3600000) { G.hunger = Math.max(0,(G.hunger||70)-20); G.energy = Math.max(0,(G.energy||60)-15); save(); }
+  // Show splash
+  const flavors = [
+    '"'+G.petName+' tittade ut genom fönstret och undrade när du kom hem."',
+    '"'+G.petName+' tränade medan du var borta. Kände sig ensam."',
+    '"'+G.petName+' drömde om äventyr. Och om dig."',
+    '"'+G.petName+' samlade passivt XP i det kosmiska tomrummet."',
+    '"'+G.petName+' mediterade och laddade energi åt dig."',
+    '"'+G.petName+' spanade på fiskar och tänkte på dig."',
+  ];
+  const el=$('oeSplash'); if(!el) return;
+  const petEl=$('oePet'); if(petEl) petEl.textContent = gS().e;
+  const aw=$('oeAway'); if(aw) aw.textContent='Du var borta i '+_oeFmt(away)+'.';
+  const fl=$('oeFlavor'); if(fl) fl.textContent=flavors[Math.floor(Math.random()*flavors.length)];
+  const xpEl=$('oeXP'); if(xpEl) xpEl.textContent='+'+xpEarned;
+  const coEl=$('oeCoins'); if(coEl) coEl.textContent='+'+coinsEarned;
+  if(kcEarned>0){const kw=$('oeKCWrap');if(kw)kw.style.display='';const ke=$('oeKC');if(ke)ke.textContent='+'+kcEarned;}
+  confetti(40); el.classList.add('show');
+  kjLog('cosmic','💤 PASSIV INKOMST',_oeFmt(away)+' borta · +'+xpEarned+' XP +'+coinsEarned+' Coins'+(kcEarned?' +'+kcEarned+' KC':''),'💤');
+}
+
+function closeOE() {
+  const el=$('oeSplash'); if(el) el.classList.remove('show');
+  // Update lastActive on close too
+  localStorage.setItem('k0509_lastActive', String(Date.now()));
+}
+
+// Wire: update lastActive on interactions + check on load
+const _origGainXPOE = gainXP;
+gainXP = function(n, stat) {
+  _origGainXPOE(n, stat);
+  localStorage.setItem('k0509_lastActive', String(Date.now()));
 };
 
 </script>
