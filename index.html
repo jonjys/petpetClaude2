@@ -1368,6 +1368,34 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ACTIVITY LOG ══ */
+.actlog-panel{position:fixed;inset:0;background:#080a10;z-index:879;display:none;flex-direction:column;overflow:hidden}
+.actlog-panel.open{display:flex}
+.actlog-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a100a,#101820)}
+.actlog-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--green),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.actlog-clear{font:600 11px var(--ff-body);color:var(--red);background:rgba(255,68,85,.1);border:1px solid rgba(255,68,85,.3);border-radius:20px;padding:4px 12px;cursor:pointer}
+.actlog-scroll{flex:1;overflow-y:auto;padding:10px 14px 24px}
+.actlog-empty{text-align:center;padding:80px 20px;color:rgba(255,255,255,.3)}
+.actlog-entry{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.actlog-entry:last-child{border-bottom:none}
+.actlog-icon{font-size:22px;line-height:1;flex-shrink:0;margin-top:2px}
+.actlog-body{flex:1;min-width:0}
+.actlog-msg{font:600 13px var(--ff-body);color:rgba(255,255,255,.85);line-height:1.4}
+.actlog-time{font:500 10px var(--ff-body);color:rgba(255,255,255,.3);margin-top:2px}
+.actlog-rew{font:600 11px var(--ff-body);margin-top:3px}
+.actlog-rew .xp{color:var(--blue)}
+.actlog-rew .coin{color:var(--gold)}
+.actlog-rew .kc{color:var(--purple)}
+.actlog-rew .fish{color:var(--teal)}
+.actlog-type-lvl .actlog-msg{color:var(--gold)}
+.actlog-type-fish .actlog-msg{color:var(--teal)}
+.actlog-type-quest .actlog-msg{color:var(--green)}
+.actlog-type-battle .actlog-msg{color:var(--orange)}
+.actlog-type-gacha .actlog-msg{color:var(--purple)}
+.actlog-type-milestone .actlog-msg{color:var(--pink)}
+.actlog-day-divider{font:700 10px var(--ff-body);color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:1px;padding:8px 0 4px}
+
 /* ══ FISHING ENCYCLOPEDIA ══ */
 .fishpedia-panel{position:fixed;inset:0;background:#050d18;z-index:878;display:none;flex-direction:column;overflow:hidden}
 .fishpedia-panel.open{display:flex}
@@ -6539,6 +6567,21 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- ACTIVITY LOG -->
+<div class="actlog-panel" id="actlogPanel">
+  <div class="actlog-header">
+    <div class="actlog-title">📜 AKTIVITETSLOGG</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="actlog-clear" onclick="clearActLog()">Rensa</button>
+      <button class="close-btn" onclick="closeActLog()">✕</button>
+    </div>
+  </div>
+  <div class="actlog-scroll" id="actlogList">
+    <div class="actlog-empty">Inga aktiviteter än.<br>Börja spela för att se din historia!</div>
+  </div>
+</div>
 
 <!-- FISHING ENCYCLOPEDIA -->
 <div class="fishpedia-panel" id="fishpediaPanel">
@@ -17817,6 +17860,104 @@ const _origCFCFP = completeFishCatch;
 completeFishCatch = function(caught, quality){
   _origCFCFP(caught, quality);
   if(caught) _fpRecord(caught, quality);
+};
+
+
+// ACTIVITY LOG
+const ACTLOG_KEY = 'k0509_actlog';
+const ACTLOG_MAX = 200;
+
+function _actlogLoad(){ try{ return JSON.parse(localStorage.getItem(ACTLOG_KEY)||'[]'); }catch(e){ return []; } }
+function _actlogSave(arr){ localStorage.setItem(ACTLOG_KEY, JSON.stringify(arr.slice(0,ACTLOG_MAX))); }
+
+function logActivity(type, msg, rew){
+  let arr = _actlogLoad();
+  arr.unshift({ type, msg, rew: rew||null, ts: Date.now(), day: getTodayKey() });
+  _actlogSave(arr);
+}
+
+function openActLog(){
+  $('actlogPanel').classList.add('open');
+  _renderActLog();
+}
+function closeActLog(){ $('actlogPanel').classList.remove('open'); }
+function clearActLog(){
+  localStorage.setItem(ACTLOG_KEY,'[]');
+  _renderActLog();
+}
+
+function _actlogTimeAgo(ts){
+  let diff = Math.floor((Date.now()-ts)/1000);
+  if(diff<60) return diff+'s sedan';
+  if(diff<3600) return Math.floor(diff/60)+'m sedan';
+  if(diff<86400) return Math.floor(diff/3600)+'h sedan';
+  return Math.floor(diff/86400)+'d sedan';
+}
+
+function _renderActLog(){
+  let arr = _actlogLoad();
+  let el = $('actlogList'); if(!el) return;
+  if(!arr.length){ el.innerHTML='<div class="actlog-empty">Inga aktiviteter än.</div>'; return; }
+  let lastDay = null;
+  let html = '';
+  arr.forEach(e=>{
+    if(e.day !== lastDay){
+      let d = e.day===getTodayKey()?'Idag':e.day;
+      html += `<div class="actlog-day-divider">${d}</div>`;
+      lastDay = e.day;
+    }
+    let rewHtml = '';
+    if(e.rew){
+      let parts=[];
+      if(e.rew.xp)    parts.push(`<span class="xp">+${e.rew.xp} XP</span>`);
+      if(e.rew.coins) parts.push(`<span class="coin">+${e.rew.coins} 💰</span>`);
+      if(e.rew.kc)    parts.push(`<span class="kc">+${e.rew.kc} KC</span>`);
+      if(parts.length) rewHtml = `<div class="actlog-rew">${parts.join(' ')}</div>`;
+    }
+    let icons = {lvl:'🆙',fish:'🎣',quest:'📋',battle:'⚔️',gacha:'🎰',milestone:'🏆',streak:'🔥',feed:'🍖',play:'🎮',sleep:'💤',tap:'👆',exp:'🗺️',bday:'🎂',dojo:'🥋',boss:'💀',evol:'✨',default:'⭐'};
+    let ic = icons[e.type]||icons.default;
+    html += `<div class="actlog-entry actlog-type-${e.type||'default'}">
+      <div class="actlog-icon">${ic}</div>
+      <div class="actlog-body">
+        <div class="actlog-msg">${e.msg}</div>
+        ${rewHtml}
+        <div class="actlog-time">${_actlogTimeAgo(e.ts)}</div>
+      </div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+// Hook into game events
+const _origGainXPLog = gainXP;
+gainXP = function(n, src){
+  _origGainXPLog(n, src);
+  let labels = {daily:'Daglig inloggning',milestone:'Milsten',streak:'Streak',item:'Använde föremål',battlepass:'Battle Pass',fish:'Fiskning'};
+  if(n>=100 && src!=='battlepass') logActivity('lvl', (labels[src]||src||'Aktivitet')+` +${n} XP`, {xp:n});
+};
+
+const _origCFCLog = completeFishCatch;
+completeFishCatch = function(caught, quality){
+  _origCFCLog(caught, quality);
+  if(caught) logActivity('fish', `Fångade ${caught}!`, null);
+};
+
+const _origTLULog = triggerLvlUp;
+window.triggerLvlUp = function(){
+  _origTLULog.apply(this,arguments);
+  logActivity('lvl','🆙 NIVÅ UPP! Pet gick upp en nivå!',null);
+};
+
+const _origPcFeedLog = pcFeed;
+pcFeed = function(){
+  _origPcFeedLog.apply(this,arguments);
+  logActivity('feed','Matade pet 🍖',null);
+};
+
+const _origPcPlayLog = pcPlay;
+pcPlay = function(){
+  _origPcPlayLog.apply(this,arguments);
+  logActivity('play','Lekte med pet 🎮',null);
 };
 
 </script>
