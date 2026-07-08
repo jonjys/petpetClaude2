@@ -1388,6 +1388,37 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY HOROSCOPE ══ */
+.horo-panel{position:fixed;inset:0;background:#020308;z-index:901;display:none;flex-direction:column;overflow:hidden}
+.horo-panel.open{display:flex}
+.horo-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080310,#040216)}
+.horo-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.horo-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.horo-sign-picker{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.horo-sign-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .15s}
+.horo-sign-card.selected{background:rgba(255,204,0,.12);border-color:rgba(255,204,0,.4)}
+.horo-sign-card:active{transform:scale(.96)}
+.horo-sign-emoji{font-size:24px;margin-bottom:3px}
+.horo-sign-name{font:600 9px var(--ff-body);color:rgba(255,255,255,.6)}
+.horo-reveal-box{background:linear-gradient(135deg,rgba(255,204,0,.08),rgba(170,102,255,.08));border:1px solid rgba(255,204,0,.2);border-radius:24px;padding:20px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden}
+.horo-stars-bg{position:absolute;inset:0;pointer-events:none;opacity:.4;font-size:12px;overflow:hidden}
+.horo-main-sign{font-size:64px;margin-bottom:8px;filter:drop-shadow(0 0 20px rgba(255,204,0,.5))}
+.horo-sign-title{font:800 18px var(--ff-head);color:var(--gold);margin-bottom:4px}
+.horo-date-range{font:500 10px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:16px}
+.horo-fortune-text{font:500 14px var(--ff-body);color:rgba(255,255,255,.8);line-height:1.6;margin-bottom:16px;text-align:left}
+.horo-effects-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.horo-effect-chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 12px;font:600 11px var(--ff-body);color:#fff;display:flex;align-items:center;gap:5px}
+.horo-lucky-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.horo-lucky{background:rgba(255,255,255,.04);border-radius:12px;padding:10px;text-align:center}
+.horo-lucky-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:4px}
+.horo-lucky-val{font:800 16px var(--ff-head);color:var(--gold)}
+.horo-claim-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--gold),var(--purple));border:none;border-radius:14px;color:#000;font:800 13px var(--ff-head);cursor:pointer}
+.horo-claim-btn:disabled{opacity:.4;cursor:default}
+.horo-history{display:flex;flex-direction:column;gap:6px}
+.horo-hist-row{background:rgba(255,255,255,.03);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:10px}
+.horo-quality-stars{color:var(--gold)}
+
 /* ══ ALCHEMY LAB ══ */
 .alch-panel{position:fixed;inset:0;background:#050308;z-index:900;display:none;flex-direction:column;overflow:hidden}
 .alch-panel.open{display:flex}
@@ -5706,6 +5737,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openComp()"><div class="ddr-i">🐾</div>Sällskapsdjur</div>
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Pet Racing</div>
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemilabb</div>
+          <div class="ddr" onclick="cM();openHoro()"><div class="ddr-i">🔮</div>Horoskop</div>
         </div>
       </div>
     </div>
@@ -7307,6 +7339,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY HOROSCOPE -->
+<div class="horo-panel" id="horoPanel">
+  <div class="horo-header">
+    <div class="horo-title">🔮 HOROSKOP</div>
+    <button class="close-btn" onclick="closeHoro()">✕</button>
+  </div>
+  <div class="horo-scroll">
+    <div id="horoSignPickerWrap"></div>
+    <div class="horo-reveal-box" id="horoRevealBox">
+      <div class="horo-stars-bg" id="horoStarsBg"></div>
+      <div class="horo-main-sign" id="horoMainSign">🔮</div>
+      <div class="horo-sign-title" id="horoSignTitle">Välj ditt stjärntecken</div>
+      <div class="horo-date-range" id="horoDateRange">Klicka på ett stjärntecken nedan</div>
+      <div class="horo-fortune-text" id="horoFortuneText" style="display:none"></div>
+      <div class="horo-effects-row" id="horoEffectsRow" style="display:none"></div>
+      <div class="horo-lucky-row" id="horoLuckyRow" style="display:none">
+        <div class="horo-lucky"><div class="horo-lucky-label">Lyckonummer</div><div class="horo-lucky-val" id="horoLuckyNum">—</div></div>
+        <div class="horo-lucky"><div class="horo-lucky-label">Lyckofärg</div><div class="horo-lucky-val" id="horoLuckyColor">—</div></div>
+        <div class="horo-lucky"><div class="horo-lucky-label">Energi</div><div class="horo-lucky-val" id="horoEnergy">—</div></div>
+      </div>
+    </div>
+    <button class="horo-claim-btn" id="horoClaimBtn" onclick="horoClaimReward()" disabled>🔮 HÄMTA DAGLIG BELÖNING</button>
+    <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Senaste 5 Dagar</div>
+    <div class="horo-history" id="horoHistory"></div>
+  </div>
+</div>
 
 <!-- ALCHEMY LAB -->
 <div class="alch-panel" id="alchPanel">
@@ -21742,6 +21802,156 @@ function alchAwardIngredient(type){
   ing[found.id]=(ing[found.id]||0)+1;
   _alchSaveIng(ing);
   showFloatBubble('⚗️ +1 '+found.emoji+' '+found.name,'buff');
+}
+
+
+// DAILY HOROSCOPE SYSTEM
+const HORO_SIGNS = [
+  {id:'aries',  emoji:'♈', name:'Bagge',     range:'21 Mar–19 Apr', trait:'modig', color:'#ff4455'},
+  {id:'taurus', emoji:'♉', name:'Oxen',      range:'20 Apr–20 Maj', trait:'uthållig', color:'#44bb44'},
+  {id:'gemini', emoji:'♊', name:'Tvillingarna',range:'21 Maj–20 Jun',trait:'nyfiken', color:'#ffcc00'},
+  {id:'cancer', emoji:'♋', name:'Kräftan',   range:'21 Jun–22 Jul', trait:'kärleksfull', color:'#88ccff'},
+  {id:'leo',    emoji:'♌', name:'Lejonet',   range:'23 Jul–22 Aug', trait:'stolt', color:'#ffaa22'},
+  {id:'virgo',  emoji:'♍', name:'Jungfrun',  range:'23 Aug–22 Sep', trait:'smart', color:'#aaffaa'},
+  {id:'libra',  emoji:'♎', name:'Vågen',     range:'23 Sep–22 Okt', trait:'balanserad', color:'#ffaaff'},
+  {id:'scorpio',emoji:'♏', name:'Skorpionen',range:'23 Okt–21 Nov', trait:'intensiv', color:'#aa44ff'},
+  {id:'sagit',  emoji:'♐', name:'Skytten',   range:'22 Nov–21 Dec', trait:'äventyrlig', color:'#ff8844'},
+  {id:'capri',  emoji:'♑', name:'Stenbocken',range:'22 Dec–19 Jan', trait:'disciplinerad', color:'#888888'},
+  {id:'aqua',   emoji:'♒', name:'Vattumannen',range:'20 Jan–18 Feb',trait:'unik', color:'#44ddff'},
+  {id:'pisces', emoji:'♓', name:'Fiskarna',  range:'19 Feb–20 Mar', trait:'intuitiv', color:'#88aaff'},
+];
+const HORO_FORTUNES = [
+  s=>`Din ${s.trait} natur strålar idag! Universum belönar ditt tålamod med oväntade gåvor. Var öppen för nya möjligheter som dyker upp — en gammal vän kanske bjuder in dig till något spännande.`,
+  s=>`Stjärnorna visar att din ${s.trait} sida är starkare än någonsin. Idag är ett bra dag att ta risker och prova nya aktiviteter. Ditt husdjur känner av din energi och presterar extra bra!`,
+  s=>`En lycklig period inleds för ditt tecken ${s.name}! Din inneboende ${s.trait} förmåga öppnar dörrar som länge varit stängda. Fokusera på det du älskar mest idag.`,
+  s=>`Kosmisk energi flödar mot ditt tecken! Den ${s.trait} kraften i dig lockar välstånd. Idag är särskilt gynnsamt för handel, utforskning och att träna ditt husdjur.`,
+  s=>`Planeternas positioner skapar en perfekt storm av tur för ${s.name}! Din ${s.trait} personlighet gör dig oemotståndlig idag. Passa på att samla resurser!`,
+];
+const HORO_KEY = 'k0509_horo';
+const HORO_SIGN_KEY = 'k0509_horo_sign';
+const HORO_HIST_KEY = 'k0509_horo_hist';
+
+function openHoro(){
+  $('horoPanel').classList.add('open');
+  _renderHoroSignPicker();
+  _renderHoroMain();
+  _renderHoroHistory();
+}
+function closeHoro(){ $('horoPanel').classList.remove('open'); }
+
+function _renderHoroSignPicker(){
+  let mySign=localStorage.getItem(HORO_SIGN_KEY);
+  let wrap=$('horoSignPickerWrap'); if(!wrap) return;
+  if(mySign){
+    let s=HORO_SIGNS.find(x=>x.id===mySign);
+    wrap.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="font-size:32px">${s?s.emoji:'?'}</div>
+        <div><div style="font:700 14px var(--ff-head);color:#fff">${s?s.name:'?'}</div><div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.4)">${s?s.range:''}</div></div>
+      </div>
+      <button style="padding:6px 12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.5);font:600 10px var(--ff-body);cursor:pointer" onclick="_horoShowPicker()">Byt</button>
+    </div>`;
+  } else {
+    wrap.innerHTML=`<div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Välj ditt stjärntecken</div>
+    <div class="horo-sign-picker">${HORO_SIGNS.map(s=>`<div class="horo-sign-card" onclick="pickHoroSign('${s.id}')"><div class="horo-sign-emoji">${s.emoji}</div><div class="horo-sign-name">${s.name}</div></div>`).join('')}</div>`;
+  }
+}
+
+function _horoShowPicker(){
+  let wrap=$('horoSignPickerWrap'); if(!wrap) return;
+  wrap.innerHTML=`<div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Välj ditt stjärntecken</div>
+  <div class="horo-sign-picker">${HORO_SIGNS.map(s=>`<div class="horo-sign-card" onclick="pickHoroSign('${s.id}')"><div class="horo-sign-emoji">${s.emoji}</div><div class="horo-sign-name">${s.name}</div></div>`).join('')}</div>`;
+}
+
+function pickHoroSign(id){
+  localStorage.setItem(HORO_SIGN_KEY,id);
+  _renderHoroSignPicker();
+  _renderHoroMain();
+}
+
+function _horoSeed(){
+  let d=getTodayKey().replace(/-/g,'');
+  let sign=localStorage.getItem(HORO_SIGN_KEY)||'aries';
+  let combined=d+sign.split('').map(c=>c.charCodeAt(0)).join('');
+  return parseInt(combined.slice(-8));
+}
+
+function _renderHoroMain(){
+  let signId=localStorage.getItem(HORO_SIGN_KEY);
+  if(!signId){
+    let ms=$('horoMainSign'); if(ms) ms.textContent='🔮';
+    let st=$('horoSignTitle'); if(st) st.textContent='Välj ditt stjärntecken';
+    let dr=$('horoDateRange'); if(dr) dr.textContent='Klicka på ett stjärntecken nedan';
+    $('horoFortuneText').style.display='none';
+    $('horoEffectsRow').style.display='none';
+    $('horoLuckyRow').style.display='none';
+    let cb=$('horoClaimBtn'); if(cb) cb.disabled=true;
+    return;
+  }
+  let s=HORO_SIGNS.find(x=>x.id===signId);
+  if(!s) return;
+  let seed=_horoSeed();
+  let fortune=HORO_FORTUNES[seed%HORO_FORTUNES.length](s);
+  let quality=[3,4,4,5,5,3,4,5,3,4][seed%10]; // 3-5 stars
+  let effects=[
+    {emoji:'⚡',label:'+'+([10,20,30,50][seed%4])+'% XP idag'},
+    {emoji:'💰',label:'+'+([10,15,25,40][(seed+1)%4])+'% Coins'},
+    {emoji:'🎲',label:'Tur: '+(['Normal','Bra','Utmärkt','Legendarisk'][seed%4])},
+  ].slice(0,quality-2);
+  let luckyNum=(seed%99)+1;
+  let luckyColors=['🔴 Röd','🟡 Guld','🟢 Grön','🔵 Blå','🟣 Lila','⚪ Vit'][(seed+2)%6];
+  let energyLevels=['Låg 😴','Medium 😊','Hög ⚡','MAXAD 🔥'];
+  let energy=energyLevels[quality-2];
+  let starsEl=$('horoStarsBg');
+  if(starsEl) starsEl.innerHTML='✨ ⭐ 🌟 ✨ ⭐ '.repeat(8);
+  let ms=$('horoMainSign'); if(ms) ms.textContent=s.emoji;
+  let st=$('horoSignTitle'); if(st) st.textContent=s.name+' — '+'⭐'.repeat(quality);
+  let dr=$('horoDateRange'); if(dr) dr.textContent=s.range;
+  let ft=$('horoFortuneText'); if(ft){ft.textContent=fortune;ft.style.display='block';}
+  let er=$('horoEffectsRow');
+  if(er){ er.style.display='flex'; er.innerHTML=effects.map(e=>`<div class="horo-effect-chip">${e.emoji} ${e.label}</div>`).join(''); }
+  let lr=$('horoLuckyRow'); if(lr) lr.style.display='grid';
+  let ln=$('horoLuckyNum'); if(ln) ln.textContent=luckyNum;
+  let lc=$('horoLuckyColor'); if(lc) lc.textContent=luckyColors;
+  let he=$('horoEnergy'); if(he) he.textContent=energy;
+  let claimed=localStorage.getItem(HORO_KEY)===getTodayKey();
+  let cb=$('horoClaimBtn');
+  if(cb){ cb.disabled=claimed; cb.textContent=claimed?'✅ Redan hämtat idag':'🔮 HÄMTA DAGLIG BELÖNING'; }
+}
+
+function horoClaimReward(){
+  if(localStorage.getItem(HORO_KEY)===getTodayKey()) return;
+  localStorage.setItem(HORO_KEY,getTodayKey());
+  let seed=_horoSeed();
+  let quality=[3,4,4,5,5,3,4,5,3,4][seed%10];
+  let xp=[100,200,300,500][quality-2]||100;
+  let coins=[50,100,150,250][quality-2]||50;
+  gainXP(xp,'horoscope'); gainCoins(coins);
+  showFloatBubble('🔮 Daglig lycka hämtad! +'+xp+' XP · +'+coins+' Coins','buff');
+  logActivity('quest','Horoskop: '+('⭐'.repeat(quality))+' dag',{xp,coins});
+  // Save to history
+  let hist=JSON.parse(localStorage.getItem(HORO_HIST_KEY)||'[]');
+  let signId=localStorage.getItem(HORO_SIGN_KEY)||'aries';
+  let s=HORO_SIGNS.find(x=>x.id===signId);
+  hist.unshift({date:getTodayKey(),sign:s?s.emoji:'?',quality,xp,coins});
+  if(hist.length>5) hist.pop();
+  localStorage.setItem(HORO_HIST_KEY,JSON.stringify(hist));
+  let cb=$('horoClaimBtn');
+  if(cb){ cb.disabled=true; cb.textContent='✅ Redan hämtat idag'; }
+  _renderHoroHistory();
+}
+
+function _renderHoroHistory(){
+  let hist=JSON.parse(localStorage.getItem(HORO_HIST_KEY)||'[]');
+  let el=$('horoHistory'); if(!el) return;
+  if(hist.length===0){ el.innerHTML='<div style="font:500 11px var(--ff-body);color:rgba(255,255,255,.3);padding:8px">Inga tidigare horoskop ännu</div>'; return; }
+  el.innerHTML=hist.map(h=>`<div class="horo-hist-row">
+    <div style="font-size:24px">${h.sign}</div>
+    <div style="flex:1">
+      <div style="font:600 11px var(--ff-head);color:#fff">${h.date}</div>
+      <div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.4)">${'⭐'.repeat(h.quality)} · +${h.xp}XP · +${h.coins}💰</div>
+    </div>
+  </div>`).join('');
 }
 
 </script>
