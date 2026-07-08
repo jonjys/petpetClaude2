@@ -1376,6 +1376,42 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY RIDDLE ══ */
+.riddle-panel{position:fixed;inset:0;background:#080810;z-index:887;display:none;flex-direction:column;overflow:hidden}
+.riddle-panel.open{display:flex}
+.riddle-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#120a20,#080a1a)}
+.riddle-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--gold),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.riddle-scroll{flex:1;overflow-y:auto;padding:16px 14px 28px;display:flex;flex-direction:column;gap:14px}
+.riddle-streak-row{display:flex;gap:8px}
+.riddle-streak-card{flex:1;background:rgba(255,204,0,.06);border:1px solid rgba(255,204,0,.2);border-radius:12px;padding:10px;text-align:center}
+.riddle-streak-num{font:800 20px var(--ff-head);color:var(--gold)}
+.riddle-streak-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase}
+.riddle-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:20px}
+.riddle-day{font:600 11px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.riddle-category{display:inline-block;font:700 10px var(--ff-body);padding:3px 10px;border-radius:10px;background:rgba(68,136,255,.2);color:var(--blue);margin-bottom:12px}
+.riddle-question{font:700 16px var(--ff-head);color:#fff;line-height:1.5;margin-bottom:16px}
+.riddle-timer{width:100%;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:16px}
+.riddle-timer-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--orange));border-radius:3px;transition:width .5s linear}
+.riddle-timer-fill.danger{background:linear-gradient(90deg,var(--red),var(--orange))}
+.riddle-options{display:flex;flex-direction:column;gap:8px}
+.riddle-option{padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fff;font:600 13px var(--ff-body);cursor:pointer;text-align:left;transition:all .2s}
+.riddle-option:hover{background:rgba(255,255,255,.08)}
+.riddle-option.correct{background:rgba(0,255,136,.15);border-color:var(--green);color:var(--green)}
+.riddle-option.wrong{background:rgba(255,68,85,.12);border-color:var(--red);color:var(--red)}
+.riddle-option.reveal-correct{background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.4)}
+.riddle-option:disabled,.riddle-option[disabled]{cursor:default;pointer-events:none}
+.riddle-result{background:rgba(255,255,255,.04);border-radius:16px;padding:16px;text-align:center;display:none}
+.riddle-result.show{display:block}
+.riddle-result-icon{font-size:42px;margin-bottom:8px}
+.riddle-result-title{font:800 18px var(--ff-head);color:#fff;margin-bottom:4px}
+.riddle-result-sub{font:500 12px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:10px}
+.riddle-result-rew{font:700 14px var(--ff-body);color:var(--gold)}
+.riddle-done-card{background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.25);border-radius:16px;padding:20px;text-align:center}
+.riddle-done-icon{font-size:40px;margin-bottom:8px}
+.riddle-done-title{font:800 16px var(--ff-head);color:var(--green);margin-bottom:4px}
+.riddle-done-sub{font:500 12px var(--ff-body);color:rgba(255,255,255,.5)}
+
 /* ══ ENVIRONMENT THEMES ══ */
 .theme-panel{position:fixed;inset:0;background:#080810;z-index:886;display:none;flex-direction:column;overflow:hidden}
 .theme-panel.open{display:flex}
@@ -6839,6 +6875,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY RIDDLE -->
+<div class="riddle-panel" id="riddlePanel">
+  <div class="riddle-header">
+    <div class="riddle-title">🧩 DAGLIG GÅTA</div>
+    <button class="close-btn" onclick="closeRiddle()">✕</button>
+  </div>
+  <div class="riddle-scroll" id="riddleScroll"></div>
+</div>
 
 <!-- ENVIRONMENT THEMES -->
 <div class="theme-panel" id="themePanel">
@@ -19224,6 +19270,129 @@ function _renderTheme(){
   let saved=_themeGetActive();
   if(saved) document.body.setAttribute('data-theme',saved);
 })();
+
+
+// DAILY RIDDLE SYSTEM
+const RIDDLES = [
+  {cat:'Natur',q:'Vad har rötter men inget huvud, sitter still men kan aldrig sitta ner?',opts:['En sten','Ett berg','En flod','En skog'],ans:1},
+  {cat:'Matematik',q:'Jag har städer utan hus, skogar utan träd, och vatten utan fisk. Vad är jag?',opts:['En dröm','En karta','En målning','En saga'],ans:1},
+  {cat:'Logik',q:'Ju mer du tar bort från mig, desto större blir jag. Vad är jag?',opts:['En bubbla','En hål','En rymd','En tanke'],ans:1},
+  {cat:'Natur',q:'Vad springer runt hela huset utan att röra sig?',opts:['Vinden','Skuggan','Väggen','Fönstret'],ans:2},
+  {cat:'Matematik',q:'Jag har en svans och ett huvud men ingen kropp. Vad är jag?',opts:['En orm','En pil','Ett mynt','En nyckel'],ans:2},
+  {cat:'Logik',q:'Vad kan fylla ett rum utan att ta upp plats?',opts:['Vatten','Luft','Ljud','Ljus'],ans:3},
+  {cat:'Natur',q:'Vad faller ned men aldrig slår i marken?',opts:['Snön','Regn','Löv','Natt'],ans:3},
+  {cat:'Kreativt',q:'Jag pratar utan mun, hör utan öron, har ingen kropp men vaknar med vinden. Vad är jag?',opts:['En spegel','En eko','En dröm','En sten'],ans:1},
+  {cat:'Matematik',q:'Vad händer en gång i minuten, två gånger i ett ögonblick, men aldrig i tusen år?',opts:['En sekund','Bokstaven M','En tanke','Tid'],ans:1},
+  {cat:'Logik',q:'Ju mer det torkar, desto våtare blir jag. Vad är jag?',opts:['En handduk','En svamp','En sjö','En moln'],ans:0},
+  {cat:'Kreativt',q:'Vad kan du inte hålla i mer än några sekunder?',opts:['Din andning','Din tanke','Din puls','En hemlighet'],ans:0},
+  {cat:'Natur',q:'Vad har ben men kan inte gå?',opts:['En stol','En orm','En fisk','En sten'],ans:0},
+  {cat:'Matematik',q:'Vad ökar varje gång du ger det bort?',opts:['Pengar','Kunskap','Mat','Vatten'],ans:1},
+  {cat:'Logik',q:'Jag är alltid inför dig men kan aldrig ses. Vad är jag?',opts:['Framtiden','Bakgrunden','Skuggan','Horisonten'],ans:0},
+  {cat:'Kreativt',q:'Vad kan bryta utan händer och läka utan medicin?',opts:['Glas','En vän','Hjärtat','Löftet'],ans:2},
+];
+
+const RD_KEYS = {
+  today:    ()=>'k0509_riddle_today_'+getTodayKey(),
+  streak:   'k0509_riddle_streak',
+  best:     'k0509_riddle_best',
+  lastRight:'k0509_riddle_lastright',
+};
+
+let _riddleTimer=null, _riddleTimeLeft=30, _riddlePicked=false;
+
+function openRiddle(){
+  $('riddlePanel').classList.add('open');
+  _renderRiddle();
+}
+function closeRiddle(){
+  if(_riddleTimer) clearInterval(_riddleTimer);
+  $('riddlePanel').classList.remove('open');
+}
+
+function _riddleForToday(){
+  let seed=parseInt(getTodayKey().replace(/-/g,''));
+  return RIDDLES[seed%RIDDLES.length];
+}
+
+function _renderRiddle(){
+  let scroll=$('riddleScroll'); if(!scroll) return;
+  let streak=parseInt(localStorage.getItem(RD_KEYS.streak)||'0');
+  let best=parseInt(localStorage.getItem(RD_KEYS.best)||'0');
+  let done=!!localStorage.getItem(RD_KEYS.today());
+  let riddle=_riddleForToday();
+  let streakHtml=`<div class="riddle-streak-row">
+    <div class="riddle-streak-card"><div class="riddle-streak-num">${streak}</div><div class="riddle-streak-label">Streak</div></div>
+    <div class="riddle-streak-card"><div class="riddle-streak-num">${best}</div><div class="riddle-streak-label">Bäst</div></div>
+    <div class="riddle-streak-card"><div class="riddle-streak-num">${RIDDLES.length}</div><div class="riddle-streak-label">Gåtor totalt</div></div>
+  </div>`;
+  if(done){
+    scroll.innerHTML=streakHtml+`<div class="riddle-done-card"><div class="riddle-done-icon">✅</div><div class="riddle-done-title">Redan löst idag!</div><div class="riddle-done-sub">Kom tillbaka imorgon för en ny gåta</div></div>`;
+    return;
+  }
+  _riddlePicked=false; _riddleTimeLeft=30;
+  scroll.innerHTML=streakHtml+`
+    <div class="riddle-card">
+      <div class="riddle-day">Gåta för ${getTodayKey()}</div>
+      <div class="riddle-category">${riddle.cat}</div>
+      <div class="riddle-question">${riddle.q}</div>
+      <div class="riddle-timer"><div class="riddle-timer-fill" id="riddleTimerFill" style="width:100%"></div></div>
+      <div class="riddle-options" id="riddleOpts">
+        ${riddle.opts.map((o,i)=>`<button class="riddle-option" onclick="answerRiddle(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+      </div>
+    </div>
+    <div class="riddle-result" id="riddleResult"></div>`;
+  if(_riddleTimer) clearInterval(_riddleTimer);
+  _riddleTimer=setInterval(()=>{
+    if(_riddlePicked){ clearInterval(_riddleTimer); return; }
+    _riddleTimeLeft--;
+    let pct=(_riddleTimeLeft/30)*100;
+    let fill=document.getElementById('riddleTimerFill');
+    if(fill){fill.style.width=pct+'%';fill.classList.toggle('danger',pct<30);}
+    if(_riddleTimeLeft<=0){ clearInterval(_riddleTimer); answerRiddle(-1); }
+  },1000);
+}
+
+function answerRiddle(idx){
+  if(_riddlePicked) return;
+  _riddlePicked=true;
+  if(_riddleTimer) clearInterval(_riddleTimer);
+  let riddle=_riddleForToday();
+  let correct=idx===riddle.ans;
+  let timeTaken=30-_riddleTimeLeft;
+  let timeBonus=correct?Math.max(1,Math.floor((30-timeTaken)/30*3)):0;
+  let streak=parseInt(localStorage.getItem(RD_KEYS.streak)||'0');
+  let best=parseInt(localStorage.getItem(RD_KEYS.best)||'0');
+  if(correct){
+    let newStreak=streak+1;
+    localStorage.setItem(RD_KEYS.streak,newStreak);
+    if(newStreak>best) localStorage.setItem(RD_KEYS.best,newStreak);
+    localStorage.setItem(RD_KEYS.lastRight,getTodayKey());
+  } else {
+    localStorage.setItem(RD_KEYS.streak,'0');
+  }
+  localStorage.setItem(RD_KEYS.today(),'1');
+  // Highlight options
+  let opts=document.querySelectorAll('.riddle-option');
+  opts.forEach((o,i)=>{
+    o.disabled=true;
+    if(i===riddle.ans) o.classList.add(idx===-1?'reveal-correct':'correct');
+    else if(i===idx) o.classList.add('wrong');
+  });
+  // Rewards
+  let xp=correct?(200+timeTaken<=10?300:timeTaken<=20?200:100)*timeBonus:50;
+  let coins=correct?100+timeBonus*50:20;
+  gainXP(xp,'riddle'); gainCoins(coins);
+  let result=document.getElementById('riddleResult');
+  if(result){
+    result.classList.add('show');
+    result.innerHTML=`<div class="riddle-result-icon">${correct?'🎉':'😅'}</div>
+      <div class="riddle-result-title">${correct?'RÄTT SVAR!':'Tyvärr...'}</div>
+      <div class="riddle-result-sub">${correct?`Löst på ${timeTaken}s · Streak: ${parseInt(localStorage.getItem(RD_KEYS.streak)||'0')} dagar`:`Rätt svar: ${riddle.opts[riddle.ans]}`}</div>
+      <div class="riddle-result-rew">+${xp} XP · +${coins} Coins</div>`;
+  }
+  logActivity('quest',(correct?'Löste':'Missade')+' daglig gåta!',{xp,coins});
+  if(typeof petMicroAnim==='function') petMicroAnim(correct?'bounce':'shake');
+}
 
 </script>
 
