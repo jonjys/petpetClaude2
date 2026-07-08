@@ -1399,6 +1399,49 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MAGIC SHOP ══ */
+.mshop-panel{position:fixed;inset:0;background:#050310;z-index:912;display:none;flex-direction:column;overflow:hidden}
+.mshop-panel.open{display:flex}
+.mshop-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0620,#050310)}
+.mshop-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aa66ff,#ff88cc,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.mshop-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.mshop-banner{background:linear-gradient(135deg,rgba(170,102,255,.1),rgba(255,136,204,.07));border:1.5px solid rgba(170,102,255,.3);border-radius:20px;padding:14px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.mshop-banner-icon{font-size:40px}
+.mshop-banner-info{flex:1}
+.mshop-banner-title{font:800 14px var(--ff-head);color:#fff;margin-bottom:2px}
+.mshop-banner-sub{font:500 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.mshop-refresh-chip{background:rgba(255,204,0,.1);border:1px solid rgba(255,204,0,.25);border-radius:10px;padding:6px 12px;text-align:center;flex-shrink:0}
+.mshop-refresh-num{font:800 14px var(--ff-head);color:var(--gold)}
+.mshop-refresh-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.mshop-balance-row{display:flex;gap:8px;margin-bottom:14px}
+.mshop-balance{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:8px 12px;text-align:center}
+.mshop-balance-num{font:800 16px var(--ff-head);color:var(--gold)}
+.mshop-balance-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.mshop-section{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;margin-top:6px}
+.mshop-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.mshop-item{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;display:flex;align-items:center;gap:12px;position:relative}
+.mshop-item.sold-out{opacity:.45}
+.mshop-item.featured{border-color:rgba(255,204,0,.4);background:rgba(255,204,0,.06)}
+.mshop-item-emoji{font-size:40px;flex-shrink:0}
+.mshop-item-info{flex:1}
+.mshop-item-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.mshop-item-desc{font:500 10px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:4px;line-height:1.4}
+.mshop-item-stock{font:600 9px var(--ff-body);color:rgba(255,255,255,.35)}
+.mshop-item-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.mshop-buy-btn{background:linear-gradient(135deg,#aa66ff,#ff88cc);border:none;border-radius:10px;color:#000;font:800 11px var(--ff-head);padding:8px 14px;cursor:pointer;white-space:nowrap}
+.mshop-buy-btn.kc{background:linear-gradient(135deg,var(--gold),var(--orange))}
+.mshop-buy-btn:disabled{opacity:.4;cursor:default}
+.mshop-price{font:800 13px var(--ff-head);color:#fff}
+.mshop-price-unit{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.mshop-feat-badge{position:absolute;top:-1px;left:14px;background:var(--gold);color:#000;font:700 8px var(--ff-body);padding:2px 8px;border-radius:0 0 8px 8px}
+.mshop-sold-badge{position:absolute;top:10px;right:10px;background:rgba(255,68,85,.2);color:var(--red);font:700 9px var(--ff-body);padding:3px 8px;border-radius:8px;border:1px solid rgba(255,68,85,.3)}
+.mshop-mystery{background:linear-gradient(135deg,rgba(255,136,204,.08),rgba(170,102,255,.07));border:1.5px solid rgba(255,136,204,.25);border-radius:18px;padding:16px;text-align:center}
+.mshop-mystery-title{font:900 16px var(--ff-head);color:#fff;margin-bottom:4px}
+.mshop-mystery-sub{font:500 10px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:12px}
+.mshop-mystery-btn{background:linear-gradient(135deg,#ff88cc,#aa66ff);border:none;border-radius:14px;color:#000;font:800 13px var(--ff-head);padding:12px 28px;cursor:pointer}
+.mshop-mystery-btn:active{transform:scale(.97)}
+
 /* ══ PET EVOLUTION ══ */
 .evo-panel{position:fixed;inset:0;background:#02050f;z-index:911;display:none;flex-direction:column;overflow:hidden}
 .evo-panel.open{display:flex}
@@ -6154,6 +6197,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWorldmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
           <div class="ddr" onclick="cM();openQuests()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openEvo()"><div class="ddr-i">🧬</div>Pet Evolution</div>
+          <div class="ddr" onclick="cM();openMshop()"><div class="ddr-i">🪄</div>Magic Shop</div>
         </div>
       </div>
     </div>
@@ -7766,6 +7810,45 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- MAGIC SHOP -->
+<div class="mshop-panel" id="mshopPanel">
+  <div class="mshop-header">
+    <div class="mshop-title">🪄 MAGIC SHOP</div>
+    <button class="close-btn" onclick="closeMshop()">✕</button>
+  </div>
+  <div class="mshop-scroll">
+    <div class="mshop-banner">
+      <div class="mshop-banner-icon">🪄</div>
+      <div class="mshop-banner-info">
+        <div class="mshop-banner-title">Roterande Butik</div>
+        <div class="mshop-banner-sub">Sortimentet byts ut automatiskt — missa inte dina favoritobjekt!</div>
+      </div>
+      <div class="mshop-refresh-chip">
+        <div class="mshop-refresh-num" id="mshopTimer">--:--</div>
+        <div class="mshop-refresh-label">Till nästa rotation</div>
+      </div>
+    </div>
+    <div class="mshop-balance-row">
+      <div class="mshop-balance">
+        <div class="mshop-balance-num" id="mshopCoins">0 💰</div>
+        <div class="mshop-balance-label">Coins</div>
+      </div>
+      <div class="mshop-balance">
+        <div class="mshop-balance-num" id="mshopKC">0 💎</div>
+        <div class="mshop-balance-label">KC-Kristaller</div>
+      </div>
+    </div>
+    <div class="mshop-section">⭐ Dagens Erbjudanden</div>
+    <div class="mshop-grid" id="mshopGrid"></div>
+    <div class="mshop-mystery">
+      <div class="mshop-mystery-title">🎁 Mystery Box</div>
+      <div class="mshop-mystery-sub">En hemlig låda med slumpmässiga varor. Alltid i lager!</div>
+      <button class="mshop-mystery-btn" onclick="mshopBuyMystery()">🎁 Öppna för 150 💰</button>
+    </div>
+  </div>
+</div>
 
 <!-- PET EVOLUTION -->
 <div class="evo-panel" id="evoPanel">
@@ -24165,6 +24248,142 @@ function doEvolve(){
     setTimeout(()=>{ov.classList.remove('active');_renderEvo();},3000);
   }
   showFloatBubble('🧬 Evolution! '+nextStage.emoji+' '+nextStage.name+'! +'+500*d.stage+' XP','buff');
+}
+
+
+// MAGIC SHOP SYSTEM
+const MSHOP_ALL_ITEMS = [
+  {id:'xp_sm',   emoji:'⚡', name:'XP Laddning (S)',   desc:'+300 XP direkt',                  price:120, cur:'coins', featured:false, stock:3, give:()=>{gainXP(300,'shop');}},
+  {id:'xp_md',   emoji:'⚡', name:'XP Laddning (M)',   desc:'+800 XP direkt',                  price:300, cur:'coins', featured:false, stock:2, give:()=>{gainXP(800,'shop');}},
+  {id:'xp_lg',   emoji:'⚡', name:'XP Megados',        desc:'+2000 XP direkt',                 price:5,   cur:'kc',    featured:true,  stock:1, give:()=>{gainXP(2000,'shop');}},
+  {id:'coin_s',  emoji:'💰', name:'Myntpåse (S)',      desc:'+250 coins direkt',               price:3,   cur:'kc',    featured:false, stock:3, give:()=>{gainCoins(250);}},
+  {id:'coin_m',  emoji:'💰', name:'Myntpåse (M)',      desc:'+750 coins direkt',               price:7,   cur:'kc',    featured:false, stock:2, give:()=>{gainCoins(750);}},
+  {id:'kc_s',    emoji:'💎', name:'KC Kristall (S)',   desc:'+3 KC direkt',                    price:600, cur:'coins', featured:false, stock:2, give:()=>{if(typeof gainKC==='function') gainKC(3);}},
+  {id:'kc_m',    emoji:'💎', name:'KC Kristall (M)',   desc:'+8 KC direkt',                    price:1400, cur:'coins', featured:false, stock:1, give:()=>{if(typeof gainKC==='function') gainKC(8);}},
+  {id:'ing_rand',emoji:'🌿', name:'Slumpingrediens',   desc:'1 slumpmässig alchemyingrediens',  price:80,  cur:'coins', featured:false, stock:5, give:()=>{let ings=['fire','water','earth','star','dark','light'];let ing=ings[Math.floor(Math.random()*ings.length)];let d=JSON.parse(localStorage.getItem('k0509_alch_ing')||'{}');d[ing]=(d[ing]||0)+1;localStorage.setItem('k0509_alch_ing',JSON.stringify(d));}},
+  {id:'ing_rare',emoji:'⭐', name:'Sällsynt Ingrediens',desc:'Garanterat sällsynt ingrediens',  price:3,   cur:'kc',    featured:false, stock:2, give:()=>{let ings=['star','dark','light'];let ing=ings[Math.floor(Math.random()*ings.length)];let d=JSON.parse(localStorage.getItem('k0509_alch_ing')||'{}');d[ing]=(d[ing]||0)+2;localStorage.setItem('k0509_alch_ing',JSON.stringify(d));}},
+  {id:'chest_c', emoji:'📦', name:'Vanlig Skattekista',desc:'Lägg till en kista i ditt lager', price:150, cur:'coins', featured:false, stock:3, give:()=>{let inv=JSON.parse(localStorage.getItem('k0509_chest_inv')||'[]');inv.push('common');localStorage.setItem('k0509_chest_inv',JSON.stringify(inv));}},
+  {id:'chest_r', emoji:'🎁', name:'Sällsynt Kista',    desc:'Lägg till en sällsynt kista',     price:600, cur:'coins', featured:false, stock:2, give:()=>{let inv=JSON.parse(localStorage.getItem('k0509_chest_inv')||'[]');inv.push('rare');localStorage.setItem('k0509_chest_inv',JSON.stringify(inv));}},
+  {id:'chest_e', emoji:'💎', name:'Episk Kista',       desc:'Lägg till en episk kista',        price:8,   cur:'kc',    featured:true,  stock:1, give:()=>{let inv=JSON.parse(localStorage.getItem('k0509_chest_inv')||'[]');inv.push('epic');localStorage.setItem('k0509_chest_inv',JSON.stringify(inv));}},
+  {id:'race_b',  emoji:'🏁', name:'Race Turbo Boost',  desc:'+2 extra race-matcher idag',      price:200, cur:'coins', featured:false, stock:2, give:()=>{let d=JSON.parse(localStorage.getItem('k0509_race')||'null');if(d&&d.date===getTodayKey()){d.racesLeft=(d.racesLeft||0)+2;localStorage.setItem('k0509_race',JSON.stringify(d));}}},
+  {id:'dung_r',  emoji:'⚔️', name:'Dungeon Reset',     desc:'Spela Daily Dungeon igen idag',   price:5,   cur:'kc',    featured:false, stock:1, give:()=>{localStorage.removeItem('k0509_dung_done');}},
+  {id:'streak_s',emoji:'🔥', name:'Streak Shield',     desc:'Skyddar din streak en dag',       price:400, cur:'coins', featured:false, stock:2, give:()=>{let s={protected:true,date:getTodayKey()};localStorage.setItem('k0509_streak_shield',JSON.stringify(s));}},
+  {id:'xp_2x',   emoji:'✨', name:'2x XP Boost (1h)', desc:'Dubbel XP i 1 timme',             price:10,  cur:'kc',    featured:true,  stock:1, give:()=>{let exp=Date.now()+3600000;localStorage.setItem('k0509_xp2x_until',String(exp));showFloatBubble('✨ 2x XP i 1 timme aktiverat!','buff');}},
+];
+const MSHOP_KEY = 'k0509_mshop';
+const MSHOP_ROTATION_MS = 4 * 3600 * 1000;
+
+function _mshopRotationSeed(){
+  return Math.floor(Date.now() / MSHOP_ROTATION_MS);
+}
+
+function _mshopGetItems(){
+  let seed=_mshopRotationSeed();
+  // Shuffle deterministically
+  let shuffled=[...MSHOP_ALL_ITEMS].sort((a,b)=>{
+    let ha=parseInt((seed*31+a.id.charCodeAt(0)*17).toString().slice(-4));
+    let hb=parseInt((seed*31+b.id.charCodeAt(0)*17).toString().slice(-4));
+    return ha-hb;
+  });
+  return shuffled.slice(0,6);
+}
+
+function _mshopLoadBought(){
+  let key=MSHOP_KEY+'_'+_mshopRotationSeed();
+  try{return JSON.parse(localStorage.getItem(key)||'{}');}catch(e){return {};}
+}
+function _mshopSaveBought(d){
+  let key=MSHOP_KEY+'_'+_mshopRotationSeed();
+  localStorage.setItem(key,JSON.stringify(d));
+}
+
+function openMshop(){
+  $('mshopPanel').classList.add('open');
+  _renderMshop();
+  if(window._mshopTick) clearInterval(window._mshopTick);
+  window._mshopTick=setInterval(_renderMshop,30000);
+}
+function closeMshop(){
+  if(window._mshopTick) clearInterval(window._mshopTick);
+  $('mshopPanel').classList.remove('open');
+}
+
+function _renderMshop(){
+  let coins=(typeof G!=='undefined'&&G.coins)||0;
+  let kc=(typeof G!=='undefined'&&G.kc)||0;
+  let mc=$('mshopCoins'); if(mc) mc.textContent=coins+' 💰';
+  let mk=$('mshopKC'); if(mk) mk.textContent=kc+' 💎';
+  // Timer
+  let nextRot=(_mshopRotationSeed()+1)*MSHOP_ROTATION_MS;
+  let timeLeft=nextRot-Date.now();
+  let hh=Math.floor(timeLeft/3600000);
+  let mm=Math.floor((timeLeft%3600000)/60000);
+  let mt=$('mshopTimer'); if(mt) mt.textContent=hh+'h '+mm+'m';
+  // Items
+  let items=_mshopGetItems();
+  let bought=_mshopLoadBought();
+  let grid=$('mshopGrid'); if(!grid) return;
+  grid.innerHTML=items.map(item=>{
+    let boughtCount=bought[item.id]||0;
+    let remaining=item.stock-boughtCount;
+    let soldOut=remaining<=0;
+    let canAfford=item.cur==='coins'?coins>=item.price:kc>=item.price;
+    return `<div class="mshop-item ${soldOut?'sold-out':''} ${item.featured?'featured':''}">
+      ${item.featured?'<div class="mshop-feat-badge">⭐ FEATURED</div>':''}
+      ${soldOut?'<div class="mshop-sold-badge">SLUTSÅLD</div>':''}
+      <div class="mshop-item-emoji">${item.emoji}</div>
+      <div class="mshop-item-info">
+        <div class="mshop-item-name">${item.name}</div>
+        <div class="mshop-item-desc">${item.desc}</div>
+        <div class="mshop-item-stock">${soldOut?'Inte i lager':remaining+' kvar i lager'}</div>
+      </div>
+      <div class="mshop-item-right">
+        <div>
+          <div class="mshop-price">${item.price}</div>
+          <div class="mshop-price-unit">${item.cur==='coins'?'💰 coins':'💎 KC'}</div>
+        </div>
+        <button class="mshop-buy-btn ${item.cur==='kc'?'kc':''}" onclick="mshopBuy('${item.id}')" ${soldOut||!canAfford?'disabled':''}>Köp</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function mshopBuy(itemId){
+  let item=MSHOP_ALL_ITEMS.find(i=>i.id===itemId);
+  if(!item) return;
+  let coins=(typeof G!=='undefined'&&G.coins)||0;
+  let kc=(typeof G!=='undefined'&&G.kc)||0;
+  let bought=_mshopLoadBought();
+  let boughtCount=bought[itemId]||0;
+  if(boughtCount>=item.stock){showFloatBubble('Slutsåld!','buff');return;}
+  if(item.cur==='coins'){
+    if(coins<item.price){showFloatBubble('Inte tillräckligt coins!','buff');return;}
+    if(typeof G!=='undefined'){G.coins-=item.price;if(typeof save==='function')save();}
+  } else {
+    if(kc<item.price){showFloatBubble('Inte tillräckligt KC!','buff');return;}
+    if(typeof G!=='undefined'){G.kc-=item.price;if(typeof save==='function')save();}
+  }
+  bought[itemId]=(bought[itemId]||0)+1;
+  _mshopSaveBought(bought);
+  item.give();
+  showFloatBubble('🪄 Köpt: '+item.name+'!','buff');
+  _renderMshop();
+}
+
+function mshopBuyMystery(){
+  let coins=(typeof G!=='undefined'&&G.coins)||0;
+  if(coins<150){showFloatBubble('Inte tillräckligt coins! (150 💰 krävs)','buff');return;}
+  if(typeof G!=='undefined'){G.coins-=150;if(typeof save==='function')save();}
+  // Random reward
+  let roll=Math.random();
+  let msg='🎁 Mystery Box: ';
+  if(roll<0.4){let xp=100+Math.floor(Math.random()*200);gainXP(xp,'shop');msg+='+'+xp+' XP!';}
+  else if(roll<0.65){let c=80+Math.floor(Math.random()*120);gainCoins(c);msg+='+'+c+' 💰!';}
+  else if(roll<0.8){let ings=['fire','water','earth','star','dark','light'];let ing=ings[Math.floor(Math.random()*ings.length)];let d=JSON.parse(localStorage.getItem('k0509_alch_ing')||'{}');d[ing]=(d[ing]||0)+1;localStorage.setItem('k0509_alch_ing',JSON.stringify(d));msg+='Ingrediens!';}
+  else if(roll<0.93){let inv=JSON.parse(localStorage.getItem('k0509_chest_inv')||'[]');inv.push('common');localStorage.setItem('k0509_chest_inv',JSON.stringify(inv));msg+='📦 Kista!';}
+  else{if(typeof gainKC==='function')gainKC(2);msg+='💎 2 KC!';}
+  showFloatBubble(msg,'buff');
+  _renderMshop();
 }
 
 </script>
