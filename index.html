@@ -1370,6 +1370,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY MARKET ══ */
+.market-panel{position:fixed;inset:0;background:#0a0a08;z-index:881;display:none;flex-direction:column;overflow:hidden}
+.market-panel.open{display:flex}
+.market-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#1a1200,#0a1800)}
+.market-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.market-wallet{display:flex;align-items:center;gap:6px;font:700 14px var(--ff-body);color:var(--gold)}
+.market-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.market-refresh-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.market-refresh-label{font:600 11px var(--ff-body);color:rgba(255,255,255,.4)}
+.market-refresh-timer{font:700 12px var(--ff-body);color:var(--teal)}
+.market-featured{background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,68,.08));border:1.5px solid rgba(255,204,0,.4);border-radius:18px;padding:16px;margin-bottom:16px;position:relative}
+.market-featured-label{position:absolute;top:-10px;left:16px;background:var(--gold);color:#000;font:800 10px var(--ff-body);padding:3px 12px;border-radius:10px;letter-spacing:.5px}
+.market-featured-content{display:flex;align-items:center;gap:14px}
+.market-featured-icon{font-size:42px;line-height:1}
+.market-featured-info{flex:1}
+.market-featured-name{font:800 16px var(--ff-head);color:#fff;margin-bottom:2px}
+.market-featured-desc{font:500 11px var(--ff-body);color:rgba(255,255,255,.55);line-height:1.4;margin-bottom:8px}
+.market-buy-btn{background:linear-gradient(135deg,var(--gold),var(--orange));border:none;color:#000;font:800 13px var(--ff-head);padding:10px 22px;border-radius:12px;cursor:pointer}
+.market-buy-btn:disabled{opacity:.4;cursor:default}
+.market-buy-btn.kc-btn{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff}
+.market-section-title{font:700 12px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.market-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.market-item-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative}
+.market-item-card.sold{opacity:.45}
+.market-item-card.deal{border-color:rgba(0,255,136,.35);background:rgba(0,255,136,.05)}
+.market-item-icon{font-size:28px;line-height:1}
+.market-item-name{font:700 11px var(--ff-head);color:#fff;text-align:center;line-height:1.3}
+.market-item-price{font:700 12px var(--ff-body);color:var(--gold)}
+.market-item-price.kc{color:var(--purple)}
+.market-item-orig{font:500 10px var(--ff-body);color:rgba(255,255,255,.3);text-decoration:line-through}
+.market-deal-badge{position:absolute;top:6px;right:8px;font:700 9px var(--ff-body);background:var(--green);color:#000;padding:2px 6px;border-radius:8px}
+.market-sold-stamp{width:100%;padding:6px;background:rgba(255,255,255,.05);border-radius:8px;color:rgba(255,255,255,.3);font:600 10px var(--ff-body);text-align:center}
+.market-item-buy-btn{width:100%;padding:7px;background:rgba(255,204,0,.15);border:1px solid rgba(255,204,0,.3);border-radius:8px;color:var(--gold);font:700 11px var(--ff-head);cursor:pointer}
+.market-item-buy-btn.kc-btn{background:rgba(170,102,255,.15);border-color:rgba(170,102,255,.3);color:var(--purple)}
+.market-item-buy-btn:disabled{opacity:.35;cursor:default}
+
 /* ══ CLAN SYSTEM ══ */
 .clan-panel{position:fixed;inset:0;background:#0a0810;z-index:880;display:none;flex-direction:column;overflow:hidden}
 .clan-panel.open{display:flex}
@@ -6623,6 +6660,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY MARKET -->
+<div class="market-panel" id="marketPanel">
+  <div class="market-header">
+    <div class="market-title">🛒 DAGLIG MARKNAD</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="market-wallet">💰 <span id="marketWallet">0</span></div>
+      <button class="close-btn" onclick="closeMarket()">✕</button>
+    </div>
+  </div>
+  <div class="market-scroll">
+    <div class="market-refresh-row">
+      <div class="market-refresh-label">Uppdateras om:</div>
+      <div class="market-refresh-timer" id="marketTimer">00:00:00</div>
+    </div>
+    <div id="marketFeatured"></div>
+    <div class="market-section-title">Dagens erbjudanden</div>
+    <div class="market-grid" id="marketGrid"></div>
+    <div class="market-section-title">Permanenta föremål</div>
+    <div class="market-grid" id="marketPerm"></div>
+  </div>
+</div>
 
 <!-- CLAN SYSTEM -->
 <div class="clan-panel" id="clanPanel">
@@ -18171,6 +18231,140 @@ function _renderClan(){
     <div class="clan-section">TOPPMEDLEMMAR</div>
     <div class="clan-members">${members}</div>
     <button class="clan-leave-btn" onclick="leaveClan()">Lämna klanen</button>`;
+}
+
+
+// DAILY MARKET SYSTEM
+const MARKET_POOL = [
+  {id:'xp500',    icon:'🧪',name:'XP Potion 500',  type:'item',itemId:'xp_potion',  price:200, kc:false},
+  {id:'elixir1',  icon:'⚗️',name:'Mana Elixir',    type:'item',itemId:'elixir',     price:400, kc:false},
+  {id:'fishbait1',icon:'🪱',name:'Superfisk-agn',  type:'item',itemId:'fish_bait',  price:150, kc:false},
+  {id:'pettreat', icon:'🦴',name:'Supergodis',      type:'item',itemId:'pet_treat',  price:300, kc:false},
+  {id:'stardust', icon:'✨',name:'Stjärndamm',      type:'item',itemId:'star_dust',  price:200, kc:false},
+  {id:'coinbag',  icon:'💰',name:'Myntpåse 300',    type:'item',itemId:'coin_bag',   price:180, kc:false},
+  {id:'kc_gem1',  icon:'💎',name:'KC Kristall 5',   type:'item',itemId:'kc_gem',     price:8,   kc:true},
+  {id:'megaelixir',icon:'🌟',name:'Mega Elixir',    type:'item',itemId:'mega_elixir',price:15,  kc:true},
+  {id:'mystbox',  icon:'📦',name:'Mysterylåda',     type:'item',itemId:'mystery_box',price:25,  kc:true},
+];
+
+const MARKET_PERM = [
+  {id:'xp_boost_day',icon:'⚡',name:'XP +50% (1h)',  desc:'50% bonus XP i 1 timme',price:500, kc:false,action:()=>{ showFloatBubble('⚡ XP +50% i 1h!','buff'); let e=Date.now()+3600000; localStorage.setItem('k0509_mkt_xpboost',e); }},
+  {id:'coin_boost',  icon:'💰',name:'Coins x2 (1h)', desc:'Dubbla coins i 1 timme',price:600, kc:false,action:()=>{ showFloatBubble('💰 Coins x2 i 1h!','buff'); let e=Date.now()+3600000; localStorage.setItem('k0509_mkt_coinboost',e); }},
+  {id:'lucky_charm', icon:'🍀',name:'Tursymbol 24h',  desc:'+15% chans för sällsynta fiskar',price:1000,kc:false,action:()=>{ showFloatBubble('🍀 Tursymbol aktiv!','buff'); let e=Date.now()+86400000; localStorage.setItem('k0509_mkt_lucky',e); }},
+];
+
+function _mktDayKey(){ return 'k0509_mkt_day_'+getTodayKey(); }
+
+function _mktGetDaily(){
+  let key = _mktDayKey();
+  let raw = localStorage.getItem(key);
+  if(raw){ try{ return JSON.parse(raw); }catch(e){} }
+  let seed = parseInt(getTodayKey().replace(/-/g,''));
+  let pool = [...MARKET_POOL]; let picks = [];
+  for(let i=0;i<6;i++) picks.push(pool.splice((seed*7+i*13)%pool.length,1)[0]);
+  // Pick 1-2 deals with discount
+  let dealIdx = seed%picks.length;
+  picks[dealIdx].deal = true;
+  picks[dealIdx].origPrice = picks[dealIdx].price;
+  picks[dealIdx].price = Math.floor(picks[dealIdx].price * .6);
+  // Featured: always a KC item deal
+  let featured = MARKET_POOL.filter(x=>x.kc)[seed%MARKET_POOL.filter(x=>x.kc).length];
+  let data = {picks, featured};
+  localStorage.setItem(key, JSON.stringify(data));
+  return data;
+}
+
+function openMarket(){
+  $('marketPanel').classList.add('open');
+  _renderMarket();
+  _mktTimerTick();
+}
+function closeMarket(){ $('marketPanel').classList.remove('open'); }
+
+function _mktTimerTick(){
+  let el = $('marketTimer'); if(!el) return;
+  let now = new Date(); let midnight = new Date(); midnight.setHours(24,0,0,0);
+  let diff = Math.floor((midnight-now)/1000);
+  let h=Math.floor(diff/3600),m=Math.floor((diff%3600)/60),s=diff%60;
+  el.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  setTimeout(_mktTimerTick,1000);
+}
+
+function buyMarketItem(idx, featured){
+  let data = _mktGetDaily();
+  let item = featured ? data.featured : data.picks[idx];
+  if(!item) return;
+  let soldKey = _mktDayKey()+'_sold_'+(featured?'feat':idx);
+  if(localStorage.getItem(soldKey)){ showFloatBubble('Redan köpt!','warn'); return; }
+  let cost = item.price;
+  if(item.kc){
+    if(G.kc < cost){ showFloatBubble('Inte tillräckligt KC!','warn'); return; }
+    G.kc -= cost; save();
+  } else {
+    if(G.coins < cost){ showFloatBubble('Inte tillräckligt coins!','warn'); return; }
+    G.coins -= cost; save();
+  }
+  localStorage.setItem(soldKey,'1');
+  if(typeof bpAddItem==='function') bpAddItem(item.itemId,1);
+  showFloatBubble(`🛒 Köpte ${item.name}!`,'buff');
+  logActivity('quest','Köpte '+item.name+' från marknaden',null);
+  _renderMarket();
+}
+
+function buyMarketPerm(id){
+  let item = MARKET_PERM.find(x=>x.id===id); if(!item) return;
+  let soldKey = 'k0509_mkt_perm_'+id+'_'+getTodayKey();
+  if(localStorage.getItem(soldKey)){ showFloatBubble('Redan köpt idag!','warn'); return; }
+  if(G.coins < item.price){ showFloatBubble('Inte tillräckligt coins!','warn'); return; }
+  G.coins -= item.price; save();
+  localStorage.setItem(soldKey,'1');
+  item.action();
+  logActivity('quest','Aktiverade '+item.name+' från marknaden',null);
+  _renderMarket();
+}
+
+function _renderMarket(){
+  let el = $('marketWallet'); if(el) el.textContent = G.coins||0;
+  let data = _mktGetDaily();
+  // Featured
+  let feat = data.featured;
+  let featSold = !!localStorage.getItem(_mktDayKey()+'_sold_feat');
+  $('marketFeatured').innerHTML = `
+    <div class="market-featured">
+      <div class="market-featured-label">⭐ UTVALDT ERBJUDANDE</div>
+      <div class="market-featured-content">
+        <div class="market-featured-icon">${feat.icon}</div>
+        <div class="market-featured-info">
+          <div class="market-featured-name">${feat.name}</div>
+          <div class="market-featured-desc">${feat.kc?feat.price+' KC':feat.price+' Coins'}</div>
+          <button class="market-buy-btn ${feat.kc?'kc-btn':''}" onclick="buyMarketItem(0,true)" ${featSold?'disabled':''}>
+            ${featSold?'✓ KÖPT':'KÖPA'}
+          </button>
+        </div>
+      </div>
+    </div>`;
+  // Daily grid
+  $('marketGrid').innerHTML = data.picks.map((item,i)=>{
+    let sold = !!localStorage.getItem(_mktDayKey()+'_sold_'+i);
+    return `<div class="market-item-card ${sold?'sold':''} ${item.deal?'deal':''}">
+      ${item.deal?'<div class="market-deal-badge">-40%</div>':''}
+      <div class="market-item-icon">${item.icon}</div>
+      <div class="market-item-name">${item.name}</div>
+      ${item.deal&&item.origPrice?`<div class="market-item-orig">${item.origPrice}</div>`:''}
+      <div class="market-item-price ${item.kc?'kc':''}">${item.price} ${item.kc?'KC':'💰'}</div>
+      ${sold?`<div class="market-sold-stamp">✓ KÖPT</div>`:`<button class="market-item-buy-btn ${item.kc?'kc-btn':''}" onclick="buyMarketItem(${i},false)">KÖP</button>`}
+    </div>`;
+  }).join('');
+  // Perm
+  $('marketPerm').innerHTML = MARKET_PERM.map(item=>{
+    let sold = !!localStorage.getItem('k0509_mkt_perm_'+item.id+'_'+getTodayKey());
+    return `<div class="market-item-card ${sold?'sold':''}">
+      <div class="market-item-icon">${item.icon}</div>
+      <div class="market-item-name">${item.name}</div>
+      <div class="market-item-price">${item.price} 💰</div>
+      ${sold?`<div class="market-sold-stamp">✓ AKTIV</div>`:`<button class="market-item-buy-btn" onclick="buyMarketPerm('${item.id}')">KÖP</button>`}
+    </div>`;
+  }).join('');
 }
 
 </script>
