@@ -1381,6 +1381,38 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SOCIAL FEED ══ */
+.feed-panel{position:fixed;inset:0;background:#080810;z-index:892;display:none;flex-direction:column;overflow:hidden}
+.feed-panel.open{display:flex}
+.feed-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0818,#060a18)}
+.feed-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.feed-online{font:600 10px var(--ff-body);color:var(--green);background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);padding:3px 10px;border-radius:12px}
+.feed-scroll{flex:1;overflow-y:auto;padding:10px 14px 24px}
+.feed-post{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:14px;margin-bottom:10px;position:relative}
+.feed-post.special{background:rgba(170,102,255,.07);border-color:rgba(170,102,255,.25)}
+.feed-post.event{background:rgba(255,204,0,.07);border-color:rgba(255,204,0,.25)}
+.feed-post.mine{background:rgba(0,255,136,.05);border-color:rgba(0,255,136,.2)}
+.feed-post-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.feed-post-avatar{font-size:26px;flex-shrink:0;background:rgba(255,255,255,.06);border-radius:50%;padding:5px;line-height:1}
+.feed-post-meta{flex:1}
+.feed-post-name{font:700 13px var(--ff-head);color:#fff;margin-bottom:1px}
+.feed-post-time{font:500 10px var(--ff-body);color:rgba(255,255,255,.3)}
+.feed-post-lvl{display:inline-block;font:600 9px var(--ff-body);padding:1px 7px;border-radius:8px;background:rgba(255,204,0,.15);color:var(--gold);margin-left:6px}
+.feed-post-content{font:500 13px var(--ff-body);color:rgba(255,255,255,.8);line-height:1.5;margin-bottom:10px}
+.feed-post-img{font-size:32px;line-height:1;margin-bottom:8px}
+.feed-post-actions{display:flex;gap:10px;align-items:center}
+.feed-like-btn{background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.4);font:600 11px var(--ff-body);padding:5px 12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:4px}
+.feed-like-btn.liked{background:rgba(255,51,119,.15);border-color:rgba(255,51,119,.4);color:var(--pink)}
+.feed-comment-count{font:500 10px var(--ff-body);color:rgba(255,255,255,.3)}
+.feed-new-post{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:12px;margin-bottom:14px}
+.feed-post-input{width:100%;background:transparent;border:none;color:#fff;font:500 13px var(--ff-body);resize:none;outline:none;line-height:1.5}
+.feed-post-input::placeholder{color:rgba(255,255,255,.3)}
+.feed-post-submit{background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:#fff;font:700 11px var(--ff-head);padding:7px 16px;border-radius:10px;cursor:pointer;margin-top:8px}
+.feed-special-badge{position:absolute;top:10px;right:12px;font:700 9px var(--ff-body);padding:2px 8px;border-radius:8px}
+.feed-special-badge.event{background:var(--gold);color:#000}
+.feed-special-badge.special{background:var(--purple);color:#fff}
+
 /* ══ SPEED MATH ══ */
 .smath-panel{position:fixed;inset:0;background:#060810;z-index:891;display:none;flex-direction:column;overflow:hidden}
 .smath-panel.open{display:flex}
@@ -7020,6 +7052,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- SOCIAL FEED -->
+<div class="feed-panel" id="feedPanel">
+  <div class="feed-header">
+    <div class="feed-title">🌐 COMMUNITY</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="feed-online" id="feedOnline">● 234 online</div>
+      <button class="close-btn" onclick="closeFeed()">✕</button>
+    </div>
+  </div>
+  <div class="feed-scroll">
+    <div class="feed-new-post">
+      <textarea class="feed-post-input" id="feedInput" rows="2" placeholder="Vad händer med din pet? Del med dig..."></textarea>
+      <button class="feed-post-submit" onclick="postToFeed()">📤 POSTA</button>
+    </div>
+    <div id="feedList"></div>
+  </div>
+</div>
 
 <!-- SPEED MATH CHALLENGE -->
 <div class="smath-panel" id="smathPanel">
@@ -20092,6 +20143,155 @@ function _smLoadBests(){
     let el=$('smBest'+d.charAt(0).toUpperCase()+d.slice(1));
     if(el) el.textContent=v?v+'/20':'—';
   });
+}
+
+
+// SOCIAL COMMUNITY FEED
+const FEED_NPCS = [
+  {id:'luna',   avatar:'🦊',name:'LunaFox',   lvl:42, pet:'🐱'},
+  {id:'rex',    avatar:'🐉',name:'DrakeX',    lvl:78, pet:'🐉'},
+  {id:'sage',   avatar:'🦉',name:'WiseSage',  lvl:65, pet:'🦉'},
+  {id:'crystal',avatar:'🦄',name:'CrystalQ',  lvl:33, pet:'🦄'},
+  {id:'blaze',  avatar:'🐺',name:'BlazeWolf', lvl:91, pet:'🐺'},
+  {id:'nova',   avatar:'⭐',name:'NovaStars',  lvl:55, pet:'🌟'},
+  {id:'storm',  avatar:'⚡',name:'StormRider', lvl:87, pet:'⚡'},
+  {id:'bloom',  avatar:'🌸',name:'BloomPetal', lvl:29, pet:'🌺'},
+  {id:'iron',   avatar:'🛡️',name:'IronClad',   lvl:63, pet:'🔱'},
+  {id:'frost',  avatar:'❄️',name:'FrostBite',  lvl:44, pet:'🐧'},
+];
+
+const FEED_TEMPLATES = [
+  (npc)=>`Min ${npc.pet} gick upp till nivå ${npc.lvl+1}! 🎉 Så stolt!`,
+  (npc)=>`Fångade en LEGENDARY ${['hammarshaj','narvalsfisk','guldkarp','bläckfisk'][Math.floor(Math.random()*4)]}!! 🦈`,
+  (npc)=>`Dag ${10+Math.floor(Math.random()*90)} i rad! Min streak slår rekord 🔥`,
+  (npc)=>`Just besegrade World Boss Tier ${Math.floor(Math.random()*3)+1}! Tufft men värt det ⚔️`,
+  (npc)=>`Ny rekord i Speed Math: ${15+Math.floor(Math.random()*5)}/20! Hjärnan värmer upp 🧮`,
+  (npc)=>`Battle Pass Tier ${5+Math.floor(Math.random()*15)}! Belöningarna är legit 💎`,
+  (npc)=>`Öppnade en Mystery Box och fick Mega Elixir x3!! 🎲 RNG-gudarna är snälla idag`,
+  (npc)=>`Min pet verkar gladare sen jag matade den 5 gånger idag 🍖 Bond upp!`,
+  (npc)=>`${Math.floor(Math.random()*3)+1}h expedition klar — ${1000+Math.floor(Math.random()*2000)} coins och sällsynt fisk 🗺️`,
+  (npc)=>`Clan ${['Eldsorden','Havsvakter','Stormridare','Skuggbrödrarna','Naturens Väktare'][Math.floor(Math.random()*5)]} #1 denna vecka! 🏆`,
+];
+
+const FEED_EVENTS = [
+  '🌟 VÄRLDSHÄNDELSE: Dubbel XP-helg börjar nu! Spela under 48h!',
+  '⚔️ HÄNDELSE: World Boss "Titanhydran" aktiverad — alla mot en!',
+  '🎰 HÄNDELSE: Gacha-rates ökade för Legendary under 24h!',
+  '🎣 SÄSONG: Sommarsäsongen börjar — fiskebonusar aktiva!',
+  '🏆 UPPDATERING: Trophy Room fick 5 nya trofeer!',
+];
+
+const FEED_KEY = 'k0509_feed';
+const FEED_LIKES_KEY = 'k0509_feed_likes';
+
+function _feedLoad(){ try{ return JSON.parse(localStorage.getItem(FEED_KEY)||'[]'); }catch(e){ return []; } }
+function _feedSave(arr){ localStorage.setItem(FEED_KEY,JSON.stringify(arr.slice(0,100))); }
+function _feedLikedIds(){ try{ return JSON.parse(localStorage.getItem(FEED_LIKES_KEY)||'[]'); }catch(e){ return []; } }
+
+function _feedGenPosts(){
+  let arr=_feedLoad();
+  if(arr.length>15) return; // Don't regenerate if we have enough
+  let now=Date.now();
+  let seed=parseInt(getTodayKey().replace(/-/g,''));
+  let posts=[];
+  // Event post
+  posts.push({id:'ev_'+seed, type:'event', content:FEED_EVENTS[seed%FEED_EVENTS.length], ts:now-3600000, likes:Math.floor(Math.random()*80)+20});
+  // NPC posts
+  for(let i=0;i<8;i++){
+    let npc=FEED_NPCS[(seed+i*3)%FEED_NPCS.length];
+    let tmpl=FEED_TEMPLATES[(seed+i*7)%FEED_TEMPLATES.length];
+    posts.push({
+      id:'npc_'+seed+'_'+i, type:'npc',
+      npc: npc,
+      content: tmpl(npc),
+      ts: now-(1800000+i*1200000),
+      likes: Math.floor(Math.random()*30)+2,
+    });
+  }
+  // Merge with saved user posts at top
+  let userPosts=arr.filter(p=>p.type==='user');
+  let final=[...userPosts,...posts];
+  final.sort((a,b)=>b.ts-a.ts);
+  _feedSave(final);
+  return final;
+}
+
+function openFeed(){
+  $('feedPanel').classList.add('open');
+  _feedGenPosts();
+  _renderFeed();
+  // Simulate online count
+  let el=$('feedOnline');
+  if(el) el.textContent='● '+(200+Math.floor(Math.random()*100))+' online';
+}
+function closeFeed(){ $('feedPanel').classList.remove('open'); }
+
+function postToFeed(){
+  let input=$('feedInput'); if(!input) return;
+  let text=input.value.trim(); if(!text) return;
+  let arr=_feedLoad();
+  arr.unshift({
+    id:'user_'+Date.now(), type:'user',
+    content:text, ts:Date.now(), likes:0,
+    name:G.name||'Du', lvl:G.level||1, avatar:'🐾'
+  });
+  _feedSave(arr);
+  input.value='';
+  _renderFeed();
+  showFloatBubble('📤 Postad!','buff');
+}
+
+function likeFeedPost(id){
+  let liked=_feedLikedIds();
+  if(liked.includes(id)) return;
+  liked.push(id);
+  localStorage.setItem(FEED_LIKES_KEY,JSON.stringify(liked));
+  let arr=_feedLoad();
+  let post=arr.find(p=>p.id===id);
+  if(post) post.likes=(post.likes||0)+1;
+  _feedSave(arr);
+  gainXP(5,'social');
+  _renderFeed();
+}
+
+function _feedTimeAgo(ts){
+  let diff=Math.floor((Date.now()-ts)/1000);
+  if(diff<60) return 'Nu';
+  if(diff<3600) return Math.floor(diff/60)+'m';
+  if(diff<86400) return Math.floor(diff/3600)+'h';
+  return Math.floor(diff/86400)+'d';
+}
+
+function _renderFeed(){
+  let arr=_feedLoad();
+  let liked=_feedLikedIds();
+  let el=$('feedList'); if(!el) return;
+  el.innerHTML=arr.map(p=>{
+    let isLiked=liked.includes(p.id);
+    let isEvent=p.type==='event';
+    let isMine=p.type==='user';
+    let avatarEl=p.npc?p.npc.avatar:(p.avatar||'🐾');
+    let nameEl=p.npc?p.npc.name:(p.name||G.name||'Du');
+    let lvlEl=p.npc?p.npc.lvl:(p.lvl||G.level||1);
+    return `<div class="feed-post ${isEvent?'event':''} ${isMine?'mine':''}">
+      ${isEvent?'<div class="feed-special-badge event">🌍 HÄNDELSE</div>':''}
+      ${p.type==='special'?'<div class="feed-special-badge special">⭐ SPECIAL</div>':''}
+      <div class="feed-post-top">
+        <div class="feed-post-avatar">${avatarEl}</div>
+        <div class="feed-post-meta">
+          <div class="feed-post-name">${nameEl}<span class="feed-post-lvl">Lv.${lvlEl}</span></div>
+          <div class="feed-post-time">${_feedTimeAgo(p.ts)} sedan</div>
+        </div>
+      </div>
+      <div class="feed-post-content">${p.content}</div>
+      <div class="feed-post-actions">
+        <button class="feed-like-btn ${isLiked?'liked':''}" onclick="likeFeedPost('${p.id}')">
+          ${isLiked?'❤️':'🤍'} ${p.likes||0}
+        </button>
+        <div class="feed-comment-count">💬 ${Math.floor((p.likes||0)/3)} kommentarer</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 </script>
