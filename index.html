@@ -1383,6 +1383,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MINI FARM ══ */
+.farm-panel{position:fixed;inset:0;background:#060c06;z-index:894;display:none;flex-direction:column;overflow:hidden}
+.farm-panel.open{display:flex}
+.farm-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#081208,#0a1608)}
+.farm-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aaff44,var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.farm-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.farm-plots-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.farm-plot{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:14px;text-align:center;cursor:pointer;transition:transform .15s,border-color .2s;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative}
+.farm-plot:active{transform:scale(.97)}
+.farm-plot.empty{border-style:dashed;opacity:.7}
+.farm-plot.planted{background:rgba(0,100,0,.15);border-color:rgba(0,200,80,.3)}
+.farm-plot.growing{background:rgba(0,150,0,.1);border-color:rgba(0,255,136,.25)}
+.farm-plot.ready{background:rgba(0,255,136,.12);border-color:var(--green);box-shadow:0 0 12px rgba(0,255,136,.2);animation:farmReady 1.5s ease-in-out infinite}
+@keyframes farmReady{0%,100%{box-shadow:0 0 8px rgba(0,255,136,.2)}50%{box-shadow:0 0 20px rgba(0,255,136,.5)}}
+.farm-plot-emoji{font-size:40px;line-height:1}
+.farm-plot-name{font:700 12px var(--ff-head);color:#fff}
+.farm-plot-status{font:600 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.farm-plot-prog{width:100%;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin-top:4px}
+.farm-plot-prog-fill{height:100%;background:linear-gradient(90deg,var(--green),#aaff44);border-radius:2px;transition:width .5s}
+.farm-plot-ready-badge{position:absolute;top:8px;right:8px;background:var(--green);color:#000;font:700 9px var(--ff-body);padding:2px 7px;border-radius:8px}
+.farm-seed-sheet{position:fixed;bottom:0;left:0;right:0;background:#101a10;border-top:1px solid rgba(0,255,136,.2);border-radius:20px 20px 0 0;z-index:895;padding:16px 16px 32px;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
+.farm-seed-sheet.open{transform:translateY(0)}
+.farm-seed-sheet-title{font:800 15px var(--ff-head);color:#fff;margin-bottom:14px}
+.farm-seed-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.farm-seed-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px;text-align:center;cursor:pointer;transition:all .15s}
+.farm-seed-card:active{transform:scale(.97)}
+.farm-seed-card.selected{background:rgba(0,255,136,.1);border-color:var(--green)}
+.farm-seed-icon{font-size:26px;margin-bottom:4px}
+.farm-seed-name{font:700 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.farm-seed-time{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.farm-seed-rew{font:600 9px var(--ff-body);color:var(--green)}
+.farm-plant-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--green),#aaff44);border:none;border-radius:12px;color:#000;font:800 13px var(--ff-head);cursor:pointer}
+.farm-plant-btn:disabled{opacity:.4;cursor:default}
+.farm-cancel-btn{width:100%;padding:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:rgba(255,255,255,.6);font:600 12px var(--ff-head);cursor:pointer;margin-top:8px}
+.farm-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.farm-stat{background:rgba(0,100,0,.12);border:1px solid rgba(0,200,80,.2);border-radius:12px;padding:10px;text-align:center}
+.farm-stat-num{font:800 18px var(--ff-head);color:#aaff44}
+.farm-stat-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase}
+
 /* ══ REACTION SPEED GAME ══ */
 .react-panel{position:fixed;inset:0;background:#060810;z-index:893;display:none;flex-direction:column;overflow:hidden}
 .react-panel.open{display:flex}
@@ -7091,6 +7131,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- MINI FARM -->
+<div class="farm-panel" id="farmPanel">
+  <div class="farm-header">
+    <div class="farm-title">🌱 MINI FARM</div>
+    <button class="close-btn" onclick="closeFarm()">✕</button>
+  </div>
+  <div class="farm-scroll">
+    <div class="farm-stats-row">
+      <div class="farm-stat"><div class="farm-stat-num" id="farmHarvested">0</div><div class="farm-stat-label">Skördade</div></div>
+      <div class="farm-stat"><div class="farm-stat-num" id="farmPlots">0/4</div><div class="farm-stat-label">Aktiva</div></div>
+      <div class="farm-stat"><div class="farm-stat-num" id="farmTotal">0</div><div class="farm-stat-label">Totalt XP</div></div>
+    </div>
+    <div class="farm-plots-grid" id="farmPlotsGrid"></div>
+    <div style="background:rgba(255,255,255,.03);border-radius:14px;padding:12px">
+      <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Hur det fungerar</div>
+      <div style="font:500 11px var(--ff-body);color:rgba(255,255,255,.5);line-height:1.6">Välj en tom odlingsplätt för att plantera ett frö. Vänta tills det växer — längre väntetid = bättre belöning. Skörda redo plattor för XP, coins och föremål.</div>
+    </div>
+  </div>
+</div>
+<div class="farm-seed-sheet" id="farmSeedSheet">
+  <div class="farm-seed-sheet-title">🌱 Välj ett frö</div>
+  <div class="farm-seed-grid" id="farmSeedGrid"></div>
+  <button class="farm-plant-btn" id="farmPlantBtn" onclick="plantSelectedSeed()" disabled>🌱 PLANTERA</button>
+  <button class="farm-cancel-btn" onclick="closeFarmSeedSheet()">Avbryt</button>
+</div>
 
 <!-- REACTION SPEED GAME -->
 <div class="react-panel" id="reactPanel">
@@ -20524,6 +20591,149 @@ function _reactEnd(){
   $('reactStartBtn').textContent='▶ SPELA IGEN';
   if(typeof petMicroAnim==='function') petMicroAnim(avg<250?'bounce':'float');
 }
+
+
+// MINI FARM SYSTEM
+const FARM_SEEDS = [
+  {id:'radish',  emoji:'🥕',name:'Rädisa',    time:5*60000,    rew:{xp:100, coins:50}},
+  {id:'carrot',  emoji:'🌽',name:'Majs',       time:15*60000,   rew:{xp:300, coins:150}},
+  {id:'tomato',  emoji:'🍅',name:'Tomat',      time:60*60000,   rew:{xp:800, coins:400}},
+  {id:'pumpkin', emoji:'🎃',name:'Pumpa',      time:4*3600000,  rew:{xp:2500,coins:1200,item:'elixir'}},
+  {id:'crystal', emoji:'💎',name:'Kristallblomma',time:12*3600000,rew:{xp:8000,coins:3000,kc:10}},
+  {id:'magic',   emoji:'🌟',name:'Magisk Ört', time:24*3600000, rew:{xp:20000,coins:8000,kc:30}},
+];
+const FARM_PLOTS_COUNT = 4;
+const FARM_KEY = 'k0509_farm_plots';
+const FARM_STATS_KEY = 'k0509_farm_stats';
+let _farmSelectedPlot = -1;
+let _farmSelectedSeed = null;
+
+function _farmLoad(){ try{ return JSON.parse(localStorage.getItem(FARM_KEY)||'[]'); }catch(e){ return []; } }
+function _farmSave(plots){ localStorage.setItem(FARM_KEY,JSON.stringify(plots)); }
+function _farmStats(){ try{ return JSON.parse(localStorage.getItem(FARM_STATS_KEY)||'{}'); }catch(e){ return {}; } }
+function _farmUpdateStats(key,val){ let s=_farmStats(); s[key]=(s[key]||0)+val; localStorage.setItem(FARM_STATS_KEY,JSON.stringify(s)); }
+
+function _farmGetPlots(){
+  let plots=_farmLoad();
+  while(plots.length<FARM_PLOTS_COUNT) plots.push({empty:true});
+  return plots;
+}
+
+function openFarm(){
+  $('farmPanel').classList.add('open');
+  _renderFarm();
+  if(window._farmTick) clearInterval(window._farmTick);
+  window._farmTick=setInterval(_renderFarm,10000);
+}
+function closeFarm(){
+  if(window._farmTick) clearInterval(window._farmTick);
+  $('farmPanel').classList.remove('open');
+}
+
+function _renderFarm(){
+  let plots=_farmGetPlots();
+  let stats=_farmStats();
+  let active=plots.filter(p=>!p.empty&&!p.harvested).length;
+  let el=$('farmHarvested'); if(el) el.textContent=stats.harvested||0;
+  let el2=$('farmPlots'); if(el2) el2.textContent=active+'/'+FARM_PLOTS_COUNT;
+  let el3=$('farmTotal'); if(el3) el3.textContent=(stats.totalXP||0);
+  let grid=$('farmPlotsGrid'); if(!grid) return;
+  let now=Date.now();
+  grid.innerHTML=plots.map((plot,i)=>{
+    if(plot.empty){
+      return `<div class="farm-plot empty" onclick="openFarmPlot(${i})">
+        <div class="farm-plot-emoji">🌾</div>
+        <div class="farm-plot-name">Tomt</div>
+        <div class="farm-plot-status">Tryck för att plantera</div>
+      </div>`;
+    }
+    let seed=FARM_SEEDS.find(s=>s.id===plot.seedId);
+    if(!seed) return '';
+    let elapsed=now-plot.plantedAt;
+    let pct=Math.min(100,Math.round(elapsed/seed.time*100));
+    let ready=pct>=100;
+    let timeLeft=Math.max(0,seed.time-elapsed);
+    let h=Math.floor(timeLeft/3600000),m=Math.floor((timeLeft%3600000)/60000);
+    let timeStr=ready?'SKÖRDA NU!':h>0?`${h}h ${m}m`:m>0?`${m}m`:'< 1 min';
+    return `<div class="farm-plot ${ready?'ready':'growing'}" onclick="${ready?`harvestFarm(${i})`:`''`}">
+      ${ready?'<div class="farm-plot-ready-badge">✅ KLAR</div>':''}
+      <div class="farm-plot-emoji">${seed.emoji}</div>
+      <div class="farm-plot-name">${seed.name}</div>
+      <div class="farm-plot-status">${timeStr}</div>
+      <div class="farm-plot-prog"><div class="farm-plot-prog-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function openFarmPlot(idx){
+  _farmSelectedPlot=idx; _farmSelectedSeed=null;
+  let grid=$('farmSeedGrid'); if(!grid) return;
+  grid.innerHTML=FARM_SEEDS.map(s=>`<div class="farm-seed-card" onclick="selectFarmSeed('${s.id}')">
+    <div class="farm-seed-icon">${s.emoji}</div>
+    <div class="farm-seed-name">${s.name}</div>
+    <div class="farm-seed-time">${_farmFmtTime(s.time)}</div>
+    <div class="farm-seed-rew">+${s.rew.xp}XP ${s.rew.coins?'+'+s.rew.coins+'💰':''} ${s.rew.kc?'+'+s.rew.kc+'KC':''}</div>
+  </div>`).join('');
+  $('farmSeedSheet').classList.add('open');
+  let btn=$('farmPlantBtn'); if(btn) btn.disabled=true;
+}
+
+function selectFarmSeed(id){
+  _farmSelectedSeed=id;
+  document.querySelectorAll('.farm-seed-card').forEach(c=>c.classList.remove('selected'));
+  let cards=document.querySelectorAll('.farm-seed-card');
+  FARM_SEEDS.forEach((s,i)=>{ if(s.id===id&&cards[i]) cards[i].classList.add('selected'); });
+  let btn=$('farmPlantBtn'); if(btn) btn.disabled=false;
+}
+
+function closeFarmSeedSheet(){ $('farmSeedSheet').classList.remove('open'); }
+
+function plantSelectedSeed(){
+  if(_farmSelectedPlot<0||!_farmSelectedSeed) return;
+  let plots=_farmGetPlots();
+  plots[_farmSelectedPlot]={seedId:_farmSelectedSeed,plantedAt:Date.now(),empty:false};
+  _farmSave(plots);
+  closeFarmSeedSheet();
+  let seed=FARM_SEEDS.find(s=>s.id===_farmSelectedSeed);
+  showFloatBubble(`🌱 ${seed?.name} planterad! Kom tillbaka om ${_farmFmtTime(seed?.time||0)}`,'buff');
+  _renderFarm();
+}
+
+function harvestFarm(idx){
+  let plots=_farmGetPlots();
+  let plot=plots[idx]; if(!plot||plot.empty) return;
+  let seed=FARM_SEEDS.find(s=>s.id===plot.seedId);
+  if(!seed) return;
+  let elapsed=Date.now()-plot.plantedAt;
+  if(elapsed<seed.time) return;
+  plots[idx]={empty:true};
+  _farmSave(plots);
+  gainXP(seed.rew.xp,'farm');
+  if(seed.rew.coins) gainCoins(seed.rew.coins);
+  if(seed.rew.kc) gainKC(seed.rew.kc);
+  if(seed.rew.item && typeof bpAddItem==='function') bpAddItem(seed.rew.item,1);
+  _farmUpdateStats('harvested',1);
+  _farmUpdateStats('totalXP',seed.rew.xp);
+  showFloatBubble(`🌾 Skördade ${seed.name}! +${seed.rew.xp}XP ${seed.rew.coins?'+'+seed.rew.coins+'💰':''}`,'buff');
+  logActivity('quest',`Skördade ${seed.name} från Mini Farm`,{xp:seed.rew.xp,coins:seed.rew.coins||0});
+  if(typeof petMicroAnim==='function') petMicroAnim('bounce');
+  _renderFarm();
+}
+
+function _farmFmtTime(ms){
+  let h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000);
+  if(h>=24) return Math.floor(h/24)+'d';
+  if(h>0) return h+'h';
+  return m+'m';
+}
+
+// Check for ready harvests on load
+setTimeout(()=>{
+  let plots=_farmGetPlots();
+  let now=Date.now();
+  let ready=plots.filter(p=>!p.empty&&FARM_SEEDS.find(s=>s.id===p.seedId&&now-p.plantedAt>=s.time)).length;
+  if(ready>0) pushNotif('🌾','Farm klar!',`${ready} gröda${ready>1?'r':''} redo att skördas!`,"openFarm()");
+},4000);
 
 </script>
 
