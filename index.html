@@ -1367,6 +1367,41 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ FISHING ENCYCLOPEDIA ══ */
+.fishpedia-panel{position:fixed;inset:0;background:#050d18;z-index:878;display:none;flex-direction:column;overflow:hidden}
+.fishpedia-panel.open{display:flex}
+.fishpedia-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#051520,#0a1a2a)}
+.fishpedia-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.fishpedia-prog{font:600 12px var(--ff-body);color:rgba(255,255,255,.5);background:rgba(255,255,255,.07);padding:4px 12px;border-radius:20px}
+.fishpedia-filters{display:flex;gap:6px;padding:0 14px 10px;overflow-x:auto}
+.fp-filter{flex-shrink:0;font:600 10px var(--ff-head);padding:5px 13px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.4);cursor:pointer}
+.fp-filter.active{background:rgba(68,136,255,.2);border-color:var(--blue);color:var(--blue)}
+.fishpedia-scroll{flex:1;overflow-y:auto;padding:8px 12px 24px}
+.fp-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.fp-stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px;text-align:center}
+.fp-stat-num{font:800 20px var(--ff-head);color:var(--teal)}
+.fp-stat-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.fp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.fp-fish-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;position:relative;transition:transform .15s}
+.fp-fish-card.caught{background:rgba(0,221,204,.05);border-color:rgba(0,221,204,.2)}
+.fp-fish-card.locked{opacity:.35;filter:grayscale(.6)}
+.fp-fish-card.rarity-common .fp-fish-rarity{color:rgba(255,255,255,.6)}
+.fp-fish-card.rarity-uncommon .fp-fish-rarity{color:var(--green)}
+.fp-fish-card.rarity-rare .fp-fish-rarity{color:var(--blue)}
+.fp-fish-card.rarity-epic .fp-fish-rarity{color:var(--purple)}
+.fp-fish-card.rarity-legendary .fp-fish-rarity{color:var(--gold)}
+.fp-fish-card.rarity-mythic .fp-fish-rarity{color:var(--pink)}
+.fp-fish-card.rarity-abyssal .fp-fish-rarity{color:var(--red)}
+.fp-fish-emoji{font-size:36px;text-align:center;margin-bottom:6px;line-height:1}
+.fp-fish-name{font:700 12px var(--ff-head);color:#fff;margin-bottom:2px;text-align:center}
+.fp-fish-rarity{font:600 9px var(--ff-body);text-align:center;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.fp-fish-count{font:600 10px var(--ff-body);color:rgba(255,255,255,.4);text-align:center}
+.fp-fish-count span{color:var(--teal);font-weight:700}
+.fp-fish-new{position:absolute;top:6px;right:8px;font:700 8px var(--ff-body);background:var(--green);color:#000;padding:2px 6px;border-radius:6px}
+.fp-completion-bar{width:100%;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:16px}
+.fp-completion-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:3px;transition:width .5s}
+
 /* ══ BATTLE PASS ══ */
 .bpass-panel{position:fixed;inset:0;background:#080812;z-index:877;display:none;flex-direction:column;overflow:hidden}
 .bpass-panel.open{display:flex}
@@ -6503,6 +6538,37 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- FISHING ENCYCLOPEDIA -->
+<div class="fishpedia-panel" id="fishpediaPanel">
+  <div class="fishpedia-header">
+    <div class="fishpedia-title">📖 FISK-ENCYKLOPEDI</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="fishpedia-prog" id="fpProg">0 / 24</div>
+      <button class="close-btn" onclick="closeFishpedia()">✕</button>
+    </div>
+  </div>
+  <div class="fishpedia-filters">
+    <button class="fp-filter active" onclick="setFPFilter('all')" id="fpFilterAll">Alla</button>
+    <button class="fp-filter" onclick="setFPFilter('common')" id="fpFilterCommon">Common</button>
+    <button class="fp-filter" onclick="setFPFilter('uncommon')" id="fpFilterUncommon">Uncommon</button>
+    <button class="fp-filter" onclick="setFPFilter('rare')" id="fpFilterRare">Rare</button>
+    <button class="fp-filter" onclick="setFPFilter('epic')" id="fpFilterEpic">Epic</button>
+    <button class="fp-filter" onclick="setFPFilter('legendary')" id="fpFilterLegendary">Legendary</button>
+    <button class="fp-filter" onclick="setFPFilter('mythic')" id="fpFilterMythic">Mythic</button>
+    <button class="fp-filter" onclick="setFPFilter('abyssal')" id="fpFilterAbyssal">Abyssal</button>
+  </div>
+  <div class="fishpedia-scroll">
+    <div class="fp-stats-row">
+      <div class="fp-stat-card"><div class="fp-stat-num" id="fpTotalCaught">0</div><div class="fp-stat-label">Totalt fångade</div></div>
+      <div class="fp-stat-card"><div class="fp-stat-num" id="fpSpeciesFound">0</div><div class="fp-stat-label">Arter hittade</div></div>
+      <div class="fp-stat-card"><div class="fp-stat-num" id="fpRarest">—</div><div class="fp-stat-label">Sällsynt fångad</div></div>
+    </div>
+    <div class="fp-completion-bar"><div class="fp-completion-fill" id="fpCompBar" style="width:0%"></div></div>
+    <div class="fp-grid" id="fpGrid"></div>
+  </div>
+</div>
 
 <!-- BATTLE PASS -->
 <div class="bpass-panel" id="bpassPanel">
@@ -17650,6 +17716,107 @@ gainXP = function(n, src){
       showFloatBubble('⚔️ Battle Pass Tier '+(tierAfter)+'!','buff');
     }
   }
+};
+
+
+// FISHING ENCYCLOPEDIA
+const FISHPEDIA_DEFS = [
+  // Common
+  {id:'karp',     emoji:'🐟',name:'Karp',       rarity:'common',    habitat:'Sjöar',    desc:'Vanlig men stolt'},
+  {id:'abborre',  emoji:'🐠',name:'Abborre',    rarity:'common',    habitat:'Älvar',    desc:'Snabb som blixten'},
+  {id:'mört',     emoji:'🐡',name:'Mört',       rarity:'common',    habitat:'Grunda vatten',desc:'Finns överallt'},
+  {id:'gädda',    emoji:'🦈',name:'Gädda',      rarity:'uncommon',  habitat:'Sjöar',    desc:'Rovfiskens kung'},
+  // Uncommon
+  {id:'öring',    emoji:'🐟',name:'Öring',      rarity:'uncommon',  habitat:'Strömar',  desc:'Bergströmmarnas pärla'},
+  {id:'lax',      emoji:'🐠',name:'Lax',        rarity:'uncommon',  habitat:'Havet',    desc:'Vandrar mot strömmen'},
+  {id:'flundra',  emoji:'🐡',name:'Flundra',    rarity:'uncommon',  habitat:'Havsbotten',desc:'Flat och snabb'},
+  // Rare
+  {id:'tonfisk',  emoji:'🐟',name:'Tonfisk',    rarity:'rare',      habitat:'Djupa hav',desc:'Havets racerbil'},
+  {id:'svärdfisk',emoji:'⚔️',name:'Svärdfisk',  rarity:'rare',      habitat:'Öppna hav',desc:'Havets riddare'},
+  {id:'havsabborre',emoji:'🐠',name:'Havsabborre',rarity:'rare',    habitat:'Koralrev', desc:'Regnbågens barn'},
+  {id:'marulk',   emoji:'🐡',name:'Marulk',     rarity:'rare',      habitat:'Djuphav',  desc:'Lockbetets mästare'},
+  // Epic
+  {id:'barracuda',emoji:'🦈',name:'Barracuda',  rarity:'epic',      habitat:'Tropiskt', desc:'Havets torpedo'},
+  {id:'havsörn',  emoji:'🦅',name:'Havsfisk',   rarity:'epic',      habitat:'Djuphav',  desc:'Sällan skådad'},
+  {id:'pilgiftsfisk',emoji:'🐠',name:'Pilfilsfisk',rarity:'epic',   habitat:'Koralrev', desc:'Vacker men farlig'},
+  {id:'jätteräka', emoji:'🦐',name:'Jätteräka',  rarity:'epic',     habitat:'Djuphav',  desc:'Djurvärldens titan'},
+  // Legendary
+  {id:'haj',       emoji:'🦈',name:'Hammarshaj',  rarity:'legendary',habitat:'Öppna hav',desc:'Havets ärkefiende'},
+  {id:'narval',    emoji:'🦄',name:'Narvalsfisk',  rarity:'legendary',habitat:'Arktis',  desc:'Havets enhörning'},
+  {id:'bläckfisk', emoji:'🐙',name:'Bläckfisk',   rarity:'legendary',habitat:'Djuphav', desc:'Intelligensens mästare'},
+  {id:'guld_karp', emoji:'✨',name:'Guldkarp',     rarity:'legendary',habitat:'Heliga källan',desc:'En i miljonen'},
+  // Mythic
+  {id:'drakfisk',  emoji:'🐉',name:'Drakfisk',     rarity:'mythic',   habitat:'Mytens djup',desc:'Besegrad av hjältar'},
+  {id:'stjärnfisk',emoji:'⭐',name:'Stjärnfisk',   rarity:'mythic',   habitat:'Stjärnhavet',desc:'Fallit från himlen'},
+  {id:'fenixfisk', emoji:'🔥',name:'Fenixfisk',     rarity:'mythic',   habitat:'Eldvulkan',  desc:'Återföds ur askan'},
+  // Abyssal
+  {id:'djupskräck',emoji:'👾',name:'Djupskräck',   rarity:'abyssal',  habitat:'Avgrunden',  desc:'Ses av få — fruktad av alla'},
+  {id:'urvarelsen',emoji:'🌑',name:'Urvarelsen',   rarity:'abyssal',  habitat:'Bortom tid',  desc:'Äldre än haven'},
+];
+
+const FP_RARITY_ORDER = ['common','uncommon','rare','epic','legendary','mythic','abyssal'];
+let _fpFilter = 'all';
+const FP_KEY = id => 'k0509_fp_'+id;
+const FP_TOTAL_KEY = 'k0509_fp_total';
+
+function openFishpedia(){
+  $('fishpediaPanel').classList.add('open');
+  _renderFishpedia();
+}
+function closeFishpedia(){ $('fishpediaPanel').classList.remove('open'); }
+function setFPFilter(f){
+  _fpFilter = f;
+  document.querySelectorAll('.fp-filter').forEach(b=>b.classList.remove('active'));
+  let el=$('fpFilter'+f.charAt(0).toUpperCase()+f.slice(1)); if(el) el.classList.add('active');
+  _renderFishpedia();
+}
+
+function _fpRecord(fishName, rarity){
+  // Match by name or id
+  let def = FISHPEDIA_DEFS.find(d=>d.name===fishName||d.id===fishName.toLowerCase().replace(/\s/g,'_')||fishName.toLowerCase().includes(d.name.toLowerCase())||d.name.toLowerCase().includes(fishName.toLowerCase().split(' ')[0]));
+  if(!def) def = FISHPEDIA_DEFS.find(d=>d.rarity===rarity);
+  if(!def) return;
+  let cnt = parseInt(localStorage.getItem(FP_KEY(def.id))||'0');
+  localStorage.setItem(FP_KEY(def.id), cnt+1);
+  let total = parseInt(localStorage.getItem(FP_TOTAL_KEY)||'0');
+  localStorage.setItem(FP_TOTAL_KEY, total+1);
+}
+
+function _renderFishpedia(){
+  let list = _fpFilter==='all' ? FISHPEDIA_DEFS : FISHPEDIA_DEFS.filter(d=>d.rarity===_fpFilter);
+  let allCaught = FISHPEDIA_DEFS.filter(d=>parseInt(localStorage.getItem(FP_KEY(d.id))||'0')>0).length;
+  let total = parseInt(localStorage.getItem(FP_TOTAL_KEY)||'0');
+  $('fpProg').textContent = allCaught+' / '+FISHPEDIA_DEFS.length;
+  $('fpTotalCaught').textContent = total;
+  $('fpSpeciesFound').textContent = allCaught;
+  $('fpCompBar').style.width = Math.round(allCaught/FISHPEDIA_DEFS.length*100)+'%';
+  // Rarest caught
+  let rarestIdx = -1;
+  for(let i=FISHPEDIA_DEFS.length-1;i>=0;i--){
+    if(parseInt(localStorage.getItem(FP_KEY(FISHPEDIA_DEFS[i].id))||'0')>0){
+      rarestIdx=i; break;
+    }
+  }
+  $('fpRarest').textContent = rarestIdx>=0 ? FISHPEDIA_DEFS[rarestIdx].emoji : '—';
+  // Grid
+  let html = list.map(d=>{
+    let cnt = parseInt(localStorage.getItem(FP_KEY(d.id))||'0');
+    let hasCaught = cnt>0;
+    return `<div class="fp-fish-card rarity-${d.rarity} ${hasCaught?'caught':'locked'}">
+      <div class="fp-fish-emoji">${hasCaught?d.emoji:'❓'}</div>
+      <div class="fp-fish-name">${hasCaught?d.name:'???'}</div>
+      <div class="fp-fish-rarity">${d.rarity}</div>
+      <div class="fp-fish-count">${hasCaught?`Fångad: <span>${cnt}x</span>`:d.habitat}</div>
+    </div>`;
+  }).join('');
+  $('fpGrid').innerHTML = html || '<div style="grid-column:span 2;text-align:center;padding:40px;color:rgba(255,255,255,.3)">Inga fiskar i denna kategori</div>';
+}
+
+// Hook completeFishCatch to record catches
+const _origCFCFP = completeFishCatch;
+completeFishCatch = function(caught, quality){
+  _origCFCFP(caught, quality);
+  if(caught) _fpRecord(caught, quality);
 };
 
 </script>
