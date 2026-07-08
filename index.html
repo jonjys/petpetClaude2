@@ -1419,6 +1419,50 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET INVENTORY & CRAFTING ══ */
+.craft-panel{position:fixed;inset:0;background:#030408;z-index:932;display:none;flex-direction:column;overflow:hidden}
+.craft-panel.open{display:flex}
+.craft-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060810,#030408)}
+.craft-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8844,#ffcc00,#88ff44);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.craft-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.craft-tabs{display:flex;gap:6px;margin-bottom:14px}
+.craft-tab{flex:1;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;color:rgba(255,255,255,.5);font:700 11px var(--ff-head);padding:8px 4px;cursor:pointer;text-align:center;transition:all .15s}
+.craft-tab.active{background:rgba(255,136,68,.12);border-color:rgba(255,136,68,.4);color:#ff8844}
+.craft-inv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.craft-item{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.craft-item:active{transform:scale(.96)}
+.craft-item.selected{border-color:rgba(255,136,68,.5);background:rgba(255,136,68,.08)}
+.craft-item.empty{opacity:.3;cursor:default;pointer-events:none}
+.craft-item-emoji{font-size:28px;display:block;margin-bottom:4px}
+.craft-item-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.7)}
+.craft-item-count{position:absolute;top:4px;right:6px;font:800 9px var(--ff-head);color:#ffcc00}
+.craft-item-rarity{font:600 7px var(--ff-body);padding:1px 5px;border-radius:4px;margin-top:2px;display:inline-block}
+.craft-item-rarity.common{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4)}
+.craft-item-rarity.uncommon{background:rgba(0,255,136,.1);color:var(--green)}
+.craft-item-rarity.rare{background:rgba(68,136,255,.12);color:#88aaff}
+.craft-item-rarity.legendary{background:rgba(255,204,0,.15);color:var(--gold)}
+.craft-recipes{display:flex;flex-direction:column;gap:10px}
+.craft-recipe{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px}
+.craft-recipe-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.craft-recipe-result{font-size:28px}
+.craft-recipe-name{font:800 12px var(--ff-head);color:#fff;flex:1}
+.craft-recipe-rarity{font:700 9px var(--ff-body);padding:2px 8px;border-radius:6px}
+.craft-ingredients{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.craft-ing{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:4px 8px;font:600 9px var(--ff-body);color:rgba(255,255,255,.6);display:flex;align-items:center;gap:4px}
+.craft-ing.have{border-color:rgba(0,255,136,.3);color:var(--green)}
+.craft-ing.missing{border-color:rgba(255,68,68,.3);color:rgba(255,100,100,.7)}
+.craft-btn{width:100%;background:rgba(255,136,68,.15);border:1px solid rgba(255,136,68,.3);border-radius:10px;color:#ff8844;font:800 11px var(--ff-head);padding:8px;cursor:pointer;transition:all .15s}
+.craft-btn:disabled{opacity:.3;cursor:default}
+.craft-btn:active{transform:scale(.97)}
+.craft-mat-header{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.craft-mat-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.craft-mat-chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:6px 10px;text-align:center;cursor:pointer;transition:all .15s}
+.craft-mat-chip:active{transform:scale(.96)}
+.craft-mat-chip-e{font-size:20px;display:block}
+.craft-mat-chip-n{font:700 8px var(--ff-head);color:rgba(255,255,255,.6)}
+.craft-mat-chip-c{font:800 9px var(--ff-head);color:#ffcc00}
+
 /* ══ PET ARENA TOURNAMENT ══ */
 .arena-panel{position:fixed;inset:0;background:#040008;z-index:931;display:none;flex-direction:column;overflow:hidden}
 .arena-panel.open{display:flex}
@@ -7040,6 +7084,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDream()"><div class="ddr-i">💤</div>Drömvärlden</div>
           <div class="ddr" onclick="cM();openCheckin()"><div class="ddr-i">📅</div>Daglig Inloggning</div>
           <div class="ddr" onclick="cM();openArena()"><div class="ddr-i">⚔️</div>Pet Arena</div>
+          <div class="ddr" onclick="cM();openCraft()"><div class="ddr-i">🔨</div>Crafting</div>
         </div>
       </div>
     </div>
@@ -8197,6 +8242,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET CRAFTING -->
+<div class="craft-panel" id="craftPanel">
+  <div class="craft-header">
+    <div class="craft-title">🔨 CRAFTING</div>
+    <button class="close-btn" onclick="closeCraft()">✕</button>
+  </div>
+  <div class="craft-scroll">
+    <div class="craft-tabs">
+      <div class="craft-tab active" id="craftTab-inv" onclick="craftSetTab('inv')">🎒 Inventarier</div>
+      <div class="craft-tab" id="craftTab-craft" onclick="craftSetTab('craft')">🔨 Crafta</div>
+      <div class="craft-tab" id="craftTab-mat" onclick="craftSetTab('mat')">🌿 Material</div>
+    </div>
+    <div id="craftTabContent"></div>
+  </div>
+</div>
 
 <!-- PET ARENA -->
 <div class="arena-panel" id="arenaPanel">
@@ -28975,6 +29037,242 @@ function _arenaResolveLoss(){
   var as2=$('arenaStreak'); if(as2) as2.textContent=0;
   showFloatBubble('💔 Förlust... Träna hårdare!','buff');
   setTimeout(function(){ _arenaState=null; _renderArenaLobby(); }, 1800);
+}
+
+
+// PET CRAFTING & INVENTORY SYSTEM
+const CRAFT_KEY = 'k0509_craft';
+
+const CRAFT_MATERIALS = [
+  {id:'herb',     emoji:'🌿', name:'Ört',           rarity:'common',    sellFor:5},
+  {id:'crystal',  emoji:'💎', name:'Kristall',       rarity:'uncommon',  sellFor:15},
+  {id:'wood',     emoji:'🪵', name:'Trä',            rarity:'common',    sellFor:4},
+  {id:'stone',    emoji:'🪨', name:'Sten',           rarity:'common',    sellFor:3},
+  {id:'iron',     emoji:'⚙️', name:'Järn',           rarity:'uncommon',  sellFor:12},
+  {id:'gold',     emoji:'🥇', name:'Guld',           rarity:'rare',      sellFor:30},
+  {id:'moonstone',emoji:'🌙', name:'Månsten',        rarity:'rare',      sellFor:45},
+  {id:'starfrag', emoji:'⭐', name:'Stjärnfragment', rarity:'legendary', sellFor:100},
+];
+
+const CRAFT_RECIPES = [
+  {id:'potion_small', emoji:'🧪', name:'Liten Eliksir', rarity:'common',
+   ingredients:{herb:2,crystal:1}, coins:50, xp:30,
+   desc:'Helar 25% HP i Arena'},
+  {id:'potion_big', emoji:'💊', name:'Stor Eliksir', rarity:'uncommon',
+   ingredients:{herb:4,crystal:2,moonstone:1}, coins:150, xp:80,
+   desc:'Helar 60% HP i Arena'},
+  {id:'lucky_charm', emoji:'🍀', name:'Lyckoberlock', rarity:'uncommon',
+   ingredients:{herb:3,wood:2}, coins:100, xp:60,
+   desc:'+10% coins i 1h'},
+  {id:'iron_sword', emoji:'⚔️', name:'Järnsvärd', rarity:'uncommon',
+   ingredients:{iron:3,wood:2,stone:1}, coins:200, xp:120,
+   desc:'+15% skada i Arena'},
+  {id:'gold_ring', emoji:'💍', name:'Guldring', rarity:'rare',
+   ingredients:{gold:2,crystal:3}, coins:400, xp:200,
+   desc:'+20% XP i 2h'},
+  {id:'star_wand', emoji:'🌟', name:'Stjärnstav', rarity:'legendary',
+   ingredients:{starfrag:2,moonstone:2,gold:1,crystal:4}, coins:1000, xp:500,
+   desc:'+50% ALL i 3h'},
+];
+
+function _craftLoad(){try{return JSON.parse(localStorage.getItem(CRAFT_KEY)||'null');}catch(e){return null;}}
+function _craftSave(d){localStorage.setItem(CRAFT_KEY,JSON.stringify(d));}
+
+function _craftData(){
+  let d=_craftLoad();
+  if(!d) d={materials:{herb:5,crystal:2,wood:8,stone:10,iron:3,gold:0,moonstone:0,starfrag:0},crafted:[],equipped:null};
+  return d;
+}
+
+let _craftTab='inv';
+let _craftSelected=null;
+
+function openCraft(){
+  $('craftPanel').classList.add('open');
+  _craftTab='inv';
+  _craftSelected=null;
+  _renderCraft();
+}
+function closeCraft(){ $('craftPanel').classList.remove('open'); }
+
+function craftSetTab(tab){
+  _craftTab=tab;
+  _craftSelected=null;
+  document.querySelectorAll('.craft-tab').forEach(function(t){t.classList.remove('active');});
+  var at=$('craftTab-'+tab); if(at) at.classList.add('active');
+  _renderCraft();
+}
+
+function _renderCraft(){
+  var d=_craftData();
+  var tc=$('craftTabContent'); if(!tc) return;
+  if(_craftTab==='inv'){
+    // Show crafted items + materials summary
+    var items=d.crafted||[];
+    var html='<div class="craft-inv-grid">';
+    if(items.length===0){
+      html+='<div style="grid-column:1/-1;text-align:center;padding:20px;color:rgba(255,255,255,.3);font:600 11px var(--ff-body)">Inga föremål ännu — crafta något!</div>';
+    } else {
+      items.forEach(function(item,i){
+        var recipe=CRAFT_RECIPES.find(function(r){return r.id===item.id;});
+        if(!recipe) return;
+        var sel=_craftSelected===i;
+        html+='<div class="craft-item'+(sel?' selected':'')+'" onclick="craftSelectItem('+i+')">'+
+          '<span class="craft-item-emoji">'+recipe.emoji+'</span>'+
+          '<div class="craft-item-name">'+recipe.name+'</div>'+
+          '<span class="craft-item-rarity '+recipe.rarity+'">'+recipe.rarity+'</span>'+
+          '</div>';
+      });
+    }
+    html+='</div>';
+    // Material summary
+    html+='<div class="craft-mat-header">📦 Material</div><div class="craft-mat-row">';
+    CRAFT_MATERIALS.forEach(function(m){
+      var cnt=(d.materials||{})[m.id]||0;
+      html+='<div class="craft-mat-chip" onclick="craftSellMat(''+m.id+'')">'+
+        '<span class="craft-mat-chip-e">'+m.emoji+'</span>'+
+        '<div class="craft-mat-chip-n">'+m.name+'</div>'+
+        '<div class="craft-mat-chip-c">×'+cnt+'</div>'+
+        '</div>';
+    });
+    html+='</div>';
+    html+='<div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center">Tryck på material för att sälja 1st</div>';
+    tc.innerHTML=html;
+  } else if(_craftTab==='craft'){
+    var html2='<div class="craft-recipes">';
+    CRAFT_RECIPES.forEach(function(recipe){
+      var canCraft=true;
+      var ingHtml='';
+      Object.keys(recipe.ingredients).forEach(function(matId){
+        var need=recipe.ingredients[matId];
+        var have=(d.materials||{})[matId]||0;
+        var ok=have>=need;
+        if(!ok) canCraft=false;
+        var mat=CRAFT_MATERIALS.find(function(m){return m.id===matId;});
+        ingHtml+='<div class="craft-ing '+(ok?'have':'missing')+'">'+
+          (mat?mat.emoji:'?')+' '+need+(ok?' ✓':' ('+have+')')+'</div>';
+      });
+      html2+='<div class="craft-recipe">'+
+        '<div class="craft-recipe-header">'+
+        '<span class="craft-recipe-result">'+recipe.emoji+'</span>'+
+        '<div class="craft-recipe-name">'+recipe.name+'<br><span style="font:500 9px var(--ff-body);color:rgba(255,255,255,.4)">'+recipe.desc+'</span></div>'+
+        '<span class="craft-recipe-rarity '+recipe.rarity+'">'+recipe.rarity+'</span>'+
+        '</div>'+
+        '<div class="craft-ingredients">'+ingHtml+'</div>'+
+        '<button class="craft-btn" onclick="craftMake(''+recipe.id+'')" '+(canCraft?'':'disabled')+'>'+
+        '🔨 Crafta (+'+recipe.xp+' XP +'+recipe.coins+' 💰)</button>'+
+        '</div>';
+    });
+    html2+='</div>';
+    tc.innerHTML=html2;
+  } else if(_craftTab==='mat'){
+    // Material gathering (daily free gather + buy with coins)
+    var d2=_craftData();
+    var today=getTodayKey();
+    var lastGather=(d2.lastGather||'');
+    var gathered=lastGather===today;
+    var html3='<div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:14px;margin-bottom:12px">'+
+      '<div style="font:800 12px var(--ff-head);color:#fff;margin-bottom:4px">🌿 Gratis Daglig Insamling</div>'+
+      '<div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:10px">Samla gratis material en gång om dagen</div>'+
+      '<button class="craft-btn" '+(gathered?'disabled':'')+' onclick="craftGather()" style="background:rgba(0,255,136,.1);border-color:rgba(0,255,136,.3);color:var(--green)">'+
+      (gathered?'✅ Insamlat idag!':'🌿 Samla Material')+'</button></div>';
+    html3+='<div class="craft-mat-header">💰 Köp Material</div>';
+    html3+='<div style="display:flex;flex-direction:column;gap:8px">';
+    CRAFT_MATERIALS.slice(0,6).forEach(function(m){
+      var price=m.sellFor*3;
+      html3+='<div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px 12px">'+
+        '<span style="font-size:20px">'+m.emoji+'</span>'+
+        '<div style="flex:1"><div style="font:700 11px var(--ff-head);color:#fff">'+m.name+'</div>'+
+        '<div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.35)">'+m.rarity+'</div></div>'+
+        '<button onclick="craftBuyMat(''+m.id+'')" style="background:rgba(255,204,0,.12);border:1px solid rgba(255,204,0,.3);border-radius:8px;color:#ffcc00;font:800 10px var(--ff-head);padding:6px 12px;cursor:pointer">'+price+' 💰</button>'+
+        '</div>';
+    });
+    html3+='</div>';
+    tc.innerHTML=html3;
+  }
+}
+
+function craftSelectItem(idx){
+  _craftSelected=(_craftSelected===idx)?null:idx;
+  _renderCraft();
+}
+
+function craftSellMat(matId){
+  var d=_craftData();
+  var cnt=(d.materials||{})[matId]||0;
+  if(cnt<=0){showFloatBubble('Inga '+matId+' att sälja!','buff');return;}
+  var mat=CRAFT_MATERIALS.find(function(m){return m.id===matId;});
+  if(!mat) return;
+  d.materials[matId]--;
+  _craftSave(d);
+  gainCoins(mat.sellFor);
+  showFloatBubble(mat.emoji+' Sålde 1 '+mat.name+' för '+mat.sellFor+' 💰','buff');
+  _renderCraft();
+}
+
+function craftMake(recipeId){
+  var recipe=CRAFT_RECIPES.find(function(r){return r.id===recipeId;});
+  if(!recipe) return;
+  var d=_craftData();
+  // Check ingredients
+  var ok=true;
+  Object.keys(recipe.ingredients).forEach(function(matId){
+    if((d.materials[matId]||0)<recipe.ingredients[matId]) ok=false;
+  });
+  if(!ok){showFloatBubble('Inte tillräckligt material!','buff');return;}
+  // Consume ingredients
+  Object.keys(recipe.ingredients).forEach(function(matId){
+    d.materials[matId]-=recipe.ingredients[matId];
+  });
+  if(!d.crafted) d.crafted=[];
+  d.crafted.push({id:recipeId, craftedAt:getTodayKey()});
+  _craftSave(d);
+  gainCoins(recipe.coins);
+  gainXP(recipe.xp,'commerce');
+  showFloatBubble('🔨 '+recipe.emoji+' '+recipe.name+' craftad! +'+recipe.coins+' 💰 +'+recipe.xp+' XP','buff');
+  _renderCraft();
+}
+
+function craftGather(){
+  var d=_craftData();
+  var today=getTodayKey();
+  if(d.lastGather===today){showFloatBubble('Redan insamlat idag!','buff');return;}
+  d.lastGather=today;
+  // Random materials
+  var gained=[];
+  for(var i=0;i<4;i++){
+    var r=Math.random();
+    var matId;
+    if(r<0.05) matId='starfrag';
+    else if(r<0.15) matId='moonstone';
+    else if(r<0.3) matId='gold';
+    else if(r<0.5) matId='iron';
+    else if(r<0.65) matId='crystal';
+    else if(r<0.78) matId='wood';
+    else if(r<0.9) matId='herb';
+    else matId='stone';
+    d.materials[matId]=(d.materials[matId]||0)+1;
+    var mat=CRAFT_MATERIALS.find(function(m){return m.id===matId;});
+    if(mat) gained.push(mat.emoji+mat.name);
+  }
+  _craftSave(d);
+  gainXP(40,'commerce');
+  showFloatBubble('🌿 Insamlat: '+gained.join(', '),'buff');
+  _renderCraft();
+}
+
+function craftBuyMat(matId){
+  var mat=CRAFT_MATERIALS.find(function(m){return m.id===matId;});
+  if(!mat) return;
+  var price=mat.sellFor*3;
+  var wallet=(typeof G!=='undefined'&&G.coins)||0;
+  if(wallet<price){showFloatBubble('Inte tillräckligt coins!','buff');return;}
+  if(typeof G!=='undefined'){G.coins-=price;if(typeof save==='function')save();}
+  var d=_craftData();
+  d.materials[matId]=(d.materials[matId]||0)+1;
+  _craftSave(d);
+  showFloatBubble(mat.emoji+' Köpte '+mat.name+'!','buff');
+  _renderCraft();
 }
 
 </script>
