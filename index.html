@@ -1377,6 +1377,45 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WEEKLY CHALLENGES ══ */
+.wch-panel{position:fixed;inset:0;background:#080a0a;z-index:888;display:none;flex-direction:column;overflow:hidden}
+.wch-panel.open{display:flex}
+.wch-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a1510,#0a1020)}
+.wch-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--teal),#aaff44);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.wch-week-badge{font:700 11px var(--ff-body);color:var(--teal);background:rgba(0,221,204,.1);border:1px solid rgba(0,221,204,.3);padding:4px 12px;border-radius:20px}
+.wch-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.wch-timer-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.wch-timer-label{font:600 11px var(--ff-body);color:rgba(255,255,255,.4)}
+.wch-timer{font:700 13px var(--ff-body);color:var(--teal)}
+.wch-challenge-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;margin-bottom:12px;transition:border-color .2s}
+.wch-challenge-card.done{background:rgba(0,255,136,.05);border-color:rgba(0,255,136,.25)}
+.wch-challenge-card.claimed{opacity:.45}
+.wch-challenge-card.legendary{background:rgba(255,204,0,.05);border-color:rgba(255,204,0,.25)}
+.wch-ch-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.wch-ch-icon{font-size:32px;line-height:1;flex-shrink:0;background:rgba(255,255,255,.06);border-radius:12px;padding:8px}
+.wch-ch-info{flex:1}
+.wch-ch-name{font:800 15px var(--ff-head);color:#fff;margin-bottom:3px}
+.wch-ch-desc{font:500 11px var(--ff-body);color:rgba(255,255,255,.55);line-height:1.4}
+.wch-ch-tier{display:inline-block;font:700 9px var(--ff-body);padding:2px 8px;border-radius:8px;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.wch-ch-tier.normal{background:rgba(68,136,255,.2);color:var(--blue)}
+.wch-ch-tier.epic{background:rgba(170,102,255,.2);color:var(--purple)}
+.wch-ch-tier.legendary{background:rgba(255,204,0,.2);color:var(--gold)}
+.wch-ch-prog-bar{width:100%;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-bottom:6px}
+.wch-ch-prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--green));transition:width .4s}
+.wch-challenge-card.legendary .wch-ch-prog-fill{background:linear-gradient(90deg,var(--gold),var(--orange))}
+.wch-ch-prog-text{font:600 11px var(--ff-body);color:rgba(255,255,255,.4);display:flex;justify-content:space-between;margin-bottom:10px}
+.wch-ch-rewards{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.wch-rew-chip{font:600 10px var(--ff-body);padding:3px 8px;border-radius:10px}
+.wch-rew-chip.xp{background:rgba(68,136,255,.2);color:var(--blue)}
+.wch-rew-chip.coin{background:rgba(255,204,0,.2);color:var(--gold)}
+.wch-rew-chip.kc{background:rgba(170,102,255,.2);color:var(--purple)}
+.wch-rew-chip.item{background:rgba(0,255,136,.2);color:var(--green)}
+.wch-claim-btn{width:100%;padding:10px;background:linear-gradient(135deg,var(--teal),var(--green));border:none;border-radius:12px;color:#000;font:800 13px var(--ff-head);cursor:pointer}
+.wch-claimed-stamp{width:100%;padding:10px;text-align:center;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);border-radius:12px;color:var(--green);font:700 12px var(--ff-head)}
+.wch-all-banner{background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(0,255,136,.08));border:1px solid rgba(255,204,0,.3);border-radius:14px;padding:14px;text-align:center;margin-bottom:14px;display:none}
+.wch-all-banner.show{display:block}
+
 /* ══ DAILY RIDDLE ══ */
 .riddle-panel{position:fixed;inset:0;background:#080810;z-index:887;display:none;flex-direction:column;overflow:hidden}
 .riddle-panel.open{display:flex}
@@ -6876,6 +6915,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- WEEKLY CHALLENGES -->
+<div class="wch-panel" id="wchPanel">
+  <div class="wch-header">
+    <div class="wch-title">📅 VECKOUTMANINGAR</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="wch-week-badge" id="wchWeekBadge">V1</div>
+      <button class="close-btn" onclick="closeWCH()">✕</button>
+    </div>
+  </div>
+  <div class="wch-scroll">
+    <div class="wch-timer-row">
+      <div class="wch-timer-label">Veckan återställs om:</div>
+      <div class="wch-timer" id="wchTimer">—</div>
+    </div>
+    <div class="wch-all-banner" id="wchAllBanner">
+      <div style="font:800 18px var(--ff-head);color:var(--gold)">🌟 ALLA UTMANINGAR KLARA!</div>
+      <div style="font:500 12px var(--ff-body);color:rgba(255,255,255,.5)">Fantastisk vecka! Kom tillbaka nästa vecka.</div>
+    </div>
+    <div id="wchList"></div>
+  </div>
+</div>
 
 <!-- DAILY RIDDLE -->
 <div class="riddle-panel" id="riddlePanel">
@@ -19393,6 +19455,132 @@ function answerRiddle(idx){
   logActivity('quest',(correct?'Löste':'Missade')+' daglig gåta!',{xp,coins});
   if(typeof petMicroAnim==='function') petMicroAnim(correct?'bounce':'shake');
 }
+
+
+// WEEKLY CHALLENGES
+const WCH_CHALLENGE_POOL = [
+  // normal tier
+  {id:'fish10',  icon:'🎣',name:'Fiskeveckan',    desc:'Fånga 10 fiskar denna vecka',           type:'fish',  target:10,  tier:'normal',   rew:{xp:800,  coins:400}},
+  {id:'feed15',  icon:'🍖',name:'Matpappa',        desc:'Mata pet 15 gånger',                    type:'feed',  target:15,  tier:'normal',   rew:{xp:600,  coins:300}},
+  {id:'tap200',  icon:'👆',name:'Tappmästare',     desc:'Tryck på pet 200 gånger',               type:'tap',   target:200, tier:'normal',   rew:{xp:700,  coins:350}},
+  {id:'coins2k', icon:'💰',name:'Myntinsamlare',   desc:'Tjäna 2000 coins denna vecka',          type:'earn_coins',target:2000,tier:'normal',rew:{xp:500,  kc:5}},
+  {id:'xp2k',    icon:'⚡',name:'XP-sprinta',      desc:'Tjäna 2000 XP denna vecka',             type:'earn_xp',target:2000,tier:'normal',  rew:{coins:1000,kc:3}},
+  // epic tier
+  {id:'fish25',  icon:'🦈',name:'Djupsea-fiskare', desc:'Fånga 25 fiskar (inkl sällsynta)',      type:'fish',  target:25,  tier:'epic',     rew:{xp:2000, kc:10}},
+  {id:'lvlup2',  icon:'🆙',name:'Nivåklättring',   desc:'Gå upp 2 nivåer denna vecka',          type:'lvlup', target:2,   tier:'epic',     rew:{xp:3000, kc:8,  coins:1500}},
+  {id:'streak5', icon:'🔥',name:'Streakveckan',     desc:'Logga in 5 dagar i rad',               type:'streak',target:5,   tier:'epic',     rew:{xp:2500, kc:12}},
+  {id:'coins5k', icon:'💎',name:'Myntmagnaten',     desc:'Tjäna 5000 coins denna vecka',         type:'earn_coins',target:5000,tier:'epic',  rew:{xp:1500, kc:15}},
+  // legendary tier
+  {id:'fish50',  icon:'🌊',name:'Havets Konung',    desc:'Fånga 50 fiskar — dominera havet!',    type:'fish',  target:50,  tier:'legendary',rew:{xp:8000, kc:30, item:'mega_elixir'}},
+  {id:'xp10k',   icon:'🌟',name:'XP-monstern',      desc:'Tjäna 10000 XP på en vecka',           type:'earn_xp',target:10000,tier:'legendary',rew:{kc:50,  item:'mystery_box'}},
+  {id:'allDaily',icon:'📋',name:'Daglig Mästare',   desc:'Klara alla dagliga uppdrag 7 dagar i rad',type:'daily_all',target:7,tier:'legendary',rew:{xp:10000,kc:40,coins:5000}},
+];
+
+function _wchWeekNum(){ let d=new Date(); return Math.floor(d.getTime()/(7*86400000)); }
+function _wchWeekKey(){ return 'k0509_wch_week_'+_wchWeekNum(); }
+function _wchProgKey(id){ return _wchWeekKey()+'_prog_'+id; }
+function _wchClaimKey(id){ return _wchWeekKey()+'_claim_'+id; }
+
+function _wchGetChallenges(){
+  let seed=_wchWeekNum();
+  let pool=[...WCH_CHALLENGE_POOL];
+  let picks=[];
+  // 2 normal, 2 epic, 1 legendary
+  let normal=pool.filter(c=>c.tier==='normal');
+  let epic=pool.filter(c=>c.tier==='epic');
+  let legendary=pool.filter(c=>c.tier==='legendary');
+  picks.push(normal[(seed*3)%normal.length]);
+  picks.push(normal[(seed*7+2)%normal.length]);
+  picks.push(epic[(seed*5)%epic.length]);
+  picks.push(epic[(seed*11+3)%epic.length]);
+  picks.push(legendary[seed%legendary.length]);
+  return picks;
+}
+
+function openWCH(){
+  $('wchPanel').classList.add('open');
+  _renderWCH();
+  _wchTimerTick();
+}
+function closeWCH(){ $('wchPanel').classList.remove('open'); }
+
+function _wchTimerTick(){
+  let el=$('wchTimer'); if(!el) return;
+  let now=new Date();
+  let d=new Date(now); let dow=d.getDay()||7;
+  d.setDate(d.getDate()-dow+8); d.setHours(0,0,0,0);
+  let diff=Math.max(0,Math.floor((d-now)/1000));
+  let days=Math.floor(diff/86400), hrs=Math.floor((diff%86400)/3600), mins=Math.floor((diff%3600)/60);
+  el.textContent=`${days}d ${hrs}h ${mins}m`;
+  setTimeout(_wchTimerTick,60000);
+}
+
+function claimWCH(id){
+  let challenges=_wchGetChallenges();
+  let ch=challenges.find(c=>c.id===id); if(!ch) return;
+  let prog=parseInt(localStorage.getItem(_wchProgKey(id))||'0');
+  if(prog<ch.target||localStorage.getItem(_wchClaimKey(id))) return;
+  localStorage.setItem(_wchClaimKey(id),'1');
+  if(ch.rew.xp)    gainXP(ch.rew.xp,'weekly');
+  if(ch.rew.coins) gainCoins(ch.rew.coins);
+  if(ch.rew.kc)    gainKC(ch.rew.kc);
+  if(ch.rew.item && typeof bpAddItem==='function') bpAddItem(ch.rew.item,1);
+  showFloatBubble(`📅 ${ch.name} klar!`,'buff');
+  logActivity('milestone','Veckoutmaning klar: '+ch.name,{xp:ch.rew.xp||0,coins:ch.rew.coins||0,kc:ch.rew.kc||0});
+  _renderWCH();
+}
+
+function _wchAddProgress(type, amount){
+  let challenges=_wchGetChallenges();
+  challenges.forEach(ch=>{
+    if(localStorage.getItem(_wchClaimKey(ch.id))) return;
+    if(ch.type===type){
+      let cur=parseInt(localStorage.getItem(_wchProgKey(ch.id))||'0');
+      let newVal=Math.min(ch.target,cur+(amount||1));
+      localStorage.setItem(_wchProgKey(ch.id),newVal);
+    }
+  });
+}
+
+function _renderWCH(){
+  let challenges=_wchGetChallenges();
+  let weekNum=_wchWeekNum();
+  let badge=$('wchWeekBadge'); if(badge) badge.textContent='V'+weekNum;
+  let allClaimed=challenges.every(c=>!!localStorage.getItem(_wchClaimKey(c.id)));
+  $('wchAllBanner').classList.toggle('show',allClaimed);
+  let el=$('wchList'); if(!el) return;
+  el.innerHTML=challenges.map(ch=>{
+    let prog=parseInt(localStorage.getItem(_wchProgKey(ch.id))||'0');
+    let pct=Math.min(100,Math.round(prog/ch.target*100));
+    let done=prog>=ch.target;
+    let claimed=!!localStorage.getItem(_wchClaimKey(ch.id));
+    let rewHtml=Object.entries(ch.rew).filter(([k])=>k!=='item').map(([k,v])=>`<span class="wch-rew-chip ${k}">${v} ${k.toUpperCase()}</span>`).join('');
+    if(ch.rew.item) rewHtml+=`<span class="wch-rew-chip item">${ch.rew.item}</span>`;
+    return `<div class="wch-challenge-card ${done?'done':''} ${claimed?'claimed':''} ${ch.tier==='legendary'?'legendary':''}">
+      <div class="wch-ch-top">
+        <div class="wch-ch-icon">${ch.icon}</div>
+        <div class="wch-ch-info">
+          <div class="wch-ch-name">${ch.name}</div>
+          <div class="wch-ch-desc">${ch.desc}</div>
+          <span class="wch-ch-tier ${ch.tier}">${ch.tier==='normal'?'NORMAL':ch.tier==='epic'?'EPIC':'LEGENDARY'}</span>
+        </div>
+      </div>
+      <div class="wch-ch-prog-bar"><div class="wch-ch-prog-fill" style="width:${pct}%"></div></div>
+      <div class="wch-ch-prog-text"><span>${prog}/${ch.target}</span><span>${pct}%</span></div>
+      <div class="wch-ch-rewards">${rewHtml}</div>
+      ${done&&!claimed?`<button class="wch-claim-btn" onclick="claimWCH('${ch.id}')">🎁 HÄMTA BELÖNING</button>`:''}
+      ${claimed?`<div class="wch-claimed-stamp">✓ KLAR</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// Hook game events
+const _origPcFeedWCH=pcFeed; pcFeed=function(){ _origPcFeedWCH.apply(this,arguments); _wchAddProgress('feed'); };
+const _origPetTapWCH=petTap; petTap=function(){ _origPetTapWCH.apply(this,arguments); _wchAddProgress('tap'); };
+const _origCFCWCH=completeFishCatch; completeFishCatch=function(c,q){ _origCFCWCH(c,q); _wchAddProgress('fish'); };
+const _origGainXPWCH=gainXP; gainXP=function(n,s){ _origGainXPWCH(n,s); if(s!=='weekly'&&n>0) _wchAddProgress('earn_xp',n); };
+const _origGainCoinsWCH=gainCoins; gainCoins=function(n){ _origGainCoinsWCH(n); if(n>0) _wchAddProgress('earn_coins',n); };
+const _origTLUWCH=window.triggerLvlUp; window.triggerLvlUp=function(){ _origTLUWCH.apply(this,arguments); _wchAddProgress('lvlup'); };
 
 </script>
 
