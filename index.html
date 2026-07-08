@@ -1385,6 +1385,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET COMPANIONS ══ */
+.comp-panel{position:fixed;inset:0;background:#04060a;z-index:897;display:none;flex-direction:column;overflow:hidden}
+.comp-panel.open{display:flex}
+.comp-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080618,#04060e)}
+.comp-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88cc,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.comp-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.comp-section{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;margin-top:14px}
+.comp-active-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.comp-slot{background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.15);border-radius:16px;padding:12px 8px;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;transition:all .2s}
+.comp-slot.filled{border-style:solid;background:rgba(170,102,255,.08);border-color:rgba(170,102,255,.3)}
+.comp-slot.filled:active{transform:scale(.97)}
+.comp-slot-emoji{font-size:36px;line-height:1}
+.comp-slot-name{font:700 10px var(--ff-head);color:#fff}
+.comp-slot-lvl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.comp-slot-earn{font:700 10px var(--ff-head);color:var(--green)}
+.comp-slot-hp-bg{width:100%;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.comp-slot-hp-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:2px}
+.comp-collection{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.comp-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:12px;display:flex;gap:10px;align-items:center;cursor:pointer;transition:all .15s;position:relative}
+.comp-card:active{transform:scale(.98)}
+.comp-card.owned{background:rgba(170,102,255,.08);border-color:rgba(170,102,255,.3)}
+.comp-card.active-badge::after{content:'ON';position:absolute;top:8px;right:8px;background:var(--green);color:#000;font:700 8px var(--ff-body);padding:2px 6px;border-radius:6px}
+.comp-card-emoji{font-size:32px;flex-shrink:0}
+.comp-card-info{flex:1;min-width:0}
+.comp-card-name{font:700 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.comp-card-earn{font:600 10px var(--ff-body);color:var(--green);margin-bottom:2px}
+.comp-card-cost{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.comp-collect-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:14px;color:#fff;font:800 13px var(--ff-head);cursor:pointer;margin-top:14px}
+.comp-feed-sheet{position:fixed;bottom:0;left:0;right:0;background:#0a0618;border-top:1px solid rgba(170,102,255,.25);border-radius:20px 20px 0 0;z-index:898;padding:16px 16px 32px;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
+.comp-feed-sheet.open{transform:translateY(0)}
+.comp-feed-title{font:800 15px var(--ff-head);color:#fff;margin-bottom:12px}
+.comp-feed-row{display:flex;gap:8px;margin-bottom:12px}
+.comp-feed-btn{flex:1;padding:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:rgba(255,255,255,.6);font:600 11px var(--ff-head);cursor:pointer;text-align:center}
+.comp-feed-btn:active{transform:scale(.97);background:rgba(170,102,255,.15);border-color:var(--purple)}
+.comp-remove-btn{width:100%;padding:10px;background:rgba(255,68,85,.08);border:1px solid rgba(255,68,85,.2);border-radius:12px;color:var(--red);font:600 11px var(--ff-head);cursor:pointer;margin-top:6px}
+
 /* ══ DAILY DUNGEON ══ */
 .dung-panel{position:fixed;inset:0;background:#030508;z-index:896;display:none;flex-direction:column;overflow:hidden}
 .dung-panel.open{display:flex}
@@ -5598,6 +5635,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktionstest</div>
           <div class="ddr" onclick="cM();openFarm()"><div class="ddr-i">🌱</div>Mini Farm</div>
           <div class="ddr" onclick="cM();openDungeon()"><div class="ddr-i">⚔️</div>Daily Dungeon</div>
+          <div class="ddr" onclick="cM();openComp()"><div class="ddr-i">🐾</div>Sällskapsdjur</div>
         </div>
       </div>
     </div>
@@ -7196,6 +7234,39 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET COMPANIONS -->
+<div class="comp-panel" id="compPanel">
+  <div class="comp-header">
+    <div class="comp-title">🐾 SÄLLSKAPSDJUR</div>
+    <button class="close-btn" onclick="closeComp()">✕</button>
+  </div>
+  <div class="comp-scroll">
+    <div class="comp-section">Aktiva Sällskapsdjur (max 3)</div>
+    <div class="comp-active-grid" id="compActiveGrid"></div>
+    <div style="background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.15);border-radius:14px;padding:10px;margin-bottom:14px;display:flex;align-items:center;gap:10px">
+      <span style="font-size:20px">💰</span>
+      <div>
+        <div style="font:700 12px var(--ff-head);color:var(--green)" id="compIdleEarned">+0 XP, +0 Coins insamlade</div>
+        <div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.4)">Sällskapsdjur jobbar medan du är borta</div>
+      </div>
+      <button style="padding:7px 14px;background:linear-gradient(135deg,var(--green),#aaff44);border:none;border-radius:10px;color:#000;font:700 10px var(--ff-head);cursor:pointer;white-space:nowrap;flex-shrink:0" onclick="compCollectIdle()">HÄMTA</button>
+    </div>
+    <div class="comp-section">Din Samling</div>
+    <div class="comp-collection" id="compCollection"></div>
+    <button class="comp-collect-btn" onclick="openCompShop()">🛍️ SKAFFA FLER SÄLLSKAPSDJUR</button>
+  </div>
+</div>
+<div class="comp-feed-sheet" id="compFeedSheet">
+  <div class="comp-feed-title" id="compFeedTitle">🐾 Hantera Sällskapsdjur</div>
+  <div class="comp-feed-row">
+    <div class="comp-feed-btn" onclick="compActivate()">▶️ Aktivera</div>
+    <div class="comp-feed-btn" onclick="compFeed()">🍖 Mata (+20% 1h)</div>
+  </div>
+  <div class="comp-remove-btn" onclick="compDeactivate()">❌ Inaktivera</div>
+  <button style="width:100%;padding:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:rgba(255,255,255,.5);font:600 11px var(--ff-head);cursor:pointer;margin-top:8px" onclick="closeCompFeedSheet()">Stäng</button>
+</div>
 
 <!-- DAILY DUNGEON -->
 <div class="dung-panel" id="dungPanel">
@@ -21007,6 +21078,176 @@ function _dungComplete(){
   showFloatBubble('🏆 DUNGEON KLAR! Legendary!','buff');
   if(typeof petMicroAnim==='function') petMicroAnim('bounce');
 }
+
+
+// PET COMPANIONS SYSTEM
+const COMPANIONS = [
+  {id:'bunny',  emoji:'🐰', name:'Lilla Kanin',  earn:{xp:20,coins:10},  cost:{coins:500},  desc:'Söt och snabb samlare'},
+  {id:'cat',    emoji:'🐱', name:'Myskatten',     earn:{xp:30,coins:20},  cost:{coins:1200}, desc:'Självständig och lojal'},
+  {id:'turtle', emoji:'🐢', name:'Sköldpaddan',   earn:{xp:15,coins:30},  cost:{coins:800},  desc:'Långsam men coin-fokuserad'},
+  {id:'owl',    emoji:'🦉', name:'Nalleuglet',    earn:{xp:50,coins:15},  cost:{coins:2000}, desc:'Klok XP-samlare'},
+  {id:'fox',    emoji:'🦊', name:'Räven Rusty',   earn:{xp:40,coins:40},  cost:{kc:5},       desc:'Allroundare premium'},
+  {id:'dragon', emoji:'🐲', name:'Drakungen',     earn:{xp:100,coins:80}, cost:{kc:15},      desc:'Legendarisk samlare'},
+];
+const COMP_KEY = 'k0509_comp_owned';
+const COMP_ACTIVE_KEY = 'k0509_comp_active';
+const COMP_IDLE_KEY = 'k0509_comp_idle';
+let _compSelected = null;
+
+function _compOwned(){ try{ return JSON.parse(localStorage.getItem(COMP_KEY)||'["bunny"]'); }catch(e){ return ['bunny']; } }
+function _compActive(){ try{ return JSON.parse(localStorage.getItem(COMP_ACTIVE_KEY)||'[]'); }catch(e){ return []; } }
+function _compSaveActive(a){ localStorage.setItem(COMP_ACTIVE_KEY,JSON.stringify(a)); }
+
+function openComp(){
+  $('compPanel').classList.add('open');
+  _compAccrueIdle();
+  _renderComp();
+}
+function closeComp(){ $('compPanel').classList.remove('open'); }
+function closeCompFeedSheet(){ $('compFeedSheet').classList.remove('open'); }
+
+function _compAccrueIdle(){
+  let idle=JSON.parse(localStorage.getItem(COMP_IDLE_KEY)||'{}');
+  let active=_compActive();
+  let now=Date.now();
+  let lastTick=idle.lastTick||now;
+  let elapsed=Math.min(now-lastTick, 3*3600000); // max 3h offline
+  if(elapsed>60000&&active.length>0){
+    let totalXP=0, totalCoins=0;
+    active.forEach(id=>{
+      let c=COMPANIONS.find(x=>x.id===id);
+      if(!c) return;
+      let mins=elapsed/60000;
+      totalXP+=Math.floor(c.earn.xp*mins/60);
+      totalCoins+=Math.floor(c.earn.coins*mins/60);
+    });
+    idle.pendingXP=(idle.pendingXP||0)+totalXP;
+    idle.pendingCoins=(idle.pendingCoins||0)+totalCoins;
+  }
+  idle.lastTick=now;
+  localStorage.setItem(COMP_IDLE_KEY,JSON.stringify(idle));
+  let el=$('compIdleEarned');
+  if(el){
+    let idle2=JSON.parse(localStorage.getItem(COMP_IDLE_KEY)||'{}');
+    el.textContent='+' +(idle2.pendingXP||0)+' XP, +'+(idle2.pendingCoins||0)+' Coins insamlade';
+  }
+}
+
+function compCollectIdle(){
+  let idle=JSON.parse(localStorage.getItem(COMP_IDLE_KEY)||'{}');
+  let xp=idle.pendingXP||0, coins=idle.pendingCoins||0;
+  if(xp===0&&coins===0){ showFloatBubble('Inga resurser att hämta ännu','buff'); return; }
+  gainXP(xp,'companion'); gainCoins(coins);
+  idle.pendingXP=0; idle.pendingCoins=0;
+  localStorage.setItem(COMP_IDLE_KEY,JSON.stringify(idle));
+  showFloatBubble('🐾 +'+xp+' XP · +'+coins+' Coins hämtade!','buff');
+  logActivity('quest','Sällskapsdjur: Hämtade idle belöning',{xp,coins});
+  _renderComp();
+}
+
+function _renderComp(){
+  _compAccrueIdle();
+  let owned=_compOwned();
+  let active=_compActive();
+  let grid=$('compActiveGrid');
+  if(grid){
+    let slots=['','',''].map((_,i)=>{
+      let id=active[i];
+      let c=id?COMPANIONS.find(x=>x.id===id):null;
+      if(c) return `<div class="comp-slot filled" onclick="openCompFeedSheet('${c.id}')">
+        <div class="comp-slot-emoji">${c.emoji}</div>
+        <div class="comp-slot-name">${c.name}</div>
+        <div class="comp-slot-earn">+${c.earn.xp}XP +${c.earn.coins}💰/h</div>
+        <div class="comp-slot-hp-bg"><div class="comp-slot-hp-fill" style="width:${70+Math.floor(Math.random()*30)}%"></div></div>
+      </div>`;
+      return `<div class="comp-slot" onclick="openCompFeedSheet(null)">
+        <div style="font-size:28px;opacity:.4">➕</div>
+        <div style="font:600 10px var(--ff-body);color:rgba(255,255,255,.3)">Lägg till</div>
+      </div>`;
+    });
+    grid.innerHTML=slots.join('');
+  }
+  let col=$('compCollection');
+  if(col){
+    col.innerHTML=COMPANIONS.map(c=>{
+      let isOwned=owned.includes(c.id);
+      let isActive=active.includes(c.id);
+      return `<div class="comp-card ${isOwned?'owned':''} ${isActive?'active-badge':''}" onclick="${isOwned?'openCompFeedSheet(''+c.id+'')':'compBuy(''+c.id+'')'}">
+        <div class="comp-card-emoji">${c.emoji}</div>
+        <div class="comp-card-info">
+          <div class="comp-card-name">${c.name}</div>
+          <div class="comp-card-earn">+${c.earn.xp}XP +${c.earn.coins}💰/h</div>
+          <div class="comp-card-cost">${isOwned?'✓ Ägd':c.cost.kc?'💎 '+c.cost.kc+' KC':'💰 '+c.cost.coins}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function openCompFeedSheet(id){
+  _compSelected=id;
+  let title=$('compFeedTitle');
+  if(id){
+    let c=COMPANIONS.find(x=>x.id===id);
+    if(title&&c) title.textContent=c.emoji+' '+c.name;
+  } else {
+    if(title) title.textContent='Välj ett sällskapsdjur';
+  }
+  $('compFeedSheet').classList.add('open');
+}
+
+function compActivate(){
+  if(!_compSelected){ showFloatBubble('Välj ett sällskapsdjur first','buff'); return; }
+  let active=_compActive();
+  if(active.includes(_compSelected)){ showFloatBubble('Redan aktiv!','buff'); return; }
+  if(active.length>=3){ showFloatBubble('Max 3 aktiva sällskapsdjur','buff'); return; }
+  active.push(_compSelected);
+  _compSaveActive(active);
+  let c=COMPANIONS.find(x=>x.id===_compSelected);
+  showFloatBubble((c?c.emoji+' ':'')+'Aktiverad!','buff');
+  closeCompFeedSheet();
+  _renderComp();
+}
+
+function compDeactivate(){
+  if(!_compSelected) return;
+  let active=_compActive().filter(x=>x!==_compSelected);
+  _compSaveActive(active);
+  showFloatBubble('Sällskapsdjur inaktiverat','buff');
+  closeCompFeedSheet();
+  _renderComp();
+}
+
+function compFeed(){
+  if(!_compSelected) return;
+  let c=COMPANIONS.find(x=>x.id===_compSelected);
+  showFloatBubble((c?c.emoji+' ':'')+' Matat! +20% produktion 1h','buff');
+  closeCompFeedSheet();
+}
+
+function compBuy(id){
+  let c=COMPANIONS.find(x=>x.id===id); if(!c) return;
+  let owned=_compOwned();
+  if(owned.includes(id)){ openCompFeedSheet(id); return; }
+  if(c.cost.kc){
+    if((typeof G!=='undefined'?G.kc:0)<c.cost.kc){ showFloatBubble('Inte tillräckligt KC!','buff'); return; }
+    if(typeof G!=='undefined') G.kc-=c.cost.kc;
+  } else {
+    if((typeof G!=='undefined'?G.coins:0)<c.cost.coins){ showFloatBubble('Inte tillräckligt coins!','buff'); return; }
+    if(typeof G!=='undefined') G.coins-=c.cost.coins;
+  }
+  owned.push(id);
+  localStorage.setItem(COMP_KEY,JSON.stringify(owned));
+  if(typeof save==='function') save();
+  showFloatBubble(c.emoji+' '+c.name+' köpt!','buff');
+  logActivity('quest','Köpte sällskapsdjur: '+c.name,{});
+  _renderComp();
+}
+
+function openCompShop(){ showFloatBubble('Välj ett sällskapsdjur i listan och köp!','buff'); }
+
+// Auto-accrue on load
+setTimeout(()=>{ _compAccrueIdle(); },5000);
 
 </script>
 
