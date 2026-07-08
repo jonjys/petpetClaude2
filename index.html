@@ -1390,6 +1390,44 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET ACADEMY ══ */
+.acad-panel{position:fixed;inset:0;background:#030508;z-index:903;display:none;flex-direction:column;overflow:hidden}
+.acad-panel.open{display:flex}
+.acad-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080612,#040412)}
+.acad-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#4488ff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.acad-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.acad-stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px}
+.acad-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:6px 4px;text-align:center}
+.acad-stat-icon{font-size:16px;margin-bottom:2px}
+.acad-stat-num{font:800 14px var(--ff-head);color:var(--blue)}
+.acad-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.acad-current{background:rgba(68,136,255,.08);border:1px solid rgba(68,136,255,.25);border-radius:20px;padding:16px;margin-bottom:14px}
+.acad-subjects{display:flex;flex-direction:column;gap:10px}
+.acad-subject{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;cursor:pointer;transition:all .15s}
+.acad-subject:active{transform:scale(.99)}
+.acad-subject.studying{background:rgba(68,136,255,.1);border-color:rgba(68,136,255,.3)}
+.acad-subject.studying .acad-sub-btn{display:none}
+.acad-subject-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.acad-sub-emoji{font-size:32px;flex-shrink:0}
+.acad-sub-info{flex:1}
+.acad-sub-name{font:800 14px var(--ff-head);color:#fff;margin-bottom:2px}
+.acad-sub-tier{font:600 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.acad-sub-stat{font:700 11px var(--ff-head);color:var(--blue)}
+.acad-tier-dots{display:flex;gap:4px;margin-bottom:8px}
+.acad-tier-dot{width:20px;height:4px;border-radius:2px;background:rgba(255,255,255,.1)}
+.acad-tier-dot.done{background:var(--blue)}
+.acad-tier-dot.current{background:var(--teal);animation:acadPulse 1s ease-in-out infinite}
+@keyframes acadPulse{0%,100%{opacity:.7}50%{opacity:1}}
+.acad-prog-bg{width:100%;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.acad-prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:3px;transition:width .4s}
+.acad-sub-row{display:flex;align-items:center;justify-content:space-between}
+.acad-sub-time{font:600 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.acad-sub-btn{padding:7px 16px;background:linear-gradient(135deg,var(--blue),var(--teal));border:none;border-radius:10px;color:#fff;font:700 10px var(--ff-head);cursor:pointer}
+.acad-sub-btn:disabled{opacity:.4;cursor:default}
+.acad-studying-badge{display:none;background:rgba(0,221,204,.15);border:1px solid rgba(0,221,204,.3);border-radius:10px;padding:4px 10px;font:700 10px var(--ff-head);color:var(--teal)}
+.acad-subject.studying .acad-studying-badge{display:block}
+
 /* ══ DAILY POWER DRAFT ══ */
 .draft-panel{position:fixed;inset:0;background:#030408;z-index:902;display:none;flex-direction:column;overflow:hidden}
 .draft-panel.open{display:flex}
@@ -5768,6 +5806,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemilabb</div>
           <div class="ddr" onclick="cM();openHoro()"><div class="ddr-i">🔮</div>Horoskop</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
+          <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
         </div>
       </div>
     </div>
@@ -7371,6 +7410,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET ACADEMY -->
+<div class="acad-panel" id="acadPanel">
+  <div class="acad-header">
+    <div class="acad-title">🎓 PET ACADEMY</div>
+    <button class="close-btn" onclick="closeAcad()">✕</button>
+  </div>
+  <div class="acad-scroll">
+    <div class="acad-stats-row">
+      <div class="acad-stat"><div class="acad-stat-icon">⚔️</div><div class="acad-stat-num" id="acadStatCombat">0</div><div class="acad-stat-label">Strid</div></div>
+      <div class="acad-stat"><div class="acad-stat-icon">🔮</div><div class="acad-stat-num" id="acadStatMagic">0</div><div class="acad-stat-label">Magi</div></div>
+      <div class="acad-stat"><div class="acad-stat-icon">⚡</div><div class="acad-stat-num" id="acadStatSpeed">0</div><div class="acad-stat-label">Fart</div></div>
+      <div class="acad-stat"><div class="acad-stat-icon">💰</div><div class="acad-stat-num" id="acadStatTrade">0</div><div class="acad-stat-label">Handel</div></div>
+      <div class="acad-stat"><div class="acad-stat-icon">🧠</div><div class="acad-stat-num" id="acadStatWisdom">0</div><div class="acad-stat-label">Visdom</div></div>
+    </div>
+    <div class="acad-current" id="acadCurrentBox" style="display:none">
+      <div style="font:700 12px var(--ff-head);color:var(--blue);margin-bottom:6px">📚 STUDERAR NU</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="font-size:32px" id="acadCurEmoji">?</div>
+        <div style="flex:1">
+          <div style="font:800 13px var(--ff-head);color:#fff" id="acadCurName">—</div>
+          <div style="font:600 11px var(--ff-body);color:var(--teal)" id="acadCurTime">—</div>
+          <div class="acad-prog-bg" style="margin-top:6px;margin-bottom:0"><div class="acad-prog-fill" id="acadCurProg" style="width:0%"></div></div>
+        </div>
+        <button style="padding:8px 14px;background:linear-gradient(135deg,var(--green),#aaff44);border:none;border-radius:12px;color:#000;font:700 10px var(--ff-head);cursor:pointer;flex-shrink:0" onclick="acadCollect()" id="acadCollectBtn" style="display:none">HÄMTA!</button>
+      </div>
+    </div>
+    <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Välj en kurs</div>
+    <div class="acad-subjects" id="acadSubjects"></div>
+  </div>
+</div>
 
 <!-- DAILY POWER DRAFT -->
 <div class="draft-panel" id="draftPanel">
@@ -22139,6 +22210,163 @@ function _renderDraftCollection(){
     </div>
     <div class="draft-perk-day" style="color:${p.color}">✓</div>
   </div>`).join('');
+}
+
+
+// PET ACADEMY SYSTEM
+const ACAD_SUBJECTS = [
+  {id:'combat', emoji:'⚔️', name:'Stridsteknik', stat:'combat', statLabel:'Strid',
+   tiers:[
+     {tier:1,name:'Nybörjare',dur:1800000,rew:{xp:200,coins:100,stat:2}},
+     {tier:2,name:'Lärling',  dur:3600000,rew:{xp:400,coins:200,stat:3}},
+     {tier:3,name:'Riddar',   dur:7200000,rew:{xp:800,coins:400,stat:5}},
+     {tier:4,name:'Mästare',  dur:14400000,rew:{xp:2000,coins:1000,stat:8,kc:5}},
+   ]},
+  {id:'magic',  emoji:'🔮', name:'Magi & Trolldom', stat:'magic', statLabel:'Magi',
+   tiers:[
+     {tier:1,name:'Novis',    dur:1800000,rew:{xp:200,coins:100,stat:2}},
+     {tier:2,name:'Magiker',  dur:3600000,rew:{xp:400,coins:200,stat:3}},
+     {tier:3,name:'Sorcerer', dur:7200000,rew:{xp:800,coins:400,stat:5}},
+     {tier:4,name:'Arkmage',  dur:14400000,rew:{xp:2000,coins:1000,stat:8,kc:5}},
+   ]},
+  {id:'speed',  emoji:'⚡', name:'Hastighetstraning', stat:'speed', statLabel:'Fart',
+   tiers:[
+     {tier:1,name:'Jogger',   dur:900000, rew:{xp:150,coins:80,stat:2}},
+     {tier:2,name:'Löpare',   dur:2700000,rew:{xp:300,coins:150,stat:3}},
+     {tier:3,name:'Sprinter', dur:5400000,rew:{xp:600,coins:300,stat:5}},
+     {tier:4,name:'Blixt',    dur:10800000,rew:{xp:1500,coins:750,stat:8,kc:3}},
+   ]},
+  {id:'trade',  emoji:'💰', name:'Handelsekonomi', stat:'trade', statLabel:'Handel',
+   tiers:[
+     {tier:1,name:'Köpman',   dur:1800000,rew:{xp:200,coins:200,stat:2}},
+     {tier:2,name:'Handelsman',dur:3600000,rew:{xp:400,coins:400,stat:3}},
+     {tier:3,name:'Merchant', dur:7200000,rew:{xp:800,coins:800,stat:5}},
+     {tier:4,name:'Mogul',    dur:14400000,rew:{xp:2000,coins:2000,stat:8,kc:5}},
+   ]},
+  {id:'wisdom', emoji:'🧠', name:'Visdomslära', stat:'wisdom', statLabel:'Visdom',
+   tiers:[
+     {tier:1,name:'Student',  dur:2700000,rew:{xp:300,coins:150,stat:2}},
+     {tier:2,name:'Scholar',  dur:5400000,rew:{xp:600,coins:300,stat:3}},
+     {tier:3,name:'Filosof',  dur:10800000,rew:{xp:1200,coins:600,stat:5}},
+     {tier:4,name:'Siare',    dur:21600000,rew:{xp:3000,coins:1500,stat:10,kc:8}},
+   ]},
+];
+const ACAD_KEY = 'k0509_acad';
+const ACAD_STATS_KEY = 'k0509_acad_stats';
+
+function _acadLoad(){ try{ return JSON.parse(localStorage.getItem(ACAD_KEY)||'null'); }catch(e){ return null; } }
+function _acadSave(d){ localStorage.setItem(ACAD_KEY,JSON.stringify(d)); }
+function _acadStats(){ try{ return JSON.parse(localStorage.getItem(ACAD_STATS_KEY)||'{}'); }catch(e){ return {}; } }
+function _acadSaveStats(d){ localStorage.setItem(ACAD_STATS_KEY,JSON.stringify(d)); }
+
+function openAcad(){
+  $('acadPanel').classList.add('open');
+  _renderAcad();
+  if(window._acadTick) clearInterval(window._acadTick);
+  window._acadTick=setInterval(_renderAcadCurrent,15000);
+}
+function closeAcad(){
+  if(window._acadTick) clearInterval(window._acadTick);
+  $('acadPanel').classList.remove('open');
+}
+
+function _renderAcad(){
+  _renderAcadStats();
+  _renderAcadCurrent();
+  _renderAcadSubjects();
+}
+
+function _renderAcadStats(){
+  let stats=_acadStats();
+  ACAD_SUBJECTS.forEach(s=>{
+    let el=document.getElementById('acadStat'+s.stat.charAt(0).toUpperCase()+s.stat.slice(1));
+    if(el) el.textContent=stats[s.stat]||0;
+  });
+}
+
+function _renderAcadCurrent(){
+  let cur=_acadLoad();
+  let box=$('acadCurrentBox');
+  if(!cur||!cur.startedAt){ if(box) box.style.display='none'; return; }
+  let subj=ACAD_SUBJECTS.find(s=>s.id===cur.subjectId);
+  let tier=subj?subj.tiers.find(t=>t.tier===cur.tier):null;
+  if(!subj||!tier){ if(box) box.style.display='none'; return; }
+  let now=Date.now();
+  let elapsed=now-cur.startedAt;
+  let pct=Math.min(100,(elapsed/tier.dur)*100);
+  let done=elapsed>=tier.dur;
+  let timeLeft=Math.max(0,tier.dur-elapsed);
+  let h=Math.floor(timeLeft/3600000),m=Math.floor((timeLeft%3600000)/60000);
+  let timeStr=done?'✅ KLAR!':h>0?h+'h '+m+'m':m+'m kvar';
+  if(box) box.style.display='block';
+  let ce=$('acadCurEmoji'); if(ce) ce.textContent=subj.emoji;
+  let cn=$('acadCurName'); if(cn) cn.textContent=subj.name+' — '+tier.name;
+  let ct=$('acadCurTime'); if(ct) ct.textContent=timeStr;
+  let cp=$('acadCurProg'); if(cp) cp.style.width=pct+'%';
+  let cb=$('acadCollectBtn'); if(cb) cb.style.display=done?'block':'none';
+}
+
+function _renderAcadSubjects(){
+  let cur=_acadLoad();
+  let stats=_acadStats();
+  let el=$('acadSubjects'); if(!el) return;
+  el.innerHTML=ACAD_SUBJECTS.map(s=>{
+    let doneTiers=stats['t_'+s.id]||0;
+    let nextTier=s.tiers[doneTiers]||s.tiers[s.tiers.length-1];
+    let isStudying=cur&&cur.subjectId===s.id&&cur.startedAt;
+    let maxed=doneTiers>=s.tiers.length;
+    let h=Math.floor(nextTier.dur/3600000),m=Math.floor((nextTier.dur%3600000)/60000);
+    let durStr=h>0?h+'h '+m+'m':m+'m';
+    return `<div class="acad-subject${isStudying?' studying':''}">
+      <div class="acad-subject-top">
+        <div class="acad-sub-emoji">${s.emoji}</div>
+        <div class="acad-sub-info">
+          <div class="acad-sub-name">${s.name}</div>
+          <div class="acad-sub-tier">${maxed?'MAXIMERAD ✨':nextTier.name+' (Tier '+nextTier.tier+'/'+s.tiers.length+')'}</div>
+          <div class="acad-sub-stat">+${stats[s.stat]||0} ${s.statLabel}</div>
+        </div>
+        <div class="acad-studying-badge">📚 Studerar</div>
+      </div>
+      <div class="acad-tier-dots">${s.tiers.map((_,i)=>`<div class="acad-tier-dot ${i<doneTiers?'done':i===doneTiers&&isStudying?'current':''}"></div>`).join('')}</div>
+      <div class="acad-sub-row">
+        <div class="acad-sub-time">${maxed?'Alla kurser klara':isStudying?'Pågår...':'Nästa: '+durStr+' · +'+nextTier.rew.stat+' '+s.statLabel}</div>
+        <button class="acad-sub-btn" onclick="startAcad('${s.id}')" ${isStudying||cur||maxed?'disabled':''}>START</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function startAcad(subjectId){
+  let cur=_acadLoad();
+  if(cur&&cur.startedAt){ showFloatBubble('Vänta tills nuvarande kurs är klar!','buff'); return; }
+  let stats=_acadStats();
+  let subj=ACAD_SUBJECTS.find(s=>s.id===subjectId); if(!subj) return;
+  let doneTiers=stats['t_'+subjectId]||0;
+  if(doneTiers>=subj.tiers.length){ showFloatBubble('Alla kurser i '+subj.name+' klara!','buff'); return; }
+  let tier=subj.tiers[doneTiers];
+  _acadSave({subjectId,tier:tier.tier,startedAt:Date.now()});
+  showFloatBubble(subj.emoji+' '+subj.name+' påbörjad! Kom tillbaka om '+Math.round(tier.dur/60000)+'min','buff');
+  _renderAcad();
+}
+
+function acadCollect(){
+  let cur=_acadLoad();
+  if(!cur||!cur.startedAt) return;
+  let subj=ACAD_SUBJECTS.find(s=>s.id===cur.subjectId); if(!subj) return;
+  let tier=subj.tiers.find(t=>t.tier===cur.tier); if(!tier) return;
+  let elapsed=Date.now()-cur.startedAt;
+  if(elapsed<tier.dur){ showFloatBubble('Kursen är inte klar ännu!','buff'); return; }
+  let stats=_acadStats();
+  stats[subj.stat]=(stats[subj.stat]||0)+tier.rew.stat;
+  stats['t_'+subj.id]=(stats['t_'+subj.id]||0)+1;
+  _acadSaveStats(stats);
+  _acadSave(null);
+  gainXP(tier.rew.xp,'academy'); gainCoins(tier.rew.coins);
+  if(tier.rew.kc) gainKC(tier.rew.kc);
+  showFloatBubble('🎓 '+subj.emoji+' '+tier.name+' klar! +'+tier.rew.stat+' '+subj.statLabel,'buff');
+  logActivity('quest','Academy: '+subj.name+' '+tier.name+' avklarad',{xp:tier.rew.xp,coins:tier.rew.coins});
+  if(typeof petMicroAnim==='function') petMicroAnim('bounce');
+  _renderAcad();
 }
 
 </script>
