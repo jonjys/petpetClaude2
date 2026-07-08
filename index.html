@@ -1401,6 +1401,44 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ LEADERBOARD ══ */
+.lb-panel{position:fixed;inset:0;background:#030608;z-index:914;display:none;flex-direction:column;overflow:hidden}
+.lb-panel.open{display:flex}
+.lb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060c18,#030608)}
+.lb-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8844);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.lb-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.lb-hero{background:linear-gradient(135deg,rgba(255,204,0,.08),rgba(255,136,68,.05));border:1.5px solid rgba(255,204,0,.2);border-radius:20px;padding:14px;margin-bottom:14px;text-align:center}
+.lb-hero-rank{font:900 48px var(--ff-head);color:var(--gold)}
+.lb-hero-label{font:600 11px var(--ff-body);color:rgba(255,255,255,.5)}
+.lb-hero-change{font:700 12px var(--ff-body);margin-top:4px}
+.lb-tabs{display:flex;gap:6px;margin-bottom:14px}
+.lb-tab{flex:1;padding:8px;border-radius:12px;font:700 10px var(--ff-head);text-align:center;cursor:pointer;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);background:rgba(255,255,255,.04);transition:all .15s}
+.lb-tab.active{background:rgba(255,204,0,.15);border-color:rgba(255,204,0,.4);color:var(--gold)}
+.lb-top3{display:flex;gap:8px;align-items:flex-end;margin-bottom:14px}
+.lb-podium{flex:1;text-align:center;border-radius:16px;padding:12px 6px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08)}
+.lb-podium.gold{background:rgba(255,204,0,.1);border-color:rgba(255,204,0,.3)}
+.lb-podium.silver{background:rgba(200,200,200,.07);border-color:rgba(200,200,200,.2)}
+.lb-podium.bronze{background:rgba(205,127,50,.07);border-color:rgba(205,127,50,.2)}
+.lb-podium-medal{font-size:24px;display:block;margin-bottom:4px}
+.lb-podium-name{font:800 10px var(--ff-head);color:#fff;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-podium-score{font:700 11px var(--ff-body);color:rgba(255,255,255,.6)}
+.lb-list{display:flex;flex-direction:column;gap:6px}
+.lb-row{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);border-radius:14px;padding:10px 12px;border:1px solid rgba(255,255,255,.05)}
+.lb-row.is-player{background:rgba(255,204,0,.08);border-color:rgba(255,204,0,.3)}
+.lb-rank-num{font:900 16px var(--ff-head);color:rgba(255,255,255,.4);width:28px;text-align:center;flex-shrink:0}
+.lb-row.is-player .lb-rank-num{color:var(--gold)}
+.lb-pet-emoji{font-size:28px;flex-shrink:0}
+.lb-player-info{flex:1}
+.lb-player-name{font:800 12px var(--ff-head);color:#fff}
+.lb-player-sub{font:500 9px var(--ff-body);color:rgba(255,255,255,.35)}
+.lb-score{font:800 13px var(--ff-head);color:var(--gold);flex-shrink:0}
+.lb-week-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;margin-top:12px}
+.lb-week-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.lb-week-reward{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.lb-week-pos{font:700 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.lb-week-prize{font:700 11px var(--ff-head);color:var(--gold)}
+
 /* ══ ACHIEVEMENTS ══ */
 .ach-panel{position:fixed;inset:0;background:#040810;z-index:913;display:none;flex-direction:column;overflow:hidden}
 .ach-panel.open{display:flex}
@@ -6235,6 +6273,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openEvo()"><div class="ddr-i">🧬</div>Pet Evolution</div>
           <div class="ddr" onclick="cM();openMshop()"><div class="ddr-i">🪄</div>Magic Shop</div>
           <div class="ddr" onclick="cM();openAch()"><div class="ddr-i">🏅</div>Achievements</div>
+          <div class="ddr" onclick="cM();openLb()"><div class="ddr-i">🏆</div>Topplista</div>
         </div>
       </div>
     </div>
@@ -7849,6 +7888,36 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- LEADERBOARD -->
+<div class="lb-panel" id="lbPanel">
+  <div class="lb-header">
+    <div class="lb-title">🏆 TOPPLISTA</div>
+    <button class="close-btn" onclick="closeLb()">✕</button>
+  </div>
+  <div class="lb-scroll">
+    <div class="lb-hero">
+      <div class="lb-hero-rank" id="lbPlayerRank">#—</div>
+      <div class="lb-hero-label" id="lbPlayerRankLabel">Din globala ranking</div>
+      <div class="lb-hero-change" id="lbPlayerChange"></div>
+    </div>
+    <div class="lb-tabs">
+      <div class="lb-tab active" id="lbTabXP" onclick="lbSetTab('xp')">⚡ XP</div>
+      <div class="lb-tab" id="lbTabCoins" onclick="lbSetTab('coins')">💰 Coins</div>
+      <div class="lb-tab" id="lbTabBattle" onclick="lbSetTab('battle')">⚔️ Strider</div>
+    </div>
+    <div class="lb-top3" id="lbTop3"></div>
+    <div class="lb-list" id="lbList"></div>
+    <div class="lb-week-card">
+      <div class="lb-week-title">🎁 Veckorepriser (Sönd. kl. 20:00)</div>
+      <div class="lb-week-reward"><div class="lb-week-pos">🥇 Plats 1</div><div class="lb-week-prize">+3000 XP · +1500 💰 · +15 KC</div></div>
+      <div class="lb-week-reward"><div class="lb-week-pos">🥈 Plats 2</div><div class="lb-week-prize">+2000 XP · +1000 💰 · +10 KC</div></div>
+      <div class="lb-week-reward"><div class="lb-week-pos">🥉 Plats 3</div><div class="lb-week-prize">+1000 XP · +500 💰 · +5 KC</div></div>
+      <div class="lb-week-reward"><div class="lb-week-pos">🏅 Topp 10</div><div class="lb-week-prize">+500 XP · +250 💰</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- ACHIEVEMENTS -->
 <div class="ach-panel" id="achPanel">
@@ -24562,6 +24631,107 @@ function _achCheckAll(){
       showFloatBubble('🏅 Achievement upplåst: '+a.name+'!','buff');
     }
   });
+}
+
+
+// GLOBAL LEADERBOARD SYSTEM
+const LB_NPC_NAMES = [
+  'AceWolf','BlazeKing','CrystalFox','DrakeX','EchoStorm','FrostBite','GoldRush',
+  'HawkEye','IronClad','JesterBolt','KingCobra','LunaFox','MoonShot','NightOwl',
+  'OmegaFire','PearlQueen','QuickSilver','RavenClaw','SilverWing','TigerClaw',
+  'UltraVolt','VenomStrike','WarpSpeed','XenonDash','YellowFlash','ZeroGhost'
+];
+const LB_NPC_EMOJIS = ['🐺','🦊','🐯','🦅','🐉','🦁','🐻','🐼','🦋','🐬','🦈','🐙','🦚','🦜','🐦'];
+
+let _lbActiveTab = 'xp';
+
+function _lbWeekSeed(){
+  let now=new Date();
+  let weekNum=Math.floor(now.getTime()/(7*86400000));
+  return weekNum;
+}
+
+function _lbGenNPCs(tab){
+  let seed=_lbWeekSeed();
+  return LB_NPC_NAMES.slice(0,20).map((name,i)=>{
+    let s2=seed*31+i*17;
+    let xp=(s2%800+200)*10+(i*150);
+    let coins=(s2%500+100)*8+(i*80);
+    let wins=(s2%30)+5+(i*2);
+    let score=tab==='xp'?xp:tab==='coins'?coins:wins;
+    return {name, emoji:LB_NPC_EMOJIS[i%LB_NPC_EMOJIS.length], xp, coins, wins, score};
+  });
+}
+
+function openLb(){
+  $('lbPanel').classList.add('open');
+  _lbActiveTab='xp';
+  _renderLb();
+}
+function closeLb(){ $('lbPanel').classList.remove('open'); }
+
+function lbSetTab(tab){
+  _lbActiveTab=tab;
+  ['xp','coins','battle'].forEach(t=>{
+    let el=document.getElementById('lbTab'+t.charAt(0).toUpperCase()+t.slice(1));
+    if(el) el.classList.toggle('active',t===tab);
+  });
+  _renderLb();
+}
+
+function _renderLb(){
+  let tab=_lbActiveTab;
+  let petName=(typeof G!=='undefined'&&G.petName)||'Ditt Husdjur';
+  let petEmoji=(typeof G!=='undefined'&&G.petEmoji)||'🐾';
+  let playerXP=(typeof G!=='undefined'&&G.xp)||0;
+  let playerCoins=(typeof G!=='undefined'&&G.coins)||0;
+  let playerWins=0;
+  try{let d=JSON.parse(localStorage.getItem('k0509_battle')||'null');playerWins=d?d.totalWins:0;}catch(e){}
+  let playerScore=tab==='xp'?playerXP:tab==='coins'?playerCoins:playerWins;
+  let npcs=_lbGenNPCs(tab);
+  // Insert player, find rank
+  let all=[...npcs,{name:petName,emoji:petEmoji,score:playerScore,isPlayer:true}];
+  all.sort((a,b)=>b.score-a.score);
+  let playerRank=all.findIndex(x=>x.isPlayer)+1;
+  let scoreLabel=tab==='xp'?'XP':tab==='coins'?'💰':'Vinster';
+  // Update hero
+  let pr=$('lbPlayerRank'); if(pr) pr.textContent='#'+playerRank;
+  let prl=$('lbPlayerRankLabel'); if(prl) prl.textContent='Din '+scoreLabel+'-ranking ('+playerScore.toLocaleString()+' '+scoreLabel+')';
+  let pc=$('lbPlayerChange');
+  if(pc){
+    if(playerRank<=3) pc.innerHTML='<span style="color:var(--gold)">🏆 Du är i toppen!</span>';
+    else if(playerRank<=10) pc.innerHTML='<span style="color:var(--green)">✨ Topp 10 — fortsätt!</span>';
+    else pc.innerHTML='<span style="color:rgba(255,255,255,.4)">Samla mer '+scoreLabel+' för att klättra!</span>';
+  }
+  // Top 3 podium
+  let top3=$('lbTop3');
+  if(top3){
+    let podiumOrder=[all[1],all[0],all[2]];
+    let podiumStyles=[{cl:'silver',medal:'🥈',h:90},{cl:'gold',medal:'🥇',h:110},{cl:'bronze',medal:'🥉',h:80}];
+    top3.innerHTML=podiumOrder.map((p,pi)=>{
+      if(!p) return '<div class="lb-podium"></div>';
+      let s=podiumStyles[pi];
+      return `<div class="lb-podium ${s.cl} ${p.isPlayer?'is-player':''}" style="padding-top:${s.h-90+12}px">
+        <span class="lb-podium-medal">${s.medal}</span>
+        <span style="font-size:24px">${p.emoji}</span>
+        <div class="lb-podium-name">${p.name}</div>
+        <div class="lb-podium-score">${p.score.toLocaleString()}</div>
+      </div>`;
+    }).join('');
+  }
+  // Rest of list (rank 4+)
+  let rest=all.slice(3);
+  let list=$('lbList'); if(!list) return;
+  list.innerHTML=rest.map((p,i)=>`
+    <div class="lb-row ${p.isPlayer?'is-player':''}">
+      <div class="lb-rank-num">#${i+4}</div>
+      <div class="lb-pet-emoji">${p.emoji}</div>
+      <div class="lb-player-info">
+        <div class="lb-player-name">${p.name}${p.isPlayer?' (Du)':''}</div>
+        <div class="lb-player-sub">Global spelare</div>
+      </div>
+      <div class="lb-score">${p.score.toLocaleString()}</div>
+    </div>`).join('');
 }
 
 </script>
