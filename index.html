@@ -1421,6 +1421,53 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET GACHA SUMMON ══ */
+.gacha2-panel{position:fixed;inset:0;background:#080006;z-index:934;display:none;flex-direction:column;overflow:hidden}
+.gacha2-panel.open{display:flex}
+.gacha2-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e000e,#080006)}
+.gacha2-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff44ff,#aa44ff,#4488ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gacha2-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.gacha2-banner{background:radial-gradient(ellipse at 50% 0%,rgba(170,68,255,.15),transparent 70%),linear-gradient(180deg,#0c0010,#080006);border:1.5px solid rgba(170,68,255,.25);border-radius:22px;padding:20px 16px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden}
+@keyframes shimmer2{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.gacha2-banner-title{font:900 22px var(--ff-head);background:linear-gradient(90deg,#ff44ff,#aa44ff,#4488ff,#ff44ff);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer2 3s linear infinite;margin-bottom:6px}
+.gacha2-pity{font:500 10px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:12px}
+.gacha2-pity-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin:0 20px 12px}
+.gacha2-pity-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#aa44ff,#ff44ff);transition:width .5s}
+.gacha2-btns{display:flex;gap:8px}
+.gacha2-btn{flex:1;border:none;border-radius:14px;color:#fff;font:900 13px var(--ff-head);padding:14px 8px;cursor:pointer;transition:all .15s}
+.gacha2-btn:active{transform:scale(.97)}
+.gacha2-btn-1{background:linear-gradient(135deg,#6622aa,#aa44ff)}
+.gacha2-btn-10{background:linear-gradient(135deg,#aa2288,#ff44ff)}
+.gacha2-cost-row{display:flex;gap:6px;justify-content:center;margin-top:6px}
+.gacha2-cost{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.gacha2-results{display:none;flex-direction:column;gap:6px;margin-bottom:14px}
+.gacha2-results.show{display:flex}
+.gacha2-result-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.gacha2-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 6px;text-align:center;animation:cardPop .3s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes cardPop{from{opacity:0;transform:scale(.5) rotateY(90deg)}to{opacity:1;transform:scale(1) rotateY(0)}}
+.gacha2-card.r3{border-color:rgba(68,136,255,.5);background:rgba(68,136,255,.08)}
+.gacha2-card.r4{border-color:rgba(170,68,255,.5);background:rgba(170,68,255,.08)}
+.gacha2-card.r5{border-color:rgba(255,204,0,.6);background:rgba(255,204,0,.1);box-shadow:0 0 16px rgba(255,204,0,.2)}
+.gacha2-card-emoji{font-size:24px;display:block;margin-bottom:2px}
+.gacha2-card-name{font:700 7px var(--ff-head);color:rgba(255,255,255,.8)}
+.gacha2-card-rarity{font:600 6px var(--ff-body);display:inline-block;padding:1px 5px;border-radius:4px;margin-top:1px}
+.gacha2-card-rarity.r3{background:rgba(68,136,255,.2);color:#88aaff}
+.gacha2-card-rarity.r4{background:rgba(170,68,255,.2);color:#cc88ff}
+.gacha2-card-rarity.r5{background:rgba(255,204,0,.2);color:#ffcc00}
+.gacha2-collection-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.gacha2-collection{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.gacha2-coll-item{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.06);border-radius:14px;padding:10px 6px;text-align:center}
+.gacha2-coll-item.owned{background:rgba(170,68,255,.05);border-color:rgba(170,68,255,.25)}
+.gacha2-coll-emoji{font-size:26px;display:block;margin-bottom:3px}
+.gacha2-coll-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.6)}
+.gacha2-coll-count{font:800 9px var(--ff-head);color:#aa66ff}
+.gacha2-coll-not{font:500 8px var(--ff-body);color:rgba(255,255,255,.2)}
+.gacha2-stats-row{display:flex;gap:6px;margin-bottom:12px}
+.gacha2-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.gacha2-stat-val{font:800 14px var(--ff-head);color:#aa66ff}
+.gacha2-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+
 /* ══ PET RANCH ══ */
 .ranch-panel{position:fixed;inset:0;background:#020804;z-index:933;display:none;flex-direction:column;overflow:hidden}
 .ranch-panel.open{display:flex}
@@ -7128,6 +7175,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openArena()"><div class="ddr-i">⚔️</div>Pet Arena</div>
           <div class="ddr" onclick="cM();openCraft()"><div class="ddr-i">🔨</div>Crafting</div>
           <div class="ddr" onclick="cM();openRanch()"><div class="ddr-i">🌾</div>Pet Ranch</div>
+          <div class="ddr" onclick="cM();openGacha2()"><div class="ddr-i">✨</div>Summon</div>
         </div>
       </div>
     </div>
@@ -8287,6 +8335,42 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET GACHA SUMMON -->
+<div class="gacha2-panel" id="gacha2Panel">
+  <div class="gacha2-header">
+    <div class="gacha2-title">✨ SUMMON</div>
+    <button class="close-btn" onclick="closeGacha2()">✕</button>
+  </div>
+  <div class="gacha2-scroll">
+    <div class="gacha2-banner">
+      <div class="gacha2-banner-title">✨ LEGENDARIUM SUMMON</div>
+      <div class="gacha2-pity" id="gacha2PityText">Pity: 0/90 (garanterad ⭐⭐⭐⭐⭐ på 90)</div>
+      <div class="gacha2-pity-bar"><div class="gacha2-pity-fill" id="gacha2PityFill" style="width:0%"></div></div>
+      <div class="gacha2-btns">
+        <button class="gacha2-btn gacha2-btn-1" onclick="gacha2Pull(1)">✨ 1× SUMMON</button>
+        <button class="gacha2-btn gacha2-btn-10" onclick="gacha2Pull(10)">🌟 10× SUMMON</button>
+      </div>
+      <div class="gacha2-cost-row">
+        <div class="gacha2-cost">1× = 1 KC Crystal</div>
+        <div class="gacha2-cost">·</div>
+        <div class="gacha2-cost">10× = 10 KC (1 gratis)</div>
+      </div>
+    </div>
+    <div class="gacha2-results" id="gacha2Results">
+      <div class="gacha2-collection-title">🎴 Senaste drag</div>
+      <div class="gacha2-result-grid" id="gacha2ResultGrid"></div>
+    </div>
+    <div class="gacha2-stats-row">
+      <div class="gacha2-stat"><div class="gacha2-stat-val" id="gacha2TotalPulls">0</div><div class="gacha2-stat-label">Total summons</div></div>
+      <div class="gacha2-stat"><div class="gacha2-stat-val" id="gacha2Got5s">0</div><div class="gacha2-stat-label">⭐⭐⭐⭐⭐ dragna</div></div>
+      <div class="gacha2-stat"><div class="gacha2-stat-val" id="gacha2Coll">0</div><div class="gacha2-stat-label">Unika karaktärer</div></div>
+    </div>
+    <div class="gacha2-collection-title">📖 Samling</div>
+    <div class="gacha2-collection" id="gacha2Collection"></div>
+  </div>
+</div>
 
 <!-- PET RANCH -->
 <div class="ranch-panel" id="ranchPanel">
@@ -29559,6 +29643,125 @@ function ranchUnlockPlot(){
   _ranchSave(d);
   showFloatBubble('🌱 Ny odlingsyta upplåst! Nu '+d.plots+' st','buff');
   _renderRanch();
+}
+
+
+// PET GACHA SUMMON SYSTEM
+const GACHA2_KEY = 'k0509_gacha2';
+const GACHA2_POOL = [
+  // 3-star (common, ~75%)
+  {id:'g_imp',     emoji:'😈', name:'Imp',          stars:3, bonus:'+5% XP'},
+  {id:'g_sprite',  emoji:'🧚', name:'Sprite',        stars:3, bonus:'+5% coins'},
+  {id:'g_pixie',   emoji:'🧝', name:'Pixie',         stars:3, bonus:'+5% farming'},
+  {id:'g_golem',   emoji:'🗿', name:'Stengolim',     stars:3, bonus:'+8% defense'},
+  {id:'g_fairy',   emoji:'🌸', name:'Älva',          stars:3, bonus:'+6% luck'},
+  // 4-star (uncommon, ~20%)
+  {id:'g_kitsune', emoji:'🦊', name:'Kitsune',       stars:4, bonus:'+15% XP'},
+  {id:'g_phoenix', emoji:'🔥', name:'Phoenix',       stars:4, bonus:'+15% attack'},
+  {id:'g_unicorn', emoji:'🦄', name:'Enhörning',     stars:4, bonus:'+20% coins'},
+  {id:'g_naga',    emoji:'🐍', name:'Naga',          stars:4, bonus:'+18% magic'},
+  // 5-star (legendary, ~5%)
+  {id:'g_dragon',  emoji:'🐉', name:'Guld Drak',     stars:5, bonus:'+30% ALL'},
+  {id:'g_titan',   emoji:'⚡', name:'Storm Titan',   stars:5, bonus:'+35% battle'},
+  {id:'g_seraph',  emoji:'👼', name:'Serafim',       stars:5, bonus:'+40% XP'},
+  {id:'g_abyss',   emoji:'🌑', name:'Abyss Lord',    stars:5, bonus:'+50% ALL (rare)'},
+];
+
+function _gacha2Load(){try{return JSON.parse(localStorage.getItem(GACHA2_KEY)||'null');}catch(e){return null;}}
+function _gacha2Save(d){localStorage.setItem(GACHA2_KEY,JSON.stringify(d));}
+function _gacha2Data(){
+  let d=_gacha2Load();
+  if(!d) d={pity:0,totalPulls:0,got5s:0,collection:{}};
+  return d;
+}
+
+function openGacha2(){
+  $('gacha2Panel').classList.add('open');
+  _renderGacha2();
+}
+function closeGacha2(){ $('gacha2Panel').classList.remove('open'); }
+
+function _gacha2RollOne(d){
+  var r=Math.random()*100;
+  var star;
+  // Pity system: guaranteed 5-star at 90, soft pity starts at 75
+  if(d.pity>=89) star=5;
+  else if(d.pity>=75&&Math.random()<(d.pity-74)*0.06) star=5;
+  else if(r<5) star=5;
+  else if(r<25) star=4;
+  else star=3;
+  var pool5=GACHA2_POOL.filter(function(x){return x.stars===5;});
+  var pool4=GACHA2_POOL.filter(function(x){return x.stars===4;});
+  var pool3=GACHA2_POOL.filter(function(x){return x.stars===3;});
+  var pool=star===5?pool5:star===4?pool4:pool3;
+  var item=pool[Math.floor(Math.random()*pool.length)];
+  if(star===5) d.pity=0; else d.pity=(d.pity||0)+1;
+  d.totalPulls=(d.totalPulls||0)+1;
+  if(star===5) d.got5s=(d.got5s||0)+1;
+  d.collection[item.id]=(d.collection[item.id]||0)+1;
+  return item;
+}
+
+function gacha2Pull(count){
+  var d=_gacha2Data();
+  var cost=count;
+  var wallet=(typeof G!=='undefined'&&G.kc)||0;
+  if(wallet<cost){showFloatBubble('Behöver '+cost+' KC Crystal!','buff');return;}
+  if(typeof G!=='undefined'){G.kc-=cost;if(typeof save==='function')save();}
+  var results=[];
+  for(var i=0;i<count;i++) results.push(_gacha2RollOne(d));
+  _gacha2Save(d);
+  // Show results
+  var rg=$('gacha2Results'); if(rg) rg.classList.add('show');
+  var grid=$('gacha2ResultGrid');
+  if(grid){
+    grid.innerHTML=results.map(function(item,i){
+      var delay=i*80;
+      var cls='gacha2-card r'+item.stars;
+      var stars='⭐'.repeat(item.stars);
+      return '<div class="'+cls+'" style="animation-delay:'+delay+'ms">'+
+        '<span class="gacha2-card-emoji">'+item.emoji+'</span>'+
+        '<div class="gacha2-card-name">'+item.name+'</div>'+
+        '<span class="gacha2-card-rarity r'+item.stars+'">'+stars+'</span>'+
+        '</div>';
+    }).join('');
+  }
+  // Check for 5-stars
+  var got5=results.filter(function(x){return x.stars===5;});
+  if(got5.length>0){
+    got5.forEach(function(x){showFloatBubble('🌟 LEGENDARY! '+x.emoji+' '+x.name+'! '+x.bonus,'buff');});
+  } else {
+    var best=results.reduce(function(a,b){return b.stars>a.stars?b:a;},results[0]);
+    if(best) showFloatBubble(best.emoji+' '+best.name+' ('+best.stars+'★) '+best.bonus,'buff');
+  }
+  // XP for pulls
+  gainXP(count*15,'social');
+  _renderGacha2();
+}
+
+function _renderGacha2(){
+  var d=_gacha2Data();
+  var pt=$('gacha2PityText'); if(pt) pt.textContent='Pity: '+d.pity+'/90 (garanterad ⭐⭐⭐⭐⭐ på 90)';
+  var pf=$('gacha2PityFill'); if(pf) pf.style.width=Math.round((d.pity/90)*100)+'%';
+  var tp=$('gacha2TotalPulls'); if(tp) tp.textContent=d.totalPulls||0;
+  var g5=$('gacha2Got5s'); if(g5) g5.textContent=d.got5s||0;
+  var owned=Object.keys(d.collection||{}).length;
+  var gc=$('gacha2Coll'); if(gc) gc.textContent=owned;
+  // Collection grid
+  var col=$('gacha2Collection');
+  if(col){
+    col.innerHTML=GACHA2_POOL.map(function(item){
+      var cnt=(d.collection||{})[item.id]||0;
+      var stars='⭐'.repeat(item.stars);
+      return '<div class="gacha2-coll-item'+(cnt>0?' owned':'')+'">'+
+        '<span class="gacha2-coll-emoji" style="opacity:'+(cnt>0?1:.3)+'">'+item.emoji+'</span>'+
+        '<div class="gacha2-coll-name">'+item.name+'</div>'+
+        (cnt>0?
+          '<div class="gacha2-coll-count">×'+cnt+'</div>':
+          '<div class="gacha2-coll-not">'+stars+'</div>')+
+        '</div>';
+    }).join('');
+  }
 }
 
 </script>
