@@ -1426,6 +1426,47 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET EVOLUTION TREE ══ */
+.evtree-panel{position:fixed;inset:0;background:#030108;z-index:939;display:none;flex-direction:column;overflow:hidden}
+.evtree-panel.open{display:flex}
+.evtree-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#07030e,#030108)}
+.evtree-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc44ff,#ff44cc,#ff8844);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.evtree-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.evtree-hero{background:radial-gradient(ellipse at 50% 0%,rgba(204,68,255,.1),transparent 70%),linear-gradient(180deg,#0a0214,#030108);border:1.5px solid rgba(204,68,255,.2);border-radius:22px;padding:20px 16px;text-align:center;margin-bottom:14px}
+.evtree-pet-big{font-size:72px;display:block;margin-bottom:6px;filter:drop-shadow(0 0 20px rgba(204,68,255,.4))}
+.evtree-pet-name{font:900 20px var(--ff-head);color:#fff;margin-bottom:2px}
+.evtree-pet-stage{font:700 12px var(--ff-head);color:#cc44ff;margin-bottom:12px}
+.evtree-progress-bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;margin:0 20px 6px}
+.evtree-progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#cc44ff,#ff44cc);transition:width .5s}
+.evtree-progress-text{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:14px}
+.evtree-evolve-btn{width:80%;max-width:200px;background:linear-gradient(135deg,#660099,#cc44ff);border:none;border-radius:14px;color:#fff;font:900 14px var(--ff-head);padding:13px;cursor:pointer;transition:all .15s}
+.evtree-evolve-btn:active{transform:scale(.97)}
+.evtree-evolve-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.1);color:rgba(255,255,255,.4)}
+.evtree-tree-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.evtree-stages{display:flex;flex-direction:column;gap:0}
+.evtree-stage{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;transition:all .15s;position:relative}
+.evtree-stage.current{background:rgba(204,68,255,.08);border:1.5px solid rgba(204,68,255,.3)}
+.evtree-stage.completed{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.15)}
+.evtree-stage.locked{opacity:.4}
+.evtree-connector{width:2px;height:20px;background:rgba(255,255,255,.1);margin-left:24px}
+.evtree-stage-emoji{font-size:36px;filter:drop-shadow(0 0 8px rgba(204,68,255,.3))}
+.evtree-stage-info{flex:1}
+.evtree-stage-name{font:800 13px var(--ff-head);color:#fff}
+.evtree-stage-req{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.evtree-stage-bonus{font:700 10px var(--ff-head);color:#cc44ff}
+.evtree-stage-badge{font:700 10px var(--ff-head);color:rgba(255,255,255,.4)}
+.evtree-skills-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;margin-top:14px}
+.evtree-skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.evtree-skill{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px;cursor:pointer;transition:all .15s}
+.evtree-skill.unlocked{border-color:rgba(204,68,255,.35);background:rgba(204,68,255,.07)}
+.evtree-skill.locked-skill{opacity:.4;cursor:default}
+.evtree-skill:active:not(.locked-skill){transform:scale(.96)}
+.evtree-skill-emoji{font-size:22px;display:block;margin-bottom:4px}
+.evtree-skill-name{font:800 10px var(--ff-head);color:#fff;margin-bottom:2px}
+.evtree-skill-desc{font:500 8px var(--ff-body);color:rgba(255,255,255,.5)}
+.evtree-skill-cost{font:700 9px var(--ff-head);color:#ffcc00;margin-top:4px}
+
 /* ══ PET AUCTION HOUSE ══ */
 .auction-panel{position:fixed;inset:0;background:#060402;z-index:938;display:none;flex-direction:column;overflow:hidden}
 .auction-panel.open{display:flex}
@@ -7353,6 +7394,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFriends()"><div class="ddr-i">👥</div>Vänner</div>
           <div class="ddr" onclick="cM();openMed()"><div class="ddr-i">🧘</div>Meditation</div>
           <div class="ddr" onclick="cM();openAuction()"><div class="ddr-i">🔨</div>Auktionshus</div>
+          <div class="ddr" onclick="cM();openEvtree()"><div class="ddr-i">🌳</div>Evo Träd</div>
         </div>
       </div>
     </div>
@@ -8517,6 +8559,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET EVOLUTION TREE -->
+<div class="evtree-panel" id="evtreePanel">
+  <div class="evtree-header">
+    <div class="evtree-title">🌳 EVOLUTIONS TRÄD</div>
+    <button class="close-btn" onclick="closeEvtree()">✕</button>
+  </div>
+  <div class="evtree-scroll">
+    <div class="evtree-hero">
+      <span class="evtree-pet-big" id="evtreePetEmoji">🥚</span>
+      <div class="evtree-pet-name" id="evtreePetName">Din Pet</div>
+      <div class="evtree-pet-stage" id="evtreePetStage">Stadium 1 — Ägg</div>
+      <div class="evtree-progress-bar"><div class="evtree-progress-fill" id="evtreeProgressFill" style="width:0%"></div></div>
+      <div class="evtree-progress-text" id="evtreeProgressText">0/100 EVO poäng</div>
+      <button class="evtree-evolve-btn" id="evtreeEvolveBtn" onclick="evtreeEvolve()">✨ EVOLVERA!</button>
+    </div>
+    <div class="evtree-tree-title">🌳 Evolutions Träd</div>
+    <div id="evtreeStagesDiv"></div>
+    <div class="evtree-skills-title">⚡ Pet Förmågor</div>
+    <div class="evtree-skill-grid" id="evtreeSkillGrid"></div>
+  </div>
+</div>
 
 <!-- PET AUCTION HOUSE -->
 <div class="auction-panel" id="auctionPanel">
@@ -30776,6 +30841,157 @@ function auctionListItem(){
   showFloatBubble('🔨 '+item.name+' listad! Avgift: '+fee+' 💰','buff');
   _renderAuction();
 }
+
+
+// PET EVOLUTION TREE SYSTEM
+const EVTREE_KEY = 'k0509_evtree';
+const EVO_STAGES = [
+  {id:'egg',    emoji:'🥚', name:'Ägg',          req:0,   bonus:'Startläge',           xpMult:1.0},
+  {id:'baby',   emoji:'🐣', name:'Baby Pet',     req:50,  bonus:'+10% XP',             xpMult:1.1},
+  {id:'child',  emoji:'🐥', name:'Ung Pet',      req:150, bonus:'+15% Coins +10% XP',  xpMult:1.15},
+  {id:'teen',   emoji:'🦊', name:'Teen Pet',     req:300, bonus:'+20% All activity',   xpMult:1.2},
+  {id:'adult',  emoji:'🐉', name:'Vuxen Pet',    req:600, bonus:'+30% All +Aura',      xpMult:1.3},
+  {id:'legend', emoji:'🌟', name:'Legend Pet',   req:1200,bonus:'+50% All +Golden',    xpMult:1.5},
+  {id:'mythic', emoji:'⚡', name:'MYTISK PET',   req:2500,bonus:'+100% ALLT! GODLIKE', xpMult:2.0},
+];
+const EVO_SKILLS = [
+  {id:'swift',    emoji:'💨', name:'Vindsnabb',  desc:'+20% speed',    evoReq:'child',  cost:3},
+  {id:'tough',    emoji:'🛡️', name:'Pansrad',    desc:'+25% defense',  evoReq:'child',  cost:3},
+  {id:'smart',    emoji:'🧠', name:'Klyftig',    desc:'+20% XP bonus', evoReq:'teen',   cost:5},
+  {id:'lucky2',   emoji:'🍀', name:'Extremt Lyckosam', desc:'+15% coin mult', evoReq:'teen',cost:5},
+  {id:'healer',   emoji:'💚', name:'Helande',    desc:'+2 heals i Arena', evoReq:'adult',cost:8},
+  {id:'berserker',emoji:'⚔️', name:'Beserker',  desc:'+40% attack',   evoReq:'adult',  cost:8},
+  {id:'cosmic',   emoji:'🌌', name:'Kosmisk',    desc:'+30% all stats',evoReq:'legend', cost:12},
+  {id:'immortal', emoji:'♾️', name:'Odödlig',    desc:'Never lose streak', evoReq:'mythic',cost:20},
+];
+
+function _evtreeLoad(){try{return JSON.parse(localStorage.getItem(EVTREE_KEY)||'null');}catch(e){return null;}}
+function _evtreeSave(d){localStorage.setItem(EVTREE_KEY,JSON.stringify(d));}
+function _evtreeData(){
+  let d=_evtreeLoad();
+  if(!d) d={evoPoints:0,currentStage:'egg',skills:[],skillPoints:0};
+  return d;
+}
+
+function openEvtree(){
+  $('evtreePanel').classList.add('open');
+  _renderEvtree();
+}
+function closeEvtree(){ $('evtreePanel').classList.remove('open'); }
+
+function _evtreeGetStageIdx(stageId){
+  return EVO_STAGES.findIndex(function(s){return s.id===stageId;});
+}
+
+function _renderEvtree(){
+  var d=_evtreeData();
+  var stageIdx=_evtreeGetStageIdx(d.currentStage||'egg');
+  var stage=EVO_STAGES[stageIdx]||EVO_STAGES[0];
+  var nextStage=EVO_STAGES[stageIdx+1];
+  var playerEmoji=(typeof G!=='undefined'&&G.petEmoji)||stage.emoji;
+  // Adapt emoji to stage
+  var stageEmoji=stageIdx>=4?playerEmoji:stage.emoji;
+  var ep=$('evtreePetEmoji'); if(ep) ep.textContent=stageEmoji;
+  var en=$('evtreePetName'); if(en) en.textContent=(typeof G!=='undefined'&&G.petName)||'Din Pet';
+  var es=$('evtreePetStage'); if(es) es.textContent='Stadium '+(stageIdx+1)+' — '+stage.name+' · '+stage.bonus;
+  var canEvolve=nextStage&&d.evoPoints>=(nextStage.req);
+  if(nextStage){
+    var pct=Math.min(100,Math.round((d.evoPoints/nextStage.req)*100));
+    var epf=$('evtreeProgressFill'); if(epf) epf.style.width=pct+'%';
+    var ept=$('evtreeProgressText'); if(ept) ept.textContent=d.evoPoints+'/'+nextStage.req+' EVO poäng → '+nextStage.name;
+  } else {
+    var epf2=$('evtreeProgressFill'); if(epf2) epf2.style.width='100%';
+    var ept2=$('evtreeProgressText'); if(ept2) ept2.textContent='MAX STADIUM! Mytisk Pet uppnådd!';
+  }
+  var eb=$('evtreeEvolveBtn');
+  if(eb){
+    eb.disabled=!canEvolve;
+    eb.textContent=canEvolve?'✨ EVOLVERA till '+nextStage.name+'!':'✨ Samla '+(nextStage?(nextStage.req-d.evoPoints)+' EVO till '+nextStage.name:'Max!');}
+  // Stages display
+  var sd=$('evtreeStagesDiv');
+  if(sd){
+    var html='';
+    EVO_STAGES.forEach(function(s,i){
+      var isCompleted=i<stageIdx;
+      var isCurrent=i===stageIdx;
+      var isLocked=i>stageIdx;
+      var cls='evtree-stage'+(isCurrent?' current':isCompleted?' completed':' locked');
+      html+='<div class="'+cls+'">'+
+        '<span class="evtree-stage-emoji">'+(isCompleted?'✅ ':'')+s.emoji+'</span>'+
+        '<div class="evtree-stage-info">'+
+        '<div class="evtree-stage-name">'+s.name+'</div>'+
+        '<div class="evtree-stage-req">Kräver: '+s.req+' EVO poäng</div>'+
+        '<div class="evtree-stage-bonus">'+s.bonus+'</div>'+
+        '</div>'+
+        '<div class="evtree-stage-badge">'+(isCompleted?'✓ Klar':isCurrent?'◀ Nu':'🔒'+'</div>')+
+        '</div>';
+      if(i<EVO_STAGES.length-1) html+='<div class="evtree-connector"></div>';
+    });
+    sd.innerHTML=html;
+  }
+  // Skills
+  var sg=$('evtreeSkillGrid');
+  if(sg){
+    sg.innerHTML=EVO_SKILLS.map(function(skill){
+      var owned=(d.skills||[]).includes(skill.id);
+      var evoReqIdx=_evtreeGetStageIdx(skill.evoReq);
+      var canBuy=stageIdx>=evoReqIdx&&!owned&&(d.skillPoints||0)>=skill.cost;
+      var isLocked=stageIdx<evoReqIdx;
+      var cls='evtree-skill'+(owned?' unlocked':isLocked?' locked-skill':'');
+      return '<div class="'+cls+'" onclick="evtreeLearnSkill(''+skill.id+'')">'+
+        '<span class="evtree-skill-emoji">'+skill.emoji+'</span>'+
+        '<div class="evtree-skill-name">'+skill.name+'</div>'+
+        '<div class="evtree-skill-desc">'+skill.desc+'</div>'+
+        '<div class="evtree-skill-cost">'+(owned?'✅ Inlärd':isLocked?'🔒 Kräver '+skill.evoReq:skill.cost+' Skill pts')+'</div>'+
+        '</div>';
+    }).join('');
+  }
+}
+
+function evtreeEvolve(){
+  var d=_evtreeData();
+  var stageIdx=_evtreeGetStageIdx(d.currentStage||'egg');
+  var nextStage=EVO_STAGES[stageIdx+1];
+  if(!nextStage){showFloatBubble('Redan på max stadium!','buff');return;}
+  if(d.evoPoints<nextStage.req){showFloatBubble('Behöver '+nextStage.req+' EVO poäng!','buff');return;}
+  d.currentStage=nextStage.id;
+  d.skillPoints=(d.skillPoints||0)+3;
+  _evtreeSave(d);
+  showFloatBubble('🌟 EVOLUTION! '+nextStage.emoji+' '+nextStage.name+'! +3 Skill pts! '+nextStage.bonus,'buff');
+  gainXP(500,'action');
+  _renderEvtree();
+}
+
+function evtreeLearnSkill(skillId){
+  var d=_evtreeData();
+  if((d.skills||[]).includes(skillId)){showFloatBubble('Redan inlärd!','buff');return;}
+  var skill=EVO_SKILLS.find(function(s){return s.id===skillId;});
+  if(!skill) return;
+  var stageIdx=_evtreeGetStageIdx(d.currentStage||'egg');
+  var reqIdx=_evtreeGetStageIdx(skill.evoReq);
+  if(stageIdx<reqIdx){showFloatBubble('Kräver '+skill.evoReq+' stadium!','buff');return;}
+  if((d.skillPoints||0)<skill.cost){showFloatBubble('Behöver '+skill.cost+' skill pts!','buff');return;}
+  if(!d.skills) d.skills=[];
+  d.skills.push(skillId);
+  d.skillPoints-=skill.cost;
+  _evtreeSave(d);
+  showFloatBubble(skill.emoji+' '+skill.name+' inlärd! '+skill.desc,'buff');
+  _renderEvtree();
+}
+
+// Add EVO points when gaining XP
+var _origGainXP=gainXP;
+gainXP=function(n,stat){
+  _origGainXP(n,stat);
+  if(n>0){
+    var evoGain=Math.floor(n/20);
+    if(evoGain>0){
+      var d=_evtreeData();
+      d.evoPoints=(d.evoPoints||0)+evoGain;
+      _evtreeSave(d);
+    }
+  }
+};
 
 </script>
 
