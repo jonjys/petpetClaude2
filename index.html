@@ -1420,6 +1420,48 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET RANCH ══ */
+.ranch-panel{position:fixed;inset:0;background:#020804;z-index:933;display:none;flex-direction:column;overflow:hidden}
+.ranch-panel.open{display:flex}
+.ranch-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#051008,#020804)}
+.ranch-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#88ff44,#ffee44);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ranch-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.ranch-hero{background:radial-gradient(ellipse at 50% 0%,rgba(68,255,136,.08),transparent 70%),linear-gradient(180deg,#040e06,#020804);border:1.5px solid rgba(68,255,136,.2);border-radius:22px;padding:16px;margin-bottom:14px}
+.ranch-field{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.ranch-plot{aspect-ratio:1;border-radius:12px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.ranch-plot:active{transform:scale(.96)}
+.ranch-plot.empty{border-style:dashed}
+.ranch-plot.growing{border-color:rgba(68,255,136,.3);background:rgba(68,255,136,.05)}
+.ranch-plot.ready{border-color:rgba(255,204,0,.5);background:rgba(255,204,0,.08);animation:ranchReady .8s ease-in-out infinite alternate}
+@keyframes ranchReady{from{box-shadow:0 0 0 rgba(255,204,0,0)}to{box-shadow:0 0 12px rgba(255,204,0,.3)}}
+.ranch-plot.locked{opacity:.3;cursor:default;pointer-events:none}
+.ranch-plot-emoji{font-size:24px}
+.ranch-plot-timer{font:700 8px var(--ff-head);color:rgba(255,255,255,.5);position:absolute;bottom:3px;font-size:7px}
+.ranch-plot-lock{font-size:16px;opacity:.5}
+.ranch-seeds-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.ranch-seeds{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.ranch-seed{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;padding:8px 10px;cursor:pointer;transition:all .15s;text-align:center;min-width:70px}
+.ranch-seed:active{transform:scale(.96)}
+.ranch-seed.selected{border-color:rgba(68,255,136,.5);background:rgba(68,255,136,.08)}
+.ranch-seed-emoji{font-size:20px;display:block;margin-bottom:2px}
+.ranch-seed-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.7)}
+.ranch-seed-time{font:500 7px var(--ff-body);color:rgba(255,255,255,.35)}
+.ranch-seed-count{font:800 9px var(--ff-head);color:#ffcc00}
+.ranch-stats-row{display:flex;gap:8px;margin-bottom:12px}
+.ranch-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.ranch-stat-val{font:800 14px var(--ff-head);color:#44ff88}
+.ranch-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.ranch-shop-btn{width:100%;background:rgba(68,255,136,.1);border:1px solid rgba(68,255,136,.25);border-radius:12px;color:var(--green);font:800 12px var(--ff-head);padding:10px;cursor:pointer;transition:all .15s;margin-bottom:12px}
+.ranch-shop-btn:active{transform:scale(.98)}
+.ranch-seed-shop{display:flex;flex-direction:column;gap:8px}
+.ranch-shop-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px 12px}
+.ranch-shop-emoji{font-size:22px;flex-shrink:0}
+.ranch-shop-info{flex:1}
+.ranch-shop-name{font:700 11px var(--ff-head);color:#fff}
+.ranch-shop-desc{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.ranch-shop-buy{background:rgba(255,204,0,.12);border:1px solid rgba(255,204,0,.3);border-radius:8px;color:#ffcc00;font:800 10px var(--ff-head);padding:6px 12px;cursor:pointer;white-space:nowrap}
+
 /* ══ PET INVENTORY & CRAFTING ══ */
 .craft-panel{position:fixed;inset:0;background:#030408;z-index:932;display:none;flex-direction:column;overflow:hidden}
 .craft-panel.open{display:flex}
@@ -7085,6 +7127,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCheckin()"><div class="ddr-i">📅</div>Daglig Inloggning</div>
           <div class="ddr" onclick="cM();openArena()"><div class="ddr-i">⚔️</div>Pet Arena</div>
           <div class="ddr" onclick="cM();openCraft()"><div class="ddr-i">🔨</div>Crafting</div>
+          <div class="ddr" onclick="cM();openRanch()"><div class="ddr-i">🌾</div>Pet Ranch</div>
         </div>
       </div>
     </div>
@@ -8243,6 +8286,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET RANCH -->
+<div class="ranch-panel" id="ranchPanel">
+  <div class="ranch-header">
+    <div class="ranch-title">🌾 PET RANCH</div>
+    <button class="close-btn" onclick="closeRanch()">✕</button>
+  </div>
+  <div class="ranch-scroll">
+    <div class="ranch-hero">
+      <div class="ranch-seeds-title">🌱 Valda fröet: <span id="ranchSelSeed">—</span></div>
+      <div class="ranch-field" id="ranchField"></div>
+      <div class="ranch-seeds-title">🌱 Dina Frön</div>
+      <div class="ranch-seeds" id="ranchSeeds"></div>
+      <div class="ranch-shop-btn" onclick="ranchToggleShop()" id="ranchShopBtn">🛒 Fröaffär</div>
+      <div id="ranchShopDiv" style="display:none">
+        <div class="ranch-seed-shop" id="ranchShopItems"></div>
+      </div>
+    </div>
+    <div class="ranch-stats-row">
+      <div class="ranch-stat"><div class="ranch-stat-val" id="ranchHarvests">0</div><div class="ranch-stat-label">🌾 Skördar</div></div>
+      <div class="ranch-stat"><div class="ranch-stat-val" id="ranchCoinsEarned">0</div><div class="ranch-stat-label">💰 Tjänat</div></div>
+      <div class="ranch-stat"><div class="ranch-stat-val" id="ranchPlots">4</div><div class="ranch-stat-label">🌱 Odlingsytor</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- PET CRAFTING -->
 <div class="craft-panel" id="craftPanel">
@@ -29273,6 +29342,223 @@ function craftBuyMat(matId){
   _craftSave(d);
   showFloatBubble(mat.emoji+' Köpte '+mat.name+'!','buff');
   _renderCraft();
+}
+
+
+// PET RANCH FARMING SYSTEM
+const RANCH_KEY = 'k0509_ranch';
+const RANCH_SEEDS = [
+  {id:'carrot',  emoji:'🥕', name:'Morot',     growTime:60000,    reward:{coins:30,  xp:20},  cost:20,  rarity:'common'},
+  {id:'wheat',   emoji:'🌾', name:'Vete',      growTime:120000,   reward:{coins:60,  xp:40},  cost:35,  rarity:'common'},
+  {id:'berry',   emoji:'🍓', name:'Bär',       growTime:180000,   reward:{coins:100, xp:70},  cost:60,  rarity:'uncommon'},
+  {id:'mushroom',emoji:'🍄', name:'Svamp',     growTime:300000,   reward:{coins:180, xp:120}, cost:100, rarity:'uncommon'},
+  {id:'sunflower',emoji:'🌻',name:'Solros',    growTime:600000,   reward:{coins:350, xp:200}, cost:180, rarity:'rare'},
+  {id:'golden',  emoji:'🌟', name:'Guldblomma',growTime:1800000,  reward:{coins:800, xp:500}, cost:400, rarity:'legendary'},
+];
+const RANCH_MAX_PLOTS = 8;
+
+let _ranchSelSeed = null;
+let _ranchTimers = {};
+let _ranchShopOpen = false;
+
+function _ranchLoad(){try{return JSON.parse(localStorage.getItem(RANCH_KEY)||'null');}catch(e){return null;}}
+function _ranchSave(d){localStorage.setItem(RANCH_KEY,JSON.stringify(d));}
+function _ranchData(){
+  let d=_ranchLoad();
+  if(!d) d={plots:4,seeds:{carrot:5,wheat:3,berry:0,mushroom:0,sunflower:0,golden:0},planted:[],harvests:0,coinsEarned:0};
+  // Ensure planted is array of correct length
+  while(d.planted.length<RANCH_MAX_PLOTS) d.planted.push(null);
+  return d;
+}
+
+function openRanch(){
+  $('ranchPanel').classList.add('open');
+  _ranchSelSeed=null;
+  _renderRanch();
+  _startRanchTimers();
+}
+function closeRanch(){
+  $('ranchPanel').classList.remove('open');
+  _clearRanchTimers();
+}
+
+function _clearRanchTimers(){
+  Object.keys(_ranchTimers).forEach(function(k){clearInterval(_ranchTimers[k]);});
+  _ranchTimers={};
+}
+
+function _startRanchTimers(){
+  _clearRanchTimers();
+  _ranchTimers.main=setInterval(function(){_renderRanchField();},5000);
+}
+
+function _renderRanch(){
+  var d=_ranchData();
+  // Stats
+  var rh=$('ranchHarvests'); if(rh) rh.textContent=d.harvests||0;
+  var rc=$('ranchCoinsEarned'); if(rc) rc.textContent=d.coinsEarned||0;
+  var rp=$('ranchPlots'); if(rp) rp.textContent=d.plots||4;
+  // Seeds bar
+  var rs=$('ranchSeeds');
+  if(rs){
+    rs.innerHTML=RANCH_SEEDS.map(function(s){
+      var cnt=(d.seeds||{})[s.id]||0;
+      return '<div class="ranch-seed'+(s.id===_ranchSelSeed?' selected':'')+'" onclick="ranchSelectSeed(''+s.id+'')">'+'<span class="ranch-seed-emoji">'+s.emoji+'</span>'+
+        '<div class="ranch-seed-name">'+s.name+'</div>'+
+        '<div class="ranch-seed-count">×'+cnt+'</div>'+
+        '<div class="ranch-seed-time">'+(s.growTime/60000)+'min</div>'+
+        '</div>';
+    }).join('');
+  }
+  var sn=$('ranchSelSeed'); if(sn){
+    if(_ranchSelSeed){
+      var seed=RANCH_SEEDS.find(function(s){return s.id===_ranchSelSeed;});
+      sn.textContent=seed?seed.emoji+' '+seed.name:'—';
+    } else { sn.textContent='—'; }
+  }
+  _renderRanchField();
+  _renderRanchShop(d);
+}
+
+function _renderRanchField(){
+  var d=_ranchData();
+  var now=Date.now();
+  var rf=$('ranchField'); if(!rf) return;
+  var html='';
+  for(var i=0;i<RANCH_MAX_PLOTS;i++){
+    var isLocked=i>=(d.plots||4);
+    if(isLocked){
+      html+='<div class="ranch-plot locked"><span class="ranch-plot-lock">🔒</span></div>';
+      continue;
+    }
+    var plant=d.planted[i];
+    if(!plant){
+      html+='<div class="ranch-plot empty" onclick="ranchPlant('+i+')"><span class="ranch-plot-emoji">➕</span></div>';
+    } else {
+      var seed=RANCH_SEEDS.find(function(s){return s.id===plant.seedId;});
+      if(!seed){
+        html+='<div class="ranch-plot empty" onclick="ranchPlant('+i+')"><span class="ranch-plot-emoji">➕</span></div>';
+        continue;
+      }
+      var elapsed=now-plant.plantedAt;
+      var done=elapsed>=seed.growTime;
+      if(done){
+        html+='<div class="ranch-plot ready" onclick="ranchHarvest('+i+')">'+
+          '<span class="ranch-plot-emoji">'+seed.emoji+'</span>'+
+          '<div class="ranch-plot-timer">✅ KLART!</div>'+
+          '</div>';
+      } else {
+        var rem=seed.growTime-elapsed;
+        var mins=Math.floor(rem/60000);
+        var secs=Math.floor((rem%60000)/1000);
+        var timeStr=mins>0?mins+'m':secs+'s';
+        html+='<div class="ranch-plot growing">'+
+          '<span class="ranch-plot-emoji">'+seed.emoji+'</span>'+
+          '<div class="ranch-plot-timer">⏱ '+timeStr+'</div>'+
+          '</div>';
+      }
+    }
+  }
+  rf.innerHTML=html;
+}
+
+function _renderRanchShop(d){
+  var si=$('ranchShopItems'); if(!si) return;
+  si.innerHTML=RANCH_SEEDS.map(function(s){
+    return '<div class="ranch-shop-item">'+
+      '<span class="ranch-shop-emoji">'+s.emoji+'</span>'+
+      '<div class="ranch-shop-info">'+
+      '<div class="ranch-shop-name">'+s.name+' (×'+((d.seeds||{})[s.id]||0)+')</div>'+
+      '<div class="ranch-shop-desc">'+s.rarity+' · '+( s.growTime/60000)+'min · +'+s.reward.coins+' 💰 +'+s.reward.xp+' XP</div>'+
+      '</div>'+
+      '<button class="ranch-shop-buy" onclick="ranchBuySeed(''+s.id+'')">'+s.cost+' 💰</button>'+
+      '</div>';
+  }).join('');
+  // Unlock plot option
+  var d2=d;
+  if((d2.plots||4)<RANCH_MAX_PLOTS){
+    var unlockCost=(d2.plots||4)*200;
+    si.innerHTML+='<div class="ranch-shop-item">'+
+      '<span class="ranch-shop-emoji">🌱</span>'+
+      '<div class="ranch-shop-info">'+
+      '<div class="ranch-shop-name">Lås upp odlingsyta '+(((d2.plots||4)+1))+'</div>'+
+      '<div class="ranch-shop-desc">'+( d2.plots||4)+'/'+RANCH_MAX_PLOTS+' låsta upp</div>'+
+      '</div>'+
+      '<button class="ranch-shop-buy" onclick="ranchUnlockPlot()">'+unlockCost+' 💰</button>'+
+      '</div>';
+  }
+}
+
+function ranchToggleShop(){
+  _ranchShopOpen=!_ranchShopOpen;
+  var sd=$('ranchShopDiv'); if(sd) sd.style.display=_ranchShopOpen?'block':'none';
+  var sb=$('ranchShopBtn'); if(sb) sb.textContent=_ranchShopOpen?'✕ Stäng Affär':'🛒 Fröaffär';
+}
+
+function ranchSelectSeed(seedId){
+  var d=_ranchData();
+  var cnt=(d.seeds||{})[seedId]||0;
+  if(cnt<=0){showFloatBubble('Inga '+seedId+' frön!','buff');return;}
+  _ranchSelSeed=(_ranchSelSeed===seedId)?null:seedId;
+  _renderRanch();
+}
+
+function ranchPlant(plotIdx){
+  if(!_ranchSelSeed){showFloatBubble('Välj ett frö först!','buff');return;}
+  var d=_ranchData();
+  if(d.planted[plotIdx]){showFloatBubble('Redan planterat!','buff');return;}
+  var cnt=(d.seeds||{})[_ranchSelSeed]||0;
+  if(cnt<=0){showFloatBubble('Inga '+_ranchSelSeed+' kvar!','buff');return;}
+  var seed=RANCH_SEEDS.find(function(s){return s.id===_ranchSelSeed;});
+  d.seeds[_ranchSelSeed]--;
+  d.planted[plotIdx]={seedId:_ranchSelSeed,plantedAt:Date.now()};
+  _ranchSave(d);
+  showFloatBubble(seed.emoji+' Planterat '+seed.name+'!','buff');
+  _renderRanch();
+}
+
+function ranchHarvest(plotIdx){
+  var d=_ranchData();
+  var plant=d.planted[plotIdx];
+  if(!plant) return;
+  var seed=RANCH_SEEDS.find(function(s){return s.id===plant.seedId;});
+  if(!seed) return;
+  var elapsed=Date.now()-plant.plantedAt;
+  if(elapsed<seed.growTime){showFloatBubble('Inte klar ännu!','buff');return;}
+  d.planted[plotIdx]=null;
+  d.harvests=(d.harvests||0)+1;
+  d.coinsEarned=(d.coinsEarned||0)+seed.reward.coins;
+  _ranchSave(d);
+  gainCoins(seed.reward.coins);
+  gainXP(seed.reward.xp,'commerce');
+  showFloatBubble('🌾 Skördade '+seed.emoji+' '+seed.name+'! +'+seed.reward.coins+' 💰 +'+seed.reward.xp+' XP','buff');
+  _renderRanch();
+}
+
+function ranchBuySeed(seedId){
+  var seed=RANCH_SEEDS.find(function(s){return s.id===seedId;});
+  if(!seed) return;
+  var wallet=(typeof G!=='undefined'&&G.coins)||0;
+  if(wallet<seed.cost){showFloatBubble('Inte tillräckligt coins!','buff');return;}
+  if(typeof G!=='undefined'){G.coins-=seed.cost;if(typeof save==='function')save();}
+  var d=_ranchData();
+  d.seeds[seedId]=(d.seeds[seedId]||0)+1;
+  _ranchSave(d);
+  showFloatBubble(seed.emoji+' Köpte 1× '+seed.name+'!','buff');
+  _renderRanch();
+}
+
+function ranchUnlockPlot(){
+  var d=_ranchData();
+  if((d.plots||4)>=RANCH_MAX_PLOTS){showFloatBubble('Max antal odlingsytor!','buff');return;}
+  var cost=(d.plots||4)*200;
+  var wallet=(typeof G!=='undefined'&&G.coins)||0;
+  if(wallet<cost){showFloatBubble('Behöver '+cost+' 💰!','buff');return;}
+  if(typeof G!=='undefined'){G.coins-=cost;if(typeof save==='function')save();}
+  d.plots=(d.plots||4)+1;
+  _ranchSave(d);
+  showFloatBubble('🌱 Ny odlingsyta upplåst! Nu '+d.plots+' st','buff');
+  _renderRanch();
 }
 
 </script>
