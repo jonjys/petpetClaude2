@@ -1382,6 +1382,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ REACTION SPEED GAME ══ */
+.react-panel{position:fixed;inset:0;background:#060810;z-index:893;display:none;flex-direction:column;overflow:hidden}
+.react-panel.open{display:flex}
+.react-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a1020,#060610)}
+.react-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--teal),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.react-body{flex:1;display:flex;flex-direction:column;padding:16px 14px 28px;gap:14px}
+.react-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.react-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px;text-align:center}
+.react-stat-num{font:800 18px var(--ff-head);color:var(--teal)}
+.react-stat-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase}
+.react-arena{flex:1;min-height:240px;border-radius:20px;border:1.5px dashed rgba(255,255,255,.12);position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:background .3s}
+.react-arena.waiting{background:rgba(255,68,85,.06)}
+.react-arena.ready{background:rgba(0,255,136,.1);border-color:rgba(0,255,136,.4);animation:reactPulse .5s ease-in-out infinite}
+.react-arena.early{background:rgba(255,68,85,.2);border-color:rgba(255,68,85,.6)}
+.react-arena-msg{font:800 22px var(--ff-head);color:rgba(255,255,255,.4);text-align:center;pointer-events:none}
+.react-arena.ready .react-arena-msg{color:var(--green);font-size:32px}
+.react-target{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--green),var(--teal));position:absolute;transform:translate(-50%,-50%);box-shadow:0 0 30px var(--green),0 0 60px rgba(0,255,136,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:32px;animation:reactTargetPop .15s ease;display:none}
+.react-target.show{display:flex}
+@keyframes reactPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,.3)}50%{box-shadow:0 0 0 8px rgba(0,255,136,.0)}}
+@keyframes reactTargetPop{0%{transform:translate(-50%,-50%) scale(0)}60%{transform:translate(-50%,-50%) scale(1.15)}100%{transform:translate(-50%,-50%) scale(1)}}
+.react-result-ms{font:900 48px var(--ff-head);color:var(--green);text-align:center}
+.react-result-tier{font:700 18px var(--ff-head);text-align:center;margin-bottom:4px}
+.react-result-sub{font:500 12px var(--ff-body);color:rgba(255,255,255,.5);text-align:center}
+.react-rounds{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.react-round-dot{width:28px;height:6px;border-radius:3px;background:rgba(255,255,255,.12)}
+.react-round-dot.done{background:var(--green)}
+.react-round-dot.fail{background:var(--red)}
+.react-progress-label{font:600 11px var(--ff-body);color:rgba(255,255,255,.4);text-align:center}
+.react-start-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),var(--green));border:none;border-radius:14px;color:#000;font:800 14px var(--ff-head);cursor:pointer}
+.react-ranks{background:rgba(255,255,255,.03);border-radius:14px;padding:12px}
+.react-ranks-title{font:700 11px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.react-rank-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.react-rank-row:last-child{border:none}
+.react-rank-name{font:600 11px var(--ff-body);color:#fff}
+.react-rank-range{font:500 10px var(--ff-body);color:rgba(255,255,255,.4)}
+
 /* ══ SOCIAL FEED ══ */
 .feed-panel{position:fixed;inset:0;background:#080810;z-index:892;display:none;flex-direction:column;overflow:hidden}
 .feed-panel.open{display:flex}
@@ -7053,6 +7090,44 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- REACTION SPEED GAME -->
+<div class="react-panel" id="reactPanel">
+  <div class="react-header">
+    <div class="react-title">⚡ REAKTIONSHASTIGHET</div>
+    <button class="close-btn" onclick="closeReact()">✕</button>
+  </div>
+  <div class="react-body">
+    <div class="react-stats-row">
+      <div class="react-stat"><div class="react-stat-num" id="reactBest">—</div><div class="react-stat-label">Bäst (ms)</div></div>
+      <div class="react-stat"><div class="react-stat-num" id="reactAvg">—</div><div class="react-stat-label">Snitt</div></div>
+      <div class="react-stat"><div class="react-stat-num" id="reactRank">—</div><div class="react-stat-label">Rank</div></div>
+    </div>
+    <div class="react-arena" id="reactArena" onclick="reactTap()">
+      <div class="react-target" id="reactTarget">⚡</div>
+      <div class="react-arena-msg" id="reactArenaMsg">Tryck STARTA för att spela</div>
+    </div>
+    <div style="text-align:center">
+      <div class="react-result-ms" id="reactResultMs" style="display:none"></div>
+      <div class="react-result-tier" id="reactResultTier"></div>
+      <div class="react-result-sub" id="reactResultSub"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <div class="react-progress-label" id="reactProgLabel">Runda 0/5</div>
+      <div class="react-rounds" id="reactRoundDots"></div>
+    </div>
+    <div class="react-ranks">
+      <div class="react-ranks-title">Rankningar</div>
+      <div class="react-rank-row"><div class="react-rank-name">⚡ Pro Gamer</div><div class="react-rank-range">&lt;180ms</div></div>
+      <div class="react-rank-row"><div class="react-rank-name">🎮 Spelveteran</div><div class="react-rank-range">180–250ms</div></div>
+      <div class="react-rank-row"><div class="react-rank-name">👤 Människa</div><div class="react-rank-range">250–350ms</div></div>
+      <div class="react-rank-row"><div class="react-rank-name">🐢 Sömng</div><div class="react-rank-range">350–500ms</div></div>
+      <div class="react-rank-row"><div class="react-rank-name">🦥 Supertrög</div><div class="react-rank-range">&gt;500ms</div></div>
+    </div>
+    <button class="react-start-btn" id="reactStartBtn" onclick="startReact()">▶ STARTA</button>
+  </div>
+</div>
 
 <!-- SOCIAL FEED -->
 <div class="feed-panel" id="feedPanel">
@@ -20292,6 +20367,162 @@ function _renderFeed(){
       </div>
     </div>`;
   }).join('');
+}
+
+
+// REACTION SPEED GAME
+let _react = {running:false, round:0, total:5, times:[], waiting:false, showTimeout:null, startTime:0, earlyPenalty:false};
+const REACT_KEY = 'k0509_react_best';
+
+function openReact(){
+  $('reactPanel').classList.add('open');
+  _reactLoadBest();
+  _reactReset();
+}
+function closeReact(){
+  if(_react.showTimeout) clearTimeout(_react.showTimeout);
+  $('reactPanel').classList.remove('open');
+}
+
+function _reactGetTier(ms){
+  if(ms<180) return {name:'⚡ Pro Gamer',color:'var(--green)',xp:500,coins:250};
+  if(ms<250) return {name:'🎮 Spelveteran',color:'var(--teal)',xp:350,coins:175};
+  if(ms<350) return {name:'👤 Människa',color:'var(--blue)',xp:200,coins:100};
+  if(ms<500) return {name:'🐢 Sömng',color:'var(--orange)',xp:100,coins:50};
+  return {name:'🦥 Supertrög',color:'var(--red)',xp:50,coins:25};
+}
+
+function _reactLoadBest(){
+  let b=localStorage.getItem(REACT_KEY);
+  $('reactBest').textContent=b?b+'ms':'—';
+}
+
+function _reactReset(){
+  _react.running=false; _react.round=0; _react.times=[]; _react.waiting=false;
+  if(_react.showTimeout) clearTimeout(_react.showTimeout);
+  let arena=$('reactArena');
+  if(arena){ arena.className='react-arena'; }
+  let target=$('reactTarget'); if(target) target.classList.remove('show');
+  $('reactArenaMsg').style.display='block';
+  $('reactArenaMsg').textContent='Tryck STARTA för att spela';
+  $('reactResultMs').style.display='none';
+  $('reactResultTier').textContent='';
+  $('reactResultSub').textContent='';
+  $('reactProgLabel').textContent='Runda 0/'+_react.total;
+  $('reactRoundDots').innerHTML=Array(_react.total).fill('<div class="react-round-dot"></div>').join('');
+  $('reactStartBtn').style.display='block';
+  $('reactAvg').textContent='—';
+  $('reactRank').textContent='—';
+}
+
+function startReact(){
+  $('reactStartBtn').style.display='none';
+  _react.running=true; _react.round=0; _react.times=[];
+  _reactNextRound();
+}
+
+function _reactNextRound(){
+  if(_react.round>= _react.total){ _reactEnd(); return; }
+  _react.waiting=true; _react.earlyPenalty=false;
+  let arena=$('reactArena'); if(!arena) return;
+  let target=$('reactTarget'); if(!target) return;
+  arena.className='react-arena waiting';
+  target.classList.remove('show');
+  $('reactArenaMsg').style.display='block';
+  $('reactArenaMsg').textContent='Vänta...';
+  $('reactResultMs').style.display='none';
+  let delay=1500+Math.random()*3000;
+  _react.showTimeout=setTimeout(()=>{
+    _react.waiting=false;
+    // Random position in arena
+    let a=document.getElementById('reactArena');
+    let w=a?a.offsetWidth:300, h=a?a.offsetHeight:200;
+    let x=60+Math.random()*(w-120), y=60+Math.random()*(h-120);
+    target.style.left=x+'px'; target.style.top=y+'px';
+    target.classList.add('show');
+    arena.className='react-arena ready';
+    $('reactArenaMsg').style.display='none';
+    _react.startTime=performance.now();
+    // Auto-miss after 3s
+    _react.showTimeout=setTimeout(()=>{
+      target.classList.remove('show');
+      arena.className='react-arena';
+      _react.times.push(3000);
+      _reactShowRoundResult(3000, true);
+    },3000);
+  },delay);
+}
+
+function reactTap(){
+  if(!_react.running) return;
+  if(_react.waiting){
+    // Too early!
+    if(_react.showTimeout) clearTimeout(_react.showTimeout);
+    _react.earlyPenalty=true;
+    let arena=$('reactArena');
+    if(arena) arena.className='react-arena early';
+    $('reactArenaMsg').style.display='block';
+    $('reactArenaMsg').textContent='⚡ FÖR TIDIGT! +500ms';
+    _react.times.push(500);
+    setTimeout(()=>_reactShowRoundResult(500,false,true),600);
+    return;
+  }
+  let target=$('reactTarget');
+  if(!target||!target.classList.contains('show')) return;
+  if(_react.showTimeout) clearTimeout(_react.showTimeout);
+  let ms=Math.round(performance.now()-_react.startTime);
+  target.classList.remove('show');
+  _reactShowRoundResult(ms,false,false);
+}
+
+function _reactShowRoundResult(ms,missed,early){
+  _react.round++;
+  if(!early&&!missed) _react.times.push(ms);
+  $('reactProgLabel').textContent='Runda '+_react.round+'/'+_react.total;
+  // Update dots
+  let dots=$('reactRoundDots').querySelectorAll('.react-round-dot');
+  if(dots[_react.round-1]){
+    dots[_react.round-1].classList.add(missed||early?'fail':'done');
+  }
+  let msEl=$('reactResultMs');
+  if(!missed&&!early){
+    msEl.style.display='block';
+    msEl.textContent=ms+'ms';
+    let tier=_reactGetTier(ms);
+    $('reactResultTier').textContent=tier.name;
+    $('reactResultTier').style.color=tier.color;
+    $('reactResultSub').textContent=missed?'Missat!':early?'För tidigt!':'';
+    $('reactArenaMsg').style.display='none';
+  } else {
+    msEl.style.display='none';
+  }
+  setTimeout(()=>{
+    if(_react.round<_react.total) _reactNextRound();
+    else _reactEnd();
+  },800);
+}
+
+function _reactEnd(){
+  _react.running=false;
+  let validTimes=_react.times.filter(t=>t<3000);
+  let avg=validTimes.length?Math.round(validTimes.reduce((a,b)=>a+b,0)/validTimes.length):500;
+  let tier=_reactGetTier(avg);
+  $('reactAvg').textContent=avg+'ms';
+  $('reactRank').textContent=tier.name.split(' ').slice(1).join(' ');
+  gainXP(tier.xp,'reaction'); gainCoins(tier.coins);
+  $('reactResultMs').style.display='block';
+  $('reactResultMs').textContent='⌀ '+avg+'ms';
+  $('reactResultTier').textContent=tier.name+' — Genomsnitt';
+  $('reactResultTier').style.color=tier.color;
+  $('reactResultSub').textContent=`+${tier.xp} XP · +${tier.coins} Coins`;
+  $('reactArenaMsg').style.display='none';
+  // Save best
+  let prev=parseInt(localStorage.getItem(REACT_KEY)||'9999');
+  if(avg<prev){ localStorage.setItem(REACT_KEY,avg); _reactLoadBest(); }
+  logActivity('quest','Reaktionstest: '+avg+'ms — '+tier.name,{xp:tier.xp,coins:tier.coins});
+  $('reactStartBtn').style.display='block';
+  $('reactStartBtn').textContent='▶ SPELA IGEN';
+  if(typeof petMicroAnim==='function') petMicroAnim(avg<250?'bounce':'float');
 }
 
 </script>
