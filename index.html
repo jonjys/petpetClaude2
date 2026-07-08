@@ -1386,6 +1386,41 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET RACING ══ */
+.race-panel{position:fixed;inset:0;background:#020408;z-index:899;display:none;flex-direction:column;overflow:hidden}
+.race-panel.open{display:flex}
+.race-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0808,#050210)}
+.race-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8844);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.race-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px;display:flex;flex-direction:column;gap:12px}
+.race-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.race-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.race-stat-num{font:800 16px var(--ff-head);color:var(--gold)}
+.race-stat-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase}
+.race-track{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.race-lane{display:flex;align-items:center;gap:8px;position:relative}
+.race-lane-name{font:700 10px var(--ff-head);color:rgba(255,255,255,.6);width:60px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.race-lane-track{flex:1;height:28px;background:rgba(255,255,255,.05);border-radius:14px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.06)}
+.race-lane-runner{height:100%;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;border-radius:14px;min-width:32px;transition:width .2s ease-out;position:relative}
+.race-lane-runner.you{background:linear-gradient(90deg,rgba(0,255,136,.15),rgba(0,255,136,.4))}
+.race-lane-runner.npc{background:linear-gradient(90deg,rgba(255,136,68,.1),rgba(255,136,68,.3))}
+.race-lane-runner.npc2{background:linear-gradient(90deg,rgba(68,136,255,.1),rgba(68,136,255,.3))}
+.race-lane-runner.npc3{background:linear-gradient(90deg,rgba(170,102,255,.1),rgba(170,102,255,.3))}
+.race-lane-emoji{font-size:20px;position:absolute;right:-2px;top:50%;transform:translateY(-50%);filter:drop-shadow(0 0 6px rgba(255,255,255,.3))}
+.race-finish-line{position:absolute;right:0;top:0;width:3px;height:100%;background:rgba(255,255,255,.2)}
+.race-lane-pos{font:700 10px var(--ff-head);color:var(--gold);width:20px;flex-shrink:0;text-align:right}
+.race-boost-area{display:flex;flex-direction:column;align-items:center;gap:8px}
+.race-boost-btn{width:100%;padding:16px;background:linear-gradient(135deg,#ffcc00,#ff8844);border:none;border-radius:16px;color:#000;font:900 16px var(--ff-head);cursor:pointer;letter-spacing:1px;box-shadow:0 4px 20px rgba(255,204,0,.3);transition:transform .1s}
+.race-boost-btn:active{transform:scale(.96)}
+.race-boost-btn:disabled{opacity:.4;cursor:default;transform:none}
+.race-boosts-left{display:flex;gap:6px;justify-content:center}
+.race-boost-dot{width:12px;height:12px;border-radius:50%;background:var(--gold)}
+.race-boost-dot.used{background:rgba(255,255,255,.15)}
+.race-start-btn{width:100%;padding:14px;background:linear-gradient(135deg,#ffcc00,#ff8844);border:none;border-radius:14px;color:#000;font:800 14px var(--ff-head);cursor:pointer}
+.race-result-box{background:rgba(255,204,0,.07);border:1px solid rgba(255,204,0,.25);border-radius:16px;padding:16px;text-align:center}
+.race-npc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.race-npc-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:8px;text-align:center}
+
 /* ══ PET COMPANIONS ══ */
 .comp-panel{position:fixed;inset:0;background:#04060a;z-index:897;display:none;flex-direction:column;overflow:hidden}
 .comp-panel.open{display:flex}
@@ -5636,6 +5671,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFarm()"><div class="ddr-i">🌱</div>Mini Farm</div>
           <div class="ddr" onclick="cM();openDungeon()"><div class="ddr-i">⚔️</div>Daily Dungeon</div>
           <div class="ddr" onclick="cM();openComp()"><div class="ddr-i">🐾</div>Sällskapsdjur</div>
+          <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Pet Racing</div>
         </div>
       </div>
     </div>
@@ -7235,6 +7271,55 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET RACING -->
+<div class="race-panel" id="racePanel">
+  <div class="race-header">
+    <div class="race-title">🏁 PET RACING</div>
+    <button class="close-btn" onclick="closeRace()">✕</button>
+  </div>
+  <div class="race-scroll" id="raceScroll">
+    <div class="race-stats-row">
+      <div class="race-stat"><div class="race-stat-num" id="raceWins">0</div><div class="race-stat-label">Vinster</div></div>
+      <div class="race-stat"><div class="race-stat-num" id="raceRacesLeft">5</div><div class="race-stat-label">Race Kvar</div></div>
+      <div class="race-stat"><div class="race-stat-num" id="raceBestPos">—</div><div class="race-stat-label">Bästa Pos</div></div>
+    </div>
+    <div style="background:rgba(255,255,255,.03);border-radius:14px;padding:10px;margin-bottom:2px">
+      <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Dina Motståndare</div>
+      <div class="race-npc-row" id="raceNpcRow"></div>
+    </div>
+    <div class="race-track" id="raceTrack">
+      <div class="race-lane" id="raceLane0">
+        <div class="race-lane-name" id="raceName0">Du</div>
+        <div class="race-lane-track"><div class="race-lane-runner you" id="raceRunner0" style="width:8%"><span class="race-lane-emoji" id="raceEmoji0">🐾</span></div></div>
+        <div class="race-lane-pos" id="racePos0">—</div>
+      </div>
+      <div class="race-lane" id="raceLane1">
+        <div class="race-lane-name" id="raceName1">NPC 1</div>
+        <div class="race-lane-track"><div class="race-lane-runner npc" id="raceRunner1" style="width:8%"><span class="race-lane-emoji" id="raceEmoji1">🐶</span></div></div>
+        <div class="race-lane-pos" id="racePos1">—</div>
+      </div>
+      <div class="race-lane" id="raceLane2">
+        <div class="race-lane-name" id="raceName2">NPC 2</div>
+        <div class="race-lane-track"><div class="race-lane-runner npc2" id="raceRunner2" style="width:8%"><span class="race-lane-emoji" id="raceEmoji2">🐱</span></div></div>
+        <div class="race-lane-pos" id="racePos2">—</div>
+      </div>
+      <div class="race-lane" id="raceLane3">
+        <div class="race-lane-name" id="raceName3">NPC 3</div>
+        <div class="race-lane-track"><div class="race-lane-runner npc3" id="raceRunner3" style="width:8%"><span class="race-lane-emoji" id="raceEmoji3">🦊</span></div></div>
+        <div class="race-lane-pos" id="racePos3">—</div>
+      </div>
+    </div>
+    <div class="race-boost-area" id="raceBoostArea" style="display:none">
+      <button class="race-boost-btn" id="raceBoostBtn" onclick="raceBurst()">⚡ BOOST!</button>
+      <div class="race-boosts-left" id="raceBoostDots"></div>
+      <div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.3);text-align:center">Tryck BOOST för att accelerera ditt husdjur!</div>
+    </div>
+    <div id="raceResultBox"></div>
+    <button class="race-start-btn" id="raceStartBtn" onclick="startRace()">🏁 STARTA RACE</button>
+  </div>
+</div>
 
 <!-- PET COMPANIONS -->
 <div class="comp-panel" id="compPanel">
@@ -21248,6 +21333,176 @@ function openCompShop(){ showFloatBubble('Välj ett sällskapsdjur i listan och 
 
 // Auto-accrue on load
 setTimeout(()=>{ _compAccrueIdle(); },5000);
+
+
+// PET RACING SYSTEM
+const RACE_NPCS = [
+  {name:'SpeedyRex', emoji:'🐶', speed:1.8},
+  {name:'LunaFox',   emoji:'🦊', speed:2.0},
+  {name:'BlazeWolf', emoji:'🐺', speed:2.2},
+  {name:'SilverCat', emoji:'🐱', speed:1.6},
+  {name:'FlashBird', emoji:'🐦', speed:2.5},
+  {name:'IronToad',  emoji:'🐸', speed:1.4},
+];
+const RACE_KEY = 'k0509_race';
+const RACE_MAX_BOOSTS = 5;
+const RACE_DIST = 100;
+let _race = {active:false, pos:[8,8,8,8], fin:[], tick:null, boosts:RACE_MAX_BOOSTS, npcs:[], racesLeft:5, wins:0, bestPos:null};
+
+function openRace(){
+  $('racePanel').classList.add('open');
+  _raceLoadStats();
+  _raceSetupNPCs();
+  _renderRaceNPCRow();
+}
+function closeRace(){
+  if(_race.tick) clearInterval(_race.tick);
+  $('racePanel').classList.remove('open');
+}
+
+function _raceLoadStats(){
+  let s = JSON.parse(localStorage.getItem(RACE_KEY)||'{}');
+  let today = getTodayKey();
+  if(s.date !== today){ s = {date:today, racesLeft:5, wins:0, bestPos:null}; localStorage.setItem(RACE_KEY, JSON.stringify(s)); }
+  _race.racesLeft = s.racesLeft||5;
+  _race.wins = s.wins||0;
+  _race.bestPos = s.bestPos||null;
+  let el=$('raceWins'); if(el) el.textContent=_race.wins;
+  let el2=$('raceRacesLeft'); if(el2) el2.textContent=_race.racesLeft;
+  let el3=$('raceBestPos'); if(el3) el3.textContent=_race.bestPos?'#'+_race.bestPos:'—';
+  let sb=$('raceStartBtn');
+  if(sb){ sb.style.display=_race.racesLeft>0?'block':'none'; }
+  if(_race.racesLeft<=0){
+    let rb=$('raceResultBox');
+    if(rb) rb.innerHTML='<div style="text-align:center;padding:12px;font:600 12px var(--ff-body);color:rgba(255,255,255,.4)">Inga fler race kvar idag. Kom tillbaka imorgon!</div>';
+  }
+}
+
+function _raceSaveStats(){
+  let s={date:getTodayKey(), racesLeft:_race.racesLeft, wins:_race.wins, bestPos:_race.bestPos};
+  localStorage.setItem(RACE_KEY, JSON.stringify(s));
+  let el=$('raceWins'); if(el) el.textContent=_race.wins;
+  let el2=$('raceRacesLeft'); if(el2) el2.textContent=_race.racesLeft;
+  let el3=$('raceBestPos'); if(el3) el3.textContent=_race.bestPos?'#'+_race.bestPos:'—';
+}
+
+function _raceSetupNPCs(){
+  let shuffled=[...RACE_NPCS].sort(()=>Math.random()-.5).slice(0,3);
+  _race.npcs=shuffled;
+  for(let i=0;i<3;i++){
+    let n=shuffled[i];
+    let nm=document.getElementById('raceName'+(i+1)); if(nm) nm.textContent=n.name;
+    let em=document.getElementById('raceEmoji'+(i+1)); if(em) em.textContent=n.emoji;
+  }
+  let you=document.getElementById('raceEmoji0');
+  if(you) you.textContent=(typeof G!=='undefined'&&G.petEmoji)||'🐾';
+  let yn=document.getElementById('raceName0');
+  if(yn) yn.textContent=(typeof G!=='undefined'&&G.petName)||'Du';
+}
+
+function _renderRaceNPCRow(){
+  let row=$('raceNpcRow'); if(!row) return;
+  row.innerHTML=_race.npcs.map(n=>`<div class="race-npc-card">
+    <div style="font-size:24px">${n.emoji}</div>
+    <div style="font:700 10px var(--ff-head);color:#fff">${n.name}</div>
+    <div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.4)">Speed: ${n.speed.toFixed(1)}</div>
+  </div>`).join('');
+}
+
+function startRace(){
+  if(_race.racesLeft<=0||_race.active) return;
+  _race.active=true; _race.pos=[8,8,8,8]; _race.fin=[]; _race.boosts=RACE_MAX_BOOSTS;
+  let sb=$('raceStartBtn'); if(sb) sb.style.display='none';
+  let ba=$('raceBoostArea'); if(ba) ba.style.display='flex';
+  let rb=$('raceResultBox'); if(rb) rb.innerHTML='';
+  _raceUpdateDots();
+  for(let i=0;i<4;i++){
+    let r=document.getElementById('raceRunner'+i); if(r) r.style.width='8%';
+    let p=document.getElementById('racePos'+i); if(p) p.textContent='';
+  }
+  let bb=$('raceBoostBtn'); if(bb){bb.disabled=false;bb.textContent='⚡ BOOST!';}
+  if(_race.tick) clearInterval(_race.tick);
+  _race.tick=setInterval(_raceTick, 200);
+}
+
+function _raceUpdateDots(){
+  let dots=$('raceBoostDots'); if(!dots) return;
+  dots.innerHTML=Array(RACE_MAX_BOOSTS).fill('').map((_,i)=>`<div class="race-boost-dot ${i>=_race.boosts?'used':''}"></div>`).join('');
+}
+
+function raceBurst(){
+  if(!_race.active||_race.boosts<=0) return;
+  _race.boosts--;
+  let petLvl=(typeof G!=='undefined'&&G.level)||1;
+  let boost=petLvl*0.5+4+Math.random()*3;
+  _race.pos[0]=Math.min(RACE_DIST,_race.pos[0]+boost);
+  _raceUpdateDots();
+  let bb=$('raceBoostBtn');
+  if(bb&&_race.boosts<=0){bb.disabled=true;bb.textContent='Slut';}
+  _raceRenderPositions();
+}
+
+function _raceTick(){
+  if(!_race.active) return;
+  // Advance NPCs
+  let petLvl=(typeof G!=='undefined'&&G.level)||1;
+  let autoSpd = petLvl*0.015+0.3; // auto advance for player too
+  _race.pos[0]=Math.min(RACE_DIST,_race.pos[0]+autoSpd);
+  for(let i=0;i<3;i++){
+    let spd=_race.npcs[i].speed*0.4*(0.8+Math.random()*0.4);
+    _race.pos[i+1]=Math.min(RACE_DIST,_race.pos[i+1]+spd);
+  }
+  // Check finishers
+  for(let i=0;i<4;i++){
+    if(_race.pos[i]>=RACE_DIST&&!_race.fin.includes(i)){
+      _race.fin.push(i);
+    }
+  }
+  _raceRenderPositions();
+  if(_race.fin.length===4){ clearInterval(_race.tick); _raceEnd(); }
+}
+
+function _raceRenderPositions(){
+  for(let i=0;i<4;i++){
+    let r=document.getElementById('raceRunner'+i);
+    if(r) r.style.width=Math.min(100,Math.max(8,_race.pos[i]))+'%';
+    let p=document.getElementById('racePos'+i);
+    let finPos=_race.fin.indexOf(i);
+    if(p) p.textContent=finPos>=0?'#'+(finPos+1):'';
+  }
+}
+
+function _raceEnd(){
+  _race.active=false;
+  let ba=$('raceBoostArea'); if(ba) ba.style.display='none';
+  let myPos=_race.fin.indexOf(0)+1;
+  if(myPos<=0) myPos=4;
+  _race.racesLeft=Math.max(0,_race.racesLeft-1);
+  if(myPos===1) _race.wins++;
+  if(!_race.bestPos||myPos<_race.bestPos) _race.bestPos=myPos;
+  _raceSaveStats();
+  let rewards=[
+    {xp:600,coins:300,msg:'🥇 1:A PLATS! LEGENDARISK!',color:'var(--gold)'},
+    {xp:350,coins:175,msg:'🥈 2:A PLATS! Bra jobbat!',color:'#c0c0c0'},
+    {xp:200,coins:100,msg:'🥉 3:E PLATS! Brons!',color:'#cd7f32'},
+    {xp:80,coins:40,  msg:'4:E PLATS. Fortsätt öva!',color:'rgba(255,255,255,.5)'},
+  ];
+  let rew=rewards[myPos-1]||rewards[3];
+  gainXP(rew.xp,'racing'); gainCoins(rew.coins);
+  let rb=$('raceResultBox');
+  if(rb) rb.innerHTML=`<div class="race-result-box">
+    <div style="font:900 22px var(--ff-head);color:${rew.color};margin-bottom:4px">${rew.msg}</div>
+    <div style="font:700 14px var(--ff-body);color:var(--gold)">+${rew.xp} XP · +${rew.coins} Coins</div>
+    <div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.4);margin-top:6px">${_race.racesLeft} race kvar idag</div>
+  </div>`;
+  let sb=$('raceStartBtn');
+  if(sb){ sb.style.display=_race.racesLeft>0?'block':'none'; if(_race.racesLeft>0) sb.textContent='🏁 RACE IGEN'; }
+  logActivity('battle','Pet Racing: Slutade #'+myPos,{xp:rew.xp,coins:rew.coins});
+  if(myPos===1&&typeof petMicroAnim==='function') petMicroAnim('bounce');
+  showFloatBubble(rew.msg,'buff');
+  _raceSetupNPCs();
+  _renderRaceNPCRow();
+}
 
 </script>
 
