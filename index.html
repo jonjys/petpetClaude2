@@ -1415,6 +1415,49 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TAROT ══ */
+.tarot-panel{position:fixed;inset:0;background:#050208;z-index:928;display:none;flex-direction:column;overflow:hidden}
+.tarot-panel.open{display:flex}
+.tarot-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0c0618,#050208)}
+.tarot-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc88ff,#ff88cc,#ffcc88);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.tarot-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.tarot-hero{background:radial-gradient(ellipse at 50% 0%,rgba(200,136,255,.1),transparent 70%),linear-gradient(180deg,#0c0618,#050208);border:1.5px solid rgba(200,136,255,.2);border-radius:22px;padding:24px 14px;text-align:center;margin-bottom:14px}
+.tarot-hero-label{font:700 10px var(--ff-head);color:rgba(200,136,255,.6);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+.tarot-spread{display:flex;gap:10px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.tarot-card-wrap{flex:0 0 auto;text-align:center}
+.tarot-position-label{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:6px}
+.tarot-card{width:72px;height:110px;border-radius:10px;border:2px solid rgba(200,136,255,.3);background:linear-gradient(135deg,#1a0a2e,#0a0418);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .4s;position:relative;overflow:hidden;margin:0 auto}
+.tarot-card.face-down{cursor:pointer}
+.tarot-card.face-down:active{transform:scale(.95)}
+.tarot-card.revealed{cursor:default;border-color:rgba(200,136,255,.6);background:linear-gradient(135deg,#200a3e,#100420)}
+.tarot-card.flipping{animation:tarotFlip .6s ease-in-out}
+@keyframes tarotFlip{0%{transform:rotateY(0)}50%{transform:rotateY(90deg)}100%{transform:rotateY(0)}}
+.tarot-card-back{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;background:radial-gradient(circle,rgba(200,136,255,.1),transparent)}
+.tarot-card-front{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px}
+.tarot-card-roman{font:700 9px var(--ff-body);color:rgba(200,136,255,.7);display:block;margin-bottom:2px}
+.tarot-card-emoji{font-size:26px;display:block;margin-bottom:3px}
+.tarot-card-name{font:700 7px var(--ff-head);color:#fff;text-align:center;line-height:1.2}
+.tarot-reveal-btn{background:linear-gradient(135deg,#6622aa,#aa44ff);border:none;border-radius:14px;color:#fff;font:800 13px var(--ff-head);padding:12px 28px;cursor:pointer;transition:all .15s}
+.tarot-reveal-btn:active{transform:scale(.97)}
+.tarot-reveal-btn:disabled{opacity:.4;cursor:default}
+.tarot-reading-result{margin-top:14px}
+.tarot-result-card{background:rgba(200,136,255,.06);border:1px solid rgba(200,136,255,.15);border-radius:16px;padding:14px;margin-bottom:8px}
+.tarot-result-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.tarot-result-emoji{font-size:28px}
+.tarot-result-info{flex:1}
+.tarot-result-pos{font:600 9px var(--ff-body);color:rgba(200,136,255,.6);text-transform:uppercase;letter-spacing:1px}
+.tarot-result-name{font:900 14px var(--ff-head);color:#fff}
+.tarot-result-roman{font:600 10px var(--ff-body);color:rgba(255,255,255,.35)}
+.tarot-result-buff{font:700 10px var(--ff-head);color:#cc88ff;margin-bottom:4px}
+.tarot-result-flavor{font:500 10px var(--ff-body);color:rgba(255,255,255,.5);font-style:italic;line-height:1.6}
+.tarot-history{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:12px;margin-bottom:14px}
+.tarot-history-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.tarot-hist-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font:500 9px var(--ff-body)}
+.tarot-hist-row:last-child{border:none}
+.tarot-hist-date{color:rgba(255,255,255,.3);min-width:60px}
+.tarot-hist-cards{color:rgba(200,136,255,.8);flex:1}
+
 /* ══ PET BANK ══ */
 .bank-panel{position:fixed;inset:0;background:#030506;z-index:927;display:none;flex-direction:column;overflow:hidden}
 .bank-panel.open{display:flex}
@@ -6838,6 +6881,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCafe()"><div class="ddr-i">☕</div>Pet Café</div>
           <div class="ddr" onclick="cM();openWx()"><div class="ddr-i">🌤️</div>Väderorakel</div>
           <div class="ddr" onclick="cM();openBank()"><div class="ddr-i">🏦</div>Pet Bank</div>
+          <div class="ddr" onclick="cM();openTarot()"><div class="ddr-i">🃏</div>Tarot</div>
         </div>
       </div>
     </div>
@@ -7991,6 +8035,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- TAROT -->
+<div class="tarot-panel" id="tarotPanel">
+  <div class="tarot-header">
+    <div class="tarot-title">🃏 TAROT</div>
+    <button class="close-btn" onclick="closeTarot()">✕</button>
+  </div>
+  <div class="tarot-scroll">
+    <div class="tarot-hero">
+      <div class="tarot-hero-label">✨ Dagens Kortläsning</div>
+      <div class="tarot-spread" id="tarotSpread">
+        <div class="tarot-card-wrap"><div class="tarot-position-label">Förflutet</div><div class="tarot-card face-down" id="tarotCard0" onclick="tarotReveal(0)"><div class="tarot-card-back">🌟</div></div></div>
+        <div class="tarot-card-wrap"><div class="tarot-position-label">Nu</div><div class="tarot-card face-down" id="tarotCard1" onclick="tarotReveal(1)"><div class="tarot-card-back">🌟</div></div></div>
+        <div class="tarot-card-wrap"><div class="tarot-position-label">Framtid</div><div class="tarot-card face-down" id="tarotCard2" onclick="tarotReveal(2)"><div class="tarot-card-back">🌟</div></div></div>
+      </div>
+      <button class="tarot-reveal-btn" id="tarotRevealBtn" onclick="tarotRevealAll()">🃏 Avslöja alla kort</button>
+      <div class="tarot-reading-result" id="tarotReadingResult" style="display:none"></div>
+    </div>
+    <div class="tarot-history">
+      <div class="tarot-history-title">📜 Tidigare läsningar</div>
+      <div id="tarotHistoryList"><div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Inga tidigare läsningar</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- PET BANK -->
 <div class="bank-panel" id="bankPanel">
@@ -27855,6 +27924,206 @@ function bankWithdraw(accId){
   if(inputEl) inputEl.value='';
   showFloatBubble('🏦 Tagit ut '+amt+' 💰!','buff');
   _renderBank();
+}
+
+
+// TAROT READING SYSTEM
+const TAROT_CARDS = [
+  {id:0,  roman:'0',    emoji:'🎪', name:'Dårens Resa',    buff:'+20% Utforskning (24h)',   flavor:'Varje resa börjar med ett djärvt steg in i det okända.',      xp:100, coins:50,  buffKey:'k0509_tarot_explore'},
+  {id:1,  roman:'I',   emoji:'🔮', name:'Magikern',       buff:'+25% Alkemi (24h)',        flavor:'Viljan är det redskap som omvandlar drömmar till verklighet.',  xp:100, coins:0,   buffKey:'k0509_tarot_alch'},
+  {id:2,  roman:'II',  emoji:'🌙', name:'Överstepräst.',  buff:'+15% All XP (24h)',        flavor:'I stillheten bor de djupaste hemligheterna.',                  xp:200, coins:0,   buffKey:'k0509_tarot_xp'},
+  {id:3,  roman:'III', emoji:'🌸', name:'Kejsarinnan',    buff:'+30% Farming (24h)',       flavor:'Naturens rikedom blomstrar för den som ger kärlek.',           xp:150, coins:100, buffKey:'k0509_tarot_farm'},
+  {id:4,  roman:'IV',  emoji:'🏰', name:'Kejsaren',       buff:'+20% Strid-ATK (24h)',    flavor:'Auktoritet och beslutsamhet öppnar alla dörrar.',              xp:150, coins:0,   buffKey:'k0509_tarot_battle'},
+  {id:5,  roman:'V',   emoji:'📚', name:'Hierofanten',    buff:'+25% Akademi (24h)',       flavor:'Visdom ärvs men förståelse förtjänas.',                       xp:150, coins:0,   buffKey:'k0509_tarot_acad'},
+  {id:6,  roman:'VI',  emoji:'💖', name:'Älskarna',       buff:'+200 Coins direkt',        flavor:'Det hjärtat väljer brinner klarast av allt.',                  xp:100, coins:200, buffKey:null},
+  {id:7,  roman:'VII', emoji:'🏆', name:'Vagnen',         buff:'+25% Racing (24h)',        flavor:'Sejren tillhör de som aldrig stannar.',                        xp:100, coins:0,   buffKey:'k0509_tarot_race'},
+  {id:8,  roman:'VIII',emoji:'💪', name:'Styrkan',        buff:'+30% Strid (24h)',         flavor:'Den sanna styrkan bor inuti, inte i muskler.',                 xp:150, coins:0,   buffKey:'k0509_tarot_str'},
+  {id:9,  roman:'IX',  emoji:'🕯️', name:'Eremiten',       buff:'+15% All (24h)',           flavor:'I ensamheten finner man sig själv och hela universum.',        xp:200, coins:50,  buffKey:'k0509_tarot_all'},
+  {id:10, roman:'X',   emoji:'⚙️', name:'Lyckohjulet',    buff:'Slumpmässig Megavinst!',   flavor:'Hjulet snurrar — din tur är lika nära som din förlust.',       xp:300, coins:300, buffKey:null},
+  {id:11, roman:'XI',  emoji:'⚖️', name:'Rättvisan',      buff:'+150 XP + 150 Coins',      flavor:'Universum håller alltid balansen — ge och ta.',                xp:150, coins:150, buffKey:null},
+  {id:12, roman:'XII', emoji:'🙃', name:'Den Hängde',     buff:'+500 XP (vänta lönar sig)',flavor:'Att stanna upp ger ett perspektiv ingenting annat kan ge.',    xp:500, coins:0,   buffKey:null},
+  {id:13, roman:'XIII',emoji:'💀', name:'Döden',          buff:'+3 Lucky Dice gratis!',    flavor:'Varje slut bär frön till ett nytt och häpnadsväckande börjar.',xp:100, coins:0,   buffKey:'k0509_tarot_dice'},
+  {id:14, roman:'XIV', emoji:'🌊', name:'Måttfullheten',  buff:'+20% Matlagning (24h)',    flavor:'Balans är konsten att låta allt flöda i rätt stund.',          xp:100, coins:0,   buffKey:'k0509_tarot_cook'},
+  {id:15, roman:'XV',  emoji:'😈', name:'Djävulen',       buff:'2x Coins från Strid (24h)',flavor:'Begärets kedjor är gjorda av guld men håller lika starkt.',   xp:200, coins:0,   buffKey:'k0509_tarot_devil'},
+  {id:16, roman:'XVI', emoji:'⚡', name:'Tornet',         buff:'+1000 XP! (chock!)',       flavor:'Det som faller ner måste byggas om — starkare än förr.',      xp:1000,coins:0,   buffKey:null},
+  {id:17, roman:'XVII',emoji:'⭐', name:'Stjärnan',       buff:'+400 XP + Hopp',           flavor:'I mörkaste natten lyser stjärnan allra klarast.',              xp:400, coins:100, buffKey:null},
+  {id:18, roman:'XVIII',emoji:'🌛',name:'Månen',          buff:'+30% Moon Oracle (24h)',   flavor:'Månskenet avslöjar sanningar som solen aldrig kan se.',        xp:150, coins:0,   buffKey:'k0509_tarot_moon'},
+  {id:19, roman:'XIX', emoji:'☀️', name:'Solen',          buff:'+35% All dagtid (24h)',    flavor:'Solens strålande närvaro förvandlar allt till guld.',          xp:200, coins:200, buffKey:'k0509_tarot_sun'},
+  {id:20, roman:'XX',  emoji:'🎺', name:'Domens Dag',     buff:'+1500 XP! Uppvaknande!',   flavor:'Universum kallar. Är du redo att svara?',                     xp:1500,coins:0,   buffKey:null},
+  {id:21, roman:'XXI', emoji:'🌍', name:'Världen',        buff:'+50% ALL (24h)! Perfekt!', flavor:'Du har nått höjden av din resa. Allt är möjligt.',             xp:500, coins:500, buffKey:'k0509_tarot_world'},
+];
+const TAROT_POSITIONS = ['Förflutet','Nu','Framtid'];
+const TAROT_KEY = 'k0509_tarot';
+let _tarotRevealed = [false,false,false];
+let _tarotRevealAnim = false;
+
+function _tarotLoad(){try{return JSON.parse(localStorage.getItem(TAROT_KEY)||'null');}catch(e){return null;}}
+function _tarotSave(d){localStorage.setItem(TAROT_KEY,JSON.stringify(d));}
+
+function _tarotDayData(){
+  let d=_tarotLoad();
+  let today=getTodayKey();
+  if(d&&d.date===today) return d;
+  let prev=d||{};
+  let seed=parseInt(today.replace(/-/g,''));
+  function sr(){seed=(seed*1664525+1013904223)&0xffffffff;return Math.abs(seed);}
+  let used=[];
+  let cards=[];
+  for(let i=0;i<3;i++){
+    let idx;
+    do{idx=sr()%TAROT_CARDS.length;}while(used.includes(idx));
+    used.push(idx);
+    cards.push(idx);
+  }
+  d={date:today,cards,claimed:[],history:prev.history||[]};
+  _tarotSave(d);
+  return d;
+}
+
+function openTarot(){
+  $('tarotPanel').classList.add('open');
+  _tarotRevealed=[false,false,false];
+  _tarotRevealAnim=false;
+  let d=_tarotDayData();
+  // Restore already revealed cards from today
+  if(d.claimed&&d.claimed.length>0){
+    _tarotRevealed=[true,true,true];
+  }
+  _renderTarot();
+}
+function closeTarot(){ $('tarotPanel').classList.remove('open'); }
+
+function _renderTarot(){
+  let d=_tarotDayData();
+  let allClaimed=d.claimed&&d.claimed.length===3;
+  // Cards
+  for(let i=0;i<3;i++){
+    let cardEl=document.getElementById('tarotCard'+i);
+    let card=TAROT_CARDS[d.cards[i]];
+    if(!cardEl||!card) continue;
+    if(_tarotRevealed[i]){
+      cardEl.className='tarot-card revealed';
+      cardEl.onclick=null;
+      cardEl.innerHTML='<div class="tarot-card-front">'+
+        '<span class="tarot-card-roman">'+card.roman+'</span>'+
+        '<span class="tarot-card-emoji">'+card.emoji+'</span>'+
+        '<span class="tarot-card-name">'+card.name+'</span>'+
+        '</div>';
+    } else {
+      cardEl.className='tarot-card face-down';
+      cardEl.onclick=function(){tarotReveal(i);};
+      cardEl.innerHTML='<div class="tarot-card-back">🌟</div>';
+    }
+  }
+  // Button
+  let btn=$('tarotRevealBtn');
+  if(btn){
+    let allRev=_tarotRevealed.every(Boolean);
+    btn.disabled=allRev;
+    btn.textContent=allRev?'✅ Alla kort avslöjades!':'🃏 Avslöja alla kort';
+  }
+  // Result
+  let rr=$('tarotReadingResult');
+  if(rr){
+    let allRev=_tarotRevealed.every(Boolean);
+    if(allRev){
+      rr.style.display='block';
+      rr.innerHTML=d.cards.map(function(cardIdx,i){
+        let card=TAROT_CARDS[cardIdx];
+        let claimed=d.claimed&&d.claimed.includes(i);
+        return '<div class="tarot-result-card">'+
+          '<div class="tarot-result-top">'+
+          '<span class="tarot-result-emoji">'+card.emoji+'</span>'+
+          '<div class="tarot-result-info">'+
+          '<div class="tarot-result-pos">'+TAROT_POSITIONS[i]+'</div>'+
+          '<div class="tarot-result-name">'+card.name+'</div>'+
+          '<div class="tarot-result-roman">Arkanum '+card.roman+'</div>'+
+          '</div>'+
+          (claimed?'<div style="font:700 10px var(--ff-head);color:var(--green)">✅ Hämtad</div>':
+            '<button onclick="tarotClaim('+i+')" style="background:rgba(200,136,255,.2);border:1px solid rgba(200,136,255,.4);border-radius:10px;color:#cc88ff;font:800 10px var(--ff-head);padding:6px 12px;cursor:pointer">Hämta</button>')+
+          '</div>'+
+          '<div class="tarot-result-buff">'+card.buff+'</div>'+
+          '<div class="tarot-result-flavor">"+card.flavor+"</div>'+
+          '</div>';
+      }).join('');
+    } else {
+      rr.style.display='none';
+    }
+  }
+  // History
+  let hl=$('tarotHistoryList');
+  if(hl){
+    let hist=(d.history||[]).slice(-7).reverse();
+    if(hist.length===0) hl.innerHTML='<div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Inga tidigare läsningar</div>';
+    else hl.innerHTML=hist.map(function(h){
+      var names=h.cards.map(function(ci){return TAROT_CARDS[ci]?TAROT_CARDS[ci].emoji+''+TAROT_CARDS[ci].name:'?';}).join(' · ');
+      return '<div class="tarot-hist-row"><span class="tarot-hist-date">'+h.date+'</span><span class="tarot-hist-cards">'+names+'</span></div>';
+    }).join('');
+  }
+}
+
+function tarotReveal(idx){
+  if(_tarotRevealed[idx]||_tarotRevealAnim) return;
+  let cardEl=document.getElementById('tarotCard'+idx);
+  if(cardEl) cardEl.classList.add('flipping');
+  _tarotRevealAnim=true;
+  setTimeout(function(){
+    _tarotRevealed[idx]=true;
+    _tarotRevealAnim=false;
+    _renderTarot();
+  },600);
+}
+
+function tarotRevealAll(){
+  if(_tarotRevealAnim) return;
+  let d=_tarotDayData();
+  // Add today to history
+  let today=getTodayKey();
+  if(!d.history) d.history=[];
+  if(!d.history.find(function(h){return h.date===today;})){
+    d.history.push({date:today,cards:d.cards});
+    if(d.history.length>30) d.history=d.history.slice(-30);
+  }
+  _tarotSave(d);
+  let delay=0;
+  for(let i=0;i<3;i++){
+    if(!_tarotRevealed[i]){
+      setTimeout(function(idx){
+        _tarotRevealed[idx]=true;
+        _renderTarot();
+      }.bind(null,i),delay);
+      delay+=400;
+    }
+  }
+  if(delay===0) _renderTarot();
+}
+
+function tarotClaim(posIdx){
+  let d=_tarotDayData();
+  if(!d.claimed) d.claimed=[];
+  if(d.claimed.includes(posIdx)) return;
+  d.claimed.push(posIdx);
+  let card=TAROT_CARDS[d.cards[posIdx]];
+  if(!card) return;
+  gainXP(card.xp,'tarot');
+  if(card.coins>0) gainCoins(card.coins);
+  // Apply buff if any
+  if(card.buffKey){
+    let buffDur=24*3600000;
+    localStorage.setItem(card.buffKey,String(Date.now()+buffDur));
+  }
+  // Special effects
+  if(card.id===10){gainCoins(500);gainXP(500,'tarot');}
+  if(card.id===13){
+    let dk=_tarotLoad()||{};
+    let dice=JSON.parse(localStorage.getItem('k0509_dice')||'null')||{};
+    dice.date=getTodayKey();
+    dice.rollsLeft=(dice.rollsLeft||0)+3;
+    localStorage.setItem('k0509_dice',JSON.stringify(dice));
+  }
+  _tarotSave(d);
+  showFloatBubble(card.emoji+' '+card.name+'! '+card.buff,'buff');
+  _renderTarot();
 }
 
 </script>
