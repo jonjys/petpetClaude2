@@ -1427,6 +1427,64 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET DUNGEON CRAWLER ══ */
+.dng-panel{position:fixed;inset:0;background:#060208;z-index:940;display:none;flex-direction:column;overflow:hidden}
+.dng-panel.open{display:flex}
+.dng-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0214,#060208)}
+.dng-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4455,#ff8844,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.dng-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.dng-map{background:linear-gradient(180deg,#0c0418,#060208);border:1.5px solid rgba(255,68,85,.2);border-radius:20px;padding:16px;margin-bottom:12px;min-height:160px;position:relative;overflow:hidden}
+.dng-floor-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,68,85,.12);border:1px solid rgba(255,68,85,.3);border-radius:8px;padding:4px 10px;font:700 11px var(--ff-head);color:#ff6677;margin-bottom:10px}
+.dng-room-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:10px}
+.dng-room{width:100%;aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;border:1.5px solid transparent;cursor:pointer;transition:all .15s}
+.dng-room.hidden{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.05)}
+.dng-room.revealed{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)}
+.dng-room.current{background:rgba(68,170,255,.15);border-color:rgba(68,170,255,.5);box-shadow:0 0 12px rgba(68,170,255,.3)}
+.dng-room.cleared{background:rgba(0,255,136,.06);border-color:rgba(0,255,136,.2)}
+.dng-room.boss-room{background:rgba(255,68,85,.08);border-color:rgba(255,68,85,.3)}
+.dng-room.locked{opacity:.4;cursor:default}
+.dng-explore-btn{width:100%;background:linear-gradient(135deg,#300008,#ff4455);border:none;border-radius:14px;color:#fff;font:900 14px var(--ff-head);padding:13px;cursor:pointer;transition:all .15s;margin-bottom:6px}
+.dng-explore-btn:active{transform:scale(.97)}
+.dng-explore-btn:disabled{opacity:.4;cursor:default}
+/* Battle screen */
+.dng-battle{background:linear-gradient(180deg,#100018,#060208);border:1.5px solid rgba(170,68,255,.25);border-radius:20px;padding:16px;margin-bottom:12px}
+.dng-battle-arena{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;min-height:100px}
+.dng-hero-side,.dng-enemy-side{display:flex;flex-direction:column;align-items:center;gap:6px;width:44%}
+.dng-combatant-sprite{font-size:52px;filter:drop-shadow(0 0 10px rgba(170,68,255,.4));transition:all .2s}
+.dng-combatant-sprite.shake{animation:dngShake .3s}
+.dng-combatant-sprite.dead{opacity:.3;filter:grayscale(1)}
+@keyframes dngShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.dng-hp-bar{width:100%;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}
+.dng-hp-fill{height:100%;border-radius:4px;transition:width .4s;background:linear-gradient(90deg,#ff4455,#ff8844)}
+.dng-hp-fill.hero{background:linear-gradient(90deg,#00ff88,#44aaff)}
+.dng-hp-label{font:600 9px var(--ff-body);color:rgba(255,255,255,.5)}
+.dng-vs{font:900 18px var(--ff-head);color:rgba(255,255,255,.3)}
+.dng-log{background:rgba(0,0,0,.3);border-radius:10px;padding:8px 10px;min-height:40px;margin-bottom:12px;font:500 10px var(--ff-body);color:rgba(255,255,255,.6);max-height:60px;overflow-y:auto;line-height:1.6}
+.dng-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dng-act{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:10px 6px;cursor:pointer;text-align:center;transition:all .15s}
+.dng-act:active{transform:scale(.95)}
+.dng-act-emoji{font-size:24px;display:block;margin-bottom:2px}
+.dng-act-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.8)}
+.dng-act-cd{font:500 7px var(--ff-body);color:rgba(255,170,0,.6)}
+/* Loot popup */
+.dng-loot{background:linear-gradient(135deg,rgba(255,204,0,.08),rgba(255,136,68,.06));border:1.5px solid rgba(255,204,0,.3);border-radius:18px;padding:14px;margin-bottom:12px;text-align:center}
+.dng-loot-title{font:900 13px var(--ff-head);color:#ffcc00;margin-bottom:8px}
+.dng-loot-items{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.dng-loot-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px 12px;text-align:center}
+.dng-loot-item.rare{border-color:rgba(170,68,255,.5);background:rgba(170,68,255,.08)}
+.dng-loot-item.epic{border-color:rgba(255,68,85,.5);background:rgba(255,68,85,.08)}
+.dng-loot-emoji{font-size:22px;display:block}
+.dng-loot-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.7)}
+.dng-loot-val{font:800 10px var(--ff-head);color:#ffcc00}
+.dng-continue-btn{background:linear-gradient(135deg,#1a0030,#aa44ff);border:none;border-radius:12px;color:#fff;font:800 12px var(--ff-head);padding:10px 24px;cursor:pointer}
+/* Dungeon stats */
+.dng-stats-row{display:flex;gap:8px;margin-bottom:12px}
+.dng-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.dng-stat-val{font:800 14px var(--ff-head);color:#ff8844}
+.dng-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.dng-regen-btn{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:rgba(255,255,255,.5);font:700 11px var(--ff-head);padding:9px;cursor:pointer;margin-bottom:10px}
+
 /* ══ PET EVOLUTION TREE ══ */
 .evtree-panel{position:fixed;inset:0;background:#030108;z-index:939;display:none;flex-direction:column;overflow:hidden}
 .evtree-panel.open{display:flex}
@@ -7395,6 +7453,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMed()"><div class="ddr-i">🧘</div>Meditation</div>
           <div class="ddr" onclick="cM();openAuction()"><div class="ddr-i">🔨</div>Auktionshus</div>
           <div class="ddr" onclick="cM();openEvtree()"><div class="ddr-i">🌳</div>Evo Träd</div>
+          <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Dungeon</div>
         </div>
       </div>
     </div>
@@ -8560,6 +8619,26 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET DUNGEON CRAWLER -->
+<div class="dng-panel" id="dngPanel">
+  <div class="dng-header">
+    <div class="dng-title">⚔️ DUNGEON</div>
+    <button class="close-btn" onclick="closeDng()">✕</button>
+  </div>
+  <div class="dng-scroll">
+    <div id="dngMapZone"></div>
+    <div id="dngBattleZone" style="display:none"></div>
+    <div id="dngLootZone" style="display:none"></div>
+    <div class="dng-stats-row">
+      <div class="dng-stat"><div class="dng-stat-val" id="dngDeepest">1</div><div class="dng-stat-label">Djupaste Våning</div></div>
+      <div class="dng-stat"><div class="dng-stat-val" id="dngKills">0</div><div class="dng-stat-label">Fiender Besegrade</div></div>
+      <div class="dng-stat"><div class="dng-stat-val" id="dngTotalRuns">0</div><div class="dng-stat-label">Räder</div></div>
+    </div>
+    <button class="dng-regen-btn" onclick="dngNewRun()">🔄 Ny Körning (Återskapa)</button>
+  </div>
+</div>
 
 <!-- PET EVOLUTION TREE -->
 <div class="evtree-panel" id="evtreePanel">
@@ -30992,6 +31071,408 @@ gainXP=function(n,stat){
     }
   }
 };
+
+
+// PET DUNGEON CRAWLER
+const DNG_KEY = 'k0509_dng';
+const DNG_ENEMIES = [
+  {id:'slime',    emoji:'🟢', name:'Slim',         hp:30,  atk:8,  def:2,  xp:40,  coins:20},
+  {id:'goblin',   emoji:'👺', name:'Goblin',        hp:50,  atk:14, def:4,  xp:70,  coins:35},
+  {id:'skeleton', emoji:'💀', name:'Skelett',       hp:70,  atk:18, def:6,  xp:100, coins:50},
+  {id:'wolf',     emoji:'🐺', name:'Ulv',           hp:90,  atk:22, def:5,  xp:130, coins:65},
+  {id:'demon',    emoji:'😈', name:'Demon',         hp:120, atk:28, def:10, xp:180, coins:90},
+  {id:'dragon',   emoji:'🐉', name:'Drak',          hp:200, atk:40, def:15, xp:300, coins:150},
+  {id:'necro',    emoji:'🧟', name:'Nekromant',     hp:150, atk:35, def:8,  xp:250, coins:120},
+  {id:'phoenix',  emoji:'🦅', name:'Eldfeniksen',   hp:180, atk:45, def:12, xp:350, coins:175},
+];
+const DNG_BOSSES = [
+  {id:'bone_king',  emoji:'👑', name:'Bone King',   hp:300, atk:50, def:20, xp:600,  coins:300, kc:1},
+  {id:'lava_lord',  emoji:'🌋', name:'Lava Lord',   hp:500, atk:70, def:30, xp:1000, coins:500, kc:2},
+  {id:'void_god',   emoji:'🌑', name:'Void God',    hp:800, atk:100,def:45, xp:2000, coins:1000,kc:5},
+];
+const DNG_LOOT_TABLE = [
+  {emoji:'🪙', name:'Guld Stash',   rarity:'common', type:'coins', val:100},
+  {emoji:'💎', name:'Ädelsten',     rarity:'common', type:'coins', val:200},
+  {emoji:'⚗️', name:'Eliksir',      rarity:'common', type:'heal',  val:50},
+  {emoji:'📜', name:'Formel',       rarity:'rare',   type:'xp',    val:300},
+  {emoji:'🔮', name:'Magioorb',     rarity:'rare',   type:'xp',    val:500},
+  {emoji:'🗝️', name:'Guldnyckel',  rarity:'epic',   type:'kc',    val:1},
+  {emoji:'⚔️', name:'Eld Svärd',   rarity:'epic',   type:'coins', val:800},
+  {emoji:'🌟', name:'Stjärn Essens',rarity:'epic',   type:'xp',    val:1000},
+];
+
+let _dng = null;  // active run state
+
+function _dngLoad(){try{return JSON.parse(localStorage.getItem(DNG_KEY)||'null');}catch(e){return null;}}
+function _dngSave(d){localStorage.setItem(DNG_KEY,JSON.stringify(d));}
+function _dngPersist(){
+  if(_dng){
+    var p=_dngLoad()||{deepest:1,kills:0,runs:0};
+    if(_dng.floor>p.deepest) p.deepest=_dng.floor;
+    p.kills=p.kills||0;
+    p.runs=p.runs||0;
+    _dngSave(p);
+  }
+}
+function _dngStats(){return _dngLoad()||{deepest:1,kills:0,runs:0};}
+
+function openDng(){
+  $('dngPanel').classList.add('open');
+  _renderDngStats();
+  if(!_dng) _dngInitRun();
+  else _renderDngMap();
+}
+function closeDng(){
+  $('dngPanel').classList.remove('open');
+}
+
+function _dngInitRun(){
+  var stats=_dngStats();
+  stats.runs=(stats.runs||0)+1;
+  _dngSave(stats);
+  _dng={
+    floor:1,
+    rooms:_dngGenFloor(1),
+    currentRoom:null,
+    heroHP:_dngMaxHP(),
+    heroMaxHP:_dngMaxHP(),
+    battle:null,
+    skillCDs:{},
+  };
+  _renderDngMap();
+  _renderDngStats();
+}
+
+function _dngMaxHP(){
+  // scales with level
+  var lv=G.lv||1;
+  return 100+lv*10;
+}
+
+function _dngGenFloor(floor){
+  // 5x3 grid = 15 rooms, some hidden
+  var roomCount=5+Math.min(floor,10);
+  var rooms=[];
+  for(var i=0;i<15;i++){
+    var type='empty';
+    var pct=Math.random();
+    if(i===14) type='boss';
+    else if(pct<0.5) type='enemy';
+    else if(pct<0.65) type='loot';
+    else if(pct<0.75) type='heal';
+    else type='empty';
+    rooms.push({
+      idx:i,
+      type:type,
+      revealed:i===0,
+      cleared:false,
+      adjacent:_dngAdjacent(i),
+    });
+  }
+  rooms[0].type='start';
+  rooms[0].cleared=true;
+  return rooms;
+}
+
+function _dngAdjacent(idx){
+  var adj=[];
+  var row=Math.floor(idx/5);
+  var col=idx%5;
+  if(col>0) adj.push(idx-1);
+  if(col<4) adj.push(idx+1);
+  if(row>0) adj.push(idx-5);
+  if(row<2) adj.push(idx+5);
+  return adj;
+}
+
+function _dngRoomEmoji(room){
+  if(!room.revealed) return '❓';
+  if(room.type==='start') return '🚪';
+  if(room.type==='boss') return room.cleared?'✅':'👑';
+  if(room.type==='enemy') return room.cleared?'✅':'⚔️';
+  if(room.type==='loot') return room.cleared?'✅':'📦';
+  if(room.type==='heal') return room.cleared?'✅':'💊';
+  return '▫️';
+}
+
+function _renderDngMap(){
+  $('dngBattleZone').style.display='none';
+  $('dngLootZone').style.display='none';
+  var zone=$('dngMapZone');
+  if(!zone) return;
+  var r=_dng;
+  var hpPct=Math.max(0,Math.round(r.heroHP/r.heroMaxHP*100));
+  var grid='';
+  for(var i=0;i<15;i++){
+    var room=r.rooms[i];
+    var cls='dng-room';
+    if(!room.revealed) cls+=' hidden';
+    else if(room.cleared) cls+=' cleared';
+    else if(room.type==='boss') cls+=' boss-room';
+    else cls+=' revealed';
+    if(r.currentRoom===i) cls+=' current';
+    var clickable=room.revealed && !room.cleared && (r.currentRoom===null || r.rooms[r.currentRoom].adjacent.indexOf(i)>=0 || r.currentRoom===i);
+    var onclick=clickable?'onclick="dngEnterRoom('+i+')"':'';
+    if(room.cleared && r.rooms[r.currentRoom||0].adjacent.indexOf(i)>=0 && !room.cleared) clickable=true;
+    var isReachable=r.currentRoom===null||(r.rooms[r.currentRoom]&&r.rooms[r.currentRoom].adjacent.indexOf(i)>=0)||i===r.currentRoom;
+    if(!room.revealed||!isReachable) onclick='';
+    if(room.revealed && !room.cleared && isReachable) onclick='onclick="dngEnterRoom('+i+')"';
+    else if(room.cleared && r.currentRoom!==i) onclick='';
+    grid+='<div class="'+cls+'" '+onclick+'>'+_dngRoomEmoji(room)+'</div>';
+  }
+  zone.innerHTML=
+    '<div class="dng-map">'+
+    '<div class="dng-floor-badge">🏚️ Våning '+r.floor+' &nbsp;|&nbsp; ❤️ '+r.heroHP+'/'+r.heroMaxHP+'</div>'+
+    '<div style="height:6px;background:rgba(255,255,255,.08);border-radius:3px;margin-bottom:10px"><div style="height:100%;width:'+hpPct+'%;background:linear-gradient(90deg,#ff4455,#ff8844);border-radius:3px;transition:width .4s"></div></div>'+
+    '<div class="dng-room-grid">'+grid+'</div>'+
+    '</div>'+
+    '<button class="dng-explore-btn" onclick="dngAutoExplore()">⚡ Auto-Utforska</button>';
+  _renderDngStats();
+}
+
+function dngEnterRoom(idx){
+  if(!_dng) return;
+  var room=_dng.rooms[idx];
+  if(!room||room.cleared) return;
+  _dng.currentRoom=idx;
+  // Reveal adjacent
+  room.adjacent.forEach(function(a){_dng.rooms[a].revealed=true;});
+  if(room.type==='enemy'||room.type==='boss'){
+    _dngStartBattle(room);
+  } else if(room.type==='loot'){
+    room.cleared=true;
+    _dngDropLoot(false);
+  } else if(room.type==='heal'){
+    room.cleared=true;
+    var heal=Math.round(_dng.heroMaxHP*0.4);
+    _dng.heroHP=Math.min(_dng.heroMaxHP,_dng.heroHP+heal);
+    showFloatBubble('💊 Helande källa! +'+heal+' HP','buff');
+    _renderDngMap();
+  } else {
+    room.cleared=true;
+    _renderDngMap();
+  }
+}
+
+function dngAutoExplore(){
+  if(!_dng) return;
+  // Find nearest uncleaned revealed room
+  var rooms=_dng.rooms;
+  var cur=_dng.currentRoom||0;
+  var target=null;
+  for(var i=0;i<rooms.length;i++){
+    if(rooms[i].revealed&&!rooms[i].cleared){
+      target=i;break;
+    }
+  }
+  if(target!==null) dngEnterRoom(target);
+  else showFloatBubble('Inga fler rum att utforska!','info');
+}
+
+// ── BATTLE ──
+function _dngStartBattle(room){
+  var floor=_dng.floor;
+  var isBoss=(room.type==='boss');
+  var enemy;
+  if(isBoss){
+    var bossIdx=Math.min(floor-1,DNG_BOSSES.length-1);
+    enemy=Object.assign({},DNG_BOSSES[Math.floor((floor-1)/3)%DNG_BOSSES.length]);
+  } else {
+    var pool=DNG_ENEMIES.filter(function(e,i){return i<=Math.min(floor+1,DNG_ENEMIES.length-1);});
+    enemy=Object.assign({},pool[Math.floor(Math.random()*pool.length)]);
+  }
+  // Scale with floor
+  enemy.hp=Math.round(enemy.hp*(1+floor*0.15));
+  enemy.atk=Math.round(enemy.atk*(1+floor*0.1));
+  enemy.maxHP=enemy.hp;
+  _dng.battle={enemy:enemy,isBoss:isBoss,log:[],heroMana:100,cd:{magic:0,heal:0,defend:0}};
+  _renderDngBattle();
+}
+
+function _renderDngBattle(){
+  var b=_dng.battle;
+  var r=_dng;
+  if(!b) return;
+  $('dngMapZone').style.display='none';
+  $('dngBattleZone').style.display='block';
+  $('dngLootZone').style.display='none';
+  var hpPct=Math.max(0,b.enemy.hp/b.enemy.maxHP*100);
+  var heroHpPct=Math.max(0,r.heroHP/r.heroMaxHP*100);
+  var logHtml=b.log.slice(-3).map(function(l){return '<div>'+l+'</div>';}).join('');
+  var cdMagic=b.cd.magic>0?'('+b.cd.magic+' CD)':'';
+  var cdHeal=b.cd.heal>0?'('+b.cd.heal+' CD)':'';
+  $('dngBattleZone').innerHTML=
+    '<div class="dng-battle">'+
+    '<div class="dng-battle-arena">'+
+    '<div class="dng-hero-side">'+
+    '<div class="dng-combatant-sprite" id="dngHeroSprite">'+(G.petEmoji||'🐣')+'</div>'+
+    '<div class="dng-hp-label">'+(G.name||'Husdjur')+' HP: '+r.heroHP+'/'+r.heroMaxHP+'</div>'+
+    '<div class="dng-hp-bar"><div class="dng-hp-fill hero" style="width:'+heroHpPct+'%"></div></div>'+
+    '</div>'+
+    '<div class="dng-vs">VS</div>'+
+    '<div class="dng-enemy-side">'+
+    '<div class="dng-combatant-sprite" id="dngEnemySprite">'+b.enemy.emoji+'</div>'+
+    '<div class="dng-hp-label">'+b.enemy.name+' HP: '+b.enemy.hp+'/'+b.enemy.maxHP+'</div>'+
+    '<div class="dng-hp-bar"><div class="dng-hp-fill" style="width:'+hpPct+'%"></div></div>'+
+    '</div>'+
+    '</div>'+
+    '<div class="dng-log" id="dngLog">'+logHtml+'</div>'+
+    '<div class="dng-actions">'+
+    '<div class="dng-act" onclick="dngAct('attack')"><span class="dng-act-emoji">⚔️</span><div class="dng-act-name">Attackera</div><div class="dng-act-cd">Alltid tillgänglig</div></div>'+
+    '<div class="dng-act" onclick="dngAct('magic')" '+(b.cd.magic>0?'style="opacity:.5"':'')+'>'+
+    '<span class="dng-act-emoji">🔮</span><div class="dng-act-name">Magi</div><div class="dng-act-cd">'+cdMagic+'</div></div>'+
+    '<div class="dng-act" onclick="dngAct('defend')"><span class="dng-act-emoji">🛡️</span><div class="dng-act-name">Försvara</div><div class="dng-act-cd">'+(b.cd.defend>0?'('+b.cd.defend+' CD)':'')+'</div></div>'+
+    '<div class="dng-act" onclick="dngAct('heal')" '+(b.cd.heal>0?'style="opacity:.5"':'')+'>'+
+    '<span class="dng-act-emoji">💊</span><div class="dng-act-name">Hela</div><div class="dng-act-cd">'+cdHeal+'</div></div>'+
+    '</div>'+
+    '</div>';
+}
+
+function dngAct(type){
+  var b=_dng.battle;
+  var r=_dng;
+  if(!b||b.ended) return;
+  // Tick CDs
+  Object.keys(b.cd).forEach(function(k){if(b.cd[k]>0)b.cd[k]--;});
+  var heroAtk=20+(G.lv||1)*3;
+  var heroDef=5+(G.lv||1)*1;
+  var dmgToEnemy=0,dmgToHero=0,log='';
+  if(type==='attack'){
+    dmgToEnemy=Math.max(1,heroAtk-Math.floor(b.enemy.def*0.3)+Math.floor(Math.random()*8));
+    log='⚔️ Du anfaller för '+dmgToEnemy+' skada!';
+  } else if(type==='magic'){
+    if(b.cd.magic>0){log='🔮 Magi på cooldown!'; b.cd.magic++;}
+    else {dmgToEnemy=Math.round(heroAtk*1.8+Math.random()*15); b.cd.magic=3; log='🔮 Magianfall: '+dmgToEnemy+' skada!';}
+  } else if(type==='defend'){
+    heroDef*=3;
+    log='🛡️ Du försvarar! Reducerat skada denna runda.';
+    b.cd.defend=1;
+  } else if(type==='heal'){
+    if(b.cd.heal>0){log='💊 Helande på cooldown!'; b.cd.heal++;}
+    else {var healAmt=Math.round(r.heroMaxHP*0.25); r.heroHP=Math.min(r.heroMaxHP,r.heroHP+healAmt); b.cd.heal=4; log='💊 Du helade dig för '+healAmt+' HP!';}
+  }
+  // Enemy attacks back
+  if(dmgToEnemy>0) b.enemy.hp=Math.max(0,b.enemy.hp-dmgToEnemy);
+  dmgToHero=Math.max(0,b.enemy.atk-heroDef+Math.floor(Math.random()*6));
+  if(type!=='defend'||b.cd.defend===0) r.heroHP=Math.max(0,r.heroHP-dmgToHero);
+  if(dmgToHero>0) log+='
+'+b.enemy.emoji+' '+b.enemy.name+' anfaller för '+dmgToHero+'!';
+  b.log.push(log);
+  if(b.enemy.hp<=0){
+    _dngWinBattle();
+  } else if(r.heroHP<=0){
+    _dngLoseBattle();
+  } else {
+    _renderDngBattle();
+  }
+}
+
+function _dngWinBattle(){
+  var b=_dng.battle;
+  var r=_dng;
+  var room=r.rooms[r.currentRoom];
+  room.cleared=true;
+  b.ended=true;
+  // Stats
+  var stats=_dngStats();
+  stats.kills=(stats.kills||0)+1;
+  if(r.floor>stats.deepest) stats.deepest=r.floor;
+  _dngSave(stats);
+  gainXP(b.enemy.xp,'action');
+  gainCoins(b.enemy.coins);
+  if(b.isBoss&&b.enemy.kc){gainKC(b.enemy.kc);}
+  showFloatBubble('💀 '+b.enemy.name+' besegrad! +'+b.enemy.coins+'💰','buff');
+  _dngDropLoot(b.isBoss);
+}
+
+function _dngLoseBattle(){
+  _dng.battle.ended=true;
+  showFloatBubble('☠️ Du dog i dungeons... kör igen!','debuff');
+  $('dngBattleZone').innerHTML=
+    '<div class="dng-battle" style="text-align:center;padding:24px">'+
+    '<div style="font-size:48px;margin-bottom:12px">☠️</div>'+
+    '<div style="font:900 18px var(--ff-head);color:#ff4455;margin-bottom:8px">Du Besegrad!</div>'+
+    '<div style="font:500 11px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:16px">Kör en ny raider för att försöka igen</div>'+
+    '<button class="dng-explore-btn" onclick="dngNewRun()" style="max-width:180px;margin:0 auto">🔄 Ny Körning</button>'+
+    '</div>';
+}
+
+function _dngDropLoot(isBoss){
+  var floor=_dng.floor;
+  var count=isBoss?3:(Math.random()<0.5?2:1);
+  var items=[];
+  for(var i=0;i<count;i++){
+    var pool=DNG_LOOT_TABLE.filter(function(l){
+      if(isBoss) return l.rarity!=='common';
+      return Math.random()<(l.rarity==='common'?0.6:l.rarity==='rare'?0.3:0.1);
+    });
+    if(pool.length===0) pool=DNG_LOOT_TABLE.slice(0,3);
+    items.push(pool[Math.floor(Math.random()*pool.length)]);
+  }
+  // Apply loot
+  items.forEach(function(item){
+    if(item.type==='coins') gainCoins(item.val);
+    else if(item.type==='xp') gainXP(item.val,'action');
+    else if(item.type==='kc') gainKC(item.val);
+    else if(item.type==='heal') {_dng.heroHP=Math.min(_dng.heroMaxHP,_dng.heroHP+item.val);}
+  });
+  $('dngMapZone').style.display='none';
+  $('dngBattleZone').style.display='none';
+  $('dngLootZone').style.display='block';
+  $('dngLootZone').innerHTML=
+    '<div class="dng-loot">'+
+    '<div class="dng-loot-title">🎁 Byte från '+(_dng.battle?_dng.battle.enemy.name:'Rummet')+'</div>'+
+    '<div class="dng-loot-items">'+
+    items.map(function(item){
+      return '<div class="dng-loot-item '+item.rarity+'">'+
+        '<span class="dng-loot-emoji">'+item.emoji+'</span>'+
+        '<div class="dng-loot-name">'+item.name+'</div>'+
+        '<div class="dng-loot-val">'+
+        (item.type==='kc'?item.val+'KC':item.type==='heal'?'+'+item.val+'HP':'+'+item.val+(item.type==='xp'?'XP':'💰'))+
+        '</div></div>';
+    }).join('')+
+    '</div>'+
+    '<button class="dng-continue-btn" onclick="_dngAfterLoot()">✨ Fortsätt</button>'+
+    '</div>';
+}
+
+function _dngAfterLoot(){
+  $('dngLootZone').style.display='none';
+  $('dngMapZone').style.display='block';
+  _dng.battle=null;
+  // Check if boss room was cleared → advance floor
+  var bossRoom=_dng.rooms[14];
+  if(bossRoom.cleared && _dng.rooms.every(function(r){return r.revealed;})){
+    _dng.floor++;
+    _dng.rooms=_dngGenFloor(_dng.floor);
+    _dng.currentRoom=null;
+    showFloatBubble('🏆 Våning '+_dng.floor+' uppnådd!','buff');
+    var stats=_dngStats();
+    if(_dng.floor>stats.deepest){stats.deepest=_dng.floor;_dngSave(stats);}
+  } else if(bossRoom && bossRoom.cleared){
+    // Boss beaten but not all rooms explored — still advance
+    _dng.floor++;
+    _dng.rooms=_dngGenFloor(_dng.floor);
+    _dng.currentRoom=null;
+    showFloatBubble('🏆 Boss besegrad! Våning '+_dng.floor+'!','buff');
+    var stats2=_dngStats();
+    if(_dng.floor>stats2.deepest){stats2.deepest=_dng.floor;_dngSave(stats2);}
+  }
+  _renderDngMap();
+}
+
+function dngNewRun(){
+  _dng=null;
+  _dngInitRun();
+  _renderDngStats();
+}
+
+function _renderDngStats(){
+  var stats=_dngStats();
+  var dd=$('dngDeepest'); if(dd) dd.textContent=stats.deepest||1;
+  var dk=$('dngKills'); if(dk) dk.textContent=stats.kills||0;
+  var dr=$('dngTotalRuns'); if(dr) dr.textContent=stats.runs||0;
+}
 
 </script>
 
