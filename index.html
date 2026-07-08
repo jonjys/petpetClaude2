@@ -1363,6 +1363,26 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ COMBO SURGE SYSTEM ══ */
+.combo-meter-wrap{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--sab) + 88px);z-index:9000;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:4px;opacity:0;transition:opacity .3s}
+.combo-meter-wrap.visible{opacity:1}
+.combo-label{font:800 11px var(--ff-head);letter-spacing:2px;color:rgba(255,255,255,.7);text-transform:uppercase}
+.combo-bar-bg{width:140px;height:8px;background:rgba(255,255,255,.12);border-radius:4px;overflow:hidden;box-shadow:0 0 8px rgba(0,0,0,.5)}
+.combo-bar-fill{height:100%;border-radius:4px;transition:width .15s ease-out;background:linear-gradient(90deg,var(--green),var(--teal))}
+.combo-mult{font:800 18px var(--ff-head);color:var(--green);text-shadow:0 0 12px var(--green);transition:transform .1s}
+.combo-mult.bump{transform:scale(1.4)}
+.combo-surge-fx{position:fixed;inset:0;z-index:9000;pointer-events:none;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.combo-surge-fx.show{opacity:1}
+.combo-surge-ring{width:220px;height:220px;border-radius:50%;border:3px solid var(--green);box-shadow:0 0 40px var(--green),0 0 80px rgba(0,255,136,.4);animation:surgeRing .6s ease-out forwards}
+.combo-surge-text{position:absolute;font:900 32px var(--ff-head);color:var(--green);text-shadow:0 0 20px var(--green),0 0 40px var(--green);letter-spacing:2px;animation:surgeText .8s ease-out forwards}
+@keyframes surgeRing{0%{transform:scale(.5);opacity:1}100%{transform:scale(2.5);opacity:0}}
+@keyframes surgeText{0%{transform:scale(.6) translateY(20px);opacity:0}30%{transform:scale(1.2) translateY(-10px);opacity:1}70%{transform:scale(1) translateY(-10px);opacity:1}100%{transform:scale(.9) translateY(-30px);opacity:0}}
+@keyframes comboGlow{0%,100%{box-shadow:0 0 8px var(--green)}50%{box-shadow:0 0 20px var(--green),0 0 40px rgba(0,255,136,.4)}}
+.combo-bar-fill.full{animation:comboGlow .5s ease-in-out infinite}
+.combo-surge-boost-badge{position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:9001;background:linear-gradient(135deg,var(--green),var(--teal));color:#000;font:800 13px var(--ff-head);padding:6px 18px;border-radius:20px;letter-spacing:1px;opacity:0;pointer-events:none;transition:opacity .3s}
+.combo-surge-boost-badge.show{opacity:1}
+
 /* ══ DAILY QUEST BOARD ══ */
 .dqb-panel{position:fixed;inset:0;background:#0a0a0f;z-index:874;display:none;flex-direction:column;overflow:hidden}
 .dqb-panel.open{display:flex}
@@ -6365,6 +6385,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+
+
+<!-- COMBO SURGE METER -->
+<div class="combo-meter-wrap" id="comboMeterWrap">
+  <div class="combo-label">COMBO</div>
+  <div class="combo-bar-bg"><div class="combo-bar-fill" id="comboBarFill" style="width:0%"></div></div>
+  <div class="combo-mult" id="comboMult">x1</div>
+</div>
+<div class="combo-surge-fx" id="comboSurgeFx">
+  <div class="combo-surge-ring"></div>
+  <div class="combo-surge-text">SURGE!</div>
+</div>
+<div class="combo-surge-boost-badge" id="comboBoostBadge">⚡ x10 SURGE AKTIV</div>
 
 <!-- DAILY QUEST BOARD -->
 <div class="dqb-panel" id="dqbPanel">
@@ -16913,6 +16946,105 @@ if(typeof gainBond === 'function'){
     _dqbProgress('bond', n);
   };
 }
+
+
+// COMBO SURGE SYSTEM
+let _combo = 0;            // 0-100
+let _comboDecayTimer = null;
+let _surgeActive = false;
+let _surgeTaps = 0;
+let _surgeTimeout = null;
+const COMBO_MAX = 100;
+const COMBO_PER_TAP = 8;
+const COMBO_DECAY_RATE = 4;   // per tick
+const COMBO_DECAY_INTERVAL = 400;
+const SURGE_DURATION_MS = 12000;
+const SURGE_TAP_MULT = 10;
+
+function _comboDecay(){
+  if(_surgeActive) return;
+  if(_combo <= 0){ _combo=0; _updateComboUI(); _comboMeterWrapHide(); return; }
+  _combo = Math.max(0, _combo - COMBO_DECAY_RATE);
+  _updateComboUI();
+  if(_combo <= 0) _comboMeterWrapHide();
+}
+
+function _comboMeterWrapHide(){
+  let w = document.getElementById('comboMeterWrap');
+  if(w) w.classList.remove('visible');
+}
+
+function _updateComboUI(){
+  let fill = document.getElementById('comboBarFill');
+  let mult = document.getElementById('comboMult');
+  let wrap = document.getElementById('comboMeterWrap');
+  if(!fill||!mult||!wrap) return;
+  let pct = Math.min(100, Math.round(_combo/COMBO_MAX*100));
+  fill.style.width = pct+'%';
+  fill.classList.toggle('full', pct>=100);
+  let m = _surgeActive ? 'SURGE!' : ('x'+Math.max(1, Math.floor(1 + (_combo/COMBO_MAX)*4)));
+  mult.textContent = m;
+  mult.style.color = _surgeActive ? 'var(--gold)' : (pct>=75?'var(--orange)':pct>=50?'var(--teal)':'var(--green)');
+  if(_surgeActive) mult.style.textShadow = '0 0 12px var(--gold)';
+  else mult.style.textShadow = '0 0 12px var(--green)';
+}
+
+function _triggerSurge(){
+  if(_surgeActive) return;
+  _surgeActive = true;
+  _surgeTaps = 0;
+  // Visual FX
+  let fx = document.getElementById('comboSurgeFx');
+  if(fx){
+    fx.classList.add('show');
+    setTimeout(()=>fx.classList.remove('show'), 900);
+  }
+  let badge = document.getElementById('comboBoostBadge');
+  if(badge) badge.classList.add('show');
+  if(typeof petMicroAnim === 'function') petMicroAnim('bounce');
+  showFloatBubble('⚡ COMBO SURGE! x10 coins!','buff');
+  if(typeof _dqbProgress === 'function') _dqbProgress('combo_surge');
+  if(_surgeTimeout) clearTimeout(_surgeTimeout);
+  _surgeTimeout = setTimeout(()=>{
+    _surgeActive = false; _combo = 0; _surgeTaps = 0;
+    let b = document.getElementById('comboBoostBadge');
+    if(b) b.classList.remove('show');
+    _updateComboUI();
+    _comboMeterWrapHide();
+  }, SURGE_DURATION_MS);
+  _updateComboUI();
+}
+
+function _addCombo(){
+  if(_surgeActive) return;
+  if(_comboDecayTimer) clearInterval(_comboDecayTimer);
+  let w = document.getElementById('comboMeterWrap');
+  if(w) w.classList.add('visible');
+  _combo = Math.min(COMBO_MAX, _combo + COMBO_PER_TAP);
+  let mult = document.getElementById('comboMult');
+  if(mult){ mult.classList.remove('bump'); void mult.offsetWidth; mult.classList.add('bump'); setTimeout(()=>mult.classList.remove('bump'),150); }
+  _updateComboUI();
+  if(_combo >= COMBO_MAX) { setTimeout(_triggerSurge, 100); return; }
+  _comboDecayTimer = setInterval(_comboDecay, COMBO_DECAY_INTERVAL);
+}
+
+// Wrap petTap to inject combo logic
+const _origPetTapCombo = petTap;
+petTap = function(){
+  _origPetTapCombo.apply(this, arguments);
+  _addCombo();
+};
+
+// Wrap gainCoins to apply surge multiplier
+const _origGainCoinsCombo = gainCoins;
+gainCoins = function(n){
+  if(_surgeActive){
+    _surgeTaps++;
+    _origGainCoinsCombo(n * SURGE_TAP_MULT);
+  } else {
+    _origGainCoinsCombo(n);
+  }
+};
 
 </script>
 
