@@ -1397,6 +1397,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY QUESTS ══ */
+.quests-panel{position:fixed;inset:0;background:#060410;z-index:910;display:none;flex-direction:column;overflow:hidden}
+.quests-panel.open{display:flex}
+.quests-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0c0820,#060410)}
+.quests-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8844);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.quests-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.quests-progress-card{background:linear-gradient(135deg,rgba(255,204,0,.08),rgba(255,136,0,.05));border:1px solid rgba(255,204,0,.2);border-radius:18px;padding:14px;margin-bottom:14px}
+.quests-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.quests-progress-label{font:600 11px var(--ff-body);color:rgba(255,255,255,.5)}
+.quests-progress-count{font:800 14px var(--ff-head);color:var(--gold)}
+.quests-progress-bar-bg{width:100%;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-bottom:6px}
+.quests-progress-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--orange));transition:width .4s}
+.quests-bonus-row{display:flex;align-items:center;gap:8px;font:600 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.quests-list{display:flex;flex-direction:column;gap:10px}
+.quest-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;position:relative;transition:all .2s}
+.quest-card.completed{background:rgba(0,255,136,.06);border-color:rgba(0,255,136,.25)}
+.quest-card.claimed{background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.05);opacity:.6}
+.quest-card-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.quest-icon{font-size:32px;flex-shrink:0}
+.quest-info{flex:1}
+.quest-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.quest-desc{font:500 10px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:3px}
+.quest-reward{font:700 10px var(--ff-body);color:var(--gold)}
+.quest-badge{position:absolute;top:10px;right:10px;font:700 9px var(--ff-body);padding:3px 9px;border-radius:8px}
+.quest-badge.completed{background:var(--green);color:#000}
+.quest-badge.claimed{background:rgba(255,255,255,.1);color:rgba(255,255,255,.4)}
+.quest-badge.active{background:rgba(255,204,0,.15);color:var(--gold);border:1px solid rgba(255,204,0,.3)}
+.quest-prog-bg{width:100%;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-top:6px}
+.quest-prog-fill{height:100%;border-radius:3px;transition:width .4s}
+.quest-prog-text{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);margin-top:3px}
+.quest-claim-btn{width:100%;margin-top:8px;padding:8px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:10px;color:#000;font:800 11px var(--ff-head);cursor:pointer}
+.quests-bonus-card{background:linear-gradient(135deg,rgba(255,204,0,.1),rgba(255,68,136,.08));border:1.5px solid rgba(255,204,0,.3);border-radius:18px;padding:16px;margin-top:14px;text-align:center}
+.quests-bonus-card.claimed{opacity:.5;filter:grayscale(.5)}
+.quests-bonus-title{font:900 16px var(--ff-head);color:var(--gold);margin-bottom:4px}
+.quests-bonus-desc{font:500 10px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:10px}
+
 /* ══ WORLD MAP ══ */
 .worldmap-panel{position:fixed;inset:0;background:#020810;z-index:909;display:none;flex-direction:column;overflow:hidden}
 .worldmap-panel.open{display:flex}
@@ -6070,6 +6107,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Skattekistor</div>
           <div class="ddr" onclick="cM();openBattle()"><div class="ddr-i">🏟️</div>Battle Arena</div>
           <div class="ddr" onclick="cM();openWorldmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
+          <div class="ddr" onclick="cM();openQuests()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
         </div>
       </div>
     </div>
@@ -7680,6 +7718,27 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY QUESTS -->
+<div class="quests-panel" id="questsPanel">
+  <div class="quests-header">
+    <div class="quests-title">📋 DAGLIGA UPPDRAG</div>
+    <button class="close-btn" onclick="closeQuests()">✕</button>
+  </div>
+  <div class="quests-scroll">
+    <div class="quests-progress-card">
+      <div class="quests-progress-top">
+        <div class="quests-progress-label">Dagens uppdrag</div>
+        <div class="quests-progress-count" id="questsDoneCount">0/5</div>
+      </div>
+      <div class="quests-progress-bar-bg"><div class="quests-progress-bar-fill" id="questsProgressBar" style="width:0%"></div></div>
+      <div class="quests-bonus-row">🎁 Slutför alla 5 för bonusbelöning!</div>
+    </div>
+    <div class="quests-list" id="questsList"></div>
+    <div id="questsBonusCard"></div>
+  </div>
+</div>
 
 <!-- WORLD MAP -->
 <div class="worldmap-panel" id="worldmapPanel">
@@ -23734,6 +23793,150 @@ function exploreZone(zoneId){
   _wmSave(d);
   showFloatBubble(zone.emoji+' Utforskar '+zone.name+'...','buff');
   _renderWorldmap();
+}
+
+
+// DAILY QUESTS SYSTEM
+const ALL_QUESTS = [
+  {id:'q_battle2', icon:'🏟️', name:'Arenahjälte',     desc:'Vinn 2 strider i Battle Arena',     xp:300, coins:150,
+   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_battle')||'null'); return d&&d.date===getTodayKey()&&d.wins>=2;}catch(e){return false;}},
+   progress:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_battle')||'null'); return{cur:d&&d.date===getTodayKey()?d.wins:0,max:2};}catch(e){return{cur:0,max:2};}},
+  },
+  {id:'q_dung',    icon:'⚔️', name:'Dungeon-kämpe',   desc:'Klara Daily Dungeon idag',           xp:400, coins:200,
+   check:()=>localStorage.getItem('k0509_dung_done')===getTodayKey(),
+   progress:()=>({cur:localStorage.getItem('k0509_dung_done')===getTodayKey()?1:0,max:1}),
+  },
+  {id:'q_farm3',   icon:'🌱', name:'Skördare',         desc:'Skörda 2 grödor från farmen',        xp:200, coins:100,
+   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_farm_stats')||'{}'); let today=getTodayKey(); return (d['harvest_'+today]||0)>=2;}catch(e){return false;}},
+   progress:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_farm_stats')||'{}'); let today=getTodayKey(); return{cur:Math.min(2,d['harvest_'+today]||0),max:2};}catch(e){return{cur:0,max:2};}},
+  },
+  {id:'q_race',    icon:'🏁', name:'Racingproffs',     desc:'Delta i ett Pet Race idag',          xp:250, coins:125,
+   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_race')||'null'); return d&&d.date===getTodayKey()&&d.racesLeft<5;}catch(e){return false;}},
+   progress:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_race')||'null'); return{cur:d&&d.date===getTodayKey()?(5-d.racesLeft):0,max:1};}catch(e){return{cur:0,max:1};}},
+  },
+  {id:'q_alch',    icon:'⚗️', name:'Bryggmästare',     desc:'Brygga ett eliksir i Alchemy Lab',   xp:300, coins:150,
+   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_alch_brews_today')||'null'); return d&&d.date===getTodayKey()&&d.count>=1;}catch(e){return false;}},
+   progress:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_alch_brews_today')||'null'); return{cur:d&&d.date===getTodayKey()?d.count:0,max:1};}catch(e){return{cur:0,max:1};}},
+  },
+  {id:'q_acad',    icon:'🎓', name:'Ivrig Student',    desc:'Slutför en akademistudie',           xp:200, coins:100,
+   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_acad_today')||'null'); return d&&d.date===getTodayKey()&&d.done>=1;}catch(e){return false;}},
+   progress:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_acad_today')||'null'); return{cur:d&&d.date===getTodayKey()?d.done:0,max:1};}catch(e){return{cur:0,max:1};}},
+  },
+  {id:'q_news',    icon:'📰', name:'Läslusten',        desc:'Läs en artikel i Petsborough Times', xp:150, coins:75,
+   check:()=>{try{let ids=JSON.parse(localStorage.getItem('k0509_news_read')||'[]'); return ids.some(id=>id.includes(getTodayKey()));}catch(e){return false;}},
+   progress:()=>{try{let ids=JSON.parse(localStorage.getItem('k0509_news_read')||'[]'); let c=ids.filter(id=>id.includes(getTodayKey())).length; return{cur:Math.min(1,c),max:1};}catch(e){return{cur:0,max:1};}},
+  },
+  {id:'q_explore', icon:'🗺️', name:'Utforskaren',      desc:'Starta en zon-utforskning',          xp:250, coins:125,
+   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_worldmap')||'null'); if(!d) return false; return Object.values(d.explorations||{}).some(e=>e&&e.endTime>(Date.now()-86400000));}catch(e){return false;}},
+   progress:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_worldmap')||'null'); let c=d?Object.values(d.explorations||{}).filter(e=>e&&e.endTime>(Date.now()-86400000)).length:0; return{cur:Math.min(1,c),max:1};}catch(e){return{cur:0,max:1};}},
+  },
+  {id:'q_horo',    icon:'🔭', name:'Stjärnskådare',    desc:'Läs dagens horoskop',                xp:100, coins:50,
+   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_horo')||'null'); return d&&d.date===getTodayKey()&&d.claimed;}catch(e){return false;}},
+   progress:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_horo')||'null'); return{cur:d&&d.date===getTodayKey()&&d.claimed?1:0,max:1};}catch(e){return{cur:0,max:1};}},
+  },
+  {id:'q_chest',   icon:'📦', name:'Skattjägare',      desc:'Öppna en skattekista',               xp:200, coins:100,
+   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_chest_opened_today')||'null'); return d&&d.date===getTodayKey()&&d.count>=1;}catch(e){return false;}},
+   progress:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_chest_opened_today')||'null'); return{cur:d&&d.date===getTodayKey()?d.count:0,max:1};}catch(e){return{cur:0,max:1};}},
+  },
+  {id:'q_coins',   icon:'💰', name:'Myntsamlare',      desc:'Samla in 200 coins idag',            xp:150, coins:75,
+   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_coins_today')||'null'); return d&&d.date===getTodayKey()&&d.total>=200;}catch(e){return false;}},
+   progress:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_coins_today')||'null'); let c=d&&d.date===getTodayKey()?d.total:0; return{cur:Math.min(200,c),max:200};}catch(e){return{cur:0,max:200};}},
+  },
+  {id:'q_auction', icon:'🏛️', name:'Budgivaren',       desc:'Lägg ett bud i Auktionshuset',       xp:150, coins:75,
+   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_auction')||'null'); return d&&d.date===getTodayKey()&&d.slots.some(s=>s.playerBid>0);}catch(e){return false;}},
+   progress:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_auction')||'null'); let c=d&&d.date===getTodayKey()?d.slots.filter(s=>s.playerBid>0).length:0; return{cur:Math.min(1,c),max:1};}catch(e){return{cur:0,max:1};}},
+  },
+];
+const QUESTS_KEY = 'k0509_quests';
+
+function _questsDayData(){
+  let saved=null;
+  try{saved=JSON.parse(localStorage.getItem(QUESTS_KEY)||'null');}catch(e){}
+  let today=getTodayKey();
+  if(saved&&saved.date===today) return saved;
+  // Pick 5 quests for today (seed-based shuffle)
+  let seed=parseInt(today.replace(/-/g,'').slice(-5));
+  let shuffled=[...ALL_QUESTS].sort(()=>(Math.sin(seed++)*10000%1)-.5);
+  let picked=shuffled.slice(0,5).map(q=>q.id);
+  let d={date:today,picked,claimed:[],bonusClaimed:false};
+  localStorage.setItem(QUESTS_KEY,JSON.stringify(d));
+  return d;
+}
+
+function openQuests(){
+  $('questsPanel').classList.add('open');
+  _renderQuests();
+}
+function closeQuests(){ $('questsPanel').classList.remove('open'); }
+
+function _renderQuests(){
+  let d=_questsDayData();
+  let quests=d.picked.map(id=>ALL_QUESTS.find(q=>q.id===id)).filter(Boolean);
+  let doneCount=quests.filter(q=>q.check()||d.claimed.includes(q.id)).length;
+  let qdc=$('questsDoneCount'); if(qdc) qdc.textContent=doneCount+'/5';
+  let qpb=$('questsProgressBar'); if(qpb) qpb.style.width=(doneCount/5*100)+'%';
+  let list=$('questsList'); if(!list) return;
+  list.innerHTML=quests.map(q=>{
+    let done=q.check();
+    let claimed=d.claimed.includes(q.id);
+    let prog=q.progress();
+    let pct=prog.max>0?Math.min(100,prog.cur/prog.max*100):0;
+    return `<div class="quest-card ${claimed?'claimed':done?'completed':''}">
+      <div class="quest-badge ${claimed?'claimed':done?'completed':'active'}">${claimed?'✓ Hämtad':done?'✓ KLAR!':'Aktiv'}</div>
+      <div class="quest-card-top">
+        <div class="quest-icon">${q.icon}</div>
+        <div class="quest-info">
+          <div class="quest-name">${q.name}</div>
+          <div class="quest-desc">${q.desc}</div>
+          <div class="quest-reward">+${q.xp} XP · +${q.coins} 💰</div>
+        </div>
+      </div>
+      ${!claimed?`<div class="quest-prog-bg"><div class="quest-prog-fill" style="width:${pct}%;background:${done?'var(--green)':'var(--gold)'}"></div></div>
+      <div class="quest-prog-text">${prog.cur}/${prog.max}</div>`:'' }
+      ${done&&!claimed?`<button class="quest-claim-btn" onclick="questClaim('${q.id}')">🎁 Hämta belöning!</button>`:''}
+    </div>`;
+  }).join('');
+  let bc=$('questsBonusCard');
+  if(bc){
+    if(doneCount===5&&!d.bonusClaimed){
+      bc.innerHTML=`<div class="quests-bonus-card">
+        <div class="quests-bonus-title">🎉 ALLA UPPDRAG KLARA!</div>
+        <div class="quests-bonus-desc">Du har slutfört alla dagens uppdrag. Hämta din bonusbelöning!</div>
+        <button onclick="questsClaimBonus()" style="background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:14px;color:#000;font:800 13px var(--ff-head);padding:12px 28px;cursor:pointer">🏆 Hämta Bonus (+500 XP, +250 💰, +3 KC)</button>
+      </div>`;
+    } else if(d.bonusClaimed){
+      bc.innerHTML=`<div class="quests-bonus-card claimed"><div class="quests-bonus-title">✓ Bonus hämtad idag</div></div>`;
+    } else {
+      bc.innerHTML=`<div class="quests-bonus-card" style="opacity:.4"><div class="quests-bonus-title">🏆 Slutför alla 5 uppdrag</div><div class="quests-bonus-desc">+500 XP · +250 💰 · +3 KC bonus när du klarat alla!</div></div>`;
+    }
+  }
+}
+
+function questClaim(qId){
+  let d=_questsDayData();
+  if(d.claimed.includes(qId)) return;
+  let q=ALL_QUESTS.find(x=>x.id===qId);
+  if(!q||!q.check()) return;
+  d.claimed.push(qId);
+  localStorage.setItem(QUESTS_KEY,JSON.stringify(d));
+  gainXP(q.xp,'quest');
+  gainCoins(q.coins);
+  showFloatBubble('📋 Uppdrag klart! +'+q.xp+' XP, +'+q.coins+' 💰','buff');
+  _renderQuests();
+}
+
+function questsClaimBonus(){
+  let d=_questsDayData();
+  if(d.bonusClaimed) return;
+  let doneCount=d.picked.map(id=>ALL_QUESTS.find(q=>q.id===id)).filter(q=>q&&(q.check()||d.claimed.includes(q.id))).length;
+  if(doneCount<5){showFloatBubble('Klara alla 5 uppdrag först!','buff');return;}
+  d.bonusClaimed=true;
+  localStorage.setItem(QUESTS_KEY,JSON.stringify(d));
+  gainXP(500,'quest');
+  gainCoins(250);
+  if(typeof gainKC==='function') gainKC(3);
+  showFloatBubble('🏆 BONUS! +500 XP, +250 💰, +3 KC!','buff');
+  _renderQuests();
 }
 
 </script>
