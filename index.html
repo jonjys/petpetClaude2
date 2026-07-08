@@ -1369,6 +1369,60 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ CLAN SYSTEM ══ */
+.clan-panel{position:fixed;inset:0;background:#0a0810;z-index:880;display:none;flex-direction:column;overflow:hidden}
+.clan-panel.open{display:flex}
+.clan-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#140820,#1a0c2a)}
+.clan-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.clan-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Join screen */
+.clan-join-hero{text-align:center;padding:20px 0 16px}
+.clan-join-title{font:800 22px var(--ff-head);color:#fff;margin-bottom:6px}
+.clan-join-sub{font:500 13px var(--ff-body);color:rgba(255,255,255,.5)}
+.clan-list{display:flex;flex-direction:column;gap:10px}
+.clan-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px;cursor:pointer;transition:transform .15s,border-color .2s}
+.clan-card:active{transform:scale(.98)}
+.clan-card-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.clan-card-emblem{font-size:36px;line-height:1}
+.clan-card-info{flex:1}
+.clan-card-name{font:800 16px var(--ff-head);color:#fff;margin-bottom:2px}
+.clan-card-slogan{font:500 11px var(--ff-body);color:rgba(255,255,255,.5)}
+.clan-card-stats{display:flex;gap:10px}
+.clan-stat{font:600 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.clan-stat span{color:#fff}
+.clan-card-prog-bar{width:100%;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-top:8px}
+.clan-card-prog-fill{height:100%;border-radius:2px}
+/* Home screen */
+.clan-home-banner{border-radius:16px;padding:18px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden}
+.clan-home-emblem{font-size:56px;line-height:1;margin-bottom:6px}
+.clan-home-name{font:900 24px var(--ff-head);color:#fff;margin-bottom:2px}
+.clan-home-slogan{font:500 12px var(--ff-body);color:rgba(255,255,255,.6)}
+.clan-home-rank{position:absolute;top:12px;right:14px;font:700 11px var(--ff-body);color:#000;background:var(--gold);padding:3px 10px;border-radius:12px}
+.clan-section{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.clan-contrib-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;margin-bottom:10px}
+.clan-contrib-icon{font-size:24px}
+.clan-contrib-info{flex:1}
+.clan-contrib-name{font:700 13px var(--ff-head);color:#fff;margin-bottom:3px}
+.clan-contrib-bar-bg{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.clan-contrib-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--purple),var(--pink));transition:width .4s}
+.clan-contrib-text{font:600 10px var(--ff-body);color:rgba(255,255,255,.4);margin-top:3px}
+.clan-contrib-btn{background:linear-gradient(135deg,var(--purple),var(--pink));border:none;color:#fff;font:700 11px var(--ff-head);padding:7px 14px;border-radius:10px;cursor:pointer}
+.clan-contrib-btn:disabled{opacity:.4;cursor:default}
+.clan-boss-card{background:linear-gradient(135deg,rgba(255,51,119,.1),rgba(170,102,255,.08));border:1px solid rgba(255,51,119,.3);border-radius:14px;padding:14px;margin-bottom:14px}
+.clan-boss-name{font:800 18px var(--ff-head);color:var(--pink);margin-bottom:6px}
+.clan-boss-hp-wrap{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.clan-boss-hp-bar{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--red),var(--pink));transition:width .4s}
+.clan-boss-hp-text{font:600 11px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:10px}
+.clan-boss-atk{width:100%;padding:12px;background:linear-gradient(135deg,var(--red),var(--pink));border:none;border-radius:12px;color:#fff;font:800 14px var(--ff-head);cursor:pointer}
+.clan-boss-atk:disabled{opacity:.4}
+.clan-members{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.clan-member-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border-radius:10px;padding:8px 10px}
+.clan-member-avatar{font-size:22px}
+.clan-member-name{flex:1;font:600 12px var(--ff-body);color:rgba(255,255,255,.8)}
+.clan-member-pts{font:700 11px var(--ff-body);color:var(--purple)}
+.clan-leave-btn{width:100%;padding:10px;background:rgba(255,68,85,.1);border:1px solid rgba(255,68,85,.3);border-radius:12px;color:var(--red);font:600 12px var(--ff-head);cursor:pointer;margin-top:10px}
+
 /* ══ ACTIVITY LOG ══ */
 .actlog-panel{position:fixed;inset:0;background:#080a10;z-index:879;display:none;flex-direction:column;overflow:hidden}
 .actlog-panel.open{display:flex}
@@ -6568,6 +6622,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- CLAN SYSTEM -->
+<div class="clan-panel" id="clanPanel">
+  <div class="clan-header">
+    <div class="clan-title">⚔️ KLAN</div>
+    <button class="close-btn" onclick="closeClan()">✕</button>
+  </div>
+  <div class="clan-scroll" id="clanScroll"></div>
+</div>
 
 <!-- ACTIVITY LOG -->
 <div class="actlog-panel" id="actlogPanel">
@@ -17959,6 +18023,155 @@ pcPlay = function(){
   _origPcPlayLog.apply(this,arguments);
   logActivity('play','Lekte med pet 🎮',null);
 };
+
+
+// CLAN SYSTEM
+const CLANS = [
+  {id:'fire',  emblem:'🔥',name:'Eldsorden',    slogan:'Brinn för segern',   color:'#ff4455',members:47,rank:'Guld',bg:'rgba(255,68,85,.08)'},
+  {id:'ocean', emblem:'🌊',name:'Havsvakter',   slogan:'Djup som havet',     color:'#4488ff',members:62,rank:'Platina',bg:'rgba(68,136,255,.08)'},
+  {id:'storm', emblem:'⚡',name:'Stormridare',  slogan:'Blixt och dunder',   color:'#ffcc00',members:38,rank:'Guld',bg:'rgba(255,204,0,.08)'},
+  {id:'shadow',emblem:'🌑',name:'Skuggbrödrarna',slogan:'Vi ses inte — vi är',color:'#aa66ff',members:55,rank:'Diamant',bg:'rgba(170,102,255,.08)'},
+  {id:'nature',emblem:'🌿',name:'Naturens Väktare',slogan:'Skydda allt levande',color:'#00ff88',members:41,rank:'Silver',bg:'rgba(0,255,136,.08)'},
+];
+
+const CLAN_BOSS_NAMES = ['Titanhydran','Krigsguden','Mörkvalpen','Havstitanen','Stormdraken'];
+const CLAN_KEYS = {
+  joined: 'k0509_clan_joined',
+  pts: 'k0509_clan_pts',
+  boss_hp: 'k0509_clan_boss_hp',
+  boss_atk_cd: 'k0509_clan_boss_cd',
+  contrib_cd: (type)=>'k0509_clan_cd_'+type,
+  contrib_done: (type)=>'k0509_clan_cdone_'+type+'_'+_clanWeekKey(),
+};
+
+function _clanWeekKey(){
+  let d = new Date(); let day = d.getDay()||7;
+  d.setDate(d.getDate()-day+1); return d.toISOString().slice(0,10);
+}
+
+function openClan(){
+  $('clanPanel').classList.add('open');
+  _renderClan();
+}
+function closeClan(){ $('clanPanel').classList.remove('open'); }
+
+function joinClan(id){
+  localStorage.setItem(CLAN_KEYS.joined, id);
+  localStorage.setItem(CLAN_KEYS.boss_hp, '100');
+  showFloatBubble('⚔️ Välkommen till '+CLANS.find(c=>c.id===id).name+'!','buff');
+  logActivity('milestone','Gick med i klanen '+CLANS.find(c=>c.id===id).name,null);
+  _renderClan();
+}
+
+function leaveClan(){
+  localStorage.removeItem(CLAN_KEYS.joined);
+  _renderClan();
+}
+
+function clanContrib(type){
+  let cdKey = CLAN_KEYS.contrib_cd(type);
+  let doneKey = CLAN_KEYS.contrib_done(type);
+  if(localStorage.getItem(cdKey)) return;
+  if(localStorage.getItem(doneKey)) return;
+  // Cooldown 4h for most, instant for donate
+  let cd = type==='donate' ? 0 : 14400000;
+  if(cd>0) localStorage.setItem(cdKey, Date.now()+cd);
+  setTimeout(()=>localStorage.removeItem(cdKey), cd);
+  localStorage.setItem(doneKey,'1');
+  let pts = {'train':50,'fish':75,'battle':100,'donate':30}[type]||30;
+  let cur = parseInt(localStorage.getItem(CLAN_KEYS.pts)||'0');
+  localStorage.setItem(CLAN_KEYS.pts, cur+pts);
+  if(type==='donate'){ G.coins=Math.max(0,(G.coins||0)-100); save(); }
+  showFloatBubble('⚔️ Klan-bidrag +'+pts+' pts!','buff');
+  logActivity('battle','Bidrog till klanen +'+pts+' pts',null);
+  _renderClan();
+}
+
+function clanBossAtk(){
+  let cdKey = CLAN_KEYS.boss_atk_cd;
+  if(localStorage.getItem(cdKey)) return;
+  let hp = parseInt(localStorage.getItem(CLAN_KEYS.boss_hp)||'100');
+  let dmg = 5 + Math.floor(Math.random()*10);
+  hp = Math.max(0, hp - dmg);
+  localStorage.setItem(CLAN_KEYS.boss_hp, hp);
+  localStorage.setItem(cdKey, '1');
+  setTimeout(()=>localStorage.removeItem(cdKey), 5000);
+  if(typeof petMicroAnim==='function') petMicroAnim('bounce');
+  showFloatBubble('💥 Klan Boss -'+dmg+' HP!','buff');
+  logActivity('battle','Attackerade Klan-bossen för '+dmg+' skada!',null);
+  if(hp<=0){
+    let joinedId = localStorage.getItem(CLAN_KEYS.joined);
+    gainXP(2000,'battle'); gainKC(25); gainCoins(1000);
+    showFloatBubble('🏆 KLAN BOSS BESEGRAD! +2000XP +25KC +1000💰','buff');
+    logActivity('milestone','Klan Boss besegrad!',{xp:2000,kc:25,coins:1000});
+    setTimeout(()=>{ localStorage.setItem(CLAN_KEYS.boss_hp,'100'); _renderClan(); }, 2000);
+  }
+  _renderClan();
+}
+
+function _renderClan(){
+  let scroll = $('clanScroll'); if(!scroll) return;
+  let joinedId = localStorage.getItem(CLAN_KEYS.joined);
+  if(!joinedId){
+    // JOIN SCREEN
+    let html = `<div class="clan-join-hero"><div style="font-size:48px">⚔️</div><div class="clan-join-title">Välj din klan</div><div class="clan-join-sub">Strid tillsammans, belönas tillsammans</div></div>
+    <div class="clan-list">${CLANS.map(c=>`
+      <div class="clan-card" onclick="joinClan('${c.id}')" style="border-color:${c.color}33;background:${c.bg}">
+        <div class="clan-card-top">
+          <div class="clan-card-emblem">${c.emblem}</div>
+          <div class="clan-card-info">
+            <div class="clan-card-name">${c.name}</div>
+            <div class="clan-card-slogan">${c.slogan}</div>
+          </div>
+        </div>
+        <div class="clan-card-stats">
+          <div class="clan-stat">Rank <span>${c.rank}</span></div>
+          <div class="clan-stat">Medlemmar <span>${c.members}</span></div>
+        </div>
+        <div class="clan-card-prog-bar"><div class="clan-card-prog-fill" style="width:${40+Math.random()*50}%;background:${c.color}"></div></div>
+      </div>`).join('')}
+    </div>`;
+    scroll.innerHTML = html;
+    return;
+  }
+  let clan = CLANS.find(c=>c.id===joinedId);
+  let pts = parseInt(localStorage.getItem(CLAN_KEYS.pts)||'0');
+  let bossHP = parseInt(localStorage.getItem(CLAN_KEYS.boss_hp)||'100');
+  let bossAtkCD = !!localStorage.getItem(CLAN_KEYS.boss_atk_cd);
+  const CONTRIBS = [
+    {type:'train', icon:'🏋️', name:'Träna (4h CD)'},
+    {type:'fish',  icon:'🎣', name:'Fiska (4h CD)'},
+    {type:'battle',icon:'⚔️', name:'Strid (4h CD)'},
+    {type:'donate',icon:'💰', name:'Donera 100 coins (ingen CD)'},
+  ];
+  let bossNum = Math.floor((Date.now()/604800000))%CLAN_BOSS_NAMES.length;
+  let bossName = CLAN_BOSS_NAMES[bossNum];
+  // Simulated members
+  let members = ['🦊 LunaFox','🐉 DrakeX','🦉 WiseSage','🦄 CrystalQ','🐺 BlazeWolf'].map((m,i)=>`<div class="clan-member-row"><div class="clan-member-avatar">${m.split(' ')[0]}</div><div class="clan-member-name">${m.split(' ')[1]}</div><div class="clan-member-pts">${(pts+Math.floor(Math.random()*500)*(i+1))} pts</div></div>`).join('');
+  scroll.innerHTML = `
+    <div class="clan-home-banner" style="background:linear-gradient(135deg,${clan.bg},rgba(0,0,0,.2));border:1px solid ${clan.color}44">
+      <div class="clan-home-rank">${clan.rank}</div>
+      <div class="clan-home-emblem">${clan.emblem}</div>
+      <div class="clan-home-name" style="color:${clan.color}">${clan.name}</div>
+      <div class="clan-home-slogan">${clan.slogan}</div>
+      <div style="margin-top:8px;font:700 14px var(--ff-body);color:var(--gold)">${pts} Klan-poäng denna vecka</div>
+    </div>
+    <div class="clan-section">VECKOBIDRAG</div>
+    ${CONTRIBS.map(c=>{
+      let done = !!localStorage.getItem(CLAN_KEYS.contrib_done(c.type));
+      return `<div class="clan-contrib-row"><div class="clan-contrib-icon">${c.icon}</div><div class="clan-contrib-info"><div class="clan-contrib-name">${c.name}</div></div><button class="clan-contrib-btn" onclick="clanContrib('${c.type}')" ${done?'disabled':''} >${done?'✓':'BIDRA'}</button></div>`;
+    }).join('')}
+    <div class="clan-section" style="margin-top:14px">KLAN BOSS</div>
+    <div class="clan-boss-card">
+      <div class="clan-boss-name">💀 ${bossName}</div>
+      <div class="clan-boss-hp-wrap"><div class="clan-boss-hp-bar" style="width:${bossHP}%"></div></div>
+      <div class="clan-boss-hp-text">${bossHP}/100 HP</div>
+      <button class="clan-boss-atk" onclick="clanBossAtk()" ${bossAtkCD?'disabled':''}>⚔️ ATTACKERA! (5s CD)</button>
+    </div>
+    <div class="clan-section">TOPPMEDLEMMAR</div>
+    <div class="clan-members">${members}</div>
+    <button class="clan-leave-btn" onclick="leaveClan()">Lämna klanen</button>`;
+}
 
 </script>
 
