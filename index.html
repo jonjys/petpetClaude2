@@ -1423,6 +1423,56 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET FRIENDS ══ */
+.friends-panel{position:fixed;inset:0;background:#040208;z-index:936;display:none;flex-direction:column;overflow:hidden}
+.friends-panel.open{display:flex}
+.friends-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080310,#040208)}
+.friends-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff44aa,#aa44ff,#44aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.friends-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.friends-tabs{display:flex;gap:6px;margin-bottom:14px}
+.friends-tab{flex:1;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;color:rgba(255,255,255,.5);font:700 11px var(--ff-head);padding:8px 4px;cursor:pointer;text-align:center;transition:all .15s}
+.friends-tab.active{background:rgba(255,68,170,.12);border-color:rgba(255,68,170,.4);color:#ff44aa}
+.friends-leaderboard{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.friends-rank-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 12px;position:relative;overflow:hidden}
+.friends-rank-item.top1{border-color:rgba(255,204,0,.4);background:rgba(255,204,0,.06)}
+.friends-rank-item.top2{border-color:rgba(192,192,192,.3);background:rgba(192,192,192,.04)}
+.friends-rank-item.top3{border-color:rgba(205,127,50,.3);background:rgba(205,127,50,.04)}
+.friends-rank-item.me{border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.04)}
+.friends-rank-pos{font:900 16px var(--ff-head);color:rgba(255,255,255,.4);min-width:26px;text-align:center}
+.friends-rank-pos.gold{color:#ffcc00}
+.friends-rank-pos.silver{color:#c0c0c0}
+.friends-rank-pos.bronze{color:#cd7f32}
+.friends-rank-emoji{font-size:28px;flex-shrink:0}
+.friends-rank-info{flex:1}
+.friends-rank-name{font:800 12px var(--ff-head);color:#fff}
+.friends-rank-sub{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.friends-rank-score{font:800 13px var(--ff-head);color:#ffcc00;text-align:right}
+.friends-rank-badge{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.friends-profile{background:radial-gradient(ellipse at 50% 0%,rgba(255,68,170,.08),transparent 70%),linear-gradient(180deg,#0a0412,#040208);border:1.5px solid rgba(255,68,170,.2);border-radius:20px;padding:16px;margin-bottom:14px;text-align:center}
+.friends-avatar{font-size:64px;display:block;margin-bottom:6px;filter:drop-shadow(0 0 12px rgba(255,68,170,.3))}
+.friends-pname{font:900 20px var(--ff-head);color:#fff;margin-bottom:2px}
+.friends-plevel{font:700 11px var(--ff-head);color:#aa66ff;margin-bottom:10px}
+.friends-pstats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.friends-pstat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:6px 12px;text-align:center}
+.friends-pstat-val{font:800 13px var(--ff-head);color:#fff}
+.friends-pstat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.friends-invite{background:rgba(255,68,170,.08);border:1.5px solid rgba(255,68,170,.2);border-radius:16px;padding:14px;margin-bottom:14px;text-align:center}
+.friends-invite-title{font:800 13px var(--ff-head);color:#ff44aa;margin-bottom:6px}
+.friends-invite-code{font:900 24px var(--ff-head);color:#fff;letter-spacing:4px;background:rgba(0,0,0,.3);border-radius:10px;padding:8px 16px;display:inline-block;margin-bottom:8px}
+.friends-invite-btn{background:rgba(255,68,170,.15);border:1px solid rgba(255,68,170,.35);border-radius:10px;color:#ff44aa;font:800 11px var(--ff-head);padding:8px 20px;cursor:pointer;transition:all .15s}
+.friends-invite-btn:active{transform:scale(.96)}
+.friends-activity-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.friends-activity{display:flex;flex-direction:column;gap:6px}
+.friends-act-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:8px 12px}
+.friends-act-emoji{font-size:20px;flex-shrink:0}
+.friends-act-text{flex:1;font:500 10px var(--ff-body);color:rgba(255,255,255,.6)}
+.friends-act-time{font:500 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.friends-daily-gift{background:rgba(0,255,136,.05);border:1.5px solid rgba(0,255,136,.2);border-radius:16px;padding:14px;margin-bottom:14px;text-align:center}
+.friends-gift-btn{background:linear-gradient(135deg,#004422,#00ff88);border:none;border-radius:12px;color:#000;font:900 12px var(--ff-head);padding:10px 24px;cursor:pointer;transition:all .15s}
+.friends-gift-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.1);color:rgba(255,255,255,.4)}
+.friends-gift-btn:active{transform:scale(.97)}
+
 /* ══ PET QUIZ SHOW ══ */
 .quiz-panel{position:fixed;inset:0;background:#030410;z-index:935;display:none;flex-direction:column;overflow:hidden}
 .quiz-panel.open{display:flex}
@@ -7222,6 +7272,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRanch()"><div class="ddr-i">🌾</div>Pet Ranch</div>
           <div class="ddr" onclick="cM();openGacha2()"><div class="ddr-i">✨</div>Summon</div>
           <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🎓</div>Quiz Show</div>
+          <div class="ddr" onclick="cM();openFriends()"><div class="ddr-i">👥</div>Vänner</div>
         </div>
       </div>
     </div>
@@ -8383,6 +8434,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET FRIENDS -->
+<div class="friends-panel" id="friendsPanel">
+  <div class="friends-header">
+    <div class="friends-title">👥 VÄNNER</div>
+    <button class="close-btn" onclick="closeFriends()">✕</button>
+  </div>
+  <div class="friends-scroll">
+    <div class="friends-tabs">
+      <div class="friends-tab active" id="friendsTab-profile" onclick="friendsSetTab('profile')">👤 Profil</div>
+      <div class="friends-tab" id="friendsTab-leaderboard" onclick="friendsSetTab('leaderboard')">🏆 Topplista</div>
+      <div class="friends-tab" id="friendsTab-activity" onclick="friendsSetTab('activity')">📊 Aktivitet</div>
+    </div>
+    <div id="friendsTabContent"></div>
+  </div>
+</div>
 
 <!-- PET QUIZ SHOW -->
 <div class="quiz-panel" id="quizPanel">
@@ -30074,6 +30142,151 @@ function _quizFinish(){
   var tp=$('quizTotalPlayed'); if(tp) tp.textContent=d.totalPlayed;
   var bs=$('quizBestScore'); if(bs) bs.textContent=d.bestScore+'/10';
   var tc=$('quizTotalCoins'); if(tc) tc.textContent=d.totalCoins;
+}
+
+
+// PET FRIENDS & SOCIAL SYSTEM
+const FRIENDS_KEY = 'k0509_friends';
+let _friendsTab = 'profile';
+
+// Simulated leaderboard of NPCs + player
+const FRIENDS_NPC_NAMES = [
+  {name:'ella_runs',   emoji:'🦊', level:42, coins:18500, xp:92000},
+  {name:'axelsthlm',  emoji:'🐉', level:38, coins:14200, xp:78000},
+  {name:'luna_petx',  emoji:'🌸', level:51, coins:24800, xp:115000},
+  {name:'shadow_k',   emoji:'🐺', level:29, coins:8900,  xp:52000},
+  {name:'starfall99', emoji:'⭐', level:67, coins:41200, xp:187000},
+  {name:'dragonmage', emoji:'🔮', level:44, coins:19600, xp:98000},
+  {name:'swift_paw',  emoji:'🐯', level:33, coins:11400, xp:63000},
+  {name:'karma_queen',emoji:'👑', level:78, coins:65000, xp:280000},
+  {name:'pet_wizard', emoji:'🧙', level:55, coins:28900, xp:132000},
+];
+
+function _friendsLoad(){try{return JSON.parse(localStorage.getItem(FRIENDS_KEY)||'null');}catch(e){return null;}}
+function _friendsSave(d){localStorage.setItem(FRIENDS_KEY,JSON.stringify(d));}
+function _friendsData(){
+  let d=_friendsLoad();
+  if(!d) d={giftClaimed:null,totalGifts:0,activityLog:[]};
+  return d;
+}
+
+function openFriends(){
+  $('friendsPanel').classList.add('open');
+  _friendsTab='profile';
+  _renderFriends();
+}
+function closeFriends(){ $('friendsPanel').classList.remove('open'); }
+
+function friendsSetTab(tab){
+  _friendsTab=tab;
+  document.querySelectorAll('.friends-tab').forEach(function(t){t.classList.remove('active');});
+  var at=$('friendsTab-'+tab); if(at) at.classList.add('active');
+  _renderFriends();
+}
+
+function _renderFriends(){
+  var tc=$('friendsTabContent'); if(!tc) return;
+  var d=_friendsData();
+  if(_friendsTab==='profile'){
+    var playerLevel=(typeof G!=='undefined'&&G.level)||1;
+    var playerCoins=(typeof G!=='undefined'&&G.coins)||0;
+    var playerXP=(typeof G!=='undefined'&&G.exp)||0;
+    var playerName=(typeof G!=='undefined'&&G.name)||'Du';
+    var playerEmoji=(typeof G!=='undefined'&&G.petEmoji)||'🐉';
+    var today=getTodayKey();
+    var giftReady=d.giftClaimed!==today;
+    // Generate invite code from name
+    var code=playerName.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,4)+(playerLevel*7%100).toString().padStart(2,'0');
+    tc.innerHTML=
+      '<div class="friends-profile">'+
+      '<span class="friends-avatar">'+playerEmoji+'</span>'+
+      '<div class="friends-pname">'+playerName+'</div>'+
+      '<div class="friends-plevel">⭐ Level '+playerLevel+' · KARMA Player</div>'+
+      '<div class="friends-pstats">'+
+      '<div class="friends-pstat"><div class="friends-pstat-val">'+playerCoins+'</div><div class="friends-pstat-label">💰 Coins</div></div>'+
+      '<div class="friends-pstat"><div class="friends-pstat-val">'+playerXP+'</div><div class="friends-pstat-label">⭐ XP</div></div>'+
+      '<div class="friends-pstat"><div class="friends-pstat-val">'+playerLevel+'</div><div class="friends-pstat-label">🏆 Level</div></div>'+
+      '</div></div>'+
+      '<div class="friends-daily-gift">'+
+      '<div style="font:800 12px var(--ff-head);color:var(--green);margin-bottom:4px">🎁 Daglig Social Bonus</div>'+
+      '<div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:8px">Logga in med vänner — +100 💰 +50 XP varje dag!</div>'+
+      '<button class="friends-gift-btn" '+(giftReady?'':'disabled')+' onclick="friendsClaimGift()">'+
+      (giftReady?'🎁 Hämta Social Bonus!':'✅ Redan hämtat idag!')+'</button></div>'+
+      '<div class="friends-invite">'+
+      '<div class="friends-invite-title">📲 Bjud in vänner</div>'+
+      '<div class="friends-invite-code">'+code+'</div>'+
+      '<div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:8px">Dela din kod för att bjuda in</div>'+
+      '<button class="friends-invite-btn" onclick="friendsCopyCode(''+code+'')">📋 Kopiera kod</button>'+
+      '</div>';
+  } else if(_friendsTab==='leaderboard'){
+    var playerLevel2=(typeof G!=='undefined'&&G.level)||1;
+    var playerCoins2=(typeof G!=='undefined'&&G.coins)||0;
+    var playerName2=(typeof G!=='undefined'&&G.name)||'Du';
+    var playerEmoji2=(typeof G!=='undefined'&&G.petEmoji)||'🐉';
+    // Build leaderboard including player
+    var entries=FRIENDS_NPC_NAMES.map(function(n){return{name:n.name,emoji:n.emoji,level:n.level,coins:n.coins,isMe:false};});
+    entries.push({name:playerName2,emoji:playerEmoji2,level:playerLevel2,coins:playerCoins2,isMe:true});
+    entries.sort(function(a,b){return b.level-a.level||b.coins-a.coins;});
+    tc.innerHTML='<div class="friends-leaderboard">'+
+      entries.map(function(e,i){
+        var pos=i+1;
+        var posCls=pos===1?'gold':pos===2?'silver':pos===3?'bronze':'';
+        var medal=pos===1?'🥇':pos===2?'🥈':pos===3?'🥉':'';
+        return '<div class="friends-rank-item'+(pos<=3?' top'+pos:'')+(e.isMe?' me':'')+'">'+
+          '<div class="friends-rank-pos '+posCls+'">'+(medal||pos)+'</div>'+
+          '<span class="friends-rank-emoji">'+e.emoji+'</span>'+
+          '<div class="friends-rank-info">'+
+          '<div class="friends-rank-name">'+e.name+(e.isMe?' (Du)':'')+'</div>'+
+          '<div class="friends-rank-sub">Level '+e.level+' · '+e.coins+' 💰</div>'+
+          '</div>'+
+          '<div style="text-align:right">'+
+          '<div class="friends-rank-score">Lv.'+e.level+'</div>'+
+          '</div>'+
+          '</div>';
+      }).join('')+
+      '</div>';
+  } else if(_friendsTab==='activity'){
+    var log=d.activityLog||[];
+    // Always show some activity
+    var defaultAct=[
+      {emoji:'⚔️', text:'luna_petx vann i Pet Arena (LEGEND)!', time:'2m sedan'},
+      {emoji:'🌾', text:'axelsthlm skördade 5 Guldblommor!', time:'8m sedan'},
+      {emoji:'🎓', text:'ella_runs fick 10/10 på Quiz!', time:'15m sedan'},
+      {emoji:'✨', text:'karma_queen summoned Guld Drak ⭐⭐⭐⭐⭐!', time:'22m sedan'},
+      {emoji:'🏦', text:'dragonmage satte in 5000 💰 i Premium Bank!', time:'35m sedan'},
+      {emoji:'🔨', text:'pet_wizard craftade Stjärnstav!', time:'1h sedan'},
+      {emoji:'💤', text:'shadow_k hade en Legendary Dream!', time:'2h sedan'},
+      {emoji:'📅', text:'swift_paw håller 21-dagars streak!', time:'3h sedan'},
+    ];
+    tc.innerHTML='<div class="friends-activity-title">📊 Nyhetsflöde</div>'+
+      '<div class="friends-activity">'+
+      defaultAct.map(function(a){
+        return '<div class="friends-act-item">'+
+          '<span class="friends-act-emoji">'+a.emoji+'</span>'+
+          '<span class="friends-act-text">'+a.text+'</span>'+
+          '<span class="friends-act-time">'+a.time+'</span>'+
+          '</div>';
+      }).join('')+
+      '</div>';
+  }
+}
+
+function friendsClaimGift(){
+  var d=_friendsData();
+  var today=getTodayKey();
+  if(d.giftClaimed===today){showFloatBubble('Redan hämtat idag!','buff');return;}
+  d.giftClaimed=today;
+  d.totalGifts=(d.totalGifts||0)+1;
+  _friendsSave(d);
+  gainCoins(100);
+  gainXP(50,'social');
+  showFloatBubble('🎁 Social Bonus! +100 💰 +50 XP','buff');
+  _renderFriends();
+}
+
+function friendsCopyCode(code){
+  try{navigator.clipboard&&navigator.clipboard.writeText('Gå med mig på KARMA! Kod: '+code);}catch(e){}
+  showFloatBubble('📋 Kod kopierad: '+code,'buff');
 }
 
 </script>
