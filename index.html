@@ -1408,6 +1408,62 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ FISHING ══ */
+.fish-panel{position:fixed;inset:0;background:#020a0e;z-index:921;display:none;flex-direction:column;overflow:hidden}
+.fish-panel.open{display:flex}
+.fish-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#030f18,#020a0e)}
+.fish-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44aaff,#00ddcc,#88ffaa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.fish-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.fish-zone-tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;padding-bottom:4px;scrollbar-width:none}
+.fish-zone-tabs::-webkit-scrollbar{display:none}
+.fish-zone-tab{flex:0 0 auto;padding:6px 14px;border-radius:16px;font:700 10px var(--ff-head);cursor:pointer;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);background:rgba(255,255,255,.04);transition:all .15s}
+.fish-zone-tab.active{background:rgba(68,170,255,.15);border-color:rgba(68,170,255,.4);color:#44aaff}
+.fish-zone-tab.locked-zone{opacity:.5;cursor:default}
+.fish-arena{background:radial-gradient(ellipse at 50% 100%,rgba(0,80,140,.3),transparent 70%),linear-gradient(180deg,#030e18 0%,#010812 60%,#021018 100%);border:1.5px solid rgba(68,170,255,.2);border-radius:22px;padding:20px 14px;text-align:center;margin-bottom:14px;min-height:220px;position:relative;overflow:hidden}
+.fish-water{position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(180deg,rgba(0,100,180,.2),rgba(0,60,120,.4));border-radius:0 0 20px 20px}
+.fish-water-wave{position:absolute;top:0;left:-10%;right:-10%;height:16px;background:radial-gradient(ellipse at 50% 100%,rgba(68,170,255,.2),transparent);animation:fishWave 3s ease-in-out infinite alternate}
+@keyframes fishWave{from{transform:translateX(-5px)}to{transform:translateX(5px)}}
+.fish-rod-area{position:relative;z-index:2;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.fish-catch-display{font-size:56px;display:block;margin-bottom:4px;filter:drop-shadow(0 0 16px rgba(68,170,255,.5));min-height:64px}
+.fish-rod-emoji{font-size:40px;margin-bottom:6px;display:block}
+.fish-status{font:700 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.fish-substatus{font:500 10px var(--ff-body);color:rgba(68,170,255,.7);margin-bottom:10px}
+.fish-timer-bar{width:80%;max-width:200px;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;margin:0 auto 12px;display:none}
+.fish-timer-fill{height:100%;background:linear-gradient(90deg,#44aaff,#00ddcc);width:0%;border-radius:4px}
+.fish-timer-bar.biting .fish-timer-fill{background:linear-gradient(90deg,#ff4455,#ffcc00)}
+.fish-cast-btn{background:linear-gradient(135deg,#1a6aaa,#0a3a60);border:1.5px solid rgba(68,170,255,.4);border-radius:16px;color:#fff;font:800 14px var(--ff-head);padding:12px 28px;cursor:pointer;transition:all .15s}
+.fish-cast-btn:active{transform:scale(.96)}
+.fish-cast-btn.bite-mode{background:linear-gradient(135deg,#006622,#00aa44);border-color:rgba(0,255,136,.6);animation:fishBiteGlow .3s ease-in-out infinite alternate}
+@keyframes fishBiteGlow{from{box-shadow:0 0 8px rgba(0,255,136,.4)}to{box-shadow:0 0 24px rgba(0,255,136,.8)}}
+.fish-cast-btn:disabled{opacity:.4;cursor:default;animation:none}
+.fish-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.fish-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.fish-stat-num{font:800 15px var(--ff-head);color:#fff}
+.fish-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.fish-recent{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:12px;margin-bottom:14px}
+.fish-recent-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.fish-recent-list{display:flex;flex-direction:column;gap:6px}
+.fish-recent-item{display:flex;align-items:center;gap:10px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:10px}
+.fish-recent-emoji{font-size:22px;flex-shrink:0}
+.fish-recent-info{flex:1}
+.fish-recent-name{font:700 10px var(--ff-head);color:#fff}
+.fish-recent-val{font:500 8px var(--ff-body);color:rgba(68,170,255,.7)}
+.fish-rarity-chip{font:700 8px var(--ff-body);padding:2px 7px;border-radius:5px;white-space:nowrap}
+.fish-rarity-chip.common{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4)}
+.fish-rarity-chip.uncommon{background:rgba(0,255,136,.1);color:var(--green)}
+.fish-rarity-chip.rare{background:rgba(68,170,255,.15);color:#44aaff}
+.fish-rarity-chip.legendary{background:rgba(255,204,0,.2);color:var(--gold)}
+.fish-coll-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.fish-coll-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.fish-coll-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px 4px;text-align:center;transition:all .15s}
+.fish-coll-item.fish-caught{border-color:rgba(68,170,255,.3);background:rgba(68,170,255,.06)}
+.fish-coll-emoji{font-size:24px;display:block}
+.fish-coll-name{font:600 7px var(--ff-body);color:rgba(255,255,255,.5);display:block;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fish-coll-val{font:700 7px var(--ff-head);color:rgba(68,170,255,.7);display:block}
+.fish-coll-item.undiscovered .fish-coll-emoji{filter:grayscale(1) opacity(.25)}
+.fish-coll-item.undiscovered .fish-coll-name{color:rgba(255,255,255,.2)}
+
 /* ══ PET WARDROBE ══ */
 .ward-panel{position:fixed;inset:0;background:#050308;z-index:920;display:none;flex-direction:column;overflow:hidden}
 .ward-panel.open{display:flex}
@@ -6523,6 +6579,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Lucky Dice</div>
           <div class="ddr" onclick="cM();openMoon()"><div class="ddr-i">🌙</div>Månens Orakel</div>
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Pet Garderob</div>
+          <div class="ddr" onclick="cM();openFish()"><div class="ddr-i">🎣</div>Fiske</div>
         </div>
       </div>
     </div>
@@ -8144,6 +8201,42 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- FISHING -->
+<div class="fish-panel" id="fishPanel">
+  <div class="fish-header">
+    <div class="fish-title">🎣 FISKE</div>
+    <button class="close-btn" onclick="closeFish()">✕</button>
+  </div>
+  <div class="fish-scroll">
+    <div class="fish-zone-tabs" id="fishZoneTabs"></div>
+    <div class="fish-arena">
+      <div class="fish-water"><div class="fish-water-wave"></div></div>
+      <div class="fish-rod-area">
+        <span class="fish-catch-display" id="fishCatchDisplay"></span>
+        <span class="fish-rod-emoji">🎣</span>
+        <div class="fish-status" id="fishStatus">Välj en zon och kasta ut!</div>
+        <div class="fish-substatus" id="fishSubstatus">Tryck på knappen nedan</div>
+        <div class="fish-timer-bar" id="fishTimerBar">
+          <div class="fish-timer-fill" id="fishTimerFill"></div>
+        </div>
+        <button class="fish-cast-btn" id="fishCastBtn" onclick="fishCast()">🎣 KASTA!</button>
+      </div>
+    </div>
+    <div class="fish-stats-row">
+      <div class="fish-stat"><div class="fish-stat-num" id="fishCastsLeft">5</div><div class="fish-stat-label">Kast kvar</div></div>
+      <div class="fish-stat"><div class="fish-stat-num" id="fishTotalCaught">0</div><div class="fish-stat-label">Totalt fångade</div></div>
+      <div class="fish-stat"><div class="fish-stat-num" id="fishTotalCoins">0</div><div class="fish-stat-label">💰 Intjänat</div></div>
+    </div>
+    <div class="fish-recent">
+      <div class="fish-recent-title">🐟 Senaste fångster</div>
+      <div class="fish-recent-list" id="fishRecentList"><div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Inga fångster ännu</div></div>
+    </div>
+    <div class="fish-coll-title">📖 Fiskkatalog (21 arter)</div>
+    <div class="fish-coll-grid" id="fishCollGrid"></div>
+  </div>
+</div>
 
 <!-- PET WARDROBE -->
 <div class="ward-panel" id="wardPanel">
@@ -26014,6 +26107,232 @@ function wardToggle(itemId,cat){
     showFloatBubble('👗 Köpt och utrustat: '+item.name+'!','buff');
     _renderWard();
   }
+}
+
+
+// FISHING SYSTEM
+const FISH_ZONES = [
+  {id:'pond',  name:'Dammen',     emoji:'🏞️', minLv:1,  casts:5,  fish:['carp','roach','perch','goldfish','frog']},
+  {id:'river', name:'Floden',     emoji:'🌿', minLv:5,  casts:4,  fish:['trout','pike','salmon','eel','crayfish']},
+  {id:'ocean', name:'Havet',      emoji:'🌊', minLv:12, casts:3,  fish:['tuna','cod','herring','mackerel','squid','shark']},
+  {id:'magic', name:'Magisk Sjö', emoji:'✨', minLv:20, casts:2,  fish:['moonfish','starfish','crystalfish','dragonfish','unicornfish']},
+];
+const FISH_CATALOG = {
+  carp:        {emoji:'🐟',name:'Karp',           rarity:'common',    val:20,  xp:10},
+  roach:       {emoji:'🐠',name:'Mört',           rarity:'common',    val:15,  xp:8},
+  perch:       {emoji:'🐡',name:'Abborre',        rarity:'uncommon',  val:35,  xp:20},
+  goldfish:    {emoji:'🫧',name:'Guldfisk',       rarity:'rare',      val:80,  xp:40},
+  frog:        {emoji:'🐸',name:'Groda',          rarity:'common',    val:10,  xp:5},
+  trout:       {emoji:'🐟',name:'Öring',          rarity:'uncommon',  val:50,  xp:25},
+  pike:        {emoji:'🐟',name:'Gädda',          rarity:'uncommon',  val:60,  xp:30},
+  salmon:      {emoji:'🐡',name:'Lax',            rarity:'rare',      val:120, xp:60},
+  eel:         {emoji:'🐍',name:'Ål',             rarity:'uncommon',  val:45,  xp:22},
+  crayfish:    {emoji:'🦞',name:'Kräfta',         rarity:'rare',      val:100, xp:50},
+  tuna:        {emoji:'🐟',name:'Tonfisk',        rarity:'uncommon',  val:80,  xp:40},
+  cod:         {emoji:'🐟',name:'Torsk',          rarity:'common',    val:55,  xp:28},
+  herring:     {emoji:'🐠',name:'Sill',           rarity:'common',    val:40,  xp:20},
+  mackerel:    {emoji:'🐟',name:'Makrill',        rarity:'uncommon',  val:70,  xp:35},
+  squid:       {emoji:'🦑',name:'Bläckfisk',     rarity:'rare',      val:150, xp:75},
+  shark:       {emoji:'🦈',name:'Haj',            rarity:'legendary', val:500, xp:200},
+  moonfish:    {emoji:'🌙',name:'Månfisk',        rarity:'rare',      val:200, xp:100},
+  starfish:    {emoji:'⭐',name:'Sjöstjärna',    rarity:'uncommon',  val:90,  xp:45},
+  crystalfish: {emoji:'💎',name:'Kristallfisk',   rarity:'rare',      val:300, xp:150},
+  dragonfish:  {emoji:'🐉',name:'Dragonfisk',     rarity:'legendary', val:800, xp:300},
+  unicornfish: {emoji:'🦄',name:'Enhörningsfisk', rarity:'legendary', val:1000,xp:400},
+};
+const FISH_KEY = 'k0509_fish';
+let _fishZone = 'pond';
+let _fishState = 'idle';
+let _fishTimer = null;
+let _fishTimerPct = 0;
+
+function _fishLoad(){try{return JSON.parse(localStorage.getItem(FISH_KEY)||'null');}catch(e){return null;}}
+function _fishSave(d){localStorage.setItem(FISH_KEY,JSON.stringify(d));}
+
+function _fishDayData(){
+  let d=_fishLoad();
+  let today=getTodayKey();
+  if(d&&d.date===today) return d;
+  let prev=d||{};
+  d={date:today,castsUsed:{},totalCaught:prev.totalCaught||0,totalCoins:prev.totalCoins||0,caught:prev.caught||{},recent:[]};
+  _fishSave(d);
+  return d;
+}
+
+function openFish(){
+  $('fishPanel').classList.add('open');
+  _fishZone='pond';
+  _fishState='idle';
+  _fishTimerPct=0;
+  if(_fishTimer){clearInterval(_fishTimer);_fishTimer=null;}
+  _renderFish();
+}
+function closeFish(){
+  $('fishPanel').classList.remove('open');
+  if(_fishTimer){clearInterval(_fishTimer);_fishTimer=null;}
+  _fishState='idle';
+  _fishTimerPct=0;
+}
+
+function _fishRarityLabel(r){return r==='common'?'Vanlig':r==='uncommon'?'Ovanlig':r==='rare'?'Sällsynt':'LEGENDARISK';}
+
+function _renderFish(){
+  let d=_fishDayData();
+  let lv=(typeof G!=='undefined'&&G.lv)||1;
+  let zone=FISH_ZONES.find(z=>z.id===_fishZone)||FISH_ZONES[0];
+  let castsLeft=Math.max(0,zone.casts-(d.castsUsed[_fishZone]||0));
+  // Zone tabs
+  let zt=$('fishZoneTabs');
+  if(zt) zt.innerHTML=FISH_ZONES.map(function(z){
+    var locked=lv<z.minLv;
+    var ac=_fishZone===z.id?' active':'';
+    var lc=locked?' locked-zone':'';
+    var fn=locked?'showFloatBubble('Lv '+z.minLv+' krävs!','buff')':'fishSetZone(''+z.id+'')';
+    return '<div class="fish-zone-tab'+ac+lc+'" onclick="'+fn+'">'+z.emoji+' '+z.name+(locked?' 🔒':'')+'</div>';
+  }).join('');
+  // Stats
+  let scl=$('fishCastsLeft'); if(scl) scl.textContent=castsLeft;
+  let stc=$('fishTotalCaught'); if(stc) stc.textContent=d.totalCaught;
+  let stco=$('fishTotalCoins'); if(stco) stco.textContent=d.totalCoins;
+  // Timer bar
+  let tb=$('fishTimerBar');
+  let tf=$('fishTimerFill');
+  let showTimer=(_fishState==='casting'||_fishState==='biting');
+  if(tb){tb.style.display=showTimer?'block':'none';tb.classList.toggle('biting',_fishState==='biting');}
+  if(tf) tf.style.width=_fishTimerPct+'%';
+  // Button & status
+  let btn=$('fishCastBtn');
+  let fs=$('fishStatus');
+  let fss=$('fishSubstatus');
+  if(_fishState==='idle'){
+    if(btn){btn.disabled=(castsLeft<=0);btn.classList.remove('bite-mode');btn.textContent=castsLeft>0?'🎣 KASTA!':'Inga kast kvar';}
+    if(fs) fs.textContent=castsLeft>0?'Redo att fiska i '+zone.name:'Inga fler kast idag!';
+    if(fss) fss.textContent=castsLeft>0?castsLeft+' kast kvar':'Kom tillbaka imorgon';
+    let fcd=$('fishCatchDisplay'); if(fcd) fcd.textContent='';
+  } else if(_fishState==='casting'){
+    if(btn){btn.disabled=true;btn.classList.remove('bite-mode');btn.textContent='⏳ Väntar på napp...';}
+    if(fs) fs.textContent='Kroken är ute...';
+    if(fss) fss.textContent='Vänta på att något nappar!';
+  } else if(_fishState==='biting'){
+    if(btn){btn.disabled=false;btn.classList.add('bite-mode');btn.textContent='🎣 DRAR NU!';}
+    if(fs) fs.textContent='NAPP! TRYCK NU!';
+    if(fss) fss.textContent='Du har 2.5 sekunder!';
+  } else if(_fishState==='catching'){
+    if(btn){btn.disabled=true;btn.classList.remove('bite-mode');btn.textContent='Fångad! ✅';}
+  }
+  // Recent
+  let rl=$('fishRecentList');
+  if(rl){
+    let recent=(d.recent||[]).slice(-5).reverse();
+    if(recent.length===0){rl.innerHTML='<div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Inga fångster ännu</div>';}
+    else{rl.innerHTML=recent.map(function(f){
+      var fi=FISH_CATALOG[f.id];
+      if(!fi) return '';
+      return '<div class="fish-recent-item"><span class="fish-recent-emoji">'+fi.emoji+'</span><div class="fish-recent-info"><div class="fish-recent-name">'+fi.name+'</div><div class="fish-recent-val">+'+fi.val+' 💰 · +'+fi.xp+' XP</div></div><div class="fish-rarity-chip '+fi.rarity+'">'+_fishRarityLabel(fi.rarity)+'</div></div>';
+    }).join('');}
+  }
+  // Collection
+  let cg=$('fishCollGrid');
+  if(cg) cg.innerHTML=Object.keys(FISH_CATALOG).map(function(id){
+    var fi=FISH_CATALOG[id];
+    var caught=(d.caught&&d.caught[id])||0;
+    var cls=caught?'fish-caught':'undiscovered';
+    return '<div class="fish-coll-item '+cls+'"><span class="fish-coll-emoji">'+fi.emoji+'</span><span class="fish-coll-name">'+(caught?fi.name:'???')+'</span><span class="fish-coll-val">'+(caught?fi.val+' 💰':'—')+'</span></div>';
+  }).join('');
+}
+
+function fishSetZone(zoneId){
+  if(_fishState!=='idle') return;
+  _fishZone=zoneId;
+  _renderFish();
+}
+
+function fishCast(){
+  if(_fishState==='biting'){
+    _fishReelIn();
+    return;
+  }
+  if(_fishState!=='idle') return;
+  let d=_fishDayData();
+  let zone=FISH_ZONES.find(z=>z.id===_fishZone)||FISH_ZONES[0];
+  let castsLeft=Math.max(0,zone.casts-(d.castsUsed[_fishZone]||0));
+  if(castsLeft<=0){showFloatBubble('Inga kast kvar i denna zon!','buff');return;}
+  _fishState='casting';
+  _fishTimerPct=0;
+  _renderFish();
+  let waitTime=3000+Math.random()*5000;
+  let elapsed=0;
+  let interval=100;
+  _fishTimer=setInterval(function(){
+    elapsed+=interval;
+    _fishTimerPct=Math.min(100,(elapsed/waitTime)*100);
+    let tf=$('fishTimerFill'); if(tf) tf.style.width=_fishTimerPct+'%';
+    if(elapsed>=waitTime){
+      clearInterval(_fishTimer);
+      _fishTimer=null;
+      _fishState='biting';
+      _fishTimerPct=100;
+      _renderFish();
+      let biteElapsed=0;
+      _fishTimer=setInterval(function(){
+        biteElapsed+=interval;
+        _fishTimerPct=Math.max(0,100-(biteElapsed/2500)*100);
+        let tf2=$('fishTimerFill'); if(tf2) tf2.style.width=_fishTimerPct+'%';
+        if(biteElapsed>=2500){
+          clearInterval(_fishTimer);
+          _fishTimer=null;
+          _fishState='idle';
+          _fishTimerPct=0;
+          showFloatBubble('Fisken slapp bort! 😢 Försök igen!','buff');
+          _renderFish();
+        }
+      },interval);
+    }
+  },interval);
+}
+
+function _fishReelIn(){
+  if(_fishTimer){clearInterval(_fishTimer);_fishTimer=null;}
+  _fishState='catching';
+  let zone=FISH_ZONES.find(z=>z.id===_fishZone)||FISH_ZONES[0];
+  let pool=zone.fish;
+  let rarityW={common:60,uncommon:25,rare:12,legendary:3};
+  let roll=Math.random()*100;
+  let acc=0;
+  let picked=pool[0];
+  for(let i=0;i<pool.length;i++){
+    let id=pool[i];
+    let fi=FISH_CATALOG[id];
+    if(!fi) continue;
+    let w=rarityW[fi.rarity]||10;
+    acc+=w;
+    if(roll<acc){picked=id;break;}
+  }
+  let fi=FISH_CATALOG[picked];
+  if(!fi){fi={emoji:'🐟',name:'Liten Fisk',rarity:'common',val:20,xp:10};picked='carp';}
+  let d=_fishDayData();
+  if(!d.castsUsed) d.castsUsed={};
+  d.castsUsed[_fishZone]=(d.castsUsed[_fishZone]||0)+1;
+  d.totalCaught=(d.totalCaught||0)+1;
+  d.totalCoins=(d.totalCoins||0)+fi.val;
+  if(!d.caught) d.caught={};
+  d.caught[picked]=(d.caught[picked]||0)+1;
+  if(!d.recent) d.recent=[];
+  d.recent.push({id:picked});
+  _fishSave(d);
+  gainCoins(fi.val);
+  gainXP(fi.xp,'fish');
+  let fcd=$('fishCatchDisplay'); if(fcd) fcd.textContent=fi.emoji;
+  let fs=$('fishStatus'); if(fs) fs.textContent='Fångad: '+fi.name+'!';
+  let fss=$('fishSubstatus'); if(fss) fss.textContent='+'+fi.val+' 💰 · +'+fi.xp+' XP';
+  let extra=fi.rarity==='legendary'?' 🏆 LEGENDARISK!':fi.rarity==='rare'?' ✨ Sällsynt!':'';
+  showFloatBubble(fi.emoji+' Fångad '+fi.name+'! +'+fi.val+' 💰 +'+fi.xp+' XP'+extra,'buff');
+  _renderFish();
+  setTimeout(function(){
+    _fishState='idle';
+    _fishTimerPct=0;
+    _renderFish();
+  },2000);
 }
 
 </script>
