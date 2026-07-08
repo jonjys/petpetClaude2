@@ -1375,6 +1375,38 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ENVIRONMENT THEMES ══ */
+.theme-panel{position:fixed;inset:0;background:#080810;z-index:886;display:none;flex-direction:column;overflow:hidden}
+.theme-panel.open{display:flex}
+.theme-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#100818,#080818)}
+.theme-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.theme-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.theme-active-preview{border-radius:18px;padding:20px;margin-bottom:16px;text-align:center;position:relative;overflow:hidden}
+.theme-active-preview-emoji{font-size:48px;margin-bottom:8px}
+.theme-active-preview-name{font:800 20px var(--ff-head);color:#fff;margin-bottom:4px}
+.theme-active-preview-desc{font:500 12px var(--ff-body);color:rgba(255,255,255,.55)}
+.theme-section-title{font:700 12px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.theme-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.theme-card{border-radius:16px;padding:16px;cursor:pointer;position:relative;overflow:hidden;transition:transform .15s;border:1.5px solid transparent}
+.theme-card:active{transform:scale(.97)}
+.theme-card.active-theme{border-color:rgba(255,255,255,.5)}
+.theme-card.locked{cursor:default}
+.theme-card-emoji{font-size:32px;margin-bottom:8px;display:block}
+.theme-card-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.theme-card-desc{font:500 10px var(--ff-body);color:rgba(255,255,255,.55);line-height:1.3}
+.theme-card-lock{position:absolute;top:8px;right:10px;font:700 10px var(--ff-body);background:rgba(0,0,0,.6);padding:3px 8px;border-radius:8px;color:rgba(255,255,255,.6)}
+.theme-card-active-badge{position:absolute;top:8px;right:10px;font:700 9px var(--ff-body);background:var(--green);color:#000;padding:3px 8px;border-radius:8px}
+/* Dynamic theme CSS variables */
+body[data-theme="galaxy"]{--bg:#04020d;--theme-grad:radial-gradient(ellipse at 20% 50%,rgba(50,0,100,.4),transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(0,20,80,.5),transparent 60%)}
+body[data-theme="neon"]{--bg:#020408;--theme-grad:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(0,255,136,.03) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(0,255,136,.03) 61px)}
+body[data-theme="ocean"]{--bg:#010d18;--theme-grad:radial-gradient(ellipse at 50% 100%,rgba(0,100,200,.3),transparent 70%)}
+body[data-theme="volcanic"]{--bg:#0d0400;--theme-grad:radial-gradient(ellipse at 50% 100%,rgba(200,50,0,.25),transparent 60%)}
+body[data-theme="sakura"]{--bg:#0d0508;--theme-grad:radial-gradient(ellipse at 30% 0%,rgba(255,100,150,.15),transparent 50%),radial-gradient(ellipse at 70% 100%,rgba(255,150,200,.1),transparent 50%)}
+body[data-theme="moonlit"]{--bg:#020a06;--theme-grad:radial-gradient(ellipse at 20% 20%,rgba(80,0,120,.3),transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(0,80,50,.2),transparent 50%)}
+body[data-theme="default"]{--bg:#000;--theme-grad:none}
+body::before{content:'';position:fixed;inset:0;background:var(--theme-grad,none);pointer-events:none;z-index:0}
+
 /* ══ MEMORY MATCH GAME ══ */
 .mem-panel{position:fixed;inset:0;background:#060a12;z-index:885;display:none;flex-direction:column;overflow:hidden}
 .mem-panel.open{display:flex}
@@ -6806,6 +6838,26 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- ENVIRONMENT THEMES -->
+<div class="theme-panel" id="themePanel">
+  <div class="theme-header">
+    <div class="theme-title">🎨 MILJÖTEMAN</div>
+    <button class="close-btn" onclick="closeTheme()">✕</button>
+  </div>
+  <div class="theme-scroll">
+    <div class="theme-active-preview" id="themePreview" style="background:linear-gradient(135deg,rgba(100,50,255,.2),rgba(50,100,255,.1));border:1px solid rgba(100,100,255,.3)">
+      <div class="theme-active-preview-emoji" id="themePreviewEmoji">🌑</div>
+      <div class="theme-active-preview-name" id="themePreviewName">Standard</div>
+      <div class="theme-active-preview-desc" id="themePreviewDesc">Det klassiska utseendet</div>
+    </div>
+    <div class="theme-section-title">Upplåsta teman</div>
+    <div class="theme-grid" id="themeGridUnlocked"></div>
+    <div class="theme-section-title">Köpbara teman</div>
+    <div class="theme-grid" id="themeGridLocked"></div>
+  </div>
+</div>
 
 <!-- MEMORY MATCH GAME -->
 <div class="mem-panel" id="memPanel">
@@ -19099,6 +19151,79 @@ function _renderMemBests(){
     if(el) el.textContent=v?v+'dr':'—';
   });
 }
+
+
+// ENVIRONMENT THEMES
+const THEMES = [
+  {id:'default', emoji:'🌑',name:'Standard',    desc:'Det klassiska mörka utseendet',    bg:'linear-gradient(135deg,rgba(40,40,80,.3),rgba(20,20,40,.2))', free:true},
+  {id:'galaxy',  emoji:'🌌',name:'Galaxen',     desc:'Stjärnor och nebulosor',           bg:'linear-gradient(135deg,rgba(50,0,120,.4),rgba(0,20,80,.3))',   free:false, kc:10},
+  {id:'neon',    emoji:'🏙️',name:'Neon City',   desc:'Cyberpunk-gatunätet lyser',        bg:'linear-gradient(135deg,rgba(0,255,136,.15),rgba(255,0,100,.1))', free:false, kc:10},
+  {id:'ocean',   emoji:'🌊',name:'Havets Djup', desc:'Lugna blå djuphav-vibrationer',    bg:'linear-gradient(135deg,rgba(0,100,200,.3),rgba(0,200,200,.15))', free:false, kc:10},
+  {id:'volcanic',emoji:'🌋',name:'Vulkanisk',   desc:'Glödande lava under ytan',         bg:'linear-gradient(135deg,rgba(200,50,0,.3),rgba(255,100,0,.2))',   free:false, kc:15},
+  {id:'sakura',  emoji:'🌸',name:'Sakura',      desc:'Körsbärsblom i sakta dans',        bg:'linear-gradient(135deg,rgba(255,100,150,.2),rgba(255,200,220,.1))', free:false, kc:15},
+  {id:'moonlit', emoji:'🌙',name:'Månlit Skog', desc:'Mystisk skog i månljuset',         bg:'linear-gradient(135deg,rgba(80,0,120,.3),rgba(0,80,50,.2))',     free:false, kc:15},
+];
+
+const THEME_OWNED_KEY = 'k0509_themes_owned';
+const THEME_ACTIVE_KEY = 'k0509_theme_active';
+
+function _themeGetOwned(){
+  try{ return JSON.parse(localStorage.getItem(THEME_OWNED_KEY)||'["default"]'); }catch(e){ return ['default']; }
+}
+function _themeGetActive(){ return localStorage.getItem(THEME_ACTIVE_KEY)||'default'; }
+
+function applyTheme(id){
+  localStorage.setItem(THEME_ACTIVE_KEY, id);
+  document.body.setAttribute('data-theme', id);
+  let t=THEMES.find(x=>x.id===id); if(!t) return;
+  showFloatBubble(`🎨 Tema: ${t.name} aktiverat!`,'buff');
+  if($('themePanel').classList.contains('open')) _renderTheme();
+}
+
+function buyTheme(id){
+  let t=THEMES.find(x=>x.id===id); if(!t||t.free) return;
+  let owned=_themeGetOwned();
+  if(owned.includes(id)){applyTheme(id);return;}
+  if(G.kc<t.kc){showFloatBubble('Inte tillräckligt KC!','warn');return;}
+  G.kc-=t.kc; save();
+  owned.push(id);
+  localStorage.setItem(THEME_OWNED_KEY,JSON.stringify(owned));
+  showFloatBubble(`🎨 ${t.name} köpt!`,'buff');
+  logActivity('quest','Köpte temat '+t.name,null);
+  applyTheme(id);
+}
+
+function openTheme(){
+  $('themePanel').classList.add('open');
+  _renderTheme();
+}
+function closeTheme(){ $('themePanel').classList.remove('open'); }
+
+function _renderTheme(){
+  let owned=_themeGetOwned(), active=_themeGetActive();
+  let activeTheme=THEMES.find(t=>t.id===active)||THEMES[0];
+  $('themePreviewEmoji').textContent=activeTheme.emoji;
+  $('themePreviewName').textContent=activeTheme.name;
+  $('themePreviewDesc').textContent=activeTheme.desc;
+  $('themePreview').style.background=activeTheme.bg;
+  let unlockedThemes=THEMES.filter(t=>owned.includes(t.id)||t.free);
+  let lockedThemes=THEMES.filter(t=>!owned.includes(t.id)&&!t.free);
+  let renderCard=(t,isOwned)=>`<div class="theme-card ${active===t.id?'active-theme':''} ${!isOwned?'locked':''}" style="background:${t.bg}" onclick="${isOwned?`applyTheme('${t.id}')`:(`buyTheme('${t.id}')`)}">
+    ${active===t.id?'<div class="theme-card-active-badge">✓ AKTIV</div>':''}
+    ${!isOwned?`<div class="theme-card-lock">${t.kc} KC</div>`:''}
+    <span class="theme-card-emoji">${t.emoji}</span>
+    <div class="theme-card-name">${t.name}</div>
+    <div class="theme-card-desc">${t.desc}</div>
+  </div>`;
+  $('themeGridUnlocked').innerHTML=unlockedThemes.map(t=>renderCard(t,true)).join('');
+  $('themeGridLocked').innerHTML=lockedThemes.map(t=>renderCard(t,false)).join('');
+}
+
+// Apply saved theme on load
+(function(){
+  let saved=_themeGetActive();
+  if(saved) document.body.setAttribute('data-theme',saved);
+})();
 
 </script>
 
