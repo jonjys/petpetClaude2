@@ -1410,6 +1410,41 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SPIN WHEEL ══ */
+.spin-panel{position:fixed;inset:0;background:#040206;z-index:923;display:none;flex-direction:column;overflow:hidden}
+.spin-panel.open{display:flex}
+.spin-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080210,#040206)}
+.spin-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff4488,#44aaff,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.spin-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.spin-arena{background:radial-gradient(ellipse at 50% 40%,rgba(255,204,0,.1),transparent 70%);border:1.5px solid rgba(255,204,0,.2);border-radius:22px;padding:24px 14px;text-align:center;margin-bottom:14px;position:relative}
+.spin-wheel-wrap{position:relative;width:280px;height:280px;margin:0 auto 16px}
+.spin-wheel{width:100%;height:100%;border-radius:50%;border:4px solid rgba(255,204,0,.5);box-shadow:0 0 24px rgba(255,204,0,.2);transition:transform 4s cubic-bezier(.17,.67,.12,.99);position:relative;overflow:hidden}
+.spin-pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:24px;z-index:10;filter:drop-shadow(0 2px 6px rgba(0,0,0,.8))}
+.spin-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;background:radial-gradient(circle,#ffcc00,#ff8800);border-radius:50%;border:3px solid rgba(255,255,255,.3);z-index:5}
+.spin-result-label{font:900 20px var(--ff-head);color:#fff;margin-bottom:4px}
+.spin-result-sub{font:600 11px var(--ff-body);color:rgba(255,204,0,.8);margin-bottom:14px}
+.spin-btn{background:linear-gradient(135deg,#cc9900,#ffcc00);border:none;border-radius:16px;color:#000;font:900 16px var(--ff-head);padding:14px 36px;cursor:pointer;transition:all .15s;box-shadow:0 4px 16px rgba(255,204,0,.3)}
+.spin-btn:active{transform:scale(.96)}
+.spin-btn:disabled{opacity:.4;cursor:default;box-shadow:none}
+.spin-extra-row{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:10px;font:500 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.spin-extra-btn{background:rgba(255,204,0,.1);border:1px solid rgba(255,204,0,.25);border-radius:10px;color:#ffcc00;font:700 10px var(--ff-head);padding:5px 14px;cursor:pointer}
+.spin-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.spin-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.spin-stat-num{font:800 15px var(--ff-head);color:#fff}
+.spin-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.spin-prizes{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:12px;margin-bottom:14px}
+.spin-prizes-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.spin-prize-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.spin-prize-row{display:flex;align-items:center;gap:8px;padding:5px 8px;background:rgba(255,255,255,.03);border-radius:8px}
+.spin-prize-emoji{font-size:18px;flex-shrink:0}
+.spin-prize-name{font:600 9px var(--ff-body);color:rgba(255,255,255,.6);flex:1}
+.spin-prize-chance{font:700 8px var(--ff-head);color:rgba(255,204,0,.7)}
+.spin-history-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.spin-hist-chip{font:600 9px var(--ff-body);padding:3px 10px;border-radius:8px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5)}
+.spin-hist-chip.jackpot{background:rgba(255,204,0,.2);color:var(--gold)}
+.spin-hist-chip.rare{background:rgba(68,170,255,.15);color:#44aaff}
+
 /* ══ TRAINING ══ */
 .train-panel{position:fixed;inset:0;background:#050208;z-index:922;display:none;flex-direction:column;overflow:hidden}
 .train-panel.open{display:flex}
@@ -6630,6 +6665,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Pet Garderob</div>
           <div class="ddr" onclick="cM();openFish()"><div class="ddr-i">🎣</div>Fiske</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
+          <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
         </div>
       </div>
     </div>
@@ -8253,6 +8289,42 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- SPIN WHEEL -->
+<div class="spin-panel" id="spinPanel">
+  <div class="spin-header">
+    <div class="spin-title">🎡 LYCKOHJULET</div>
+    <button class="close-btn" onclick="closeSpinW()">✕</button>
+  </div>
+  <div class="spin-scroll">
+    <div class="spin-arena">
+      <div class="spin-wheel-wrap">
+        <div class="spin-pointer">🔺</div>
+        <canvas id="spinCanvas" width="280" height="280" style="border-radius:50%;display:block"></canvas>
+        <div class="spin-center"></div>
+      </div>
+      <div class="spin-result-label" id="spinResultLabel">Snurra hjulet!</div>
+      <div class="spin-result-sub" id="spinResultSub">1 gratis snurr per dag</div>
+      <button class="spin-btn" id="spinBtn" onclick="spinWheel()">🎡 SNURRA!</button>
+      <div class="spin-extra-row">
+        <button class="spin-extra-btn" onclick="spinBuyExtra()">+100 💰 Extra snurr</button>
+        <span id="spinFreeLeft">1 gratis kvar</span>
+      </div>
+    </div>
+    <div class="spin-stats-row">
+      <div class="spin-stat"><div class="spin-stat-num" id="spinTotalSpins">0</div><div class="spin-stat-label">Totala snurr</div></div>
+      <div class="spin-stat"><div class="spin-stat-num" id="spinTotalCoins">0</div><div class="spin-stat-label">💰 Vunnet</div></div>
+      <div class="spin-stat"><div class="spin-stat-num" id="spinJackpots">0</div><div class="spin-stat-label">🏆 Jackpots</div></div>
+    </div>
+    <div class="spin-prizes">
+      <div class="spin-prizes-title">🎁 Möjliga vinster</div>
+      <div class="spin-prize-grid" id="spinPrizeGrid"></div>
+    </div>
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Historik</div>
+    <div class="spin-history-row" id="spinHistoryRow"></div>
+  </div>
+</div>
 
 <!-- TRAINING -->
 <div class="train-panel" id="trainPanel">
@@ -26621,6 +26693,186 @@ function trainClaimMile(mileId){
   else if(m.sessions===500){gainXP(5000,'train');if(typeof G!=='undefined'){G.kc+=50;if(typeof save==='function')save();}}
   showFloatBubble(m.emoji+' Milstolpe: '+m.name+' klarad! '+m.reward,'buff');
   _renderTrain();
+}
+
+
+// FORTUNE SPIN WHEEL SYSTEM
+const SPIN_SEGMENTS = [
+  {id:'c50',    emoji:'💰', label:'50',      name:'50 Coins',       coins:50,   xp:0,   kc:0,  color:'#1a4a1a', rarity:'common'},
+  {id:'xp100',  emoji:'⭐', label:'100 XP',  name:'100 XP',         coins:0,    xp:100, kc:0,  color:'#1a3a4a', rarity:'common'},
+  {id:'c150',   emoji:'💰', label:'150',     name:'150 Coins',      coins:150,  xp:0,   kc:0,  color:'#2a5a2a', rarity:'common'},
+  {id:'xp250',  emoji:'⭐', label:'250 XP',  name:'250 XP',         coins:0,    xp:250, kc:0,  color:'#1a2a5a', rarity:'uncommon'},
+  {id:'c300',   emoji:'💰', label:'300',     name:'300 Coins',      coins:300,  xp:0,   kc:0,  color:'#3a6a3a', rarity:'uncommon'},
+  {id:'kc1',    emoji:'💎', label:'1 KC',    name:'1 KC Crystal',   coins:0,    xp:0,   kc:1,  color:'#3a1a5a', rarity:'uncommon'},
+  {id:'xp500',  emoji:'🌟', label:'500 XP',  name:'500 XP',         coins:0,    xp:500, kc:0,  color:'#1a1a6a', rarity:'rare'},
+  {id:'c600',   emoji:'💰', label:'600',     name:'600 Coins',      coins:600,  xp:0,   kc:0,  color:'#4a7a1a', rarity:'rare'},
+  {id:'kc3',    emoji:'💎', label:'3 KC',    name:'3 KC Crystals',  coins:0,    xp:0,   kc:3,  color:'#5a1a7a', rarity:'rare'},
+  {id:'bonus',  emoji:'✨', label:'2x Buff', name:'2x XP (1h)',     coins:100,  xp:300, kc:0,  color:'#6a4a1a', rarity:'rare'},
+  {id:'kc5',    emoji:'💎', label:'5 KC',    name:'5 KC Crystals',  coins:0,    xp:0,   kc:5,  color:'#7a1a3a', rarity:'very_rare'},
+  {id:'jack',   emoji:'🏆', label:'JACKPOT', name:'JACKPOT!',       coins:1000, xp:1000,kc:10, color:'#7a6a00', rarity:'legendary'},
+];
+const SPIN_WEIGHTS = {common:30,uncommon:20,rare:10,very_rare:5,legendary:2};
+const SPIN_KEY = 'k0509_spin';
+let _spinning = false;
+let _spinDeg = 0;
+
+function _spinLoad(){try{return JSON.parse(localStorage.getItem(SPIN_KEY)||'null');}catch(e){return null;}}
+function _spinSave(d){localStorage.setItem(SPIN_KEY,JSON.stringify(d));}
+
+function _spinDayData(){
+  let d=_spinLoad();
+  let today=getTodayKey();
+  if(d&&d.date===today) return d;
+  let prev=d||{};
+  d={date:today,freeUsed:false,extraSpins:0,totalSpins:prev.totalSpins||0,totalCoins:prev.totalCoins||0,jackpots:prev.jackpots||0,history:[]};
+  _spinSave(d);
+  return d;
+}
+
+function _spinDrawWheel(){
+  let canvas=document.getElementById('spinCanvas');
+  if(!canvas) return;
+  let ctx=canvas.getContext('2d');
+  let W=280,H=280,cx=W/2,cy=H/2,r=cx-4;
+  let n=SPIN_SEGMENTS.length;
+  let anglePerSeg=(Math.PI*2)/n;
+  ctx.clearRect(0,0,W,H);
+  for(let i=0;i<n;i++){
+    let seg=SPIN_SEGMENTS[i];
+    let start=i*anglePerSeg-Math.PI/2;
+    let end=start+anglePerSeg;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,start,end);
+    ctx.closePath();
+    ctx.fillStyle=seg.color;
+    ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.12)';
+    ctx.lineWidth=1;
+    ctx.stroke();
+    // Label
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(start+anglePerSeg/2);
+    ctx.textAlign='right';
+    ctx.font='bold 9px sans-serif';
+    ctx.fillStyle='rgba(255,255,255,.9)';
+    ctx.fillText(seg.label,r-8,4);
+    ctx.font='12px sans-serif';
+    ctx.fillText(seg.emoji,r-32,5);
+    ctx.restore();
+  }
+  // Outer ring
+  ctx.beginPath();
+  ctx.arc(cx,cy,r,0,Math.PI*2);
+  ctx.strokeStyle='rgba(255,204,0,.6)';
+  ctx.lineWidth=3;
+  ctx.stroke();
+}
+
+function openSpinW(){
+  $('spinPanel').classList.add('open');
+  _spinDrawWheel();
+  _renderSpinW();
+}
+function closeSpinW(){ $('spinPanel').classList.remove('open'); }
+
+function _renderSpinW(){
+  let d=_spinDayData();
+  let freeLeft=d.freeUsed?0:1;
+  let canSpin=freeLeft>0||d.extraSpins>0;
+  let ts=$('spinTotalSpins'); if(ts) ts.textContent=d.totalSpins;
+  let tc=$('spinTotalCoins'); if(tc) tc.textContent=d.totalCoins;
+  let tj=$('spinJackpots'); if(tj) tj.textContent=d.jackpots;
+  let fl=$('spinFreeLeft'); if(fl) fl.textContent=freeLeft>0?'1 gratis kvar':d.extraSpins>0?d.extraSpins+' extra kvar':'Köp ett extra snurr';
+  let btn=$('spinBtn'); if(btn) btn.disabled=_spinning||!canSpin;
+  // Prizes
+  let pg=$('spinPrizeGrid');
+  if(pg) pg.innerHTML=SPIN_SEGMENTS.map(function(s){
+    var col=s.rarity==='legendary'?'var(--gold)':s.rarity==='very_rare'?'#aa66ff':s.rarity==='rare'?'#44aaff':s.rarity==='uncommon'?'var(--green)':'rgba(255,255,255,.4)';
+    return '<div class="spin-prize-row"><span class="spin-prize-emoji">'+s.emoji+'</span><span class="spin-prize-name">'+s.name+'</span><span class="spin-prize-chance" style="color:'+col+'">'+s.rarity+'</span></div>';
+  }).join('');
+  // History
+  let hr=$('spinHistoryRow');
+  if(hr){
+    let hist=(d.history||[]).slice(-12).reverse();
+    hr.innerHTML=hist.length?hist.map(function(h){
+      return '<div class="spin-hist-chip '+(h.rarity==='legendary'?'jackpot':h.rarity==='rare'||h.rarity==='very_rare'?'rare':'')+'">'+h.emoji+' '+h.name+'</div>';
+    }).join(''):'<div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Ingen historik</div>';
+  }
+}
+
+function spinBuyExtra(){
+  let coins=(typeof G!=='undefined'&&G.coins)||0;
+  if(coins<100){showFloatBubble('Inte tillräckligt coins! (100 krävs)','buff');return;}
+  if(typeof G!=='undefined'){G.coins-=100;if(typeof save==='function')save();}
+  let d=_spinDayData();
+  d.extraSpins=(d.extraSpins||0)+1;
+  _spinSave(d);
+  showFloatBubble('✅ Extra snurr köpt!','buff');
+  _renderSpinW();
+}
+
+function spinWheel(){
+  if(_spinning) return;
+  let d=_spinDayData();
+  let freeLeft=d.freeUsed?0:1;
+  if(freeLeft<=0&&d.extraSpins<=0){showFloatBubble('Inga snurr kvar! Köp ett extra.','buff');return;}
+  // Use free or extra
+  if(freeLeft>0) d.freeUsed=true;
+  else d.extraSpins--;
+  d.totalSpins=(d.totalSpins||0)+1;
+  _spinSave(d);
+  _spinning=true;
+  let btn=$('spinBtn'); if(btn) btn.disabled=true;
+  // Pick segment by weight
+  let totalW=SPIN_SEGMENTS.reduce(function(a,s){return a+SPIN_WEIGHTS[s.rarity];},0);
+  let roll=Math.random()*totalW;
+  let acc=0,picked=0;
+  for(let i=0;i<SPIN_SEGMENTS.length;i++){
+    acc+=SPIN_WEIGHTS[SPIN_SEGMENTS[i].rarity];
+    if(roll<acc){picked=i;break;}
+  }
+  let n=SPIN_SEGMENTS.length;
+  let segAngle=360/n;
+  let extraSpins=5+Math.floor(Math.random()*3);
+  let landDeg=extraSpins*360+(n-picked)*segAngle-segAngle/2+180;
+  _spinDeg+=landDeg;
+  let canvas=document.getElementById('spinCanvas');
+  if(canvas){
+    canvas.style.transition='transform 4s cubic-bezier(.17,.67,.12,.99)';
+    canvas.style.transform='rotate('+_spinDeg+'deg)';
+  }
+  let rl=$('spinResultLabel'); if(rl) rl.textContent='Snurrar...';
+  let rs=$('spinResultSub'); if(rs) rs.textContent='';
+  setTimeout(function(){
+    _spinning=false;
+    let seg=SPIN_SEGMENTS[picked];
+    // Apply rewards
+    if(seg.coins>0) gainCoins(seg.coins);
+    if(seg.xp>0) gainXP(seg.xp,'spin');
+    if(seg.kc>0&&typeof G!=='undefined'){G.kc+=seg.kc;if(typeof save==='function')save();}
+    if(seg.id==='bonus') localStorage.setItem('k0509_spin_2x',String(Date.now()+3600000));
+    // Update data
+    let d2=_spinDayData();
+    if(seg.rarity==='legendary') d2.jackpots=(d2.jackpots||0)+1;
+    d2.totalCoins=(d2.totalCoins||0)+(seg.coins||0);
+    if(!d2.history) d2.history=[];
+    d2.history.push({emoji:seg.emoji,name:seg.name,rarity:seg.rarity});
+    _spinSave(d2);
+    let rl2=$('spinResultLabel'); if(rl2) rl2.textContent=seg.emoji+' '+seg.name+'!';
+    let rs2=$('spinResultSub');
+    if(rs2){
+      var parts=[];
+      if(seg.coins>0) parts.push('+'+seg.coins+' 💰');
+      if(seg.xp>0) parts.push('+'+seg.xp+' XP');
+      if(seg.kc>0) parts.push('+'+seg.kc+' KC');
+      rs2.textContent=parts.join(' · ')||(seg.rarity==='legendary'?'JACKPOT!':'');
+    }
+    let pop=seg.rarity==='legendary'?'🏆 JACKPOT! ':seg.rarity==='very_rare'?'💎 ':seg.rarity==='rare'?'✨ ':'';
+    showFloatBubble(pop+seg.emoji+' '+seg.name+(seg.coins>0?' +'+seg.coins+' 💰':'')+(seg.xp>0?' +'+seg.xp+' XP':'')+(seg.kc>0?' +'+seg.kc+' KC':''),'buff');
+    _renderSpinW();
+  },4200);
 }
 
 </script>
