@@ -1396,6 +1396,41 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WORLD MAP ══ */
+.worldmap-panel{position:fixed;inset:0;background:#020810;z-index:909;display:none;flex-direction:column;overflow:hidden}
+.worldmap-panel.open{display:flex}
+.worldmap-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#040e20,#020810)}
+.worldmap-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ddcc,#4488ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.worldmap-scroll{flex:1;overflow-y:auto;padding:0 0 28px}
+.worldmap-hero{position:relative;margin:0 14px 14px;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#0a1428,#040e20);border:1px solid rgba(0,221,204,.2);padding:14px}
+.worldmap-hero-title{font:900 15px var(--ff-head);color:#fff;margin-bottom:3px}
+.worldmap-hero-sub{font:500 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.worldmap-grid{display:flex;flex-direction:column;gap:10px;padding:0 14px}
+.zone-card{border-radius:20px;padding:16px;position:relative;overflow:hidden;cursor:pointer;transition:all .2s;border:1.5px solid transparent}
+.zone-card:active{transform:scale(.98)}
+.zone-card.locked{opacity:.5;cursor:default;filter:grayscale(.6)}
+.zone-card.exploring{border-color:rgba(0,221,204,.5)}
+.zone-card-top{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.zone-emoji-big{font-size:44px;flex-shrink:0;filter:drop-shadow(0 0 12px currentColor)}
+.zone-info{flex:1}
+.zone-name{font:800 15px var(--ff-head);color:#fff;margin-bottom:2px}
+.zone-desc{font:500 10px var(--ff-body);color:rgba(255,255,255,.5);line-height:1.4;margin-bottom:4px}
+.zone-req{font:600 10px var(--ff-body)}
+.zone-rewards-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.zone-reward-chip{font:600 9px var(--ff-body);padding:3px 9px;border-radius:8px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)}
+.zone-explore-btn{width:100%;padding:11px;border:none;border-radius:12px;font:800 12px var(--ff-head);cursor:pointer;color:#000;transition:all .15s}
+.zone-explore-btn:active{transform:scale(.97)}
+.zone-cd-bar-bg{width:100%;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.zone-cd-bar-fill{height:100%;border-radius:3px;transition:width .5s;background:linear-gradient(90deg,#00ddcc,#4488ff)}
+.zone-cd-text{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);text-align:center}
+.zone-lock-badge{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.5);border-radius:8px;padding:3px 8px;font:700 9px var(--ff-body);color:rgba(255,255,255,.5)}
+.zone-active-badge{position:absolute;top:10px;right:10px;background:rgba(0,221,204,.2);border:1px solid rgba(0,221,204,.4);border-radius:8px;padding:3px 8px;font:700 9px var(--ff-body);color:#00ddcc}
+.worldmap-stats-row{display:flex;gap:8px;margin:0 14px 14px}
+.worldmap-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px;text-align:center}
+.worldmap-stat-num{font:800 18px var(--ff-head);color:#fff}
+.worldmap-stat-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+
 /* ══ BATTLE ARENA ══ */
 .battle-panel{position:fixed;inset:0;background:#080210;z-index:908;display:none;flex-direction:column;overflow:hidden}
 .battle-panel.open{display:flex}
@@ -6034,6 +6069,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTraits()"><div class="ddr-i">🎭</div>Pet Karaktär</div>
           <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Skattekistor</div>
           <div class="ddr" onclick="cM();openBattle()"><div class="ddr-i">🏟️</div>Battle Arena</div>
+          <div class="ddr" onclick="cM();openWorldmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
         </div>
       </div>
     </div>
@@ -7643,6 +7679,36 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- WORLD MAP -->
+<div class="worldmap-panel" id="worldmapPanel">
+  <div class="worldmap-header">
+    <div class="worldmap-title">🗺️ VÄRLDSKARTAN</div>
+    <button class="close-btn" onclick="closeWorldmap()">✕</button>
+  </div>
+  <div class="worldmap-scroll">
+    <div class="worldmap-hero">
+      <div class="worldmap-hero-title">🌍 Utforska Världen</div>
+      <div class="worldmap-hero-sub">Lås upp nya zoner och samla unika resurser · Nivåkrav ökar med varje zon</div>
+    </div>
+    <div class="worldmap-stats-row">
+      <div class="worldmap-stat">
+        <div class="worldmap-stat-num" id="wmZonesUnlocked">0</div>
+        <div class="worldmap-stat-label">Zoner upplåsta</div>
+      </div>
+      <div class="worldmap-stat">
+        <div class="worldmap-stat-num" id="wmExploreDone">0</div>
+        <div class="worldmap-stat-label">Utforskningar</div>
+      </div>
+      <div class="worldmap-stat">
+        <div class="worldmap-stat-num" id="wmTotalXP">0</div>
+        <div class="worldmap-stat-label">Zon-XP totalt</div>
+      </div>
+    </div>
+    <div class="worldmap-grid" id="worldmapGrid"></div>
+  </div>
+</div>
 
 <!-- BATTLE ARENA -->
 <div class="battle-panel" id="battlePanel">
@@ -23528,6 +23594,146 @@ function _battleEnd(result){
   let bwt=$('battleWinsToday'); if(bwt) bwt.textContent=d.wins;
   let bfl=$('battleFightsLeft'); if(bfl) bfl.textContent=d.fightsLeft;
   let btw=$('battleTotalWins'); if(btw) btw.textContent=d.totalWins;
+}
+
+
+// WORLD MAP EXPLORATION SYSTEM
+const WORLD_ZONES = [
+  {id:'city',    emoji:'🏙️', name:'Husdjursstaden',  bg:'linear-gradient(135deg,#1a2040,#101830)',
+   color:'#4488ff', req:1,  cd:600000,   desc:'Din hemstad. Perfekt för nybörjare.',
+   rewards:['50-150 XP','25-75 💰','Ibland ingrediens'],
+   xpMin:50,  xpMax:150, cMin:25,  cMax:75,   ingChance:0.15},
+  {id:'forest',  emoji:'🌲', name:'Kristallskogen',  bg:'linear-gradient(135deg,#0a2010,#051408)',
+   color:'#44cc44', req:3,  cd:900000,   desc:'Magisk skog med glödande kristaller.',
+   rewards:['80-200 XP','40-100 💰','Ingrediens möjlig'],
+   xpMin:80,  xpMax:200, cMin:40,  cMax:100,  ingChance:0.25},
+  {id:'coast',   emoji:'🏖️', name:'Havskusten',       bg:'linear-gradient(135deg,#0a1428,#051020)',
+   color:'#00aaff', req:5,  cd:1200000,  desc:'Havsbris och sällsynta pärlor.',
+   rewards:['120-280 XP','60-150 💰','Stjärningrediens?'],
+   xpMin:120, xpMax:280, cMin:60,  cMax:150,  ingChance:0.3},
+  {id:'mountain',emoji:'🌋', name:'Eldberget',        bg:'linear-gradient(135deg,#281008,#180a04)',
+   color:'#ff6622', req:8,  cd:1800000,  desc:'Farliga vulkaner — men enastående skatter.',
+   rewards:['200-400 XP','100-250 💰','Eldkristall möjlig'],
+   xpMin:200, xpMax:400, cMin:100, cMax:250,  ingChance:0.35},
+  {id:'ice',     emoji:'❄️', name:'Isländerna',       bg:'linear-gradient(135deg,#0c1824,#080e18)',
+   color:'#88ccff', req:12, cd:2400000,  desc:'Fryst arkipelag med gömda tempel.',
+   rewards:['300-600 XP','150-350 💰','Iskristall möjlig'],
+   xpMin:300, xpMax:600, cMin:150, cMax:350,  ingChance:0.4},
+  {id:'dragon',  emoji:'🐉', name:'Drakdalen',        bg:'linear-gradient(135deg,#200820,#100410)',
+   color:'#aa44ff', req:18, cd:3600000,  desc:'Forntida drakar vaktar legendariska skatter.',
+   rewards:['500-1000 XP','250-600 💰','Sällsynt drop!'],
+   xpMin:500, xpMax:1000,cMin:250, cMax:600,  ingChance:0.5},
+  {id:'sky',     emoji:'☁️', name:'Himmelsbågen',     bg:'linear-gradient(135deg,#1a1428,#0e0818)',
+   color:'#ffcc00', req:25, cd:5400000,  desc:'Flytande öar bland stjärnorna.',
+   rewards:['800-1500 XP','400-900 💰 + KC','Guld drop!'],
+   xpMin:800, xpMax:1500,cMin:400, cMax:900,  ingChance:0.6, kcChance:0.3},
+  {id:'time',    emoji:'⏳', name:'Tidernas Torn',    bg:'linear-gradient(135deg,#180830,#0a0418)',
+   color:'#ff88cc', req:35, cd:7200000,  desc:'Mäktigt torn utanför tid och rum.',
+   rewards:['1200-2500 XP','600-1500 💰 + KC','Legendarisk drop!'],
+   xpMin:1200,xpMax:2500,cMin:600, cMax:1500, ingChance:0.7, kcChance:0.5},
+];
+const WM_KEY = 'k0509_worldmap';
+
+function _wmLoad(){try{return JSON.parse(localStorage.getItem(WM_KEY)||'null');}catch(e){return null;}}
+function _wmSave(d){localStorage.setItem(WM_KEY,JSON.stringify(d));}
+
+function _wmData(){
+  let d=_wmLoad();
+  if(!d) d={explorations:{},totalExplore:0,totalXP:0};
+  return d;
+}
+
+function openWorldmap(){
+  $('worldmapPanel').classList.add('open');
+  _renderWorldmap();
+  if(window._wmTick) clearInterval(window._wmTick);
+  window._wmTick=setInterval(_renderWorldmap,10000);
+}
+function closeWorldmap(){
+  if(window._wmTick) clearInterval(window._wmTick);
+  $('worldmapPanel').classList.remove('open');
+}
+
+function _renderWorldmap(){
+  let petLvl=(typeof G!=='undefined'?G.level||1:1);
+  let d=_wmData();
+  let now=Date.now();
+  let unlockedCount=WORLD_ZONES.filter(z=>petLvl>=z.req).length;
+  let wu=$('wmZonesUnlocked'); if(wu) wu.textContent=unlockedCount;
+  let wed=$('wmExploreDone'); if(wed) wed.textContent=d.totalExplore;
+  let wtx=$('wmTotalXP'); if(wtx) wtx.textContent=d.totalXP;
+  let grid=$('worldmapGrid'); if(!grid) return;
+  grid.innerHTML=WORLD_ZONES.map(zone=>{
+    let locked=petLvl<zone.req;
+    let expData=d.explorations[zone.id]||null;
+    let isExploring=expData&&expData.endTime>now;
+    let cdDone=expData&&expData.endTime<=now&&expData.collected===false;
+    let timeLeft=isExploring?expData.endTime-now:0;
+    let cdPct=isExploring?Math.max(0,100-((now-(expData.endTime-zone.cd))/zone.cd*100)):0;
+    let mins=Math.floor(timeLeft/60000);
+    let secs=Math.floor((timeLeft%60000)/1000);
+    let timeStr=mins>60?Math.ceil(mins/60)+'h':mins+'m '+secs+'s';
+    return `<div class="zone-card ${locked?'locked':isExploring?'exploring':''}" style="background:${zone.bg};border-color:${locked?'rgba(255,255,255,.06)':isExploring?zone.color+'88':zone.color+'33'}">
+      ${locked?`<div class="zone-lock-badge">🔒 Lv ${zone.req}</div>`:''}
+      ${isExploring?`<div class="zone-active-badge">🧭 Utforskar...</div>`:''}
+      ${cdDone?`<div class="zone-active-badge" style="background:rgba(0,255,136,.2);border-color:rgba(0,255,136,.4);color:#00ff88">✓ Klar!</div>`:''}
+      <div class="zone-card-top">
+        <div class="zone-emoji-big" style="color:${zone.color}">${zone.emoji}</div>
+        <div class="zone-info">
+          <div class="zone-name">${zone.name}</div>
+          <div class="zone-desc">${zone.desc}</div>
+          <div class="zone-req" style="color:${zone.color}">Nivå ${zone.req}+ krav</div>
+        </div>
+      </div>
+      <div class="zone-rewards-row">${zone.rewards.map(r=>`<div class="zone-reward-chip">${r}</div>`).join('')}</div>
+      ${isExploring?`<div class="zone-cd-bar-bg"><div class="zone-cd-bar-fill" style="width:${cdPct}%;background:${zone.color}"></div></div><div class="zone-cd-text">${timeStr} kvar...</div>`:''}
+      ${!locked&&!isExploring?`<button class="zone-explore-btn" onclick="exploreZone('${zone.id}')" style="background:linear-gradient(135deg,${zone.color},${zone.color}aa)">${cdDone?'🎁 Hämta belöning!':'🧭 Utforska ('+(zone.cd/60000<60?zone.cd/60000+'min':Math.floor(zone.cd/3600000)+'h')+')'}</button>`:''}
+    </div>`;
+  }).join('');
+}
+
+function exploreZone(zoneId){
+  let zone=WORLD_ZONES.find(z=>z.id===zoneId);
+  if(!zone) return;
+  let petLvl=(typeof G!=='undefined'?G.level||1:1);
+  if(petLvl<zone.req){showFloatBubble('Nivå '+zone.req+' krävs!','buff');return;}
+  let d=_wmData();
+  let now=Date.now();
+  let expData=d.explorations[zone.id]||null;
+  // Collect if done
+  if(expData&&expData.endTime<=now&&expData.collected===false){
+    let xp=zone.xpMin+Math.floor(Math.random()*(zone.xpMax-zone.xpMin));
+    let coins=zone.cMin+Math.floor(Math.random()*(zone.cMax-zone.cMin));
+    gainXP(xp,'worldmap');
+    gainCoins(coins);
+    d.totalXP+=xp;
+    d.totalExplore++;
+    let msg=zone.emoji+' +'+xp+' XP, +'+coins+' 💰';
+    if(Math.random()<(zone.ingChance||0)){
+      let ings=['fire','water','earth','star','dark','light'];
+      let ing=ings[Math.floor(Math.random()*ings.length)];
+      let ingData=JSON.parse(localStorage.getItem('k0509_alch_ing')||'{}');
+      ingData[ing]=(ingData[ing]||0)+1;
+      localStorage.setItem('k0509_alch_ing',JSON.stringify(ingData));
+      msg+=' + ingrediens!';
+    }
+    if(zone.kcChance&&Math.random()<zone.kcChance){
+      let kcAmt=1+Math.floor(Math.random()*3);
+      if(typeof gainKC==='function') gainKC(kcAmt);
+      msg+=' + '+kcAmt+' KC!';
+    }
+    expData.collected=true;
+    _wmSave(d);
+    showFloatBubble(msg,'buff');
+    _renderWorldmap();
+    return;
+  }
+  // Start new exploration
+  if(expData&&expData.endTime>now){showFloatBubble('Utforskning pågår redan!','buff');return;}
+  d.explorations[zone.id]={endTime:now+zone.cd,collected:false};
+  _wmSave(d);
+  showFloatBubble(zone.emoji+' Utforskar '+zone.name+'...','buff');
+  _renderWorldmap();
 }
 
 </script>
