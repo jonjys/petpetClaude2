@@ -1372,6 +1372,35 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TALENT TREE ══ */
+.talent-panel{position:fixed;inset:0;background:#080a08;z-index:883;display:none;flex-direction:column;overflow:hidden}
+.talent-panel.open{display:flex}
+.talent-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a1a08,#081208)}
+.talent-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--green),#aaff44);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.talent-pts{font:700 14px var(--ff-body);color:var(--green);background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);padding:4px 12px;border-radius:20px}
+.talent-scroll{flex:1;overflow-y:auto;padding:10px 12px 28px}
+.talent-branch{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:14px;margin-bottom:14px}
+.talent-branch-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.talent-branch-icon{font-size:26px}
+.talent-branch-name{font:800 15px var(--ff-head);color:#fff}
+.talent-branch-desc{font:500 10px var(--ff-body);color:rgba(255,255,255,.45)}
+.talent-nodes{display:flex;flex-direction:column;gap:8px}
+.talent-node{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;cursor:pointer;transition:all .2s;position:relative}
+.talent-node.unlocked{background:rgba(0,255,136,.07);border-color:rgba(0,255,136,.3)}
+.talent-node.maxed{background:rgba(0,255,136,.12);border-color:var(--green)}
+.talent-node.locked{opacity:.4;cursor:default}
+.talent-node-icon{font-size:22px;flex-shrink:0}
+.talent-node-info{flex:1}
+.talent-node-name{font:700 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.talent-node-effect{font:600 10px var(--ff-body);color:var(--green)}
+.talent-node-cost{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.talent-node-rank{display:flex;gap:3px;margin-top:4px}
+.talent-rank-pip{width:10px;height:4px;border-radius:2px;background:rgba(255,255,255,.15)}
+.talent-rank-pip.filled{background:var(--green)}
+.talent-node-max-badge{position:absolute;top:6px;right:8px;font:700 8px var(--ff-body);background:var(--green);color:#000;padding:2px 6px;border-radius:6px}
+.talent-reset-btn{width:100%;padding:10px;background:rgba(255,68,85,.1);border:1px solid rgba(255,68,85,.3);border-radius:12px;color:var(--red);font:600 12px var(--ff-head);cursor:pointer;margin-top:10px}
+
 /* ══ WEATHER SYSTEM ══ */
 .weather-widget{position:fixed;top:calc(var(--sat) + 8px);right:12px;z-index:802;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 12px 5px 8px;display:flex;align-items:center;gap:6px;cursor:pointer;transition:transform .15s}
 .weather-widget:active{transform:scale(.96)}
@@ -6696,6 +6725,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- TALENT TREE -->
+<div class="talent-panel" id="talentPanel">
+  <div class="talent-header">
+    <div class="talent-title">🌿 TALANGTRÄD</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="talent-pts"><span id="talentPtsNum">0</span> TP</div>
+      <button class="close-btn" onclick="closeTalent()">✕</button>
+    </div>
+  </div>
+  <div class="talent-scroll" id="talentScroll"></div>
+</div>
 
 <!-- WEATHER SYSTEM -->
 <div class="weather-widget" id="weatherWidget" onclick="openWeather()">
@@ -18534,6 +18576,139 @@ gainCoins = function(n){
 // Init widget
 setTimeout(_updateWeatherWidget, 1000);
 setInterval(_updateWeatherWidget, 300000);
+
+
+// TALENT TREE SYSTEM
+const TALENT_BRANCHES = [
+  {id:'combat', icon:'⚔️', name:'Strid', desc:'Förstärk din stridsförmåga',
+   nodes:[
+    {id:'power1',   icon:'💪',name:'Styrka I',      maxRank:3,costPer:1,effect:(r)=>`+${r*5}% skada`,desc:'Ökar skada i strider'},
+    {id:'defense1', icon:'🛡️',name:'Försvar I',     maxRank:3,costPer:1,effect:(r)=>`+${r*5}% försvar`,desc:'Minskar skada du tar'},
+    {id:'crit1',    icon:'⚡',name:'Kritisk träff',  maxRank:2,costPer:2,effect:(r)=>`+${r*8}% crit chans`,desc:'Chans för dubbel skada'},
+    {id:'rage1',    icon:'🔥',name:'Raseri',         maxRank:1,costPer:3,effect:(r)=>`+25% attack hastighet`,desc:'Ökar hur snabbt du kan attackera',requires:'crit1'},
+  ]},
+  {id:'fishing', icon:'🎣', name:'Fiske', desc:'Bli en fiskmästare',
+   nodes:[
+    {id:'fishsense',icon:'👁️',name:'Fisksinne',     maxRank:3,costPer:1,effect:(r)=>`+${r*10}% fångst rate`,desc:'Lättare att fånga fisk'},
+    {id:'rarefish', icon:'💎',name:'Sällsynt magnet',maxRank:2,costPer:2,effect:(r)=>`+${r*15}% sällsynt chans`,desc:'Attraherar sällsyntare fiskar'},
+    {id:'bigfish',  icon:'🦈',name:'Jättejakt',      maxRank:2,costPer:2,effect:(r)=>`+${r*20}% XP från fisk`,desc:'Mer XP från varje fångst'},
+    {id:'deepdive', icon:'🌊',name:'Djupdykning',    maxRank:1,costPer:4,effect:(r)=>`Abyssal fisk möjlig`,desc:'Låser upp djuphavsarter',requires:'rarefish'},
+  ]},
+  {id:'economy', icon:'💰', name:'Ekonomi', desc:'Tjäna mer, snabbare',
+   nodes:[
+    {id:'coinmagnet',icon:'💰',name:'Mynt-magnet',   maxRank:3,costPer:1,effect:(r)=>`+${r*8}% coins`,desc:'Mer coins från alla källor'},
+    {id:'interest',  icon:'📈',name:'Ränta',          maxRank:2,costPer:2,effect:(r)=>`+${r*5}% passiv inkomst`,desc:'Tjäna coins utan att göra något'},
+    {id:'bargain',   icon:'🏷️',name:'Prisförhandlare',maxRank:2,costPer:2,effect:(r)=>`-${r*10}% marknadspriser`,desc:'Billigare köp i marknaden'},
+    {id:'goldtouch', icon:'✨',name:'Midasberöring',  maxRank:1,costPer:5,effect:(r)=>`+30% alla intäkter`,desc:'Allt du gör ger mer coins',requires:'coinmagnet'},
+  ]},
+  {id:'bond', icon:'❤️', name:'Band', desc:'Stärk bandet med din pet',
+   nodes:[
+    {id:'empathy',  icon:'🫀',name:'Empati',          maxRank:3,costPer:1,effect:(r)=>`+${r*10}% bond gain`,desc:'Snabbare bond-ökning'},
+    {id:'telepathy',icon:'🧠',name:'Telepati',        maxRank:2,costPer:2,effect:(r)=>`+${r*8}% XP när bond hög`,desc:'Mer XP när bond är >80%'},
+    {id:'unity',    icon:'🌟',name:'Enighet',         maxRank:2,costPer:2,effect:(r)=>`+${r*5}% alla stats`,desc:'Alla bonusar ökar lite'},
+    {id:'soulbond', icon:'💞',name:'Själsbond',       maxRank:1,costPer:5,effect:(r)=>`Dubbel bond-effekt`,desc:'Bond-bonusar fördubblas',requires:'unity'},
+  ]},
+];
+
+const TALENT_KEYS = {
+  pts: 'k0509_talent_pts',
+  spent: 'k0509_talent_spent',
+  rank: (id)=>'k0509_talent_'+id,
+};
+
+function _talentGetPts(){ return parseInt(localStorage.getItem(TALENT_KEYS.pts)||'0'); }
+function _talentGetRank(id){ return parseInt(localStorage.getItem(TALENT_KEYS.rank(id))||'0'); }
+function _talentGetSpent(){ return parseInt(localStorage.getItem(TALENT_KEYS.spent)||'0'); }
+
+function openTalent(){
+  $('talentPanel').classList.add('open');
+  _renderTalent();
+}
+function closeTalent(){ $('talentPanel').classList.remove('open'); }
+
+function investTalent(branchId, nodeId){
+  let branch = TALENT_BRANCHES.find(b=>b.id===branchId);
+  if(!branch) return;
+  let node = branch.nodes.find(n=>n.id===nodeId);
+  if(!node) return;
+  let rank = _talentGetRank(nodeId);
+  if(rank >= node.maxRank){ showFloatBubble('Redan maxad!','warn'); return; }
+  if(node.requires && _talentGetRank(node.requires)<1){ showFloatBubble('Kräver föregående talang!','warn'); return; }
+  let pts = _talentGetPts();
+  if(pts < node.costPer){ showFloatBubble('Inte tillräckligt TP!','warn'); return; }
+  localStorage.setItem(TALENT_KEYS.pts, pts - node.costPer);
+  localStorage.setItem(TALENT_KEYS.spent, _talentGetSpent() + node.costPer);
+  localStorage.setItem(TALENT_KEYS.rank(nodeId), rank+1);
+  showFloatBubble(`🌿 ${node.name} Rank ${rank+1}!`,'buff');
+  logActivity('milestone',`Talang ${node.name} uppgraderad till rank ${rank+1}`,null);
+  _renderTalent();
+}
+
+function resetTalents(){
+  let spent = _talentGetSpent();
+  let pts = _talentGetPts();
+  TALENT_BRANCHES.forEach(b=>b.nodes.forEach(n=>{
+    localStorage.removeItem(TALENT_KEYS.rank(n.id));
+  }));
+  localStorage.setItem(TALENT_KEYS.pts, pts+spent);
+  localStorage.setItem(TALENT_KEYS.spent,'0');
+  showFloatBubble('🌿 Alla talanger återställda!','buff');
+  _renderTalent();
+}
+
+function _renderTalent(){
+  let pts = _talentGetPts();
+  let el = $('talentPtsNum'); if(el) el.textContent=pts;
+  let scroll = $('talentScroll'); if(!scroll) return;
+  scroll.innerHTML = TALENT_BRANCHES.map(b=>{
+    let nodesHtml = b.nodes.map(n=>{
+      let rank = _talentGetRank(n.id);
+      let maxed = rank>=n.maxRank;
+      let reqOk = !n.requires || _talentGetRank(n.requires)>=1;
+      let canAfford = pts >= n.costPer;
+      let locked = !reqOk;
+      let pips = Array.from({length:n.maxRank},(_,i)=>`<div class="talent-rank-pip ${i<rank?'filled':''}"></div>`).join('');
+      return `<div class="talent-node ${maxed?'maxed':rank>0?'unlocked':''} ${locked?'locked':''}" onclick="${locked||maxed?'':('investTalent(''+b.id+'',''+n.id+'')')}">
+        <div class="talent-node-icon">${n.icon}</div>
+        <div class="talent-node-info">
+          <div class="talent-node-name">${n.name}</div>
+          <div class="talent-node-effect">${n.effect(Math.max(rank,1))}</div>
+          <div class="talent-rank-rank">${pips}</div>
+          <div class="talent-node-cost">${maxed?'MAX':locked?'🔒 Kräver '+n.requires:n.costPer+' TP'}</div>
+        </div>
+        ${maxed?'<div class="talent-node-max-badge">MAX</div>':''}
+      </div>`;
+    }).join('');
+    return `<div class="talent-branch">
+      <div class="talent-branch-header"><div class="talent-branch-icon">${b.icon}</div><div><div class="talent-branch-name">${b.name}</div><div class="talent-branch-desc">${b.desc}</div></div></div>
+      <div class="talent-nodes">${nodesHtml}</div>
+    </div>`;
+  }).join('') + `<button class="talent-reset-btn" onclick="resetTalents()">🔄 Återställ alla talanger</button>`;
+}
+
+// Give 1 Talent Point per level up
+const _origTLUTalent = window.triggerLvlUp;
+window.triggerLvlUp = function(){
+  _origTLUTalent.apply(this,arguments);
+  let pts = _talentGetPts();
+  localStorage.setItem(TALENT_KEYS.pts, pts+1);
+  showFloatBubble('🌿 +1 Talangpoäng!','buff');
+  if($('talentPanel').classList.contains('open')) _renderTalent();
+};
+
+// Give starting TP based on current level
+(function(){
+  let key='k0509_talent_init';
+  if(!localStorage.getItem(key)){
+    localStorage.setItem(key,'1');
+    let lvl = G?.(G.level||1):1;
+    let startPts = Math.max(0, (lvl||1)-1);
+    if(startPts>0){
+      let pts=_talentGetPts();
+      localStorage.setItem(TALENT_KEYS.pts,pts+startPts);
+    }
+  }
+})();
 
 </script>
 
