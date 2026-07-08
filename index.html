@@ -1379,6 +1379,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ALL-TIME STATS ══ */
+.stats-panel{position:fixed;inset:0;background:#060810;z-index:890;display:none;flex-direction:column;overflow:hidden}
+.stats-panel.open{display:flex}
+.stats-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#100818,#060a18)}
+.stats-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--gold),#ffffaa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stats-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.stats-hero{background:linear-gradient(135deg,rgba(255,204,0,.1),rgba(255,136,68,.07));border:1px solid rgba(255,204,0,.3);border-radius:20px;padding:20px;margin-bottom:16px;text-align:center}
+.stats-hero-level{font:900 56px var(--ff-head);color:var(--gold);line-height:1;text-shadow:0 0 30px rgba(255,204,0,.4)}
+.stats-hero-label{font:600 11px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.stats-hero-name{font:800 18px var(--ff-head);color:#fff;margin-bottom:2px}
+.stats-hero-days{font:600 12px var(--ff-body);color:rgba(255,255,255,.5)}
+.stats-section{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;margin-top:16px}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.stats-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px}
+.stats-card-icon{font-size:28px;flex-shrink:0}
+.stats-card-info{flex:1;min-width:0}
+.stats-card-num{font:800 20px var(--ff-head);color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stats-card-label{font:500 10px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.3px}
+.stats-card.gold{background:rgba(255,204,0,.08);border-color:rgba(255,204,0,.25)}
+.stats-card.gold .stats-card-num{color:var(--gold)}
+.stats-card.blue{background:rgba(68,136,255,.07);border-color:rgba(68,136,255,.2)}
+.stats-card.blue .stats-card-num{color:var(--blue)}
+.stats-card.green{background:rgba(0,255,136,.06);border-color:rgba(0,255,136,.2)}
+.stats-card.green .stats-card-num{color:var(--green)}
+.stats-card.purple{background:rgba(170,102,255,.07);border-color:rgba(170,102,255,.2)}
+.stats-card.purple .stats-card-num{color:var(--purple)}
+.stats-card.pink{background:rgba(255,51,119,.07);border-color:rgba(255,51,119,.2)}
+.stats-card.pink .stats-card-num{color:var(--pink)}
+.stats-records-list{display:flex;flex-direction:column;gap:8px}
+.stats-record-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border-radius:12px;padding:10px 12px}
+.stats-record-icon{font-size:20px;flex-shrink:0}
+.stats-record-info{flex:1}
+.stats-record-label{font:600 11px var(--ff-body);color:rgba(255,255,255,.5)}
+.stats-record-val{font:700 14px var(--ff-head);color:#fff}
+.stats-share-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:14px;color:#000;font:800 14px var(--ff-head);cursor:pointer;margin-top:16px}
+
 /* ══ NOTIFICATION CENTER ══ */
 .notif-fab{position:fixed;bottom:calc(var(--sab)+92px);right:14px;z-index:803;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;font-size:20px}
 .notif-fab:active{transform:scale(.92)}
@@ -6946,6 +6983,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- ALL-TIME STATS -->
+<div class="stats-panel" id="statsPanel">
+  <div class="stats-header">
+    <div class="stats-title">🏆 HALL OF FAME</div>
+    <button class="close-btn" onclick="closeStats()">✕</button>
+  </div>
+  <div class="stats-scroll" id="statsScroll"></div>
+</div>
 
 <!-- NOTIFICATION CENTER -->
 <div class="notif-fab" id="notifFab" onclick="openNotif()">
@@ -19767,6 +19814,85 @@ window.triggerLvlUp=function(){
 
 // Init badge
 setTimeout(_updateNotifBadge, 500);
+
+
+// ALL-TIME STATS HALL OF FAME
+function openStats(){
+  $('statsPanel').classList.add('open');
+  _renderStats();
+}
+function closeStats(){ $('statsPanel').classList.remove('open'); }
+
+function _statFmt(n){
+  if(n>=1000000) return (n/1000000).toFixed(1)+'M';
+  if(n>=1000) return (n/1000).toFixed(1)+'K';
+  return n||0;
+}
+
+function _renderStats(){
+  let scroll=$('statsScroll'); if(!scroll) return;
+  // Load from G and localStorage
+  let lvl=G.level||1;
+  let petName=G.name||'Din Pet';
+  let totalXP=G.xp||0;
+  let coins=G.coins||0;
+  let kc=G.kc||0;
+  let fishCaught=parseInt(localStorage.getItem('k0509_fp_total')||'0');
+  let fishSpecies=Object.keys(FISHPEDIA_DEFS||[]).filter(k=>parseInt(localStorage.getItem('k0509_fp_'+FISHPEDIA_DEFS.find(d=>d.id===k)?.id)||'0')>0).length;
+  let createdAt=G.createdAt||Date.now();
+  let daysPlayed=Math.max(1,Math.floor((Date.now()-createdAt)/86400000));
+  let streakBest=parseInt(localStorage.getItem('k0509_streak_best')||'0');
+  let streakCur=parseInt(localStorage.getItem('k0509_streak')||'0');
+  let trophyCount=typeof TROPHY_DEFS!=='undefined'?TROPHY_DEFS.filter(t=>localStorage.getItem('k0509_tr_'+t.id+'_done')).length:0;
+  let prestige=G.prestige||0;
+  let gachaTotal=parseInt(localStorage.getItem('k0509_gachaPullCount')||'0');
+  let bpTier=typeof _bpassCurrentTier!=='undefined'?_bpassCurrentTier(parseInt(localStorage.getItem('k0509_bpass_sxp')||'0')):0;
+  let clanPts=parseInt(localStorage.getItem('k0509_clan_pts')||'0');
+  let talentSpent=parseInt(localStorage.getItem('k0509_talent_spent')||'0');
+  scroll.innerHTML=`
+    <div class="stats-hero">
+      <div class="stats-hero-label">NUVARANDE NIVÅ</div>
+      <div class="stats-hero-level">${lvl}</div>
+      <div class="stats-hero-name">${petName}</div>
+      <div class="stats-hero-days">Spelat i ${daysPlayed} dag${daysPlayed===1?'':'ar'}</div>
+    </div>
+    <div class="stats-section">Ekonomi & XP</div>
+    <div class="stats-grid">
+      <div class="stats-card gold"><div class="stats-card-icon">⚡</div><div class="stats-card-info"><div class="stats-card-num">${_statFmt(totalXP)}</div><div class="stats-card-label">Total XP</div></div></div>
+      <div class="stats-card gold"><div class="stats-card-icon">💰</div><div class="stats-card-info"><div class="stats-card-num">${_statFmt(coins)}</div><div class="stats-card-label">Coins</div></div></div>
+      <div class="stats-card purple"><div class="stats-card-icon">💎</div><div class="stats-card-info"><div class="stats-card-num">${kc}</div><div class="stats-card-label">KC</div></div></div>
+      <div class="stats-card purple"><div class="stats-card-icon">⭐</div><div class="stats-card-info"><div class="stats-card-num">${G.prestigePP||0}</div><div class="stats-card-label">Prestige PP</div></div></div>
+    </div>
+    <div class="stats-section">Fiske & Äventyr</div>
+    <div class="stats-grid">
+      <div class="stats-card blue"><div class="stats-card-icon">🎣</div><div class="stats-card-info"><div class="stats-card-num">${fishCaught}</div><div class="stats-card-label">Fiskar fångade</div></div></div>
+      <div class="stats-card blue"><div class="stats-card-icon">📖</div><div class="stats-card-info"><div class="stats-card-num">${fishSpecies}/24</div><div class="stats-card-label">Fisk-arter</div></div></div>
+      <div class="stats-card green"><div class="stats-card-icon">🗺️</div><div class="stats-card-info"><div class="stats-card-num">${parseInt(localStorage.getItem('k0509_exped_total')||'0')}</div><div class="stats-card-label">Expeditioner</div></div></div>
+      <div class="stats-card green"><div class="stats-card-icon">⚔️</div><div class="stats-card-info"><div class="stats-card-num">${G.battleWins||0}</div><div class="stats-card-label">Stridsvinster</div></div></div>
+    </div>
+    <div class="stats-section">Socialt & Milstenar</div>
+    <div class="stats-grid">
+      <div class="stats-card pink"><div class="stats-card-icon">🔥</div><div class="stats-card-info"><div class="stats-card-num">${streakCur}</div><div class="stats-card-label">Streak</div></div></div>
+      <div class="stats-card pink"><div class="stats-card-icon">🏆</div><div class="stats-card-info"><div class="stats-card-num">${trophyCount}</div><div class="stats-card-label">Trofeer</div></div></div>
+      <div class="stats-card gold"><div class="stats-card-icon">🎰</div><div class="stats-card-info"><div class="stats-card-num">${gachaTotal}</div><div class="stats-card-label">Gacha-pulls</div></div></div>
+      <div class="stats-card purple"><div class="stats-card-icon">🌿</div><div class="stats-card-info"><div class="stats-card-num">${talentSpent}</div><div class="stats-card-label">Talent TP spenderade</div></div></div>
+    </div>
+    <div class="stats-section">Personliga rekord</div>
+    <div class="stats-records-list">
+      <div class="stats-record-row"><div class="stats-record-icon">🔥</div><div class="stats-record-info"><div class="stats-record-label">Bästa Streak</div><div class="stats-record-val">${streakBest} dagar</div></div></div>
+      <div class="stats-record-row"><div class="stats-record-icon">⚔️</div><div class="stats-record-info"><div class="stats-record-label">Battle Pass Tier</div><div class="stats-record-val">Tier ${bpTier}</div></div></div>
+      <div class="stats-record-row"><div class="stats-record-icon">⚔️</div><div class="stats-record-info"><div class="stats-record-label">Klan-poäng</div><div class="stats-record-val">${_statFmt(clanPts)}</div></div></div>
+      <div class="stats-record-row"><div class="stats-record-icon">♾️</div><div class="stats-record-info"><div class="stats-record-label">Prestiger</div><div class="stats-record-val">${prestige}x</div></div></div>
+    </div>
+    <button class="stats-share-btn" onclick="shareStats()">📤 DELA DINA STATS</button>`;
+}
+
+function shareStats(){
+  let lvl=G.level||1, name=G.name||'Pet', fish=parseInt(localStorage.getItem('k0509_fp_total')||'0');
+  let text=`🐾 ${name} | Nivå ${lvl} | ${fish} fiskar | ${G.kc||0} KC | Streak ${parseInt(localStorage.getItem('k0509_streak')||'0')} dagar`;
+  if(navigator.share){ navigator.share({title:'Mina Pet Stats',text}); }
+  else{ navigator.clipboard&&navigator.clipboard.writeText(text); showFloatBubble('Stats kopierade!','buff'); }
+}
 
 </script>
 
