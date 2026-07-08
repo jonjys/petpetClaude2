@@ -1405,6 +1405,44 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ LUCKY DICE ══ */
+.dice-panel{position:fixed;inset:0;background:#030208;z-index:918;display:none;flex-direction:column;overflow:hidden}
+.dice-panel.open{display:flex}
+.dice-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060412,#030208)}
+.dice-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4455,#ffcc00,#44bbff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.dice-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.dice-casino-bg{background:radial-gradient(ellipse at 50% 0%,rgba(255,204,0,.08),transparent 70%);border:1.5px solid rgba(255,204,0,.15);border-radius:22px;padding:20px 14px;margin-bottom:14px;text-align:center}
+.dice-display{display:flex;gap:14px;justify-content:center;margin-bottom:16px}
+.dice-face{width:70px;height:70px;background:linear-gradient(135deg,#1a1428,#0c0818);border:2px solid rgba(255,255,255,.15);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:36px;transition:all .3s;position:relative;overflow:hidden}
+.dice-face.rolling{animation:diceShake .2s ease-in-out infinite alternate}
+.dice-face.winner{border-color:rgba(255,204,0,.6);box-shadow:0 0 16px rgba(255,204,0,.3);background:linear-gradient(135deg,#1e1a08,#0e0c04)}
+@keyframes diceShake{from{transform:rotate(-5deg) scale(.95)}to{transform:rotate(5deg) scale(1.05)}}
+.dice-result-label{font:900 22px var(--ff-head);color:#fff;margin-bottom:6px}
+.dice-result-reward{font:700 14px var(--ff-body);color:var(--gold);margin-bottom:14px}
+.dice-roll-btn{background:linear-gradient(135deg,#ff4455,#ffcc00);border:none;border-radius:16px;color:#000;font:900 16px var(--ff-head);padding:14px 32px;cursor:pointer;transition:all .15s}
+.dice-roll-btn:active{transform:scale(.96)}
+.dice-roll-btn:disabled{opacity:.35;cursor:default}
+.dice-bet-row{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:12px}
+.dice-bet-btn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#fff;font:700 10px var(--ff-head);padding:5px 10px;cursor:pointer}
+.dice-bet-btn:active{transform:scale(.95)}
+.dice-bet-display{font:800 14px var(--ff-head);color:var(--gold);padding:6px 16px;background:rgba(255,204,0,.08);border-radius:10px;border:1px solid rgba(255,204,0,.2)}
+.dice-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.dice-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.dice-stat-num{font:800 15px var(--ff-head);color:#fff}
+.dice-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.dice-payouts{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:12px;margin-bottom:14px}
+.dice-payout-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.dice-payout-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.dice-payout-row:last-child{border:none}
+.dice-payout-combo{font:700 12px var(--ff-body);color:rgba(255,255,255,.6)}
+.dice-payout-prize{font:800 11px var(--ff-head);color:var(--gold)}
+.dice-history{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.dice-hist-chip{font:600 9px var(--ff-body);padding:3px 10px;border-radius:8px}
+.dice-hist-chip.win{background:rgba(0,255,136,.15);color:var(--green);border:1px solid rgba(0,255,136,.2)}
+.dice-hist-chip.jackpot{background:rgba(255,204,0,.2);color:var(--gold);border:1px solid rgba(255,204,0,.35)}
+.dice-hist-chip.lose{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)}
+
 /* ══ COOKING STATION ══ */
 .cook-panel{position:fixed;inset:0;background:#0a0500;z-index:917;display:none;flex-direction:column;overflow:hidden}
 .cook-panel.open{display:flex}
@@ -6414,6 +6452,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Guild Hall</div>
           <div class="ddr" onclick="cM();openStory()"><div class="ddr-i">📖</div>Pet Story</div>
           <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Cooking Station</div>
+          <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Lucky Dice</div>
         </div>
       </div>
     </div>
@@ -8032,6 +8071,59 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- LUCKY DICE -->
+<div class="dice-panel" id="dicePanel">
+  <div class="dice-header">
+    <div class="dice-title">🎲 LUCKY DICE</div>
+    <button class="close-btn" onclick="closeDice()">✕</button>
+  </div>
+  <div class="dice-scroll">
+    <div class="dice-casino-bg">
+      <div class="dice-display" id="diceDisplay">
+        <div class="dice-face" id="diceFace0">🎲</div>
+        <div class="dice-face" id="diceFace1">🎲</div>
+        <div class="dice-face" id="diceFace2">🎲</div>
+      </div>
+      <div class="dice-result-label" id="diceResultLabel">Rulla tärningarna!</div>
+      <div class="dice-result-reward" id="diceResultReward">2 gratis rullar per dag</div>
+      <button class="dice-roll-btn" id="diceRollBtn" onclick="rollDice()">🎲 RULLA!</button>
+      <div class="dice-bet-row">
+        <button class="dice-bet-btn" onclick="diceBet(-100)">-100</button>
+        <button class="dice-bet-btn" onclick="diceBet(-50)">-50</button>
+        <div class="dice-bet-display">Insats: <span id="diceBetAmt">0</span> 💰</div>
+        <button class="dice-bet-btn" onclick="diceBet(50)">+50</button>
+        <button class="dice-bet-btn" onclick="diceBet(100)">+100</button>
+      </div>
+      <div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3);margin-top:6px">Insats = extra belöning vid vinst · Max 500 💰</div>
+    </div>
+    <div class="dice-stats-row">
+      <div class="dice-stat">
+        <div class="dice-stat-num" id="diceRollsLeft">2</div>
+        <div class="dice-stat-label">Gratis rullar</div>
+      </div>
+      <div class="dice-stat">
+        <div class="dice-stat-num" id="diceTotalRolls">0</div>
+        <div class="dice-stat-label">Rullar totalt</div>
+      </div>
+      <div class="dice-stat">
+        <div class="dice-stat-num" id="diceTotalWon">0</div>
+        <div class="dice-stat-label">💰 Vunnet</div>
+      </div>
+    </div>
+    <div class="dice-payouts">
+      <div class="dice-payout-title">💰 Utbetalningar</div>
+      <div class="dice-payout-row"><div class="dice-payout-combo">💎💎💎 Tre diamanter (MEGA)</div><div class="dice-payout-prize">50x insats + 1000 XP</div></div>
+      <div class="dice-payout-row"><div class="dice-payout-combo">🌟🌟🌟 eller ⭐⭐⭐ Tredubbel</div><div class="dice-payout-prize">20x insats + 500 XP</div></div>
+      <div class="dice-payout-row"><div class="dice-payout-combo">Tre likadana (annan)</div><div class="dice-payout-prize">10x insats + 300 XP</div></div>
+      <div class="dice-payout-row"><div class="dice-payout-combo">Två likadana</div><div class="dice-payout-prize">3x insats + 100 XP</div></div>
+      <div class="dice-payout-row"><div class="dice-payout-combo">Ingen match</div><div class="dice-payout-prize">+50 XP tröst</div></div>
+    </div>
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Historik</div>
+    <div class="dice-history" id="diceHistory"></div>
+  </div>
+</div>
 
 <!-- COOKING STATION -->
 <div class="cook-panel" id="cookPanel">
@@ -25439,6 +25531,127 @@ function cookCollect(){
   _cookSave(d);
   showFloatBubble('🍽️ Njut av din måltid! Buff aktiverad!','buff');
   _renderCook();
+}
+
+
+// LUCKY DICE SYSTEM
+const DICE_FACES = ['💰','⭐','🎯','🍀','🔥','💎'];
+const DICE_KEY = 'k0509_dice';
+let _diceRolling = false;
+let _diceBet = 0;
+
+function _diceLoad(){try{return JSON.parse(localStorage.getItem(DICE_KEY)||'null');}catch(e){return null;}}
+function _diceSave(d){localStorage.setItem(DICE_KEY,JSON.stringify(d));}
+
+function _diceDayData(){
+  let d=_diceLoad();
+  let today=getTodayKey();
+  if(d&&d.date===today) return d;
+  d={date:today,rollsLeft:2,totalRolls:(d?d.totalRolls||0:0),totalWon:(d?d.totalWon||0:0),history:[]};
+  _diceSave(d);
+  return d;
+}
+
+function openDice(){
+  $('dicePanel').classList.add('open');
+  _diceBet=0;
+  _renderDiceUI();
+}
+function closeDice(){ $('dicePanel').classList.remove('open'); }
+
+function diceBet(delta){
+  let coins=(typeof G!=='undefined'&&G.coins)||0;
+  _diceBet=Math.max(0,Math.min(500,Math.min(coins,_diceBet+delta)));
+  let ba=document.getElementById('diceBetAmt'); if(ba) ba.textContent=_diceBet;
+}
+
+function _renderDiceUI(){
+  let d=_diceDayData();
+  let drl=$('diceRollsLeft'); if(drl) drl.textContent=d.rollsLeft;
+  let dtr=$('diceTotalRolls'); if(dtr) dtr.textContent=d.totalRolls;
+  let dtw=$('diceTotalWon'); if(dtw) dtw.textContent=d.totalWon;
+  let coins=(typeof G!=='undefined'&&G.coins)||0;
+  let btn=$('diceRollBtn');
+  if(btn){
+    let canRoll=d.rollsLeft>0||(_diceBet>0&&_diceBet<=coins);
+    btn.disabled=!canRoll||_diceRolling;
+    btn.textContent=d.rollsLeft>0?'🎲 RULLA! (Gratis)':'🎲 RULLA ('+_diceBet+' 💰)';
+  }
+  let hist=$('diceHistory');
+  if(hist) hist.innerHTML=d.history.slice(-10).reverse().map(h=>`<div class="dice-hist-chip ${h.type}">${h.label}</div>`).join('')||'<div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Ingen historik</div>';
+}
+
+function rollDice(){
+  if(_diceRolling) return;
+  let d=_diceDayData();
+  let coins=(typeof G!=='undefined'&&G.coins)||0;
+  let usingFree=d.rollsLeft>0;
+  if(!usingFree&&_diceBet<=0){showFloatBubble('Inga gratis rullar — sätt en insats!','buff');return;}
+  if(!usingFree&&_diceBet>coins){showFloatBubble('Inte tillräckligt coins!','buff');return;}
+  if(!usingFree&&_diceBet>0){
+    if(typeof G!=='undefined'){G.coins-=_diceBet;if(typeof save==='function')save();}
+  }
+  if(usingFree) d.rollsLeft--;
+  d.totalRolls++;
+  _diceSave(d);
+  _diceRolling=true;
+  let btn=$('diceRollBtn'); if(btn) btn.disabled=true;
+  let faces=[0,1,2].map(()=>Math.floor(Math.random()*DICE_FACES.length));
+  let rollCount=0;
+  let ticker=setInterval(()=>{
+    [0,1,2].forEach(i=>{
+      let el=document.getElementById('diceFace'+i);
+      if(el){el.textContent=DICE_FACES[Math.floor(Math.random()*DICE_FACES.length)];el.classList.add('rolling');}
+    });
+    rollCount++;
+    if(rollCount>=8){
+      clearInterval(ticker);
+      [0,1,2].forEach(i=>{
+        let el=document.getElementById('diceFace'+i);
+        if(el){el.textContent=DICE_FACES[faces[i]];el.classList.remove('rolling');}
+      });
+      _diceShowResult(faces,usingFree?0:_diceBet);
+      _diceRolling=false;
+    }
+  },100);
+}
+
+function _diceShowResult(faces,bet){
+  let d=_diceDayData();
+  let [a,b,c]=faces;
+  let result='none';
+  let mult=0,xp=50,label='',type='lose';
+  if(a===b&&b===c){
+    if(DICE_FACES[a]==='💎'){result='mega';mult=50;xp=1000;label='MEGA JACKPOT! 💎';type='jackpot';}
+    else if(DICE_FACES[a]==='🌟'||DICE_FACES[a]==='⭐'){result='triple_rare';mult=20;xp=500;label='3x '+DICE_FACES[a]+'!';type='jackpot';}
+    else{result='triple';mult=10;xp=300;label='3x '+DICE_FACES[a]+'!';type='jackpot';}
+    [0,1,2].forEach(i=>{let el=document.getElementById('diceFace'+i);if(el)el.classList.add('winner');});
+  } else if(a===b||b===c||a===c){
+    result='pair';mult=3;xp=100;label='Dubbelt!';type='win';
+    let matchFace=a===b?0:a===c?0:1;
+    [0,1,2].filter(i=>faces[i]===faces[matchFace]).forEach(i=>{let el=document.getElementById('diceFace'+i);if(el)el.classList.add('winner');});
+  }
+  let bonus=Math.floor(bet*mult);
+  let winTotal=bonus;
+  if(winTotal>0){
+    gainCoins(winTotal);
+    d.totalWon=(d.totalWon||0)+winTotal;
+  }
+  gainXP(xp,'dice');
+  let rl=$('diceResultLabel');
+  let rr=$('diceResultReward');
+  if(result==='none'){
+    if(rl) rl.textContent='Ingen match denna gång...';
+    if(rr) rr.textContent='+50 XP tröst';
+    d.history.push({label:'Ingen match',type:'lose'});
+  } else {
+    if(rl) rl.textContent=label;
+    if(rr) rr.textContent='+'+xp+' XP'+(bonus>0?' · +'+bonus+' 💰':'');
+    d.history.push({label:label+(bonus>0?' +'+bonus+'💰':''),type});
+    showFloatBubble('🎲 '+label+' +'+xp+' XP'+(bonus>0?' +'+bonus+' 💰':''),'buff');
+  }
+  _diceSave(d);
+  _renderDiceUI();
 }
 
 </script>
