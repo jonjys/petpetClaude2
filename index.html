@@ -1371,6 +1371,40 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WEATHER SYSTEM ══ */
+.weather-widget{position:fixed;top:calc(var(--sat) + 8px);right:12px;z-index:802;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 12px 5px 8px;display:flex;align-items:center;gap:6px;cursor:pointer;transition:transform .15s}
+.weather-widget:active{transform:scale(.96)}
+.weather-widget-icon{font-size:18px;line-height:1}
+.weather-widget-name{font:700 10px var(--ff-body);color:rgba(255,255,255,.8);white-space:nowrap}
+.weather-widget-effect{font:500 9px var(--ff-body);color:rgba(255,255,255,.45)}
+/* Weather detail panel */
+.weather-panel{position:fixed;inset:0;background:#050810;z-index:882;display:none;flex-direction:column;overflow:hidden}
+.weather-panel.open{display:flex}
+.weather-panel-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px}
+.weather-panel-title{font:700 20px var(--ff-head);color:#fff}
+.weather-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.weather-current{border-radius:20px;padding:24px;margin-bottom:16px;text-align:center;position:relative;overflow:hidden}
+.weather-current-emoji{font-size:72px;line-height:1;margin-bottom:10px;display:block;filter:drop-shadow(0 0 20px currentColor)}
+.weather-current-name{font:900 28px var(--ff-head);color:#fff;margin-bottom:4px}
+.weather-current-desc{font:500 13px var(--ff-body);color:rgba(255,255,255,.6);line-height:1.5;margin-bottom:12px}
+.weather-current-bonus{display:inline-block;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:8px 16px;font:700 13px var(--ff-body);color:#fff}
+.weather-next-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.weather-next-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px;text-align:center}
+.weather-next-card.active{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
+.weather-next-icon{font-size:22px;margin-bottom:4px}
+.weather-next-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase}
+.weather-effects-title{font:700 12px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.weather-effect-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.weather-effect-icon{font-size:20px}
+.weather-effect-info{flex:1}
+.weather-effect-name{font:700 12px var(--ff-body);color:#fff;margin-bottom:2px}
+.weather-effect-val{font:600 11px var(--ff-body)}
+.weather-effect-val.pos{color:var(--green)}
+.weather-effect-val.neg{color:var(--red)}
+@keyframes weatherFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.weather-current-emoji{animation:weatherFloat 3s ease-in-out infinite}
+
 /* ══ DAILY MARKET ══ */
 .market-panel{position:fixed;inset:0;background:#0a0a08;z-index:881;display:none;flex-direction:column;overflow:hidden}
 .market-panel.open{display:flex}
@@ -6661,6 +6695,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- WEATHER SYSTEM -->
+<div class="weather-widget" id="weatherWidget" onclick="openWeather()">
+  <div class="weather-widget-icon" id="wwIcon">☀️</div>
+  <div>
+    <div class="weather-widget-name" id="wwName">Soligt</div>
+    <div class="weather-widget-effect" id="wwEffect">+10% XP</div>
+  </div>
+</div>
+<div class="weather-panel" id="weatherPanel">
+  <div class="weather-panel-header" id="weatherPanelHeader">
+    <div class="weather-panel-title">🌤️ VÄDER</div>
+    <button class="close-btn" onclick="closeWeather()">✕</button>
+  </div>
+  <div class="weather-scroll" id="weatherScroll"></div>
+</div>
 
 <!-- DAILY MARKET -->
 <div class="market-panel" id="marketPanel">
@@ -18366,6 +18417,123 @@ function _renderMarket(){
     </div>`;
   }).join('');
 }
+
+
+// WEATHER SYSTEM
+const WEATHERS = [
+  {id:'sunny',   icon:'☀️', name:'Soligt',    desc:'En vacker dag! Perfekt för träning och äventyr.',
+   color:'#ffcc00', bg:'linear-gradient(135deg,rgba(255,204,0,.15),rgba(255,136,68,.08))',
+   effects:[{icon:'⚡',name:'XP-bonus',val:'+10% XP',mult:'xp',pct:.1},{icon:'😊',name:'Pet-humör',val:'+5% Bond',mult:'bond',pct:.05}]},
+  {id:'rainy',   icon:'🌧️', name:'Regnigt',   desc:'Fisken biter bättre i regnet! Dra ut ditt spö.',
+   color:'#4488ff', bg:'linear-gradient(135deg,rgba(68,136,255,.15),rgba(0,221,204,.08))',
+   effects:[{icon:'🎣',name:'Fiskchans',val:'+30% fångst',mult:'fish',pct:.3},{icon:'🌿',name:'Naturliv',val:'+10% Bond',mult:'bond',pct:.1}]},
+  {id:'stormy',  icon:'⛈️', name:'Stormigt',  desc:'Farliga vatten — men de sällsynta fiskarnas hem!',
+   color:'#aa66ff', bg:'linear-gradient(135deg,rgba(170,102,255,.15),rgba(68,136,255,.08))',
+   effects:[{icon:'🐠',name:'Sällsynt fisk',val:'+50% Rare+',mult:'rare_fish',pct:.5},{icon:'💎',name:'KC-bonus',val:'+5% KC',mult:'kc',pct:.05}]},
+  {id:'foggy',   icon:'🌫️', name:'Dimmigt',   desc:'Mysteriet lockar fram skatter gömda i dimman.',
+   color:'#aaaaaa', bg:'linear-gradient(135deg,rgba(200,200,220,.08),rgba(100,100,150,.05))',
+   effects:[{icon:'💰',name:'Coin-bonus',val:'+20% Coins',mult:'coins',pct:.2},{icon:'🔍',name:'Utforskning',val:'+15% Exp XP',mult:'xp',pct:.15}]},
+  {id:'rainbow', icon:'🌈', name:'Regnbåge',  desc:'Magin flödar! Allt är lite bättre idag.',
+   color:'#ff3377', bg:'linear-gradient(135deg,rgba(255,51,119,.1),rgba(255,204,0,.08))',
+   effects:[{icon:'✨',name:'Allt +5%',val:'+5% allt',mult:'all',pct:.05},{icon:'🍀',name:'Turboost',val:'+10% Rare chans',mult:'rare_fish',pct:.1}]},
+  {id:'snow',    icon:'❄️', name:'Snö',       desc:'Stillsamt och vackert. Pet njuter av kylan.',
+   color:'#00ddcc', bg:'linear-gradient(135deg,rgba(0,221,204,.12),rgba(68,136,255,.08))',
+   effects:[{icon:'❤️',name:'Bond-bonus',val:'+25% Bond',mult:'bond',pct:.25},{icon:'💤',name:'Sömn-XP',val:'+20% Sömn-XP',mult:'sleep_xp',pct:.2}]},
+  {id:'night',   icon:'🌙', name:'Månljus',   desc:'Under månens ljus vaknar den dolda magin.',
+   color:'#aa66ff', bg:'linear-gradient(135deg,rgba(100,50,200,.15),rgba(20,10,40,.5))',
+   effects:[{icon:'⚡',name:'Natt-XP',val:'+30% XP (natt)',mult:'xp',pct:.3},{icon:'🦉',name:'Mystisk fisk',val:'+20% Rare+',mult:'rare_fish',pct:.2}]},
+];
+
+function _weatherGetForDay(){
+  let seed = parseInt(getTodayKey().replace(/-/g,''));
+  let hour = new Date().getHours();
+  // Night weather after 22:00 or before 06:00
+  if(hour>=22||hour<6) return WEATHERS.find(w=>w.id==='night')||WEATHERS[0];
+  return WEATHERS[seed % (WEATHERS.length-1)]; // exclude night from daytime
+}
+
+function _weatherGetForecast(){
+  let seed = parseInt(getTodayKey().replace(/-/g,''));
+  let result = [];
+  for(let i=0;i<4;i++){
+    let s2 = (seed + i*3) % (WEATHERS.length-1);
+    result.push(WEATHERS[s2]);
+  }
+  return result;
+}
+
+function _updateWeatherWidget(){
+  let w = _weatherGetForDay();
+  let wi=$('wwIcon'),wn=$('wwName'),we=$('wwEffect');
+  if(wi) wi.textContent=w.icon;
+  if(wn) wn.textContent=w.name;
+  if(we) we.textContent=w.effects[0].val;
+  // Style widget border
+  let widget=$('weatherWidget');
+  if(widget) widget.style.borderColor=w.color+'55';
+}
+
+function openWeather(){
+  $('weatherPanel').classList.add('open');
+  _renderWeather();
+}
+function closeWeather(){ $('weatherPanel').classList.remove('open'); }
+
+function _renderWeather(){
+  let w = _weatherGetForDay();
+  let forecast = _weatherGetForecast();
+  let hdr = $('weatherPanelHeader');
+  if(hdr) hdr.style.background = w.bg;
+  let labels = ['Idag','Imorgon','Dag 3','Dag 4'];
+  let forecastHtml = forecast.map((f,i)=>`<div class="weather-next-card ${i===0?'active':''}">
+    <div class="weather-next-icon">${f.icon}</div>
+    <div class="weather-next-label">${labels[i]}</div>
+  </div>`).join('');
+  let effectsHtml = w.effects.map(e=>`<div class="weather-effect-row">
+    <div class="weather-effect-icon">${e.icon}</div>
+    <div class="weather-effect-info">
+      <div class="weather-effect-name">${e.name}</div>
+      <div class="weather-effect-val pos">${e.val}</div>
+    </div>
+  </div>`).join('');
+  $('weatherScroll').innerHTML = `
+    <div class="weather-current" style="background:${w.bg};border:1px solid ${w.color}44">
+      <span class="weather-current-emoji">${w.icon}</span>
+      <div class="weather-current-name">${w.name}</div>
+      <div class="weather-current-desc">${w.desc}</div>
+      <div class="weather-current-bonus">Aktiv bonus: ${w.effects[0].val}</div>
+    </div>
+    <div class="weather-effects-title">Prognos (4 dagar)</div>
+    <div class="weather-next-row">${forecastHtml}</div>
+    <div class="weather-effects-title">Aktiva effekter</div>
+    ${effectsHtml}`;
+}
+
+// Apply weather bonus to gainXP
+const _origGainXPWeather = gainXP;
+gainXP = function(n, src){
+  let w = _weatherGetForDay();
+  let bonus = 0;
+  w.effects.forEach(e=>{
+    if(e.mult==='xp'||e.mult==='all') bonus+=e.pct;
+  });
+  _origGainXPWeather(Math.round(n*(1+bonus)), src);
+};
+
+// Apply weather bonus to gainCoins
+const _origGainCoinsWeather = gainCoins;
+gainCoins = function(n){
+  let w = _weatherGetForDay();
+  let bonus = 0;
+  w.effects.forEach(e=>{
+    if(e.mult==='coins'||e.mult==='all') bonus+=e.pct;
+  });
+  _origGainCoinsWeather(Math.round(n*(1+bonus)));
+};
+
+// Init widget
+setTimeout(_updateWeatherWidget, 1000);
+setInterval(_updateWeatherWidget, 300000);
 
 </script>
 
