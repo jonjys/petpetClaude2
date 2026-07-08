@@ -1389,6 +1389,35 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY POWER DRAFT ══ */
+.draft-panel{position:fixed;inset:0;background:#030408;z-index:902;display:none;flex-direction:column;overflow:hidden}
+.draft-panel.open{display:flex}
+.draft-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080412,#040210)}
+.draft-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ddcc,#4488ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.draft-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.draft-streak-bar{background:rgba(0,221,204,.08);border:1px solid rgba(0,221,204,.2);border-radius:16px;padding:12px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.draft-streak-num{font:900 36px var(--ff-head);color:var(--teal);min-width:50px;text-align:center}
+.draft-offers-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.draft-offer{background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:20px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.draft-offer:active{transform:scale(.98)}
+.draft-offer.picked{border-color:var(--green);background:rgba(0,255,136,.1)}
+.draft-offer.fade{opacity:.4;pointer-events:none}
+.draft-offer-icon{font-size:40px;flex-shrink:0}
+.draft-offer-info{flex:1}
+.draft-offer-title{font:800 14px var(--ff-head);color:#fff;margin-bottom:3px}
+.draft-offer-desc{font:500 11px var(--ff-body);color:rgba(255,255,255,.5);line-height:1.4}
+.draft-offer-bonus{font:700 13px var(--ff-head);margin-top:4px}
+.draft-offer-shine{position:absolute;inset:0;background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,.06) 50%,transparent 70%);pointer-events:none}
+.draft-collection{display:flex;flex-direction:column;gap:8px}
+.draft-perk-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border-radius:12px;padding:9px 12px}
+.draft-perk-icon{font-size:22px;flex-shrink:0}
+.draft-perk-info{flex:1}
+.draft-perk-name{font:600 11px var(--ff-body);color:rgba(255,255,255,.7)}
+.draft-perk-val{font:700 12px var(--ff-head);color:var(--teal)}
+.draft-perk-day{font:500 9px var(--ff-body);color:rgba(255,255,255,.3)}
+.draft-done-box{background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.2);border-radius:16px;padding:16px;text-align:center;margin-bottom:14px}
+
 /* ══ DAILY HOROSCOPE ══ */
 .horo-panel{position:fixed;inset:0;background:#020308;z-index:901;display:none;flex-direction:column;overflow:hidden}
 .horo-panel.open{display:flex}
@@ -5738,6 +5767,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Pet Racing</div>
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemilabb</div>
           <div class="ddr" onclick="cM();openHoro()"><div class="ddr-i">🔮</div>Horoskop</div>
+          <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
         </div>
       </div>
     </div>
@@ -7340,6 +7370,28 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY POWER DRAFT -->
+<div class="draft-panel" id="draftPanel">
+  <div class="draft-header">
+    <div class="draft-title">⚡ DAILY POWER DRAFT</div>
+    <button class="close-btn" onclick="closeDraft()">✕</button>
+  </div>
+  <div class="draft-scroll">
+    <div class="draft-streak-bar">
+      <div class="draft-streak-num" id="draftStreak">1</div>
+      <div>
+        <div style="font:700 13px var(--ff-head);color:#fff">Day Streak</div>
+        <div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.4)">Välj ett power-up varje dag för permanenta bonusar</div>
+      </div>
+      <div style="font-size:28px">🔥</div>
+    </div>
+    <div id="draftOffersSection"></div>
+    <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Din Power-Samling</div>
+    <div class="draft-collection" id="draftCollection"></div>
+  </div>
+</div>
 
 <!-- DAILY HOROSCOPE -->
 <div class="horo-panel" id="horoPanel">
@@ -21951,6 +22003,141 @@ function _renderHoroHistory(){
       <div style="font:600 11px var(--ff-head);color:#fff">${h.date}</div>
       <div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.4)">${'⭐'.repeat(h.quality)} · +${h.xp}XP · +${h.coins}💰</div>
     </div>
+  </div>`).join('');
+}
+
+
+// DAILY POWER DRAFT SYSTEM
+const DRAFT_PERKS = [
+  {id:'xp5',    icon:'⚡', name:'+5% XP',          bonus:'+5% XP intjänad', color:'var(--teal)',   apply:()=>{}},
+  {id:'xp10',   icon:'⚡', name:'+10% XP',         bonus:'+10% XP intjänad',color:'var(--teal)',   apply:()=>{}},
+  {id:'coin5',  icon:'💰', name:'+5% Coins',        bonus:'+5% Coin-belöning',color:'var(--gold)',  apply:()=>{}},
+  {id:'coin10', icon:'💰', name:'+10% Coins',       bonus:'+10% Coin-belöning',color:'var(--gold)', apply:()=>{}},
+  {id:'xp3',    icon:'🌟', name:'+3% All XP',       bonus:'+3% XP alla aktiviteter',color:'#aaff44',apply:()=>{}},
+  {id:'hp',     icon:'❤️', name:'Mer Liv (Dungeon)', bonus:'+10 HP i dungeon',color:'var(--red)',    apply:()=>{}},
+  {id:'fish',   icon:'🎣', name:'Fiskar Bättre',    bonus:'+1 extra fiskförsök/dag',color:'var(--blue)',apply:()=>{}},
+  {id:'farm',   icon:'🌱', name:'Snabb Jordbruk',   bonus:'Farmgrödor -10% tid',color:'var(--green)',  apply:()=>{}},
+  {id:'race',   icon:'🏁', name:'Snabbare Racer',   bonus:'+0.5 autofart i race',color:'#ff8844',    apply:()=>{}},
+  {id:'dung',   icon:'⚔️', name:'Dungeon Pro',      bonus:'+15% skada i dungeon',color:'var(--orange)',apply:()=>{}},
+  {id:'math',   icon:'🧮', name:'Mattematiker',     bonus:'+0.5s tid i Speed Math',color:'#ffaa22',  apply:()=>{}},
+  {id:'lucky',  icon:'🍀', name:'Lyckosam',         bonus:'+10% bonus-chans överallt',color:'#44ff88',apply:()=>{}},
+  {id:'kc1',    icon:'💎', name:'KC Samlare',       bonus:'+1 KC per 10 aktiviteter',color:'var(--purple)',apply:()=>{}},
+  {id:'streak', icon:'🔥', name:'Streak Master',    bonus:'+10% XP på streak-dagar',color:'#ff6644',  apply:()=>{}},
+  {id:'social', icon:'🌐', name:'Social Butterfly',  bonus:'+2x social XP',color:'var(--pink)',        apply:()=>{}},
+];
+const DRAFT_KEY = 'k0509_draft_done';
+const DRAFT_PERKS_KEY = 'k0509_draft_perks';
+const DRAFT_STREAK_KEY = 'k0509_draft_streak';
+
+function openDraft(){
+  $('draftPanel').classList.add('open');
+  _renderDraft();
+}
+function closeDraft(){ $('draftPanel').classList.remove('open'); }
+
+function _draftGetOffers(){
+  let seed=parseInt(getTodayKey().replace(/-/g,'').slice(-6));
+  let picked=[];
+  let available=[...DRAFT_PERKS];
+  let owned=JSON.parse(localStorage.getItem(DRAFT_PERKS_KEY)||'[]').map(p=>p.id);
+  // Prefer unowned perks
+  let unowned=available.filter(p=>!owned.includes(p.id));
+  let pool=unowned.length>=3?unowned:available;
+  let shuffled=[...pool].sort((a,b)=>{
+    let ha=a.id.split('').reduce((s,c)=>s+c.charCodeAt(0),seed);
+    let hb=b.id.split('').reduce((s,c)=>s+c.charCodeAt(0),seed);
+    return ha-hb;
+  });
+  return shuffled.slice(0,3);
+}
+
+function _draftStreak(){
+  let s=JSON.parse(localStorage.getItem(DRAFT_STREAK_KEY)||'{"streak":0,"last":""}');
+  let today=getTodayKey();
+  let yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+  if(s.last===today) return s.streak;
+  if(s.last===yesterday) return s.streak; // will increment on pick
+  return Math.max(0,s.streak); // streak shown but not yet updated today
+}
+
+function _renderDraft(){
+  let done=localStorage.getItem(DRAFT_KEY)===getTodayKey();
+  let streak=_draftStreak();
+  let el=$('draftStreak'); if(el) el.textContent=streak||1;
+  let sec=$('draftOffersSection');
+  if(!sec) return;
+  if(done){
+    let owned=JSON.parse(localStorage.getItem(DRAFT_PERKS_KEY)||'[]');
+    let today=owned.find(p=>p.date===getTodayKey());
+    sec.innerHTML=`<div class="draft-done-box">
+      <div style="font-size:48px;margin-bottom:6px">✅</div>
+      <div style="font:800 16px var(--ff-head);color:var(--green)">Power-up vald idag!</div>
+      ${today?`<div style="font:500 12px var(--ff-body);color:rgba(255,255,255,.5);margin-top:4px">${today.icon} ${today.name} aktiverat</div>`:''}
+      <div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.3);margin-top:8px">Kom tillbaka imorgon för ny draft!</div>
+    </div>`;
+  } else {
+    let offers=_draftGetOffers();
+    sec.innerHTML=`<div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Välj ditt power-up för idag</div>
+    <div class="draft-offers-grid" id="draftOffersGrid">${offers.map((p,i)=>`<div class="draft-offer" id="draftOffer${i}" onclick="pickDraftPerk('${p.id}',${i})">
+      <div class="draft-offer-shine"></div>
+      <div class="draft-offer-icon">${p.icon}</div>
+      <div class="draft-offer-info">
+        <div class="draft-offer-title">${p.name}</div>
+        <div class="draft-offer-desc">${p.bonus}</div>
+        <div class="draft-offer-bonus" style="color:${p.color}">PERMANENT BOOST</div>
+      </div>
+    </div>`).join('')}</div>`;
+  }
+  _renderDraftCollection();
+}
+
+function pickDraftPerk(id,idx){
+  if(localStorage.getItem(DRAFT_KEY)===getTodayKey()) return;
+  let p=DRAFT_PERKS.find(x=>x.id===id); if(!p) return;
+  // Animate
+  for(let i=0;i<3;i++){
+    let el=document.getElementById('draftOffer'+i);
+    if(el) el.classList.add(i===idx?'picked':'fade');
+  }
+  setTimeout(()=>{
+    localStorage.setItem(DRAFT_KEY,getTodayKey());
+    // Save perk
+    let owned=JSON.parse(localStorage.getItem(DRAFT_PERKS_KEY)||'[]');
+    owned.push({id:p.id,icon:p.icon,name:p.name,bonus:p.bonus,date:getTodayKey()});
+    localStorage.setItem(DRAFT_PERKS_KEY,JSON.stringify(owned));
+    // Update streak
+    let s=JSON.parse(localStorage.getItem(DRAFT_STREAK_KEY)||'{"streak":0,"last":""}');
+    let yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+    s.streak=s.last===yesterday?s.streak+1:1;
+    s.last=getTodayKey();
+    localStorage.setItem(DRAFT_STREAK_KEY,JSON.stringify(s));
+    gainXP(150,'draft'); gainCoins(50);
+    showFloatBubble('⚡ '+p.icon+' '+p.name+' låst upp!','buff');
+    logActivity('quest','Power Draft: Valde '+p.name,{xp:150});
+    _renderDraft();
+  },600);
+}
+
+function _renderDraftCollection(){
+  let owned=JSON.parse(localStorage.getItem(DRAFT_PERKS_KEY)||'[]');
+  let el=$('draftCollection'); if(!el) return;
+  if(owned.length===0){
+    el.innerHTML='<div style="font:500 11px var(--ff-body);color:rgba(255,255,255,.3);padding:8px;text-align:center">Inga power-ups ännu. Gör din första draft!</div>';
+    return;
+  }
+  let totals={};
+  owned.forEach(p=>totals[p.id]=(totals[p.id]||0)+1);
+  let unique=Object.keys(totals).map(id=>{
+    let p=DRAFT_PERKS.find(x=>x.id===id);
+    return p?{...p,count:totals[id]}:null;
+  }).filter(Boolean);
+  el.innerHTML=unique.map(p=>`<div class="draft-perk-row">
+    <div class="draft-perk-icon">${p.icon}</div>
+    <div class="draft-perk-info">
+      <div class="draft-perk-name">${p.name}${p.count>1?' x'+p.count:''}</div>
+      <div class="draft-perk-val">${p.bonus}</div>
+    </div>
+    <div class="draft-perk-day" style="color:${p.color}">✓</div>
   </div>`).join('');
 }
 
