@@ -1417,6 +1417,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ CHECK-IN ══ */
+.checkin-panel{position:fixed;inset:0;background:#030206;z-index:930;display:none;flex-direction:column;overflow:hidden}
+.checkin-panel.open{display:flex}
+.checkin-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#07050e,#030206)}
+.checkin-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88cc,#ffcc44,#88ffcc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.checkin-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.checkin-hero{background:radial-gradient(ellipse at 50% 0%,rgba(255,136,204,.1),transparent 70%),linear-gradient(180deg,#0a060e,#030206);border:1.5px solid rgba(255,136,204,.2);border-radius:22px;padding:20px 16px;text-align:center;margin-bottom:14px}
+.checkin-streak-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px}
+.checkin-streak-num{font:900 48px var(--ff-head);color:#ff88cc;line-height:1}
+.checkin-streak-info{text-align:left}
+.checkin-streak-label{font:700 12px var(--ff-head);color:rgba(255,136,204,.7);text-transform:uppercase;letter-spacing:1px}
+.checkin-streak-sub{font:500 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.checkin-today-reward{background:rgba(255,136,204,.1);border:1.5px solid rgba(255,136,204,.35);border-radius:16px;padding:16px;margin-bottom:14px;text-align:center}
+.checkin-today-label{font:700 10px var(--ff-head);color:rgba(255,136,204,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.checkin-today-emoji{font-size:40px;display:block;margin-bottom:6px}
+.checkin-today-desc{font:900 16px var(--ff-head);color:#fff;margin-bottom:10px}
+.checkin-claim-btn{background:linear-gradient(135deg,#cc4488,#ff88cc);border:none;border-radius:14px;color:#fff;font:900 14px var(--ff-head);padding:12px 32px;cursor:pointer;transition:all .15s;width:80%;max-width:240px}
+.checkin-claim-btn:active{transform:scale(.96)}
+.checkin-claim-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.1)}
+.checkin-calendar-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.checkin-calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:14px}
+.checkin-day{aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.03);position:relative;padding:2px}
+.checkin-day.claimed{background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.25)}
+.checkin-day.today{background:rgba(255,136,204,.12);border-color:rgba(255,136,204,.5);animation:checkinToday .8s ease-in-out infinite alternate}
+@keyframes checkinToday{from{box-shadow:0 0 0 rgba(255,136,204,0)}to{box-shadow:0 0 10px rgba(255,136,204,.3)}}
+.checkin-day.milestone{background:rgba(255,204,0,.08);border-color:rgba(255,204,0,.3)}
+.checkin-day.future{opacity:.4}
+.checkin-day-num{font:800 9px var(--ff-head);color:rgba(255,255,255,.5);position:absolute;top:3px;left:5px}
+.checkin-day-emoji{font-size:14px}
+.checkin-day-claimed-mark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 14px var(--ff-head);color:var(--green);background:rgba(0,0,0,.3);border-radius:9px}
+.checkin-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.checkin-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.checkin-stat-num{font:800 15px var(--ff-head);color:#ff88cc}
+.checkin-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.checkin-milestones{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:12px}
+.checkin-mile-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.checkin-mile-row{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.checkin-mile-row:last-child{border:none}
+.checkin-mile-emoji{font-size:18px;flex-shrink:0}
+.checkin-mile-info{flex:1}
+.checkin-mile-name{font:800 10px var(--ff-head);color:#fff}
+.checkin-mile-day{font:600 9px var(--ff-body);color:rgba(255,255,255,.35)}
+.checkin-mile-reward{font:700 9px var(--ff-head);color:#ffcc44}
+.checkin-mile-done{font:800 9px var(--ff-head);color:var(--green)}
+
 /* ══ DREAM WORLD ══ */
 .dream-panel{position:fixed;inset:0;background:#030108;z-index:929;display:none;flex-direction:column;overflow:hidden}
 .dream-panel.open{display:flex}
@@ -6390,9 +6436,13 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 /* ── ONBOARDING DRAMATIC UPGRADE ── */
 .ob {
+  position:fixed;inset:0;z-index:10000;
+  overflow-y:auto;overflow-x:hidden;
+  display:flex;flex-direction:column;align-items:center;
+  padding:calc(var(--sat)+40px) 24px calc(var(--sab)+40px);
   background:radial-gradient(ellipse at 50% -10%,rgba(0,255,136,.1) 0%,transparent 60%),
              radial-gradient(ellipse at 80% 80%,rgba(170,102,255,.06) 0%,transparent 50%),
-             var(--bg) !important;
+             var(--bg);
 }
 .ob-logo {
   background:linear-gradient(120deg,var(--green),var(--teal),#4af);
@@ -6931,6 +6981,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBank()"><div class="ddr-i">🏦</div>Pet Bank</div>
           <div class="ddr" onclick="cM();openTarot()"><div class="ddr-i">🃏</div>Tarot</div>
           <div class="ddr" onclick="cM();openDream()"><div class="ddr-i">💤</div>Drömvärlden</div>
+          <div class="ddr" onclick="cM();openCheckin()"><div class="ddr-i">📅</div>Daglig Inloggning</div>
         </div>
       </div>
     </div>
@@ -8086,6 +8137,43 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- CHECK-IN -->
+<div class="checkin-panel" id="checkinPanel">
+  <div class="checkin-header">
+    <div class="checkin-title">📅 DAGLIG INLOGGNING</div>
+    <button class="close-btn" onclick="closeCheckin()">✕</button>
+  </div>
+  <div class="checkin-scroll">
+    <div class="checkin-hero">
+      <div class="checkin-streak-row">
+        <div class="checkin-streak-num" id="checkinStreakNum">0</div>
+        <div class="checkin-streak-info">
+          <div class="checkin-streak-label">🔥 Dagarserie</div>
+          <div class="checkin-streak-sub" id="checkinStreakSub">Börja din serie idag!</div>
+        </div>
+      </div>
+    </div>
+    <div class="checkin-today-reward" id="checkinTodayCard">
+      <div class="checkin-today-label">🎁 Dagens Belöning</div>
+      <span class="checkin-today-emoji" id="checkinTodayEmoji">🎁</span>
+      <div class="checkin-today-desc" id="checkinTodayDesc">Dag 1 Belöning</div>
+      <button class="checkin-claim-btn" id="checkinClaimBtn" onclick="checkinClaim()">✅ Hämta Belöning!</button>
+    </div>
+    <div class="checkin-calendar-title">📆 Månadskalender (28 dagar)</div>
+    <div class="checkin-calendar" id="checkinCalendar"></div>
+    <div class="checkin-stats-row">
+      <div class="checkin-stat"><div class="checkin-stat-num" id="checkinTotalDays">0</div><div class="checkin-stat-label">Dagar totalt</div></div>
+      <div class="checkin-stat"><div class="checkin-stat-num" id="checkinBestStreak">0</div><div class="checkin-stat-label">Bästa serie</div></div>
+      <div class="checkin-stat"><div class="checkin-stat-num" id="checkinCycleDay">1</div><div class="checkin-stat-label">Cykeldag</div></div>
+    </div>
+    <div class="checkin-milestones">
+      <div class="checkin-mile-title">🏆 Milstolpar</div>
+      <div id="checkinMilestonesDiv"></div>
+    </div>
+  </div>
+</div>
 
 <!-- DREAM WORLD -->
 <div class="dream-panel" id="dreamPanel">
@@ -28410,6 +28498,147 @@ function dreamPowerNap(){
   gainCoins(coins);
   showFloatBubble('⚡ Powernap! +'+xp+' XP +'+coins+' 💰','buff');
   _renderDream();
+}
+
+
+// DAILY CHECK-IN SYSTEM
+const CHECKIN_REWARDS = [
+  {day:1,  emoji:'💰', desc:'100 Coins',             coins:100,  xp:0,    kc:0},
+  {day:2,  emoji:'⭐', desc:'200 XP',               coins:0,    xp:200,  kc:0},
+  {day:3,  emoji:'💰', desc:'250 Coins + 100 XP',   coins:250,  xp:100,  kc:0},
+  {day:4,  emoji:'💎', desc:'1 KC Crystal',          coins:0,    xp:0,    kc:1},
+  {day:5,  emoji:'💰', desc:'400 Coins',             coins:400,  xp:0,    kc:0},
+  {day:6,  emoji:'⭐', desc:'500 XP',               coins:0,    xp:500,  kc:0},
+  {day:7,  emoji:'🏆', desc:'DAG 7! 500💰+500XP+3KC',coins:500,  xp:500,  kc:3,  milestone:true},
+  {day:8,  emoji:'💰', desc:'500 Coins',             coins:500,  xp:0,    kc:0},
+  {day:9,  emoji:'⭐', desc:'600 XP',               coins:0,    xp:600,  kc:0},
+  {day:10, emoji:'💰', desc:'600 Coins + 200 XP',   coins:600,  xp:200,  kc:0},
+  {day:11, emoji:'💎', desc:'2 KC Crystals',         coins:0,    xp:0,    kc:2},
+  {day:12, emoji:'💰', desc:'700 Coins',             coins:700,  xp:0,    kc:0},
+  {day:13, emoji:'⭐', desc:'800 XP',               coins:0,    xp:800,  kc:0},
+  {day:14, emoji:'👑', desc:'VIP! 1000💰+1000XP+5KC',coins:1000, xp:1000, kc:5,  milestone:true},
+  {day:15, emoji:'💰', desc:'800 Coins',             coins:800,  xp:0,    kc:0},
+  {day:16, emoji:'⭐', desc:'1000 XP',              coins:0,    xp:1000, kc:0},
+  {day:17, emoji:'💰', desc:'900 Coins + 300 XP',   coins:900,  xp:300,  kc:0},
+  {day:18, emoji:'💎', desc:'3 KC Crystals',         coins:0,    xp:0,    kc:3},
+  {day:19, emoji:'💰', desc:'1000 Coins',            coins:1000, xp:0,    kc:0},
+  {day:20, emoji:'⭐', desc:'1200 XP',              coins:0,    xp:1200, kc:0},
+  {day:21, emoji:'🌟', desc:'MÄSTARE! 2000XP+10KC', coins:500,  xp:2000, kc:10, milestone:true},
+  {day:22, emoji:'💰', desc:'1200 Coins',            coins:1200, xp:0,    kc:0},
+  {day:23, emoji:'⭐', desc:'1500 XP',              coins:0,    xp:1500, kc:0},
+  {day:24, emoji:'💰', desc:'1500 Coins + 500 XP',  coins:1500, xp:500,  kc:0},
+  {day:25, emoji:'💎', desc:'5 KC Crystals',         coins:0,    xp:0,    kc:5},
+  {day:26, emoji:'💰', desc:'2000 Coins',            coins:2000, xp:0,    kc:0},
+  {day:27, emoji:'⭐', desc:'2000 XP',              coins:0,    xp:2000, kc:0},
+  {day:28, emoji:'🏅', desc:'LEGEND! 5000XP+5000💰+25KC',coins:5000,xp:5000,kc:25,milestone:true},
+];
+const CHECKIN_KEY = 'k0509_checkin';
+
+function _checkinLoad(){try{return JSON.parse(localStorage.getItem(CHECKIN_KEY)||'null');}catch(e){return null;}}
+function _checkinSave(d){localStorage.setItem(CHECKIN_KEY,JSON.stringify(d));}
+
+function _checkinData(){
+  let d=_checkinLoad();
+  if(!d) d={streak:0,bestStreak:0,lastDate:null,totalDays:0,cycleDay:1,claimed:[]};
+  return d;
+}
+
+function _checkinCurrentCycleDay(d){
+  return((d.cycleDay||1)-1)%28+1;
+}
+
+function openCheckin(){
+  $('checkinPanel').classList.add('open');
+  _renderCheckin();
+}
+function closeCheckin(){ $('checkinPanel').classList.remove('open'); }
+
+function _renderCheckin(){
+  let d=_checkinData();
+  let today=getTodayKey();
+  let lastDate=d.lastDate;
+  let alreadyClaimed=lastDate===today;
+  let yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+  let yd=yesterday.toISOString().slice(0,10);
+  let streakBroken=lastDate&&lastDate!==yd&&lastDate!==today;
+  if(streakBroken&&!alreadyClaimed) d.streak=0;
+  let cycleDay=_checkinCurrentCycleDay(d);
+  let reward=CHECKIN_REWARDS[cycleDay-1]||CHECKIN_REWARDS[0];
+  // Streak display
+  let sn=$('checkinStreakNum'); if(sn) sn.textContent=d.streak||0;
+  let ss=$('checkinStreakSub'); if(ss) ss.textContent=d.streak>0?d.streak+' dagar i rad':'Ingen aktiv serie';
+  // Today card
+  let te=$('checkinTodayEmoji'); if(te) te.textContent=reward.emoji;
+  let td=$('checkinTodayDesc'); if(td) td.textContent='Dag '+cycleDay+': '+reward.desc;
+  let btn=$('checkinClaimBtn'); if(btn){btn.disabled=alreadyClaimed;btn.textContent=alreadyClaimed?'✅ Hämtad idag!':'🎁 Hämta Belöning!';}
+  // Stats
+  let strd=$('checkinTotalDays'); if(strd) strd.textContent=d.totalDays||0;
+  let bs=$('checkinBestStreak'); if(bs) bs.textContent=d.bestStreak||0;
+  let cd=$('checkinCycleDay'); if(cd) cd.textContent=cycleDay+'/28';
+  // Calendar
+  let cal=$('checkinCalendar');
+  if(cal){
+    let cells=[];
+    for(let i=1;i<=28;i++){
+      let dayReward=CHECKIN_REWARDS[i-1];
+      let isCurrent=i===cycleDay;
+      let isClaimed=(d.claimed||[]).includes(i);
+      var cls='checkin-day';
+      if(isClaimed) cls+=' claimed';
+      else if(isCurrent) cls+=' today';
+      else if(i<cycleDay) cls+=' claimed';
+      else cls+=' future';
+      if(dayReward.milestone) cls+=' milestone';
+      cells.push('<div class="'+cls+'">'+
+        '<span class="checkin-day-num">'+i+'</span>'+
+        '<span class="checkin-day-emoji">'+dayReward.emoji+'</span>'+
+        (isClaimed||i<cycleDay?'<div class="checkin-day-claimed-mark">✓</div>':'')+
+        '</div>');
+    }
+    cal.innerHTML=cells.join('');
+  }
+  // Milestones
+  let md=$('checkinMilestonesDiv');
+  if(md){
+    let miles=CHECKIN_REWARDS.filter(function(r){return r.milestone;});
+    md.innerHTML=miles.map(function(m){
+      var done=(d.claimed||[]).includes(m.day)||cycleDay>m.day;
+      return '<div class="checkin-mile-row">'+
+        '<span class="checkin-mile-emoji">'+m.emoji+'</span>'+
+        '<div class="checkin-mile-info">'+
+        '<div class="checkin-mile-name">'+m.desc+'</div>'+
+        '<div class="checkin-mile-day">Dag '+m.day+' i cykeln</div>'+
+        '</div>'+
+        (done?'<div class="checkin-mile-done">✅ Klar</div>':'<div class="checkin-mile-reward">'+m.kc+' KC</div>')+
+        '</div>';
+    }).join('');
+  }
+}
+
+function checkinClaim(){
+  let d=_checkinData();
+  let today=getTodayKey();
+  if(d.lastDate===today){showFloatBubble('Redan hämtat idag!','buff');return;}
+  let yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+  let yd=yesterday.toISOString().slice(0,10);
+  if(d.lastDate===yd) d.streak=(d.streak||0)+1;
+  else d.streak=1;
+  if(d.streak>(d.bestStreak||0)) d.bestStreak=d.streak;
+  d.lastDate=today;
+  d.totalDays=(d.totalDays||0)+1;
+  let cycleDay=_checkinCurrentCycleDay(d);
+  let reward=CHECKIN_REWARDS[cycleDay-1]||CHECKIN_REWARDS[0];
+  if(!d.claimed) d.claimed=[];
+  d.claimed.push(cycleDay);
+  // Advance cycle day
+  d.cycleDay=((d.cycleDay||1)%28)+1;
+  _checkinSave(d);
+  if(reward.coins>0) gainCoins(reward.coins);
+  if(reward.xp>0) gainXP(reward.xp,'checkin');
+  if(reward.kc>0&&typeof G!=='undefined'){G.kc+=reward.kc;if(typeof save==='function')save();}
+  let extra=reward.milestone?' 🏆 MILSTOLPE!':d.streak>=7?' 🔥 Serie x'+d.streak+'!':'';
+  showFloatBubble('📅 Dag '+cycleDay+' hämtad! '+reward.desc+extra,'buff');
+  _renderCheckin();
 }
 
 </script>
