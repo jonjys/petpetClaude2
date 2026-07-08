@@ -1404,6 +1404,53 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ COOKING STATION ══ */
+.cook-panel{position:fixed;inset:0;background:#0a0500;z-index:917;display:none;flex-direction:column;overflow:hidden}
+.cook-panel.open{display:flex}
+.cook-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#180c00,#0a0500)}
+.cook-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8844,#ffcc00,#ff4455);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cook-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.cook-stove{background:linear-gradient(135deg,rgba(255,136,68,.08),rgba(255,204,0,.05));border:1.5px solid rgba(255,136,68,.25);border-radius:20px;padding:14px;margin-bottom:14px;text-align:center;position:relative}
+.cook-flame{font-size:32px;animation:cookFlame .8s ease-in-out infinite alternate}
+@keyframes cookFlame{from{transform:scaleY(1)}to{transform:scaleY(1.15)}}
+.cook-stove-title{font:800 14px var(--ff-head);color:#fff;margin:6px 0 3px}
+.cook-active-dish{font:600 11px var(--ff-body);color:rgba(255,255,255,.5)}
+.cook-stove-progress{width:80%;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin:8px auto 4px}
+.cook-stove-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#ff8844,#ffcc00);transition:width .5s}
+.cook-stove-timer{font:700 10px var(--ff-body);color:var(--orange)}
+.cook-collect-btn{padding:10px 24px;background:linear-gradient(135deg,#ff8844,#ffcc00);border:none;border-radius:12px;color:#000;font:800 12px var(--ff-head);cursor:pointer;margin-top:8px}
+.cook-collect-btn:active{transform:scale(.97)}
+.cook-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.cook-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:7px;text-align:center}
+.cook-stat-num{font:800 15px var(--ff-head);color:#fff}
+.cook-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.cook-ing-section{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;margin-top:2px}
+.cook-ing-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;scrollbar-width:none}
+.cook-ing-row::-webkit-scrollbar{display:none}
+.cook-ing-chip{flex:0 0 auto;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:8px 12px;text-align:center;min-width:60px}
+.cook-ing-emoji{font-size:22px;display:block;margin-bottom:3px}
+.cook-ing-name{font:600 8px var(--ff-body);color:rgba(255,255,255,.5);display:block;margin-bottom:2px}
+.cook-ing-qty{font:800 12px var(--ff-head);color:#fff;display:block}
+.cook-ing-chip.has-items{border-color:rgba(255,136,68,.3)}
+.cook-recipes-grid{display:flex;flex-direction:column;gap:10px}
+.cook-recipe-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;position:relative}
+.cook-recipe-card.can-cook{border-color:rgba(255,136,68,.35);background:rgba(255,136,68,.05)}
+.cook-recipe-card.cooking{border-color:rgba(255,204,0,.4);background:rgba(255,204,0,.06)}
+.cook-recipe-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.cook-recipe-emoji{font-size:40px;flex-shrink:0}
+.cook-recipe-info{flex:1}
+.cook-recipe-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.cook-recipe-effect{font:700 10px var(--ff-body);color:var(--orange);margin-bottom:2px}
+.cook-recipe-time{font:500 9px var(--ff-body);color:rgba(255,255,255,.35)}
+.cook-recipe-ing{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.cook-recipe-ing-chip{font:600 9px var(--ff-body);padding:2px 8px;border-radius:6px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.6)}
+.cook-recipe-ing-chip.missing{color:rgba(255,68,85,.7);background:rgba(255,68,85,.1)}
+.cook-recipe-btn{width:100%;padding:9px;border:none;border-radius:10px;font:800 11px var(--ff-head);cursor:pointer}
+.cook-recipe-btn.ready{background:linear-gradient(135deg,#ff8844,#ffcc00);color:#000}
+.cook-recipe-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.08);color:rgba(255,255,255,.3)}
+.cook-buff-badge{position:absolute;top:8px;right:8px;background:rgba(255,136,68,.2);border:1px solid rgba(255,136,68,.35);border-radius:8px;padding:2px 7px;font:700 8px var(--ff-body);color:var(--orange)}
+
 /* ══ STORY MODE ══ */
 .story-panel{position:fixed;inset:0;background:#02030a;z-index:916;display:none;flex-direction:column;overflow:hidden}
 .story-panel.open{display:flex}
@@ -6366,6 +6413,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLb()"><div class="ddr-i">🏆</div>Topplista</div>
           <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Guild Hall</div>
           <div class="ddr" onclick="cM();openStory()"><div class="ddr-i">📖</div>Pet Story</div>
+          <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Cooking Station</div>
         </div>
       </div>
     </div>
@@ -7983,6 +8031,45 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- COOKING STATION -->
+<div class="cook-panel" id="cookPanel">
+  <div class="cook-header">
+    <div class="cook-title">🍳 COOKING STATION</div>
+    <button class="close-btn" onclick="closeCook()">✕</button>
+  </div>
+  <div class="cook-scroll">
+    <div class="cook-stove" id="cookStove">
+      <div class="cook-flame">🔥</div>
+      <div class="cook-stove-title" id="cookStoveTitle">Spisen är redo!</div>
+      <div class="cook-active-dish" id="cookActiveDish">Välj ett recept nedan för att börja laga</div>
+      <div class="cook-stove-progress" id="cookStoveProgressWrap" style="display:none">
+        <div class="cook-stove-fill" id="cookStoveFill" style="width:0%"></div>
+      </div>
+      <div class="cook-stove-timer" id="cookStoveTimer"></div>
+      <button class="cook-collect-btn" id="cookCollectBtn" style="display:none" onclick="cookCollect()">🍽️ Hämta Rätten!</button>
+    </div>
+    <div class="cook-stats-row">
+      <div class="cook-stat">
+        <div class="cook-stat-num" id="cookCooksLeft">3</div>
+        <div class="cook-stat-label">Lagningar kvar</div>
+      </div>
+      <div class="cook-stat">
+        <div class="cook-stat-num" id="cookTotalDishes">0</div>
+        <div class="cook-stat-label">Lagade rätter</div>
+      </div>
+      <div class="cook-stat">
+        <div class="cook-stat-num" id="cookActiveBuff">—</div>
+        <div class="cook-stat-label">Aktiv buff</div>
+      </div>
+    </div>
+    <div class="cook-ing-section">🧺 Dina Ingredienser</div>
+    <div class="cook-ing-row" id="cookIngRow"></div>
+    <div class="cook-ing-section">📖 Recept</div>
+    <div class="cook-recipes-grid" id="cookRecipesGrid"></div>
+  </div>
+</div>
 
 <!-- STORY MODE -->
 <div class="story-panel" id="storyPanel">
@@ -25168,6 +25255,190 @@ function storyClaim(chId){
   gainCoins(ch.coins);
   showFloatBubble('📖 Kapitel klart! +'+ch.xp+' XP, +'+ch.coins+' 💰!','buff');
   _renderStory();
+}
+
+
+// COOKING STATION SYSTEM
+const COOK_INGREDIENTS = [
+  {id:'mushroom', emoji:'🍄', name:'Svamp',    src:'Farm/Zon'},
+  {id:'carrot',   emoji:'🥕', name:'Morot',    src:'Farm'},
+  {id:'fish',     emoji:'🐟', name:'Fisk',     src:'Fiske'},
+  {id:'berry',    emoji:'🫐', name:'Bär',      src:'Zon'},
+  {id:'honey',    emoji:'🍯', name:'Honung',   src:'Farm'},
+  {id:'herb',     emoji:'🌿', name:'Ört',      src:'Zon/Alch'},
+];
+const COOK_RECIPES = [
+  {id:'mush_soup', emoji:'🍲', name:'Svampsoppa',      effect:'+25% Dungeon ATK i 30min', time:5*60000,
+   ing:{mushroom:2}, give:()=>{let e=Date.now()+30*60000;localStorage.setItem('k0509_buff_dung_atk',String(e));}},
+  {id:'carrot_sal',emoji:'🥗', name:'Morotssallad',    effect:'+20% Race Speed i 1h',     time:8*60000,
+   ing:{carrot:2}, give:()=>{let e=Date.now()+60*60000;localStorage.setItem('k0509_buff_race_spd',String(e));}},
+  {id:'fish_stew', emoji:'🍜', name:'Fiskgryta',       effect:'+30% Fisklycka i 2h',      time:10*60000,
+   ing:{fish:2,herb:1}, give:()=>{let e=Date.now()+120*60000;localStorage.setItem('k0509_buff_fish',String(e));}},
+  {id:'berry_par', emoji:'🍓', name:'Bärpaj',          effect:'+20% Social XP i 1h',      time:6*60000,
+   ing:{berry:3}, give:()=>{let e=Date.now()+60*60000;localStorage.setItem('k0509_buff_social',String(e));}},
+  {id:'honey_cake',emoji:'🍰', name:'Honungskaka',     effect:'+20% Coins från allt i 1h', time:12*60000,
+   ing:{honey:2,carrot:1}, give:()=>{let e=Date.now()+60*60000;localStorage.setItem('k0509_buff_coins',String(e));}},
+  {id:'herb_tea',  emoji:'🫖', name:'Örtte',           effect:'+50 HP/energi omedelbart',  time:3*60000,
+   ing:{herb:2}, give:()=>{gainXP(100,'cook');gainCoins(30);}},
+  {id:'hearty',    emoji:'🥘', name:'Rejäl Måltid',   effect:'+15% Alla stats i 30min',   time:15*60000,
+   ing:{mushroom:1,carrot:1,fish:1}, give:()=>{let e=Date.now()+30*60000;localStorage.setItem('k0509_buff_all',String(e));}},
+  {id:'feast',     emoji:'🍖', name:'Legendarisk Fest', effect:'+40% XP i 1h',            time:20*60000,
+   ing:{honey:2,fish:2,berry:2}, give:()=>{let e=Date.now()+60*60000;localStorage.setItem('k0509_buff_xp2',String(e));}}
+];
+const COOK_ING_KEY = 'k0509_cook_ing';
+const COOK_KEY = 'k0509_cook';
+
+function _cookIngLoad(){try{return JSON.parse(localStorage.getItem(COOK_ING_KEY)||'{}');}catch(e){return {};}}
+function _cookIngSave(d){localStorage.setItem(COOK_ING_KEY,JSON.stringify(d));}
+function _cookLoad(){try{return JSON.parse(localStorage.getItem(COOK_KEY)||'null');}catch(e){return null;}}
+function _cookSave(d){localStorage.setItem(COOK_KEY,JSON.stringify(d));}
+
+function _cookDayData(){
+  let d=_cookLoad();
+  let today=getTodayKey();
+  if(d&&d.date===today) return d;
+  d={date:today,cooksLeft:3,totalDishes:(d?d.totalDishes||0:0),active:null};
+  _cookSave(d);
+  return d;
+}
+
+function _cookGiveStarter(){
+  let ing=_cookIngLoad();
+  if(Object.keys(ing).length===0){
+    ing={mushroom:3,carrot:3,fish:2,berry:2,honey:2,herb:2};
+    _cookIngSave(ing);
+  }
+}
+
+function openCook(){
+  $('cookPanel').classList.add('open');
+  _cookGiveStarter();
+  _renderCook();
+  if(window._cookTick) clearInterval(window._cookTick);
+  window._cookTick=setInterval(_renderCook,10000);
+}
+function closeCook(){
+  if(window._cookTick) clearInterval(window._cookTick);
+  $('cookPanel').classList.remove('open');
+}
+
+function _getActiveBuff(){
+  let now=Date.now();
+  let buffs=[
+    {key:'k0509_buff_dung_atk',label:'ATK+25%'},
+    {key:'k0509_buff_race_spd',label:'Speed+20%'},
+    {key:'k0509_buff_fish',    label:'Fisk+30%'},
+    {key:'k0509_buff_social',  label:'Social+20%'},
+    {key:'k0509_buff_coins',   label:'Coins+20%'},
+    {key:'k0509_buff_all',     label:'Allt+15%'},
+    {key:'k0509_buff_xp2',     label:'XP+40%'},
+    {key:'k0509_buff_xp2x_until',label:'2xXP'},
+  ];
+  let active=buffs.filter(b=>{let v=parseInt(localStorage.getItem(b.key)||'0');return v>now;});
+  return active.length>0?active.map(b=>b.label).join(', '):'—';
+}
+
+function _renderCook(){
+  let d=_cookDayData();
+  let ing=_cookIngLoad();
+  let now=Date.now();
+  // Stove
+  if(d.active&&d.active.endTime>now){
+    let tl=d.active.endTime-now;
+    let mins=Math.floor(tl/60000);
+    let secs=Math.floor((tl%60000)/1000);
+    let elapsed=d.active.cookTime-(d.active.endTime-now);
+    let pct=Math.min(100,elapsed/d.active.cookTime*100);
+    let st=$('cookStoveTitle'); if(st) st.textContent='Lagar: '+d.active.name;
+    let sad=$('cookActiveDish'); if(sad) sad.textContent=d.active.emoji+' Klar om '+mins+'m '+secs+'s';
+    let spw=$('cookStoveProgressWrap'); if(spw) spw.style.display='';
+    let sf=$('cookStoveFill'); if(sf) sf.style.width=pct+'%';
+    let stt=$('cookStoveTimer'); if(stt) stt.textContent=mins+'m '+secs+'s kvar';
+    let cb=$('cookCollectBtn'); if(cb) cb.style.display='none';
+  } else if(d.active&&d.active.endTime<=now){
+    let st=$('cookStoveTitle'); if(st) st.textContent='✅ '+d.active.name+' är klar!';
+    let sad=$('cookActiveDish'); if(sad) sad.textContent='Hämta din rätt innan den kallnar!';
+    let spw=$('cookStoveProgressWrap'); if(spw) spw.style.display='';
+    let sf=$('cookStoveFill'); if(sf) sf.style.width='100%';
+    let stt=$('cookStoveTimer'); if(stt) stt.textContent='';
+    let cb=$('cookCollectBtn'); if(cb) cb.style.display='';
+  } else {
+    let st=$('cookStoveTitle'); if(st) st.textContent='Spisen är redo!';
+    let sad=$('cookActiveDish'); if(sad) sad.textContent='Välj ett recept nedan för att börja laga';
+    let spw=$('cookStoveProgressWrap'); if(spw) spw.style.display='none';
+    let stt=$('cookStoveTimer'); if(stt) stt.textContent='';
+    let cb=$('cookCollectBtn'); if(cb) cb.style.display='none';
+  }
+  // Stats
+  let ccl=$('cookCooksLeft'); if(ccl) ccl.textContent=d.cooksLeft;
+  let ctd=$('cookTotalDishes'); if(ctd) ctd.textContent=d.totalDishes;
+  let cab=$('cookActiveBuff'); if(cab) cab.textContent=_getActiveBuff();
+  // Ingredients
+  let ir=$('cookIngRow');
+  if(ir) ir.innerHTML=COOK_INGREDIENTS.map(i=>{
+    let qty=ing[i.id]||0;
+    return `<div class="cook-ing-chip ${qty>0?'has-items':''}">
+      <span class="cook-ing-emoji">${i.emoji}</span>
+      <span class="cook-ing-name">${i.name}</span>
+      <span class="cook-ing-qty">${qty}</span>
+    </div>`;
+  }).join('');
+  // Recipes
+  let cooking=d.active&&d.active.endTime>now;
+  let rg=$('cookRecipesGrid');
+  if(rg) rg.innerHTML=COOK_RECIPES.map(r=>{
+    let canAfford=Object.entries(r.ing).every(([id,qty])=>(ing[id]||0)>=qty);
+    let canCook=canAfford&&!cooking&&d.cooksLeft>0;
+    return `<div class="cook-recipe-card ${canCook?'can-cook':cooking&&d.active&&d.active.id===r.id?'cooking':''}">
+      <div class="cook-buff-badge">${r.time/60000}min</div>
+      <div class="cook-recipe-top">
+        <div class="cook-recipe-emoji">${r.emoji}</div>
+        <div class="cook-recipe-info">
+          <div class="cook-recipe-name">${r.name}</div>
+          <div class="cook-recipe-effect">${r.effect}</div>
+          <div class="cook-recipe-time">⏱ ${r.time/60000} minuter tillagning</div>
+        </div>
+      </div>
+      <div class="cook-recipe-ing">
+        ${Object.entries(r.ing).map(([id,qty])=>{
+          let ingD=COOK_INGREDIENTS.find(i=>i.id===id);
+          let has=(ing[id]||0)>=qty;
+          return `<span class="cook-recipe-ing-chip ${has?'':'missing'}">${ingD?ingD.emoji:''} ${ingD?ingD.name:id} x${qty}</span>`;
+        }).join('')}
+      </div>
+      <button class="cook-recipe-btn ${canCook?'ready':''}" onclick="startCooking('${r.id}')" ${canCook?'':'disabled'}>${cooking?'Spisen upptagen':canAfford?'🔥 Laga nu!':'Saknar ingredienser'}</button>
+    </div>`;
+  }).join('');
+}
+
+function startCooking(recipeId){
+  let r=COOK_RECIPES.find(x=>x.id===recipeId);
+  if(!r) return;
+  let d=_cookDayData();
+  let ing=_cookIngLoad();
+  if(d.cooksLeft<=0){showFloatBubble('Inga lagningar kvar idag!','buff');return;}
+  if(d.active&&d.active.endTime>Date.now()){showFloatBubble('Spisen är redan igång!','buff');return;}
+  if(!Object.entries(r.ing).every(([id,qty])=>(ing[id]||0)>=qty)){showFloatBubble('Inte tillräckligt ingredienser!','buff');return;}
+  Object.entries(r.ing).forEach(([id,qty])=>{ing[id]=(ing[id]||0)-qty;});
+  _cookIngSave(ing);
+  d.active={id:r.id,name:r.name,emoji:r.emoji,cookTime:r.time,endTime:Date.now()+r.time};
+  d.cooksLeft--;
+  _cookSave(d);
+  showFloatBubble(r.emoji+' Lagar '+r.name+'...','buff');
+  _renderCook();
+}
+
+function cookCollect(){
+  let d=_cookDayData();
+  if(!d.active||d.active.endTime>Date.now()) return;
+  let r=COOK_RECIPES.find(x=>x.id===d.active.id);
+  if(r) r.give();
+  gainXP(150,'cook');
+  d.totalDishes++;
+  d.active=null;
+  _cookSave(d);
+  showFloatBubble('🍽️ Njut av din måltid! Buff aktiverad!','buff');
+  _renderCook();
 }
 
 </script>
