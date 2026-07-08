@@ -1362,6 +1362,51 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY QUEST BOARD ══ */
+.dqb-panel{position:fixed;inset:0;background:#0a0a0f;z-index:874;display:none;flex-direction:column;overflow:hidden}
+.dqb-panel.open{display:flex}
+.dqb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#1a0a2e,#0d1a3a)}
+.dqb-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8844);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.dqb-header-right{display:flex;align-items:center;gap:10px}
+.dqb-timer{font:600 12px var(--ff-body);color:var(--teal);background:rgba(0,221,204,.1);border:1px solid rgba(0,221,204,.3);padding:4px 10px;border-radius:20px}
+.dqb-all-badge{font:700 11px var(--ff-body);color:#000;background:var(--gold);padding:4px 10px;border-radius:20px;display:none}
+.dqb-all-badge.show{display:block}
+.dqb-scroll{flex:1;overflow-y:auto;padding:12px 14px 20px}
+.dqb-daily-bonus{background:linear-gradient(135deg,rgba(255,204,0,.12),rgba(255,136,68,.08));border:1px solid rgba(255,204,0,.3);border-radius:14px;padding:14px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.dqb-daily-icon{font-size:32px;line-height:1}
+.dqb-daily-info{flex:1}
+.dqb-daily-label{font:700 13px var(--ff-head);color:var(--gold);margin-bottom:2px}
+.dqb-daily-sub{font:500 11px var(--ff-body);color:rgba(255,255,255,.6)}
+.dqb-daily-claim{background:linear-gradient(135deg,var(--gold),var(--orange));border:none;color:#000;font:700 12px var(--ff-head);padding:8px 16px;border-radius:20px;cursor:pointer}
+.dqb-daily-claim:disabled{opacity:.5;cursor:default}
+.dqb-section-title{font:700 12px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.dqb-quest-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-bottom:10px;transition:transform .15s}
+.dqb-quest-card.done{background:rgba(0,255,136,.06);border-color:rgba(0,255,136,.25)}
+.dqb-quest-card.claimed{opacity:.45}
+.dqb-quest-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.dqb-quest-icon{font-size:26px;line-height:1;flex-shrink:0}
+.dqb-quest-info{flex:1}
+.dqb-quest-name{font:700 14px var(--ff-head);color:#fff;margin-bottom:2px}
+.dqb-quest-desc{font:500 11px var(--ff-body);color:rgba(255,255,255,.55);line-height:1.4}
+.dqb-quest-reward{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.dqb-rew-chip{font:600 10px var(--ff-body);padding:2px 8px;border-radius:12px}
+.dqb-rew-chip.xp{background:rgba(68,136,255,.2);color:var(--blue);border:1px solid rgba(68,136,255,.3)}
+.dqb-rew-chip.coin{background:rgba(255,204,0,.2);color:var(--gold);border:1px solid rgba(255,204,0,.3)}
+.dqb-rew-chip.kc{background:rgba(170,102,255,.2);color:var(--purple);border:1px solid rgba(170,102,255,.3)}
+.dqb-quest-prog-bar{width:100%;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.dqb-quest-prog-fill{height:100%;border-radius:3px;transition:width .4s ease;background:linear-gradient(90deg,var(--green),var(--teal))}
+.dqb-quest-card.done .dqb-quest-prog-fill{background:linear-gradient(90deg,var(--green),#00ff88)}
+.dqb-quest-prog-text{font:600 11px var(--ff-body);color:rgba(255,255,255,.5);display:flex;justify-content:space-between}
+.dqb-quest-claim-btn{width:100%;margin-top:8px;padding:8px;background:linear-gradient(135deg,var(--green),var(--teal));border:none;border-radius:10px;color:#000;font:700 12px var(--ff-head);cursor:pointer}
+.dqb-quest-claimed-stamp{width:100%;margin-top:8px;padding:8px;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);border-radius:10px;color:var(--green);font:700 12px var(--ff-head);text-align:center}
+.dqb-complete-banner{background:linear-gradient(135deg,rgba(255,204,0,.15),rgba(0,255,136,.1));border:1px solid rgba(255,204,0,.4);border-radius:14px;padding:16px;text-align:center;margin-bottom:14px;display:none}
+.dqb-complete-banner.show{display:block}
+.dqb-complete-title{font:800 18px var(--ff-head);background:linear-gradient(90deg,var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.dqb-complete-sub{font:500 12px var(--ff-body);color:rgba(255,255,255,.6)}
+@keyframes questPop{0%{transform:scale(.95);opacity:.6}60%{transform:scale(1.03)}100%{transform:scale(1);opacity:1}}
+.dqb-quest-card.pop{animation:questPop .35s ease forwards}
+
 /* ══ SEASON LEADERBOARD ══ */
 .slb-panel { position:fixed;inset:0;z-index:873;background:radial-gradient(ellipse at 50% 0%,rgba(16,8,40,.99),#000 70%);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column; }
 .slb-panel.open { transform:translateY(0); }
@@ -6317,6 +6362,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="fortune-btn-row" id="fortuneBtnRow" style="display:none">
     <button class="fortune-btn" style="background:linear-gradient(135deg,var(--purple),var(--pink))" onclick="claimFortune()">✦ ACCEPTERA</button>
     <button class="fortune-btn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)" onclick="closeFortune()">Stäng</button>
+  </div>
+</div>
+
+
+<!-- DAILY QUEST BOARD -->
+<div class="dqb-panel" id="dqbPanel">
+  <div class="dqb-header">
+    <div class="dqb-title">📋 DAILY QUESTS</div>
+    <div class="dqb-header-right">
+      <div class="dqb-timer" id="dqbTimer">00:00:00</div>
+      <div class="dqb-all-badge" id="dqbAllBadge">✓ ALLA KLARA</div>
+      <button class="close-btn" onclick="closeDQB()">✕</button>
+    </div>
+  </div>
+  <div class="dqb-scroll">
+    <div class="dqb-complete-banner" id="dqbCompleteBanner">
+      <div class="dqb-complete-title">🌟 ALLA UPPDRAG KLARA!</div>
+      <div class="dqb-complete-sub">+500 bonus XP • Kom tillbaka imorgon</div>
+    </div>
+    <div class="dqb-daily-bonus">
+      <div class="dqb-daily-icon">🎁</div>
+      <div class="dqb-daily-info">
+        <div class="dqb-daily-label">DAGLIG INLOGGNING</div>
+        <div class="dqb-daily-sub">+200 XP + 150 Coins varje dag</div>
+      </div>
+      <button class="dqb-daily-claim" id="dqbLoginBtn" onclick="claimDQBLogin()">HÄMTA</button>
+    </div>
+    <div class="dqb-section-title">Dagens uppdrag</div>
+    <div id="dqbQuestList"></div>
   </div>
 </div>
 
@@ -16651,6 +16725,194 @@ function _renderSLB(){
 
 function _slbSetCat(cat){ _slbCat=cat; _renderSLB(); }
 
+
+
+// DAILY QUEST BOARD
+const DQB_QUEST_POOL = [
+  {id:'tap50',icon:'👆',name:'Tryckfena',desc:'Tryck på pet 50 gånger',type:'tap',target:50,rew:{xp:200,coins:100}},
+  {id:'tap100',icon:'👆',name:'Tryckmaster',desc:'Tryck på pet 100 gånger',type:'tap',target:100,rew:{xp:400,coins:200}},
+  {id:'feed3',icon:'🍖',name:'God Matpappa',desc:'Mata pet 3 gånger',type:'feed',target:3,rew:{xp:150,coins:80}},
+  {id:'feed5',icon:'🥩',name:'Matexpert',desc:'Mata pet 5 gånger',type:'feed',target:5,rew:{xp:250,coins:150}},
+  {id:'sleep2',icon:'💤',name:'Sömnvakt',desc:'Låt pet sova 2 gånger',type:'sleep',target:2,rew:{xp:180,coins:90}},
+  {id:'play3',icon:'🎮',name:'Lekstund',desc:'Lek med pet 3 gånger',type:'play',target:3,rew:{xp:200,coins:100}},
+  {id:'fish3',icon:'🐟',name:'Nybörjarfiskare',desc:'Fånga 3 fiskar',type:'fish',target:3,rew:{xp:300,coins:150,kc:1}},
+  {id:'fish5',icon:'🎣',name:'Fiskemästare',desc:'Fånga 5 fiskar',type:'fish',target:5,rew:{xp:500,coins:250,kc:2}},
+  {id:'coins500',icon:'💰',name:'Myntsamlare',desc:'Tjäna 500 coins',type:'earn_coins',target:500,rew:{xp:300,coins:100,kc:1}},
+  {id:'coins1000',icon:'💎',name:'Guldgrävare',desc:'Tjäna 1000 coins',type:'earn_coins',target:1000,rew:{xp:600,coins:200,kc:2}},
+  {id:'xp500',icon:'⚡',name:'XP-jagare',desc:'Tjäna 500 XP',type:'earn_xp',target:500,rew:{coins:300,kc:1}},
+  {id:'xp1000',icon:'🌟',name:'XP-stormästare',desc:'Tjäna 1000 XP',type:'earn_xp',target:1000,rew:{coins:600,kc:3}},
+  {id:'wave1',icon:'🌊',name:'Vågsurf',desc:'Vinn en Wave Arena-omgång',type:'wave_win',target:1,rew:{xp:350,coins:175,kc:2}},
+  {id:'dojo1',icon:'🥋',name:'Träningsdags',desc:'Slutför en Dojo-utmaning',type:'dojo',target:1,rew:{xp:250,coins:125,kc:1}},
+  {id:'bond5',icon:'❤️',name:'Kärleksbomb',desc:'Bygg 5 bond-poäng',type:'bond',target:5,rew:{xp:200,coins:100}},
+  {id:'lvlup',icon:'🆙',name:'Nivåklättrare',desc:'Gå upp en nivå',type:'lvlup',target:1,rew:{xp:500,coins:300,kc:3}},
+];
+
+function _dqbTodayKey(){ return 'k0509_dqb_' + getTodayKey(); }
+function _dqbLoginKey(){ return 'k0509_dqblogin_' + getTodayKey(); }
+
+function _dqbLoad(){
+  let raw = localStorage.getItem(_dqbTodayKey());
+  if(raw){ try{ return JSON.parse(raw); }catch(e){} }
+  // Generate 5 quests for today using seeded selection
+  let seed = parseInt(getTodayKey().replace(/-/g,'')) % DQB_QUEST_POOL.length;
+  let pool = [...DQB_QUEST_POOL];
+  let selected = [];
+  for(let i=0;i<5;i++){
+    selected.push(pool.splice((seed+i*7)%pool.length,1)[0]);
+  }
+  let data = { quests: selected.map(q=>({...q,prog:0,claimed:false})) };
+  localStorage.setItem(_dqbTodayKey(), JSON.stringify(data));
+  return data;
+}
+
+function _dqbSave(data){ localStorage.setItem(_dqbTodayKey(), JSON.stringify(data)); }
+
+function openDQB(){
+  $('dqbPanel').classList.add('open');
+  _renderDQB();
+  _dqbTimerTick();
+}
+function closeDQB(){ $('dqbPanel').classList.remove('open'); }
+
+function _renderDQB(){
+  let data = _dqbLoad();
+  let allClaimed = data.quests.every(q=>q.claimed);
+  $('dqbCompleteBanner').classList.toggle('show', allClaimed);
+  $('dqbAllBadge').classList.toggle('show', allClaimed);
+  // Login bonus
+  let loginDone = !!localStorage.getItem(_dqbLoginKey());
+  let btn = $('dqbLoginBtn');
+  if(btn){ btn.disabled = loginDone; btn.textContent = loginDone ? '✓ KLAR' : 'HÄMTA'; }
+  // Quests
+  let el = $('dqbQuestList'); if(!el) return;
+  el.innerHTML = data.quests.map(q=>{
+    let pct = Math.min(100, Math.round((q.prog/q.target)*100));
+    let done = q.prog >= q.target;
+    let rewHtml = Object.entries(q.rew).map(([k,v])=>`<span class="dqb-rew-chip ${k}">${v} ${k.toUpperCase()}</span>`).join('');
+    return `<div class="dqb-quest-card ${done?'done':''} ${q.claimed?'claimed':''}" id="dqbCard_${q.id}">
+      <div class="dqb-quest-top">
+        <div class="dqb-quest-icon">${q.icon}</div>
+        <div class="dqb-quest-info">
+          <div class="dqb-quest-name">${q.name}</div>
+          <div class="dqb-quest-desc">${q.desc}</div>
+        </div>
+        <div class="dqb-quest-reward">${rewHtml}</div>
+      </div>
+      <div class="dqb-quest-prog-bar"><div class="dqb-quest-prog-fill" style="width:${pct}%"></div></div>
+      <div class="dqb-quest-prog-text"><span>${q.prog}/${q.target}</span><span>${pct}%</span></div>
+      ${done && !q.claimed ? `<button class="dqb-quest-claim-btn" onclick="claimDQBQuest('${q.id}')">🎁 HÄMTA BELÖNING</button>` : ''}
+      ${q.claimed ? `<div class="dqb-quest-claimed-stamp">✓ BELÖNING HÄMTAD</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function claimDQBLogin(){
+  if(localStorage.getItem(_dqbLoginKey())) return;
+  localStorage.setItem(_dqbLoginKey(), '1');
+  gainXP(200,'daily'); gainCoins(150);
+  showFloatBubble('📋 Daglig inloggning! +200XP +150 coins','buff');
+  _renderDQB();
+  _checkTrophyUnlocks && _checkTrophyUnlocks();
+}
+
+function claimDQBQuest(id){
+  let data = _dqbLoad();
+  let q = data.quests.find(x=>x.id===id);
+  if(!q || q.prog < q.target || q.claimed) return;
+  q.claimed = true;
+  _dqbSave(data);
+  if(q.rew.xp) gainXP(q.rew.xp,'daily');
+  if(q.rew.coins) gainCoins(q.rew.coins);
+  if(q.rew.kc) gainKC(q.rew.kc);
+  showFloatBubble(`✅ ${q.name} klar! ${q.rew.xp?'+'+q.rew.xp+'XP ':''} ${q.rew.coins?'+'+q.rew.coins+'💰':''}`.trim(),'buff');
+  let card = $('dqbCard_'+id);
+  if(card){ card.classList.add('pop'); }
+  let allClaimed = data.quests.every(x=>x.claimed);
+  if(allClaimed){ gainXP(500,'daily'); showFloatBubble('🌟 Alla uppdrag klara! +500 bonus XP','buff'); }
+  setTimeout(()=>_renderDQB(), 400);
+  _checkTrophyUnlocks && _checkTrophyUnlocks();
+}
+
+function _dqbProgress(type, amount){
+  let data = _dqbLoad();
+  let changed = false;
+  data.quests.forEach(q=>{
+    if(q.claimed) return;
+    if(q.type === type){
+      q.prog = Math.min(q.target, q.prog + (amount||1));
+      changed = true;
+    }
+  });
+  if(changed){
+    _dqbSave(data);
+    if($('dqbPanel').classList.contains('open')) _renderDQB();
+  }
+}
+
+let _dqbTimerInterval = null;
+function _dqbTimerTick(){
+  if(_dqbTimerInterval) clearInterval(_dqbTimerInterval);
+  function update(){
+    let el = $('dqbTimer'); if(!el) return;
+    let now = new Date();
+    let midnight = new Date(); midnight.setHours(24,0,0,0);
+    let diff = Math.floor((midnight - now)/1000);
+    let h=Math.floor(diff/3600), m=Math.floor((diff%3600)/60), s=diff%60;
+    el.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }
+  update();
+  _dqbTimerInterval = setInterval(update, 1000);
+}
+
+// Hook into game actions
+const _origPcFeedDQB = pcFeed;
+pcFeed = function(){
+  _origPcFeedDQB.apply(this,arguments);
+  _dqbProgress('feed');
+};
+const _origPcSleepDQB = pcSleep;
+pcSleep = function(){
+  _origPcSleepDQB.apply(this,arguments);
+  _dqbProgress('sleep');
+};
+const _origPcPlayDQB = pcPlay;
+pcPlay = function(){
+  _origPcPlayDQB.apply(this,arguments);
+  _dqbProgress('play');
+};
+const _origPetTapDQB = petTap;
+petTap = function(){
+  _origPetTapDQB.apply(this,arguments);
+  _dqbProgress('tap');
+};
+const _origGainCoinsDQB = gainCoins;
+gainCoins = function(n){
+  _origGainCoinsDQB(n);
+  _dqbProgress('earn_coins', n);
+};
+const _origGainXPDQB = gainXP;
+gainXP = function(n,src){
+  _origGainXPDQB(n,src);
+  if(src!=='daily') _dqbProgress('earn_xp', n);
+};
+const _origCFCDQB = completeFishCatch;
+completeFishCatch = function(caught,quality){
+  _origCFCDQB(caught,quality);
+  _dqbProgress('fish');
+};
+const _origTLUDQB = triggerLvlUp;
+window.triggerLvlUp = function(){
+  _origTLUDQB.apply(this,arguments);
+  _dqbProgress('lvlup');
+};
+// bond progress hook
+const _origGainBondDQB = gainBond;
+if(typeof gainBond === 'function'){
+  gainBond = function(n){
+    _origGainBondDQB(n);
+    _dqbProgress('bond', n);
+  };
+}
 
 </script>
 
