@@ -1393,6 +1393,36 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET TRAITS ══ */
+.traits-panel{position:fixed;inset:0;background:#040408;z-index:906;display:none;flex-direction:column;overflow:hidden}
+.traits-panel.open{display:flex}
+.traits-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080612,#040310)}
+.traits-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88cc,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.traits-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.traits-hero{background:linear-gradient(135deg,rgba(255,136,204,.08),rgba(255,204,0,.06));border:1px solid rgba(255,136,204,.2);border-radius:20px;padding:16px;text-align:center;margin-bottom:14px}
+.traits-hero-emoji{font-size:56px;margin-bottom:6px;filter:drop-shadow(0 0 20px rgba(255,136,204,.4))}
+.traits-hero-name{font:800 18px var(--ff-head);color:#fff;margin-bottom:2px}
+.traits-hero-type{font:600 12px var(--ff-body);color:rgba(255,255,255,.5)}
+.traits-active-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.traits-active-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:6px 14px;font:700 11px var(--ff-head);color:#fff;display:flex;align-items:center;gap:5px}
+.traits-section{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;margin-top:14px}
+.traits-list{display:flex;flex-direction:column;gap:10px}
+.trait-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;transition:all .2s;position:relative}
+.trait-card.unlocked{background:rgba(255,136,204,.08);border-color:rgba(255,136,204,.3)}
+.trait-card.locked{opacity:.6}
+.trait-card-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.trait-emoji{font-size:36px;flex-shrink:0}
+.trait-info{flex:1}
+.trait-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.trait-effect{font:600 11px var(--ff-body);margin-bottom:2px}
+.trait-condition{font:500 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.trait-badge{position:absolute;top:10px;right:10px;font:700 9px var(--ff-body);padding:3px 8px;border-radius:8px}
+.trait-badge.unlocked{background:var(--pink);color:#000}
+.trait-badge.locked{background:rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
+.trait-prog-bg{width:100%;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.trait-prog-fill{height:100%;border-radius:3px;transition:width .4s}
+
 /* ══ AUCTION HOUSE ══ */
 .auction-panel{position:fixed;inset:0;background:#060408;z-index:905;display:none;flex-direction:column;overflow:hidden}
 .auction-panel.open{display:flex}
@@ -5901,6 +5931,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
           <div class="ddr" onclick="cM();openAuction()"><div class="ddr-i">🏛️</div>Auktionshus</div>
+          <div class="ddr" onclick="cM();openTraits()"><div class="ddr-i">🎭</div>Pet Karaktär</div>
         </div>
       </div>
     </div>
@@ -7507,6 +7538,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET TRAITS -->
+<div class="traits-panel" id="traitsPanel">
+  <div class="traits-header">
+    <div class="traits-title">🎭 PET KARAKTÄR</div>
+    <button class="close-btn" onclick="closeTraits()">✕</button>
+  </div>
+  <div class="traits-scroll">
+    <div class="traits-hero">
+      <div class="traits-hero-emoji" id="traitsHeroEmoji">🐾</div>
+      <div class="traits-hero-name" id="traitsHeroName">Ditt Husdjur</div>
+      <div class="traits-hero-type" id="traitsHeroType">Karaktärstyp: Vanlig</div>
+      <div class="traits-active-row" id="traitsActiveRow"></div>
+    </div>
+    <div class="traits-section">Karaktärsdrag</div>
+    <div class="traits-list" id="traitsList"></div>
+  </div>
+</div>
 
 <!-- AUCTION HOUSE -->
 <div class="auction-panel" id="auctionPanel">
@@ -22773,6 +22823,108 @@ function placeBid(idx){
     showFloatBubble('🏆 Du vann auktionen! '+slot.item.emoji+' '+slot.item.name,'buff');
     gainXP(200,'auction');
   }
+}
+
+
+// PET TRAIT SYSTEM
+const PET_TRAITS = [
+  {id:'dedicated',  emoji:'🔥', name:'Dedikerad',      effect:'+10% XP alla dagar',   color:'#ff6644',
+   check:()=>(parseInt(localStorage.getItem('k0509_streak')||'0')>=7),
+   progress:()=>Math.min(100,(parseInt(localStorage.getItem('k0509_streak')||'0')/7)*100),
+   req:'Logga in 7 dagar i rad'},
+  {id:'playful',    emoji:'🎮', name:'Lekfull',        effect:'+5% XP per tap-session', color:'#44bbff',
+   check:()=>(parseInt(localStorage.getItem('k0509_tapcount')||'0')>=50),
+   progress:()=>Math.min(100,(parseInt(localStorage.getItem('k0509_tapcount')||'0')/50)*100),
+   req:'Trycka på husdjuret 50 gånger'},
+  {id:'hardworking',emoji:'💪', name:'Flitig',         effect:'+5% till alla belöningar', color:'#ffaa22',
+   check:()=>(parseInt(localStorage.getItem('k0509_dung_done_count')||'0')>=5||(localStorage.getItem('k0509_dung_done')===getTodayKey())),
+   progress:()=>Math.min(100,((parseInt(localStorage.getItem('k0509_dung_done_count')||'0')||1)/5)*100),
+   req:'Klara Daily Dungeon 5 gånger'},
+  {id:'wise',       emoji:'🧠', name:'Vis',            effect:'+20% Speed Math XP', color:'#aa66ff',
+   check:()=>(parseInt(localStorage.getItem('k0509_smath_best_easy')||'0')>=15),
+   progress:()=>Math.min(100,(parseInt(localStorage.getItem('k0509_smath_best_easy')||'0')/15)*100),
+   req:'Få minst 15/20 i Speed Math'},
+  {id:'wealthy',    emoji:'💰', name:'Förmögen',       effect:'+10% Coin-belöning', color:'#ffcc00',
+   check:()=>((typeof G!=='undefined'?G.coins:0)>=5000),
+   progress:()=>Math.min(100,((typeof G!=='undefined'?G.coins:0)/5000)*100),
+   req:'Samla 5000 coins'},
+  {id:'champion',   emoji:'🏆', name:'Mästare',        effect:'+15% XP från tävlingar', color:'#ff8844',
+   check:()=>(parseInt(JSON.parse(localStorage.getItem('k0509_race')||'{}').wins||0)>=3),
+   progress:()=>Math.min(100,(parseInt(JSON.parse(localStorage.getItem('k0509_race')||'{}').wins||0)/3)*100),
+   req:'Vinna 3 Pet Races'},
+  {id:'alchemist',  emoji:'⚗️', name:'Alkemist',       effect:'+1 extra ingredient/brew', color:'#cc44ff',
+   check:()=>(parseInt(localStorage.getItem('k0509_alch_brews')||'0')>=5),
+   progress:()=>Math.min(100,(parseInt(localStorage.getItem('k0509_alch_brews')||'0')/5)*100),
+   req:'Brygga 5 eliksirer'},
+  {id:'scholar',    emoji:'🎓', name:'Akademiker',     effect:'+10% Academy studiehastighet', color:'#4488ff',
+   check:()=>{let s=JSON.parse(localStorage.getItem('k0509_acad_stats')||'{}'); return Object.values(s).filter(v=>typeof v==='number').reduce((a,b)=>a+b,0)>=10;},
+   progress:()=>{let s=JSON.parse(localStorage.getItem('k0509_acad_stats')||'{}'); let t=Object.values(s).filter(v=>typeof v==='number').reduce((a,b)=>a+b,0); return Math.min(100,(t/10)*100);},
+   req:'Samla 10 akademi-poäng totalt'},
+  {id:'farmer',     emoji:'🌱', name:'Jordbrukare',    effect:'Farmgrödor ger +10% bonus', color:'#44cc44',
+   check:()=>(parseInt(JSON.parse(localStorage.getItem('k0509_farm_stats')||'{}').harvested||0)>=10),
+   progress:()=>Math.min(100,(parseInt(JSON.parse(localStorage.getItem('k0509_farm_stats')||'{}').harvested||0)/10)*100),
+   req:'Skörda 10 grödor'},
+  {id:'social',     emoji:'🌐', name:'Social Butterfly',effect:'+2x like XP i Community', color:'#ff44aa',
+   check:()=>(JSON.parse(localStorage.getItem('k0509_feed_likes')||'[]').length>=10),
+   progress:()=>Math.min(100,(JSON.parse(localStorage.getItem('k0509_feed_likes')||'[]').length/10)*100),
+   req:'Gilla 10 Community-inlägg'},
+];
+const TRAITS_KEY = 'k0509_traits_unlocked';
+
+function openTraits(){
+  $('traitsPanel').classList.add('open');
+  _renderTraits();
+}
+function closeTraits(){ $('traitsPanel').classList.remove('open'); }
+
+function _renderTraits(){
+  let petEmoji=(typeof G!=='undefined'&&G.petEmoji)||'🐾';
+  let petName=(typeof G!=='undefined'&&G.petName)||'Ditt Husdjur';
+  let he=$('traitsHeroEmoji'); if(he) he.textContent=petEmoji;
+  let hn=$('traitsHeroName'); if(hn) hn.textContent=petName;
+  // Check and unlock traits
+  let unlocked=JSON.parse(localStorage.getItem(TRAITS_KEY)||'[]');
+  let newlyUnlocked=[];
+  PET_TRAITS.forEach(t=>{
+    if(!unlocked.includes(t.id)&&t.check()){
+      unlocked.push(t.id);
+      newlyUnlocked.push(t);
+    }
+  });
+  if(newlyUnlocked.length>0){
+    localStorage.setItem(TRAITS_KEY,JSON.stringify(unlocked));
+    newlyUnlocked.forEach(t=>showFloatBubble('🎭 Nytt drag: '+t.emoji+' '+t.name+'!','buff'));
+  }
+  // Type description
+  let numUnlocked=unlocked.length;
+  let typeNames=['Vilding','Lärling','Kämpe','Utforskare','Veteran','Hjälte','Legendarisk'];
+  let typeName=typeNames[Math.min(typeNames.length-1,Math.floor(numUnlocked/1.5))];
+  let ht=$('traitsHeroType'); if(ht) ht.textContent='Karaktärstyp: '+typeName+' ('+numUnlocked+'/'+PET_TRAITS.length+' drag)';
+  // Active traits row
+  let ar=$('traitsActiveRow');
+  if(ar){
+    let activeTraits=PET_TRAITS.filter(t=>unlocked.includes(t.id)).slice(0,4);
+    ar.innerHTML=activeTraits.map(t=>`<div class="traits-active-chip" style="border-color:${t.color}30;background:${t.color}15">${t.emoji} ${t.name}</div>`).join('');
+    if(activeTraits.length===0) ar.innerHTML='<div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.3)">Inga drag upplåsta ännu</div>';
+  }
+  // Traits list
+  let list=$('traitsList'); if(!list) return;
+  list.innerHTML=PET_TRAITS.map(t=>{
+    let isUnlocked=unlocked.includes(t.id);
+    let prog=t.progress();
+    return `<div class="trait-card ${isUnlocked?'unlocked':'locked'}">
+      <div class="trait-badge ${isUnlocked?'unlocked':'locked'}">${isUnlocked?'✓ AKTIVT':'🔒 LÅST'}</div>
+      <div class="trait-card-top">
+        <div class="trait-emoji" style="${isUnlocked?'filter:drop-shadow(0 0 10px '+t.color+')':''}">${t.emoji}</div>
+        <div class="trait-info">
+          <div class="trait-name">${t.name}</div>
+          <div class="trait-effect" style="color:${t.color}">${t.effect}</div>
+          <div class="trait-condition">${isUnlocked?'✅ Krav uppfyllt':'🎯 Krav: '+t.req}</div>
+        </div>
+      </div>
+      ${!isUnlocked?`<div class="trait-prog-bg"><div class="trait-prog-fill" style="width:${prog}%;background:${t.color}"></div></div>`:''}
+    </div>`;
+  }).join('');
 }
 
 </script>
