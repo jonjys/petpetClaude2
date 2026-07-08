@@ -1422,6 +1422,51 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET QUIZ SHOW ══ */
+.quiz-panel{position:fixed;inset:0;background:#030410;z-index:935;display:none;flex-direction:column;overflow:hidden}
+.quiz-panel.open{display:flex}
+.quiz-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060818,#030410)}
+.quiz-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44aaff,#44ffee,#88ff44);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.quiz-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.quiz-lobby{background:radial-gradient(ellipse at 50% 0%,rgba(68,170,255,.1),transparent 70%),linear-gradient(180deg,#060c18,#030410);border:1.5px solid rgba(68,170,255,.2);border-radius:22px;padding:20px 16px;text-align:center;margin-bottom:14px}
+.quiz-lobby-title{font:900 20px var(--ff-head);color:#44aaff;margin-bottom:6px}
+.quiz-lobby-sub{font:500 11px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:16px}
+.quiz-cats{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.quiz-cat{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:10px 14px;cursor:pointer;transition:all .15s;text-align:center;min-width:80px}
+.quiz-cat:active{transform:scale(.96)}
+.quiz-cat.selected{border-color:rgba(68,170,255,.5);background:rgba(68,170,255,.1)}
+.quiz-cat-emoji{font-size:24px;display:block;margin-bottom:3px}
+.quiz-cat-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.7)}
+.quiz-start-btn{width:80%;max-width:240px;background:linear-gradient(135deg,#1144aa,#44aaff);border:none;border-radius:14px;color:#fff;font:900 14px var(--ff-head);padding:13px;cursor:pointer;transition:all .15s}
+.quiz-start-btn:active{transform:scale(.97)}
+.quiz-game{display:none}
+.quiz-progress-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin-bottom:12px}
+.quiz-progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#44aaff,#44ffee);transition:width .3s}
+.quiz-q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.quiz-q-num{font:700 11px var(--ff-head);color:rgba(255,255,255,.4)}
+.quiz-timer{font:900 18px var(--ff-head);color:#44aaff}
+.quiz-timer.warn{color:#ff8844;animation:quizTimerPulse .5s ease-in-out infinite}
+@keyframes quizTimerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.quiz-question{font:800 16px var(--ff-head);color:#fff;text-align:center;padding:20px 0;line-height:1.4}
+.quiz-options{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.quiz-opt{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;color:#fff;font:700 12px var(--ff-head);padding:14px 16px;cursor:pointer;transition:all .15s;text-align:left}
+.quiz-opt:active{transform:scale(.98)}
+.quiz-opt.correct{background:rgba(0,255,136,.12);border-color:rgba(0,255,136,.5);color:var(--green)}
+.quiz-opt.wrong{background:rgba(255,68,68,.08);border-color:rgba(255,68,68,.3);color:#ff8888}
+.quiz-opt.disabled{pointer-events:none}
+.quiz-feedback{text-align:center;padding:8px;font:700 13px var(--ff-head);min-height:24px;margin-bottom:6px}
+.quiz-feedback.correct{color:var(--green)}
+.quiz-feedback.wrong{color:#ff8888}
+.quiz-result{text-align:center;padding:20px 0;display:none}
+.quiz-result-score{font:900 48px var(--ff-head);color:#44aaff;margin-bottom:4px}
+.quiz-result-label{font:500 12px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:14px}
+.quiz-result-reward{font:700 13px var(--ff-head);color:#ffcc00;margin-bottom:14px}
+.quiz-stats-row{display:flex;gap:8px}
+.quiz-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.quiz-stat-val{font:800 14px var(--ff-head);color:#44aaff}
+.quiz-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+
 /* ══ PET GACHA SUMMON ══ */
 .gacha2-panel{position:fixed;inset:0;background:#080006;z-index:934;display:none;flex-direction:column;overflow:hidden}
 .gacha2-panel.open{display:flex}
@@ -7176,6 +7221,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCraft()"><div class="ddr-i">🔨</div>Crafting</div>
           <div class="ddr" onclick="cM();openRanch()"><div class="ddr-i">🌾</div>Pet Ranch</div>
           <div class="ddr" onclick="cM();openGacha2()"><div class="ddr-i">✨</div>Summon</div>
+          <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🎓</div>Quiz Show</div>
         </div>
       </div>
     </div>
@@ -8336,6 +8382,44 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET QUIZ SHOW -->
+<div class="quiz-panel" id="quizPanel">
+  <div class="quiz-header">
+    <div class="quiz-title">🎓 QUIZ SHOW</div>
+    <button class="close-btn" onclick="closeQuiz()">✕</button>
+  </div>
+  <div class="quiz-scroll">
+    <div class="quiz-lobby" id="quizLobby">
+      <div class="quiz-lobby-title">🎓 KARMA QUIZ SHOW</div>
+      <div class="quiz-lobby-sub">10 frågor · 15s per fråga · Vinn coins &amp; XP!</div>
+      <div class="quiz-cats" id="quizCats"></div>
+      <button class="quiz-start-btn" onclick="quizStart()">🎓 STARTA QUIZ!</button>
+    </div>
+    <div class="quiz-game" id="quizGame">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div></div>
+      <div class="quiz-q-header">
+        <div class="quiz-q-num" id="quizQNum">Fråga 1/10</div>
+        <div class="quiz-timer" id="quizTimer">15</div>
+      </div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-result" id="quizResult">
+        <div class="quiz-result-score" id="quizScore">0/10</div>
+        <div class="quiz-result-label">Korrekt svarade</div>
+        <div class="quiz-result-reward" id="quizReward"></div>
+        <button class="quiz-start-btn" onclick="quizRetry()">🔄 Spela igen</button>
+      </div>
+    </div>
+    <div class="quiz-stats-row" id="quizStatsRow" style="margin-top:14px">
+      <div class="quiz-stat"><div class="quiz-stat-val" id="quizTotalPlayed">0</div><div class="quiz-stat-label">Quiz spelat</div></div>
+      <div class="quiz-stat"><div class="quiz-stat-val" id="quizBestScore">0</div><div class="quiz-stat-label">Bästa poäng</div></div>
+      <div class="quiz-stat"><div class="quiz-stat-val" id="quizTotalCoins">0</div><div class="quiz-stat-label">💰 Tjänat</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- PET GACHA SUMMON -->
 <div class="gacha2-panel" id="gacha2Panel">
@@ -29762,6 +29846,234 @@ function _renderGacha2(){
         '</div>';
     }).join('');
   }
+}
+
+
+// PET QUIZ SHOW SYSTEM
+const QUIZ_KEY = 'k0509_quiz';
+const QUIZ_CATS = [
+  {id:'general', emoji:'🌍', name:'Allmänkunskap'},
+  {id:'science', emoji:'🔬', name:'Vetenskap'},
+  {id:'history', emoji:'📜', name:'Historia'},
+  {id:'nature',  emoji:'🌿', name:'Natur'},
+  {id:'pop',     emoji:'🎵', name:'Pop-kultur'},
+];
+const QUIZ_QUESTIONS = {
+  general:[
+    {q:'Vilket land har flest invånare i världen?',opts:['Indien','Kina','USA','Brasilien'],a:0},
+    {q:'Hur många sidor har en hexagon?',opts:['5','6','7','8'],a:1},
+    {q:'Vilket hav är störst?',opts:['Atlanten','Indiska oceanen','Arktiska','Stilla havet'],a:3},
+    {q:'Vad är huvudstaden i Japan?',opts:['Osaka','Kyoto','Tokyo','Hiroshima'],a:2},
+    {q:'Hur många månader har ett år?',opts:['10','11','12','13'],a:2},
+    {q:'Vilket element har kemiskt tecken Au?',opts:['Silver','Guld','Aluminium','Järn'],a:1},
+    {q:'Vad är 7 × 8?',opts:['54','56','58','62'],a:1},
+    {q:'Vilken planet är närmast solen?',opts:['Venus','Mars','Merkurius','Jorden'],a:2},
+  ],
+  science:[
+    {q:'Vad är vatten kemisk formel?',opts:['H3O','H2O2','H2O','HO2'],a:2},
+    {q:'Hur snabbt reser ljus (m/s)?',opts:['100 000','300 000 000','1 000 000','150 000 000'],a:1},
+    {q:'Vilket organ pumpar blodet?',opts:['Lungorna','Levern','Njurarna','Hjärtat'],a:3},
+    {q:'Vad mäter en termometer?',opts:['Lufttryck','Temperatur','Fuktighet','Vind'],a:1},
+    {q:'Hur många ben har en spindel?',opts:['6','8','10','12'],a:1},
+    {q:'Vilket gas andas vi in?',opts:['CO2','Kväve','Syre','Helium'],a:2},
+    {q:'DNA står för?',opts:['Direct Nucleic Acid','Deoxyribonukleinsyra','Dynamic Nitrogen Atom','Dense Nucleus Array'],a:1},
+  ],
+  history:[
+    {q:'Vilket år slutade andra världskriget?',opts:['1943','1944','1945','1946'],a:2},
+    {q:'Vem målade Mona Lisa?',opts:['Michelangelo','Rafael','Da Vinci','Botticelli'],a:2},
+    {q:'Vilket land uppfann papper?',opts:['Japan','Egypten','Kina','Indien'],a:2},
+    {q:'Vilket år landade man på månen?',opts:['1965','1967','1969','1971'],a:2},
+    {q:'Vem var den första US-presidenten?',opts:['Jefferson','Lincoln','Washington','Adams'],a:2},
+    {q:'Hur länge pågick 100-årskriget?',opts:['100 år','116 år','80 år','150 år'],a:1},
+  ],
+  nature:[
+    {q:'Vilket djur är det snabbaste på land?',opts:['Lejon','Gepard','Häst','Emu'],a:1},
+    {q:'Vilket är världens längsta flod?',opts:['Amazon','Mississippi','Yangtze','Nilen'],a:3},
+    {q:'Hur länge lever en medelålders hund?',opts:['5-7 år','10-13 år','15-18 år','20-25 år'],a:1},
+    {q:'Vilket djur sover 20h om dagen?',opts:['Björn','Katt','Koala','Sengångare'],a:2},
+    {q:'Vilket träd producerar ekollon?',opts:['Björk','Tall','Ek','Gran'],a:2},
+    {q:'Var produceras honung?',opts:['Getingar','Flugor','Bin','Myror'],a:2},
+  ],
+  pop:[
+    {q:'Vad heter Arianas populäraste album?',opts:['Thank U Next','Sweetener','Positions','Dangerous Woman'],a:0},
+    {q:'Vilket år lanserades Instagram?',opts:['2008','2010','2012','2014'],a:1},
+    {q:'Hur många färger finns i en regnbåge?',opts:['5','6','7','8'],a:2},
+    {q:'Vad heter Elsa syskon i Frost?',opts:['Sofia','Kristina','Anna','Maria'],a:2},
+    {q:'Minecraft skapades av?',opts:['Valve','Notch/Mojang','Epic','Blizzard'],a:1},
+    {q:'YouTube grundades år?',opts:['2003','2005','2007','2009'],a:1},
+  ],
+};
+
+let _quizCat='general';
+let _quizState=null;
+let _quizTimer=null;
+
+function _quizLoad(){try{return JSON.parse(localStorage.getItem(QUIZ_KEY)||'null');}catch(e){return null;}}
+function _quizSave(d){localStorage.setItem(QUIZ_KEY,JSON.stringify(d));}
+function _quizStats(){
+  let d=_quizLoad();
+  if(!d) d={totalPlayed:0,bestScore:0,totalCoins:0};
+  return d;
+}
+
+function openQuiz(){
+  $('quizPanel').classList.add('open');
+  _quizState=null;
+  _renderQuizLobby();
+}
+function closeQuiz(){
+  $('quizPanel').classList.remove('open');
+  if(_quizTimer) clearInterval(_quizTimer);
+  _quizState=null;
+}
+
+function _renderQuizLobby(){
+  $('quizLobby').style.display='block';
+  $('quizGame').style.display='none';
+  var qc=$('quizCats');
+  if(qc) qc.innerHTML=QUIZ_CATS.map(function(c){
+    return '<div class="quiz-cat'+(c.id===_quizCat?' selected':'')+'" onclick="quizSetCat(''+c.id+'')">'+
+      '<span class="quiz-cat-emoji">'+c.emoji+'</span>'+
+      '<div class="quiz-cat-name">'+c.name+'</div>'+
+      '</div>';
+  }).join('');
+  var d=_quizStats();
+  var tp=$('quizTotalPlayed'); if(tp) tp.textContent=d.totalPlayed||0;
+  var bs=$('quizBestScore'); if(bs) bs.textContent=(d.bestScore||0)+'/10';
+  var tc=$('quizTotalCoins'); if(tc) tc.textContent=d.totalCoins||0;
+}
+
+function quizSetCat(catId){
+  _quizCat=catId;
+  _renderQuizLobby();
+}
+
+function quizStart(){
+  var pool=(QUIZ_QUESTIONS[_quizCat]||QUIZ_QUESTIONS.general).slice();
+  // Shuffle
+  for(var i=pool.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var tmp=pool[i]; pool[i]=pool[j]; pool[j]=tmp;
+  }
+  var questions=pool.slice(0,10);
+  _quizState={questions:questions,current:0,score:0,timerLeft:15,answered:false};
+  $('quizLobby').style.display='none';
+  $('quizGame').style.display='block';
+  $('quizResult').style.display='none';
+  _renderQuizQuestion();
+  _startQuizTimer();
+}
+
+function quizRetry(){
+  if(_quizTimer) clearInterval(_quizTimer);
+  _quizState=null;
+  _renderQuizLobby();
+}
+
+function _renderQuizQuestion(){
+  var s=_quizState;
+  if(!s) return;
+  var q=s.questions[s.current];
+  var pf=$('quizProgressFill'); if(pf) pf.style.width=((s.current/10)*100)+'%';
+  var qn=$('quizQNum'); if(qn) qn.textContent='Fråga '+(s.current+1)+'/10';
+  var qt=$('quizTimer'); if(qt){qt.textContent=s.timerLeft;qt.className='quiz-timer'+(s.timerLeft<=5?' warn':'');}
+  var qq=$('quizQuestion'); if(qq) qq.textContent=q.q;
+  var qo=$('quizOptions');
+  if(qo) qo.innerHTML=q.opts.map(function(opt,i){
+    return '<button class="quiz-opt" onclick="quizAnswer('+i+')">'+opt+'</button>';
+  }).join('');
+  var fb=$('quizFeedback'); if(fb){fb.textContent='';fb.className='quiz-feedback';}
+}
+
+function _startQuizTimer(){
+  if(_quizTimer) clearInterval(_quizTimer);
+  _quizState.timerLeft=15;
+  _quizState.answered=false;
+  _quizTimer=setInterval(function(){
+    if(!_quizState) return;
+    _quizState.timerLeft--;
+    var qt=$('quizTimer');
+    if(qt){qt.textContent=_quizState.timerLeft;qt.className='quiz-timer'+(_quizState.timerLeft<=5?' warn':'');}
+    if(_quizState.timerLeft<=0&&!_quizState.answered){
+      clearInterval(_quizTimer);
+      _quizState.answered=true;
+      // Timeout — show correct answer
+      var s=_quizState;
+      var q=s.questions[s.current];
+      var btns=document.querySelectorAll('.quiz-opt');
+      btns.forEach(function(b,i){
+        b.classList.add('disabled');
+        if(i===q.a) b.classList.add('correct');
+      });
+      var fb=$('quizFeedback'); if(fb){fb.textContent='⏱ Timeout! Rätt svar markerat.';fb.className='quiz-feedback wrong';}
+      setTimeout(_quizNextQuestion, 1500);
+    }
+  }, 1000);
+}
+
+function quizAnswer(idx){
+  var s=_quizState;
+  if(!s||s.answered) return;
+  s.answered=true;
+  clearInterval(_quizTimer);
+  var q=s.questions[s.current];
+  var correct=idx===q.a;
+  var btns=document.querySelectorAll('.quiz-opt');
+  btns.forEach(function(b,i){
+    b.classList.add('disabled');
+    if(i===q.a) b.classList.add('correct');
+    if(i===idx&&!correct) b.classList.add('wrong');
+  });
+  var fb=$('quizFeedback');
+  if(correct){
+    s.score++;
+    if(fb){fb.textContent='✅ Rätt svar! +1 poäng';fb.className='quiz-feedback correct';}
+  } else {
+    if(fb){fb.textContent='❌ Fel! Rätt: '+q.opts[q.a];fb.className='quiz-feedback wrong';}
+  }
+  setTimeout(_quizNextQuestion, 1200);
+}
+
+function _quizNextQuestion(){
+  var s=_quizState;
+  if(!s) return;
+  s.current++;
+  if(s.current>=10){
+    _quizFinish();
+    return;
+  }
+  s.answered=false;
+  _renderQuizQuestion();
+  _startQuizTimer();
+}
+
+function _quizFinish(){
+  if(_quizTimer) clearInterval(_quizTimer);
+  var s=_quizState;
+  var pf=$('quizProgressFill'); if(pf) pf.style.width='100%';
+  var qr=$('quizResult');
+  if(qr) qr.style.display='block';
+  var qs=$('quizScore'); if(qs) qs.textContent=s.score+'/10';
+  // Rewards
+  var coinR=s.score*50;
+  var xpR=s.score*80;
+  var kcR=s.score===10?2:0;
+  var qrew=$('quizReward');
+  if(qrew) qrew.textContent='+'+coinR+' 💰 +'+xpR+' XP'+(kcR?' +'+kcR+' KC':'');
+  gainCoins(coinR);
+  gainXP(xpR,'social');
+  if(kcR&&typeof G!=='undefined'){G.kc+=kcR;if(typeof save==='function')save();}
+  // Save stats
+  var d=_quizStats();
+  d.totalPlayed=(d.totalPlayed||0)+1;
+  if(s.score>(d.bestScore||0)) d.bestScore=s.score;
+  d.totalCoins=(d.totalCoins||0)+coinR;
+  _quizSave(d);
+  if(s.score===10) showFloatBubble('🏆 PERFEKT! 10/10! +'+kcR+' KC!','buff');
+  else showFloatBubble('🎓 Quiz klar! '+s.score+'/10 rätt! +'+coinR+' 💰','buff');
+  var tp=$('quizTotalPlayed'); if(tp) tp.textContent=d.totalPlayed;
+  var bs=$('quizBestScore'); if(bs) bs.textContent=d.bestScore+'/10';
+  var tc=$('quizTotalCoins'); if(tc) tc.textContent=d.totalCoins;
 }
 
 </script>
