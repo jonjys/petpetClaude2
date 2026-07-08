@@ -1394,6 +1394,39 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TREASURE CHESTS ══ */
+.chest-panel{position:fixed;inset:0;background:#040306;z-index:907;display:none;flex-direction:column;overflow:hidden}
+.chest-panel.open{display:flex}
+.chest-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0608,#050308)}
+.chest-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8844);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.chest-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.chest-daily-row{display:flex;gap:8px;margin-bottom:14px;align-items:center;background:rgba(255,204,0,.07);border:1px solid rgba(255,204,0,.2);border-radius:16px;padding:10px 14px}
+.chest-types-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.chest-type-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:18px;padding:14px;text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.chest-type-card:active{transform:scale(.97)}
+.chest-type-emoji{font-size:44px;margin-bottom:8px;filter:drop-shadow(0 0 12px rgba(255,204,0,.3))}
+.chest-type-emoji.legendary{filter:drop-shadow(0 0 20px rgba(255,204,0,.7));animation:chestGlow 2s ease-in-out infinite}
+@keyframes chestGlow{0%,100%{filter:drop-shadow(0 0 15px rgba(255,204,0,.5))}50%{filter:drop-shadow(0 0 30px rgba(255,204,0,.9))}}
+.chest-type-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:3px}
+.chest-type-cost{font:600 10px var(--ff-body);margin-bottom:6px}
+.chest-type-rewards{font:500 9px var(--ff-body);color:rgba(255,255,255,.5);line-height:1.5}
+.chest-count-badge{position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;font:700 10px var(--ff-body);min-width:22px;height:22px;border-radius:11px;display:flex;align-items:center;justify-content:center;border:2px solid #040306}
+.chest-inventory{background:rgba(255,255,255,.03);border-radius:16px;padding:12px;margin-bottom:14px}
+.chest-inv-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.chest-inv-row{display:flex;gap:8px;flex-wrap:wrap}
+.chest-inv-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:6px;cursor:pointer;transition:all .15s}
+.chest-inv-item:active{transform:scale(.97);background:rgba(255,204,0,.1)}
+.chest-open-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9998;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.chest-open-overlay.active{display:flex}
+.chest-open-emoji{font-size:100px;animation:chestOpen 1s cubic-bezier(.34,1.56,.64,1)}
+@keyframes chestOpen{0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
+.chest-open-title{font:900 28px var(--ff-head);color:var(--gold);text-align:center}
+.chest-open-rewards{display:flex;flex-direction:column;align-items:center;gap:6px}
+.chest-open-reward-row{font:700 16px var(--ff-head);color:#fff;text-align:center}
+.chest-sparkle{position:absolute;pointer-events:none;animation:sparkleOut 1s ease-out forwards}
+@keyframes sparkleOut{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}}
+
 /* ══ PET TRAITS ══ */
 .traits-panel{position:fixed;inset:0;background:#040408;z-index:906;display:none;flex-direction:column;overflow:hidden}
 .traits-panel.open{display:flex}
@@ -5932,6 +5965,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
           <div class="ddr" onclick="cM();openAuction()"><div class="ddr-i">🏛️</div>Auktionshus</div>
           <div class="ddr" onclick="cM();openTraits()"><div class="ddr-i">🎭</div>Pet Karaktär</div>
+          <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Skattekistor</div>
         </div>
       </div>
     </div>
@@ -7539,6 +7573,62 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- TREASURE CHESTS -->
+<div class="chest-panel" id="chestPanel">
+  <div class="chest-header">
+    <div class="chest-title">📦 SKATTEKISTOR</div>
+    <button class="close-btn" onclick="closeChest()">✕</button>
+  </div>
+  <div class="chest-scroll">
+    <div class="chest-daily-row">
+      <div style="font-size:28px">🎁</div>
+      <div style="flex:1">
+        <div style="font:700 12px var(--ff-head);color:#fff">Daglig Gratis Kista</div>
+        <div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.4)" id="chestDailyStatus">Klicka för att hämta!</div>
+      </div>
+      <button style="padding:8px 16px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:12px;color:#000;font:700 10px var(--ff-head);cursor:pointer" id="chestDailyBtn" onclick="claimDailyChest()">HÄMTA</button>
+    </div>
+    <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Köp Kistor</div>
+    <div class="chest-types-grid">
+      <div class="chest-type-card" onclick="buyChest('common')">
+        <div class="chest-type-emoji">📦</div>
+        <div class="chest-type-name">Vanlig Kista</div>
+        <div class="chest-type-cost" style="color:var(--gold)">💰 200 Coins</div>
+        <div class="chest-type-rewards">50-300 XP<br>100-500 Coins</div>
+      </div>
+      <div class="chest-type-card" onclick="buyChest('rare')">
+        <div class="chest-type-emoji">🎁</div>
+        <div class="chest-type-name">Sällsynt Kista</div>
+        <div class="chest-type-cost" style="color:var(--blue)">💰 800 Coins</div>
+        <div class="chest-type-rewards">200-800 XP<br>300-1000 Coins<br>+Möjlig ingredient</div>
+      </div>
+      <div class="chest-type-card" onclick="buyChest('epic')">
+        <div class="chest-type-emoji">💎</div>
+        <div class="chest-type-name">Episk Kista</div>
+        <div class="chest-type-cost" style="color:var(--purple)">💎 5 KC</div>
+        <div class="chest-type-rewards">500-2000 XP<br>500-2000 Coins<br>+5-15 KC</div>
+      </div>
+      <div class="chest-type-card" onclick="buyChest('legendary')">
+        <div class="chest-type-emoji legendary">🏆</div>
+        <div class="chest-type-name">Legendarisk Kista</div>
+        <div class="chest-type-cost" style="color:var(--gold)">💎 20 KC</div>
+        <div class="chest-type-rewards">2000-8000 XP<br>1000-5000 Coins<br>+20-50 KC</div>
+      </div>
+    </div>
+    <div class="chest-inventory">
+      <div class="chest-inv-title">Ditt Lager</div>
+      <div class="chest-inv-row" id="chestInventory"></div>
+    </div>
+  </div>
+</div>
+<div class="chest-open-overlay" id="chestOpenOverlay">
+  <div class="chest-open-emoji" id="chestOpenEmoji">📦</div>
+  <div class="chest-open-title" id="chestOpenTitle">KISTA ÖPPNAD!</div>
+  <div class="chest-open-rewards" id="chestOpenRewards"></div>
+  <button style="padding:13px 32px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:16px;color:#000;font:800 14px var(--ff-head);cursor:pointer;margin-top:8px" onclick="closeChestOverlay()">FANTASTISKT!</button>
+</div>
 
 <!-- PET TRAITS -->
 <div class="traits-panel" id="traitsPanel">
@@ -22925,6 +23015,132 @@ function _renderTraits(){
       ${!isUnlocked?`<div class="trait-prog-bg"><div class="trait-prog-fill" style="width:${prog}%;background:${t.color}"></div></div>`:''}
     </div>`;
   }).join('');
+}
+
+
+// TREASURE CHEST SYSTEM
+const CHEST_TYPES = {
+  common:    {emoji:'📦', name:'Vanlig',      cost:{coins:200},
+    loot:()=>({xp:50+Math.floor(Math.random()*250), coins:100+Math.floor(Math.random()*400)})},
+  rare:      {emoji:'🎁', name:'Sällsynt',    cost:{coins:800},
+    loot:()=>{let r={xp:200+Math.floor(Math.random()*600),coins:300+Math.floor(Math.random()*700)};if(Math.random()<.4){const ings=['fire','water','earth','star','dark','light'];r.ingredient=ings[Math.floor(Math.random()*ings.length)];}return r;}},
+  epic:      {emoji:'💎', name:'Episk',       cost:{kc:5},
+    loot:()=>({xp:500+Math.floor(Math.random()*1500),coins:500+Math.floor(Math.random()*1500),kc:5+Math.floor(Math.random()*10)})},
+  legendary: {emoji:'🏆', name:'Legendarisk', cost:{kc:20},
+    loot:()=>({xp:2000+Math.floor(Math.random()*6000),coins:1000+Math.floor(Math.random()*4000),kc:20+Math.floor(Math.random()*30)})},
+  daily:     {emoji:'🎀', name:'Daglig',      cost:{},
+    loot:()=>({xp:100+Math.floor(Math.random()*200),coins:50+Math.floor(Math.random()*200)})},
+};
+const CHEST_INV_KEY = 'k0509_chest_inv';
+const CHEST_DAILY_KEY = 'k0509_chest_daily';
+
+function _chestGetInv(){ try{ return JSON.parse(localStorage.getItem(CHEST_INV_KEY)||'[]'); }catch(e){ return []; } }
+function _chestSaveInv(a){ localStorage.setItem(CHEST_INV_KEY,JSON.stringify(a)); }
+
+function openChest(){
+  $('chestPanel').classList.add('open');
+  _renderChest();
+}
+function closeChest(){ $('chestPanel').classList.remove('open'); }
+function closeChestOverlay(){ $('chestOpenOverlay').classList.remove('active'); }
+
+function _renderChest(){
+  let claimed=localStorage.getItem(CHEST_DAILY_KEY)===getTodayKey();
+  let ds=$('chestDailyStatus'); if(ds) ds.textContent=claimed?'Hämtat idag ✓':'Klicka för att hämta!';
+  let db=$('chestDailyBtn'); if(db){ db.disabled=claimed; db.style.opacity=claimed?'.4':'1'; }
+  let inv=_chestGetInv();
+  let el=$('chestInventory'); if(!el) return;
+  if(inv.length===0){ el.innerHTML='<div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.3)">Inga kistor i lager. Köp eller tjäna kistor!</div>'; return; }
+  // Group by type
+  let counts={};
+  inv.forEach(t=>counts[t]=(counts[t]||0)+1);
+  el.innerHTML=Object.entries(counts).map(([type,cnt])=>{
+    let ct=CHEST_TYPES[type]; if(!ct) return '';
+    return `<div class="chest-inv-item" onclick="openChestItem('${type}')">
+      <span style="font-size:24px">${ct.emoji}</span>
+      <span style="font:700 11px var(--ff-head);color:#fff">${ct.name}</span>
+      <span style="font:700 12px var(--ff-head);color:var(--gold)">×${cnt}</span>
+    </div>`;
+  }).join('');
+}
+
+function claimDailyChest(){
+  if(localStorage.getItem(CHEST_DAILY_KEY)===getTodayKey()) return;
+  localStorage.setItem(CHEST_DAILY_KEY,getTodayKey());
+  let inv=_chestGetInv();
+  inv.push('daily');
+  _chestSaveInv(inv);
+  showFloatBubble('🎀 Daglig kista hämtad!','buff');
+  _renderChest();
+}
+
+function buyChest(type){
+  let ct=CHEST_TYPES[type]; if(!ct) return;
+  let g=(typeof G!=='undefined'?G:{coins:0,kc:0});
+  if(ct.cost.coins){
+    if(g.coins<ct.cost.coins){ showFloatBubble('Inte tillräckligt coins! (behöver '+ct.cost.coins+')','buff'); return; }
+    g.coins-=ct.cost.coins;
+  }
+  if(ct.cost.kc){
+    if(g.kc<ct.cost.kc){ showFloatBubble('Inte tillräckligt KC! (behöver '+ct.cost.kc+')','buff'); return; }
+    g.kc-=ct.cost.kc;
+  }
+  if(typeof save==='function') save();
+  let inv=_chestGetInv();
+  inv.push(type);
+  _chestSaveInv(inv);
+  showFloatBubble(ct.emoji+' '+ct.name+' Kista köpt!','buff');
+  _renderChest();
+}
+
+function openChestItem(type){
+  let inv=_chestGetInv();
+  let idx=inv.indexOf(type);
+  if(idx<0) return;
+  inv.splice(idx,1);
+  _chestSaveInv(inv);
+  let ct=CHEST_TYPES[type]; if(!ct) return;
+  let loot=ct.loot();
+  // Apply loot
+  gainXP(loot.xp,'chest'); gainCoins(loot.coins);
+  if(loot.kc) gainKC(loot.kc);
+  if(loot.ingredient){
+    let ing=JSON.parse(localStorage.getItem('k0509_alch_ing')||'{}');
+    ing[loot.ingredient]=(ing[loot.ingredient]||0)+1;
+    localStorage.setItem('k0509_alch_ing',JSON.stringify(ing));
+  }
+  // Show overlay
+  let ov=$('chestOpenOverlay');
+  let oe=$('chestOpenEmoji');
+  let ot=$('chestOpenTitle');
+  let or2=$('chestOpenRewards');
+  if(oe) oe.textContent=ct.emoji;
+  if(ot) ot.textContent=ct.name.toUpperCase()+' KISTA ÖPPNAD!';
+  if(or2){
+    let rows=['<div class="chest-open-reward-row">⚡ +'+loot.xp+' XP</div>',
+              '<div class="chest-open-reward-row">💰 +'+loot.coins+' Coins</div>'];
+    if(loot.kc) rows.push('<div class="chest-open-reward-row">💎 +'+loot.kc+' KC</div>');
+    if(loot.ingredient){
+      const ING={'fire':'🔥 Eldkristall','water':'💧 Månvatten','earth':'🌿 Skogsört','star':'⭐ Stjärndamm','dark':'🌑 Skuggesens','light':'✨ Ljuspulver'};
+      rows.push('<div class="chest-open-reward-row">'+(ING[loot.ingredient]||loot.ingredient)+'</div>');
+    }
+    or2.innerHTML=rows.join('');
+  }
+  if(ov){
+    ov.classList.add('active');
+    // Sparkles
+    for(let i=0;i<8;i++){
+      let sp=document.createElement('div');
+      sp.className='chest-sparkle';
+      sp.style.cssText='left:50%;top:40%;font-size:24px;--tx:'+(-80+Math.random()*160)+'px;--ty:'+(-80+Math.random()*80)+'px';
+      sp.textContent=['⭐','✨','💫','🌟'][i%4];
+      ov.appendChild(sp);
+      setTimeout(()=>{ try{sp.remove()}catch(e){} },1100);
+    }
+  }
+  logActivity('quest','Öppnade '+ct.name+' Kista',{xp:loot.xp,coins:loot.coins});
+  if(typeof petMicroAnim==='function') petMicroAnim('bounce');
+  _renderChest();
 }
 
 </script>
