@@ -1403,6 +1403,48 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ STORY MODE ══ */
+.story-panel{position:fixed;inset:0;background:#02030a;z-index:916;display:none;flex-direction:column;overflow:hidden}
+.story-panel.open{display:flex}
+.story-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#050818,#02030a)}
+.story-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88cc,#aa66ff,#4488ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.story-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.story-progress-card{background:linear-gradient(135deg,rgba(170,102,255,.08),rgba(68,136,255,.05));border:1.5px solid rgba(170,102,255,.2);border-radius:20px;padding:14px;margin-bottom:14px}
+.story-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.story-progress-label{font:600 11px var(--ff-body);color:rgba(255,255,255,.4)}
+.story-progress-num{font:800 14px var(--ff-head);color:#aa66ff}
+.story-progress-bar-bg{width:100%;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.story-progress-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#aa66ff,#ff88cc);transition:width .4s}
+.story-chapters{display:flex;flex-direction:column;gap:12px}
+.story-chapter{border-radius:20px;overflow:hidden;border:1.5px solid rgba(255,255,255,.08)}
+.story-chapter.active{border-color:rgba(170,102,255,.4)}
+.story-chapter.completed{border-color:rgba(0,255,136,.25);opacity:.85}
+.story-chapter.locked{opacity:.4}
+.story-chapter-header{padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer}
+.story-ch-num{font:900 28px var(--ff-head);color:rgba(255,255,255,.15);flex-shrink:0;width:40px;text-align:center}
+.story-chapter.active .story-ch-num{color:rgba(170,102,255,.6)}
+.story-chapter.completed .story-ch-num{color:rgba(0,255,136,.5)}
+.story-ch-emoji{font-size:36px;flex-shrink:0}
+.story-ch-info{flex:1}
+.story-ch-title{font:800 14px var(--ff-head);color:#fff;margin-bottom:2px}
+.story-ch-sub{font:500 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.story-ch-badge{font:700 9px var(--ff-body);padding:3px 8px;border-radius:8px;flex-shrink:0}
+.story-ch-badge.active{background:rgba(170,102,255,.2);color:#aa66ff;border:1px solid rgba(170,102,255,.3)}
+.story-ch-badge.completed{background:rgba(0,255,136,.15);color:var(--green);border:1px solid rgba(0,255,136,.25)}
+.story-ch-badge.locked{background:rgba(255,255,255,.06);color:rgba(255,255,255,.3)}
+.story-chapter-body{padding:0 14px 14px;border-top:1px solid rgba(255,255,255,.06)}
+.story-panel-text{font:500 11px var(--ff-body);color:rgba(255,255,255,.6);line-height:1.7;padding:10px 0 12px;font-style:italic}
+.story-quests-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.story-quest-row{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.03)}
+.story-quest-row.done{background:rgba(0,255,136,.05)}
+.story-quest-check{font-size:14px;flex-shrink:0}
+.story-quest-name{font:600 10px var(--ff-body);color:rgba(255,255,255,.7);flex:1}
+.story-quest-row.done .story-quest-name{color:rgba(0,255,136,.8);text-decoration:line-through}
+.story-reward-row{display:flex;align-items:center;gap:8px;font:600 10px var(--ff-body);color:var(--gold)}
+.story-claim-btn{width:100%;padding:10px;background:linear-gradient(135deg,#aa66ff,#ff88cc);border:none;border-radius:12px;color:#000;font:800 12px var(--ff-head);cursor:pointer;margin-top:8px}
+.story-scene{font-size:64px;text-align:center;padding:12px 0;display:block}
+
 /* ══ GUILD HALL ══ */
 .guild-panel{position:fixed;inset:0;background:#040a08;z-index:915;display:none;flex-direction:column;overflow:hidden}
 .guild-panel.open{display:flex}
@@ -6323,6 +6365,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAch()"><div class="ddr-i">🏅</div>Achievements</div>
           <div class="ddr" onclick="cM();openLb()"><div class="ddr-i">🏆</div>Topplista</div>
           <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Guild Hall</div>
+          <div class="ddr" onclick="cM();openStory()"><div class="ddr-i">📖</div>Pet Story</div>
         </div>
       </div>
     </div>
@@ -7939,6 +7982,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- STORY MODE -->
+<div class="story-panel" id="storyPanel">
+  <div class="story-header">
+    <div class="story-title">📖 PET STORY</div>
+    <button class="close-btn" onclick="closeStory()">✕</button>
+  </div>
+  <div class="story-scroll">
+    <div class="story-progress-card">
+      <div class="story-progress-top">
+        <div class="story-progress-label">Berättelsens framsteg</div>
+        <div class="story-progress-num" id="storyProgressNum">Kapitel 1</div>
+      </div>
+      <div class="story-progress-bar-bg"><div class="story-progress-bar-fill" id="storyProgressBar" style="width:10%"></div></div>
+    </div>
+    <div class="story-chapters" id="storyChapters"></div>
+  </div>
+</div>
 
 <!-- GUILD HALL -->
 <div class="guild-panel" id="guildPanel">
@@ -24968,6 +25030,144 @@ function guildClaimReward(){
   if(typeof gainKC==='function') gainKC(5);
   showFloatBubble('🏰 Guild Belöning! +1000 XP, +500 💰, +5 KC!','buff');
   _renderGuild();
+}
+
+
+// PET STORY MODE
+const STORY_CHAPTERS = [
+  {
+    id:'ch1', num:1, emoji:'🥚', title:'Äggets Hemlighet',
+    sub:'Det börjar med ett mystiskt ägg...',
+    scene:'🥚✨🐾',
+    story:'En dag hittar du ett skimrande ägg gömmt under ett gammalt träd. Med varsam hand värmer du det, och efter ett tag kläcks det — ditt husdjur öppnar ögonen för första gången och ser dig. Nu börjar äventyret...',
+    quests:[
+      {id:'sq_tap',     name:'Klappa husdjuret 5 gånger',       check:()=>parseInt(localStorage.getItem('k0509_tapcount')||'0')>=5},
+      {id:'sq_lv2',     name:'Nå nivå 2',                       check:()=>((typeof G!=='undefined'?G.level||1:1)>=2)},
+      {id:'sq_coins',   name:'Tjäna dina första 100 coins',      check:()=>((typeof G!=='undefined'?G.coins||0:0)>=100)},
+    ],
+    xp:500, coins:250, unlock:'Kapitel 2 upplåst!'
+  },
+  {
+    id:'ch2', num:2, emoji:'🌲', title:'Skogens Kallelses',
+    sub:'Ditt husdjur drömmer om äventyr...',
+    scene:'🌲🗺️🌊',
+    story:'Husdjuret börjar bli nyfiket på världen utanför. Det tittar längtansfullt mot horisonten. Kanske finns det vänner att träffa, skatter att hitta, och hemligheter att avslöja i det stora okände...',
+    quests:[
+      {id:'sq_farm',    name:'Plantera din första gröda',         check:()=>{try{let p=JSON.parse(localStorage.getItem('k0509_farm_plots')||'[]');return p.some(pl=>pl&&pl.seedId);}catch(e){return false;}}},
+      {id:'sq_explore', name:'Utforska en zon på Världskartan',   check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_worldmap')||'null');return d&&Object.keys(d.explorations||{}).length>=1;}catch(e){return false;}}},
+      {id:'sq_news',    name:'Läs Petsborough Times',             check:()=>{try{return JSON.parse(localStorage.getItem('k0509_news_read')||'[]').length>=1;}catch(e){return false;}}},
+    ],
+    xp:800, coins:400, unlock:'Kapitel 3 upplåst!'
+  },
+  {
+    id:'ch3', num:3, emoji:'⚔️', title:'Kraftens Prövning',
+    sub:'Det är dags att visa vad du går för...',
+    scene:'⚔️🏟️🗡️',
+    story:'Ryktet om ditt husdjur har börjat sprida sig. Andra husdjurskämpar hör om din potential och utmanar dig till duell. Dungeonens djupa korridorer kallar på modiga hjältar. Är ni redo att möta utmaningarna?',
+    quests:[
+      {id:'sq_battle',  name:'Vinn din första Battle Arena-strid', check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_battle')||'null');return d&&d.totalWins>=1;}catch(e){return false;}}},
+      {id:'sq_dung',    name:'Klara Daily Dungeon',               check:()=>parseInt(localStorage.getItem('k0509_dung_done_count')||'0')>=1},
+      {id:'sq_race',    name:'Delta i ett Pet Race',              check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_race')||'null');return d&&(d.racesLeft||5)<5;}catch(e){return false;}}},
+    ],
+    xp:1200, coins:600, unlock:'Kapitel 4 upplåst!'
+  },
+  {
+    id:'ch4', num:4, emoji:'🔮', title:'Magins Hemligheter',
+    sub:'En gammal alkemist avslöjar urgamla recept...',
+    scene:'🔮⚗️🌟',
+    story:'En mystisk alkemist söker upp er och erbjuder er att lära sig urgamla magiska recept. I Akademin väntar lärare som kan dela med sig av sin visdom. Horoskopet pekar på stora förändringar...',
+    quests:[
+      {id:'sq_alch',    name:'Brygga ett eliksir i Alchemy Lab', check:()=>parseInt(localStorage.getItem('k0509_alch_brews')||'0')>=1},
+      {id:'sq_acad',    name:'Slutför en akademistudie',         check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_acad_stats')||'{}');return Object.values(d).filter(v=>typeof v==='number').some(v=>v>=1);}catch(e){return false;}}},
+      {id:'sq_horo',    name:'Läs ditt dagliga horoskop',        check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_horo')||'null');return d&&d.claimed;}catch(e){return false;}}},
+    ],
+    xp:1800, coins:900, unlock:'Kapitel 5 upplåst!'
+  },
+  {
+    id:'ch5', num:5, emoji:'👑', title:'Legendarisk Status',
+    sub:'Sagan om ditt husdjur kommer att leva för evigt...',
+    scene:'👑🌟✨',
+    story:'Ditt husdjur har rest en otrolig resa. Från ett litet ägg till en legendarisk varelse känd i hela husdjursvärlden. Sångerna om era bedrifter sjungs runt lägereldarna. Men det viktigaste är att minnas: äventyret fortsätter alltid...',
+    quests:[
+      {id:'sq_lv15',    name:'Nå nivå 15',                       check:()=>((typeof G!=='undefined'?G.level||1:1)>=15)},
+      {id:'sq_traits5', name:'Lås upp 5 Pet Traits',             check:()=>{try{return JSON.parse(localStorage.getItem('k0509_traits_unlocked')||'[]').length>=5;}catch(e){return false;}}},
+      {id:'sq_evo',     name:'Evolutionera din pet',             check:()=>{try{let d=JSON.parse(localStorage.getItem('k0509_evo')||'null');return d&&d.stage>=2;}catch(e){return false;}}},
+    ],
+    xp:3000, coins:1500, unlock:'🏆 Du har klarat alla kapitel!'
+  },
+];
+const STORY_CLAIMED_KEY = 'k0509_story_claimed';
+
+function _storyClaimed(){try{return JSON.parse(localStorage.getItem(STORY_CLAIMED_KEY)||'[]');}catch(e){return [];}}
+function _storySaveClaimed(d){localStorage.setItem(STORY_CLAIMED_KEY,JSON.stringify(d));}
+
+function openStory(){
+  $('storyPanel').classList.add('open');
+  _renderStory();
+}
+function closeStory(){ $('storyPanel').classList.remove('open'); }
+
+function _renderStory(){
+  let claimed=_storyClaimed();
+  let totalCh=STORY_CHAPTERS.length;
+  let doneCh=STORY_CHAPTERS.filter(ch=>claimed.includes(ch.id)).length;
+  let activeChIdx=Math.min(doneCh,totalCh-1);
+  let spn=$('storyProgressNum'); if(spn) spn.textContent='Kapitel '+(activeChIdx+1)+'/'+totalCh;
+  let spb=$('storyProgressBar'); if(spb) spb.style.width=((doneCh/totalCh)*100)+'%';
+  let clist=$('storyChapters'); if(!clist) return;
+  clist.innerHTML=STORY_CHAPTERS.map((ch,i)=>{
+    let isClaimed=claimed.includes(ch.id);
+    let isActive=i===activeChIdx&&!isClaimed;
+    let isLocked=i>activeChIdx&&!isClaimed;
+    let questsDone=ch.quests.filter(q=>q.check()).length;
+    let allDone=questsDone===ch.quests.length;
+    return `<div class="story-chapter ${isClaimed?'completed':isActive?'active':'locked'}">
+      <div class="story-chapter-header" onclick="_storyToggle('storyBody${i}')">
+        <div class="story-ch-num">${ch.num}</div>
+        <div class="story-ch-emoji">${ch.emoji}</div>
+        <div class="story-ch-info">
+          <div class="story-ch-title">${ch.title}</div>
+          <div class="story-ch-sub">${ch.sub}</div>
+        </div>
+        <div class="story-ch-badge ${isClaimed?'completed':isActive?'active':'locked'}">${isClaimed?'✓ KLART':isActive?'AKTIV':'🔒'}</div>
+      </div>
+      <div id="storyBody${i}" style="display:${isActive||isClaimed?'block':'none'}">
+        <div class="story-chapter-body">
+          <div class="story-scene">${ch.scene}</div>
+          <div class="story-panel-text">"${ch.story}"</div>
+          <div class="story-quests-list">
+            ${ch.quests.map(q=>`<div class="story-quest-row ${q.check()?'done':''}">
+              <span class="story-quest-check">${q.check()?'✅':'○'}</span>
+              <span class="story-quest-name">${q.name}</span>
+            </div>`).join('')}
+          </div>
+          <div class="story-reward-row">🎁 Belöning: +${ch.xp} XP · +${ch.coins} 💰 · ${ch.unlock}</div>
+          ${allDone&&!isClaimed?`<button class="story-claim-btn" onclick="storyClaim('${ch.id}')">📖 Slutför Kapitel ${ch.num}!</button>`:''}
+          ${isClaimed?'<div style="text-align:center;font:700 10px var(--ff-body);color:var(--green);margin-top:8px">✓ Kapitel slutfört</div>':''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function _storyToggle(id){
+  let el=document.getElementById(id);
+  if(el) el.style.display=el.style.display==='none'?'block':'none';
+}
+
+function storyClaim(chId){
+  let ch=STORY_CHAPTERS.find(c=>c.id===chId);
+  if(!ch) return;
+  let allDone=ch.quests.every(q=>q.check());
+  if(!allDone){showFloatBubble('Klara alla mål i kapitlet först!','buff');return;}
+  let claimed=_storyClaimed();
+  if(claimed.includes(chId)) return;
+  claimed.push(chId);
+  _storySaveClaimed(claimed);
+  gainXP(ch.xp,'story');
+  gainCoins(ch.coins);
+  showFloatBubble('📖 Kapitel klart! +'+ch.xp+' XP, +'+ch.coins+' 💰!','buff');
+  _renderStory();
 }
 
 </script>
