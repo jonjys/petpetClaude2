@@ -1364,6 +1364,44 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ITEM BACKPACK ══ */
+.backpack-panel{position:fixed;inset:0;background:#090910;z-index:875;display:none;flex-direction:column;overflow:hidden}
+.backpack-panel.open{display:flex}
+.backpack-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#1a1020,#0d1030)}
+.backpack-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.backpack-count{font:600 12px var(--ff-body);color:rgba(255,255,255,.5);background:rgba(255,255,255,.07);padding:4px 10px;border-radius:20px}
+.backpack-tabs{display:flex;gap:6px;padding:0 14px 10px;overflow-x:auto}
+.bp-tab{flex-shrink:0;font:600 11px var(--ff-head);padding:5px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
+.bp-tab.active{background:rgba(255,136,68,.2);border-color:var(--orange);color:var(--orange)}
+.backpack-scroll{flex:1;overflow-y:auto;padding:8px 14px 20px}
+.bp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bp-item-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:transform .15s,border-color .2s;position:relative}
+.bp-item-card:active{transform:scale(.96)}
+.bp-item-card.rarity-common{border-color:rgba(255,255,255,.15)}
+.bp-item-card.rarity-rare{border-color:rgba(68,136,255,.4);background:rgba(68,136,255,.06)}
+.bp-item-card.rarity-epic{border-color:rgba(170,102,255,.5);background:rgba(170,102,255,.06)}
+.bp-item-card.rarity-legendary{border-color:rgba(255,204,0,.6);background:rgba(255,204,0,.06);box-shadow:0 0 12px rgba(255,204,0,.15)}
+.bp-item-icon{font-size:30px;line-height:1}
+.bp-item-name{font:700 10px var(--ff-head);color:#fff;text-align:center;line-height:1.2}
+.bp-item-qty{position:absolute;top:6px;right:8px;font:700 11px var(--ff-body);color:var(--gold)}
+.bp-item-type{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px}
+.bp-empty{text-align:center;padding:60px 20px;color:rgba(255,255,255,.3)}
+.bp-empty-icon{font-size:48px;margin-bottom:12px}
+.bp-empty-text{font:600 14px var(--ff-head)}
+.bp-empty-sub{font:500 12px var(--ff-body);margin-top:6px;opacity:.6}
+/* Item use sheet */
+.bp-use-sheet{position:fixed;bottom:0;left:0;right:0;background:#141420;border-top:1px solid rgba(255,255,255,.1);border-radius:20px 20px 0 0;z-index:876;padding:20px 18px 32px;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1)}
+.bp-use-sheet.open{transform:translateY(0)}
+.bp-use-item-icon{font-size:48px;text-align:center;margin-bottom:8px}
+.bp-use-item-name{font:800 18px var(--ff-head);color:#fff;text-align:center;margin-bottom:4px}
+.bp-use-item-desc{font:500 12px var(--ff-body);color:rgba(255,255,255,.55);text-align:center;line-height:1.5;margin-bottom:16px}
+.bp-use-item-effect{background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);border-radius:12px;padding:12px;margin-bottom:16px;font:600 12px var(--ff-body);color:var(--green);text-align:center}
+.bp-use-btns{display:flex;gap:10px}
+.bp-use-btn{flex:1;padding:12px;border-radius:12px;border:none;font:700 13px var(--ff-head);cursor:pointer}
+.bp-use-btn.use{background:linear-gradient(135deg,var(--orange),var(--gold));color:#000}
+.bp-use-btn.cancel{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)}
+
 /* ══ COMBO SURGE SYSTEM ══ */
 .combo-meter-wrap{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--sab) + 88px);z-index:9000;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:4px;opacity:0;transition:opacity .3s}
 .combo-meter-wrap.visible{opacity:1}
@@ -6386,6 +6424,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 
+
+
+<!-- ITEM BACKPACK -->
+<div class="backpack-panel" id="backpackPanel">
+  <div class="backpack-header">
+    <div class="backpack-title">🎒 RYGGSÄCK</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="backpack-count" id="bpCount">0 föremål</div>
+      <button class="close-btn" onclick="closeBackpack()">✕</button>
+    </div>
+  </div>
+  <div class="backpack-tabs">
+    <button class="bp-tab active" onclick="setBPTab('all')" id="bpTabAll">Alla</button>
+    <button class="bp-tab" onclick="setBPTab('boost')" id="bpTabBoost">Boosts</button>
+    <button class="bp-tab" onclick="setBPTab('cosmetic')" id="bpTabCosmetic">Kosmetika</button>
+    <button class="bp-tab" onclick="setBPTab('material')" id="bpTabMaterial">Material</button>
+    <button class="bp-tab" onclick="setBPTab('special')" id="bpTabSpecial">Special</button>
+  </div>
+  <div class="backpack-scroll">
+    <div class="bp-grid" id="bpGrid"></div>
+  </div>
+</div>
+<div class="bp-use-sheet" id="bpUseSheet">
+  <div class="bp-use-item-icon" id="bpUseIcon">🍎</div>
+  <div class="bp-use-item-name" id="bpUseName">Item</div>
+  <div class="bp-use-item-desc" id="bpUseDesc"></div>
+  <div class="bp-use-item-effect" id="bpUseEffect"></div>
+  <div class="bp-use-btns">
+    <button class="bp-use-btn cancel" onclick="closeBPSheet()">Avbryt</button>
+    <button class="bp-use-btn use" id="bpUseBtn" onclick="confirmBPUse()">Använd</button>
+  </div>
+</div>
 
 <!-- COMBO SURGE METER -->
 <div class="combo-meter-wrap" id="comboMeterWrap">
@@ -17045,6 +17115,125 @@ gainCoins = function(n){
     _origGainCoinsCombo(n);
   }
 };
+
+
+// ITEM BACKPACK SYSTEM
+const BP_ITEM_DEFS = {
+  // Boosts
+  xp_potion:   {icon:'🧪',name:'XP Potion',type:'boost',rarity:'common',desc:'Ger 500 XP direkt.',effect:'+500 XP',use:()=>{ gainXP(500,'item'); showFloatBubble('🧪 +500 XP!','buff'); }},
+  coin_bag:    {icon:'💰',name:'Myntpåse',type:'boost',rarity:'common',desc:'Ger 300 coins direkt.',effect:'+300 Coins',use:()=>{ gainCoins(300); showFloatBubble('💰 +300 Coins!','buff'); }},
+  elixir:      {icon:'⚗️',name:'Mana Elixir',type:'boost',rarity:'rare',desc:'Ger 1500 XP + 500 coins.',effect:'+1500 XP +500 Coins',use:()=>{ gainXP(1500,'item'); gainCoins(500); showFloatBubble('⚗️ Mana Elixir!','buff'); }},
+  kc_gem:      {icon:'💎',name:'KC Kristall',type:'boost',rarity:'rare',desc:'Ger 5 KC.',effect:'+5 KC',use:()=>{ gainKC(5); showFloatBubble('💎 +5 KC!','buff'); }},
+  mega_elixir: {icon:'🌟',name:'Mega Elixir',type:'boost',rarity:'epic',desc:'Ger 5000 XP + 2000 coins + 10 KC.',effect:'+5000 XP +2000 Coins +10 KC',use:()=>{ gainXP(5000,'item'); gainCoins(2000); gainKC(10); showFloatBubble('🌟 MEGA ELIXIR!','buff'); }},
+  // Cosmetic
+  rainbow_dust:{icon:'🌈',name:'Regnbågsdamm',type:'cosmetic',rarity:'rare',desc:'Byter pet-färg till regnbåge tillfälligt.',effect:'Tillfällig regnbågsglöd (30 min)',use:()=>{ showFloatBubble('🌈 Regnbågsglow aktiv!','buff'); if(typeof petMoodGlow==='function') petMoodGlow('rainbow'); }},
+  star_dust:   {icon:'✨',name:'Stjärndamm',type:'cosmetic',rarity:'common',desc:'Skapar ett stjärnregn kring pet.',effect:'Stjärnanspiration (visuell)',use:()=>{ if(typeof spawnPetEmote==='function') for(let i=0;i<3;i++) setTimeout(()=>spawnPetEmote('happy'),i*300); showFloatBubble('✨ Stjärnregn!','buff'); }},
+  gold_frame:  {icon:'🖼️',name:'Guldinramning',type:'cosmetic',rarity:'epic',desc:'Tillfällig guldinramning runt pet-kortet.',effect:'Guldinramning (visuell)',use:()=>{ let pf=document.querySelector('.pf-body'); if(pf){pf.style.outline='3px solid var(--gold)'; pf.style.outlineOffset='4px'; setTimeout(()=>{pf.style.outline='';pf.style.outlineOffset='';},600000);} showFloatBubble('🖼️ Guldinramning!','buff'); }},
+  // Materials
+  fish_bait:   {icon:'🪱',name:'Superfisk-agn',type:'material',rarity:'common',desc:'Nästa fisk du fångar är minst Rare.',effect:'Nästa fångst: garanterat Rare+',use:()=>{ localStorage.setItem('k0509_baitActive','1'); showFloatBubble('🪱 Superfisk-agn aktiv!','buff'); }},
+  pet_treat:   {icon:'🦴',name:'Supergodis',type:'material',rarity:'rare',desc:'Mata pet för dubbel bond-effekt.',effect:'+20 Bond direkt',use:()=>{ if(typeof gainBond==='function') gainBond(20); else if(G) G.bond=(G.bond||0)+20; save(); showFloatBubble('🦴 Bond +20!','buff'); }},
+  // Special
+  mystery_box: {icon:'📦',name:'Mysterylåda',type:'special',rarity:'legendary',desc:'Öppna för en slumpmässig belöning!',effect:'Slumpmässig belöning',use:()=>{ let roll=Math.random(); if(roll<.4){gainXP(2000,'item');showFloatBubble('📦 Mysterylåda: +2000 XP!','buff');}else if(roll<.7){gainCoins(1000);showFloatBubble('📦 Mysterylåda: +1000 Coins!','buff');}else if(roll<.9){gainKC(15);showFloatBubble('📦 Mysterylåda: +15 KC!','buff');}else{gainXP(10000,'item');gainCoins(5000);gainKC(50);showFloatBubble('📦 JACKPOT! +10000 XP +5000C +50KC!','buff');} }},
+  prestige_shard:{icon:'⭐',name:'Prestige Shard',type:'special',rarity:'legendary',desc:'Ger 3 PP direkt.',effect:'+3 Prestige Poäng',use:()=>{ G.prestigePP=(G.prestigePP||0)+3; save(); showFloatBubble('⭐ +3 Prestige Poäng!','buff'); if(typeof _renderPShop==='function') _renderPShop(); }},
+};
+
+const BP_STORAGE_KEY = 'k0509_backpack';
+let _bpTab = 'all';
+let _bpSelectedItem = null;
+
+function _bpLoad(){ try{ return JSON.parse(localStorage.getItem(BP_STORAGE_KEY)||'{}'); }catch(e){ return {}; } }
+function _bpSave(d){ localStorage.setItem(BP_STORAGE_KEY, JSON.stringify(d)); }
+
+function bpAddItem(id, qty){
+  qty = qty||1;
+  let d = _bpLoad();
+  d[id] = (d[id]||0) + qty;
+  _bpSave(d);
+  showFloatBubble(`🎒 ${BP_ITEM_DEFS[id]?.name||id} x${qty} tillagd!`,'buff');
+}
+
+function openBackpack(){
+  $('backpackPanel').classList.add('open');
+  _renderBP();
+}
+function closeBackpack(){ $('backpackPanel').classList.remove('open'); }
+function closeBPSheet(){
+  $('bpUseSheet').classList.remove('open');
+  _bpSelectedItem = null;
+}
+
+function setBPTab(tab){
+  _bpTab = tab;
+  document.querySelectorAll('.bp-tab').forEach(t=>t.classList.remove('active'));
+  let el = $('bpTab'+tab.charAt(0).toUpperCase()+tab.slice(1));
+  if(el) el.classList.add('active');
+  _renderBP();
+}
+
+function _renderBP(){
+  let d = _bpLoad();
+  let entries = Object.entries(d).filter(([id,qty])=>qty>0 && BP_ITEM_DEFS[id]);
+  if(_bpTab !== 'all') entries = entries.filter(([id])=>BP_ITEM_DEFS[id].type===_bpTab);
+  let total = Object.values(d).reduce((a,b)=>a+b,0);
+  $('bpCount').textContent = total + ' föremål';
+  let grid = $('bpGrid');
+  if(!entries.length){
+    grid.innerHTML = `<div class="bp-empty" style="grid-column:span 3"><div class="bp-empty-icon">🎒</div><div class="bp-empty-text">Ryggsäcken är tom</div><div class="bp-empty-sub">Skaffa föremål via Gacha-pulls!</div></div>`;
+    return;
+  }
+  grid.innerHTML = entries.map(([id,qty])=>{
+    let def = BP_ITEM_DEFS[id];
+    return `<div class="bp-item-card rarity-${def.rarity}" onclick="openBPItemSheet('${id}')">
+      <div class="bp-item-qty">x${qty}</div>
+      <div class="bp-item-icon">${def.icon}</div>
+      <div class="bp-item-name">${def.name}</div>
+      <div class="bp-item-type">${def.type}</div>
+    </div>`;
+  }).join('');
+}
+
+function openBPItemSheet(id){
+  let def = BP_ITEM_DEFS[id];
+  if(!def) return;
+  let d = _bpLoad();
+  if(!d[id] || d[id]<=0) return;
+  _bpSelectedItem = id;
+  $('bpUseIcon').textContent = def.icon;
+  $('bpUseName').textContent = def.name;
+  $('bpUseDesc').textContent = def.desc;
+  $('bpUseEffect').textContent = '✨ ' + def.effect;
+  $('bpUseBtn').textContent = `Använd (${d[id]} kvar)`;
+  $('bpUseSheet').classList.add('open');
+}
+
+function confirmBPUse(){
+  if(!_bpSelectedItem) return;
+  let def = BP_ITEM_DEFS[_bpSelectedItem];
+  if(!def) return;
+  let d = _bpLoad();
+  if(!d[_bpSelectedItem] || d[_bpSelectedItem]<=0){ closeBPSheet(); return; }
+  d[_bpSelectedItem]--;
+  if(d[_bpSelectedItem]<=0) delete d[_bpSelectedItem];
+  _bpSave(d);
+  closeBPSheet();
+  def.use();
+  setTimeout(()=>_renderBP(), 200);
+}
+
+// Give starter pack on first visit
+(function(){
+  let key = 'k0509_bp_starter';
+  if(!localStorage.getItem(key)){
+    localStorage.setItem(key,'1');
+    setTimeout(()=>{
+      bpAddItem('xp_potion',2);
+      bpAddItem('coin_bag',2);
+      bpAddItem('fish_bait',1);
+      bpAddItem('star_dust',1);
+      showFloatBubble('🎒 Startpaket tillagt till ryggsäcken!','buff');
+    }, 8000);
+  }
+})();
 
 </script>
 
