@@ -1402,6 +1402,54 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ GUILD HALL ══ */
+.guild-panel{position:fixed;inset:0;background:#040a08;z-index:915;display:none;flex-direction:column;overflow:hidden}
+.guild-panel.open{display:flex}
+.guild-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#08140a,#040a08)}
+.guild-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44cc44,#00ff88,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.guild-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.guild-banner{background:linear-gradient(135deg,rgba(0,255,136,.08),rgba(68,204,68,.05));border:1.5px solid rgba(0,255,136,.2);border-radius:20px;padding:14px;margin-bottom:14px;text-align:center}
+.guild-banner-emoji{font-size:48px;display:block;margin-bottom:6px;filter:drop-shadow(0 0 16px rgba(0,255,136,.4))}
+.guild-banner-name{font:900 20px var(--ff-head);color:#fff;margin-bottom:2px}
+.guild-banner-tag{font:700 11px var(--ff-body);color:rgba(0,255,136,.7);margin-bottom:8px}
+.guild-level-row{display:flex;gap:10px;justify-content:center}
+.guild-level-chip{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.25);border-radius:12px;padding:5px 14px;font:700 11px var(--ff-head);color:#00ff88}
+.guild-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.guild-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:8px;text-align:center}
+.guild-stat-num{font:800 16px var(--ff-head);color:#fff}
+.guild-stat-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.guild-section{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;margin-top:6px}
+.guild-mission-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(0,255,136,.2);border-radius:18px;padding:14px;margin-bottom:14px}
+.guild-mission-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.guild-mission-icon{font-size:36px}
+.guild-mission-info{flex:1}
+.guild-mission-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.guild-mission-desc{font:500 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.guild-mission-bar-bg{width:100%;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-bottom:6px}
+.guild-mission-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#00ff88,#44cc44);transition:width .4s}
+.guild-mission-nums{display:flex;justify-content:space-between;font:600 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.guild-contrib-btn{width:100%;padding:11px;background:linear-gradient(135deg,#00ff88,#44cc44);border:none;border-radius:12px;color:#000;font:800 12px var(--ff-head);cursor:pointer;margin-top:8px}
+.guild-contrib-btn:disabled{opacity:.4;cursor:default}
+.guild-members-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.guild-member-row{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);border-radius:14px;padding:10px 12px}
+.guild-member-row.is-player{background:rgba(0,255,136,.06);border:1px solid rgba(0,255,136,.2)}
+.guild-member-emoji{font-size:30px;flex-shrink:0}
+.guild-member-info{flex:1}
+.guild-member-name{font:800 12px var(--ff-head);color:#fff;margin-bottom:1px}
+.guild-member-role{font:500 9px var(--ff-body);color:rgba(255,255,255,.35)}
+.guild-member-contrib{font:700 10px var(--ff-body);color:#00ff88;flex-shrink:0}
+.guild-chat{background:rgba(0,0,0,.3);border-radius:16px;padding:10px 12px;margin-bottom:14px}
+.guild-chat-msg{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.guild-chat-msg:last-child{border:none}
+.guild-chat-author{font:800 10px var(--ff-head);margin-right:6px}
+.guild-chat-text{font:400 10px var(--ff-body);color:rgba(255,255,255,.6)}
+.guild-reward-card{background:linear-gradient(135deg,rgba(255,204,0,.08),rgba(0,255,136,.06));border:1.5px solid rgba(255,204,0,.2);border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px}
+.guild-reward-emoji{font-size:32px}
+.guild-reward-info{flex:1}
+.guild-reward-title{font:800 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.guild-reward-desc{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+
 /* ══ LEADERBOARD ══ */
 .lb-panel{position:fixed;inset:0;background:#030608;z-index:914;display:none;flex-direction:column;overflow:hidden}
 .lb-panel.open{display:flex}
@@ -6274,6 +6322,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMshop()"><div class="ddr-i">🪄</div>Magic Shop</div>
           <div class="ddr" onclick="cM();openAch()"><div class="ddr-i">🏅</div>Achievements</div>
           <div class="ddr" onclick="cM();openLb()"><div class="ddr-i">🏆</div>Topplista</div>
+          <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Guild Hall</div>
         </div>
       </div>
     </div>
@@ -7889,6 +7938,54 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- GUILD HALL -->
+<div class="guild-panel" id="guildPanel">
+  <div class="guild-header">
+    <div class="guild-title">🏰 GUILD HALL</div>
+    <button class="close-btn" onclick="closeGuild()">✕</button>
+  </div>
+  <div class="guild-scroll">
+    <div class="guild-banner">
+      <span class="guild-banner-emoji">🐾</span>
+      <div class="guild-banner-name">Husdjursgillet</div>
+      <div class="guild-banner-tag">[PETS] · "Together We Thrive"</div>
+      <div class="guild-level-row">
+        <div class="guild-level-chip" id="guildLevelChip">Nivå 1</div>
+        <div class="guild-level-chip" id="guildMembersChip">6 Medlemmar</div>
+      </div>
+    </div>
+    <div class="guild-stats-row">
+      <div class="guild-stat">
+        <div class="guild-stat-num" id="guildTotalXP">0</div>
+        <div class="guild-stat-label">Guild XP</div>
+      </div>
+      <div class="guild-stat">
+        <div class="guild-stat-num" id="guildContributions">0</div>
+        <div class="guild-stat-label">Bidrag</div>
+      </div>
+      <div class="guild-stat">
+        <div class="guild-stat-num" id="guildWeekLeft">0d</div>
+        <div class="guild-stat-label">Till reset</div>
+      </div>
+    </div>
+    <div class="guild-section">📜 Veckouppdrag</div>
+    <div class="guild-mission-card" id="guildMissionCard"></div>
+    <div class="guild-section">👥 Guildmedlemmar</div>
+    <div class="guild-members-list" id="guildMembersList"></div>
+    <div class="guild-section">💬 Guild Chat</div>
+    <div class="guild-chat" id="guildChat"></div>
+    <div class="guild-section">🎁 Veckorepriser</div>
+    <div class="guild-reward-card">
+      <div class="guild-reward-emoji">🏆</div>
+      <div class="guild-reward-info">
+        <div class="guild-reward-title">Slutför veckouppdrag → Belöning</div>
+        <div class="guild-reward-desc">+1000 XP · +500 💰 · +5 KC för varje guildmedlem!</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- LEADERBOARD -->
 <div class="lb-panel" id="lbPanel">
@@ -24732,6 +24829,145 @@ function _renderLb(){
       </div>
       <div class="lb-score">${p.score.toLocaleString()}</div>
     </div>`).join('');
+}
+
+
+// GUILD HALL SYSTEM
+const GUILD_MEMBERS = [
+  {name:'AceWolf',    emoji:'🐺', role:'Guild Master',   baseContrib:850},
+  {name:'LunaFox',   emoji:'🦊', role:'Champion',        baseContrib:620},
+  {name:'DrakeX',    emoji:'🐉', role:'Veteran',         baseContrib:540},
+  {name:'PearlQueen',emoji:'🦋', role:'Alchemist',       baseContrib:430},
+  {name:'IronClad',  emoji:'🐻', role:'Guardian',        baseContrib:380},
+];
+const GUILD_MSGS = [
+  {author:'AceWolf',   color:'#ff8844', text:'Bra jobbat igår alla! Vi krossade det dagliga rekordet 🔥'},
+  {author:'LunaFox',   color:'#ff88cc', text:'Jag hittade ett sällsynt ingrediens i Dragon Valley! Lycka till alla'},
+  {author:'DrakeX',    color:'#aa66ff', text:'Vem behöver hjälp med Battle Arena? Dela era tips nedan!'},
+  {author:'PearlQueen',color:'#00ddcc', text:'Mitt recept för Lycko-eliksir: Star + Dark. Fungerar varje gång ✨'},
+  {author:'IronClad',  color:'#4488ff', text:'Kom ihåg att hämta dagliga kistor! Gratis XP varje dag'},
+];
+const GUILD_MISSIONS = [
+  {id:'gm_xp',    icon:'⚡', name:'XP-Blitz',         desc:'Samla totalt 10 000 XP som guild',          total:10000, key:'guildXP'},
+  {id:'gm_coins', icon:'💰', name:'Myntjakt',          desc:'Samla totalt 5 000 coins som guild',        total:5000,  key:'guildCoins'},
+  {id:'gm_battle',icon:'⚔️', name:'Stridsgillet',      desc:'Totalt 20 battle-vinster i guildent',      total:20,    key:'guildBattles'},
+  {id:'gm_farm',  icon:'🌱', name:'Stor Skörd',        desc:'Skörda 30 grödor som guild',               total:30,    key:'guildHarvest'},
+  {id:'gm_dung',  icon:'🗡️', name:'Dungeon Runners',  desc:'Klara Daily Dungeon 10 gånger som guild',  total:10,    key:'guildDungeon'},
+];
+const GUILD_KEY = 'k0509_guild';
+
+function _guildWeekSeed(){return Math.floor(Date.now()/(7*86400000));}
+
+function _guildLoad(){try{return JSON.parse(localStorage.getItem(GUILD_KEY)||'null');}catch(e){return null;}}
+function _guildSave(d){localStorage.setItem(GUILD_KEY,JSON.stringify(d));}
+
+function _guildData(){
+  let d=_guildLoad();
+  let wk=_guildWeekSeed();
+  if(d&&d.week===wk) return d;
+  let seed=wk;
+  let missionIdx=seed%GUILD_MISSIONS.length;
+  d={week:wk,missionId:GUILD_MISSIONS[missionIdx].id,playerContrib:0,contributed:false,rewardClaimed:false,guildXP:0};
+  // Seed NPC progress
+  let m=GUILD_MISSIONS[missionIdx];
+  GUILD_MEMBERS.forEach((mem,i)=>{
+    d['npc_'+mem.name]=(mem.baseContrib+(seed*7+i*13)%300);
+  });
+  _guildSave(d);
+  return d;
+}
+
+function openGuild(){
+  $('guildPanel').classList.add('open');
+  _renderGuild();
+}
+function closeGuild(){ $('guildPanel').classList.remove('open'); }
+
+function _renderGuild(){
+  let d=_guildData();
+  let petName=(typeof G!=='undefined'&&G.petName)||'Du';
+  let petEmoji=(typeof G!=='undefined'&&G.petEmoji)||'🐾';
+  let mission=GUILD_MISSIONS.find(m=>m.id===d.missionId)||GUILD_MISSIONS[0];
+  // Total guild contrib
+  let npcTotal=GUILD_MEMBERS.reduce((s,m)=>s+(d['npc_'+m.name]||0),0);
+  let total=npcTotal+(d.playerContrib||0);
+  let guildXP=total*2;
+  let guildLvl=Math.max(1,Math.floor(guildXP/5000)+1);
+  let glc=$('guildLevelChip'); if(glc) glc.textContent='Nivå '+guildLvl;
+  let gxp=$('guildTotalXP'); if(gxp) gxp.textContent=guildXP.toLocaleString();
+  let gc=$('guildContributions'); if(gc) gc.textContent=total.toLocaleString();
+  // Week timer
+  let nextW=(_guildWeekSeed()+1)*7*86400000;
+  let tl=nextW-Date.now();
+  let days=Math.floor(tl/86400000);
+  let gwl=$('guildWeekLeft'); if(gwl) gwl.textContent=days+'d';
+  // Mission card
+  let pct=Math.min(100,total/mission.total*100);
+  let done=total>=mission.total;
+  let mc=$('guildMissionCard');
+  if(mc) mc.innerHTML=`
+    <div class="guild-mission-top">
+      <div class="guild-mission-icon">${mission.icon}</div>
+      <div class="guild-mission-info">
+        <div class="guild-mission-name">${mission.name}</div>
+        <div class="guild-mission-desc">${mission.desc}</div>
+      </div>
+    </div>
+    <div class="guild-mission-bar-bg"><div class="guild-mission-bar-fill" style="width:${pct}%"></div></div>
+    <div class="guild-mission-nums"><span>${total.toLocaleString()}</span><span>${mission.total.toLocaleString()} mål</span></div>
+    ${done&&!d.rewardClaimed?`<button class="guild-contrib-btn" onclick="guildClaimReward()">🎁 Hämta Veckorepriser!</button>`:
+      done?'<div style="text-align:center;font:700 10px var(--ff-body);color:var(--green);margin-top:8px">✓ Belöning hämtad!</div>':
+      d.contributed?'<div style="text-align:center;font:700 10px var(--ff-body);color:rgba(255,255,255,.4);margin-top:8px">✓ Du har bidragit idag</div>':
+      `<button class="guild-contrib-btn" onclick="guildContribute()">💪 Bidra till Guilduppdraget</button>`}`;
+  // Members
+  let allMembers=[...GUILD_MEMBERS.map(m=>({...m,contrib:d['npc_'+m.name]||0,isPlayer:false})),{name:petName,emoji:petEmoji,role:'Ny Medlem',contrib:d.playerContrib||0,isPlayer:true,color:'#00ff88'}];
+  allMembers.sort((a,b)=>b.contrib-a.contrib);
+  let ml=$('guildMembersList');
+  if(ml) ml.innerHTML=allMembers.map(m=>`
+    <div class="guild-member-row ${m.isPlayer?'is-player':''}">
+      <div class="guild-member-emoji">${m.emoji}</div>
+      <div class="guild-member-info">
+        <div class="guild-member-name">${m.name}${m.isPlayer?' (Du)':''}</div>
+        <div class="guild-member-role">${m.role}</div>
+      </div>
+      <div class="guild-member-contrib">+${(m.contrib||0).toLocaleString()}</div>
+    </div>`).join('');
+  // Chat
+  let chat=$('guildChat');
+  if(chat){
+    let seed=_guildWeekSeed();
+    let msgs=GUILD_MSGS.slice().sort(()=>(Math.sin(seed++)*10%1)-.5).slice(0,4);
+    chat.innerHTML=msgs.map(m=>`<div class="guild-chat-msg"><span class="guild-chat-author" style="color:${m.color}">${m.author}:</span><span class="guild-chat-text">${m.text}</span></div>`).join('');
+  }
+}
+
+function guildContribute(){
+  let d=_guildData();
+  if(d.contributed){showFloatBubble('Du har redan bidragit idag!','buff');return;}
+  let petLvl=(typeof G!=='undefined'?G.level||1:1);
+  let contrib=100+petLvl*10+Math.floor(Math.random()*50);
+  d.playerContrib=(d.playerContrib||0)+contrib;
+  d.contributed=true;
+  _guildSave(d);
+  gainXP(100,'guild');
+  showFloatBubble('🏰 Guild bidrag: +'+contrib+'! +100 XP','buff');
+  _renderGuild();
+}
+
+function guildClaimReward(){
+  let d=_guildData();
+  if(d.rewardClaimed){showFloatBubble('Belöning redan hämtad!','buff');return;}
+  let mission=GUILD_MISSIONS.find(m=>m.id===d.missionId)||GUILD_MISSIONS[0];
+  let npcTotal=GUILD_MEMBERS.reduce((s,m)=>s+(d['npc_'+m.name]||0),0);
+  let total=npcTotal+(d.playerContrib||0);
+  if(total<mission.total){showFloatBubble('Uppdraget ej klart än!','buff');return;}
+  d.rewardClaimed=true;
+  _guildSave(d);
+  gainXP(1000,'guild');
+  gainCoins(500);
+  if(typeof gainKC==='function') gainKC(5);
+  showFloatBubble('🏰 Guild Belöning! +1000 XP, +500 💰, +5 KC!','buff');
+  _renderGuild();
 }
 
 </script>
