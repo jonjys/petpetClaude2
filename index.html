@@ -1416,6 +1416,54 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DREAM WORLD ══ */
+.dream-panel{position:fixed;inset:0;background:#030108;z-index:929;display:none;flex-direction:column;overflow:hidden}
+.dream-panel.open{display:flex}
+.dream-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080214,#030108)}
+.dream-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#8866ff,#cc88ff,#88ccff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.dream-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.dream-scene{background:radial-gradient(ellipse at 50% 50%,rgba(136,102,255,.12),transparent 70%),linear-gradient(180deg,#0a0520,#030108);border:1.5px solid rgba(136,102,255,.25);border-radius:22px;padding:24px 14px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden;min-height:260px}
+.dream-stars-bg{position:absolute;inset:0;background:radial-gradient(circle at 15% 20%,rgba(255,255,255,.2) 1px,transparent 1px) 0 0/80px 80px,radial-gradient(circle at 70% 40%,rgba(255,255,255,.15) 1px,transparent 1px) 0 0/60px 60px,radial-gradient(circle at 40% 70%,rgba(255,255,255,.1) 1px,transparent 1px) 0 0/100px 100px;pointer-events:none;animation:dreamStarsTwinkle 4s ease-in-out infinite alternate}
+@keyframes dreamStarsTwinkle{from{opacity:.6}to{opacity:1}}
+.dream-pet{font-size:72px;display:block;margin-bottom:6px;position:relative;z-index:2}
+.dream-pet.sleeping{animation:dreamPetSleep 2s ease-in-out infinite alternate}
+@keyframes dreamPetSleep{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-6px) rotate(3deg)}}
+.dream-zzz{position:absolute;font-size:14px;color:rgba(136,102,255,.8);font-weight:900;animation:dreamZzz 2s ease-in-out infinite;pointer-events:none}
+.dream-zzz:nth-child(1){top:30%;left:58%;animation-delay:0s}
+.dream-zzz:nth-child(2){top:22%;left:64%;font-size:18px;animation-delay:.7s}
+.dream-zzz:nth-child(3){top:14%;left:70%;font-size:22px;animation-delay:1.4s}
+@keyframes dreamZzz{0%{opacity:0;transform:translateY(0)}50%{opacity:1}100%{opacity:0;transform:translateY(-20px)}}
+.dream-status{font:700 13px var(--ff-head);color:#fff;margin-bottom:4px;position:relative;z-index:2}
+.dream-sub{font:500 10px var(--ff-body);color:rgba(136,102,255,.7);margin-bottom:12px;position:relative;z-index:2}
+.dream-cloud{background:rgba(136,102,255,.15);border:1px solid rgba(136,102,255,.3);border-radius:16px;padding:8px 20px;margin-bottom:14px;display:inline-block;position:relative;z-index:2}
+.dream-cloud-text{font:700 12px var(--ff-head);color:#cc88ff}
+.dream-timer{font:900 20px var(--ff-head);color:#8866ff;margin-bottom:10px;position:relative;z-index:2}
+.dream-sleep-btn{background:linear-gradient(135deg,#4422aa,#8844ff);border:none;border-radius:16px;color:#fff;font:900 14px var(--ff-head);padding:13px 32px;cursor:pointer;transition:all .15s;position:relative;z-index:2}
+.dream-sleep-btn:active{transform:scale(.96)}
+.dream-sleep-btn:disabled{opacity:.4;cursor:default}
+.dream-wake-btn{background:linear-gradient(135deg,#aa6622,#ffcc44);border:none;border-radius:16px;color:#000;font:900 14px var(--ff-head);padding:13px 32px;cursor:pointer;transition:all .15s;position:relative;z-index:2}
+.dream-wake-btn:active{transform:scale(.97)}
+.dream-nap-btn{background:rgba(136,102,255,.15);border:1px solid rgba(136,102,255,.3);border-radius:12px;color:#cc88ff;font:700 11px var(--ff-head);padding:8px 20px;cursor:pointer;margin-left:8px;position:relative;z-index:2}
+.dream-reward-display{background:rgba(255,204,0,.08);border:1.5px solid rgba(255,204,0,.3);border-radius:16px;padding:16px;text-align:center;margin-bottom:14px}
+.dream-reward-emoji{font-size:48px;display:block;margin-bottom:8px}
+.dream-reward-title{font:900 18px var(--ff-head);color:#fff;margin-bottom:4px}
+.dream-reward-desc{font:600 11px var(--ff-body);color:rgba(255,204,0,.8)}
+.dream-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.dream-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.dream-stat-num{font:800 15px var(--ff-head);color:#fff}
+.dream-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.dream-journal{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:12px}
+.dream-journal-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.dream-journal-list{display:flex;flex-direction:column;gap:5px}
+.dream-journal-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.dream-journal-row:last-child{border:none}
+.dream-journal-emoji{font-size:18px;flex-shrink:0}
+.dream-journal-info{flex:1}
+.dream-journal-name{font:700 10px var(--ff-head);color:#fff}
+.dream-journal-date{font:500 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.dream-journal-reward{font:700 9px var(--ff-head);color:#8866ff}
+
 /* ══ TAROT ══ */
 .tarot-panel{position:fixed;inset:0;background:#050208;z-index:928;display:none;flex-direction:column;overflow:hidden}
 .tarot-panel.open{display:flex}
@@ -6882,6 +6930,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWx()"><div class="ddr-i">🌤️</div>Väderorakel</div>
           <div class="ddr" onclick="cM();openBank()"><div class="ddr-i">🏦</div>Pet Bank</div>
           <div class="ddr" onclick="cM();openTarot()"><div class="ddr-i">🃏</div>Tarot</div>
+          <div class="ddr" onclick="cM();openDream()"><div class="ddr-i">💤</div>Drömvärlden</div>
         </div>
       </div>
     </div>
@@ -8036,6 +8085,47 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DREAM WORLD -->
+<div class="dream-panel" id="dreamPanel">
+  <div class="dream-header">
+    <div class="dream-title">💤 DRÖMVÄRLDEN</div>
+    <button class="close-btn" onclick="closeDream()">✕</button>
+  </div>
+  <div class="dream-scroll">
+    <div class="dream-scene" id="dreamScene">
+      <div class="dream-stars-bg"></div>
+      <div id="dreamZzzContainer" style="display:none;position:absolute;width:100%;height:100%;top:0;left:0;pointer-events:none">
+        <span class="dream-zzz">z</span><span class="dream-zzz">z</span><span class="dream-zzz">Z</span>
+      </div>
+      <span class="dream-pet" id="dreamPetEmoji">🐾</span>
+      <div class="dream-status" id="dreamStatus">Ditt husdjur är vaken!</div>
+      <div class="dream-sub" id="dreamSub">Lägg husdjuret i sängen för att drömma</div>
+      <div class="dream-cloud" id="dreamCloud" style="display:none"><div class="dream-cloud-text" id="dreamCloudText">💤</div></div>
+      <div class="dream-timer" id="dreamTimer" style="display:none"></div>
+      <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;position:relative;z-index:2">
+        <button class="dream-sleep-btn" id="dreamSleepBtn" onclick="dreamStartSleep()">💤 Lägg i Säng</button>
+        <button class="dream-wake-btn" id="dreamWakeBtn" onclick="dreamWakeUp()" style="display:none">☀️ Vakna!</button>
+        <button class="dream-nap-btn" id="dreamNapBtn" onclick="dreamPowerNap()">⚡ Powernap</button>
+      </div>
+    </div>
+    <div class="dream-reward-display" id="dreamRewardDisplay" style="display:none">
+      <span class="dream-reward-emoji" id="dreamRewardEmoji"></span>
+      <div class="dream-reward-title" id="dreamRewardTitle"></div>
+      <div class="dream-reward-desc" id="dreamRewardDesc"></div>
+    </div>
+    <div class="dream-stats-row">
+      <div class="dream-stat"><div class="dream-stat-num" id="dreamTotalDreams">0</div><div class="dream-stat-label">Drömmar totalt</div></div>
+      <div class="dream-stat"><div class="dream-stat-num" id="dreamTotalXP">0</div><div class="dream-stat-label">XP från drömmar</div></div>
+      <div class="dream-stat"><div class="dream-stat-num" id="dreamNapsLeft">3</div><div class="dream-stat-label">Powernaps kvar</div></div>
+    </div>
+    <div class="dream-journal">
+      <div class="dream-journal-title">📖 Drömjournal</div>
+      <div class="dream-journal-list" id="dreamJournalList"><div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Inga drömmar ännu</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- TAROT -->
 <div class="tarot-panel" id="tarotPanel">
@@ -28124,6 +28214,202 @@ function tarotClaim(posIdx){
   _tarotSave(d);
   showFloatBubble(card.emoji+' '+card.name+'! '+card.buff,'buff');
   _renderTarot();
+}
+
+
+// DREAM WORLD SYSTEM
+const DREAM_TYPES = [
+  {id:'nature',  emoji:'🌿', name:'Naturdröm',      desc:'Frodiga skogar och sjungande fåglar...',  xp:300, coins:200, dur:2*3600000},
+  {id:'adventure',emoji:'⚔️',name:'Äventyrsdröm',   desc:'Episka slag och hjältemod!',              xp:250, coins:150, dur:3*3600000},
+  {id:'magic',   emoji:'🔮', name:'Magikedröm',      desc:'Trollformler och leviterade böcker...',   xp:400, coins:100, dur:4*3600000},
+  {id:'starlight',emoji:'💫',name:'Stjärnljusdröm',  desc:'Dans bland stjärnor och galaxer...',      xp:200, coins:200, dur:2*3600000},
+  {id:'sweet',   emoji:'🍭', name:'GodisDröm',       desc:'Sockerspunna slott och chokladfloder!',   xp:150, coins:350, dur:1*3600000},
+  {id:'legendary',emoji:'🌟',name:'LEGENDARISK DRÖM',desc:'En dröm som förändrar allt!',             xp:1000,coins:500, dur:8*3600000},
+  {id:'nightmare',emoji:'😱',name:'Mardröm',         desc:'Mörka skuggor... men du vaknar starkare!',xp:500, coins:0,   dur:2*3600000},
+];
+const DREAM_KEY = 'k0509_dream';
+let _dreamTimerInterval = null;
+
+function _dreamLoad(){try{return JSON.parse(localStorage.getItem(DREAM_KEY)||'null');}catch(e){return null;}}
+function _dreamSave(d){localStorage.setItem(DREAM_KEY,JSON.stringify(d));}
+
+function _dreamData(){
+  let d=_dreamLoad();
+  let today=getTodayKey();
+  if(!d) d={sleeping:false,sleepStart:null,dreamTypeId:null,totalDreams:0,totalXP:0,journal:[],napsUsed:0,napsDate:null};
+  if(d.napsDate!==today){d.napsUsed=0;d.napsDate=today;}
+  return d;
+}
+
+function _dreamPickType(){
+  let roll=Math.random()*100;
+  if(roll<2) return DREAM_TYPES.find(function(t){return t.id==='legendary';});
+  if(roll<12) return DREAM_TYPES.find(function(t){return t.id==='nightmare';});
+  let normals=DREAM_TYPES.filter(function(t){return t.id!=='legendary'&&t.id!=='nightmare';});
+  return normals[Math.floor(Math.random()*normals.length)];
+}
+
+function openDream(){
+  $('dreamPanel').classList.add('open');
+  let d=_dreamData();
+  // Check if ready to wake
+  if(d.sleeping&&d.sleepStart){
+    let dt=DREAM_TYPES.find(function(t){return t.id===d.dreamTypeId;})||DREAM_TYPES[0];
+    if(Date.now()-d.sleepStart>=dt.dur){
+      _dreamShowReadyToWake(d);
+    }
+  }
+  _renderDream();
+  if(d.sleeping) _startDreamTimer();
+}
+function closeDream(){
+  $('dreamPanel').classList.remove('open');
+  if(_dreamTimerInterval){clearInterval(_dreamTimerInterval);_dreamTimerInterval=null;}
+}
+
+function _renderDream(){
+  let d=_dreamData();
+  let pe=$('dreamPetEmoji');
+  let petEmoji=(typeof G!=='undefined'&&G.petEmoji)||'🐾';
+  if(pe){
+    pe.textContent=petEmoji;
+    pe.className='dream-pet'+(d.sleeping?' sleeping':'');
+  }
+  let zzz=$('dreamZzzContainer'); if(zzz) zzz.style.display=d.sleeping?'block':'none';
+  let ds=$('dreamStatus');
+  let dsu=$('dreamSub');
+  let dc=$('dreamCloud');
+  let dct=$('dreamCloudText');
+  let dt=$('dreamTimer');
+  let sb=$('dreamSleepBtn');
+  let wb=$('dreamWakeBtn');
+  let nb=$('dreamNapBtn');
+  let td=$('dreamTotalDreams'); if(td) td.textContent=d.totalDreams;
+  let txp=$('dreamTotalXP'); if(txp) txp.textContent=d.totalXP;
+  let nl=$('dreamNapsLeft'); if(nl) nl.textContent=Math.max(0,3-d.napsUsed);
+  if(d.sleeping){
+    let dtype=DREAM_TYPES.find(function(t){return t.id===d.dreamTypeId;})||DREAM_TYPES[0];
+    if(ds) ds.textContent='Sover och drömmer...';
+    if(dsu) dsu.textContent=dtype.desc;
+    if(dc){dc.style.display='inline-block';}
+    if(dct) dct.textContent=dtype.emoji+' '+dtype.name;
+    if(sb) sb.style.display='none';
+    if(wb) wb.style.display='inline-block';
+    if(nb) nb.style.display='none';
+    if(dt) dt.style.display='block';
+  } else {
+    if(ds) ds.textContent='Ditt husdjur är vaken!';
+    if(dsu) dsu.textContent='Lägg husdjuret i sängen för att drömma';
+    if(dc) dc.style.display='none';
+    if(dt) dt.style.display='none';
+    if(sb) sb.style.display='inline-block';
+    if(wb) wb.style.display='none';
+    if(nb){nb.style.display='inline-block';nb.disabled=d.napsUsed>=3;}
+  }
+  // Journal
+  let jl=$('dreamJournalList');
+  if(jl){
+    let journal=(d.journal||[]).slice(-8).reverse();
+    if(journal.length===0) jl.innerHTML='<div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Inga drömmar ännu</div>';
+    else jl.innerHTML=journal.map(function(j){
+      return '<div class="dream-journal-row">'+
+        '<span class="dream-journal-emoji">'+j.emoji+'</span>'+
+        '<div class="dream-journal-info">'+
+        '<div class="dream-journal-name">'+j.name+'</div>'+
+        '<div class="dream-journal-date">'+j.date+'</div>'+
+        '</div>'+
+        '<div class="dream-journal-reward">+'+j.xp+' XP · +'+j.coins+' 💰</div>'+
+        '</div>';
+    }).join('');
+  }
+}
+
+function _startDreamTimer(){
+  if(_dreamTimerInterval){clearInterval(_dreamTimerInterval);}
+  _dreamTimerInterval=setInterval(function(){
+    let d=_dreamData();
+    if(!d.sleeping){clearInterval(_dreamTimerInterval);_dreamTimerInterval=null;_renderDream();return;}
+    let dtype=DREAM_TYPES.find(function(t){return t.id===d.dreamTypeId;})||DREAM_TYPES[0];
+    let elapsed=Date.now()-d.sleepStart;
+    let remaining=Math.max(0,dtype.dur-elapsed);
+    if(remaining<=0){
+      clearInterval(_dreamTimerInterval);
+      _dreamTimerInterval=null;
+      _dreamShowReadyToWake(d);
+      return;
+    }
+    let m=Math.floor(remaining/60000);
+    let s=Math.floor((remaining%60000)/1000);
+    let dt=$('dreamTimer');
+    if(dt) dt.textContent=(m>0?m+'m ':'')+s+'s';
+  },1000);
+}
+
+function _dreamShowReadyToWake(d){
+  let ds=$('dreamStatus'); if(ds) ds.textContent='🌟 Dröm klar! Vakna nu!';
+  let dsu=$('dreamSub'); if(dsu) dsu.textContent='Din dröm har fullbordats — hämta din belöning!';
+  let dt=$('dreamTimer'); if(dt) dt.textContent='✅ Klar!';
+}
+
+function dreamStartSleep(){
+  let d=_dreamData();
+  if(d.sleeping){showFloatBubble('Redan sovandes!','buff');return;}
+  let dtype=_dreamPickType();
+  d.sleeping=true;
+  d.sleepStart=Date.now();
+  d.dreamTypeId=dtype.id;
+  _dreamSave(d);
+  _renderDream();
+  _startDreamTimer();
+  showFloatBubble(dtype.emoji+' '+dtype.name+' börjar... Vakna om '+(dtype.dur/3600000).toFixed(1)+'h','buff');
+}
+
+function dreamWakeUp(){
+  let d=_dreamData();
+  if(!d.sleeping){showFloatBubble('Husdjuret är redan vaken!','buff');return;}
+  let dtype=DREAM_TYPES.find(function(t){return t.id===d.dreamTypeId;})||DREAM_TYPES[0];
+  let elapsed=Date.now()-(d.sleepStart||Date.now());
+  let pct=Math.min(1,elapsed/dtype.dur);
+  let xpEarned=Math.floor(dtype.xp*pct);
+  let coinsEarned=Math.floor(dtype.coins*pct);
+  d.sleeping=false;
+  d.sleepStart=null;
+  d.dreamTypeId=null;
+  d.totalDreams=(d.totalDreams||0)+1;
+  d.totalXP=(d.totalXP||0)+xpEarned;
+  if(!d.journal) d.journal=[];
+  d.journal.push({emoji:dtype.emoji,name:dtype.name,date:getTodayKey(),xp:xpEarned,coins:coinsEarned});
+  _dreamSave(d);
+  if(_dreamTimerInterval){clearInterval(_dreamTimerInterval);_dreamTimerInterval=null;}
+  gainXP(xpEarned,'dream');
+  if(coinsEarned>0) gainCoins(coinsEarned);
+  let rd=$('dreamRewardDisplay');
+  let re=$('dreamRewardEmoji');
+  let rt=$('dreamRewardTitle');
+  let rdesc=$('dreamRewardDesc');
+  if(rd){rd.style.display='block';}
+  if(re) re.textContent=dtype.emoji;
+  if(rt) rt.textContent=dtype.name+' avslutad!';
+  if(rdesc) rdesc.textContent='+'+xpEarned+' XP · +'+coinsEarned+' 💰'+(pct<1?' ('+Math.round(pct*100)+'% komplett)':'');
+  showFloatBubble(dtype.emoji+' Vaknade! +'+xpEarned+' XP +'+coinsEarned+' 💰','buff');
+  setTimeout(function(){
+    let rd2=$('dreamRewardDisplay'); if(rd2) rd2.style.display='none';
+  },5000);
+  _renderDream();
+}
+
+function dreamPowerNap(){
+  let d=_dreamData();
+  if(d.napsUsed>=3){showFloatBubble('Inga powernaps kvar idag!','buff');return;}
+  if(d.sleeping){showFloatBubble('Husdjuret sover redan!','buff');return;}
+  d.napsUsed=(d.napsUsed||0)+1;
+  _dreamSave(d);
+  let xp=100+Math.floor(Math.random()*100);
+  let coins=50+Math.floor(Math.random()*100);
+  gainXP(xp,'dream');
+  gainCoins(coins);
+  showFloatBubble('⚡ Powernap! +'+xp+' XP +'+coins+' 💰','buff');
+  _renderDream();
 }
 
 </script>
