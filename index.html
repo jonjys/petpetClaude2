@@ -1411,6 +1411,45 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MINING ══ */
+.mine-panel{position:fixed;inset:0;background:#06030a;z-index:924;display:none;flex-direction:column;overflow:hidden}
+.mine-panel.open{display:flex}
+.mine-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0c0614,#06030a)}
+.mine-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#88aaff,#aaaaff,#ff88cc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.mine-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.mine-cave{background:radial-gradient(ellipse at 50% 0%,rgba(100,80,160,.15),transparent 70%),linear-gradient(180deg,#0c0618,#06030a);border:1.5px solid rgba(100,80,160,.25);border-radius:22px;padding:18px 14px;margin-bottom:14px}
+.mine-cave-title{font:700 11px var(--ff-head);color:rgba(150,120,220,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;text-align:center}
+.mine-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.mine-tile{aspect-ratio:1;background:rgba(60,40,100,.4);border:1.5px solid rgba(100,80,160,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;transition:all .15s;position:relative}
+.mine-tile:active{transform:scale(.93)}
+.mine-tile.empty-tile{background:rgba(30,20,50,.6);border-color:rgba(255,255,255,.06);cursor:default;font-size:16px;opacity:.5}
+.mine-tile.revealed{cursor:default;border-color:rgba(150,120,220,.3);background:rgba(100,80,160,.15)}
+.mine-tile.revealed:active{transform:none}
+.mine-tile.glow{animation:mineTileGlow .4s ease-out}
+@keyframes mineTileGlow{0%{box-shadow:0 0 0 rgba(150,120,220,0)}50%{box-shadow:0 0 24px rgba(150,120,220,.6)}100%{box-shadow:0 0 0 rgba(150,120,220,0)}}
+.mine-pick-row{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.mine-pick-btn{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;color:rgba(255,255,255,.6);font:700 10px var(--ff-head);padding:6px 12px;cursor:pointer;transition:all .15s}
+.mine-pick-btn:active{transform:scale(.95)}
+.mine-pick-btn.active-pick{border-color:rgba(150,120,220,.5);background:rgba(150,120,220,.12);color:#aaaaff}
+.mine-pick-btn.locked-pick{opacity:.45;cursor:not-allowed}
+.mine-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.mine-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.mine-stat-num{font:800 15px var(--ff-head);color:#fff}
+.mine-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.mine-inv{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:12px;margin-bottom:14px}
+.mine-inv-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.mine-inv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.mine-inv-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:6px;text-align:center}
+.mine-inv-emoji{font-size:20px;display:block}
+.mine-inv-name{font:600 7px var(--ff-body);color:rgba(255,255,255,.4);display:block;margin-top:2px}
+.mine-inv-count{font:800 10px var(--ff-head);color:#aaaaff;display:block}
+.mine-sell-btn{width:100%;background:linear-gradient(135deg,#6644aa,#4422aa);border:none;border-radius:12px;color:#fff;font:800 12px var(--ff-head);padding:10px;cursor:pointer;margin-top:8px}
+.mine-sell-btn:active{transform:scale(.97)}
+.mine-buy-actions{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.mine-buy-label{font:600 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.mine-buy-btn{background:rgba(150,120,220,.15);border:1px solid rgba(150,120,220,.3);border-radius:10px;color:#aaaaff;font:700 10px var(--ff-head);padding:6px 14px;cursor:pointer}
+
 /* ══ SPIN WHEEL ══ */
 .spin-panel{position:fixed;inset:0;background:#040206;z-index:923;display:none;flex-direction:column;overflow:hidden}
 .spin-panel.open{display:flex}
@@ -6666,6 +6705,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFish()"><div class="ddr-i">🎣</div>Fiske</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
+          <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
         </div>
       </div>
     </div>
@@ -7813,6 +7853,36 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="mh"></div>
     <div class="mt" style="background:linear-gradient(135deg,rgba(0,255,136,.15),rgba(0,221,204,.08));font-family:var(--ff-head);font-size:17px">✅ Verifiera uppdrag <div class="mx" onclick="closeModal('verifyModal')">✕</div></div>
     <div id="verifyInner" style="padding:16px"></div>
+  </div>
+</div>
+
+
+<!-- MINING -->
+<div class="mine-panel" id="minePanel">
+  <div class="mine-header">
+    <div class="mine-title">⛏️ KRISTALLGROTTA</div>
+    <button class="close-btn" onclick="closeMine()">✕</button>
+  </div>
+  <div class="mine-scroll">
+    <div class="mine-cave">
+      <div class="mine-cave-title">⛏️ Daglig Grotta — Tryck på stenar för att gräva</div>
+      <div class="mine-grid" id="mineGrid"></div>
+    </div>
+    <div class="mine-pick-row" id="minePickRow"></div>
+    <div class="mine-buy-actions">
+      <div class="mine-buy-label">Behöver fler grävningar?</div>
+      <button class="mine-buy-btn" onclick="mineBuyExtra()">+5 grävningar (150 💰)</button>
+    </div>
+    <div class="mine-stats-row">
+      <div class="mine-stat"><div class="mine-stat-num" id="mineActLeft">10</div><div class="mine-stat-label">Grävningar kvar</div></div>
+      <div class="mine-stat"><div class="mine-stat-num" id="mineTotalMined">0</div><div class="mine-stat-label">Totalt grävt</div></div>
+      <div class="mine-stat"><div class="mine-stat-num" id="mineTotalCoins">0</div><div class="mine-stat-label">💰 Sålt</div></div>
+    </div>
+    <div class="mine-inv">
+      <div class="mine-inv-title">🎒 Ryggsäck (sälj för coins)</div>
+      <div class="mine-inv-grid" id="mineInvGrid"></div>
+      <button class="mine-sell-btn" onclick="mineSellAll()">💰 Sälj Allt</button>
+    </div>
   </div>
 </div>
 
@@ -26873,6 +26943,210 @@ function spinWheel(){
     showFloatBubble(pop+seg.emoji+' '+seg.name+(seg.coins>0?' +'+seg.coins+' 💰':'')+(seg.xp>0?' +'+seg.xp+' XP':'')+(seg.kc>0?' +'+seg.kc+' KC':''),'buff');
     _renderSpinW();
   },4200);
+}
+
+
+// CRYSTAL CAVE MINING SYSTEM
+const MINE_RESOURCES = [
+  {id:'stone',    emoji:'🪨', name:'Sten',      val:5,   xp:2,   weight:32},
+  {id:'coal',     emoji:'🟫', name:'Kol',       val:15,  xp:5,   weight:22},
+  {id:'iron',     emoji:'⚙️', name:'Järn',      val:30,  xp:10,  weight:18},
+  {id:'gold',     emoji:'🟡', name:'Guld',      val:60,  xp:20,  weight:12},
+  {id:'crystal',  emoji:'💠', name:'Kristall',  val:100, xp:35,  weight:8},
+  {id:'sapphire', emoji:'💙', name:'Safir',     val:200, xp:60,  weight:5},
+  {id:'amethyst', emoji:'💜', name:'Ametist',   val:400, xp:100, weight:2},
+  {id:'diamond',  emoji:'💎', name:'Diamant',   val:800, xp:200, weight:1},
+];
+const MINE_PICKS = [
+  {id:'stone_pick', emoji:'🪨', name:'Stenpicka', bonus:0,   price:0,    cur:'free', desc:'Grundläggande'},
+  {id:'iron_pick',  emoji:'⚙️', name:'Järnpicka', bonus:15,  price:200,  cur:'coins',desc:'+15% sällsynt'},
+  {id:'gold_pick',  emoji:'🟡', name:'Guldpicka', bonus:30,  price:1,    cur:'kc',   desc:'+30% sällsynt'},
+  {id:'magic_pick', emoji:'✨', name:'Magisk Picka',bonus:60,price:3,    cur:'kc',   desc:'+60% sällsynt'},
+];
+const MINE_KEY = 'k0509_mine';
+const MINE_GRID_SIZE = 20;
+let _mineActivePick = 'stone_pick';
+
+function _mineLoad(){try{return JSON.parse(localStorage.getItem(MINE_KEY)||'null');}catch(e){return null;}}
+function _mineSave(d){localStorage.setItem(MINE_KEY,JSON.stringify(d));}
+
+function _mineDayData(){
+  let d=_mineLoad();
+  let today=getTodayKey();
+  if(d&&d.date===today) return d;
+  let prev=d||{};
+  // Generate daily grid (seeded by date)
+  let seed=parseInt(today.replace(/-/g,''));
+  function seededRand(n){seed=(seed*1664525+1013904223)&0xffffffff;return Math.abs(seed)%n;}
+  let grid=[];
+  for(let i=0;i<MINE_GRID_SIZE;i++){
+    let totalW=MINE_RESOURCES.reduce(function(a,r){return a+r.weight;},0);
+    let roll=seededRand(totalW);
+    let acc=0,picked=MINE_RESOURCES[0];
+    for(let j=0;j<MINE_RESOURCES.length;j++){
+      acc+=MINE_RESOURCES[j].weight;
+      if(roll<acc){picked=MINE_RESOURCES[j];break;}
+    }
+    grid.push(picked.id);
+  }
+  d={date:today,grid,revealed:[],actionsLeft:10,inventory:{},totalMined:prev.totalMined||0,totalCoins:prev.totalCoins||0,ownedPicks:prev.ownedPicks||['stone_pick']};
+  _mineSave(d);
+  return d;
+}
+
+function openMine(){
+  $('minePanel').classList.add('open');
+  let d=_mineDayData();
+  _mineActivePick=d.ownedPicks&&d.ownedPicks.length?d.ownedPicks[d.ownedPicks.length-1]:'stone_pick';
+  _renderMine();
+}
+function closeMine(){ $('minePanel').classList.remove('open'); }
+
+function _minePickWeight(pickId){
+  let p=MINE_PICKS.find(function(x){return x.id===pickId;});
+  return p?p.bonus:0;
+}
+
+function _renderMine(){
+  let d=_mineDayData();
+  let al=$('mineActLeft'); if(al) al.textContent=d.actionsLeft;
+  let tm=$('mineTotalMined'); if(tm) tm.textContent=d.totalMined;
+  let tc=$('mineTotalCoins'); if(tc) tc.textContent=d.totalCoins;
+  // Grid
+  let mg=$('mineGrid');
+  if(mg) mg.innerHTML=d.grid.map(function(resId,i){
+    let revealed=d.revealed.includes(i);
+    if(revealed){
+      let res=MINE_RESOURCES.find(function(r){return r.id===resId;});
+      return '<div class="mine-tile revealed">'+( res?res.emoji:'🪨')+'</div>';
+    }
+    return '<div class="mine-tile" onclick="mineDig('+i+')">🪨</div>';
+  }).join('');
+  // Pick row
+  let pr=$('minePickRow');
+  if(pr) pr.innerHTML=MINE_PICKS.map(function(p){
+    let owned=(d.ownedPicks||[]).includes(p.id);
+    var ac=_mineActivePick===p.id?' active-pick':'';
+    var lc=!owned?' locked-pick':'';
+    var fn=owned?'mineSetPick(''+p.id+'')':'mineBuyPick(''+p.id+'')';
+    return '<button class="mine-pick-btn'+ac+lc+'" onclick="'+fn+'">'+p.emoji+' '+p.name+(owned?'':' 🔒')+'</button>';
+  }).join('');
+  // Inventory
+  let ig=$('mineInvGrid');
+  if(ig){
+    let inv=d.inventory||{};
+    let items=MINE_RESOURCES.filter(function(r){return (inv[r.id]||0)>0;});
+    if(items.length===0) ig.innerHTML='<div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3);grid-column:1/-1">Tom ryggsäck</div>';
+    else ig.innerHTML=items.map(function(r){
+      return '<div class="mine-inv-item"><span class="mine-inv-emoji">'+r.emoji+'</span><span class="mine-inv-name">'+r.name+'</span><span class="mine-inv-count">x'+(inv[r.id]||0)+'</span></div>';
+    }).join('');
+  }
+}
+
+function mineDig(idx){
+  let d=_mineDayData();
+  if(d.revealed.includes(idx)){return;}
+  if(d.actionsLeft<=0){showFloatBubble('Inga grävningar kvar idag!','buff');return;}
+  let bonus=_minePickWeight(_mineActivePick);
+  let resId=d.grid[idx];
+  // With bonus pick, reroll if common resource
+  if(bonus>0){
+    let res=MINE_RESOURCES.find(function(r){return r.id===resId;});
+    if(res&&(res.id==='stone'||res.id==='coal')){
+      let roll=Math.random()*100;
+      if(roll<bonus){
+        // Upgrade to random rarer resource
+        let rarePool=MINE_RESOURCES.filter(function(r){return r.val>=30;});
+        let totalW=rarePool.reduce(function(a,r){return a+r.weight;},0);
+        let r2=Math.random()*totalW;
+        let acc=0;
+        for(let j=0;j<rarePool.length;j++){
+          acc+=rarePool[j].weight;
+          if(r2<acc){resId=rarePool[j].id;break;}
+        }
+        d.grid[idx]=resId;
+      }
+    }
+  }
+  d.revealed.push(idx);
+  d.actionsLeft--;
+  let res=MINE_RESOURCES.find(function(r){return r.id===resId;})||MINE_RESOURCES[0];
+  if(!d.inventory) d.inventory={};
+  d.inventory[resId]=(d.inventory[resId]||0)+1;
+  d.totalMined=(d.totalMined||0)+1;
+  _mineSave(d);
+  gainXP(res.xp,'mine');
+  let rare=res.val>=200?' ✨ Sällsynt!':res.val>=800?' 💎 LEGENDARISK!':'';
+  showFloatBubble(res.emoji+' Hittade '+res.name+'! +'+res.xp+' XP'+rare,'buff');
+  // Tile glow
+  let tiles=document.querySelectorAll('.mine-tile');
+  if(tiles[idx]){
+    tiles[idx].classList.add('revealed');
+    tiles[idx].textContent=res.emoji;
+    tiles[idx].classList.remove('mine-tile');
+    tiles[idx].classList.add('mine-tile');
+    tiles[idx].classList.add('glow');
+    tiles[idx].onclick=null;
+  }
+  _renderMine();
+}
+
+function mineSellAll(){
+  let d=_mineDayData();
+  let inv=d.inventory||{};
+  let total=0;
+  MINE_RESOURCES.forEach(function(r){
+    if((inv[r.id]||0)>0){
+      total+=r.val*(inv[r.id]);
+    }
+  });
+  if(total===0){showFloatBubble('Ryggsäcken är tom!','buff');return;}
+  gainCoins(total);
+  d.totalCoins=(d.totalCoins||0)+total;
+  d.inventory={};
+  _mineSave(d);
+  showFloatBubble('💰 Sålde allt för '+total+' coins!','buff');
+  _renderMine();
+}
+
+function mineSetPick(pickId){
+  let d=_mineDayData();
+  if(!(d.ownedPicks||[]).includes(pickId)) return;
+  _mineActivePick=pickId;
+  _renderMine();
+}
+
+function mineBuyPick(pickId){
+  let p=MINE_PICKS.find(function(x){return x.id===pickId;});
+  if(!p) return;
+  let d=_mineDayData();
+  if((d.ownedPicks||[]).includes(pickId)){showFloatBubble('Redan ägd!','buff');return;}
+  if(p.cur==='coins'){
+    let coins=(typeof G!=='undefined'&&G.coins)||0;
+    if(coins<p.price){showFloatBubble('Inte tillräckligt coins!','buff');return;}
+    if(typeof G!=='undefined'){G.coins-=p.price;if(typeof save==='function')save();}
+  } else if(p.cur==='kc'){
+    let kc=(typeof G!=='undefined'&&G.kc)||0;
+    if(kc<p.price){showFloatBubble('Inte tillräckligt KC!','buff');return;}
+    if(typeof G!=='undefined'){G.kc-=p.price;if(typeof save==='function')save();}
+  }
+  if(!d.ownedPicks) d.ownedPicks=['stone_pick'];
+  d.ownedPicks.push(pickId);
+  _mineActivePick=pickId;
+  _mineSave(d);
+  showFloatBubble(p.emoji+' Köpte '+p.name+'!','buff');
+  _renderMine();
+}
+
+function mineBuyExtra(){
+  let coins=(typeof G!=='undefined'&&G.coins)||0;
+  if(coins<150){showFloatBubble('Inte tillräckligt coins! (150 krävs)','buff');return;}
+  if(typeof G!=='undefined'){G.coins-=150;if(typeof save==='function')save();}
+  let d=_mineDayData();
+  d.actionsLeft=(d.actionsLeft||0)+5;
+  _mineSave(d);
+  showFloatBubble('⛏️ +5 grävningar köpta!','buff');
+  _renderMine();
 }
 
 </script>
