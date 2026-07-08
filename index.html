@@ -1414,6 +1414,47 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET BANK ══ */
+.bank-panel{position:fixed;inset:0;background:#030506;z-index:927;display:none;flex-direction:column;overflow:hidden}
+.bank-panel.open{display:flex}
+.bank-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#06080c,#030506)}
+.bank-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffdd44,#88ff88,#44ddff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.bank-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.bank-hero{background:radial-gradient(ellipse at 50% 0%,rgba(255,221,68,.08),transparent 70%),linear-gradient(180deg,#090b06,#030506);border:1.5px solid rgba(255,221,68,.2);border-radius:22px;padding:20px 16px;text-align:center;margin-bottom:14px}
+.bank-building{font-size:64px;display:block;margin-bottom:6px;filter:drop-shadow(0 0 16px rgba(255,221,68,.4))}
+.bank-balance-label{font:600 10px var(--ff-body);color:rgba(255,221,68,.6);text-transform:uppercase;letter-spacing:1px}
+.bank-total-balance{font:900 28px var(--ff-head);color:#ffdd44;margin:4px 0}
+.bank-wallet-label{font:500 10px var(--ff-body);color:rgba(255,255,255,.35)}
+.bank-wallet-val{font:700 13px var(--ff-head);color:rgba(255,255,255,.6)}
+.bank-accounts{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.bank-account{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:14px}
+.bank-account.savings{border-color:rgba(68,220,255,.2);background:rgba(68,220,255,.04)}
+.bank-account.growth{border-color:rgba(0,255,136,.2);background:rgba(0,255,136,.04)}
+.bank-account.premium{border-color:rgba(255,221,68,.25);background:rgba(255,221,68,.05)}
+.bank-acc-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bank-acc-icon{font-size:24px}
+.bank-acc-name{font:800 13px var(--ff-head);color:#fff;flex:1}
+.bank-acc-rate{font:700 11px var(--ff-head);color:var(--green)}
+.bank-acc-balance{font:900 18px var(--ff-head);color:#fff;margin-bottom:4px}
+.bank-acc-interest{font:500 9px var(--ff-body);color:rgba(0,255,136,.7);margin-bottom:10px}
+.bank-acc-actions{display:flex;gap:6px}
+.bank-acc-input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font:700 11px var(--ff-head);padding:7px 10px;min-width:0;text-align:center}
+.bank-dep-btn{background:rgba(0,255,136,.15);border:1px solid rgba(0,255,136,.3);border-radius:10px;color:var(--green);font:800 10px var(--ff-head);padding:7px 14px;cursor:pointer;white-space:nowrap}
+.bank-dep-btn:active{transform:scale(.96)}
+.bank-wdw-btn{background:rgba(255,68,85,.1);border:1px solid rgba(255,68,85,.25);border-radius:10px;color:var(--red);font:800 10px var(--ff-head);padding:7px 14px;cursor:pointer;white-space:nowrap}
+.bank-wdw-btn:active{transform:scale(.96)}
+.bank-acc-note{font:500 8px var(--ff-body);color:rgba(255,255,255,.3);margin-top:6px}
+.bank-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.bank-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.bank-stat-num{font:800 14px var(--ff-head);color:#ffdd44}
+.bank-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.bank-vip{background:linear-gradient(135deg,rgba(255,221,68,.08),rgba(255,136,0,.05));border:1.5px solid rgba(255,221,68,.25);border-radius:16px;padding:14px;margin-bottom:14px}
+.bank-vip-title{font:800 12px var(--ff-head);color:#ffdd44;margin-bottom:8px}
+.bank-vip-rows{display:flex;flex-direction:column;gap:6px}
+.bank-vip-row{display:flex;align-items:center;gap:8px;font:500 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.bank-vip-check{font-size:12px}
+
 /* ══ WEATHER ══ */
 .wx-panel{position:fixed;inset:0;background:#020408;z-index:926;display:none;flex-direction:column;overflow:hidden}
 .wx-panel.open{display:flex}
@@ -6796,6 +6837,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
           <div class="ddr" onclick="cM();openCafe()"><div class="ddr-i">☕</div>Pet Café</div>
           <div class="ddr" onclick="cM();openWx()"><div class="ddr-i">🌤️</div>Väderorakel</div>
+          <div class="ddr" onclick="cM();openBank()"><div class="ddr-i">🏦</div>Pet Bank</div>
         </div>
       </div>
     </div>
@@ -7948,6 +7990,37 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET BANK -->
+<div class="bank-panel" id="bankPanel">
+  <div class="bank-header">
+    <div class="bank-title">🏦 PET BANK</div>
+    <button class="close-btn" onclick="closeBank()">✕</button>
+  </div>
+  <div class="bank-scroll">
+    <div class="bank-hero">
+      <span class="bank-building">🏦</span>
+      <div class="bank-balance-label">Total bankbalans</div>
+      <div class="bank-total-balance" id="bankTotalBal">0 💰</div>
+      <div class="bank-wallet-label">Din plånbok: <span class="bank-wallet-val" id="bankWalletVal">0 💰</span></div>
+    </div>
+    <div class="bank-accounts" id="bankAccountsDiv"></div>
+    <div class="bank-stats-row">
+      <div class="bank-stat"><div class="bank-stat-num" id="bankTotalDep">0</div><div class="bank-stat-label">💰 Insatt</div></div>
+      <div class="bank-stat"><div class="bank-stat-num" id="bankTotalInt">0</div><div class="bank-stat-label">💰 Ränta</div></div>
+      <div class="bank-stat"><div class="bank-stat-num" id="bankTotalWdw">0</div><div class="bank-stat-label">💰 Uttaget</div></div>
+    </div>
+    <div class="bank-vip">
+      <div class="bank-vip-title">💎 VIP Bonusar</div>
+      <div class="bank-vip-rows">
+        <div class="bank-vip-row"><span class="bank-vip-check" id="bvip1"></span>Insätt 500+ → +1 KC Crystal belöning</div>
+        <div class="bank-vip-row"><span class="bank-vip-check" id="bvip2"></span>Insätt 2000+ → +3 KC + Guldkort status</div>
+        <div class="bank-vip-row"><span class="bank-vip-check" id="bvip3"></span>Insätt 5000+ → +10 KC + Premium Insättare</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- WEATHER -->
 <div class="wx-panel" id="wxPanel">
@@ -27641,6 +27714,147 @@ function wxClaim(){
   gainXP(xpReward,'wx');
   showFloatBubble(wx.emoji+' '+wx.name+'! +'+coinReward+' 💰 +'+xpReward+' XP','buff');
   _renderWx();
+}
+
+
+// PET BANK SYSTEM
+const BANK_ACCS = [
+  {id:'savings', icon:'💙', name:'Sparkonto',     rate:0.03, minDep:0,    color:'#44ddff', desc:'3% ränta/dag · Ingen minimuminsättning'},
+  {id:'growth',  icon:'💚', name:'Tillväxtkonto', rate:0.07, minDep:500,  color:'#00ff88', desc:'7% ränta/dag · Minst 500 💰'},
+  {id:'premium', icon:'💛', name:'Premiumkonto',  rate:0.12, minDep:2000, color:'#ffdd44', desc:'12% ränta/dag · Minst 2000 💰'},
+];
+const BANK_KEY = 'k0509_bank';
+let _bankInputs = {};
+
+function _bankLoad(){try{return JSON.parse(localStorage.getItem(BANK_KEY)||'null');}catch(e){return null;}}
+function _bankSave(d){localStorage.setItem(BANK_KEY,JSON.stringify(d));}
+
+function _bankData(){
+  let d=_bankLoad();
+  if(!d) d={accounts:{savings:{balance:0,lastDate:null},growth:{balance:0,lastDate:null},premium:{balance:0,lastDate:null}},totalDeposited:0,totalInterest:0,totalWithdrawn:0,vipLevel:0};
+  return d;
+}
+
+function _bankApplyInterest(d){
+  let today=getTodayKey();
+  BANK_ACCS.forEach(function(acc){
+    let a=d.accounts[acc.id];
+    if(!a) return;
+    if(a.balance>0&&a.lastDate&&a.lastDate!==today){
+      let days=1;
+      let gained=Math.floor(a.balance*acc.rate*days);
+      a.balance+=gained;
+      d.totalInterest=(d.totalInterest||0)+gained;
+      if(gained>0) showFloatBubble('🏦 '+acc.name+' ränta: +'+gained+' 💰!','buff');
+    }
+    if(a.balance>0) a.lastDate=today;
+  });
+  return d;
+}
+
+function openBank(){
+  $('bankPanel').classList.add('open');
+  let d=_bankData();
+  d=_bankApplyInterest(d);
+  _bankSave(d);
+  _renderBank();
+}
+function closeBank(){ $('bankPanel').classList.remove('open'); }
+
+function _bankTotalBalance(d){
+  return BANK_ACCS.reduce(function(sum,acc){return sum+(d.accounts[acc.id]?d.accounts[acc.id].balance:0);},0);
+}
+
+function _renderBank(){
+  let d=_bankData();
+  let wallet=(typeof G!=='undefined'&&G.coins)||0;
+  let total=_bankTotalBalance(d);
+  let tb=$('bankTotalBal'); if(tb) tb.textContent=total+' 💰';
+  let wv=$('bankWalletVal'); if(wv) wv.textContent=wallet+' 💰';
+  let tdep=$('bankTotalDep'); if(tdep) tdep.textContent=d.totalDeposited||0;
+  let tint=$('bankTotalInt'); if(tint) tint.textContent=d.totalInterest||0;
+  let twdw=$('bankTotalWdw'); if(twdw) twdw.textContent=d.totalWithdrawn||0;
+  // VIP
+  let bv1=$('bvip1'); if(bv1) bv1.textContent=(d.vipLevel||0)>=1?'✅':'○';
+  let bv2=$('bvip2'); if(bv2) bv2.textContent=(d.vipLevel||0)>=2?'✅':'○';
+  let bv3=$('bvip3'); if(bv3) bv3.textContent=(d.vipLevel||0)>=3?'✅':'○';
+  // Accounts
+  let ad=$('bankAccountsDiv');
+  if(ad) ad.innerHTML=BANK_ACCS.map(function(acc){
+    let a=d.accounts[acc.id]||{balance:0,lastDate:null};
+    let bal=a.balance;
+    let dailyEst=Math.floor(bal*acc.rate);
+    let inputId='bankIn_'+acc.id;
+    return '<div class="bank-account '+acc.id+'">'+
+      '<div class="bank-acc-header">'+
+      '<span class="bank-acc-icon">'+acc.icon+'</span>'+
+      '<div class="bank-acc-name">'+acc.name+'</div>'+
+      '<div class="bank-acc-rate">+'+Math.round(acc.rate*100)+'%/dag</div>'+
+      '</div>'+
+      '<div class="bank-acc-balance">'+bal+' 💰</div>'+
+      '<div class="bank-acc-interest">'+( bal>0?'Ränta imorgon: ~+'+dailyEst+' 💰':'Inget insatt ännu')+'</div>'+
+      '<div class="bank-acc-actions">'+
+      '<input class="bank-acc-input" id="'+inputId+'" type="number" min="1" placeholder="Belopp" onchange="_bankInputs[''+acc.id+'']=parseInt(this.value)||0">'+
+      '<button class="bank-dep-btn" onclick="bankDeposit(''+acc.id+'')">+ Sätt In</button>'+
+      '<button class="bank-wdw-btn" onclick="bankWithdraw(''+acc.id+'')">- Ta Ut</button>'+
+      '</div>'+
+      '<div class="bank-acc-note">'+acc.desc+'</div>'+
+      '</div>';
+  }).join('');
+}
+
+function bankDeposit(accId){
+  let inputEl=document.getElementById('bankIn_'+accId);
+  let amt=parseInt((inputEl&&inputEl.value)||0);
+  if(!amt||amt<=0){showFloatBubble('Ange ett giltigt belopp!','buff');return;}
+  let acc=BANK_ACCS.find(function(a){return a.id===accId;});
+  if(!acc) return;
+  if(amt<acc.minDep&&acc.minDep>0){showFloatBubble('Minsta insättning: '+acc.minDep+' 💰','buff');return;}
+  let wallet=(typeof G!=='undefined'&&G.coins)||0;
+  if(wallet<amt){showFloatBubble('Inte tillräckligt coins!','buff');return;}
+  if(typeof G!=='undefined'){G.coins-=amt;if(typeof save==='function')save();}
+  let d=_bankData();
+  let a=d.accounts[accId]||{balance:0,lastDate:null};
+  a.balance+=amt;
+  a.lastDate=getTodayKey();
+  d.accounts[accId]=a;
+  d.totalDeposited=(d.totalDeposited||0)+amt;
+  // VIP check
+  if(amt>=5000&&(d.vipLevel||0)<3){
+    d.vipLevel=3;
+    if(typeof G!=='undefined'){G.kc+=10;if(typeof save==='function')save();}
+    showFloatBubble('💎 VIP Nivå 3! +10 KC!','buff');
+  } else if(amt>=2000&&(d.vipLevel||0)<2){
+    d.vipLevel=2;
+    if(typeof G!=='undefined'){G.kc+=3;if(typeof save==='function')save();}
+    showFloatBubble('💛 VIP Nivå 2! +3 KC!','buff');
+  } else if(amt>=500&&(d.vipLevel||0)<1){
+    d.vipLevel=1;
+    if(typeof G!=='undefined'){G.kc+=1;if(typeof save==='function')save();}
+    showFloatBubble('💙 VIP Nivå 1! +1 KC!','buff');
+  }
+  _bankSave(d);
+  if(inputEl) inputEl.value='';
+  gainXP(Math.floor(amt/10),'bank');
+  showFloatBubble('🏦 Insatt '+amt+' 💰 i '+acc.name+'!','buff');
+  _renderBank();
+}
+
+function bankWithdraw(accId){
+  let inputEl=document.getElementById('bankIn_'+accId);
+  let amt=parseInt((inputEl&&inputEl.value)||0);
+  if(!amt||amt<=0){showFloatBubble('Ange ett giltigt belopp!','buff');return;}
+  let d=_bankData();
+  let a=d.accounts[accId]||{balance:0,lastDate:null};
+  if(a.balance<amt){showFloatBubble('Inte tillräckligt i kontot!','buff');return;}
+  a.balance-=amt;
+  d.accounts[accId]=a;
+  d.totalWithdrawn=(d.totalWithdrawn||0)+amt;
+  _bankSave(d);
+  if(typeof G!=='undefined'){G.coins+=amt;if(typeof save==='function')save();}
+  if(inputEl) inputEl.value='';
+  showFloatBubble('🏦 Tagit ut '+amt+' 💰!','buff');
+  _renderBank();
 }
 
 </script>
