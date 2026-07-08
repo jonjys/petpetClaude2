@@ -1418,6 +1418,63 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET ARENA TOURNAMENT ══ */
+.arena-panel{position:fixed;inset:0;background:#040008;z-index:931;display:none;flex-direction:column;overflow:hidden}
+.arena-panel.open{display:flex}
+.arena-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080012,#040008)}
+.arena-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4444,#ff8800,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.arena-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.arena-hero{position:relative;background:radial-gradient(ellipse at 50% 0%,rgba(255,68,0,.12),transparent 70%),linear-gradient(180deg,#0c0400,#040008);border:1.5px solid rgba(255,100,0,.2);border-radius:22px;padding:16px;margin-bottom:14px;overflow:hidden}
+.arena-hero-title{font:900 18px var(--ff-head);color:#ffcc00;text-align:center;margin-bottom:12px}
+.arena-vs-row{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:14px}
+.arena-pet-side{flex:1;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:16px;padding:12px;text-align:center}
+.arena-pet-side.player{border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.05)}
+.arena-pet-side.enemy{border-color:rgba(255,68,68,.3);background:rgba(255,68,68,.05)}
+.arena-pet-emoji{font-size:40px;display:block;margin-bottom:4px}
+.arena-pet-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:6px}
+.arena-hp-bar{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.arena-hp-fill{height:100%;border-radius:3px;transition:width .4s ease}
+.arena-hp-fill.player{background:linear-gradient(90deg,#00ff88,#00cc66)}
+.arena-hp-fill.enemy{background:linear-gradient(90deg,#ff4444,#cc2200)}
+.arena-hp-text{font:700 9px var(--ff-body);color:rgba(255,255,255,.5);margin-top:3px}
+.arena-vs-badge{font:900 18px var(--ff-head);color:#ff8800;flex-shrink:0;text-shadow:0 0 12px rgba(255,136,0,.4)}
+.arena-log{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:10px 12px;margin-bottom:12px;max-height:120px;overflow-y:auto;min-height:80px}
+.arena-log-line{font:500 10px var(--ff-body);color:rgba(255,255,255,.6);padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.arena-log-line:last-child{border:none}
+.arena-log-line.hit{color:#ffaa44}
+.arena-log-line.crit{color:#ff4444;font-weight:700}
+.arena-log-line.heal{color:#00ff88}
+.arena-log-line.buff{color:#aa66ff}
+.arena-log-line.win{color:#ffcc00;font-weight:800}
+.arena-actions{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.arena-action-btn{flex:1;min-width:calc(50% - 3px);background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;color:#fff;font:700 11px var(--ff-head);padding:10px 6px;cursor:pointer;transition:all .15s;text-align:center}
+.arena-action-btn:active{transform:scale(.96)}
+.arena-action-btn.attack{border-color:rgba(255,68,68,.4);background:rgba(255,68,68,.08);color:#ff8888}
+.arena-action-btn.magic{border-color:rgba(170,102,255,.4);background:rgba(170,102,255,.08);color:#cc99ff}
+.arena-action-btn.defend{border-color:rgba(0,136,255,.4);background:rgba(0,136,255,.08);color:#88aaff}
+.arena-action-btn.heal{border-color:rgba(0,255,136,.4);background:rgba(0,255,136,.08);color:#00ff88}
+.arena-action-btn:disabled{opacity:.35;cursor:default;pointer-events:none}
+.arena-status-row{display:flex;gap:6px;margin-bottom:12px}
+.arena-stat-badge{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:6px;text-align:center}
+.arena-stat-val{font:800 13px var(--ff-head);color:#ffcc00}
+.arena-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.arena-floor-row{display:flex;gap:6px;margin-bottom:12px}
+.arena-floor{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:8px;text-align:center;cursor:pointer;transition:all .15s}
+.arena-floor.active{border-color:rgba(255,136,0,.5);background:rgba(255,136,0,.08)}
+.arena-floor:active{transform:scale(.97)}
+.arena-floor-emoji{font-size:20px;display:block;margin-bottom:2px}
+.arena-floor-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.6)}
+.arena-floor-diff{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.arena-start-btn{width:100%;background:linear-gradient(135deg,#cc2200,#ff6600);border:none;border-radius:14px;color:#fff;font:900 15px var(--ff-head);padding:14px;cursor:pointer;transition:all .15s;margin-bottom:12px}
+.arena-start-btn:active{transform:scale(.98)}
+.arena-rewards{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:12px}
+.arena-rew-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.arena-rew-row{display:flex;align-items:center;gap:8px;padding:4px 0}
+.arena-rew-emoji{font-size:16px}
+.arena-rew-text{font:600 10px var(--ff-body);color:rgba(255,255,255,.6);flex:1}
+.arena-rew-val{font:800 11px var(--ff-head);color:#ffcc00}
+
 /* ══ CHECK-IN ══ */
 .checkin-panel{position:fixed;inset:0;background:#030206;z-index:930;display:none;flex-direction:column;overflow:hidden}
 .checkin-panel.open{display:flex}
@@ -6982,6 +7039,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTarot()"><div class="ddr-i">🃏</div>Tarot</div>
           <div class="ddr" onclick="cM();openDream()"><div class="ddr-i">💤</div>Drömvärlden</div>
           <div class="ddr" onclick="cM();openCheckin()"><div class="ddr-i">📅</div>Daglig Inloggning</div>
+          <div class="ddr" onclick="cM();openArena()"><div class="ddr-i">⚔️</div>Pet Arena</div>
         </div>
       </div>
     </div>
@@ -8138,6 +8196,60 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET ARENA -->
+<div class="arena-panel" id="arenaPanel">
+  <div class="arena-header">
+    <div class="arena-title">⚔️ PET ARENA</div>
+    <button class="close-btn" onclick="closeArena()">✕</button>
+  </div>
+  <div class="arena-scroll">
+    <div class="arena-hero">
+      <div class="arena-hero-title">⚔️ TURNERING - VÄLJ MOTSTÅNDARE</div>
+      <div id="arenaFightArea" style="display:none">
+        <div class="arena-vs-row">
+          <div class="arena-pet-side player" id="arenaPlayerSide">
+            <span class="arena-pet-emoji" id="arenaPlayerEmoji">🐉</span>
+            <div class="arena-pet-name" id="arenaPlayerName">Din Pet</div>
+            <div class="arena-hp-bar"><div class="arena-hp-fill player" id="arenaPlayerHP" style="width:100%"></div></div>
+            <div class="arena-hp-text" id="arenaPlayerHPText">100/100</div>
+          </div>
+          <div class="arena-vs-badge">VS</div>
+          <div class="arena-pet-side enemy" id="arenaEnemySide">
+            <span class="arena-pet-emoji" id="arenaEnemyEmoji">👹</span>
+            <div class="arena-pet-name" id="arenaEnemyName">Fiende</div>
+            <div class="arena-hp-bar"><div class="arena-hp-fill enemy" id="arenaEnemyHP" style="width:100%"></div></div>
+            <div class="arena-hp-text" id="arenaEnemyHPText">100/100</div>
+          </div>
+        </div>
+        <div class="arena-log" id="arenaLog"><div class="arena-log-line">Kampen börjar!</div></div>
+        <div class="arena-actions" id="arenaActions">
+          <button class="arena-action-btn attack" onclick="arenaAction('attack')">⚔️ Anfall</button>
+          <button class="arena-action-btn magic" onclick="arenaAction('magic')">✨ Magi</button>
+          <button class="arena-action-btn defend" onclick="arenaAction('defend')">🛡️ Försvara</button>
+          <button class="arena-action-btn heal" onclick="arenaAction('heal')">💚 Hela</button>
+        </div>
+      </div>
+      <div id="arenaSelectArea">
+        <div class="arena-floor-row" id="arenaFloorRow"></div>
+        <button class="arena-start-btn" id="arenaStartBtn" onclick="arenaStartFight()">⚔️ STARTA KAMP!</button>
+      </div>
+    </div>
+    <div class="arena-status-row">
+      <div class="arena-stat-badge"><div class="arena-stat-val" id="arenaWins">0</div><div class="arena-stat-label">⚔️ Vinster</div></div>
+      <div class="arena-stat-badge"><div class="arena-stat-val" id="arenaStreak">0</div><div class="arena-stat-label">🔥 Svit</div></div>
+      <div class="arena-stat-badge"><div class="arena-stat-val" id="arenaRank">Rookie</div><div class="arena-stat-label">🏆 Rang</div></div>
+    </div>
+    <div class="arena-rewards">
+      <div class="arena-rew-title">🏆 Belöningar per seger</div>
+      <div class="arena-rew-row"><span class="arena-rew-emoji">💰</span><span class="arena-rew-text">Easy</span><span class="arena-rew-val">+100 💰</span></div>
+      <div class="arena-rew-row"><span class="arena-rew-emoji">💰</span><span class="arena-rew-text">Normal</span><span class="arena-rew-val">+250 💰</span></div>
+      <div class="arena-rew-row"><span class="arena-rew-emoji">💰</span><span class="arena-rew-text">Hard</span><span class="arena-rew-val">+600 💰 +1 KC</span></div>
+      <div class="arena-rew-row"><span class="arena-rew-emoji">💰</span><span class="arena-rew-text">LEGEND</span><span class="arena-rew-val">+1500 💰 +3 KC</span></div>
+    </div>
+  </div>
+</div>
 
 <!-- CHECK-IN -->
 <div class="checkin-panel" id="checkinPanel">
@@ -28639,6 +28751,230 @@ function checkinClaim(){
   let extra=reward.milestone?' 🏆 MILSTOLPE!':d.streak>=7?' 🔥 Serie x'+d.streak+'!':'';
   showFloatBubble('📅 Dag '+cycleDay+' hämtad! '+reward.desc+extra,'buff');
   _renderCheckin();
+}
+
+
+// PET ARENA TOURNAMENT SYSTEM
+const ARENA_KEY = 'k0509_arena';
+const ARENA_ENEMIES = [
+  {id:'goblin',   emoji:'👺', name:'Goblin',        hp:60,  atk:8,  def:3,  mag:5,  diff:'easy',   floor:0},
+  {id:'slime',    emoji:'🟢', name:'Slime King',    hp:80,  atk:10, def:4,  mag:8,  diff:'easy',   floor:0},
+  {id:'skeleton', emoji:'💀', name:'Skelett Krigare',hp:100,atk:14, def:6,  mag:10, diff:'normal', floor:1},
+  {id:'troll',    emoji:'👹', name:'Sten Troll',    hp:130, atk:18, def:10, mag:6,  diff:'normal', floor:1},
+  {id:'dragon',   emoji:'🐲', name:'Lilla Draken',  hp:160, atk:22, def:12, mag:18, diff:'hard',   floor:2},
+  {id:'witch',    emoji:'🧙', name:'Häxmästaren',   hp:150, atk:20, def:8,  mag:28, diff:'hard',   floor:2},
+  {id:'demon',    emoji:'😈', name:'DEMONLORD',     hp:220, atk:35, def:18, mag:30, diff:'legend', floor:3},
+];
+const ARENA_FLOORS = [
+  {id:0, emoji:'🌿', name:'Grön Dal',    diff:'Easy',   color:'#00cc66'},
+  {id:1, emoji:'🌋', name:'Vulkan Pass', diff:'Normal',  color:'#ff8800'},
+  {id:2, emoji:'❄️', name:'Is Fästning', diff:'Hard',    color:'#4488ff'},
+  {id:3, emoji:'💀', name:'Demonborg',   diff:'LEGEND',  color:'#cc00ff'},
+];
+const ARENA_REWARDS = {easy:{coins:100,xp:80,kc:0}, normal:{coins:250,xp:200,kc:0}, hard:{coins:600,xp:400,kc:1}, legend:{coins:1500,xp:1000,kc:3}};
+const ARENA_RANKS = ['Rookie','Bronze','Silver','Guld','Platinum','Diamond','LEGEND'];
+
+let _arenaState = null;
+let _arenaFloor = 0;
+
+function _arenaLoad(){try{return JSON.parse(localStorage.getItem(ARENA_KEY)||'null');}catch(e){return null;}}
+function _arenaSave(d){localStorage.setItem(ARENA_KEY,JSON.stringify(d));}
+function _arenaData(){
+  let d=_arenaLoad();
+  if(!d) d={wins:0,losses:0,streak:0,bestStreak:0,totalFights:0};
+  return d;
+}
+
+function openArena(){
+  $('arenaPanel').classList.add('open');
+  _arenaFloor=0;
+  _arenaState=null;
+  _renderArenaLobby();
+}
+function closeArena(){
+  $('arenaPanel').classList.remove('open');
+  _arenaState=null;
+}
+
+function _arenaGetRank(wins){
+  if(wins>=100) return 'LEGEND';
+  if(wins>=50) return 'Diamond';
+  if(wins>=25) return 'Platinum';
+  if(wins>=10) return 'Guld';
+  if(wins>=5) return 'Silver';
+  if(wins>=2) return 'Bronze';
+  return 'Rookie';
+}
+
+function _renderArenaLobby(){
+  var d=_arenaData();
+  var aw=$('arenaWins'); if(aw) aw.textContent=d.wins||0;
+  var as2=$('arenaStreak'); if(as2) as2.textContent=d.streak||0;
+  var ar=$('arenaRank'); if(ar) ar.textContent=_arenaGetRank(d.wins||0);
+  $('arenaFightArea').style.display='none';
+  $('arenaSelectArea').style.display='block';
+  // Floor selection
+  var fr=$('arenaFloorRow');
+  if(fr) fr.innerHTML=ARENA_FLOORS.map(function(f){
+    return '<div class="arena-floor'+(f.id===_arenaFloor?' active':'')+'" onclick="arenaSetFloor('+f.id+')">'+
+      '<span class="arena-floor-emoji">'+f.emoji+'</span>'+
+      '<div class="arena-floor-name">'+f.name+'</div>'+
+      '<div class="arena-floor-diff">'+f.diff+'</div>'+
+      '</div>';
+  }).join('');
+}
+
+function arenaSetFloor(floorId){
+  _arenaFloor=floorId;
+  _renderArenaLobby();
+}
+
+function arenaStartFight(){
+  var enemies=ARENA_ENEMIES.filter(function(e){return e.floor===_arenaFloor;});
+  var enemy=enemies[Math.floor(Math.random()*enemies.length)];
+  if(!enemy) return;
+  var playerMaxHP=100+((typeof G!=='undefined'?G.level:1)||1)*5;
+  _arenaState={
+    playerHP:playerMaxHP, playerMaxHP:playerMaxHP,
+    enemyHP:enemy.hp, enemyMaxHP:enemy.hp,
+    enemy:enemy, defending:false, turn:0,
+    healsLeft:2, log:['⚔️ Kamp börjar mot '+enemy.name+'!']
+  };
+  $('arenaSelectArea').style.display='none';
+  $('arenaFightArea').style.display='block';
+  _arenaRenderFight();
+}
+
+function _arenaRenderFight(){
+  var s=_arenaState;
+  if(!s) return;
+  var pe=$('arenaPlayerEmoji'); if(pe) pe.textContent=(typeof G!=='undefined'&&G.petEmoji)||'🐉';
+  var pn=$('arenaPlayerName'); if(pn) pn.textContent=(typeof G!=='undefined'&&G.petName)||'Din Pet';
+  var php=$('arenaPlayerHP'); if(php) php.style.width=Math.max(0,Math.round(s.playerHP/s.playerMaxHP*100))+'%';
+  var phpt=$('arenaPlayerHPText'); if(phpt) phpt.textContent=Math.max(0,s.playerHP)+'/'+s.playerMaxHP;
+  var ee=$('arenaEnemyEmoji'); if(ee) ee.textContent=s.enemy.emoji;
+  var en=$('arenaEnemyName'); if(en) en.textContent=s.enemy.name;
+  var ehp=$('arenaEnemyHP'); if(ehp) ehp.style.width=Math.max(0,Math.round(s.enemyHP/s.enemyMaxHP*100))+'%';
+  var ehpt=$('arenaEnemyHPText'); if(ehpt) ehpt.textContent=Math.max(0,s.enemyHP)+'/'+s.enemyMaxHP;
+  // Log
+  var log=$('arenaLog');
+  if(log){
+    log.innerHTML=s.log.slice(-8).map(function(l){
+      var cls='arena-log-line';
+      if(l.indexOf('⚔️')>=0&&l.indexOf('träffar')>=0) cls+=' hit';
+      if(l.indexOf('KRIT')>=0) cls+=' crit';
+      if(l.indexOf('hela')>=0||l.indexOf('HP')>=0) cls+=' heal';
+      if(l.indexOf('förstärker')>=0||l.indexOf('sköldar')>=0) cls+=' buff';
+      if(l.indexOf('VINNER')>=0||l.indexOf('BESEGRAR')>=0) cls+=' win';
+      return '<div class="'+cls+'">'+l+'</div>';
+    }).join('');
+    log.scrollTop=log.scrollHeight;
+  }
+  // Disable buttons if fight over
+  var btnDisabled=s.playerHP<=0||s.enemyHP<=0;
+  var healBtn=document.querySelector('.arena-action-btn.heal');
+  if(healBtn) healBtn.disabled=btnDisabled||(s.healsLeft<=0);
+  document.querySelectorAll('.arena-action-btn').forEach(function(b){
+    if(!b.classList.contains('heal')) b.disabled=btnDisabled;
+  });
+}
+
+function arenaAction(type){
+  var s=_arenaState;
+  if(!s||s.playerHP<=0||s.enemyHP<=0) return;
+  s.turn++;
+  s.defending=false;
+  var playerAtk=(typeof G!=='undefined'?G.level:1)*3+15;
+  var playerMag=(typeof G!=='undefined'?G.level:1)*2+10;
+  // Player action
+  if(type==='attack'){
+    var dmg=playerAtk+Math.floor(Math.random()*10)-s.enemy.def;
+    dmg=Math.max(1,dmg);
+    var crit=Math.random()<0.15;
+    if(crit){dmg=Math.floor(dmg*1.8);s.log.push('💥 KRIT! Du träffar '+s.enemy.name+' för '+dmg+' skada!');}
+    else{s.log.push('⚔️ Du träffar '+s.enemy.name+' för '+dmg+' skada!');}
+    s.enemyHP-=dmg;
+  } else if(type==='magic'){
+    var mdmg=playerMag+Math.floor(Math.random()*15);
+    mdmg=Math.max(1,mdmg-Math.floor(s.enemy.mag/3));
+    s.log.push('✨ Magi träffar '+s.enemy.name+' för '+mdmg+' energiskada!');
+    s.enemyHP-=mdmg;
+  } else if(type==='defend'){
+    s.defending=true;
+    s.log.push('🛡️ Du förstärker ditt försvar!');
+  } else if(type==='heal'){
+    if(s.healsLeft>0){
+      var hamt=Math.floor(s.playerMaxHP*0.35);
+      s.playerHP=Math.min(s.playerMaxHP,s.playerHP+hamt);
+      s.healsLeft--;
+      s.log.push('💚 Du helar '+hamt+' HP! ('+s.healsLeft+' heals kvar)');
+    }
+  }
+  // Check if enemy dead
+  if(s.enemyHP<=0){
+    s.enemyHP=0;
+    s.log.push('🏆 Du BESEGRAR '+s.enemy.name+'! SEGER!');
+    _arenaRenderFight();
+    _arenaResolveWin();
+    return;
+  }
+  // Enemy turn
+  setTimeout(function(){
+    if(!s||s.playerHP<=0) return;
+    var etype=Math.random();
+    var edmg;
+    if(etype<0.6){
+      edmg=s.enemy.atk+Math.floor(Math.random()*8)-(s.defending?10:0);
+      edmg=Math.max(1,edmg);
+      var ecrit=Math.random()<0.1;
+      if(ecrit){edmg=Math.floor(edmg*1.6);s.log.push('💥 '+s.enemy.name+' KRIT! '+edmg+' skada!');}
+      else{s.log.push('👹 '+s.enemy.name+' attackerar för '+edmg+' skada!');}
+    } else {
+      edmg=s.enemy.mag+Math.floor(Math.random()*10)-(s.defending?5:0);
+      edmg=Math.max(1,edmg);
+      s.log.push('🌀 '+s.enemy.name+' kastar magi: '+edmg+' skada!');
+    }
+    s.playerHP-=edmg;
+    if(s.playerHP<=0){
+      s.playerHP=0;
+      s.log.push('💔 Du förlorade mot '+s.enemy.name+'...');
+      _arenaRenderFight();
+      _arenaResolveLoss();
+      return;
+    }
+    _arenaRenderFight();
+  }, 600);
+}
+
+function _arenaResolveWin(){
+  var s=_arenaState;
+  var d=_arenaData();
+  var diff=s.enemy.diff;
+  var rew=ARENA_REWARDS[diff]||ARENA_REWARDS.easy;
+  d.wins=(d.wins||0)+1;
+  d.streak=(d.streak||0)+1;
+  if(d.streak>(d.bestStreak||0)) d.bestStreak=d.streak;
+  d.totalFights=(d.totalFights||0)+1;
+  _arenaSave(d);
+  gainCoins(rew.coins);
+  gainXP(rew.xp,'action');
+  if(rew.kc>0&&typeof G!=='undefined'){G.kc+=rew.kc;if(typeof save==='function')save();}
+  var aw=$('arenaWins'); if(aw) aw.textContent=d.wins;
+  var as2=$('arenaStreak'); if(as2) as2.textContent=d.streak;
+  var ar=$('arenaRank'); if(ar) ar.textContent=_arenaGetRank(d.wins);
+  showFloatBubble('⚔️ SEGER! +'+rew.coins+' 💰'+( rew.kc?' +'+rew.kc+' KC':''),'buff');
+  setTimeout(function(){ _arenaState=null; _renderArenaLobby(); }, 1800);
+}
+
+function _arenaResolveLoss(){
+  var d=_arenaData();
+  d.losses=(d.losses||0)+1;
+  d.streak=0;
+  d.totalFights=(d.totalFights||0)+1;
+  _arenaSave(d);
+  var as2=$('arenaStreak'); if(as2) as2.textContent=0;
+  showFloatBubble('💔 Förlust... Träna hårdare!','buff');
+  setTimeout(function(){ _arenaState=null; _renderArenaLobby(); }, 1800);
 }
 
 </script>
