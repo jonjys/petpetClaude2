@@ -1384,6 +1384,48 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY DUNGEON ══ */
+.dung-panel{position:fixed;inset:0;background:#030508;z-index:896;display:none;flex-direction:column;overflow:hidden}
+.dung-panel.open{display:flex}
+.dung-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0510,#050308)}
+.dung-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff6644,#ffaa22);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.dung-scroll{flex:1;overflow:hidden;display:flex;flex-direction:column;padding:12px 14px 20px;gap:10px}
+.dung-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dung-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.dung-stat-num{font:800 16px var(--ff-head);color:var(--orange)}
+.dung-stat-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);text-transform:uppercase}
+.dung-floor-dots{display:flex;gap:6px;justify-content:center}
+.dung-floor-dot{flex:1;max-width:48px;height:6px;border-radius:3px;background:rgba(255,255,255,.1)}
+.dung-floor-dot.done{background:var(--green)}
+.dung-floor-dot.current{background:var(--orange);animation:dungDotPulse 1s ease-in-out infinite}
+.dung-floor-dot.boss{background:var(--red)}
+@keyframes dungDotPulse{0%,100%{opacity:.7}50%{opacity:1;box-shadow:0 0 8px var(--orange)}}
+.dung-room{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:space-around;padding:14px;position:relative;overflow:hidden;min-height:200px}
+.dung-room.boss-room{background:rgba(255,40,40,.06);border-color:rgba(255,68,68,.3)}
+.dung-enemy-name{font:800 15px var(--ff-head);color:#fff;text-align:center}
+.dung-enemy-emoji{font-size:80px;line-height:1;cursor:pointer;user-select:none;transition:transform .08s;filter:drop-shadow(0 0 20px rgba(255,100,50,.4))}
+.dung-enemy-emoji:active{transform:scale(.88)}
+.dung-enemy-emoji.boss{font-size:96px;animation:bossFloat 3s ease-in-out infinite}
+@keyframes bossFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
+.dung-enemy-hp-bg{width:100%;height:10px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden}
+.dung-enemy-hp-fill{height:100%;background:linear-gradient(90deg,var(--red),#ff6644);border-radius:5px;transition:width .25s}
+.dung-enemy-hp-fill.low{background:linear-gradient(90deg,#aa0000,var(--red));animation:hpWarn .5s ease-in-out infinite}
+@keyframes hpWarn{0%,100%{opacity:1}50%{opacity:.6}}
+.dung-player-hp-row{display:flex;align-items:center;gap:8px}
+.dung-player-hp-bg{flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+.dung-player-hp-fill{height:100%;background:linear-gradient(90deg,var(--green),#aaff44);border-radius:4px;transition:width .3s}
+.dung-player-hp-fill.low{background:linear-gradient(90deg,var(--red),var(--orange))}
+.dung-tap-hint{font:600 11px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;animation:dungHint 2s ease-in-out infinite}
+@keyframes dungHint{0%,100%{opacity:.4}50%{opacity:1}}
+.dung-action-row{display:flex;gap:8px}
+.dung-start-btn{flex:1;padding:13px;background:linear-gradient(135deg,#ff6644,#ffaa22);border:none;border-radius:14px;color:#000;font:800 13px var(--ff-head);cursor:pointer}
+.dung-skill-btn{padding:12px 14px;background:rgba(255,68,85,.15);border:1px solid rgba(255,68,85,.3);border-radius:14px;color:var(--red);font:700 11px var(--ff-head);cursor:pointer;white-space:nowrap}
+.dung-skill-btn:disabled{opacity:.35;cursor:default}
+.dung-dmg-float{position:absolute;font:900 18px var(--ff-head);color:#ff8844;pointer-events:none;animation:dungDmgUp .75s ease-out forwards;white-space:nowrap;text-shadow:0 0 8px rgba(255,100,50,.8)}
+@keyframes dungDmgUp{0%{transform:translateY(0) scale(1.1);opacity:1}100%{transform:translateY(-55px) scale(.8);opacity:0}}
+.dung-result-box{text-align:center;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
+
 /* ══ MINI FARM ══ */
 .farm-panel{position:fixed;inset:0;background:#060c06;z-index:894;display:none;flex-direction:column;overflow:hidden}
 .farm-panel.open{display:flex}
@@ -7132,6 +7174,37 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY DUNGEON -->
+<div class="dung-panel" id="dungPanel">
+  <div class="dung-header">
+    <div class="dung-title">⚔️ DAILY DUNGEON</div>
+    <button class="close-btn" onclick="closeDungeon()">✕</button>
+  </div>
+  <div class="dung-scroll" id="dungScroll">
+    <div class="dung-stats-row">
+      <div class="dung-stat"><div class="dung-stat-num" id="dungFloorNum">0</div><div class="dung-stat-label">Rum</div></div>
+      <div class="dung-stat"><div class="dung-stat-num" id="dungDmgDone">0</div><div class="dung-stat-label">Skada</div></div>
+      <div class="dung-stat"><div class="dung-stat-num" id="dungRewardXP">0</div><div class="dung-stat-label">XP Vunnen</div></div>
+    </div>
+    <div class="dung-floor-dots" id="dungFloorDots"></div>
+    <div class="dung-room" id="dungRoom">
+      <div style="font-size:48px">⚔️</div>
+      <div style="font:700 15px var(--ff-head);color:rgba(255,255,255,.5);text-align:center">Daily Dungeon</div>
+      <div style="font:500 11px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;line-height:1.5">5 rum av monster väntar.<br>Tryck på monstret för att attackera!</div>
+    </div>
+    <div class="dung-player-hp-row">
+      <span style="font-size:16px">❤️</span>
+      <div class="dung-player-hp-bg"><div class="dung-player-hp-fill" id="dungPHP" style="width:100%"></div></div>
+      <span style="font:700 11px var(--ff-head);color:#fff;min-width:60px;text-align:right" id="dungPHPNum">100/100</span>
+    </div>
+    <div class="dung-action-row">
+      <button class="dung-start-btn" id="dungStartBtn" onclick="startDungeon()">⚔️ STARTA DUNGEON</button>
+      <button class="dung-skill-btn" id="dungSkillBtn" onclick="dungUseSkill()" disabled>💥 SPECIAL</button>
+    </div>
+  </div>
+</div>
 
 <!-- MINI FARM -->
 <div class="farm-panel" id="farmPanel">
@@ -20734,6 +20807,185 @@ setTimeout(()=>{
   let ready=plots.filter(p=>!p.empty&&FARM_SEEDS.find(s=>s.id===p.seedId&&now-p.plantedAt>=s.time)).length;
   if(ready>0) pushNotif('🌾','Farm klar!',`${ready} gröda${ready>1?'r':''} redo att skördas!`,"openFarm()");
 },4000);
+
+
+// DAILY DUNGEON
+const DUNG_ROOMS = [
+  {id:1,name:'Slimegrottan',    emoji:'🟢',boss:false,hp:80,  atk:6,  rew:{xp:80,  coins:40}},
+  {id:2,name:'Goblinlyan',      emoji:'👺',boss:false,hp:160, atk:10, rew:{xp:160, coins:80}},
+  {id:3,name:'Troldkung',       emoji:'🧌',boss:false,hp:280, atk:15, rew:{xp:280, coins:140}},
+  {id:4,name:'Vampyrens Gömma', emoji:'🧛',boss:false,hp:450, atk:20, rew:{xp:450, coins:220}},
+  {id:5,name:'DRAKBOSSEN',      emoji:'🐲',boss:true, hp:900, atk:25, rew:{xp:1200,coins:600,kc:8}},
+];
+const DUNG_KEY_DONE = 'k0509_dung_done';
+const DUNG_MAX_HP = 100;
+let _dung={active:false,room:0,enemyMaxHp:0,enemyHp:0,playerHp:DUNG_MAX_HP,totalDmg:0,totalXP:0,skillCd:false,tick:null};
+
+function openDungeon(){
+  $('dungPanel').classList.add('open');
+  _dungInitDots();
+  _dungRenderStats();
+  let done=localStorage.getItem(DUNG_KEY_DONE)===getTodayKey();
+  let sb=$('dungStartBtn');
+  if(sb&&done&&!_dung.active){sb.textContent='✅ KLART IDAG';sb.style.opacity='.5';sb.onclick=null;}
+}
+function closeDungeon(){
+  if(_dung.tick) clearInterval(_dung.tick);
+  $('dungPanel').classList.remove('open');
+}
+
+function _dungInitDots(){
+  let dots=$('dungFloorDots');
+  if(!dots) return;
+  dots.innerHTML=DUNG_ROOMS.map((r,i)=>`<div class="dung-floor-dot ${r.boss?'boss':''}" id="dungDot${i}"></div>`).join('');
+}
+
+function _dungUpdateDots(){
+  DUNG_ROOMS.forEach((_,i)=>{
+    let d=document.getElementById('dungDot'+i);
+    if(!d) return;
+    d.className='dung-floor-dot'+(DUNG_ROOMS[i].boss?' boss':'');
+    if(i<_dung.room) d.classList.add('done');
+    else if(i===_dung.room&&_dung.active) d.classList.add('current');
+  });
+}
+
+function _dungRenderStats(){
+  let fn=$('dungFloorNum'); if(fn) fn.textContent=_dung.room;
+  let dd=$('dungDmgDone'); if(dd) dd.textContent=_dung.totalDmg;
+  let dr=$('dungRewardXP'); if(dr) dr.textContent=_dung.totalXP;
+  let pct=Math.max(0,(_dung.playerHp/DUNG_MAX_HP)*100);
+  let fill=$('dungPHP'); if(fill){fill.style.width=pct+'%';fill.classList.toggle('low',pct<30);}
+  let num=$('dungPHPNum'); if(num) num.textContent=Math.max(0,_dung.playerHp)+'/'+DUNG_MAX_HP;
+}
+
+function startDungeon(){
+  if(localStorage.getItem(DUNG_KEY_DONE)===getTodayKey()) return;
+  _dung={active:true,room:0,enemyMaxHp:0,enemyHp:0,playerHp:DUNG_MAX_HP,totalDmg:0,totalXP:0,skillCd:false,tick:null};
+  let sb=$('dungStartBtn'); if(sb) sb.style.display='none';
+  let skill=$('dungSkillBtn'); if(skill) skill.disabled=false;
+  _dungEnterRoom(0);
+}
+
+function _dungEnterRoom(idx){
+  if(idx>=DUNG_ROOMS.length){ _dungComplete(); return; }
+  _dung.room=idx;
+  let r=DUNG_ROOMS[idx];
+  _dung.enemyMaxHp=r.hp; _dung.enemyHp=r.hp;
+  _dungUpdateDots(); _dungRenderStats();
+  let room=$('dungRoom');
+  if(room){
+    room.className='dung-room'+(r.boss?' boss-room':'');
+    room.innerHTML=`
+      <div class="dung-enemy-name">${r.boss?'👑 BOSS: ':''} ${r.name}</div>
+      <div class="dung-enemy-emoji${r.boss?' boss':''}" id="dungEnemyEmoji" onclick="dungTap()">${r.emoji}</div>
+      <div style="width:100%">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+          <span style="font:600 10px var(--ff-body);color:rgba(255,255,255,.4)">❤️ ${r.name}</span>
+          <span style="font:700 10px var(--ff-head);color:var(--red)" id="dungEHPNum">${r.hp}/${r.hp}</span>
+        </div>
+        <div class="dung-enemy-hp-bg"><div class="dung-enemy-hp-fill" id="dungEHP" style="width:100%"></div></div>
+      </div>
+      <div class="dung-tap-hint">👆 Tryck för att attackera!</div>`;
+  }
+  if(_dung.tick) clearInterval(_dung.tick);
+  _dung.tick=setInterval(()=>{
+    if(!_dung.active) return;
+    _dung.playerHp-=r.atk;
+    _dungRenderStats();
+    if(_dung.playerHp<=0){ clearInterval(_dung.tick); _dungDie(); }
+  },3000);
+}
+
+function dungTap(){
+  if(!_dung.active) return;
+  let petLvl=(typeof G!=='undefined'&&G.level)||1;
+  let dmg=petLvl*3+12+Math.floor(Math.random()*8);
+  _dung.totalDmg+=dmg; _dung.enemyHp-=dmg;
+  let enemy=document.getElementById('dungEnemyEmoji');
+  if(enemy&&enemy.parentElement){
+    let fl=document.createElement('div');
+    fl.className='dung-dmg-float';
+    fl.textContent='-'+dmg;
+    fl.style.cssText='left:'+Math.max(10,enemy.offsetLeft+enemy.offsetWidth/2-20)+'px;top:'+(enemy.offsetTop+10)+'px;position:absolute';
+    enemy.parentElement.appendChild(fl);
+    setTimeout(()=>{ try{fl.remove()}catch(e){} },850);
+  }
+  let r=DUNG_ROOMS[_dung.room];
+  let pct=Math.max(0,(_dung.enemyHp/r.hp)*100);
+  let ef=$('dungEHP'); if(ef){ef.style.width=pct+'%';ef.classList.toggle('low',pct<20);}
+  let en=$('dungEHPNum'); if(en) en.textContent=Math.max(0,_dung.enemyHp)+'/'+r.hp;
+  _dungRenderStats();
+  if(_dung.enemyHp<=0){ clearInterval(_dung.tick); _dungRoomClear(r); }
+}
+
+function dungUseSkill(){
+  if(!_dung.active||_dung.skillCd) return;
+  let petLvl=(typeof G!=='undefined'&&G.level)||1;
+  let dmg=petLvl*8+60;
+  _dung.skillCd=true;
+  let skill=$('dungSkillBtn');
+  if(skill){ skill.disabled=true; skill.textContent='⏳ 20s'; }
+  setTimeout(()=>{
+    _dung.skillCd=false;
+    let s=$('dungSkillBtn');
+    if(s&&_dung.active){ s.disabled=false; s.textContent='💥 SPECIAL'; }
+  },20000);
+  _dung.totalDmg+=dmg; _dung.enemyHp-=dmg;
+  showFloatBubble('💥 SPECIAL ATTACK! -'+dmg+'HP','buff');
+  let r=DUNG_ROOMS[_dung.room];
+  let pct=Math.max(0,(_dung.enemyHp/r.hp)*100);
+  let ef=$('dungEHP'); if(ef){ef.style.width=pct+'%';ef.classList.toggle('low',pct<20);}
+  let en=$('dungEHPNum'); if(en) en.textContent=Math.max(0,_dung.enemyHp)+'/'+r.hp;
+  _dungRenderStats();
+  if(_dung.enemyHp<=0){ clearInterval(_dung.tick); _dungRoomClear(r); }
+}
+
+function _dungRoomClear(r){
+  gainXP(r.rew.xp,'dungeon');
+  if(r.rew.coins) gainCoins(r.rew.coins);
+  if(r.rew.kc) gainKC(r.rew.kc);
+  _dung.totalXP+=r.rew.xp;
+  showFloatBubble('⚔️ Rum '+(r.id)+' klar! +'+r.rew.xp+'XP','buff');
+  if(typeof petMicroAnim==='function') petMicroAnim('bounce');
+  let room=$('dungRoom');
+  if(room) room.innerHTML='<div style="font-size:48px;margin:auto">✅</div><div style="font:700 14px var(--ff-head);color:var(--green);text-align:center">Rum klar!</div>';
+  setTimeout(()=>_dungEnterRoom(_dung.room+1),1000);
+}
+
+function _dungDie(){
+  _dung.active=false;
+  let room=$('dungRoom');
+  if(room) room.innerHTML=`<div class="dung-result-box">
+    <div style="font-size:56px">💀</div>
+    <div style="font:900 24px var(--ff-head);color:var(--red)">DU DOG</div>
+    <div style="font:500 11px var(--ff-body);color:rgba(255,255,255,.5)">Nådde rum ${_dung.room+1} av 5</div>
+    <div style="font:700 14px var(--ff-body);color:var(--gold)">+${_dung.totalXP} XP intjänat</div>
+    <button class="dung-start-btn" style="margin-top:8px" onclick="closeDungeon()">Stäng</button>
+  </div>`;
+  let sb=$('dungStartBtn'); if(sb) sb.style.display='none';
+  logActivity('battle','Dungeon: Dog i rum '+(_dung.room+1)+'/5',{xp:_dung.totalXP});
+}
+
+function _dungComplete(){
+  _dung.active=false;
+  localStorage.setItem(DUNG_KEY_DONE,getTodayKey());
+  let bonus={xp:600,coins:400,kc:12};
+  gainXP(bonus.xp,'dungeon'); gainCoins(bonus.coins); gainKC(bonus.kc);
+  _dung.totalXP+=bonus.xp;
+  let room=$('dungRoom');
+  if(room) room.innerHTML=`<div class="dung-result-box">
+    <div style="font-size:64px">🏆</div>
+    <div style="font:900 26px var(--ff-head);color:var(--gold)">DUNGEON KLAR!</div>
+    <div style="font:500 11px var(--ff-body);color:rgba(255,255,255,.5)">Alla 5 rum besegrade — legendary!</div>
+    <div style="font:700 15px var(--ff-body);color:var(--gold)">+${_dung.totalXP} XP · +${bonus.coins}💰 · +${bonus.kc}💎</div>
+    <button class="dung-start-btn" style="margin-top:8px" onclick="closeDungeon()">🎉 Stäng</button>
+  </div>`;
+  let sb=$('dungStartBtn'); if(sb) sb.style.display='none';
+  logActivity('battle','Dungeon CLEARED! Alla 5 rum',{xp:_dung.totalXP,coins:bonus.coins,kc:bonus.kc});
+  showFloatBubble('🏆 DUNGEON KLAR! Legendary!','buff');
+  if(typeof petMicroAnim==='function') petMicroAnim('bounce');
+}
 
 </script>
 
