@@ -1395,6 +1395,73 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ BATTLE ARENA ══ */
+.battle-panel{position:fixed;inset:0;background:#080210;z-index:908;display:none;flex-direction:column;overflow:hidden}
+.battle-panel.open{display:flex}
+.battle-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#120620,#080210)}
+.battle-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4455,#ff8844);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.battle-scroll{flex:1;overflow-y:auto;padding:0 0 28px}
+.battle-arena-bg{background:linear-gradient(180deg,#1a0830 0%,#0d0218 100%);padding:16px 14px}
+.battle-vs-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:16px}
+.battle-fighter{flex:1;text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:12px 8px}
+.battle-fighter.player{border-color:rgba(68,136,255,.4);background:rgba(68,136,255,.06)}
+.battle-fighter.enemy{border-color:rgba(255,68,85,.4);background:rgba(255,68,85,.06)}
+.battle-fighter.winner{border-color:rgba(0,255,136,.6);background:rgba(0,255,136,.1)}
+.battle-fighter.loser{opacity:.5}
+.battle-pet-emoji{font-size:48px;display:block;margin-bottom:4px}
+.battle-pet-name{font:800 12px var(--ff-head);color:#fff;margin-bottom:4px}
+.battle-hp-bar-bg{width:100%;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.battle-hp-bar-fill{height:100%;border-radius:4px;transition:width .4s}
+.battle-hp-text{font:700 10px var(--ff-body);color:rgba(255,255,255,.6)}
+.battle-vs-badge{font:900 18px var(--ff-head);color:rgba(255,255,255,.4);flex-shrink:0}
+.battle-log{background:rgba(0,0,0,.3);border-radius:14px;padding:10px 12px;margin:0 14px 12px;max-height:110px;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.battle-log-line{font:500 10px var(--ff-body);color:rgba(255,255,255,.7);padding:2px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.battle-log-line.player-action{color:#4488ff}
+.battle-log-line.enemy-action{color:#ff4455}
+.battle-log-line.result{color:var(--gold);font-weight:700}
+.battle-moves-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 14px 12px}
+.battle-move-btn{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:16px;padding:12px 6px;cursor:pointer;transition:all .15s;text-align:center}
+.battle-move-btn:active{transform:scale(.95)}
+.battle-move-btn.disabled{opacity:.3;pointer-events:none}
+.battle-move-emoji{font-size:28px;display:block;margin-bottom:4px}
+.battle-move-name{font:800 10px var(--ff-head);color:#fff;display:block;margin-bottom:2px}
+.battle-move-desc{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);display:block}
+.battle-move-btn.attack{border-color:rgba(255,68,85,.4);background:rgba(255,68,85,.08)}
+.battle-move-btn.magic{border-color:rgba(170,102,255,.4);background:rgba(170,102,255,.08)}
+.battle-move-btn.guard{border-color:rgba(68,136,255,.4);background:rgba(68,136,255,.08)}
+.battle-move-btn.special{border-color:rgba(255,204,0,.5);background:rgba(255,204,0,.1)}
+.battle-status-bar{display:flex;gap:8px;align-items:center;padding:0 14px 10px}
+.battle-turn-badge{background:rgba(255,255,255,.08);border-radius:10px;padding:5px 12px;font:700 10px var(--ff-head);color:rgba(255,255,255,.6)}
+.battle-mp-bar{flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.battle-mp-fill{height:100%;background:linear-gradient(90deg,#aa66ff,#4488ff);border-radius:3px;transition:width .3s}
+.battle-mp-label{font:600 9px var(--ff-body);color:rgba(170,102,255,.8)}
+.battle-result-card{background:linear-gradient(135deg,rgba(0,255,136,.12),rgba(68,136,255,.08));border:1.5px solid rgba(0,255,136,.3);border-radius:20px;padding:20px;margin:0 14px 14px;text-align:center}
+.battle-result-card.lose{background:linear-gradient(135deg,rgba(255,68,85,.1),rgba(0,0,0,.2));border-color:rgba(255,68,85,.3)}
+.battle-result-title{font:900 24px var(--ff-head);color:#fff;margin-bottom:6px}
+.battle-result-rewards{font:600 13px var(--ff-body);color:var(--gold);margin-bottom:14px}
+.battle-history-row{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px}
+.battle-hist-chip{font:600 9px var(--ff-body);padding:3px 10px;border-radius:8px;color:#fff}
+.battle-hist-chip.win{background:rgba(0,255,136,.2);border:1px solid rgba(0,255,136,.3)}
+.battle-hist-chip.lose{background:rgba(255,68,85,.15);border:1px solid rgba(255,68,85,.25)}
+.battle-hist-chip.draw{background:rgba(255,204,0,.15);border:1px solid rgba(255,204,0,.25)}
+.battle-lobby{padding:0 14px 14px}
+.battle-lobby-title{font:700 12px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.battle-npc-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:8px;cursor:pointer;transition:all .15s}
+.battle-npc-card:active{transform:scale(.98)}
+.battle-npc-card.fought{opacity:.5;pointer-events:none}
+.battle-npc-emoji{font-size:36px;flex-shrink:0}
+.battle-npc-info{flex:1}
+.battle-npc-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.battle-npc-stats{font:500 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.battle-npc-badge{font:700 9px var(--ff-body);padding:3px 8px;border-radius:8px;background:rgba(255,68,85,.15);color:var(--red);border:1px solid rgba(255,68,85,.25)}
+.battle-npc-badge.easy{background:rgba(0,255,136,.1);color:var(--green);border-color:rgba(0,255,136,.2)}
+.battle-npc-badge.medium{background:rgba(255,204,0,.1);color:var(--gold);border-color:rgba(255,204,0,.2)}
+.battle-today-row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.04);border-radius:12px;padding:8px 14px;margin:0 14px 14px}
+.battle-today-stat{text-align:center}
+.battle-today-num{font:800 18px var(--ff-head);color:#fff}
+.battle-today-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+
 /* ══ TREASURE CHESTS ══ */
 .chest-panel{position:fixed;inset:0;background:#040306;z-index:907;display:none;flex-direction:column;overflow:hidden}
 .chest-panel.open{display:flex}
@@ -5966,6 +6033,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAuction()"><div class="ddr-i">🏛️</div>Auktionshus</div>
           <div class="ddr" onclick="cM();openTraits()"><div class="ddr-i">🎭</div>Pet Karaktär</div>
           <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Skattekistor</div>
+          <div class="ddr" onclick="cM();openBattle()"><div class="ddr-i">🏟️</div>Battle Arena</div>
         </div>
       </div>
     </div>
@@ -7574,6 +7642,98 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- BATTLE ARENA -->
+<div class="battle-panel" id="battlePanel">
+  <div class="battle-header">
+    <div class="battle-title">🏟️ BATTLE ARENA</div>
+    <button class="close-btn" onclick="closeBattle()">✕</button>
+  </div>
+  <div class="battle-scroll" id="battleScroll">
+    <div class="battle-arena-bg">
+      <div class="battle-today-row">
+        <div class="battle-today-stat">
+          <div class="battle-today-num" id="battleWinsToday">0</div>
+          <div class="battle-today-label">Vinster idag</div>
+        </div>
+        <div class="battle-today-stat">
+          <div class="battle-today-num" id="battleFightsLeft">5</div>
+          <div class="battle-today-label">Matcher kvar</div>
+        </div>
+        <div class="battle-today-stat">
+          <div class="battle-today-num" id="battleTotalWins">0</div>
+          <div class="battle-today-label">Totalt vunna</div>
+        </div>
+      </div>
+      <div id="battleFightArea" style="display:none">
+        <div class="battle-vs-row">
+          <div class="battle-fighter player" id="battlePlayerCard">
+            <span class="battle-pet-emoji" id="battlePlayerEmoji">🐾</span>
+            <div class="battle-pet-name" id="battlePlayerName">Du</div>
+            <div class="battle-hp-bar-bg"><div class="battle-hp-bar-fill" id="battlePlayerHP" style="width:100%;background:var(--green)"></div></div>
+            <div class="battle-hp-text" id="battlePlayerHPText">100/100 HP</div>
+          </div>
+          <div class="battle-vs-badge">VS</div>
+          <div class="battle-fighter enemy" id="battleEnemyCard">
+            <span class="battle-pet-emoji" id="battleEnemyEmoji">❓</span>
+            <div class="battle-pet-name" id="battleEnemyName">Motståndare</div>
+            <div class="battle-hp-bar-bg"><div class="battle-hp-bar-fill" id="battleEnemyHP" style="width:100%;background:var(--red)"></div></div>
+            <div class="battle-hp-text" id="battleEnemyHPText">200/200 HP</div>
+          </div>
+        </div>
+        <div class="battle-status-bar">
+          <div class="battle-turn-badge" id="battleTurnBadge">Runda 1</div>
+          <div class="battle-mp-label">MP:</div>
+          <div class="battle-mp-bar"><div class="battle-mp-fill" id="battleMPFill" style="width:100%"></div></div>
+          <div class="battle-mp-label" id="battleMPText">3/3</div>
+        </div>
+        <div class="battle-log" id="battleLog"></div>
+        <div class="battle-moves-grid" id="battleMovesGrid">
+          <button class="battle-move-btn attack" onclick="battleMove('attack')">
+            <span class="battle-move-emoji">⚔️</span>
+            <span class="battle-move-name">Attack</span>
+            <span class="battle-move-desc">Fysisk skada</span>
+          </button>
+          <button class="battle-move-btn magic" onclick="battleMove('magic')">
+            <span class="battle-move-emoji">🔮</span>
+            <span class="battle-move-name">Magi</span>
+            <span class="battle-move-desc">Kostar 1 MP</span>
+          </button>
+          <button class="battle-move-btn guard" onclick="battleMove('guard')">
+            <span class="battle-move-emoji">🛡️</span>
+            <span class="battle-move-name">Blocka</span>
+            <span class="battle-move-desc">-50% skada</span>
+          </button>
+          <button class="battle-move-btn special" id="battleSpecialBtn" onclick="battleMove('special')">
+            <span class="battle-move-emoji">💥</span>
+            <span class="battle-move-name">Special</span>
+            <span class="battle-move-desc">Kosta 2 MP</span>
+          </button>
+          <button class="battle-move-btn" style="border-color:rgba(0,221,204,.3);background:rgba(0,221,204,.06)" onclick="battleMove('heal')">
+            <span class="battle-move-emoji">💚</span>
+            <span class="battle-move-name">Läka</span>
+            <span class="battle-move-desc">Kosta 2 MP</span>
+          </button>
+          <button class="battle-move-btn" style="border-color:rgba(255,204,0,.3);background:rgba(255,204,0,.06)" onclick="battleMove('boost')">
+            <span class="battle-move-emoji">⚡</span>
+            <span class="battle-move-name">Boost</span>
+            <span class="battle-move-desc">+ATK nästa</span>
+          </button>
+        </div>
+      </div>
+      <div id="battleResultArea" style="display:none"></div>
+    </div>
+    <div class="battle-lobby" id="battleLobby">
+      <div class="battle-lobby-title">Välj motståndare</div>
+      <div id="battleNPCList"></div>
+    </div>
+    <div style="padding:0 14px">
+      <div class="battle-lobby-title" style="margin-top:4px">Historik idag</div>
+      <div class="battle-history-row" id="battleHistoryRow"></div>
+    </div>
+  </div>
+</div>
 
 <!-- TREASURE CHESTS -->
 <div class="chest-panel" id="chestPanel">
@@ -23141,6 +23301,233 @@ function openChestItem(type){
   logActivity('quest','Öppnade '+ct.name+' Kista',{xp:loot.xp,coins:loot.coins});
   if(typeof petMicroAnim==='function') petMicroAnim('bounce');
   _renderChest();
+}
+
+
+// BATTLE ARENA SYSTEM
+const BATTLE_NPCS = [
+  {id:'pip',    emoji:'🐭', name:'Pip Muspansen',  hp:120, atk:8,  mag:6,  style:'balanced', diff:'easy',   xpW:300, cW:150, xpL:50, cL:20},
+  {id:'flame',  emoji:'🦊', name:'Flame Räven',    hp:180, atk:14, mag:10, style:'aggressive',diff:'medium', xpW:400, cW:200, xpL:70, cL:30},
+  {id:'shield', emoji:'🐢', name:'Shield Sköldis', hp:300, atk:8,  mag:8,  style:'defensive', diff:'medium', xpW:400, cW:200, xpL:70, cL:30},
+  {id:'luna',   emoji:'🦋', name:'Luna Fjäriln',   hp:200, atk:12, mag:16, style:'magic',     diff:'medium', xpW:450, cW:220, xpL:80, cL:35},
+  {id:'iron',   emoji:'🐻', name:'Iron Björnen',   hp:450, atk:20, mag:10, style:'aggressive',diff:'hard',   xpW:600, cW:300, xpL:100,cL:40},
+  {id:'storm',  emoji:'🐉', name:'Storm Draken',   hp:600, atk:25, mag:22, style:'balanced',  diff:'hard',   xpW:800, cW:400, xpL:120,cL:50},
+];
+const BATTLE_KEY = 'k0509_battle';
+let _bState = null;
+
+function _bLoad(){try{return JSON.parse(localStorage.getItem(BATTLE_KEY)||'null');}catch(e){return null;}}
+function _bSave(d){localStorage.setItem(BATTLE_KEY,JSON.stringify(d));}
+
+function _bDayData(){
+  let d=_bLoad();
+  let today=getTodayKey();
+  if(d&&d.date===today) return d;
+  d={date:today,fightsLeft:5,wins:0,totalWins:(d?d.totalWins||0:0),history:[],fought:[]};
+  _bSave(d);
+  return d;
+}
+
+function openBattle(){
+  $('battlePanel').classList.add('open');
+  _renderBattleLobby();
+}
+function closeBattle(){
+  $('battlePanel').classList.remove('open');
+  _bState=null;
+}
+
+function _renderBattleLobby(){
+  let d=_bDayData();
+  let bwt=$('battleWinsToday'); if(bwt) bwt.textContent=d.wins;
+  let bfl=$('battleFightsLeft'); if(bfl) bfl.textContent=d.fightsLeft;
+  let btw=$('battleTotalWins'); if(btw) btw.textContent=d.totalWins;
+  let fa=$('battleFightArea'); if(fa) fa.style.display='none';
+  let ra=$('battleResultArea'); if(ra) ra.style.display='none';
+  let lb=$('battleLobby'); if(lb) lb.style.display='';
+  let list=$('battleNPCList'); if(!list) return;
+  list.innerHTML=BATTLE_NPCS.map(npc=>{
+    let fought=d.fought.includes(npc.id);
+    let diffLabel=npc.diff==='easy'?'Lätt':npc.diff==='medium'?'Medel':'Svår';
+    return `<div class="battle-npc-card ${fought?'fought':''}" onclick="startBattle('${npc.id}')">
+      <div class="battle-npc-emoji">${npc.emoji}</div>
+      <div class="battle-npc-info">
+        <div class="battle-npc-name">${npc.name}</div>
+        <div class="battle-npc-stats">${npc.hp} HP · ATK ${npc.atk} · MAG ${npc.mag} · ${npc.style==='aggressive'?'Aggressiv':npc.style==='defensive'?'Defensiv':npc.style==='magic'?'Magiker':'Balanserad'}</div>
+      </div>
+      <div class="battle-npc-badge ${npc.diff}">${fought?'✓ Kämpat':diffLabel}</div>
+    </div>`;
+  }).join('');
+  let hr=$('battleHistoryRow');
+  if(hr) hr.innerHTML=d.history.map(h=>`<div class="battle-hist-chip ${h.result}">${h.result==='win'?'✓':h.result==='lose'?'✗':'='} ${h.name}</div>`).join('')||'<div style="font:500 10px var(--ff-body);color:rgba(255,255,255,.3)">Inga bataljer idag</div>';
+}
+
+function startBattle(npcId){
+  let d=_bDayData();
+  if(d.fightsLeft<=0){showFloatBubble('Inga matcher kvar idag!','buff');return;}
+  let npc=BATTLE_NPCS.find(n=>n.id===npcId);
+  if(!npc) return;
+  let petLvl=(typeof G!=='undefined'?G.level||1:1);
+  let playerATK=petLvl*3+12;
+  let playerMAG=petLvl*4+8;
+  let playerMaxHP=80+petLvl*4;
+  _bState={
+    npc, turn:1, maxTurns:8,
+    playerHP:playerMaxHP, playerMaxHP,
+    playerATK, playerMAG,
+    playerMP:3, playerMaxMP:3,
+    playerGuarding:false, playerBoosted:false,
+    enemyHP:npc.hp, enemyMaxHP:npc.hp,
+    enemyGuarding:false,
+    log:[], ended:false
+  };
+  let fa=$('battleFightArea'); if(fa) fa.style.display='';
+  let ra=$('battleResultArea'); if(ra) ra.style.display='none';
+  let lb=$('battleLobby'); if(lb) lb.style.display='none';
+  _renderBattleFight();
+  let sc=$('battleScroll'); if(sc) sc.scrollTop=0;
+}
+
+function _renderBattleFight(){
+  if(!_bState) return;
+  let s=_bState;
+  let pEmoji=$('battlePlayerEmoji'); if(pEmoji) pEmoji.textContent=(typeof G!=='undefined'&&G.petEmoji)||'🐾';
+  let pName=$('battlePlayerName'); if(pName) pName.textContent=(typeof G!=='undefined'&&G.petName)||'Du';
+  let eEmoji=$('battleEnemyEmoji'); if(eEmoji) eEmoji.textContent=s.npc.emoji;
+  let eName=$('battleEnemyName'); if(eName) eName.textContent=s.npc.name;
+  let pHP=$('battlePlayerHP'); if(pHP) pHP.style.width=Math.max(0,(s.playerHP/s.playerMaxHP)*100)+'%';
+  let pHPT=$('battlePlayerHPText'); if(pHPT) pHPT.textContent=Math.max(0,s.playerHP)+'/'+s.playerMaxHP+' HP';
+  let eHP=$('battleEnemyHP'); if(eHP) eHP.style.width=Math.max(0,(s.enemyHP/s.enemyMaxHP)*100)+'%';
+  let eHPT=$('battleEnemyHPText'); if(eHPT) eHPT.textContent=Math.max(0,s.enemyHP)+'/'+s.enemyMaxHP+' HP';
+  let tb=$('battleTurnBadge'); if(tb) tb.textContent='Runda '+s.turn+'/'+s.maxTurns;
+  let mpF=$('battleMPFill'); if(mpF) mpF.style.width=(s.playerMP/s.playerMaxMP*100)+'%';
+  let mpT=$('battleMPText'); if(mpT) mpT.textContent=s.playerMP+'/'+s.playerMaxMP;
+  let log=$('battleLog');
+  if(log){
+    log.innerHTML=s.log.slice(-6).map(l=>`<div class="battle-log-line ${l.cls}">${l.text}</div>`).join('');
+    log.scrollTop=log.scrollHeight;
+  }
+  let disabled=s.ended;
+  let btns=$('battleMovesGrid');
+  if(btns) btns.querySelectorAll('.battle-move-btn').forEach(b=>b.classList.toggle('disabled',disabled));
+}
+
+function battleMove(move){
+  if(!_bState||_bState.ended) return;
+  let s=_bState;
+  let petLvl=(typeof G!=='undefined'?G.level||1:1);
+  // Validate MP
+  if((move==='magic'||move==='boost')&&s.playerMP<1){showFloatBubble('Inte tillräckligt MP!','buff');return;}
+  if((move==='special'||move==='heal')&&s.playerMP<2){showFloatBubble('Inte tillräckligt MP!','buff');return;}
+  s.playerGuarding=false;
+  // Player action
+  let playerDmg=0;
+  if(move==='attack'){
+    playerDmg=s.playerATK+Math.floor(Math.random()*8)+(s.playerBoosted?Math.floor(s.playerATK*0.5):0);
+    s.playerBoosted=false;
+    let reduced=s.enemyGuarding?Math.floor(playerDmg*0.5):playerDmg;
+    s.enemyHP-=reduced;
+    s.log.push({cls:'player-action',text:'⚔️ Du attackerar: -'+reduced+' HP'+(s.enemyGuarding?' (blockad)':'')});
+  } else if(move==='magic'){
+    s.playerMP--;
+    playerDmg=s.playerMAG+Math.floor(Math.random()*12)+(s.playerBoosted?Math.floor(s.playerMAG*0.4):0);
+    s.playerBoosted=false;
+    let reduced=Math.floor(playerDmg*(s.enemyGuarding?0.7:1));
+    s.enemyHP-=reduced;
+    s.log.push({cls:'player-action',text:'🔮 Magi: -'+reduced+' HP'});
+  } else if(move==='guard'){
+    s.playerGuarding=true;
+    s.log.push({cls:'player-action',text:'🛡️ Du blockar nästa attack!'});
+  } else if(move==='special'){
+    s.playerMP-=2;
+    let dmg=(s.playerATK+s.playerMAG)+Math.floor(Math.random()*20)+petLvl*2;
+    s.enemyHP-=dmg;
+    s.log.push({cls:'player-action',text:'💥 SPECIALATTACK: -'+dmg+' HP!'});
+  } else if(move==='heal'){
+    s.playerMP-=2;
+    let healAmt=Math.floor(s.playerMaxHP*0.25)+Math.floor(Math.random()*10);
+    s.playerHP=Math.min(s.playerMaxHP,s.playerHP+healAmt);
+    s.log.push({cls:'player-action',text:'💚 Läkning: +'+healAmt+' HP'});
+  } else if(move==='boost'){
+    s.playerMP--;
+    s.playerBoosted=true;
+    s.log.push({cls:'player-action',text:'⚡ ATK boost aktiverad!'});
+  }
+  // MP regen
+  if(s.turn%3===0&&s.playerMP<s.playerMaxMP) s.playerMP++;
+  // Check enemy dead
+  if(s.enemyHP<=0){ _battleEnd('win'); return; }
+  // Enemy action
+  s.enemyGuarding=false;
+  let estyle=s.npc.style;
+  let rand=Math.random();
+  let enemyMove='attack';
+  if(estyle==='aggressive') enemyMove=rand<0.7?'attack':rand<0.85?'special':'guard';
+  else if(estyle==='defensive') enemyMove=rand<0.4?'guard':rand<0.7?'attack':'special';
+  else if(estyle==='magic') enemyMove=rand<0.55?'magic':rand<0.75?'attack':'guard';
+  else enemyMove=rand<0.45?'attack':rand<0.7?'magic':rand<0.85?'guard':'special';
+  let enemyDmg=0;
+  if(enemyMove==='attack'){
+    enemyDmg=s.npc.atk+Math.floor(Math.random()*6);
+    let reduced=s.playerGuarding?Math.floor(enemyDmg*0.5):enemyDmg;
+    s.playerHP-=reduced;
+    s.log.push({cls:'enemy-action',text:s.npc.emoji+' attackerar: -'+reduced+' HP'+(s.playerGuarding?' (blockad)':'')});
+  } else if(enemyMove==='magic'){
+    enemyDmg=s.npc.mag+Math.floor(Math.random()*8);
+    let reduced=Math.floor(enemyDmg*(s.playerGuarding?0.65:1));
+    s.playerHP-=reduced;
+    s.log.push({cls:'enemy-action',text:s.npc.emoji+' magi: -'+reduced+' HP'});
+  } else if(enemyMove==='guard'){
+    s.enemyGuarding=true;
+    s.log.push({cls:'enemy-action',text:s.npc.emoji+' blockar!'});
+  } else if(enemyMove==='special'){
+    enemyDmg=Math.floor((s.npc.atk+s.npc.mag)*0.8)+Math.floor(Math.random()*15);
+    let reduced=s.playerGuarding?Math.floor(enemyDmg*0.5):enemyDmg;
+    s.playerHP-=reduced;
+    s.log.push({cls:'enemy-action',text:s.npc.emoji+' SPECIAL: -'+reduced+' HP!'});
+  }
+  if(s.playerHP<=0){ _battleEnd('lose'); return; }
+  s.turn++;
+  if(s.turn>s.maxTurns){
+    // Draw — whoever has more HP %
+    let pPct=s.playerHP/s.playerMaxHP;
+    let ePct=s.enemyHP/s.enemyMaxHP;
+    _battleEnd(pPct>ePct?'win':'lose');
+    return;
+  }
+  _renderBattleFight();
+}
+
+function _battleEnd(result){
+  if(!_bState) return;
+  let s=_bState;
+  s.ended=true;
+  let d=_bDayData();
+  d.fightsLeft=Math.max(0,d.fightsLeft-1);
+  let xp=result==='win'?s.npc.xpW:s.npc.xpL;
+  let coins=result==='win'?s.npc.cW:s.npc.cL;
+  if(result==='win'){d.wins++;d.totalWins++;}
+  d.fought.push(s.npc.id);
+  d.history.push({result,name:s.npc.name});
+  _bSave(d);
+  gainXP(xp,'battle');
+  gainCoins(coins);
+  let fa=$('battleFightArea'); if(fa) fa.style.display='none';
+  let ra=$('battleResultArea');
+  if(ra){
+    ra.style.display='';
+    ra.innerHTML=`<div class="battle-result-card ${result==='win'?'':'lose'}">
+      <div class="battle-result-title">${result==='win'?'🏆 SEGER!':'💀 FÖRLUST'}</div>
+      <div style="font-size:40px;margin:8px 0">${result==='win'?s.npc.emoji+'→😎':'😵'}</div>
+      <div class="battle-result-rewards">+${xp} XP &nbsp;·&nbsp; +${coins} 💰</div>
+      <button onclick="_renderBattleLobby();$('battleResultArea').style.display='none';$('battleLobby').style.display=''" style="background:linear-gradient(135deg,var(--green),#00aaff);border:none;border-radius:14px;color:#000;font:800 13px var(--ff-head);padding:12px 28px;cursor:pointer">Tillbaka till lobbyn</button>
+    </div>`;
+  }
+  let msg=result==='win'?'🏆 Du vann mot '+s.npc.name+'! +'+xp+' XP':'Förlust mot '+s.npc.name+'. +'+xp+' XP';
+  showFloatBubble(msg,'buff');
+  let bwt=$('battleWinsToday'); if(bwt) bwt.textContent=d.wins;
+  let bfl=$('battleFightsLeft'); if(bfl) bfl.textContent=d.fightsLeft;
+  let btw=$('battleTotalWins'); if(btw) btw.textContent=d.totalWins;
 }
 
 </script>
