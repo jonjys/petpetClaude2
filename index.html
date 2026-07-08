@@ -1398,6 +1398,51 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET EVOLUTION ══ */
+.evo-panel{position:fixed;inset:0;background:#02050f;z-index:911;display:none;flex-direction:column;overflow:hidden}
+.evo-panel.open{display:flex}
+.evo-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060420,#02050f)}
+.evo-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ffcc,#4488ff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.evo-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.evo-pet-hero{background:linear-gradient(135deg,rgba(0,221,204,.06),rgba(68,136,255,.04));border:1.5px solid rgba(0,221,204,.2);border-radius:22px;padding:20px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden}
+.evo-pet-glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(0,221,204,.15),transparent 70%);pointer-events:none}
+.evo-pet-emoji{font-size:72px;display:block;margin-bottom:8px;filter:drop-shadow(0 0 20px rgba(0,221,204,.5))}
+.evo-pet-name{font:900 20px var(--ff-head);color:#fff;margin-bottom:2px}
+.evo-stage-name{font:700 13px var(--ff-body);color:rgba(0,221,204,.8);margin-bottom:8px}
+.evo-stage-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,221,204,.12);border:1px solid rgba(0,221,204,.3);border-radius:20px;padding:5px 14px;font:700 11px var(--ff-head);color:#00ddcc}
+.evo-path-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
+.evo-path-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:16px;padding:12px;cursor:pointer;transition:all .15s;text-align:center}
+.evo-path-card:active{transform:scale(.97)}
+.evo-path-card.selected{border-width:2px}
+.evo-path-emoji{font-size:28px;display:block;margin-bottom:5px}
+.evo-path-name{font:800 12px var(--ff-head);color:#fff;margin-bottom:3px}
+.evo-path-bonus{font:500 9px var(--ff-body);color:rgba(255,255,255,.5)}
+.evo-path-sect{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.evo-stages-list{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.evo-stage-row{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);border-radius:14px;padding:10px 12px;border:1.5px solid rgba(255,255,255,.06)}
+.evo-stage-row.current{background:rgba(0,221,204,.07);border-color:rgba(0,221,204,.3)}
+.evo-stage-row.done{opacity:.7}
+.evo-stage-row.locked{opacity:.45}
+.evo-stage-row-emoji{font-size:28px;flex-shrink:0}
+.evo-stage-row-info{flex:1}
+.evo-stage-row-name{font:800 12px var(--ff-head);color:#fff}
+.evo-stage-row-req{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.evo-stage-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.evo-evolve-btn{width:100%;padding:14px;border:none;border-radius:16px;font:900 15px var(--ff-head);cursor:pointer;background:linear-gradient(135deg,#00ddcc,#4488ff,#aa66ff);color:#000;position:relative;overflow:hidden}
+.evo-evolve-btn:disabled{opacity:.35;cursor:default}
+.evo-evolve-btn:active{transform:scale(.98)}
+.evo-bonus-row{display:flex;gap:8px;margin-bottom:14px}
+.evo-bonus-chip{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:8px;text-align:center}
+.evo-bonus-num{font:800 14px var(--ff-head);color:#fff}
+.evo-bonus-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.evo-overlay{position:fixed;inset:0;background:#000;z-index:9997;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
+.evo-overlay.active{opacity:1;pointer-events:all}
+.evo-anim-emoji{font-size:100px;animation:evoFloat 1s ease-in-out infinite alternate}
+.evo-anim-rays{position:absolute;inset:0;background:conic-gradient(from 0deg,transparent,rgba(0,221,204,.3),transparent,rgba(68,136,255,.3),transparent);animation:evoSpin 3s linear infinite;pointer-events:none}
+@keyframes evoFloat{from{transform:scale(1) rotate(-5deg)}to{transform:scale(1.1) rotate(5deg)}}
+@keyframes evoSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
 /* ══ DAILY QUESTS ══ */
 .quests-panel{position:fixed;inset:0;background:#060410;z-index:910;display:none;flex-direction:column;overflow:hidden}
 .quests-panel.open{display:flex}
@@ -6108,6 +6153,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBattle()"><div class="ddr-i">🏟️</div>Battle Arena</div>
           <div class="ddr" onclick="cM();openWorldmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
           <div class="ddr" onclick="cM();openQuests()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
+          <div class="ddr" onclick="cM();openEvo()"><div class="ddr-i">🧬</div>Pet Evolution</div>
         </div>
       </div>
     </div>
@@ -7719,6 +7765,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET EVOLUTION -->
+<div class="evo-panel" id="evoPanel">
+  <div class="evo-header">
+    <div class="evo-title">🧬 PET EVOLUTION</div>
+    <button class="close-btn" onclick="closeEvo()">✕</button>
+  </div>
+  <div class="evo-scroll">
+    <div class="evo-pet-hero">
+      <div class="evo-pet-glow"></div>
+      <span class="evo-pet-emoji" id="evoPetEmoji">🐾</span>
+      <div class="evo-pet-name" id="evoPetName">Ditt Husdjur</div>
+      <div class="evo-stage-name" id="evoStageName">Nyböring</div>
+      <div class="evo-stage-badge" id="evoBadge">⭐ Steg 1</div>
+    </div>
+    <div class="evo-bonus-row" id="evoBonusRow"></div>
+    <div class="evo-path-sect">Välj Evolutionsväg</div>
+    <div class="evo-path-row" id="evoPathRow"></div>
+    <div class="evo-path-sect" style="margin-top:8px">Evolutionssteg</div>
+    <div class="evo-stages-list" id="evoStagesList"></div>
+    <button class="evo-evolve-btn" id="evoEvolveBtn" onclick="doEvolve()">🧬 EVOLUTIONERA!</button>
+  </div>
+</div>
+<div class="evo-overlay" id="evoOverlay">
+  <div class="evo-anim-rays"></div>
+  <div style="position:relative;z-index:1;text-align:center">
+    <div class="evo-anim-emoji" id="evoAnimEmoji">✨</div>
+    <div style="font:900 24px var(--ff-head);color:#fff;margin:16px 0 6px" id="evoAnimTitle">EVOLUTION!</div>
+    <div style="font:600 13px var(--ff-body);color:rgba(255,255,255,.7)" id="evoAnimSub">Ditt husdjur har vuxit!</div>
+  </div>
+</div>
 
 <!-- DAILY QUESTS -->
 <div class="quests-panel" id="questsPanel">
@@ -23937,6 +24015,156 @@ function questsClaimBonus(){
   if(typeof gainKC==='function') gainKC(3);
   showFloatBubble('🏆 BONUS! +500 XP, +250 💰, +3 KC!','buff');
   _renderQuests();
+}
+
+
+// PET EVOLUTION SYSTEM
+const EVO_PATHS = [
+  {id:'power',   emoji:'🔥', name:'Kraftens Väg',  color:'#ff6622', bonus:'⚔️ +30% Dungeon ATK, +20% Battle DMG',
+   stages:[
+     {stage:1,emoji:'🐣',name:'Knäckling',   req:1},
+     {stage:2,emoji:'🐺',name:'Unge Varg',   req:5},
+     {stage:3,emoji:'🦁',name:'Lejon',        req:10},
+     {stage:4,emoji:'🐲',name:'Drake',        req:20},
+     {stage:5,emoji:'🌋',name:'Eldguden',     req:30},
+     {stage:6,emoji:'💀',name:'Krafttitan',   req:50},
+   ]},
+  {id:'wisdom',  emoji:'🔮', name:'Vishetens Väg', color:'#aa66ff', bonus:'📚 +40% XP alla aktiviteter',
+   stages:[
+     {stage:1,emoji:'🐣',name:'Knäckling',   req:1},
+     {stage:2,emoji:'🦉',name:'Ugglunge',     req:5},
+     {stage:3,emoji:'🎓',name:'Student',      req:10},
+     {stage:4,emoji:'🔮',name:'Mystiker',     req:20},
+     {stage:5,emoji:'🌟',name:'Stjärnmagiker',req:30},
+     {stage:6,emoji:'👑',name:'Vismästare',   req:50},
+   ]},
+  {id:'speed',   emoji:'⚡', name:'Hastighetens Väg', color:'#ffcc00', bonus:'🏁 +25% Race Speed, +20% Explor',
+   stages:[
+     {stage:1,emoji:'🐣',name:'Knäckling',   req:1},
+     {stage:2,emoji:'🐰',name:'Hare',         req:5},
+     {stage:3,emoji:'🐆',name:'Gepard',       req:10},
+     {stage:4,emoji:'💨',name:'Vindstorm',    req:20},
+     {stage:5,emoji:'⚡',name:'Blixtlöpare',  req:30},
+     {stage:6,emoji:'🌈',name:'Regnbågsgud',  req:50},
+   ]},
+  {id:'charm',   emoji:'💖', name:'Charmens Väg',  color:'#ff88cc', bonus:'💰 +35% Coins, +2x Community XP',
+   stages:[
+     {stage:1,emoji:'🐣',name:'Knäckling',   req:1},
+     {stage:2,emoji:'🌸',name:'Blomsterfe',   req:5},
+     {stage:3,emoji:'🦋',name:'Fjäril',       req:10},
+     {stage:4,emoji:'💖',name:'Charmör',      req:20},
+     {stage:5,emoji:'🌺',name:'Blomgudinna',  req:30},
+     {stage:6,emoji:'🌙',name:'Månprinsessa', req:50},
+   ]},
+];
+const EVO_KEY = 'k0509_evo';
+
+function _evoLoad(){try{return JSON.parse(localStorage.getItem(EVO_KEY)||'null');}catch(e){return null;}}
+function _evoSave(d){localStorage.setItem(EVO_KEY,JSON.stringify(d));}
+
+function _evoData(){
+  let d=_evoLoad();
+  if(!d) d={pathId:'power',stage:1,totalEvolutions:0};
+  return d;
+}
+
+function openEvo(){
+  $('evoPanel').classList.add('open');
+  _renderEvo();
+}
+function closeEvo(){ $('evoPanel').classList.remove('open'); }
+
+function _renderEvo(){
+  let d=_evoData();
+  let petLvl=(typeof G!=='undefined'?G.level||1:1);
+  let petName=(typeof G!=='undefined'&&G.petName)||'Ditt Husdjur';
+  let path=EVO_PATHS.find(p=>p.id===d.pathId)||EVO_PATHS[0];
+  let curStageData=path.stages.find(s=>s.stage===d.stage)||path.stages[0];
+  let petEmoji=curStageData.emoji;
+  let epe=$('evoPetEmoji'); if(epe) epe.textContent=petEmoji;
+  let epn=$('evoPetName'); if(epn) epn.textContent=petName;
+  let esn=$('evoStageName'); if(esn) esn.textContent=curStageData.name;
+  let eb=$('evoBadge'); if(eb) eb.textContent='⭐ Steg '+d.stage+'/6';
+  // Bonus row
+  let br=$('evoBonusRow');
+  if(br) br.innerHTML=`
+    <div class="evo-bonus-chip"><div class="evo-bonus-num">${d.stage}</div><div class="evo-bonus-label">Evo-steg</div></div>
+    <div class="evo-bonus-chip"><div class="evo-bonus-num">${d.totalEvolutions}</div><div class="evo-bonus-label">Evolutioner</div></div>
+    <div class="evo-bonus-chip"><div class="evo-bonus-num">Lv ${petLvl}</div><div class="evo-bonus-label">Pet Level</div></div>`;
+  // Path selector
+  let pr=$('evoPathRow');
+  if(pr) pr.innerHTML=EVO_PATHS.map(p=>`
+    <div class="evo-path-card ${d.pathId===p.id?'selected':''}" onclick="evoSelectPath('${p.id}')" style="${d.pathId===p.id?'border-color:'+p.color+';background:'+p.color+'18':''}">
+      <span class="evo-path-emoji">${p.emoji}</span>
+      <div class="evo-path-name" style="${d.pathId===p.id?'color:'+p.color:''}">${p.name}</div>
+      <div class="evo-path-bonus">${p.bonus}</div>
+    </div>`).join('');
+  // Stages list
+  let sl=$('evoStagesList');
+  if(sl) sl.innerHTML=path.stages.map(s=>{
+    let isDone=d.stage>s.stage;
+    let isCurrent=d.stage===s.stage;
+    let isNext=d.stage+1===s.stage;
+    let dotColor=isDone?'var(--green)':isCurrent?path.color:'rgba(255,255,255,.1)';
+    return `<div class="evo-stage-row ${isCurrent?'current':isDone?'done':'locked'}">
+      <div class="evo-stage-dot" style="background:${dotColor}"></div>
+      <div class="evo-stage-row-emoji">${s.emoji}</div>
+      <div class="evo-stage-row-info">
+        <div class="evo-stage-row-name">${s.name}</div>
+        <div class="evo-stage-row-req">${isDone?'✓ Uppnådd':isCurrent?'← Nuvarande steg':'🔒 Kräver Lv '+s.req}</div>
+      </div>
+      ${isDone?'<div style="font:700 9px var(--ff-body);color:var(--green)">✓</div>':isCurrent?'<div style="font:700 9px var(--ff-body);color:'+path.color+'">Nu</div>':''}
+    </div>`;
+  }).join('');
+  // Evolve button
+  let nextStage=path.stages.find(s=>s.stage===d.stage+1);
+  let btn=$('evoEvolveBtn');
+  if(btn){
+    if(!nextStage){
+      btn.textContent='✨ MAX EVOLUTION NÅDD!';
+      btn.disabled=true;
+    } else if(petLvl<nextStage.req){
+      btn.textContent='🔒 Kräver Lv '+nextStage.req+' (Du: Lv '+petLvl+')';
+      btn.disabled=true;
+    } else {
+      btn.textContent='🧬 EVOLUTIONERA till '+nextStage.name+'! ('+nextStage.emoji+')';
+      btn.disabled=false;
+    }
+  }
+}
+
+function evoSelectPath(pathId){
+  let d=_evoData();
+  if(d.stage>1){showFloatBubble('Kan inte byta väg efter evolution!','buff');return;}
+  d.pathId=pathId;
+  _evoSave(d);
+  _renderEvo();
+}
+
+function doEvolve(){
+  let d=_evoData();
+  let petLvl=(typeof G!=='undefined'?G.level||1:1);
+  let path=EVO_PATHS.find(p=>p.id===d.pathId)||EVO_PATHS[0];
+  let nextStage=path.stages.find(s=>s.stage===d.stage+1);
+  if(!nextStage||petLvl<nextStage.req) return;
+  d.stage++;
+  d.totalEvolutions++;
+  _evoSave(d);
+  gainXP(500*d.stage,'evolution');
+  gainCoins(200*d.stage);
+  // Animate
+  let ov=$('evoOverlay');
+  let ae=$('evoAnimEmoji');
+  let at=$('evoAnimTitle');
+  let as=$('evoAnimSub');
+  if(ov&&ae&&at&&as){
+    ae.textContent=nextStage.emoji;
+    at.textContent='EVOLUTION! → '+nextStage.name;
+    as.textContent='Steg '+d.stage+'/6 · +'+500*d.stage+' XP!';
+    ov.classList.add('active');
+    setTimeout(()=>{ov.classList.remove('active');_renderEvo();},3000);
+  }
+  showFloatBubble('🧬 Evolution! '+nextStage.emoji+' '+nextStage.name+'! +'+500*d.stage+' XP','buff');
 }
 
 </script>
