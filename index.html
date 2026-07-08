@@ -1412,6 +1412,55 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET CAFE ══ */
+.cafe-panel{position:fixed;inset:0;background:#060308;z-index:925;display:none;flex-direction:column;overflow:hidden}
+.cafe-panel.open{display:flex}
+.cafe-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0810,#060308)}
+.cafe-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8844,#ffcc44,#ff4488);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cafe-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.cafe-scene{background:radial-gradient(ellipse at 50% 0%,rgba(255,136,68,.08),transparent 70%),linear-gradient(180deg,#0e0810,#060308);border:1.5px solid rgba(255,136,68,.2);border-radius:22px;padding:18px 14px;margin-bottom:14px;text-align:center;min-height:240px;position:relative}
+.cafe-counter{position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(0deg,rgba(80,40,20,.4),transparent);border-radius:0 0 20px 20px}
+.cafe-status{font:700 11px var(--ff-head);color:rgba(255,136,68,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.cafe-customer-area{min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.cafe-customer-emoji{font-size:56px;display:block;margin-bottom:4px;animation:cafeBounce .8s ease-in-out infinite alternate}
+@keyframes cafeBounce{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+.cafe-customer-name{font:700 12px var(--ff-head);color:#fff}
+.cafe-order-bubble{background:rgba(255,255,255,.95);border-radius:16px 16px 16px 4px;padding:8px 14px;margin-top:8px;display:inline-block;position:relative}
+.cafe-order-text{font:900 22px sans-serif;display:block}
+.cafe-order-label{font:600 8px sans-serif;color:#666;display:block;text-align:center}
+.cafe-timer-wrap{height:5px;background:rgba(255,255,255,.1);border-radius:3px;margin:10px 0 0;overflow:hidden}
+.cafe-timer-fill{height:100%;background:linear-gradient(90deg,#00ff88,#ffcc00,#ff4444);border-radius:3px;transition:width .1s linear}
+.cafe-result{font:900 18px var(--ff-head);padding:8px 0;display:none}
+.cafe-result.correct{color:var(--green)}
+.cafe-result.wrong{color:var(--red)}
+.cafe-menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.cafe-menu-item{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .15s}
+.cafe-menu-item:active{transform:scale(.94)}
+.cafe-menu-item.disabled{opacity:.4;cursor:default;pointer-events:none}
+.cafe-menu-emoji{font-size:32px;display:block;margin-bottom:4px}
+.cafe-menu-name{font:700 10px var(--ff-head);color:#fff;margin-bottom:2px}
+.cafe-menu-price{font:600 8px var(--ff-body);color:rgba(255,136,68,.7)}
+.cafe-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.cafe-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.cafe-stat-num{font:800 15px var(--ff-head);color:#fff}
+.cafe-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.cafe-progress-row{display:flex;gap:4px;margin-bottom:14px;justify-content:center}
+.cafe-prog-dot{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:rgba(255,255,255,.3)}
+.cafe-prog-dot.done{background:rgba(0,255,136,.2);color:var(--green)}
+.cafe-prog-dot.wrong-dot{background:rgba(255,68,85,.15);color:var(--red)}
+.cafe-prog-dot.current{background:rgba(255,136,68,.2);color:#ff8844;animation:cafePulse .6s ease-in-out infinite alternate}
+@keyframes cafePulse{from{opacity:.7}to{opacity:1}}
+.cafe-history{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:12px}
+.cafe-history-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.cafe-history-list{display:flex;flex-direction:column;gap:4px}
+.cafe-hist-row{display:flex;align-items:center;gap:8px;font:500 9px var(--ff-body)}
+.cafe-hist-customer{color:rgba(255,255,255,.5)}
+.cafe-hist-order{font-size:14px}
+.cafe-hist-result{margin-left:auto;font:700 9px var(--ff-head)}
+.cafe-hist-result.ok{color:var(--green)}
+.cafe-hist-result.no{color:var(--red)}
+
 /* ══ MINING ══ */
 .mine-panel{position:fixed;inset:0;background:#06030a;z-index:924;display:none;flex-direction:column;overflow:hidden}
 .mine-panel.open{display:flex}
@@ -6706,6 +6755,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
+          <div class="ddr" onclick="cM();openCafe()"><div class="ddr-i">☕</div>Pet Café</div>
         </div>
       </div>
     </div>
@@ -7856,6 +7906,44 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+
+
+<!-- PET CAFE -->
+<div class="cafe-panel" id="cafePanel">
+  <div class="cafe-header">
+    <div class="cafe-title">☕ PET CAFÉ</div>
+    <button class="close-btn" onclick="closeCafe()">✕</button>
+  </div>
+  <div class="cafe-scroll">
+    <div class="cafe-scene">
+      <div class="cafe-counter"></div>
+      <div class="cafe-status" id="cafeStatus">Öppnar kaféet...</div>
+      <div class="cafe-customer-area" id="cafeCustomerArea">
+        <span id="cafeCustomerEmoji" style="font-size:56px;display:block"></span>
+        <div class="cafe-customer-name" id="cafeCustomerName"></div>
+        <div class="cafe-order-bubble" id="cafeOrderBubble" style="display:none">
+          <span class="cafe-order-text" id="cafeOrderEmoji"></span>
+          <span class="cafe-order-label" id="cafeOrderName"></span>
+        </div>
+        <div class="cafe-result" id="cafeResult"></div>
+        <div class="cafe-timer-wrap" id="cafeTimerWrap" style="width:100%;display:none">
+          <div class="cafe-timer-fill" id="cafeTimerFill" style="width:100%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="cafe-progress-row" id="cafeProgressRow"></div>
+    <div class="cafe-menu-grid" id="cafeMenuGrid"></div>
+    <div class="cafe-stats-row">
+      <div class="cafe-stat"><div class="cafe-stat-num" id="cafeCustLeft">10</div><div class="cafe-stat-label">Kunder kvar</div></div>
+      <div class="cafe-stat"><div class="cafe-stat-num" id="cafeTotalServed">0</div><div class="cafe-stat-label">Totalt serverade</div></div>
+      <div class="cafe-stat"><div class="cafe-stat-num" id="cafeTodayEarned">0</div><div class="cafe-stat-label">💰 Idag</div></div>
+    </div>
+    <div class="cafe-history">
+      <div class="cafe-history-title">📋 Dagens kunder</div>
+      <div class="cafe-history-list" id="cafeHistoryList"><div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Inga kunder ännu</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- MINING -->
 <div class="mine-panel" id="minePanel">
@@ -27147,6 +27235,217 @@ function mineBuyExtra(){
   _mineSave(d);
   showFloatBubble('⛏️ +5 grävningar köpta!','buff');
   _renderMine();
+}
+
+
+// PET CAFE SYSTEM
+const CAFE_MENU = [
+  {id:'coffee',    emoji:'☕', name:'Kaffe',      price:20},
+  {id:'tea',       emoji:'🍵', name:'Te',         price:20},
+  {id:'cake',      emoji:'🍰', name:'Tårta',      price:35},
+  {id:'croissant', emoji:'🥐', name:'Croissant',  price:25},
+  {id:'muffin',    emoji:'🧁', name:'Muffins',    price:30},
+  {id:'smoothie',  emoji:'🍹', name:'Smoothie',   price:40},
+];
+const CAFE_CUSTOMERS = [
+  {emoji:'🐱',name:'Luna'},  {emoji:'🐶',name:'Rex'},    {emoji:'🐰',name:'Snowy'},
+  {emoji:'🦊',name:'Rusty'}, {emoji:'🐻',name:'Bruno'},  {emoji:'🐼',name:'Panda'},
+  {emoji:'🐸',name:'Hoppy'}, {emoji:'🦁',name:'Leo'},    {emoji:'🐺',name:'Grey'},
+  {emoji:'🦝',name:'Bandit'},{emoji:'🐨',name:'Kobi'},   {emoji:'🦄',name:'Sparky'},
+];
+const CAFE_KEY = 'k0509_cafe';
+let _cafeState = 'idle';
+let _cafeCurrent = null;
+let _cafeTimer = null;
+let _cafeArriveTimer = null;
+let _cafeTimerPct = 100;
+
+function _cafeLoad(){try{return JSON.parse(localStorage.getItem(CAFE_KEY)||'null');}catch(e){return null;}}
+function _cafeSave(d){localStorage.setItem(CAFE_KEY,JSON.stringify(d));}
+
+function _cafeDayData(){
+  let d=_cafeLoad();
+  let today=getTodayKey();
+  if(d&&d.date===today) return d;
+  let prev=d||{};
+  let seed=parseInt(today.replace(/-/g,''));
+  function sr(n){seed=(seed*1664525+1013904223)&0xffffffff;return Math.abs(seed)%n;}
+  let orders=[];
+  for(let i=0;i<10;i++){
+    orders.push({
+      customer:CAFE_CUSTOMERS[sr(CAFE_CUSTOMERS.length)],
+      menuId:CAFE_MENU[sr(CAFE_MENU.length)].id
+    });
+  }
+  d={date:today,orders,current:0,results:[],totalServed:prev.totalServed||0,totalEarned:prev.totalEarned||0,todayEarned:0,perfectDays:prev.perfectDays||0};
+  _cafeSave(d);
+  return d;
+}
+
+function openCafe(){
+  $('cafePanel').classList.add('open');
+  _cafeState='idle';
+  _cafeCurrent=null;
+  if(_cafeTimer){clearInterval(_cafeTimer);_cafeTimer=null;}
+  if(_cafeArriveTimer){clearTimeout(_cafeArriveTimer);_cafeArriveTimer=null;}
+  _renderCafeStatic();
+  let d=_cafeDayData();
+  if(d.current<10&&d.results.length<10){
+    _cafeArriveTimer=setTimeout(function(){_cafeNextCustomer();},600);
+  } else {
+    _cafeDone(d);
+  }
+}
+function closeCafe(){
+  $('cafePanel').classList.remove('open');
+  if(_cafeTimer){clearInterval(_cafeTimer);_cafeTimer=null;}
+  if(_cafeArriveTimer){clearTimeout(_cafeArriveTimer);_cafeArriveTimer=null;}
+  _cafeState='idle';
+}
+
+function _renderCafeStatic(){
+  let d=_cafeDayData();
+  let cl=$('cafeCustLeft'); if(cl) cl.textContent=Math.max(0,10-d.results.length);
+  let ts=$('cafeTotalServed'); if(ts) ts.textContent=d.totalServed;
+  let te=$('cafeTodayEarned'); if(te) te.textContent=d.todayEarned||0;
+  // Progress dots
+  let pr=$('cafeProgressRow');
+  if(pr){
+    let dots=[];
+    for(let i=0;i<10;i++){
+      let res=d.results[i];
+      var cls='cafe-prog-dot';
+      var text=i+1;
+      if(res!==undefined){cls+=' '+(res?'done':'wrong-dot');text=res?'✓':'✗';}
+      else if(i===d.results.length&&_cafeState==='waiting'){cls+=' current';}
+      dots.push('<div class="'+cls+'">'+text+'</div>');
+    }
+    pr.innerHTML=dots.join('');
+  }
+  // Menu
+  let mg=$('cafeMenuGrid');
+  if(mg) mg.innerHTML=CAFE_MENU.map(function(m){
+    var dis=(_cafeState!=='waiting')?'disabled':'';
+    return '<div class="cafe-menu-item '+dis+'" onclick="cafeServe(''+m.id+'')">'+
+      '<span class="cafe-menu-emoji">'+m.emoji+'</span>'+
+      '<div class="cafe-menu-name">'+m.name+'</div>'+
+      '<div class="cafe-menu-price">'+m.price+' 💰</div>'+
+      '</div>';
+  }).join('');
+  // History
+  let hl=$('cafeHistoryList');
+  if(hl){
+    let items=d.results.map(function(res,i){
+      let o=d.orders[i];
+      if(!o) return '';
+      let menu=CAFE_MENU.find(function(m){return m.id===o.menuId;})||CAFE_MENU[0];
+      return '<div class="cafe-hist-row">'+
+        '<span class="cafe-hist-order">'+o.customer.emoji+'</span>'+
+        '<span class="cafe-hist-customer">'+o.customer.name+'</span>'+
+        '<span class="cafe-hist-order">'+menu.emoji+'</span>'+
+        '<span class="cafe-hist-result '+(res?'ok':'no')+'">'+( res?'+'+menu.price+' 💰':'Missade')+'</span>'+
+        '</div>';
+    }).reverse().join('');
+    if(!items) hl.innerHTML='<div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Inga kunder ännu</div>';
+    else hl.innerHTML=items;
+  }
+}
+
+function _cafeNextCustomer(){
+  let d=_cafeDayData();
+  let idx=d.results.length;
+  if(idx>=10||idx>=d.orders.length){_cafeDone(d);return;}
+  let order=d.orders[idx];
+  _cafeCurrent=order;
+  _cafeState='waiting';
+  let ce=$('cafeCustomerEmoji'); if(ce) ce.textContent=order.customer.emoji;
+  let cn=$('cafeCustomerName'); if(cn) cn.textContent=order.customer.name;
+  let ob=$('cafeOrderBubble'); if(ob) ob.style.display='inline-block';
+  let menu=CAFE_MENU.find(function(m){return m.id===order.menuId;})||CAFE_MENU[0];
+  let oe=$('cafeOrderEmoji'); if(oe) oe.textContent=menu.emoji;
+  let on=$('cafeOrderName'); if(on) on.textContent=menu.name;
+  let cs=$('cafeStatus'); if(cs) cs.textContent='Kund '+(idx+1)+'/10 — Välj rätt beställning!';
+  let res=$('cafeResult'); if(res){res.style.display='none';res.textContent='';}
+  let tw=$('cafeTimerWrap'); if(tw) tw.style.display='block';
+  let tf=$('cafeTimerFill'); if(tf) tf.style.width='100%';
+  _cafeTimerPct=100;
+  _renderCafeStatic();
+  // 8 second timer
+  let elapsed=0;
+  _cafeTimer=setInterval(function(){
+    elapsed+=100;
+    _cafeTimerPct=Math.max(0,100-(elapsed/8000)*100);
+    let tf2=$('cafeTimerFill'); if(tf2) tf2.style.width=_cafeTimerPct+'%';
+    if(elapsed>=8000){
+      clearInterval(_cafeTimer);
+      _cafeTimer=null;
+      _cafeHandleResult(false,null,elapsed);
+    }
+  },100);
+}
+
+function cafeServe(menuId){
+  if(_cafeState!=='waiting') return;
+  if(!_cafeCurrent) return;
+  if(_cafeTimer){clearInterval(_cafeTimer);_cafeTimer=null;}
+  let correct=menuId===_cafeCurrent.menuId;
+  _cafeHandleResult(correct,menuId,0);
+}
+
+function _cafeHandleResult(correct,servedId,elapsed){
+  _cafeState='result';
+  let d=_cafeDayData();
+  let menu=CAFE_MENU.find(function(m){return m.id===_cafeCurrent.menuId;})||CAFE_MENU[0];
+  let res=$('cafeResult');
+  let tw=$('cafeTimerWrap'); if(tw) tw.style.display='none';
+  let ob=$('cafeOrderBubble'); if(ob) ob.style.display='none';
+  if(correct){
+    let earned=menu.price;
+    gainCoins(earned);
+    gainXP(15,'cafe');
+    d.results.push(true);
+    d.todayEarned=(d.todayEarned||0)+earned;
+    d.totalEarned=(d.totalEarned||0)+earned;
+    d.totalServed=(d.totalServed||0)+1;
+    if(res){res.style.display='block';res.className='cafe-result correct';res.textContent='✅ +'+earned+' 💰';}
+    let cs=$('cafeStatus'); if(cs) cs.textContent='Rätt! '+menu.emoji+' serveras!';
+  } else {
+    d.results.push(false);
+    d.totalServed=(d.totalServed||0)+1;
+    if(res){res.style.display='block';res.className='cafe-result wrong';res.textContent='❌ '+(elapsed>=8000?'Tog för lång tid!':'Fel beställning!');}
+    let cs=$('cafeStatus'); if(cs) cs.textContent='Kunden beställde '+menu.emoji+'...';
+  }
+  _cafeSave(d);
+  _renderCafeStatic();
+  _cafeArriveTimer=setTimeout(function(){
+    let ce=$('cafeCustomerEmoji'); if(ce) ce.textContent='';
+    let cn=$('cafeCustomerName'); if(cn) cn.textContent='';
+    let r2=$('cafeResult'); if(r2) r2.style.display='none';
+    _cafeState='idle';
+    let d2=_cafeDayData();
+    if(d2.results.length>=10){_cafeDone(d2);}
+    else{_cafeArriveTimer=setTimeout(function(){_cafeNextCustomer();},600);}
+  },1500);
+}
+
+function _cafeDone(d){
+  _cafeState='done';
+  let correct=d.results.filter(Boolean).length;
+  let cs=$('cafeStatus'); if(cs) cs.textContent='Kaféet stänger! '+correct+'/10 rätt idag.';
+  let ce=$('cafeCustomerEmoji'); if(ce) ce.textContent='🎉';
+  let cn=$('cafeCustomerName'); if(cn) cn.textContent='Bra jobbat!';
+  if(correct===10){
+    gainXP(500,'cafe');
+    gainCoins(100);
+    showFloatBubble('☕ PERFEKT DAG! 10/10 kunder nöjda! +500 XP +100 💰','buff');
+  } else {
+    showFloatBubble('☕ Kaféet stängt! '+correct+'/10 kunder nöjda! +'+d.todayEarned+' 💰 totalt','buff');
+  }
+  _renderCafeStatic();
+  let mg=$('cafeMenuGrid');
+  if(mg) mg.innerHTML=CAFE_MENU.map(function(m){
+    return '<div class="cafe-menu-item disabled"><span class="cafe-menu-emoji">'+m.emoji+'</span><div class="cafe-menu-name">'+m.name+'</div><div class="cafe-menu-price">'+m.price+' 💰</div></div>';
+  }).join('');
 }
 
 </script>
