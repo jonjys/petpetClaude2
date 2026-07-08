@@ -1425,6 +1425,47 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET AUCTION HOUSE ══ */
+.auction-panel{position:fixed;inset:0;background:#060402;z-index:938;display:none;flex-direction:column;overflow:hidden}
+.auction-panel.open{display:flex}
+.auction-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0804,#060402)}
+.auction-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffaa00,#ff6600,#ff3300);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.auction-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.auction-tabs{display:flex;gap:6px;margin-bottom:14px}
+.auction-tab{flex:1;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;color:rgba(255,255,255,.5);font:700 11px var(--ff-head);padding:8px 4px;cursor:pointer;text-align:center;transition:all .15s}
+.auction-tab.active{background:rgba(255,136,0,.12);border-color:rgba(255,136,0,.4);color:#ff8800}
+.auction-listings{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.auction-item{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:16px;padding:12px;position:relative}
+.auction-item.ending{border-color:rgba(255,68,0,.4);background:rgba(255,68,0,.04)}
+.auction-item.mine{border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.04)}
+.auction-item-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.auction-item-emoji{font-size:32px;flex-shrink:0}
+.auction-item-info{flex:1}
+.auction-item-name{font:800 13px var(--ff-head);color:#fff}
+.auction-item-seller{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.auction-item-rarity{font:700 8px var(--ff-body);padding:2px 8px;border-radius:5px;display:inline-block}
+.auction-bid-row{display:flex;align-items:center;gap:8px}
+.auction-current-bid{flex:1}
+.auction-bid-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.auction-bid-val{font:900 16px var(--ff-head);color:#ffcc00}
+.auction-bid-timer{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-align:right}
+.auction-bid-timer.hot{color:#ff4444}
+.auction-bid-btn{background:rgba(255,136,0,.15);border:1px solid rgba(255,136,0,.3);border-radius:10px;color:#ff8800;font:800 11px var(--ff-head);padding:8px 14px;cursor:pointer;white-space:nowrap;transition:all .15s}
+.auction-bid-btn:active{transform:scale(.96)}
+.auction-bid-btn:disabled{opacity:.3;cursor:default}
+.auction-sell-form{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px;margin-bottom:12px}
+.auction-sell-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.auction-sell-row{display:flex;gap:8px;margin-bottom:8px;align-items:center;flex-wrap:wrap}
+.auction-sel{flex:1;min-width:120px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font:600 11px var(--ff-body);padding:8px 10px}
+.auction-inp{flex:1;min-width:80px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font:700 11px var(--ff-head);padding:8px 10px;text-align:center}
+.auction-list-btn{background:linear-gradient(135deg,#882200,#ff6600);border:none;border-radius:10px;color:#fff;font:800 11px var(--ff-head);padding:10px 16px;cursor:pointer;transition:all .15s}
+.auction-list-btn:active{transform:scale(.97)}
+.auction-stats-row{display:flex;gap:8px}
+.auction-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.auction-stat-val{font:800 14px var(--ff-head);color:#ff8800}
+.auction-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+
 /* ══ PET MEDITATION ══ */
 .med-panel{position:fixed;inset:0;background:#020608;z-index:937;display:none;flex-direction:column;overflow:hidden}
 .med-panel.open{display:flex}
@@ -7311,6 +7352,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🎓</div>Quiz Show</div>
           <div class="ddr" onclick="cM();openFriends()"><div class="ddr-i">👥</div>Vänner</div>
           <div class="ddr" onclick="cM();openMed()"><div class="ddr-i">🧘</div>Meditation</div>
+          <div class="ddr" onclick="cM();openAuction()"><div class="ddr-i">🔨</div>Auktionshus</div>
         </div>
       </div>
     </div>
@@ -8474,6 +8516,28 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET AUCTION HOUSE -->
+<div class="auction-panel" id="auctionPanel">
+  <div class="auction-header">
+    <div class="auction-title">🔨 AUKTIONSHUS</div>
+    <button class="close-btn" onclick="closeAuction()">✕</button>
+  </div>
+  <div class="auction-scroll">
+    <div class="auction-tabs">
+      <div class="auction-tab active" id="auctionTab-browse" onclick="auctionSetTab('browse')">🔍 Bläddra</div>
+      <div class="auction-tab" id="auctionTab-sell" onclick="auctionSetTab('sell')">💰 Sälj</div>
+      <div class="auction-tab" id="auctionTab-mine" onclick="auctionSetTab('mine')">📦 Mina bud</div>
+    </div>
+    <div id="auctionTabContent"></div>
+    <div class="auction-stats-row" style="margin-top:14px">
+      <div class="auction-stat"><div class="auction-stat-val" id="auctionWins">0</div><div class="auction-stat-label">Auktioner vunna</div></div>
+      <div class="auction-stat"><div class="auction-stat-val" id="auctionSpent">0</div><div class="auction-stat-label">💰 Spenderat</div></div>
+      <div class="auction-stat"><div class="auction-stat-val" id="auctionEarned">0</div><div class="auction-stat-label">💰 Tjänat</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- PET MEDITATION -->
 <div class="med-panel" id="medPanel">
@@ -30519,6 +30583,198 @@ function medComplete(){
   _medState=null;
   var ms=$('medStatus'); if(ms) ms.textContent='✅ Fullbordad! +'+mode.rewardCoins+' 💰';
   _renderMed();
+}
+
+
+// PET AUCTION HOUSE SYSTEM
+const AUCTION_KEY = 'k0509_auction';
+
+// Simulated NPC listings (always present)
+const AUCTION_NPC_LISTINGS = [
+  {id:'a1', emoji:'⚔️', name:'Järnsvärd +3',   rarity:'uncommon', seller:'swift_paw',  baseBid:200,  timerSeed:1},
+  {id:'a2', emoji:'💍', name:'Guldring (Mega)', rarity:'rare',     seller:'luna_petx',  baseBid:800,  timerSeed:2},
+  {id:'a3', emoji:'🍄', name:'Svamp ×5',        rarity:'common',   seller:'axelsthlm',  baseBid:50,   timerSeed:3},
+  {id:'a4', emoji:'🌟', name:'Stjärnstav',      rarity:'legendary',seller:'karma_queen',baseBid:3000, timerSeed:4},
+  {id:'a5', emoji:'💎', name:'Kristall ×10',    rarity:'uncommon', seller:'dragonmage', baseBid:120,  timerSeed:5},
+  {id:'a6', emoji:'🔮', name:'Månsten ×3',      rarity:'rare',     seller:'pet_wizard', baseBid:350,  timerSeed:6},
+  {id:'a7', emoji:'🧪', name:'Stor Eliksir ×2', rarity:'uncommon', seller:'ella_runs',  baseBid:280,  timerSeed:7},
+];
+
+const AUCTION_ITEMS_SELLABLE = [
+  {id:'sword',    emoji:'⚔️', name:'Svärd',       startBid:100},
+  {id:'potion',   emoji:'🧪', name:'Eliksir',     startBid:50},
+  {id:'crystal',  emoji:'💎', name:'Kristaller',  startBid:80},
+  {id:'herb',     emoji:'🌿', name:'Örter',       startBid:20},
+  {id:'gold_ore', emoji:'🥇', name:'Guldmalm',    startBid:200},
+  {id:'moonstone',emoji:'🌙', name:'Månsten',     startBid:150},
+];
+
+let _auctionTab = 'browse';
+
+function _auctionLoad(){try{return JSON.parse(localStorage.getItem(AUCTION_KEY)||'null');}catch(e){return null;}}
+function _auctionSave(d){localStorage.setItem(AUCTION_KEY,JSON.stringify(d));}
+function _auctionData(){
+  let d=_auctionLoad();
+  if(!d) d={bids:{},myListings:[],wins:0,spent:0,earned:0};
+  return d;
+}
+
+function _auctionGetTimer(seed){
+  // Deterministic timer based on current minute and seed
+  var now=Math.floor(Date.now()/60000);
+  var total=(seed*1234+now*seed)%180+20;
+  var elapsed=(now%total);
+  var rem=total-elapsed;
+  return rem;
+}
+
+function openAuction(){
+  $('auctionPanel').classList.add('open');
+  _auctionTab='browse';
+  _renderAuction();
+}
+function closeAuction(){ $('auctionPanel').classList.remove('open'); }
+
+function auctionSetTab(tab){
+  _auctionTab=tab;
+  document.querySelectorAll('.auction-tab').forEach(function(t){t.classList.remove('active');});
+  var at=$('auctionTab-'+tab); if(at) at.classList.add('active');
+  _renderAuction();
+}
+
+function _rarityStyle(rarity){
+  var map={common:'background:rgba(255,255,255,.08);color:rgba(255,255,255,.5)',uncommon:'background:rgba(0,255,136,.1);color:var(--green)',rare:'background:rgba(68,136,255,.12);color:#88aaff',legendary:'background:rgba(255,204,0,.15);color:#ffcc00'};
+  return map[rarity]||map.common;
+}
+
+function _renderAuction(){
+  var d=_auctionData();
+  var aw=$('auctionWins'); if(aw) aw.textContent=d.wins||0;
+  var asp=$('auctionSpent'); if(asp) asp.textContent=d.spent||0;
+  var ae=$('auctionEarned'); if(ae) ae.textContent=d.earned||0;
+  var tc=$('auctionTabContent'); if(!tc) return;
+  if(_auctionTab==='browse'){
+    tc.innerHTML='<div class="auction-listings">'+
+      AUCTION_NPC_LISTINGS.map(function(item){
+        var timer=_auctionGetTimer(item.timerSeed);
+        var myBid=(d.bids[item.id]||0);
+        var currentBid=Math.max(item.baseBid,myBid);
+        // NPC also bids occasionally
+        var npcFactor=1+((item.timerSeed*7+timer)%5)*0.1;
+        currentBid=Math.max(currentBid,Math.floor(item.baseBid*npcFactor));
+        var isEnding=timer<10;
+        var minNextBid=Math.floor(currentBid*1.1)+5;
+        return '<div class="auction-item'+(isEnding?' ending':'')+'">'+
+          '<div class="auction-item-row">'+
+          '<span class="auction-item-emoji">'+item.emoji+'</span>'+
+          '<div class="auction-item-info">'+
+          '<div class="auction-item-name">'+item.name+'</div>'+
+          '<div class="auction-item-seller">Säljare: '+item.seller+'</div>'+
+          '<span class="auction-item-rarity" style="'+_rarityStyle(item.rarity)+'">'+item.rarity+'</span>'+
+          '</div></div>'+
+          '<div class="auction-bid-row">'+
+          '<div class="auction-current-bid">'+
+          '<div class="auction-bid-label">Nuvarande bud</div>'+
+          '<div class="auction-bid-val">'+currentBid+' 💰</div>'+
+          '</div>'+
+          '<div class="auction-bid-timer'+(isEnding?' hot':'')+'">⏱ '+timer+'min</div>'+
+          '<button class="auction-bid-btn" onclick="auctionBid(''+item.id+'','+minNextBid+')">Buda '+minNextBid+' 💰</button>'+
+          '</div></div>';
+      }).join('')+
+      '</div>';
+  } else if(_auctionTab==='sell'){
+    tc.innerHTML='<div class="auction-sell-form">'+
+      '<div class="auction-sell-title">📦 Lägg ut föremål</div>'+
+      '<div class="auction-sell-row">'+
+      '<select class="auction-sel" id="auctionSellItem">'+
+      AUCTION_ITEMS_SELLABLE.map(function(it){return '<option value="'+it.id+'">'+it.emoji+' '+it.name+'</option>';}).join('')+
+      '</select>'+
+      '</div>'+
+      '<div class="auction-sell-row">'+
+      '<input class="auction-inp" type="number" id="auctionStartPrice" placeholder="Startpris (💰)" min="10">'+
+      '<input class="auction-inp" type="number" id="auctionDuration" placeholder="Timmar (1-24)" min="1" max="24">'+
+      '</div>'+
+      '<button class="auction-list-btn" onclick="auctionListItem()">🔨 Lägg ut på auktion</button>'+
+      '</div>'+
+      (d.myListings&&d.myListings.length>0?
+        '<div class="auction-sell-title">Mina Listningar</div>'+
+        '<div class="auction-listings">'+
+        d.myListings.map(function(l){
+          return '<div class="auction-item mine">'+
+            '<div class="auction-item-row">'+
+            '<span class="auction-item-emoji">'+l.emoji+'</span>'+
+            '<div class="auction-item-info">'+
+            '<div class="auction-item-name">'+l.name+'</div>'+
+            '<div class="auction-item-seller">Startpris: '+l.startBid+' 💰 · '+l.hours+'h</div>'+
+            '</div></div></div>';
+        }).join('')+
+        '</div>':'');
+  } else if(_auctionTab==='mine'){
+    var bidItems=Object.keys(d.bids||{});
+    if(bidItems.length===0){
+      tc.innerHTML='<div style="text-align:center;padding:30px;color:rgba(255,255,255,.3);font:600 11px var(--ff-body)">Inga aktiva bud — börja buda!</div>';
+    } else {
+      tc.innerHTML='<div class="auction-listings">'+
+        bidItems.map(function(itemId){
+          var listing=AUCTION_NPC_LISTINGS.find(function(x){return x.id===itemId;});
+          if(!listing) return '';
+          var myBid=d.bids[itemId]||0;
+          var timer=_auctionGetTimer(listing.timerSeed);
+          return '<div class="auction-item mine">'+
+            '<div class="auction-item-row">'+
+            '<span class="auction-item-emoji">'+listing.emoji+'</span>'+
+            '<div class="auction-item-info">'+
+            '<div class="auction-item-name">'+listing.name+'</div>'+
+            '<div class="auction-item-seller">Mitt bud: '+myBid+' 💰 · ⏱ '+timer+'min kvar</div>'+
+            '</div></div></div>';
+        }).join('')+
+        '</div>';
+    }
+  }
+}
+
+function auctionBid(itemId, amount){
+  var wallet=(typeof G!=='undefined'&&G.coins)||0;
+  if(wallet<amount){showFloatBubble('Inte tillräckligt coins!','buff');return;}
+  var d=_auctionData();
+  var prevBid=d.bids[itemId]||0;
+  if(prevBid>0){
+    // Refund previous bid
+    if(typeof G!=='undefined'){G.coins+=prevBid;if(typeof save==='function')save();}
+  }
+  if(typeof G!=='undefined'){G.coins-=amount;if(typeof save==='function')save();}
+  d.bids[itemId]=amount;
+  d.spent=(d.spent||0)+(amount-prevBid);
+  _auctionSave(d);
+  showFloatBubble('🔨 Bud placerat: '+amount+' 💰!','buff');
+  _renderAuction();
+}
+
+function auctionListItem(){
+  var selEl=document.getElementById('auctionSellItem');
+  var priceEl=document.getElementById('auctionStartPrice');
+  var durEl=document.getElementById('auctionDuration');
+  if(!selEl||!priceEl||!durEl) return;
+  var itemId=selEl.value;
+  var price=parseInt(priceEl.value)||0;
+  var hours=Math.min(24,Math.max(1,parseInt(durEl.value)||1));
+  if(price<10){showFloatBubble('Minsta startpris: 10 💰!','buff');return;}
+  var item=AUCTION_ITEMS_SELLABLE.find(function(x){return x.id===itemId;});
+  if(!item) return;
+  var d=_auctionData();
+  var fee=Math.floor(price*0.05);
+  var wallet=(typeof G!=='undefined'&&G.coins)||0;
+  if(wallet<fee){showFloatBubble('Avgift: '+fee+' 💰 (5% av startpris)','buff');return;}
+  if(typeof G!=='undefined'){G.coins-=fee;if(typeof save==='function')save();}
+  if(!d.myListings) d.myListings=[];
+  d.myListings.push({id:itemId,emoji:item.emoji,name:item.name,startBid:price,hours:hours,listedAt:Date.now()});
+  d.earned=(d.earned||0);
+  _auctionSave(d);
+  priceEl.value='';
+  durEl.value='';
+  gainXP(50,'commerce');
+  showFloatBubble('🔨 '+item.name+' listad! Avgift: '+fee+' 💰','buff');
+  _renderAuction();
 }
 
 </script>
