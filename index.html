@@ -1450,6 +1450,55 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ BOUNTY BOARD ══ */
+.bnty-panel{position:fixed;inset:0;background:#080500;z-index:963;display:none;flex-direction:column;overflow:hidden}
+.bnty-panel.open{display:flex}
+.bnty-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#180c00,#080500)}
+.bnty-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffaa00,#ff6600,#ffcc44);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.bnty-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Stats */
+.bnty-stats{display:flex;gap:8px;margin-bottom:12px}
+.bnty-stat{flex:1;background:rgba(255,150,0,.05);border:1px solid rgba(255,150,0,.15);border-radius:12px;padding:8px;text-align:center}
+.bnty-stat-val{font:900 16px var(--ff-head);color:#ffaa00}
+.bnty-stat-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+/* Refresh timer */
+.bnty-timer-bar{display:flex;align-items:center;gap:8px;background:rgba(255,150,0,.04);border:1px solid rgba(255,150,0,.15);border-radius:12px;padding:8px 12px;margin-bottom:12px}
+.bnty-timer-val{font:800 12px var(--ff-head);color:#ffaa00;flex:1}
+.bnty-timer-lbl{font:500 9px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Bounty cards */
+.bnty-list{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.bnty-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:18px;padding:14px;position:relative;overflow:hidden}
+.bnty-card.easy{border-color:rgba(0,200,80,.25)}
+.bnty-card.hard{border-color:rgba(255,150,0,.3)}
+.bnty-card.legendary{border-color:rgba(255,50,50,.4);box-shadow:0 0 12px rgba(255,50,0,.1)}
+.bnty-card.done{border-color:rgba(0,200,80,.5);background:rgba(0,200,80,.04);opacity:.7}
+.bnty-card-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.bnty-card-icon{font-size:24px}
+.bnty-card-title{font:800 12px var(--ff-head);color:rgba(255,255,255,.9);flex:1}
+.bnty-card-tier{font:700 8px var(--ff-head);padding:3px 8px;border-radius:10px;flex-shrink:0}
+.bnty-card-tier.easy{background:rgba(0,200,80,.15);color:#00ff88}
+.bnty-card-tier.hard{background:rgba(255,150,0,.15);color:#ffaa00}
+.bnty-card-tier.legendary{background:rgba(255,50,50,.15);color:#ff6644}
+.bnty-card-desc{font:600 9px var(--ff-body);color:rgba(255,255,255,.45);margin-bottom:8px;line-height:1.4}
+.bnty-card-prog{background:rgba(255,255,255,.06);border-radius:4px;height:4px;margin-bottom:8px;overflow:hidden}
+.bnty-card-prog-fill{height:100%;border-radius:4px;transition:width .4s}
+.bnty-card-prog-fill.easy{background:linear-gradient(90deg,#00aa44,#00ff88)}
+.bnty-card-prog-fill.hard{background:linear-gradient(90deg,#aa6600,#ffaa00)}
+.bnty-card-prog-fill.legendary{background:linear-gradient(90deg,#aa2200,#ff6644)}
+.bnty-card-footer{display:flex;align-items:center;gap:8px}
+.bnty-card-reward{font:700 10px var(--ff-head);color:#ffcc00;flex:1}
+.bnty-claim-btn{background:linear-gradient(135deg,#886600,#ffaa00);border:none;border-radius:10px;padding:6px 14px;font:800 10px var(--ff-head);color:#000;cursor:pointer}
+.bnty-card-count{font:700 10px var(--ff-head);color:rgba(255,255,255,.4)}
+/* Weekly mega bounty */
+.bnty-mega{background:linear-gradient(135deg,rgba(255,50,0,.08),rgba(255,150,0,.05));border:2px solid rgba(255,100,0,.35);border-radius:20px;padding:16px;margin-bottom:14px;position:relative;overflow:hidden}
+.bnty-mega-title{font:900 14px var(--ff-head);color:#ff6644;margin-bottom:6px}
+.bnty-mega-desc{font:600 9px var(--ff-body);color:rgba(255,255,255,.45);margin-bottom:10px;line-height:1.4}
+.bnty-mega-reward{font:800 12px var(--ff-head);color:#ffcc00;margin-bottom:10px}
+.bnty-mega-prog{background:rgba(255,255,255,.06);border-radius:4px;height:5px;margin-bottom:8px;overflow:hidden}
+.bnty-mega-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#cc3300,#ff6644)}
+.bnty-mega-claim{background:linear-gradient(135deg,#cc4400,#ff7700);border:none;border-radius:12px;padding:10px 24px;font:800 12px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(200,60,0,.4)}
+
 /* ══ CRYSTAL MINE ══ */
 .mine-panel{position:fixed;inset:0;background:#04020a;z-index:962;display:none;flex-direction:column;overflow:hidden}
 .mine-panel.open{display:flex}
@@ -8451,6 +8500,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏</div>Gruva</div>
+          <div class="ddr" onclick="cM();openBnty()"><div class="ddr-i">📋</div>Uppdrag</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9671,6 +9721,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- BOUNTY BOARD -->
+<div class="bnty-panel" id="bntyPanel">
+  <div class="bnty-header">
+    <div class="bnty-title">📋 UPPDRAGSTAVLA</div>
+    <button class="close-btn" onclick="closeBnty()">✕</button>
+  </div>
+  <div class="bnty-scroll">
+    <div class="bnty-stats">
+      <div class="bnty-stat"><div class="bnty-stat-val" id="bntyCompVal">0</div><div class="bnty-stat-lbl">Slutförda</div></div>
+      <div class="bnty-stat"><div class="bnty-stat-val" id="bntyCoinsVal">0</div><div class="bnty-stat-lbl">Intjänade 🪙</div></div>
+      <div class="bnty-stat"><div class="bnty-stat-val" id="bntyKCVal">0</div><div class="bnty-stat-lbl">Intjänade KC</div></div>
+    </div>
+    <div class="bnty-timer-bar">
+      <div><div class="bnty-timer-val" id="bntyTimerVal">Daglig återhämtning</div><div class="bnty-timer-lbl">Nya uppdrag varje dag</div></div>
+      <div style="font-size:20px">⏰</div>
+    </div>
+    <div class="bnty-mega" id="bntyMega"></div>
+    <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase">Dagliga Uppdrag</div>
+    <div class="bnty-list" id="bntyList"></div>
+  </div>
+</div>
 
 <!-- CRYSTAL MINE -->
 <div class="mine-panel" id="minePanel">
@@ -33960,6 +34033,7 @@ function misClaimBonus(){
 
 // Called by other systems to track progress
 function misTrack(type, amount){
+  if(typeof bntyTrack==='function') bntyTrack(type, amount);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -36875,6 +36949,196 @@ function _renderMine(){
       +'<span class="mine-upg-icon">'+u.emoji+'</span>'
       +'<div class="mine-upg-info"><div class="mine-upg-name">'+u.name+(owned?' ✅':'')+'</div><div class="mine-upg-desc">'+u.desc+'</div></div>'
       +(owned?'<div class="mine-upg-cost">Köpt</div>':'<div class="mine-upg-cost'+(reqOk?'':'" style="opacity:.4')+'">'+(reqOk?u.cost+' 🪙':'Lås')+'</div>')
+      +'</div>';
+  }).join('');
+}
+
+
+// BOUNTY BOARD
+const BNTY_KEY = 'k0509_bnty';
+const BNTY_POOL = [
+  // Easy
+  {id:'dng_k5',   tier:'easy',   icon:'⚔️', title:'Dungeonhjälte',        desc:'Döda 5 fiender i dungeonen',   type:'dng_kills',  target:5,   coins:150, kc:0},
+  {id:'fish5',    tier:'easy',   icon:'🎣', title:'Fiskedagen',            desc:'Fånga 5 fiskar',               type:'fish',       target:5,   coins:100, kc:0},
+  {id:'mine50',   tier:'easy',   icon:'⛏', title:'Gruvdriftsdag',         desc:'Bryt 50 kristallfragment',     type:'mine',       target:50,  coins:120, kc:0},
+  {id:'gym3',     tier:'easy',   icon:'💪', title:'Träningspass',          desc:'Träna 3 gånger i gymmet',      type:'gym',        target:3,   coins:80,  kc:0},
+  {id:'mem_win',  tier:'easy',   icon:'🃏', title:'Minnesexpert',          desc:'Vinn 2 memorymatcher',         type:'puzzle',     target:2,   coins:100, kc:0},
+  {id:'pvp5',     tier:'easy',   icon:'⚔️', title:'Arenastrider',          desc:'Slåss 5 gånger i arenan',     type:'pvp',        target:5,   coins:150, kc:0},
+  {id:'harvest3', tier:'easy',   icon:'🌱', title:'Skördedags',            desc:'Skörda 3 grödor i trädgården',type:'harvest',    target:3,   coins:100, kc:0},
+  {id:'slot5',    tier:'easy',   icon:'🎰', title:'Lyckosnurren',          desc:'Snurra 5 gånger på slotsen',   type:'slot',       target:5,   coins:120, kc:0},
+  // Hard
+  {id:'dng_b',    tier:'hard',   icon:'🐉', title:'Bossslaktare',          desc:'Besegra 2 bossar i dungeonen', type:'dng_boss',   target:2,   coins:400, kc:2},
+  {id:'fish_epic',tier:'hard',   icon:'🦈', title:'Episk Fångst',          desc:'Fånga 2 sällsynta fiskar',     type:'fish_rare',  target:2,   coins:350, kc:1},
+  {id:'craft3',   tier:'hard',   icon:'⚗️', title:'Alkemimästare',         desc:'Tillverka 3 trolldrycker',     type:'craft',      target:3,   coins:300, kc:2},
+  {id:'race_win', tier:'hard',   icon:'🏎', title:'Racingchamp',           desc:'Vinn 3 racinglopp',            type:'race_win',   target:3,   coins:400, kc:2},
+  {id:'wb_hit',   tier:'hard',   icon:'👹', title:'Bossjägaren',           desc:'Träffa världsbossen 5 gånger', type:'wb',         target:5,   coins:300, kc:2},
+  {id:'mine200',  tier:'hard',   icon:'💎', title:'Djupgruvaren',          desc:'Bryt 200 kristallfragment',    type:'mine',       target:200, coins:500, kc:1},
+  // Legendary
+  {id:'leg1',     tier:'legendary',icon:'🌟',title:'Legendarisk Äventyrare',desc:'Klara ett dungeon + vinn race + fånga 5 fiskar',type:'combo_adv',target:1,coins:1000,kc:8},
+  {id:'leg2',     tier:'legendary',icon:'👑',title:'Allt-i-ett Mästaren',  desc:'Skörda trädgård + brygg dryck + slåss i arena',type:'combo_all',target:1,coins:800, kc:6},
+];
+const BNTY_MEGA_WEEKLY = {
+  title:'⚡ VECKA-MEGAUPPDRAG',
+  desc:'Slutför 10 dagliga uppdrag under veckan för att låsa upp belöningen!',
+  target:10,
+  reward:'🏆 5000 mynt + 20 KC + Legendarisk Essens',
+  coins:5000,
+  kc:20,
+};
+
+function _bntyData(){try{return JSON.parse(localStorage.getItem(BNTY_KEY)||'null');}catch(e){return null;}}
+function _bntySave(d){localStorage.setItem(BNTY_KEY,JSON.stringify(d));}
+function _bntyGetData(){var d=_bntyData(); if(!d) d={completed:0,totalCoins:0,totalKC:0,dayKey:'',active:[],prog:{},weekKey:'',weekCount:0,weekClaimed:false}; return d;}
+
+function _bntyGenDaily(d){
+  var tk=getTodayKey();
+  if(d.dayKey===tk&&d.active&&d.active.length>0) return;
+  d.dayKey=tk;
+  d.prog={};
+  // Pick 6 bounties: 3 easy, 2 hard, 1 legendary
+  var easy=BNTY_POOL.filter(function(b){return b.tier==='easy';});
+  var hard=BNTY_POOL.filter(function(b){return b.tier==='hard';});
+  var leg=BNTY_POOL.filter(function(b){return b.tier==='legendary';});
+  function pickN(arr, n){var a=arr.slice();var r=[];while(r.length<n&&a.length){var i=Math.floor(Math.random()*a.length);r.push(a.splice(i,1)[0]);}return r;}
+  d.active=[].concat(pickN(easy,3),pickN(hard,2),pickN(leg,1));
+  d.claimedToday=[];
+}
+
+function openBnty(){
+  $('bntyPanel').classList.add('open');
+  var d=_bntyGetData();
+  _bntyGenDaily(d);
+  _bntySave(d);
+  _renderBnty();
+}
+function closeBnty(){$('bntyPanel').classList.remove('open');}
+
+function bntyClaim(bntyId){
+  var d=_bntyGetData();
+  var bnty=BNTY_POOL.find(function(b){return b.id===bntyId;});
+  if(!bnty) return;
+  var prog=(d.prog||{})[bntyId]||0;
+  if(prog<bnty.target){showFloatBubble('Uppdraget ej slutfört än!','info');return;}
+  if(!d.claimedToday) d.claimedToday=[];
+  if(d.claimedToday.indexOf(bntyId)>=0){showFloatBubble('Redan hämtad!','info');return;}
+  d.claimedToday.push(bntyId);
+  d.completed=(d.completed||0)+1;
+  gainCoins(bnty.coins);
+  if(bnty.kc>0) gainKC(bnty.kc);
+  d.totalCoins=(d.totalCoins||0)+bnty.coins;
+  d.totalKC=(d.totalKC||0)+(bnty.kc||0);
+  // Weekly counter
+  var wk=_bntyWeekKey();
+  if(d.weekKey!==wk){d.weekKey=wk;d.weekCount=0;d.weekClaimed=false;}
+  d.weekCount=(d.weekCount||0)+1;
+  _bntySave(d);
+  showFloatBubble('📋 Uppdrag klart! +'+bnty.coins+' 🪙'+(bnty.kc?' +'+bnty.kc+' KC':''),'buff');
+  checkAchievements();
+  _renderBnty();
+}
+
+function bntyClaimMega(){
+  var d=_bntyGetData();
+  var wk=_bntyWeekKey();
+  if(d.weekKey!==wk){d.weekKey=wk;d.weekCount=0;d.weekClaimed=false;}
+  if(d.weekClaimed){showFloatBubble('Megauppdrag redan hämtat denna vecka!','info');return;}
+  if((d.weekCount||0)<BNTY_MEGA_WEEKLY.target){showFloatBubble('Inte nog slutförda uppdrag!','info');return;}
+  d.weekClaimed=true;
+  gainCoins(BNTY_MEGA_WEEKLY.coins);
+  gainKC(BNTY_MEGA_WEEKLY.kc);
+  d.totalCoins=(d.totalCoins||0)+BNTY_MEGA_WEEKLY.coins;
+  d.totalKC=(d.totalKC||0)+BNTY_MEGA_WEEKLY.kc;
+  _bntySave(d);
+  showFloatBubble('🏆 MEGA UPPDRAG KLART! +5000🪙 +20KC','buff');
+  _renderBnty();
+}
+
+function _bntyWeekKey(){
+  var d=new Date();
+  var dayOfWeek=d.getDay();
+  var startOfWeek=new Date(d.getFullYear(),d.getMonth(),d.getDate()-dayOfWeek);
+  return startOfWeek.getFullYear()+'-'+(startOfWeek.getMonth()+1)+'-'+startOfWeek.getDate();
+}
+
+function bntyTrack(type, amount){
+  var d=_bntyGetData();
+  var tk=getTodayKey();
+  if(d.dayKey!==tk){_bntyGenDaily(d);}
+  if(!d.prog) d.prog={};
+  (d.active||[]).forEach(function(bnty){
+    if(bnty.type===type){
+      d.prog[bnty.id]=(d.prog[bnty.id]||0)+amount;
+    }
+    // combo handling
+    if(bnty.type==='combo_adv'&&(type==='dng_done'||type==='race_win'||type==='fish')){
+      if(!d.comboAdv) d.comboAdv={dng:0,race:0,fish:0};
+      if(type==='dng_done') d.comboAdv.dng=Math.min(1,d.comboAdv.dng+1);
+      if(type==='race_win') d.comboAdv.race=Math.min(1,d.comboAdv.race+1);
+      if(type==='fish') d.comboAdv.fish=Math.min(5,d.comboAdv.fish+amount);
+      if(d.comboAdv.dng&&d.comboAdv.race&&d.comboAdv.fish>=5) d.prog[bnty.id]=1;
+    }
+    if(bnty.type==='combo_all'&&(type==='harvest'||type==='craft'||type==='pvp')){
+      if(!d.comboAll) d.comboAll={har:0,cra:0,pvp:0};
+      if(type==='harvest') d.comboAll.har=Math.min(1,d.comboAll.har+1);
+      if(type==='craft') d.comboAll.cra=Math.min(1,d.comboAll.cra+1);
+      if(type==='pvp') d.comboAll.pvp=Math.min(1,d.comboAll.pvp+1);
+      if(d.comboAll.har&&d.comboAll.cra&&d.comboAll.pvp) d.prog[bnty.id]=1;
+    }
+  });
+  _bntySave(d);
+}
+
+function _renderBnty(){
+  var d=_bntyGetData();
+  var cv=$('bntyCompVal'); if(cv) cv.textContent=d.completed||0;
+  var cov=$('bntyCoinsVal'); if(cov) cov.textContent=d.totalCoins||0;
+  var kv=$('bntyKCVal'); if(kv) kv.textContent=d.totalKC||0;
+  // Timer
+  var tv=$('bntyTimerVal');
+  if(tv){
+    var now=new Date();
+    var midnight=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
+    var msLeft=midnight-now;
+    var h=Math.floor(msLeft/3600000);
+    var m=Math.floor((msLeft%3600000)/60000);
+    tv.textContent='Återhämtning om '+h+'h '+m+'m';
+  }
+  // Mega
+  var wk=_bntyWeekKey();
+  if(d.weekKey!==wk){d.weekCount=0;d.weekClaimed=false;}
+  var megaEl=$('bntyMega');
+  if(megaEl){
+    var prog=Math.min(BNTY_MEGA_WEEKLY.target,d.weekCount||0);
+    var fill=(prog/BNTY_MEGA_WEEKLY.target)*100;
+    megaEl.innerHTML='<div class="bnty-mega-title">'+BNTY_MEGA_WEEKLY.title+'</div>'
+      +'<div class="bnty-mega-desc">'+BNTY_MEGA_WEEKLY.desc+'</div>'
+      +'<div class="bnty-mega-reward">'+BNTY_MEGA_WEEKLY.reward+'</div>'
+      +'<div class="bnty-mega-prog"><div class="bnty-mega-fill" style="width:'+fill+'%"></div></div>'
+      +'<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:10px">'+prog+' / '+BNTY_MEGA_WEEKLY.target+' uppdrag</div>'
+      +(d.weekClaimed?'<div style="font:700 10px var(--ff-head);color:#00ff88">✅ Belöning hämtad!</div>'
+        :(prog>=BNTY_MEGA_WEEKLY.target?'<button class="bnty-mega-claim" onclick="bntyClaimMega()">🏆 Hämta Mega-belöning!</button>':''));
+  }
+  // List
+  var list=$('bntyList');
+  if(list&&d.active) list.innerHTML=d.active.map(function(bnty){
+    var prog=(d.prog||{})[bnty.id]||0;
+    var done=prog>=bnty.target;
+    var claimed=!!(d.claimedToday||[]).filter(function(x){return x===bnty.id;}).length;
+    var fill=Math.min(100,(prog/bnty.target)*100);
+    return '<div class="bnty-card '+bnty.tier+(done?' done':'')+'">'
+      +'<div class="bnty-card-header">'
+      +'<span class="bnty-card-icon">'+bnty.icon+'</span>'
+      +'<div class="bnty-card-title">'+bnty.title+'</div>'
+      +'<span class="bnty-card-tier '+bnty.tier+'">'+bnty.tier.toUpperCase()+'</span>'
+      +'</div>'
+      +'<div class="bnty-card-desc">'+bnty.desc+'</div>'
+      +'<div class="bnty-card-prog"><div class="bnty-card-prog-fill '+bnty.tier+'" style="width:'+fill+'%"></div></div>'
+      +'<div class="bnty-card-footer">'
+      +'<div class="bnty-card-reward">+'+bnty.coins+'🪙'+(bnty.kc?' +'+bnty.kc+'KC':'')+'</div>'
+      +'<div class="bnty-card-count">'+prog+'/'+bnty.target+'</div>'
+      +(done&&!claimed?'<button class="bnty-claim-btn" onclick="bntyClaim(\''+bnty.id+'\')">Hämta!</button>'
+        :(claimed?'<div style="font:700 9px var(--ff-head);color:#00ff88">✅ Klar</div>':''))
+      +'</div>'
       +'</div>';
   }).join('');
 }
