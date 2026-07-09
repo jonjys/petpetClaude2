@@ -1452,6 +1452,45 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SPIRIT COMPANIONS ══ */
+.spir-panel{position:fixed;inset:0;background:#020408;z-index:965;display:none;flex-direction:column;overflow:hidden}
+.spir-panel.open{display:flex}
+.spir-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#041020,#020408)}
+.spir-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#88ffcc,#44aaff,#aa88ff,#ff88cc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.spir-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Spirit cards */
+.spir-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:14px}
+.spir-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:20px;padding:14px;position:relative;overflow:hidden;transition:all .2s}
+.spir-card.unlocked{background:rgba(100,150,255,.03)}
+.spir-card.active{box-shadow:0 0 16px var(--spir-color,rgba(100,200,255,.2))}
+.spir-card-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.spir-avatar{font-size:44px;filter:drop-shadow(0 0 12px var(--spir-color,rgba(100,200,255,.4)));animation:spirFloat 3s ease-in-out infinite}
+@keyframes spirFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.spir-info{flex:1}
+.spir-name{font:900 14px var(--ff-head);color:#fff;margin-bottom:2px}
+.spir-type{font:600 9px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:4px}
+.spir-effect{font:700 10px var(--ff-head);color:rgba(200,220,255,.7);margin-bottom:4px}
+.spir-locked-msg{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);font-style:italic}
+/* Bond bar */
+.spir-bond-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.spir-bond-label{font:600 9px var(--ff-body);color:rgba(255,255,255,.35);width:50px;flex-shrink:0}
+.spir-bond-bar{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.spir-bond-fill{height:100%;border-radius:3px;transition:width .4s}
+.spir-bond-val{font:700 9px var(--ff-head);color:rgba(255,255,255,.6);width:30px;text-align:right;flex-shrink:0}
+/* Feed section */
+.spir-feed-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.spir-feed-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:5px 10px;font:700 9px var(--ff-head);color:rgba(255,255,255,.5);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px}
+.spir-feed-item:active{transform:scale(.95)}
+.spir-feed-item.active-feed{border-color:var(--spir-color,rgba(100,200,255,.4));color:rgba(255,255,255,.9)}
+.spir-unlock-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.25);font-style:italic}
+/* Active spirits display */
+.spir-active-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.spir-active-chip{display:flex;align-items:center;gap:6px;background:rgba(100,150,255,.08);border:1px solid rgba(100,150,255,.2);border-radius:20px;padding:6px 12px}
+.spir-active-emoji{font-size:18px}
+.spir-active-name{font:700 9px var(--ff-head);color:rgba(200,220,255,.8)}
+.spir-active-effect{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+
 /* ══ SPIN WHEEL ══ */
 .spin-panel{position:fixed;inset:0;background:#040006;z-index:964;display:none;flex-direction:column;overflow:hidden}
 .spin-panel.open{display:flex}
@@ -8537,6 +8576,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏</div>Gruva</div>
           <div class="ddr" onclick="cM();openBnty()"><div class="ddr-i">📋</div>Uppdrag</div>
           <div class="ddr" onclick="cM();openSpin()"><div class="ddr-i">🎡</div>Snurrhjul</div>
+          <div class="ddr" onclick="cM();openSpir()"><div class="ddr-i">🌟</div>Andar</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9759,6 +9799,20 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- SPIRIT COMPANIONS -->
+<div class="spir-panel" id="spirPanel">
+  <div class="spir-header">
+    <div class="spir-title">🌟 ANDEFÖLJESLAGARE</div>
+    <button class="close-btn" onclick="closeSpir()">✕</button>
+  </div>
+  <div class="spir-scroll">
+    <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase">Aktiva Bonusar</div>
+    <div class="spir-active-row" id="spirActiveRow"></div>
+    <div class="spir-grid" id="spirGrid"></div>
+  </div>
+</div>
 
 <!-- SPIN WHEEL -->
 <div class="spin-panel" id="spinPanel">
@@ -37341,6 +37395,143 @@ function _renderSpin(){
   var hist=$('spinHistory');
   if(hist&&d.history) hist.innerHTML=d.history.map(function(h){
     return '<div class="spin-hist-chip">'+h+'</div>';
+  }).join('');
+}
+
+
+// SPIRIT COMPANIONS
+const SPIR_KEY = 'k0509_spir';
+const SPIRITS = [
+  {
+    id:'fire', name:'Eldanden Ignis', emoji:'🔥', color:'rgba(255,100,50,.4)',
+    type:'Eldsprit', effect:'ATK +10% i dungeon per bondnivå',
+    unlockCond:'Nå dungeon level 5', unlockCheck:'dng_lv5',
+    feedItems:[{icon:'🔥',name:'Eldboll',ingId:'fire',qty:3},{icon:'🦴',name:'Ben',ingId:'bone',qty:2}],
+    maxBond:5,
+  },
+  {
+    id:'water', name:'Vattennymfen Aqua', emoji:'💧', color:'rgba(50,150,255,.4)',
+    type:'Vattenskyddsande', effect:'Fiskechans +15% per bondnivå',
+    unlockCond:'Fånga 10 fiskar totalt', unlockCheck:'fish10',
+    feedItems:[{icon:'💧',name:'Månvatten',ingId:'water',qty:3},{icon:'🪶',name:'Fjäder',ingId:'feather',qty:1}],
+    maxBond:5,
+  },
+  {
+    id:'earth', name:'Jordvakten Gaia', emoji:'🌍', color:'rgba(100,200,80,.4)',
+    type:'Jordsprit', effect:'Skördeintäkt +20% per bondnivå',
+    unlockCond:'Skörda 5 grödor i trädgården', unlockCheck:'harvest5',
+    feedItems:[{icon:'🌿',name:'Ört',ingId:'herb',qty:4},{icon:'🍄',name:'Svamp',ingId:'mushroom',qty:2}],
+    maxBond:5,
+  },
+  {
+    id:'wind', name:'Vindlöparen Zephyr', emoji:'🌪', color:'rgba(200,255,200,.3)',
+    type:'Vindsprit', effect:'Racing AGI +8 per bondnivå',
+    unlockCond:'Vinn 3 racinglopp', unlockCheck:'race3',
+    feedItems:[{icon:'🪶',name:'Fjäder',ingId:'feather',qty:4},{icon:'💎',name:'Kristall',ingId:'crystal',qty:1}],
+    maxBond:5,
+  },
+  {
+    id:'thunder',name:'Åskguden Thor', emoji:'⚡', color:'rgba(255,220,50,.4)',
+    type:'Åsksprit', effect:'KC från alla källor +5% per bondnivå',
+    unlockCond:'Slutför 20 dagliga uppdrag', unlockCheck:'mis20',
+    feedItems:[{icon:'💠',name:'Ädelsten',ingId:'gem',qty:3},{icon:'⭐',name:'Stjärna',ingId:'star',qty:1}],
+    maxBond:5,
+  },
+];
+
+function _spirData(){try{return JSON.parse(localStorage.getItem(SPIR_KEY)||'null');}catch(e){return null;}}
+function _spirSave(d){localStorage.setItem(SPIR_KEY,JSON.stringify(d));}
+function _spirGetData(){var d=_spirData(); if(!d) d={spirits:{},totalBond:0}; return d;}
+
+function _spirCheckUnlock(spirit, d){
+  var sd=d.spirits[spirit.id]||{bond:0,unlocked:false};
+  if(sd.unlocked) return true;
+  var cond=spirit.unlockCheck;
+  // Check conditions
+  if(cond==='dng_lv5'){var dngD=null;try{dngD=JSON.parse(localStorage.getItem('k0509_dng')||'null');}catch(e){}; return dngD&&(dngD.runs||0)>=5;}
+  if(cond==='fish10'){var fishD=null;try{fishD=JSON.parse(localStorage.getItem('k0509_fish')||'null');}catch(e){}; return fishD&&(fishD.totalCaught||0)>=10;}
+  if(cond==='harvest5'){var gardD=null;try{gardD=JSON.parse(localStorage.getItem('k0509_gard')||'null');}catch(e){}; return gardD&&(gardD.harvest||0)>=5;}
+  if(cond==='race3'){var raceD=null;try{raceD=JSON.parse(localStorage.getItem('k0509_race')||'null');}catch(e){}; return raceD&&(raceD.wins||0)>=3;}
+  if(cond==='mis20'){var achD=null;try{achD=JSON.parse(localStorage.getItem('k0509_ach')||'null');}catch(e){}; return achD&&(achD.totalCompleted||0)>=20;}
+  return false;
+}
+
+function openSpir(){$('spirPanel').classList.add('open');_renderSpir();}
+function closeSpir(){$('spirPanel').classList.remove('open');}
+
+function spirFeed(spirId, ingId, qty){
+  var spirit=SPIRITS.find(function(s){return s.id===spirId;});
+  if(!spirit) return;
+  var d=_spirGetData();
+  if(!d.spirits[spirId]) d.spirits[spirId]={bond:0,unlocked:false};
+  if(!_spirCheckUnlock(spirit,d)){showFloatBubble('Anden inte upplåst ännu!','info');return;}
+  d.spirits[spirId].unlocked=true;
+  if(d.spirits[spirId].bond>=spirit.maxBond){showFloatBubble('Max bondnivå nådd!','info');return;}
+  // Check alch ingredients
+  var alchD=null; try{alchD=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+  if(!alchD||!alchD.ings||(alchD.ings[ingId]||0)<qty){
+    showFloatBubble('Inte nog ingredienser! Behöver '+qty+'x '+ ingId,'debuff');return;
+  }
+  alchD.ings[ingId]=(alchD.ings[ingId]||0)-qty;
+  localStorage.setItem(ALCH_KEY,JSON.stringify(alchD));
+  d.spirits[spirId].bond=(d.spirits[spirId].bond||0)+1;
+  d.totalBond=(d.totalBond||0)+1;
+  _spirSave(d);
+  showFloatBubble(spirit.emoji+' Bond +1! Nu: '+d.spirits[spirId].bond+'/'+spirit.maxBond,'buff');
+  checkAchievements();
+  _renderSpir();
+}
+
+function spirGetBonus(spirId){
+  var d=_spirGetData();
+  var sd=d.spirits[spirId];
+  if(!sd||!sd.unlocked) return 0;
+  return sd.bond||0;
+}
+
+function _renderSpir(){
+  var d=_spirGetData();
+  // Check unlocks
+  SPIRITS.forEach(function(s){
+    if(!d.spirits[s.id]) d.spirits[s.id]={bond:0,unlocked:false};
+    if(_spirCheckUnlock(s,d)&&!d.spirits[s.id].unlocked){
+      d.spirits[s.id].unlocked=true;
+      _spirSave(d);
+    }
+  });
+  // Active row
+  var ar=$('spirActiveRow');
+  if(ar){
+    var chips='';
+    SPIRITS.forEach(function(s){
+      var sd=d.spirits[s.id];
+      if(sd&&sd.unlocked&&sd.bond>0){
+        chips+='<div class="spir-active-chip"><span class="spir-active-emoji">'+s.emoji+'</span><div><div class="spir-active-name">'+s.name.split(' ')[0]+'</div><div class="spir-active-effect">Bond '+sd.bond+'/'+s.maxBond+'</div></div></div>';
+      }
+    });
+    ar.innerHTML=chips||'<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2)">Inga aktiva andar ännu</div>';
+  }
+  // Grid
+  var grid=$('spirGrid');
+  if(!grid) return;
+  grid.innerHTML=SPIRITS.map(function(spirit){
+    var sd=d.spirits[spirit.id]||{bond:0,unlocked:false};
+    var unlocked=sd.unlocked;
+    var bond=sd.bond||0;
+    var fill=spirit.maxBond>0?(bond/spirit.maxBond)*100:0;
+    var feedBtns=spirit.feedItems.map(function(fi){
+      var alchD=null; try{alchD=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+      var have=alchD&&alchD.ings&&(alchD.ings[fi.ingId]||0)>=fi.qty;
+      return '<div class="spir-feed-item'+(have?' active-feed':'')+'" onclick="spirFeed(\''+spirit.id+'\',\''+fi.ingId+'\','+fi.qty+')">'+fi.icon+' '+fi.name+' ×'+fi.qty+'</div>';
+    }).join('');
+    return '<div class="spir-card'+(unlocked?' unlocked':'')+(bond>0?' active':'')+'" style="--spir-color:'+spirit.color+';border-color:'+spirit.color.replace('.4','.25')+'">'
+      +'<div class="spir-card-top"><span class="spir-avatar" style="'+(unlocked?'':'filter:grayscale(1) opacity(.3)')+'">'+(unlocked?spirit.emoji:'❓')+'</span>'
+      +'<div class="spir-info"><div class="spir-name">'+(unlocked?spirit.name:'???')+'</div><div class="spir-type">'+(unlocked?spirit.type:'Okänd Ande')+'</div><div class="spir-effect">'+(unlocked?spirit.effect:'Lås upp för att se effekt')+'</div>'+(unlocked?'':'<div class="spir-locked-msg">🔒 '+spirit.unlockCond+'</div>')+'</div></div>'
+      +(unlocked?
+        '<div class="spir-bond-row"><span class="spir-bond-label">Bond</span><div class="spir-bond-bar"><div class="spir-bond-fill" style="width:'+fill+'%;background:'+spirit.color.replace('.4','1')+'"></div></div><span class="spir-bond-val">'+bond+'/'+spirit.maxBond+'</span></div>'
+        +'<div class="spir-feed-row">'+feedBtns+'</div>'
+        :'')
+      +'</div>';
   }).join('');
 }
 
