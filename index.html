@@ -1481,6 +1481,34 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ELEMENT MASTERY ══ */
+.elem-panel{position:fixed;inset:0;background:#050006;z-index:994;display:none;flex-direction:column;overflow:hidden}
+.elem-panel.open{display:flex}
+.elem-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0015,#050006)}
+.elem-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4400,#0088ff,#00aa44,#cc88ff,#ffcc00,#ff4400);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:elemShim 4s linear infinite}
+@keyframes elemShim{0%{background-position:0%}100%{background-position:300%}}
+.elem-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.elem-total{text-align:center;margin-bottom:14px}
+.elem-total-v{font:900 28px var(--ff-head);color:#cc88ff}
+.elem-total-l{font:600 9px var(--ff-body);color:rgba(255,255,255,.35)}
+.elem-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.elem-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:18px;padding:14px;position:relative;overflow:hidden}
+.elem-card-glow{position:absolute;inset:0;opacity:0;border-radius:18px;transition:opacity .3s}
+.elem-card:hover .elem-card-glow{opacity:1}
+.elem-card-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.elem-emoji{font-size:32px;flex-shrink:0}
+.elem-card-info{flex:1}
+.elem-name{font:900 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.elem-stats{font:700 9px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:2px}
+.elem-activity{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.elem-lv-badge{font:900 14px var(--ff-head);padding:5px 10px;border-radius:10px}
+.elem-prog-row{display:flex;justify-content:space-between;font:700 8px var(--ff-head);color:rgba(255,255,255,.4);margin-bottom:4px}
+.elem-prog-bar{height:10px;background:rgba(255,255,255,.05);border-radius:5px;overflow:hidden;margin-bottom:6px}
+.elem-prog-fill{height:100%;border-radius:5px;transition:width .4s}
+.elem-reward{font:700 9px var(--ff-head);color:rgba(255,255,255,.5);text-align:center}
+.elem-ultimate{font:800 9px var(--ff-head);padding:4px 8px;border-radius:8px;margin-top:4px;text-align:center}
+
 /* ══ SPEED TAP ══ */
 .tapr-panel{position:fixed;inset:0;background:#000a04;z-index:993;display:none;flex-direction:column;overflow:hidden}
 .tapr-panel.open{display:flex}
@@ -9609,6 +9637,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTnmt()"><div class="ddr-i">🏟️</div>Turnering</div>
           <div class="ddr" onclick="cM();openKcs()"><div class="ddr-i">💎</div>KC-Butik</div>
           <div class="ddr" onclick="cM();openTapr()"><div class="ddr-i">⚡</div>Speed Tap</div>
+          <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">🌀</div>Element</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10150,7 +10179,26 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         </div>
       </div>
 
-      <!-- SPEED TAP -->
+      
+<!-- ELEMENT MASTERY -->
+<div class="elem-panel" id="elemPanel">
+  <div class="elem-header">
+    <div class="elem-title">🌀 ELEMENTMÄSTERSKAP</div>
+    <button class="close-btn" onclick="closeElem()">✕</button>
+  </div>
+  <div class="elem-scroll">
+    <div class="elem-total">
+      <div class="elem-total-v" id="elemTotalLv">0</div>
+      <div class="elem-total-l">Total Elementnivå (max 50)</div>
+    </div>
+    <div class="elem-cards" id="elemCards"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center">
+      Slutför aktiviteter för att höja ditt elementmästerskap! Varje nivå = mer stats!
+    </div>
+  </div>
+</div>
+
+<!-- SPEED TAP -->
       <div class="game-panel" id="gp-speed">
         <div class="speed-arena" id="speedArena">
           <div class="speed-arena-bg"></div>
@@ -35916,6 +35964,7 @@ function misClaimBonus(){
 function misTrack(type, amount){
   if(typeof bntyTrack==='function') bntyTrack(type, amount);
   if(typeof chalTrack==='function') chalTrack(type, amount);
+  if(typeof elemTrack==='function') elemTrack(type, amount);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -42814,6 +42863,105 @@ function _renderTapr(){
   var sb=$('taprStartBtn');
   if(sb&&!_taprActive){sb.disabled=d.runs>=TAPR_MAX;sb.textContent=d.runs>=TAPR_MAX?'✋ Max försök idag':'▶ STARTA!';}
   var tim=$('taprTimer');if(tim&&!_taprActive) tim.textContent='⏱️ '+(TAPR_DUR+Math.floor((G.agi||0)*0.05))+'s';
+}
+
+
+// ELEMENT MASTERY
+const ELEM_KEY = 'k0509_elem';
+const ELEM_DEFS = [
+  {id:'fire',    emoji:'🔥', name:'Eld',      color:'#ff4400', glow:'rgba(255,68,0,.15)',  lv_color:'rgba(255,100,0,.2)',
+   types:['fight','pvp','wb'], statA:'str', statB:'end', perLv:3, ultimate:{stat:'str',val:50},
+   activity:'Arena & PvP-strider', ultDesc:'+50 STR ULTIMAT'},
+  {id:'water',   emoji:'💧', name:'Vatten',   color:'#0088ff', glow:'rgba(0,136,255,.15)', lv_color:'rgba(0,136,255,.2)',
+   types:['fish'], statA:'agi', statB:'lck', perLv:3, ultimate:{stat:'lck',val:30},
+   activity:'Fiske', ultDesc:'+30 LCK ULTIMAT'},
+  {id:'earth',   emoji:'🌍', name:'Jord',     color:'#44aa22', glow:'rgba(68,170,34,.15)', lv_color:'rgba(68,170,34,.2)',
+   types:['harvest','craft','tmap'], statA:'end', statB:'int', perLv:3, ultimate:{stat:'end',val:50},
+   activity:'Skörda, Crafta, Skattkarta', ultDesc:'+50 END ULTIMAT'},
+  {id:'wind',    emoji:'💨', name:'Vind',     color:'#00ccaa', glow:'rgba(0,204,170,.15)', lv_color:'rgba(0,204,170,.2)',
+   types:['race','expedition'], statA:'agi', statB:'str', perLv:3, ultimate:{stat:'agi',val:30},
+   activity:'Racing & Expeditioner', ultDesc:'+30 AGI ULTIMAT'},
+  {id:'lightning',emoji:'⚡',name:'Blixt',    color:'#cccc00', glow:'rgba(204,204,0,.15)', lv_color:'rgba(204,204,0,.2)',
+   types:['puzzle','tapr','daily'], statA:'int', statB:'lck', perLv:3, ultimate:{stat:'int',val:30},
+   activity:'Gem Match, Speed Tap, Dagliga', ultDesc:'+30 INT ULTIMAT'},
+];
+const ELEM_MAX_LV = 10;
+function _elemThreshold(lv){return lv<=0?0:5*lv*lv;}
+
+function _elemData(){try{return JSON.parse(localStorage.getItem(ELEM_KEY)||'null');}catch(e){return null;}}
+function _elemSave(d){localStorage.setItem(ELEM_KEY,JSON.stringify(d));}
+function _elemGetData(){
+  var d=_elemData();
+  if(!d){d={counts:{},levels:{},rewarded:{}};}
+  return d;
+}
+
+function elemTrack(type, amount){
+  var d=_elemGetData();
+  var changed=false;
+  ELEM_DEFS.forEach(function(el){
+    if(el.types.indexOf(type)<0) return;
+    d.counts[el.id]=(d.counts[el.id]||0)+(amount||1);
+    changed=true;
+    // Check for level ups
+    var curLv=d.levels[el.id]||0;
+    while(curLv<ELEM_MAX_LV){
+      var needed=_elemThreshold(curLv+1);
+      if(d.counts[el.id]>=needed){
+        curLv++;
+        d.levels[el.id]=curLv;
+        var rKey=el.id+'_'+curLv;
+        if(!d.rewarded[rKey]){
+          d.rewarded[rKey]=true;
+          // Apply stat bonus
+          G[el.statA]=(G[el.statA]||0)+el.perLv;
+          G[el.statB]=(G[el.statB]||0)+el.perLv;
+          if(curLv===ELEM_MAX_LV&&el.ultimate){
+            G[el.ultimate.stat]=(G[el.ultimate.stat]||0)+el.ultimate.val;
+            showFloatBubble('🌟 '+el.emoji+' '+el.name+' MAX! '+el.ultDesc+'!','buff');
+          } else {
+            showFloatBubble(el.emoji+' '+el.name+' Lv'+curLv+'! +'+el.perLv+' '+el.statA.toUpperCase()+' +'+el.perLv+' '+el.statB.toUpperCase(),'buff');
+          }
+          save();
+        }
+      } else break;
+    }
+  });
+  if(changed){_elemSave(d);var ep=$('elemCards');if(ep) _renderElemCards(d);}
+}
+
+function openElem(){$('elemPanel').classList.add('open');_renderElemCards(_elemGetData());}
+function closeElem(){$('elemPanel').classList.remove('open');}
+
+function _renderElemCards(d){
+  var totalLv=0;
+  ELEM_DEFS.forEach(function(el){totalLv+=(d.levels[el.id]||0);});
+  var tv=$('elemTotalLv');if(tv) tv.textContent=totalLv;
+  var cards=$('elemCards');if(!cards) return;
+  cards.innerHTML=ELEM_DEFS.map(function(el){
+    var lv=d.levels[el.id]||0;
+    var cnt=d.counts[el.id]||0;
+    var nextNeeded=lv<ELEM_MAX_LV?_elemThreshold(lv+1):cnt;
+    var prevNeeded=_elemThreshold(lv);
+    var pct=lv>=ELEM_MAX_LV?100:Math.round(Math.min((cnt-prevNeeded)/(nextNeeded-prevNeeded)*100,100));
+    var isMax=lv>=ELEM_MAX_LV;
+    var bonusA=(lv*el.perLv);var bonusB=(lv*el.perLv);
+    return '<div class="elem-card" style="border-color:'+el.color+'33">'+
+      '<div class="elem-card-glow" style="background:'+el.glow+'"></div>'+
+      '<div class="elem-card-top">'+
+        '<div class="elem-emoji">'+el.emoji+'</div>'+
+        '<div class="elem-card-info">'+
+          '<div class="elem-name">'+el.name+'mästerskap</div>'+
+          '<div class="elem-stats">+'+bonusA+' '+el.statA.toUpperCase()+' · +'+bonusB+' '+el.statB.toUpperCase()+(isMax?' · '+el.ultDesc:'')+'</div>'+
+          '<div class="elem-activity">Aktivitet: '+el.activity+'</div>'+
+        '</div>'+
+        '<div class="elem-lv-badge" style="background:'+el.lv_color+';color:'+el.color+'">Lv'+lv+'</div>'+
+      '</div>'+
+      '<div class="elem-prog-row"><span>'+cnt+'/'+nextNeeded+' aktiviteter</span><span>'+pct+'%</span></div>'+
+      '<div class="elem-prog-bar"><div class="elem-prog-fill" style="width:'+pct+'%;background:linear-gradient(90deg,'+el.color+','+el.color+'88)"></div></div>'+
+      (isMax?'<div class="elem-ultimate" style="background:'+el.lv_color+';color:'+el.color+'">🌟 MAX! '+el.ultDesc+'</div>':'<div class="elem-reward">Nästa nivå: +'+el.perLv+' '+el.statA.toUpperCase()+' +'+el.perLv+' '+el.statB.toUpperCase()+'</div>')+
+    '</div>';
+  }).join('');
 }
 
 </script>
