@@ -1493,6 +1493,49 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ STOCK MARKET ══ */
+.stk-panel{position:fixed;inset:0;background:#020a05;z-index:1006;display:none;flex-direction:column;overflow:hidden}
+.stk-panel.open{display:flex}
+.stk-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#051210,#020a05)}
+.stk-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ff88,#ffcc00,#00ff88);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:stkShim 3s linear infinite}
+@keyframes stkShim{0%{background-position:0%}100%{background-position:200%}}
+.stk-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Portfolio */
+.stk-portfolio{background:linear-gradient(135deg,rgba(0,255,136,.05),rgba(0,100,50,.03));border:2px solid rgba(0,255,136,.15);border-radius:18px;padding:14px;margin-bottom:12px}
+.stk-port-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.stk-port-val{font:900 28px var(--ff-head);color:#00ff88}
+.stk-port-change{font:800 13px var(--ff-head)}
+.stk-port-change.up{color:#44ff88}
+.stk-port-change.down{color:#ff4455}
+.stk-port-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.35)}
+/* Tab */
+.stk-tabs{display:flex;gap:6px;margin-bottom:12px}
+.stk-tab{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:7px;text-align:center;cursor:pointer;font:700 9px var(--ff-head);color:rgba(255,255,255,.4)}
+.stk-tab.active{border-color:rgba(0,255,136,.4);color:#00ff88;background:rgba(0,255,136,.05)}
+/* Stock list */
+.stk-list{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.stk-item{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 12px}
+.stk-item-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.stk-item-emoji{font-size:24px;flex-shrink:0}
+.stk-item-info{flex:1}
+.stk-item-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:1px}
+.stk-item-ticker{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.stk-item-right{text-align:right}
+.stk-price{font:900 14px var(--ff-head);color:#fff}
+.stk-change{font:700 10px var(--ff-head)}
+.stk-change.up{color:#44ff88}
+.stk-change.down{color:#ff4455}
+.stk-chart{height:24px;display:flex;align-items:flex-end;gap:2px;margin-bottom:8px}
+.stk-bar{flex:1;border-radius:2px;background:rgba(0,255,136,.3);min-height:2px}
+.stk-btns{display:flex;gap:6px}
+.stk-buy-btn{flex:1;background:linear-gradient(135deg,#003322,#006644);border:none;border-radius:9px;padding:7px;font:800 10px var(--ff-head);color:#fff;cursor:pointer}
+.stk-sell-btn{flex:1;background:linear-gradient(135deg,#330010,#660022);border:none;border-radius:9px;padding:7px;font:800 10px var(--ff-head);color:#fff;cursor:pointer}
+.stk-buy-btn:disabled,.stk-sell-btn:disabled{opacity:.3;cursor:default}
+.stk-own{font:600 8px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:4px}
+.stk-dividend{font:600 8px var(--ff-body);color:#ffcc00;text-align:center;margin-bottom:8px}
+.stk-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET CIRCUS ══ */
 .circ-panel{position:fixed;inset:0;background:#030104;z-index:1005;display:none;flex-direction:column;overflow:hidden}
 .circ-panel.open{display:flex}
@@ -10027,6 +10070,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
+          <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -10053,6 +10097,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
+          <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
@@ -10062,6 +10107,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
+          <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
@@ -10109,6 +10155,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
+          <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10661,6 +10708,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- STOCK MARKET -->
+<div class="stk-panel" id="stkPanel">
+  <div class="stk-header">
+    <div class="stk-title">📈 HUSDJURSBÖRSEN</div>
+    <button class="close-btn" onclick="closeStk()">✕</button>
+  </div>
+  <div class="stk-scroll">
+    <div class="stk-portfolio">
+      <div class="stk-port-row">
+        <div>
+          <div class="stk-port-val" id="stkPortVal">0🪙</div>
+          <div class="stk-port-lbl">Portföljvärde</div>
+        </div>
+        <div class="stk-port-change up" id="stkPortChange">+0🪙 (+0%)</div>
+      </div>
+      <div class="stk-port-lbl" id="stkPortDivs">Utdelning: 0🪙 idag</div>
+    </div>
+    <div class="stk-tabs">
+      <div class="stk-tab active" id="stkTabMarket" onclick="stkSetTab('market')">📊 Marknad</div>
+      <div class="stk-tab" id="stkTabPortfolio" onclick="stkSetTab('portfolio')">💼 Portfölj</div>
+    </div>
+    <div class="stk-list" id="stkList"></div>
+    <div class="stk-info">INT ökar din handelsanalys! Dividender betalas ut varje dag du öppnar börsen!</div>
+  </div>
+</div>
 
 <!-- PET CIRCUS -->
 <div class="circ-panel" id="circPanel">
@@ -45368,6 +45442,181 @@ function _renderCirc(){
         '<div class="circ-act-reward">'+
           '<div class="circ-act-coins">~'+approxCoins+'🪙</div>'+
           (onCd?'<div class="circ-act-cd">'+cdLeft+'s</div>':'<div class="circ-act-cd">Redo!</div>')+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// STOCK MARKET
+const STK_KEY = 'k0509_stk';
+const STK_STOCKS = [
+  {id:'fish_co',  emoji:'🐟', name:'FishCo',       ticker:'FISH', basePrice:100, div:0.02, sector:'Mat'},
+  {id:'pet_tech', emoji:'🤖', name:'PetTech',       ticker:'PTCH', basePrice:250, div:0.01, sector:'Tech'},
+  {id:'dragon_inc',emoji:'🐉',name:'Dragon Inc',    ticker:'DRGN', basePrice:500, div:0.015,sector:'Fantasy'},
+  {id:'honey_ltd', emoji:'🍯',name:'Honey Ltd',     ticker:'HNYL', basePrice:80,  div:0.03, sector:'Mat'},
+  {id:'star_corp', emoji:'⭐',name:'StarCorp',       ticker:'STAR', basePrice:1000,div:0.008,sector:'Premium'},
+  {id:'race_co',   emoji:'🏁',name:'RaceCo',        ticker:'RACE', basePrice:200, div:0.025,sector:'Sport'},
+];
+
+function _stkData(){try{return JSON.parse(localStorage.getItem(STK_KEY)||'null');}catch(e){return null;}}
+function _stkSave(d){localStorage.setItem(STK_KEY,JSON.stringify(d));}
+function _stkGetData(){
+  var d=_stkData();
+  if(!d) d={portfolio:{},history:{},divDay:null,totalDivs:0,costBasis:{}};
+  return d;
+}
+
+var _stkTab='market';
+
+function _stkSeed(stockId){
+  var day=getTodayKey();
+  var s=stockId+day;
+  var h=0;
+  for(var i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0;
+  return h;
+}
+
+function _stkPrice(stock){
+  var seed=_stkSeed(stock.id);
+  var rand=((seed*1664525+1013904223)>>>0);
+  var pctChange=(rand%400)/1000-0.2; // -20% to +20%
+  var intBonus=1+Math.min((G.int||0)*0.001,0.1);
+  return Math.max(10,Math.round(stock.basePrice*(1+pctChange)));
+}
+
+function _stkHistory(stock){
+  var prices=[];var seed=_stkSeed(stock.id);
+  for(var i=6;i>=0;i--){
+    var s2=((seed+i*997)*1664525+1013904223)>>>0;
+    var pct=(s2%400)/1000-0.2;
+    prices.push(Math.max(10,Math.round(stock.basePrice*(1+pct))));
+  }
+  return prices;
+}
+
+function stkBuy(stockId){
+  var stock=STK_STOCKS.filter(function(s){return s.id===stockId;})[0];
+  if(!stock) return;
+  var price=_stkPrice(stock);
+  if((G.coins||0)<price){showFloatBubble('Behöver '+price+'🪙!','debuff');return;}
+  G.coins-=price;save();
+  var d=_stkGetData();
+  d.portfolio[stockId]=(d.portfolio[stockId]||0)+1;
+  d.costBasis[stockId]=((d.costBasis[stockId]||price)*(((d.portfolio[stockId]||1)-1))+price)/(d.portfolio[stockId]||1);
+  _stkSave(d);
+  showFloatBubble('📈 Köpte 1 '+stock.ticker+' för '+price+'🪙','buff');
+  _renderStk();
+}
+
+function stkSell(stockId){
+  var stock=STK_STOCKS.filter(function(s){return s.id===stockId;})[0];
+  if(!stock) return;
+  var d=_stkGetData();
+  if(!(d.portfolio[stockId]||0)){showFloatBubble('Inga aktier att sälja!','debuff');return;}
+  var price=_stkPrice(stock);
+  gainCoins(price);
+  d.portfolio[stockId]--;
+  if(!d.portfolio[stockId]) delete d.portfolio[stockId];
+  _stkSave(d);
+  showFloatBubble('📉 Sålde 1 '+stock.ticker+' för '+price+'🪙','buff');
+  _renderStk();
+}
+
+function _stkPayDividends(d){
+  var today=getTodayKey();
+  if(d.divDay===today) return 0;
+  var total=0;
+  STK_STOCKS.forEach(function(stock){
+    var cnt=d.portfolio[stock.id]||0;
+    if(cnt>0){
+      var price=_stkPrice(stock);
+      var div=Math.floor(price*stock.div*cnt);
+      gainCoins(div);
+      total+=div;
+    }
+  });
+  d.divDay=today;
+  d.totalDivs=(d.totalDivs||0)+total;
+  return total;
+}
+
+function stkSetTab(tab){
+  _stkTab=tab;
+  ['market','portfolio'].forEach(function(t){
+    var el=$('stkTab'+t.charAt(0).toUpperCase()+t.slice(1));
+    if(el) el.classList.toggle('active',t===tab);
+  });
+  _renderStk();
+}
+
+function openStk(){
+  $('stkPanel').classList.add('open');
+  var d=_stkGetData();
+  var divs=_stkPayDividends(d);
+  _stkSave(d);
+  if(divs>0) showFloatBubble('💰 Utdelning: +'+divs+'🪙','buff');
+  _renderStk();
+}
+function closeStk(){$('stkPanel').classList.remove('open');}
+
+function _renderStk(){
+  var d=_stkGetData();
+  // Portfolio value
+  var portVal=0;var portCost=0;
+  STK_STOCKS.forEach(function(stock){
+    var cnt=d.portfolio[stock.id]||0;
+    portVal+=cnt*_stkPrice(stock);
+    portCost+=cnt*(d.costBasis[stock.id]||_stkPrice(stock));
+  });
+  var portChange=portVal-portCost;
+  var portPct=portCost>0?Math.round((portChange/portCost)*100):0;
+  var pv=$('stkPortVal');if(pv) pv.textContent=portVal+'🪙';
+  var pc=$('stkPortChange');
+  if(pc){pc.textContent=(portChange>=0?'+':'')+portChange+'🪙 ('+(portChange>=0?'+':'')+portPct+'%)';pc.className='stk-port-change '+(portChange>=0?'up':'down');}
+  var today=getTodayKey();
+  var todayDivs=0;
+  STK_STOCKS.forEach(function(stock){
+    var cnt=d.portfolio[stock.id]||0;
+    if(cnt>0){var price=_stkPrice(stock);todayDivs+=Math.floor(price*stock.div*cnt);}
+  });
+  var pd=$('stkPortDivs');if(pd) pd.textContent='Imorgons utdelning: '+todayDivs+'🪙/dag';
+  // Stock list
+  var list=$('stkList');
+  if(list){
+    var stocks=_stkTab==='portfolio'
+      ?STK_STOCKS.filter(function(s){return (d.portfolio[s.id]||0)>0;})
+      :STK_STOCKS;
+    if(!stocks.length){list.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;padding:12px">Ingen portfölj ännu — köp aktier!</div>';return;}
+    list.innerHTML=stocks.map(function(stock){
+      var price=_stkPrice(stock);
+      var hist=_stkHistory(stock);
+      var prevPrice=hist[hist.length-2]||price;
+      var change=price-prevPrice;
+      var changePct=Math.round((change/prevPrice)*100);
+      var maxP=Math.max.apply(null,hist);
+      var owned=d.portfolio[stock.id]||0;
+      var basis=d.costBasis[stock.id]||price;
+      var gainLoss=owned?(price-basis)*owned:0;
+      var canAfford=(G.coins||0)>=price;
+      return '<div class="stk-item">'+
+        '<div class="stk-item-top">'+
+          '<div class="stk-item-emoji">'+stock.emoji+'</div>'+
+          '<div class="stk-item-info">'+
+            '<div class="stk-item-name">'+stock.name+'</div>'+
+            '<div class="stk-item-ticker">'+stock.ticker+' · '+stock.sector+'</div>'+
+          '</div>'+
+          '<div class="stk-item-right">'+
+            '<div class="stk-price">'+price+'🪙</div>'+
+            '<div class="stk-change '+(change>=0?'up':'down')+'">'+(change>=0?'+':'')+changePct+'%</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="stk-chart">'+hist.map(function(p){return '<div class="stk-bar" style="height:'+Math.round(p/maxP*100)+'%;background:'+(p>=prevPrice?'rgba(68,255,136,.4)':'rgba(255,68,85,.4)')+'"></div>';}).join('')+'</div>'+
+        (owned?'<div class="stk-own">Innehar: '+owned+' st · '+(gainLoss>=0?'+':'')+gainLoss+'🪙 ('+(Math.round((gainLoss/(basis*owned))*100))+'%)</div>':'<div class="stk-dividend">Utdelning: '+Math.round(price*stock.div*100)/100+'🪙/dag</div>')+
+        '<div class="stk-btns">'+
+          '<button class="stk-buy-btn" '+(canAfford?'':'disabled')+' onclick="stkBuy(\''+stock.id+'\')">Köp ('+price+'🪙)</button>'+
+          '<button class="stk-sell-btn" '+(owned?'':'disabled')+' onclick="stkSell(\''+stock.id+'\')">Sälj</button>'+
         '</div>'+
       '</div>';
     }).join('');
