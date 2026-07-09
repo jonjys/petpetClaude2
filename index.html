@@ -1480,6 +1480,41 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SPEED TAP ══ */
+.tapr-panel{position:fixed;inset:0;background:#000a04;z-index:993;display:none;flex-direction:column;overflow:hidden}
+.tapr-panel.open{display:flex}
+.tapr-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#001408,#000a04)}
+.tapr-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ff88,#ffff00,#ff8800,#00ff88);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:taprShim 2s linear infinite}
+@keyframes taprShim{0%{background-position:0%}100%{background-position:200%}}
+.tapr-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px;display:flex;flex-direction:column;align-items:center}
+/* Stats */
+.tapr-stats-row{display:flex;gap:8px;width:100%;max-width:340px;margin-bottom:14px}
+.tapr-stat{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:8px;text-align:center}
+.tapr-stat-v{font:900 18px var(--ff-head);color:#00ff88}
+.tapr-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.35);margin-top:1px}
+/* Big tap button */
+.tapr-arena{width:220px;height:220px;margin:0 auto 16px;position:relative}
+.tapr-big-btn{width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,#004422,#001a0a);border:3px solid rgba(0,255,136,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:transform .05s,box-shadow .1s;user-select:none;-webkit-user-select:none}
+.tapr-big-btn:active{transform:scale(.92);box-shadow:0 0 40px rgba(0,255,136,.7)}
+.tapr-big-btn.active{border-color:rgba(0,255,136,.8);box-shadow:0 0 30px rgba(0,255,136,.4);background:radial-gradient(circle,#006633,#002211)}
+.tapr-big-btn.idle{opacity:.6}
+.tapr-tap-count{font:900 56px var(--ff-head);color:#00ff88;line-height:1}
+.tapr-tap-lbl{font:700 11px var(--ff-head);color:rgba(0,255,136,.6);margin-top:4px}
+/* Timer ring */
+.tapr-timer{font:900 22px var(--ff-head);color:#ffcc00;text-align:center;margin-bottom:8px;min-height:32px}
+/* Controls */
+.tapr-start-btn{width:100%;max-width:340px;background:linear-gradient(135deg,#005522,#00aa44);border:none;border-radius:16px;padding:14px;font:900 16px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 0 20px rgba(0,255,136,.25)}
+.tapr-start-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.tapr-msg{font:800 12px var(--ff-head);color:#ffcc00;text-align:center;min-height:20px;margin-bottom:8px;width:100%;max-width:340px}
+/* Score tiers */
+.tapr-tiers{display:flex;gap:6px;width:100%;max-width:340px;margin-bottom:10px}
+.tapr-tier{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:6px;text-align:center}
+.tapr-tier-icon{font-size:16px}
+.tapr-tier-name{font:800 9px var(--ff-head);color:rgba(255,255,255,.7)}
+.tapr-tier-req{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.tapr-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;max-width:340px}
+
 /* ══ KC SHOP ══ */
 .kcs-panel{position:fixed;inset:0;background:#030810;z-index:992;display:none;flex-direction:column;overflow:hidden}
 .kcs-panel.open{display:flex}
@@ -9573,6 +9608,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🃏</div>Ödeskortet</div>
           <div class="ddr" onclick="cM();openTnmt()"><div class="ddr-i">🏟️</div>Turnering</div>
           <div class="ddr" onclick="cM();openKcs()"><div class="ddr-i">💎</div>KC-Butik</div>
+          <div class="ddr" onclick="cM();openTapr()"><div class="ddr-i">⚡</div>Speed Tap</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10823,6 +10859,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- SPEED TAP -->
+<div class="tapr-panel" id="taprPanel">
+  <div class="tapr-header">
+    <div class="tapr-title">⚡ SPEED TAP</div>
+    <button class="close-btn" onclick="closeTapr()">✕</button>
+  </div>
+  <div class="tapr-scroll">
+    <div class="tapr-stats-row">
+      <div class="tapr-stat"><div class="tapr-stat-v" id="taprRuns">5</div><div class="tapr-stat-l">Försök kvar</div></div>
+      <div class="tapr-stat"><div class="tapr-stat-v" id="taprBest">0</div><div class="tapr-stat-l">Bästa score</div></div>
+      <div class="tapr-stat"><div class="tapr-stat-v" id="taprGolds">0</div><div class="tapr-stat-l">Guldrekord</div></div>
+    </div>
+    <div class="tapr-timer" id="taprTimer">⏱️ 10s</div>
+    <div class="tapr-arena">
+      <div class="tapr-big-btn idle" id="taprBtn" onclick="taprTap()">
+        <div class="tapr-tap-count" id="taprCount">0</div>
+        <div class="tapr-tap-lbl">TAP!</div>
+      </div>
+    </div>
+    <div class="tapr-msg" id="taprMsg">Tryck Start — sen tappa så fort du kan!</div>
+    <div class="tapr-tiers">
+      <div class="tapr-tier"><div class="tapr-tier-icon">🥉</div><div class="tapr-tier-name">Brons</div><div class="tapr-tier-req">50+</div></div>
+      <div class="tapr-tier"><div class="tapr-tier-icon">🥈</div><div class="tapr-tier-name">Silver</div><div class="tapr-tier-req">80+</div></div>
+      <div class="tapr-tier"><div class="tapr-tier-icon">🥇</div><div class="tapr-tier-name">Guld</div><div class="tapr-tier-req">110+</div></div>
+      <div class="tapr-tier"><div class="tapr-tier-icon">💎</div><div class="tapr-tier-name">Diamant</div><div class="tapr-tier-req">150+</div></div>
+    </div>
+    <button class="tapr-start-btn" id="taprStartBtn" onclick="taprStart()">▶ STARTA!</button>
+    <div class="tapr-info">10 sekunder — tappa så fort du kan! AGI ökar tidsbonus! Max 5 försök/dag.</div>
+  </div>
+</div>
 
 <!-- KC SHOP -->
 <div class="kcs-panel" id="kcsPanel">
@@ -42658,6 +42726,94 @@ function _renderKcs(){
       '</div>'+
     '</div>';
   }).join('');
+}
+
+
+// SPEED TAP
+const TAPR_KEY = 'k0509_tapr';
+const TAPR_MAX = 5;
+const TAPR_DUR = 10;
+var _taprActive = false;
+var _taprCount = 0;
+var _taprTimeLeft = TAPR_DUR;
+var _taprInterval = null;
+
+function _taprData(){try{return JSON.parse(localStorage.getItem(TAPR_KEY)||'null');}catch(e){return null;}}
+function _taprSave(d){localStorage.setItem(TAPR_KEY,JSON.stringify(d));}
+function _taprGetData(){
+  var d=_taprData(); var t=getTodayKey();
+  if(!d||d.day!==t) d={day:t,runs:0,best:(d?d.best:0)||0,golds:(d?d.golds:0)||0};
+  return d;
+}
+
+function taprStart(){
+  var d=_taprGetData();
+  if(d.runs>=TAPR_MAX){showFloatBubble('Max '+TAPR_MAX+' försök per dag!','debuff');return;}
+  d.runs++;_taprSave(d);
+  _taprActive=true;_taprCount=0;
+  var dur=TAPR_DUR+Math.floor((G.agi||0)*0.05);
+  _taprTimeLeft=dur;
+  var btn=$('taprBtn');if(btn){btn.className='tapr-big-btn active';btn.onclick=null;}
+  var cnt=$('taprCount');if(cnt) cnt.textContent='0';
+  var sb=$('taprStartBtn');if(sb) sb.disabled=true;
+  var mg=$('taprMsg');if(mg) mg.textContent='TAPPA! TAPPA! TAPPA!';
+  clearInterval(_taprInterval);
+  _taprInterval=setInterval(function(){
+    _taprTimeLeft--;
+    var tim=$('taprTimer');if(tim) tim.textContent='⏱️ '+_taprTimeLeft+'s';
+    if(_taprTimeLeft<=0){
+      clearInterval(_taprInterval);_taprInterval=null;
+      _taprActive=false;
+      var btn2=$('taprBtn');if(btn2){btn2.className='tapr-big-btn idle';btn2.onclick=function(){taprTap();};}
+      _taprFinish(dur);
+    }
+  },1000);
+  _renderTapr();
+}
+
+function taprTap(){
+  if(!_taprActive) return;
+  _taprCount++;
+  var cnt=$('taprCount');if(cnt) cnt.textContent=_taprCount;
+  // Visual flash
+  var btn=$('taprBtn');
+  if(btn){btn.style.boxShadow='0 0 50px rgba(0,255,136,.9)';setTimeout(function(){if(btn) btn.style.boxShadow='';},80);}
+}
+
+function _taprFinish(dur){
+  var score=_taprCount;
+  var d=_taprGetData();
+  var isNew=score>d.best;
+  if(isNew) d.best=score;
+  var tier=score>=150?'💎 DIAMANT':score>=110?'🥇 GULD':score>=80?'🥈 SILVER':score>=50?'🥉 BRONS':'💨 Ingen nivå';
+  var coins=score>=150?1500:score>=110?800:score>=80?400:score>=50?150:0;
+  var kc=score>=150?3:score>=110?1:0;
+  if(score>=110) d.golds=(d.golds||0)+1;
+  _taprSave(d);
+  if(coins>0) gainCoins(coins);
+  if(kc>0) gainKC(kc);
+  var mg=$('taprMsg');
+  if(mg) mg.textContent=score+' tryck! '+tier+(coins>0?' +'+coins+'🪙':'')+(kc>0?' +'+kc+'KC':'')+(isNew?' 🆕 NYTT REKORD!':'');
+  if(score>=110) showFloatBubble('⚡ '+tier+'! '+score+' tryck! +'+coins+'🪙'+(kc>0?' +'+kc+'KC':''),'buff');
+  else if(coins>0) showFloatBubble(tier+' '+score+' tryck +'+coins+'🪙','buff');
+  var tim=$('taprTimer');if(tim) tim.textContent='🏁 '+score+' tryck på '+dur+'s!';
+  var sb=$('taprStartBtn');
+  if(sb){sb.disabled=d.runs>=TAPR_MAX;sb.textContent=d.runs>=TAPR_MAX?'✋ Max försök idag':'▶ STARTA!';}
+  misTrack('tapr',1);checkAchievements();
+  _renderTapr();
+}
+
+function openTapr(){$('taprPanel').classList.add('open');_renderTapr();}
+function closeTapr(){clearInterval(_taprInterval);_taprInterval=null;_taprActive=false;$('taprPanel').classList.remove('open');}
+
+function _renderTapr(){
+  var d=_taprGetData();
+  var tr=$('taprRuns');if(tr) tr.textContent=Math.max(TAPR_MAX-d.runs,0);
+  var tb=$('taprBest');if(tb) tb.textContent=d.best||0;
+  var tg=$('taprGolds');if(tg) tg.textContent=d.golds||0;
+  var sb=$('taprStartBtn');
+  if(sb&&!_taprActive){sb.disabled=d.runs>=TAPR_MAX;sb.textContent=d.runs>=TAPR_MAX?'✋ Max försök idag':'▶ STARTA!';}
+  var tim=$('taprTimer');if(tim&&!_taprActive) tim.textContent='⏱️ '+(TAPR_DUR+Math.floor((G.agi||0)*0.05))+'s';
 }
 
 </script>
