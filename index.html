@@ -1494,6 +1494,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DUNGEON CRAWLER ══ */
+.dung-panel{position:fixed;inset:0;background:#030208;z-index:1007;display:none;flex-direction:column;overflow:hidden}
+.dung-panel.open{display:flex}
+.dung-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#06040f,#030208)}
+.dung-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#8844ff,#ff4488,#8844ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:dungShim 3s linear infinite}
+@keyframes dungShim{0%{background-position:0%}100%{background-position:200%}}
+.dung-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Floor card */
+.dung-floor-card{background:radial-gradient(ellipse,rgba(100,50,200,.06),rgba(0,0,0,0));border:2px solid rgba(100,50,200,.15);border-radius:18px;padding:14px;margin-bottom:12px;text-align:center}
+.dung-floor-num{font:900 36px var(--ff-head);color:#8844ff}
+.dung-floor-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.35)}
+.dung-floor-desc{font:700 11px var(--ff-head);color:rgba(150,100,255,.7);margin-top:4px}
+/* HP bar */
+.dung-hp-row{display:flex;justify-content:space-between;font:700 8px var(--ff-head);color:rgba(255,255,255,.4);margin-bottom:3px}
+.dung-hp-bar{height:10px;background:rgba(255,255,255,.05);border-radius:5px;overflow:hidden;margin-bottom:10px}
+.dung-hp-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#ff4455,#ff8844);transition:width .3s}
+/* Room */
+.dung-room{background:rgba(255,255,255,.02);border:1.5px solid rgba(100,50,200,.12);border-radius:14px;padding:12px;margin-bottom:10px;text-align:center;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.dung-room-emoji{font-size:44px}
+.dung-room-title{font:900 13px var(--ff-head);color:#fff}
+.dung-room-desc{font:600 9px var(--ff-body);color:rgba(255,255,255,.5)}
+/* Actions */
+.dung-actions{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.dung-action-btn{width:100%;background:linear-gradient(135deg,#220044,#440088);border:none;border-radius:13px;padding:11px;font:900 12px var(--ff-head);color:#fff;cursor:pointer}
+.dung-action-btn.danger{background:linear-gradient(135deg,#440022,#880044)}
+.dung-action-btn.safe{background:linear-gradient(135deg,#002222,#004444)}
+.dung-action-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
+/* Log */
+.dung-log{background:rgba(0,0,0,.3);border-radius:10px;padding:8px;max-height:80px;overflow-y:auto;margin-bottom:10px}
+.dung-log-line{font:600 9px var(--ff-body);color:rgba(255,255,255,.6);margin-bottom:2px}
+.dung-log-line.good{color:#88ff88}
+.dung-log-line.bad{color:#ff6688}
+/* Stats */
+.dung-stats{display:flex;gap:8px;margin-bottom:12px}
+.dung-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(100,50,200,.1);border-radius:10px;padding:7px;text-align:center}
+.dung-stat-v{font:900 16px var(--ff-head);color:#8844ff}
+.dung-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.dung-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ STOCK MARKET ══ */
 .stk-panel{position:fixed;inset:0;background:#020a05;z-index:1006;display:none;flex-direction:column;overflow:hidden}
 .stk-panel.open{display:flex}
@@ -10071,6 +10111,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
+          <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -10098,6 +10139,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
+          <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
@@ -10108,6 +10150,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
+          <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
@@ -10156,6 +10199,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
+          <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10709,6 +10753,39 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DUNGEON CRAWLER -->
+<div class="dung-panel" id="dungPanel">
+  <div class="dung-header">
+    <div class="dung-title">🗡️ DUNGEON CRAWLER</div>
+    <button class="close-btn" onclick="closeDung()">✕</button>
+  </div>
+  <div class="dung-scroll">
+    <div class="dung-stats">
+      <div class="dung-stat"><div class="dung-stat-v" id="dungBest">0</div><div class="dung-stat-l">Djupaste</div></div>
+      <div class="dung-stat"><div class="dung-stat-v" id="dungRuns">0</div><div class="dung-stat-l">Körningar</div></div>
+      <div class="dung-stat"><div class="dung-stat-v" id="dungEarned">0</div><div class="dung-stat-l">Tjänat</div></div>
+    </div>
+    <div class="dung-floor-card">
+      <div class="dung-floor-num" id="dungFloor">0</div>
+      <div class="dung-floor-lbl">Våning</div>
+      <div class="dung-floor-desc" id="dungFloorDesc">Välkommen till Dungeon!</div>
+    </div>
+    <div class="dung-hp-row"><span>HP</span><span id="dungHpTxt">100/100</span></div>
+    <div class="dung-hp-bar"><div class="dung-hp-fill" id="dungHpBar" style="width:100%"></div></div>
+    <div class="dung-room" id="dungRoom">
+      <div class="dung-room-emoji">🗡️</div>
+      <div class="dung-room-title">Starta ett äventyr!</div>
+      <div class="dung-room-desc">Klicka Starta Dungeon för att börja</div>
+    </div>
+    <div class="dung-log" id="dungLog"></div>
+    <div class="dung-actions" id="dungActions">
+      <button class="dung-action-btn" onclick="dungStart()">⚔️ Starta Dungeon!</button>
+    </div>
+    <div class="dung-info">STR=attack · END=HP · AGI=dodge · LCK=treasure · INT=spell dmg</div>
+  </div>
+</div>
 
 <!-- STOCK MARKET -->
 <div class="stk-panel" id="stkPanel">
@@ -45622,6 +45699,186 @@ function _renderStk(){
     }).join('');
   }
 }
+
+
+// DUNGEON CRAWLER
+const DUNG_KEY = 'k0509_dung';
+var _dungState = null;
+
+function _dungData(){try{return JSON.parse(localStorage.getItem(DUNG_KEY)||'null');}catch(e){return null;}}
+function _dungSave(d){localStorage.setItem(DUNG_KEY,JSON.stringify(d));}
+function _dungGetData(){
+  var d=_dungData();
+  if(!d) d={best:0,runs:0,earned:0};
+  return d;
+}
+
+function _dungAddLog(text,cls){
+  var log=$('dungLog');
+  if(!log) return;
+  var l=document.createElement('div');
+  l.className='dung-log-line'+(cls?' '+cls:'');
+  l.textContent=text;
+  log.appendChild(l);
+  log.scrollTop=log.scrollHeight;
+}
+
+function dungStart(){
+  var maxHp=(G.end||0)*8+80;
+  _dungState={floor:0,hp:maxHp,maxHp:maxHp,earned:0};
+  var log=$('dungLog');if(log) log.innerHTML='';
+  _dungAddLog('⚔️ Dungeon-äventyret börjar!','good');
+  _dungNextFloor();
+  var d=_dungGetData();d.runs=(d.runs||0)+1;_dungSave(d);
+  _renderDungStats();
+}
+
+function _dungNextFloor(){
+  if(!_dungState) return;
+  _dungState.floor++;
+  // Generate room type
+  var rand=Math.random();
+  var isBoss=_dungState.floor%5===0;
+  var room;
+  if(isBoss){
+    room={type:'boss',emoji:'👹',title:'BOSS: Dungeon Demon',desc:'En mäktig demon blockerar vägen!'};
+  } else if(rand<0.35){
+    room={type:'combat',emoji:['⚔️','🐍','🦇','💀','🕷️'][Math.floor(Math.random()*5)],title:'Strid!',desc:'En fiende attackerar!'};
+  } else if(rand<0.55){
+    room={type:'treasure',emoji:'💰',title:'Skattkammare!',desc:'Du hittar en kista med skatter!'};
+  } else if(rand<0.70){
+    room={type:'trap',emoji:'⚠️',title:'Fälla!',desc:'Du utlöser en gammal fälla!'};
+  } else if(rand<0.85){
+    room={type:'rest',emoji:'🏕️',title:'Vilorum',desc:'En lugn plats att samla kraft.'};
+  } else {
+    room={type:'shop',emoji:'🛒',title:'Dungeon Butik',desc:'En mystisk handlare dyker upp!'};
+  }
+  _dungState.room=room;
+  _renderDungRoom();
+}
+
+function dungAction(action){
+  if(!_dungState||!_dungState.room) return;
+  var room=_dungState.room;
+  var d=_dungGetData();
+  if(room.type==='combat'||room.type==='boss'){
+    var isBoss=room.type==='boss';
+    var enemyHp=isBoss?(100+_dungState.floor*30):(30+_dungState.floor*10);
+    var enemyAtk=isBoss?(20+_dungState.floor*5):(8+_dungState.floor*2);
+    var playerAtk=(G.str||0)*3+20+(G.int||0)*2;
+    // Simulate fight
+    var rounds=0;var playerHp=_dungState.hp;
+    while(playerHp>0&&enemyHp>0&&rounds<20){
+      var dodge=Math.random()<Math.min((G.agi||0)*0.003,0.3);
+      enemyHp-=playerAtk;
+      if(!dodge) playerHp-=enemyAtk;
+      rounds++;
+    }
+    var won=enemyHp<=0;
+    if(won){
+      var coins=isBoss?(200+_dungState.floor*30):(50+_dungState.floor*10);
+      gainCoins(coins);_dungState.earned+=coins;
+      gainXP(20+_dungState.floor*5,'str');
+      _dungAddLog((isBoss?'👹':'⚔️')+' Seger! +'+(coins)+'🪙','good');
+      _dungState.hp=Math.max(1,playerHp);
+      if(isBoss){gainKC(1+Math.floor(_dungState.floor/10));_dungAddLog('💎 Boss besegrad! +KC!','good');}
+      misTrack('fight',1);
+      _dungNextFloor();
+    } else {
+      _dungAddLog('💀 Besegrad på våning '+_dungState.floor+'!','bad');
+      _dungEnd();
+    }
+  } else if(room.type==='treasure'){
+    var lckBonus=1+Math.min((G.lck||0)*0.005,0.5);
+    var coins2=Math.floor((100+_dungState.floor*20)*lckBonus);
+    gainCoins(coins2);_dungState.earned+=coins2;
+    _dungAddLog('💰 Hittade '+coins2+'🪙!','good');
+    _dungNextFloor();
+  } else if(room.type==='trap'){
+    if(action==='dodge'){
+      var dodged=Math.random()<Math.min(0.2+(G.agi||0)*0.004,0.7);
+      if(dodged){_dungAddLog('🏃 Undvek fällan!','good');}
+      else{var dmg=Math.floor((20+_dungState.floor*5)*(1-(Math.min((G.end||0)*0.003,0.4))));_dungState.hp-=dmg;_dungAddLog('⚠️ Träffad av fälla! -'+dmg+' HP','bad');}
+    } else {
+      var dmg2=Math.floor(30+_dungState.floor*8);_dungState.hp-=dmg2;
+      _dungAddLog('⚠️ Bröt igenom fällan! -'+dmg2+' HP','bad');
+    }
+    if(_dungState.hp<=0){_dungAddLog('💀 Dog av fällan!','bad');_dungEnd();return;}
+    _dungNextFloor();
+  } else if(room.type==='rest'){
+    var heal=Math.floor(_dungState.maxHp*0.3);
+    _dungState.hp=Math.min(_dungState.maxHp,_dungState.hp+heal);
+    _dungAddLog('🏕️ Healade +'+heal+' HP','good');
+    _dungNextFloor();
+  } else if(room.type==='shop'){
+    if(action==='buy_heal'){
+      if((G.coins||0)<150){showFloatBubble('Behöver 150🪙!','debuff');return;}
+      G.coins-=150;save();
+      _dungState.hp=_dungState.maxHp;
+      _dungAddLog('💊 Full heal köpt för 150🪙!','good');
+    } else {
+      _dungAddLog('🛒 Hoppade förbi butiken','');
+    }
+    _dungNextFloor();
+  }
+  _renderDungRoom();
+  _dungUpdateHP();
+  _renderDungStats();
+}
+
+function _dungEnd(){
+  if(!_dungState) return;
+  var floor=_dungState.floor;
+  var d=_dungGetData();
+  if(floor>d.best) d.best=floor;
+  d.earned=(d.earned||0)+_dungState.earned;
+  _dungSave(d);
+  checkAchievements();
+  _dungState=null;
+  $('dungActions').innerHTML='<button class="dung-action-btn" onclick="dungStart()">⚔️ Försök igen!</button>';
+  $('dungRoom').innerHTML='<div class="dung-room-emoji">💀</div><div class="dung-room-title">Äventyret slut!</div><div class="dung-room-desc">Kom till våning '+floor+'! Totalt intjänat: '+d.earned+'🪙</div>';
+  _renderDungStats();
+}
+
+function _renderDungRoom(){
+  if(!_dungState||!_dungState.room) return;
+  var room=_dungState.room;
+  var f=$('dungFloor');if(f) f.textContent=_dungState.floor;
+  var fd=$('dungFloorDesc');if(fd) fd.textContent='Vår '+_dungState.floor+(room.type==='boss'?' — BOSS!':' — '+{combat:'Stridsrum',treasure:'Skattkammare',trap:'Fällerum',rest:'Vilorum',shop:'Butik'}[room.type]);
+  var r=$('dungRoom');
+  if(r) r.innerHTML='<div class="dung-room-emoji">'+room.emoji+'</div><div class="dung-room-title">'+room.title+'</div><div class="dung-room-desc">'+room.desc+'</div>';
+  var actions=$('dungActions');
+  if(!actions) return;
+  if(room.type==='combat'||room.type==='boss'){
+    actions.innerHTML='<button class="dung-action-btn danger" onclick="dungAction(\'fight\')">⚔️ '+(room.type==='boss'?'Slåss mot Boss!':'Slåss!')+'</button>';
+  } else if(room.type==='treasure'){
+    actions.innerHTML='<button class="dung-action-btn" onclick="dungAction(\'take\')">💰 Ta skatten!</button>';
+  } else if(room.type==='trap'){
+    actions.innerHTML='<button class="dung-action-btn" onclick="dungAction(\'dodge\')">🏃 Undvik! (AGI)</button><button class="dung-action-btn danger" onclick="dungAction(\'rush\')">💪 Bryt igenom! (END)</button>';
+  } else if(room.type==='rest'){
+    actions.innerHTML='<button class="dung-action-btn safe" onclick="dungAction(\'rest\')">🏕️ Vila och heala (+30% HP)</button>';
+  } else if(room.type==='shop'){
+    var canBuy=(G.coins||0)>=150;
+    actions.innerHTML='<button class="dung-action-btn safe" '+(canBuy?'':'disabled')+' onclick="dungAction(\'buy_heal\')">💊 Köp Full Heal (150🪙)</button><button class="dung-action-btn" onclick="dungAction(\'skip\')">➡ Hoppa förbi</button>';
+  }
+}
+
+function _dungUpdateHP(){
+  if(!_dungState) return;
+  var pct=Math.max(0,_dungState.hp/_dungState.maxHp*100);
+  var hb=$('dungHpBar');if(hb) hb.style.width=pct+'%';
+  var ht=$('dungHpTxt');if(ht) ht.textContent=Math.max(0,_dungState.hp)+'/'+_dungState.maxHp;
+}
+
+function _renderDungStats(){
+  var d=_dungGetData();
+  var db=$('dungBest');if(db) db.textContent=d.best||0;
+  var dr=$('dungRuns');if(dr) dr.textContent=d.runs||0;
+  var de=$('dungEarned');if(de) de.textContent=d.earned||0;
+}
+
+function openDung(){$('dungPanel').classList.add('open');_renderDungStats();if(!_dungState){$('dungLog').innerHTML='';}}
+function closeDung(){$('dungPanel').classList.remove('open');}
 
 </script>
 
