@@ -1460,6 +1460,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ GACHA PORTAL ══ */
+.gach-panel{position:fixed;inset:0;background:#030010;z-index:973;display:none;flex-direction:column;overflow:hidden}
+.gach-panel.open{display:flex}
+.gach-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0c0030,#030010)}
+.gach-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff44ff,#aa00ff,#4400ff,#00aaff,#ff44ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gachShimmer 3s linear infinite}
+@keyframes gachShimmer{0%{background-position:0%}100%{background-position:200%}}
+.gach-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.gach-stats{display:flex;gap:8px;margin-bottom:14px}
+.gach-stat{flex:1;background:rgba(150,0,255,.05);border:1px solid rgba(150,0,255,.2);border-radius:12px;padding:8px;text-align:center}
+.gach-stat-val{font:900 16px var(--ff-head);color:#cc44ff}
+.gach-stat-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+/* Pity row */
+.gach-pity-row{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px 12px;margin-bottom:14px;display:flex;gap:12px;flex-wrap:wrap}
+.gach-pity-item{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.gach-pity-item span{color:rgba(180,120,255,.8);font-weight:700}
+/* Pull buttons */
+.gach-pull-row{display:flex;gap:8px;margin-bottom:16px}
+.gach-pull-btn{flex:1;border:none;border-radius:16px;padding:14px 8px;font:800 11px var(--ff-head);cursor:pointer}
+.gach-pull-1{background:linear-gradient(135deg,#6600cc,#cc00ff);color:#fff;box-shadow:0 0 16px rgba(180,0,255,.4)}
+.gach-pull-10{background:linear-gradient(135deg,#cc0066,#ff0088);color:#fff;box-shadow:0 0 16px rgba(255,0,150,.4)}
+.gach-pull-btn:active{transform:scale(.97)}
+.gach-pull-btn:disabled{opacity:.35;cursor:default}
+/* Result overlay */
+.gach-result{display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.85);position:fixed;inset:0;z-index:9999}
+.gach-result.show{display:flex}
+.gach-result-cards{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:380px;padding:20px}
+.gach-result-card{background:rgba(20,0,40,.9);border-radius:20px;padding:16px 12px;text-align:center;width:90px;animation:gachCardPop .3s ease}
+@keyframes gachCardPop{0%{transform:scale(.3) rotate(-20deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.gach-card-emoji{font-size:36px;display:block;margin-bottom:6px}
+.gach-card-name{font:700 8px var(--ff-head);color:#fff;margin-bottom:3px}
+.gach-card-rarity{font:600 7px var(--ff-body)}
+.gach-result-close{margin-top:16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:10px 30px;font:700 12px var(--ff-head);color:#fff;cursor:pointer}
+/* Collection */
+.gach-coll-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+.gach-coll-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.06);border-radius:12px;padding:8px 4px;text-align:center}
+.gach-coll-card.owned.common{border-color:rgba(150,150,150,.5)}
+.gach-coll-card.owned.rare{border-color:rgba(80,150,255,.5)}
+.gach-coll-card.owned.epic{border-color:rgba(180,80,255,.5)}
+.gach-coll-card.owned.legendary{border-color:rgba(255,180,0,.5)}
+.gach-coll-card.owned.mythic{border-color:rgba(255,100,200,.8);box-shadow:0 0 8px rgba(255,100,200,.3)}
+.gach-coll-card.locked{opacity:.25}
+.gach-coll-emoji{font-size:20px;display:block}
+.gach-coll-name{font:600 6px var(--ff-body);color:rgba(255,255,255,.45);margin-top:2px}
+.gach-coll-pow{font:700 7px var(--ff-head);color:rgba(255,200,50,.6)}
+
 /* ══ PET WARDROBE ══ */
 .ward-panel{position:fixed;inset:0;background:#050208;z-index:972;display:none;flex-direction:column;overflow:hidden}
 .ward-panel.open{display:flex}
@@ -8842,6 +8888,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kök</div>
           <div class="ddr" onclick="cM();openTown()"><div class="ddr-i">🏘</div>Stad</div>
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Garderob</div>
+          <div class="ddr" onclick="cM();openGach()"><div class="ddr-i">✨</div>Portal</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10072,6 +10119,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- GACHA PORTAL -->
+<div class="gach-panel" id="gachPanel">
+  <div class="gach-header">
+    <div class="gach-title">✨ MAGISKA PORTALEN</div>
+    <button class="close-btn" onclick="closeGach()">✕</button>
+  </div>
+  <div class="gach-scroll">
+    <div class="gach-stats">
+      <div class="gach-stat"><div class="gach-stat-val" id="gachCollVal">0</div><div class="gach-stat-lbl">Samlade</div></div>
+      <div class="gach-stat"><div class="gach-stat-val" id="gachPullsVal">0</div><div class="gach-stat-lbl">Totalt dragna</div></div>
+      <div class="gach-stat"><div class="gach-stat-val" id="gachBonusVal">0</div><div class="gach-stat-lbl">Kollektionspoäng</div></div>
+    </div>
+    <div class="gach-pity-row">
+      <div class="gach-pity-item">Sällsynt: <span id="gachPityR">0</span>/10</div>
+      <div class="gach-pity-item">Episk: <span id="gachPityE">0</span>/50</div>
+      <div class="gach-pity-item">Legendär: <span id="gachPityL">0</span>/100</div>
+      <div class="gach-pity-item">Mytisk: <span id="gachPityM">0</span>/200</div>
+    </div>
+    <div class="gach-pull-row">
+      <button class="gach-pull-btn gach-pull-1" onclick="gachPull(1)">✨ Dra ×1<br><span style="font:600 9px var(--ff-body)">100🪙 eller 1KC</span></button>
+      <button class="gach-pull-btn gach-pull-10" onclick="gachPull(10)">💫 Dra ×10<br><span style="font:600 9px var(--ff-body)">800🪙 · Garanterat Sällsynt+</span></button>
+    </div>
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px">KOMPANJONER (30 TOTALT)</div>
+    <div class="gach-coll-grid" id="gachCollGrid"></div>
+  </div>
+</div>
+<div class="gach-result" id="gachResult">
+  <div class="gach-result-cards" id="gachResultCards"></div>
+  <button class="gach-result-close" onclick="gachCloseResult()">Stäng</button>
+</div>
 
 <!-- PET WARDROBE -->
 <div class="ward-panel" id="wardPanel">
@@ -38901,6 +38980,167 @@ function _renderWard(){
     var cls='ward-item'+(item.free?' free':'')+(equipped?' equipped':'')+((!owned&&!item.free)?' ':' ');
     var costTxt=equipped?'✓ Iklädd':owned?'Ägs':(item.cost===0?'Gratis':(item.kc?item.cost+' KC':item.cost+'🪙'));
     return '<div class="'+cls+'" onclick="wardEquip(\''+cat.id+'\',\''+item.id+'\')"><span class="ward-item-emoji">'+(item.emoji||'⬜')+'</span><div class="ward-item-name">'+item.name+'</div><div class="ward-item-cost">'+costTxt+'</div></div>';
+  }).join('');
+}
+
+
+// GACHA PORTAL
+const GACH_KEY = 'k0509_gach';
+const GACH_COMPANIONS = [
+  {id:'bunny',name:'Kaninen',emoji:'🐰',rarity:'common',pow:8},
+  {id:'hamster',name:'Hamstern',emoji:'🐹',rarity:'common',pow:7},
+  {id:'hedgehog',name:'Igelkotten',emoji:'🦔',rarity:'common',pow:6},
+  {id:'bird',name:'Fågeln',emoji:'🐦',rarity:'common',pow:7},
+  {id:'turtle',name:'Sköldpaddan',emoji:'🐢',rarity:'common',pow:5},
+  {id:'lizard',name:'Ödlan',emoji:'🦎',rarity:'common',pow:8},
+  {id:'fox',name:'Räven',emoji:'🦊',rarity:'rare',pow:20},
+  {id:'raccoon',name:'Tvättbjörnen',emoji:'🦝',rarity:'rare',pow:22},
+  {id:'parrot',name:'Papegoja',emoji:'🦜',rarity:'rare',pow:25},
+  {id:'butterfly',name:'Fjärilen',emoji:'🦋',rarity:'rare',pow:20},
+  {id:'dolphin',name:'Delfinen',emoji:'🐬',rarity:'rare',pow:28},
+  {id:'unicorn',name:'Enhörning',emoji:'🦄',rarity:'rare',pow:30},
+  {id:'dragon_jr',name:'Drakonet',emoji:'🐉',rarity:'epic',pow:55},
+  {id:'lion',name:'Lejonet',emoji:'🦁',rarity:'epic',pow:60},
+  {id:'tiger',name:'Tigern',emoji:'🐯',rarity:'epic',pow:65},
+  {id:'eagle',name:'Örnen',emoji:'🦅',rarity:'epic',pow:58},
+  {id:'shark',name:'Hajen',emoji:'🦈',rarity:'epic',pow:62},
+  {id:'mermaid',name:'Sjöjungfrun',emoji:'🧜',rarity:'epic',pow:70},
+  {id:'ifrit',name:'Eldanden',emoji:'🔥',rarity:'legendary',pow:100},
+  {id:'glacier',name:'Glaciärjätten',emoji:'❄️',rarity:'legendary',pow:110},
+  {id:'thunder_beast',name:'Åskdjuret',emoji:'⚡',rarity:'legendary',pow:105},
+  {id:'poseidon',name:'Havsguden',emoji:'🌊',rarity:'legendary',pow:115},
+  {id:'forest_ancient',name:'Urskogens Vakt',emoji:'🌿',rarity:'legendary',pow:108},
+  {id:'moon_shadow',name:'Månsskuggan',emoji:'🌙',rarity:'legendary',pow:120},
+  {id:'eternal_king',name:'Evige Kungen',emoji:'👑',rarity:'mythic',pow:200},
+  {id:'galaxy_phoenix',name:'Galaxfågeln',emoji:'🌟',rarity:'mythic',pow:220},
+  {id:'balance_dragon',name:'Balansdraken',emoji:'☯️',rarity:'mythic',pow:210},
+  {id:'diamond_golem',name:'Diamantgolем',emoji:'💎',rarity:'mythic',pow:230},
+  {id:'rainbow_deity',name:'Regnbågsguden',emoji:'🌈',rarity:'mythic',pow:240},
+  {id:'arcane_god',name:'Arkanguden',emoji:'🔮',rarity:'mythic',pow:250},
+];
+const GACH_RATES = {common:0.50,rare:0.30,epic:0.15,legendary:0.045,mythic:0.005};
+const GACH_RARITY_COLORS = {common:'rgba(150,150,150,.8)',rare:'rgba(80,150,255,.8)',epic:'rgba(180,80,255,.8)',legendary:'rgba(255,180,0,.8)',mythic:'rgba(255,100,200,.8)'};
+
+function _gachData(){try{return JSON.parse(localStorage.getItem(GACH_KEY)||'null');}catch(e){return null;}}
+function _gachSave(d){localStorage.setItem(GACH_KEY,JSON.stringify(d));}
+function _gachGetData(){
+  var d=_gachData();
+  if(!d) d={owned:{},pulls:0,pityR:0,pityE:0,pityL:0,pityM:0,score:0,appliedScore:0};
+  return d;
+}
+
+function _gachCalcScore(d){
+  var s=0;
+  GACH_COMPANIONS.forEach(function(c){if(d.owned[c.id]) s+=c.pow;});
+  return s;
+}
+
+function _gachApplyBonus(d){
+  var score=_gachCalcScore(d);
+  var oldBonus=Math.floor(d.appliedScore/50)*5;
+  var newBonus=Math.floor(score/50)*5;
+  var diff=newBonus-oldBonus;
+  if(diff>0){
+    G.str=(G.str||0)+diff;G.agi=(G.agi||0)+diff;G.int=(G.int||0)+diff;
+    G.end=(G.end||0)+diff;G.lck=(G.lck||0)+diff;
+    save();
+  }
+  d.score=score;
+  d.appliedScore=score;
+}
+
+function _gachRollOne(d, guaranteeMin){
+  var r=Math.random();
+  var rarity;
+  // Pity overrides
+  if(d.pityM>=200) rarity='mythic';
+  else if(d.pityL>=100) rarity='legendary';
+  else if(d.pityE>=50) rarity='epic';
+  else if(d.pityR>=10||guaranteeMin==='rare') rarity='rare';
+  else if(guaranteeMin==='epic'&&r<GACH_RATES.epic+GACH_RATES.legendary+GACH_RATES.mythic) rarity='epic';
+  else if(r<GACH_RATES.mythic) rarity='mythic';
+  else if(r<GACH_RATES.mythic+GACH_RATES.legendary) rarity='legendary';
+  else if(r<GACH_RATES.mythic+GACH_RATES.legendary+GACH_RATES.epic) rarity='epic';
+  else if(r<GACH_RATES.mythic+GACH_RATES.legendary+GACH_RATES.epic+GACH_RATES.rare) rarity='rare';
+  else rarity='common';
+  // Reset pity
+  if(rarity==='mythic'){d.pityM=0;d.pityL=0;d.pityE=0;d.pityR=0;}
+  else if(rarity==='legendary'){d.pityL=0;d.pityE=0;d.pityR=0;d.pityM++;}
+  else if(rarity==='epic'){d.pityE=0;d.pityR=0;d.pityL++;d.pityM++;}
+  else if(rarity==='rare'){d.pityR=0;d.pityE++;d.pityL++;d.pityM++;}
+  else{d.pityR++;d.pityE++;d.pityL++;d.pityM++;}
+  // Pick companion of rarity
+  var pool=GACH_COMPANIONS.filter(function(c){return c.rarity===rarity;});
+  var comp=pool[Math.floor(Math.random()*pool.length)];
+  var isDup=!!d.owned[comp.id];
+  if(!isDup) d.owned[comp.id]=true;
+  d.pulls++;
+  return {comp:comp,isDup:isDup};
+}
+
+function gachPull(count){
+  var d=_gachGetData();
+  var costCoins=count===1?100:800;
+  var costKC=count===1?1:8;
+  // Try KC first, then coins
+  if((G.kc||0)>=costKC){G.kc-=costKC;save();}
+  else if((G.coins||0)>=costCoins){G.coins-=costCoins;save();}
+  else{showFloatBubble('Behöver '+(count===1?'100🪙 eller 1KC':'800🪙 eller 8KC'),'debuff');return;}
+  var results=[];
+  var guaranteeMin=count===10?'rare':null;
+  for(var i=0;i<count;i++){
+    var r=_gachRollOne(d, i===0?guaranteeMin:null);
+    results.push(r);
+    if(r.isDup) gainCoins(50);
+  }
+  _gachApplyBonus(d);
+  _gachSave(d);
+  // Show result
+  var rc=$('gachResultCards');
+  if(rc){
+    rc.innerHTML=results.map(function(r,i){
+      var c=r.comp;
+      var col=GACH_RARITY_COLORS[c.rarity];
+      return '<div class="gach-result-card" style="border:2px solid '+col+';animation-delay:'+(i*0.08)+'s">'
+        +'<span class="gach-card-emoji">'+c.emoji+'</span>'
+        +'<div class="gach-card-name">'+c.name+'</div>'
+        +'<div class="gach-card-rarity" style="color:'+col+'">'+c.rarity.toUpperCase()+(r.isDup?' (DUP)':'')+'</div>'
+        +'</div>';
+    }).join('');
+  }
+  var gr=$('gachResult'); if(gr) gr.classList.add('show');
+  misTrack('daily',1);
+  checkAchievements();
+  _renderGach();
+}
+
+function gachCloseResult(){
+  var gr=$('gachResult'); if(gr) gr.classList.remove('show');
+}
+
+function openGach(){$('gachPanel').classList.add('open');_renderGach();}
+function closeGach(){$('gachPanel').classList.remove('open');gachCloseResult();}
+
+function _renderGach(){
+  var d=_gachGetData();
+  var owned=GACH_COMPANIONS.filter(function(c){return d.owned[c.id];}).length;
+  var cv=$('gachCollVal'); if(cv) cv.textContent=owned+'/30';
+  var pv=$('gachPullsVal'); if(pv) pv.textContent=d.pulls||0;
+  var bv=$('gachBonusVal'); if(bv) bv.textContent=_gachCalcScore(d);
+  var pr=$('gachPityR'); if(pr) pr.textContent=d.pityR||0;
+  var pe=$('gachPityE'); if(pe) pe.textContent=d.pityE||0;
+  var pl=$('gachPityL'); if(pl) pl.textContent=d.pityL||0;
+  var pm=$('gachPityM'); if(pm) pm.textContent=d.pityM||0;
+  var grid=$('gachCollGrid');
+  if(!grid) return;
+  grid.innerHTML=GACH_COMPANIONS.map(function(c){
+    var owned2=!!d.owned[c.id];
+    var col=GACH_RARITY_COLORS[c.rarity];
+    return '<div class="gach-coll-card'+(owned2?' owned '+c.rarity:' locked')+'" style="'+(owned2?'border-color:'+col.replace('.5','.4')+';':'')+'">'
+      +'<span class="gach-coll-emoji">'+(owned2?c.emoji:'❓')+'</span>'
+      +'<div class="gach-coll-name">'+(owned2?c.name:'???')+'</div>'
+      +'<div class="gach-coll-pow" style="color:'+(owned2?col:'rgba(255,255,255,.2)')+'">+'+(owned2?c.pow:'?')+'</div>'
+      +'</div>';
   }).join('');
 }
 
