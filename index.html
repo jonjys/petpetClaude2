@@ -1476,6 +1476,44 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WORLD MAP ══ */
+.wmap-panel{position:fixed;inset:0;background:#020808;z-index:989;display:none;flex-direction:column;overflow:hidden}
+.wmap-panel.open{display:flex}
+.wmap-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#051a10,#020808)}
+.wmap-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#00ddcc,#44aaff,#44ff88);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:wmapShim 4s linear infinite}
+@keyframes wmapShim{0%{background-position:0%}100%{background-position:200%}}
+.wmap-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Active expedition */
+.wmap-expedition{background:rgba(0,200,100,.04);border:2px solid rgba(0,200,100,.25);border-radius:20px;padding:14px;margin-bottom:14px;text-align:center}
+.wmap-exp-emoji{font-size:44px;display:block;margin-bottom:6px;animation:wmapFloat 3s ease-in-out infinite}
+@keyframes wmapFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.wmap-exp-name{font:900 13px var(--ff-head);color:#44ff88;margin-bottom:4px}
+.wmap-exp-time{font:900 26px var(--ff-head);color:#00ddcc;margin-bottom:4px}
+.wmap-exp-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:10px}
+.wmap-exp-prog{height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;margin-bottom:10px}
+.wmap-exp-fill{height:100%;background:linear-gradient(90deg,#00aa55,#44ffcc);border-radius:4px;transition:width 1s linear}
+.wmap-collect-btn{width:100%;background:linear-gradient(135deg,#004422,#008844);border:none;border-radius:14px;padding:12px;font:900 13px var(--ff-head);color:#fff;cursor:pointer}
+.wmap-collect-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.06)}
+/* Region list */
+.wmap-section-lbl{font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:10px}
+.wmap-regions{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.wmap-region{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:12px 14px;cursor:pointer;transition:border-color .2s}
+.wmap-region:active{transform:scale(.99)}
+.wmap-region.unlocked{border-color:rgba(0,200,100,.2)}
+.wmap-region.locked{opacity:.45;cursor:not-allowed}
+.wmap-region-emoji{font-size:32px;flex-shrink:0}
+.wmap-region-info{flex:1}
+.wmap-region-name{font:800 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.wmap-region-desc{font:600 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:4px}
+.wmap-region-loot{font:700 9px var(--ff-head);color:#44ff88}
+.wmap-region-dur{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);flex-shrink:0}
+.wmap-req{font:700 9px var(--ff-head);padding:3px 8px;border-radius:8px;margin-left:6px}
+.wmap-req.met{background:rgba(0,200,100,.15);color:#44ff88}
+.wmap-req.unmet{background:rgba(255,100,100,.1);color:#ff6655}
+.wmap-msg{font:800 12px var(--ff-head);color:#ffcc00;text-align:center;min-height:20px;margin-bottom:8px}
+.wmap-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ LEGENDARY ARTIFACTS ══ */
 .artf-panel{position:fixed;inset:0;background:#080004;z-index:988;display:none;flex-direction:column;overflow:hidden}
 .artf-panel.open{display:flex}
@@ -9421,6 +9459,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDojo()"><div class="ddr-i">🥊</div>Dojo</div>
           <div class="ddr" onclick="cM();openObsy()"><div class="ddr-i">🌌</div>Observatoriet</div>
           <div class="ddr" onclick="cM();openArtf()"><div class="ddr-i">🏺</div>Artefakter</div>
+          <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världen</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10667,6 +10706,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- WORLD MAP -->
+<div class="wmap-panel" id="wmapPanel">
+  <div class="wmap-header">
+    <div class="wmap-title">🗺️ VÄRLDSKARTAN</div>
+    <button class="close-btn" onclick="closeWmap()">✕</button>
+  </div>
+  <div class="wmap-scroll">
+    <div id="wmapExpSection" style="display:none">
+      <div class="wmap-expedition">
+        <span class="wmap-exp-emoji" id="wmapExpEmoji">🌲</span>
+        <div class="wmap-exp-name" id="wmapExpName">Expedition...</div>
+        <div class="wmap-exp-time" id="wmapExpTime">00:00:00</div>
+        <div class="wmap-exp-lbl" id="wmapExpLbl">kvar</div>
+        <div class="wmap-exp-prog"><div class="wmap-exp-fill" id="wmapExpFill" style="width:0%"></div></div>
+        <button class="wmap-collect-btn" id="wmapCollectBtn" onclick="wmapCollect()" disabled>⏳ Expedition pågår...</button>
+      </div>
+    </div>
+    <div id="wmapRegionSection">
+      <div class="wmap-section-lbl">VÄLJ EXPEDITION</div>
+      <div class="wmap-regions" id="wmapRegions"></div>
+    </div>
+    <div class="wmap-msg" id="wmapMsg"></div>
+    <div class="wmap-info">Sänd ditt husdjur på expedition — kom tillbaka med bytesdjur!</div>
+  </div>
+</div>
 
 <!-- LEGENDARY ARTIFACTS -->
 <div class="artf-panel" id="artfPanel">
@@ -42009,6 +42075,109 @@ function _renderArtf(){
       '<div class="artf-card-bonus">'+a.desc+'</div>'+
       (owned?'':'<div class="artf-card-cost">'+costTxt+'</div>')+
       '<button class="artf-card-btn '+(btnCls||'')+'" onclick="'+(owned?'artfEquip(\''+a.id+'\')':'artfBuy(\''+a.id+'\')')+'" '+((!owned&&!canBuy)?'disabled':'')+'>'+btnTxt+'</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// WORLD MAP
+const WMAP_KEY = 'k0509_wmap';
+const WMAP_REGIONS = [
+  {id:'forest', emoji:'🌲', name:'Förtrollad Skog',   desc:'Mystisk skog full av hemligheter',    req:{stat:'agi',val:0},  dur:60,  loot:'Örter, mynt, ingredienser',  rewards:function(){gainCoins(300+Math.floor(Math.random()*400));gainXP(150,'agi');if(Math.random()<0.3)gainKC(1);}},
+  {id:'mountain',emoji:'🏔️',name:'Järnberg',          desc:'Kalla toppar med rika mineralfickor', req:{stat:'str',val:50}, dur:120, loot:'KC, metallskatt',              rewards:function(){gainCoins(500+Math.floor(Math.random()*800));gainKC(1+Math.floor(Math.random()*2));gainXP(300,'str');}},
+  {id:'ocean',  emoji:'🌊', name:'Djuphav',           desc:'Okänt djup med sällsynta skatter',    req:{stat:'end',val:60}, dur:180, loot:'Sällsynta fiskar, reliker',     rewards:function(){gainCoins(800+Math.floor(Math.random()*1200));gainKC(2);gainXP(400,'end');}},
+  {id:'volcano',emoji:'🔥', name:'Vulkankrater',      desc:'Farliga lavaflöden och eld-kristaller',req:{stat:'int',val:70},dur:240, loot:'Eldkristaller, massiva KC',    rewards:function(){gainCoins(400+Math.floor(Math.random()*600));gainKC(3+Math.floor(Math.random()*2));G.int=(G.int||0)+2;save();gainXP(600,'int');}},
+  {id:'tundra', emoji:'❄️', name:'Frusen Tundra',     desc:'Isig nordmark med mystisk lycka',     req:{stat:'lck',val:40}, dur:300, loot:'Isdust, lyckobonus, KC',        rewards:function(){gainCoins(1000+Math.floor(Math.random()*2000));gainKC(4);G.lck=(G.lck||0)+3;save();gainXP(800,'lck');}},
+];
+var _wmapTimer=null;
+
+function _wmapData(){try{return JSON.parse(localStorage.getItem(WMAP_KEY)||'null');}catch(e){return null;}}
+function _wmapSave(d){localStorage.setItem(WMAP_KEY,JSON.stringify(d));}
+function _wmapGetData(){var d=_wmapData();if(!d) d={active:null};return d;}
+
+function wmapSend(regionId){
+  var d=_wmapGetData();
+  if(d.active){showFloatBubble('En expedition pågår redan!','debuff');return;}
+  var r=WMAP_REGIONS.filter(function(x){return x.id===regionId;})[0];
+  if(!r) return;
+  var statVal=(G[r.req.stat]||0);
+  if(statVal<r.req.val){showFloatBubble('Behöver '+r.req.val+' '+r.req.stat.toUpperCase()+'! (Har: '+statVal+')','debuff');return;}
+  var now=Date.now();
+  d.active={regionId:regionId,start:now,end:now+r.dur*60000};
+  _wmapSave(d);
+  showFloatBubble(r.emoji+' '+r.name+' expedition startad! '+r.dur+' min','buff');
+  _renderWmap();_wmapStartTick();
+}
+
+function wmapCollect(){
+  var d=_wmapGetData();
+  if(!d.active) return;
+  if(Date.now()<d.active.end){showFloatBubble('Expeditionen är inte klar än!','debuff');return;}
+  var r=WMAP_REGIONS.filter(function(x){return x.id===d.active.regionId;})[0];
+  if(r) r.rewards();
+  var mg=$('wmapMsg');if(mg&&r) mg.textContent=r.emoji+' Expedition klar! '+r.loot+' hittades!';
+  if(r) showFloatBubble(r.emoji+' Expedition klar! Bytesdjur samlat!','buff');
+  d.active=null;_wmapSave(d);
+  clearInterval(_wmapTimer);_wmapTimer=null;
+  misTrack('expedition',1);checkAchievements();
+  _renderWmap();
+}
+
+function _wmapStartTick(){
+  clearInterval(_wmapTimer);
+  _wmapTimer=setInterval(function(){
+    var d=_wmapGetData();
+    if(!d.active){clearInterval(_wmapTimer);_wmapTimer=null;return;}
+    _wmapUpdateActive(d);
+  },1000);
+}
+
+function _wmapUpdateActive(d){
+  if(!d.active) return;
+  var now=Date.now();
+  var remaining=Math.max(d.active.end-now,0);
+  var total=d.active.end-d.active.start;
+  var pct=Math.min((now-d.active.start)/total*100,100);
+  var done=remaining<=0;
+  var r=WMAP_REGIONS.filter(function(x){return x.id===d.active.regionId;})[0]||{emoji:'🌍',name:'Expedition'};
+  var ee=$('wmapExpEmoji');if(ee) ee.textContent=r.emoji;
+  var en=$('wmapExpName');if(en) en.textContent=r.name;
+  var et=$('wmapExpTime');
+  if(et){
+    if(done){et.textContent='KLAR!';}
+    else{var s=Math.floor(remaining/1000);var h=Math.floor(s/3600);s%=3600;var m=Math.floor(s/60);s%=60;et.textContent=(h>0?h+':':'')+('0'+m).slice(-2)+':'+('0'+s).slice(-2);}
+  }
+  var el=$('wmapExpLbl');if(el) el.textContent=done?'Hämta bytesdjuret!':'kvar';
+  var ef=$('wmapExpFill');if(ef) ef.style.width=pct+'%';
+  var cb=$('wmapCollectBtn');if(cb){cb.disabled=!done;cb.textContent=done?'🎁 Hämta bytesdjur!':'⏳ Expedition pågår...';}
+}
+
+function openWmap(){$('wmapPanel').classList.add('open');_renderWmap();_wmapStartTick();}
+function closeWmap(){clearInterval(_wmapTimer);_wmapTimer=null;$('wmapPanel').classList.remove('open');}
+
+function _renderWmap(){
+  var d=_wmapGetData();
+  var hasActive=d.active!=null;
+  var es=$('wmapExpSection');if(es) es.style.display=hasActive?'block':'none';
+  var rs=$('wmapRegionSection');if(rs) rs.style.display=hasActive?'none':'block';
+  if(hasActive) _wmapUpdateActive(d);
+  var regs=$('wmapRegions');
+  if(!regs) return;
+  regs.innerHTML=WMAP_REGIONS.map(function(r){
+    var statVal=(G[r.req.stat]||0);
+    var unlocked=statVal>=r.req.val;
+    var reqLbl=r.req.val>0?(r.req.stat.toUpperCase()+' '+r.req.val+' '+(unlocked?'✓':'✗')):'Öppen';
+    return '<div class="wmap-region'+(unlocked?' unlocked':' locked')+'" onclick="'+(unlocked?'wmapSend(\''+r.id+'\')':'showFloatBubble(\'Kräver '+r.req.val+' '+r.req.stat.toUpperCase()+'!\',\'debuff\')')+'">'+
+      '<div class="wmap-region-emoji">'+r.emoji+'</div>'+
+      '<div class="wmap-region-info">'+
+        '<div class="wmap-region-name">'+r.name+'</div>'+
+        '<div class="wmap-region-desc">'+r.desc+'</div>'+
+        '<div class="wmap-region-loot">'+r.loot+'</div>'+
+      '</div>'+
+      '<div>'+
+        '<div class="wmap-region-dur">'+r.dur+'min</div>'+
+        '<div class="wmap-req '+(unlocked?'met':'unmet')+'">'+reqLbl+'</div>'+
+      '</div>'+
     '</div>';
   }).join('');
 }
