@@ -1495,6 +1495,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET LOTTO ══ */
+.lotto-panel{position:fixed;inset:0;background:#020304;z-index:1008;display:none;flex-direction:column;overflow:hidden}
+.lotto-panel.open{display:flex}
+.lotto-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#040810,#020304)}
+.lotto-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ffcc00);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:lottoShim 2s linear infinite}
+@keyframes lottoShim{0%{background-position:0%}100%{background-position:200%}}
+.lotto-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Jackpot */
+.lotto-jackpot{background:radial-gradient(ellipse,rgba(255,200,0,.1),rgba(0,0,0,0));border:2px solid rgba(255,200,0,.25);border-radius:20px;padding:16px;text-align:center;margin-bottom:14px}
+.lotto-jackpot-val{font:900 36px var(--ff-head);color:#ffcc00;animation:jackPulse 2s ease-in-out infinite}
+@keyframes jackPulse{0%,100%{text-shadow:0 0 20px rgba(255,200,0,.3)}50%{text-shadow:0 0 40px rgba(255,200,0,.7)}}
+.lotto-jackpot-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+/* Draw display */
+.lotto-draw-row{display:flex;justify-content:center;gap:8px;margin-bottom:14px}
+.lotto-ball{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:900 16px var(--ff-head);color:#fff;border:2px solid rgba(255,255,255,.2)}
+.lotto-ball.drawn{animation:ballPop .3s ease-out}
+@keyframes ballPop{0%{transform:scale(0)}80%{transform:scale(1.15)}100%{transform:scale(1)}}
+/* Ticket */
+.lotto-ticket{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,200,0,.12);border-radius:16px;padding:14px;margin-bottom:12px}
+.lotto-ticket-lbl{font:700 9px var(--ff-head);color:rgba(255,200,0,.5);letter-spacing:1px;margin-bottom:10px}
+.lotto-nums{display:flex;justify-content:center;gap:8px;margin-bottom:12px}
+.lotto-num{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font:900 14px var(--ff-head);color:rgba(255,255,255,.5);cursor:pointer;transition:border-color .2s,background .2s}
+.lotto-num.picked{background:rgba(255,200,0,.15);border-color:rgba(255,200,0,.5);color:#ffcc00}
+.lotto-num.match{background:rgba(68,255,136,.15);border-color:rgba(68,255,136,.5);color:#44ff88}
+.lotto-num-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin-bottom:10px}
+.lotto-pick-btn{font:700 8px var(--ff-head);border-radius:6px;padding:5px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);cursor:pointer;text-align:center}
+.lotto-pick-btn.sel{background:rgba(255,200,0,.1);border-color:rgba(255,200,0,.3);color:#ffcc00}
+.lotto-buy-btn{width:100%;background:linear-gradient(135deg,#332200,#664400);border:none;border-radius:13px;padding:12px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.lotto-buy-btn:disabled{opacity:.3;cursor:default}
+.lotto-quick-btn{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:10px;font:800 11px var(--ff-head);color:rgba(255,255,255,.6);cursor:pointer;margin-bottom:12px}
+/* Results */
+.lotto-result{background:rgba(255,200,0,.04);border:1px solid rgba(255,200,0,.15);border-radius:12px;padding:10px 14px;text-align:center;margin-bottom:10px;font:700 11px var(--ff-head);color:#ffcc00;min-height:30px}
+.lotto-history-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:6px}
+.lotto-history{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.lotto-hist-entry{display:flex;align-items:center;gap:6px;font:600 8px var(--ff-body);color:rgba(255,255,255,.4);background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:5px 10px}
+.lotto-hist-nums{flex:1;display:flex;gap:3px}
+.lotto-hist-ball{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 8px var(--ff-head);background:rgba(255,255,255,.06);color:rgba(255,255,255,.5)}
+.lotto-hist-ball.m{background:rgba(68,255,136,.15);color:#44ff88}
+.lotto-hist-win{font:800 9px var(--ff-head);color:#ffcc00}
+.lotto-stats{display:flex;gap:8px;margin-bottom:12px}
+.lotto-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,200,0,.1);border-radius:10px;padding:7px;text-align:center}
+.lotto-stat-v{font:900 14px var(--ff-head);color:#ffcc00}
+.lotto-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.lotto-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ DUNGEON CRAWLER ══ */
 .dung-panel{position:fixed;inset:0;background:#030208;z-index:1007;display:none;flex-direction:column;overflow:hidden}
 .dung-panel.open{display:flex}
@@ -10112,6 +10158,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
+          <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -10140,6 +10187,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
+          <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
@@ -10151,6 +10199,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
+          <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
@@ -10200,6 +10249,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
+          <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10754,6 +10804,48 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET LOTTO -->
+<div class="lotto-panel" id="lottoPanel">
+  <div class="lotto-header">
+    <div class="lotto-title">🎰 HUSDJURSLOTTERIET</div>
+    <button class="close-btn" onclick="closeLotto()">✕</button>
+  </div>
+  <div class="lotto-scroll">
+    <div class="lotto-jackpot">
+      <div class="lotto-jackpot-val" id="lottoJackpot">50,000🪙</div>
+      <div class="lotto-jackpot-lbl">JACKPOT — 6 rätta siffror</div>
+    </div>
+    <div class="lotto-stats">
+      <div class="lotto-stat"><div class="lotto-stat-v" id="lottoTickets">0</div><div class="lotto-stat-l">Lotter köpta</div></div>
+      <div class="lotto-stat"><div class="lotto-stat-v" id="lottoWins">0</div><div class="lotto-stat-l">Vinster</div></div>
+      <div class="lotto-stat"><div class="lotto-stat-v" id="lottoEarned">0</div><div class="lotto-stat-l">Totalt vunnet</div></div>
+    </div>
+    <div class="lotto-draw-row" id="lottoDraw">
+      <div class="lotto-ball" style="background:rgba(100,50,200,.3)">?</div>
+      <div class="lotto-ball" style="background:rgba(100,50,200,.3)">?</div>
+      <div class="lotto-ball" style="background:rgba(100,50,200,.3)">?</div>
+      <div class="lotto-ball" style="background:rgba(100,50,200,.3)">?</div>
+      <div class="lotto-ball" style="background:rgba(100,50,200,.3)">?</div>
+      <div class="lotto-ball" style="background:rgba(100,50,200,.3)">?</div>
+    </div>
+    <div class="lotto-result" id="lottoResult">Välj 6 nummer och köp en lott!</div>
+    <div class="lotto-ticket">
+      <div class="lotto-ticket-lbl">VÄLJ 6 NUMMER (1-45)</div>
+      <div class="lotto-nums" id="lottoNums">
+        <div class="lotto-num">?</div><div class="lotto-num">?</div><div class="lotto-num">?</div>
+        <div class="lotto-num">?</div><div class="lotto-num">?</div><div class="lotto-num">?</div>
+      </div>
+      <div class="lotto-num-grid" id="lottoNumGrid"></div>
+      <button class="lotto-quick-btn" onclick="lottoQuickPick()">🎲 Snabb-val (slumpmässigt)</button>
+      <button class="lotto-buy-btn" id="lottoBuyBtn" onclick="lottoBuy()" disabled>🎟️ Köp Lott (200🪙)</button>
+    </div>
+    <div class="lotto-history-lbl">SENASTE DRAG</div>
+    <div class="lotto-history" id="lottoHistory"></div>
+    <div class="lotto-info">Lott kostar 200🪙 · Matchar 2=100🪙 · 3=500🪙 · 4=2000🪙 · 5=10000🪙 · 6=JACKPOT! LCK ökar jackpot-chansen!</div>
+  </div>
+</div>
 
 <!-- DUNGEON CRAWLER -->
 <div class="dung-panel" id="dungPanel">
@@ -45879,6 +45971,157 @@ function _renderDungStats(){
 
 function openDung(){$('dungPanel').classList.add('open');_renderDungStats();if(!_dungState){$('dungLog').innerHTML='';}}
 function closeDung(){$('dungPanel').classList.remove('open');}
+
+
+// PET LOTTO
+const LOTTO_KEY = 'k0509_lotto';
+const LOTTO_COST = 200;
+const LOTTO_MAX = 45;
+const LOTTO_PICK_COUNT = 6;
+const LOTTO_PRIZES = [0,0,100,500,2000,10000]; // index = matches count
+
+var _lottoSelected = [];
+
+function _lottoData(){try{return JSON.parse(localStorage.getItem(LOTTO_KEY)||'null');}catch(e){return null;}}
+function _lottoSave(d){localStorage.setItem(LOTTO_KEY,JSON.stringify(d));}
+function _lottoGetData(){
+  var d=_lottoData();
+  if(!d) d={tickets:0,wins:0,earned:0,jackpot:50000,history:[]};
+  return d;
+}
+
+function lottoToggleNum(n){
+  var idx=_lottoSelected.indexOf(n);
+  if(idx>=0){
+    _lottoSelected.splice(idx,1);
+  } else {
+    if(_lottoSelected.length>=LOTTO_PICK_COUNT){
+      showFloatBubble('Max 6 nummer!','debuff');return;
+    }
+    _lottoSelected.push(n);
+  }
+  _renderLottoTicket();
+  var btn=$('lottoBuyBtn');
+  if(btn) btn.disabled=_lottoSelected.length<LOTTO_PICK_COUNT;
+}
+
+function lottoQuickPick(){
+  _lottoSelected=[];
+  var pool=[];for(var i=1;i<=LOTTO_MAX;i++) pool.push(i);
+  for(var j=0;j<LOTTO_PICK_COUNT;j++){
+    var idx=Math.floor(Math.random()*pool.length);
+    _lottoSelected.push(pool.splice(idx,1)[0]);
+  }
+  _renderLottoTicket();
+  var btn=$('lottoBuyBtn');if(btn) btn.disabled=false;
+}
+
+function lottoBuy(){
+  if(_lottoSelected.length<LOTTO_PICK_COUNT) return;
+  if((G.coins||0)<LOTTO_COST){showFloatBubble('Behöver '+LOTTO_COST+'🪙!','debuff');return;}
+  G.coins-=LOTTO_COST;save();
+  var d=_lottoGetData();
+  d.tickets=(d.tickets||0)+1;
+  d.jackpot=(d.jackpot||50000)+100; // jackpot grows each ticket
+  // Draw winning numbers
+  var drawn=[];var pool2=[];for(var i=1;i<=LOTTO_MAX;i++) pool2.push(i);
+  // LCK tweaks: slight bias towards player numbers
+  var lckBias=Math.min((G.lck||0)*0.001,0.15);
+  for(var k=0;k<LOTTO_PICK_COUNT;k++){
+    if(Math.random()<lckBias&&_lottoSelected.some(function(n){return pool2.indexOf(n)>=0;})){
+      var playerLeft=_lottoSelected.filter(function(n){return pool2.indexOf(n)>=0;});
+      drawn.push(playerLeft[Math.floor(Math.random()*playerLeft.length)]);
+      pool2.splice(pool2.indexOf(drawn[drawn.length-1]),1);
+    } else {
+      var pick=pool2.splice(Math.floor(Math.random()*pool2.length),1)[0];
+      drawn.push(pick);
+    }
+  }
+  drawn.sort(function(a,b){return a-b;});
+  // Count matches
+  var matches=_lottoSelected.filter(function(n){return drawn.indexOf(n)>=0;}).length;
+  var prize=matches>=6?d.jackpot:(LOTTO_PRIZES[matches]||0);
+  var isJackpot=matches>=6;
+  if(prize>0){
+    gainCoins(prize);
+    d.wins=(d.wins||0)+1;
+    d.earned=(d.earned||0)+prize;
+    if(isJackpot){d.jackpot=50000;showFloatBubble('🎰 JACKPOT!! +'+prize+'🪙 +5KC!!','buff');gainKC(5);}
+    else showFloatBubble('🎟️ '+matches+' rätt! +'+prize+'🪙','buff');
+  }
+  // Animate draw
+  var drawRow=$('lottoDraw');
+  var BALL_COLORS=['#ff4455','#ff8844','#ffcc00','#44ff88','#44aaff','#aa44ff'];
+  if(drawRow){
+    drawRow.innerHTML=drawn.map(function(n,i){
+      var isMatch=_lottoSelected.indexOf(n)>=0;
+      return '<div class="lotto-ball drawn" style="background:'+BALL_COLORS[i]+'33;border-color:'+BALL_COLORS[i]+(isMatch?';box-shadow:0 0 12px '+BALL_COLORS[i]:'')+'">'+n+'</div>';
+    }).join('');
+  }
+  // Result message
+  var res=$('lottoResult');
+  if(res){
+    if(isJackpot) res.textContent='🌟🌟 JACKPOT! '+matches+' rätt! +'+prize+'🪙 +5KC!!';
+    else if(prize>0) res.textContent='🎉 '+matches+' rätt! Vann '+prize+'🪙!';
+    else res.textContent='😔 '+matches+' rätt. Prova igen! (Jackpot växer!)';
+  }
+  // History
+  d.history.unshift({nums:drawn.slice(),picks:_lottoSelected.slice(),matches:matches,prize:prize});
+  if(d.history.length>5) d.history=d.history.slice(0,5);
+  _lottoSave(d);
+  checkAchievements();
+  _lottoSelected=[];
+  _renderLottoTicket();
+  var btn=$('lottoBuyBtn');if(btn) btn.disabled=true;
+  _renderLottoStats();
+}
+
+function _renderLottoTicket(){
+  var nums=$('lottoNums');
+  if(nums){
+    var slots=Array(LOTTO_PICK_COUNT).fill(null);
+    _lottoSelected.forEach(function(n,i){slots[i]=n;});
+    nums.innerHTML=slots.map(function(n){
+      return '<div class="lotto-num'+(n!==null?' picked':'')+'">'+(n!==null?n:'?')+'</div>';
+    }).join('');
+  }
+  var grid=$('lottoNumGrid');
+  if(grid){
+    grid.innerHTML='';
+    for(var i=1;i<=LOTTO_MAX;i++){
+      var sel=_lottoSelected.indexOf(i)>=0;
+      var btn=document.createElement('div');
+      btn.className='lotto-pick-btn'+(sel?' sel':'');
+      btn.textContent=i;
+      btn.onclick=(function(n){return function(){lottoToggleNum(n);};})(i);
+      grid.appendChild(btn);
+    }
+  }
+}
+
+function _renderLottoStats(){
+  var d=_lottoGetData();
+  var lj=$('lottoJackpot');if(lj) lj.textContent=d.jackpot.toLocaleString()+'🪙';
+  var lt=$('lottoTickets');if(lt) lt.textContent=d.tickets||0;
+  var lw=$('lottoWins');if(lw) lw.textContent=d.wins||0;
+  var le=$('lottoEarned');if(le) le.textContent=d.earned||0;
+  var hist=$('lottoHistory');
+  if(hist){
+    if(!d.history||!d.history.length) hist.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3);padding:6px;text-align:center">Inga drag ännu</div>';
+    else hist.innerHTML=d.history.map(function(h){
+      return '<div class="lotto-hist-entry">'+
+        '<div class="lotto-hist-nums">'+h.nums.map(function(n){
+          var isM=h.picks.indexOf(n)>=0;
+          return '<div class="lotto-hist-ball'+(isM?' m':'')+'">'+n+'</div>';
+        }).join('')+'</div>'+
+        '<div class="lotto-hist-win">'+(h.prize>0?'+'+h.prize+'🪙':h.matches+'✓')+'</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+function openLotto(){$('lottoPanel').classList.add('open');_lottoSelected=[];_renderLottoTicket();_renderLottoStats();}
+function closeLotto(){$('lottoPanel').classList.remove('open');}
 
 </script>
 
