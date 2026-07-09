@@ -1443,6 +1443,40 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ CONSTELLATION MAP ══ */
+.star-panel{position:fixed;inset:0;background:#020008;z-index:956;display:none;flex-direction:column;overflow:hidden}
+.star-panel.open{display:flex}
+.star-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:rgba(2,0,8,.9)}
+.star-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffe066,#ffaa44,#ff66cc,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.star-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Sky canvas */
+.star-sky{background:radial-gradient(ellipse at 50% 30%,#0a0020 0%,#020008 70%);border:1.5px solid rgba(255,220,100,.1);border-radius:22px;padding:20px 16px;margin-bottom:14px;position:relative;min-height:200px;overflow:hidden}
+.star-sky-stars{position:absolute;inset:0;overflow:hidden;border-radius:22px}
+.star-dot{position:absolute;border-radius:50%;background:#fff;animation:starTwinkle var(--dur,2s) ease-in-out infinite}
+@keyframes starTwinkle{0%,100%{opacity:var(--op,.3)}50%{opacity:.9}}
+/* Constellation grid */
+.star-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.star-const{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.06);border-radius:18px;padding:14px 12px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.star-const:active{transform:scale(.97)}
+.star-const.active{border-color:rgba(255,220,100,.4);background:rgba(255,200,50,.05);box-shadow:0 0 16px rgba(255,200,50,.1)}
+.star-const.full{border-color:rgba(255,220,100,.7);background:rgba(255,200,50,.1);box-shadow:0 0 20px rgba(255,200,50,.2)}
+.star-const-name{font:800 12px var(--ff-head);color:rgba(255,255,255,.8);margin-bottom:2px}
+.star-const-emoji{font-size:22px;display:block;margin-bottom:6px}
+.star-const-effect{font:600 8px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:6px;line-height:1.4}
+.star-const-stars{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
+.star-pip{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,200,50,.3);background:rgba(255,200,50,.05);display:flex;align-items:center;justify-content:center;font-size:8px;transition:all .2s}
+.star-pip.lit{background:rgba(255,200,50,.3);border-color:rgba(255,220,100,.8);box-shadow:0 0 6px rgba(255,200,50,.5)}
+.star-const-btn{background:rgba(255,200,50,.1);border:1px solid rgba(255,200,50,.3);border-radius:8px;padding:4px 10px;font:800 8px var(--ff-head);color:#ffcc44;display:inline-block}
+.star-const-done{font:700 9px var(--ff-head);color:#ffcc44}
+/* Balance bar */
+.star-bal-bar{display:flex;align-items:center;gap:8px;background:rgba(255,200,50,.05);border:1px solid rgba(255,200,50,.2);border-radius:12px;padding:8px 12px;margin-bottom:12px}
+.star-bal-val{font:900 18px var(--ff-head);color:#ffcc44;flex:1}
+.star-bal-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+/* Active buffs */
+.star-buffs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.star-buff-chip{background:rgba(255,200,50,.08);border:1px solid rgba(255,200,50,.25);border-radius:20px;padding:5px 10px;font:700 9px var(--ff-head);color:#ffcc44}
+
 /* ══ PET ALCHEMY LAB ══ */
 .alch-panel{position:fixed;inset:0;background:#08030f;z-index:955;display:none;flex-direction:column;overflow:hidden}
 .alch-panel.open{display:flex}
@@ -8138,6 +8172,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Pet Garderob</div>
           <div class="ddr" onclick="cM();openFish()"><div class="ddr-i">🎣</div>Fiske</div>
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
+          <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9351,6 +9386,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- CONSTELLATION MAP -->
+<div class="star-panel" id="starPanel">
+  <div class="star-header">
+    <div class="star-title">🌌 STJÄRNKARTA</div>
+    <button class="close-btn" onclick="closeStar()">✕</button>
+  </div>
+  <div class="star-scroll">
+    <div class="star-bal-bar">
+      <div>
+        <div class="star-bal-val" id="starKCVal">0 KC</div>
+        <div class="star-bal-label">Ditt saldo</div>
+      </div>
+      <div style="font-size:28px">🔑</div>
+    </div>
+    <div class="star-sky">
+      <div class="star-sky-stars" id="starSkyBg"></div>
+      <div style="text-align:center;position:relative;z-index:1">
+        <div style="font-size:48px;filter:drop-shadow(0 0 20px rgba(255,200,50,.6))">🌌</div>
+        <div style="font:700 13px var(--ff-head);color:rgba(255,220,100,.8);margin-top:6px" id="starSkyMsg">Lås upp konstellationer för eviga buffs</div>
+        <div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3);margin-top:4px" id="starUnlocked">0 / 12 fullständiga</div>
+      </div>
+    </div>
+    <div class="star-buffs" id="starBuffs"></div>
+    <div class="star-grid" id="starGrid"></div>
+  </div>
+</div>
 
 <!-- PET ALCHEMY LAB -->
 <div class="alch-panel" id="alchPanel">
@@ -35183,6 +35246,122 @@ function _renderAlch(){
       +'<div class="alch-pot-name">'+pot.name+'</div>'
       +'<div class="alch-pot-effect">'+pot.effect+'</div>'
       +(qty>0?'<div class="alch-pot-qty">x'+qty+'</div><button class="alch-pot-use" onclick="alchUsePotion(\''+pot.id+'\')">Drick</button>':'<div style="font:600 8px var(--ff-body);color:rgba(255,255,255,.2)">Ej hittad</div>')
+      +'</div>';
+  }).join('');
+}
+
+
+// CONSTELLATION MAP
+const STAR_KEY = 'k0509_star';
+const STAR_CONSTS = [
+  {id:'aries',   name:'Väduren',  emoji:'🐏', stars:3, cost:2, effect:'Mynt +15% globalt',   buff:'coins15'},
+  {id:'taurus',  name:'Oxen',     emoji:'🐂', stars:3, cost:2, effect:'HP +20 max',           buff:'maxhp20'},
+  {id:'gemini',  name:'Tvillingen',emoji:'👬',stars:4, cost:3, effect:'XP +20% globalt',      buff:'xp20'},
+  {id:'cancer',  name:'Kräftan',  emoji:'🦀', stars:3, cost:2, effect:'Läkning +50%',         buff:'heal50'},
+  {id:'leo',     name:'Lejonet',  emoji:'🦁', stars:4, cost:4, effect:'ATK +10 i dungeon',    buff:'atk10'},
+  {id:'virgo',   name:'Jungfrun', emoji:'👸', stars:3, cost:2, effect:'KC +10% alla intäkter',buff:'kc10'},
+  {id:'libra',   name:'Vågen',    emoji:'⚖️', stars:4, cost:3, effect:'LCK +10 permanent',    buff:'lck10'},
+  {id:'scorpio', name:'Skorpionen',emoji:'🦂',stars:5, cost:5, effect:'Kritslag 2× chans',    buff:'crit2x'},
+  {id:'sagitt',  name:'Skytten',  emoji:'🏹', stars:3, cost:3, effect:'Racing AGI +10',        buff:'agi10'},
+  {id:'capri',   name:'Stenbocken',emoji:'🐐',stars:4, cost:4, effect:'Dungeon schats ×2',    buff:'loot2x'},
+  {id:'aquarius',name:'Vattumannen',emoji:'🏺',stars:5, cost:6, effect:'KC från fiske ×3',    buff:'fishkc3'},
+  {id:'pisces',  name:'Fiskarna', emoji:'🐟', stars:5, cost:8, effect:'Alla stats +5 perm',   buff:'allstats5'},
+];
+
+function _starData(){try{return JSON.parse(localStorage.getItem(STAR_KEY)||'null');}catch(e){return null;}}
+function _starSave(d){localStorage.setItem(STAR_KEY,JSON.stringify(d));}
+function _starGetData(){var d=_starData(); if(!d) d={unlocked:{}}; return d;}
+
+function starGetBuff(buffId){
+  var d=_starGetData();
+  return !!(d.unlocked||{})[buffId];
+}
+
+function openStar(){$('starPanel').classList.add('open');_renderStar();}
+function closeStar(){$('starPanel').classList.remove('open');}
+
+function starUnlockStar(constId){
+  var c=STAR_CONSTS.find(function(x){return x.id===constId;});
+  if(!c) return;
+  var d=_starGetData();
+  if(!d.unlocked) d.unlocked={};
+  var cur=d.unlocked[constId]||0;
+  if(cur>=c.stars){showFloatBubble('Konstellationen är redan fullständig!','info');return;}
+  var costEach=c.cost;
+  if((G.kc||0)<costEach){showFloatBubble('Inte nog KC! Behöver '+costEach+' KC','debuff');return;}
+  G.kc-=costEach; save();
+  d.unlocked[constId]=cur+1;
+  _starSave(d);
+  if(d.unlocked[constId]>=c.stars){
+    showFloatBubble('✨ '+c.emoji+' '+c.name+' fullständig! Buff aktiv!','buff');
+    // Apply permanent stats for pisces
+    if(c.buff==='allstats5'){
+      G.str=(G.str||0)+5; G.agi=(G.agi||0)+5; G.int=(G.int||0)+5;
+      G.end=(G.end||0)+5; G.lck=(G.lck||0)+5; save();
+    }
+    if(c.buff==='lck10'){G.lck=(G.lck||0)+10; save();}
+    if(c.buff==='atk10'){G.str=(G.str||0)+10; save();}
+    if(c.buff==='agi10'){G.agi=(G.agi||0)+10; save();}
+  } else {
+    showFloatBubble(c.emoji+' Stjärna '+d.unlocked[constId]+'/'+c.stars+' upplåst!','buff');
+  }
+  checkAchievements();
+  _renderStar();
+}
+
+function _renderStar(){
+  var d=_starGetData();
+  // KC
+  var kv=$('starKCVal'); if(kv) kv.textContent=(G.kc||0)+' KC';
+  // Sky bg - random static stars
+  var bg=$('starSkyBg');
+  if(bg && !bg.dataset.built){
+    var html='';
+    for(var i=0;i<60;i++){
+      var x=Math.random()*100;
+      var y=Math.random()*100;
+      var s=0.8+Math.random()*2;
+      var op=0.2+Math.random()*0.6;
+      var dur=1.5+Math.random()*3;
+      html+='<div class="star-dot" style="left:'+x+'%;top:'+y+'%;width:'+s+'px;height:'+s+'px;--op:'+op+';--dur:'+dur+'s"></div>';
+    }
+    bg.innerHTML=html;
+    bg.dataset.built='1';
+  }
+  // Count
+  var fullCount=0;
+  STAR_CONSTS.forEach(function(c){
+    if((d.unlocked||{})[c.id]>=c.stars) fullCount++;
+  });
+  var sm=$('starSkyMsg');
+  if(sm) sm.textContent=fullCount===12?'Alla konstellationer upplåsta! Du är en stjärna! ⭐':fullCount>0?fullCount+' konstellationer aktiva':'Lås upp konstellationer för eviga buffs';
+  var su=$('starUnlocked'); if(su) su.textContent=fullCount+' / 12 fullständiga';
+  // Active buffs
+  var buffsEl=$('starBuffs');
+  if(buffsEl){
+    var chips='';
+    STAR_CONSTS.forEach(function(c){
+      if((d.unlocked||{})[c.id]>=c.stars){
+        chips+='<div class="star-buff-chip">'+c.emoji+' '+c.effect+'</div>';
+      }
+    });
+    buffsEl.innerHTML=chips||'<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2)">Inga buffs aktiva ännu</div>';
+  }
+  // Grid
+  var grid=$('starGrid');
+  if(grid) grid.innerHTML=STAR_CONSTS.map(function(c){
+    var prog=(d.unlocked||{})[c.id]||0;
+    var full=prog>=c.stars;
+    var pips='';
+    for(var i=0;i<c.stars;i++){
+      pips+='<div class="star-pip'+(i<prog?' lit':'')+'">★</div>';
+    }
+    return '<div class="star-const'+(full?' full':prog>0?' active':'')+'" onclick="'+(full?'showFloatBubble(\'Fullständig! 🌟\',\'info\')':'starUnlockStar(\''+c.id+'\')')+'">'
+      +'<span class="star-const-emoji">'+c.emoji+'</span>'
+      +'<div class="star-const-name">'+c.name+'</div>'
+      +'<div class="star-const-effect">'+c.effect+'</div>'
+      +'<div class="star-const-stars">'+pips+'</div>'
+      +(full?'<div class="star-const-done">✅ AKTIV</div>':'<div class="star-const-btn">'+c.cost+' KC / stjärna</div>')
       +'</div>';
   }).join('');
 }
