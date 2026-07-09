@@ -1482,6 +1482,39 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET HOROSCOPE ══ */
+.horo-panel{position:fixed;inset:0;background:#03000a;z-index:995;display:none;flex-direction:column;overflow:hidden}
+.horo-panel.open{display:flex}
+.horo-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080018,#03000a)}
+.horo-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc88ff,#ffcc88,#88ccff,#cc88ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:horoShim 4s linear infinite}
+@keyframes horoShim{0%{background-position:0%}100%{background-position:200%}}
+.horo-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Sign card */
+.horo-sign-card{background:radial-gradient(ellipse at center,rgba(150,80,255,.08),rgba(0,0,0,0));border:2px solid rgba(150,80,255,.2);border-radius:24px;padding:20px 16px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden}
+.horo-sign-emoji{font-size:56px;display:block;margin-bottom:8px;filter:drop-shadow(0 0 16px rgba(180,100,255,.5))}
+.horo-sign-name{font:900 18px var(--ff-head);color:#cc88ff;margin-bottom:4px}
+.horo-sign-sub{font:600 9px var(--ff-body);color:rgba(200,150,255,.5);letter-spacing:2px}
+/* Fortune sections */
+.horo-sections{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.horo-section{background:rgba(255,255,255,.02);border:1.5px solid rgba(150,80,255,.12);border-radius:14px;padding:12px 14px}
+.horo-section-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.horo-section-name{font:800 11px var(--ff-head);color:rgba(200,150,255,.8);display:flex;align-items:center;gap:6px}
+.horo-stars{color:#ffcc00;font-size:12px;letter-spacing:1px}
+.horo-section-text{font:600 10px var(--ff-body);color:rgba(255,255,255,.6);line-height:1.6}
+/* Lucky stuff */
+.horo-lucky{display:flex;gap:8px;margin-bottom:14px}
+.horo-lucky-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px;text-align:center}
+.horo-lucky-val{font:900 16px var(--ff-head);color:#ffcc88;margin-bottom:2px}
+.horo-lucky-lbl{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+/* Affirmation */
+.horo-affirm{background:rgba(150,80,255,.06);border:1px solid rgba(150,80,255,.2);border-radius:14px;padding:14px;text-align:center;margin-bottom:14px}
+.horo-affirm-text{font:700 11px var(--ff-head);color:rgba(220,180,255,.8);line-height:1.6;font-style:italic}
+/* Claim */
+.horo-claim-btn{width:100%;background:linear-gradient(135deg,#330055,#6600aa);border:none;border-radius:14px;padding:13px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 0 16px rgba(150,80,255,.3)}
+.horo-claim-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.horo-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ ELEMENT MASTERY ══ */
 .elem-panel{position:fixed;inset:0;background:#050006;z-index:994;display:none;flex-direction:column;overflow:hidden}
 .elem-panel.open{display:flex}
@@ -9638,6 +9671,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openKcs()"><div class="ddr-i">💎</div>KC-Butik</div>
           <div class="ddr" onclick="cM();openTapr()"><div class="ddr-i">⚡</div>Speed Tap</div>
           <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">🌀</div>Element</div>
+          <div class="ddr" onclick="cM();openHoro()"><div class="ddr-i">🔮</div>Horoskop</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10180,6 +10214,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       </div>
 
       
+
+<!-- PET HOROSCOPE -->
+<div class="horo-panel" id="horoPanel">
+  <div class="horo-header">
+    <div class="horo-title">🔮 HUSDJURETS HOROSKOP</div>
+    <button class="close-btn" onclick="closeHoro()">✕</button>
+  </div>
+  <div class="horo-scroll">
+    <div class="horo-sign-card">
+      <span class="horo-sign-emoji" id="horoSignEmoji">⭐</span>
+      <div class="horo-sign-name" id="horoSignName">Stjärntecknet</div>
+      <div class="horo-sign-sub" id="horoSignSub">DAGENS HOROSKOP</div>
+    </div>
+    <div class="horo-sections" id="horoSections"></div>
+    <div class="horo-lucky" id="horoLucky"></div>
+    <div class="horo-affirm">
+      <div class="horo-affirm-text" id="horoAffirm">Din styrka är gränslös...</div>
+    </div>
+    <button class="horo-claim-btn" id="horoClaimBtn" onclick="horoClaim()">✨ Hämta Dagens Lycka!</button>
+    <div class="horo-info">Ditt horoskop beror på ditt husdjurs namn och datumet!</div>
+  </div>
+</div>
+
 <!-- ELEMENT MASTERY -->
 <div class="elem-panel" id="elemPanel">
   <div class="elem-header">
@@ -42962,6 +43019,134 @@ function _renderElemCards(d){
       (isMax?'<div class="elem-ultimate" style="background:'+el.lv_color+';color:'+el.color+'">🌟 MAX! '+el.ultDesc+'</div>':'<div class="elem-reward">Nästa nivå: +'+el.perLv+' '+el.statA.toUpperCase()+' +'+el.perLv+' '+el.statB.toUpperCase()+'</div>')+
     '</div>';
   }).join('');
+}
+
+
+// PET HOROSCOPE
+const HORO_KEY = 'k0509_horo';
+const HORO_SIGNS = [
+  {emoji:'♈',name:'Väduren',   element:'Eld',  color:'#ff4455'},
+  {emoji:'♉',name:'Oxen',      element:'Jord', color:'#44aa33'},
+  {emoji:'♊',name:'Tvillingarna',element:'Luft',color:'#44aaff'},
+  {emoji:'♋',name:'Kräftan',   element:'Vatten',color:'#4488cc'},
+  {emoji:'♌',name:'Lejonet',   element:'Eld',  color:'#ff8833'},
+  {emoji:'♍',name:'Jungfrun',  element:'Jord', color:'#88cc44'},
+  {emoji:'♎',name:'Vågen',     element:'Luft', color:'#cc88ff'},
+  {emoji:'♏',name:'Skorpionen',element:'Vatten',color:'#aa44ff'},
+  {emoji:'♐',name:'Skytten',   element:'Eld',  color:'#ff6633'},
+  {emoji:'♑',name:'Stenbocken',element:'Jord', color:'#66aa44'},
+  {emoji:'♒',name:'Vattumannen',element:'Luft',color:'#44ccff'},
+  {emoji:'♓',name:'Fiskarna',  element:'Vatten',color:'#4488ff'},
+];
+const HORO_TEXTS = {
+  love:[
+    'Ditt hjärta öppnar sig för nya möjligheter. Starka band bildas.',
+    'Visa kärlek öppet — det förstärker dina krafter.',
+    'Kärlek flödar fritt idag. Omfamna det!',
+    'En mystisk förbindelse väntar dig i närheten.',
+    'Ditt husdjurs charm lockar till sig positiv energi.',
+    'Hjärtat är starkt idag. Dela din glädje med andra.',
+  ],
+  work:[
+    'Din koncentration är på topp. Perfekt för utmaningar!',
+    'Framgång väntar den som agerar beslutsamt idag.',
+    'Kreativa lösningar flödar — lita på din instinkt.',
+    'Teamwork ger dubbelt resultat idag.',
+    'Din uthållighet lönar sig — håll kursen!',
+    'Nya möjligheter öppnar sig för den som söker.',
+  ],
+  luck:[
+    'Lyckans stjärnor lyser extra starkt idag!',
+    'Oväntade bonusar väntar dig runt nästa hörn.',
+    'Sällsynta fynd finns för den med öppna ögon.',
+    'Din LCK-stat välsignas av kosmiska krafter.',
+    'En gyllene möjlighet dyker upp — missa den inte!',
+    'Universum är på din sida. Våga ta chansen!',
+  ],
+};
+const HORO_AFFIRMS = [
+  'Din styrka är gränslös — universum stödjer dig.',
+  'Varje dag är en ny möjlighet att växa.',
+  'Din potential är oändlig, precis som stjärnorna.',
+  'Med tålamod och mod kan du uppnå allt.',
+  'Du är starkare än du tror och mer kapabel än du vet.',
+  'Stjärnorna pekar mot storhet — din storhet!',
+  'Idag är en fantastisk dag att vara ditt husdjur.',
+  'Kosmisk energi strömmar genom dig — känn kraften!',
+];
+
+function _horoData(){try{return JSON.parse(localStorage.getItem(HORO_KEY)||'null');}catch(e){return null;}}
+function _horoSave(d){localStorage.setItem(HORO_KEY,JSON.stringify(d));}
+function _horoGetData(){var d=_horoData();var t=getTodayKey();if(!d||d.day!==t) d={day:t,claimed:false};return d;}
+
+function _horoSeed(){
+  var name=(G.name||'pet').toLowerCase();
+  var day=getTodayKey();
+  var s=0;
+  for(var i=0;i<name.length;i++) s=(s*31+name.charCodeAt(i))>>>0;
+  for(var j=0;j<day.length;j++) s=(s*31+day.charCodeAt(j))>>>0;
+  return s;
+}
+function _horoRand(seed,n){return ((seed*1664525+1013904223)>>>0)%n;}
+function _horoStars(seed,offset){var n=((seed+offset*997)%4)+1;return '⭐'.repeat(n)+'☆'.repeat(5-n);}
+
+function horoClaim(){
+  var d=_horoGetData();
+  if(d.claimed){showFloatBubble('Horoskop redan hämtat idag!','debuff');return;}
+  d.claimed=true;_horoSave(d);
+  var seed=_horoSeed();
+  var coins=100+_horoRand(seed+77,400);
+  var xp=50+_horoRand(seed+88,200);
+  gainCoins(coins);gainXP(xp,'lck');
+  showFloatBubble('🔮 Kosmisk lycka! +'+coins+'🪙 +'+xp+'XP!','buff');
+  checkAchievements();
+  _renderHoro();
+}
+
+function openHoro(){$('horoPanel').classList.add('open');_renderHoro();}
+function closeHoro(){$('horoPanel').classList.remove('open');}
+
+function _renderHoro(){
+  var d=_horoGetData();
+  var seed=_horoSeed();
+  var signIdx=_horoRand(seed,12);
+  var sign=HORO_SIGNS[signIdx];
+  var se=$('horoSignEmoji');if(se) se.textContent=sign.emoji;
+  var sn=$('horoSignName');if(sn) sn.textContent=sign.name+' ('+sign.element+')';
+  var ss=$('horoSignSub');if(ss) ss.textContent='HUSDJURETS DAGLIGA HOROSKOP';
+  // Sections
+  var cats=[{key:'love',icon:'💕',name:'Kärlek'},{key:'work',icon:'⚡',name:'Äventyr'},{key:'luck',icon:'🍀',name:'Lycka'}];
+  var secs=$('horoSections');
+  if(secs){
+    secs.innerHTML=cats.map(function(cat,ci){
+      var texts=HORO_TEXTS[cat.key];
+      var textIdx=_horoRand(seed+(ci+1)*123,texts.length);
+      var stars=_horoStars(seed,(ci+1)*77);
+      return '<div class="horo-section">'+
+        '<div class="horo-section-top">'+
+          '<div class="horo-section-name">'+cat.icon+' '+cat.name+'</div>'+
+          '<div class="horo-stars">'+stars+'</div>'+
+        '</div>'+
+        '<div class="horo-section-text">'+texts[textIdx]+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  // Lucky stuff
+  var luckNum=(_horoRand(seed+999,99)+1);
+  var colors=['Purpur','Guld','Smaragd','Safir','Rubinrött','Vit'];
+  var luckColor=colors[_horoRand(seed+333,colors.length)];
+  var luckTime=['Morgon','Middag','Kväll','Natt'][_horoRand(seed+555,4)];
+  var lucky=$('horoLucky');
+  if(lucky){
+    lucky.innerHTML=[
+      '<div class="horo-lucky-box"><div class="horo-lucky-val">'+luckNum+'</div><div class="horo-lucky-lbl">Lyckonummer</div></div>',
+      '<div class="horo-lucky-box"><div class="horo-lucky-val">'+luckColor+'</div><div class="horo-lucky-lbl">Lyckofärg</div></div>',
+      '<div class="horo-lucky-box"><div class="horo-lucky-val">'+luckTime+'</div><div class="horo-lucky-lbl">Lyckotid</div></div>',
+    ].join('');
+  }
+  var affirmIdx=_horoRand(seed+777,HORO_AFFIRMS.length);
+  var af=$('horoAffirm');if(af) af.textContent='"'+HORO_AFFIRMS[affirmIdx]+'"';
+  var cb=$('horoClaimBtn');if(cb){cb.disabled=d.claimed;cb.textContent=d.claimed?'✓ Dagens lycka hämtad':'✨ Hämta Dagens Lycka!';}
 }
 
 </script>
