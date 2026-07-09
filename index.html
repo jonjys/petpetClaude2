@@ -1488,6 +1488,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ LEADERBOARD ══ */
+.ldb-panel{position:fixed;inset:0;background:#040205;z-index:1001;display:none;flex-direction:column;overflow:hidden}
+.ldb-panel.open{display:flex}
+.ldb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#08050a,#040205)}
+.ldb-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ffcc00);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:ldbShim 3s linear infinite}
+@keyframes ldbShim{0%{background-position:0%}100%{background-position:200%}}
+.ldb-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Player rank card */
+.ldb-my-rank{background:linear-gradient(135deg,rgba(255,200,0,.06),rgba(255,100,0,.04));border:2px solid rgba(255,200,0,.2);border-radius:18px;padding:14px;margin-bottom:14px;text-align:center}
+.ldb-my-rank-emoji{font-size:40px;display:block;margin-bottom:4px}
+.ldb-my-rank-pos{font:900 28px var(--ff-head);color:#ffcc00}
+.ldb-my-rank-name{font:700 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.ldb-my-rank-score{font:600 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.ldb-my-rank-badge{display:inline-block;font:800 9px var(--ff-head);padding:3px 10px;border-radius:8px;margin-top:6px}
+/* Tab selector */
+.ldb-tabs{display:flex;gap:6px;margin-bottom:12px}
+.ldb-tab{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:7px;text-align:center;cursor:pointer;font:700 9px var(--ff-head);color:rgba(255,255,255,.4);transition:border-color .2s}
+.ldb-tab.active{border-color:rgba(255,200,0,.4);color:#ffcc00;background:rgba(255,200,0,.05)}
+/* Entries */
+.ldb-entries{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.ldb-entry{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:8px 12px;transition:border-color .2s}
+.ldb-entry.player{border-color:rgba(255,200,0,.3);background:rgba(255,200,0,.03)}
+.ldb-entry.top3{border-color:rgba(255,200,0,.15)}
+.ldb-rank-num{font:900 14px var(--ff-head);color:rgba(255,255,255,.5);min-width:24px;text-align:center}
+.ldb-rank-num.gold{color:#ffcc00}
+.ldb-rank-num.silver{color:#aaaaaa}
+.ldb-rank-num.bronze{color:#cc8844}
+.ldb-entry-emoji{font-size:20px}
+.ldb-entry-info{flex:1}
+.ldb-entry-name{font:800 10px var(--ff-head);color:#fff}
+.ldb-entry-sub{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.ldb-entry-score{font:900 13px var(--ff-head);color:#ffcc00}
+/* Claim reward */
+.ldb-claim{background:rgba(255,200,0,.05);border:1.5px solid rgba(255,200,0,.2);border-radius:14px;padding:12px;margin-bottom:12px;text-align:center}
+.ldb-claim-text{font:700 10px var(--ff-body);color:rgba(255,255,255,.6);margin-bottom:8px}
+.ldb-claim-btn{background:linear-gradient(135deg,#442200,#884400);border:none;border-radius:10px;padding:9px 20px;font:900 11px var(--ff-head);color:#fff;cursor:pointer}
+.ldb-claim-btn:disabled{opacity:.3;cursor:default}
+.ldb-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ ALCHEMY LAB ══ */
 .alch-panel{position:fixed;inset:0;background:#020506;z-index:1000;display:none;flex-direction:column;overflow:hidden}
 .alch-panel.open{display:flex}
@@ -9829,6 +9869,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCard()"><div class="ddr-i">⚔️</div>Stridskort</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
+          <div class="ddr" onclick="cM();openLdb()"><div class="ddr-i">🏆</div>Topplista</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -9850,10 +9891,12 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Pet Garderob</div>
           <div class="ddr" onclick="cM();openFish()"><div class="ddr-i">🎣</div>Fiske</div>
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
+          <div class="ddr" onclick="cM();openLdb()"><div class="ddr-i">🏆</div>Topplista</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
+          <div class="ddr" onclick="cM();openLdb()"><div class="ddr-i">🏆</div>Topplista</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
@@ -9896,6 +9939,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCard()"><div class="ddr-i">⚔️</div>Stridskort</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
+          <div class="ddr" onclick="cM();openLdb()"><div class="ddr-i">🏆</div>Topplista</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10443,6 +10487,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- LEADERBOARD -->
+<div class="ldb-panel" id="ldbPanel">
+  <div class="ldb-header">
+    <div class="ldb-title">🏆 TOPPLISTAN</div>
+    <button class="close-btn" onclick="closeLdb()">✕</button>
+  </div>
+  <div class="ldb-scroll">
+    <div class="ldb-my-rank">
+      <span class="ldb-my-rank-emoji" id="ldbMyEmoji">🐾</span>
+      <div class="ldb-my-rank-pos" id="ldbMyPos">#—</div>
+      <div class="ldb-my-rank-name" id="ldbMyName">Ditt husdjur</div>
+      <div class="ldb-my-rank-score" id="ldbMyScore">Poäng: —</div>
+      <div class="ldb-my-rank-badge" id="ldbMyBadge">—</div>
+    </div>
+    <div class="ldb-tabs">
+      <div class="ldb-tab active" id="ldbTabTotal" onclick="ldbSetTab('total')">⭐ Total</div>
+      <div class="ldb-tab" id="ldbTabPvp" onclick="ldbSetTab('pvp')">⚔️ Strider</div>
+      <div class="ldb-tab" id="ldbTabWealth" onclick="ldbSetTab('wealth')">🪙 Rikedom</div>
+    </div>
+    <div class="ldb-claim" id="ldbClaimBox">
+      <div class="ldb-claim-text" id="ldbClaimText">Hämta din dagliga rankingbelöning!</div>
+      <button class="ldb-claim-btn" id="ldbClaimBtn" onclick="ldbClaim()">🏆 Hämta Rankingbelöning</button>
+    </div>
+    <div class="ldb-entries" id="ldbEntries"></div>
+    <div class="ldb-info">Rankning uppdateras dagligen baserat på total stat-poäng!</div>
+  </div>
+</div>
 
 <!-- ALCHEMY LAB -->
 <div class="alch-panel" id="alchPanel">
@@ -44344,6 +44417,145 @@ function _renderAlch(){
           '<div class="alch-recipe-effect">'+(disc?r.effect:'Utforska för att hitta!')+'</div>'+
         '</div>'+
         '<div class="alch-recipe-badge" style="'+(disc?'background:rgba(0,200,200,.1);color:#00ddcc':'background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)')+'">'+(disc?'✓ Känd':'🔒')+'</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// LEADERBOARD
+const LDB_KEY = 'k0509_ldb';
+const LDB_NPC_NAMES = [
+  ['Turbo','Blixt','Moxie','Pixel','Cosmo','Nova','Ziggy','Pepper','Comet','Titan'],
+  ['Felix','Lilo','Blaze','Nimbus','Echo','Vortex','Remi','Astro','Spark','Luna'],
+  ['Bolt','Gizmo','Orion','Storm','Jinx','Axel','Cleo','Drake','Koda','Misty'],
+];
+const LDB_PET_EMOJIS = ['🐶','🐱','🐰','🐹','🐸','🦊','🐺','🦁','🐯','🐻','🦄','🐲','🦅','🐬','🦋'];
+const LDB_RANKS = [
+  {min:0,    name:'Novice',    color:'#888',   bg:'rgba(100,100,100,.15)', reward:{coins:100}},
+  {min:200,  name:'Aspirant', color:'#44ff88', bg:'rgba(68,255,136,.1)',   reward:{coins:200}},
+  {min:500,  name:'Veteran',  color:'#44aaff', bg:'rgba(68,170,255,.1)',   reward:{coins:400}},
+  {min:1000, name:'Elite',    color:'#cc88ff', bg:'rgba(204,136,255,.1)',  reward:{coins:700,kc:1}},
+  {min:2000, name:'Champion', color:'#ffcc00', bg:'rgba(255,200,0,.1)',    reward:{coins:1200,kc:2}},
+  {min:5000, name:'Legend',   color:'#ff8844', bg:'rgba(255,136,68,.1)',   reward:{coins:2000,kc:5}},
+];
+
+var _ldbTab = 'total';
+
+function _ldbData(){try{return JSON.parse(localStorage.getItem(LDB_KEY)||'null');}catch(e){return null;}}
+function _ldbSave(d){localStorage.setItem(LDB_KEY,JSON.stringify(d));}
+function _ldbGetData(){
+  var d=_ldbData();
+  if(!d) d={claimed:null};
+  return d;
+}
+
+function _ldbScore(tab){
+  if(tab==='pvp') return (G.str||0)*2+(G.agi||0)*1.5;
+  if(tab==='wealth') return Math.floor((G.coins||0)/10)+(G.kc||0)*50;
+  return (G.str||0)+(G.agi||0)+(G.int||0)+(G.end||0)+(G.lck||0);
+}
+
+function _ldbGenNpcs(seed, tab){
+  var npcs=[];
+  var names=LDB_NPC_NAMES[Math.floor(seed%3)];
+  for(var i=0;i<19;i++){
+    var ns=(seed*1664525+1013904223+i*997)>>>0;
+    var ps=(seed*6364136223846793005+i*1442695040888963407)>>>0;
+    var basePow=50+Math.floor((ns%1200));
+    var score;
+    if(tab==='pvp') score=Math.floor(basePow*1.5)+(Math.floor(ps%200));
+    else if(tab==='wealth') score=Math.floor(basePow*8)+(Math.floor(ps%1000));
+    else score=basePow+(Math.floor(ps%300));
+    npcs.push({
+      name:LDB_NPC_NAMES[Math.floor((ns%3))][ns%10],
+      emoji:LDB_PET_EMOJIS[ns%LDB_PET_EMOJIS.length],
+      score:score
+    });
+  }
+  return npcs;
+}
+
+function _ldbDaySeed(){
+  var s=getTodayKey();
+  var h=0;
+  for(var i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0;
+  return h;
+}
+
+function _ldbGetRank(score){
+  var r=LDB_RANKS[0];
+  for(var i=LDB_RANKS.length-1;i>=0;i--){
+    if(score>=LDB_RANKS[i].min){r=LDB_RANKS[i];break;}
+  }
+  return r;
+}
+
+function ldbClaim(){
+  var d=_ldbGetData();
+  var today=getTodayKey();
+  if(d.claimed===today){showFloatBubble('Belöning redan hämtad idag!','debuff');return;}
+  var score=_ldbScore('total');
+  var rank=_ldbGetRank(score);
+  gainCoins(rank.reward.coins);
+  if(rank.reward.kc) gainKC(rank.reward.kc);
+  d.claimed=today;
+  _ldbSave(d);
+  showFloatBubble('🏆 '+rank.name+' belöning! +'+rank.reward.coins+'🪙'+(rank.reward.kc?' +'+rank.reward.kc+'KC':''),'buff');
+  checkAchievements();
+  _renderLdb();
+}
+
+function ldbSetTab(tab){
+  _ldbTab=tab;
+  ['total','pvp','wealth'].forEach(function(t){
+    var el=$('ldbTab'+t.charAt(0).toUpperCase()+t.slice(1));
+    if(el) el.classList.toggle('active',t===tab);
+  });
+  _renderLdb();
+}
+
+function openLdb(){$('ldbPanel').classList.add('open');_renderLdb();}
+function closeLdb(){$('ldbPanel').classList.remove('open');}
+
+function _renderLdb(){
+  var d=_ldbGetData();
+  var today=getTodayKey();
+  var seed=_ldbDaySeed();
+  var tab=_ldbTab;
+  var playerScore=_ldbScore(tab);
+  var npcs=_ldbGenNpcs(seed,tab);
+  // Insert player
+  var all=[{name:G.name||'Ditt Husdjur',emoji:typeof evoGetEmoji==='function'?evoGetEmoji():'🐾',score:playerScore,isPlayer:true}].concat(npcs);
+  all.sort(function(a,b){return b.score-a.score;});
+  var playerPos=all.findIndex(function(e){return e.isPlayer;})+1;
+  // Player card
+  var me=$('ldbMyEmoji');if(me) me.textContent=typeof evoGetEmoji==='function'?evoGetEmoji():'🐾';
+  var mp=$('ldbMyPos');if(mp) mp.textContent='#'+playerPos;
+  var mn=$('ldbMyName');if(mn) mn.textContent=G.name||'Ditt Husdjur';
+  var ms=$('ldbMyScore');if(ms) ms.textContent='Poäng: '+playerScore;
+  var rank=_ldbGetRank(playerScore);
+  var mb=$('ldbMyBadge');
+  if(mb){mb.textContent=rank.name;mb.style.background=rank.bg;mb.style.color=rank.color;}
+  // Claim
+  var cb=$('ldbClaimBtn');var ct=$('ldbClaimText');
+  if(cb) cb.disabled=d.claimed===today;
+  if(ct) ct.textContent=d.claimed===today?'✓ Belöning hämtad idag':'🏆 '+rank.name+'-belöning: +'+rank.reward.coins+'🪙'+(rank.reward.kc?' +'+rank.reward.kc+'KC':'');
+  // Entries
+  var entries=$('ldbEntries');
+  if(entries){
+    entries.innerHTML=all.slice(0,20).map(function(e,i){
+      var pos=i+1;
+      var rankCls=pos===1?'gold':pos===2?'silver':pos===3?'bronze':'';
+      var medal=pos===1?'🥇':pos===2?'🥈':pos===3?'🥉':'';
+      return '<div class="ldb-entry'+(e.isPlayer?' player':pos<=3?' top3':'')+'">'+
+        '<div class="ldb-rank-num '+rankCls+'">'+(medal||pos)+'</div>'+
+        '<div class="ldb-entry-emoji">'+e.emoji+'</div>'+
+        '<div class="ldb-entry-info">'+
+          '<div class="ldb-entry-name">'+e.name+(e.isPlayer?' (Du)':'')+'</div>'+
+          '<div class="ldb-entry-sub">'+(e.isPlayer?rank.name:'Spelare')+'</div>'+
+        '</div>'+
+        '<div class="ldb-entry-score">'+e.score+'</div>'+
       '</div>';
     }).join('');
   }
