@@ -1438,6 +1438,42 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET COSMETIC SHOP ══ */
+.cos-panel{position:fixed;inset:0;background:#080406;z-index:951;display:none;flex-direction:column;overflow:hidden}
+.cos-panel.open{display:flex}
+.cos-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#160a20,#080406)}
+.cos-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff44bb,#aa44ff,#44aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cos-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Preview */
+.cos-preview{background:linear-gradient(135deg,rgba(170,68,255,.1),rgba(255,68,187,.07));border:1.5px solid rgba(170,68,255,.25);border-radius:22px;padding:16px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden;min-height:130px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.cos-prev-bg{position:absolute;inset:0;opacity:.15;border-radius:22px;background-size:cover}
+.cos-prev-pet{font-size:72px;display:block;position:relative;z-index:1;filter:drop-shadow(0 0 16px rgba(170,68,255,.5))}
+.cos-prev-name{font:900 16px var(--ff-head);position:relative;z-index:1}
+.cos-prev-badge{font:700 9px var(--ff-head);color:rgba(255,255,255,.5);position:relative;z-index:1;margin-top:4px}
+/* Category tabs */
+.cos-tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:2px}
+.cos-tab{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:20px;padding:7px 14px;font:700 10px var(--ff-head);color:rgba(255,255,255,.5);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.cos-tab.sel{background:rgba(170,68,255,.15);border-color:rgba(170,68,255,.5);color:#aa44ff}
+/* Item grid */
+.cos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.cos-item{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .15s}
+.cos-item:active{transform:scale(.95)}
+.cos-item.owned{border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.05)}
+.cos-item.equipped{border-color:rgba(170,68,255,.6);background:rgba(170,68,255,.1);box-shadow:0 0 10px rgba(170,68,255,.2)}
+.cos-item.rare{border-color:rgba(255,136,68,.3)}
+.cos-item.epic{border-color:rgba(255,68,85,.4)}
+.cos-item-preview{font-size:30px;display:block;margin-bottom:6px;min-height:36px;display:flex;align-items:center;justify-content:center}
+.cos-item-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.8);margin-bottom:3px}
+.cos-item-rarity{font:600 7px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:5px}
+.cos-item-price{font:800 10px var(--ff-head);color:#aa44ff}
+.cos-item-owned{font:700 8px var(--ff-head);color:#00ff88}
+.cos-item-equip{font:700 8px var(--ff-head);color:#aa44ff;background:rgba(170,68,255,.15);border:1px solid rgba(170,68,255,.3);border-radius:6px;padding:3px 8px;cursor:pointer;margin-top:2px;display:inline-block}
+/* Stats row */
+.cos-kc-bar{display:flex;align-items:center;gap:8px;background:rgba(170,68,255,.06);border:1px solid rgba(170,68,255,.2);border-radius:12px;padding:8px 12px;margin-bottom:10px}
+.cos-kc-val{font:900 18px var(--ff-head);color:#aa44ff;flex:1}
+.cos-kc-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+
 /* ══ PET HOSPITAL ══ */
 .hosp-panel{position:fixed;inset:0;background:#040804;z-index:950;display:none;flex-direction:column;overflow:hidden}
 .hosp-panel.open{display:flex}
@@ -7923,6 +7959,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBP()"><div class="ddr-i">🎖️</div>Battle Pass</div>
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Slots</div>
           <div class="ddr" onclick="cM();openHosp()"><div class="ddr-i">🏥</div>Sjukhus</div>
+          <div class="ddr" onclick="cM();openCos()"><div class="ddr-i">✨</div>Butik</div>
         </div>
       </div>
     </div>
@@ -9099,6 +9136,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET COSMETICS -->
+<div class="cos-panel" id="cosPanel">
+  <div class="cos-header">
+    <div class="cos-title">✨ BUTIK</div>
+    <button class="close-btn" onclick="closeCos()">✕</button>
+  </div>
+  <div class="cos-scroll">
+    <div class="cos-preview" id="cosPreview">
+      <div class="cos-prev-bg" id="cosPrevBg"></div>
+      <span class="cos-prev-pet" id="cosPrevPet">🐣</span>
+      <div class="cos-prev-name" id="cosPrevName">Husdjur</div>
+      <div class="cos-prev-badge" id="cosPrevBadge">Inget märke</div>
+    </div>
+    <div class="cos-kc-bar">
+      <div>
+        <div class="cos-kc-val" id="cosKCVal">0 KC</div>
+        <div class="cos-kc-label">Ditt saldo</div>
+      </div>
+      <div style="font-size:28px">🔑</div>
+    </div>
+    <div class="cos-tabs" id="cosTabs"></div>
+    <div class="cos-grid" id="cosGrid"></div>
+  </div>
+</div>
 
 <!-- PET HOSPITAL -->
 <div class="hosp-panel" id="hospPanel">
@@ -33854,6 +33917,132 @@ function hospVax(vaxId){
   gainXP(50,'action');
   showFloatBubble(vax.emoji+' '+vax.name+' aktiverat!','buff');
   _renderHosp();
+}
+
+
+// PET COSMETIC SHOP
+const COS_KEY = 'k0509_cos';
+const COS_CATS = ['Bakgrunder','Ramar','Märken','Titlar','Effekter'];
+const COS_ITEMS = [
+  // Bakgrunder
+  {id:'bg_stars',   cat:'Bakgrunder',emoji:'🌌',name:'Stjärnhimmel',  rarity:'rare', price:3, bg:'linear-gradient(135deg,#000020,#001040,#100030)', desc:'Mörk rymd'},
+  {id:'bg_forest',  cat:'Bakgrunder',emoji:'🌲',name:'Skog',          rarity:'common',price:1,bg:'linear-gradient(135deg,#002010,#004020)', desc:'Grön natur'},
+  {id:'bg_ocean',   cat:'Bakgrunder',emoji:'🌊',name:'Havet',         rarity:'rare', price:3, bg:'linear-gradient(135deg,#000830,#001844)', desc:'Djuphav'},
+  {id:'bg_volcano', cat:'Bakgrunder',emoji:'🌋',name:'Vulkan',        rarity:'epic', price:8, bg:'linear-gradient(135deg,#200000,#400800)', desc:'Eldigt'},
+  {id:'bg_sky',     cat:'Bakgrunder',emoji:'☁️', name:'Himmelsblå',   rarity:'common',price:2,bg:'linear-gradient(135deg,#001020,#002040)', desc:'Moln'},
+  {id:'bg_galaxy',  cat:'Bakgrunder',emoji:'🪐',name:'Galaxen',       rarity:'epic', price:12,bg:'linear-gradient(135deg,#080020,#200040,#040020)', desc:'Kosmisk'},
+  // Ramar
+  {id:'frame_gold', cat:'Ramar',emoji:'🪙',name:'Guld Ram',          rarity:'rare', price:5, frame:'#ffcc00'},
+  {id:'frame_dia',  cat:'Ramar',emoji:'💎',name:'Diamant Ram',        rarity:'epic', price:10, frame:'#88eeff'},
+  {id:'frame_fire', cat:'Ramar',emoji:'🔥',name:'Eld Ram',            rarity:'epic', price:8, frame:'#ff4400'},
+  {id:'frame_ice',  cat:'Ramar',emoji:'❄️', name:'Is Ram',            rarity:'rare', price:5, frame:'#aaddff'},
+  // Märken
+  {id:'badge_star', cat:'Märken',emoji:'⭐',name:'Stjärna',           rarity:'common',price:1, badge:'⭐ Stjärna'},
+  {id:'badge_fire', cat:'Märken',emoji:'🔥',name:'Eldiga',            rarity:'rare', price:3, badge:'🔥 Eldige'},
+  {id:'badge_king', cat:'Märken',emoji:'👑',name:'Kung/Drottning',    rarity:'epic', price:8, badge:'👑 Majestät'},
+  {id:'badge_ghost',cat:'Märken',emoji:'👻',name:'Spöket',            rarity:'rare', price:4, badge:'👻 Spöket'},
+  {id:'badge_drag', cat:'Märken',emoji:'🐉',name:'Drakryttare',       rarity:'epic', price:10,badge:'🐉 Drakryttare'},
+  // Titlar
+  {id:'title_pet',  cat:'Titlar',emoji:'🐾',name:'Husdjursmästare',   rarity:'common',price:2, title:'🐾 Husdjursmästare'},
+  {id:'title_hero', cat:'Titlar',emoji:'⚔️',name:'Dungeon Hjälte',    rarity:'rare', price:5, title:'⚔️ Dungeon Hjälte'},
+  {id:'title_zen',  cat:'Titlar',emoji:'🧘',name:'Zenmaster',         rarity:'rare', price:5, title:'🧘 Zenmaster'},
+  {id:'title_chef', cat:'Titlar',emoji:'👨‍🍳',name:'Stjärnkock',      rarity:'rare', price:4, title:'👨‍🍳 Stjärnkock'},
+  {id:'title_myth', cat:'Titlar',emoji:'🌟',name:'Mytisk Varelse',    rarity:'epic', price:15,title:'🌟 Mytisk Varelse'},
+  // Effekter
+  {id:'eff_sparkle',cat:'Effekter',emoji:'✨',name:'Glitter',          rarity:'common',price:2, effect:'sparkle'},
+  {id:'eff_fire',   cat:'Effekter',emoji:'🔥',name:'Eldaura',          rarity:'rare', price:6, effect:'fire'},
+  {id:'eff_rainbow',cat:'Effekter',emoji:'🌈',name:'Regnbåge',         rarity:'epic', price:12,effect:'rainbow'},
+];
+
+let _cosCat='Bakgrunder';
+
+function _cosLoad(){try{return JSON.parse(localStorage.getItem(COS_KEY)||'null');}catch(e){return null;}}
+function _cosSave(d){localStorage.setItem(COS_KEY,JSON.stringify(d));}
+function _cosData(){var d=_cosLoad(); if(!d) d={owned:[],equipped:{}}; return d;}
+
+function openCos(){
+  $('cosPanel').classList.add('open');
+  _renderCos();
+}
+function closeCos(){
+  $('cosPanel').classList.remove('open');
+}
+
+function cosSetCat(cat){
+  _cosCat=cat;
+  _renderCos();
+}
+
+function _renderCos(){
+  var d=_cosData();
+  // KC
+  var kv=$('cosKCVal'); if(kv) kv.textContent=(G.kc||0)+' KC';
+  // Preview
+  var eq=d.equipped||{};
+  var bgItem=eq.bg?COS_ITEMS.find(function(i){return i.id===eq.bg;}):null;
+  var pb=$('cosPrevBg'); if(pb) pb.style.background=bgItem&&bgItem.bg?bgItem.bg:'transparent';
+  var pp=$('cosPrevPet'); if(pp) pp.textContent=G.petEmoji||'🐣';
+  var pn=$('cosPrevName');
+  if(pn){
+    var titleItem=eq.title?COS_ITEMS.find(function(i){return i.id===eq.title;}):null;
+    pn.textContent=(titleItem?titleItem.title+' ':'')+( G.name||'Husdjur');
+    pn.style.color='#fff';
+  }
+  var pbg=$('cosPrevBadge');
+  if(pbg){
+    var badgeItem=eq.badge?COS_ITEMS.find(function(i){return i.id===eq.badge;}):null;
+    pbg.textContent=badgeItem?badgeItem.badge:'Inget märke';
+  }
+  // Tabs
+  var tabs=$('cosTabs');
+  if(tabs) tabs.innerHTML=COS_CATS.map(function(c){
+    return '<div class="cos-tab'+(c===_cosCat?' sel':'')+'" onclick="cosSetCat(''+c+'')">'+c+'</div>';
+  }).join('');
+  // Grid
+  var grid=$('cosGrid');
+  var items=COS_ITEMS.filter(function(i){return i.cat===_cosCat;});
+  if(grid) grid.innerHTML=items.map(function(item){
+    var isOwned=(d.owned||[]).indexOf(item.id)>=0;
+    var isEquipped=false;
+    Object.values(d.equipped||{}).forEach(function(v){if(v===item.id)isEquipped=true;});
+    var rarityColor=item.rarity==='epic'?'rgba(255,68,85,.4)':item.rarity==='rare'?'rgba(170,68,255,.3)':'rgba(255,255,255,.15)';
+    return '<div class="cos-item'+(isEquipped?' equipped':isOwned?' owned':'')+'" style="border-color:'+rarityColor+'">'+
+      '<div class="cos-item-preview">'+item.emoji+'</div>'+
+      '<div class="cos-item-name">'+item.name+'</div>'+
+      '<div class="cos-item-rarity">'+item.rarity.toUpperCase()+'</div>'+
+      (isOwned?
+        (isEquipped?'<div class="cos-item-owned">✅ Iklädd</div>':'<div class="cos-item-equip" onclick="cosEquip(''+item.id+'')">Sätt på</div>'):
+        '<div class="cos-item-price">'+item.price+' 🔑</div><div style="margin-top:4px"><button style="background:rgba(170,68,255,.2);border:1px solid rgba(170,68,255,.4);border-radius:8px;color:#aa44ff;font:800 9px var(--ff-head);padding:4px 10px;cursor:pointer" onclick="cosBuy(''+item.id+'')">Köp</button></div>')+
+      '</div>';
+  }).join('');
+}
+
+function cosBuy(itemId){
+  var item=COS_ITEMS.find(function(i){return i.id===itemId;});
+  if(!item) return;
+  if((G.kc||0)<item.price){showFloatBubble('Inte nog med KC!','debuff');return;}
+  var d=_cosData();
+  if((d.owned||[]).indexOf(itemId)>=0){showFloatBubble('Redan ägd!','info');return;}
+  G.kc-=item.price;save();
+  if(!d.owned) d.owned=[];
+  d.owned.push(itemId);
+  _cosSave(d);
+  showFloatBubble(item.emoji+' '+item.name+' köpt!','buff');
+  _renderCos();
+}
+
+function cosEquip(itemId){
+  var item=COS_ITEMS.find(function(i){return i.id===itemId;});
+  if(!item) return;
+  var d=_cosData();
+  if((d.owned||[]).indexOf(itemId)<0) return;
+  var slot=item.bg?'bg':item.frame?'frame':item.badge?'badge':item.title?'title':item.effect?'effect':null;
+  if(!slot) return;
+  if(!d.equipped) d.equipped={};
+  if(d.equipped[slot]===itemId) delete d.equipped[slot];
+  else d.equipped[slot]=itemId;
+  _cosSave(d);
+  _renderCos();
 }
 
 </script>
