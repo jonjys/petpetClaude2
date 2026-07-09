@@ -1451,6 +1451,41 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SPIN WHEEL ══ */
+.spin-panel{position:fixed;inset:0;background:#040006;z-index:964;display:none;flex-direction:column;overflow:hidden}
+.spin-panel.open{display:flex}
+.spin-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#100020,#040006)}
+.spin-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff44ff,#aa00ff,#4400ff,#00aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.spin-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px;display:flex;flex-direction:column;align-items:center}
+/* Wheel area */
+.spin-wheel-area{position:relative;width:280px;height:280px;margin:10px auto 20px;flex-shrink:0}
+.spin-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:28px;z-index:10;filter:drop-shadow(0 2px 6px rgba(255,50,200,.6))}
+.spin-wheel{width:100%;height:100%;border-radius:50%;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(150,0,255,.4),0 0 0 6px rgba(150,0,255,.2),0 0 0 8px rgba(255,100,255,.1);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
+.spin-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;background:radial-gradient(circle,#fff 0%,#cc44ff 60%,#6600cc 100%);border-radius:50%;z-index:5;box-shadow:0 0 16px rgba(200,0,255,.7)}
+/* Segments drawn via conic-gradient */
+/* Stats */
+.spin-stats-row{display:flex;gap:10px;margin-bottom:12px;width:100%;max-width:360px}
+.spin-stat{flex:1;background:rgba(150,0,255,.05);border:1px solid rgba(150,0,255,.2);border-radius:12px;padding:8px;text-align:center}
+.spin-stat-val{font:900 16px var(--ff-head);color:#cc44ff}
+.spin-stat-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+/* Spin button */
+.spin-btn-row{display:flex;gap:8px;width:100%;max-width:320px;margin-bottom:16px}
+.spin-free-btn{flex:2;background:linear-gradient(135deg,#6600cc,#cc00ff);border:none;border-radius:16px;padding:14px;font:900 15px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 0 20px rgba(180,0,255,.5)}
+.spin-free-btn:active{transform:scale(.96)}
+.spin-free-btn:disabled{opacity:.4;cursor:default}
+.spin-kc-btn{flex:1;background:rgba(255,200,0,.1);border:1.5px solid rgba(255,200,0,.35);border-radius:16px;padding:14px;font:800 11px var(--ff-head);color:#ffcc00;cursor:pointer}
+/* Result */
+.spin-result{font:800 16px var(--ff-head);color:#fff;text-align:center;min-height:28px;width:100%;max-width:320px;margin-bottom:12px}
+/* History */
+.spin-history{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;width:100%;max-width:360px}
+.spin-hist-chip{background:rgba(150,0,255,.1);border:1px solid rgba(150,0,255,.25);border-radius:20px;padding:5px 10px;font:700 9px var(--ff-head);color:rgba(200,150,255,.8)}
+/* Reward table */
+.spin-reward-table{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:360px;margin-top:6px}
+.spin-reward-chip{background:rgba(255,255,255,.02);border:1.5px solid;border-radius:14px;padding:8px 4px;text-align:center}
+.spin-reward-chip-emoji{font-size:20px;display:block;margin-bottom:3px}
+.spin-reward-chip-name{font:700 7px var(--ff-head);color:rgba(255,255,255,.5)}
+
 /* ══ BOUNTY BOARD ══ */
 .bnty-panel{position:fixed;inset:0;background:#080500;z-index:963;display:none;flex-direction:column;overflow:hidden}
 .bnty-panel.open{display:flex}
@@ -8501,6 +8536,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏</div>Gruva</div>
           <div class="ddr" onclick="cM();openBnty()"><div class="ddr-i">📋</div>Uppdrag</div>
+          <div class="ddr" onclick="cM();openSpin()"><div class="ddr-i">🎡</div>Snurrhjul</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9722,6 +9758,36 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- SPIN WHEEL -->
+<div class="spin-panel" id="spinPanel">
+  <div class="spin-header">
+    <div class="spin-title">🎡 SNURRHJULET</div>
+    <button class="close-btn" onclick="closeSpin()">✕</button>
+  </div>
+  <div class="spin-scroll">
+    <div class="spin-stats-row">
+      <div class="spin-stat"><div class="spin-stat-val" id="spinStreakVal">0</div><div class="spin-stat-lbl">Daglig streak</div></div>
+      <div class="spin-stat"><div class="spin-stat-val" id="spinTotalVal">0</div><div class="spin-stat-lbl">Totalt snurrat</div></div>
+      <div class="spin-stat"><div class="spin-stat-val" id="spinKCVal">0</div><div class="spin-stat-lbl">Ditt KC</div></div>
+    </div>
+    <div class="spin-wheel-area">
+      <div class="spin-pointer">▼</div>
+      <div class="spin-wheel" id="spinWheel"></div>
+      <div class="spin-center">✨</div>
+    </div>
+    <div class="spin-result" id="spinResult"></div>
+    <div class="spin-btn-row">
+      <button class="spin-free-btn" id="spinFreeBtn" onclick="spinSpin(false)">🎡 SNURRA GRATIS!</button>
+      <button class="spin-kc-btn" onclick="spinSpin(true)">+Snurra 2KC</button>
+    </div>
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px;width:100%;max-width:360px">MÖJLIGA BELÖNINGAR</div>
+    <div class="spin-reward-table" id="spinRewardTable"></div>
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin:14px 0 8px;width:100%;max-width:360px">SENASTE SNURRNINGAR</div>
+    <div class="spin-history" id="spinHistory"></div>
+  </div>
+</div>
 
 <!-- BOUNTY BOARD -->
 <div class="bnty-panel" id="bntyPanel">
@@ -37140,6 +37206,141 @@ function _renderBnty(){
         :(claimed?'<div style="font:700 9px var(--ff-head);color:#00ff88">✅ Klar</div>':''))
       +'</div>'
       +'</div>';
+  }).join('');
+}
+
+
+// SPIN WHEEL
+const SPIN_KEY = 'k0509_spin';
+const SPIN_SEGMENTS = [
+  {id:'coins100',  label:'100🪙',   emoji:'💰', color:'#2200aa', reward:{type:'coins',val:100}},
+  {id:'coins300',  label:'300🪙',   emoji:'💰', color:'#440088', reward:{type:'coins',val:300}},
+  {id:'coins50',   label:'50🪙',    emoji:'🪙',  color:'#660066', reward:{type:'coins',val:50}},
+  {id:'kc2',       label:'2 KC',    emoji:'🔑',  color:'#880044', reward:{type:'kc',val:2}},
+  {id:'coins500',  label:'500🪙',   emoji:'💰', color:'#aa0066', reward:{type:'coins',val:500}},
+  {id:'xp200',     label:'+200 XP', emoji:'⭐',  color:'#880088', reward:{type:'xp',val:200}},
+  {id:'kc5',       label:'5 KC',    emoji:'👑',  color:'#660099', reward:{type:'kc',val:5}},
+  {id:'jackpot',   label:'JACKPOT!',emoji:'🎰',  color:'#220066', reward:{type:'jackpot',val:2000}},
+];
+var _spinRunning=false;
+
+function _spinData(){try{return JSON.parse(localStorage.getItem(SPIN_KEY)||'null');}catch(e){return null;}}
+function _spinSave(d){localStorage.setItem(SPIN_KEY,JSON.stringify(d));}
+function _spinGetData(){var d=_spinData(); if(!d) d={dayKey:'',streak:0,lastDay:'',total:0,history:[]}; return d;}
+
+function openSpin(){$('spinPanel').classList.add('open');_buildWheel();_renderSpin();}
+function closeSpin(){$('spinPanel').classList.remove('open');}
+
+function _buildWheel(){
+  var w=$('spinWheel');
+  if(!w) return;
+  var n=SPIN_SEGMENTS.length;
+  var deg=360/n;
+  // Build conic-gradient
+  var stops=[];
+  for(var i=0;i<n;i++){
+    var start=i*deg;
+    var end=(i+1)*deg;
+    stops.push(SPIN_SEGMENTS[i].color+' '+start+'deg '+end+'deg');
+  }
+  w.style.background='conic-gradient('+stops.join(',')+')';
+  // Add text labels
+  var labels='';
+  for(var i=0;i<n;i++){
+    var angle=i*deg+deg/2;
+    var rad=(angle-90)*Math.PI/180;
+    var r=95;
+    var x=140+r*Math.cos(rad);
+    var y=140+r*Math.sin(rad);
+    labels+='<div style="position:absolute;left:'+x+'px;top:'+y+'px;transform:translate(-50%,-50%) rotate('+angle+'deg);font:700 9px var(--ff-head);color:rgba(255,255,255,.9);text-align:center;pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.8);white-space:nowrap">'+SPIN_SEGMENTS[i].emoji+'<br>'+SPIN_SEGMENTS[i].label+'</div>';
+  }
+  w.innerHTML=labels;
+}
+
+function spinSpin(useKC){
+  if(_spinRunning) return;
+  var d=_spinGetData();
+  var tk=getTodayKey();
+  if(!useKC){
+    if(d.dayKey===tk&&d.spunToday){showFloatBubble('Gratis snurra redan använd! Kom tillbaka imorgon.','info');return;}
+  } else {
+    if((G.kc||0)<2){showFloatBubble('Inte nog KC! Behöver 2 KC','debuff');return;}
+    G.kc-=2; save();
+  }
+  _spinRunning=true;
+  $('spinFreeBtn').disabled=true;
+  // Pick result
+  var n=SPIN_SEGMENTS.length;
+  var resultIdx=Math.floor(Math.random()*n);
+  // Luck check for jackpot
+  if(resultIdx!==7&&(G.lck||0)>50&&Math.random()<0.05) resultIdx=7; // jackpot boost with high luck
+  // Calculate rotation
+  var deg=360/n;
+  var baseRotations=5;
+  var targetAngle=360-resultIdx*deg-deg/2;
+  var totalRotation=baseRotations*360+targetAngle;
+  var wheel=$('spinWheel');
+  if(wheel){
+    wheel.style.transition='transform 4s cubic-bezier(.17,.67,.12,.99)';
+    var currentDeg=parseInt(wheel.dataset.rot||'0');
+    var newDeg=currentDeg+totalRotation;
+    wheel.style.transform='rotate('+newDeg+'deg)';
+    wheel.dataset.rot=newDeg;
+  }
+  setTimeout(function(){
+    _spinRunning=false;
+    var seg=SPIN_SEGMENTS[resultIdx];
+    // Apply reward
+    var rewardText='';
+    if(seg.reward.type==='coins'){gainCoins(seg.reward.val);rewardText='+'+seg.reward.val+' 🪙';}
+    else if(seg.reward.type==='kc'){gainKC(seg.reward.val);rewardText='+'+seg.reward.val+' KC 🔑';}
+    else if(seg.reward.type==='xp'){gainXP(seg.reward.val,'int');rewardText='+'+seg.reward.val+' XP ⭐';}
+    else if(seg.reward.type==='jackpot'){gainCoins(seg.reward.val);gainKC(10);rewardText='🎰 JACKPOT! +2000🪙 +10KC!';}
+    if(!useKC){d.dayKey=tk;d.spunToday=true;}
+    // Streak
+    if(!d.lastDay) d.lastDay='';
+    var yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+    var yk=yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate();
+    if(d.lastDay===yk||(d.lastDay==='')){d.streak=(d.streak||0)+1;}
+    else if(d.lastDay!==tk){d.streak=1;}
+    d.lastDay=tk;
+    d.total=(d.total||0)+1;
+    if(!d.history) d.history=[];
+    d.history.unshift(seg.emoji+' '+seg.label);
+    if(d.history.length>12) d.history.pop();
+    _spinSave(d);
+    $('spinResult').textContent=seg.emoji+' '+rewardText;
+    showFloatBubble(seg.emoji+' '+rewardText,'buff');
+    $('spinFreeBtn').disabled=false;
+    misTrack('daily',1);
+    checkAchievements();
+    _renderSpin();
+  },4200);
+}
+
+function _renderSpin(){
+  var d=_spinGetData();
+  var sv=$('spinStreakVal'); if(sv) sv.textContent=d.streak||0;
+  var tv=$('spinTotalVal'); if(tv) tv.textContent=d.total||0;
+  var kv=$('spinKCVal'); if(kv) kv.textContent=(G.kc||0);
+  var tk=getTodayKey();
+  var btn=$('spinFreeBtn');
+  if(btn){
+    if(d.dayKey===tk&&d.spunToday){btn.textContent='✅ Snurrat idag! Kom tillbaka imorgon';btn.disabled=true;}
+    else{btn.textContent='🎡 SNURRA GRATIS!';btn.disabled=false;}
+  }
+  // Reward table
+  var rt=$('spinRewardTable');
+  if(rt) rt.innerHTML=SPIN_SEGMENTS.map(function(s){
+    return '<div class="spin-reward-chip" style="border-color:'+s.color+'40">'
+      +'<span class="spin-reward-chip-emoji">'+s.emoji+'</span>'
+      +'<div class="spin-reward-chip-name">'+s.label+'</div>'
+      +'</div>';
+  }).join('');
+  // History
+  var hist=$('spinHistory');
+  if(hist&&d.history) hist.innerHTML=d.history.map(function(h){
+    return '<div class="spin-hist-chip">'+h+'</div>';
   }).join('');
 }
 
