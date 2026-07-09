@@ -1434,6 +1434,49 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WEATHER SYSTEM ══ */
+.wx-panel{position:fixed;inset:0;background:#040610;z-index:947;display:none;flex-direction:column;overflow:hidden}
+.wx-panel.open{display:flex}
+.wx-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080c1e,#040610)}
+.wx-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44aaff,#aa44ff,#44ffdd);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.wx-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Main weather card */
+.wx-main{border-radius:24px;padding:20px 16px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden}
+.wx-main::before{content:'';position:absolute;inset:0;opacity:.06;background-size:cover}
+.wx-icon{font-size:72px;display:block;margin-bottom:10px;filter:drop-shadow(0 0 20px rgba(255,255,255,.3))}
+.wx-icon.animated{animation:wxFloat 3s ease-in-out infinite}
+@keyframes wxFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.wx-name{font:900 24px var(--ff-head);color:#fff;margin-bottom:4px}
+.wx-date{font:500 10px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:12px}
+.wx-desc{font:600 12px var(--ff-body);color:rgba(255,255,255,.7);line-height:1.5;max-width:280px;margin:0 auto 14px}
+.wx-next{display:flex;gap:8px;justify-content:center;margin-bottom:4px}
+.wx-next-day{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:6px 10px;text-align:center}
+.wx-next-emoji{font-size:18px;display:block}
+.wx-next-name{font:600 7px var(--ff-body);color:rgba(255,255,255,.4);margin-top:2px}
+/* Bonus cards */
+.wx-bonuses-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.wx-bonuses{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.wx-bonus{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 12px}
+.wx-bonus.positive{border-color:rgba(0,255,136,.2);background:rgba(0,255,136,.04)}
+.wx-bonus.negative{border-color:rgba(255,68,85,.2);background:rgba(255,68,85,.04)}
+.wx-bonus-icon{font-size:22px;width:36px;text-align:center}
+.wx-bonus-info{flex:1}
+.wx-bonus-label{font:700 11px var(--ff-head);color:#fff;margin-bottom:1px}
+.wx-bonus-desc{font:500 9px var(--ff-body);color:rgba(255,255,255,.45)}
+.wx-bonus-val{font:900 13px var(--ff-head);white-space:nowrap}
+.wx-bonus.positive .wx-bonus-val{color:#00ff88}
+.wx-bonus.negative .wx-bonus-val{color:#ff4455}
+/* History */
+.wx-history-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.wx-history{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px}
+.wx-hist-day{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 10px;text-align:center;flex-shrink:0;min-width:52px}
+.wx-hist-emoji{font-size:20px;display:block}
+.wx-hist-label{font:600 7px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+/* Forecast accuracy */
+.wx-tip{background:rgba(68,170,255,.05);border:1px solid rgba(68,170,255,.15);border-radius:14px;padding:12px 14px;font:500 10px var(--ff-body);color:rgba(255,255,255,.5);line-height:1.5}
+.wx-tip strong{color:#44aaff}
+
 /* ══ TREASURE HUNT ══ */
 .hunt-panel{position:fixed;inset:0;background:#060a04;z-index:946;display:none;flex-direction:column;overflow:hidden}
 .hunt-panel.open{display:flex}
@@ -7732,6 +7775,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openKitchen()"><div class="ddr-i">🍳</div>Kök</div>
           <div class="ddr" onclick="cM();openMis()"><div class="ddr-i">🎯</div>Uppdrag</div>
           <div class="ddr" onclick="cM();openHunt()"><div class="ddr-i">🗺️</div>Skattjakt</div>
+          <div class="ddr" onclick="cM();openWx()"><div class="ddr-i">🌤️</div>Väder</div>
         </div>
       </div>
     </div>
@@ -8904,6 +8948,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- WEATHER SYSTEM -->
+<div class="wx-panel" id="wxPanel">
+  <div class="wx-header">
+    <div class="wx-title">🌤️ VÄDER</div>
+    <button class="close-btn" onclick="closeWx()">✕</button>
+  </div>
+  <div class="wx-scroll">
+    <div class="wx-main" id="wxMain"></div>
+    <div class="wx-bonuses-title">⚡ Aktiva Väderbonusar</div>
+    <div class="wx-bonuses" id="wxBonuses"></div>
+    <div class="wx-bonuses-title">📅 Prognos (7 Dagar)</div>
+    <div class="wx-history" id="wxForecast"></div>
+    <div class="wx-tip">
+      <strong>💡 Tips:</strong> Vädret ändras varje dag vid midnatt. Planera dina aktiviteter efter vädret för att maximera dina belöningar!
+    </div>
+  </div>
+</div>
 
 <!-- TREASURE HUNT -->
 <div class="hunt-panel" id="huntPanel">
@@ -32907,6 +32970,156 @@ function _renderHunt(){
     var found=(d.relics||[]).indexOf(r.id)>=0;
     return '<div class="hunt-relic '+(found?'found':'missing')+'" title="'+r.name+'">'+r.emoji+'</div>';
   }).join('');
+}
+
+
+// WEATHER SYSTEM
+const WX_TYPES = [
+  {
+    id:'sunny', emoji:'☀️', name:'Soligt', bg:'linear-gradient(180deg,rgba(255,204,0,.12),rgba(255,136,68,.06))',
+    border:'rgba(255,204,0,.3)', desc:'Solen lyser starkt! Perfekt dag för utomhusäventyr och skattjakt.',
+    bonuses:[
+      {icon:'💰', label:'Mynt Bonus',    desc:'Alla mynt intjänade',    val:'+25%', type:'positive', mult:'coins', factor:1.25},
+      {icon:'🌾', label:'Ranch Boost',   desc:'Grödor växer snabbare',  val:'+30%', type:'positive', mult:'ranch', factor:1.3},
+      {icon:'🗺️', label:'Expedition Bonus',desc:'Extra byte från expeditioner',val:'+20%',type:'positive',mult:'exp',factor:1.2},
+    ]
+  },
+  {
+    id:'cloudy', emoji:'⛅', name:'Molnigt', bg:'linear-gradient(180deg,rgba(170,170,255,.08),rgba(100,100,150,.05))',
+    border:'rgba(170,170,255,.2)', desc:'Mulet väder — bra dag att vara inomhus och träna.',
+    bonuses:[
+      {icon:'🏋️', label:'Gym Bonus',      desc:'Träningseffekt förbättrad', val:'+20%', type:'positive', mult:'gym', factor:1.2},
+      {icon:'📚', label:'Quiz Bonus',     desc:'Fokuserad studietid',       val:'+15%', type:'positive', mult:'quiz',factor:1.15},
+    ]
+  },
+  {
+    id:'rainy', emoji:'🌧️', name:'Regnigt', bg:'linear-gradient(180deg,rgba(68,170,255,.1),rgba(0,0,80,.06))',
+    border:'rgba(68,170,255,.25)', desc:'Regnet faller — bra dag för meditation och avkoppling.',
+    bonuses:[
+      {icon:'🧘', label:'Meditation Boost', desc:'Djupare fokus i meditation', val:'+40% XP', type:'positive', mult:'med',factor:1.4},
+      {icon:'🔨', label:'Craft Bonus',      desc:'Materialen flödar fritt',   val:'+25%',   type:'positive', mult:'craft',factor:1.25},
+      {icon:'💰', label:'Mynt Debuff',     desc:'Sämre affärer i regnet',    val:'-15%',   type:'negative', mult:'coins',factor:0.85},
+    ]
+  },
+  {
+    id:'stormy', emoji:'⛈️', name:'Stormigt', bg:'linear-gradient(180deg,rgba(170,68,255,.1),rgba(50,0,80,.07))',
+    border:'rgba(170,68,255,.3)', desc:'Stark storm! Farliga äventyr ger extra belöning, men risker ökar.',
+    bonuses:[
+      {icon:'⚔️', label:'Strid Boost',    desc:'Kaotisk energi förstärker strider', val:'+50% XP',type:'positive',mult:'dungeon',factor:1.5},
+      {icon:'✨', label:'Gacha Bonus',    desc:'Ödesstjärnorna stämmer',            val:'+1 Pity', type:'positive',mult:'gacha',factor:1},
+      {icon:'💊', label:'HP Debuff',      desc:'Stormen töjer ut kroppens kraft',   val:'-20% HP', type:'negative',mult:'hp',factor:0.8},
+    ]
+  },
+  {
+    id:'snowy', emoji:'❄️', name:'Snöigt', bg:'linear-gradient(180deg,rgba(200,220,255,.08),rgba(150,180,255,.05))',
+    border:'rgba(200,220,255,.25)', desc:'Snön täcker världen — en magisk dag för gacha och sagor.',
+    bonuses:[
+      {icon:'✨', label:'Gacha Bonus',    desc:'Magisk snö ökar sällsynthet',  val:'+Pity Boost',type:'positive',mult:'gacha',factor:1},
+      {icon:'🍳', label:'Kök Boost',      desc:'Varmmat smakar bättre',        val:'+2x Buffs', type:'positive',mult:'cook', factor:2},
+      {icon:'⚔️', label:'Dungeon Debuff', desc:'Snön saktar ner striderna',    val:'-20% ATK',  type:'negative',mult:'atk', factor:0.8},
+    ]
+  },
+  {
+    id:'foggy', emoji:'🌫️', name:'Dimmigt', bg:'linear-gradient(180deg,rgba(180,180,180,.07),rgba(100,100,100,.04))',
+    border:'rgba(180,180,180,.2)', desc:'Tät dimma höjer mysteriet — bra dag för skattjakt.',
+    bonuses:[
+      {icon:'🗺️', label:'Skattjakt Bonus',desc:'Dimman döljer fler skatter',   val:'+2 Grävningar',type:'positive',mult:'hunt',factor:1},
+      {icon:'🍀', label:'Tur Boost',      desc:'Mystisk dimma = extra tur',    val:'+20% Tur',  type:'positive',mult:'luck',factor:1.2},
+      {icon:'🌾', label:'Ranch Debuff',   desc:'Grödor trivs inte i dimma',    val:'-20%',      type:'negative',mult:'ranch',factor:0.8},
+    ]
+  },
+  {
+    id:'hot', emoji:'🌡️', name:'Extrem Hetta', bg:'linear-gradient(180deg,rgba(255,68,68,.1),rgba(255,136,0,.06))',
+    border:'rgba(255,68,68,.3)', desc:'Brännande hetta! Bara de tuffaste klarar sig idag.',
+    bonuses:[
+      {icon:'⚔️', label:'Arena Boost',    desc:'Eld i blodet — starkare strider', val:'+60% ATK', type:'positive',mult:'atk',factor:1.6},
+      {icon:'💰', label:'Gratis Mynt',    desc:'Hettan bränner pengar mot dig',   val:'+100💰/h', type:'positive',mult:'passive',factor:100},
+      {icon:'❤️', label:'HP Melt',        desc:'Du tar mer skada i hettan',       val:'-30% HP',  type:'negative',mult:'hp',factor:0.7},
+    ]
+  },
+];
+
+function _wxGetWeather(dayOffset){
+  var dayOffset=dayOffset||0;
+  var today=new Date();
+  today.setDate(today.getDate()+dayOffset);
+  var seed=parseInt(today.toISOString().slice(0,10).replace(/-/g,''));
+  var idx=(seed*7+seed%13)%WX_TYPES.length;
+  return WX_TYPES[idx];
+}
+
+function openWx(){
+  $('wxPanel').classList.add('open');
+  _renderWx();
+}
+function closeWx(){
+  $('wxPanel').classList.remove('open');
+}
+
+function _renderWx(){
+  var wx=_wxGetWeather(0);
+  // Main card
+  var m=$('wxMain');
+  if(m){
+    m.style.background=wx.bg;
+    m.style.border='1.5px solid '+wx.border;
+    var days=['Sön','Mån','Tis','Ons','Tor','Fre','Lör'];
+    var months=['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
+    var now=new Date();
+    var dateStr=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()];
+    var nextDays='';
+    for(var i=1;i<=3;i++){
+      var nwx=_wxGetWeather(i);
+      var nd=new Date();nd.setDate(nd.getDate()+i);
+      nextDays+='<div class="wx-next-day"><span class="wx-next-emoji">'+nwx.emoji+'</span><div class="wx-next-name">'+days[nd.getDay()]+'</div></div>';
+    }
+    m.innerHTML=
+      '<span class="wx-icon animated">'+wx.emoji+'</span>'+
+      '<div class="wx-name">'+wx.name+'</div>'+
+      '<div class="wx-date">'+dateStr+'</div>'+
+      '<div class="wx-desc">'+wx.desc+'</div>'+
+      '<div class="wx-next">'+nextDays+'</div>';
+  }
+  // Bonuses
+  var wb=$('wxBonuses');
+  if(wb) wb.innerHTML=wx.bonuses.map(function(b){
+    return '<div class="wx-bonus '+b.type+'">'+
+      '<div class="wx-bonus-icon">'+b.icon+'</div>'+
+      '<div class="wx-bonus-info"><div class="wx-bonus-label">'+b.label+'</div><div class="wx-bonus-desc">'+b.desc+'</div></div>'+
+      '<div class="wx-bonus-val">'+b.val+'</div>'+
+      '</div>';
+  }).join('');
+  // Forecast 7 days
+  var wf=$('wxForecast');
+  if(wf){
+    var days2=['Idag'];
+    var d2=['Sön','Mån','Tis','Ons','Tor','Fre','Lör'];
+    var html='';
+    for(var j=0;j<7;j++){
+      var fwx=_wxGetWeather(j);
+      var fd=new Date();fd.setDate(fd.getDate()+j);
+      html+='<div class="wx-hist-day">'+
+        '<span class="wx-hist-emoji">'+fwx.emoji+'</span>'+
+        '<div class="wx-hist-label">'+(j===0?'Idag':d2[fd.getDay()])+'</div>'+
+        '</div>';
+    }
+    wf.innerHTML=html;
+  }
+}
+
+// Get current weather bonus for a given mult type
+function wxGetBonus(multType){
+  var wx=_wxGetWeather(0);
+  var bonus=wx.bonuses.find(function(b){return b.mult===multType;});
+  if(!bonus) return 1;
+  return bonus.factor;
+}
+
+// Inject tiny weather widget on home screen
+function _wxInitWidget(){
+  var wx=_wxGetWeather(0);
+  var existing=document.getElementById('wxWidget');
+  if(existing) {existing.textContent=wx.emoji+' '+wx.name; return;}
 }
 
 </script>
