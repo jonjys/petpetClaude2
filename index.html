@@ -1466,6 +1466,28 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MATCH-3 PUZZLE ══ */
+.matc-panel{position:fixed;inset:0;background:#020410;z-index:979;display:none;flex-direction:column;overflow:hidden}
+.matc-panel.open{display:flex}
+.matc-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060828,#020410)}
+.matc-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4444,#ffcc00,#44ff44,#4488ff,#ff44ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.matc-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px;display:flex;flex-direction:column;align-items:center}
+.matc-stats{display:flex;gap:8px;width:100%;max-width:360px;margin-bottom:10px}
+.matc-stat{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:8px;text-align:center}
+.matc-stat-val{font:900 18px var(--ff-head);color:#44aaff}
+.matc-stat-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+.matc-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;width:100%;max-width:360px;margin-bottom:12px}
+.matc-cell{aspect-ratio:1;border:none;border-radius:10px;background:rgba(255,255,255,.04);font-size:clamp(18px,5vw,26px);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.matc-cell:active{transform:scale(.9)}
+.matc-cell.sel{background:rgba(255,200,50,.25);box-shadow:0 0 10px rgba(255,200,50,.5);transform:scale(1.08)}
+.matc-cell.gone{background:rgba(255,255,255,.01);font-size:0}
+.matc-btns{display:flex;gap:8px;width:100%;max-width:360px;margin-bottom:10px}
+.matc-new-btn{flex:1;background:linear-gradient(135deg,#2244cc,#4488ff);border:none;border-radius:14px;padding:12px;font:800 12px var(--ff-head);color:#fff;cursor:pointer}
+.matc-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;width:100%;max-width:360px}
+.matc-msg{font:800 12px var(--ff-head);color:#ffcc00;text-align:center;min-height:20px;margin-bottom:6px;width:100%;max-width:360px}
+.matc-best{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ DRAGON HATCHERY ══ */
 .drgn-panel{position:fixed;inset:0;background:#050102;z-index:978;display:none;flex-direction:column;overflow:hidden}
 .drgn-panel.open{display:flex}
@@ -9085,6 +9107,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openEvo()"><div class="ddr-i">🌟</div>Evolution</div>
           <div class="ddr" onclick="cM();openTavn()"><div class="ddr-i">🍺</div>Berättelser</div>
           <div class="ddr" onclick="cM();openDrgn()"><div class="ddr-i">🐉</div>Drakar</div>
+          <div class="ddr" onclick="cM();openMatc()"><div class="ddr-i">💎</div>Gem Match</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10321,6 +10344,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- MATCH-3 PUZZLE -->
+<div class="matc-panel" id="matcPanel">
+  <div class="matc-header">
+    <div class="matc-title">💎 GEM MATCH</div>
+    <button class="close-btn" onclick="closeMatc()">✕</button>
+  </div>
+  <div class="matc-scroll">
+    <div class="matc-stats">
+      <div class="matc-stat"><div class="matc-stat-val" id="matcScore">0</div><div class="matc-stat-lbl">Poäng</div></div>
+      <div class="matc-stat"><div class="matc-stat-val" id="matcMoves">20</div><div class="matc-stat-lbl">Drag kvar</div></div>
+      <div class="matc-stat"><div class="matc-stat-val" id="matcCoins">0</div><div class="matc-stat-lbl">Vunna 🪙</div></div>
+    </div>
+    <div class="matc-msg" id="matcMsg"></div>
+    <div class="matc-grid" id="matcGrid"></div>
+    <div class="matc-btns">
+      <button class="matc-new-btn" onclick="matcNewGame()">▶ Nytt Spel</button>
+    </div>
+    <div class="matc-info">Matcha 3+ gems i rad/kolumn för mynt! Match-4 = 3× bonus!</div>
+    <div class="matc-best" id="matcBest">Bäst: 0 poäng</div>
+  </div>
+</div>
 
 <!-- DRAGON HATCHERY -->
 <div class="drgn-panel" id="drgnPanel">
@@ -40144,6 +40190,169 @@ function _renderDrgn(){
       return '<div class="drgn-egg-buy" onclick="'+(canBuy&&emptySlot>=0?'drgnBuyEgg(\''+egg.id+'\','+emptySlot+')':'')+'\" style="opacity:'+(canBuy?'1':'.4')+'"><span class="drgn-egg-emoji2">'+egg.emoji+'</span><div class="drgn-egg-name">'+egg.name+'</div><div class="drgn-egg-cost">'+egg.cost+(egg.kc?' KC':'🪙')+'</div></div>';
     }).join('');
   }
+}
+
+
+// MATCH-3 PUZZLE
+const MATC_KEY = 'k0509_matc';
+const MATC_T = ['🔴','🟡','🟢','🔵','🟣'];
+const MATC_C = 6;
+const MATC_R = 6;
+var _matcB = [];
+var _matcSel = -1;
+var _matcScore = 0;
+var _matcMoves = 0;
+var _matcCoins = 0;
+var _matcRunning = false;
+
+function _matcData(){try{return JSON.parse(localStorage.getItem(MATC_KEY)||'null');}catch(e){return null;}}
+function _matcSave2(d){localStorage.setItem(MATC_KEY,JSON.stringify(d));}
+function _matcGetData(){var d=_matcData(); if(!d) d={best:0,total:0}; return d;}
+
+function _matcRand(){return Math.floor(Math.random()*MATC_T.length);}
+
+function _matcFindMatches(){
+  var m={};
+  // Rows
+  for(var r=0;r<MATC_R;r++){
+    var c=0;
+    while(c<MATC_C-2){
+      var t=_matcB[r*MATC_C+c];
+      if(t<0){c++;continue;}
+      var e=c;
+      while(e+1<MATC_C&&_matcB[r*MATC_C+e+1]===t) e++;
+      if(e-c>=2){for(var k=c;k<=e;k++) m[r*MATC_C+k]=1;}
+      c=e+1;
+    }
+  }
+  // Cols
+  for(var col=0;col<MATC_C;col++){
+    var ro=0;
+    while(ro<MATC_R-2){
+      var t2=_matcB[ro*MATC_C+col];
+      if(t2<0){ro++;continue;}
+      var e2=ro;
+      while(e2+1<MATC_R&&_matcB[(e2+1)*MATC_C+col]===t2) e2++;
+      if(e2-ro>=2){for(var k2=ro;k2<=e2;k2++) m[k2*MATC_C+col]=1;}
+      ro=e2+1;
+    }
+  }
+  return Object.keys(m).map(Number);
+}
+
+function _matcGravity(){
+  for(var c=0;c<MATC_C;c++){
+    var filled=[];
+    for(var r=0;r<MATC_R;r++){
+      var t=_matcB[r*MATC_C+c];
+      if(t>=0) filled.push(t);
+    }
+    for(var r2=MATC_R-1;r2>=0;r2--){
+      _matcB[r2*MATC_C+c]=filled.length>0?filled.pop():_matcRand();
+    }
+  }
+}
+
+function _matcProcess(){
+  var totalCoins=0,iters=0;
+  while(iters<10){
+    var matches=_matcFindMatches();
+    if(!matches.length) break;
+    var cnt=matches.length;
+    var pts=cnt>=5?cnt*25:cnt>=4?cnt*12:cnt*5;
+    var coins=cnt>=5?200:cnt>=4?100:30;
+    _matcScore+=pts;
+    _matcCoins+=coins;
+    totalCoins+=coins;
+    for(var i=0;i<matches.length;i++) _matcB[matches[i]]=-1;
+    _matcGravity();
+    iters++;
+  }
+  if(totalCoins>0) gainCoins(totalCoins);
+  return totalCoins;
+}
+
+function _matcEnsureNoInitial(){
+  var tries=0;
+  while(_matcFindMatches().length>0&&tries<50){
+    _matcB=_matcB.map(function(){return _matcRand();});
+    tries++;
+  }
+}
+
+function matcNewGame(){
+  _matcB=[];
+  for(var i=0;i<MATC_R*MATC_C;i++) _matcB.push(_matcRand());
+  _matcEnsureNoInitial();
+  _matcSel=-1;
+  _matcScore=0;
+  _matcMoves=20;
+  _matcCoins=0;
+  _matcRunning=true;
+  var mg=$('matcMsg'); if(mg) mg.textContent='Matcha gems! Byt intilliggande för att bilda 3+ i rad!';
+  _renderMatc();
+}
+
+function matcTap(idx){
+  if(!_matcRunning||_matcMoves<=0) return;
+  if(_matcSel<0){
+    _matcSel=idx;
+    _renderMatc();
+    return;
+  }
+  if(_matcSel===idx){_matcSel=-1;_renderMatc();return;}
+  var r1=Math.floor(_matcSel/MATC_C),c1=_matcSel%MATC_C;
+  var r2=Math.floor(idx/MATC_C),c2=idx%MATC_C;
+  var adj=(Math.abs(r1-r2)+Math.abs(c1-c2))===1;
+  if(!adj){_matcSel=idx;_renderMatc();return;}
+  // Swap
+  var tmp=_matcB[_matcSel]; _matcB[_matcSel]=_matcB[idx]; _matcB[idx]=tmp;
+  var matches=_matcFindMatches();
+  if(!matches.length){
+    // Revert
+    tmp=_matcB[_matcSel]; _matcB[_matcSel]=_matcB[idx]; _matcB[idx]=tmp;
+    _matcSel=-1;
+    var mg=$('matcMsg'); if(mg) mg.textContent='Inget match! Försök igen.';
+    _renderMatc();
+    return;
+  }
+  _matcMoves--;
+  _matcSel=-1;
+  var coins=_matcProcess();
+  var mg=$('matcMsg');
+  if(mg) mg.textContent=coins>0?'+'+coins+'🪙 intjänade!':'';
+  // Check milestones
+  if(_matcScore>=2000&&!_matcB._m3){_matcB._m3=true;gainCoins(500);gainKC(2);showFloatBubble('🏆 2000p uppnått! +500🪙 +2KC!','buff');}
+  else if(_matcScore>=1000&&!_matcB._m2){_matcB._m2=true;gainCoins(200);gainKC(1);showFloatBubble('💎 1000p uppnått! +200🪙 +1KC!','buff');}
+  else if(_matcScore>=500&&!_matcB._m1){_matcB._m1=true;gainCoins(100);showFloatBubble('⭐ 500p uppnått! +100🪙!','buff');}
+  if(_matcMoves<=0){
+    _matcRunning=false;
+    if(mg) mg.textContent='Spelet slut! Poäng: '+_matcScore;
+    var d=_matcGetData();
+    if(_matcScore>d.best){d.best=_matcScore;showFloatBubble('🏆 Nytt rekord: '+_matcScore+' poäng!','buff');}
+    d.total=(d.total||0)+1;
+    _matcSave2(d);
+    misTrack('puzzle',1);
+    checkAchievements();
+  }
+  _renderMatc();
+}
+
+function openMatc(){$('matcPanel').classList.add('open');if(!_matcRunning) matcNewGame(); else _renderMatc();}
+function closeMatc(){$('matcPanel').classList.remove('open');}
+
+function _renderMatc(){
+  var ms=$('matcScore'); if(ms) ms.textContent=_matcScore;
+  var mm=$('matcMoves'); if(mm) mm.textContent=_matcMoves;
+  var mc=$('matcCoins'); if(mc) mc.textContent=_matcCoins;
+  var d=_matcGetData();
+  var mb=$('matcBest'); if(mb) mb.textContent='Bäst: '+d.best+' poäng';
+  var grid=$('matcGrid');
+  if(!grid) return;
+  grid.innerHTML=_matcB.map(function(t,i){
+    var cls='matc-cell'+(i===_matcSel?' sel':'')+(t<0?' gone':'');
+    return '<div class="'+cls+'" onclick="matcTap('+i+')">'+(t>=0?MATC_T[t]:'')+'</div>';
+  }).join('');
 }
 
 </script>
