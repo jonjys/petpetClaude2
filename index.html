@@ -1485,6 +1485,57 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ BATTLE CARDS ══ */
+.card-panel{position:fixed;inset:0;background:#020508;z-index:998;display:none;flex-direction:column;overflow:hidden}
+.card-panel.open{display:flex}
+.card-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#050c15,#020508)}
+.card-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4455,#ffcc00,#44aaff,#ff4455);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:cardShim 3s linear infinite}
+@keyframes cardShim{0%{background-position:0%}100%{background-position:300%}}
+.card-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Collection stats */
+.card-stats-row{display:flex;gap:8px;margin-bottom:12px}
+.card-stat{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:7px;text-align:center}
+.card-stat-v{font:900 16px var(--ff-head);color:#ffcc00}
+.card-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.35)}
+/* Battle area */
+.card-battle{background:linear-gradient(180deg,rgba(0,50,100,.1),rgba(100,0,0,.1));border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:12px;margin-bottom:12px}
+.card-battle-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:10px;text-align:center}
+.card-vs-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.card-fighter{flex:1;text-align:center}
+.card-fighter-emoji{font-size:36px;display:block;margin-bottom:3px}
+.card-fighter-name{font:700 9px var(--ff-head);color:#fff}
+.card-fighter-hp{font:600 8px var(--ff-body);color:rgba(255,255,255,.5)}
+.card-hp-bar{height:6px;background:rgba(255,255,255,.05);border-radius:3px;margin-top:3px;overflow:hidden}
+.card-hp-fill{height:100%;border-radius:3px;transition:width .3s}
+.card-vs{font:900 18px var(--ff-head);color:rgba(255,255,255,.3);flex-shrink:0}
+.card-log{background:rgba(0,0,0,.3);border-radius:10px;padding:8px;min-height:40px;margin-bottom:8px;max-height:80px;overflow-y:auto}
+.card-log-line{font:600 9px var(--ff-body);color:rgba(255,255,255,.6);margin-bottom:2px}
+.card-log-line.hit{color:#ffcc00}
+.card-log-line.crit{color:#ff4455}
+.card-log-line.heal{color:#44ff88}
+.card-battle-btn{width:100%;background:linear-gradient(135deg,#440000,#880000);border:none;border-radius:12px;padding:11px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 0 16px rgba(255,50,50,.2)}
+.card-battle-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+/* Hand */
+.card-hand-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.card-hand{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px}
+.card-card{flex-shrink:0;width:72px;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:6px;text-align:center;cursor:pointer;transition:border-color .2s,transform .1s}
+.card-card.selected{border-color:#ffcc00;transform:translateY(-4px)}
+.card-card-emoji{font-size:22px;display:block;margin-bottom:2px}
+.card-card-name{font:700 8px var(--ff-head);color:#fff;margin-bottom:1px}
+.card-card-atk{font:600 7px var(--ff-body);color:#ff4455}
+.card-card-eff{font:500 7px var(--ff-body);color:rgba(255,200,100,.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Collection */
+.card-coll-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.card-coll{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.card-coll-item{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:6px;text-align:center;position:relative}
+.card-coll-item.owned{border-color:rgba(255,200,0,.2)}
+.card-coll-item.locked{opacity:.35;filter:grayscale(1)}
+.card-coll-emoji{font-size:20px}
+.card-coll-name{font:600 7px var(--ff-head);color:rgba(255,255,255,.6)}
+.card-coll-cnt{position:absolute;top:2px;right:4px;font:800 8px var(--ff-head);color:#ffcc00}
+.card-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET COOKBOOK ══ */
 .cook-panel{position:fixed;inset:0;background:#05020a;z-index:997;display:none;flex-direction:column;overflow:hidden}
 .cook-panel.open{display:flex}
@@ -9691,6 +9742,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openHoro()"><div class="ddr-i">🔮</div>Horoskop</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">😊</div>Humör</div>
           <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kokbok</div>
+          <div class="ddr" onclick="cM();openCard()"><div class="ddr-i">⚔️</div>Stridskort</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -9754,6 +9806,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openHoro()"><div class="ddr-i">🔮</div>Horoskop</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">😊</div>Humör</div>
           <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kokbok</div>
+          <div class="ddr" onclick="cM();openCard()"><div class="ddr-i">⚔️</div>Stridskort</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10298,6 +10351,47 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       
 
 
+
+
+<!-- BATTLE CARDS -->
+<div class="card-panel" id="cardPanel">
+  <div class="card-header">
+    <div class="card-title">⚔️ STRIDSKORT</div>
+    <button class="close-btn" onclick="closeCard()">✕</button>
+  </div>
+  <div class="card-scroll">
+    <div class="card-stats-row">
+      <div class="card-stat"><div class="card-stat-v" id="cardWins">0</div><div class="card-stat-l">Segrar</div></div>
+      <div class="card-stat"><div class="card-stat-v" id="cardTotal">0</div><div class="card-stat-l">Totalt</div></div>
+      <div class="card-stat"><div class="card-stat-v" id="cardCards">0</div><div class="card-stat-l">Kort</div></div>
+    </div>
+    <div class="card-battle" id="cardBattleBox">
+      <div class="card-battle-title">VALD FIENDE: VÄLJ ETT KORT NEDAN</div>
+      <div class="card-vs-row">
+        <div class="card-fighter">
+          <span class="card-fighter-emoji" id="cardPlayerEmoji">🐾</span>
+          <div class="card-fighter-name" id="cardPlayerName">Ditt Husdjur</div>
+          <div class="card-fighter-hp" id="cardPlayerHp">HP: –</div>
+          <div class="card-hp-bar"><div class="card-hp-fill" id="cardPlayerHpBar" style="width:100%;background:#44ff88"></div></div>
+        </div>
+        <div class="card-vs">VS</div>
+        <div class="card-fighter">
+          <span class="card-fighter-emoji" id="cardEnemyEmoji">👹</span>
+          <div class="card-fighter-name" id="cardEnemyName">Motståndare</div>
+          <div class="card-fighter-hp" id="cardEnemyHp">HP: –</div>
+          <div class="card-hp-bar"><div class="card-hp-fill" id="cardEnemyHpBar" style="width:100%;background:#ff4455"></div></div>
+        </div>
+      </div>
+      <div class="card-log" id="cardLog"></div>
+      <button class="card-battle-btn" id="cardBattleBtn" onclick="cardBattle()" disabled>Välj ett kort för att slåss!</button>
+    </div>
+    <div class="card-hand-lbl">DIN HAND (välj ett kort)</div>
+    <div class="card-hand" id="cardHand"></div>
+    <div class="card-coll-lbl">KORTSAMLING</div>
+    <div class="card-coll" id="cardColl"></div>
+    <div class="card-info">Kort faller från strider, äventyr och dagliga utmaningar!</div>
+  </div>
+</div>
 
 <!-- PET COOKBOOK -->
 <div class="cook-panel" id="cookPanel">
@@ -36160,6 +36254,7 @@ function misTrack(type, amount){
   if(typeof chalTrack==='function') chalTrack(type, amount);
   if(typeof elemTrack==='function') elemTrack(type, amount);
   if(typeof cookDropIngr==='function') cookDropIngr(type, amount);
+  if(typeof cardDrop==='function') cardDrop(type);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -43588,6 +43683,187 @@ function _renderCook(){
         '<button class="cook-cook-btn" onclick="cookCook(\''+recipe.id+'\')" '+(canMake&&!buffActive?'':'disabled')+'>'+
           (buffActive?'En buff är redan aktiv':canMake?'🍳 Laga nu!':'Saknar ingredienser')+
         '</button>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// BATTLE CARDS
+const CARD_KEY = 'k0509_card';
+const CARD_DEFS = [
+  {id:'slash',    emoji:'⚔️', name:'Hugg',       atk:20, eff:'crit',   effDesc:'20% krit ×2'},
+  {id:'shield',   emoji:'🛡️', name:'Sköld',      atk:8,  eff:'block',  effDesc:'Blockerar 50% skada'},
+  {id:'fire',     emoji:'🔥', name:'Eldkast',    atk:30, eff:'burn',   effDesc:'Sätter eld +5/runda'},
+  {id:'heal',     emoji:'💚', name:'Läkning',    atk:5,  eff:'heal',   effDesc:'Healar 20HP'},
+  {id:'thunder',  emoji:'⚡', name:'Blixt',      atk:40, eff:'stun',   effDesc:'10% chans stun'},
+  {id:'ice',      emoji:'❄️', name:'Isbolt',     atk:25, eff:'slow',   effDesc:'Fienden -10atk'},
+  {id:'arrow',    emoji:'🏹', name:'Pil',        atk:18, eff:'pierce', effDesc:'Ignorerar sköld'},
+  {id:'bomb',     emoji:'💣', name:'Bomb',       atk:50, eff:'aoe',    effDesc:'Hög skada, inga effekter'},
+  {id:'drain',    emoji:'🌀', name:'Slukar',     atk:15, eff:'drain',  effDesc:'Stjäl 10HP'},
+  {id:'beast',    emoji:'🦁', name:'Vilddjur',   atk:35, eff:'frenzy', effDesc:'Dubbel attack'},
+  {id:'magic',    emoji:'✨', name:'Magi',       atk:22, eff:'random', effDesc:'Slumpmässig bonus'},
+  {id:'legend',   emoji:'🌟', name:'Legend',     atk:60, eff:'all',    effDesc:'Krit + Pierce + Drain'},
+];
+const CARD_ENEMIES = [
+  {emoji:'🐭', name:'Liten Råtta',   hp:80,  atk:12, reward:{coins:80,  xp:30}},
+  {emoji:'🦊', name:'Listiga Räven', hp:120, atk:18, reward:{coins:150, xp:50}},
+  {emoji:'🐻', name:'Vilda Björnen', hp:180, atk:25, reward:{coins:250, xp:80}},
+  {emoji:'🐉', name:'Minidraken',    hp:250, atk:30, reward:{coins:400, xp:120, kc:1}},
+  {emoji:'👹', name:'Mörk Demon',    hp:350, atk:40, reward:{coins:600, xp:180, kc:2}},
+];
+var _cardSelected = null;
+var _cardEnemy = null;
+var _cardBattleState = null;
+
+function _cardData(){try{return JSON.parse(localStorage.getItem(CARD_KEY)||'null');}catch(e){return null;}}
+function _cardSave(d){localStorage.setItem(CARD_KEY,JSON.stringify(d));}
+function _cardGetData(){
+  var d=_cardData();
+  if(!d) d={collection:{},wins:0,total:0};
+  return d;
+}
+
+function cardDrop(sourceType){
+  var d=_cardGetData();
+  var chance=0.12+(Math.min(G.lck||0,200)*0.0005);
+  if(Math.random()>chance) return;
+  // Weight: common more likely than legend
+  var pool=[];
+  CARD_DEFS.forEach(function(c,i){
+    var w=i>=10?1:i>=8?2:i>=5?3:5;
+    for(var j=0;j<w;j++) pool.push(c.id);
+  });
+  var pick=pool[Math.floor(Math.random()*pool.length)];
+  d.collection[pick]=(d.collection[pick]||0)+1;
+  _cardSave(d);
+  var card=CARD_DEFS.filter(function(c){return c.id===pick;})[0];
+  showFloatBubble(card.emoji+' Nytt kort: '+card.name+'!','buff');
+}
+
+function cardSelectCard(id){
+  _cardSelected=id;
+  // Pick random enemy scaled by card power
+  var card=CARD_DEFS.filter(function(c){return c.id===id;})[0];
+  var tier=Math.min(Math.floor(card.atk/12),CARD_ENEMIES.length-1);
+  _cardEnemy=CARD_ENEMIES[tier];
+  _cardBattleState=null;
+  _renderCard();
+  var btn=$('cardBattleBtn');
+  if(btn){btn.disabled=false;btn.textContent='⚔️ Slåss mot '+_cardEnemy.name+'!';}
+  var btit=$('cardBattleBox');
+  if(btit){var t=btit.querySelector('.card-battle-title');if(t) t.textContent='FIENDE: '+_cardEnemy.name;}
+  var log=$('cardLog');if(log) log.innerHTML='';
+}
+
+function cardBattle(){
+  if(!_cardSelected||!_cardEnemy) return;
+  var card=CARD_DEFS.filter(function(c){return c.id===_cardSelected;})[0];
+  if(!card) return;
+  var d=_cardGetData();
+  if(!d.collection[card.id]||d.collection[card.id]<1){showFloatBubble('Du har inte det kortet!','debuff');return;}
+  var log=$('cardLog');if(log) log.innerHTML='';
+  function addLog(txt,cls){if(log){var l=document.createElement('div');l.className='card-log-line'+(cls?' '+cls:'');l.textContent=txt;log.appendChild(l);log.scrollTop=log.scrollHeight;}}
+  // Setup
+  var playerHP=(G.end||0)*5+100;
+  var playerMaxHP=playerHP;
+  var enemyHP=_cardEnemy.hp;
+  var enemyMaxHP=enemyHP;
+  var enemyAtk=_cardEnemy.atk;
+  var playerAtk=card.atk+Math.floor((G.str||0)*0.3);
+  var enemyBurn=0;var enemySlow=0;var stunned=false;
+  function updateBars(){
+    var pb=$('cardPlayerHpBar');if(pb) pb.style.width=Math.max(0,playerHP/playerMaxHP*100)+'%';
+    var eb=$('cardEnemyHpBar');if(eb) eb.style.width=Math.max(0,enemyHP/enemyMaxHP*100)+'%';
+    var ph=$('cardPlayerHp');if(ph) ph.textContent='HP: '+Math.max(0,playerHP);
+    var eh=$('cardEnemyHp');if(eh) eh.textContent='HP: '+Math.max(0,enemyHP);
+  }
+  // Run battle (instant rounds)
+  var maxRounds=20;
+  for(var round=1;round<=maxRounds&&playerHP>0&&enemyHP>0;round++){
+    addLog('— Runda '+round+' —');
+    // Player attacks
+    var dmg=playerAtk;
+    var isCrit=false;
+    if(card.eff==='crit'&&Math.random()<0.2){dmg*=2;isCrit=true;}
+    if(card.eff==='burn'){enemyBurn=3;addLog('🔥 Eld antänd!','hit');}
+    if(card.eff==='heal'){playerHP=Math.min(playerMaxHP,playerHP+20);addLog('💚 +20 HP healt!','heal');}
+    if(card.eff==='stun'&&Math.random()<0.1){stunned=true;addLog('⚡ Fienden stunad!','hit');}
+    if(card.eff==='slow'){enemySlow=1;enemyAtk=Math.max(5,enemyAtk-10);}
+    if(card.eff==='drain'){playerHP=Math.min(playerMaxHP,playerHP+10);enemyHP-=10;addLog('🌀 Dränerade 10HP!','heal');}
+    if(card.eff==='frenzy'){dmg*=2;addLog('🦁 FRENZIED! Dubbel attack!','crit');}
+    if(card.eff==='all'){dmg=Math.floor(dmg*1.5);playerHP=Math.min(playerMaxHP,playerHP+10);}
+    if(card.eff==='random'){var bonus=[0,10,20,-5,15][Math.floor(Math.random()*5)];dmg+=bonus;}
+    enemyHP-=dmg;
+    addLog('Du: '+(isCrit?'KRIT! ':'')+dmg+' skada',isCrit?'crit':'hit');
+    if(enemyBurn>0){enemyHP-=5;enemyBurn--;addLog('🔥 Brännskada: 5','hit');}
+    if(enemyHP<=0) break;
+    // Enemy attacks
+    if(stunned){addLog('Fienden stunad, hoppar runda!');stunned=false;continue;}
+    var edm=enemyAtk+Math.floor(Math.random()*10);
+    if(card.eff==='block'&&Math.random()<0.5) edm=Math.floor(edm*0.5);
+    if(card.eff==='pierce') {} // pierce ignores block but enemy has none
+    playerHP-=edm;
+    addLog('Fiende: '+edm+' skada');
+  }
+  updateBars();
+  d.total=(d.total||0)+1;
+  var won=enemyHP<=0;
+  if(won){
+    d.wins=(d.wins||0)+1;
+    gainCoins(_cardEnemy.reward.coins);
+    gainXP(_cardEnemy.reward.xp,'str');
+    if(_cardEnemy.reward.kc) gainKC(_cardEnemy.reward.kc);
+    addLog('🏆 SEGER! +'+_cardEnemy.reward.coins+'🪙 +'+_cardEnemy.reward.xp+'XP'+((_cardEnemy.reward.kc)?' +'+_cardEnemy.reward.kc+'KC':''),'heal');
+    showFloatBubble('⚔️ Seger! +'+_cardEnemy.reward.coins+'🪙','buff');
+    misTrack('fight',1);
+  } else {
+    addLog('💀 Besegrad... Försök igen!','crit');
+    showFloatBubble('Besegrad av '+_cardEnemy.name+'...','debuff');
+  }
+  _cardSave(d);
+  checkAchievements();
+  var btn=$('cardBattleBtn');if(btn){btn.disabled=true;btn.textContent='Välj nytt kort för att slåss igen';}
+  _cardSelected=null;
+  _renderCard();
+}
+
+function openCard(){$('cardPanel').classList.add('open');_cardSelected=null;_cardEnemy=null;_renderCard();}
+function closeCard(){$('cardPanel').classList.remove('open');}
+
+function _renderCard(){
+  var d=_cardGetData();
+  var cw=$('cardWins');if(cw) cw.textContent=d.wins||0;
+  var ct=$('cardTotal');if(ct) ct.textContent=d.total||0;
+  var cc=$('cardCards');if(cc) cc.textContent=Object.values(d.collection).reduce(function(a,b){return a+b;},0);
+  // Player info
+  var pe=$('cardPlayerEmoji');if(pe) pe.textContent=typeof evoGetEmoji==='function'?evoGetEmoji():'🐾';
+  var pn=$('cardPlayerName');if(pn) pn.textContent=G.name||'Husdjur';
+  var playerHP=(G.end||0)*5+100;
+  var ph=$('cardPlayerHp');if(ph) ph.textContent='HP: '+playerHP;
+  // Hand
+  var hand=$('cardHand');
+  if(hand){
+    var handCards=CARD_DEFS.filter(function(c){return (d.collection[c.id]||0)>0;});
+    if(!handCards.length) hand.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3);padding:8px">Inga kort! Kämpa, fiska eller utforska!</div>';
+    else hand.innerHTML=handCards.map(function(c){
+      return '<div class="card-card'+((_cardSelected===c.id)?' selected':'')+'" onclick="cardSelectCard(\''+c.id+'\')">'+
+        '<span class="card-card-emoji">'+c.emoji+'</span>'+
+        '<div class="card-card-name">'+c.name+'</div>'+
+        '<div class="card-card-atk">ATK: '+c.atk+'</div>'+
+        '<div class="card-card-eff">'+c.effDesc+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  // Collection grid
+  var coll=$('cardColl');
+  if(coll){
+    coll.innerHTML=CARD_DEFS.map(function(c){
+      var cnt=d.collection[c.id]||0;
+      return '<div class="card-coll-item'+(cnt>0?' owned':' locked')+'">'+
+        (cnt>0?'<div class="card-coll-cnt">×'+cnt+'</div>':'')+
+        '<div class="card-coll-emoji">'+c.emoji+'</div>'+
+        '<div class="card-coll-name">'+c.name+'</div>'+
       '</div>';
     }).join('');
   }
