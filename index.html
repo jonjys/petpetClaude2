@@ -1478,6 +1478,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TOURNAMENT ══ */
+.tnmt-panel{position:fixed;inset:0;background:#08000a;z-index:991;display:none;flex-direction:column;overflow:hidden}
+.tnmt-panel.open{display:flex}
+.tnmt-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#150020,#08000a)}
+.tnmt-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ff4400,#ffcc00);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:tnmtShim 2.5s linear infinite}
+@keyframes tnmtShim{0%{background-position:0%}100%{background-position:200%}}
+.tnmt-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Info row */
+.tnmt-info-row{display:flex;gap:8px;margin-bottom:12px}
+.tnmt-info-box{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:8px;text-align:center}
+.tnmt-info-v{font:900 16px var(--ff-head);color:#ffcc00}
+.tnmt-info-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.35);margin-top:1px}
+/* Round cards */
+.tnmt-rounds{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.tnmt-round{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.06);border-radius:14px;padding:12px 14px;transition:all .2s}
+.tnmt-round.current{border-color:rgba(255,200,0,.4);background:rgba(255,180,0,.05)}
+.tnmt-round.won{border-color:rgba(0,255,100,.3);background:rgba(0,255,100,.03)}
+.tnmt-round.lost{border-color:rgba(255,50,50,.3);background:rgba(255,50,50,.03);opacity:.6}
+.tnmt-round.future{opacity:.35}
+.tnmt-round-num{font:900 11px var(--ff-head);color:rgba(255,255,255,.4);width:20px;flex-shrink:0;text-align:center}
+.tnmt-round.current .tnmt-round-num{color:#ffcc00}
+.tnmt-opp-emoji{font-size:28px;flex-shrink:0}
+.tnmt-opp-info{flex:1}
+.tnmt-opp-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.tnmt-opp-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.tnmt-round-badge{font:800 9px var(--ff-head);padding:4px 8px;border-radius:8px}
+.tnmt-round.won .tnmt-round-badge{background:rgba(0,255,100,.15);color:#44ff88}
+.tnmt-round.lost .tnmt-round-badge{background:rgba(255,50,50,.15);color:#ff5555}
+.tnmt-round.current .tnmt-round-badge{background:rgba(255,200,0,.15);color:#ffcc00}
+.tnmt-round.future .tnmt-round-badge{background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)}
+/* Fight area */
+.tnmt-fight-card{background:rgba(255,200,0,.04);border:2px solid rgba(255,200,0,.25);border-radius:18px;padding:16px;margin-bottom:12px;text-align:center}
+.tnmt-fight-vs{font:900 28px var(--ff-head);color:rgba(255,255,255,.15);margin:8px 0}
+.tnmt-combatants{display:flex;align-items:center;justify-content:space-around}
+.tnmt-fighter{text-align:center}
+.tnmt-fighter-emoji{font-size:44px;display:block;margin-bottom:4px}
+.tnmt-fighter-name{font:800 10px var(--ff-head);color:rgba(255,255,255,.7)}
+.tnmt-fighter-score{font:900 14px var(--ff-head);color:#ffcc00}
+.tnmt-fight-btn{width:100%;background:linear-gradient(135deg,#aa5500,#ffaa00);border:none;border-radius:14px;padding:14px;font:900 15px var(--ff-head);color:#000;cursor:pointer;margin-bottom:10px;box-shadow:0 0 20px rgba(255,170,0,.3)}
+.tnmt-fight-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.06);box-shadow:none;color:#fff}
+.tnmt-enter-btn{width:100%;background:linear-gradient(135deg,#330044,#660088);border:none;border-radius:14px;padding:13px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px}
+.tnmt-enter-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.06)}
+.tnmt-msg{font:800 12px var(--ff-head);color:#ffcc00;text-align:center;min-height:20px;margin-bottom:8px}
+.tnmt-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ FORTUNE CARDS ══ */
 .fort-panel{position:fixed;inset:0;background:#06000a;z-index:990;display:none;flex-direction:column;overflow:hidden}
 .fort-panel.open{display:flex}
@@ -9498,6 +9544,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openArtf()"><div class="ddr-i">🏺</div>Artefakter</div>
           <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världen</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🃏</div>Ödeskortet</div>
+          <div class="ddr" onclick="cM();openTnmt()"><div class="ddr-i">🏟️</div>Turnering</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10746,6 +10793,42 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- TOURNAMENT -->
+<div class="tnmt-panel" id="tnmtPanel">
+  <div class="tnmt-header">
+    <div class="tnmt-title">🏟️ VECKOTURNERINGEN</div>
+    <button class="close-btn" onclick="closeTnmt()">✕</button>
+  </div>
+  <div class="tnmt-scroll">
+    <div class="tnmt-info-row">
+      <div class="tnmt-info-box"><div class="tnmt-info-v" id="tnmtScore">0</div><div class="tnmt-info-l">Din Stridsstyrka</div></div>
+      <div class="tnmt-info-box"><div class="tnmt-info-v" id="tnmtWins">0</div><div class="tnmt-info-l">Turneringsvinster</div></div>
+      <div class="tnmt-info-box"><div class="tnmt-info-v" id="tnmtTitle">—</div><div class="tnmt-info-l">Titel</div></div>
+    </div>
+    <div class="tnmt-fight-card" id="tnmtFightCard" style="display:none">
+      <div class="tnmt-combatants">
+        <div class="tnmt-fighter">
+          <span class="tnmt-fighter-emoji" id="tnmtPlayerEmoji">🐣</span>
+          <div class="tnmt-fighter-name">Du</div>
+          <div class="tnmt-fighter-score" id="tnmtPlayerScore">—</div>
+        </div>
+        <div class="tnmt-fight-vs">VS</div>
+        <div class="tnmt-fighter">
+          <span class="tnmt-fighter-emoji" id="tnmtOppEmoji">👾</span>
+          <div class="tnmt-fighter-name" id="tnmtOppName">—</div>
+          <div class="tnmt-fighter-score" id="tnmtOppScore">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="tnmt-msg" id="tnmtMsg">Anmäl dig till turneringen!</div>
+    <button class="tnmt-fight-btn" id="tnmtFightBtn" onclick="tnmtFight()" style="display:none" disabled>⚔️ STRIDA!</button>
+    <button class="tnmt-enter-btn" id="tnmtEnterBtn" onclick="tnmtEnter()">🏟️ Anmäl till Turneringen</button>
+    <div class="tnmt-rounds" id="tnmtRounds"></div>
+    <div class="tnmt-info">Stridsstyrka = STR×0.3 + AGI×0.25 + INT×0.2 + END×0.15 + LCK×0.1 + slump!</div>
+  </div>
+</div>
 
 <!-- FORTUNE CARDS -->
 <div class="fort-panel" id="fortPanel">
@@ -42354,6 +42437,127 @@ function _renderFort(d){
       '</div>';
     }
   }
+}
+
+
+// TOURNAMENT
+const TNMT_KEY = 'k0509_tnmt';
+const TNMT_OPPS = [
+  {name:'Liten Tass',  emoji:'🐭',str:20,agi:15,int:10,end:12,lck:8,  label:'Runda 1'},
+  {name:'Snabb Räv',   emoji:'🦊',str:45,agi:55,int:30,end:35,lck:20, label:'Runda 2'},
+  {name:'Vilda Björn', emoji:'🐻',str:80,agi:60,int:40,end:70,lck:35, label:'Halvfinal'},
+  {name:'Mästaren',    emoji:'🦅',str:120,agi:100,int:80,end:90,lck:60,label:'FINAL'},
+];
+const TNMT_REWARDS = [
+  {coins:200, kc:0,  title:'Nybörjare'},
+  {coins:600, kc:1,  title:'Utmanare'},
+  {coins:1500,kc:2,  title:'Veteran'},
+  {coins:5000,kc:5,  title:'🏆 MÄSTARE'},
+];
+
+function _tnmtData(){try{return JSON.parse(localStorage.getItem(TNMT_KEY)||'null');}catch(e){return null;}}
+function _tnmtSave(d){localStorage.setItem(TNMT_KEY,JSON.stringify(d));}
+function _tnmtWeekKey(){var t=new Date();return 'w'+t.getFullYear()+'_'+(Math.ceil((t.getMonth()*31+t.getDate())/7));}
+function _tnmtGetData(){
+  var d=_tnmtData();var wk=_tnmtWeekKey();
+  if(!d||d.week!==wk) d={week:wk,state:'idle',round:0,results:[],totalWins:(d?d.totalWins:0)||0,bestTitle:(d?d.bestTitle:null)};
+  return d;
+}
+function _tnmtPlayerScore(){
+  return Math.round((G.str||0)*0.30+(G.agi||0)*0.25+(G.int||0)*0.20+(G.end||0)*0.15+(G.lck||0)*0.10);
+}
+function _tnmtOppScore(opp){
+  return Math.round(opp.str*0.30+opp.agi*0.25+opp.int*0.20+opp.end*0.15+opp.lck*0.10);
+}
+
+function tnmtEnter(){
+  var d=_tnmtGetData();
+  if(d.state!=='idle'){showFloatBubble('Turneringen pågår redan denna vecka!','debuff');return;}
+  d.state='fighting';d.round=0;d.results=[];
+  _tnmtSave(d);
+  showFloatBubble('🏟️ Turnering startad! Strida dig till toppen!','buff');
+  _renderTnmt();
+}
+
+function tnmtFight(){
+  var d=_tnmtGetData();
+  if(d.state!=='fighting') return;
+  var opp=TNMT_OPPS[d.round];
+  if(!opp) return;
+  var pScore=_tnmtPlayerScore()+Math.floor(Math.random()*30);
+  var oScore=_tnmtOppScore(opp)+Math.floor(Math.random()*30);
+  var won=pScore>oScore;
+  d.results.push({round:d.round,won:won,pScore:pScore,oScore:oScore});
+  if(won){
+    d.round++;
+    if(d.round>=TNMT_OPPS.length){
+      // Won the whole tournament!
+      d.state='champion';
+      d.totalWins=(d.totalWins||0)+1;
+      var rew=TNMT_REWARDS[TNMT_OPPS.length-1];
+      gainCoins(rew.coins);gainKC(rew.kc);d.bestTitle=rew.title;
+      _tnmtSave(d);
+      showFloatBubble('🏆 TURNERING VUNNEN! +'+rew.coins+'🪙 +'+rew.kc+'KC! Titel: '+rew.title+'!','buff');
+      var mg=$('tnmtMsg');if(mg) mg.textContent='🏆 DU ÄR MÄSTAREN! +'+rew.coins+'🪙 +'+rew.kc+'KC!';
+      checkAchievements();
+    } else {
+      var nextRew=TNMT_REWARDS[d.round-1];
+      gainCoins(nextRew.coins);
+      if(nextRew.kc>0) gainKC(nextRew.kc);
+      _tnmtSave(d);
+      var mg2=$('tnmtMsg');if(mg2) mg2.textContent='✅ '+opp.name+' besegrad! +'+nextRew.coins+'🪙'+(nextRew.kc>0?' +'+nextRew.kc+'KC':'')+'! Nästa motståndare...';
+    }
+  } else {
+    d.state='eliminated';
+    _tnmtSave(d);
+    var mg3=$('tnmtMsg');if(mg3) mg3.textContent='💀 Eliminerad av '+opp.name+'... (Du:'+pScore+' vs '+oScore+') Försök nästa vecka!';
+    showFloatBubble('💀 Turneringen förlorad mot '+opp.name,'debuff');
+  }
+  _renderTnmt();
+}
+
+function openTnmt(){$('tnmtPanel').classList.add('open');_renderTnmt();}
+function closeTnmt(){$('tnmtPanel').classList.remove('open');}
+
+function _renderTnmt(){
+  var d=_tnmtGetData();
+  var sc=$('tnmtScore');if(sc) sc.textContent=_tnmtPlayerScore();
+  var tw=$('tnmtWins');if(tw) tw.textContent=d.totalWins||0;
+  var tt=$('tnmtTitle');if(tt) tt.textContent=d.bestTitle||'—';
+  var pe=$('tnmtPlayerEmoji');if(pe) pe.textContent=typeof evoGetEmoji==='function'?evoGetEmoji():'🐣';
+  var fighting=d.state==='fighting';
+  var idle=d.state==='idle';
+  var eb=$('tnmtEnterBtn');if(eb){eb.style.display=idle?'block':'none';}
+  var fb=$('tnmtFightBtn');var fc=$('tnmtFightCard');
+  if(fb){fb.style.display=fighting?'block':'none';fb.disabled=!fighting;}
+  if(fc) fc.style.display=fighting?'flex':'none';
+  if(fighting){
+    var opp=TNMT_OPPS[d.round];
+    var oe=$('tnmtOppEmoji');if(oe) oe.textContent=opp.emoji;
+    var on=$('tnmtOppName');if(on) on.textContent=opp.name;
+    var ps=$('tnmtPlayerScore');if(ps) ps.textContent='Styrka: '+_tnmtPlayerScore()+'+?';
+    var os=$('tnmtOppScore');if(os) os.textContent='Styrka: '+_tnmtOppScore(opp)+'+?';
+  }
+  // Rounds display
+  var rounds=$('tnmtRounds');if(!rounds) return;
+  rounds.innerHTML=TNMT_OPPS.map(function(opp,i){
+    var res=d.results[i];
+    var isCurrent=fighting&&i===d.round;
+    var isFuture=!res&&!isCurrent;
+    var isWon=res&&res.won;
+    var isLost=res&&!res.won;
+    var cls='tnmt-round'+(isCurrent?' current':isWon?' won':isLost?' lost':' future');
+    var badge=isCurrent?'⚔️ NU':isWon?'✓ VANN':isLost?'✗ FÖRLORADE':'🔒 Låst';
+    return '<div class="'+cls+'">'+
+      '<div class="tnmt-round-num">'+(i+1)+'</div>'+
+      '<div class="tnmt-opp-emoji">'+opp.emoji+'</div>'+
+      '<div class="tnmt-opp-info">'+
+        '<div class="tnmt-opp-name">'+opp.label+' vs '+opp.name+'</div>'+
+        '<div class="tnmt-opp-stats">'+(res?'Du: '+res.pScore+' vs '+res.oScore:'STR '+opp.str+' AGI '+opp.agi+' INT '+opp.int)+'</div>'+
+      '</div>'+
+      '<div class="tnmt-round-badge">'+badge+'</div>'+
+    '</div>';
+  }).join('');
 }
 
 </script>
