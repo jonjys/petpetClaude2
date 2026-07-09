@@ -1479,6 +1479,33 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ KC SHOP ══ */
+.kcs-panel{position:fixed;inset:0;background:#030810;z-index:992;display:none;flex-direction:column;overflow:hidden}
+.kcs-panel.open{display:flex}
+.kcs-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#081020,#030810)}
+.kcs-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44aaff,#88eeff,#44aaff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:kcsShim 3s linear infinite}
+@keyframes kcsShim{0%{background-position:0%}100%{background-position:200%}}
+.kcs-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.kcs-balance{background:linear-gradient(135deg,rgba(0,150,255,.06),rgba(0,100,200,.06));border:2px solid rgba(0,150,255,.2);border-radius:16px;padding:14px;text-align:center;margin-bottom:14px}
+.kcs-balance-val{font:900 32px var(--ff-head);color:#44aaff}
+.kcs-balance-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.kcs-items{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.kcs-item{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.02);border:1.5px solid rgba(0,150,255,.12);border-radius:14px;padding:12px 14px;transition:border-color .2s}
+.kcs-item:active{opacity:.8}
+.kcs-item.premium{border-color:rgba(255,200,0,.2)}
+.kcs-item-emoji{font-size:32px;flex-shrink:0}
+.kcs-item-info{flex:1}
+.kcs-item-name{font:800 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.kcs-item-desc{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.kcs-item-cost{display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0;gap:4px}
+.kcs-item-price{font:900 13px var(--ff-head);color:#44aaff}
+.kcs-buy-btn{background:linear-gradient(135deg,#003388,#0055cc);border:none;border-radius:10px;padding:6px 12px;font:800 10px var(--ff-head);color:#fff;cursor:pointer;white-space:nowrap}
+.kcs-buy-btn.premium{background:linear-gradient(135deg,#664400,#cc8800)}
+.kcs-buy-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
+.kcs-section-lbl{font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px}
+.kcs-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-top:8px}
+
 /* ══ TOURNAMENT ══ */
 .tnmt-panel{position:fixed;inset:0;background:#08000a;z-index:991;display:none;flex-direction:column;overflow:hidden}
 .tnmt-panel.open{display:flex}
@@ -9545,6 +9572,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världen</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🃏</div>Ödeskortet</div>
           <div class="ddr" onclick="cM();openTnmt()"><div class="ddr-i">🏟️</div>Turnering</div>
+          <div class="ddr" onclick="cM();openKcs()"><div class="ddr-i">💎</div>KC-Butik</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10794,6 +10822,24 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- KC SHOP -->
+<div class="kcs-panel" id="kcsPanel">
+  <div class="kcs-header">
+    <div class="kcs-title">💎 KC-BUTIKEN</div>
+    <button class="close-btn" onclick="closeKcs()">✕</button>
+  </div>
+  <div class="kcs-scroll">
+    <div class="kcs-balance">
+      <div class="kcs-balance-val" id="kcsBalance">0 KC</div>
+      <div class="kcs-balance-lbl">Tillgängliga Krypto-Coins</div>
+    </div>
+    <div class="kcs-section-lbl">SNABBKÖP</div>
+    <div class="kcs-items" id="kcsItems"></div>
+    <div class="kcs-info">KC tjänas via achievements, turneringar, observatoriet och mer!</div>
+  </div>
+</div>
 
 <!-- TOURNAMENT -->
 <div class="tnmt-panel" id="tnmtPanel">
@@ -42556,6 +42602,60 @@ function _renderTnmt(){
         '<div class="tnmt-opp-stats">'+(res?'Du: '+res.pScore+' vs '+res.oScore:'STR '+opp.str+' AGI '+opp.agi+' INT '+opp.int)+'</div>'+
       '</div>'+
       '<div class="tnmt-round-badge">'+badge+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+
+// KC SHOP
+const KCS_KEY = 'k0509_kcs';
+const KCS_ITEMS = [
+  {id:'dojo_rush',  emoji:'⚡',name:'Dojo Turbo',       desc:'Slutför aktiv träningssession omedelbart',    cost:2,  premium:false, fn:function(){var d=_dojoGetData&&_dojoGetData();if(!d||!d.active){showFloatBubble('Ingen aktiv träning!','debuff');return false;}d.active.end=Date.now()-1;_dojoSave&&_dojoSave(d);if($('dojoPanel')&&$('dojoPanel').classList.contains('open')) _renderDojo&&_renderDojo();showFloatBubble('⚡ Träning slutförd!','buff');return true;}},
+  {id:'exp_rush',   emoji:'🗺️',name:'Expedition Turbo', desc:'Slutför aktiv expedition omedelbart',          cost:3,  premium:false, fn:function(){var d=_wmapGetData&&_wmapGetData();if(!d||!d.active){showFloatBubble('Ingen aktiv expedition!','debuff');return false;}d.active.end=Date.now()-1;_wmapSave&&_wmapSave(d);if($('wmapPanel')&&$('wmapPanel').classList.contains('open')) _renderWmap&&_renderWmap();showFloatBubble('🗺️ Expedition klar!','buff');return true;}},
+  {id:'stat_scroll',emoji:'📜',name:'Stat-Scroll',       desc:'Ger +15 till slumpmässig stat permanent',      cost:3,  premium:false, fn:function(){var stats=['str','agi','int','end','lck'];var s=stats[Math.floor(Math.random()*stats.length)];G[s]=(G[s]||0)+15;save();showFloatBubble('📜 +15 '+s.toUpperCase()+'!','buff');return true;}},
+  {id:'coin_burst', emoji:'🪙',name:'Myntexplosion',     desc:'Omedelbar +5000 mynt',                        cost:2,  premium:false, fn:function(){gainCoins(5000);return true;}},
+  {id:'lck_boost',  emoji:'🍀',name:'Lyckoboost',        desc:'+30 LCK permanent',                           cost:4,  premium:false, fn:function(){G.lck=(G.lck||0)+30;save();showFloatBubble('🍀 +30 LCK!','buff');return true;}},
+  {id:'all_stats',  emoji:'💪',name:'Allstats Elixir',   desc:'+8 ALLA stats permanent',                     cost:6,  premium:true,  fn:function(){G.str=(G.str||0)+8;G.agi=(G.agi||0)+8;G.int=(G.int||0)+8;G.end=(G.end||0)+8;G.lck=(G.lck||0)+8;save();showFloatBubble('💪 +8 Alla Stats!','buff');return true;}},
+  {id:'spin_extra', emoji:'🎰',name:'Lyckohjulspoäng',   desc:'Lägger till 3 extra snurrförsök idag',        cost:2,  premium:false, fn:function(){var d=_spinGetData&&_spinGetData();if(!d){showFloatBubble('Öppna Lyckohjulet först!','debuff');return false;}d.extra=Math.max(0,d.extra-3);_spinSave&&_spinSave(d);showFloatBubble('🎰 +3 snurr tillagda!','buff');return true;}},
+  {id:'tnmt_reset', emoji:'🏟️',name:'Turnerings Biljett',desc:'Återställer veckans turnering för nytt försök',cost:5,  premium:true,  fn:function(){var d=_tnmtGetData&&_tnmtGetData();if(!d||d.state==='idle'){showFloatBubble('Turneringen är redan återställd!','debuff');return false;}d.state='idle';d.round=0;d.results=[];_tnmtSave&&_tnmtSave(d);showFloatBubble('🏟️ Turnering återställd!','buff');return true;}},
+];
+
+function _kcsData(){try{return JSON.parse(localStorage.getItem(KCS_KEY)||'null');}catch(e){return null;}}
+function _kcsSave(d){localStorage.setItem(KCS_KEY,JSON.stringify(d));}
+function _kcsGetData(){var d=_kcsData();if(!d) d={bought:{}};return d;}
+
+function kcsBuy(itemId){
+  var item=KCS_ITEMS.filter(function(x){return x.id===itemId;})[0];
+  if(!item) return;
+  if((G.kc||0)<item.cost){showFloatBubble('Behöver '+item.cost+'KC!','debuff');return;}
+  var result=item.fn();
+  if(result===false) return;
+  G.kc-=item.cost;save();
+  var d=_kcsGetData();
+  d.bought[itemId]=(d.bought[itemId]||0)+1;
+  _kcsSave(d);
+  checkAchievements();
+  _renderKcs();
+}
+
+function openKcs(){$('kcsPanel').classList.add('open');_renderKcs();}
+function closeKcs(){$('kcsPanel').classList.remove('open');}
+
+function _renderKcs(){
+  var bal=$('kcsBalance');if(bal) bal.textContent=(G.kc||0)+' KC';
+  var list=$('kcsItems');if(!list) return;
+  list.innerHTML=KCS_ITEMS.map(function(item){
+    var canAfford=(G.kc||0)>=item.cost;
+    return '<div class="kcs-item'+(item.premium?' premium':'')+'">'+
+      '<div class="kcs-item-emoji">'+item.emoji+'</div>'+
+      '<div class="kcs-item-info">'+
+        '<div class="kcs-item-name">'+item.name+'</div>'+
+        '<div class="kcs-item-desc">'+item.desc+'</div>'+
+      '</div>'+
+      '<div class="kcs-item-cost">'+
+        '<div class="kcs-item-price">'+item.cost+'KC</div>'+
+        '<button class="kcs-buy-btn'+(item.premium?' premium':'')+'" onclick="kcsBuy(\''+item.id+'\')" '+(canAfford?'':'disabled')+'>Köp</button>'+
+      '</div>'+
     '</div>';
   }).join('');
 }
