@@ -1462,6 +1462,37 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ CRYPTIC SHRINE ══ */
+.shr-panel{position:fixed;inset:0;background:#030208;z-index:975;display:none;flex-direction:column;overflow:hidden}
+.shr-panel.open{display:flex}
+.shr-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0c0620,#030208)}
+.shr-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc88ff,#ff88cc,#8844ff,#cc44ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.shr-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Main shrine */
+.shr-main{position:relative;text-align:center;padding:20px 10px 16px;background:rgba(150,80,255,.03);border:2px solid rgba(150,80,255,.15);border-radius:24px;margin-bottom:14px;overflow:hidden}
+.shr-flame{font-size:48px;animation:shrFlame 2s ease-in-out infinite}
+@keyframes shrFlame{0%,100%{transform:scale(1) translateY(0);filter:drop-shadow(0 0 10px rgba(180,80,255,.6))}50%{transform:scale(1.1) translateY(-4px);filter:drop-shadow(0 0 20px rgba(255,80,200,.8))}}
+.shr-sub{font:600 9px var(--ff-body);color:rgba(200,150,255,.5);margin-top:4px;margin-bottom:12px}
+.shr-luck-bar{display:flex;align-items:center;gap:8px;justify-content:center}
+.shr-luck-lbl{font:600 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.shr-luck-val{font:700 11px var(--ff-head);color:#cc88ff}
+/* Altar grid */
+.shr-altars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.shr-altar{background:rgba(255,255,255,.02);border:1.5px solid rgba(150,80,255,.15);border-radius:18px;padding:12px;text-align:center}
+.shr-altar.grand{grid-column:1/-1;background:rgba(180,80,255,.04);border-color:rgba(255,80,200,.3)}
+.shr-altar-emoji{font-size:28px;display:block;margin-bottom:6px}
+.shr-altar-name{font:800 10px var(--ff-head);color:#fff;margin-bottom:2px}
+.shr-altar-cost{font:600 8px var(--ff-body);color:rgba(200,150,255,.6);margin-bottom:4px}
+.shr-altar-used{font:600 7px var(--ff-body);color:rgba(255,255,255,.25);margin-bottom:8px}
+.shr-altar-result{font:700 9px var(--ff-head);color:#ffcc44;min-height:16px;margin-bottom:6px}
+.shr-offer-btn{width:100%;background:linear-gradient(135deg,#440088,#880044);border:none;border-radius:12px;padding:10px;font:800 10px var(--ff-head);color:#fff;cursor:pointer}
+.shr-offer-btn.grand-btn{background:linear-gradient(135deg,#880022,#cc0066)}
+.shr-offer-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.04);color:rgba(255,255,255,.3)}
+/* History */
+.shr-hist{display:flex;flex-wrap:wrap;gap:6px}
+.shr-hist-chip{background:rgba(150,80,255,.08);border:1px solid rgba(150,80,255,.2);border-radius:20px;padding:4px 10px;font:600 8px var(--ff-body);color:rgba(200,150,255,.7)}
+
 /* ══ RELIC HUNTER ══ */
 .relic-panel{position:fixed;inset:0;background:#04030a;z-index:974;display:none;flex-direction:column;overflow:hidden}
 .relic-panel.open{display:flex}
@@ -8931,6 +8962,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Garderob</div>
           <div class="ddr" onclick="cM();openGach()"><div class="ddr-i">✨</div>Portal</div>
           <div class="ddr" onclick="cM();openRelic()"><div class="ddr-i">⛏</div>Reliker</div>
+          <div class="ddr" onclick="cM();openShr()"><div class="ddr-i">🔮</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10163,6 +10195,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- CRYPTIC SHRINE -->
+<div class="shr-panel" id="shrPanel">
+  <div class="shr-header">
+    <div class="shr-title">🔮 KRYPTISKA SKRINET</div>
+    <button class="close-btn" onclick="closeShr()">✕</button>
+  </div>
+  <div class="shr-scroll">
+    <div class="shr-main">
+      <div class="shr-flame">🔮</div>
+      <div class="shr-sub">Offra resurser — skörda det gudomliga</div>
+      <div class="shr-luck-bar"><span class="shr-luck-lbl">Din tur (LCK)</span><span class="shr-luck-val" id="shrLckVal">—</span></div>
+    </div>
+    <div class="shr-altars" id="shrAltars"></div>
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px">SENASTE BELÖNINGAR</div>
+    <div class="shr-hist" id="shrHist"></div>
+  </div>
+</div>
 
 <!-- RELIC HUNTER -->
 <div class="relic-panel" id="relicPanel">
@@ -39351,6 +39402,154 @@ function _renderRelic(){
       +(equipped?'<div style="font:600 6px var(--ff-body);color:rgba(80,255,150,.7);margin-top:2px">✓ Utrustad</div>':'')
       +'</div>';
   }).join('');
+}
+
+
+// CRYPTIC SHRINE
+const SHR_KEY = 'k0509_shr';
+const SHR_ALTARS = [
+  {id:'coin', name:'Myntaltar', emoji:'💰', costDesc:'500🪙',
+   maxDaily:3,
+   outcomes:[
+    {chance:0.40,label:'Liten välsignelse',fn:function(){gainCoins(200);}},
+    {chance:0.30,label:'Välsignelse',fn:function(){gainCoins(800);}},
+    {chance:0.20,label:'Stor välsignelse',fn:function(){gainCoins(2000);}},
+    {chance:0.08,label:'Episk välsignelse',fn:function(){gainCoins(5000);}},
+    {chance:0.02,label:'GUDOMLIG välsignelse',fn:function(){gainCoins(15000);gainKC(5);}},
+  ]},
+  {id:'kc', name:'KC-altar', emoji:'🔑', costDesc:'3 KC',
+   maxDaily:3,
+   outcomes:[
+    {chance:0.35,label:'1 KC tillbaka',fn:function(){gainKC(1);}},
+    {chance:0.30,label:'3 KC tillbaka',fn:function(){gainKC(3);}},
+    {chance:0.20,label:'6 KC',fn:function(){gainKC(6);}},
+    {chance:0.12,label:'12 KC',fn:function(){gainKC(12);}},
+    {chance:0.03,label:'25 KC',fn:function(){gainKC(25);}},
+  ]},
+  {id:'xp', name:'Kunskapsaltar', emoji:'⭐', costDesc:'1000 XP equiv.',
+   maxDaily:3,
+   outcomes:[
+    {chance:0.40,label:'+500 mynt',fn:function(){gainCoins(500);}},
+    {chance:0.25,label:'+1 KC',fn:function(){gainKC(1);}},
+    {chance:0.20,label:'+5 alla stats',fn:function(){G.str=(G.str||0)+5;G.agi=(G.agi||0)+5;G.int=(G.int||0)+5;G.end=(G.end||0)+5;G.lck=(G.lck||0)+5;save();}},
+    {chance:0.12,label:'+15 alla stats',fn:function(){G.str=(G.str||0)+15;G.agi=(G.agi||0)+15;G.int=(G.int||0)+15;G.end=(G.end||0)+15;G.lck=(G.lck||0)+15;save();}},
+    {chance:0.03,label:'+50 alla stats',fn:function(){G.str=(G.str||0)+50;G.agi=(G.agi||0)+50;G.int=(G.int||0)+50;G.end=(G.end||0)+50;G.lck=(G.lck||0)+50;save();}},
+  ]},
+  {id:'ing', name:'Ingrediensaltar', emoji:'🌿', costDesc:'herb×5 + moon×2',
+   maxDaily:2,
+   outcomes:[
+    {chance:0.40,label:'Vanliga ingredienser',fn:function(){_shrAddIng({herb:3,crystal:2,feather:2});}},
+    {chance:0.30,label:'Sällsynta ingredienser',fn:function(){_shrAddIng({gem:2,star:2,moon:2});}},
+    {chance:0.20,label:'Magiska ingredienser',fn:function(){_shrAddIng({light:3,venom:2,star:3});}},
+    {chance:0.08,label:'Lyxiga ingredienser',fn:function(){_shrAddIng({gem:5,star:4,light:4,moon:4});}},
+    {chance:0.02,label:'GUDOMLIGA ingredienser',fn:function(){_shrAddIng({gem:10,star:8,light:8,moon:8,venom:5});}},
+  ]},
+  {id:'grand', name:'STOROFFRET', emoji:'🌟', costDesc:'2000🪙 + 5KC',
+   maxDaily:1, grand:true,
+   outcomes:[
+    {chance:0.50,label:'Stor välsignelse',fn:function(){gainCoins(3000);gainKC(5);}},
+    {chance:0.30,label:'Episk välsignelse',fn:function(){gainCoins(8000);gainKC(10);}},
+    {chance:0.15,label:'Legendarisk',fn:function(){gainCoins(20000);gainKC(25);}},
+    {chance:0.04,label:'MYTISK VÄLSIGNELSE',fn:function(){gainCoins(50000);gainKC(50);G.str=(G.str||0)+20;G.agi=(G.agi||0)+20;G.int=(G.int||0)+20;G.end=(G.end||0)+20;G.lck=(G.lck||0)+20;save();}},
+    {chance:0.01,label:'GUDARNAS GÅVA',fn:function(){gainCoins(100000);gainKC(100);G.str=(G.str||0)+50;G.agi=(G.agi||0)+50;G.int=(G.int||0)+50;G.end=(G.end||0)+50;G.lck=(G.lck||0)+50;save();}},
+  ]},
+];
+
+function _shrAddIng(ings){
+  var alchD=null; try{alchD=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+  if(!alchD) alchD={ings:{},potions:{},brews:0,labLevel:0};
+  if(!alchD.ings) alchD.ings={};
+  Object.keys(ings).forEach(function(k){alchD.ings[k]=(alchD.ings[k]||0)+ings[k];});
+  localStorage.setItem(ALCH_KEY,JSON.stringify(alchD));
+}
+
+function _shrData(){try{return JSON.parse(localStorage.getItem(SHR_KEY)||'null');}catch(e){return null;}}
+function _shrSave(d){localStorage.setItem(SHR_KEY,JSON.stringify(d));}
+function _shrGetData(){
+  var d=_shrData();
+  var dk=getTodayKey();
+  if(!d) d={dayKey:'',used:{},history:[],weekKey:''};
+  if(d.dayKey!==dk){d.dayKey=dk;d.used={};}
+  var wk=_shrWeekKey();
+  if(d.weekKey!==wk){d.weekKey=wk;d.used.grand=0;}
+  return d;
+}
+
+function _shrWeekKey(){
+  var t=new Date();
+  var day=t.getDay();
+  var diff=t.getDate()-day;
+  return t.getFullYear()+'-'+(t.getMonth()+1)+'-'+diff;
+}
+
+function shrOffer(altarId){
+  var altar=SHR_ALTARS.find(function(a){return a.id===altarId;});
+  if(!altar) return;
+  var d=_shrGetData();
+  var used=d.used[altarId]||0;
+  var maxUse=altar.grand?1:altar.maxDaily;
+  if(used>=maxUse){showFloatBubble('Altar-gräns nådd! Kom tillbaka '+(altar.grand?'nästa vecka':'imorgon'),'info');return;}
+  // Check cost
+  if(altarId==='coin'){if((G.coins||0)<500){showFloatBubble('Behöver 500🪙','debuff');return;} G.coins-=500;save();}
+  else if(altarId==='kc'){if((G.kc||0)<3){showFloatBubble('Behöver 3 KC','debuff');return;} G.kc-=3;save();}
+  else if(altarId==='xp'){if((G.level||1)<2){showFloatBubble('Behöver minst nivå 2','debuff');return;}}
+  else if(altarId==='ing'){
+    var alchD=null;try{alchD=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+    var ings=alchD&&alchD.ings||{};
+    if((ings.herb||0)<5||(ings.moon||0)<2){showFloatBubble('Behöver herb×5 + moon×2','debuff');return;}
+    ings.herb-=5; ings.moon-=2;
+    if(alchD) localStorage.setItem(ALCH_KEY,JSON.stringify(alchD));
+  }
+  else if(altarId==='grand'){
+    if((G.coins||0)<2000||(G.kc||0)<5){showFloatBubble('Behöver 2000🪙 + 5KC','debuff');return;}
+    G.coins-=2000;G.kc-=5;save();
+  }
+  // LCK bonus: each 10 LCK gives +1% to better outcomes
+  var lckBonus=Math.min((G.lck||0)/10*0.01,0.15);
+  // Roll outcome
+  var r=Math.random();
+  var cumulative=0;
+  var chosen=altar.outcomes[altar.outcomes.length-1];
+  for(var i=0;i<altar.outcomes.length;i++){
+    var adj=altar.outcomes[i].chance*(1+(i>0?lckBonus:0));
+    cumulative+=adj;
+    if(r<cumulative){chosen=altar.outcomes[i];break;}
+  }
+  chosen.fn();
+  d.used[altarId]=(d.used[altarId]||0)+1;
+  if(!d.history) d.history=[];
+  d.history.unshift(altar.emoji+' '+chosen.label);
+  if(d.history.length>10) d.history.pop();
+  _shrSave(d);
+  showFloatBubble(altar.emoji+' '+chosen.label,'buff');
+  misTrack('daily',1);
+  checkAchievements();
+  _renderShr();
+}
+
+function openShr(){$('shrPanel').classList.add('open');_renderShr();}
+function closeShr(){$('shrPanel').classList.remove('open');}
+
+function _renderShr(){
+  var d=_shrGetData();
+  var lv=$('shrLckVal'); if(lv) lv.textContent=(G.lck||0)+' (+'+Math.min(Math.floor((G.lck||0)/10),'15')+'% lyckoboost)';
+  var altarsEl=$('shrAltars');
+  if(altarsEl){
+    altarsEl.innerHTML=SHR_ALTARS.map(function(altar){
+      var used=d.used[altar.id]||0;
+      var maxUse=altar.grand?1:altar.maxDaily;
+      var available=used<maxUse;
+      return '<div class="shr-altar'+(altar.grand?' grand':'')+'">'
+        +'<span class="shr-altar-emoji">'+altar.emoji+'</span>'
+        +'<div class="shr-altar-name">'+altar.name+'</div>'
+        +'<div class="shr-altar-cost">Kostnad: '+altar.costDesc+'</div>'
+        +'<div class="shr-altar-used">'+used+'/'+maxUse+' användningar'+(altar.grand?' (veckovis)':'')+'</div>'
+        +'<button class="shr-offer-btn'+(altar.grand?' grand-btn':'')+'" onclick="shrOffer(\''+altar.id+'\')" '+(available?'':'disabled')+'>'+(available?'🙏 Offra till altaret':'✓ Gräns nådd')+'</button>'
+        +'</div>';
+    }).join('');
+  }
+  var hist=$('shrHist');
+  if(hist) hist.innerHTML=(d.history||[]).map(function(h){return '<div class="shr-hist-chip">'+h+'</div>';}).join('');
 }
 
 </script>
