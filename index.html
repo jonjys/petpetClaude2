@@ -1477,6 +1477,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ FORTUNE CARDS ══ */
+.fort-panel{position:fixed;inset:0;background:#06000a;z-index:990;display:none;flex-direction:column;overflow:hidden}
+.fort-panel.open{display:flex}
+.fort-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#10001a,#06000a)}
+.fort-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc88ff,#ffaaff,#88aaff,#cc88ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fortShim 3s linear infinite}
+@keyframes fortShim{0%{background-position:0%}100%{background-position:200%}}
+.fort-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px;display:flex;flex-direction:column;align-items:center}
+/* Card draw area */
+.fort-draw-area{display:flex;gap:10px;margin-bottom:16px;justify-content:center}
+.fort-card{width:90px;height:130px;border-radius:14px;background:linear-gradient(135deg,#1a003a,#0a001e);border:2px solid rgba(180,100,255,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.fort-card:active{transform:scale(.95)}
+.fort-card.flipped{background:linear-gradient(135deg,#2a0050,#160035);border-color:rgba(200,150,255,.6);cursor:default;animation:fortFlip .4s ease-out}
+@keyframes fortFlip{0%{transform:rotateY(90deg)}100%{transform:rotateY(0deg)}}
+.fort-card.flipped.rare{border-color:rgba(255,200,0,.6);background:linear-gradient(135deg,#2a1800,#140a00)}
+.fort-card.flipped.legendary{border-color:rgba(255,150,255,.8);background:linear-gradient(135deg,#250040,#100020);box-shadow:0 0 20px rgba(200,100,255,.4)}
+.fort-card-back{font-size:32px;opacity:.5}
+.fort-card-back-lbl{font:700 8px var(--ff-head);color:rgba(200,150,255,.4);margin-top:4px}
+.fort-card-front{text-align:center;padding:8px 6px}
+.fort-card-emoji{font-size:28px;margin-bottom:4px;display:block}
+.fort-card-name{font:800 8px var(--ff-head);color:#fff;margin-bottom:4px;line-height:1.2}
+.fort-card-effect{font:700 8px var(--ff-body);color:rgba(200,180,255,.7);line-height:1.3}
+.fort-card-rarity{font:800 7px var(--ff-head);padding:2px 5px;border-radius:5px;margin-top:4px;display:inline-block}
+.rarity-common{background:rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
+.rarity-rare{background:rgba(255,200,0,.15);color:#ffcc00}
+.rarity-legendary{background:rgba(255,150,255,.2);color:#ff88ff}
+/* Stats row */
+.fort-stats{display:flex;gap:8px;width:100%;max-width:340px;margin-bottom:12px}
+.fort-stat{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:7px;text-align:center}
+.fort-stat-v{font:900 15px var(--ff-head);color:#cc88ff}
+.fort-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.35);margin-top:1px}
+/* Controls */
+.fort-draw-btn{width:100%;max-width:340px;background:linear-gradient(135deg,#440088,#8800cc);border:none;border-radius:16px;padding:14px;font:900 15px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 0 20px rgba(150,0,255,.35)}
+.fort-draw-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.fort-msg{font:800 12px var(--ff-head);color:#ffcc00;text-align:center;min-height:20px;margin-bottom:8px;width:100%;max-width:340px}
+.fort-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;max-width:340px}
+
 /* ══ WORLD MAP ══ */
 .wmap-panel{position:fixed;inset:0;background:#020808;z-index:989;display:none;flex-direction:column;overflow:hidden}
 .wmap-panel.open{display:flex}
@@ -9460,6 +9497,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openObsy()"><div class="ddr-i">🌌</div>Observatoriet</div>
           <div class="ddr" onclick="cM();openArtf()"><div class="ddr-i">🏺</div>Artefakter</div>
           <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världen</div>
+          <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🃏</div>Ödeskortet</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10707,6 +10745,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- FORTUNE CARDS -->
+<div class="fort-panel" id="fortPanel">
+  <div class="fort-header">
+    <div class="fort-title">🃏 ÖDESKORTSLEK</div>
+    <button class="close-btn" onclick="closeFort()">✕</button>
+  </div>
+  <div class="fort-scroll">
+    <div class="fort-stats">
+      <div class="fort-stat"><div class="fort-stat-v" id="fortDrawsLeft">3</div><div class="fort-stat-l">Drag kvar idag</div></div>
+      <div class="fort-stat"><div class="fort-stat-v" id="fortTotal">0</div><div class="fort-stat-l">Totalt dragna</div></div>
+      <div class="fort-stat"><div class="fort-stat-v" id="fortLegend">0</div><div class="fort-stat-l">Legendariska</div></div>
+    </div>
+    <div class="fort-draw-area" id="fortDrawArea">
+      <div class="fort-card" onclick="fortDraw(0)"><div class="fort-card-back">🃏</div><div class="fort-card-back-lbl">Tryck</div></div>
+      <div class="fort-card" onclick="fortDraw(1)"><div class="fort-card-back">🃏</div><div class="fort-card-back-lbl">Tryck</div></div>
+      <div class="fort-card" onclick="fortDraw(2)"><div class="fort-card-back">🃏</div><div class="fort-card-back-lbl">Tryck</div></div>
+    </div>
+    <div class="fort-msg" id="fortMsg">Välj ett kort att vända!</div>
+    <button class="fort-draw-btn" id="fortNewBtn" onclick="fortNewReading()" style="display:none">🃏 Ny Kortläsning</button>
+    <div class="fort-info">3 kort per dag! LCK ökar chansen för sällsynta och legendariska kort!</div>
+  </div>
+</div>
 
 <!-- WORLD MAP -->
 <div class="wmap-panel" id="wmapPanel">
@@ -42180,6 +42242,118 @@ function _renderWmap(){
       '</div>'+
     '</div>';
   }).join('');
+}
+
+
+// FORTUNE CARDS
+const FORT_KEY = 'k0509_fort';
+const FORT_CARDS = [
+  // Common (weight 20 each)
+  {id:'c1', emoji:'🌟',name:'Polaris',    rarity:'common',  effect:'+800🪙',     fn:function(){gainCoins(800);}},
+  {id:'c2', emoji:'☀️',name:'Sol',        rarity:'common',  effect:'+5 Alla Stats',fn:function(){G.str=(G.str||0)+5;G.agi=(G.agi||0)+5;G.int=(G.int||0)+5;G.end=(G.end||0)+5;G.lck=(G.lck||0)+5;save();}},
+  {id:'c3', emoji:'🌊',name:'Aqua',       rarity:'common',  effect:'+600🪙',     fn:function(){gainCoins(600);}},
+  {id:'c4', emoji:'🌈',name:'Iris',       rarity:'common',  effect:'+600 XP',    fn:function(){gainXP(600,'str');}},
+  {id:'c5', emoji:'🍀',name:'Klöver',     rarity:'common',  effect:'+10 LCK',    fn:function(){G.lck=(G.lck||0)+10;save();}},
+  {id:'c6', emoji:'💨',name:'Zefyr',      rarity:'common',  effect:'+10 AGI',    fn:function(){G.agi=(G.agi||0)+10;save();}},
+  {id:'c7', emoji:'🦋',name:'Fjäril',     rarity:'common',  effect:'+400🪙 +100XP',fn:function(){gainCoins(400);gainXP(100,'agi');}},
+  {id:'c8', emoji:'🌺',name:'Blomma',     rarity:'common',  effect:'+300🪙 +5LCK',fn:function(){gainCoins(300);G.lck=(G.lck||0)+5;save();}},
+  // Rare (weight 8 each)
+  {id:'r1', emoji:'⚡',name:'Blixt',      rarity:'rare',    effect:'+1KC +500🪙', fn:function(){gainKC(1);gainCoins(500);}},
+  {id:'r2', emoji:'🌙',name:'Luna',       rarity:'rare',    effect:'+3KC',        fn:function(){gainKC(3);}},
+  {id:'r3', emoji:'🔥',name:'Ignis',      rarity:'rare',    effect:'+8STR +8END', fn:function(){G.str=(G.str||0)+8;G.end=(G.end||0)+8;save();}},
+  {id:'r4', emoji:'🗡️',name:'Bladet',    rarity:'rare',    effect:'+15 STR',     fn:function(){G.str=(G.str||0)+15;save();}},
+  {id:'r5', emoji:'🛡️',name:'Skölden',   rarity:'rare',    effect:'+15 END',     fn:function(){G.end=(G.end||0)+15;save();}},
+  {id:'r6', emoji:'📖',name:'Tomen',      rarity:'rare',    effect:'+15 INT',     fn:function(){G.int=(G.int||0)+15;save();}},
+  {id:'r7', emoji:'🎭',name:'Narren',     rarity:'rare',    effect:'+1-5KC',      fn:function(){gainKC(1+Math.floor(Math.random()*5));}},
+  {id:'r8', emoji:'🦁',name:'Mod',        rarity:'rare',    effect:'+800🪙 +5STR',fn:function(){gainCoins(800);G.str=(G.str||0)+5;save();}},
+  // Legendary (weight 2 each)
+  {id:'l1', emoji:'💎',name:'Ädelstenen', rarity:'legendary',effect:'+5KC',       fn:function(){gainKC(5);}},
+  {id:'l2', emoji:'🌴',name:'Paradiset',  rarity:'legendary',effect:'+2000🪙',    fn:function(){gainCoins(2000);}},
+  {id:'l3', emoji:'🔮',name:'Synen',      rarity:'legendary',effect:'+4KC +10INT',fn:function(){gainKC(4);G.int=(G.int||0)+10;save();}},
+  {id:'l4', emoji:'👑',name:'Kronan',     rarity:'legendary',effect:'+5 Alla +2KC',fn:function(){G.str=(G.str||0)+5;G.agi=(G.agi||0)+5;G.int=(G.int||0)+5;G.end=(G.end||0)+5;G.lck=(G.lck||0)+5;save();gainKC(2);}},
+  {id:'l5', emoji:'🏆',name:'Äran',       rarity:'legendary',effect:'+3000🪙',    fn:function(){gainCoins(3000);}},
+  {id:'l6', emoji:'🌌',name:'Kosmos',     rarity:'legendary',effect:'+8KC +8 Alla',fn:function(){gainKC(8);G.str=(G.str||0)+8;G.agi=(G.agi||0)+8;G.int=(G.int||0)+8;G.end=(G.end||0)+8;G.lck=(G.lck||0)+8;save();}},
+];
+
+function _fortData(){try{return JSON.parse(localStorage.getItem(FORT_KEY)||'null');}catch(e){return null;}}
+function _fortSave(d){localStorage.setItem(FORT_KEY,JSON.stringify(d));}
+function _fortGetData(){
+  var d=_fortData(); var t=getTodayKey();
+  if(!d||d.day!==t) d={day:t,drawn:0,cards:[null,null,null],total:(d?d.total:0)||0,legends:(d?d.legends:0)||0};
+  return d;
+}
+
+function _fortPick(){
+  var lk=Math.min((G.lck||0)*0.004,0.12);
+  var weights=FORT_CARDS.map(function(c){return c.rarity==='common'?20:c.rarity==='rare'?8:2;});
+  // LCK shifts weight from common to legendary
+  var transfer=Math.floor(lk*100);
+  for(var i=0;i<8;i++) weights[i]=Math.max(weights[i]-Math.floor(transfer/8),5);
+  for(var i=16;i<22;i++) weights[i]+=Math.floor(transfer/3);
+  var total=weights.reduce(function(a,b){return a+b;},0);
+  var r=Math.floor(Math.random()*total);
+  for(var i2=0;i2<weights.length;i2++){if(r<weights[i2]) return i2; r-=weights[i2];}
+  return 0;
+}
+
+function fortDraw(slot){
+  var d=_fortGetData();
+  if(d.drawn>=3){showFloatBubble('Alla 3 kort dragna idag!','debuff');return;}
+  if(d.cards[slot]!==null) return;
+  var cardIdx=_fortPick();
+  d.cards[slot]=cardIdx;
+  d.drawn++;
+  d.total=(d.total||0)+1;
+  var card=FORT_CARDS[cardIdx];
+  if(card.rarity==='legendary') d.legends=(d.legends||0)+1;
+  _fortSave(d);
+  // Apply effect
+  card.fn();
+  var mg=$('fortMsg');if(mg) mg.textContent=card.emoji+' '+card.name+': '+card.effect+'!';
+  if(card.rarity==='legendary') showFloatBubble('🌌 LEGENDARISKT KORT: '+card.name+'!','buff');
+  else showFloatBubble(card.emoji+' '+card.name+': '+card.effect,'buff');
+  // Check if all drawn
+  if(d.drawn>=3){
+    var nb=$('fortNewBtn');if(nb) nb.style.display='none';
+  }
+  checkAchievements();
+  _renderFort(d);
+}
+
+function fortNewReading(){
+  var d=_fortGetData();
+  if(d.drawn<3){showFloatBubble('Dra alla 3 kort först!','debuff');return;}
+  showFloatBubble('Kom tillbaka imorgon för ny kortläsning!','info');
+}
+
+function openFort(){$('fortPanel').classList.add('open');_renderFort(_fortGetData());}
+function closeFort(){$('fortPanel').classList.remove('open');}
+
+function _renderFort(d){
+  if(!d) d=_fortGetData();
+  var dl=$('fortDrawsLeft');if(dl) dl.textContent=Math.max(3-d.drawn,0);
+  var ft=$('fortTotal');if(ft) ft.textContent=d.total||0;
+  var fl=$('fortLegend');if(fl) fl.textContent=d.legends||0;
+  var area=$('fortDrawArea');if(!area) return;
+  var divs=area.querySelectorAll('.fort-card');
+  for(var i=0;i<3;i++){
+    var cIdx=d.cards[i];
+    if(cIdx===null){
+      divs[i].className='fort-card';
+      divs[i].onclick=(function(si){return function(){fortDraw(si);};})(i);
+      divs[i].innerHTML='<div class="fort-card-back">🃏</div><div class="fort-card-back-lbl">Tryck</div>';
+    } else {
+      var c=FORT_CARDS[cIdx];
+      divs[i].className='fort-card flipped '+c.rarity;
+      divs[i].onclick=null;
+      divs[i].innerHTML='<div class="fort-card-front">'+
+        '<span class="fort-card-emoji">'+c.emoji+'</span>'+
+        '<div class="fort-card-name">'+c.name+'</div>'+
+        '<div class="fort-card-effect">'+c.effect+'</div>'+
+        '<div class="fort-card-rarity rarity-'+c.rarity+'">'+(c.rarity==='legendary'?'LEGENDARISK':c.rarity==='rare'?'SÄLLSYNT':'VANLIG')+'</div>'+
+      '</div>';
+    }
+  }
 }
 
 </script>
