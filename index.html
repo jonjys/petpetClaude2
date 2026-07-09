@@ -1446,6 +1446,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ARENA PVP ══ */
+.pvp-panel{position:fixed;inset:0;background:#060008;z-index:959;display:none;flex-direction:column;overflow:hidden}
+.pvp-panel.open{display:flex}
+.pvp-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0016,#060008)}
+.pvp-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4444,#ff8800,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pvp-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Rank badge */
+.pvp-rank-banner{background:linear-gradient(135deg,rgba(255,150,0,.08),rgba(255,50,50,.05));border:1.5px solid rgba(255,100,0,.2);border-radius:22px;padding:16px;margin-bottom:14px;text-align:center}
+.pvp-rank-emoji{font-size:52px;display:block;filter:drop-shadow(0 0 16px rgba(255,100,0,.5));margin-bottom:4px}
+.pvp-rank-name{font:900 18px var(--ff-head);color:#ff8800;margin-bottom:2px}
+.pvp-rank-rating{font:700 12px var(--ff-body);color:rgba(255,255,255,.5)}
+.pvp-rank-bar{width:80%;height:6px;background:rgba(255,255,255,.08);border-radius:3px;margin:8px auto 0;overflow:hidden}
+.pvp-rank-fill{height:100%;background:linear-gradient(90deg,#ff4400,#ffaa00);border-radius:3px;transition:width .5s}
+/* Stats */
+.pvp-stats-row{display:flex;gap:8px;margin-bottom:12px}
+.pvp-stat{flex:1;background:rgba(255,80,0,.05);border:1px solid rgba(255,80,0,.15);border-radius:12px;padding:8px;text-align:center}
+.pvp-stat-val{font:900 16px var(--ff-head);color:#ff8844}
+.pvp-stat-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+/* Opponent card */
+.pvp-opp-card{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,80,0,.2);border-radius:18px;padding:14px;margin-bottom:12px}
+.pvp-opp-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.pvp-opp-emoji{font-size:36px}
+.pvp-opp-info{flex:1}
+.pvp-opp-name{font:800 13px var(--ff-head);color:rgba(255,255,255,.9)}
+.pvp-opp-rank{font:600 9px var(--ff-body);color:rgba(255,130,0,.7)}
+.pvp-opp-cp{font:700 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.pvp-fight-btn{background:linear-gradient(135deg,#cc2200,#ff4400);border:none;border-radius:14px;padding:11px 24px;font:800 13px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(200,50,0,.4)}
+.pvp-fight-btn:active{transform:scale(.96)}
+.pvp-skip-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 16px;font:600 10px var(--ff-head);color:rgba(255,255,255,.4);cursor:pointer;margin-top:6px}
+/* Battle log */
+.pvp-log{background:rgba(0,0,0,.4);border:1px solid rgba(255,80,0,.1);border-radius:14px;padding:10px 12px;margin-bottom:12px;min-height:80px;font:600 10px var(--ff-body);line-height:1.7;color:rgba(255,255,255,.6);display:none}
+.pvp-log.show{display:block}
+.pvp-log-win{color:#00ff88}
+.pvp-log-lose{color:#ff4455}
+.pvp-log-atk{color:#ff8844}
+/* Season info */
+.pvp-season-bar{display:flex;align-items:center;gap:8px;background:rgba(255,200,0,.05);border:1px solid rgba(255,200,0,.15);border-radius:12px;padding:8px 12px;margin-bottom:12px}
+.pvp-season-val{font:800 12px var(--ff-head);color:#ffcc00;flex:1}
+.pvp-season-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+/* Rank history */
+.pvp-history{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.pvp-hist-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;padding:7px 10px;font:600 9px var(--ff-body)}
+.pvp-hist-win{color:#00ff88}
+.pvp-hist-lose{color:#ff4455}
+
 /* ══ PET GARDEN ══ */
 .gard-panel{position:fixed;inset:0;background:#030d04;z-index:958;display:none;flex-direction:column;overflow:hidden}
 .gard-panel.open{display:flex}
@@ -8263,6 +8309,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
+          <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9479,6 +9526,49 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- ARENA PVP -->
+<div class="pvp-panel" id="pvpPanel">
+  <div class="pvp-header">
+    <div class="pvp-title">⚔️ ARENA</div>
+    <button class="close-btn" onclick="closePVP()">✕</button>
+  </div>
+  <div class="pvp-scroll">
+    <div class="pvp-rank-banner">
+      <span class="pvp-rank-emoji" id="pvpRankEmoji">🥉</span>
+      <div class="pvp-rank-name" id="pvpRankName">Brons III</div>
+      <div class="pvp-rank-rating" id="pvpRankRating">Rating: 0</div>
+      <div class="pvp-rank-bar"><div class="pvp-rank-fill" id="pvpRankFill" style="width:0%"></div></div>
+    </div>
+    <div class="pvp-stats-row">
+      <div class="pvp-stat"><div class="pvp-stat-val" id="pvpWinsVal">0</div><div class="pvp-stat-lbl">Vinster</div></div>
+      <div class="pvp-stat"><div class="pvp-stat-val" id="pvpLossVal">0</div><div class="pvp-stat-lbl">Förluster</div></div>
+      <div class="pvp-stat"><div class="pvp-stat-val" id="pvpDailyVal">0/20</div><div class="pvp-stat-lbl">Dagens strider</div></div>
+    </div>
+    <div class="pvp-season-bar">
+      <div><div class="pvp-season-val" id="pvpSeasonVal">Säsong 1</div><div class="pvp-season-lbl">Topprankade nollställs varje vecka</div></div>
+      <div style="font-size:20px">🏆</div>
+    </div>
+    <div class="pvp-opp-card" id="pvpOppCard">
+      <div class="pvp-opp-row">
+        <span class="pvp-opp-emoji" id="pvpOppEmoji">🐺</span>
+        <div class="pvp-opp-info">
+          <div class="pvp-opp-name" id="pvpOppName">Laddar...</div>
+          <div class="pvp-opp-rank" id="pvpOppRank">Rang: —</div>
+          <div class="pvp-opp-cp" id="pvpOppCP">Stridskraft: —</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="pvp-fight-btn" onclick="pvpFight()">⚔️ Slåss!</button>
+        <button class="pvp-skip-btn" onclick="pvpSkip()">↩ Nästa motståndare</button>
+      </div>
+    </div>
+    <div class="pvp-log" id="pvpLog"></div>
+    <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px">SENASTE MATCHER</div>
+    <div class="pvp-history" id="pvpHistory"></div>
+  </div>
+</div>
 
 <!-- PET GARDEN -->
 <div class="gard-panel" id="gardPanel">
@@ -35893,6 +35983,144 @@ function _renderGard(){
       +'<div class="gard-seed-info"><div class="gard-seed-name">'+s.name+'</div><div class="gard-seed-time">⏱ '+_gardFmt(s.grow)+'</div><div class="gard-seed-yield">🪙 '+s.yield[0]+'-'+s.yield[1]+'</div></div>'
       +'<div class="gard-seed-cost">'+s.cost+'🪙</div>'
       +'</div>';
+  }).join('');
+}
+
+
+// ARENA PVP
+const PVP_KEY = 'k0509_pvp';
+const PVP_RANKS = [
+  {name:'Brons III',  emoji:'🥉', min:0,    max:300,  cpMult:0.8},
+  {name:'Brons II',   emoji:'🥉', min:300,  max:600,  cpMult:0.9},
+  {name:'Brons I',    emoji:'🥉', min:600,  max:1000, cpMult:1.0},
+  {name:'Silver',     emoji:'🥈', min:1000, max:1500, cpMult:1.1},
+  {name:'Guld',       emoji:'🥇', min:1500, max:2200, cpMult:1.25},
+  {name:'Platina',    emoji:'💎', min:2200, max:3000, cpMult:1.4},
+  {name:'Diamant',    emoji:'💠', min:3000, max:4000, cpMult:1.6},
+  {name:'Mytisk',     emoji:'🔮', min:4000, max:5000, cpMult:1.85},
+  {name:'Legende',    emoji:'👑', min:5000, max:9999, cpMult:2.2},
+];
+const PVP_OPPS = [
+  {name:'Björnpansen', emoji:'🐻'},
+  {name:'Tigerkloen',  emoji:'🐯'},
+  {name:'Draken Rex',  emoji:'🐉'},
+  {name:'Varg Alpha',  emoji:'🐺'},
+  {name:'Örnen Stark', emoji:'🦅'},
+  {name:'Lejonkrigar', emoji:'🦁'},
+  {name:'Spindelweb',  emoji:'🕷'},
+  {name:'Flamman',     emoji:'🔥'},
+  {name:'Isberget',    emoji:'🧊'},
+  {name:'Skytten Pro', emoji:'🏹'},
+];
+var _pvpOpp=null;
+
+function _pvpData(){try{return JSON.parse(localStorage.getItem(PVP_KEY)||'null');}catch(e){return null;}}
+function _pvpSave(d){localStorage.setItem(PVP_KEY,JSON.stringify(d));}
+function _pvpGetData(){var d=_pvpData(); if(!d) d={rating:0,wins:0,losses:0,dayKey:'',dayCount:0,history:[]}; return d;}
+
+function _pvpCP(){
+  return (G.str||0)+(G.agi||0)+(G.int||0)+(G.end||0)+(G.lck||0)+((G.lv||1)*2);
+}
+
+function _pvpGetRank(rating){
+  for(var i=PVP_RANKS.length-1;i>=0;i--){
+    if(rating>=PVP_RANKS[i].min) return PVP_RANKS[i];
+  }
+  return PVP_RANKS[0];
+}
+
+function openPVP(){
+  $('pvpPanel').classList.add('open');
+  _pvpGenOpp();
+  _renderPVP();
+}
+function closePVP(){$('pvpPanel').classList.remove('open');}
+
+function _pvpGenOpp(){
+  var d=_pvpGetData();
+  var rank=_pvpGetRank(d.rating);
+  var playerCP=_pvpCP();
+  var oppBase=Math.max(5,playerCP*rank.cpMult*(0.8+Math.random()*0.4));
+  var opp=PVP_OPPS[Math.floor(Math.random()*PVP_OPPS.length)];
+  var oppRankIdx=Math.max(0,Math.min(PVP_RANKS.length-1,PVP_RANKS.indexOf(rank)+Math.floor(Math.random()*3)-1));
+  _pvpOpp={name:opp.name,emoji:opp.emoji,cp:Math.floor(oppBase),rank:PVP_RANKS[oppRankIdx]||rank};
+}
+
+function pvpSkip(){_pvpGenOpp();_renderPVP();}
+
+function pvpFight(){
+  var d=_pvpGetData();
+  var tk=getTodayKey();
+  if(d.dayKey!==tk){d.dayKey=tk;d.dayCount=0;}
+  if(d.dayCount>=20){showFloatBubble('Max 20 strider per dag!','info');return;}
+  d.dayCount++;
+  var playerCP=_pvpCP();
+  var oppCP=_pvpOpp?_pvpOpp.cp:50;
+  // Simulate battle
+  var log='';
+  var playerHP=100; var oppHP=100;
+  var rounds=0;
+  var pAtk=Math.max(3,Math.floor(playerCP/3));
+  var oAtk=Math.max(3,Math.floor(oppCP/3));
+  while(playerHP>0&&oppHP>0&&rounds<20){
+    rounds++;
+    var dmgP=Math.max(1,pAtk+Math.floor(Math.random()*pAtk*0.5)-Math.floor(Math.random()*pAtk*0.2));
+    var dmgO=Math.max(1,oAtk+Math.floor(Math.random()*oAtk*0.5)-Math.floor(Math.random()*oAtk*0.2));
+    oppHP-=dmgP; playerHP-=dmgO;
+    log+='Rnd '+rounds+': Du gör '+dmgP+' skada. Motst gör '+dmgO+' skada.<br>';
+  }
+  var won=playerHP>oppHP;
+  var ratingChange=won?Math.floor(30+Math.random()*20):Math.floor(-(20+Math.random()*10));
+  d.rating=Math.max(0,d.rating+ratingChange);
+  if(won){d.wins=(d.wins||0)+1; gainCoins(50+Math.floor(d.rating/50)); if(d.rating%500<30) gainKC(1);}
+  else {d.losses=(d.losses||0)+1;}
+  if(!d.history) d.history=[];
+  d.history.unshift({won:won,opp:_pvpOpp.name,oppEmoji:_pvpOpp.emoji,rc:ratingChange});
+  if(d.history.length>10) d.history.pop();
+  _pvpSave(d);
+  var logEl=$('pvpLog');
+  if(logEl){
+    logEl.className='pvp-log show';
+    logEl.innerHTML=log+'<br><span class="'+(won?'pvp-log-win':'pvp-log-lose')+'">'+(won?'🏆 SEGER! +'+ratingChange+' Rating! +'+Math.floor(50+d.rating/50)+' 🪙':'💔 FÖRLUST! '+ratingChange+' Rating')+'</span>';
+  }
+  misTrack('pvp',1);
+  checkAchievements();
+  _pvpGenOpp();
+  _renderPVP();
+}
+
+function _renderPVP(){
+  var d=_pvpGetData();
+  var rank=_pvpGetRank(d.rating);
+  var rankIdx=PVP_RANKS.indexOf(rank);
+  var nextRank=PVP_RANKS[rankIdx+1];
+  var re=$('pvpRankEmoji'); if(re) re.textContent=rank.emoji;
+  var rn=$('pvpRankName'); if(rn) rn.textContent=rank.name;
+  var rr=$('pvpRankRating'); if(rr) rr.textContent='Rating: '+d.rating+(nextRank?' (nästa: '+nextRank.min+')':'');
+  var rf=$('pvpRankFill');
+  if(rf){
+    var prog=nextRank?Math.min(100,((d.rating-rank.min)/(nextRank.min-rank.min))*100):100;
+    rf.style.width=prog+'%';
+  }
+  var tk=getTodayKey();
+  var dayCount=(d.dayKey===tk)?(d.dayCount||0):0;
+  var wv=$('pvpWinsVal'); if(wv) wv.textContent=d.wins||0;
+  var lv=$('pvpLossVal'); if(lv) lv.textContent=d.losses||0;
+  var dv=$('pvpDailyVal'); if(dv) dv.textContent=dayCount+'/20';
+  // Season
+  var sv=$('pvpSeasonVal');
+  if(sv){var weekNum=Math.floor(Date.now()/(7*24*3600000));sv.textContent='Säsong '+(weekNum%100+1);}
+  // Opp
+  if(_pvpOpp){
+    var oe=$('pvpOppEmoji'); if(oe) oe.textContent=_pvpOpp.emoji;
+    var on=$('pvpOppName'); if(on) on.textContent=_pvpOpp.name;
+    var or_=$('pvpOppRank'); if(or_) or_.textContent='Rang: '+(_pvpOpp.rank?_pvpOpp.rank.name:'?');
+    var oc=$('pvpOppCP'); if(oc) oc.textContent='Stridskraft: '+_pvpOpp.cp+' (Din: '+_pvpCP()+')';
+  }
+  // History
+  var hist=$('pvpHistory');
+  if(hist&&d.history) hist.innerHTML=d.history.map(function(h){
+    return '<div class="pvp-hist-row"><span style="font-size:16px">'+h.oppEmoji+'</span><span style="flex:1;color:rgba(255,255,255,.6)">'+h.opp+'</span><span class="'+(h.won?'pvp-hist-win':'pvp-hist-lose')+'">'+(h.won?'✅ Seger':'❌ Förlust')+' ('+(h.rc>0?'+':'')+h.rc+')</span></div>';
   }).join('');
 }
 
