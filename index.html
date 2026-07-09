@@ -1428,6 +1428,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET GYM TRAINING ══ */
+.gym-panel{position:fixed;inset:0;background:#060408;z-index:941;display:none;flex-direction:column;overflow:hidden}
+.gym-panel.open{display:flex}
+.gym-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0414,#060408)}
+.gym-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8844,#ffcc00,#ff4455);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gym-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.gym-energy-bar{background:rgba(255,255,255,.04);border:1px solid rgba(255,136,68,.2);border-radius:16px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.gym-energy-icons{display:flex;gap:3px;flex:1;flex-wrap:wrap}
+.gym-energy-dot{width:22px;height:22px;border-radius:6px;background:rgba(255,136,68,.15);border:1.5px solid rgba(255,136,68,.2);display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .3s}
+.gym-energy-dot.full{background:rgba(255,136,68,.3);border-color:rgba(255,136,68,.7);box-shadow:0 0 6px rgba(255,136,68,.3)}
+.gym-energy-label{font:700 10px var(--ff-head);color:rgba(255,136,68,.8);white-space:nowrap}
+/* Stat cards */
+.gym-stats-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.gym-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.gym-stat-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 12px}
+.gym-stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.gym-stat-name{font:700 10px var(--ff-head);color:rgba(255,255,255,.7)}
+.gym-stat-val{font:900 16px var(--ff-head);color:#ffcc00}
+.gym-stat-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.gym-stat-fill{height:100%;border-radius:2px;transition:width .5s}
+/* Training slots */
+.gym-exercises{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.gym-ex{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:18px;padding:13px 14px}
+.gym-ex-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.gym-ex-emoji{font-size:28px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border-radius:12px}
+.gym-ex-info{flex:1}
+.gym-ex-name{font:700 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.gym-ex-stat{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.gym-ex-cd{font:600 9px var(--ff-head);color:rgba(255,68,85,.7)}
+.gym-intensity{display:flex;gap:6px;margin-bottom:8px}
+.gym-int-btn{flex:1;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:10px;padding:6px 4px;text-align:center;cursor:pointer;transition:all .15s}
+.gym-int-btn.sel{border-color:rgba(255,136,68,.6);background:rgba(255,136,68,.12)}
+.gym-int-btn:active{transform:scale(.95)}
+.gym-int-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.7)}
+.gym-int-cost{font:500 7px var(--ff-body);color:rgba(255,255,255,.35)}
+.gym-train-btn{width:100%;background:linear-gradient(135deg,#2a0e00,#ff8844);border:none;border-radius:12px;color:#fff;font:900 12px var(--ff-head);padding:10px;cursor:pointer;transition:all .15s}
+.gym-train-btn:active{transform:scale(.97)}
+.gym-train-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.08)}
+/* Bonus summary */
+.gym-bonus-card{background:rgba(255,204,0,.04);border:1px solid rgba(255,204,0,.15);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+.gym-bonus-title{font:700 10px var(--ff-head);color:rgba(255,204,0,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.gym-bonus-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.gym-bonus-label{font:500 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.gym-bonus-val{font:700 10px var(--ff-head);color:#ffcc00}
+
 /* ══ PET DUNGEON CRAWLER ══ */
 .dng-panel{position:fixed;inset:0;background:#060208;z-index:940;display:none;flex-direction:column;overflow:hidden}
 .dng-panel.open{display:flex}
@@ -7454,6 +7500,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAuction()"><div class="ddr-i">🔨</div>Auktionshus</div>
           <div class="ddr" onclick="cM();openEvtree()"><div class="ddr-i">🌳</div>Evo Träd</div>
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Dungeon</div>
+          <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Gym</div>
         </div>
       </div>
     </div>
@@ -8620,6 +8667,26 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET GYM TRAINING -->
+<div class="gym-panel" id="gymPanel">
+  <div class="gym-header">
+    <div class="gym-title">🏋️ GYM</div>
+    <button class="close-btn" onclick="closeGym()">✕</button>
+  </div>
+  <div class="gym-scroll">
+    <div class="gym-energy-bar">
+      <div class="gym-energy-icons" id="gymEnergyDots"></div>
+      <div class="gym-energy-label" id="gymEnergyLabel">⚡ 10/10</div>
+    </div>
+    <div class="gym-stats-title">📊 Statistik</div>
+    <div class="gym-stats-grid" id="gymStatsGrid"></div>
+    <div class="gym-stats-title">🏋️ Träning</div>
+    <div class="gym-exercises" id="gymExercises"></div>
+    <div class="gym-bonus-card" id="gymBonusCard"></div>
+  </div>
+</div>
 
 <!-- PET DUNGEON CRAWLER -->
 <div class="dng-panel" id="dngPanel">
@@ -31472,6 +31539,158 @@ function _renderDngStats(){
   var dd=$('dngDeepest'); if(dd) dd.textContent=stats.deepest||1;
   var dk=$('dngKills'); if(dk) dk.textContent=stats.kills||0;
   var dr=$('dngTotalRuns'); if(dr) dr.textContent=stats.runs||0;
+}
+
+
+// PET GYM TRAINING
+const GYM_KEY = 'k0509_gym';
+const GYM_EXERCISES = [
+  {id:'lift',   emoji:'🏋️', name:'Styrkelyft',   stat:'str', color:'#ff4455', desc:'Ökar STR — bättre attack i Dungeon'},
+  {id:'run',    emoji:'🏃', name:'Sprint',        stat:'agi', color:'#44aaff', desc:'Ökar AGI — dodge-chans i strider'},
+  {id:'study',  emoji:'📚', name:'Studera',       stat:'int', color:'#aa44ff', desc:'Ökar INT — kraftfullare magi'},
+  {id:'swim',   emoji:'🏊', name:'Simning',       stat:'end', color:'#00ff88', desc:'Ökar END — mer max-HP'},
+  {id:'meditate',emoji:'🍀',name:'Lyckoträning',  stat:'lck', color:'#ffcc00', desc:'Ökar LCK — bättre loot-chans'},
+];
+const GYM_STATS = [
+  {id:'str', emoji:'💪', name:'Styrka',     color:'#ff4455'},
+  {id:'agi', emoji:'💨', name:'Snabbhet',   color:'#44aaff'},
+  {id:'int', emoji:'🧠', name:'Intelligens',color:'#aa44ff'},
+  {id:'end', emoji:'❤️', name:'Uthållighet',color:'#00ff88'},
+  {id:'lck', emoji:'🍀', name:'Tur',        color:'#ffcc00'},
+];
+const GYM_INTENSITIES = [
+  {id:'light',  name:'Lätt',   cost:1, statPts:1, coins:30,  xp:40,  cd:10},
+  {id:'normal', name:'Normal', cost:2, statPts:2, coins:70,  xp:90,  cd:20},
+  {id:'intense',name:'Intensiv',cost:4,statPts:4, coins:150, xp:200, cd:45},
+];
+const GYM_MAX_ENERGY = 10;
+const GYM_ENERGY_REGEN_MS = 10*60*1000; // 10 min per energy
+
+let _gymSelInt = {};  // exId → intensity id
+
+function _gymLoad(){try{return JSON.parse(localStorage.getItem(GYM_KEY)||'null');}catch(e){return null;}}
+function _gymSave(d){localStorage.setItem(GYM_KEY,JSON.stringify(d));}
+function _gymData(){
+  var d=_gymLoad();
+  if(!d) d={energy:GYM_MAX_ENERGY,lastRegenTs:Date.now(),stats:{str:1,agi:1,int:1,end:1,lck:1},cds:{}};
+  return d;
+}
+function _gymRegenEnergy(d){
+  var now=Date.now();
+  var elapsed=now-(d.lastRegenTs||now);
+  var toRegen=Math.floor(elapsed/GYM_ENERGY_REGEN_MS);
+  if(toRegen>0){
+    d.energy=Math.min(GYM_MAX_ENERGY,(d.energy||0)+toRegen);
+    d.lastRegenTs=(d.lastRegenTs||now)+toRegen*GYM_ENERGY_REGEN_MS;
+  }
+  return d;
+}
+
+function openGym(){
+  $('gymPanel').classList.add('open');
+  GYM_EXERCISES.forEach(function(ex){_gymSelInt[ex.id]='normal';});
+  _renderGym();
+}
+function closeGym(){
+  $('gymPanel').classList.remove('open');
+}
+
+function _gymCDLeft(d, exId){
+  var cdEnd=d.cds[exId]||0;
+  var left=Math.max(0,Math.ceil((cdEnd-Date.now())/1000/60));
+  return left;
+}
+
+function _renderGym(){
+  var d=_gymRegenEnergy(_gymData());
+  _gymSave(d);
+  var energy=d.energy;
+  // Energy dots
+  var dots='';
+  for(var i=0;i<GYM_MAX_ENERGY;i++){
+    dots+='<div class="gym-energy-dot'+(i<energy?' full':'')+'">'+( i<energy?'⚡':'')+'</div>';
+  }
+  var el=$('gymEnergyDots'); if(el) el.innerHTML=dots;
+  var nextRegen=energy<GYM_MAX_ENERGY?Math.ceil((GYM_ENERGY_REGEN_MS-(Date.now()-(d.lastRegenTs||Date.now())))/(1000*60))+'min':'Full';
+  var lab=$('gymEnergyLabel'); if(lab) lab.textContent='⚡ '+energy+'/'+GYM_MAX_ENERGY+(energy<GYM_MAX_ENERGY?' +1 om '+nextRegen:'');
+  // Stats
+  var sg=$('gymStatsGrid');
+  if(sg) sg.innerHTML=GYM_STATS.map(function(s){
+    var val=d.stats[s.id]||1;
+    var pct=Math.min(100,Math.round(val/50*100));
+    return '<div class="gym-stat-card">'+
+      '<div class="gym-stat-top">'+
+      '<div class="gym-stat-name">'+s.emoji+' '+s.name+'</div>'+
+      '<div class="gym-stat-val" style="color:'+s.color+'">'+val+'</div>'+
+      '</div>'+
+      '<div class="gym-stat-bar"><div class="gym-stat-fill" style="width:'+pct+'%;background:'+s.color+'"></div></div>'+
+      '</div>';
+  }).join('');
+  // Exercises
+  var ex=$('gymExercises');
+  if(ex) ex.innerHTML=GYM_EXERCISES.map(function(exercise){
+    var selInt=_gymSelInt[exercise.id]||'normal';
+    var cdLeft=_gymCDLeft(d,exercise.id);
+    var onCD=cdLeft>0;
+    var intHtml=GYM_INTENSITIES.map(function(inten){
+      return '<div class="gym-int-btn'+(selInt===inten.id?' sel':'')+'" onclick="gymSetInt(''+exercise.id+'',''+inten.id+'')">'+
+        '<div class="gym-int-name">'+inten.name+'</div>'+
+        '<div class="gym-int-cost">⚡'+inten.cost+' | +'+inten.statPts+'stat</div>'+
+        '</div>';
+    }).join('');
+    var selIntenObj=GYM_INTENSITIES.find(function(i){return i.id===selInt;})||GYM_INTENSITIES[1];
+    var canTrain=!onCD && energy>=selIntenObj.cost;
+    return '<div class="gym-ex">'+
+      '<div class="gym-ex-top">'+
+      '<div class="gym-ex-emoji">'+exercise.emoji+'</div>'+
+      '<div class="gym-ex-info">'+
+      '<div class="gym-ex-name">'+exercise.name+'</div>'+
+      '<div class="gym-ex-stat">'+exercise.desc+'</div>'+
+      (onCD?'<div class="gym-ex-cd">⏳ Vilar... '+cdLeft+'min kvar</div>':'')+
+      '</div>'+
+      '</div>'+
+      '<div class="gym-intensity">'+intHtml+'</div>'+
+      '<button class="gym-train-btn" onclick="gymTrain(''+exercise.id+'')" '+(canTrain?'':'disabled')+'>'+
+      (onCD?'⏳ Vilar...':canTrain?'🏋️ Träna':'⚡ Inte tillräckligt energi')+
+      '</button>'+
+      '</div>';
+  }).join('');
+  // Bonus summary
+  var bc=$('gymBonusCard');
+  if(bc){
+    var str=d.stats.str||1, agi=d.stats.agi||1, inte=d.stats.int||1, end2=d.stats.end||1, lck=d.stats.lck||1;
+    bc.innerHTML=
+      '<div class="gym-bonus-title">⚡ Aktiva Bonusar</div>'+
+      '<div class="gym-bonus-row"><span class="gym-bonus-label">⚔️ Attack Bonus (Dungeon)</span><span class="gym-bonus-val">+'+Math.round(str*1.5)+'</span></div>'+
+      '<div class="gym-bonus-row"><span class="gym-bonus-label">💨 Dodge Chans</span><span class="gym-bonus-val">'+Math.min(40,agi)+'%</span></div>'+
+      '<div class="gym-bonus-row"><span class="gym-bonus-label">🔮 Magi Bonus</span><span class="gym-bonus-val">+'+Math.round(inte*1.2)+'%</span></div>'+
+      '<div class="gym-bonus-row"><span class="gym-bonus-label">❤️ Bonus Max-HP</span><span class="gym-bonus-val">+'+end2*5+'</span></div>'+
+      '<div class="gym-bonus-row"><span class="gym-bonus-label">🍀 Loot Bonus</span><span class="gym-bonus-val">+'+Math.min(30,lck)+'%</span></div>';
+  }
+}
+
+function gymSetInt(exId, intId){
+  _gymSelInt[exId]=intId;
+  _renderGym();
+}
+
+function gymTrain(exId){
+  var d=_gymRegenEnergy(_gymData());
+  var selInt=_gymSelInt[exId]||'normal';
+  var inten=GYM_INTENSITIES.find(function(i){return i.id===selInt;})||GYM_INTENSITIES[1];
+  var ex=GYM_EXERCISES.find(function(e){return e.id===exId;});
+  if(!ex) return;
+  if(d.energy<inten.cost){showFloatBubble('⚡ Inte tillräckligt med energi!','debuff');return;}
+  var cdLeft=_gymCDLeft(d,exId);
+  if(cdLeft>0){showFloatBubble('⏳ '+ex.name+' vilar fortfarande!','debuff');return;}
+  d.energy-=inten.cost;
+  d.stats[ex.stat]=(d.stats[ex.stat]||1)+inten.statPts;
+  d.cds[exId]=Date.now()+inten.cd*60*1000;
+  _gymSave(d);
+  gainCoins(inten.coins);
+  gainXP(inten.xp,'action');
+  showFloatBubble(ex.emoji+' '+ex.name+'! '+GYM_STATS.find(function(s){return s.id===ex.stat;}).emoji+'+'+inten.statPts+' +'+inten.coins+'💰','buff');
+  _renderGym();
 }
 
 </script>
