@@ -1458,6 +1458,44 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TOWN BUILDER ══ */
+.town-panel{position:fixed;inset:0;background:#020608;z-index:971;display:none;flex-direction:column;overflow:hidden}
+.town-panel.open{display:flex}
+.town-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#041020,#020608)}
+.town-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ddff,#44ff88,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.town-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.town-stats-row{display:flex;gap:8px;margin-bottom:14px}
+.town-stat{flex:1;background:rgba(68,221,255,.04);border:1px solid rgba(68,221,255,.15);border-radius:12px;padding:8px;text-align:center}
+.town-stat-val{font:900 16px var(--ff-head);color:#44ddff}
+.town-stat-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+.town-collect-all{width:100%;background:linear-gradient(135deg,#44ddff,#44ff88);border:none;border-radius:14px;padding:12px;font:900 12px var(--ff-head);color:#000;cursor:pointer;margin-bottom:14px}
+.town-collect-all:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.08);color:rgba(255,255,255,.3)}
+.town-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.town-slot{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:18px;padding:12px;min-height:120px;display:flex;flex-direction:column}
+.town-slot.built{background:rgba(68,221,255,.03);border-color:rgba(68,221,255,.2)}
+.town-slot.ready{border-color:rgba(80,255,150,.4);box-shadow:0 0 10px rgba(80,255,150,.15)}
+.town-bld-emoji{font-size:30px;text-align:center;margin-bottom:6px}
+.town-bld-name{font:800 10px var(--ff-head);color:#fff;text-align:center;margin-bottom:2px}
+.town-bld-level{font:600 8px var(--ff-body);color:rgba(255,255,255,.35);text-align:center;margin-bottom:4px}
+.town-bld-gen{font:600 8px var(--ff-body);color:rgba(100,255,200,.6);text-align:center;margin-bottom:8px}
+.town-bld-pending{font:700 9px var(--ff-head);color:#44ff88;text-align:center;margin-bottom:6px}
+.town-btn{width:100%;border:none;border-radius:10px;padding:8px;font:800 9px var(--ff-head);cursor:pointer;margin-top:auto}
+.town-btn.collect{background:rgba(80,255,150,.15);color:#44ff88;border:1px solid rgba(80,255,150,.3)}
+.town-btn.collect.glow{background:rgba(80,255,150,.25);animation:townPulse 1.5s ease-in-out infinite}
+@keyframes townPulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 10px rgba(80,255,150,.5)}}
+.town-btn.upgrade{background:rgba(255,200,50,.1);color:#ffcc00;border:1px solid rgba(255,200,50,.25)}
+.town-btn.build{background:rgba(68,221,255,.1);color:#44ddff;border:1px solid rgba(68,221,255,.25)}
+/* Build picker */
+.town-picker{display:none;flex-direction:column;gap:6px;margin-top:6px}
+.town-picker.open{display:flex}
+.town-pick-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:8px;cursor:pointer;transition:all .15s}
+.town-pick-row:active{transform:scale(.98)}
+.town-pick-emoji{font-size:20px}
+.town-pick-info{flex:1}
+.town-pick-name{font:700 9px var(--ff-head);color:#fff}
+.town-pick-cost{font:600 8px var(--ff-body);color:rgba(255,200,50,.7)}
+
 /* ══ PET COOKING ══ */
 .cook-panel{position:fixed;inset:0;background:#080402;z-index:970;display:none;flex-direction:column;overflow:hidden}
 .cook-panel.open{display:flex}
@@ -8771,6 +8809,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSkl()"><div class="ddr-i">🌲</div>Talanger</div>
           <div class="ddr" onclick="cM();openCal()"><div class="ddr-i">📅</div>Kalender</div>
           <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kök</div>
+          <div class="ddr" onclick="cM();openTown()"><div class="ddr-i">🏘</div>Stad</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9999,6 +10038,24 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- TOWN BUILDER -->
+<div class="town-panel" id="townPanel">
+  <div class="town-header">
+    <div class="town-title">🏘 STADENS BYGGNADER</div>
+    <button class="close-btn" onclick="closeTown()">✕</button>
+  </div>
+  <div class="town-scroll">
+    <div class="town-stats-row">
+      <div class="town-stat"><div class="town-stat-val" id="townBldCount">0</div><div class="town-stat-lbl">Byggnader</div></div>
+      <div class="town-stat"><div class="town-stat-val" id="townTotalEarned">0</div><div class="town-stat-lbl">Totalt intjänat</div></div>
+    </div>
+    <button class="town-collect-all" id="townCollectAll" onclick="townCollectAll()">🏘 Samla alla resurser</button>
+    <div class="town-grid" id="townGrid"></div>
+    <div id="townPicker" class="town-picker"></div>
+  </div>
+</div>
 
 <!-- PET COOKING -->
 <div class="cook-panel" id="cookPanel">
@@ -38498,6 +38555,181 @@ function _renderCook(){
     var btnText=activeType?'Buff aktiv':full?'Max buffs':!canMake?'Saknar ingredienser':'🍳 Laga nu!';
     return '<div class="cook-recipe"><div class="cook-recipe-top"><span class="cook-recipe-emoji">'+rec.emoji+'</span><div class="cook-recipe-info"><div class="cook-recipe-name">'+rec.name+'</div><div class="cook-recipe-eff">'+rec.eff+'</div><div class="cook-recipe-time">⏱ '+rec.mins+' min</div></div></div><div class="cook-recipe-ings">'+ingHtml+'</div><button class="cook-btn" onclick="cookMake(\''+rec.id+'\')" '+(disabled?'disabled':'')+'>'+btnText+'</button></div>';
   }).join('');
+}
+
+
+// TOWN BUILDER
+const TOWN_KEY = 'k0509_town';
+const TOWN_BLDS = {
+  farm:{name:'Bondgård',emoji:'🌾',cost:500,upCost:1000,desc:'50🪙/tim',gen:[{coins:50},{coins:120},{coins:250}]},
+  mine:{name:'Gruva',emoji:'⛏️',cost:1000,upCost:2000,desc:'Kristaller/tim',gen:[{ing:{crystal:1}},{ing:{crystal:2}},{ing:{gem:1,crystal:1}}]},
+  inn:{name:'Värdshus',emoji:'🏨',cost:2000,upCost:3500,desc:'XP/tim',gen:[{xp:30},{xp:80},{xp:180}]},
+  workshop:{name:'Verkstad',emoji:'🔨',cost:1500,upCost:3000,desc:'Örter+Fjädrar/tim',gen:[{ing:{herb:2}},{ing:{herb:3,feather:1}},{ing:{herb:4,feather:2}}]},
+  market:{name:'Marknad',emoji:'🏪',cost:3000,upCost:6000,desc:'Mynt+KC/tim',gen:[{coins:100,kc:1},{coins:250,kc:2},{coins:500,kc:3}]},
+  temple:{name:'Tempel',emoji:'⛪',cost:5000,upCost:10000,desc:'Magiska ingredienser/tim',gen:[{ing:{moon:1}},{ing:{moon:1,star:1}},{ing:{moon:2,star:1,light:1}}]},
+};
+var _townPickerSlot=-1;
+
+function _townData(){try{return JSON.parse(localStorage.getItem(TOWN_KEY)||'null');}catch(e){return null;}}
+function _townSave(d){localStorage.setItem(TOWN_KEY,JSON.stringify(d));}
+function _townGetData(){
+  var d=_townData();
+  if(!d) d={slots:[null,null,null,null,null,null],totalEarned:0};
+  while(d.slots.length<6) d.slots.push(null);
+  return d;
+}
+
+function _townGenDesc(bldId, level){
+  var bld=TOWN_BLDS[bldId]; if(!bld) return '';
+  var g=bld.gen[level-1];
+  var parts=[];
+  if(g.coins) parts.push(g.coins+'🪙');
+  if(g.kc) parts.push(g.kc+'KC');
+  if(g.xp) parts.push(g.xp+'XP');
+  if(g.ing) Object.keys(g.ing).forEach(function(k){parts.push(k+'×'+g.ing[k]);});
+  return parts.join(' ')+'/tim';
+}
+
+function _townCalcPending(slot){
+  if(!slot) return null;
+  var now=Date.now();
+  var last=slot.lastCollect||now;
+  var hoursRaw=(now-last)/3600000;
+  var hours=Math.min(hoursRaw,4);
+  if(hours<0.05) return null;
+  var bld=TOWN_BLDS[slot.id]; if(!bld) return null;
+  var g=bld.gen[slot.level-1];
+  var res={};
+  if(g.coins) res.coins=Math.floor(g.coins*hours);
+  if(g.kc) res.kc=Math.floor(g.kc*hours);
+  if(g.xp) res.xp=Math.floor(g.xp*hours);
+  if(g.ing){Object.keys(g.ing).forEach(function(k){res.ing=res.ing||{}; res.ing[k]=Math.floor(g.ing[k]*hours);});}
+  return res;
+}
+
+function townBuild(slotIdx, bldId){
+  var bld=TOWN_BLDS[bldId]; if(!bld) return;
+  if((G.coins||0)<bld.cost){showFloatBubble('Inte nog mynt! Behöver '+bld.cost+'🪙','debuff');return;}
+  G.coins-=bld.cost; save();
+  var d=_townGetData();
+  d.slots[slotIdx]={id:bldId,level:1,lastCollect:Date.now()};
+  _townSave(d);
+  _townPickerSlot=-1;
+  showFloatBubble(bld.emoji+' '+bld.name+' byggd!','buff');
+  _renderTown();
+}
+
+function townCollect(slotIdx){
+  var d=_townGetData();
+  var slot=d.slots[slotIdx]; if(!slot) return;
+  var res=_townCalcPending(slot);
+  if(!res){showFloatBubble('Inget att hämta ännu!','info');return;}
+  if(res.coins) gainCoins(res.coins);
+  if(res.kc) gainKC(res.kc);
+  if(res.xp) gainXP(res.xp,'int');
+  if(res.ing){
+    var alchD=null; try{alchD=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+    if(!alchD) alchD={ings:{},potions:{},brews:0,labLevel:0};
+    if(!alchD.ings) alchD.ings={};
+    Object.keys(res.ing).forEach(function(k){alchD.ings[k]=(alchD.ings[k]||0)+res.ing[k];});
+    localStorage.setItem(ALCH_KEY,JSON.stringify(alchD));
+  }
+  var earned=(res.coins||0)+(res.kc||0)*100+(res.xp||0)/10;
+  d.totalEarned=(d.totalEarned||0)+Math.floor(earned);
+  d.slots[slotIdx].lastCollect=Date.now();
+  _townSave(d);
+  var bld=TOWN_BLDS[slot.id];
+  showFloatBubble(bld.emoji+' Resurser hämtade!','buff');
+  checkAchievements();
+  _renderTown();
+}
+
+function townCollectAll(){
+  var d=_townGetData();
+  var any=false;
+  d.slots.forEach(function(slot,i){
+    if(slot&&_townCalcPending(slot)){townCollect(i);any=true;}
+  });
+  if(!any) showFloatBubble('Inget att hämta ännu — kom tillbaka om en stund!','info');
+}
+
+function townUpgrade(slotIdx){
+  var d=_townGetData();
+  var slot=d.slots[slotIdx]; if(!slot) return;
+  if(slot.level>=3){showFloatBubble('Max nivå!','info');return;}
+  var bld=TOWN_BLDS[slot.id]; if(!bld) return;
+  var cost=bld.upCost*slot.level;
+  if((G.coins||0)<cost){showFloatBubble('Behöver '+cost+'🪙 för uppgradering','debuff');return;}
+  // Collect first
+  var res=_townCalcPending(slot);
+  if(res){
+    if(res.coins) gainCoins(res.coins);
+    if(res.kc) gainKC(res.kc);
+    if(res.xp) gainXP(res.xp,'int');
+  }
+  G.coins-=cost; save();
+  d.slots[slotIdx].level+=1;
+  d.slots[slotIdx].lastCollect=Date.now();
+  _townSave(d);
+  showFloatBubble(bld.emoji+' Uppgraderad till Lv'+d.slots[slotIdx].level+'!','buff');
+  _renderTown();
+}
+
+function townShowPicker(slotIdx){
+  _townPickerSlot=slotIdx;
+  _renderTown();
+}
+
+function openTown(){$('townPanel').classList.add('open');_renderTown();}
+function closeTown(){$('townPanel').classList.remove('open');}
+
+function _townPendingDesc(res){
+  if(!res) return '—';
+  var p=[];
+  if(res.coins) p.push(res.coins+'🪙');
+  if(res.kc) p.push(res.kc+' KC');
+  if(res.xp) p.push(res.xp+' XP');
+  if(res.ing) Object.keys(res.ing).forEach(function(k){p.push(k+'×'+res.ing[k]);});
+  return p.join(' ');
+}
+
+function _renderTown(){
+  var d=_townGetData();
+  var bldCount=d.slots.filter(function(s){return s!==null;}).length;
+  var bc=$('townBldCount'); if(bc) bc.textContent=bldCount;
+  var te=$('townTotalEarned'); if(te) te.textContent=d.totalEarned||0;
+  var hasReady=d.slots.some(function(slot){return slot&&_townCalcPending(slot);});
+  var ca=$('townCollectAll'); if(ca) ca.disabled=!hasReady;
+  var grid=$('townGrid'); if(!grid) return;
+  grid.innerHTML=d.slots.map(function(slot,i){
+    if(!slot){
+      return '<div class="town-slot"><div class="town-bld-emoji">🏗</div><div class="town-bld-name">Tom tomt</div><div class="town-bld-gen" style="color:rgba(255,255,255,.25)">Bygg en byggnad</div><button class="town-btn build" onclick="townShowPicker('+i+')">🏗 Bygg här</button></div>';
+    }
+    var bld=TOWN_BLDS[slot.id];
+    var res=_townCalcPending(slot);
+    var pendDesc=_townPendingDesc(res);
+    var hasRes=res!==null;
+    var canUpgrade=slot.level<3;
+    var upCost=bld.upCost*slot.level;
+    return '<div class="town-slot built'+(hasRes?' ready':'')+'"><div class="town-bld-emoji">'+bld.emoji+'</div><div class="town-bld-name">'+bld.name+'</div><div class="town-bld-level">Lv'+slot.level+'/3 &bull; '+_townGenDesc(slot.id,slot.level)+'</div>'+(hasRes?'<div class="town-bld-pending">Klar: '+pendDesc+'</div>':'<div class="town-bld-pending" style="color:rgba(255,255,255,.2)">Producerar...</div>')+'<button class="town-btn collect'+(hasRes?' glow':'')+'" onclick="townCollect('+i+')" '+(hasRes?'':'disabled')+'>'+( hasRes?'📥 Hämta':'⏳ Väntar')+'</button>'+(canUpgrade?'<button class="town-btn upgrade" onclick="townUpgrade('+i+')" style="margin-top:4px">⬆ Uppgradera ('+upCost+'🪙)</button>':'<div style="font:600 7px var(--ff-body);color:rgba(80,255,150,.5);text-align:center;margin-top:4px">✓ Max nivå</div>')+'</div>';
+  }).join('');
+  // Picker
+  var picker=$('townPicker');
+  if(picker){
+    if(_townPickerSlot>=0&&!d.slots[_townPickerSlot]){
+      picker.classList.add('open');
+      picker.innerHTML='<div style="font:700 9px var(--ff-head);color:rgba(255,255,255,.4);margin-bottom:6px">Välj byggnad för tomt '+(_townPickerSlot+1)+':</div>'
+        +Object.keys(TOWN_BLDS).map(function(k){
+          var bld=TOWN_BLDS[k];
+          var canAfford=(G.coins||0)>=bld.cost;
+          return '<div class="town-pick-row" onclick="townBuild('+_townPickerSlot+',\''+k+'\')" style="opacity:'+(canAfford?'1':'.4')+'"><span class="town-pick-emoji">'+bld.emoji+'</span><div class="town-pick-info"><div class="town-pick-name">'+bld.name+'</div><div class="town-pick-cost">'+bld.desc+' &bull; '+bld.cost+'🪙</div></div></div>';
+        }).join('')
+        +'<div onclick="_townPickerSlot=-1;_renderTown()" style="font:700 9px var(--ff-head);color:rgba(255,255,255,.3);text-align:center;padding:8px;cursor:pointer">✕ Avbryt</div>';
+    } else {
+      picker.classList.remove('open');
+      picker.innerHTML='';
+    }
+  }
 }
 
 </script>
