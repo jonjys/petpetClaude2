@@ -1496,6 +1496,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ FASHION SHOW ══ */
+.fash-panel{position:fixed;inset:0;background:#040208;z-index:1009;display:none;flex-direction:column;overflow:hidden}
+.fash-panel.open{display:flex}
+.fash-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0410,#040208)}
+.fash-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88dd,#cc44ff,#ff88dd);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fashShim 3s linear infinite}
+@keyframes fashShim{0%{background-position:0%}100%{background-position:200%}}
+.fash-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Runway */
+.fash-runway{background:linear-gradient(180deg,rgba(200,100,255,.06),rgba(100,50,200,.03));border:2px solid rgba(200,100,255,.15);border-radius:20px;padding:16px;margin-bottom:12px;text-align:center}
+.fash-pet{font-size:64px;display:block;margin-bottom:8px;position:relative;display:inline-block}
+.fash-outfit-badge{position:absolute;bottom:-4px;right:-10px;font-size:22px}
+.fash-score{font:900 22px var(--ff-head);color:#ff88dd;margin-bottom:2px}
+.fash-score-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+/* Stats */
+.fash-stats{display:flex;gap:8px;margin-bottom:12px}
+.fash-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(200,100,255,.1);border-radius:10px;padding:7px;text-align:center}
+.fash-stat-v{font:900 15px var(--ff-head);color:#cc44ff}
+.fash-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Wardrobe */
+.fash-ward-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.fash-wardrobe{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
+.fash-item{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:10px;text-align:center;cursor:pointer;transition:border-color .2s}
+.fash-item.equipped{border-color:rgba(200,100,255,.5);background:rgba(200,100,255,.06)}
+.fash-item.locked{opacity:.35;filter:grayscale(.7);cursor:default}
+.fash-item-emoji{font-size:28px;display:block;margin-bottom:3px}
+.fash-item-name{font:700 9px var(--ff-head);color:#fff;margin-bottom:2px}
+.fash-item-bonus{font:600 7px var(--ff-body);color:#cc44ff}
+.fash-item-cost{font:600 7px var(--ff-body);color:rgba(255,200,100,.7)}
+/* Show */
+.fash-show{background:rgba(255,255,255,.02);border:1px solid rgba(200,100,255,.12);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.fash-show-lbl{font:700 9px var(--ff-head);color:rgba(200,100,255,.5);letter-spacing:1px;margin-bottom:8px}
+.fash-show-btn{width:100%;background:linear-gradient(135deg,#330055,#660099);border:none;border-radius:12px;padding:12px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 0 16px rgba(200,100,255,.2)}
+.fash-show-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.fash-show-result{font:700 10px var(--ff-body);color:#ff88dd;text-align:center;margin-top:8px;min-height:16px}
+.fash-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET LOTTO ══ */
 .lotto-panel{position:fixed;inset:0;background:#020304;z-index:1008;display:none;flex-direction:column;overflow:hidden}
 .lotto-panel.open{display:flex}
@@ -10159,6 +10196,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
           <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
+          <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -10188,6 +10226,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
           <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
+          <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
@@ -10200,6 +10239,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
           <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
+          <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
@@ -10250,6 +10290,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openStk()"><div class="ddr-i">📈</div>Börs</div>
           <div class="ddr" onclick="cM();openDung()"><div class="ddr-i">🗡️</div>Dungeon</div>
           <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
+          <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10805,6 +10846,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- FASHION SHOW -->
+<div class="fash-panel" id="fashPanel">
+  <div class="fash-header">
+    <div class="fash-title">👗 MODESHOW</div>
+    <button class="close-btn" onclick="closeFash()">✕</button>
+  </div>
+  <div class="fash-scroll">
+    <div class="fash-runway">
+      <span class="fash-pet" id="fashPet">🐾<span class="fash-outfit-badge" id="fashBadge"></span></span>
+      <div class="fash-score" id="fashScore">0</div>
+      <div class="fash-score-lbl">Modescore</div>
+    </div>
+    <div class="fash-stats">
+      <div class="fash-stat"><div class="fash-stat-v" id="fashShows">0</div><div class="fash-stat-l">Shower</div></div>
+      <div class="fash-stat"><div class="fash-stat-v" id="fashWins">0</div><div class="fash-stat-l">Segrar</div></div>
+      <div class="fash-stat"><div class="fash-stat-v" id="fashEarned">0</div><div class="fash-stat-l">Tjänat</div></div>
+    </div>
+    <div class="fash-ward-lbl">GARDEROB</div>
+    <div class="fash-wardrobe" id="fashWardrobe"></div>
+    <div class="fash-show">
+      <div class="fash-show-lbl">TÄVLING (1 per timme)</div>
+      <button class="fash-show-btn" id="fashShowBtn" onclick="fashShow()">👑 Delta i Modeshow!</button>
+      <div class="fash-show-result" id="fashShowResult"></div>
+    </div>
+    <div class="fash-info">Kläder köps med mynt och ger stats! LCK & AGI avgör tävlingsresultatet!</div>
+  </div>
+</div>
 
 <!-- PET LOTTO -->
 <div class="lotto-panel" id="lottoPanel">
@@ -46122,6 +46192,121 @@ function _renderLottoStats(){
 
 function openLotto(){$('lottoPanel').classList.add('open');_lottoSelected=[];_renderLottoTicket();_renderLottoStats();}
 function closeLotto(){$('lottoPanel').classList.remove('open');}
+
+
+// FASHION SHOW
+const FASH_KEY = 'k0509_fash';
+const FASH_OUTFITS = [
+  {id:'cap',      emoji:'🎩', name:'Hatt',         cost:0,    bonus:{lck:5},           bonusText:'+5 LCK'},
+  {id:'bow',      emoji:'🎀', name:'Rosett',        cost:200,  bonus:{lck:8},           bonusText:'+8 LCK'},
+  {id:'glasses',  emoji:'🕶️', name:'Glasögon',      cost:300,  bonus:{int:8},           bonusText:'+8 INT'},
+  {id:'cape',     emoji:'🦸', name:'Superkappe',    cost:500,  bonus:{str:10,agi:5},   bonusText:'+10 STR +5 AGI'},
+  {id:'crown',    emoji:'👑', name:'Krona',         cost:800,  bonus:{lck:15,int:5},   bonusText:'+15 LCK +5 INT'},
+  {id:'armor',    emoji:'🛡️', name:'Rustning',      cost:600,  bonus:{str:8,end:12},   bonusText:'+8 STR +12 END'},
+  {id:'wings',    emoji:'🪽', name:'Vingar',        cost:1000, bonus:{agi:20},          bonusText:'+20 AGI'},
+  {id:'aura',     emoji:'✨', name:'Magisk Aura',   cost:1500, bonus:{int:15,lck:10},  bonusText:'+15 INT +10 LCK'},
+  {id:'rainbow',  emoji:'🌈', name:'Regnbågsdräkt', cost:2000, bonus:{str:8,agi:8,int:8,end:8,lck:8}, bonusText:'+8 ALLA'},
+];
+
+function _fashData(){try{return JSON.parse(localStorage.getItem(FASH_KEY)||'null');}catch(e){return null;}}
+function _fashSave(d){localStorage.setItem(FASH_KEY,JSON.stringify(d));}
+function _fashGetData(){
+  var d=_fashData();
+  if(!d) d={owned:['cap'],equipped:'cap',shows:0,wins:0,earned:0,lastShow:0};
+  return d;
+}
+
+function fashBuyOrEquip(id){
+  var item=FASH_OUTFITS.filter(function(o){return o.id===id;})[0];
+  if(!item) return;
+  var d=_fashGetData();
+  if(d.owned.indexOf(id)<0){
+    if((G.coins||0)<item.cost){showFloatBubble('Behöver '+item.cost+'🪙!','debuff');return;}
+    G.coins-=item.cost;save();
+    d.owned.push(id);
+    showFloatBubble(item.emoji+' Köpt: '+item.name+'!','buff');
+  }
+  // Unequip old
+  if(d.equipped){
+    var old=FASH_OUTFITS.filter(function(o){return o.id===d.equipped;})[0];
+    if(old) Object.keys(old.bonus).forEach(function(s){G[s]=Math.max(0,(G[s]||0)-old.bonus[s]);});
+  }
+  // Equip new
+  d.equipped=id;
+  Object.keys(item.bonus).forEach(function(s){G[s]=(G[s]||0)+item.bonus[s];});
+  save();
+  _fashSave(d);
+  showFloatBubble(item.emoji+' '+item.name+' iklädd! '+item.bonusText,'buff');
+  _renderFash();
+}
+
+function fashShow(){
+  var d=_fashGetData();
+  var now=Date.now();
+  if(d.lastShow&&(now-d.lastShow)<3600*1000){
+    var wait=Math.ceil((3600*1000-(now-d.lastShow))/60000);
+    showFloatBubble('Nästa show om '+wait+' min!','debuff');return;
+  }
+  d.lastShow=now;
+  var item=d.equipped?FASH_OUTFITS.filter(function(o){return o.id===d.equipped;})[0]:null;
+  var score=_fashScore(d,item);
+  // Compete vs NPCs
+  var npcScore=150+Math.floor(Math.random()*200);
+  var won=score>npcScore;
+  var place=won?Math.floor(Math.random()*3)+1:Math.floor(Math.random()*5)+4;
+  var prizes=[0,1000,500,250,100,50,25,10];
+  var coins=prizes[place]||10;
+  gainCoins(coins);gainXP(30,'lck');
+  if(place===1) gainKC(2);
+  d.shows=(d.shows||0)+1;
+  if(won) d.wins=(d.wins||0)+1;
+  d.earned=(d.earned||0)+coins;
+  _fashSave(d);
+  var res=$('fashShowResult');
+  if(res) res.textContent=(place===1?'🥇 ':place===2?'🥈 ':place===3?'🥉 ':'')+'Plats #'+place+'! Score:'+score+' vs NPC:'+npcScore+' → +'+coins+'🪙'+(place===1?' +2KC!':'');
+  showFloatBubble('👗 Plats #'+place+'! +'+coins+'🪙','buff');
+  checkAchievements();
+  _renderFash();
+}
+
+function _fashScore(d,item){
+  var base=Math.floor((G.lck||0)*1.5+(G.agi||0)*1.0+(G.int||0)*0.5);
+  var outfitBonus=item?Object.values(item.bonus).reduce(function(a,b){return a+b;},0)*2:0;
+  var variety=d.owned.length*10;
+  return base+outfitBonus+variety+Math.floor(Math.random()*50);
+}
+
+function openFash(){$('fashPanel').classList.add('open');_renderFash();}
+function closeFash(){$('fashPanel').classList.remove('open');}
+
+function _renderFash(){
+  var d=_fashGetData();
+  var item=d.equipped?FASH_OUTFITS.filter(function(o){return o.id===d.equipped;})[0]:null;
+  var fp=$('fashPet');if(fp) fp.childNodes[0].textContent=typeof evoGetEmoji==='function'?evoGetEmoji():'🐾';
+  var fb=$('fashBadge');if(fb) fb.textContent=item?item.emoji:'';
+  var fs=$('fashScore');if(fs) fs.textContent=_fashScore(d,item);
+  var fsh=$('fashShows');if(fsh) fsh.textContent=d.shows||0;
+  var fw=$('fashWins');if(fw) fw.textContent=d.wins||0;
+  var fe=$('fashEarned');if(fe) fe.textContent=d.earned||0;
+  var now=Date.now();
+  var canShow=!d.lastShow||(now-d.lastShow)>=3600*1000;
+  var fsb=$('fashShowBtn');if(fsb) fsb.disabled=!canShow;
+  // Wardrobe
+  var ward=$('fashWardrobe');
+  if(ward){
+    ward.innerHTML=FASH_OUTFITS.map(function(o){
+      var owned=d.owned.indexOf(o.id)>=0;
+      var equipped=d.equipped===o.id;
+      return '<div class="fash-item'+(equipped?' equipped':!owned?' locked':'')+'" onclick="fashBuyOrEquip(\''+o.id+'\')">'+
+        '<span class="fash-item-emoji">'+o.emoji+'</span>'+
+        '<div class="fash-item-name">'+o.name+'</div>'+
+        '<div class="fash-item-bonus">'+o.bonusText+'</div>'+
+        (owned?'<div class="fash-item-cost">'+(equipped?'✓ Iklädd':'Tryck för att klä på')+'</div>'
+              :'<div class="fash-item-cost">'+o.cost+'🪙</div>')+
+      '</div>';
+    }).join('');
+  }
+}
 
 </script>
 
