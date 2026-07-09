@@ -1483,6 +1483,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET MOOD BOARD ══ */
+.mood-panel{position:fixed;inset:0;background:#030008;z-index:996;display:none;flex-direction:column;overflow:hidden}
+.mood-panel.open{display:flex}
+.mood-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080010,#030008)}
+.mood-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88cc,#ffcc88,#88ffcc,#88ccff,#ff88cc);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:moodShim 4s linear infinite}
+@keyframes moodShim{0%{background-position:0%}100%{background-position:300%}}
+.mood-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Current mood */
+.mood-current{text-align:center;margin-bottom:16px}
+.mood-big-emoji{font-size:80px;display:block;margin-bottom:4px;animation:moodBounce 2s ease-in-out infinite}
+@keyframes moodBounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.05)}}
+.mood-current-name{font:900 18px var(--ff-head);color:#fff;margin-bottom:2px}
+.mood-current-desc{font:600 10px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:8px}
+.mood-current-bonus{font:700 9px var(--ff-head);color:#ffcc88;background:rgba(255,200,100,.08);border:1px solid rgba(255,200,100,.2);border-radius:8px;padding:4px 10px;display:inline-block}
+/* Pick row */
+.mood-pick-lbl{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px}
+.mood-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.mood-btn{background:rgba(255,255,255,.03);border:2px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:border-color .2s,background .2s}
+.mood-btn.selected{border-color:rgba(255,200,100,.6);background:rgba(255,200,100,.06)}
+.mood-btn-emoji{font-size:28px}
+.mood-btn-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.6)}
+.mood-set-btn{width:100%;background:linear-gradient(135deg,#220033,#440066);border:none;border-radius:14px;padding:13px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:14px;box-shadow:0 0 16px rgba(150,80,255,.3)}
+.mood-set-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+/* Log */
+.mood-log-lbl{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px}
+.mood-log{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.mood-log-entry{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:8px 12px}
+.mood-log-emoji{font-size:20px}
+.mood-log-info{flex:1}
+.mood-log-name{font:700 10px var(--ff-head);color:#fff}
+.mood-log-date{font:500 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.mood-streak{background:linear-gradient(135deg,rgba(255,200,0,.06),rgba(255,150,0,.06));border:1px solid rgba(255,200,0,.2);border-radius:12px;padding:10px 14px;text-align:center;margin-bottom:12px}
+.mood-streak-val{font:900 24px var(--ff-head);color:#ffcc00}
+.mood-streak-lbl{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.mood-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET HOROSCOPE ══ */
 .horo-panel{position:fixed;inset:0;background:#03000a;z-index:995;display:none;flex-direction:column;overflow:hidden}
 .horo-panel.open{display:flex}
@@ -9611,6 +9648,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Pet Racing</div>
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemilabb</div>
           <div class="ddr" onclick="cM();openHoro()"><div class="ddr-i">🔮</div>Horoskop</div>
+          <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">😊</div>Humör</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -9672,6 +9710,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTapr()"><div class="ddr-i">⚡</div>Speed Tap</div>
           <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">🌀</div>Element</div>
           <div class="ddr" onclick="cM();openHoro()"><div class="ddr-i">🔮</div>Horoskop</div>
+          <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">😊</div>Humör</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10214,6 +10253,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
       </div>
 
       
+
+
+<!-- PET MOOD BOARD -->
+<div class="mood-panel" id="moodPanel">
+  <div class="mood-header">
+    <div class="mood-title">😊 HUSDJURETS HUMÖR</div>
+    <button class="close-btn" onclick="closeMood()">✕</button>
+  </div>
+  <div class="mood-scroll">
+    <div class="mood-current">
+      <span class="mood-big-emoji" id="moodBigEmoji">😐</span>
+      <div class="mood-current-name" id="moodCurName">Neutralt</div>
+      <div class="mood-current-desc" id="moodCurDesc">Ditt husdjur mår okej idag.</div>
+      <div class="mood-current-bonus" id="moodCurBonus">Ingen bonus aktiv</div>
+    </div>
+    <div class="mood-streak">
+      <div class="mood-streak-val" id="moodStreak">0🔥</div>
+      <div class="mood-streak-lbl">Dagar i rad du registrerat humör</div>
+    </div>
+    <div class="mood-pick-lbl">VÄLJ DAGENS HUMÖR</div>
+    <div class="mood-grid" id="moodGrid"></div>
+    <button class="mood-set-btn" id="moodSetBtn" onclick="moodSet()">💾 Spara Humör (+50🪙 +20XP)</button>
+    <div class="mood-log-lbl">HUMÖRHISTORIK (7 DAGAR)</div>
+    <div class="mood-log" id="moodLog"></div>
+    <div class="mood-info">Registrera ditt husdjurs humör varje dag för att hålla streaket levande och få dagliga bonusar!</div>
+  </div>
+</div>
 
 <!-- PET HOROSCOPE -->
 <div class="horo-panel" id="horoPanel">
@@ -43147,6 +43213,130 @@ function _renderHoro(){
   var affirmIdx=_horoRand(seed+777,HORO_AFFIRMS.length);
   var af=$('horoAffirm');if(af) af.textContent='"'+HORO_AFFIRMS[affirmIdx]+'"';
   var cb=$('horoClaimBtn');if(cb){cb.disabled=d.claimed;cb.textContent=d.claimed?'✓ Dagens lycka hämtad':'✨ Hämta Dagens Lycka!';}
+}
+
+
+// PET MOOD BOARD
+const MOOD_KEY = 'k0509_mood';
+const MOOD_LIST = [
+  {id:'happy',    emoji:'😄', name:'Glad',       desc:'Ditt husdjur strålar av glädje!',          bonus:{lck:5},    bonusText:'+5 LCK idag'},
+  {id:'excited',  emoji:'🤩', name:'Upprymd',    desc:'Energin bubblar! Redo för äventyr!',        bonus:{agi:5},    bonusText:'+5 AGI idag'},
+  {id:'calm',     emoji:'😌', name:'Lugn',        desc:'En fridfull, harmonisk stämning råder.',    bonus:{int:5},    bonusText:'+5 INT idag'},
+  {id:'playful',  emoji:'😜', name:'Lekfull',     desc:'Busigt och glad — perfekt stämning!',      bonus:{lck:3,agi:3}, bonusText:'+3 LCK +3 AGI idag'},
+  {id:'sleepy',   emoji:'😴', name:'Sömnig',      desc:'Behöver lite vila men är glad ändå.',      bonus:{end:5},    bonusText:'+5 END idag'},
+  {id:'brave',    emoji:'😤', name:'Modig',       desc:'Redo att möta vilka utmaningar som helst!',bonus:{str:5},    bonusText:'+5 STR idag'},
+  {id:'curious',  emoji:'🧐', name:'Nyfiken',     desc:'Undersöker allt med stora nyfikna ögon.',  bonus:{int:4,lck:2}, bonusText:'+4 INT +2 LCK idag'},
+  {id:'loving',   emoji:'🥰', name:'Kärleksfull', desc:'Hjärtat svämmar över av kärlek och värme.',bonus:{end:3,lck:3}, bonusText:'+3 END +3 LCK idag'},
+  {id:'grumpy',   emoji:'😾', name:'Gnällig',     desc:'Lite grymtig — kanske hungrig?',           bonus:{str:3},    bonusText:'+3 STR (frustration→kraft)'},
+  {id:'sad',      emoji:'😢', name:'Ledsen',      desc:'Lite nere. Ge ditt husdjur en kram!',      bonus:{end:2},    bonusText:'+2 END (styrka i sorg)'},
+  {id:'surprised',emoji:'😲', name:'Förvånad',    desc:'Något oväntat hände! Ögonen vidöppna.',    bonus:{lck:4},    bonusText:'+4 LCK (överraskning!)'},
+  {id:'heroic',   emoji:'🦸', name:'Hjältemod',   desc:'I superhjälteläge — redo att rädda dagen!',bonus:{str:4,agi:4}, bonusText:'+4 STR +4 AGI idag'},
+];
+
+function _moodData(){try{return JSON.parse(localStorage.getItem(MOOD_KEY)||'null');}catch(e){return null;}}
+function _moodSave(d){localStorage.setItem(MOOD_KEY,JSON.stringify(d));}
+function _moodGetData(){
+  var d=_moodData();
+  if(!d) d={today:null,pick:null,log:[],streak:0,lastDay:null,bonusApplied:null};
+  return d;
+}
+
+var _moodSelected = null;
+
+function moodSet(){
+  if(!_moodSelected) return;
+  var d=_moodGetData();
+  var today=getTodayKey();
+  if(d.today===today){showFloatBubble('Humör redan registrerat idag!','debuff');return;}
+  // Streak
+  var yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+  var yk=[yesterday.getFullYear(),String(yesterday.getMonth()+1).padStart(2,'0'),String(yesterday.getDate()).padStart(2,'0')].join('-');
+  if(d.lastDay===yk) d.streak=(d.streak||0)+1;
+  else d.streak=1;
+  d.lastDay=today;d.today=today;d.pick=_moodSelected;
+  // Add to log
+  d.log.unshift({day:today,moodId:_moodSelected});
+  if(d.log.length>7) d.log=d.log.slice(0,7);
+  // Apply bonus
+  var mood=MOOD_LIST.filter(function(m){return m.id===_moodSelected;})[0];
+  if(mood&&mood.bonus){
+    d.bonusApplied=mood.bonus;
+    Object.keys(mood.bonus).forEach(function(stat){G[stat]=(G[stat]||0)+mood.bonus[stat];});
+    save();
+  }
+  _moodSave(d);
+  gainCoins(50);gainXP(20,'lck');
+  if(d.streak>=7) gainKC(1);
+  showFloatBubble('😊 Humör sparat! '+mood.emoji+' '+(d.streak>=7?' 🔥 +1KC streak-bonus!':''),'buff');
+  checkAchievements();
+  _renderMood();
+}
+
+function openMood(){$('moodPanel').classList.add('open');_moodSelected=null;_renderMood();}
+function closeMood(){$('moodPanel').classList.remove('open');}
+
+function _renderMood(){
+  var d=_moodGetData();
+  var today=getTodayKey();
+  var alreadySet=d.today===today;
+  // Current mood
+  var curMood=null;
+  if(d.pick) curMood=MOOD_LIST.filter(function(m){return m.id===d.pick;})[0]||null;
+  var be=$('moodBigEmoji');if(be) be.textContent=curMood?curMood.emoji:'😐';
+  var cn=$('moodCurName');if(cn) cn.textContent=curMood?curMood.name:'Ej registrerat';
+  var cd=$('moodCurDesc');if(cd) cd.textContent=curMood?curMood.desc:'Välj ett humör nedan!';
+  var cb=$('moodCurBonus');if(cb) cb.textContent=curMood&&alreadySet?curMood.bonusText:'Registrera för att aktivera bonus';
+  // Streak
+  var ms=$('moodStreak');if(ms) ms.textContent=(d.streak||0)+'🔥';
+  // Grid
+  var grid=$('moodGrid');
+  if(grid){
+    grid.innerHTML=MOOD_LIST.map(function(m){
+      var isSel=_moodSelected===m.id;
+      var isPast=alreadySet&&d.pick===m.id;
+      return '<div class="mood-btn'+(isSel||isPast?' selected':'')+(alreadySet?' style="pointer-events:none;opacity:.7"':'')+'" onclick="_moodPick(\''+m.id+'\')">'+
+        '<div class="mood-btn-emoji">'+m.emoji+'</div>'+
+        '<div class="mood-btn-name">'+m.name+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  // Set btn
+  var sb=$('moodSetBtn');
+  if(sb){
+    sb.disabled=alreadySet||!_moodSelected;
+    sb.textContent=alreadySet?'✓ Humör sparat idag':'💾 Spara Humör (+50🪙 +20XP)';
+  }
+  // Log
+  var log=$('moodLog');
+  if(log){
+    if(!d.log||!d.log.length){log.innerHTML='<div style="font:600 10px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;padding:12px">Ingen historik ännu</div>';}
+    else{
+      log.innerHTML=d.log.map(function(entry){
+        var m=MOOD_LIST.filter(function(x){return x.id===entry.moodId;})[0];
+        if(!m) return '';
+        return '<div class="mood-log-entry">'+
+          '<div class="mood-log-emoji">'+m.emoji+'</div>'+
+          '<div class="mood-log-info">'+
+            '<div class="mood-log-name">'+m.name+'</div>'+
+            '<div class="mood-log-date">'+entry.day+'</div>'+
+          '</div>'+
+        '</div>';
+      }).join('');
+    }
+  }
+}
+
+function _moodPick(id){
+  var d=_moodGetData();
+  if(d.today===getTodayKey()) return;
+  _moodSelected=id;
+  var sb=$('moodSetBtn');if(sb) sb.disabled=false;
+  var grid=$('moodGrid');
+  if(grid){
+    grid.querySelectorAll('.mood-btn').forEach(function(btn,i){
+      btn.classList.toggle('selected',MOOD_LIST[i].id===id);
+    });
+  }
 }
 
 </script>
