@@ -1448,6 +1448,50 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ FORTUNE TELLER ══ */
+.fort-panel{position:fixed;inset:0;background:#03000e;z-index:961;display:none;flex-direction:column;overflow:hidden}
+.fort-panel.open{display:flex}
+.fort-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#100020,#03000e)}
+.fort-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ddaaff,#ffaadd,#aadfff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.fort-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Oracle banner */
+.fort-oracle-area{background:radial-gradient(ellipse at 50% 40%,rgba(100,0,160,.15),rgba(3,0,14,.9));border:1.5px solid rgba(180,0,255,.2);border-radius:22px;padding:20px 16px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden;min-height:160px}
+.fort-crystal{font-size:52px;filter:drop-shadow(0 0 20px rgba(180,0,255,.7));animation:crystalGlow 2s ease-in-out infinite}
+@keyframes crystalGlow{0%,100%{filter:drop-shadow(0 0 16px rgba(180,0,255,.5))}50%{filter:drop-shadow(0 0 28px rgba(220,100,255,.8))}}
+.fort-oracle-msg{font:700 12px var(--ff-head);color:rgba(200,150,255,.8);margin-top:8px;line-height:1.5;font-style:italic}
+.fort-moon{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);margin-top:4px}
+/* KC row */
+.fort-kc-row{display:flex;align-items:center;gap:8px;background:rgba(180,0,255,.05);border:1px solid rgba(180,0,255,.2);border-radius:12px;padding:8px 12px;margin-bottom:12px}
+.fort-kc-val{font:900 16px var(--ff-head);color:#cc66ff;flex:1}
+/* Card spread */
+.fort-spread{display:flex;gap:10px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.fort-card{width:86px;min-height:130px;background:linear-gradient(160deg,#1a0030,#0d0020);border:2px solid rgba(180,0,255,.25);border-radius:16px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px 6px}
+.fort-card.flipped{border-color:rgba(200,150,255,.5);background:linear-gradient(160deg,#2a0050,#180030);box-shadow:0 0 18px rgba(180,0,255,.3)}
+.fort-card.grand{border-color:rgba(255,200,0,.4);box-shadow:0 0 14px rgba(255,180,0,.2)}
+.fort-card-back{font-size:28px;filter:drop-shadow(0 0 8px rgba(180,0,255,.5))}
+.fort-card-label{font:600 7px var(--ff-body);color:rgba(255,255,255,.25);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px}
+.fort-card-name{font:800 9px var(--ff-head);color:rgba(220,180,255,.9);margin:4px 0 2px}
+.fort-card-effect{font:600 8px var(--ff-body);color:rgba(255,255,255,.5);line-height:1.3}
+/* Read buttons */
+.fort-btn-row{display:flex;gap:8px;margin-bottom:14px}
+.fort-daily-btn{flex:2;background:linear-gradient(135deg,#5500aa,#8800ff);border:none;border-radius:14px;padding:12px;font:800 12px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(120,0,200,.4)}
+.fort-daily-btn:active{transform:scale(.97)}
+.fort-grand-btn{flex:1;background:rgba(255,200,0,.1);border:1.5px solid rgba(255,200,0,.35);border-radius:14px;padding:12px;font:800 11px var(--ff-head);color:#ffcc00;cursor:pointer}
+.fort-daily-btn:disabled{opacity:.4;cursor:default}
+/* Active buffs */
+.fort-buffs{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.fort-buff-row{display:flex;align-items:center;gap:10px;background:rgba(100,0,180,.06);border:1px solid rgba(140,0,220,.2);border-radius:10px;padding:8px 12px}
+.fort-buff-icon{font-size:18px}
+.fort-buff-name{font:700 10px var(--ff-head);color:rgba(255,255,255,.7);flex:1}
+.fort-buff-exp{font:600 8px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Card gallery */
+.fort-gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.fort-gal-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.05);border-radius:14px;padding:8px 4px;text-align:center}
+.fort-gal-card.seen{border-color:rgba(180,0,255,.3);background:rgba(100,0,160,.06)}
+.fort-gal-emoji{font-size:20px;display:block;margin-bottom:3px}
+.fort-gal-name{font:700 7px var(--ff-head);color:rgba(255,255,255,.5)}
+
 /* ══ RUNE WORKSHOP ══ */
 .rune-panel{position:fixed;inset:0;background:#040208;z-index:960;display:none;flex-direction:column;overflow:hidden}
 .rune-panel.open{display:flex}
@@ -8358,6 +8402,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
+          <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9576,6 +9621,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- FORTUNE TELLER -->
+<div class="fort-panel" id="fortPanel">
+  <div class="fort-header">
+    <div class="fort-title">🔮 SPÅKVINNA</div>
+    <button class="close-btn" onclick="closeFort()">✕</button>
+  </div>
+  <div class="fort-scroll">
+    <div class="fort-oracle-area">
+      <div class="fort-crystal">🔮</div>
+      <div class="fort-oracle-msg" id="fortMsg">Stjärnorna avslöjar din öde... Begär en läsning för att se din framtid</div>
+      <div class="fort-moon" id="fortMoon">🌙 Månfas: Halvmåne</div>
+    </div>
+    <div class="fort-kc-row">
+      <div><div class="fort-kc-val" id="fortKCVal">0 KC</div><div style="font:500 9px var(--ff-body);color:rgba(255,255,255,.3)">Ditt saldo</div></div>
+      <div style="font-size:22px">🔑</div>
+    </div>
+    <div class="fort-btn-row">
+      <button class="fort-daily-btn" id="fortDailyBtn" onclick="fortRead(false)">🃏 Daglig Läsning (Gratis)</button>
+      <button class="fort-grand-btn" onclick="fortRead(true)">👑 Grand 5 KC</button>
+    </div>
+    <div class="fort-spread" id="fortSpread"></div>
+    <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase">Aktiva Buffs</div>
+    <div class="fort-buffs" id="fortBuffs"></div>
+    <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase">Kortgalleri</div>
+    <div class="fort-gallery-grid" id="fortGallery"></div>
+  </div>
+</div>
 
 <!-- RUNE WORKSHOP -->
 <div class="rune-panel" id="runePanel">
@@ -36373,6 +36447,171 @@ function _renderRune(){
         +'</div>';
     }).join('');
   }
+}
+
+
+// FORTUNE TELLER
+const FORT_KEY = 'k0509_fort';
+const FORT_CARDS = [
+  {id:'sun',      name:'Solen',         emoji:'☀️', effect:'coinMult', val:1.5,  desc:'+50% mynt idag'},
+  {id:'moon',     name:'Månen',         emoji:'🌕', effect:'xpMult',   val:1.3,  desc:'+30% XP idag'},
+  {id:'star',     name:'Stjärnan',      emoji:'⭐', effect:'lckBonus', val:10,   desc:'+10 LCK idag'},
+  {id:'tower',    name:'Tornet',        emoji:'🗼', effect:'coins',    val:300,  desc:'+300 mynt direkt'},
+  {id:'emperor',  name:'Kejsaren',      emoji:'👑', effect:'kc',       val:3,    desc:'+3 KC direkt'},
+  {id:'high',     name:'Överkvinnan',   emoji:'🧙', effect:'xpMult',   val:2.0,  desc:'+100% XP idag'},
+  {id:'wheel',    name:'Ödeshjulet',    emoji:'🎡', effect:'coinMult', val:2.0,  desc:'×2 mynt idag'},
+  {id:'world',    name:'Världen',       emoji:'🌍', effect:'allStats', val:3,    desc:'+3 alla stats'},
+  {id:'death',    name:'Döden',         emoji:'💀', effect:'coins',    val:-100, desc:'-100 mynt (pech!)'},
+  {id:'devil',    name:'Djävulen',      emoji:'😈', effect:'coinMult', val:0.5,  desc:'×0.5 mynt idag'},
+  {id:'hieroph',  name:'Hierofanten',   emoji:'📖', effect:'xpMult',   val:1.5,  desc:'+50% XP idag'},
+  {id:'lovers',   name:'Älskarna',      emoji:'💞', effect:'kc',       val:5,    desc:'+5 KC direkt'},
+  {id:'chariot',  name:'Vagnen',        emoji:'🏎', effect:'agi',      val:5,    desc:'+5 AGI permanent'},
+  {id:'strength', name:'Styrkan',       emoji:'💪', effect:'str',      val:5,    desc:'+5 STR permanent'},
+  {id:'hermit',   name:'Eremiten',      emoji:'🧘', effect:'lckBonus', val:20,   desc:'+20 LCK idag'},
+  {id:'justice',  name:'Rättvisan',     emoji:'⚖️', effect:'coins',    val:500,  desc:'+500 mynt direkt'},
+  {id:'fool',     name:'Dåren',         emoji:'🤡', effect:'random',   val:0,    desc:'Slumpmässig effekt!'},
+  {id:'magician', name:'Magikern',      emoji:'🎩', effect:'xpMult',   val:3.0,  desc:'×3 XP idag'},
+  {id:'priestess',name:'Prästinnan',    emoji:'🌙', effect:'kc',       val:2,    desc:'+2 KC direkt'},
+  {id:'empress',  name:'Kejsarinnan',   emoji:'🌸', effect:'coinMult', val:1.75, desc:'+75% mynt idag'},
+  {id:'moon2',    name:'Halvmånen',     emoji:'🌛', effect:'lckBonus', val:15,   desc:'+15 LCK idag'},
+  {id:'sun2',     name:'Solsken',       emoji:'🌞', effect:'coins',    val:200,  desc:'+200 mynt direkt'},
+  {id:'judgment', name:'Domen',         emoji:'📯', effect:'allStats', val:5,    desc:'+5 alla stats'},
+  {id:'star2',    name:'Fallande Stjärna',emoji:'🌠',effect:'kc',      val:8,    desc:'+8 KC direkt'},
+];
+const FORT_MSGS = [
+  'De hemliga silkestrådar av öde väver sin väg till dig...',
+  'Stjärnorna sjunger ditt namn i nattens stillhet...',
+  'Ur mörkrets djup reser sig ditt svar...',
+  'Den kristallklara bollen avslöjar din väg...',
+  'Universums krafter konvergerar runt dig just nu...',
+  'Det förflutna är stängt, framtiden öppen — läs ditt öde...',
+];
+var _fortFlipped=[];
+var _fortCards=[];
+
+function _fortData(){try{return JSON.parse(localStorage.getItem(FORT_KEY)||'null');}catch(e){return null;}}
+function _fortSave(d){localStorage.setItem(FORT_KEY,JSON.stringify(d));}
+function _fortGetData(){var d=_fortData(); if(!d) d={dayKey:'',read:false,buffs:[],seenCards:{},totalReadings:0}; return d;}
+
+function openFort(){$('fortPanel').classList.add('open');_fortFlipped=[];_fortCards=[];_renderFort();}
+function closeFort(){$('fortPanel').classList.remove('open');}
+
+function fortRead(grand){
+  var d=_fortGetData();
+  var tk=getTodayKey();
+  if(!grand&&d.dayKey===tk&&d.read){showFloatBubble('Daglig läsning redan gjord! Kom tillbaka imorgon.','info');return;}
+  if(grand){
+    if((G.kc||0)<5){showFloatBubble('Inte nog KC! Behöver 5 KC','debuff');return;}
+    G.kc-=5; save();
+  }
+  if(!grand){d.dayKey=tk;d.read=true;}
+  d.totalReadings=(d.totalReadings||0)+1;
+  var count=grand?5:3;
+  // pick cards
+  var pool=FORT_CARDS.slice();
+  var picked=[];
+  for(var i=0;i<count;i++){
+    var idx=Math.floor(Math.random()*pool.length);
+    picked.push(pool.splice(idx,1)[0]);
+  }
+  _fortCards=picked;
+  _fortFlipped=[];
+  if(!d.seenCards) d.seenCards={};
+  picked.forEach(function(c){d.seenCards[c.id]=true;});
+  // Apply instant effects
+  var newBuffs=[];
+  picked.forEach(function(card){
+    if(!grand&&card.effect==='coinMult')  newBuffs.push({icon:card.emoji,name:card.name,effect:'coinMult',val:card.val,exp:Date.now()+24*3600000,desc:card.desc});
+    else if(!grand&&card.effect==='xpMult')  newBuffs.push({icon:card.emoji,name:card.name,effect:'xpMult',val:card.val,exp:Date.now()+24*3600000,desc:card.desc});
+    else if(!grand&&card.effect==='lckBonus')newBuffs.push({icon:card.emoji,name:card.name,effect:'lckBonus',val:card.val,exp:Date.now()+24*3600000,desc:card.desc});
+    else if(card.effect==='coins'){gainCoins(card.val);}
+    else if(card.effect==='kc'){gainKC(card.val);}
+    else if(card.effect==='allStats'){G.str=(G.str||0)+card.val;G.agi=(G.agi||0)+card.val;G.int=(G.int||0)+card.val;G.end=(G.end||0)+card.val;G.lck=(G.lck||0)+card.val;save();}
+    else if(card.effect==='str'){G.str=(G.str||0)+card.val;save();}
+    else if(card.effect==='agi'){G.agi=(G.agi||0)+card.val;save();}
+    else if(card.effect==='random'){var e2=Math.random();if(e2<0.5){gainCoins(Math.floor(Math.random()*1000));}else{gainKC(Math.floor(Math.random()*10)+1);}showFloatBubble('🎩 Slumpmässig förtrollning!','buff');}
+  });
+  // Filter expired buffs, add new
+  var now=Date.now();
+  d.buffs=(d.buffs||[]).filter(function(b){return b.exp>now;});
+  newBuffs.forEach(function(nb){
+    var existing=d.buffs.find(function(b){return b.effect===nb.effect;});
+    if(existing){existing.val=Math.max(existing.val,nb.val);existing.exp=Math.max(existing.exp,nb.exp);}
+    else d.buffs.push(nb);
+  });
+  _fortSave(d);
+  var msg=FORT_MSGS[Math.floor(Math.random()*FORT_MSGS.length)];
+  var msgEl=$('fortMsg'); if(msgEl) msgEl.textContent=msg;
+  misTrack('daily',1);
+  checkAchievements();
+  _renderFort();
+  // Auto-flip cards one by one
+  (function flipNext(i){
+    if(i>=_fortCards.length) return;
+    setTimeout(function(){_fortFlipped.push(i);_renderFortSpread();flipNext(i+1);},400*(i+1));
+  })(0);
+}
+
+function _renderFortSpread(){
+  var spread=$('fortSpread');
+  if(!spread||!_fortCards.length) return;
+  var labels=['Förflutet','Nutid','Framtid','Möjlighet','Potential'];
+  spread.innerHTML=_fortCards.map(function(card,i){
+    var flipped=_fortFlipped.indexOf(i)>=0;
+    return '<div class="fort-card'+(flipped?' flipped':'')+'" onclick="fortFlipCard('+i+')">'
+      +(flipped?
+        '<span style="font-size:24px">'+card.emoji+'</span><div class="fort-card-name">'+card.name+'</div><div class="fort-card-effect">'+card.desc+'</div>':
+        '<span class="fort-card-back">🌀</span>')
+      +'<div class="fort-card-label">'+(labels[i]||'Kort '+(i+1))+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function fortFlipCard(idx){
+  if(_fortFlipped.indexOf(idx)<0){_fortFlipped.push(idx);_renderFortSpread();}
+}
+
+function _renderFort(){
+  var d=_fortGetData();
+  var kv=$('fortKCVal'); if(kv) kv.textContent=(G.kc||0)+' KC';
+  // Moon phase
+  var dayOfMonth=new Date().getDate();
+  var phases=['🌑 Nymåne','🌒 Tilltagande','🌓 Halvmåne','🌔 Nästan full','🌕 Fullmåne','🌖 Avtagande','🌗 Sista kvart','🌘 Vissnade'];
+  var phase=phases[Math.floor(dayOfMonth/4)%phases.length];
+  var moon=$('fortMoon'); if(moon) moon.textContent=phase;
+  // Daily btn
+  var tk=getTodayKey();
+  var btn=$('fortDailyBtn');
+  if(btn){
+    if(d.dayKey===tk&&d.read){btn.textContent='✅ Läst idag';btn.disabled=true;}
+    else{btn.textContent='🃏 Daglig Läsning (Gratis)';btn.disabled=false;}
+  }
+  // Spread
+  _renderFortSpread();
+  // Buffs
+  var now=Date.now();
+  var buffsEl=$('fortBuffs');
+  if(buffsEl){
+    var active=(d.buffs||[]).filter(function(b){return b.exp>now;});
+    buffsEl.innerHTML=active.map(function(b){
+      var remaining=Math.ceil((b.exp-now)/3600000);
+      return '<div class="fort-buff-row"><span class="fort-buff-icon">'+b.icon+'</span><span class="fort-buff-name">'+b.name+'</span><span class="fort-buff-exp">'+remaining+'h kvar</span></div>';
+    }).join('')||'<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2)">Inga aktiva spåbuffs — gör en läsning!</div>';
+  }
+  // Gallery
+  var gallery=$('fortGallery');
+  if(gallery) gallery.innerHTML=FORT_CARDS.map(function(c){
+    var seen=!!(d.seenCards||{})[c.id];
+    return '<div class="fort-gal-card'+(seen?' seen':'')+'"><span class="fort-gal-emoji">'+(seen?c.emoji:'❓')+'</span><div class="fort-gal-name">'+(seen?c.name:'???')+'</div></div>';
+  }).join('');
+}
+
+function fortGetBuff(type){
+  var d=_fortGetData();
+  var now=Date.now();
+  var active=(d.buffs||[]).filter(function(b){return b.exp>now&&b.effect===type;});
+  if(!active.length) return 1;
+  return active.reduce(function(m,b){return m*b.val;},1);
 }
 
 </script>
