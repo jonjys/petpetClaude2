@@ -1444,6 +1444,45 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MEMORY DUEL ══ */
+.mem-panel{position:fixed;inset:0;background:#030810;z-index:957;display:none;flex-direction:column;overflow:hidden}
+.mem-panel.open{display:flex}
+.mem-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#030810,#08141e)}
+.mem-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ffcc,#00aaff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.mem-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Info bar */
+.mem-info-row{display:flex;gap:8px;margin-bottom:12px}
+.mem-info-box{flex:1;background:rgba(0,200,255,.05);border:1px solid rgba(0,200,255,.15);border-radius:12px;padding:8px;text-align:center}
+.mem-info-val{font:900 18px var(--ff-head);color:#00ccff}
+.mem-info-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+/* Difficulty tabs */
+.mem-diff-tabs{display:flex;gap:8px;margin-bottom:12px}
+.mem-diff-tab{flex:1;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:8px;text-align:center;cursor:pointer;font:700 10px var(--ff-head);color:rgba(255,255,255,.4);transition:all .15s}
+.mem-diff-tab.sel{background:rgba(0,200,255,.12);border-color:rgba(0,200,255,.4);color:#00ccff}
+/* Game area */
+.mem-game-area{background:rgba(0,200,255,.03);border:1.5px solid rgba(0,200,255,.1);border-radius:20px;padding:14px;margin-bottom:12px}
+.mem-status{font:700 12px var(--ff-head);color:rgba(255,255,255,.6);text-align:center;margin-bottom:10px;min-height:18px}
+/* Card grid */
+.mem-grid{display:grid;gap:8px;justify-content:center;margin-bottom:10px}
+.mem-card{background:rgba(0,150,220,.1);border:2px solid rgba(0,180,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;aspect-ratio:1;font-size:24px;user-select:none;-webkit-user-select:none}
+.mem-card.hidden{background:rgba(0,100,180,.12);border-color:rgba(0,150,220,.25)}
+.mem-card.hidden span{display:none}
+.mem-card.revealed{border-color:rgba(0,200,255,.5);background:rgba(0,200,255,.1)}
+.mem-card.matched{border-color:rgba(0,255,136,.5);background:rgba(0,255,136,.08);animation:memMatch .4s ease-out}
+.mem-card.wrong{border-color:rgba(255,68,85,.5);background:rgba(255,68,85,.08);animation:memWrong .3s ease-out}
+@keyframes memMatch{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes memWrong{0%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}100%{transform:translateX(0)}}
+/* Start/result */
+.mem-start-btn{display:block;width:100%;background:linear-gradient(135deg,#0066aa,#00aacc);border:none;border-radius:14px;padding:13px;font:800 15px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(0,150,220,.3)}
+.mem-start-btn:active{transform:scale(.97)}
+/* High scores */
+.mem-scores{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.mem-score-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:8px 10px}
+.mem-score-diff{font:700 10px var(--ff-head);color:#00aaff;width:60px}
+.mem-score-time{font:700 11px var(--ff-head);color:rgba(255,255,255,.7);flex:1}
+.mem-score-coins{font:800 11px var(--ff-head);color:#ffcc00}
+
 /* ══ CONSTELLATION MAP ══ */
 .star-panel{position:fixed;inset:0;background:#020008;z-index:956;display:none;flex-direction:column;overflow:hidden}
 .star-panel.open{display:flex}
@@ -8173,6 +8212,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFish()"><div class="ddr-i">🎣</div>Fiske</div>
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
+          <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9387,6 +9427,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- MEMORY DUEL -->
+<div class="mem-panel" id="memPanel">
+  <div class="mem-header">
+    <div class="mem-title">🃏 MEMORY DUEL</div>
+    <button class="close-btn" onclick="closeMem()">✕</button>
+  </div>
+  <div class="mem-scroll">
+    <div class="mem-info-row">
+      <div class="mem-info-box"><div class="mem-info-val" id="memDailyVal">0</div><div class="mem-info-lbl">Idag spelade</div></div>
+      <div class="mem-info-box"><div class="mem-info-val" id="memBestVal">—</div><div class="mem-info-lbl">Bästa tid</div></div>
+      <div class="mem-info-box"><div class="mem-info-val" id="memWinsVal">0</div><div class="mem-info-lbl">Totala vinster</div></div>
+    </div>
+    <div class="mem-diff-tabs">
+      <div class="mem-diff-tab" id="memTabEasy" onclick="memSetDiff('easy')">🟢 Lätt<br>3×4</div>
+      <div class="mem-diff-tab" id="memTabNormal" onclick="memSetDiff('normal')">🟡 Normal<br>4×4</div>
+      <div class="mem-diff-tab" id="memTabHard" onclick="memSetDiff('hard')">🔴 Svår<br>4×5</div>
+    </div>
+    <div class="mem-game-area">
+      <div class="mem-status" id="memStatus">Tryck Start för att spela!</div>
+      <div class="mem-grid" id="memGrid"></div>
+      <button class="mem-start-btn" id="memStartBtn" onclick="memStart()">▶ Starta spel</button>
+    </div>
+    <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px">BÄSTA TIDER</div>
+    <div class="mem-scores" id="memScores"></div>
+  </div>
+</div>
 
 <!-- CONSTELLATION MAP -->
 <div class="star-panel" id="starPanel">
@@ -35364,6 +35432,189 @@ function _renderStar(){
       +(full?'<div class="star-const-done">✅ AKTIV</div>':'<div class="star-const-btn">'+c.cost+' KC / stjärna</div>')
       +'</div>';
   }).join('');
+}
+
+
+// MEMORY DUEL
+const MEM_KEY = 'k0509_mem';
+const MEM_EMOJIS = ['🐣','🦁','🐉','🌸','⭐','🔥','💎','🌊','🍄','🎃','🦋','🌈','🎯','🏆','🧩','💜','🌙','🦊','🐸','🎸'];
+const MEM_DIFFS = {
+  easy:  {cols:3, rows:4, pairs:6,  label:'Lätt',  maxSec:60,  coins:50,  bonus:200},
+  normal:{cols:4, rows:4, pairs:8,  label:'Normal', maxSec:90,  coins:100, bonus:500},
+  hard:  {cols:4, rows:5, pairs:10, label:'Svår',   maxSec:120, coins:200, bonus:1200},
+};
+var _memDiff='normal';
+var _memCards=[];
+var _memFlipped=[];
+var _memMatched=[];
+var _memTimer=null;
+var _memSec=0;
+var _memPlaying=false;
+var _memLockInput=false;
+
+function _memData(){try{return JSON.parse(localStorage.getItem(MEM_KEY)||'null');}catch(e){return null;}}
+function _memSave(d){localStorage.setItem(MEM_KEY,JSON.stringify(d));}
+function _memGetData(){var d=_memData(); if(!d) d={best:{},wins:0,dayKey:'',dayCount:0}; return d;}
+
+function openMem(){$('memPanel').classList.add('open');_memPlaying=false;memSetDiff('normal');_renderMemMeta();}
+function closeMem(){
+  $('memPanel').classList.remove('open');
+  if(_memTimer){clearInterval(_memTimer);_memTimer=null;}
+  _memPlaying=false;
+}
+
+function memSetDiff(diff){
+  _memDiff=diff;
+  ['easy','normal','hard'].forEach(function(d){
+    var el=$('memTab'+d.charAt(0).toUpperCase()+d.slice(1));
+    if(el) el.className='mem-diff-tab'+(d===diff?' sel':'');
+  });
+  if(!_memPlaying) _renderMemGrid(false);
+}
+
+function memStart(){
+  if(_memTimer){clearInterval(_memTimer);_memTimer=null;}
+  _memPlaying=true;
+  _memFlipped=[];
+  _memMatched=[];
+  _memLockInput=false;
+  _memSec=0;
+  var cfg=MEM_DIFFS[_memDiff];
+  var total=cfg.pairs*2;
+  var pool=MEM_EMOJIS.slice(0,cfg.pairs);
+  var arr=pool.concat(pool);
+  // shuffle
+  for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}
+  _memCards=arr;
+  _renderMemGrid(true);
+  $('memStartBtn').style.display='none';
+  $('memStatus').textContent='🔎 Hitta alla par! Tid: 0s';
+  _memTimer=setInterval(function(){
+    _memSec++;
+    if(_memPlaying) $('memStatus').textContent='⏱ Tid: '+_memSec+'s | Par kvar: '+((cfg.pairs-_memMatched.length));
+    if(_memSec>=cfg.maxSec){_memTimeout();}
+  },1000);
+}
+
+function memFlip(idx){
+  if(!_memPlaying||_memLockInput) return;
+  if(_memMatched.indexOf(idx)>=0) return;
+  if(_memFlipped.indexOf(idx)>=0) return;
+  if(_memFlipped.length>=2) return;
+  _memFlipped.push(idx);
+  var card=$('memCard'+idx);
+  if(card){card.className='mem-card revealed';var sp=card.querySelector('span');if(sp)sp.style.display='block';}
+  if(_memFlipped.length===2){
+    _memLockInput=true;
+    var a=_memFlipped[0];var b=_memFlipped[1];
+    if(_memCards[a]===_memCards[b]){
+      setTimeout(function(){
+        _memMatched.push(a);_memMatched.push(b);
+        var ca=$('memCard'+a);var cb=$('memCard'+b);
+        if(ca) ca.className='mem-card matched';
+        if(cb) cb.className='mem-card matched';
+        _memFlipped=[];
+        _memLockInput=false;
+        var cfg=MEM_DIFFS[_memDiff];
+        if(_memMatched.length===cfg.pairs*2) _memWin();
+      },300);
+    } else {
+      setTimeout(function(){
+        var ca=$('memCard'+a);var cb=$('memCard'+b);
+        if(ca){ca.className='mem-card wrong';}
+        if(cb){cb.className='mem-card wrong';}
+        setTimeout(function(){
+          if(ca){ca.className='mem-card hidden';var s=ca.querySelector('span');if(s)s.style.display='none';}
+          if(cb){cb.className='mem-card hidden';var s=cb.querySelector('span');if(s)s.style.display='none';}
+          _memFlipped=[];
+          _memLockInput=false;
+        },400);
+      },200);
+    }
+  }
+}
+
+function _memWin(){
+  if(_memTimer){clearInterval(_memTimer);_memTimer=null;}
+  _memPlaying=false;
+  var cfg=MEM_DIFFS[_memDiff];
+  var d=_memGetData();
+  d.wins=(d.wins||0)+1;
+  var tk=getTodayKey();
+  if(d.dayKey!==tk){d.dayKey=tk;d.dayCount=0;}
+  d.dayCount=(d.dayCount||0)+1;
+  if(!d.best) d.best={};
+  var prevBest=d.best[_memDiff]||9999;
+  var newBest=_memSec<prevBest;
+  if(newBest) d.best[_memDiff]=_memSec;
+  var earned=cfg.coins;
+  if(_memSec<=cfg.maxSec*0.4) earned+=cfg.bonus;
+  gainCoins(earned);
+  _memSave(d);
+  var msg='🎉 Klar på '+_memSec+'s! +'+earned+' 🪙';
+  if(newBest) msg+=' 🏆 NYTT REKORD!';
+  $('memStatus').textContent=msg;
+  $('memStartBtn').textContent='▶ Spela igen';
+  $('memStartBtn').style.display='block';
+  showFloatBubble(msg,'buff');
+  misTrack('puzzle',1);
+  checkAchievements();
+  _renderMemMeta();
+}
+
+function _memTimeout(){
+  if(_memTimer){clearInterval(_memTimer);_memTimer=null;}
+  _memPlaying=false;
+  $('memStatus').textContent='⏰ Tiden ute! Försök igen.';
+  $('memStartBtn').textContent='▶ Spela igen';
+  $('memStartBtn').style.display='block';
+  showFloatBubble('Timedout! Prova igen 😅','debuff');
+}
+
+function _renderMemGrid(playing){
+  var cfg=MEM_DIFFS[_memDiff];
+  var grid=$('memGrid');
+  if(!grid) return;
+  grid.style.gridTemplateColumns='repeat('+cfg.cols+',1fr)';
+  grid.style.maxWidth=(cfg.cols*60+cfg.cols*8)+'px';
+  grid.style.margin='0 auto 10px';
+  if(!playing){
+    var dummy='';
+    for(var i=0;i<cfg.cols*cfg.rows;i++){
+      dummy+='<div class="mem-card hidden" style="width:52px;height:52px"><span>?</span></div>';
+    }
+    grid.innerHTML=dummy;
+    return;
+  }
+  var html='';
+  for(var i=0;i<_memCards.length;i++){
+    html+='<div class="mem-card hidden" id="memCard'+i+'" onclick="memFlip('+i+')" style="width:52px;height:52px"><span style="display:none">'+_memCards[i]+'</span></div>';
+  }
+  grid.innerHTML=html;
+}
+
+function _renderMemMeta(){
+  var d=_memGetData();
+  var tk=getTodayKey();
+  var dayCount=(d.dayKey===tk)?(d.dayCount||0):0;
+  var dv=$('memDailyVal'); if(dv) dv.textContent=dayCount;
+  var bv=$('memBestVal');
+  if(bv){
+    var bests=[];
+    ['easy','normal','hard'].forEach(function(diff){if(d.best&&d.best[diff]) bests.push(d.best[diff]+'s');});
+    bv.textContent=bests.length?bests[0]+'—':'—';
+  }
+  var wv=$('memWinsVal'); if(wv) wv.textContent=d.wins||0;
+  var sc=$('memScores');
+  if(sc){
+    var rows='';
+    ['easy','normal','hard'].forEach(function(diff){
+      var b=d.best&&d.best[diff]?d.best[diff]:null;
+      var cfg=MEM_DIFFS[diff];
+      rows+='<div class="mem-score-row"><div class="mem-score-diff">'+cfg.label+'</div><div class="mem-score-time">'+(b?b+'s':'—')+'</div><div class="mem-score-coins">+'+(b&&b<=cfg.maxSec*0.4?cfg.coins+cfg.bonus:cfg.coins)+' 🪙</div></div>';
+    });
+    sc.innerHTML=rows;
+  }
 }
 
 </script>
