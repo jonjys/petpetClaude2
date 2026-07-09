@@ -1498,6 +1498,51 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ COLOSSEUM ══ */
+.colo-panel{position:fixed;inset:0;background:#060200;z-index:1011;display:none;flex-direction:column;overflow:hidden}
+.colo-panel.open{display:flex}
+.colo-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#120400,#060200)}
+.colo-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff6600,#ffcc00,#ff6600);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:coloShim 2s linear infinite}
+@keyframes coloShim{0%{background-position:0%}100%{background-position:200%}}
+.colo-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Arena */
+.colo-arena{background:radial-gradient(ellipse,rgba(255,100,0,.06),rgba(0,0,0,0));border:2px solid rgba(255,100,0,.2);border-radius:20px;padding:14px;margin-bottom:12px;text-align:center}
+.colo-round{font:900 24px var(--ff-head);color:#ff6600}
+.colo-round-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.35)}
+.colo-vs-bar{display:flex;align-items:center;gap:10px;margin-top:12px}
+.colo-fighter{flex:1;text-align:center}
+.colo-f-emoji{font-size:36px;display:block;margin-bottom:3px}
+.colo-f-name{font:800 10px var(--ff-head);color:#fff}
+.colo-f-power{font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.colo-vs-lbl{font:900 16px var(--ff-head);color:#ff6600;flex-shrink:0}
+/* Bracket */
+.colo-bracket{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.colo-match{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,100,0,.1);border-radius:12px;padding:8px 12px}
+.colo-match.current{border-color:rgba(255,150,0,.4);background:rgba(255,100,0,.04)}
+.colo-match.won{border-color:rgba(68,255,136,.2);background:rgba(68,255,136,.02)}
+.colo-match.lost{border-color:rgba(255,50,50,.2);opacity:.6}
+.colo-match-round{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);min-width:60px}
+.colo-match-opp{flex:1}
+.colo-match-name{font:700 10px var(--ff-head);color:#fff}
+.colo-match-power{font:600 7px var(--ff-body);color:rgba(255,255,255,.35)}
+.colo-match-status{font:700 9px var(--ff-head)}
+.colo-match-status.won{color:#44ff88}
+.colo-match-status.lost{color:#ff4455}
+.colo-match-status.next{color:#ffcc00}
+.colo-match-reward{font:600 8px var(--ff-body);color:#ffcc00;text-align:right;flex-shrink:0}
+/* Controls */
+.colo-fight-btn{width:100%;background:linear-gradient(135deg,#440000,#990000);border:none;border-radius:14px;padding:13px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 0 20px rgba(255,0,0,.2)}
+.colo-fight-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.colo-reset-btn{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:9px;font:800 10px var(--ff-head);color:rgba(255,255,255,.5);cursor:pointer;margin-bottom:12px}
+/* Stats */
+.colo-stats{display:flex;gap:8px;margin-bottom:12px}
+.colo-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,100,0,.1);border-radius:10px;padding:7px;text-align:center}
+.colo-stat-v{font:900 15px var(--ff-head);color:#ff6600}
+.colo-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.colo-result{font:700 11px var(--ff-head);color:#ffcc00;text-align:center;min-height:20px;margin-bottom:8px}
+.colo-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ TIME WARP ══ */
 .twrp-panel{position:fixed;inset:0;background:#020306;z-index:1010;display:none;flex-direction:column;overflow:hidden}
 .twrp-panel.open{display:flex}
@@ -10234,6 +10279,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
+          <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -10265,6 +10311,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
+          <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
@@ -10279,6 +10326,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
+          <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
@@ -10331,6 +10379,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLotto()"><div class="ddr-i">🎰</div>Lotteri</div>
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
+          <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10888,6 +10937,44 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- COLOSSEUM -->
+<div class="colo-panel" id="coloPanel">
+  <div class="colo-header">
+    <div class="colo-title">🏟️ KOLOSSEUM</div>
+    <button class="close-btn" onclick="closeColo()">✕</button>
+  </div>
+  <div class="colo-scroll">
+    <div class="colo-stats">
+      <div class="colo-stat"><div class="colo-stat-v" id="coloBest">0</div><div class="colo-stat-l">Bästa runda</div></div>
+      <div class="colo-stat"><div class="colo-stat-v" id="coloChamp">0</div><div class="colo-stat-l">Mästerskap</div></div>
+      <div class="colo-stat"><div class="colo-stat-v" id="coloEarned">0</div><div class="colo-stat-l">Tjänat</div></div>
+    </div>
+    <div class="colo-arena">
+      <div class="colo-round" id="coloRound">Runda 1 av 4</div>
+      <div class="colo-round-lbl">BRACKET-TURNERING (4 rundor)</div>
+      <div class="colo-vs-bar">
+        <div class="colo-fighter">
+          <span class="colo-f-emoji" id="coloPlayerEmoji">🐾</span>
+          <div class="colo-f-name" id="coloPlayerName">Du</div>
+          <div class="colo-f-power" id="coloPlayerPower">Kraft: 0</div>
+        </div>
+        <div class="colo-vs-lbl">VS</div>
+        <div class="colo-fighter">
+          <span class="colo-f-emoji" id="coloOppEmoji">👹</span>
+          <div class="colo-f-name" id="coloOppName">Motståndare</div>
+          <div class="colo-f-power" id="coloOppPower">Kraft: 0</div>
+        </div>
+      </div>
+    </div>
+    <div class="colo-result" id="coloResult"></div>
+    <div class="colo-bracket" id="coloBracket"></div>
+    <button class="colo-fight-btn" id="coloFightBtn" onclick="coloFight()">⚔️ SLÅSS!</button>
+    <button class="colo-reset-btn" onclick="coloReset()">🔄 Starta Nytt Bracket</button>
+    <div class="colo-info">Stridsvärde = STR×0.4 + AGI×0.3 + END×0.2 + LCK×0.1 + INT×0.1</div>
+  </div>
+</div>
 
 <!-- TIME WARP -->
 <div class="twrp-panel" id="twrpPanel">
@@ -46490,6 +46577,145 @@ function _renderTwrp(){
         '</div>';
       }).join('')+
     '</div>';
+  }
+}
+
+
+// COLOSSEUM
+const COLO_KEY = 'k0509_colo';
+const COLO_OPPONENTS = [
+  {emoji:'🐭', name:'Lille Pip',     power:80,  reward:{coins:200,xp:40}},
+  {emoji:'🦊', name:'Räven Rex',     power:150, reward:{coins:400,xp:80}},
+  {emoji:'🐻', name:'Björnen Bror',  power:250, reward:{coins:700,xp:140}},
+  {emoji:'🦅', name:'Örnen Erik',    power:200, reward:{coins:500,xp:100}},
+  {emoji:'🐯', name:'Tigern Tor',    power:350, reward:{coins:1000,xp:200}},
+  {emoji:'🦁', name:'Lejonet Leo',   power:300, reward:{coins:800,xp:160}},
+  {emoji:'🐲', name:'Draken Dag',    power:500, reward:{coins:1500,xp:300,kc:2}},
+  {emoji:'👑', name:'KOLOSSEUM MÄSTAREN', power:700, reward:{coins:3000,xp:500,kc:5}},
+];
+const COLO_ROUNDS = 4; // Quarter, Semi, 3rd place, Final
+
+function _coloData(){try{return JSON.parse(localStorage.getItem(COLO_KEY)||'null');}catch(e){return null;}}
+function _coloSave(d){localStorage.setItem(COLO_KEY,JSON.stringify(d));}
+function _coloGetData(){
+  var d=_coloData();
+  if(!d) d={bracket:null,round:0,best:0,champ:0,earned:0};
+  return d;
+}
+
+function _coloPlayerPower(){
+  return Math.floor((G.str||0)*0.4+(G.agi||0)*0.3+(G.end||0)*0.2+(G.lck||0)*0.1+(G.int||0)*0.1);
+}
+
+function _coloGenBracket(){
+  // Pick 4 opponents for 4 rounds (seeded by week)
+  var day=getTodayKey();
+  var seed=0;for(var i=0;i<day.length;i++) seed=(seed*31+day.charCodeAt(i))>>>0;
+  var pool=COLO_OPPONENTS.slice();
+  // Shuffle
+  for(var j=pool.length-1;j>0;j--){
+    seed=(seed*1664525+1013904223)>>>0;
+    var k=seed%(j+1);
+    var tmp=pool[j];pool[j]=pool[k];pool[k]=tmp;
+  }
+  return pool.slice(0,COLO_ROUNDS).map(function(opp,i){
+    return {opp:opp,result:null,reward:opp.reward};
+  });
+}
+
+function coloReset(){
+  var d=_coloGetData();
+  d.bracket=_coloGenBracket();
+  d.round=0;
+  _coloSave(d);
+  var r=$('coloResult');if(r) r.textContent='';
+  _renderColo();
+}
+
+function coloFight(){
+  var d=_coloGetData();
+  if(!d.bracket) return;
+  if(d.round>=COLO_ROUNDS){showFloatBubble('Bracket klart! Starta ett nytt!','debuff');return;}
+  var match=d.bracket[d.round];
+  if(!match||match.result) return;
+  var playerPow=_coloPlayerPower()+Math.floor(Math.random()*30);
+  var oppPow=match.opp.power+Math.floor(Math.random()*50);
+  var won=playerPow>oppPow;
+  match.result=won?'won':'lost';
+  var res=$('coloResult');
+  if(won){
+    gainCoins(match.reward.coins);
+    gainXP(match.reward.xp,'str');
+    if(match.reward.kc) gainKC(match.reward.kc);
+    d.earned=(d.earned||0)+match.reward.coins;
+    var msg='⚔️ SEGER! ('+playerPow+' vs '+oppPow+') +'+match.reward.coins+'🪙 +'+match.reward.xp+'XP'+(match.reward.kc?' +'+match.reward.kc+'KC!':'');
+    if(res) res.textContent=msg;
+    showFloatBubble(match.opp.emoji+' Seger! +'+match.reward.coins+'🪙','buff');
+    d.round++;
+    if(d.round>d.best) d.best=d.round;
+    if(d.round>=COLO_ROUNDS){
+      d.champ=(d.champ||0)+1;
+      showFloatBubble('🏆 KOLOSSEUM MÄSTARE! +5KC!','buff');
+      gainKC(5);gainCoins(2000);
+    }
+  } else {
+    if(res) res.textContent='💀 Besegrad av '+match.opp.name+'! ('+playerPow+' vs '+oppPow+') Kom till runda '+(d.round+1);
+    showFloatBubble(match.opp.emoji+' Besegrad...','debuff');
+    // End bracket
+    if(d.round>d.best) d.best=d.round;
+    d.round=COLO_ROUNDS; // force end
+  }
+  misTrack('pvp',1);
+  _coloSave(d);
+  checkAchievements();
+  _renderColo();
+}
+
+function openColo(){
+  $('coloPanel').classList.add('open');
+  var d=_coloGetData();
+  if(!d.bracket) coloReset();
+  else _renderColo();
+}
+function closeColo(){$('coloPanel').classList.remove('open');}
+
+function _renderColo(){
+  var d=_coloGetData();
+  var cb=$('coloBest');if(cb) cb.textContent=d.best||0;
+  var cc=$('coloChamp');if(cc) cc.textContent=d.champ||0;
+  var ce=$('coloEarned');if(ce) ce.textContent=d.earned||0;
+  // Player
+  var pe=$('coloPlayerEmoji');if(pe) pe.textContent=typeof evoGetEmoji==='function'?evoGetEmoji():'🐾';
+  var pn=$('coloPlayerName');if(pn) pn.textContent=G.name||'Du';
+  var pp=$('coloPlayerPower');if(pp) pp.textContent='Kraft: '+_coloPlayerPower();
+  // Current opponent
+  var round=d.round;
+  var match=d.bracket&&d.bracket[Math.min(round,COLO_ROUNDS-1)];
+  var oe=$('coloOppEmoji');if(oe) oe.textContent=match?match.opp.emoji:'👹';
+  var on=$('coloOppName');if(on) on.textContent=match?match.opp.name:'Motståndare';
+  var op=$('coloOppPower');if(op) op.textContent='Kraft: '+(match?'~'+match.opp.power:'?');
+  // Round label
+  var rl=$('coloRound');if(rl) rl.textContent=round>=COLO_ROUNDS?'Bracket Klart!':'Runda '+(round+1)+' av '+COLO_ROUNDS;
+  // Fight btn
+  var fb=$('coloFightBtn');if(fb) fb.disabled=!d.bracket||round>=COLO_ROUNDS;
+  // Bracket list
+  var brac=$('coloBracket');
+  if(brac&&d.bracket){
+    brac.innerHTML=d.bracket.map(function(m,i){
+      var isCur=i===round&&round<COLO_ROUNDS;
+      var status=m.result?m.result:isCur?'next':'pending';
+      var labels={won:'✓ Seger',lost:'✗ Defeat',next:'← Näst',pending:'Väntar'};
+      var roundNames=['Kvartsfinalen','Semifinalen','3:e plats','FINALEN'];
+      return '<div class="colo-match'+(isCur?' current':m.result==='won'?' won':m.result==='lost'?' lost':'')+'">'+
+        '<div class="colo-match-round">'+roundNames[i]+'</div>'+
+        '<div class="colo-match-opp">'+
+          '<div class="colo-match-name">'+m.opp.emoji+' '+m.opp.name+'</div>'+
+          '<div class="colo-match-power">Kraft: ~'+m.opp.power+'</div>'+
+        '</div>'+
+        '<div class="colo-match-status '+(m.result||'next')+'">'+labels[status]+'</div>'+
+        '<div class="colo-match-reward">+'+m.reward.coins+'🪙</div>'+
+      '</div>';
+    }).join('');
   }
 }
 
