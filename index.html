@@ -1431,6 +1431,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET KITCHEN ══ */
+.kitchen-panel{position:fixed;inset:0;background:#06080a;z-index:944;display:none;flex-direction:column;overflow:hidden}
+.kitchen-panel.open{display:flex}
+.kitchen-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0c08,#06080a)}
+.kitchen-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8844,#ffcc00,#44ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.kitchen-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Cooking pot */
+.kitchen-pot{background:radial-gradient(ellipse at 50% 80%,rgba(255,136,68,.1),transparent 70%),linear-gradient(180deg,#0e0c06,#06080a);border:1.5px solid rgba(255,136,68,.2);border-radius:22px;padding:16px;margin-bottom:14px;text-align:center}
+.kitchen-pot-emoji{font-size:64px;display:block;margin-bottom:8px;filter:drop-shadow(0 0 12px rgba(255,136,68,.4))}
+.kitchen-pot-emoji.cooking{animation:potBubble 1s ease-in-out infinite}
+@keyframes potBubble{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.06) rotate(2deg)}}
+.kitchen-slot-row{display:flex;gap:10px;justify-content:center;margin-bottom:14px}
+.kitchen-slot{width:62px;height:62px;border-radius:14px;background:rgba(255,255,255,.04);border:2px dashed rgba(255,255,255,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;font-size:24px}
+.kitchen-slot.filled{border-style:solid;border-color:rgba(255,136,68,.4);background:rgba(255,136,68,.08)}
+.kitchen-slot-label{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);margin-top:2px}
+.kitchen-cook-btn{background:linear-gradient(135deg,#2a1400,#ff8844);border:none;border-radius:14px;color:#fff;font:900 14px var(--ff-head);padding:12px 32px;cursor:pointer;transition:all .15s;margin-bottom:6px}
+.kitchen-cook-btn:active{transform:scale(.96)}
+.kitchen-cook-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.kitchen-clear-btn{background:none;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:rgba(255,255,255,.4);font:700 10px var(--ff-head);padding:7px 16px;cursor:pointer}
+/* Ingredient grid */
+.kitchen-section-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.kitchen-ingredients{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.kitchen-ing{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:8px 6px;text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.kitchen-ing:active{transform:scale(.93)}
+.kitchen-ing.empty{opacity:.35;cursor:default}
+.kitchen-ing-emoji{font-size:24px;display:block;margin-bottom:2px}
+.kitchen-ing-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.6)}
+.kitchen-ing-qty{position:absolute;top:5px;right:7px;font:800 9px var(--ff-head);color:#ffcc00}
+/* Active buffs */
+.kitchen-buffs{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.15);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+.kitchen-buffs-title{font:700 10px var(--ff-head);color:rgba(0,255,136,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.kitchen-buff-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.kitchen-buff-icon{font-size:16px;width:24px;text-align:center}
+.kitchen-buff-name{flex:1;font:600 10px var(--ff-body);color:rgba(255,255,255,.7)}
+.kitchen-buff-time{font:700 9px var(--ff-head);color:rgba(0,255,136,.8)}
+/* Recipe book */
+.kitchen-recipes{display:flex;flex-direction:column;gap:8px}
+.kitchen-recipe{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.06);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+.kitchen-recipe.unknown{opacity:.4}
+.kitchen-recipe-result{font-size:28px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border-radius:10px;flex-shrink:0}
+.kitchen-recipe-info{flex:1}
+.kitchen-recipe-name{font:700 11px var(--ff-head);color:#fff;margin-bottom:3px}
+.kitchen-recipe-ings{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:3px}
+.kitchen-recipe-effect{font:700 9px var(--ff-head);color:#44ff88}
+
 /* ══ PET ACHIEVEMENTS ══ */
 .ach-panel{position:fixed;inset:0;background:#060608;z-index:943;display:none;flex-direction:column;overflow:hidden}
 .ach-panel.open{display:flex}
@@ -7587,6 +7633,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Gym</div>
           <div class="ddr" onclick="cM();openExp()"><div class="ddr-i">🗺️</div>Expedition</div>
           <div class="ddr" onclick="cM();openAch()"><div class="ddr-i">🏆</div>Achievements</div>
+          <div class="ddr" onclick="cM();openKitchen()"><div class="ddr-i">🍳</div>Kök</div>
         </div>
       </div>
     </div>
@@ -8756,6 +8803,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET KITCHEN -->
+<div class="kitchen-panel" id="kitchenPanel">
+  <div class="kitchen-header">
+    <div class="kitchen-title">🍳 KÖTT</div>
+    <button class="close-btn" onclick="closeKitchen()">✕</button>
+  </div>
+  <div class="kitchen-scroll">
+    <div class="kitchen-pot">
+      <span class="kitchen-pot-emoji" id="kitchenPotEmoji">🍲</span>
+      <div class="kitchen-slot-row" id="kitchenSlots"></div>
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button class="kitchen-cook-btn" id="kitchenCookBtn" onclick="kitchenCook()" disabled>🔥 Koka!</button>
+        <button class="kitchen-clear-btn" onclick="kitchenClear()">✕ Rensa</button>
+      </div>
+    </div>
+    <div id="kitchenBuffsZone"></div>
+    <div class="kitchen-section-title">🧪 Ingredienser</div>
+    <div class="kitchen-ingredients" id="kitchenIngredients"></div>
+    <div class="kitchen-section-title">📖 Receptbok</div>
+    <div class="kitchen-recipes" id="kitchenRecipes"></div>
+  </div>
+</div>
 
 <!-- PET ACHIEVEMENTS -->
 <div class="ach-panel" id="achPanel">
@@ -32122,6 +32193,218 @@ function checkAchievements(){
     }
   });
   return any;
+}
+
+
+// PET KITCHEN SYSTEM
+const KITCHEN_KEY = 'k0509_kitchen';
+const KITCHEN_INGS = [
+  {id:'herb',      emoji:'🌿', name:'Ört',          src:'ranch'},
+  {id:'mushroom',  emoji:'🍄', name:'Svamp',         src:'ranch'},
+  {id:'berry',     emoji:'🫐', name:'Bär',           src:'ranch'},
+  {id:'carrot',    emoji:'🥕', name:'Morot',         src:'ranch'},
+  {id:'fish',      emoji:'🐟', name:'Fisk',          buyCoins:50},
+  {id:'egg',       emoji:'🥚', name:'Ägg',           buyCoins:30},
+  {id:'milk',      emoji:'🥛', name:'Mjölk',         buyCoins:40},
+  {id:'honey',     emoji:'🍯', name:'Honung',        buyCoins:80},
+  {id:'spice',     emoji:'🌶️', name:'Krydda',        buyCoins:60},
+  {id:'bread',     emoji:'🍞', name:'Bröd',          buyCoins:25},
+  {id:'meat',      emoji:'🥩', name:'Kött',          buyCoins:120},
+  {id:'crystal',   emoji:'💎', name:'Magikristall',  src:'crafting'},
+];
+const KITCHEN_RECIPES = [
+  {id:'herb_tea',    name:'Örtte',            emoji:'🍵', ingredients:{herb:2,water:0},      buff:{id:'xpboost',name:'XP Boost',emoji:'⭐',mult:1.5,dur:10*60*1000},  desc:'+50% XP i 10min'},
+  {id:'berry_juice', name:'Bärjuice',         emoji:'🧃', ingredients:{berry:2,honey:1},     buff:{id:'coinboost',name:'Mynt Boost',emoji:'💰',mult:1.5,dur:8*60*1000}, desc:'+50% Mynt i 8min'},
+  {id:'mushroom_soup',name:'Svampsoppa',      emoji:'🍲', ingredients:{mushroom:2,herb:1},   buff:{id:'hpboost',name:'HP Regen',emoji:'❤️',heal:50,dur:5*60*1000},    desc:'+50 HP nu'},
+  {id:'carrot_stew', name:'Morotsgyta',       emoji:'🥣', ingredients:{carrot:3,meat:1},     buff:{id:'atkboost',name:'Attack Boost',emoji:'⚔️',mult:1.3,dur:15*60*1000},desc:'+30% Attack i 15min'},
+  {id:'fish_n_chips',name:'Fisk & Chips',     emoji:'🍟', ingredients:{fish:1,bread:2},      buff:{id:'defboost',name:'Försvarsbonus',emoji:'🛡️',mul:1.4,dur:12*60*1000},desc:'+40% Def i 12min'},
+  {id:'power_shake', name:'Power Shake',      emoji:'💪', ingredients:{milk:2,egg:2,honey:1},buff:{id:'statsboost',name:'All Stats',emoji:'💪',statAdd:5,dur:20*60*1000},desc:'+5 i alla stats i 20min'},
+  {id:'spice_brew',  name:'Kryddbrygd',       emoji:'🔮', ingredients:{spice:2,crystal:1},   buff:{id:'magicboost',name:'Magi Boost',emoji:'🔮',mult:2.0,dur:8*60*1000}, desc:'×2 Magi i 8min'},
+  {id:'feast',       name:'Storjubelfest',    emoji:'🍖', ingredients:{meat:2,carrot:2,spice:1,bread:1},buff:{id:'feast',name:'Fullbordad Fest',emoji:'🎉',xp:500,coins:500,dur:0},desc:'+500 XP & Mynt direkt'},
+];
+
+let _kitchenSlots = [null, null];  // up to 2 ingredients
+
+function _kitchenLoad(){try{return JSON.parse(localStorage.getItem(KITCHEN_KEY)||'null');}catch(e){return null;}}
+function _kitchenSave(d){localStorage.setItem(KITCHEN_KEY,JSON.stringify(d));}
+function _kitchenData(){
+  var d=_kitchenLoad();
+  if(!d) d={inv:{},buffs:{},discovered:[]};
+  return d;
+}
+
+function openKitchen(){
+  $('kitchenPanel').classList.add('open');
+  _renderKitchen();
+}
+function closeKitchen(){
+  $('kitchenPanel').classList.remove('open');
+}
+
+function _renderKitchen(){
+  var d=_kitchenData();
+  var now=Date.now();
+  // Slots
+  var slotsEl=$('kitchenSlots');
+  if(slotsEl){
+    var html='';
+    for(var i=0;i<2;i++){
+      var slotIng=_kitchenSlots[i];
+      var ing=slotIng?KITCHEN_INGS.find(function(x){return x.id===slotIng;}):null;
+      html+='<div class="kitchen-slot'+(ing?' filled':'')+'" onclick="kitchenSlotClick('+i+')">'+
+        (ing?'<span>'+ing.emoji+'</span><span class="kitchen-slot-label">'+ing.name+'</span>':'<span>+</span><span class="kitchen-slot-label">Lägg till</span>')+
+        '</div>';
+    }
+    slotsEl.innerHTML=html;
+  }
+  // Cook btn
+  var cBtn=$('kitchenCookBtn');
+  if(cBtn) cBtn.disabled=!_kitchenCanCook();
+  // Pot emoji
+  var pe=$('kitchenPotEmoji');
+  if(pe){
+    var filled=_kitchenSlots.filter(function(s){return s;}).length;
+    pe.textContent=filled>0?'🔥':'🍲';
+    if(filled>0) pe.classList.add('cooking'); else pe.classList.remove('cooking');
+  }
+  // Active buffs
+  var bz=$('kitchenBuffsZone');
+  if(bz){
+    var activeBuffs=Object.values(d.buffs||{}).filter(function(b){return b.endTs>now;});
+    if(activeBuffs.length>0){
+      bz.innerHTML='<div class="kitchen-buffs"><div class="kitchen-buffs-title">✨ Aktiva Buffs</div>'+
+        activeBuffs.map(function(b){
+          var minLeft=Math.ceil((b.endTs-now)/60000);
+          return '<div class="kitchen-buff-row"><span class="kitchen-buff-icon">'+b.emoji+'</span>'+
+            '<span class="kitchen-buff-name">'+b.name+'</span>'+
+            '<span class="kitchen-buff-time">'+minLeft+'min</span></div>';
+        }).join('')+'</div>';
+    } else {
+      bz.innerHTML='';
+    }
+  }
+  // Ingredients
+  var iEl=$('kitchenIngredients');
+  if(iEl) iEl.innerHTML=KITCHEN_INGS.map(function(ing){
+    var qty=d.inv[ing.id]||0;
+    var isEmpty=qty<1;
+    return '<div class="kitchen-ing'+(isEmpty?' empty':'')+'" onclick="kitchenAddToSlot(''+ing.id+'')">'+
+      '<div class="kitchen-ing-qty">'+qty+'</div>'+
+      '<span class="kitchen-ing-emoji">'+ing.emoji+'</span>'+
+      '<div class="kitchen-ing-name">'+ing.name+'</div>'+
+      (ing.buyCoins?'<div style="font:600 7px var(--ff-body);color:rgba(255,204,0,.6);margin-top:2px">'+ing.buyCoins+'💰</div>':'')+
+      (!isEmpty||ing.buyCoins?'<button style="margin-top:4px;background:rgba(255,255,255,.08);border:none;border-radius:6px;color:rgba(255,255,255,.6);font:700 7px var(--ff-head);padding:2px 6px;cursor:pointer" onclick="event.stopPropagation();kitchenBuyIng(''+ing.id+'')">Köp</button>':'')+
+      '</div>';
+  }).join('');
+  // Recipes
+  var rEl=$('kitchenRecipes');
+  if(rEl) rEl.innerHTML=KITCHEN_RECIPES.map(function(rec){
+    var isDiscovered=(d.discovered||[]).indexOf(rec.id)>=0;
+    var ingsText=Object.keys(rec.ingredients).map(function(k){
+      var ing=KITCHEN_INGS.find(function(x){return x.id===k;});
+      return (ing?ing.emoji:k)+'×'+rec.ingredients[k];
+    }).join(' + ');
+    return '<div class="kitchen-recipe'+(isDiscovered?'':' unknown')+'">'+
+      '<div class="kitchen-recipe-result">'+rec.emoji+'</div>'+
+      '<div class="kitchen-recipe-info">'+
+      '<div class="kitchen-recipe-name">'+(isDiscovered?rec.name:'???')+'</div>'+
+      '<div class="kitchen-recipe-ings">'+(isDiscovered?ingsText:'Oupptäckt recept')+'</div>'+
+      (isDiscovered?'<div class="kitchen-recipe-effect">'+rec.desc+'</div>':'')+
+      '</div>'+
+      '</div>';
+  }).join('');
+}
+
+function kitchenAddToSlot(ingId){
+  var d=_kitchenData();
+  if((d.inv[ingId]||0)<1) return;
+  var emptyIdx=_kitchenSlots.indexOf(null);
+  if(emptyIdx<0){_kitchenSlots[1]=ingId;}
+  else {_kitchenSlots[emptyIdx]=ingId;}
+  _renderKitchen();
+}
+
+function kitchenSlotClick(idx){
+  if(_kitchenSlots[idx]) _kitchenSlots[idx]=null;
+  _renderKitchen();
+}
+
+function kitchenClear(){
+  _kitchenSlots=[null,null];
+  _renderKitchen();
+}
+
+function _kitchenCanCook(){
+  return _kitchenSlots.some(function(s){return s;});
+}
+
+function kitchenBuyIng(ingId){
+  var ing=KITCHEN_INGS.find(function(x){return x.id===ingId;});
+  if(!ing||!ing.buyCoins) return;
+  if((G.coins||0)<ing.buyCoins){showFloatBubble('Inte nog med mynt!','debuff');return;}
+  G.coins-=ing.buyCoins;
+  save();
+  var d=_kitchenData();
+  d.inv[ingId]=(d.inv[ingId]||0)+3;
+  _kitchenSave(d);
+  showFloatBubble(ing.emoji+' Köpte 3x '+ing.name,'buff');
+  _renderKitchen();
+}
+
+function kitchenCook(){
+  var d=_kitchenData();
+  var usedIngs=_kitchenSlots.filter(function(s){return s;});
+  if(usedIngs.length===0) return;
+  // Check inv
+  var counts={};
+  usedIngs.forEach(function(id){counts[id]=(counts[id]||0)+1;});
+  for(var id in counts){
+    if((d.inv[id]||0)<counts[id]){showFloatBubble('Inte nog av ingredienser!','debuff');return;}
+  }
+  // Deduct
+  for(var id2 in counts) d.inv[id2]=(d.inv[id2]||0)-counts[id2];
+  // Match recipe — find best match
+  var matched=null;
+  KITCHEN_RECIPES.forEach(function(rec){
+    var needed=rec.ingredients;
+    var match=true;
+    Object.keys(needed).forEach(function(k){
+      if((counts[k]||0)<needed[k]) match=false;
+    });
+    if(match) matched=rec;
+  });
+  if(matched){
+    // Discover
+    if((d.discovered||[]).indexOf(matched.id)<0){
+      if(!d.discovered) d.discovered=[];
+      d.discovered.push(matched.id);
+    }
+    // Apply buff
+    var buff=matched.buff;
+    if(buff.dur>0){
+      if(!d.buffs) d.buffs={};
+      d.buffs[buff.id]={id:buff.id,name:buff.name,emoji:buff.emoji,endTs:Date.now()+buff.dur};
+    }
+    if(buff.xp) gainXP(buff.xp,'action');
+    if(buff.coins) gainCoins(buff.coins);
+    if(buff.heal&&_dng) _dng.heroHP=Math.min(_dng.heroMaxHP||100,(_dng.heroHP||0)+buff.heal);
+    _kitchenSave(d);
+    gainXP(80,'action');
+    showFloatBubble('🍳 '+matched.emoji+' '+matched.name+' klar! '+matched.desc,'buff');
+  } else {
+    _kitchenSave(d);
+    showFloatBubble('🤔 Inget recept matchade — prova annat!','info');
+  }
+  _kitchenSlots=[null,null];
+  _renderKitchen();
+}
+
+// Give starting ingredients from ranch harvests
+function kitchenGrantRanchIng(ingId, qty){
+  var d=_kitchenData();
+  if(!d.inv) d.inv={};
+  d.inv[ingId]=(d.inv[ingId]||0)+(qty||1);
+  _kitchenSave(d);
 }
 
 </script>
