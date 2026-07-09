@@ -1433,6 +1433,54 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TREASURE HUNT ══ */
+.hunt-panel{position:fixed;inset:0;background:#060a04;z-index:946;display:none;flex-direction:column;overflow:hidden}
+.hunt-panel.open{display:flex}
+.hunt-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0c1008,#060a04)}
+.hunt-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8844,#44ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hunt-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Toolbar */
+.hunt-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px}
+.hunt-info{background:rgba(255,204,0,.07);border:1px solid rgba(255,204,0,.2);border-radius:12px;padding:8px 12px;flex:1}
+.hunt-info-val{font:900 16px var(--ff-head);color:#ffcc00}
+.hunt-info-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.hunt-new-btn{background:linear-gradient(135deg,#1a1200,#ffcc00);border:none;border-radius:12px;color:#000;font:900 11px var(--ff-head);padding:9px 14px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.hunt-new-btn:active{transform:scale(.96)}
+/* Grid */
+.hunt-map{background:linear-gradient(180deg,#0e1208,#060a04);border:1.5px solid rgba(255,204,0,.15);border-radius:20px;padding:14px;margin-bottom:12px}
+.hunt-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-bottom:10px}
+.hunt-cell{aspect-ratio:1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;border:1.5px solid rgba(255,255,255,.06);background:rgba(255,255,255,.04);transition:all .1s;position:relative}
+.hunt-cell:active{transform:scale(.9)}
+.hunt-cell.revealed{cursor:default;border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.07)}
+.hunt-cell.revealed:active{transform:none}
+.hunt-cell.treasure{border-color:rgba(255,204,0,.5);background:rgba(255,204,0,.1);animation:huntGlow .6s ease-out}
+.hunt-cell.curse{border-color:rgba(255,68,85,.4);background:rgba(255,68,85,.08)}
+.hunt-cell.empty{background:rgba(255,255,255,.03)}
+@keyframes huntGlow{0%{box-shadow:0 0 20px rgba(255,204,0,.6)}100%{box-shadow:none}}
+.hunt-digs{font:700 10px var(--ff-head);color:rgba(255,255,255,.5);text-align:center;margin-bottom:6px}
+.hunt-digs span{color:#ffcc00}
+/* Legend */
+.hunt-legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+.hunt-leg-item{display:flex;align-items:center;gap:4px;font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+/* Result banner */
+.hunt-result{background:rgba(255,204,0,.08);border:1.5px solid rgba(255,204,0,.25);border-radius:16px;padding:12px 14px;text-align:center;margin-bottom:12px}
+.hunt-result-emoji{font-size:36px;display:block;margin-bottom:6px}
+.hunt-result-name{font:900 15px var(--ff-head);color:#ffcc00;margin-bottom:4px}
+.hunt-result-val{font:700 11px var(--ff-head);color:rgba(255,255,255,.7)}
+/* Stats */
+.hunt-stats-row{display:flex;gap:8px;margin-bottom:12px}
+.hunt-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.hunt-stat-val{font:800 14px var(--ff-head);color:#ffcc00}
+.hunt-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+/* Relic collection */
+.hunt-relics{background:rgba(170,68,255,.04);border:1px solid rgba(170,68,255,.15);border-radius:16px;padding:12px 14px}
+.hunt-relics-title{font:700 10px var(--ff-head);color:rgba(170,68,255,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.hunt-relic-grid{display:flex;gap:8px;flex-wrap:wrap}
+.hunt-relic{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.hunt-relic.found{background:rgba(170,68,255,.12);border:1.5px solid rgba(170,68,255,.3)}
+.hunt-relic.missing{background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.1);filter:grayscale(1);opacity:.4}
+
 /* ══ DAILY MISSIONS ══ */
 .mis-panel{position:fixed;inset:0;background:#04080a;z-index:945;display:none;flex-direction:column;overflow:hidden}
 .mis-panel.open{display:flex}
@@ -7683,6 +7731,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAch()"><div class="ddr-i">🏆</div>Achievements</div>
           <div class="ddr" onclick="cM();openKitchen()"><div class="ddr-i">🍳</div>Kök</div>
           <div class="ddr" onclick="cM();openMis()"><div class="ddr-i">🎯</div>Uppdrag</div>
+          <div class="ddr" onclick="cM();openHunt()"><div class="ddr-i">🗺️</div>Skattjakt</div>
         </div>
       </div>
     </div>
@@ -8854,6 +8903,44 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- TREASURE HUNT -->
+<div class="hunt-panel" id="huntPanel">
+  <div class="hunt-header">
+    <div class="hunt-title">🗺️ SKATTJAKT</div>
+    <button class="close-btn" onclick="closeHunt()">✕</button>
+  </div>
+  <div class="hunt-scroll">
+    <div class="hunt-toolbar">
+      <div class="hunt-info"><div class="hunt-info-val" id="huntDiamonds">3</div><div class="hunt-info-label">⛏️ Grävningar kvar</div></div>
+      <div class="hunt-info"><div class="hunt-info-val" id="huntFoundToday">0</div><div class="hunt-info-label">Skatter hittade idag</div></div>
+      <button class="hunt-new-btn" onclick="huntNewGrid()">🗺️ Ny Karta (50💰)</button>
+    </div>
+    <div class="hunt-map">
+      <div class="hunt-grid" id="huntGrid"></div>
+      <div class="hunt-digs">⛏️ <span id="huntDigsLeft">6</span> grävningar kvar på denna karta</div>
+      <div class="hunt-legend">
+        <div class="hunt-leg-item">🪙 Mynt</div>
+        <div class="hunt-leg-item">💎 Ädelsten</div>
+        <div class="hunt-leg-item">🏺 Relikt</div>
+        <div class="hunt-leg-item">⭐ XP-källa</div>
+        <div class="hunt-leg-item">💀 Förbannelse</div>
+        <div class="hunt-leg-item">🕳️ Tom</div>
+      </div>
+    </div>
+    <div id="huntResultZone"></div>
+    <div class="hunt-stats-row">
+      <div class="hunt-stat"><div class="hunt-stat-val" id="huntTotalDigs">0</div><div class="hunt-stat-label">Totalt Grävda</div></div>
+      <div class="hunt-stat"><div class="hunt-stat-val" id="huntTotalFound">0</div><div class="hunt-stat-label">Skatter Totalt</div></div>
+      <div class="hunt-stat"><div class="hunt-stat-val" id="huntRelicCount">0</div><div class="hunt-stat-label">Reliker Funna</div></div>
+    </div>
+    <div class="hunt-relics">
+      <div class="hunt-relics-title">🏺 Reliksamling</div>
+      <div class="hunt-relic-grid" id="huntRelicGrid"></div>
+    </div>
+  </div>
+</div>
 
 <!-- DAILY MISSIONS -->
 <div class="mis-panel" id="misPanel">
@@ -32648,6 +32735,178 @@ function misTrack(type, amount){
     }
   });
   _misSave(d);
+}
+
+
+// TREASURE HUNT SYSTEM
+const HUNT_KEY = 'k0509_hunt';
+const HUNT_RELICS_DEFS = [
+  {id:'golden_idol',  emoji:'🗿', name:'Gyllene Idol'},
+  {id:'ancient_coin', emoji:'🪙', name:'Antikt Mynt'},
+  {id:'dragon_egg',   emoji:'🥚', name:'Drakägg'},
+  {id:'mystic_orb',   emoji:'🔮', name:'Mystisk Orb'},
+  {id:'lost_crown',   emoji:'👑', name:'Förlorad Krona'},
+  {id:'star_shard',   emoji:'💫', name:'Stjärnskärva'},
+  {id:'bone_key',     emoji:'🗝️', name:'Bennyckel'},
+  {id:'fire_gem',     emoji:'💎', name:'Eldädelsten'},
+];
+const HUNT_CELL_TYPES = [
+  {type:'empty',   emoji:'🕳️', weight:40, reward:null},
+  {type:'coins_s', emoji:'🪙', weight:22, reward:{coins:30,xp:0},  name:'Myntpåse',    desc:'+30 mynt'},
+  {type:'coins_m', emoji:'💰', weight:12, reward:{coins:100,xp:0}, name:'Guldpåse',    desc:'+100 mynt'},
+  {type:'coins_l', emoji:'🏆', weight:5,  reward:{coins:300,xp:0}, name:'Skattkista',  desc:'+300 mynt'},
+  {type:'xp_s',    emoji:'⭐', weight:10, reward:{coins:0,xp:80},  name:'XP-källa',    desc:'+80 XP'},
+  {type:'xp_l',    emoji:'🌟', weight:4,  reward:{coins:0,xp:250}, name:'Visdomskälla',desc:'+250 XP'},
+  {type:'relic',   emoji:'🏺', weight:3,  reward:{relic:true},     name:'Relikt!',     desc:'Sällsynt samlarobjekt'},
+  {type:'curse',   emoji:'💀', weight:4,  reward:{curse:true},     name:'Förbannelse', desc:'-50 mynt, förlora en grävning'},
+];
+
+let _huntGrid = null;
+let _huntDigs = 6;
+let _huntLastResult = null;
+
+function _huntLoad(){try{return JSON.parse(localStorage.getItem(HUNT_KEY)||'null');}catch(e){return null;}}
+function _huntSave(d){localStorage.setItem(HUNT_KEY,JSON.stringify(d));}
+function _huntData(){
+  var d=_huntLoad();
+  if(!d) d={digsToday:3,lastDigDate:null,totalDigs:0,totalFound:0,relics:[],foundToday:0};
+  var today=getTodayKey();
+  if(d.lastDigDate!==today){d.digsToday=3;d.foundToday=0;d.lastDigDate=today;}
+  return d;
+}
+
+function _huntGenGrid(){
+  var cells=[];
+  for(var i=0;i<30;i++){
+    var roll=Math.random()*100;
+    var acc=0;
+    var chosen=HUNT_CELL_TYPES[0];
+    for(var j=0;j<HUNT_CELL_TYPES.length;j++){
+      acc+=HUNT_CELL_TYPES[j].weight;
+      if(roll<acc){chosen=HUNT_CELL_TYPES[j];break;}
+    }
+    cells.push({type:chosen.type,revealed:false});
+  }
+  return cells;
+}
+
+function openHunt(){
+  $('huntPanel').classList.add('open');
+  if(!_huntGrid) _huntGrid=_huntGenGrid();
+  _huntDigs=6;
+  _renderHunt();
+}
+function closeHunt(){
+  $('huntPanel').classList.remove('open');
+}
+
+function huntNewGrid(){
+  var d=_huntData();
+  if(d.digsToday<1){showFloatBubble('Inga grävningar kvar idag!','debuff');return;}
+  if((G.coins||0)<50){showFloatBubble('Behöver 50 mynt!','debuff');return;}
+  G.coins-=50;save();
+  d.digsToday=Math.max(0,d.digsToday-1);
+  _huntSave(d);
+  _huntGrid=_huntGenGrid();
+  _huntDigs=6;
+  _huntLastResult=null;
+  $('huntResultZone').innerHTML='';
+  _renderHunt();
+}
+
+function huntDig(idx){
+  if(!_huntGrid) return;
+  var cell=_huntGrid[idx];
+  if(cell.revealed||_huntDigs<=0) return;
+  cell.revealed=true;
+  _huntDigs--;
+  var d=_huntData();
+  d.totalDigs=(d.totalDigs||0)+1;
+  var cellDef=HUNT_CELL_TYPES.find(function(c){return c.type===cell.type;})||HUNT_CELL_TYPES[0];
+  var result=null;
+  if(cellDef.reward){
+    if(cellDef.reward.coins>0){
+      gainCoins(cellDef.reward.coins);
+      d.totalFound=(d.totalFound||0)+1;
+      d.foundToday=(d.foundToday||0)+1;
+      result={emoji:cellDef.emoji,name:cellDef.name,desc:cellDef.desc,type:'good'};
+    }
+    if(cellDef.reward.xp>0){
+      gainXP(cellDef.reward.xp,'action');
+      d.totalFound=(d.totalFound||0)+1;
+      d.foundToday=(d.foundToday||0)+1;
+      result={emoji:cellDef.emoji,name:cellDef.name,desc:cellDef.desc,type:'good'};
+    }
+    if(cellDef.reward.relic){
+      var available=HUNT_RELICS_DEFS.filter(function(r){return (d.relics||[]).indexOf(r.id)<0;});
+      if(available.length>0){
+        var relic=available[Math.floor(Math.random()*available.length)];
+        if(!d.relics) d.relics=[];
+        d.relics.push(relic.id);
+        gainCoins(200);gainXP(300,'action');
+        d.totalFound=(d.totalFound||0)+1;
+        d.foundToday=(d.foundToday||0)+1;
+        result={emoji:relic.emoji,name:relic.name,desc:'Relikt funnen! +200💰 +300XP',type:'epic'};
+        showFloatBubble('🏺 RELIKT! '+relic.name,'buff');
+      } else {
+        gainCoins(500);
+        result={emoji:'💰',name:'Dubbel Rikedom',desc:'Inga fler reliker — +500💰 istället!',type:'good'};
+      }
+    }
+    if(cellDef.reward.curse){
+      G.coins=Math.max(0,(G.coins||0)-50);save();
+      _huntDigs=Math.max(0,_huntDigs-1);
+      result={emoji:'💀',name:'Förbannelse!',desc:'-50 mynt, -1 grävning',type:'bad'};
+      showFloatBubble('💀 Förbannelse! -50💰','debuff');
+    }
+  } else {
+    result={emoji:'🕳️',name:'Tom',desc:'Inget här...',type:'empty'};
+  }
+  _huntSave(d);
+  _huntLastResult=result;
+  _renderHunt();
+}
+
+function _renderHunt(){
+  var d=_huntData();
+  // Toolbar
+  var hd=$('huntDiamonds'); if(hd) hd.textContent=d.digsToday;
+  var hft=$('huntFoundToday'); if(hft) hft.textContent=d.foundToday||0;
+  var hdl=$('huntDigsLeft'); if(hdl) hdl.textContent=_huntDigs;
+  // Grid
+  var grid=$('huntGrid');
+  if(grid&&_huntGrid){
+    grid.innerHTML=_huntGrid.map(function(cell,i){
+      if(!cell.revealed){
+        return '<div class="hunt-cell" onclick="huntDig('+i+')">🪨</div>';
+      }
+      var def=HUNT_CELL_TYPES.find(function(c){return c.type===cell.type;})||HUNT_CELL_TYPES[0];
+      var cls='hunt-cell revealed '+(cell.type==='empty'?'empty':cell.type==='curse'?'curse':'treasure');
+      return '<div class="'+cls+'">'+def.emoji+'</div>';
+    }).join('');
+  }
+  // Result banner
+  var rz=$('huntResultZone');
+  if(rz&&_huntLastResult){
+    var r=_huntLastResult;
+    var borderColor=r.type==='epic'?'rgba(170,68,255,.4)':r.type==='bad'?'rgba(255,68,85,.3)':r.type==='good'?'rgba(255,204,0,.25)':'rgba(255,255,255,.1)';
+    var bgColor=r.type==='epic'?'rgba(170,68,255,.06)':r.type==='bad'?'rgba(255,68,85,.06)':r.type==='good'?'rgba(255,204,0,.06)':'rgba(255,255,255,.02)';
+    rz.innerHTML='<div class="hunt-result" style="border-color:'+borderColor+';background:'+bgColor+'">'+
+      '<span class="hunt-result-emoji">'+r.emoji+'</span>'+
+      '<div class="hunt-result-name">'+r.name+'</div>'+
+      '<div class="hunt-result-val">'+r.desc+'</div>'+
+      '</div>';
+  }
+  // Stats
+  var ht=$('huntTotalDigs'); if(ht) ht.textContent=d.totalDigs||0;
+  var htf=$('huntTotalFound'); if(htf) htf.textContent=d.totalFound||0;
+  var hrc=$('huntRelicCount'); if(hrc) hrc.textContent=(d.relics||[]).length;
+  // Relics
+  var rg=$('huntRelicGrid');
+  if(rg) rg.innerHTML=HUNT_RELICS_DEFS.map(function(r){
+    var found=(d.relics||[]).indexOf(r.id)>=0;
+    return '<div class="hunt-relic '+(found?'found':'missing')+'" title="'+r.name+'">'+r.emoji+'</div>';
+  }).join('');
 }
 
 </script>
