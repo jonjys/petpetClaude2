@@ -1441,6 +1441,60 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET FISHING ══ */
+.fish-panel{position:fixed;inset:0;background:#000b14;z-index:954;display:none;flex-direction:column;overflow:hidden}
+.fish-panel.open{display:flex}
+.fish-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#001828,#000b14)}
+.fish-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00aaff,#00ffcc,#0066ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.fish-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Spot selector */
+.fish-spots{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px}
+.fish-spot{background:rgba(0,170,255,.06);border:1.5px solid rgba(0,170,255,.15);border-radius:20px;padding:7px 12px;font:700 10px var(--ff-head);color:rgba(255,255,255,.4);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .15s}
+.fish-spot.sel{background:rgba(0,170,255,.18);border-color:rgba(0,170,255,.5);color:#00aaff}
+/* Water area */
+.fish-water{background:linear-gradient(180deg,#001428 0%,#002040 40%,#001830 100%);border:1.5px solid rgba(0,170,255,.2);border-radius:20px;padding:16px;margin-bottom:12px;text-align:center;position:relative;min-height:180px;overflow:hidden}
+.fish-water-surface{position:absolute;top:40px;left:0;right:0;height:2px;background:rgba(0,170,255,.3);overflow:hidden}
+.fish-water-wave{position:absolute;top:0;left:-100%;width:200%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,200,255,.6),transparent);animation:fishWave 2s linear infinite}
+@keyframes fishWave{to{left:0%}}
+.fish-rod-area{position:relative;height:80px;display:flex;align-items:flex-start;justify-content:flex-end;padding-right:20px}
+.fish-rod-line{position:absolute;top:0;right:25px;width:2px;background:rgba(255,255,255,.3);transform-origin:top center}
+.fish-bobber{font-size:18px;display:block;transition:transform .3s;cursor:pointer}
+.fish-bobber.idle{animation:bobberFloat 1.5s ease-in-out infinite}
+.fish-bobber.bite{animation:bobberBite .3s ease-in-out infinite}
+@keyframes bobberFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes bobberBite{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.fish-status{font:700 13px var(--ff-head);color:rgba(255,255,255,.7);margin-top:8px;min-height:20px}
+.fish-catch-btn{background:linear-gradient(135deg,#0088ff,#00ccff);border:none;border-radius:14px;padding:12px 32px;font:800 16px var(--ff-head);color:#fff;cursor:pointer;display:none;box-shadow:0 0 20px rgba(0,170,255,.5);animation:catchPulse .3s ease-in-out infinite alternate}
+@keyframes catchPulse{from{transform:scale(1)}to{transform:scale(1.05)}}
+.fish-cast-btn{background:linear-gradient(135deg,#006688,#0088aa);border:none;border-radius:14px;padding:11px 28px;font:800 14px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(0,100,170,.4)}
+.fish-cast-btn:active{transform:scale(.96)}
+/* Stats bar */
+.fish-stats-row{display:flex;gap:8px;margin-bottom:12px}
+.fish-stat{flex:1;background:rgba(0,170,255,.06);border:1px solid rgba(0,170,255,.15);border-radius:12px;padding:8px;text-align:center}
+.fish-stat-val{font:900 16px var(--ff-head);color:#00aaff}
+.fish-stat-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+/* Rod upgrade */
+.fish-rod-bar{display:flex;align-items:center;gap:10px;background:rgba(255,200,0,.05);border:1px solid rgba(255,200,0,.2);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.fish-rod-name{font:800 13px var(--ff-head);color:#ffcc00;flex:1}
+.fish-rod-tier{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.fish-rod-upg-btn{background:rgba(255,200,0,.15);border:1px solid rgba(255,200,0,.4);border-radius:10px;padding:7px 14px;font:800 10px var(--ff-head);color:#ffcc00;cursor:pointer}
+/* Fish collection */
+.fish-section-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
+.fish-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.fish-card{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.06);border-radius:14px;padding:8px 4px;text-align:center;transition:all .15s}
+.fish-card.caught{border-color:rgba(0,170,255,.3);background:rgba(0,170,255,.05)}
+.fish-card.rare{border-color:rgba(170,68,255,.3)}
+.fish-card.epic{border-color:rgba(255,136,0,.4)}
+.fish-card.legendary{border-color:rgba(255,220,0,.5);box-shadow:0 0 10px rgba(255,200,0,.15)}
+.fish-card-emoji{font-size:24px;display:block;margin-bottom:4px}
+.fish-card-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.6)}
+.fish-card-count{font:600 8px var(--ff-body);color:#00aaff;margin-top:2px}
+/* Inventory bar */
+.fish-inv-bar{display:flex;align-items:center;gap:8px;background:rgba(0,170,255,.04);border:1px solid rgba(0,170,255,.15);border-radius:12px;padding:8px 12px;margin-bottom:12px}
+.fish-inv-label{font:600 10px var(--ff-head);color:rgba(255,255,255,.5);flex:1}
+.fish-sell-btn{background:rgba(0,255,136,.15);border:1px solid rgba(0,255,136,.4);border-radius:10px;padding:7px 16px;font:800 10px var(--ff-head);color:#00ff88;cursor:pointer}
+
 /* ══ PET RACING ══ */
 .race-panel{position:fixed;inset:0;background:#040a04;z-index:953;display:none;flex-direction:column;overflow:hidden}
 .race-panel.open{display:flex}
@@ -9251,6 +9305,49 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET FISHING -->
+<div class="fish-panel" id="fishPanel">
+  <div class="fish-header">
+    <div class="fish-title">🎣 FISKE</div>
+    <button class="close-btn" onclick="closeFish()">✕</button>
+  </div>
+  <div class="fish-scroll">
+    <div class="fish-spots" id="fishSpots"></div>
+    <div class="fish-water">
+      <div class="fish-water-surface"><div class="fish-water-wave"></div></div>
+      <div class="fish-rod-area" id="fishRodArea">
+        <span style="font-size:32px;position:absolute;top:0;right:10px">🎣</span>
+        <div class="fish-rod-line" id="fishRodLine" style="height:60px"></div>
+      </div>
+      <span class="fish-bobber idle" id="fishBobber">🔴</span>
+      <div class="fish-status" id="fishStatus">Välj en plats och kasta!</div>
+      <div style="margin-top:12px">
+        <button class="fish-catch-btn" id="fishCatchBtn" onclick="fishCatch()">🎣 RYCKA!</button>
+        <button class="fish-cast-btn" id="fishCastBtn" onclick="fishCast()">Kasta ut 🎣</button>
+      </div>
+    </div>
+    <div class="fish-stats-row">
+      <div class="fish-stat"><div class="fish-stat-val" id="fishTotalVal">0</div><div class="fish-stat-lbl">Totalt fångade</div></div>
+      <div class="fish-stat"><div class="fish-stat-val" id="fishDayVal">0</div><div class="fish-stat-lbl">Idag</div></div>
+      <div class="fish-stat"><div class="fish-stat-val" id="fishCoinsVal">0</div><div class="fish-stat-lbl">Sålda mynter</div></div>
+    </div>
+    <div class="fish-rod-bar">
+      <div>
+        <div class="fish-rod-name" id="fishRodName">🪵 Grundspö</div>
+        <div class="fish-rod-tier" id="fishRodTier">Tier 1 — Standard bett</div>
+      </div>
+      <button class="fish-rod-upg-btn" id="fishRodUpgBtn" onclick="fishUpgradeRod()">Uppgradera</button>
+    </div>
+    <div class="fish-inv-bar">
+      <div class="fish-inv-label" id="fishInvLabel">Lager: 0/10 fiskar</div>
+      <button class="fish-sell-btn" onclick="fishSellAll()">Sälj alla</button>
+    </div>
+    <div class="fish-section-title">Fisksamling</div>
+    <div class="fish-gallery" id="fishGallery"></div>
+  </div>
+</div>
 
 <!-- PET RACING -->
 <div class="race-panel" id="racePanel">
@@ -34590,6 +34687,226 @@ function _raceResolve(){
   var rw=$('raceWins'); if(rw) rw.textContent=d.wins||0;
   var rr=$('raceRaces'); if(rr) rr.textContent=d.races||0;
   var rbw=$('raceBigWin'); if(rbw) rbw.textContent=d.bigWin||0;
+}
+
+
+// PET FISHING
+const FISH_KEY = 'k0509_fish';
+const FISH_SPOTS = [
+  {id:'pond',   name:'Damm',    emoji:'🏡', fishBias:'common'},
+  {id:'river',  name:'Flod',    emoji:'🌊', fishBias:'uncommon'},
+  {id:'lake',   name:'Sjö',     emoji:'🏔', fishBias:'rare'},
+  {id:'sea',    name:'Hav',     emoji:'🌊', fishBias:'rare'},
+  {id:'deep',   name:'Djuphav', emoji:'🌑', fishBias:'epic'},
+];
+const FISH_RODS = [
+  {name:'🪵 Grundspö',  tier:1, desc:'Standard bett',  biteMult:1.0, qualMult:1.0, cost:0},
+  {name:'🥈 Silverspö', tier:2, desc:'Snabbare bett',  biteMult:0.7, qualMult:1.2, cost:500},
+  {name:'🏆 Guldspö',   tier:3, desc:'Episka fångster',biteMult:0.5, qualMult:1.5, cost:2000},
+];
+const FISH_TABLE = [
+  {id:'minnow',    name:'Siklöja',     emoji:'🐟', rarity:'common',   val:5,   weight:30},
+  {id:'perch',     name:'Abborre',     emoji:'🐠', rarity:'common',   val:8,   weight:25},
+  {id:'carp',      name:'Karp',        emoji:'🐡', rarity:'common',   val:10,  weight:20},
+  {id:'pike',      name:'Gädda',       emoji:'🦈', rarity:'uncommon', val:25,  weight:12},
+  {id:'salmon',    name:'Lax',         emoji:'🐟', rarity:'uncommon', val:30,  weight:10},
+  {id:'catfish',   name:'Mal',         emoji:'🐠', rarity:'uncommon', val:35,  weight:8},
+  {id:'trout',     name:'Öring',       emoji:'🐡', rarity:'rare',     val:60,  weight:5},
+  {id:'bass',      name:'Bas',         emoji:'🎣', rarity:'rare',     val:80,  weight:4},
+  {id:'sturgeon',  name:'Stör',        emoji:'🦈', rarity:'rare',     val:100, weight:3},
+  {id:'eel',       name:'Ål',          emoji:'🐍', rarity:'rare',     val:90,  weight:3},
+  {id:'swordfish', name:'Svärdfisk',   emoji:'⚔️',  rarity:'epic',     val:250, weight:2},
+  {id:'tuna',      name:'Tonfisk',     emoji:'🐋', rarity:'epic',     val:300, weight:1},
+  {id:'shark',     name:'Haj',         emoji:'🦈', rarity:'epic',     val:400, weight:1},
+  {id:'kraken',    name:'Bläckfisk',   emoji:'🦑', rarity:'legendary',val:999, weight:0.3},
+  {id:'mermaid',   name:'Sjöjungfru',  emoji:'🧜', rarity:'legendary',val:777, weight:0.2},
+  {id:'treasure',  name:'Skattlåda',   emoji:'💎', rarity:'legendary',val:500, weight:0.1},
+];
+var _fishState = {spot:'pond', casting:false, biting:false, waitTimer:null, biteTimer:null, catchWindow:false};
+
+function _fishData(){try{return JSON.parse(localStorage.getItem(FISH_KEY)||'null');}catch(e){return null;}}
+function _fishSave(d){localStorage.setItem(FISH_KEY,JSON.stringify(d));}
+function _fishGetData(){var d=_fishData(); if(!d) d={rodTier:0,caught:{},inv:[],totalCaught:0,dayKey:'',dayCount:0,totalSold:0}; return d;}
+function _fishTodayKey(){return getTodayKey();}
+
+function openFish(){$('fishPanel').classList.add('open');_fishState.casting=false;_fishState.biting=false;_renderFish();}
+function closeFish(){
+  $('fishPanel').classList.remove('open');
+  if(_fishState.waitTimer){clearTimeout(_fishState.waitTimer);_fishState.waitTimer=null;}
+  if(_fishState.biteTimer){clearTimeout(_fishState.biteTimer);_fishState.biteTimer=null;}
+  _fishState.casting=false;_fishState.biting=false;_fishState.catchWindow=false;
+}
+
+function fishCast(){
+  if(_fishState.casting) return;
+  var d=_fishGetData();
+  var tk=_fishTodayKey();
+  if(d.dayKey!==tk){d.dayKey=tk;d.dayCount=0;_fishSave(d);}
+  _fishState.casting=true;
+  _fishState.biting=false;
+  _fishState.catchWindow=false;
+  $('fishCastBtn').style.display='none';
+  $('fishCatchBtn').style.display='none';
+  $('fishBobber').className='fish-bobber idle';
+  $('fishStatus').textContent='Spöet kastat... väntar på bett 🎣';
+  var rod=FISH_RODS[d.rodTier]||FISH_RODS[0];
+  var baseWait=(4000+Math.random()*6000)*rod.biteMult;
+  _fishState.waitTimer=setTimeout(function(){_fishBite(d,rod);},baseWait);
+}
+
+function _fishBite(d,rod){
+  if(!_fishState.casting) return;
+  _fishState.biting=true;
+  _fishState.catchWindow=true;
+  $('fishBobber').className='fish-bobber bite';
+  $('fishStatus').textContent='💥 BETT! Tryck RYCKA nu!';
+  $('fishCatchBtn').style.display='inline-block';
+  _fishState.biteTimer=setTimeout(function(){
+    if(_fishState.catchWindow){
+      _fishState.catchWindow=false;
+      _fishState.casting=false;
+      _fishState.biting=false;
+      $('fishBobber').className='fish-bobber idle';
+      $('fishCatchBtn').style.display='none';
+      $('fishCastBtn').style.display='inline-block';
+      $('fishStatus').textContent='Fisken rymde! Försök igen 😔';
+    }
+  },1500);
+}
+
+function fishCatch(){
+  if(!_fishState.catchWindow) return;
+  _fishState.catchWindow=false;
+  _fishState.casting=false;
+  _fishState.biting=false;
+  if(_fishState.biteTimer){clearTimeout(_fishState.biteTimer);_fishState.biteTimer=null;}
+  if(_fishState.waitTimer){clearTimeout(_fishState.waitTimer);_fishState.waitTimer=null;}
+  $('fishCatchBtn').style.display='none';
+  $('fishBobber').className='fish-bobber idle';
+  var d=_fishGetData();
+  var rod=FISH_RODS[d.rodTier]||FISH_RODS[0];
+  var fish=_fishPickFish(_fishState.spot, rod);
+  if(!d.inv) d.inv=[];
+  if(d.inv.length>=10){
+    $('fishStatus').textContent='Lager fullt! Sälj fiskar först. 📦';
+    $('fishCastBtn').style.display='inline-block';
+    _fishSave(d);_renderFish();return;
+  }
+  d.inv.push(fish.id);
+  if(!d.caught) d.caught={};
+  d.caught[fish.id]=(d.caught[fish.id]||0)+1;
+  d.totalCaught=(d.totalCaught||0)+1;
+  var tk=_fishTodayKey();
+  if(d.dayKey!==tk){d.dayKey=tk;d.dayCount=0;}
+  d.dayCount=(d.dayCount||0)+1;
+  _fishSave(d);
+  var rarLabel={common:'Vanlig',uncommon:'Ovanlig',rare:'Sällsynt',epic:'Episk',legendary:'LEGENDARISK'}[fish.rarity]||fish.rarity;
+  $('fishStatus').textContent=fish.emoji+' '+fish.name+' fångad! ('+rarLabel+') +'+fish.val+' vid försäljning';
+  if(fish.rarity==='legendary'){showFloatBubble('🏆 LEGENDARISK: '+fish.emoji+' '+fish.name+'!','buff');}
+  else if(fish.rarity==='epic'){showFloatBubble(fish.emoji+' Episk fångst: '+fish.name+'!','buff');}
+  misTrack('fish',1);
+  checkAchievements();
+  $('fishCastBtn').style.display='inline-block';
+  _renderFish();
+}
+
+function _fishPickFish(spotId, rod){
+  var spot=FISH_SPOTS.find(function(s){return s.id===spotId;})||FISH_SPOTS[0];
+  var biasMult={common:1,uncommon:1,rare:1.2,epic:1.5};
+  var pool=[];
+  var qualMult=rod?rod.qualMult:1;
+  FISH_TABLE.forEach(function(f){
+    var w=f.weight;
+    var rarBonus={common:0,uncommon:0,rare:0.5,epic:1,legendary:1.5}[f.rarity]||0;
+    if(spot.fishBias==='rare') w*=(1+rarBonus*0.5*qualMult);
+    if(spot.fishBias==='epic') w*=(1+rarBonus*qualMult);
+    if(spot.fishBias==='uncommon' && (f.rarity==='uncommon'||f.rarity==='rare')) w*=1.3;
+    pool.push({fish:f,w:w});
+  });
+  var total=pool.reduce(function(s,p){return s+p.w;},0);
+  var r=Math.random()*total;
+  var acc=0;
+  for(var i=0;i<pool.length;i++){acc+=pool[i].w;if(r<acc) return pool[i].fish;}
+  return FISH_TABLE[0];
+}
+
+function fishSellAll(){
+  var d=_fishGetData();
+  if(!d.inv||d.inv.length===0){showFloatBubble('Inget att sälja!','info');return;}
+  var total=0;
+  d.inv.forEach(function(id){var f=FISH_TABLE.find(function(x){return x.id===id;});if(f) total+=f.val;});
+  d.inv=[];
+  d.totalSold=(d.totalSold||0)+total;
+  gainCoins(total);
+  _fishSave(d);
+  showFloatBubble('Sålde alla fiskar för '+total+' mynt! 💰','buff');
+  _renderFish();
+}
+
+function fishSetSpot(spotId){
+  if(_fishState.casting){
+    if(_fishState.waitTimer){clearTimeout(_fishState.waitTimer);_fishState.waitTimer=null;}
+    if(_fishState.biteTimer){clearTimeout(_fishState.biteTimer);_fishState.biteTimer=null;}
+    _fishState.casting=false;_fishState.biting=false;_fishState.catchWindow=false;
+    $('fishCatchBtn').style.display='none';
+    $('fishCastBtn').style.display='inline-block';
+    $('fishBobber').className='fish-bobber idle';
+  }
+  _fishState.spot=spotId;
+  _renderFish();
+}
+
+function fishUpgradeRod(){
+  var d=_fishGetData();
+  var nextTier=d.rodTier+1;
+  if(nextTier>=FISH_RODS.length){showFloatBubble('Max spönivå nådd!','info');return;}
+  var rod=FISH_RODS[nextTier];
+  if((G.coins||0)<rod.cost){showFloatBubble('Inte nog med mynt! Behöver '+rod.cost,'debuff');return;}
+  G.coins-=rod.cost; save();
+  d.rodTier=nextTier;
+  _fishSave(d);
+  showFloatBubble('Uppgraderade till '+rod.name+'!','buff');
+  _renderFish();
+}
+
+function _renderFish(){
+  var d=_fishGetData();
+  var rod=FISH_RODS[d.rodTier]||FISH_RODS[0];
+  // Stats
+  var tv=$('fishTotalVal'); if(tv) tv.textContent=d.totalCaught||0;
+  var tk=_fishTodayKey();
+  var dayCount=(d.dayKey===tk)?(d.dayCount||0):0;
+  var dv=$('fishDayVal'); if(dv) dv.textContent=dayCount;
+  var cv=$('fishCoinsVal'); if(cv) cv.textContent=d.totalSold||0;
+  // Rod
+  var rn=$('fishRodName'); if(rn) rn.textContent=rod.name;
+  var rt=$('fishRodTier'); if(rt) rt.textContent='Tier '+rod.tier+' — '+rod.desc;
+  var rub=$('fishRodUpgBtn');
+  if(rub){
+    var nextT=d.rodTier+1;
+    if(nextT>=FISH_RODS.length){rub.textContent='Max';rub.style.opacity='0.4';}
+    else{var nr=FISH_RODS[nextT];rub.textContent='Uppgradera ('+nr.cost+' 🪙)';rub.style.opacity='1';}
+  }
+  // Spots
+  var spotsEl=$('fishSpots');
+  if(spotsEl) spotsEl.innerHTML=FISH_SPOTS.map(function(s){
+    return '<div class="fish-spot'+(s.id===_fishState.spot?' sel':'')+'" onclick="fishSetSpot(\''+s.id+'\')">'+s.emoji+' '+s.name+'</div>';
+  }).join('');
+  // Cast btn default state
+  var castBtn=$('fishCastBtn');
+  if(castBtn && !_fishState.casting) castBtn.style.display='inline-block';
+  // Inventory
+  var il=$('fishInvLabel'); if(il) il.textContent='Lager: '+(d.inv?d.inv.length:0)+'/10 fiskar';
+  // Gallery
+  var gallery=$('fishGallery');
+  if(gallery) gallery.innerHTML=FISH_TABLE.map(function(f){
+    var cnt=(d.caught||{})[f.id]||0;
+    return '<div class="fish-card '+(cnt>0?'caught '+f.rarity:'')+'">'+
+      '<span class="fish-card-emoji">'+(cnt>0?f.emoji:'❓')+'</span>'+
+      '<div class="fish-card-name">'+(cnt>0?f.name:'???')+'</div>'+
+      '<div class="fish-card-count">'+(cnt>0?cnt+'x':'—')+'</div>'+
+      '</div>';
+  }).join('');
 }
 
 </script>
