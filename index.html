@@ -1487,6 +1487,50 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ALCHEMY LAB ══ */
+.alch-panel{position:fixed;inset:0;background:#020506;z-index:1000;display:none;flex-direction:column;overflow:hidden}
+.alch-panel.open{display:flex}
+.alch-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#050b10,#020506)}
+.alch-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ddcc,#aa44ff,#ffcc00,#00ddcc);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:alchShim 4s linear infinite}
+@keyframes alchShim{0%{background-position:0%}100%{background-position:300%}}
+.alch-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Materials */
+.alch-mats{background:rgba(255,255,255,.02);border:1.5px solid rgba(0,200,200,.1);border-radius:16px;padding:12px;margin-bottom:12px}
+.alch-mats-lbl{font:700 9px var(--ff-head);color:rgba(0,200,200,.5);letter-spacing:1px;margin-bottom:8px}
+.alch-mat-row{display:flex;flex-wrap:wrap;gap:5px}
+.alch-mat{display:flex;align-items:center;gap:3px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.07);border-radius:7px;padding:3px 7px}
+.alch-mat-emoji{font-size:13px}
+.alch-mat-name{font:600 8px var(--ff-body);color:rgba(255,255,255,.55)}
+.alch-mat-cnt{font:800 9px var(--ff-head);color:#00ddcc}
+/* Transmutation slots */
+.alch-cauldron{background:radial-gradient(ellipse at center,rgba(0,150,150,.06),rgba(0,0,0,0));border:2px solid rgba(0,200,200,.15);border-radius:20px;padding:14px;margin-bottom:12px;text-align:center}
+.alch-cauldron-emoji{font-size:48px;display:block;margin-bottom:6px}
+.alch-slots{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
+.alch-slot{width:56px;height:56px;background:rgba(0,0,0,.4);border:2px dashed rgba(0,200,200,.25);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;transition:border-color .2s}
+.alch-slot.filled{border-color:rgba(0,200,200,.5);border-style:solid}
+.alch-slot.empty-label{font:600 8px var(--ff-body);color:rgba(255,255,255,.25);font-size:10px}
+.alch-transmute-btn{background:linear-gradient(135deg,#003333,#006666);border:none;border-radius:14px;padding:12px 24px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 0 16px rgba(0,200,200,.2)}
+.alch-transmute-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.alch-result{font:700 10px var(--ff-head);color:#00ddcc;margin-top:8px;min-height:16px}
+/* Recipe book */
+.alch-recipes-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.alch-recipes{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.alch-recipe{background:rgba(255,255,255,.02);border:1px solid rgba(0,200,200,.1);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.alch-recipe.discovered{border-color:rgba(0,200,200,.25);background:rgba(0,100,100,.05)}
+.alch-recipe.locked{opacity:.45;filter:grayscale(.7)}
+.alch-recipe-result{font-size:24px;flex-shrink:0}
+.alch-recipe-info{flex:1}
+.alch-recipe-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.alch-recipe-ingr{font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.alch-recipe-effect{font:600 8px var(--ff-body);color:#00ddcc}
+.alch-recipe-badge{font:700 8px var(--ff-head);padding:3px 7px;border-radius:6px;flex-shrink:0}
+.alch-stats{display:flex;gap:6px;margin-bottom:12px}
+.alch-stat{flex:1;background:rgba(0,0,0,.3);border:1px solid rgba(0,200,200,.1);border-radius:10px;padding:7px;text-align:center}
+.alch-stat-v{font:900 16px var(--ff-head);color:#00ddcc}
+.alch-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.alch-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET GARDEN ══ */
 .gard-panel{position:fixed;inset:0;background:#010a02;z-index:999;display:none;flex-direction:column;overflow:hidden}
 .gard-panel.open{display:flex}
@@ -9784,6 +9828,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kokbok</div>
           <div class="ddr" onclick="cM();openCard()"><div class="ddr-i">⚔️</div>Stridskort</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
+          <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -9808,6 +9853,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
+          <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
@@ -9849,6 +9895,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kokbok</div>
           <div class="ddr" onclick="cM();openCard()"><div class="ddr-i">⚔️</div>Stridskort</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
+          <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10395,6 +10442,39 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- ALCHEMY LAB -->
+<div class="alch-panel" id="alchPanel">
+  <div class="alch-header">
+    <div class="alch-title">⚗️ ALKEMILABORATORIET</div>
+    <button class="close-btn" onclick="closeAlch()">✕</button>
+  </div>
+  <div class="alch-scroll">
+    <div class="alch-stats">
+      <div class="alch-stat"><div class="alch-stat-v" id="alchBrews">0</div><div class="alch-stat-l">Brygder</div></div>
+      <div class="alch-stat"><div class="alch-stat-v" id="alchDisc">0</div><div class="alch-stat-l">Upptäckta</div></div>
+      <div class="alch-stat"><div class="alch-stat-v" id="alchTotal">0/10</div><div class="alch-stat-l">Recept</div></div>
+    </div>
+    <div class="alch-mats">
+      <div class="alch-mats-lbl">RÅMATERIAL</div>
+      <div class="alch-mat-row" id="alchMatsRow"></div>
+    </div>
+    <div class="alch-cauldron">
+      <span class="alch-cauldron-emoji">⚗️</span>
+      <div class="alch-slots" id="alchSlots">
+        <div class="alch-slot" id="alchSlot0" onclick="alchClearSlot(0)">+</div>
+        <div class="alch-slot" id="alchSlot1" onclick="alchClearSlot(1)">+</div>
+        <div class="alch-slot" id="alchSlot2" onclick="alchClearSlot(2)">+</div>
+      </div>
+      <button class="alch-transmute-btn" id="alchBrewBtn" onclick="alchBrew()" disabled>🔮 Transmutiera!</button>
+      <div class="alch-result" id="alchResult"></div>
+    </div>
+    <div class="alch-recipes-lbl">RECEPTBOK (klicka mat för att välja)</div>
+    <div class="alch-recipes" id="alchRecipes"></div>
+    <div class="alch-info">Kombinera material i kittel — experiment för att hitta nya recept! INT ökar chansen!</div>
+  </div>
+</div>
 
 <!-- PET GARDEN -->
 <div class="gard-panel" id="gardPanel">
@@ -36321,6 +36401,7 @@ function misTrack(type, amount){
   if(typeof cookDropIngr==='function') cookDropIngr(type, amount);
   if(typeof cardDrop==='function') cardDrop(type);
   if(typeof gardDropSeed==='function') gardDropSeed(type);
+  if(typeof alchDrop==='function') alchDrop(type);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -44100,6 +44181,172 @@ function _gardPickSeed(id){
     el.classList.toggle('selected',GARD_SEEDS.filter(function(s){return (d=_gardGetData(),d.seeds[s.id]>0);})[i]&&GARD_SEEDS.filter(function(s){return (d=_gardGetData(),d.seeds[s.id]>0);})[i].id===id);
   });
   _renderGard();
+}
+
+
+// ALCHEMY LAB
+const ALCH_KEY = 'k0509_alch';
+const ALCH_MATS = {
+  essence:  {emoji:'✨', name:'Essens'},
+  dust:     {emoji:'💫', name:'Damm'},
+  shard:    {emoji:'🔷', name:'Splitter'},
+  void:     {emoji:'🌑', name:'Tomrum'},
+  flame:    {emoji:'🔥', name:'Låga'},
+  ice:      {emoji:'❄️', name:'Is'},
+  lightning:{emoji:'⚡', name:'Blixt'},
+  nature:   {emoji:'🍃', name:'Natur'},
+};
+const ALCH_RECIPES = [
+  {id:'power_elixir', result:'💪', name:'Krafteliksir', ingr:['flame','essence','essence'],
+   effect:'+25 STR permanent', fn:function(){G.str=(G.str||0)+25;save();}},
+  {id:'speed_potion', result:'🏃', name:'Snabbhetstinktur', ingr:['lightning','essence','dust'],
+   effect:'+25 AGI permanent', fn:function(){G.agi=(G.agi||0)+25;save();}},
+  {id:'mind_brew',    result:'🧠', name:'Tankebrygd', ingr:['void','shard','essence'],
+   effect:'+25 INT permanent', fn:function(){G.int=(G.int||0)+25;save();}},
+  {id:'endure_tonic', result:'🛡️', name:'Härdighetsdryck', ingr:['ice','nature','essence'],
+   effect:'+25 END permanent', fn:function(){G.end=(G.end||0)+25;save();}},
+  {id:'luck_brew',    result:'🍀', name:'Lyckodryck', ingr:['nature','dust','shard'],
+   effect:'+25 LCK permanent', fn:function(){G.lck=(G.lck||0)+25;save();}},
+  {id:'coin_bomb',    result:'💰', name:'Myntexplosion', ingr:['essence','dust','dust'],
+   effect:'+3000 mynt', fn:function(){gainCoins(3000);}},
+  {id:'xp_surge',     result:'🌟', name:'XP-storm', ingr:['lightning','void','dust'],
+   effect:'+500 XP alla stats', fn:function(){['str','agi','int','end','lck'].forEach(function(s){gainXP(100,s);});}},
+  {id:'kc_gem',       result:'💎', name:'KC-ädelsten', ingr:['shard','shard','void'],
+   effect:'+3 KC', fn:function(){gainKC(3);}},
+  {id:'mega_elixir',  result:'🌈', name:'Megaeliksir', ingr:['flame','lightning','ice'],
+   effect:'+15 ALLA stats', fn:function(){['str','agi','int','end','lck'].forEach(function(s){G[s]=(G[s]||0)+15;});save();}},
+  {id:'philosopher',  result:'⚗️', name:'Filosofens sten', ingr:['void','flame','nature'],
+   effect:'+50 STR +50 INT +50 LCK + 5KC', fn:function(){G.str=(G.str||0)+50;G.int=(G.int||0)+50;G.lck=(G.lck||0)+50;save();gainKC(5);}},
+];
+
+function _alchData(){try{return JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){return null;}}
+function _alchSave(d){localStorage.setItem(ALCH_KEY,JSON.stringify(d));}
+function _alchGetData(){
+  var d=_alchData();
+  if(!d) d={mats:{essence:3,dust:2},slots:[null,null,null],brews:0,discovered:[]};
+  return d;
+}
+
+// Drop materials from activities
+function alchDrop(type){
+  var d=_alchGetData();
+  var chance=0.15+(Math.min(G.int||0,200)*0.0008);
+  if(Math.random()>chance) return;
+  var pool=[];
+  if(type==='fight'||type==='pvp'||type==='wb') pool=['flame','flame','shard','void'];
+  else if(type==='fish') pool=['ice','ice','nature','essence'];
+  else if(type==='harvest') pool=['nature','nature','essence','dust'];
+  else if(type==='expedition') pool=['void','shard','dust','lightning'];
+  else if(type==='puzzle'||type==='tapr') pool=['lightning','essence','dust'];
+  else pool=['dust','essence'];
+  var pick=pool[Math.floor(Math.random()*pool.length)];
+  d.mats[pick]=(d.mats[pick]||0)+1;
+  _alchSave(d);
+  showFloatBubble(ALCH_MATS[pick].emoji+' '+ALCH_MATS[pick].name+' funnet!','buff');
+}
+
+var _alchCurSlots=[null,null,null];
+
+function alchPickMat(matId){
+  var slot=_alchCurSlots.indexOf(null);
+  if(slot<0){showFloatBubble('Alla platser fyllda! Klicka en för att rensa.','debuff');return;}
+  var d=_alchGetData();
+  if(!(d.mats[matId]||0)){showFloatBubble('Inga '+ALCH_MATS[matId].name+' kvar!','debuff');return;}
+  _alchCurSlots[slot]=matId;
+  _renderAlch();
+  var btn=$('alchBrewBtn');if(btn) btn.disabled=_alchCurSlots.indexOf(null)>=0;
+}
+
+function alchClearSlot(i){
+  _alchCurSlots[i]=null;
+  _renderAlch();
+  var btn=$('alchBrewBtn');if(btn) btn.disabled=true;
+}
+
+function alchBrew(){
+  if(_alchCurSlots.indexOf(null)>=0) return;
+  var d=_alchGetData();
+  // Consume materials
+  _alchCurSlots.forEach(function(mat){
+    if(!d.mats[mat]||d.mats[mat]<1){showFloatBubble('Har du inte tillräckligt material!','debuff');return;}
+    d.mats[mat]--;
+  });
+  // Find recipe
+  var sorted=_alchCurSlots.slice().sort();
+  var found=null;
+  ALCH_RECIPES.forEach(function(r){
+    var rs=r.ingr.slice().sort();
+    if(rs[0]===sorted[0]&&rs[1]===sorted[1]&&rs[2]===sorted[2]) found=r;
+  });
+  d.brews=(d.brews||0)+1;
+  var result=$('alchResult');
+  if(found){
+    found.fn();
+    var isNew=d.discovered.indexOf(found.id)<0;
+    if(isNew) d.discovered.push(found.id);
+    _alchSave(d);
+    var msg=found.result+' '+found.name+'! '+found.effect+(isNew?' 🆕 NY UPPTÄCKT!':'');
+    if(result) result.textContent=msg;
+    showFloatBubble('⚗️ '+found.result+' '+found.name+'!','buff');
+  } else {
+    // Random minor reward
+    var intBonus=Math.min(G.int||0,300);
+    var coins=50+Math.floor(Math.random()*200)+Math.floor(intBonus*0.5);
+    gainCoins(coins);
+    _alchSave(d);
+    if(result) result.textContent='Okänd blandning! Fick +'+coins+'🪙 (prova andra kombinationer!)';
+    showFloatBubble('⚗️ Experiment! +'+coins+'🪙','buff');
+  }
+  _alchCurSlots=[null,null,null];
+  checkAchievements();
+  _renderAlch();
+}
+
+function openAlch(){$('alchPanel').classList.add('open');_alchCurSlots=[null,null,null];_renderAlch();}
+function closeAlch(){$('alchPanel').classList.remove('open');}
+
+function _renderAlch(){
+  var d=_alchGetData();
+  var ab=$('alchBrews');if(ab) ab.textContent=d.brews||0;
+  var ad=$('alchDisc');if(ad) ad.textContent=(d.discovered||[]).length;
+  var at=$('alchTotal');if(at) at.textContent=(d.discovered||[]).length+'/'+ALCH_RECIPES.length;
+  // Materials
+  var mr=$('alchMatsRow');
+  if(mr){
+    var mats=Object.keys(ALCH_MATS).filter(function(k){return (d.mats[k]||0)>0;});
+    if(!mats.length) mr.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3)">Inga material — utforska och kämpa!</div>';
+    else mr.innerHTML=mats.map(function(k){
+      return '<div class="alch-mat" onclick="alchPickMat(\''+k+'\')" style="cursor:pointer">'+
+        '<div class="alch-mat-emoji">'+ALCH_MATS[k].emoji+'</div>'+
+        '<div class="alch-mat-name">'+ALCH_MATS[k].name+'</div>'+
+        '<div class="alch-mat-cnt">×'+d.mats[k]+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  // Slots
+  for(var i=0;i<3;i++){
+    var slot=$('alchSlot'+i);
+    if(!slot) continue;
+    var mat=_alchCurSlots[i];
+    if(mat){slot.textContent=ALCH_MATS[mat].emoji;slot.className='alch-slot filled';}
+    else{slot.textContent='+';slot.className='alch-slot';}
+  }
+  // Recipe book
+  var recipes=$('alchRecipes');
+  if(recipes){
+    recipes.innerHTML=ALCH_RECIPES.map(function(r){
+      var disc=(d.discovered||[]).indexOf(r.id)>=0;
+      return '<div class="alch-recipe'+(disc?' discovered':' locked')+'">'+
+        '<div class="alch-recipe-result">'+r.result+'</div>'+
+        '<div class="alch-recipe-info">'+
+          '<div class="alch-recipe-name">'+(disc?r.name:'???')+'</div>'+
+          '<div class="alch-recipe-ingr">'+(disc?r.ingr.map(function(k){return ALCH_MATS[k].emoji+ALCH_MATS[k].name;}).join(' + '):'Okänd kombination')+'</div>'+
+          '<div class="alch-recipe-effect">'+(disc?r.effect:'Utforska för att hitta!')+'</div>'+
+        '</div>'+
+        '<div class="alch-recipe-badge" style="'+(disc?'background:rgba(0,200,200,.1);color:#00ddcc':'background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)')+'">'+(disc?'✓ Känd':'🔒')+'</div>'+
+      '</div>';
+    }).join('');
+  }
 }
 
 </script>
