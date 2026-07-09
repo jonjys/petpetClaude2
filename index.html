@@ -1456,6 +1456,35 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY CALENDAR ══ */
+.cal-panel{position:fixed;inset:0;background:#020a08;z-index:969;display:none;flex-direction:column;overflow:hidden}
+.cal-panel.open{display:flex}
+.cal-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#001a10,#020a08)}
+.cal-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ffaa,#ffcc00,#ff88aa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cal-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.cal-month-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 14px;margin-bottom:14px}
+.cal-month-name{font:900 16px var(--ff-head);color:#44ffaa}
+.cal-month-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.35);text-align:right}
+.cal-streak-row{display:flex;gap:8px;margin-bottom:14px}
+.cal-streak-chip{flex:1;background:rgba(255,200,50,.05);border:1px solid rgba(255,200,50,.2);border-radius:12px;padding:8px;text-align:center}
+.cal-streak-val{font:900 18px var(--ff-head);color:#ffcc00}
+.cal-streak-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+.cal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px}
+.cal-day{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.06);border-radius:12px;padding:6px 4px;text-align:center;cursor:pointer;transition:all .2s;min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cal-day.today{border-color:rgba(255,200,50,.6);background:rgba(255,200,50,.06);box-shadow:0 0 12px rgba(255,200,50,.25)}
+.cal-day.claimed{border-color:rgba(80,255,150,.45);background:rgba(80,255,150,.05);cursor:default}
+.cal-day.future{opacity:.28;cursor:default}
+.cal-day.milestone{border-color:rgba(200,100,255,.5)}
+.cal-day.milestone.today{border-color:rgba(255,200,50,.6)}
+.cal-day.milestone.claimed{border-color:rgba(80,255,150,.45)}
+.cal-day-num{font:700 8px var(--ff-head);color:rgba(255,255,255,.4);margin-bottom:2px}
+.cal-day.today .cal-day-num{color:#ffcc00}
+.cal-day.claimed .cal-day-num{color:rgba(80,255,150,.8)}
+.cal-day-emoji{font-size:18px;line-height:1}
+.cal-day-label{font:600 6px var(--ff-body);color:rgba(255,255,255,.35);margin-top:3px;line-height:1.2}
+.cal-day.milestone .cal-day-label{color:rgba(200,150,255,.7)}
+
 /* ══ SKILL TREE ══ */
 .skl-panel{position:fixed;inset:0;background:#030212;z-index:968;display:none;flex-direction:column;overflow:hidden}
 .skl-panel.open{display:flex}
@@ -8705,6 +8734,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openP48()"><div class="ddr-i">🔢</div>Pet 2048</div>
           <div class="ddr" onclick="cM();openVoid()"><div class="ddr-i">🌀</div>Void Rift</div>
           <div class="ddr" onclick="cM();openSkl()"><div class="ddr-i">🌲</div>Talanger</div>
+          <div class="ddr" onclick="cM();openCal()"><div class="ddr-i">📅</div>Kalender</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9931,6 +9961,27 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY CALENDAR -->
+<div class="cal-panel" id="calPanel">
+  <div class="cal-header">
+    <div class="cal-title">📅 DAGSKALENDER</div>
+    <button class="close-btn" onclick="closeCal()">✕</button>
+  </div>
+  <div class="cal-scroll">
+    <div class="cal-month-row">
+      <div class="cal-month-name" id="calMonthName">—</div>
+      <div class="cal-month-info" id="calMonthInfo">—</div>
+    </div>
+    <div class="cal-streak-row">
+      <div class="cal-streak-chip"><div class="cal-streak-val" id="calStreakVal">0</div><div class="cal-streak-lbl">Daglig streak</div></div>
+      <div class="cal-streak-chip"><div class="cal-streak-val" id="calClaimedVal">0</div><div class="cal-streak-lbl">Insamlat denna månad</div></div>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center">💎 = Veckobonusar &nbsp;|&nbsp; 🏆 = Månadsslut jackpot</div>
+  </div>
+</div>
 
 <!-- SKILL TREE -->
 <div class="skl-panel" id="sklPanel">
@@ -38152,6 +38203,112 @@ function _renderSkl(){
       var cls='skl-node'+(node.keystone?' keystone':'')+(unlocked?' unlocked':(!tierOk?' locked':''));
       return '<div class="'+cls+'" onclick="sklUnlock(\''+path.id+'\','+ti+','+ni+')"><span class="skl-node-emoji">'+node.emoji+'</span><div class="skl-node-name">'+node.name+'</div><div class="skl-node-eff">'+node.eff+'</div><div class="skl-node-cost">'+(unlocked?'✓ Upplåst':node.cost+' SP')+'</div></div>';
     }).join('')+'</div></div>';
+  }).join('');
+}
+
+
+// DAILY CALENDAR
+const CAL_KEY = 'k0509_cal';
+const CAL_REWARDS = [
+  {label:'100🪙',emoji:'🪙',coins:100},
+  {label:'200🪙',emoji:'🪙',coins:200},
+  {label:'50XP+Örter',emoji:'⭐',xp:50,ing:{herb:2}},
+  {label:'300🪙',emoji:'🪙',coins:300},
+  {label:'1 KC',emoji:'🔑',kc:1},
+  {label:'200 XP',emoji:'⭐',xp:200},
+  {label:'1000🪙+2KC',emoji:'💎',coins:1000,kc:2,milestone:true},
+  {label:'400🪙',emoji:'🪙',coins:400},
+  {label:'Ädelsten×2',emoji:'💠',ing:{gem:2}},
+  {label:'500🪙',emoji:'🪙',coins:500},
+  {label:'XP+Kristall',emoji:'⭐',xp:200,ing:{crystal:2}},
+  {label:'2 KC',emoji:'🔑',kc:2},
+  {label:'600🪙',emoji:'🪙',coins:600},
+  {label:'2000🪙+5KC',emoji:'💎',coins:2000,kc:5,xp:300,milestone:true},
+  {label:'700🪙',emoji:'🪙',coins:700},
+  {label:'Eld+Vatten',emoji:'🔥',ing:{fire:2,water:2}},
+  {label:'800🪙',emoji:'🪙',coins:800},
+  {label:'3 KC',emoji:'🔑',kc:3},
+  {label:'500 XP',emoji:'⭐',xp:500},
+  {label:'1000🪙',emoji:'🪙',coins:1000},
+  {label:'3000🪙+8KC',emoji:'💎',coins:3000,kc:8,milestone:true},
+  {label:'1200🪙',emoji:'🪙',coins:1200},
+  {label:'Ädelsten+Stjärna',emoji:'💠',ing:{gem:3,star:2}},
+  {label:'5 KC',emoji:'🔑',kc:5},
+  {label:'1500🪙+500XP',emoji:'🌟',coins:1500,xp:500},
+  {label:'Månvatten+Ljus',emoji:'🌙',ing:{moon:3,light:2}},
+  {label:'2000🪙',emoji:'🪙',coins:2000},
+  {label:'5000🪙+15KC',emoji:'💎',coins:5000,kc:15,milestone:true},
+  {label:'3000🪙+1kXP',emoji:'⭐',coins:3000,xp:1000},
+  {label:'JACKPOT!',emoji:'🏆',coins:10000,kc:25,xp:2000,milestone:true},
+];
+
+function _calData(){try{return JSON.parse(localStorage.getItem(CAL_KEY)||'null');}catch(e){return null;}}
+function _calSave(d){localStorage.setItem(CAL_KEY,JSON.stringify(d));}
+function _calGetData(){
+  var d=_calData();
+  var mk=getTodayKey().substring(0,7);
+  if(!d||d.monthKey!==mk) d={monthKey:mk,claimed:[],streak:0,lastDay:''};
+  return d;
+}
+
+function openCal(){$('calPanel').classList.add('open');_renderCal();}
+function closeCal(){$('calPanel').classList.remove('open');}
+
+function calClaim(dayNum){
+  var d=_calGetData();
+  var today=getTodayKey();
+  var todayDay=parseInt(today.split('-')[2]);
+  if(dayNum>todayDay){showFloatBubble('Kan inte hämta framtida belöningar!','info');return;}
+  if(d.claimed.indexOf(dayNum)>=0){showFloatBubble('Redan hämtad idag!','info');return;}
+  var rw=CAL_REWARDS[dayNum-1];
+  if(!rw) return;
+  // Give reward
+  if(rw.coins) gainCoins(rw.coins);
+  if(rw.kc) gainKC(rw.kc);
+  if(rw.xp) gainXP(rw.xp,'int');
+  if(rw.ing){
+    var alchD=null; try{alchD=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+    if(!alchD) alchD={ings:{},potions:{},brews:0,labLevel:0};
+    if(!alchD.ings) alchD.ings={};
+    Object.keys(rw.ing).forEach(function(k){alchD.ings[k]=(alchD.ings[k]||0)+rw.ing[k];});
+    localStorage.setItem(ALCH_KEY,JSON.stringify(alchD));
+  }
+  d.claimed.push(dayNum);
+  // Streak
+  var yesterday=new Date(today); yesterday.setDate(yesterday.getDate()-1);
+  var yk=yesterday.getFullYear()+'-'+(yesterday.getMonth()+1<10?'0':'')+(yesterday.getMonth()+1)+'-'+(yesterday.getDate()<10?'0':'')+yesterday.getDate();
+  if(d.lastDay===yk||d.lastDay===''){d.streak=(d.streak||0)+1;}
+  else if(d.lastDay!==today){d.streak=1;}
+  d.lastDay=today;
+  _calSave(d);
+  showFloatBubble(rw.emoji+' Dag '+dayNum+': '+rw.label,'buff');
+  misTrack('daily',1);
+  checkAchievements();
+  _renderCal();
+}
+
+function _renderCal(){
+  var d=_calGetData();
+  var today=getTodayKey();
+  var todayDay=parseInt(today.split('-')[2]);
+  var months=['Jan','Feb','Mar','Apr','Maj','Jun','Jul','Aug','Sep','Okt','Nov','Dec'];
+  var mn=$('calMonthName'); if(mn) mn.textContent=months[parseInt(today.split('-')[1])-1]+' '+today.split('-')[0];
+  var mi=$('calMonthInfo'); if(mi) mi.textContent='Hämtat: '+d.claimed.length+'/30 &bull; Dag '+todayDay;
+  var sv=$('calStreakVal'); if(sv) sv.textContent=d.streak||0;
+  var cv=$('calClaimedVal'); if(cv) cv.textContent=d.claimed.length;
+  var grid=$('calGrid');
+  if(!grid) return;
+  grid.innerHTML=CAL_REWARDS.map(function(rw,i){
+    var dn=i+1;
+    var claimed=d.claimed.indexOf(dn)>=0;
+    var isToday=dn===todayDay;
+    var future=dn>todayDay;
+    var cls='cal-day'+(rw.milestone?' milestone':'')+(claimed?' claimed':'')+(isToday&&!claimed?' today':'')+(future?' future':'');
+    return '<div class="'+cls+'" onclick="calClaim('+dn+')">'
+      +'<div class="cal-day-num">'+dn+'</div>'
+      +'<div class="cal-day-emoji">'+(claimed?'✅':rw.emoji)+'</div>'
+      +'<div class="cal-day-label">'+rw.label+'</div>'
+      +'</div>';
   }).join('');
 }
 
