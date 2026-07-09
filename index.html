@@ -1467,6 +1467,38 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET RACING ══ */
+.race-panel{position:fixed;inset:0;background:#000d04;z-index:980;display:none;flex-direction:column;overflow:hidden}
+.race-panel.open{display:flex}
+.race-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#001a0a,#000d04)}
+.race-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ff88,#ffcc00,#ff4444,#00ff88);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:raceTitleShim 3s linear infinite}
+@keyframes raceTitleShim{0%{background-position:0%}100%{background-position:200%}}
+.race-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.race-stats-row{display:flex;gap:8px;margin-bottom:12px}
+.race-stat-box{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.race-stat-val{font:900 18px var(--ff-head);color:#00ff88}
+.race-stat-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+.race-prizes{display:flex;gap:6px;margin-bottom:12px}
+.race-prize{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:6px;text-align:center}
+.race-prize-pos{font:900 14px var(--ff-head)}
+.race-prize-val{font:700 8px var(--ff-body);color:rgba(255,255,255,.4);margin-top:1px}
+.race-msg{font:800 13px var(--ff-head);color:#ffcc00;text-align:center;min-height:22px;margin-bottom:10px}
+.race-track{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:10px;margin-bottom:12px}
+.race-lane{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.race-lane:last-child{margin-bottom:0}
+.race-lane.you{background:rgba(0,255,136,.05);border-radius:8px;padding:4px 6px;margin:0 -6px 6px}
+.race-lane-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.55);width:54px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.race-lane-bar{flex:1;height:18px;background:rgba(255,255,255,.04);border-radius:9px;overflow:hidden}
+.race-lane-fill{height:100%;border-radius:9px;transition:width .1s;min-width:6px}
+.race-lane-pos{font:900 12px var(--ff-head);color:rgba(255,255,255,.5);width:18px;text-align:center;flex-shrink:0}
+.race-tap-btn{width:100%;background:linear-gradient(135deg,#006633,#00bb55);border:none;border-radius:18px;padding:22px;font:900 22px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 0 24px rgba(0,255,136,.35)}
+.race-tap-btn:active{transform:scale(.95)}
+.race-tap-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.race-start-btn{width:100%;background:linear-gradient(135deg,#224400,#448800);border:none;border-radius:14px;padding:13px;font:800 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px}
+.race-start-btn:disabled{opacity:.35;cursor:default}
+.race-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ MATCH-3 PUZZLE ══ */
 .matc-panel{position:fixed;inset:0;background:#020410;z-index:979;display:none;flex-direction:column;overflow:hidden}
 .matc-panel.open{display:flex}
@@ -9108,6 +9140,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTavn()"><div class="ddr-i">🍺</div>Berättelser</div>
           <div class="ddr" onclick="cM();openDrgn()"><div class="ddr-i">🐉</div>Drakar</div>
           <div class="ddr" onclick="cM();openMatc()"><div class="ddr-i">💎</div>Gem Match</div>
+          <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Racing</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10345,6 +10378,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET RACING -->
+<div class="race-panel" id="racePanel">
+  <div class="race-header">
+    <div class="race-title">🏁 PET RACING</div>
+    <button class="close-btn" onclick="closeRace()">✕</button>
+  </div>
+  <div class="race-scroll">
+    <div class="race-stats-row">
+      <div class="race-stat-box"><div class="race-stat-val" id="raceRaces">0/5</div><div class="race-stat-lbl">Lopp idag</div></div>
+      <div class="race-stat-box"><div class="race-stat-val" id="raceWins">0</div><div class="race-stat-lbl">Vinster</div></div>
+      <div class="race-stat-box"><div class="race-stat-val" id="raceStreak">0</div><div class="race-stat-lbl">Vinstsvit</div></div>
+    </div>
+    <div class="race-prizes">
+      <div class="race-prize"><div class="race-prize-pos">🥇</div><div class="race-prize-val">500🪙</div></div>
+      <div class="race-prize"><div class="race-prize-pos">🥈</div><div class="race-prize-val">200🪙</div></div>
+      <div class="race-prize"><div class="race-prize-pos">🥉</div><div class="race-prize-val">100🪙</div></div>
+      <div class="race-prize"><div class="race-prize-pos">💨</div><div class="race-prize-val">0🪙</div></div>
+    </div>
+    <div class="race-msg" id="raceMsg">Starta ett lopp!</div>
+    <div class="race-track" id="raceTrack"></div>
+    <button class="race-tap-btn" id="raceTapBtn" onclick="raceTap()" disabled>🏃 TRYCK SNABBT!</button>
+    <button class="race-start-btn" id="raceStartBtn" onclick="raceStart()">▶ Starta Nytt Lopp</button>
+    <div class="race-info">AGI ökar din hastighet! 5 vinster i rad = +3KC! Max 5 lopp/dag.</div>
+  </div>
+</div>
 
 <!-- MATCH-3 PUZZLE -->
 <div class="matc-panel" id="matcPanel">
@@ -40352,6 +40412,128 @@ function _renderMatc(){
   grid.innerHTML=_matcB.map(function(t,i){
     var cls='matc-cell'+(i===_matcSel?' sel':'')+(t<0?' gone':'');
     return '<div class="'+cls+'" onclick="matcTap('+i+')">'+(t>=0?MATC_T[t]:'')+'</div>';
+  }).join('');
+}
+
+
+// PET RACING
+const RACE_KEY = 'k0509_race';
+const RACE_NPCS = [
+  {name:'Rocket',emoji:'🐇',speed:0.80},
+  {name:'Blaze', emoji:'🦊',speed:0.70},
+  {name:'Storm', emoji:'🐺',speed:0.90},
+];
+const RACE_PRIZES = [500,200,100,0];
+const RACE_MAX_DAY = 5;
+var _raceActive = false;
+var _racePos = [0,0,0,0];
+var _raceInterval = null;
+var _raceFinished = [];
+var _raceDone = false;
+
+function _raceData(){try{return JSON.parse(localStorage.getItem(RACE_KEY)||'null');}catch(e){return null;}}
+function _raceSave(d){localStorage.setItem(RACE_KEY,JSON.stringify(d));}
+function _raceGetData(){
+  var d=_raceData(); var t=getTodayKey();
+  if(!d||d.day!==t) d={day:t,races:0,wins:0,streak:0};
+  return d;
+}
+
+function raceStart(){
+  var d=_raceGetData();
+  if(d.races>=RACE_MAX_DAY){showFloatBubble('Max '+RACE_MAX_DAY+' lopp per dag!','debuff');return;}
+  _raceActive=true; _racePos=[0,0,0,0]; _raceFinished=[]; _raceDone=false;
+  var mg=$('raceMsg'); if(mg) mg.textContent='Tryck snabbt för att springa!';
+  var tb=$('raceTapBtn'); if(tb){tb.disabled=false;tb.textContent='🏃 TRYCK SNABBT!';}
+  var sb=$('raceStartBtn'); if(sb) sb.disabled=true;
+  _renderRace();
+  _raceInterval=setInterval(_raceTick,80);
+}
+
+function raceTap(){
+  if(!_raceActive||_raceDone) return;
+  var boost=1+(G.agi||0)*0.005;
+  _racePos[0]=Math.min(_racePos[0]+0.028*boost,1);
+  if(_racePos[0]>=1&&!_raceFinished.includes(0)){
+    _raceFinished.push(0);
+    _raceFinishGame();
+    return;
+  }
+  _renderRace();
+}
+
+function _raceTick(){
+  if(!_raceActive) return;
+  for(var i=1;i<4;i++){
+    if(_raceFinished.includes(i)) continue;
+    _racePos[i]=Math.min(_racePos[i]+RACE_NPCS[i-1].speed*(0.014+Math.random()*0.011),1);
+    if(_racePos[i]>=1) _raceFinished.push(i);
+  }
+  if(_raceFinished.length>=3&&!_raceFinished.includes(0)&&!_raceDone){
+    _racePos[0]=1; _raceFinished.push(0);
+    _raceFinishGame();
+    return;
+  }
+  _renderRace();
+}
+
+function _raceFinishGame(){
+  if(_raceDone) return;
+  _raceDone=true;
+  clearInterval(_raceInterval);
+  _raceActive=false;
+  var place=_raceFinished.indexOf(0)+1;
+  if(place<=0) place=4;
+  var prize=RACE_PRIZES[place-1]||0;
+  var d=_raceGetData();
+  d.races++;
+  if(place===1){d.wins++;d.streak=(d.streak||0)+1;}else{d.streak=0;}
+  _raceSave(d);
+  if(prize>0) gainCoins(prize);
+  var medals=['🏆 1:a','🥈 2:a','🥉 3:a','💨 4:a'];
+  var mg=$('raceMsg');
+  if(mg) mg.textContent=(medals[place-1]||'4:a')+' plats!'+(prize>0?' +'+prize+'🪙':'');
+  if(d.streak>=5&&d.streak%5===0){gainKC(3);showFloatBubble('🔥 '+d.streak+' vinster i rad! +3KC!','buff');}
+  else if(prize>0) showFloatBubble((place===1?'🏆 ':'')+medals[place-1]+' +'+prize+'🪙','buff');
+  else showFloatBubble('💨 4:a plats... Träna mer AGI!','debuff');
+  var tb=$('raceTapBtn'); if(tb){tb.disabled=true;tb.textContent='🏁 Lopp klart';}
+  var sb=$('raceStartBtn'); if(sb){sb.disabled=d.races>=RACE_MAX_DAY;sb.textContent=d.races>=RACE_MAX_DAY?'✋ Max lopp uppnått':'▶ Starta Nytt Lopp';}
+  misTrack('race',1);
+  checkAchievements();
+  _renderRace();
+}
+
+function openRace(){$('racePanel').classList.add('open');_renderRace();}
+function closeRace(){clearInterval(_raceInterval);_raceActive=false;$('racePanel').classList.remove('open');}
+
+function _renderRace(){
+  var d=_raceGetData();
+  var rr=$('raceRaces'); if(rr) rr.textContent=d.races+'/'+RACE_MAX_DAY;
+  var rw=$('raceWins'); if(rw) rw.textContent=d.wins;
+  var rs=$('raceStreak'); if(rs) rs.textContent=d.streak;
+  var sb=$('raceStartBtn');
+  if(sb&&!_raceActive) sb.disabled=d.races>=RACE_MAX_DAY;
+  var track=$('raceTrack');
+  if(!track) return;
+  var racers=[
+    {name:evoGetEmoji()+' Du',  color:'#00ff88',pos:_racePos[0],idx:0},
+    {name:RACE_NPCS[0].emoji+' '+RACE_NPCS[0].name,color:'#ff4455',pos:_racePos[1],idx:1},
+    {name:RACE_NPCS[1].emoji+' '+RACE_NPCS[1].name,color:'#ffcc00',pos:_racePos[2],idx:2},
+    {name:RACE_NPCS[2].emoji+' '+RACE_NPCS[2].name,color:'#aa66ff',pos:_racePos[3],idx:3},
+  ];
+  var sorted=[].concat(racers).sort(function(a,b){return b.pos-a.pos;});
+  var rankMap={};
+  sorted.forEach(function(r,i){rankMap[r.idx]=i+1;});
+  var medals=['🥇','🥈','🥉','💨'];
+  track.innerHTML=racers.map(function(r){
+    var pct=Math.round(r.pos*100);
+    var fi=_raceFinished.indexOf(r.idx);
+    var posDisp=fi>=0?medals[fi]||(fi+1)+'':rankMap[r.idx];
+    return '<div class="race-lane'+(r.idx===0?' you':'')+'">'+
+      '<div class="race-lane-name">'+r.name+'</div>'+
+      '<div class="race-lane-bar"><div class="race-lane-fill" style="width:'+pct+'%;background:'+r.color+'"></div></div>'+
+      '<div class="race-lane-pos">'+posDisp+'</div>'+
+      '</div>';
   }).join('');
 }
 
