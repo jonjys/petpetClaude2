@@ -1442,6 +1442,49 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET ALCHEMY LAB ══ */
+.alch-panel{position:fixed;inset:0;background:#08030f;z-index:955;display:none;flex-direction:column;overflow:hidden}
+.alch-panel.open{display:flex}
+.alch-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#140826,#08030f)}
+.alch-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc44ff,#ff44aa,#ffaa00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.alch-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Cauldron */
+.alch-cauldron-area{background:linear-gradient(135deg,rgba(120,0,180,.1),rgba(60,0,120,.08));border:1.5px solid rgba(160,0,220,.25);border-radius:22px;padding:16px;margin-bottom:14px;text-align:center}
+.alch-cauldron{font-size:64px;display:block;margin-bottom:4px;filter:drop-shadow(0 0 16px rgba(160,0,220,.6));animation:cauldronBob 2s ease-in-out infinite}
+@keyframes cauldronBob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.03)}}
+.alch-cauldron.brewing{animation:cauldronBrew .4s ease-in-out infinite}
+@keyframes cauldronBrew{0%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.06) rotate(2deg)}100%{transform:scale(1) rotate(-2deg)}}
+.alch-slots{display:flex;gap:8px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+.alch-slot{width:52px;height:52px;background:rgba(160,0,220,.08);border:2px dashed rgba(160,0,220,.25);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;position:relative;flex-shrink:0}
+.alch-slot.filled{border-style:solid;border-color:rgba(160,0,220,.5);background:rgba(160,0,220,.12)}
+.alch-slot-rm{position:absolute;top:-6px;right:-6px;width:16px;height:16px;background:#ff4455;border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer}
+.alch-brew-btn{background:linear-gradient(135deg,#8800cc,#cc00aa);border:none;border-radius:14px;padding:11px 28px;font:800 14px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 0 16px rgba(160,0,220,.4);margin-top:4px}
+.alch-brew-btn:active{transform:scale(.96)}
+.alch-hint{font:600 10px var(--ff-body);color:rgba(255,255,255,.3);margin-top:8px}
+/* Ingredient grid */
+.alch-ing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.alch-ing{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:8px 4px;text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.alch-ing:active{transform:scale(.93)}
+.alch-ing.empty{opacity:.3;cursor:default}
+.alch-ing-emoji{font-size:22px;display:block;margin-bottom:3px}
+.alch-ing-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.6)}
+.alch-ing-qty{font:600 8px var(--ff-body);color:#aa44ff}
+/* Potion collection */
+.alch-pot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.alch-pot-card{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 8px;text-align:center}
+.alch-pot-card.owned{border-color:rgba(160,0,220,.4);background:rgba(160,0,220,.07)}
+.alch-pot-emoji{font-size:28px;display:block;margin-bottom:4px}
+.alch-pot-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.7);margin-bottom:4px}
+.alch-pot-effect{font:600 7px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:6px}
+.alch-pot-use{background:rgba(160,0,220,.2);border:1px solid rgba(160,0,220,.4);border-radius:8px;padding:4px 10px;font:800 8px var(--ff-head);color:#cc44ff;cursor:pointer}
+.alch-pot-qty{font:700 9px var(--ff-head);color:#aa44ff}
+/* Lab level bar */
+.alch-lvl-bar{display:flex;align-items:center;gap:10px;background:rgba(160,0,220,.06);border:1px solid rgba(160,0,220,.2);border-radius:12px;padding:8px 12px;margin-bottom:12px}
+.alch-lvl-name{font:800 13px var(--ff-head);color:#cc44ff;flex:1}
+.alch-lvl-xp{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.alch-section-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
+
 /* ══ PET FISHING ══ */
 .fish-panel{position:fixed;inset:0;background:#000b14;z-index:954;display:none;flex-direction:column;overflow:hidden}
 .fish-panel.open{display:flex}
@@ -8094,6 +8137,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMoon()"><div class="ddr-i">🌙</div>Månens Orakel</div>
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Pet Garderob</div>
           <div class="ddr" onclick="cM();openFish()"><div class="ddr-i">🎣</div>Fiske</div>
+          <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9306,6 +9350,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET ALCHEMY LAB -->
+<div class="alch-panel" id="alchPanel">
+  <div class="alch-header">
+    <div class="alch-title">⚗️ ALKEMI</div>
+    <button class="close-btn" onclick="closeAlch()">✕</button>
+  </div>
+  <div class="alch-scroll">
+    <div class="alch-lvl-bar">
+      <div>
+        <div class="alch-lvl-name" id="alchLvlName">⚗️ Lärlingsalchemist</div>
+        <div class="alch-lvl-xp" id="alchLvlXp">0 / 5 brygder</div>
+      </div>
+    </div>
+    <div class="alch-cauldron-area">
+      <span class="alch-cauldron" id="alchCauldron">🪄</span>
+      <div class="alch-slots" id="alchSlots"></div>
+      <button class="alch-brew-btn" onclick="alchBrew()">✨ Brygg!</button>
+      <div class="alch-hint" id="alchHint">Välj ingredienser och brygg en ny trolldryck</div>
+    </div>
+    <div class="alch-section-title">Ingredienser</div>
+    <div class="alch-ing-grid" id="alchIngGrid"></div>
+    <div class="alch-section-title">Trolldrycker</div>
+    <div class="alch-pot-grid" id="alchPotGrid"></div>
+  </div>
+</div>
 
 <!-- PET FISHING -->
 <div class="fish-panel" id="fishPanel">
@@ -34906,6 +34977,213 @@ function _renderFish(){
       '<div class="fish-card-name">'+(cnt>0?f.name:'???')+'</div>'+
       '<div class="fish-card-count">'+(cnt>0?cnt+'x':'—')+'</div>'+
       '</div>';
+  }).join('');
+}
+
+
+// PET ALCHEMY LAB
+const ALCH_KEY = 'k0509_alch';
+const ALCH_INGS = [
+  {id:'herb',     name:'Ört',       emoji:'🌿', src:'buy',  cost:30},
+  {id:'crystal',  name:'Kristall',  emoji:'💎', src:'buy',  cost:60},
+  {id:'fire',     name:'Eldboll',   emoji:'🔥', src:'buy',  cost:40},
+  {id:'water',    name:'Månvatten', emoji:'💧', src:'buy',  cost:25},
+  {id:'bone',     name:'Ben',       emoji:'🦴', src:'dng'},
+  {id:'gem',      name:'Ädelsten',  emoji:'💠', src:'dng'},
+  {id:'feather',  name:'Fjäder',    emoji:'🪶', src:'buy',  cost:50},
+  {id:'moon',     name:'Månsten',   emoji:'🌙', src:'buy',  cost:80},
+  {id:'star',     name:'Stjärna',   emoji:'⭐', src:'buy',  cost:100},
+  {id:'mushroom', name:'Svamp',     emoji:'🍄', src:'buy',  cost:35},
+  {id:'venom',    name:'Gift',      emoji:'☠️',  src:'dng'},
+  {id:'light',    name:'Ljusshard', emoji:'✨', src:'buy',  cost:150},
+];
+const ALCH_POTIONS = [
+  {id:'pot_hp',    name:'Läkedryck',       emoji:'❤️',  effect:'+30 HP omedelbart',      recipe:['herb','water','herb'],    type:'instant', fn:'_alchUseHP'},
+  {id:'pot_coins', name:'Guldtrunk',        emoji:'💰', effect:'+200 mynt',               recipe:['crystal','water','moon'], type:'instant', fn:'_alchUseCoins'},
+  {id:'pot_xp',    name:'Visdomselixir',    emoji:'🧠', effect:'+100 XP',                 recipe:['star','herb','feather'],  type:'instant', fn:'_alchUseXP'},
+  {id:'pot_str',   name:'Styrkedryck',      emoji:'💪', effect:'+5 STR i 30 min',         recipe:['fire','bone','fire'],     type:'timed',   fn:'_alchUseSTR'},
+  {id:'pot_agi',   name:'Hastighetselixi',  emoji:'⚡', effect:'+5 AGI i 30 min',         recipe:['feather','water','gem'],  type:'timed',   fn:'_alchUseAGI'},
+  {id:'pot_lck',   name:'Lyckodryck',       emoji:'🍀', effect:'+5 LCK i 30 min',         recipe:['mushroom','moon','star'], type:'timed',   fn:'_alchUseLCK'},
+  {id:'pot_kc',    name:'Kungselixi',        emoji:'👑', effect:'+10 KC',                  recipe:['gem','star','light'],     type:'instant', fn:'_alchUseKC'},
+  {id:'pot_shield',name:'Skölddryck',       emoji:'🛡', effect:'+20 DEF dungeon i 1 run', recipe:['crystal','bone','crystal'],type:'dng',    fn:'_alchUseShield'},
+  {id:'pot_fire',  name:'Elddryck',         emoji:'🔥', effect:'+30 ATK dungeon i 1 run', recipe:['fire','venom','fire'],    type:'dng',     fn:'_alchUseFire'},
+  {id:'pot_myth',  name:'Mytisk Essens',    emoji:'🌟', effect:'Permanent +1 till alla stats',recipe:['light','star','moon'],type:'perm',   fn:'_alchUseMythic'},
+];
+var _alchSlots = [];
+
+function _alchData(){try{return JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){return null;}}
+function _alchSave(d){localStorage.setItem(ALCH_KEY,JSON.stringify(d));}
+function _alchGetData(){var d=_alchData(); if(!d) d={ings:{},potions:{},brews:0,labLv:0,slot0:'',slot1:'',slot2:''}; return d;}
+
+function openAlch(){$('alchPanel').classList.add('open');_alchSlots=[];_renderAlch();}
+function closeAlch(){$('alchPanel').classList.remove('open');}
+
+function alchSlotClick(idx){
+  _alchSlots.splice(idx,1);
+  _renderAlch();
+}
+
+function alchAddIng(ingId){
+  if(_alchSlots.length>=3){showFloatBubble('Max 3 ingredienser!','info');return;}
+  var d=_alchGetData();
+  var qty=(d.ings||{})[ingId]||0;
+  var used=_alchSlots.filter(function(s){return s===ingId;}).length;
+  if(qty-used<=0){showFloatBubble('Inte nog med ingredienser!','debuff');return;}
+  _alchSlots.push(ingId);
+  _renderAlch();
+}
+
+function alchBuyIng(ingId){
+  var ing=ALCH_INGS.find(function(i){return i.id===ingId;});
+  if(!ing||!ing.cost) return;
+  if((G.coins||0)<ing.cost){showFloatBubble('Inte nog mynt! Behöver '+ing.cost,'debuff');return;}
+  G.coins-=ing.cost; save();
+  var d=_alchGetData();
+  if(!d.ings) d.ings={};
+  d.ings[ingId]=(d.ings[ingId]||0)+1;
+  _alchSave(d);
+  showFloatBubble(ing.emoji+' '+ing.name+' köpt!','buff');
+  _renderAlch();
+}
+
+function alchBrew(){
+  if(_alchSlots.length<2){showFloatBubble('Lägg till minst 2 ingredienser!','info');return;}
+  var d=_alchGetData();
+  var slots=_alchSlots.slice().sort();
+  var potion=null;
+  for(var p=0;p<ALCH_POTIONS.length;p++){
+    var r=ALCH_POTIONS[p].recipe.slice().sort();
+    if(r.join(',')===slots.join(',')||
+       (slots.length===2 && r.slice(0,2).sort().join(',')===slots.join(','))) {
+      potion=ALCH_POTIONS[p]; break;
+    }
+  }
+  // consume ingredients
+  _alchSlots.forEach(function(id){
+    if(!d.ings) d.ings={};
+    d.ings[id]=Math.max(0,(d.ings[id]||0)-1);
+  });
+  d.brews=(d.brews||0)+1;
+  var labLv=0;
+  if(d.brews>=20) labLv=3;
+  else if(d.brews>=10) labLv=2;
+  else if(d.brews>=5) labLv=1;
+  d.labLv=labLv;
+  if(potion){
+    if(!d.potions) d.potions={};
+    d.potions[potion.id]=(d.potions[potion.id]||0)+1;
+    showFloatBubble(potion.emoji+' '+potion.name+' skapad!','buff');
+    $('alchHint').textContent='Recept funnet: '+potion.name+'!';
+  } else {
+    gainCoins(10);
+    showFloatBubble('Misslyckad bryggning... +10 mynt för försöket','info');
+    $('alchHint').textContent='Kombinationen fungerade inte. Prova igen!';
+  }
+  _alchSave(d);
+  _alchSlots=[];
+  var cld=$('alchCauldron');
+  if(cld){cld.className='alch-cauldron brewing';setTimeout(function(){cld.className='alch-cauldron';},1000);}
+  misTrack('craft',1);
+  checkAchievements();
+  _renderAlch();
+}
+
+function alchUsePotion(potId){
+  var pot=ALCH_POTIONS.find(function(p){return p.id===potId;});
+  if(!pot) return;
+  var d=_alchGetData();
+  var qty=(d.potions||{})[potId]||0;
+  if(qty<=0){showFloatBubble('Inga trolldrycker kvar!','debuff');return;}
+  d.potions[potId]=qty-1;
+  _alchSave(d);
+  if(pot.fn==='_alchUseHP'){
+    if(window._dng){_dng.heroHP=Math.min(_dng.heroMaxHP,(_dng.heroHP||50)+30);}
+    showFloatBubble('❤️ +30 HP!','buff');
+  } else if(pot.fn==='_alchUseCoins'){
+    gainCoins(200); showFloatBubble('💰 +200 mynt!','buff');
+  } else if(pot.fn==='_alchUseXP'){
+    gainXP(100,'int'); showFloatBubble('🧠 +100 XP!','buff');
+  } else if(pot.fn==='_alchUseSTR'){
+    if(!G.tempBuffs) G.tempBuffs={};
+    G.tempBuffs.str=(Date.now()+30*60000); save();
+    showFloatBubble('💪 +5 STR i 30 min!','buff');
+  } else if(pot.fn==='_alchUseAGI'){
+    if(!G.tempBuffs) G.tempBuffs={};
+    G.tempBuffs.agi=(Date.now()+30*60000); save();
+    showFloatBubble('⚡ +5 AGI i 30 min!','buff');
+  } else if(pot.fn==='_alchUseLCK'){
+    if(!G.tempBuffs) G.tempBuffs={};
+    G.tempBuffs.lck=(Date.now()+30*60000); save();
+    showFloatBubble('🍀 +5 LCK i 30 min!','buff');
+  } else if(pot.fn==='_alchUseKC'){
+    gainKC(10); showFloatBubble('👑 +10 KC!','buff');
+  } else if(pot.fn==='_alchUseShield'){
+    if(!G.tempBuffs) G.tempBuffs={};
+    G.tempBuffs.shield=1; save();
+    showFloatBubble('🛡 +20 DEF nästa dungeon!','buff');
+  } else if(pot.fn==='_alchUseFire'){
+    if(!G.tempBuffs) G.tempBuffs={};
+    G.tempBuffs.firePot=1; save();
+    showFloatBubble('🔥 +30 ATK nästa dungeon!','buff');
+  } else if(pot.fn==='_alchUseMythic'){
+    G.str=(G.str||0)+1; G.agi=(G.agi||0)+1; G.int=(G.int||0)+1;
+    G.end=(G.end||0)+1; G.lck=(G.lck||0)+1; save();
+    showFloatBubble('🌟 PERMANENT +1 alla stats!','buff');
+  }
+  _renderAlch();
+}
+
+function _renderAlch(){
+  var d=_alchGetData();
+  var labNames=['⚗️ Lärlingsalchemist','🔮 Alchemist','✨ Mästeralchemist','🌟 Arkanal Alkemist'];
+  var labThresholds=[0,5,10,20];
+  var brews=d.brews||0;
+  var labLv=0;
+  if(brews>=20) labLv=3; else if(brews>=10) labLv=2; else if(brews>=5) labLv=1;
+  var nextThresh=labThresholds[labLv+1]||labThresholds[3];
+  var ln=$('alchLvlName'); if(ln) ln.textContent=labNames[labLv]||labNames[0];
+  var lx=$('alchLvlXp'); if(lx) lx.textContent=brews+' / '+(labLv<3?nextThresh:'MAX')+' brygder';
+  // Slots
+  var slotsEl=$('alchSlots');
+  if(slotsEl){
+    var html='';
+    for(var i=0;i<3;i++){
+      var sid=_alchSlots[i];
+      var ing=sid?ALCH_INGS.find(function(x){return x.id===sid;}):null;
+      html+='<div class="alch-slot'+(sid?' filled':'')+'" onclick="alchSlotClick('+i+')">'+(ing?ing.emoji:'')+(sid?'<div class="alch-slot-rm">✕</div>':'')+'</div>';
+    }
+    slotsEl.innerHTML=html;
+  }
+  // Ingredients
+  var ig=$('alchIngGrid');
+  if(ig) ig.innerHTML=ALCH_INGS.map(function(ing){
+    var qty=(d.ings||{})[ing.id]||0;
+    var used=_alchSlots.filter(function(s){return s===ing.id;}).length;
+    var avail=qty-used;
+    if(ing.src==='buy'){
+      return '<div class="alch-ing'+(avail<=0?' empty':'')+'" onclick="'+(avail>0?'alchAddIng(\''+ing.id+'\')':'alchBuyIng(\''+ing.id+'\')')+'">'
+        +'<span class="alch-ing-emoji">'+ing.emoji+'</span>'
+        +'<div class="alch-ing-name">'+ing.name+'</div>'
+        +'<div class="alch-ing-qty">'+(avail>0?avail+'x':'Köp '+ing.cost+'🪙')+'</div>'
+        +'</div>';
+    } else {
+      return '<div class="alch-ing'+(avail<=0?' empty':'')+'" onclick="'+(avail>0?'alchAddIng(\''+ing.id+'\')':'')+(avail<=0?'showFloatBubble(\'Hitta i dungeon!\',\'info\')':'')+'">'
+        +'<span class="alch-ing-emoji">'+ing.emoji+'</span>'
+        +'<div class="alch-ing-name">'+ing.name+'</div>'
+        +'<div class="alch-ing-qty">'+(avail>0?avail+'x':'Dungeon 🗡')+'</div>'
+        +'</div>';
+    }
+  }).join('');
+  // Potions
+  var pg=$('alchPotGrid');
+  if(pg) pg.innerHTML=ALCH_POTIONS.map(function(pot){
+    var qty=(d.potions||{})[pot.id]||0;
+    return '<div class="alch-pot-card'+(qty>0?' owned':'')+'">'
+      +'<span class="alch-pot-emoji">'+pot.emoji+'</span>'
+      +'<div class="alch-pot-name">'+pot.name+'</div>'
+      +'<div class="alch-pot-effect">'+pot.effect+'</div>'
+      +(qty>0?'<div class="alch-pot-qty">x'+qty+'</div><button class="alch-pot-use" onclick="alchUsePotion(\''+pot.id+'\')">Drick</button>':'<div style="font:600 8px var(--ff-body);color:rgba(255,255,255,.2)">Ej hittad</div>')
+      +'</div>';
   }).join('');
 }
 
