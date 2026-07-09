@@ -1484,6 +1484,47 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET COOKBOOK ══ */
+.cook-panel{position:fixed;inset:0;background:#05020a;z-index:997;display:none;flex-direction:column;overflow:hidden}
+.cook-panel.open{display:flex}
+.cook-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0515,#05020a)}
+.cook-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8844,#ffcc44,#ff8844);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:cookShim 3s linear infinite}
+@keyframes cookShim{0%{background-position:0%}100%{background-position:200%}}
+.cook-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Pantry */
+.cook-pantry{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,200,100,.1);border-radius:16px;padding:12px 14px;margin-bottom:14px}
+.cook-pantry-lbl{font:700 9px var(--ff-head);color:rgba(255,200,100,.5);letter-spacing:1px;margin-bottom:8px}
+.cook-ingr-row{display:flex;flex-wrap:wrap;gap:6px}
+.cook-ingr{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:4px 8px}
+.cook-ingr-emoji{font-size:14px}
+.cook-ingr-name{font:600 9px var(--ff-body);color:rgba(255,255,255,.6)}
+.cook-ingr-cnt{font:800 10px var(--ff-head);color:#ffcc44}
+/* Active buff */
+.cook-buff{background:linear-gradient(135deg,rgba(255,100,0,.08),rgba(255,200,0,.04));border:1.5px solid rgba(255,150,0,.2);border-radius:14px;padding:10px 14px;margin-bottom:14px;display:none}
+.cook-buff.active{display:block}
+.cook-buff-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.cook-buff-emoji{font-size:24px}
+.cook-buff-name{font:900 13px var(--ff-head);color:#ff8844}
+.cook-buff-timer{font:700 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.cook-buff-bonus{font:600 9px var(--ff-body);color:#ffcc44}
+/* Recipes */
+.cook-recipes-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.cook-recipes{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.cook-recipe{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,200,100,.1);border-radius:14px;padding:12px 14px}
+.cook-recipe-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.cook-recipe-emoji{font-size:28px}
+.cook-recipe-info{flex:1}
+.cook-recipe-name{font:900 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.cook-recipe-effect{font:600 9px var(--ff-body);color:rgba(255,200,100,.7)}
+.cook-recipe-time{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.cook-recipe-ingrs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.cook-recipe-ingr{font:600 8px var(--ff-body);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:2px 6px;color:rgba(255,255,255,.5)}
+.cook-recipe-ingr.have{color:#88ff88;border-color:rgba(100,255,100,.2)}
+.cook-cook-btn{width:100%;background:linear-gradient(135deg,#331500,#663300);border:none;border-radius:10px;padding:8px;font:800 11px var(--ff-head);color:#fff;cursor:pointer}
+.cook-cook-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
+.cook-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET MOOD BOARD ══ */
 .mood-panel{position:fixed;inset:0;background:#030008;z-index:996;display:none;flex-direction:column;overflow:hidden}
 .mood-panel.open{display:flex}
@@ -9649,6 +9690,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemilabb</div>
           <div class="ddr" onclick="cM();openHoro()"><div class="ddr-i">🔮</div>Horoskop</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">😊</div>Humör</div>
+          <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kokbok</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -9711,6 +9753,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">🌀</div>Element</div>
           <div class="ddr" onclick="cM();openHoro()"><div class="ddr-i">🔮</div>Horoskop</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">😊</div>Humör</div>
+          <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kokbok</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10254,6 +10297,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
       
 
+
+
+<!-- PET COOKBOOK -->
+<div class="cook-panel" id="cookPanel">
+  <div class="cook-header">
+    <div class="cook-title">🍳 HUSDJURETS KOKBOK</div>
+    <button class="close-btn" onclick="closeCook()">✕</button>
+  </div>
+  <div class="cook-scroll">
+    <div class="cook-buff" id="cookActiveBuff">
+      <div class="cook-buff-top">
+        <div class="cook-buff-emoji" id="cookBuffEmoji">🍖</div>
+        <div>
+          <div class="cook-buff-name" id="cookBuffName">Aktiv Buff</div>
+          <div class="cook-buff-timer" id="cookBuffTimer">30:00 kvar</div>
+        </div>
+      </div>
+      <div class="cook-buff-bonus" id="cookBuffBonus">+0 stat</div>
+    </div>
+    <div class="cook-pantry">
+      <div class="cook-pantry-lbl">SKAFFERI</div>
+      <div class="cook-ingr-row" id="cookPantry"></div>
+    </div>
+    <div class="cook-recipes-lbl">RECEPT</div>
+    <div class="cook-recipes" id="cookRecipes"></div>
+    <div class="cook-info">Ingredienser faller från Fiske, Skörd, Äventyr och Expeditioner!</div>
+  </div>
+</div>
 
 <!-- PET MOOD BOARD -->
 <div class="mood-panel" id="moodPanel">
@@ -36088,6 +36159,7 @@ function misTrack(type, amount){
   if(typeof bntyTrack==='function') bntyTrack(type, amount);
   if(typeof chalTrack==='function') chalTrack(type, amount);
   if(typeof elemTrack==='function') elemTrack(type, amount);
+  if(typeof cookDropIngr==='function') cookDropIngr(type, amount);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -43336,6 +43408,188 @@ function _moodPick(id){
     grid.querySelectorAll('.mood-btn').forEach(function(btn,i){
       btn.classList.toggle('selected',MOOD_LIST[i].id===id);
     });
+  }
+}
+
+
+// PET COOKBOOK
+const COOK_KEY = 'k0509_cook';
+const COOK_INGR = {
+  fish:     {emoji:'🐟', name:'Fisk'},
+  herb:     {emoji:'🌿', name:'Ört'},
+  berry:    {emoji:'🫐', name:'Bär'},
+  mushroom: {emoji:'🍄', name:'Svamp'},
+  grain:    {emoji:'🌾', name:'Korn'},
+  crystal:  {emoji:'💎', name:'Kristall'},
+  meat:     {emoji:'🥩', name:'Kött'},
+  honey:    {emoji:'🍯', name:'Honung'},
+};
+const COOK_RECIPES = [
+  {id:'fish_stew', emoji:'🍲', name:'Fisksoppa',
+   ingr:{fish:2,herb:1}, duration:20*60,
+   bonus:{stat:'agi',val:15}, effect:'+15 AGI i 20min'},
+  {id:'berry_pie', emoji:'🥧', name:'Bärpaj',
+   ingr:{berry:3,grain:1}, duration:30*60,
+   bonus:{stat:'lck',val:20}, effect:'+20 LCK i 30min'},
+  {id:'meat_roast',emoji:'🍖', name:'Grillat Kött',
+   ingr:{meat:2,herb:1}, duration:25*60,
+   bonus:{stat:'str',val:20}, effect:'+20 STR i 25min'},
+  {id:'shroom_brew',emoji:'🧪', name:'Svampbrygd',
+   ingr:{mushroom:2,crystal:1}, duration:40*60,
+   bonus:{stat:'int',val:25}, effect:'+25 INT i 40min'},
+  {id:'honey_cake', emoji:'🍰', name:'Honungskaka',
+   ingr:{honey:2,grain:2}, duration:45*60,
+   bonus:{stat:'end',val:25}, effect:'+25 END i 45min'},
+  {id:'crystal_soup',emoji:'✨', name:'Kristallsoppa',
+   ingr:{crystal:2,fish:1,herb:1}, duration:60*60,
+   bonus:{stat:'lck',val:35}, effect:'+35 LCK i 60min'},
+  {id:'power_stew', emoji:'💪', name:'Kraftsoppa',
+   ingr:{meat:3,mushroom:1,herb:1}, duration:60*60,
+   bonus:{stat:'str',val:40}, effect:'+40 STR i 60min'},
+  {id:'feast',      emoji:'🎉', name:'Bankett',
+   ingr:{meat:2,fish:2,berry:2,honey:1}, duration:90*60,
+   bonus:{stat:'all',val:10}, effect:'+10 ALLA stats i 90min'},
+];
+
+function _cookData(){try{return JSON.parse(localStorage.getItem(COOK_KEY)||'null');}catch(e){return null;}}
+function _cookSave(d){localStorage.setItem(COOK_KEY,JSON.stringify(d));}
+function _cookGetData(){
+  var d=_cookData();
+  if(!d) d={pantry:{},buff:null};
+  return d;
+}
+
+// Drop ingredients from activities
+function cookDropIngr(type, amount){
+  var d=_cookGetData();
+  var drops=[];
+  var chance=0.25+(Math.min(G.lck||0,200)*0.001);
+  for(var i=0;i<(amount||1);i++){
+    if(Math.random()<chance){
+      var pool=[];
+      if(type==='fish') pool=['fish','fish','fish','herb','crystal'];
+      else if(type==='harvest') pool=['grain','grain','berry','herb','mushroom'];
+      else if(type==='expedition') pool=['meat','meat','herb','mushroom','honey'];
+      else if(type==='craft') pool=['crystal','grain','mushroom'];
+      else pool=['herb','berry','grain'];
+      if(pool.length){
+        var pick=pool[Math.floor(Math.random()*pool.length)];
+        d.pantry[pick]=(d.pantry[pick]||0)+1;
+        drops.push(pick);
+      }
+    }
+  }
+  if(drops.length){
+    _cookSave(d);
+    showFloatBubble(drops.map(function(k){return COOK_INGR[k].emoji;}).join('')+' Ingrediens!','buff');
+  }
+}
+
+function cookCook(recipeId){
+  var recipe=COOK_RECIPES.filter(function(r){return r.id===recipeId;})[0];
+  if(!recipe) return;
+  var d=_cookGetData();
+  // Check ingredients
+  var ok=true;
+  Object.keys(recipe.ingr).forEach(function(k){if((d.pantry[k]||0)<recipe.ingr[k]) ok=false;});
+  if(!ok){showFloatBubble('Saknar ingredienser!','debuff');return;}
+  if(d.buff&&d.buff.end>Date.now()){showFloatBubble('En buff är redan aktiv!','debuff');return;}
+  // Consume
+  Object.keys(recipe.ingr).forEach(function(k){d.pantry[k]=(d.pantry[k]||0)-recipe.ingr[k];});
+  // Apply buff (store old value to reverse)
+  var now=Date.now();
+  d.buff={id:recipeId,end:now+recipe.duration*1000,bonus:recipe.bonus};
+  // Apply stat
+  if(recipe.bonus.stat==='all'){
+    ['str','agi','int','end','lck'].forEach(function(s){G[s]=(G[s]||0)+recipe.bonus.val;});
+    d.buff._applied='all';
+  } else {
+    G[recipe.bonus.stat]=(G[recipe.bonus.stat]||0)+recipe.bonus.val;
+  }
+  save();
+  _cookSave(d);
+  showFloatBubble(recipe.emoji+' '+recipe.name+' aktiv! '+recipe.effect,'buff');
+  checkAchievements();
+  _renderCook();
+}
+
+// Check buff expiry and reverse stats
+function _cookCheckBuff(){
+  var d=_cookGetData();
+  if(!d.buff) return;
+  if(d.buff.end<=Date.now()){
+    // Reverse
+    if(d.buff.bonus.stat==='all'){
+      ['str','agi','int','end','lck'].forEach(function(s){G[s]=Math.max(0,(G[s]||0)-d.buff.bonus.val);});
+    } else {
+      G[d.buff.bonus.stat]=Math.max(0,(G[d.buff.bonus.stat]||0)-d.buff.bonus.val);
+    }
+    save();
+    d.buff=null;_cookSave(d);
+    showFloatBubble('Mattebuffens effekt tog slut','debuff');
+  }
+}
+
+function openCook(){$('cookPanel').classList.add('open');_cookCheckBuff();_renderCook();}
+function closeCook(){$('cookPanel').classList.remove('open');}
+
+function _renderCook(){
+  var d=_cookGetData();
+  _cookCheckBuff();
+  // Active buff
+  var buffBox=$('cookActiveBuff');
+  if(buffBox){
+    if(d.buff&&d.buff.end>Date.now()){
+      buffBox.classList.add('active');
+      var rec=COOK_RECIPES.filter(function(r){return r.id===d.buff.id;})[0];
+      var be=$('cookBuffEmoji');if(be) be.textContent=rec?rec.emoji:'🍽️';
+      var bn=$('cookBuffName');if(bn) bn.textContent=rec?rec.name:'Buff';
+      var secs=Math.max(0,Math.floor((d.buff.end-Date.now())/1000));
+      var mins=Math.floor(secs/60);var s=secs%60;
+      var bt=$('cookBuffTimer');if(bt) bt.textContent=mins+'m '+s+'s kvar';
+      var bb=$('cookBuffBonus');if(bb) bb.textContent=rec?rec.effect:'';
+    } else {
+      buffBox.classList.remove('active');
+    }
+  }
+  // Pantry
+  var pantry=$('cookPantry');
+  if(pantry){
+    var items=Object.keys(COOK_INGR).filter(function(k){return (d.pantry[k]||0)>0;});
+    if(!items.length) pantry.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3)">Skafferi tomt — fiska och skörda!</div>';
+    else pantry.innerHTML=items.map(function(k){
+      return '<div class="cook-ingr">'+
+        '<div class="cook-ingr-emoji">'+COOK_INGR[k].emoji+'</div>'+
+        '<div class="cook-ingr-name">'+COOK_INGR[k].name+'</div>'+
+        '<div class="cook-ingr-cnt">×'+d.pantry[k]+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  // Recipes
+  var recList=$('cookRecipes');
+  if(recList){
+    recList.innerHTML=COOK_RECIPES.map(function(recipe){
+      var canMake=Object.keys(recipe.ingr).every(function(k){return (d.pantry[k]||0)>=recipe.ingr[k];});
+      var buffActive=d.buff&&d.buff.end>Date.now();
+      var ingrHtml=Object.keys(recipe.ingr).map(function(k){
+        var have=(d.pantry[k]||0)>=recipe.ingr[k];
+        return '<div class="cook-recipe-ingr'+(have?' have':'')+'">'+COOK_INGR[k].emoji+recipe.ingr[k]+'</div>';
+      }).join('');
+      return '<div class="cook-recipe">'+
+        '<div class="cook-recipe-top">'+
+          '<div class="cook-recipe-emoji">'+recipe.emoji+'</div>'+
+          '<div class="cook-recipe-info">'+
+            '<div class="cook-recipe-name">'+recipe.name+'</div>'+
+            '<div class="cook-recipe-effect">'+recipe.effect+'</div>'+
+            '<div class="cook-recipe-time">Buffvaraktighet: '+Math.floor(recipe.duration/60)+'min</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="cook-recipe-ingrs">'+ingrHtml+'</div>'+
+        '<button class="cook-cook-btn" onclick="cookCook(\''+recipe.id+'\')" '+(canMake&&!buffActive?'':'disabled')+'>'+
+          (buffActive?'En buff är redan aktiv':canMake?'🍳 Laga nu!':'Saknar ingredienser')+
+        '</button>'+
+      '</div>';
+    }).join('');
   }
 }
 
