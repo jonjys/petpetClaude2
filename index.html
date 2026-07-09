@@ -1468,6 +1468,33 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ENCHANTING FORGE ══ */
+.ench-panel{position:fixed;inset:0;background:#06000f;z-index:981;display:none;flex-direction:column;overflow:hidden}
+.ench-panel.open{display:flex}
+.ench-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#100020,#06000f)}
+.ench-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88ff,#aa22ff,#ff88ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:enchShim 3s linear infinite}
+@keyframes enchShim{0%{background-position:0%}100%{background-position:200%}}
+.ench-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.ench-total{text-align:center;margin-bottom:14px}
+.ench-total-val{font:900 32px var(--ff-head);color:#dd44ff}
+.ench-total-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.35)}
+.ench-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.ench-rune{background:rgba(255,255,255,.02);border:1.5px solid rgba(180,80,255,.15);border-radius:16px;padding:14px 10px;text-align:center;position:relative}
+.ench-rune.mythic{border-color:rgba(255,150,255,.5);background:rgba(200,50,255,.07);box-shadow:0 0 16px rgba(200,50,255,.15)}
+.ench-rune-icon{font-size:32px;margin-bottom:6px;display:block}
+.ench-rune-stat{font:900 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.ench-rune-bonus{font:900 16px var(--ff-head);color:#dd44ff;margin-bottom:4px}
+.ench-rune-lvl{display:flex;gap:3px;justify-content:center;margin-bottom:8px}
+.ench-rune-pip{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1)}
+.ench-rune-pip.on{background:linear-gradient(135deg,#aa22ff,#ff44ff)}
+.ench-rune-pip.myth{background:linear-gradient(135deg,#ff88ff,#ffaaff);box-shadow:0 0 6px rgba(255,150,255,.8)}
+.ench-rune-btn{width:100%;background:linear-gradient(135deg,#330055,#660099);border:none;border-radius:10px;padding:8px;font:800 10px var(--ff-head);color:#fff;cursor:pointer}
+.ench-rune-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
+.ench-rune-badge{position:absolute;top:8px;right:8px;font:800 8px var(--ff-head);color:#ff88ff;background:rgba(200,50,255,.2);padding:2px 5px;border-radius:6px}
+.ench-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:8px}
+.ench-coins{font:700 11px var(--ff-head);color:#ffcc00;text-align:center;margin-bottom:12px}
+
 /* ══ PET RACING ══ */
 .race-panel{position:fixed;inset:0;background:#000d04;z-index:980;display:none;flex-direction:column;overflow:hidden}
 .race-panel.open{display:flex}
@@ -9141,6 +9168,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrgn()"><div class="ddr-i">🐉</div>Drakar</div>
           <div class="ddr" onclick="cM();openMatc()"><div class="ddr-i">💎</div>Gem Match</div>
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Racing</div>
+          <div class="ddr" onclick="cM();openEnch()"><div class="ddr-i">✨</div>Smide</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10379,6 +10407,24 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- ENCHANTING FORGE -->
+<div class="ench-panel" id="enchPanel">
+  <div class="ench-header">
+    <div class="ench-title">✨ ENCHANTING FORGE</div>
+    <button class="close-btn" onclick="closeEnch()">✕</button>
+  </div>
+  <div class="ench-scroll">
+    <div class="ench-total">
+      <div class="ench-total-val" id="enchTotalBonus">+0</div>
+      <div class="ench-total-lbl">Total bonus till alla stats</div>
+    </div>
+    <div class="ench-coins" id="enchCoins">🪙 0</div>
+    <div class="ench-grid" id="enchGrid"></div>
+    <div class="ench-info">Uppgradera runor för permanenta stat-bonusar! Nivå V = Mytisk kraft!</div>
+  </div>
+</div>
 
 <!-- PET RACING -->
 <div class="race-panel" id="racePanel">
@@ -40533,6 +40579,99 @@ function _renderRace(){
       '<div class="race-lane-name">'+r.name+'</div>'+
       '<div class="race-lane-bar"><div class="race-lane-fill" style="width:'+pct+'%;background:'+r.color+'"></div></div>'+
       '<div class="race-lane-pos">'+posDisp+'</div>'+
+      '</div>';
+  }).join('');
+}
+
+
+// ENCHANTING FORGE
+const ENCH_KEY = 'k0509_ench';
+const ENCH_RUNES = [
+  {id:'str',stat:'STR',emoji:'⚔️', color:'#ff4455'},
+  {id:'agi',stat:'AGI',emoji:'💨', color:'#44ff88'},
+  {id:'int',stat:'INT',emoji:'🔮', color:'#4488ff'},
+  {id:'end',stat:'END',emoji:'🛡️', color:'#ffaa22'},
+  {id:'lck',stat:'LCK',emoji:'🍀', color:'#ff88ff'},
+];
+const ENCH_MAX_LVL = 5;
+const ENCH_BONUS = [0,3,6,10,15,20];
+const ENCH_COST = [0,200,500,1200,3000,8000];
+
+function _enchData(){try{return JSON.parse(localStorage.getItem(ENCH_KEY)||'null');}catch(e){return null;}}
+function _enchSave(d){localStorage.setItem(ENCH_KEY,JSON.stringify(d));}
+function _enchGetData(){
+  var d=_enchData();
+  if(!d) d={lvls:{str:0,agi:0,int:0,end:0,lck:0}};
+  return d;
+}
+
+function enchGetBonus(stat){
+  var d=_enchGetData();
+  var rune=ENCH_RUNES.filter(function(r){return r.stat===stat;})[0];
+  if(!rune) return 0;
+  var lvl=d.lvls[rune.id]||0;
+  return ENCH_BONUS[lvl]||0;
+}
+
+function enchUpgrade(runeId){
+  if(G.coins===undefined) return;
+  var d=_enchGetData();
+  var lvl=d.lvls[runeId]||0;
+  if(lvl>=ENCH_MAX_LVL){showFloatBubble('Redan på max nivå!','info');return;}
+  var cost=ENCH_COST[lvl+1];
+  if((G.coins||0)<cost){showFloatBubble('Behöver '+cost+'🪙!','debuff');return;}
+  G.coins-=cost;
+  d.lvls[runeId]=lvl+1;
+  _enchSave(d);
+  var rune=ENCH_RUNES.filter(function(r){return r.id===runeId;})[0];
+  var newLvl=d.lvls[runeId];
+  // Apply stat bonus delta
+  var delta=ENCH_BONUS[newLvl]-(ENCH_BONUS[lvl]||0);
+  var statKey=rune.stat.toLowerCase();
+  G[statKey]=(G[statKey]||0)+delta;
+  save();
+  var label=['I','II','III','IV','V'][newLvl-1]||newLvl;
+  if(newLvl===ENCH_MAX_LVL){
+    showFloatBubble('🌟 MYTISK! '+rune.emoji+' '+rune.stat+' Runa V! +'+ENCH_BONUS[newLvl]+' '+rune.stat+'!','buff');
+    gainKC(1);
+  } else {
+    showFloatBubble(rune.emoji+' '+rune.stat+' Runa '+label+'! +'+delta+' '+rune.stat+'!','buff');
+  }
+  checkAchievements();
+  _renderEnch();
+}
+
+function openEnch(){$('enchPanel').classList.add('open');_renderEnch();}
+function closeEnch(){$('enchPanel').classList.remove('open');}
+
+function _renderEnch(){
+  var d=_enchGetData();
+  var totalBonus=0;
+  ENCH_RUNES.forEach(function(r){totalBonus+=ENCH_BONUS[d.lvls[r.id]||0]||0;});
+  var tb=$('enchTotalBonus'); if(tb) tb.textContent='+'+totalBonus;
+  var ec=$('enchCoins'); if(ec) ec.textContent='🪙 '+(G.coins||0).toLocaleString();
+  var grid=$('enchGrid');
+  if(!grid) return;
+  var labels=['I','II','III','IV','V'];
+  grid.innerHTML=ENCH_RUNES.map(function(r){
+    var lvl=d.lvls[r.id]||0;
+    var isMythic=lvl>=ENCH_MAX_LVL;
+    var bonus=ENCH_BONUS[lvl]||0;
+    var nextCost=lvl<ENCH_MAX_LVL?ENCH_COST[lvl+1]:0;
+    var canUp=!isMythic&&(G.coins||0)>=nextCost;
+    var pips='';
+    for(var p=0;p<ENCH_MAX_LVL;p++){
+      var cls='ench-rune-pip'+(p<lvl?(isMythic?' myth':' on'):'');
+      pips+='<div class="'+cls+'"></div>';
+    }
+    var btnTxt=isMythic?'✨ MYTISK MAX':('⬆ Nivå '+(labels[lvl]||'V')+' — '+nextCost+'🪙');
+    return '<div class="ench-rune'+(isMythic?' mythic':'')+'">'+
+      (lvl>0?'<div class="ench-rune-badge">'+labels[lvl-1]+'</div>':'')+
+      '<span class="ench-rune-icon">'+r.emoji+'</span>'+
+      '<div class="ench-rune-stat">'+r.stat+'</div>'+
+      '<div class="ench-rune-bonus">+'+(bonus||0)+'</div>'+
+      '<div class="ench-rune-lvl">'+pips+'</div>'+
+      '<button class="ench-rune-btn" onclick="enchUpgrade(\''+r.id+'\')" '+(isMythic||!canUp?'disabled':'')+'>'+btnTxt+'</button>'+
       '</div>';
   }).join('');
 }
