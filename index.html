@@ -1437,6 +1437,55 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET HOSPITAL ══ */
+.hosp-panel{position:fixed;inset:0;background:#040804;z-index:950;display:none;flex-direction:column;overflow:hidden}
+.hosp-panel.open{display:flex}
+.hosp-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#081008,#040804)}
+.hosp-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4455,#ff8844,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hosp-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Patient card */
+.hosp-patient{background:linear-gradient(180deg,rgba(255,68,85,.08),rgba(0,0,0,0));border:1.5px solid rgba(255,68,85,.2);border-radius:22px;padding:16px;margin-bottom:14px;text-align:center}
+.hosp-patient-sprite{font-size:64px;display:block;margin-bottom:8px;transition:all .3s}
+.hosp-patient-sprite.sick{filter:grayscale(.6) blur(.5px)}
+.hosp-patient-sprite.healthy{filter:drop-shadow(0 0 12px rgba(0,255,136,.4))}
+.hosp-patient-name{font:800 14px var(--ff-head);color:#fff;margin-bottom:4px}
+.hosp-health-bar{height:12px;background:rgba(255,255,255,.07);border-radius:6px;overflow:hidden;margin-bottom:4px}
+.hosp-health-fill{height:100%;border-radius:6px;transition:width .5s}
+.hosp-health-label{font:700 10px var(--ff-head);margin-bottom:8px}
+/* Status badges */
+.hosp-status-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.hosp-status{padding:4px 10px;border-radius:8px;font:700 9px var(--ff-head)}
+.hosp-status.healthy{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:#00ff88}
+.hosp-status.sick{background:rgba(255,68,85,.1);border:1px solid rgba(255,68,85,.3);color:#ff6677}
+.hosp-status.debuff{background:rgba(255,136,68,.1);border:1px solid rgba(255,136,68,.3);color:#ff8844}
+/* Treatments */
+.hosp-treatments{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.hosp-treat{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.hosp-treat-icon{font-size:28px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border-radius:12px;flex-shrink:0}
+.hosp-treat-info{flex:1}
+.hosp-treat-name{font:700 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.hosp-treat-desc{font:500 9px var(--ff-body);color:rgba(255,255,255,.45);margin-bottom:4px}
+.hosp-treat-cost{font:700 10px var(--ff-head);color:#ffcc00}
+.hosp-treat-btn{background:linear-gradient(135deg,#003010,#00ff88);border:none;border-radius:10px;color:#000;font:900 11px var(--ff-head);padding:9px 14px;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.hosp-treat-btn:active{transform:scale(.95)}
+.hosp-treat-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06);color:rgba(255,255,255,.3)}
+/* Vaccine / prevention */
+.hosp-vaccines{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.15);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+.hosp-vax-title{font:700 10px var(--ff-head);color:rgba(0,255,136,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.hosp-vax-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hosp-vax{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:9px 10px;text-align:center;cursor:pointer;transition:all .15s}
+.hosp-vax:active{transform:scale(.95)}
+.hosp-vax.done{background:rgba(0,255,136,.06);border-color:rgba(0,255,136,.2);cursor:default}
+.hosp-vax-emoji{font-size:20px;display:block;margin-bottom:4px}
+.hosp-vax-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.7);margin-bottom:2px}
+.hosp-vax-cost{font:600 8px var(--ff-body);color:rgba(255,204,0,.6)}
+/* Stats */
+.hosp-stats-row{display:flex;gap:8px}
+.hosp-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.hosp-stat-val{font:800 14px var(--ff-head);color:#00ff88}
+.hosp-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+
 /* ══ SLOT MACHINE ══ */
 .slot-panel{position:fixed;inset:0;background:#06020e;z-index:949;display:none;flex-direction:column;overflow:hidden}
 .slot-panel.open{display:flex}
@@ -7873,6 +7922,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWx()"><div class="ddr-i">🌤️</div>Väder</div>
           <div class="ddr" onclick="cM();openBP()"><div class="ddr-i">🎖️</div>Battle Pass</div>
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Slots</div>
+          <div class="ddr" onclick="cM();openHosp()"><div class="ddr-i">🏥</div>Sjukhus</div>
         </div>
       </div>
     </div>
@@ -9048,6 +9098,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET HOSPITAL -->
+<div class="hosp-panel" id="hospPanel">
+  <div class="hosp-header">
+    <div class="hosp-title">🏥 SJUKHUS</div>
+    <button class="close-btn" onclick="closeHosp()">✕</button>
+  </div>
+  <div class="hosp-scroll">
+    <div class="hosp-patient">
+      <span class="hosp-patient-sprite" id="hospSprite">🐣</span>
+      <div class="hosp-patient-name" id="hospPetName">Ditt Husdjur</div>
+      <div class="hosp-health-bar"><div class="hosp-health-fill" id="hospHealthFill" style="width:100%"></div></div>
+      <div class="hosp-health-label" id="hospHealthLabel">HP: 100/100</div>
+      <div class="hosp-status-row" id="hospStatusRow"></div>
+    </div>
+    <div class="hosp-treatments" id="hospTreatments"></div>
+    <div class="hosp-vaccines">
+      <div class="hosp-vax-title">💉 Preventiva Åtgärder</div>
+      <div class="hosp-vax-grid" id="hospVaxGrid"></div>
+    </div>
+    <div class="hosp-stats-row">
+      <div class="hosp-stat"><div class="hosp-stat-val" id="hospVisits">0</div><div class="hosp-stat-label">Sjukhusbesök</div></div>
+      <div class="hosp-stat"><div class="hosp-stat-val" id="hospHealed">0</div><div class="hosp-stat-label">HP Helat</div></div>
+      <div class="hosp-stat"><div class="hosp-stat-val" id="hospVaxCount">0</div><div class="hosp-stat-label">Vaccinationer</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- SLOT MACHINE -->
 <div class="slot-panel" id="slotPanel">
@@ -33619,6 +33697,163 @@ function _renderSlotStats(){
   var ss=$('slotSpins'); if(ss) ss.textContent=d.spins||0;
   var sb=$('slotBigWin'); if(sb) sb.textContent=d.bigWin||0;
   var sj=$('slotJackpots'); if(sj) sj.textContent=d.jackpots||0;
+}
+
+
+// PET HOSPITAL SYSTEM
+const HOSP_KEY = 'k0509_hosp';
+const HOSP_TREATMENTS = [
+  {id:'bandage',  emoji:'🩹', name:'Plåster',          desc:'Hela 25% HP',              cost:50,  healPct:25,  xp:20},
+  {id:'potion',   emoji:'🧪', name:'Helande Eliksir',  desc:'Hela 50% HP',              cost:150, healPct:50,  xp:50},
+  {id:'surgery',  emoji:'🔬', name:'Kirurgi',          desc:'Hela 100% HP + bota status',cost:400, healPct:100, xp:100, cureAll:true},
+  {id:'rest',     emoji:'🛏️', name:'Vila & Återhämtning',desc:'Hela 40% HP + +20 energi',cost:100, healPct:40, xp:40, restoreEnergy:true},
+  {id:'massage',  emoji:'💆', name:'Terapimassage',    desc:'Bota debuffs, +10% stats',  cost:200, healPct:0,   xp:60, cureDebuff:true},
+  {id:'vitamins', emoji:'💊', name:'Vitaminpaket',     desc:'Permanent +5 END',          cost:300, healPct:0,   xp:80, statBoost:{end:5}},
+];
+const HOSP_VACCINES = [
+  {id:'vax_cold',   emoji:'🤧', name:'Förkylningsskott',  cost:80,  desc:'Skyddar mot HP-förlust debuffs'},
+  {id:'vax_energy', emoji:'⚡', name:'Energivaccin',      cost:120, desc:'Gym-energi regenererar 20% snabbare'},
+  {id:'vax_luck',   emoji:'🍀', name:'Lyckoserum',        cost:200, desc:'+5% chans att hitta KC i dungeon'},
+  {id:'vax_power',  emoji:'💪', name:'Styrkedoping',      cost:250, desc:'Permanent +5 STR i gym'},
+];
+
+function _hospLoad(){try{return JSON.parse(localStorage.getItem(HOSP_KEY)||'null');}catch(e){return null;}}
+function _hospSave(d){localStorage.setItem(HOSP_KEY,JSON.stringify(d));}
+function _hospData(){
+  var d=_hospLoad();
+  if(!d) d={visits:0,healed:0,vaccines:[],statBoosts:{},vaxCount:0};
+  return d;
+}
+
+function openHosp(){
+  $('hospPanel').classList.add('open');
+  // Sync HP from dungeon if active
+  _renderHosp();
+}
+function closeHosp(){
+  $('hospPanel').classList.remove('open');
+}
+
+function _hospGetHP(){
+  if(_dng) return {hp:_dng.heroHP||100,maxHP:_dng.heroMaxHP||100};
+  var lv=G.lv||1;
+  var d=_hospData();
+  var endBonus=(d.statBoosts&&d.statBoosts.end?d.statBoosts.end*5:0);
+  var maxHP=100+lv*10+endBonus;
+  return {hp:maxHP,maxHP:maxHP};
+}
+
+function _renderHosp(){
+  var d=_hospData();
+  var hpData=_hospGetHP();
+  var pct=Math.max(0,Math.round(hpData.hp/hpData.maxHP*100));
+  // Color
+  var color=pct>60?'#00ff88':pct>30?'#ffcc00':'#ff4455';
+  var hf=$('hospHealthFill');
+  if(hf){hf.style.width=pct+'%';hf.style.background=color;}
+  var hl=$('hospHealthLabel');
+  if(hl) hl.textContent='HP: '+hpData.hp+'/'+hpData.maxHP+' ('+pct+'%)';
+  var hs=$('hospSprite');
+  if(hs){
+    hs.textContent=G.petEmoji||'🐣';
+    hs.className='hosp-patient-sprite '+(pct>50?'healthy':'sick');
+  }
+  var hn=$('hospPetName');
+  if(hn) hn.textContent=G.name||'Ditt Husdjur';
+  // Status badges
+  var sr=$('hospStatusRow');
+  if(sr){
+    var badges='';
+    if(pct>=80) badges+='<span class="hosp-status healthy">💚 Frisk</span>';
+    else if(pct>=50) badges+='<span class="hosp-status debuff">🟡 Lätt Skadad</span>';
+    else if(pct>=25) badges+='<span class="hosp-status sick">🔴 Skadad</span>';
+    else badges+='<span class="hosp-status sick">💀 Kritisk!</span>';
+    if(d.statBoosts&&Object.keys(d.statBoosts).length>0) badges+='<span class="hosp-status healthy">💊 Buffad</span>';
+    sr.innerHTML=badges;
+  }
+  // Treatments
+  var ht=$('hospTreatments');
+  if(ht) ht.innerHTML=HOSP_TREATMENTS.map(function(t){
+    var canAfford=(G.coins||0)>=t.cost;
+    return '<div class="hosp-treat">'+
+      '<div class="hosp-treat-icon">'+t.emoji+'</div>'+
+      '<div class="hosp-treat-info">'+
+      '<div class="hosp-treat-name">'+t.name+'</div>'+
+      '<div class="hosp-treat-desc">'+t.desc+'</div>'+
+      '<div class="hosp-treat-cost">'+t.cost+'💰</div>'+
+      '</div>'+
+      '<button class="hosp-treat-btn" onclick="hospTreat(''+t.id+'')" '+(canAfford?'':'disabled')+'>'+t.emoji+' Behandla</button>'+
+      '</div>';
+  }).join('');
+  // Vaccines
+  var hvg=$('hospVaxGrid');
+  if(hvg) hvg.innerHTML=HOSP_VACCINES.map(function(v){
+    var hasSk=(d.vaccines||[]).indexOf(v.id)>=0;
+    var canAfford=(G.coins||0)>=v.cost;
+    return '<div class="hosp-vax'+(hasSk?' done':'')+'" onclick="'+(hasSk?'':canAfford?'hospVax(''+v.id+'')':'')+'">'+
+      '<span class="hosp-vax-emoji">'+v.emoji+'</span>'+
+      '<div class="hosp-vax-name">'+(hasSk?'✅ ':'')+v.name+'</div>'+
+      '<div class="hosp-vax-cost">'+(hasSk?'Aktiv':v.cost+'💰')+'</div>'+
+      '</div>';
+  }).join('');
+  // Stats
+  var hv=$('hospVisits'); if(hv) hv.textContent=d.visits||0;
+  var hh=$('hospHealed'); if(hh) hh.textContent=d.healed||0;
+  var hvc=$('hospVaxCount'); if(hvc) hvc.textContent=d.vaxCount||0;
+}
+
+function hospTreat(treatId){
+  var treat=HOSP_TREATMENTS.find(function(t){return t.id===treatId;});
+  if(!treat) return;
+  if((G.coins||0)<treat.cost){showFloatBubble('Inte nog med mynt!','debuff');return;}
+  G.coins-=treat.cost;save();
+  var d=_hospData();
+  d.visits=(d.visits||0)+1;
+  // Apply healing
+  if(treat.healPct>0){
+    var maxHP=_hospGetHP().maxHP;
+    var heal=Math.round(maxHP*treat.healPct/100);
+    if(_dng){
+      _dng.heroHP=Math.min(_dng.heroMaxHP||maxHP,(_dng.heroHP||0)+heal);
+    }
+    d.healed=(d.healed||0)+heal;
+    showFloatBubble(treat.emoji+' '+treat.name+': +'+heal+' HP','buff');
+  }
+  if(treat.statBoost){
+    if(!d.statBoosts) d.statBoosts={};
+    Object.keys(treat.statBoost).forEach(function(k){
+      d.statBoosts[k]=(d.statBoosts[k]||0)+treat.statBoost[k];
+    });
+    showFloatBubble('💊 Stat boost! +'+JSON.stringify(treat.statBoost),'buff');
+  }
+  if(treat.restoreEnergy){
+    var gymD=_gymData();
+    gymD.energy=Math.min(10,(gymD.energy||0)+2);
+    localStorage.setItem(GYM_KEY,JSON.stringify(gymD));
+    showFloatBubble('⚡ +2 Gym Energi!','buff');
+  }
+  if(treat.cureAll||treat.cureDebuff){
+    showFloatBubble('✨ Alla debuffs botade!','buff');
+  }
+  gainXP(treat.xp,'action');
+  _hospSave(d);
+  _renderHosp();
+}
+
+function hospVax(vaxId){
+  var vax=HOSP_VACCINES.find(function(v){return v.id===vaxId;});
+  if(!vax) return;
+  if((G.coins||0)<vax.cost){showFloatBubble('Inte nog med mynt!','debuff');return;}
+  var d=_hospData();
+  if((d.vaccines||[]).indexOf(vaxId)>=0){showFloatBubble('Redan vaccinerad!','info');return;}
+  G.coins-=vax.cost;save();
+  if(!d.vaccines) d.vaccines=[];
+  d.vaccines.push(vaxId);
+  d.vaxCount=(d.vaxCount||0)+1;
+  _hospSave(d);
+  gainXP(50,'action');
+  showFloatBubble(vax.emoji+' '+vax.name+' aktiverat!','buff');
+  _renderHosp();
 }
 
 </script>
