@@ -1474,6 +1474,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ COSMIC OBSERVATORY ══ */
+.obsy-panel{position:fixed;inset:0;background:#000006;z-index:987;display:none;flex-direction:column;overflow:hidden}
+.obsy-panel.open{display:flex}
+.obsy-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#00001a,#000006)}
+.obsy-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aaaaff,#ffffff,#ffaaff,#aaaaff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:obsyShim 4s linear infinite}
+@keyframes obsyShim{0%{background-position:0%}100%{background-position:200%}}
+.obsy-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Sky display */
+.obsy-sky{background:radial-gradient(ellipse at center,#0a0030 0%,#000006 70%);border:1px solid rgba(150,150,255,.1);border-radius:24px;padding:24px 16px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden}
+.obsy-stars-bg{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 10% 20%,rgba(255,255,255,.6) 0%,transparent 100%),radial-gradient(1px 1px at 30% 70%,rgba(255,255,255,.4) 0%,transparent 100%),radial-gradient(1px 1px at 60% 15%,rgba(255,255,255,.5) 0%,transparent 100%),radial-gradient(1px 1px at 80% 50%,rgba(255,255,255,.6) 0%,transparent 100%),radial-gradient(1px 1px at 50% 80%,rgba(255,255,255,.4) 0%,transparent 100%),radial-gradient(1px 1px at 20% 45%,rgba(255,255,255,.5) 0%,transparent 100%),radial-gradient(1px 1px at 90% 30%,rgba(255,255,255,.7) 0%,transparent 100%),radial-gradient(1px 1px at 45% 55%,rgba(255,255,255,.3) 0%,transparent 100%)}
+.obsy-telescope{font-size:48px;margin-bottom:6px;display:block;position:relative;z-index:1}
+.obsy-sky-lbl{font:700 10px var(--ff-head);color:rgba(200,200,255,.5);letter-spacing:1px;position:relative;z-index:1}
+.obsy-streak{font:900 14px var(--ff-head);color:#aaaaff;margin-top:6px;position:relative;z-index:1}
+/* Constellation cards */
+.obsy-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.obsy-const{display:flex;align-items:center;gap:12px;background:rgba(150,100,255,.04);border:1.5px solid rgba(150,100,255,.15);border-radius:14px;padding:12px 14px;cursor:pointer;transition:border-color .2s}
+.obsy-const:active{transform:scale(.98)}
+.obsy-const.observed{border-color:rgba(100,255,200,.3);background:rgba(100,255,200,.04);cursor:default}
+.obsy-const.locked{opacity:.4;cursor:not-allowed}
+.obsy-const-sign{font-size:32px;flex-shrink:0}
+.obsy-const-info{flex:1}
+.obsy-const-name{font:800 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.obsy-const-reward{font:700 9px var(--ff-body);color:rgba(200,180,255,.6)}
+.obsy-const-badge{font:800 9px var(--ff-head);padding:3px 8px;border-radius:8px}
+.obsy-const.observed .obsy-const-badge{background:rgba(100,255,200,.15);color:#44ffcc}
+.obsy-const:not(.observed):not(.locked) .obsy-const-badge{background:rgba(150,100,255,.15);color:#aa88ff}
+.obsy-const.locked .obsy-const-badge{background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)}
+/* All-done bonus */
+.obsy-jackpot{background:linear-gradient(135deg,rgba(150,100,255,.08),rgba(50,50,200,.08));border:2px solid rgba(150,100,255,.3);border-radius:16px;padding:14px;text-align:center;margin-bottom:12px}
+.obsy-jackpot-title{font:900 12px var(--ff-head);color:#aaaaff;margin-bottom:4px}
+.obsy-jackpot-desc{font:700 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:10px}
+.obsy-jackpot-btn{background:linear-gradient(135deg,#220055,#4400aa);border:none;border-radius:12px;padding:11px 20px;font:900 12px var(--ff-head);color:#fff;cursor:pointer}
+.obsy-jackpot-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.05)}
+.obsy-msg{font:800 12px var(--ff-head);color:#ffcc00;text-align:center;min-height:20px;margin-bottom:8px}
+.obsy-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ TRAINING DOJO ══ */
 .dojo-panel{position:fixed;inset:0;background:#000508;z-index:986;display:none;flex-direction:column;overflow:hidden}
 .dojo-panel.open{display:flex}
@@ -9348,6 +9385,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openArna()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openSpin()"><div class="ddr-i">🎰</div>Lyckohjul</div>
           <div class="ddr" onclick="cM();openDojo()"><div class="ddr-i">🥊</div>Dojo</div>
+          <div class="ddr" onclick="cM();openObsy()"><div class="ddr-i">🌌</div>Observatoriet</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10592,6 +10630,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- COSMIC OBSERVATORY -->
+<div class="obsy-panel" id="obsyPanel">
+  <div class="obsy-header">
+    <div class="obsy-title">🌌 KOSMISKA OBSERVATORIET</div>
+    <button class="close-btn" onclick="closeObsy()">✕</button>
+  </div>
+  <div class="obsy-scroll">
+    <div class="obsy-sky">
+      <div class="obsy-stars-bg"></div>
+      <span class="obsy-telescope">🔭</span>
+      <div class="obsy-sky-lbl" id="obsySkyLbl">DAGENS KONSTELLATIONER</div>
+      <div class="obsy-streak" id="obsyStreak"></div>
+    </div>
+    <div class="obsy-msg" id="obsyMsg">Observera himlakropparna!</div>
+    <div class="obsy-grid" id="obsyGrid"></div>
+    <div class="obsy-jackpot">
+      <div class="obsy-jackpot-title">🌠 ALLA OBSERVERADE BONUS</div>
+      <div class="obsy-jackpot-desc">Observera alla 3 konstellationer för +1000🪙 +3KC!</div>
+      <button class="obsy-jackpot-btn" id="obsyJackpotBtn" onclick="obsyClaimJackpot()" disabled>Observera alla 3 först</button>
+    </div>
+    <div class="obsy-info">LCK ökar belöningarna! Sällsynthet: 👁️ Stjärnfall ger massiva belöningar!</div>
+  </div>
+</div>
 
 <!-- TRAINING DOJO -->
 <div class="dojo-panel" id="dojoPanel">
@@ -41686,6 +41749,112 @@ function _renderDojo(){
       '</div>'+
     '</div>';
   }).join('');
+}
+
+
+// COSMIC OBSERVATORY
+const OBSY_KEY = 'k0509_obsy';
+const OBSY_CONSTS = [
+  {id:'aries',  sign:'🐏',name:'Aries',       reward:{coins:800,  stat:'str',statGain:3}},
+  {id:'leo',    sign:'🦁',name:'Leo',          reward:{coins:1200, stat:'int',statGain:2}},
+  {id:'gemini', sign:'♊',name:'Gemini',        reward:{xp:500,    kc:1}},
+  {id:'scorpio',sign:'🦂',name:'Scorpio',      reward:{kc:2,      coins:200}},
+  {id:'pisces', sign:'🐟',name:'Pisces',       reward:{coins:600,  stat:'agi',statGain:2}},
+  {id:'taurus', sign:'🐂',name:'Taurus',       reward:{coins:400,  stat:'end',statGain:3}},
+  {id:'sagitt', sign:'🏹',name:'Sagittarius',  reward:{coins:500,  stat:'lck',statGain:2}},
+  {id:'cancer', sign:'🦀',name:'Cancer',       reward:{stat:'all', statGain:2, coins:200}},
+];
+
+function _obsyData(){try{return JSON.parse(localStorage.getItem(OBSY_KEY)||'null');}catch(e){return null;}}
+function _obsySave(d){localStorage.setItem(OBSY_KEY,JSON.stringify(d));}
+function _obsyGetData(){
+  var d=_obsyData(); var t=getTodayKey();
+  if(!d||d.day!==t){
+    // Pick 3 constellations for today (seeded by date)
+    var seed=0; for(var i=0;i<t.length;i++) seed=(seed*31+t.charCodeAt(i))>>>0;
+    var pool=OBSY_CONSTS.map(function(c,i){return i;});
+    for(var j=pool.length-1;j>0;j--){seed=(seed*1664525+1013904223)>>>0;var k=seed%(j+1);var tmp=pool[j];pool[j]=pool[k];pool[k]=tmp;}
+    d={day:t,picks:pool.slice(0,3),observed:[],jackpotClaimed:false,streak:(d?d.streak:0)||0};
+  }
+  return d;
+}
+
+function obsyObserve(idx){
+  var d=_obsyGetData();
+  if(d.observed.includes(idx)){showFloatBubble('Redan observerad idag!','debuff');return;}
+  // Check for shooting star (2% chance)
+  var shootingStar=Math.random()<Math.min(0.02+(G.lck||0)*0.001,0.08);
+  if(shootingStar){
+    gainCoins(2000);gainKC(5);
+    showFloatBubble('🌠 STJÄRNFALL! +2000🪙 +5KC!','buff');
+    var mg=$('obsyMsg');if(mg) mg.textContent='🌠 SÄLLSYNT STJÄRNFALL! Kosmisk lycka!';
+  } else {
+    var constIdx=d.picks[idx];
+    var c=OBSY_CONSTS[constIdx];
+    var r=c.reward;
+    var lkMult=1+Math.min((G.lck||0)*0.005,0.15);
+    var parts=[];
+    if(r.coins){var coinGain=Math.floor(r.coins*lkMult);gainCoins(coinGain);parts.push('+'+coinGain+'🪙');}
+    if(r.xp){var xpGain=Math.floor(r.xp*lkMult);gainXP(xpGain,'str');parts.push('+'+xpGain+'⭐');}
+    if(r.kc){var kcGain=r.kc;gainKC(kcGain);parts.push('+'+kcGain+'KC');}
+    if(r.stat==='all'){G.str=(G.str||0)+r.statGain;G.agi=(G.agi||0)+r.statGain;G.int=(G.int||0)+r.statGain;G.end=(G.end||0)+r.statGain;G.lck=(G.lck||0)+r.statGain;save();parts.push('+'+r.statGain+' alla stats');}
+    else if(r.stat){var sk=r.stat;G[sk]=(G[sk]||0)+r.statGain;save();parts.push('+'+r.statGain+' '+r.stat.toUpperCase());}
+    var mg=$('obsyMsg');if(mg) mg.textContent=c.sign+' '+c.name+': '+parts.join(' ')+'!';
+    showFloatBubble(c.sign+' '+c.name+': '+parts.join(' '),'buff');
+  }
+  d.observed.push(idx);
+  if(d.observed.length>=3) d.streak=(d.streak||0)+1;
+  _obsySave(d);
+  checkAchievements();
+  _renderObsy();
+}
+
+function obsyClaimJackpot(){
+  var d=_obsyGetData();
+  if(d.jackpotClaimed||d.observed.length<3){showFloatBubble('Observera alla 3 konstellationer!','debuff');return;}
+  d.jackpotClaimed=true;
+  _obsySave(d);
+  gainCoins(1000);gainKC(3);
+  showFloatBubble('🌌 Alla stjärnor observerade! +1000🪙 +3KC!','buff');
+  var mg=$('obsyMsg');if(mg) mg.textContent='🌌 Komplett observation! Universums välsignelse!';
+  checkAchievements();
+  _renderObsy();
+}
+
+function openObsy(){$('obsyPanel').classList.add('open');_renderObsy();}
+function closeObsy(){$('obsyPanel').classList.remove('open');}
+
+function _renderObsy(){
+  var d=_obsyGetData();
+  var sl=$('obsySkyLbl');if(sl) sl.textContent='DAGENS KONSTELLATIONER ('+d.observed.length+'/3)';
+  var ss=$('obsyStreak');if(ss) ss.textContent=d.streak>0?'🔥 '+d.streak+' dag(ar) i rad':'';
+  var grid=$('obsyGrid');
+  if(!grid) return;
+  grid.innerHTML=d.picks.map(function(constIdx,i){
+    var c=OBSY_CONSTS[constIdx];
+    var obs=d.observed.includes(i);
+    var rewardDesc=[];
+    var r=c.reward;
+    if(r.coins) rewardDesc.push(r.coins+'🪙');
+    if(r.xp) rewardDesc.push(r.xp+'⭐XP');
+    if(r.kc) rewardDesc.push(r.kc+'KC');
+    if(r.stat==='all') rewardDesc.push('+'+r.statGain+' alla stats');
+    else if(r.stat) rewardDesc.push('+'+r.statGain+' '+r.stat.toUpperCase());
+    return '<div class="obsy-const'+(obs?' observed':'')+'" onclick="'+(obs?'':'obsyObserve('+i+')')+'">'+
+      '<div class="obsy-const-sign">'+c.sign+'</div>'+
+      '<div class="obsy-const-info">'+
+        '<div class="obsy-const-name">'+c.name+'</div>'+
+        '<div class="obsy-const-reward">'+(obs?'✓ Observerad':rewardDesc.join(' · '))+'</div>'+
+      '</div>'+
+      '<div class="obsy-const-badge">'+(obs?'✓ Klar':'👁️ Titta')+'</div>'+
+    '</div>';
+  }).join('');
+  var jb=$('obsyJackpotBtn');
+  if(jb){
+    var allDone=d.observed.length>=3;
+    jb.disabled=!allDone||d.jackpotClaimed;
+    jb.textContent=d.jackpotClaimed?'✓ Jackpot hämtad!':allDone?'🌌 Hämta universumbonus!':'Observera alla 3 först';
+  }
 }
 
 </script>
