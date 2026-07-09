@@ -1435,6 +1435,56 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ BATTLE PASS ══ */
+.bp-panel{position:fixed;inset:0;background:#060408;z-index:948;display:none;flex-direction:column;overflow:hidden}
+.bp-panel.open{display:flex}
+.bp-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#120820,#060408)}
+.bp-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4455,#aa44ff,#44aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.bp-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Season card */
+.bp-season{background:linear-gradient(135deg,rgba(170,68,255,.12),rgba(68,170,255,.08));border:1.5px solid rgba(170,68,255,.3);border-radius:22px;padding:16px;margin-bottom:14px}
+.bp-season-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.bp-season-icon{font-size:40px;filter:drop-shadow(0 0 10px rgba(170,68,255,.5))}
+.bp-season-info{flex:1}
+.bp-season-name{font:900 16px var(--ff-head);color:#fff;margin-bottom:2px}
+.bp-season-days{font:500 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.bp-season-xp{font:900 14px var(--ff-head);color:#aa44ff}
+.bp-xp-bar{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;margin-bottom:5px}
+.bp-xp-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#aa44ff,#ff44ff);transition:width .4s}
+.bp-xp-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:10px}
+.bp-premium-btn{width:100%;background:linear-gradient(135deg,#2a0050,#aa44ff);border:none;border-radius:13px;color:#fff;font:900 12px var(--ff-head);padding:11px;cursor:pointer;transition:all .15s}
+.bp-premium-btn.owned{background:rgba(170,68,255,.15);border:1px solid rgba(170,68,255,.3);cursor:default}
+.bp-premium-btn:active{transform:scale(.97)}
+/* Tiers */
+.bp-tiers-label{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.bp-tiers{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+.bp-tier{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:8px 10px}
+.bp-tier.current{border-color:rgba(170,68,255,.4);background:rgba(170,68,255,.07)}
+.bp-tier.past{opacity:.65}
+.bp-tier-num{font:900 12px var(--ff-head);color:rgba(255,255,255,.4);min-width:24px;text-align:center}
+.bp-tier.current .bp-tier-num{color:#aa44ff}
+.bp-tier-free{display:flex;flex-direction:column;align-items:center;min-width:52px}
+.bp-tier-premium{display:flex;flex-direction:column;align-items:center;min-width:52px;border-left:1px solid rgba(255,255,255,.06);padding-left:8px}
+.bp-tier-reward{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:5px 8px;text-align:center;width:100%}
+.bp-tier-reward.premium{background:rgba(170,68,255,.1);border-color:rgba(170,68,255,.3)}
+.bp-tier-reward.claimed{background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.3)}
+.bp-tier-reward.locked{opacity:.35;cursor:default}
+.bp-tier-emoji{font-size:16px;display:block}
+.bp-tier-val{font:700 8px var(--ff-head);color:#ffcc00;white-space:nowrap}
+.bp-tier-label{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.bp-claim-tier-btn{font:700 8px var(--ff-head);background:rgba(170,68,255,.2);border:none;border-radius:6px;color:#aa44ff;padding:3px 7px;cursor:pointer;margin-top:3px}
+.bp-tier-claimed{font:700 7px var(--ff-head);color:rgba(0,255,136,.8)}
+/* Challenges */
+.bp-challenges{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.bp-challenge{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+.bp-challenge.done{border-color:rgba(0,255,136,.2);background:rgba(0,255,136,.04)}
+.bp-ch-icon{font-size:22px;width:36px;text-align:center}
+.bp-ch-info{flex:1}
+.bp-ch-name{font:700 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.bp-ch-prog{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.bp-ch-reward{font:700 9px var(--ff-head);color:#aa44ff;white-space:nowrap}
+
 /* ══ WEATHER SYSTEM ══ */
 .wx-panel{position:fixed;inset:0;background:#040610;z-index:947;display:none;flex-direction:column;overflow:hidden}
 .wx-panel.open{display:flex}
@@ -7776,6 +7826,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMis()"><div class="ddr-i">🎯</div>Uppdrag</div>
           <div class="ddr" onclick="cM();openHunt()"><div class="ddr-i">🗺️</div>Skattjakt</div>
           <div class="ddr" onclick="cM();openWx()"><div class="ddr-i">🌤️</div>Väder</div>
+          <div class="ddr" onclick="cM();openBP()"><div class="ddr-i">🎖️</div>Battle Pass</div>
         </div>
       </div>
     </div>
@@ -8949,6 +9000,37 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- BATTLE PASS -->
+<div class="bp-panel" id="bpPanel">
+  <div class="bp-header">
+    <div class="bp-title">🎖️ BATTLE PASS</div>
+    <button class="close-btn" onclick="closeBP()">✕</button>
+  </div>
+  <div class="bp-scroll">
+    <div class="bp-season">
+      <div class="bp-season-top">
+        <div class="bp-season-icon">🏆</div>
+        <div class="bp-season-info">
+          <div class="bp-season-name">Säsong 1: Drakkrigen</div>
+          <div class="bp-season-days" id="bpDaysLeft">30 dagar kvar</div>
+        </div>
+        <div style="text-align:right">
+          <div class="bp-season-xp" id="bpXPLabel">0 XP</div>
+          <div style="font:500 8px var(--ff-body);color:rgba(255,255,255,.35)">Battle XP</div>
+        </div>
+      </div>
+      <div class="bp-xp-bar"><div class="bp-xp-fill" id="bpXPBar" style="width:0%"></div></div>
+      <div class="bp-xp-label" id="bpXPNext">Nästa tier om 500 XP</div>
+      <button class="bp-premium-btn" id="bpPremiumBtn" onclick="bpBuyPremium()">👑 Premium Battle Pass — 10 KC</button>
+    </div>
+    <div class="bp-tiers-label">🎁 Tier Belöningar</div>
+    <div class="bp-tiers" id="bpTiers"></div>
+    <div class="bp-tiers-label">⚡ Veckoutmaningar</div>
+    <div class="bp-challenges" id="bpChallenges"></div>
+  </div>
+</div>
 
 <!-- WEATHER SYSTEM -->
 <div class="wx-panel" id="wxPanel">
@@ -33120,6 +33202,192 @@ function _wxInitWidget(){
   var wx=_wxGetWeather(0);
   var existing=document.getElementById('wxWidget');
   if(existing) {existing.textContent=wx.emoji+' '+wx.name; return;}
+}
+
+
+// BATTLE PASS SYSTEM
+const BP_KEY = 'k0509_bp';
+const BP_XP_PER_TIER = 500;
+const BP_TIERS_DEF = [
+  {tier:1,  free:{emoji:'💰',val:'100',label:'Mynt'},    prem:{emoji:'💎',val:'300',label:'Mynt'}},
+  {tier:2,  free:{emoji:'⭐',val:'200 XP',label:'XP'},   prem:{emoji:'🔑',val:'1 KC',label:'KC'}},
+  {tier:3,  free:{emoji:'💰',val:'150',label:'Mynt'},    prem:{emoji:'⭐',val:'500 XP',label:'XP'}},
+  {tier:4,  free:{emoji:'🏋️',val:'Gym×2',label:'Energi'},prem:{emoji:'💰',val:'500',label:'Mynt'}},
+  {tier:5,  free:{emoji:'⭐',val:'300 XP',label:'XP'},   prem:{emoji:'🔑',val:'2 KC',label:'KC'}},
+  {tier:6,  free:{emoji:'💰',val:'200',label:'Mynt'},    prem:{emoji:'✨',val:'Gacha Pull',label:'Gratis Pull'}},
+  {tier:7,  free:{emoji:'⭐',val:'500 XP',label:'XP'},   prem:{emoji:'💰',val:'800',label:'Mynt'}},
+  {tier:8,  free:{emoji:'🍀',val:'Luck+5',label:'LCK'},  prem:{emoji:'🔑',val:'3 KC',label:'KC'}},
+  {tier:9,  free:{emoji:'💰',val:'300',label:'Mynt'},    prem:{emoji:'⭐',val:'1000 XP',label:'XP'}},
+  {tier:10, free:{emoji:'🏆',val:'500',label:'Mynt'},    prem:{emoji:'🔑',val:'5 KC',label:'KC'}},
+  {tier:11, free:{emoji:'⭐',val:'400 XP',label:'XP'},   prem:{emoji:'💰',val:'1000',label:'Mynt'}},
+  {tier:12, free:{emoji:'💰',val:'400',label:'Mynt'},    prem:{emoji:'🔑',val:'2 KC',label:'KC'}},
+  {tier:13, free:{emoji:'🍳',val:'Ing x5',label:'Ingredienser'},prem:{emoji:'⭐',val:'1500 XP',label:'XP'}},
+  {tier:14, free:{emoji:'⭐',val:'600 XP',label:'XP'},   prem:{emoji:'💰',val:'1500',label:'Mynt'}},
+  {tier:15, free:{emoji:'💰',val:'500',label:'Mynt'},    prem:{emoji:'🔑',val:'5 KC',label:'KC'}},
+  {tier:16, free:{emoji:'⭐',val:'800 XP',label:'XP'},   prem:{emoji:'💰',val:'2000',label:'Mynt'}},
+  {tier:17, free:{emoji:'💰',val:'600',label:'Mynt'},    prem:{emoji:'🔑',val:'3 KC',label:'KC'}},
+  {tier:18, free:{emoji:'⭐',val:'1000 XP',label:'XP'},  prem:{emoji:'✨',val:'3x Summon',label:'Summon'}},
+  {tier:19, free:{emoji:'💰',val:'700',label:'Mynt'},    prem:{emoji:'💰',val:'3000',label:'Mynt'}},
+  {tier:20, free:{emoji:'🔑',val:'2 KC',label:'KC'},     prem:{emoji:'🔑',val:'10 KC',label:'KC'}},
+  {tier:21, free:{emoji:'⭐',val:'1200 XP',label:'XP'},  prem:{emoji:'💰',val:'4000',label:'Mynt'}},
+  {tier:22, free:{emoji:'💰',val:'800',label:'Mynt'},    prem:{emoji:'🔑',val:'5 KC',label:'KC'}},
+  {tier:23, free:{emoji:'⭐',val:'1500 XP',label:'XP'},  prem:{emoji:'💰',val:'5000',label:'Mynt'}},
+  {tier:24, free:{emoji:'💰',val:'1000',label:'Mynt'},   prem:{emoji:'🔑',val:'8 KC',label:'KC'}},
+  {tier:25, free:{emoji:'🏆',val:'2000 Mynt',label:'Mynt'},prem:{emoji:'🌟',val:'LEGENDARY',label:'5★ Summon'}},
+  {tier:26, free:{emoji:'⭐',val:'2000 XP',label:'XP'},  prem:{emoji:'💰',val:'6000',label:'Mynt'}},
+  {tier:27, free:{emoji:'💰',val:'1500',label:'Mynt'},   prem:{emoji:'🔑',val:'10 KC',label:'KC'}},
+  {tier:28, free:{emoji:'⭐',val:'3000 XP',label:'XP'},  prem:{emoji:'💰',val:'8000',label:'Mynt'}},
+  {tier:29, free:{emoji:'💰',val:'2000',label:'Mynt'},   prem:{emoji:'🔑',val:'15 KC',label:'KC'}},
+  {tier:30, free:{emoji:'👑',val:'GRAND PRIZE',label:'5000 Mynt'},prem:{emoji:'🌟',val:'MEGA PRIZE',label:'20KC+10000💰'}},
+];
+const BP_CHALLENGES = [
+  {id:'bpc1', emoji:'⚔️', name:'Dungeon Löpare',     desc:'Besegra 20 fiender denna vecka',    target:20, type:'kills',  reward:{xp:500,bpXP:300}},
+  {id:'bpc2', emoji:'🌾', name:'Grönskande Vecka',   desc:'Skörda 10 grödor',                  target:10, type:'harvest',reward:{coins:300,bpXP:200}},
+  {id:'bpc3', emoji:'🧘', name:'Meditationsveckan',  desc:'Slutför 3 meditationer',             target:3,  type:'medses', reward:{xp:400,bpXP:250}},
+  {id:'bpc4', emoji:'🗺️', name:'Äventyrarens Vecka', desc:'Slutför 2 expeditioner',             target:2,  type:'expcom', reward:{coins:500,bpXP:300}},
+  {id:'bpc5', emoji:'🍳', name:'Veckokocken',        desc:'Laga 3 måltider i köket',            target:3,  type:'cook',   reward:{kc:1,bpXP:400}},
+];
+
+function _bpLoad(){try{return JSON.parse(localStorage.getItem(BP_KEY)||'null');}catch(e){return null;}}
+function _bpSave(d){localStorage.setItem(BP_KEY,JSON.stringify(d));}
+function _bpData(){
+  var d=_bpLoad();
+  if(!d) d={xp:0,currentTier:0,premium:false,freeClaimed:{},premClaimed:{},weekChallenges:{},weekStart:null};
+  // Weekly reset
+  var monday=_bpWeekStart();
+  if(d.weekStart!==monday){d.weekChallenges={};d.weekStart=monday;}
+  return d;
+}
+function _bpWeekStart(){
+  var now=new Date();
+  var day=now.getDay();
+  var diff=now.getDate()-day+(day===0?-6:1);
+  var mon=new Date(now.setDate(diff));
+  return mon.toISOString().slice(0,10);
+}
+
+function openBP(){
+  $('bpPanel').classList.add('open');
+  _renderBP();
+}
+function closeBP(){
+  $('bpPanel').classList.remove('open');
+}
+
+function bpBuyPremium(){
+  var d=_bpData();
+  if(d.premium){showFloatBubble('Du har redan Premium!','info');return;}
+  if((G.kc||0)<10){showFloatBubble('Behöver 10 KC!','debuff');return;}
+  G.kc-=10;save();
+  d.premium=true;
+  _bpSave(d);
+  showFloatBubble('👑 Premium Battle Pass aktiverat!','buff');
+  _renderBP();
+}
+
+function bpClaimTier(tier,type){
+  var d=_bpData();
+  var tierDef=BP_TIERS_DEF.find(function(t){return t.tier===tier;});
+  if(!tierDef) return;
+  if(d.currentTier<tier){showFloatBubble('Nå tier '+tier+' först!','debuff');return;}
+  if(type==='free'&&d.freeClaimed[tier]){showFloatBubble('Redan hämtad!','info');return;}
+  if(type==='prem'&&(!d.premium||d.premClaimed[tier])){
+    if(!d.premium) showFloatBubble('Kräver Premium!','debuff');
+    else showFloatBubble('Redan hämtad!','info');
+    return;
+  }
+  var reward=type==='free'?tierDef.free:tierDef.prem;
+  if(type==='free') d.freeClaimed[tier]=true; else d.premClaimed[tier]=true;
+  _bpSave(d);
+  // Parse and apply reward
+  var val=reward.val;
+  if(val.indexOf('KC')>=0) gainKC(parseInt(val));
+  else if(val.indexOf('XP')>=0) gainXP(parseInt(val),'action');
+  else if(!isNaN(parseInt(val))) gainCoins(parseInt(val));
+  showFloatBubble('🎁 Tier '+tier+' '+reward.label+' hämtad!','buff');
+  _renderBP();
+}
+
+// Earn BP XP
+function gainBPXP(amount){
+  var d=_bpData();
+  d.xp=(d.xp||0)+amount;
+  var newTier=Math.floor(d.xp/BP_XP_PER_TIER);
+  if(newTier>d.currentTier){
+    var oldTier=d.currentTier;
+    d.currentTier=Math.min(30,newTier);
+    _bpSave(d);
+    showFloatBubble('🎖️ Battle Pass Tier '+(d.currentTier)+' upplåst!','buff');
+  } else {
+    _bpSave(d);
+  }
+}
+
+function _renderBP(){
+  var d=_bpData();
+  var xpPct=Math.round((d.xp%BP_XP_PER_TIER)/BP_XP_PER_TIER*100);
+  var xpNext=BP_XP_PER_TIER-(d.xp%BP_XP_PER_TIER);
+  var xb=$('bpXPBar'); if(xb) xb.style.width=xpPct+'%';
+  var xl=$('bpXPLabel'); if(xl) xl.textContent=(d.xp||0)+' XP';
+  var xn=$('bpXPNext'); if(xn) xn.textContent='Tier '+(d.currentTier+1)+' om '+xpNext+' XP';
+  var pb=$('bpPremiumBtn');
+  if(pb){
+    if(d.premium){pb.textContent='👑 Premium Aktiverat!';pb.className='bp-premium-btn owned';}
+    else{pb.textContent='👑 Premium Battle Pass — 10 KC';pb.className='bp-premium-btn';}
+  }
+  // Tiers
+  var bt=$('bpTiers');
+  if(bt){
+    // Show current tier ±3 plus tier 30
+    var show=[];
+    for(var i=Math.max(1,d.currentTier-1);i<=Math.min(30,d.currentTier+4);i++) show.push(i);
+    if(show.indexOf(30)<0) show.push(30);
+    bt.innerHTML=show.map(function(tierNum){
+      var td=BP_TIERS_DEF.find(function(t){return t.tier===tierNum;});
+      if(!td) return '';
+      var isCurrent=tierNum===d.currentTier+1;
+      var isPast=tierNum<=d.currentTier;
+      var cls='bp-tier'+(isCurrent?' current':isPast?' past':'');
+      var fClaimed=d.freeClaimed[tierNum];
+      var pClaimed=d.premClaimed[tierNum];
+      var canFree=isPast&&!fClaimed;
+      var canPrem=isPast&&d.premium&&!pClaimed;
+      return '<div class="'+cls+'">'+
+        '<div class="bp-tier-num">'+tierNum+'</div>'+
+        '<div class="bp-tier-free">'+
+        '<div class="bp-tier-label" style="font:500 7px var(--ff-body);color:rgba(255,255,255,.25);margin-bottom:3px">GRATIS</div>'+
+        '<div class="bp-tier-reward'+(fClaimed?' claimed':isPast?'':' locked')+'">'+
+        '<span class="bp-tier-emoji">'+td.free.emoji+'</span>'+
+        '<div class="bp-tier-val">'+td.free.val+'</div>'+
+        '</div>'+
+        (fClaimed?'<div class="bp-tier-claimed">✅</div>':canFree?'<button class="bp-claim-tier-btn" onclick="bpClaimTier('+tierNum+','free')">Hämta</button>':'')+
+        '</div>'+
+        '<div style="width:1px;background:rgba(255,255,255,.06);flex-shrink:0;margin:0 2px"></div>'+
+        '<div class="bp-tier-premium">'+
+        '<div class="bp-tier-label" style="font:500 7px var(--ff-body);color:rgba(170,68,255,.5);margin-bottom:3px">👑 PREM</div>'+
+        '<div class="bp-tier-reward premium'+(pClaimed?' claimed':!d.premium||!isPast?' locked':'')+'">'+
+        '<span class="bp-tier-emoji">'+td.prem.emoji+'</span>'+
+        '<div class="bp-tier-val" style="color:#aa44ff">'+td.prem.val+'</div>'+
+        '</div>'+
+        (pClaimed?'<div class="bp-tier-claimed">✅</div>':canPrem?'<button class="bp-claim-tier-btn" onclick="bpClaimTier('+tierNum+','prem')">Hämta</button>':'')+
+        '</div>'+
+        '</div>';
+    }).join('');
+  }
+  // Challenges
+  var bc=$('bpChallenges');
+  if(bc) bc.innerHTML=BP_CHALLENGES.map(function(ch){
+    var prog=d.weekChallenges[ch.id]||0;
+    var done=prog>=ch.target;
+    return '<div class="bp-challenge'+(done?' done':'')+'">'+
+      '<div class="bp-ch-icon">'+ch.emoji+'</div>'+
+      '<div class="bp-ch-info">'+
+      '<div class="bp-ch-name">'+ch.name+'</div>'+
+      '<div class="bp-ch-prog">'+prog+'/'+ch.target+' — '+ch.desc+'</div>'+
+      '</div>'+
+      '<div class="bp-ch-reward">'+(done?'✅ Klar':'+'+(ch.reward.bpXP||0)+' BP XP')+'</div>'+
+      '</div>';
+  }).join('');
 }
 
 </script>
