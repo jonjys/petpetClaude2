@@ -1440,6 +1440,56 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET RACING ══ */
+.race-panel{position:fixed;inset:0;background:#040a04;z-index:953;display:none;flex-direction:column;overflow:hidden}
+.race-panel.open{display:flex}
+.race-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#081408,#040a04)}
+.race-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#44ff88,#44aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.race-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Track */
+.race-track{background:linear-gradient(180deg,#0c1a08,#040a04);border:2px solid rgba(68,255,136,.2);border-radius:22px;padding:14px;margin-bottom:12px;overflow:hidden}
+.race-track-title{font:700 10px var(--ff-head);color:rgba(68,255,136,.6);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.race-lane{display:flex;align-items:center;gap:8px;margin-bottom:8px;position:relative;height:36px}
+.race-lane-num{font:700 9px var(--ff-head);color:rgba(255,255,255,.3);width:14px;text-align:center;flex-shrink:0}
+.race-lane-track{flex:1;height:28px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.07);overflow:hidden;position:relative}
+.race-lane-fill{position:absolute;left:0;top:0;bottom:0;background:rgba(68,255,136,.1);border-radius:14px;transition:width .15s linear}
+.race-lane-pet{position:absolute;top:50%;transform:translateY(-50%);font-size:20px;transition:left .15s linear;z-index:2;filter:drop-shadow(0 0 4px rgba(255,255,255,.3))}
+.race-lane.player .race-lane-track{border-color:rgba(68,255,136,.3);background:rgba(68,255,136,.06)}
+.race-lane.player .race-lane-fill{background:rgba(68,255,136,.2)}
+.race-finish-line{position:absolute;right:0;top:0;bottom:0;width:3px;background:rgba(255,255,255,.3);border-radius:0 14px 14px 0}
+.race-finish-flag{position:absolute;right:-2px;top:-8px;font-size:16px}
+/* Bet section */
+.race-bet{background:rgba(255,204,0,.05);border:1px solid rgba(255,204,0,.15);border-radius:18px;padding:12px 14px;margin-bottom:12px}
+.race-bet-title{font:700 10px var(--ff-head);color:rgba(255,204,0,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.race-bet-row{display:flex;gap:6px;margin-bottom:8px}
+.race-bet-btn{flex:1;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:10px;color:rgba(255,255,255,.6);font:700 9px var(--ff-head);padding:7px 4px;cursor:pointer;text-align:center;transition:all .12s}
+.race-bet-btn.sel{border-color:rgba(255,204,0,.5);background:rgba(255,204,0,.1);color:#ffcc00}
+.race-bet-btn:active{transform:scale(.93)}
+.race-start-btn{width:100%;background:linear-gradient(135deg,#1a2a00,#44ff88);border:none;border-radius:14px;color:#000;font:900 14px var(--ff-head);padding:13px;cursor:pointer;transition:all .15s}
+.race-start-btn:active{transform:scale(.97)}
+.race-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.07);color:rgba(255,255,255,.3)}
+/* Result */
+.race-result{background:rgba(255,204,0,.07);border:1.5px solid rgba(255,204,0,.2);border-radius:18px;padding:14px;margin-bottom:12px;text-align:center}
+.race-result-emoji{font-size:44px;display:block;margin-bottom:8px}
+.race-result-title{font:900 18px var(--ff-head);margin-bottom:4px}
+.race-result-sub{font:600 11px var(--ff-body);color:rgba(255,255,255,.6)}
+/* NPC selection */
+.race-npcs{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.race-npc{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.06);border-radius:12px;padding:8px 12px;cursor:pointer;transition:all .12s}
+.race-npc:active{transform:scale(.97)}
+.race-npc.selected{border-color:rgba(255,204,0,.4);background:rgba(255,204,0,.06)}
+.race-npc-emoji{font-size:22px;width:34px;text-align:center}
+.race-npc-info{flex:1}
+.race-npc-name{font:700 11px var(--ff-head);color:#fff;margin-bottom:1px}
+.race-npc-speed{font:500 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.race-npc-odds{font:700 9px var(--ff-head);color:#ffcc00}
+/* Stats */
+.race-stats-row{display:flex;gap:8px}
+.race-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.race-stat-val{font:800 14px var(--ff-head);color:#44ff88}
+.race-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+
 /* ══ WORLD BOSS ══ */
 .wb-panel{position:fixed;inset:0;background:#080004;z-index:952;display:none;flex-direction:column;overflow:hidden}
 .wb-panel.open{display:flex}
@@ -8021,6 +8071,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openHosp()"><div class="ddr-i">🏥</div>Sjukhus</div>
           <div class="ddr" onclick="cM();openCos()"><div class="ddr-i">✨</div>Butik</div>
           <div class="ddr" onclick="cM();openWB()"><div class="ddr-i">⚡</div>World Boss</div>
+          <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏎️</div>Racing</div>
         </div>
       </div>
     </div>
@@ -9199,6 +9250,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET RACING -->
+<div class="race-panel" id="racePanel">
+  <div class="race-header">
+    <div class="race-title">🏎️ RACING</div>
+    <button class="close-btn" onclick="closeRace()">✕</button>
+  </div>
+  <div class="race-scroll">
+    <div class="race-track">
+      <div class="race-track-title">
+        <span>🏁 Racingbana</span>
+        <span id="raceStatusLabel">Välj insats och starta</span>
+      </div>
+      <div id="raceLanes"></div>
+    </div>
+    <div id="raceResultZone" style="display:none"></div>
+    <div class="race-bet">
+      <div class="race-bet-title">💰 Insats</div>
+      <div class="race-bet-row" id="raceBetBtns"></div>
+      <button class="race-start-btn" id="raceStartBtn" onclick="raceStart()">🏎️ STARTA LOPPET!</button>
+    </div>
+    <div class="race-stats-row">
+      <div class="race-stat"><div class="race-stat-val" id="raceWins">0</div><div class="race-stat-label">Vinster</div></div>
+      <div class="race-stat"><div class="race-stat-val" id="raceRaces">0</div><div class="race-stat-label">Lopp</div></div>
+      <div class="race-stat"><div class="race-stat-val" id="raceBigWin">0</div><div class="race-stat-label">Bästa Vinst</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- WORLD BOSS -->
 <div class="wb-panel" id="wbPanel">
@@ -34339,6 +34419,177 @@ function _wbFormatHP(n){
   if(n>=1000000) return (n/1000000).toFixed(1)+'M';
   if(n>=1000) return (n/1000).toFixed(0)+'K';
   return ''+n;
+}
+
+
+// PET RACING SYSTEM
+const RACE_KEY = 'k0509_race';
+const RACE_BETS = [50, 100, 200, 500, 1000];
+const RACE_NPCS = [
+  {emoji:'🐢', name:'Sege Sköldbagge', speedBase:0.6, speedVar:0.3, odds:5.0},
+  {emoji:'🐰', name:'Raketkanin',       speedBase:0.8, speedVar:0.4, odds:2.5},
+  {emoji:'🦊', name:'Snabba Räven',     speedBase:0.85,speedVar:0.3, odds:2.0},
+  {emoji:'🐆', name:'Blixten Geparden', speedBase:0.95,speedVar:0.2, odds:1.5},
+  {emoji:'🦅', name:'Örnen',            speedBase:1.0, speedVar:0.25,odds:1.2},
+];
+
+let _raceBetIdx = 1;
+let _raceRunning = false;
+let _raceInterval = null;
+let _racePositions = [];  // 0=player, 1-5=npcs
+let _raceSpeeds = [];
+let _raceFinished = false;
+let _raceWinner = null;
+
+function _raceLoad(){try{return JSON.parse(localStorage.getItem(RACE_KEY)||'null');}catch(e){return null;}}
+function _raceSave(d){localStorage.setItem(RACE_KEY,JSON.stringify(d));}
+function _raceData(){var d=_raceLoad(); if(!d) d={wins:0,races:0,bigWin:0}; return d;}
+
+function openRace(){
+  $('racePanel').classList.add('open');
+  _renderRace();
+}
+function closeRace(){
+  if(_raceInterval) clearInterval(_raceInterval);
+  $('racePanel').classList.remove('open');
+}
+
+function _renderRace(){
+  // Bet buttons
+  var bb=$('raceBetBtns');
+  if(bb) bb.innerHTML=RACE_BETS.map(function(b,i){
+    return '<div class="race-bet-btn'+(i===_raceBetIdx?' sel':'')+'" onclick="raceSetBet('+i+')">'+b+'💰</div>';
+  }).join('');
+  // Lanes
+  _renderLanes();
+  // Stats
+  var d=_raceData();
+  var rw=$('raceWins'); if(rw) rw.textContent=d.wins||0;
+  var rr=$('raceRaces'); if(rr) rr.textContent=d.races||0;
+  var rbw=$('raceBigWin'); if(rbw) rbw.textContent=d.bigWin||0;
+}
+
+function _renderLanes(){
+  var lanes=$('raceLanes');
+  if(!lanes) return;
+  var gymD=typeof _gymData==='function'?_gymData():{stats:{}};
+  var agi=gymD.stats&&gymD.stats.agi?gymD.stats.agi:1;
+  var playerSpeed=0.7+agi*0.003;
+  var html='<div class="race-lane player">'+
+    '<div class="race-lane-num">👑</div>'+
+    '<div class="race-lane-track">'+
+    '<div class="race-lane-fill" id="raceFill0" style="width:'+(_racePositions[0]||0)+'%"></div>'+
+    '<div class="race-lane-pet" id="racePet0" style="left:calc('+(_racePositions[0]||0)+'% - 20px)">'+( G.petEmoji||'🐣')+'</div>'+
+    '<div class="race-finish-flag">🏁</div>'+
+    '</div>'+
+    '<span style="font:600 8px var(--ff-body);color:rgba(68,255,136,.7);min-width:32px">AGI+'+Math.round(agi)+'</span>'+
+    '</div>';
+  RACE_NPCS.forEach(function(npc,i){
+    var idx=i+1;
+    html+='<div class="race-lane">'+
+      '<div class="race-lane-num">'+(idx+1)+'</div>'+
+      '<div class="race-lane-track">'+
+      '<div class="race-lane-fill" id="raceFill'+idx+'" style="width:'+(_racePositions[idx]||0)+'%"></div>'+
+      '<div class="race-lane-pet" id="racePet'+idx+'" style="left:calc('+(_racePositions[idx]||0)+'% - 20px)">'+npc.emoji+'</div>'+
+      '<div class="race-finish-flag">🏁</div>'+
+      '</div>'+
+      '<span style="font:600 8px var(--ff-body);color:rgba(255,255,255,.3);min-width:32px">×'+npc.odds+'</span>'+
+      '</div>';
+  });
+  lanes.innerHTML=html;
+}
+
+function raceSetBet(idx){
+  if(_raceRunning) return;
+  _raceBetIdx=idx;
+  _renderRace();
+}
+
+function raceStart(){
+  if(_raceRunning) return;
+  var bet=RACE_BETS[_raceBetIdx];
+  if((G.coins||0)<bet){showFloatBubble('Inte nog med mynt!','debuff');return;}
+  G.coins-=bet;save();
+  // Reset state
+  _racePositions=[0,0,0,0,0,0];
+  _raceFinished=false;
+  _raceWinner=null;
+  // Init speeds — player gets AGI bonus
+  var gymD=typeof _gymData==='function'?_gymData():{stats:{}};
+  var agi=gymD.stats&&gymD.stats.agi?gymD.stats.agi:1;
+  var playerSpeedBase=0.65+Math.min(agi,50)*0.005;
+  _raceSpeeds=[playerSpeedBase];
+  RACE_NPCS.forEach(function(npc){
+    _raceSpeeds.push(npc.speedBase);
+  });
+  _raceRunning=true;
+  $('raceStartBtn').disabled=true;
+  $('raceResultZone').style.display='none';
+  var sl=$('raceStatusLabel'); if(sl) sl.textContent='🏎️ Loppet pågår!';
+  _raceInterval=setInterval(_raceTick, 80);
+}
+
+function _raceTick(){
+  var anyFinished=false;
+  for(var i=0;i<_racePositions.length;i++){
+    if(_racePositions[i]>=100) continue;
+    var speed=_raceSpeeds[i];
+    var rand=(Math.random()-0.5)*speed*0.8;
+    _racePositions[i]=Math.min(100,_racePositions[i]+speed*1.2+rand);
+    var fillEl=document.getElementById('raceFill'+i);
+    var petEl=document.getElementById('racePet'+i);
+    if(fillEl) fillEl.style.width=_racePositions[i]+'%';
+    if(petEl) petEl.style.left='calc('+Math.max(0,_racePositions[i]-4)+'% - 20px)';
+    if(_racePositions[i]>=100 && !anyFinished && !_raceWinner){
+      anyFinished=true;
+      _raceWinner=i;
+    }
+  }
+  if(_raceWinner!==null && !_raceFinished){
+    _raceFinished=true;
+    clearInterval(_raceInterval);
+    _raceRunning=false;
+    setTimeout(_raceResolve, 400);
+  }
+}
+
+function _raceResolve(){
+  var bet=RACE_BETS[_raceBetIdx];
+  var d=_raceData();
+  d.races=(d.races||0)+1;
+  $('raceStartBtn').disabled=false;
+  var rz=$('raceResultZone');
+  rz.style.display='block';
+  var sl=$('raceStatusLabel'); if(sl) sl.textContent='🏁 Lopp slut!';
+  if(_raceWinner===0){
+    // Player won!
+    var mult=RACE_NPCS[Math.floor(Math.random()*RACE_NPCS.length)].odds;
+    var winAmt=Math.round(bet*mult);
+    gainCoins(winAmt);
+    gainXP(200,'action');
+    d.wins=(d.wins||0)+1;
+    if(winAmt>d.bigWin) d.bigWin=winAmt;
+    rz.innerHTML='<div class="race-result">'+
+      '<span class="race-result-emoji">🏆</span>'+
+      '<div class="race-result-title" style="color:#ffcc00">DU VINNER!</div>'+
+      '<div class="race-result-sub">+'+winAmt+'💰 (×'+mult.toFixed(1)+') +200 XP</div>'+
+      '</div>';
+    showFloatBubble('🏆 Du vann loppet! +'+winAmt+'💰','buff');
+  } else {
+    var npc=RACE_NPCS[Math.min(_raceWinner-1,RACE_NPCS.length-1)];
+    // Small consolation
+    gainXP(50,'action');
+    rz.innerHTML='<div class="race-result" style="border-color:rgba(255,68,85,.25);background:rgba(255,68,85,.06)">'+
+      '<span class="race-result-emoji">😓</span>'+
+      '<div class="race-result-title" style="color:#ff8888">'+npc.emoji+' '+npc.name+' vinner!</div>'+
+      '<div class="race-result-sub">Bättre lycka nästa gång! +50 XP</div>'+
+      '</div>';
+  }
+  _raceSave(d);
+  // Update stats
+  var rw=$('raceWins'); if(rw) rw.textContent=d.wins||0;
+  var rr=$('raceRaces'); if(rr) rr.textContent=d.races||0;
+  var rbw=$('raceBigWin'); if(rbw) rbw.textContent=d.bigWin||0;
 }
 
 </script>
