@@ -1464,6 +1464,39 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TAVERN TALES ══ */
+.tavn-panel{position:fixed;inset:0;background:#04020a;z-index:977;display:none;flex-direction:column;overflow:hidden}
+.tavn-panel.open{display:flex}
+.tavn-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#140820,#04020a)}
+.tavn-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffaa44,#ff6644,#ff4488,#aa44ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.tavn-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.tavn-top{display:flex;align-items:center;justify-content:space-between;background:rgba(255,150,50,.04);border:1px solid rgba(255,150,50,.2);border-radius:14px;padding:10px 14px;margin-bottom:14px}
+.tavn-remaining{font:900 18px var(--ff-head);color:#ffaa44}
+.tavn-rem-lbl{font:600 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+.tavn-total-lbl{font:600 8px var(--ff-body);color:rgba(255,255,255,.35);text-align:right}
+.tavn-total{font:700 12px var(--ff-head);color:rgba(255,200,100,.7);text-align:right}
+/* Tale cards */
+.tavn-tales{display:flex;flex-direction:column;gap:12px}
+.tavn-tale{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,150,50,.12);border-radius:20px;overflow:hidden}
+.tavn-tale.done{opacity:.5;pointer-events:none}
+.tavn-tale-top{padding:14px 14px 10px;border-bottom:1px solid rgba(255,255,255,.05)}
+.tavn-tale-emoji{font-size:28px;float:left;margin-right:10px}
+.tavn-tale-title{font:800 13px var(--ff-head);color:#fff;margin-bottom:4px}
+.tavn-tale-desc{font:500 9px var(--ff-body);color:rgba(255,255,255,.5);line-height:1.5;clear:both}
+.tavn-tale-actions{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px}
+.tavn-action{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;cursor:pointer;transition:all .15s}
+.tavn-action:active{transform:scale(.98)}
+.tavn-action-text{font:700 9px var(--ff-head);color:rgba(255,255,255,.8);margin-bottom:3px}
+.tavn-action-rw{font:600 8px var(--ff-body);color:rgba(100,255,180,.7)}
+.tavn-action.safe{border-color:rgba(80,255,150,.2)}
+.tavn-action.risky{border-color:rgba(255,200,50,.2)}
+.tavn-action.costly{border-color:rgba(200,100,255,.2)}
+.tavn-action.safe:active{background:rgba(80,255,150,.08)}
+.tavn-action.risky:active{background:rgba(255,200,50,.08)}
+.tavn-action.costly:active{background:rgba(200,100,255,.08)}
+.tavn-tale-done-msg{padding:12px;font:700 11px var(--ff-head);color:rgba(80,255,150,.7);text-align:center}
+
 /* ══ PET EVOLUTION ══ */
 .evo-panel{position:fixed;inset:0;background:#020006;z-index:976;display:none;flex-direction:column;overflow:hidden}
 .evo-panel.open{display:flex}
@@ -9003,6 +9036,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRelic()"><div class="ddr-i">⛏</div>Reliker</div>
           <div class="ddr" onclick="cM();openShr()"><div class="ddr-i">🔮</div>Skrin</div>
           <div class="ddr" onclick="cM();openEvo()"><div class="ddr-i">🌟</div>Evolution</div>
+          <div class="ddr" onclick="cM();openTavn()"><div class="ddr-i">🍺</div>Berättelser</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10237,6 +10271,22 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- TAVERN TALES -->
+<div class="tavn-panel" id="tavnPanel">
+  <div class="tavn-header">
+    <div class="tavn-title">🍺 KRÖGARENS BERÄTTELSER</div>
+    <button class="close-btn" onclick="closeTavn()">✕</button>
+  </div>
+  <div class="tavn-scroll">
+    <div class="tavn-top">
+      <div><div class="tavn-remaining" id="tavnRemVal">2</div><div class="tavn-rem-lbl">Äventyr kvar idag</div></div>
+      <div><div class="tavn-total" id="tavnTotalVal">0</div><div class="tavn-total-lbl">Totalt avklarade äventyr</div></div>
+    </div>
+    <div class="tavn-tales" id="tavnTales"></div>
+  </div>
+</div>
 
 <!-- PET EVOLUTION -->
 <div class="evo-panel" id="evoPanel">
@@ -39712,6 +39762,144 @@ function _renderEvo(){
     var cls='evo-ladder-row'+(past?' past':current?' current':' future');
     var badge=past?'✓ Klar':current?'← Nu':s.req+' stats';
     return '<div class="'+cls+'"><span class="evo-ladder-emoji">'+s.emoji+'</span><div class="evo-ladder-info"><div class="evo-ladder-name">'+s.name+'</div><div class="evo-ladder-req">'+(s.req>0?s.req+' totala stats krävs':'Startsteg')+'</div><div class="evo-ladder-bonus">'+(s.bonus>0?'+'+s.bonus+' alla stats vid evolution':'—')+'</div></div><div class="evo-ladder-badge">'+badge+'</div></div>';
+  }).join('');
+}
+
+
+// TAVERN TALES
+const TAVN_KEY = 'k0509_tavn';
+const TAVN_POOL = [
+  {id:'castle',title:'Det Övergivna Slottet',emoji:'🏰',
+   desc:'Du snubblar över ett gammalt övergivet slott. Inuti kan det finnas skatter — men också faror. Vad väljer du?',
+   actions:[
+    {type:'safe',text:'Rekognoscera försiktigt',rw:'200🪙 garanterat',fn:function(){gainCoins(200);}},
+    {type:'risky',text:'Storma entrén (70% chans)',rw:'600🪙 eller 0🪙',fn:function(){if(Math.random()<0.7+_tavnLckBonus()){gainCoins(600);}else{showFloatBubble('Vakterna stoppade dig!','debuff');}}},
+    {type:'costly',text:'Muta vakterna (200🪙)',rw:'+gem×2 + 400🪙',fn:function(){if((G.coins||0)<200){showFloatBubble('Inte nog mynt!','debuff');return false;}G.coins-=200;save();gainCoins(400);_tavnAddIng({gem:2});return true;}},
+  ]},
+  {id:'sea',title:'De Stormiga Haven',emoji:'🌊',
+   desc:'En våldsam storm hotar ditt skepp. Besättningen ser på dig för beslut. Vad gör du?',
+   actions:[
+    {type:'safe',text:'Segla runt stormen',rw:'150🪙 + 100XP',fn:function(){gainCoins(150);gainXP(100,'int');}},
+    {type:'risky',text:'Segla igenom (65% chans)',rw:'900🪙 eller -200🪙',fn:function(){if(Math.random()<0.65+_tavnLckBonus()){gainCoins(900);}else{G.coins=Math.max(0,(G.coins||0)-200);save();showFloatBubble('Skeppet havererade — 200🪙 förlorat','debuff');}}},
+    {type:'costly',text:'Åkalla havets andar',rw:'+water×4 + moon×2 + 300🪙',fn:function(){gainCoins(300);_tavnAddIng({water:4,moon:2});return true;}},
+  ]},
+  {id:'dragon',title:'Drakens Grotta',emoji:'🐉',
+   desc:'En massiv drake vaktar en skattkammare. Dess ögon lyser rött i mörkret. Du måste ta dig förbi.',
+   actions:[
+    {type:'safe',text:'Smyg förbi',rw:'200🪙 + crystal×2',fn:function(){gainCoins(200);_tavnAddIng({crystal:2});}},
+    {type:'risky',text:'Kämpa mot draken (60% chans)',rw:'3 KC eller 0',fn:function(){if(Math.random()<0.60+(G.str||0)/500+_tavnLckBonus()){gainKC(3);}else{showFloatBubble('Draken besegrade dig!','debuff');}}},
+    {type:'costly',text:'Erbjud mat (bone×3)',rw:'2000🪙 + star×2',fn:function(){var a=null;try{a=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}if(!a||!a.ings||(a.ings.bone||0)<3){showFloatBubble('Behöver ben×3!','debuff');return false;}a.ings.bone-=3;localStorage.setItem(ALCH_KEY,JSON.stringify(a));gainCoins(2000);_tavnAddIng({star:2});return true;}},
+  ]},
+  {id:'forest',title:'Den Förtrollade Skogen',emoji:'🌿',
+   desc:'Mystiska eldflugor dansar bland träden. Skogens hjärta döljer oerhörda hemligheter för den modige.',
+   actions:[
+    {type:'safe',text:'Följ eldflugorna',rw:'250🪙 + herb×3',fn:function(){gainCoins(250);_tavnAddIng({herb:3});}},
+    {type:'risky',text:'Sök den hemliga stigen (75% chans)',rw:'600🪙 + moon×2 eller 0',fn:function(){if(Math.random()<0.75+_tavnLckBonus()){gainCoins(600);_tavnAddIng({moon:2});}else{showFloatBubble('Du gick vilse i skogen!','debuff');}}},
+    {type:'costly',text:'Tala med trädandarna',rw:'herb×6 + feather×4 + gem×2',fn:function(){_tavnAddIng({herb:6,feather:4,gem:2});return true;}},
+  ]},
+  {id:'tourney',title:'Riddarturnering',emoji:'⚔️',
+   desc:'Du utmanas till en riddarturnering framför hela kunglighetens hov. Priset är enormt — men risken likaså.',
+   actions:[
+    {type:'safe',text:'Delta som åskådare',rw:'100🪙 + 200 XP',fn:function(){gainCoins(100);gainXP(200,'int');}},
+    {type:'risky',text:'Kämpa i turneringen (65% chans)',rw:'2 KC + 500🪙 eller 0',fn:function(){if(Math.random()<0.65+(G.str||0)/400+_tavnLckBonus()){gainKC(2);gainCoins(500);}else{showFloatBubble('Du besegrades i turneringen!','debuff');}}},
+    {type:'costly',text:'Träna natten innan (500🪙)',rw:'Garanterat 1000🪙 + 1 KC',fn:function(){if((G.coins||0)<500){showFloatBubble('Behöver 500🪙!','debuff');return false;}G.coins-=500;save();gainCoins(1000);gainKC(1);return true;}},
+  ]},
+  {id:'ruins',title:'De Gamla Ruinerna',emoji:'🏺',
+   desc:'Uråldrigt skrift täcker väggarna. Varje korridor kan leda till skatt eller förstörelse.',
+   actions:[
+    {type:'safe',text:'Ta den uppenbara skatten',rw:'400🪙',fn:function(){gainCoins(400);}},
+    {type:'risky',text:'Lös det kryptiska gåtan (70% chans)',rw:'1500🪙 eller fälla: 0',fn:function(){if(Math.random()<0.70+(G.int||0)/400+_tavnLckBonus()){gainCoins(1500);}else{showFloatBubble('Fällan aktiverades!','debuff');}}},
+    {type:'costly',text:'Studera alla inskrifter',rw:'gem×4 + star×2 + 500 XP',fn:function(){gainXP(500,'int');_tavnAddIng({gem:4,star:2});return true;}},
+  ]},
+  {id:'moon',title:'Det Månlysta Värdshuset',emoji:'🌙',
+   desc:'I krogmörkret muttrar en kappa-klädd figur om dolda skatter. Han ser hungrig och desperat ut.',
+   actions:[
+    {type:'safe',text:'Lyssna på rykten',rw:'150🪙 + tips om hidden bonus',fn:function(){gainCoins(150);showFloatBubble('Tipset leder till +moon×2!','info');_tavnAddIng({moon:2});}},
+    {type:'risky',text:'Utmana honom till tärning (50/50)',rw:'3 KC eller 1 KC kostnad',fn:function(){if(Math.random()<0.50+_tavnLckBonus()){gainKC(3);}else{G.kc=Math.max(0,(G.kc||0)-1);save();showFloatBubble('Du förlorade 1 KC!','debuff');}}},
+    {type:'costly',text:'Bjud på en runda (300🪙)',rw:'900🪙 + vänskap',fn:function(){if((G.coins||0)<300){showFloatBubble('Behöver 300🪙!','debuff');return false;}G.coins-=300;save();gainCoins(900);return true;}},
+  ]},
+  {id:'star',title:'Den Fallande Stjärnan',emoji:'⭐',
+   desc:'En brinnande stjärna rasar från himlen och landar i en äng inte långt bort. Stjärnstoft sprider sig i luften.',
+   actions:[
+    {type:'safe',text:'Gör en önskan',rw:'Slumpmässigt 100-2000🪙',fn:function(){var r=Math.floor(Math.random()*10);var rewards=[100,150,200,300,400,500,700,1000,1500,2000];gainCoins(rewards[r]);}},
+    {type:'risky',text:'Försök fånga den (70% chans)',rw:'2 KC + star×3 eller 0',fn:function(){if(Math.random()<0.70+_tavnLckBonus()){gainKC(2);_tavnAddIng({star:3});}else{showFloatBubble('Stjärnan var för varm att fånga!','debuff');}}},
+    {type:'costly',text:'Studera fenomenet',rw:'600 XP + star×4 + light×2',fn:function(){gainXP(600,'int');_tavnAddIng({star:4,light:2});return true;}},
+  ]},
+];
+
+function _tavnLckBonus(){return Math.min((G.lck||0)/200,0.15);}
+function _tavnAddIng(ings){
+  var a=null;try{a=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+  if(!a) a={ings:{},potions:{},brews:0,labLevel:0};
+  if(!a.ings) a.ings={};
+  Object.keys(ings).forEach(function(k){a.ings[k]=(a.ings[k]||0)+ings[k];});
+  localStorage.setItem(ALCH_KEY,JSON.stringify(a));
+}
+
+function _tavnData(){try{return JSON.parse(localStorage.getItem(TAVN_KEY)||'null');}catch(e){return null;}}
+function _tavnSave(d){localStorage.setItem(TAVN_KEY,JSON.stringify(d));}
+function _tavnGetData(){
+  var d=_tavnData();
+  var dk=getTodayKey();
+  if(!d) d={dayKey:'',remaining:2,doneTodayIds:[],totalDone:0,activeTaleIds:[]};
+  if(d.dayKey!==dk){
+    d.dayKey=dk;d.remaining=2;d.doneTodayIds=[];
+    // Pick 3 daily tales
+    var pool=TAVN_POOL.slice();
+    var active=[];
+    for(var i=0;i<3&&pool.length>0;i++){
+      var idx=Math.floor(Math.random()*pool.length);
+      active.push(pool.splice(idx,1)[0].id);
+    }
+    d.activeTaleIds=active;
+  }
+  return d;
+}
+
+function tavnDoAction(taleId, actionIdx){
+  var d=_tavnGetData();
+  if((d.remaining||0)<=0){showFloatBubble('Inga äventyr kvar idag! Kom tillbaka imorgon.','info');return;}
+  if(d.doneTodayIds&&d.doneTodayIds.indexOf(taleId)>=0){showFloatBubble('Det äventyret är redan klart!','info');return;}
+  var tale=TAVN_POOL.find(function(t){return t.id===taleId;});
+  if(!tale) return;
+  var action=tale.actions[actionIdx];
+  if(!action) return;
+  var result=action.fn();
+  if(result===false) return; // action failed pre-check
+  d.doneTodayIds.push(taleId);
+  d.remaining=Math.max(0,(d.remaining||0)-1);
+  d.totalDone=(d.totalDone||0)+1;
+  _tavnSave(d);
+  misTrack('daily',1);
+  checkAchievements();
+  _renderTavn();
+}
+
+function openTavn(){$('tavnPanel').classList.add('open');_renderTavn();}
+function closeTavn(){$('tavnPanel').classList.remove('open');}
+
+function _renderTavn(){
+  var d=_tavnGetData();
+  var rv=$('tavnRemVal'); if(rv) rv.textContent=d.remaining||0;
+  var tv=$('tavnTotalVal'); if(tv) tv.textContent=d.totalDone||0;
+  var tales=$('tavnTales');
+  if(!tales) return;
+  var activeIds=d.activeTaleIds||[];
+  tales.innerHTML=activeIds.map(function(tid){
+    var tale=TAVN_POOL.find(function(t){return t.id===tid;});
+    if(!tale) return '';
+    var done=d.doneTodayIds&&d.doneTodayIds.indexOf(tid)>=0;
+    return '<div class="tavn-tale'+(done?' done':'')+'">'
+      +'<div class="tavn-tale-top"><span class="tavn-tale-emoji">'+tale.emoji+'</span><div class="tavn-tale-title">'+tale.title+'</div><div class="tavn-tale-desc">'+tale.desc+'</div></div>'
+      +(done
+        ?'<div class="tavn-tale-done-msg">✅ Äventyr avklarat!</div>'
+        :'<div class="tavn-tale-actions">'+tale.actions.map(function(a,i){
+          return '<div class="tavn-action '+a.type+'" onclick="tavnDoAction(\''+tale.id+'\','+i+')">'
+            +'<div class="tavn-action-text">'+a.text+'</div>'
+            +'<div class="tavn-action-rw">'+a.rw+'</div>'
+            +'</div>';
+        }).join('')+'</div>')
+      +'</div>';
   }).join('');
 }
 
