@@ -1439,6 +1439,66 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WORLD BOSS ══ */
+.wb-panel{position:fixed;inset:0;background:#080004;z-index:952;display:none;flex-direction:column;overflow:hidden}
+.wb-panel.open{display:flex}
+.wb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#140008,#080004)}
+.wb-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4455,#ff8844,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.wb-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Boss card */
+.wb-boss{background:linear-gradient(180deg,rgba(255,68,85,.1),rgba(0,0,0,0));border:2px solid rgba(255,68,85,.3);border-radius:24px;padding:16px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden}
+.wb-boss::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,68,85,.08),transparent 60%)}
+.wb-boss-sprite{font-size:80px;display:block;margin-bottom:6px;animation:wbFloat 2s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(255,68,85,.5));position:relative;z-index:1}
+@keyframes wbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.03)}}
+.wb-boss-name{font:900 20px var(--ff-head);color:#ff4455;text-shadow:0 0 20px rgba(255,68,85,.5);position:relative;z-index:1;margin-bottom:4px}
+.wb-boss-title{font:600 11px var(--ff-body);color:rgba(255,136,68,.7);position:relative;z-index:1;margin-bottom:12px}
+/* HP bar */
+.wb-boss-hp-wrap{position:relative;z-index:1;margin-bottom:10px}
+.wb-boss-hp-bg{height:18px;background:rgba(255,255,255,.06);border-radius:9px;overflow:hidden;border:1px solid rgba(255,68,85,.2)}
+.wb-boss-hp-fill{height:100%;border-radius:9px;background:linear-gradient(90deg,#ff4455,#ff8844);transition:width 1s;position:relative}
+.wb-boss-hp-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:wbShimmer 2s infinite}
+@keyframes wbShimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.wb-boss-hp-label{font:900 12px var(--ff-head);color:#ff8844;margin-top:6px}
+.wb-boss-time{font:700 10px var(--ff-head);color:rgba(255,255,255,.5);margin-bottom:12px}
+/* Attack button */
+.wb-attack-section{position:relative;z-index:1}
+.wb-dmg-select{display:flex;gap:6px;margin-bottom:10px;justify-content:center}
+.wb-dmg-btn{background:rgba(255,68,85,.1);border:1.5px solid rgba(255,68,85,.2);border-radius:12px;color:rgba(255,255,255,.7);font:700 10px var(--ff-head);padding:8px 12px;cursor:pointer;transition:all .15s;flex:1;text-align:center}
+.wb-dmg-btn.sel{border-color:rgba(255,68,85,.6);background:rgba(255,68,85,.2);color:#ff8844}
+.wb-dmg-btn:active{transform:scale(.95)}
+.wb-attack-btn{width:80%;max-width:220px;background:linear-gradient(135deg,#300006,#ff4455);border:none;border-radius:16px;color:#fff;font:900 15px var(--ff-head);padding:14px;cursor:pointer;transition:all .15s;display:block;margin:0 auto}
+.wb-attack-btn:active{transform:scale(.96)}
+.wb-attack-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.wb-cd-label{font:700 10px var(--ff-head);color:rgba(255,68,85,.6);text-align:center;margin-top:6px}
+/* Contribution */
+.wb-contrib{background:rgba(255,68,85,.05);border:1px solid rgba(255,68,85,.15);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+.wb-contrib-title{font:700 10px var(--ff-head);color:rgba(255,68,85,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.wb-contrib-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.wb-contrib-label{font:500 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.wb-contrib-val{font:800 12px var(--ff-head);color:#ff8844}
+.wb-leaderboard{margin-top:8px}
+.wb-lb-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.wb-lb-rank{font:900 10px var(--ff-head);color:rgba(255,255,255,.3);min-width:18px}
+.wb-lb-name{flex:1;font:600 10px var(--ff-body);color:rgba(255,255,255,.6)}
+.wb-lb-dmg{font:700 10px var(--ff-head);color:#ff8844}
+/* Rewards */
+.wb-rewards{background:rgba(255,204,0,.05);border:1px solid rgba(255,204,0,.2);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+.wb-rew-title{font:700 10px var(--ff-head);color:rgba(255,204,0,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.wb-rew-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.wb-rew-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center}
+.wb-rew-emoji{font-size:22px;display:block;margin-bottom:3px}
+.wb-rew-val{font:800 10px var(--ff-head);color:#ffcc00}
+.wb-rew-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+/* History */
+.wb-history-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.wb-history{display:flex;flex-direction:column;gap:6px}
+.wb-hist-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px}
+.wb-hist-item.victory{border-color:rgba(0,255,136,.2);background:rgba(0,255,136,.04)}
+.wb-hist-emoji{font-size:20px}
+.wb-hist-info{flex:1;font:600 9px var(--ff-body);color:rgba(255,255,255,.5)}
+.wb-hist-reward{font:700 9px var(--ff-head);color:#ffcc00}
+
 /* ══ PET COSMETIC SHOP ══ */
 .cos-panel{position:fixed;inset:0;background:#080406;z-index:951;display:none;flex-direction:column;overflow:hidden}
 .cos-panel.open{display:flex}
@@ -7960,6 +8020,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Slots</div>
           <div class="ddr" onclick="cM();openHosp()"><div class="ddr-i">🏥</div>Sjukhus</div>
           <div class="ddr" onclick="cM();openCos()"><div class="ddr-i">✨</div>Butik</div>
+          <div class="ddr" onclick="cM();openWB()"><div class="ddr-i">⚡</div>World Boss</div>
         </div>
       </div>
     </div>
@@ -9137,6 +9198,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- WORLD BOSS -->
+<div class="wb-panel" id="wbPanel">
+  <div class="wb-header">
+    <div class="wb-title">⚡ WORLD BOSS</div>
+    <button class="close-btn" onclick="closeWB()">✕</button>
+  </div>
+  <div class="wb-scroll">
+    <div class="wb-boss" id="wbBossCard"></div>
+    <div class="wb-contrib">
+      <div class="wb-contrib-title">💥 Din Bidrag</div>
+      <div class="wb-contrib-row"><span class="wb-contrib-label">Skada denna vecka</span><span class="wb-contrib-val" id="wbMyDmg">0</span></div>
+      <div class="wb-contrib-row"><span class="wb-contrib-label">Rank</span><span class="wb-contrib-val" id="wbMyRank">#?</span></div>
+      <div class="wb-contrib-row"><span class="wb-contrib-label">Attacker kvar</span><span class="wb-contrib-val" id="wbAttacksLeft">3</span></div>
+      <div class="wb-leaderboard" id="wbLeaderboard"></div>
+    </div>
+    <div class="wb-rewards">
+      <div class="wb-rew-title">🎁 Belöningar vid Seger</div>
+      <div class="wb-rew-grid" id="wbRewards"></div>
+    </div>
+    <div class="wb-history-title">📜 Historik</div>
+    <div class="wb-history" id="wbHistory"></div>
+  </div>
+</div>
 
 <!-- PET COSMETICS -->
 <div class="cos-panel" id="cosPanel">
@@ -34043,6 +34129,216 @@ function cosEquip(itemId){
   else d.equipped[slot]=itemId;
   _cosSave(d);
   _renderCos();
+}
+
+
+// WORLD BOSS SYSTEM
+const WB_KEY = 'k0509_wb';
+const WB_BOSSES = [
+  {
+    id:'shadow_titan', emoji:'🌑', name:'Skuggtitanen', title:'Världens Mörka Härskare',
+    maxHP:1000000, rewards:{coins:5000,xp:8000,kc:10}, weekIdx:0,
+    npcs:['Dragonhunter_99','ShadowMage','FireStorm','LightBringer','ChaosKnight','StarWarrior','IceQueen','VoidWalker']
+  },
+  {
+    id:'lava_colossus',emoji:'🌋', name:'Lavalossen',   title:'Eldens Konung',
+    maxHP:2000000, rewards:{coins:8000,xp:15000,kc:20}, weekIdx:1,
+    npcs:['BlazeMaster','MoltenCore','AshRider','InfernoX','HeatSeeker','LavaLord_R','PhoenixRise','FireGod']
+  },
+  {
+    id:'storm_herald', emoji:'⚡', name:'Stormherold',  title:'Åskans Budbärare',
+    maxHP:5000000, rewards:{coins:15000,xp:30000,kc:50}, weekIdx:2,
+    npcs:['ThunderGod','LightningX','StormBreaker','RainMaker','CloudWalker','ElectroPet','BoltMaster','ZapKing']
+  },
+];
+const WB_ATTACK_OPTIONS = [
+  {label:'Snabb',   cost:0,   dmgBase:500,  dmgRand:500,  icon:'⚡', attacksUsed:1},
+  {label:'Normal',  cost:50,  dmgBase:2000, dmgRand:2000, icon:'⚔️', attacksUsed:1},
+  {label:'Kraftfull',cost:200,dmgBase:8000, dmgRand:8000, icon:'💥', attacksUsed:2},
+  {label:'ULTRA',   cost:500, dmgBase:25000,dmgRand:25000,icon:'🌟', attacksUsed:3},
+];
+const WB_MAX_ATTACKS_DAILY = 10;
+
+let _wbSelAtk = 0;
+
+function _wbLoad(){try{return JSON.parse(localStorage.getItem(WB_KEY)||'null');}catch(e){return null;}}
+function _wbSave(d){localStorage.setItem(WB_KEY,JSON.stringify(d));}
+function _wbData(){
+  var d=_wbLoad();
+  if(!d) d={weekDmg:{},attacksToday:0,lastAttackDate:null,history:[],totalDmg:0};
+  var today=getTodayKey();
+  if(d.lastAttackDate!==today){d.attacksToday=0;}
+  return d;
+}
+
+function _wbGetCurrentBoss(){
+  var now=new Date();
+  var weekNum=Math.floor((now-new Date('2026-01-01'))/(7*24*3600*1000));
+  return WB_BOSSES[weekNum%WB_BOSSES.length];
+}
+
+function _wbGetBossHP(boss){
+  var d=_wbData();
+  var totalDealt=(d.weekDmg[boss.id]||0);
+  // Simulate NPC damage
+  var now=new Date();
+  var weekStart=new Date(now);
+  weekStart.setDate(now.getDate()-now.getDay());
+  weekStart.setHours(0,0,0,0);
+  var daysPassed=Math.floor((now-weekStart)/(24*3600*1000));
+  var npcDmgPerDay=Math.round(boss.maxHP/14); // boss dies in 2 weeks if no player
+  var npcTotal=npcDmgPerDay*daysPassed;
+  var remaining=Math.max(0,boss.maxHP-npcTotal-totalDealt);
+  return {remaining:remaining,maxHP:boss.maxHP,defeated:remaining<=0};
+}
+
+function openWB(){
+  $('wbPanel').classList.add('open');
+  _renderWB();
+}
+function closeWB(){
+  $('wbPanel').classList.remove('open');
+}
+
+function wbSelectAtk(idx){
+  _wbSelAtk=idx;
+  _renderWB();
+}
+
+function _renderWB(){
+  var d=_wbData();
+  var boss=_wbGetCurrentBoss();
+  var hpData=_wbGetBossHP(boss);
+  var pct=Math.max(0,Math.round(hpData.remaining/hpData.maxHP*100));
+  // Boss card
+  var bc=$('wbBossCard');
+  if(bc){
+    var attackOptions=WB_ATTACK_OPTIONS.map(function(a,i){
+      return '<div class="wb-dmg-btn'+(i===_wbSelAtk?' sel':'')+'" onclick="wbSelectAtk('+i+')">'+
+        a.icon+'<br>'+a.label+'<br>'+(a.cost>0?a.cost+'💰':'')+
+        '<br><span style="font:600 7px var(--ff-body);color:rgba(255,255,255,.4)">+'+a.attacksUsed+' attk</span>'+
+        '</div>';
+    }).join('');
+    var attksLeft=Math.max(0,WB_MAX_ATTACKS_DAILY-d.attacksToday);
+    var today=getTodayKey();
+    if(d.lastAttackDate!==today) attksLeft=WB_MAX_ATTACKS_DAILY;
+    var selAtk=WB_ATTACK_OPTIONS[_wbSelAtk];
+    var canAtk=attksLeft>=selAtk.attacksUsed&&(G.coins||0)>=selAtk.cost;
+    var now=new Date();
+    var weekEnd=new Date(now);
+    weekEnd.setDate(now.getDate()+(7-now.getDay()));
+    weekEnd.setHours(23,59,59,0);
+    var msLeft=weekEnd-now;
+    var daysLeft=Math.floor(msLeft/(24*3600*1000));
+    var hrsLeft=Math.floor((msLeft%(24*3600*1000))/3600000);
+    bc.innerHTML=
+      '<span class="wb-boss-sprite">'+boss.emoji+'</span>'+
+      '<div class="wb-boss-name">'+boss.name+'</div>'+
+      '<div class="wb-boss-title">'+boss.title+'</div>'+
+      '<div class="wb-boss-hp-wrap">'+
+      '<div class="wb-boss-hp-bg"><div class="wb-boss-hp-fill" style="width:'+pct+'%"></div></div>'+
+      '<div class="wb-boss-hp-label">'+(hpData.defeated?'☠️ BESEGRAD!':_wbFormatHP(hpData.remaining)+' / '+_wbFormatHP(hpData.maxHP)+' HP ('+pct+'%)')+'</div>'+
+      '</div>'+
+      '<div class="wb-boss-time">⏱ Veckan återställs om '+daysLeft+'d '+hrsLeft+'h</div>'+
+      '<div class="wb-dmg-select">'+attackOptions+'</div>'+
+      (hpData.defeated?'<div style="font:900 14px var(--ff-head);color:#00ff88;margin-bottom:8px">🏆 BOSS BESEGRAD!</div>':
+       '<button class="wb-attack-btn" onclick="wbAttack()" '+(canAtk?'':'disabled')+'>'+selAtk.icon+' Anfalla! ('+Math.round(selAtk.dmgBase+selAtk.dmgRand/2)+' skada)</button>')+
+      '<div class="wb-cd-label" id="wbAtkLeft">'+attksLeft+'/'+WB_MAX_ATTACKS_DAILY+' attacker kvar idag</div>';
+  }
+  // Contribution + leaderboard
+  var myDmg=(d.weekDmg[boss.id]||0);
+  var md=$('wbMyDmg'); if(md) md.textContent=_wbFormatHP(myDmg);
+  var al=$('wbAttacksLeft');
+  if(al){
+    var attksLeftV=d.lastAttackDate===getTodayKey()?Math.max(0,WB_MAX_ATTACKS_DAILY-d.attacksToday):WB_MAX_ATTACKS_DAILY;
+    al.textContent=attksLeftV+'/'+WB_MAX_ATTACKS_DAILY;
+  }
+  // Simulated leaderboard
+  var lb=$('wbLeaderboard');
+  if(lb){
+    var lbData=boss.npcs.map(function(name,i){
+      var seed=(name.length+i+boss.maxHP)%1000;
+      var dmg=Math.round((boss.maxHP/10)*(0.5+seed/1000));
+      return {name:name,dmg:dmg};
+    });
+    if(myDmg>0) lbData.push({name:(G.name||'Du')+'⭐',dmg:myDmg,isMe:true});
+    lbData.sort(function(a,b){return b.dmg-a.dmg;});
+    var myRank=lbData.findIndex(function(r){return r.isMe;})+1;
+    var mr=$('wbMyRank'); if(mr) mr.textContent=myRank>0?'#'+myRank:'#--';
+    lb.innerHTML=lbData.slice(0,8).map(function(r,i){
+      return '<div class="wb-lb-row">'+
+        '<div class="wb-lb-rank">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1))+'</div>'+
+        '<div class="wb-lb-name"'+(r.isMe?'style="color:#ffcc00;font-weight:700"':'')+'>'+r.name+'</div>'+
+        '<div class="wb-lb-dmg">'+_wbFormatHP(r.dmg)+'</div>'+
+        '</div>';
+    }).join('');
+  }
+  // Rewards
+  var wr=$('wbRewards');
+  if(wr) wr.innerHTML=
+    '<div class="wb-rew-item"><span class="wb-rew-emoji">💰</span><div class="wb-rew-val">'+boss.rewards.coins+'</div><div class="wb-rew-label">Mynt</div></div>'+
+    '<div class="wb-rew-item"><span class="wb-rew-emoji">⭐</span><div class="wb-rew-val">'+boss.rewards.xp+'</div><div class="wb-rew-label">XP</div></div>'+
+    '<div class="wb-rew-item"><span class="wb-rew-emoji">🔑</span><div class="wb-rew-val">'+boss.rewards.kc+' KC</div><div class="wb-rew-label">KC</div></div>'+
+    '<div class="wb-rew-item"><span class="wb-rew-emoji">🏆</span><div class="wb-rew-val">Troféen</div><div class="wb-rew-label">Exklusiv</div></div>';
+  // History
+  var wh=$('wbHistory');
+  if(wh){
+    var hist=d.history||[];
+    if(hist.length===0) wh.innerHTML='<div style="text-align:center;font:500 10px var(--ff-body);color:rgba(255,255,255,.3);padding:12px">Ingen historik ännu</div>';
+    else wh.innerHTML=hist.slice(-5).reverse().map(function(h){
+      return '<div class="wb-hist-item'+(h.won?' victory':'')+'">'+
+        '<div class="wb-hist-emoji">'+h.emoji+'</div>'+
+        '<div class="wb-hist-info">'+h.bossName+' — '+h.date+'</div>'+
+        '<div class="wb-hist-reward">'+(h.won?'+'+h.coins+'💰 +'+h.kc+'KC':'Ej besegrad')+'</div>'+
+        '</div>';
+    }).join('');
+  }
+}
+
+function wbAttack(){
+  var selAtk=WB_ATTACK_OPTIONS[_wbSelAtk];
+  if((G.coins||0)<selAtk.cost){showFloatBubble('Inte nog med mynt!','debuff');return;}
+  var d=_wbData();
+  var today=getTodayKey();
+  var attksLeft=d.lastAttackDate===today?Math.max(0,WB_MAX_ATTACKS_DAILY-d.attacksToday):WB_MAX_ATTACKS_DAILY;
+  if(attksLeft<selAtk.attacksUsed){showFloatBubble('Inte nog med attacker kvar!','debuff');return;}
+  if(selAtk.cost>0){G.coins-=selAtk.cost;save();}
+  var dmg=selAtk.dmgBase+Math.floor(Math.random()*selAtk.dmgRand);
+  // Gym STR bonus
+  var gymD=_gymData&&_gymData()||{stats:{}};
+  var strBonus=gymD.stats&&gymD.stats.str?gymD.stats.str:1;
+  dmg=Math.round(dmg*(1+strBonus*0.01));
+  var boss=_wbGetCurrentBoss();
+  if(!d.weekDmg) d.weekDmg={};
+  d.weekDmg[boss.id]=(d.weekDmg[boss.id]||0)+dmg;
+  d.totalDmg=(d.totalDmg||0)+dmg;
+  d.attacksToday=(d.lastAttackDate===today?d.attacksToday:0)+selAtk.attacksUsed;
+  d.lastAttackDate=today;
+  _wbSave(d);
+  gainXP(Math.round(dmg/20),'action');
+  showFloatBubble(selAtk.icon+' '+_wbFormatHP(dmg)+' skada på '+boss.name+'!','buff');
+  // Check if defeated
+  var hpData=_wbGetBossHP(boss);
+  if(hpData.defeated){
+    _wbOnBossDefeated(boss,d);
+  }
+  _renderWB();
+}
+
+function _wbOnBossDefeated(boss,d){
+  gainCoins(boss.rewards.coins);
+  gainXP(boss.rewards.xp,'action');
+  gainKC(boss.rewards.kc);
+  if(!d.history) d.history=[];
+  d.history.push({bossName:boss.name,emoji:boss.emoji,date:getTodayKey(),won:true,coins:boss.rewards.coins,kc:boss.rewards.kc});
+  _wbSave(d);
+  showFloatBubble('🏆 BOSS BESEGRAD! +'+boss.rewards.coins+'💰 +'+boss.rewards.kc+'KC!','buff');
+}
+
+function _wbFormatHP(n){
+  if(n>=1000000) return (n/1000000).toFixed(1)+'M';
+  if(n>=1000) return (n/1000).toFixed(0)+'K';
+  return ''+n;
 }
 
 </script>
