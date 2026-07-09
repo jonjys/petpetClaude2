@@ -1429,6 +1429,50 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET EXPEDITION ══ */
+.exp-panel{position:fixed;inset:0;background:#04060e;z-index:942;display:none;flex-direction:column;overflow:hidden}
+.exp-panel.open{display:flex}
+.exp-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080c1c,#04060e)}
+.exp-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ffdd,#44aaff,#aa44ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.exp-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Active expedition */
+.exp-active{background:linear-gradient(180deg,rgba(68,170,255,.08),rgba(0,0,0,0));border:1.5px solid rgba(68,170,255,.25);border-radius:20px;padding:16px;margin-bottom:14px}
+.exp-active-title{font:700 11px var(--ff-head);color:rgba(68,170,255,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.exp-active-world{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.exp-world-emoji{font-size:40px;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:rgba(68,170,255,.06);border-radius:14px;border:1px solid rgba(68,170,255,.2)}
+.exp-world-info{flex:1}
+.exp-world-name{font:800 15px var(--ff-head);color:#fff;margin-bottom:3px}
+.exp-world-pet{font:500 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.exp-world-time{font:700 13px var(--ff-head);color:#44aaff}
+.exp-progress{height:10px;background:rgba(255,255,255,.07);border-radius:5px;overflow:hidden;margin-bottom:6px}
+.exp-prog-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#44aaff,#44ffdd);transition:width .5s}
+.exp-prog-label{font:500 9px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:10px}
+.exp-collect-btn{width:100%;background:linear-gradient(135deg,#003344,#44aaff);border:none;border-radius:13px;color:#fff;font:900 13px var(--ff-head);padding:11px;cursor:pointer;transition:all .15s}
+.exp-collect-btn:active{transform:scale(.97)}
+.exp-collect-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+/* World cards */
+.exp-worlds-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.exp-worlds{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.exp-world-card{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:18px;padding:14px;cursor:pointer;transition:all .15s}
+.exp-world-card:active{transform:scale(.98)}
+.exp-world-card.locked{opacity:.45;cursor:default}
+.exp-wc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.exp-wc-emoji{font-size:34px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:12px}
+.exp-wc-info{flex:1}
+.exp-wc-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.exp-wc-desc{font:500 9px var(--ff-body);color:rgba(255,255,255,.45);margin-bottom:4px}
+.exp-wc-dur{font:700 10px var(--ff-head);color:rgba(255,255,255,.6)}
+.exp-wc-rewards{display:flex;gap:6px;flex-wrap:wrap}
+.exp-wc-reward{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:4px 8px;font:700 9px var(--ff-head);color:rgba(255,255,255,.7)}
+.exp-send-btn{width:100%;background:linear-gradient(135deg,#001833,#1166cc);border:none;border-radius:12px;color:#fff;font:800 12px var(--ff-head);padding:10px;cursor:pointer;margin-top:8px;transition:all .15s}
+.exp-send-btn:active{transform:scale(.97)}
+/* Stats */
+.exp-stats-row{display:flex;gap:8px;margin-bottom:10px}
+.exp-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.exp-stat-val{font:800 14px var(--ff-head);color:#44aaff}
+.exp-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+
 /* ══ PET GYM TRAINING ══ */
 .gym-panel{position:fixed;inset:0;background:#060408;z-index:941;display:none;flex-direction:column;overflow:hidden}
 .gym-panel.open{display:flex}
@@ -7501,6 +7545,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openEvtree()"><div class="ddr-i">🌳</div>Evo Träd</div>
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Dungeon</div>
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Gym</div>
+          <div class="ddr" onclick="cM();openExp()"><div class="ddr-i">🗺️</div>Expedition</div>
         </div>
       </div>
     </div>
@@ -8668,6 +8713,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET EXPEDITION -->
+<div class="exp-panel" id="expPanel">
+  <div class="exp-header">
+    <div class="exp-title">🗺️ EXPEDITION</div>
+    <button class="close-btn" onclick="closeExp()">✕</button>
+  </div>
+  <div class="exp-scroll">
+    <div id="expActiveZone"></div>
+    <div class="exp-worlds-title">🌍 Välj Värld</div>
+    <div class="exp-worlds" id="expWorlds"></div>
+    <div class="exp-stats-row">
+      <div class="exp-stat"><div class="exp-stat-val" id="expTotalExp">0</div><div class="exp-stat-label">Expeditioner</div></div>
+      <div class="exp-stat"><div class="exp-stat-val" id="expWorldsVisited">0</div><div class="exp-stat-label">Världar Besökta</div></div>
+      <div class="exp-stat"><div class="exp-stat-val" id="expTotalCoins">0</div><div class="exp-stat-label">Intjänade 💰</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- PET GYM TRAINING -->
 <div class="gym-panel" id="gymPanel">
@@ -31691,6 +31755,135 @@ function gymTrain(exId){
   gainXP(inten.xp,'action');
   showFloatBubble(ex.emoji+' '+ex.name+'! '+GYM_STATS.find(function(s){return s.id===ex.stat;}).emoji+'+'+inten.statPts+' +'+inten.coins+'💰','buff');
   _renderGym();
+}
+
+
+// PET EXPEDITION SYSTEM
+const EXP_KEY = 'k0509_exp';
+const EXP_WORLDS = [
+  {id:'meadow',  emoji:'🌿', bg:'rgba(0,255,136,.06)', border:'rgba(0,255,136,.2)',  name:'Gröna Ängen',     desc:'En fridfull äng full av örter och skatter.',     dur:2,   coins:80,   xp:100,  kc:0, reqLv:1},
+  {id:'forest',  emoji:'🌲', bg:'rgba(68,170,68,.06)', border:'rgba(68,170,68,.2)',   name:'Trollskogen',     desc:'Mörk skog med mystiska varelser och loot.',      dur:5,   coins:200,  xp:250,  kc:0, reqLv:3},
+  {id:'desert',  emoji:'🏜️', bg:'rgba(255,204,0,.06)', border:'rgba(255,204,0,.2)',   name:'Guld Öknen',      desc:'Brännande sol men mängder av guldmynt.',         dur:10,  coins:450,  xp:500,  kc:0, reqLv:5},
+  {id:'ocean',   emoji:'🌊', bg:'rgba(68,170,255,.06)',border:'rgba(68,170,255,.2)',  name:'Djuphavet',       desc:'Under havets yta döljer sig legendariska skatter.',dur:20,  coins:900,  xp:1000, kc:1, reqLv:8},
+  {id:'volcano', emoji:'🌋', bg:'rgba(255,68,68,.06)', border:'rgba(255,68,68,.2)',   name:'Eldens Berg',     desc:'Vulkanisk värme med eldiga belöningar.',          dur:30,  coins:1500, xp:1800, kc:2, reqLv:12},
+  {id:'sky',     emoji:'☁️', bg:'rgba(170,170,255,.06)',border:'rgba(170,170,255,.2)' ,name:'Himmelsriket',  desc:'Ovanför molnen finns himmelska reliker.',         dur:60,  coins:3000, xp:4000, kc:5, reqLv:18},
+  {id:'abyss',   emoji:'🌑', bg:'rgba(170,68,255,.06)',border:'rgba(170,68,255,.2)',  name:'Det Mörka Tomrummet',desc:'Det okända djupet — ofattlig rikedom väntar.',dur:120, coins:6000, xp:8000, kc:12, reqLv:25},
+];
+
+function _expLoad(){try{return JSON.parse(localStorage.getItem(EXP_KEY)||'null');}catch(e){return null;}}
+function _expSave(d){localStorage.setItem(EXP_KEY,JSON.stringify(d));}
+function _expData(){
+  var d=_expLoad();
+  if(!d) d={active:null,totalExp:0,worldsVisited:{},totalCoins:0};
+  return d;
+}
+
+function openExp(){
+  $('expPanel').classList.add('open');
+  _renderExp();
+}
+function closeExp(){
+  $('expPanel').classList.remove('open');
+}
+
+function _renderExp(){
+  var d=_expData();
+  var lv=G.lv||1;
+  var now=Date.now();
+  // Active zone
+  var az=$('expActiveZone');
+  if(az){
+    if(d.active){
+      var world=EXP_WORLDS.find(function(w){return w.id===d.active.worldId;})||EXP_WORLDS[0];
+      var elapsed=now-d.active.startTs;
+      var total=d.active.durMs;
+      var pct=Math.min(100,Math.round(elapsed/total*100));
+      var msLeft=Math.max(0,total-elapsed);
+      var minLeft=Math.ceil(msLeft/60000);
+      var timeStr=minLeft>60?Math.floor(minLeft/60)+'h '+( minLeft%60)+'min':minLeft+'min';
+      var canCollect=elapsed>=total;
+      az.innerHTML=
+        '<div class="exp-active">'+
+        '<div class="exp-active-title">🚀 Aktiv Expedition</div>'+
+        '<div class="exp-active-world">'+
+        '<div class="exp-world-emoji">'+world.emoji+'</div>'+
+        '<div class="exp-world-info">'+
+        '<div class="exp-world-name">'+world.name+'</div>'+
+        '<div class="exp-world-pet">'+(G.petEmoji||'🐣')+' '+(G.name||'Husdjur')+' på uppdrag</div>'+
+        '<div class="exp-world-time">'+(canCollect?'✅ Klar att hämta!':'⏳ '+timeStr+' kvar')+'</div>'+
+        '</div>'+
+        '</div>'+
+        '<div class="exp-progress"><div class="exp-prog-fill" style="width:'+pct+'%"></div></div>'+
+        '<div class="exp-prog-label">'+pct+'% slutförd | Belöning: +'+world.coins+'💰 +'+world.xp+'XP'+(world.kc>0?' +'+world.kc+'KC':'')+'</div>'+
+        '<button class="exp-collect-btn" onclick="expCollect()" '+(canCollect?'':'disabled')+'>'+
+        (canCollect?'🎁 Hämta Belöning!':'⏳ Pågår...')+
+        '</button>'+
+        '</div>';
+    } else {
+      az.innerHTML='<div style="background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.1);border-radius:16px;padding:16px;text-align:center;margin-bottom:14px;color:rgba(255,255,255,.3);font:600 11px var(--ff-body)">Ingen aktiv expedition — välj en värld nedan</div>';
+    }
+  }
+  // World cards
+  var wz=$('expWorlds');
+  if(wz) wz.innerHTML=EXP_WORLDS.map(function(w){
+    var locked=lv<w.reqLv;
+    var isActive=d.active&&d.active.worldId===w.id;
+    var durStr=w.dur>=60?Math.floor(w.dur/60)+'h'+(w.dur%60>0?' '+(w.dur%60)+'min':''):w.dur+'min';
+    return '<div class="exp-world-card'+(locked?' locked':'')+'" style="background:'+w.bg+';border-color:'+w.border+'">'+
+      '<div class="exp-wc-top">'+
+      '<div class="exp-wc-emoji" style="background:'+w.bg+';border:1px solid '+w.border+'">'+w.emoji+'</div>'+
+      '<div class="exp-wc-info">'+
+      '<div class="exp-wc-name">'+w.name+(locked?' 🔒 (Niv.'+w.reqLv+')':'')+'</div>'+
+      '<div class="exp-wc-desc">'+w.desc+'</div>'+
+      '<div class="exp-wc-dur">⏱ '+durStr+'</div>'+
+      '</div>'+
+      '</div>'+
+      '<div class="exp-wc-rewards">'+
+      '<span class="exp-wc-reward">💰 '+w.coins+'</span>'+
+      '<span class="exp-wc-reward">⭐ '+w.xp+' XP</span>'+
+      (w.kc>0?'<span class="exp-wc-reward" style="color:#aa44ff;border-color:rgba(170,68,255,.3)">🔑 '+w.kc+' KC</span>':'')+
+      '</div>'+
+      (!locked&&!isActive&&!d.active?'<button class="exp-send-btn" onclick="expSend(''+w.id+'')">🚀 Skicka Husdjur</button>':'')+
+      (isActive?'<div style="margin-top:8px;font:700 10px var(--ff-head);color:#44aaff;text-align:center">✈️ Husdjuret är här nu!</div>':'')+
+      (d.active&&!isActive&&!locked?'<div style="margin-top:8px;font:700 9px var(--ff-head);color:rgba(255,255,255,.25);text-align:center">Husdjuret är redan på uppdrag</div>':'')+
+      '</div>';
+  }).join('');
+  // Stats
+  var te=$('expTotalExp'); if(te) te.textContent=d.totalExp||0;
+  var wv=$('expWorldsVisited'); if(wv) wv.textContent=Object.keys(d.worldsVisited||{}).length;
+  var tc=$('expTotalCoins'); if(tc) tc.textContent=d.totalCoins||0;
+}
+
+function expSend(worldId){
+  var d=_expData();
+  if(d.active){showFloatBubble('Husdjuret är redan på expedition!','debuff');return;}
+  var world=EXP_WORLDS.find(function(w){return w.id===worldId;});
+  if(!world) return;
+  if((G.lv||1)<world.reqLv){showFloatBubble('Kräver nivå '+world.reqLv+'!','debuff');return;}
+  d.active={worldId:worldId,startTs:Date.now(),durMs:world.dur*60*1000};
+  _expSave(d);
+  showFloatBubble((G.petEmoji||'🐣')+' skickad till '+world.name+'!','buff');
+  _renderExp();
+}
+
+function expCollect(){
+  var d=_expData();
+  if(!d.active) return;
+  var now=Date.now();
+  if(now-d.active.startTs<d.active.durMs){showFloatBubble('Expeditionen är inte klar ännu!','debuff');return;}
+  var world=EXP_WORLDS.find(function(w){return w.id===d.active.worldId;});
+  if(!world) return;
+  d.totalExp=(d.totalExp||0)+1;
+  d.totalCoins=(d.totalCoins||0)+world.coins;
+  if(!d.worldsVisited) d.worldsVisited={};
+  d.worldsVisited[world.id]=true;
+  d.active=null;
+  _expSave(d);
+  gainCoins(world.coins);
+  gainXP(world.xp,'action');
+  if(world.kc) gainKC(world.kc);
+  showFloatBubble('🎉 Expedition klar: +'+world.coins+'💰 +'+world.xp+'XP'+(world.kc>0?' +'+world.kc+'KC':''),'buff');
+  _renderExp();
 }
 
 </script>
