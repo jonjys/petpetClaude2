@@ -1492,6 +1492,45 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET CIRCUS ══ */
+.circ-panel{position:fixed;inset:0;background:#030104;z-index:1005;display:none;flex-direction:column;overflow:hidden}
+.circ-panel.open{display:flex}
+.circ-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080208,#030104)}
+.circ-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff3377,#ffcc00,#ff3377);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:circShim 2s linear infinite}
+@keyframes circShim{0%{background-position:0%}100%{background-position:200%}}
+.circ-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Stage */
+.circ-stage{background:radial-gradient(ellipse at 50% 100%,rgba(255,50,100,.08),rgba(0,0,0,0));border:2px solid rgba(255,50,100,.15);border-radius:20px;padding:16px;margin-bottom:12px;text-align:center;position:relative;overflow:hidden}
+.circ-spotlight{position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:120px;height:120px;background:radial-gradient(circle,rgba(255,255,200,.06),transparent);pointer-events:none}
+.circ-stage-emoji{font-size:52px;display:block;margin-bottom:6px;transition:transform .3s}
+.circ-stage-emoji.bounce{animation:circBounce .4s ease-out}
+@keyframes circBounce{0%{transform:scale(1)}50%{transform:scale(1.3) rotate(10deg)}100%{transform:scale(1)}}
+.circ-fame-row{display:flex;justify-content:space-between;font:700 8px var(--ff-head);color:rgba(255,50,100,.5);margin-bottom:4px}
+.circ-fame-bar{height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden}
+.circ-fame-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#ff3377,#ffcc00);transition:width .4s}
+.circ-audience{font:900 14px var(--ff-head);color:#ffcc00;margin-top:8px}
+/* Stats */
+.circ-stats{display:flex;gap:8px;margin-bottom:12px}
+.circ-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,50,100,.1);border-radius:10px;padding:7px;text-align:center}
+.circ-stat-v{font:900 16px var(--ff-head);color:#ff3377}
+.circ-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Acts */
+.circ-acts-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.circ-acts{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.circ-act{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,50,100,.1);border-radius:14px;padding:11px 14px;cursor:pointer;transition:border-color .2s}
+.circ-act:active{opacity:.8}
+.circ-act.cooldown{opacity:.45;cursor:default}
+.circ-act-emoji{font-size:26px;flex-shrink:0}
+.circ-act-info{flex:1}
+.circ-act-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.circ-act-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.circ-act-reward{text-align:right;flex-shrink:0}
+.circ-act-coins{font:800 10px var(--ff-head);color:#ffcc00}
+.circ-act-cd{font:600 8px var(--ff-body);color:rgba(255,100,100,.6)}
+.circ-msg{font:700 10px var(--ff-body);color:#ff3377;text-align:center;min-height:18px;margin-bottom:8px}
+.circ-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ MINESHAFT ══ */
 .mine-panel{position:fixed;inset:0;background:#050404;z-index:1004;display:none;flex-direction:column;overflow:hidden}
 .mine-panel.open{display:flex}
@@ -9987,6 +10026,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🧠</div>Quiz</div>
           <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
+          <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -10012,6 +10052,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🧠</div>Quiz</div>
           <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
+          <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
@@ -10020,6 +10061,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🧠</div>Quiz</div>
           <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
+          <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
@@ -10066,6 +10108,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🧠</div>Quiz</div>
           <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Gruva</div>
+          <div class="ddr" onclick="cM();openCirc()"><div class="ddr-i">🎪</div>Cirkus</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10617,6 +10660,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET CIRCUS -->
+<div class="circ-panel" id="circPanel">
+  <div class="circ-header">
+    <div class="circ-title">🎪 CIRKUS</div>
+    <button class="close-btn" onclick="closeCirc()">✕</button>
+  </div>
+  <div class="circ-scroll">
+    <div class="circ-stage">
+      <div class="circ-spotlight"></div>
+      <span class="circ-stage-emoji" id="circEmoji">🎪</span>
+      <div class="circ-fame-row"><span>Berömmelse</span><span id="circFamePct">0%</span></div>
+      <div class="circ-fame-bar"><div class="circ-fame-fill" id="circFameFill" style="width:0%"></div></div>
+      <div class="circ-audience" id="circAudience">🎭 Publik: 0 åskådare</div>
+    </div>
+    <div class="circ-stats">
+      <div class="circ-stat"><div class="circ-stat-v" id="circShows">0</div><div class="circ-stat-l">Shower</div></div>
+      <div class="circ-stat"><div class="circ-stat-v" id="circFame">0</div><div class="circ-stat-l">Berömmelse</div></div>
+      <div class="circ-stat"><div class="circ-stat-v" id="circEarned">0</div><div class="circ-stat-l">Intjänat</div></div>
+    </div>
+    <div class="circ-msg" id="circMsg">Välj ett nummer för att uppträda!</div>
+    <div class="circ-acts-lbl">CIRKUSNUMMER</div>
+    <div class="circ-acts" id="circActs"></div>
+    <div class="circ-info">AGI & LCK avgör hur bra numret går! Berömmelse ökar publikstorleken och belöningen!</div>
+  </div>
+</div>
 
 <!-- MINESHAFT -->
 <div class="mine-panel" id="minePanel">
@@ -45201,6 +45271,105 @@ function _renderMine(){
         return '<div class="mine-cell '+(cell.good?'dug-good':'dug')+'">'+cell.emoji+'</div>';
       }
       return '<div class="mine-cell" onclick="mineDigCell('+i+')">⛏️</div>';
+    }).join('');
+  }
+}
+
+
+// PET CIRCUS
+const CIRC_KEY = 'k0509_circ';
+const CIRC_ACTS = [
+  {id:'juggle',   emoji:'🤹', name:'Jonglering',      desc:'Jonglera med 3-7 bollar',               cd:60,  base:80,   stat:'agi', statM:0.8},
+  {id:'tightrope',emoji:'🎭', name:'Lina gång',        desc:'Balansera på lina utan att falla',       cd:120, base:150,  stat:'agi', statM:1.2},
+  {id:'magic',    emoji:'🎩', name:'Magishow',         desc:'Illusioner och försvinningstrick',       cd:90,  base:120,  stat:'int', statM:1.0},
+  {id:'fire',     emoji:'🔥', name:'Eld ätande',       desc:'Äter och andas eld framför publiken',    cd:180, base:250,  stat:'end', statM:1.5},
+  {id:'acrobat',  emoji:'🤸', name:'Akrobatik',        desc:'Avancerade hopp och volter',             cd:150, base:200,  stat:'str', statM:1.3},
+  {id:'animal',   emoji:'🐘', name:'Djurshow',         desc:'Imponerande tricks med cirkusdjur',      cd:240, base:350,  stat:'lck', statM:2.0},
+  {id:'grand',    emoji:'🌟', name:'Stor Gala',         desc:'Alla nummer på en gång! Spektakulärt!',  cd:600, base:800,  stat:'all', statM:0.5},
+];
+
+function _circData(){try{return JSON.parse(localStorage.getItem(CIRC_KEY)||'null');}catch(e){return null;}}
+function _circSave(d){localStorage.setItem(CIRC_KEY,JSON.stringify(d));}
+function _circGetData(){
+  var d=_circData();
+  if(!d) d={shows:0,fame:0,earned:0,cooldowns:{},msg:''};
+  return d;
+}
+
+function circPerform(actId){
+  var act=CIRC_ACTS.filter(function(a){return a.id===actId;})[0];
+  if(!act) return;
+  var d=_circGetData();
+  var now=Date.now();
+  if(d.cooldowns[actId]&&d.cooldowns[actId]>now){
+    var left=Math.ceil((d.cooldowns[actId]-now)/1000);
+    showFloatBubble('Vänta '+left+'s!','debuff');return;
+  }
+  d.cooldowns[actId]=now+act.cd*1000;
+  // Performance quality
+  var statVal=act.stat==='all'
+    ?((G.str||0)+(G.agi||0)+(G.int||0)+(G.end||0)+(G.lck||0))/5
+    :(G[act.stat]||0);
+  var quality=0.5+Math.random()*0.5+Math.min(statVal*act.statM*0.003,0.4);
+  quality=Math.min(quality,1.2);
+  // Fame bonus
+  var fameMult=1+Math.min(d.fame*0.002,1);
+  var coins=Math.floor(act.base*quality*fameMult);
+  var xp=Math.floor(40*quality);
+  gainCoins(coins);gainXP(xp,'agi');
+  var fameGain=Math.floor(10*quality);
+  d.fame=(d.fame||0)+fameGain;
+  d.shows=(d.shows||0)+1;
+  d.earned=(d.earned||0)+coins;
+  // Message
+  var perf=quality>=1.1?'LEGENDARISKT':quality>=0.9?'FANTASTISKT':quality>=0.7?'Bra':quality>=0.5?'Okej':'Katastrof!';
+  d.msg=act.emoji+' '+perf+'! +'+coins+'🪙 +'+fameGain+' berömmelse';
+  _circSave(d);
+  // Bounce emoji
+  var em=$('circEmoji');if(em){em.textContent=act.emoji;em.classList.remove('bounce');void em.offsetWidth;em.classList.add('bounce');}
+  showFloatBubble(act.emoji+' '+perf+'! +'+coins+'🪙','buff');
+  misTrack('daily',1);
+  checkAchievements();
+  _renderCirc();
+}
+
+function openCirc(){$('circPanel').classList.add('open');_renderCirc();}
+function closeCirc(){$('circPanel').classList.remove('open');}
+
+function _renderCirc(){
+  var d=_circGetData();
+  var now=Date.now();
+  // Fame
+  var famePct=Math.min(d.fame/1000*100,100);
+  var ff=$('circFameFill');if(ff) ff.style.width=famePct+'%';
+  var fp=$('circFamePct');if(fp) fp.textContent=Math.round(famePct)+'%';
+  var audience=Math.floor(d.fame*10+50);
+  var aud=$('circAudience');if(aud) aud.textContent='🎭 Publik: '+audience+' åskådare';
+  // Stats
+  var cs=$('circShows');if(cs) cs.textContent=d.shows||0;
+  var cf=$('circFame');if(cf) cf.textContent=d.fame||0;
+  var ce=$('circEarned');if(ce) ce.textContent=d.earned||0;
+  // Msg
+  var cm=$('circMsg');if(cm) cm.textContent=d.msg||'Välj ett nummer för att uppträda!';
+  // Acts
+  var acts=$('circActs');
+  if(acts){
+    acts.innerHTML=CIRC_ACTS.map(function(act){
+      var cdLeft=d.cooldowns[act.id]?Math.max(0,Math.ceil((d.cooldowns[act.id]-now)/1000)):0;
+      var onCd=cdLeft>0;
+      var fameMult=1+Math.min((d.fame||0)*0.002,1);
+      var approxCoins=Math.floor(act.base*0.85*fameMult);
+      return '<div class="circ-act'+(onCd?' cooldown':'')+'" '+(onCd?'':'onclick="circPerform(\''+act.id+'\')"')+'>'+
+        '<div class="circ-act-emoji">'+act.emoji+'</div>'+
+        '<div class="circ-act-info">'+
+          '<div class="circ-act-name">'+act.name+'</div>'+
+          '<div class="circ-act-desc">'+act.desc+'</div>'+
+        '</div>'+
+        '<div class="circ-act-reward">'+
+          '<div class="circ-act-coins">~'+approxCoins+'🪙</div>'+
+          (onCd?'<div class="circ-act-cd">'+cdLeft+'s</div>':'<div class="circ-act-cd">Redo!</div>')+
+        '</div>'+
+      '</div>';
     }).join('');
   }
 }
