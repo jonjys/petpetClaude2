@@ -1486,6 +1486,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET GARDEN ══ */
+.gard-panel{position:fixed;inset:0;background:#010a02;z-index:999;display:none;flex-direction:column;overflow:hidden}
+.gard-panel.open{display:flex}
+.gard-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#021505,#010a02)}
+.gard-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#ccff44,#ffcc44,#44ff88);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gardShim 3s linear infinite}
+@keyframes gardShim{0%{background-position:0%}100%{background-position:200%}}
+.gard-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Seeds inventory */
+.gard-seeds{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.gard-seed{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:4px 8px;cursor:pointer;transition:border-color .2s}
+.gard-seed.selected{border-color:#44ff88}
+.gard-seed-emoji{font-size:14px}
+.gard-seed-name{font:600 8px var(--ff-body);color:rgba(255,255,255,.6)}
+.gard-seed-cnt{font:800 9px var(--ff-head);color:#44ff88}
+/* Plots */
+.gard-plots-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.gard-plots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.gard-plot{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:10px;text-align:center;cursor:pointer;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:border-color .2s}
+.gard-plot.empty{border-color:rgba(80,150,80,.2);background:rgba(40,80,20,.05)}
+.gard-plot.growing{border-color:rgba(100,200,100,.25);background:rgba(20,80,20,.07)}
+.gard-plot.ready{border-color:rgba(100,255,100,.5);background:rgba(20,100,20,.1);animation:gardPulse 1.5s ease-in-out infinite}
+@keyframes gardPulse{0%,100%{box-shadow:0 0 0 0 rgba(100,255,100,.2)}50%{box-shadow:0 0 0 8px rgba(100,255,100,0)}}
+.gard-plot-emoji{font-size:28px}
+.gard-plot-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.7)}
+.gard-plot-timer{font:600 7px var(--ff-body);color:rgba(255,255,255,.4)}
+.gard-plot-stage{font:600 7px var(--ff-body);color:#44ff88}
+/* Harvest log */
+.gard-log-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.gard-log{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.gard-log-entry{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:6px 10px}
+.gard-log-emoji{font-size:16px}
+.gard-log-text{font:600 9px var(--ff-body);color:rgba(255,255,255,.6);flex:1}
+.gard-log-reward{font:700 9px var(--ff-head);color:#44ff88}
+.gard-total{display:flex;gap:8px;margin-bottom:12px}
+.gard-total-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.gard-total-v{font:900 16px var(--ff-head);color:#44ff88}
+.gard-total-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.gard-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ BATTLE CARDS ══ */
 .card-panel{position:fixed;inset:0;background:#020508;z-index:998;display:none;flex-direction:column;overflow:hidden}
 .card-panel.open{display:flex}
@@ -9743,6 +9783,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">😊</div>Humör</div>
           <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kokbok</div>
           <div class="ddr" onclick="cM();openCard()"><div class="ddr-i">⚔️</div>Stridskort</div>
+          <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -9807,6 +9848,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">😊</div>Humör</div>
           <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kokbok</div>
           <div class="ddr" onclick="cM();openCard()"><div class="ddr-i">⚔️</div>Stridskort</div>
+          <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10352,6 +10394,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET GARDEN -->
+<div class="gard-panel" id="gardPanel">
+  <div class="gard-header">
+    <div class="gard-title">🌱 HUSDJURETS TRÄDGÅRD</div>
+    <button class="close-btn" onclick="closeGard()">✕</button>
+  </div>
+  <div class="gard-scroll">
+    <div class="gard-total">
+      <div class="gard-total-stat"><div class="gard-total-v" id="gardHarvests">0</div><div class="gard-total-l">Skördar</div></div>
+      <div class="gard-total-stat"><div class="gard-total-v" id="gardSeeds">0</div><div class="gard-total-l">Frön</div></div>
+      <div class="gard-total-stat"><div class="gard-total-v" id="gardEarned">0</div><div class="gard-total-l">Mynt tjänat</div></div>
+    </div>
+    <div style="font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:6px">VÄLJ FRÖ ATT PLANTERA</div>
+    <div class="gard-seeds" id="gardSeedInv"></div>
+    <div class="gard-plots-lbl">ODLINGSBÄDDAR (6 platser)</div>
+    <div class="gard-plots" id="gardPlots"></div>
+    <div class="gard-log-lbl">SKÖRDEHISTORIK</div>
+    <div class="gard-log" id="gardLog"></div>
+    <div class="gard-info">Frön faller från Fiske, Skörd och Expeditioner. INT ökar skördevärdet!</div>
+  </div>
+</div>
 
 <!-- BATTLE CARDS -->
 <div class="card-panel" id="cardPanel">
@@ -36255,6 +36320,7 @@ function misTrack(type, amount){
   if(typeof elemTrack==='function') elemTrack(type, amount);
   if(typeof cookDropIngr==='function') cookDropIngr(type, amount);
   if(typeof cardDrop==='function') cardDrop(type);
+  if(typeof gardDropSeed==='function') gardDropSeed(type);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -43867,6 +43933,173 @@ function _renderCard(){
       '</div>';
     }).join('');
   }
+}
+
+
+// PET GARDEN
+const GARD_KEY = 'k0509_gard';
+const GARD_SEEDS = [
+  {id:'carrot',  emoji:'🥕', name:'Morot',    grow:5*60,    stages:['🌱','🌿','🥕'], reward:{coins:120, xp:20, ingr:'berry'}},
+  {id:'wheat',   emoji:'🌾', name:'Vete',     grow:8*60,    stages:['🌱','🌿','🌾'], reward:{coins:200, xp:30, ingr:'grain'}},
+  {id:'berry',   emoji:'🫐', name:'Blåbär',   grow:12*60,   stages:['🌱','🌿','🫐'], reward:{coins:300, xp:40, ingr:'berry', extra:2}},
+  {id:'mushroom',emoji:'🍄', name:'Svamp',    grow:20*60,   stages:['🌱','🌿','🍄'], reward:{coins:500, xp:60, ingr:'mushroom', extra:2}},
+  {id:'herb',    emoji:'🌿', name:'Läkeört',  grow:15*60,   stages:['🌱','🌿','🌿'], reward:{coins:350, xp:50, ingr:'herb', extra:2}},
+  {id:'golden',  emoji:'🌻', name:'Solblomma',grow:30*60,   stages:['🌱','🌿','🌻'], reward:{coins:800, xp:100,ingr:'honey', kc:1}},
+  {id:'crystal', emoji:'💎', name:'Kristall', grow:60*60,   stages:['🌱','💠','💎'], reward:{coins:1500,xp:200,ingr:'crystal', kc:2}},
+];
+const GARD_PLOTS = 6;
+
+function _gardData(){try{return JSON.parse(localStorage.getItem(GARD_KEY)||'null');}catch(e){return null;}}
+function _gardSave(d){localStorage.setItem(GARD_KEY,JSON.stringify(d));}
+function _gardGetData(){
+  var d=_gardData();
+  if(!d) d={plots:Array(GARD_PLOTS).fill(null),seeds:{carrot:3,wheat:2},harvests:0,earned:0,log:[]};
+  return d;
+}
+var _gardSelectedSeed=null;
+
+function gardDropSeed(type){
+  var d=_gardGetData();
+  var chance=0.15+(Math.min(G.lck||0,200)*0.0006);
+  if(Math.random()>chance) return;
+  var pool=[];
+  if(type==='fish') pool=['carrot','herb','carrot'];
+  else if(type==='harvest') pool=['wheat','wheat','berry','herb','mushroom'];
+  else if(type==='expedition') pool=['herb','mushroom','berry','golden'];
+  else if(type==='craft') pool=['crystal','mushroom'];
+  if(!pool.length) return;
+  var pick=pool[Math.floor(Math.random()*pool.length)];
+  d.seeds[pick]=(d.seeds[pick]||0)+1;
+  _gardSave(d);
+  var seed=GARD_SEEDS.filter(function(s){return s.id===pick;})[0];
+  showFloatBubble(seed.emoji+' Frö: '+seed.name+'!','buff');
+}
+
+function gardPlant(plotIdx){
+  var d=_gardGetData();
+  if(d.plots[plotIdx]) return; // occupied
+  if(!_gardSelectedSeed){showFloatBubble('Välj ett frö först!','debuff');return;}
+  if(!(d.seeds[_gardSelectedSeed]||0)){showFloatBubble('Inga frön kvar!','debuff');return;}
+  d.seeds[_gardSelectedSeed]--;
+  d.plots[plotIdx]={seedId:_gardSelectedSeed, planted:Date.now()};
+  _gardSave(d);
+  _renderGard();
+}
+
+function gardHarvest(plotIdx){
+  var d=_gardGetData();
+  var plot=d.plots[plotIdx];
+  if(!plot) return;
+  var seed=GARD_SEEDS.filter(function(s){return s.id===plot.seedId;})[0];
+  if(!seed) return;
+  var elapsed=(Date.now()-plot.planted)/1000;
+  if(elapsed<seed.grow){showFloatBubble('Inte redo ännu!','debuff');return;}
+  // Harvest
+  var intBonus=1+Math.min((G.int||0)*0.003,0.5);
+  var coins=Math.floor(seed.reward.coins*intBonus);
+  gainCoins(coins);
+  gainXP(seed.reward.xp,'end');
+  if(seed.reward.kc) gainKC(seed.reward.kc);
+  // Add ingredients
+  if(seed.reward.ingr){
+    var cookD=_cookGetData&&_cookGetData();
+    if(cookD){
+      var amt=(seed.reward.extra||1);
+      cookD.pantry[seed.reward.ingr]=(cookD.pantry[seed.reward.ingr]||0)+amt;
+      _cookSave&&_cookSave(cookD);
+    }
+  }
+  // Give seeds back (50% chance)
+  if(Math.random()<0.5){d.seeds[plot.seedId]=(d.seeds[plot.seedId]||0)+1;}
+  d.plots[plotIdx]=null;
+  d.harvests=(d.harvests||0)+1;
+  d.earned=(d.earned||0)+coins;
+  d.log.unshift({emoji:seed.emoji,name:seed.name,coins:coins,ingr:seed.reward.ingr||null});
+  if(d.log.length>8) d.log=d.log.slice(0,8);
+  _gardSave(d);
+  misTrack('harvest',1);
+  showFloatBubble(seed.emoji+' Skördad! +'+coins+'🪙'+(seed.reward.ingr?' +'+COOK_INGR[seed.reward.ingr].emoji:''),'buff');
+  checkAchievements();
+  _renderGard();
+}
+
+function openGard(){$('gardPanel').classList.add('open');_renderGard();}
+function closeGard(){$('gardPanel').classList.remove('open');}
+
+function _gardStage(seed,elapsed){
+  var pct=elapsed/seed.grow;
+  if(pct>=1) return seed.stages[2];
+  if(pct>=0.5) return seed.stages[1];
+  return seed.stages[0];
+}
+
+function _renderGard(){
+  var d=_gardGetData();
+  var gh=$('gardHarvests');if(gh) gh.textContent=d.harvests||0;
+  var totalSeeds=Object.values(d.seeds||{}).reduce(function(a,b){return a+b;},0);
+  var gsn=$('gardSeeds');if(gsn) gsn.textContent=totalSeeds;
+  var ge=$('gardEarned');if(ge) ge.textContent=(d.earned||0);
+  // Seed inventory
+  var inv=$('gardSeedInv');
+  if(inv){
+    var seedItems=GARD_SEEDS.filter(function(s){return (d.seeds[s.id]||0)>0;});
+    if(!seedItems.length) inv.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3)">Inga frön — utforska för att hitta!</div>';
+    else inv.innerHTML=seedItems.map(function(s){
+      return '<div class="gard-seed'+(_gardSelectedSeed===s.id?' selected':'')+'" onclick="_gardPickSeed(\''+s.id+'\')">'+
+        '<div class="gard-seed-emoji">'+s.emoji+'</div>'+
+        '<div class="gard-seed-name">'+s.name+'</div>'+
+        '<div class="gard-seed-cnt">×'+d.seeds[s.id]+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  // Plots
+  var plots=$('gardPlots');
+  if(plots){
+    plots.innerHTML=d.plots.map(function(plot,i){
+      if(!plot){
+        return '<div class="gard-plot empty" onclick="gardPlant('+i+')">'+
+          '<div class="gard-plot-emoji">🟫</div>'+
+          '<div class="gard-plot-name">Tomt</div>'+
+          '<div class="gard-plot-stage">Tryck för att plantera</div>'+
+        '</div>';
+      }
+      var seed=GARD_SEEDS.filter(function(s){return s.id===plot.seedId;})[0];
+      var elapsed=(Date.now()-plot.planted)/1000;
+      var ready=elapsed>=seed.grow;
+      var stage=_gardStage(seed,elapsed);
+      var remaining=Math.max(0,seed.grow-elapsed);
+      var mins=Math.floor(remaining/60);var secs=Math.floor(remaining%60);
+      return '<div class="gard-plot '+(ready?'ready':'growing')+'" onclick="'+(ready?'gardHarvest('+i+')':'')+'">'+
+        '<div class="gard-plot-emoji">'+stage+'</div>'+
+        '<div class="gard-plot-name">'+seed.name+'</div>'+
+        (ready
+          ? '<div class="gard-plot-stage">✅ REDO! Tryck!</div>'
+          : '<div class="gard-plot-timer">'+mins+'m '+secs+'s'+'</div><div class="gard-plot-stage">Växer...</div>'
+        )+
+      '</div>';
+    }).join('');
+  }
+  // Log
+  var log=$('gardLog');
+  if(log){
+    if(!d.log||!d.log.length) log.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;padding:8px">Ingen historik ännu</div>';
+    else log.innerHTML=d.log.map(function(e){
+      return '<div class="gard-log-entry">'+
+        '<div class="gard-log-emoji">'+e.emoji+'</div>'+
+        '<div class="gard-log-text">'+e.name+(e.ingr?' + '+COOK_INGR[e.ingr].emoji:'')+'</div>'+
+        '<div class="gard-log-reward">+'+e.coins+'🪙</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+function _gardPickSeed(id){
+  _gardSelectedSeed=id;
+  var inv=$('gardSeedInv');
+  if(inv) inv.querySelectorAll('.gard-seed').forEach(function(el,i){
+    el.classList.toggle('selected',GARD_SEEDS.filter(function(s){return (d=_gardGetData(),d.seeds[s.id]>0);})[i]&&GARD_SEEDS.filter(function(s){return (d=_gardGetData(),d.seeds[s.id]>0);})[i].id===id);
+  });
+  _renderGard();
 }
 
 </script>
