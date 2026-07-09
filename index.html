@@ -1472,6 +1472,38 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ LUCKY SPIN ══ */
+.spin-panel{position:fixed;inset:0;background:#050008;z-index:985;display:none;flex-direction:column;overflow:hidden}
+.spin-panel.open{display:flex}
+.spin-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0022,#050008)}
+.spin-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88ff,#ffcc00,#44ff88,#ff88ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:spinTitleShim 3s linear infinite}
+@keyframes spinTitleShim{0%{background-position:0%}100%{background-position:200%}}
+.spin-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px;display:flex;flex-direction:column;align-items:center}
+.spin-free-badge{background:rgba(255,200,0,.08);border:1.5px solid rgba(255,200,0,.25);border-radius:12px;padding:8px 16px;font:800 11px var(--ff-head);color:#ffcc00;margin-bottom:14px;text-align:center}
+/* Wheel */
+.spin-wheel-wrap{position:relative;width:220px;height:220px;margin-bottom:8px}
+.spin-pointer{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:24px;z-index:2;filter:drop-shadow(0 2px 6px rgba(255,200,0,.8))}
+.spin-wheel{width:220px;height:220px;border-radius:50%;border:4px solid rgba(255,200,0,.5);box-shadow:0 0 30px rgba(200,100,255,.3),inset 0 0 30px rgba(0,0,0,.4);transition:transform 3.2s cubic-bezier(.17,.67,.12,.99);position:relative;background:conic-gradient(#ff4455 0deg 45deg,#ffcc00 45deg 90deg,#44ff88 90deg 135deg,#4488ff 135deg 180deg,#ff88ff 180deg 225deg,#ff8844 225deg 270deg,#44ddff 270deg 315deg,#ffdd00 315deg 360deg)}
+.spin-wheel::after{content:'';position:absolute;inset:20px;border-radius:50%;background:#050008;box-shadow:inset 0 0 20px rgba(0,0,0,.8)}
+.spin-center-dot{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:3;font-size:28px}
+/* Segments reference */
+.spin-segs{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%;max-width:340px;margin-bottom:14px}
+.spin-seg{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:8px 10px}
+.spin-seg.won{border-color:rgba(255,200,0,.5);background:rgba(255,200,0,.08);animation:wonPulse .6s ease 3}
+@keyframes wonPulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 16px rgba(255,200,0,.5)}}
+.spin-seg-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.spin-seg-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.7);flex:1}
+.spin-seg-val{font:900 9px var(--ff-head);color:rgba(255,255,255,.5)}
+/* Result */
+.spin-result{font:900 15px var(--ff-head);color:#ffcc00;text-align:center;min-height:24px;margin-bottom:12px}
+/* Buttons */
+.spin-btn{width:100%;max-width:340px;background:linear-gradient(135deg,#660099,#aa22ff);border:none;border-radius:16px;padding:16px;font:900 16px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 0 20px rgba(170,34,255,.4)}
+.spin-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.spin-extra-btn{width:100%;max-width:340px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);border-radius:14px;padding:12px;font:800 12px var(--ff-head);color:rgba(255,255,255,.6);cursor:pointer;margin-bottom:10px}
+.spin-extra-btn:disabled{opacity:.35;cursor:default}
+.spin-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;max-width:340px}
+
 /* ══ MONSTER ARENA ══ */
 .arna-panel{position:fixed;inset:0;background:#0a0004;z-index:984;display:none;flex-direction:column;overflow:hidden}
 .arna-panel.open{display:flex}
@@ -9279,6 +9311,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkartan</div>
           <div class="ddr" onclick="cM();openChal()"><div class="ddr-i">🏆</div>Utmaningar</div>
           <div class="ddr" onclick="cM();openArna()"><div class="ddr-i">⚔️</div>Arena</div>
+          <div class="ddr" onclick="cM();openSpin()"><div class="ddr-i">🎰</div>Lyckohjul</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10521,6 +10554,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- LUCKY SPIN -->
+<div class="spin-panel" id="spinPanel">
+  <div class="spin-header">
+    <div class="spin-title">🎰 LYCKOHJULET</div>
+    <button class="close-btn" onclick="closeSpin()">✕</button>
+  </div>
+  <div class="spin-scroll">
+    <div class="spin-free-badge" id="spinFreeBadge">🎁 1 GRATIS SNURR TILLGÄNGLIG!</div>
+    <div class="spin-wheel-wrap">
+      <div class="spin-pointer">▼</div>
+      <div class="spin-wheel" id="spinWheel">
+        <div class="spin-center-dot" id="spinCenterDot">🎰</div>
+      </div>
+    </div>
+    <div class="spin-result" id="spinResult"></div>
+    <div class="spin-segs" id="spinSegs"></div>
+    <button class="spin-btn" id="spinFreeBtn" onclick="doSpin(true)">🎰 GRATIS SNURR!</button>
+    <button class="spin-extra-btn" id="spinExtraBtn" onclick="doSpin(false)">💰 Extra snurr — 300🪙</button>
+    <div class="spin-info" id="spinInfo">LCK ökar chansen för bättre priser! Max 5 extra snurr/dag.</div>
+  </div>
+</div>
 
 <!-- MONSTER ARENA -->
 <div class="arna-panel" id="arnaPanel">
@@ -41298,6 +41354,131 @@ function _renderArna(){
   var atkBtn=$('arnaAtkBtn');if(atkBtn) atkBtn.disabled=!_arnaS.active;
   var stBtn=$('arnaStartBtn');
   if(stBtn){stBtn.disabled=_arnaS.active||d.runs>=ARNA_MAX_RUNS;stBtn.textContent=d.runs>=ARNA_MAX_RUNS?'✋ Max lopp idag':'▶ Starta Strid';}
+}
+
+
+// LUCKY SPIN
+const SPIN_KEY = 'k0509_spin';
+const SPIN_EXTRA_COST = 300;
+const SPIN_MAX_EXTRA = 5;
+const SPIN_SEGS = [
+  {lbl:'200 Mynt',    emoji:'🪙', color:'#ff4455', reward:{coins:200}},
+  {lbl:'500 XP',      emoji:'⭐', color:'#ffcc00', reward:{xp:500}},
+  {lbl:'500 Mynt',    emoji:'🪙', color:'#44ff88', reward:{coins:500}},
+  {lbl:'1 KC',        emoji:'💎', color:'#4488ff', reward:{kc:1}},
+  {lbl:'100 Mynt',    emoji:'🪙', color:'#ff88ff', reward:{coins:100}},
+  {lbl:'+3 Alla Stats',emoji:'💪',color:'#ff8844', reward:{stat:3}},
+  {lbl:'3 KC',        emoji:'💎', color:'#44ddff', reward:{kc:3}},
+  {lbl:'JACKPOT!',    emoji:'🏆', color:'#ffdd00', reward:{coins:5000,kc:5}},
+];
+var _spinBusy = false;
+var _spinRot = 0;
+
+function _spinData(){try{return JSON.parse(localStorage.getItem(SPIN_KEY)||'null');}catch(e){return null;}}
+function _spinSave(d){localStorage.setItem(SPIN_KEY,JSON.stringify(d));}
+function _spinGetData(){
+  var d=_spinData(); var t=getTodayKey();
+  if(!d||d.day!==t) d={day:t,freeDone:false,extra:0};
+  return d;
+}
+
+function _spinPick(){
+  // Weights: jackpot 1%, rare-good 5%, etc. LCK shifts up slightly
+  var lk=Math.min((G.lck||0)*0.003,0.10);
+  var weights=[20,15,18,12,22,8,10,1];
+  // LCK shifts weight from low-value to high-value segments
+  var transfer=Math.floor(lk*100);
+  weights[0]=Math.max(weights[0]-transfer,5);
+  weights[4]=Math.max(weights[4]-transfer,5);
+  weights[6]+=Math.floor(transfer*0.5);
+  weights[7]+=Math.floor(transfer*0.3);
+  var total=weights.reduce(function(a,b){return a+b;},0);
+  var r=Math.floor(Math.random()*total);
+  for(var i=0;i<weights.length;i++){if(r<weights[i]) return i; r-=weights[i];}
+  return 0;
+}
+
+function doSpin(free){
+  if(_spinBusy) return;
+  var d=_spinGetData();
+  if(free){
+    if(d.freeDone){showFloatBubble('Gratis snurr redan använt idag!','debuff');return;}
+  } else {
+    if(d.extra>=SPIN_MAX_EXTRA){showFloatBubble('Max '+SPIN_MAX_EXTRA+' extra snurr/dag!','debuff');return;}
+    if((G.coins||0)<SPIN_EXTRA_COST){showFloatBubble('Behöver '+SPIN_EXTRA_COST+'🪙!','debuff');return;}
+    G.coins-=SPIN_EXTRA_COST;save();d.extra++;
+  }
+  if(free) d.freeDone=true;
+  _spinSave(d);
+  _spinBusy=true;
+  var result=_spinPick();
+  // Calculate rotation to land on result segment
+  // Each segment is 45°; segment N center is at N*45+22.5° from top going CW
+  // Rotate wheel CW so pointer at top hits segment N
+  // Segment N's center needs to be under the pointer (top)
+  // Wheel rotates CW, so rotate by: 360*5 + (360 - (result*45+22.5))
+  var targetDeg=(360*6)+(360-(result*45+22.5));
+  _spinRot=targetDeg;
+  var w=$('spinWheel');
+  if(w){w.style.transition='none';w.style.transform='rotate(0deg)';}
+  setTimeout(function(){
+    if(w) w.style.transform='rotate('+targetDeg+'deg)';
+    var cr=$('spinResult');if(cr) cr.textContent='🎰 Snurrar...';
+    setTimeout(function(){
+      _spinBusy=false;
+      _applySpinReward(result);
+      _renderSpin();
+    },3300);
+  },50);
+  _renderSpin();
+}
+
+function _applySpinReward(idx){
+  var seg=SPIN_SEGS[idx];
+  var r=seg.reward;
+  if(r.coins) gainCoins(r.coins);
+  if(r.xp) gainXP(r.xp,'str');
+  if(r.kc) gainKC(r.kc);
+  if(r.stat){
+    G.str=(G.str||0)+r.stat;G.agi=(G.agi||0)+r.stat;
+    G.int=(G.int||0)+r.stat;G.end=(G.end||0)+r.stat;G.lck=(G.lck||0)+r.stat;
+    save();
+  }
+  var desc=[];
+  if(r.coins) desc.push('+'+r.coins+'🪙');
+  if(r.xp) desc.push('+'+r.xp+'⭐');
+  if(r.kc) desc.push('+'+r.kc+'KC');
+  if(r.stat) desc.push('+'+r.stat+' alla stats');
+  var cr=$('spinResult');if(cr) cr.textContent=seg.emoji+' '+seg.lbl+'! '+desc.join(' ');
+  showFloatBubble(seg.emoji+' Lyckohjulet: '+seg.lbl+'!','buff');
+  checkAchievements();
+  // Highlight winning segment
+  var segs=$('spinSegs');
+  if(segs){
+    var divs=segs.querySelectorAll('.spin-seg');
+    divs.forEach(function(d,i){d.classList.toggle('won',i===idx);});
+  }
+}
+
+function openSpin(){$('spinPanel').classList.add('open');_renderSpin();}
+function closeSpin(){$('spinPanel').classList.remove('open');}
+
+function _renderSpin(){
+  var d=_spinGetData();
+  var fb=$('spinFreeBadge');
+  if(fb) fb.textContent=d.freeDone?'✓ Gratis snurr använt idag':'🎁 1 GRATIS SNURR TILLGÄNGLIG!';
+  var sfb=$('spinFreeBtn');
+  if(sfb){sfb.disabled=d.freeDone||_spinBusy;sfb.textContent=d.freeDone?'✓ Gratis snurr klar':'🎰 GRATIS SNURR!';}
+  var seb=$('spinExtraBtn');
+  if(seb){seb.disabled=d.extra>=SPIN_MAX_EXTRA||_spinBusy;seb.textContent=d.extra>=SPIN_MAX_EXTRA?'✋ Max extra snurr':'💰 Extra snurr — '+SPIN_EXTRA_COST+'🪙 ('+(SPIN_MAX_EXTRA-d.extra)+' kvar)';}
+  var segs=$('spinSegs');
+  if(!segs) return;
+  segs.innerHTML=SPIN_SEGS.map(function(s,i){
+    return '<div class="spin-seg" data-idx="'+i+'">'+
+      '<div class="spin-seg-dot" style="background:'+s.color+'"></div>'+
+      '<div class="spin-seg-lbl">'+s.emoji+' '+s.lbl+'</div>'+
+    '</div>';
+  }).join('');
 }
 
 </script>
