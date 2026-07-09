@@ -1430,6 +1430,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET ACHIEVEMENTS ══ */
+.ach-panel{position:fixed;inset:0;background:#060608;z-index:943;display:none;flex-direction:column;overflow:hidden}
+.ach-panel.open{display:flex}
+.ach-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0c18,#060608)}
+.ach-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8844,#ff4455);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ach-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Trophy bar */
+.ach-trophy{background:linear-gradient(135deg,rgba(255,204,0,.1),rgba(255,136,68,.06));border:1.5px solid rgba(255,204,0,.25);border-radius:18px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+.ach-trophy-icon{font-size:44px;filter:drop-shadow(0 0 10px rgba(255,204,0,.5))}
+.ach-trophy-info{flex:1}
+.ach-trophy-title{font:900 16px var(--ff-head);color:#ffcc00;margin-bottom:3px}
+.ach-trophy-sub{font:500 10px var(--ff-body);color:rgba(255,255,255,.5)}
+.ach-trophy-pts{font:900 22px var(--ff-head);color:#ffcc00}
+.ach-trophy-label{font:500 9px var(--ff-body);color:rgba(255,204,0,.6)}
+/* Category filter */
+.ach-cats{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:2px}
+.ach-cat{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:20px;padding:6px 12px;font:700 9px var(--ff-head);color:rgba(255,255,255,.5);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.ach-cat.sel{background:rgba(255,204,0,.12);border-color:rgba(255,204,0,.4);color:#ffcc00}
+/* Achievement cards */
+.ach-list{display:flex;flex-direction:column;gap:8px}
+.ach-card{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;transition:all .2s}
+.ach-card.unlocked{background:rgba(255,204,0,.05);border-color:rgba(255,204,0,.2)}
+.ach-card.claimed{background:rgba(0,255,136,.04);border-color:rgba(0,255,136,.15)}
+.ach-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.ach-card.locked .ach-icon{background:rgba(255,255,255,.04);filter:grayscale(.8)}
+.ach-card.unlocked .ach-icon,.ach-card.claimed .ach-icon{background:rgba(255,204,0,.1);border:1px solid rgba(255,204,0,.2)}
+.ach-body{flex:1;min-width:0}
+.ach-name{font:700 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.ach-desc{font:500 9px var(--ff-body);color:rgba(255,255,255,.45);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ach-prog-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-bottom:3px}
+.ach-prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#ffcc00,#ff8844);transition:width .4s}
+.ach-prog-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.ach-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.ach-pts{font:800 11px var(--ff-head);color:#ffcc00;white-space:nowrap}
+.ach-claim-btn{background:linear-gradient(135deg,#2a1a00,#ffcc00);border:none;border-radius:8px;color:#000;font:900 9px var(--ff-head);padding:5px 10px;cursor:pointer;transition:all .15s}
+.ach-claim-btn:active{transform:scale(.93)}
+.ach-badge{font:700 9px var(--ff-head);color:rgba(0,255,136,.8);padding:3px 7px;background:rgba(0,255,136,.1);border-radius:6px;border:1px solid rgba(0,255,136,.2)}
+.ach-locked-badge{font:700 9px var(--ff-head);color:rgba(255,255,255,.25);padding:3px 7px;background:rgba(255,255,255,.04);border-radius:6px}
+
 /* ══ PET EXPEDITION ══ */
 .exp-panel{position:fixed;inset:0;background:#04060e;z-index:942;display:none;flex-direction:column;overflow:hidden}
 .exp-panel.open{display:flex}
@@ -7546,6 +7586,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Dungeon</div>
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Gym</div>
           <div class="ddr" onclick="cM();openExp()"><div class="ddr-i">🗺️</div>Expedition</div>
+          <div class="ddr" onclick="cM();openAch()"><div class="ddr-i">🏆</div>Achievements</div>
         </div>
       </div>
     </div>
@@ -8714,6 +8755,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET ACHIEVEMENTS -->
+<div class="ach-panel" id="achPanel">
+  <div class="ach-header">
+    <div class="ach-title">🏆 ACHIEVEMENTS</div>
+    <button class="close-btn" onclick="closeAch()">✕</button>
+  </div>
+  <div class="ach-scroll">
+    <div class="ach-trophy">
+      <div class="ach-trophy-icon">🏆</div>
+      <div class="ach-trophy-info">
+        <div class="ach-trophy-title" id="achRank">Nybörjare</div>
+        <div class="ach-trophy-sub" id="achProgress">0/0 achievements</div>
+      </div>
+      <div style="text-align:right">
+        <div class="ach-trophy-pts" id="achTotalPts">0</div>
+        <div class="ach-trophy-label">Achievement Pts</div>
+      </div>
+    </div>
+    <div class="ach-cats" id="achCats"></div>
+    <div class="ach-list" id="achList"></div>
+  </div>
+</div>
 
 <!-- PET EXPEDITION -->
 <div class="exp-panel" id="expPanel">
@@ -31884,6 +31949,179 @@ function expCollect(){
   if(world.kc) gainKC(world.kc);
   showFloatBubble('🎉 Expedition klar: +'+world.coins+'💰 +'+world.xp+'XP'+(world.kc>0?' +'+world.kc+'KC':''),'buff');
   _renderExp();
+}
+
+
+// PET ACHIEVEMENT SYSTEM
+const ACH_KEY = 'k0509_ach';
+const ACH_DEFS = [
+  // Beginner
+  {id:'first_steps',   cat:'start',   emoji:'👶', name:'Första Stegen',      desc:'Skapa ditt husdjur',                    pts:10,  reward:{coins:50,xp:100},   check:function(){return !!(G.name);}},
+  {id:'level5',        cat:'level',   emoji:'⬆️', name:'Nivå 5',             desc:'Nå nivå 5',                              pts:20,  reward:{coins:100,xp:200},  check:function(){return (G.lv||1)>=5;}, prog:function(){return {cur:Math.min(5,G.lv||1),max:5};}},
+  {id:'level10',       cat:'level',   emoji:'🔟', name:'Nivå 10',            desc:'Nå nivå 10',                             pts:50,  reward:{coins:300,xp:500},  check:function(){return (G.lv||1)>=10;}, prog:function(){return {cur:Math.min(10,G.lv||1),max:10};}},
+  {id:'level25',       cat:'level',   emoji:'🌟', name:'Nivå 25',            desc:'Nå nivå 25',                             pts:150, reward:{coins:1000,xp:2000,kc:2}, check:function(){return (G.lv||1)>=25;}, prog:function(){return {cur:Math.min(25,G.lv||1),max:25};}},
+  // Coins
+  {id:'coins100',      cat:'wealth',  emoji:'💰', name:'Hundralapp',         desc:'Samla 100 mynt',                         pts:10,  reward:{xp:50},   check:function(){return (G.coins||0)>=100;}, prog:function(){return {cur:Math.min(100,G.coins||0),max:100};}},
+  {id:'coins1000',     cat:'wealth',  emoji:'💎', name:'Tusenlapp',          desc:'Samla 1 000 mynt',                       pts:30,  reward:{xp:200},  check:function(){return (G.coins||0)>=1000;}, prog:function(){return {cur:Math.min(1000,G.coins||0),max:1000};}},
+  {id:'coins10000',    cat:'wealth',  emoji:'🏦', name:'Rikeman',            desc:'Samla 10 000 mynt',                      pts:100, reward:{kc:1,xp:500}, check:function(){return (G.coins||0)>=10000;}, prog:function(){return {cur:Math.min(10000,G.coins||0),max:10000};}},
+  // Combat
+  {id:'first_fight',   cat:'combat',  emoji:'⚔️', name:'Första Striden',     desc:'Vinn en dungeon-strid',                  pts:15,  reward:{coins:75},  check:function(){var d=_dngStats();return (d.kills||0)>=1;}},
+  {id:'kills10',       cat:'combat',  emoji:'💀', name:'Tiodubbla Segren',   desc:'Besegra 10 fiender',                     pts:40,  reward:{coins:200,xp:300}, check:function(){return (_dngStats().kills||0)>=10;}, prog:function(){return {cur:Math.min(10,_dngStats().kills||0),max:10};}},
+  {id:'kills50',       cat:'combat',  emoji:'🗡️', name:'Krigshjälte',        desc:'Besegra 50 fiender',                     pts:100, reward:{coins:500,xp:1000,kc:1}, check:function(){return (_dngStats().kills||0)>=50;}, prog:function(){return {cur:Math.min(50,_dngStats().kills||0),max:50};}},
+  {id:'floor5',        cat:'combat',  emoji:'🏚️', name:'Djupdykaren',        desc:'Nå Dungeon-våning 5',                    pts:60,  reward:{coins:300,kc:1}, check:function(){return (_dngStats().deepest||1)>=5;}, prog:function(){return {cur:Math.min(5,_dngStats().deepest||1),max:5};}},
+  // Meditation
+  {id:'first_med',     cat:'zen',     emoji:'🧘', name:'Första Meditationen',desc:'Slutför en meditation',                  pts:15,  reward:{coins:50,xp:100}, check:function(){var d=_medData();return (d.sessions||0)>=1;}},
+  {id:'med_streak7',   cat:'zen',     emoji:'🔥', name:'7-Dagarsserie',       desc:'7 dagars meditationserie',               pts:80,  reward:{coins:500,xp:800,kc:1}, check:function(){return (_medData().streak||0)>=7;}, prog:function(){return {cur:Math.min(7,_medData().streak||0),max:7};}},
+  {id:'med10',         cat:'zen',     emoji:'☮️', name:'Meditationsmästare', desc:'Slutför 10 meditationssessioner',        pts:60,  reward:{coins:300,xp:500}, check:function(){return (_medData().sessions||0)>=10;}, prog:function(){return {cur:Math.min(10,_medData().sessions||0),max:10};}},
+  // Crafting
+  {id:'first_craft',   cat:'craft',   emoji:'🔨', name:'Hantverkare',        desc:'Tillverka ditt första föremål',          pts:20,  reward:{coins:100,xp:150}, check:function(){var d=_craftData();return Object.keys(d.inv||{}).length>0;}},
+  // Ranch
+  {id:'first_harvest', cat:'ranch',   emoji:'🌾', name:'Jordbrukaren',       desc:'Skörda din första gröda',                pts:15,  reward:{coins:80,xp:100}, check:function(){var d=_ranchData();return (d.totalHarvests||0)>=1;}},
+  // Expedition
+  {id:'first_exp',     cat:'explore', emoji:'🗺️', name:'Äventyraren',        desc:'Slutför din första expedition',          pts:25,  reward:{coins:150,xp:200}, check:function(){var d=_expData();return (d.totalExp||0)>=1;}},
+  {id:'exp5worlds',    cat:'explore', emoji:'🌍', name:'Världsutforskaren',   desc:'Besök 5 olika världar',                  pts:80,  reward:{coins:400,xp:600,kc:1}, check:function(){var d=_expData();return Object.keys(d.worldsVisited||{}).length>=5;}, prog:function(){var d=_expData();return {cur:Math.min(5,Object.keys(d.worldsVisited||{}).length),max:5};}},
+  // Quiz
+  {id:'quiz_perfect',  cat:'smart',   emoji:'🎓', name:'Perfekt Poäng',       desc:'Få 10/10 på ett quiz',                   pts:75,  reward:{coins:300,xp:500,kc:1}, check:function(){var d=_quizData();return (d.perfectGames||0)>=1;}},
+  // Gym
+  {id:'gym_start',     cat:'gym',     emoji:'🏋️', name:'Träningsstart',       desc:'Träna för första gången i gymmet',       pts:15,  reward:{coins:60,xp:100}, check:function(){var d=_gymData();var stats=d.stats||{};return Object.values(stats).some(function(v){return v>1;});}},
+  {id:'gym_stat50',    cat:'gym',     emoji:'💪', name:'Maxstyrka',           desc:'Nå 50 i valfri statistik',               pts:100, reward:{coins:500,xp:1000,kc:1}, check:function(){var d=_gymData();var stats=d.stats||{};return Object.values(stats).some(function(v){return v>=50;});}},
+  // Gacha
+  {id:'first_pull',    cat:'luck',    emoji:'✨', name:'Summonaren',          desc:'Utför ditt första summon',               pts:20,  reward:{coins:100,xp:150}, check:function(){var d=_gacha2Data();return (d.totalPulls||0)>=1;}},
+  {id:'first_legend',  cat:'luck',    emoji:'🌟', name:'Legendarisk!',        desc:'Dra en 5★-kortkaraktär',                 pts:150, reward:{coins:1000,xp:2000,kc:3}, check:function(){var d=_gacha2Data();return (d.fiveStars||0)>=1;}},
+  // Checkin
+  {id:'checkin7',      cat:'daily',   emoji:'📅', name:'Veckotrogen',         desc:'7 dagars inloggning i rad',              pts:50,  reward:{coins:200,xp:300}, check:function(){var d=_checkinData();return (d.currentStreak||d.streak||0)>=7;}, prog:function(){var d=_checkinData();return {cur:Math.min(7,d.currentStreak||d.streak||0),max:7};}},
+];
+
+const ACH_CATS = [
+  {id:'all',    name:'Alla'},
+  {id:'level',  name:'Nivå'},
+  {id:'wealth', name:'Rikedom'},
+  {id:'combat', name:'Strid'},
+  {id:'zen',    name:'Zen'},
+  {id:'explore',name:'Utforska'},
+  {id:'craft',  name:'Craft'},
+  {id:'gym',    name:'Gym'},
+  {id:'luck',   name:'Tur'},
+  {id:'daily',  name:'Daglig'},
+  {id:'smart',  name:'Smart'},
+];
+
+const ACH_RANKS = [
+  {min:0,    name:'Nybörjare',  emoji:'🥉'},
+  {min:100,  name:'Äventyrare', emoji:'🥈'},
+  {min:300,  name:'Hjälte',     emoji:'🥇'},
+  {min:600,  name:'Champion',   emoji:'🏆'},
+  {min:1000, name:'Legend',     emoji:'👑'},
+  {min:2000, name:'Mytisk',     emoji:'🌟'},
+];
+
+let _achSelCat='all';
+
+function _achLoad(){try{return JSON.parse(localStorage.getItem(ACH_KEY)||'null');}catch(e){return null;}}
+function _achSave(d){localStorage.setItem(ACH_KEY,JSON.stringify(d));}
+function _achData(){var d=_achLoad(); if(!d) d={claimed:{}}; return d;}
+
+// Safe helpers for cross-feature checks
+function _craftData(){try{return JSON.parse(localStorage.getItem(CRAFT_KEY)||'null')||{};}catch(e){return {};}}
+function _ranchData(){try{return JSON.parse(localStorage.getItem(RANCH_KEY)||'null')||{};}catch(e){return {};}}
+function _quizData(){try{return JSON.parse(localStorage.getItem(QUIZ_KEY)||'null')||{};}catch(e){return {};}}
+function _gacha2Data(){try{return JSON.parse(localStorage.getItem(GACHA2_KEY)||'null')||{};}catch(e){return {};}}
+function _checkinData(){try{return JSON.parse(localStorage.getItem(CHECKIN_KEY)||'null')||{};}catch(e){return {};}}
+
+function openAch(){
+  $('achPanel').classList.add('open');
+  _renderAch();
+}
+function closeAch(){
+  $('achPanel').classList.remove('open');
+}
+
+function achSetCat(catId){
+  _achSelCat=catId;
+  _renderAch();
+}
+
+function _achTotalPts(d){
+  var pts=0;
+  ACH_DEFS.forEach(function(a){if(d.claimed[a.id]) pts+=a.pts;});
+  return pts;
+}
+
+function _renderAch(){
+  var d=_achData();
+  var totalPts=_achTotalPts(d);
+  // Rank
+  var rank=ACH_RANKS[0];
+  ACH_RANKS.forEach(function(r){if(totalPts>=r.min) rank=r;});
+  var tp=$('achTotalPts'); if(tp) tp.textContent=totalPts;
+  var ar=$('achRank'); if(ar) ar.textContent=rank.emoji+' '+rank.name;
+  var claimed=Object.keys(d.claimed||{}).length;
+  var ap=$('achProgress'); if(ap) ap.textContent=claimed+'/'+ACH_DEFS.length+' upplåsta';
+  // Cats
+  var cc=$('achCats');
+  if(cc) cc.innerHTML=ACH_CATS.map(function(c){
+    return '<div class="ach-cat'+(c.id===_achSelCat?' sel':'')+'" onclick="achSetCat(''+c.id+'')">'+c.name+'</div>';
+  }).join('');
+  // List
+  var filtered=_achSelCat==='all'?ACH_DEFS:ACH_DEFS.filter(function(a){return a.cat===_achSelCat;});
+  var al=$('achList');
+  if(!al) return;
+  al.innerHTML=filtered.map(function(ach){
+    var isClaimed=!!(d.claimed[ach.id]);
+    var isUnlocked=!isClaimed && ach.check();
+    var progData=ach.prog?ach.prog():null;
+    var progPct=progData?Math.round(progData.cur/progData.max*100):0;
+    var cardClass='ach-card '+(isClaimed?'claimed':isUnlocked?'unlocked':'locked');
+    var rightHtml='';
+    if(isClaimed) rightHtml='<div class="ach-badge">✅ Hämtad</div>';
+    else if(isUnlocked) rightHtml='<button class="ach-claim-btn" onclick="achClaim(''+ach.id+'')">Hämta</button>';
+    else rightHtml='<div class="ach-locked-badge">🔒</div>';
+    var rewardStr=(ach.reward.coins?'+'+ach.reward.coins+'💰 ':'')+
+                  (ach.reward.xp?'+'+ach.reward.xp+'XP ':'')+
+                  (ach.reward.kc?'+'+ach.reward.kc+'KC':'');
+    return '<div class="'+cardClass+'">'+
+      '<div class="ach-icon">'+ach.emoji+'</div>'+
+      '<div class="ach-body">'+
+      '<div class="ach-name">'+ach.name+'</div>'+
+      '<div class="ach-desc">'+ach.desc+'</div>'+
+      (progData&&!isClaimed?
+        '<div class="ach-prog-bar"><div class="ach-prog-fill" style="width:'+progPct+'%"></div></div>'+
+        '<div class="ach-prog-label">'+progData.cur+'/'+progData.max+'</div>':'')+
+      '</div>'+
+      '<div class="ach-right">'+
+      '<div class="ach-pts">'+ach.pts+'pts</div>'+
+      rightHtml+
+      '</div>'+
+      '</div>';
+  }).join('');
+}
+
+function achClaim(achId){
+  var d=_achData();
+  if(d.claimed[achId]) return;
+  var ach=ACH_DEFS.find(function(a){return a.id===achId;});
+  if(!ach||!ach.check()) return;
+  d.claimed[achId]=true;
+  _achSave(d);
+  if(ach.reward.coins) gainCoins(ach.reward.coins);
+  if(ach.reward.xp) gainXP(ach.reward.xp,'action');
+  if(ach.reward.kc) gainKC(ach.reward.kc);
+  showFloatBubble('🏆 Achievement: '+ach.name+'! +'+ach.pts+'pts','buff');
+  _renderAch();
+}
+
+// Check achievements passively (call after major actions)
+function checkAchievements(){
+  var d=_achData();
+  var any=false;
+  ACH_DEFS.forEach(function(ach){
+    if(!d.claimed[ach.id] && ach.check()){
+      // Auto-notify but don't auto-claim — user clicks to claim
+      // Just silently mark as unlocked (check() handles it)
+      any=true;
+    }
+  });
+  return any;
 }
 
 </script>
