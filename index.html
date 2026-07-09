@@ -1470,6 +1470,36 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY CHALLENGES ══ */
+.chal-panel{position:fixed;inset:0;background:#040012;z-index:983;display:none;flex-direction:column;overflow:hidden}
+.chal-panel.open{display:flex}
+.chal-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0020,#040012)}
+.chal-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff6644,#ffcc00,#44ff88,#ff6644);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:chalShim 3s linear infinite}
+@keyframes chalShim{0%{background-position:0%}100%{background-position:200%}}
+.chal-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.chal-header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.chal-title-row{font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px}
+.chal-reset{font:600 9px var(--ff-body);color:rgba(255,255,255,.25)}
+.chal-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:14px;margin-bottom:10px;transition:border-color .2s}
+.chal-card.done{border-color:rgba(0,255,150,.3);background:rgba(0,255,150,.03)}
+.chal-card.claimed{border-color:rgba(255,255,255,.05);opacity:.5}
+.chal-card-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.chal-emoji{font-size:24px;flex-shrink:0}
+.chal-lbl{font:800 12px var(--ff-head);color:#fff;flex:1}
+.chal-reward-tag{font:800 10px var(--ff-head);padding:4px 8px;border-radius:8px;background:rgba(255,200,0,.1);color:#ffcc00;white-space:nowrap}
+.chal-prog-row{display:flex;justify-content:space-between;font:700 9px var(--ff-head);color:rgba(255,255,255,.4);margin-bottom:5px}
+.chal-prog-bar{height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;margin-bottom:10px}
+.chal-prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#4488ff,#44ffcc);transition:width .4s}
+.chal-prog-fill.done{background:linear-gradient(90deg,#00ff88,#44ffcc)}
+.chal-claim-btn{width:100%;background:linear-gradient(135deg,#005533,#00aa66);border:none;border-radius:10px;padding:9px;font:800 11px var(--ff-head);color:#fff;cursor:pointer}
+.chal-claim-btn.unclaimed{opacity:.35;cursor:default;background:rgba(255,255,255,.05)}
+.chal-all-bonus{background:linear-gradient(135deg,rgba(255,200,0,.07),rgba(255,100,0,.07));border:2px solid rgba(255,180,0,.3);border-radius:18px;padding:16px;text-align:center;margin-top:6px}
+.chal-all-title{font:900 14px var(--ff-head);color:#ffcc00;margin-bottom:4px}
+.chal-all-desc{font:700 10px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:10px}
+.chal-all-btn{background:linear-gradient(135deg,#cc6600,#ff9900);border:none;border-radius:12px;padding:12px 24px;font:900 13px var(--ff-head);color:#fff;cursor:pointer}
+.chal-all-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
+
 /* ══ TREASURE MAP ══ */
 .tmap-panel{position:fixed;inset:0;background:#050a00;z-index:982;display:none;flex-direction:column;overflow:hidden}
 .tmap-panel.open{display:flex}
@@ -9207,6 +9237,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Racing</div>
           <div class="ddr" onclick="cM();openEnch()"><div class="ddr-i">✨</div>Smide</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkartan</div>
+          <div class="ddr" onclick="cM();openChal()"><div class="ddr-i">🏆</div>Utmaningar</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10447,6 +10478,27 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY CHALLENGES -->
+<div class="chal-panel" id="chalPanel">
+  <div class="chal-header">
+    <div class="chal-title">🏆 DAGLIGA UTMANINGAR</div>
+    <button class="close-btn" onclick="closeChal()">✕</button>
+  </div>
+  <div class="chal-scroll">
+    <div class="chal-header-row">
+      <div class="chal-title-row">3 UTMANINGAR / DAG</div>
+      <div class="chal-reset" id="chalResetLbl">Återställs dagligen</div>
+    </div>
+    <div id="chalCards"></div>
+    <div class="chal-all-bonus">
+      <div class="chal-all-title">🌟 ALLA KLARA BONUS</div>
+      <div class="chal-all-desc">Klara alla 3 utmaningar för +2000🪙 och +5KC!</div>
+      <button class="chal-all-btn" id="chalAllBtn" onclick="chalClaimAll()" disabled>Klar alla 3 först</button>
+    </div>
+  </div>
+</div>
 
 <!-- TREASURE MAP -->
 <div class="tmap-panel" id="tmapPanel">
@@ -35205,6 +35257,7 @@ function misClaimBonus(){
 // Called by other systems to track progress
 function misTrack(type, amount){
   if(typeof bntyTrack==='function') bntyTrack(type, amount);
+  if(typeof chalTrack==='function') chalTrack(type, amount);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -40899,6 +40952,115 @@ function _renderTmap(){
     ):'<div style="font-size:20px">⛏️</div>';
     return '<div class="'+cls+'" onclick="'+(rev?'':' tmapDig('+i+')')+'">'+inner+'</div>';
   }).join('');
+}
+
+
+// DAILY CHALLENGES
+const CHAL_KEY = 'k0509_chal';
+const CHAL_POOL = [
+  {id:'c01',type:'fish',   goal:3,  lbl:'Fiska 3 gånger',             emoji:'🎣',reward:{coins:800, kc:0}},
+  {id:'c02',type:'craft',  goal:5,  lbl:'Crafta 5 föremål',            emoji:'🔨',reward:{coins:700, kc:0}},
+  {id:'c03',type:'puzzle', goal:2,  lbl:'Slutför 2 Gem Match-spel',    emoji:'💎',reward:{coins:1000,kc:1}},
+  {id:'c04',type:'harvest',goal:5,  lbl:'Skörda 5 gånger',             emoji:'🌾',reward:{coins:600, kc:0}},
+  {id:'c05',type:'pvp',    goal:5,  lbl:'Vinn 5 PvP-strider',          emoji:'⚔️',reward:{coins:1200,kc:1}},
+  {id:'c06',type:'race',   goal:3,  lbl:'Spring 3 lopp',               emoji:'🏁',reward:{coins:1000,kc:1}},
+  {id:'c07',type:'tmap',   goal:1,  lbl:'Slutför 1 skattkarta',        emoji:'🗺️',reward:{coins:2000,kc:2}},
+  {id:'c08',type:'fish',   goal:8,  lbl:'Fiska 8 gånger',              emoji:'🎣',reward:{coins:1500,kc:1}},
+  {id:'c09',type:'craft',  goal:10, lbl:'Crafta 10 föremål',           emoji:'🔨',reward:{coins:1500,kc:1}},
+  {id:'c10',type:'harvest',goal:8,  lbl:'Skörda 8 gånger',             emoji:'🌾',reward:{coins:1200,kc:1}},
+  {id:'c11',type:'race',   goal:5,  lbl:'Spring 5 lopp',               emoji:'🏁',reward:{coins:1500,kc:2}},
+  {id:'c12',type:'puzzle', goal:1,  lbl:'Spela 1 Gem Match',           emoji:'💎',reward:{coins:500, kc:0}},
+  {id:'c13',type:'daily',  goal:3,  lbl:'Slutför 3 dagliga uppgifter', emoji:'📅',reward:{coins:800, kc:0}},
+  {id:'c14',type:'wb',     goal:1,  lbl:'Skada veckobossen',           emoji:'🌀',reward:{coins:2500,kc:3}},
+  {id:'c15',type:'craft',  goal:3,  lbl:'Crafta 3 föremål',            emoji:'🔨',reward:{coins:500, kc:0}},
+];
+
+function _chalData(){try{return JSON.parse(localStorage.getItem(CHAL_KEY)||'null');}catch(e){return null;}}
+function _chalSave(d){localStorage.setItem(CHAL_KEY,JSON.stringify(d));}
+function _chalGetData(){
+  var d=_chalData(); var t=getTodayKey();
+  if(!d||d.day!==t){
+    // Pick 3 unique challenges for today using pool shuffle based on day string
+    var seed=0; for(var i=0;i<t.length;i++) seed=(seed*31+t.charCodeAt(i))>>>0;
+    var pool=[].concat(CHAL_POOL);
+    for(var j=pool.length-1;j>0;j--){seed=(seed*1664525+1013904223)>>>0;var k=seed%pool.length;var tmp=pool[j];pool[j]=pool[k];pool[k]=tmp;}
+    var picks=pool.slice(0,3).map(function(c){return {id:c.id,type:c.type,goal:c.goal,lbl:c.lbl,emoji:c.emoji,reward:c.reward,progress:0,claimed:false};});
+    d={day:t,challenges:picks,allClaimed:false};
+  }
+  return d;
+}
+
+function chalTrack(type, amount){
+  var d=_chalGetData();
+  var changed=false;
+  d.challenges.forEach(function(c){
+    if(!c.claimed&&c.type===type){
+      c.progress=Math.min((c.progress||0)+(amount||1), c.goal);
+      changed=true;
+    }
+  });
+  if(changed){_chalSave(d);var cp=$('chalCards');if(cp) _renderChalCards(d);}
+}
+
+function chalClaim(idx){
+  var d=_chalGetData();
+  var c=d.challenges[idx];
+  if(!c||c.claimed||c.progress<c.goal) return;
+  c.claimed=true;
+  _chalSave(d);
+  gainCoins(c.reward.coins);
+  if(c.reward.kc>0) gainKC(c.reward.kc);
+  showFloatBubble('✅ Utmaning klar! +'+c.reward.coins+'🪙'+(c.reward.kc>0?' +'+c.reward.kc+'KC':''),'buff');
+  checkAchievements();
+  _renderChal(d);
+}
+
+function chalClaimAll(){
+  var d=_chalGetData();
+  if(d.allClaimed) return;
+  var allDone=d.challenges.every(function(c){return c.claimed;});
+  if(!allDone){showFloatBubble('Slutför alla 3 utmaningar först!','debuff');return;}
+  d.allClaimed=true;
+  _chalSave(d);
+  gainCoins(2000);gainKC(5);
+  showFloatBubble('🌟 ALLA UTMANINGAR KLARA! +2000🪙 +5KC!','buff');
+  checkAchievements();
+  _renderChal(d);
+}
+
+function openChal(){$('chalPanel').classList.add('open');_renderChal(_chalGetData());}
+function closeChal(){$('chalPanel').classList.remove('open');}
+
+function _renderChalCards(d){
+  var cards=$('chalCards'); if(!cards) return;
+  cards.innerHTML=d.challenges.map(function(c,i){
+    var pct=Math.min(Math.round((c.progress/c.goal)*100),100);
+    var isDone=c.progress>=c.goal;
+    var isClaimed=c.claimed;
+    var rewardTxt=c.reward.coins+'🪙'+(c.reward.kc>0?' +'+c.reward.kc+'KC':'');
+    return '<div class="chal-card'+(isClaimed?' claimed':isDone?' done':'')+'">'+
+      '<div class="chal-card-top">'+
+        '<div class="chal-emoji">'+c.emoji+'</div>'+
+        '<div class="chal-lbl">'+c.lbl+'</div>'+
+        '<div class="chal-reward-tag">'+rewardTxt+'</div>'+
+      '</div>'+
+      '<div class="chal-prog-row"><span>'+c.progress+'/'+c.goal+'</span><span>'+pct+'%</span></div>'+
+      '<div class="chal-prog-bar"><div class="chal-prog-fill'+(isDone?' done':'')+'" style="width:'+pct+'%"></div></div>'+
+      '<button class="chal-claim-btn'+(isDone&&!isClaimed?'':' unclaimed')+'" onclick="chalClaim('+i+')" '+(isDone&&!isClaimed?'':'disabled')+'>'+
+        (isClaimed?'✓ Hämtad':isDone?'🎁 Hämta belöning':'⏳ Pågår...')+
+      '</button>'+
+    '</div>';
+  }).join('');
+}
+
+function _renderChal(d){
+  _renderChalCards(d);
+  var allDone=d.challenges.every(function(c){return c.claimed;});
+  var ab=$('chalAllBtn');
+  if(ab){
+    ab.disabled=!allDone||d.allClaimed;
+    ab.textContent=d.allClaimed?'✓ Jackpot hämtad!':allDone?'🌟 Hämta JACKPOT!':'Klar alla 3 först';
+  }
 }
 
 </script>
