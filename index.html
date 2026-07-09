@@ -1455,6 +1455,36 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SKILL TREE ══ */
+.skl-panel{position:fixed;inset:0;background:#030212;z-index:968;display:none;flex-direction:column;overflow:hidden}
+.skl-panel.open{display:flex}
+.skl-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0224,#030212)}
+.skl-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8844,#ffcc00,#44ff88,#44aaff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.skl-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.skl-sp-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 14px;margin-bottom:14px}
+.skl-sp-label{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.skl-sp-val{font:900 22px var(--ff-head);color:#ffcc00}
+.skl-sp-info{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:right}
+.skl-tabs{display:flex;gap:8px;margin-bottom:14px}
+.skl-tab{flex:1;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.skl-tab.active{background:rgba(255,200,50,.08);border-color:rgba(255,200,50,.35)}
+.skl-tab-emoji{font-size:22px;display:block;margin-bottom:4px}
+.skl-tab-name{font:700 10px var(--ff-head);color:rgba(255,255,255,.5)}
+.skl-tab.active .skl-tab-name{color:#ffcc00}
+.skl-tier{margin-bottom:12px}
+.skl-tier-label{font:600 8px var(--ff-body);color:rgba(255,255,255,.25);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.skl-nodes{display:flex;gap:8px}
+.skl-node{flex:1;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.skl-node.unlocked{background:rgba(255,200,50,.08);border-color:rgba(255,200,50,.4);box-shadow:0 0 10px rgba(255,200,50,.15)}
+.skl-node.keystone.unlocked{background:rgba(255,100,200,.1);border-color:rgba(255,100,200,.5);box-shadow:0 0 16px rgba(255,100,200,.25)}
+.skl-node.locked{opacity:.35;cursor:default}
+.skl-node-emoji{font-size:22px;display:block;margin-bottom:4px}
+.skl-node-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.8);margin-bottom:2px}
+.skl-node-eff{font:500 8px var(--ff-body);color:rgba(200,220,255,.5);margin-bottom:6px}
+.skl-node-cost{display:inline-block;background:rgba(255,200,50,.12);border:1px solid rgba(255,200,50,.25);border-radius:8px;padding:2px 8px;font:700 8px var(--ff-head);color:#ffcc00}
+.skl-node.unlocked .skl-node-cost{background:rgba(80,255,150,.1);border-color:rgba(80,255,150,.3);color:#44ff88}
+
 /* ══ VOID RIFT ══ */
 .void-panel{position:fixed;inset:0;background:#020003;z-index:967;display:none;flex-direction:column;overflow:hidden}
 .void-panel.open{display:flex}
@@ -8674,6 +8704,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSpir()"><div class="ddr-i">🌟</div>Andar</div>
           <div class="ddr" onclick="cM();openP48()"><div class="ddr-i">🔢</div>Pet 2048</div>
           <div class="ddr" onclick="cM();openVoid()"><div class="ddr-i">🌀</div>Void Rift</div>
+          <div class="ddr" onclick="cM();openSkl()"><div class="ddr-i">🌲</div>Talanger</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9899,6 +9930,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- SKILL TREE -->
+<div class="skl-panel" id="sklPanel">
+  <div class="skl-header">
+    <div class="skl-title">🌲 TALANGTRÄDET</div>
+    <button class="close-btn" onclick="closeSkl()">✕</button>
+  </div>
+  <div class="skl-scroll">
+    <div class="skl-sp-row">
+      <div><div class="skl-sp-label">Tillgängliga SP</div><div class="skl-sp-val" id="sklSPVal">0</div></div>
+      <div class="skl-sp-info" id="sklSPInfo">SP = din nivå</div>
+    </div>
+    <div class="skl-tabs" id="sklTabs"></div>
+    <div id="sklTree"></div>
+  </div>
+</div>
 
 <!-- VOID RIFT -->
 <div class="void-panel" id="voidPanel">
@@ -37986,6 +38034,125 @@ function _renderVoid(){
   // Log
   var log=$('voidLog');
   if(log&&d.log&&d.log.length) log.innerHTML=d.log.join('<br>');
+}
+
+
+// SKILL TREE
+const SKL_KEY = 'k0509_skl';
+const SKL_PATHS = [
+  {id:'warrior',name:'Krigaren',emoji:'⚔️',color:'rgba(255,100,50,.4)',
+   tiers:[
+    [{id:'w1a',name:'Järnnäve',emoji:'👊',eff:'STR +4',cost:1,stats:{str:4}},{id:'w1b',name:'Hård Hud',emoji:'🛡',eff:'END +4',cost:1,stats:{end:4}}],
+    [{id:'w2a',name:'Svärdkonst',emoji:'⚔️',eff:'STR +8',cost:2,stats:{str:8}},{id:'w2b',name:'Stålmur',emoji:'🏰',eff:'END +8',cost:2,stats:{end:8}}],
+    [{id:'w3a',name:'Raseri',emoji:'🔥',eff:'STR +12 END +5',cost:2,stats:{str:12,end:5}},{id:'w3b',name:'Stenkropp',emoji:'💎',eff:'END +12 STR +5',cost:2,stats:{end:12,str:5}}],
+    [{id:'w4a',name:'Krigsgud',emoji:'⚡',eff:'STR +20',cost:3,stats:{str:20},keystone:true},{id:'w4b',name:'Odödlig',emoji:'♾️',eff:'END +20',cost:3,stats:{end:20},keystone:true}],
+  ]},
+  {id:'mage',name:'Magen',emoji:'🔮',color:'rgba(150,100,255,.4)',
+   tiers:[
+    [{id:'m1a',name:'Arkanmind',emoji:'💫',eff:'INT +4',cost:1,stats:{int:4}},{id:'m1b',name:'Lyckonyckel',emoji:'🍀',eff:'LCK +4',cost:1,stats:{lck:4}}],
+    [{id:'m2a',name:'Trollvävare',emoji:'🌟',eff:'INT +8',cost:2,stats:{int:8}},{id:'m2b',name:'Ödeshand',emoji:'🎯',eff:'LCK +8',cost:2,stats:{lck:8}}],
+    [{id:'m3a',name:'Mystisk Pakt',emoji:'🔮',eff:'INT +10 LCK +6',cost:2,stats:{int:10,lck:6}},{id:'m3b',name:'Upplyst',emoji:'✨',eff:'LCK +10 INT +6',cost:2,stats:{lck:10,int:6}}],
+    [{id:'m4a',name:'Allvetare',emoji:'🧿',eff:'INT +20',cost:3,stats:{int:20},keystone:true},{id:'m4b',name:'Fortunas Barn',emoji:'👑',eff:'LCK +20',cost:3,stats:{lck:20},keystone:true}],
+  ]},
+  {id:'scout',name:'Spanaren',emoji:'🏃',color:'rgba(50,220,150,.4)',
+   tiers:[
+    [{id:'s1a',name:'Snabba Ben',emoji:'💨',eff:'AGI +4',cost:1,stats:{agi:4}},{id:'s1b',name:'Skarpt Öga',emoji:'👁',eff:'AGI +2 INT +4',cost:1,stats:{agi:2,int:4}}],
+    [{id:'s2a',name:'Sprint',emoji:'⚡',eff:'AGI +8',cost:2,stats:{agi:8}},{id:'s2b',name:'Örnaöga',emoji:'🦅',eff:'AGI +4 INT +6',cost:2,stats:{agi:4,int:6}}],
+    [{id:'s3a',name:'Skuggsteg',emoji:'🌙',eff:'AGI +12 STR +4',cost:2,stats:{agi:12,str:4}},{id:'s3b',name:'Taktiker',emoji:'🗺',eff:'INT +10 AGI +6',cost:2,stats:{int:10,agi:6}}],
+    [{id:'s4a',name:'Vindlöpare',emoji:'🌪',eff:'AGI +20',cost:3,stats:{agi:20},keystone:true},{id:'s4b',name:'Fantom',emoji:'👻',eff:'AGI +10 INT +10',cost:3,stats:{agi:10,int:10},keystone:true}],
+  ]},
+];
+var _sklActivePath='warrior';
+
+function _sklData(){try{return JSON.parse(localStorage.getItem(SKL_KEY)||'null');}catch(e){return null;}}
+function _sklSave(d){localStorage.setItem(SKL_KEY,JSON.stringify(d));}
+function _sklGetData(){var d=_sklData(); if(!d) d={unlocked:{}}; return d;}
+
+function sklGetBonus(stat){
+  var d=_sklGetData(),total=0;
+  SKL_PATHS.forEach(function(p){
+    p.tiers.forEach(function(tier){
+      tier.forEach(function(node){
+        if(d.unlocked[node.id]&&node.stats&&node.stats[stat]) total+=node.stats[stat];
+      });
+    });
+  });
+  return total;
+}
+
+function _sklTotalSP(){return G.level||1;}
+function _sklUsedSP(d){
+  var used=0;
+  SKL_PATHS.forEach(function(p){
+    p.tiers.forEach(function(tier){
+      tier.forEach(function(node){
+        if(d.unlocked[node.id]) used+=node.cost;
+      });
+    });
+  });
+  return used;
+}
+
+function sklUnlock(pathId,tierIdx,nodeIdx){
+  var path=SKL_PATHS.find(function(p){return p.id===pathId;});
+  if(!path) return;
+  var node=path.tiers[tierIdx][nodeIdx];
+  if(!node) return;
+  var d=_sklGetData();
+  if(d.unlocked[node.id]){showFloatBubble('Redan upplåst!','info');return;}
+  var avail=_sklTotalSP()-_sklUsedSP(d);
+  if(avail<node.cost){showFloatBubble('Inte nog SP! Behöver '+node.cost+' SP — nivå upp för mer','debuff');return;}
+  if(tierIdx>0){
+    var prevTier=path.tiers[tierIdx-1];
+    var hasAny=prevTier.some(function(n){return d.unlocked[n.id];});
+    if(!hasAny){showFloatBubble('Lås upp minst en nod på nivå '+tierIdx+' först!','debuff');return;}
+  }
+  d.unlocked[node.id]=true;
+  if(node.stats){
+    Object.keys(node.stats).forEach(function(st){
+      var v=node.stats[st];
+      if(st==='str') G.str=(G.str||0)+v;
+      else if(st==='agi') G.agi=(G.agi||0)+v;
+      else if(st==='int') G.int=(G.int||0)+v;
+      else if(st==='end') G.end=(G.end||0)+v;
+      else if(st==='lck') G.lck=(G.lck||0)+v;
+    });
+    save();
+  }
+  _sklSave(d);
+  showFloatBubble(node.emoji+' '+node.name+' upplåst! '+node.eff,'buff');
+  checkAchievements();
+  _renderSkl();
+}
+
+function openSkl(){$('sklPanel').classList.add('open');_renderSkl();}
+function closeSkl(){$('sklPanel').classList.remove('open');}
+function sklSetPath(pid){_sklActivePath=pid;_renderSkl();}
+
+function _renderSkl(){
+  var d=_sklGetData();
+  var totalSP=_sklTotalSP(),usedSP=_sklUsedSP(d),avail=totalSP-usedSP;
+  var sv=$('sklSPVal'); if(sv) sv.textContent=avail;
+  var si=$('sklSPInfo'); if(si) si.innerHTML='Totalt: '+totalSP+' &bull; Använt: '+usedSP;
+  var tabs=$('sklTabs');
+  if(tabs){
+    tabs.innerHTML=SKL_PATHS.map(function(p){
+      return '<div class="skl-tab'+(p.id===_sklActivePath?' active':'')+'" onclick="sklSetPath(\''+p.id+'\')"><span class="skl-tab-emoji">'+p.emoji+'</span><div class="skl-tab-name">'+p.name+'</div></div>';
+    }).join('');
+  }
+  var tree=$('sklTree');
+  if(!tree) return;
+  var path=SKL_PATHS.find(function(p){return p.id===_sklActivePath;});
+  if(!path) return;
+  tree.innerHTML=path.tiers.map(function(tier,ti){
+    var tierOk=ti===0;
+    if(ti>0){var pt=path.tiers[ti-1]; tierOk=pt.some(function(n){return d.unlocked[n.id];});}
+    return '<div class="skl-tier"><div class="skl-tier-label">Nivå '+(ti+1)+(ti===3?' — KEYSTONE':'')+' </div><div class="skl-nodes">'+tier.map(function(node,ni){
+      var unlocked=!!d.unlocked[node.id];
+      var cls='skl-node'+(node.keystone?' keystone':'')+(unlocked?' unlocked':(!tierOk?' locked':''));
+      return '<div class="'+cls+'" onclick="sklUnlock(\''+path.id+'\','+ti+','+ni+')"><span class="skl-node-emoji">'+node.emoji+'</span><div class="skl-node-name">'+node.name+'</div><div class="skl-node-eff">'+node.eff+'</div><div class="skl-node-cost">'+(unlocked?'✓ Upplåst':node.cost+' SP')+'</div></div>';
+    }).join('')+'</div></div>';
+  }).join('');
 }
 
 </script>
