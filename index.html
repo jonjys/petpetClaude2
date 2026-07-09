@@ -1473,6 +1473,41 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TRAINING DOJO ══ */
+.dojo-panel{position:fixed;inset:0;background:#000508;z-index:986;display:none;flex-direction:column;overflow:hidden}
+.dojo-panel.open{display:flex}
+.dojo-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#00101a,#000508)}
+.dojo-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00aaff,#44ffcc,#00aaff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:dojoShim 3s linear infinite}
+@keyframes dojoShim{0%{background-position:0%}100%{background-position:200%}}
+.dojo-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Active training card */
+.dojo-active{background:rgba(0,170,255,.04);border:2px solid rgba(0,170,255,.25);border-radius:20px;padding:16px;margin-bottom:14px;text-align:center}
+.dojo-active-emoji{font-size:48px;margin-bottom:8px;display:block}
+.dojo-active-name{font:900 14px var(--ff-head);color:#00aaff;margin-bottom:4px}
+.dojo-active-time{font:900 28px var(--ff-head);color:#44ffcc;margin-bottom:6px}
+.dojo-active-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:12px}
+.dojo-prog-bar{height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;margin-bottom:12px}
+.dojo-prog-fill{height:100%;background:linear-gradient(90deg,#0088ff,#44ffcc);border-radius:4px;transition:width 1s linear}
+.dojo-collect-btn{width:100%;background:linear-gradient(135deg,#005599,#0099dd);border:none;border-radius:14px;padding:13px;font:900 14px var(--ff-head);color:#fff;cursor:pointer}
+.dojo-collect-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.06)}
+.dojo-boost-btn{width:100%;background:rgba(255,200,0,.08);border:1.5px solid rgba(255,200,0,.25);border-radius:12px;padding:9px;font:800 11px var(--ff-head);color:#ffcc00;cursor:pointer;margin-top:8px}
+/* Training grid */
+.dojo-section-lbl{font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:10px}
+.dojo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.dojo-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:12px 10px;text-align:center;cursor:pointer;transition:border-color .2s}
+.dojo-card:active{transform:scale(.97)}
+.dojo-card-emoji{font-size:28px;margin-bottom:6px;display:block}
+.dojo-card-stat{font:900 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.dojo-card-gain{font:800 10px var(--ff-head);color:#44ffcc;margin-bottom:6px}
+.dojo-card-times{display:flex;flex-direction:column;gap:4px}
+.dojo-time-opt{background:rgba(0,170,255,.07);border:1px solid rgba(0,170,255,.2);border-radius:8px;padding:4px 6px;font:700 9px var(--ff-head);color:#00aaff;cursor:pointer}
+.dojo-time-opt:active{background:rgba(0,170,255,.2)}
+.dojo-stat-row{display:flex;gap:6px;margin-bottom:12px}
+.dojo-stat-box{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.dojo-stat-v{font:900 14px var(--ff-head);color:#00aaff}
+.dojo-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.35);margin-top:1px}
+
 /* ══ LUCKY SPIN ══ */
 .spin-panel{position:fixed;inset:0;background:#050008;z-index:985;display:none;flex-direction:column;overflow:hidden}
 .spin-panel.open{display:flex}
@@ -9312,6 +9347,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openChal()"><div class="ddr-i">🏆</div>Utmaningar</div>
           <div class="ddr" onclick="cM();openArna()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openSpin()"><div class="ddr-i">🎰</div>Lyckohjul</div>
+          <div class="ddr" onclick="cM();openDojo()"><div class="ddr-i">🥊</div>Dojo</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10555,6 +10591,43 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- TRAINING DOJO -->
+<div class="dojo-panel" id="dojoPanel">
+  <div class="dojo-header">
+    <div class="dojo-title">🥊 TRÄNINGSDOJO</div>
+    <button class="close-btn" onclick="closeDojo()">✕</button>
+  </div>
+  <div class="dojo-scroll">
+    <div class="dojo-stat-row">
+      <div class="dojo-stat-box"><div class="dojo-stat-v" id="dojoStr">0</div><div class="dojo-stat-l">STR</div></div>
+      <div class="dojo-stat-box"><div class="dojo-stat-v" id="dojoAgi">0</div><div class="dojo-stat-l">AGI</div></div>
+      <div class="dojo-stat-box"><div class="dojo-stat-v" id="dojoInt">0</div><div class="dojo-stat-l">INT</div></div>
+      <div class="dojo-stat-box"><div class="dojo-stat-v" id="dojoEnd">0</div><div class="dojo-stat-l">END</div></div>
+    </div>
+    <div id="dojoActiveSection" style="display:none">
+      <div class="dojo-active">
+        <span class="dojo-active-emoji" id="dojoActiveEmoji">💪</span>
+        <div class="dojo-active-name" id="dojoActiveName">Tränar...</div>
+        <div class="dojo-active-time" id="dojoActiveTime">00:00:00</div>
+        <div class="dojo-active-lbl" id="dojoActiveLbl">kvar</div>
+        <div class="dojo-prog-bar"><div class="dojo-prog-fill" id="dojoProgFill" style="width:0%"></div></div>
+        <button class="dojo-collect-btn" id="dojoCollectBtn" onclick="dojoCollect()" disabled>⏳ Träning pågår...</button>
+        <button class="dojo-boost-btn" id="dojoBoostBtn" onclick="dojoBoost()">⚡ Halvera tid — 2KC</button>
+      </div>
+    </div>
+    <div id="dojoTrainSection">
+      <div class="dojo-section-lbl">VÄLJ TRÄNING</div>
+      <div class="dojo-grid" id="dojoGrid"></div>
+    </div>
+    <div class="dojo-section-lbl">INFO</div>
+    <div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3);line-height:1.7">
+      Starta en träningssession och kom tillbaka när den är klar!<br>
+      Längre sessioner ger mer stats. ⚡ Boost halverar återstående tid med 2KC.
+    </div>
+  </div>
+</div>
 
 <!-- LUCKY SPIN -->
 <div class="spin-panel" id="spinPanel">
@@ -41477,6 +41550,140 @@ function _renderSpin(){
     return '<div class="spin-seg" data-idx="'+i+'">'+
       '<div class="spin-seg-dot" style="background:'+s.color+'"></div>'+
       '<div class="spin-seg-lbl">'+s.emoji+' '+s.lbl+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+
+// TRAINING DOJO
+const DOJO_KEY = 'k0509_dojo';
+const DOJO_TYPES = [
+  {id:'str',stat:'STR',emoji:'💪',name:'Styrketräning',color:'#ff4455'},
+  {id:'agi',stat:'AGI',emoji:'🏃',name:'Sprintträning',color:'#44ff88'},
+  {id:'int',stat:'INT',emoji:'📚',name:'Studiesession',color:'#4488ff'},
+  {id:'end',stat:'END',emoji:'🛡️',name:'Uthållighetspass',color:'#ffaa22'},
+];
+const DOJO_OPTS = [
+  {label:'30 min',mins:30,  gain:3, xp:100},
+  {label:'2 tim', mins:120, gain:8, xp:350},
+  {label:'6 tim', mins:360, gain:20,xp:1000},
+  {label:'12 tim',mins:720, gain:40,xp:2500},
+];
+var _dojoTimer=null;
+
+function _dojoData(){try{return JSON.parse(localStorage.getItem(DOJO_KEY)||'null');}catch(e){return null;}}
+function _dojoSave(d){localStorage.setItem(DOJO_KEY,JSON.stringify(d));}
+function _dojoGetData(){var d=_dojoData();if(!d) d={active:null};return d;}
+
+function dojoStart(typeId,optIdx){
+  var d=_dojoGetData();
+  if(d.active){showFloatBubble('En träning pågår redan!','debuff');return;}
+  var t=DOJO_TYPES.filter(function(x){return x.id===typeId;})[0];
+  var o=DOJO_OPTS[optIdx];
+  if(!t||!o) return;
+  var now=Date.now();
+  d.active={typeId:typeId,optIdx:optIdx,start:now,end:now+o.mins*60000,boosted:false};
+  _dojoSave(d);
+  showFloatBubble(t.emoji+' '+t.name+' startad! '+o.label,'buff');
+  _renderDojo();
+  _dojoStartTick();
+}
+
+function dojoCollect(){
+  var d=_dojoGetData();
+  if(!d.active) return;
+  var now=Date.now();
+  if(now<d.active.end){showFloatBubble('Träningen är inte klar än!','debuff');return;}
+  var t=DOJO_TYPES.filter(function(x){return x.id===d.active.typeId;})[0];
+  var o=DOJO_OPTS[d.active.optIdx];
+  if(!t||!o) return;
+  // Apply stat
+  var sk=t.stat.toLowerCase();
+  G[sk]=(G[sk]||0)+o.gain;
+  gainXP(o.xp,sk);
+  save();
+  showFloatBubble(t.emoji+' Träning klar! +'+o.gain+' '+t.stat+' +'+o.xp+'XP!','buff');
+  d.active=null;
+  _dojoSave(d);
+  clearInterval(_dojoTimer);_dojoTimer=null;
+  checkAchievements();
+  _renderDojo();
+}
+
+function dojoBoost(){
+  var d=_dojoGetData();
+  if(!d.active||d.active.boosted){showFloatBubble(d.active&&d.active.boosted?'Redan boostad!':'Ingen aktiv träning!','debuff');return;}
+  if((G.kc||0)<2){showFloatBubble('Behöver 2KC!','debuff');return;}
+  G.kc-=2;save();
+  var now=Date.now();
+  var remaining=d.active.end-now;
+  d.active.end=now+Math.floor(remaining/2);
+  d.active.boosted=true;
+  _dojoSave(d);
+  showFloatBubble('⚡ Boost! Halva träningstidem kvar!','buff');
+  _renderDojo();
+}
+
+function _dojoStartTick(){
+  clearInterval(_dojoTimer);
+  _dojoTimer=setInterval(function(){
+    var d=_dojoGetData();
+    if(!d.active){clearInterval(_dojoTimer);_dojoTimer=null;return;}
+    _dojoUpdateActive(d);
+  },1000);
+}
+
+function _dojoUpdateActive(d){
+  if(!d.active) return;
+  var now=Date.now();
+  var remaining=Math.max(d.active.end-now,0);
+  var total=d.active.end-d.active.start;
+  var elapsed=now-d.active.start;
+  var pct=Math.min(elapsed/total*100,100);
+  var done=remaining<=0;
+  // Update UI
+  var t=DOJO_TYPES.filter(function(x){return x.id===d.active.typeId;})[0];
+  var ae=$('dojoActiveEmoji');if(ae&&t) ae.textContent=t.emoji;
+  var an=$('dojoActiveName');if(an&&t) an.textContent=t.name;
+  var at=$('dojoActiveTime');
+  if(at){
+    if(done){at.textContent='KLAR!';}
+    else{
+      var s=Math.floor(remaining/1000);
+      var h=Math.floor(s/3600);s%=3600;var m=Math.floor(s/60);s%=60;
+      at.textContent=(h>0?h+':':'')+('0'+m).slice(-2)+':'+('0'+s).slice(-2);
+    }
+  }
+  var al=$('dojoActiveLbl');if(al) al.textContent=done?'Hämta din belöning!':'kvar tills klar';
+  var pf=$('dojoProgFill');if(pf) pf.style.width=pct+'%';
+  var cb=$('dojoCollectBtn');if(cb){cb.disabled=!done;cb.textContent=done?'🎁 Hämta belöning!':'⏳ Träning pågår...';}
+  var bb=$('dojoBoostBtn');if(bb) bb.style.display=d.active.boosted||done?'none':'block';
+}
+
+function openDojo(){$('dojoPanel').classList.add('open');_renderDojo();_dojoStartTick();}
+function closeDojo(){clearInterval(_dojoTimer);_dojoTimer=null;$('dojoPanel').classList.remove('open');}
+
+function _renderDojo(){
+  var d=_dojoGetData();
+  var dstr=$('dojoStr');if(dstr) dstr.textContent=G.str||0;
+  var dagi=$('dojoAgi');if(dagi) dagi.textContent=G.agi||0;
+  var dint=$('dojoInt');if(dint) dint.textContent=G.int||0;
+  var dend=$('dojoEnd');if(dend) dend.textContent=G.end||0;
+  var hasActive=d.active!=null;
+  var as=$('dojoActiveSection');if(as) as.style.display=hasActive?'block':'none';
+  var ts=$('dojoTrainSection');if(ts) ts.style.display=hasActive?'none':'block';
+  if(hasActive) _dojoUpdateActive(d);
+  var grid=$('dojoGrid');
+  if(!grid) return;
+  grid.innerHTML=DOJO_TYPES.map(function(t,ti){
+    return '<div class="dojo-card">'+
+      '<span class="dojo-card-emoji">'+t.emoji+'</span>'+
+      '<div class="dojo-card-stat">'+t.stat+'</div>'+
+      '<div class="dojo-card-times">'+
+        DOJO_OPTS.map(function(o,oi){
+          return '<div class="dojo-time-opt" onclick="dojoStart(\''+t.id+'\','+oi+')">'+o.label+' +'+o.gain+' '+t.stat+'</div>';
+        }).join('')+
+      '</div>'+
     '</div>';
   }).join('');
 }
