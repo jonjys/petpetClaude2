@@ -1490,6 +1490,51 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MUSIC STUDIO ══ */
+.mstd-panel{position:fixed;inset:0;background:#030208;z-index:1003;display:none;flex-direction:column;overflow:hidden}
+.mstd-panel.open{display:flex}
+.mstd-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060410,#030208)}
+.mstd-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88dd,#aa44ff,#44aaff,#ff88dd);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:mstdShim 3s linear infinite}
+@keyframes mstdShim{0%{background-position:0%}100%{background-position:300%}}
+.mstd-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Stats */
+.mstd-stats{display:flex;gap:8px;margin-bottom:12px}
+.mstd-stat{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:7px;text-align:center}
+.mstd-stat-v{font:900 16px var(--ff-head);color:#ff88dd}
+.mstd-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Beat grid */
+.mstd-track-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.mstd-tracks{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.mstd-track{display:flex;align-items:center;gap:6px}
+.mstd-track-icon{font-size:16px;width:20px;text-align:center}
+.mstd-beat-row{display:flex;gap:3px;flex:1}
+.mstd-beat{width:28px;height:28px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);cursor:pointer;transition:background .1s,border-color .1s;flex-shrink:0}
+.mstd-beat.on{background:rgba(255,136,221,.4);border-color:rgba(255,136,221,.6)}
+.mstd-beat.playing{background:rgba(255,255,255,.8);border-color:#fff}
+/* Controls */
+.mstd-controls{display:flex;gap:8px;margin-bottom:12px}
+.mstd-ctrl-btn{flex:1;border:none;border-radius:12px;padding:10px;font:900 12px var(--ff-head);color:#fff;cursor:pointer}
+.mstd-play-btn{background:linear-gradient(135deg,#220033,#550088)}
+.mstd-stop-btn{background:rgba(255,255,255,.07)}
+.mstd-clear-btn{background:rgba(255,50,50,.1);color:rgba(255,100,100,.8)}
+/* Complexity meter */
+.mstd-complexity{margin-bottom:12px}
+.mstd-c-row{display:flex;justify-content:space-between;font:700 8px var(--ff-head);color:rgba(255,255,255,.35);margin-bottom:3px}
+.mstd-c-bar{height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden}
+.mstd-c-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#ff88dd,#aa44ff);transition:width .3s}
+/* Perform button */
+.mstd-perform-btn{width:100%;background:linear-gradient(135deg,#440066,#8800cc);border:none;border-radius:14px;padding:13px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:12px;box-shadow:0 0 16px rgba(200,100,255,.25)}
+.mstd-perform-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+/* Song history */
+.mstd-history-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.mstd-history{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.mstd-hist-entry{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:7px 10px}
+.mstd-hist-icon{font-size:16px}
+.mstd-hist-info{flex:1;font:600 9px var(--ff-body);color:rgba(255,255,255,.5)}
+.mstd-hist-reward{font:800 10px var(--ff-head);color:#ff88dd}
+.mstd-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET QUIZ ══ */
 .quiz-panel{position:fixed;inset:0;background:#030308;z-index:1002;display:none;flex-direction:column;overflow:hidden}
 .quiz-panel.open{display:flex}
@@ -9908,6 +9953,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
           <div class="ddr" onclick="cM();openLdb()"><div class="ddr-i">🏆</div>Topplista</div>
           <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🧠</div>Quiz</div>
+          <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -9931,12 +9977,14 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
           <div class="ddr" onclick="cM();openLdb()"><div class="ddr-i">🏆</div>Topplista</div>
           <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🧠</div>Quiz</div>
+          <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
           <div class="ddr" onclick="cM();openLdb()"><div class="ddr-i">🏆</div>Topplista</div>
           <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🧠</div>Quiz</div>
+          <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
@@ -9981,6 +10029,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
           <div class="ddr" onclick="cM();openLdb()"><div class="ddr-i">🏆</div>Topplista</div>
           <div class="ddr" onclick="cM();openQuiz()"><div class="ddr-i">🧠</div>Quiz</div>
+          <div class="ddr" onclick="cM();openMstd()"><div class="ddr-i">🎵</div>Studio</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10530,6 +10579,37 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- MUSIC STUDIO -->
+<div class="mstd-panel" id="mstdPanel">
+  <div class="mstd-header">
+    <div class="mstd-title">🎵 MUSIKSTUDIO</div>
+    <button class="close-btn" onclick="closeMstd()">✕</button>
+  </div>
+  <div class="mstd-scroll">
+    <div class="mstd-stats">
+      <div class="mstd-stat"><div class="mstd-stat-v" id="mstdSongs">0</div><div class="mstd-stat-l">Låtar</div></div>
+      <div class="mstd-stat"><div class="mstd-stat-v" id="mstdEarned">0</div><div class="mstd-stat-l">Intjänat</div></div>
+      <div class="mstd-stat"><div class="mstd-stat-v" id="mstdRuns">5</div><div class="mstd-stat-l">Framtr. kvar</div></div>
+    </div>
+    <div class="mstd-track-lbl">BEAT GRID (8 steg)</div>
+    <div class="mstd-tracks" id="mstdTracks"></div>
+    <div class="mstd-complexity">
+      <div class="mstd-c-row"><span>Komplexitet</span><span id="mstdComplexity">0%</span></div>
+      <div class="mstd-c-bar"><div class="mstd-c-fill" id="mstdComplFill" style="width:0%"></div></div>
+    </div>
+    <div class="mstd-controls">
+      <button class="mstd-ctrl-btn mstd-play-btn" onclick="mstdPlay()">▶ Spela</button>
+      <button class="mstd-ctrl-btn mstd-stop-btn" onclick="mstdStop()">⏹ Stopp</button>
+      <button class="mstd-ctrl-btn mstd-clear-btn" onclick="mstdClear()">🗑 Rensa</button>
+    </div>
+    <button class="mstd-perform-btn" id="mstdPerformBtn" onclick="mstdPerform()">🎤 FRAMTRÄD! (+mynt & XP)</button>
+    <div class="mstd-history-lbl">FRAMTRÄDANDEHISTORIK</div>
+    <div class="mstd-history" id="mstdHistory"></div>
+    <div class="mstd-info">Fyll griddet med beats och tryck Framträd! Mer komplexitet = mer belöning!</div>
+  </div>
+</div>
 
 <!-- PET QUIZ -->
 <div class="quiz-panel" id="quizPanel">
@@ -44794,6 +44874,159 @@ function _quizUpdateStats(){
 
 function openQuiz(){$('quizPanel').classList.add('open');_quizState=null;var nb=$('quizNextBtn');if(nb) nb.style.display='none';var sb=$('quizStartBtn');if(sb){sb.style.display='block';var d=_quizGetData();sb.disabled=d.runs>=QUIZ_MAX;sb.textContent=d.runs>=QUIZ_MAX?'✋ Max försök idag':'▶ STARTA QUIZ';}_quizUpdateStats();}
 function closeQuiz(){$('quizPanel').classList.remove('open');}
+
+
+// MUSIC STUDIO
+const MSTD_KEY = 'k0509_mstd';
+const MSTD_MAX = 5;
+const MSTD_TRACKS = [
+  {id:'kick',   emoji:'🥁', name:'Trumma'},
+  {id:'bass',   emoji:'🎸', name:'Bas'},
+  {id:'synth',  emoji:'🎹', name:'Synth'},
+  {id:'hat',    emoji:'🎵', name:'Hi-hat'},
+  {id:'lead',   emoji:'🎺', name:'Melodi'},
+];
+const MSTD_STEPS = 8;
+var _mstdGrid = null; // [track][step] boolean
+var _mstdPlaying = false;
+var _mstdStep = 0;
+var _mstdInterval = null;
+
+function _mstdData(){try{return JSON.parse(localStorage.getItem(MSTD_KEY)||'null');}catch(e){return null;}}
+function _mstdSave(d){localStorage.setItem(MSTD_KEY,JSON.stringify(d));}
+function _mstdGetData(){
+  var d=_mstdData();var t=getTodayKey();
+  if(!d) d={day:t,runs:0,songs:0,earned:0,history:[]};
+  if(d.day!==t){d.day=t;d.runs=0;}
+  return d;
+}
+
+function _mstdInitGrid(){
+  _mstdGrid=MSTD_TRACKS.map(function(){return new Array(MSTD_STEPS).fill(false);});
+}
+
+function mstdToggle(track,step){
+  if(!_mstdGrid) _mstdInitGrid();
+  _mstdGrid[track][step]=!_mstdGrid[track][step];
+  _mstdUpdateGrid();
+  _mstdUpdateComplexity();
+}
+
+function mstdPlay(){
+  if(_mstdPlaying) return;
+  if(!_mstdGrid) _mstdInitGrid();
+  _mstdPlaying=true;_mstdStep=0;
+  var tempo=500-Math.floor((G.agi||0)*0.5);tempo=Math.max(200,Math.min(tempo,500));
+  _mstdInterval=setInterval(function(){
+    _mstdStep=(_mstdStep+1)%MSTD_STEPS;
+    _mstdUpdateGrid();
+  },tempo);
+}
+
+function mstdStop(){
+  _mstdPlaying=false;
+  clearInterval(_mstdInterval);_mstdInterval=null;
+  _mstdStep=-1;
+  _mstdUpdateGrid();
+}
+
+function mstdClear(){
+  mstdStop();
+  _mstdInitGrid();
+  _mstdUpdateGrid();
+  _mstdUpdateComplexity();
+}
+
+function mstdPerform(){
+  var d=_mstdGetData();
+  if(d.runs>=MSTD_MAX){showFloatBubble('Max '+MSTD_MAX+' framträdanden per dag!','debuff');return;}
+  if(!_mstdGrid) _mstdInitGrid();
+  var complexity=_mstdCalcComplexity();
+  if(complexity<0.1){showFloatBubble('Lägg till fler beats först!','debuff');return;}
+  mstdStop();
+  d.runs++;d.songs=(d.songs||0)+1;
+  var intBonus=1+Math.min((G.int||0)*0.004,0.5);
+  var coins=Math.floor(complexity*2000*intBonus);
+  var xp=Math.floor(complexity*200);
+  gainCoins(coins);gainXP(xp,'int');
+  if(complexity>=0.8) gainKC(1);
+  d.earned=(d.earned||0)+coins;
+  var icon=complexity>=0.8?'🌟':complexity>=0.5?'🎵':'🎼';
+  d.history.unshift({icon:icon,desc:'Komp. '+Math.round(complexity*100)+'%',coins:coins});
+  if(d.history.length>6) d.history=d.history.slice(0,6);
+  _mstdSave(d);
+  showFloatBubble(icon+' Framträdde! +'+coins+'🪙 +'+xp+'XP'+(complexity>=0.8?' +1KC!':''),'buff');
+  misTrack('daily',1);
+  checkAchievements();
+  _renderMstd();
+}
+
+function _mstdCalcComplexity(){
+  if(!_mstdGrid) return 0;
+  var on=0;var total=MSTD_TRACKS.length*MSTD_STEPS;
+  var trackVariety=0;
+  _mstdGrid.forEach(function(row){
+    var rowOn=row.filter(Boolean).length;
+    on+=rowOn;
+    if(rowOn>0) trackVariety++;
+  });
+  var fillRatio=on/total;
+  var varietyBonus=(trackVariety/MSTD_TRACKS.length)*0.3;
+  return Math.min(fillRatio+varietyBonus,1);
+}
+
+function _mstdUpdateComplexity(){
+  var c=_mstdCalcComplexity();
+  var pct=Math.round(c*100);
+  var ct=$('mstdComplexity');if(ct) ct.textContent=pct+'%';
+  var cf=$('mstdComplFill');if(cf) cf.style.width=pct+'%';
+}
+
+function _mstdUpdateGrid(){
+  var tracks=$('mstdTracks');
+  if(!tracks||!_mstdGrid) return;
+  tracks.innerHTML=MSTD_TRACKS.map(function(t,ti){
+    var row='<div class="mstd-track">'+
+      '<div class="mstd-track-icon">'+t.emoji+'</div>'+
+      '<div class="mstd-beat-row">'+
+        _mstdGrid[ti].map(function(on,si){
+          var isCur=_mstdPlaying&&si===_mstdStep;
+          return '<div class="mstd-beat'+(on?' on':'')+(isCur?' playing':'')+'" onclick="mstdToggle('+ti+','+si+')"></div>';
+        }).join('')+
+      '</div>'+
+    '</div>';
+    return row;
+  }).join('');
+}
+
+function openMstd(){
+  $('mstdPanel').classList.add('open');
+  if(!_mstdGrid) _mstdInitGrid();
+  _renderMstd();
+}
+function closeMstd(){mstdStop();$('mstdPanel').classList.remove('open');}
+
+function _renderMstd(){
+  var d=_mstdGetData();
+  var ms=$('mstdSongs');if(ms) ms.textContent=d.songs||0;
+  var me=$('mstdEarned');if(me) me.textContent=d.earned||0;
+  var mr=$('mstdRuns');if(mr) mr.textContent=Math.max(MSTD_MAX-d.runs,0);
+  var pb=$('mstdPerformBtn');if(pb) pb.disabled=d.runs>=MSTD_MAX;
+  _mstdUpdateGrid();
+  _mstdUpdateComplexity();
+  // History
+  var hist=$('mstdHistory');
+  if(hist){
+    if(!d.history||!d.history.length) hist.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;padding:8px">Inga framträdanden ännu</div>';
+    else hist.innerHTML=d.history.map(function(e){
+      return '<div class="mstd-hist-entry">'+
+        '<div class="mstd-hist-icon">'+e.icon+'</div>'+
+        '<div class="mstd-hist-info">'+e.desc+'</div>'+
+        '<div class="mstd-hist-reward">+'+e.coins+'🪙</div>'+
+      '</div>';
+    }).join('');
+  }
+}
 
 </script>
 
