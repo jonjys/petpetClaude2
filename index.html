@@ -1457,6 +1457,41 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET COOKING ══ */
+.cook-panel{position:fixed;inset:0;background:#080402;z-index:970;display:none;flex-direction:column;overflow:hidden}
+.cook-panel.open{display:flex}
+.cook-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#1a0a02,#080402)}
+.cook-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8844,#ffcc00,#ff4455);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cook-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Active buffs */
+.cook-buffs{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.cook-buff-chip{display:flex;align-items:center;justify-content:space-between;background:rgba(255,200,50,.06);border:1px solid rgba(255,200,50,.3);border-radius:12px;padding:8px 12px}
+.cook-buff-left{display:flex;align-items:center;gap:8px}
+.cook-buff-emoji{font-size:18px}
+.cook-buff-name{font:700 10px var(--ff-head);color:#ffcc00}
+.cook-buff-eff{font:500 8px var(--ff-body);color:rgba(255,255,255,.5);margin-top:1px}
+.cook-buff-timer{font:700 9px var(--ff-head);color:rgba(255,200,50,.7)}
+/* Ing row */
+.cook-ing-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.cook-ing-chip{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:4px 8px;font:700 8px var(--ff-head);color:rgba(255,255,255,.5)}
+.cook-ing-chip.has{border-color:rgba(100,255,150,.3);color:rgba(150,255,180,.8)}
+/* Recipe cards */
+.cook-recipes{display:flex;flex-direction:column;gap:10px}
+.cook-recipe{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:18px;padding:12px}
+.cook-recipe-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.cook-recipe-emoji{font-size:32px}
+.cook-recipe-info{flex:1}
+.cook-recipe-name{font:800 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.cook-recipe-eff{font:700 9px var(--ff-head);color:rgba(255,200,100,.8);margin-bottom:2px}
+.cook-recipe-time{font:500 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.cook-recipe-ings{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.cook-recipe-ing{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:3px 7px;font:600 8px var(--ff-body);color:rgba(255,255,255,.5)}
+.cook-recipe-ing.ok{border-color:rgba(100,255,150,.3);color:rgba(150,255,180,.8)}
+.cook-recipe-ing.miss{border-color:rgba(255,80,80,.3);color:rgba(255,150,150,.7)}
+.cook-btn{width:100%;background:linear-gradient(135deg,#ff6600,#ffaa00);border:none;border-radius:12px;padding:10px;font:800 11px var(--ff-head);color:#fff;cursor:pointer}
+.cook-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)}
+
 /* ══ DAILY CALENDAR ══ */
 .cal-panel{position:fixed;inset:0;background:#020a08;z-index:969;display:none;flex-direction:column;overflow:hidden}
 .cal-panel.open{display:flex}
@@ -8735,6 +8770,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openVoid()"><div class="ddr-i">🌀</div>Void Rift</div>
           <div class="ddr" onclick="cM();openSkl()"><div class="ddr-i">🌲</div>Talanger</div>
           <div class="ddr" onclick="cM();openCal()"><div class="ddr-i">📅</div>Kalender</div>
+          <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kök</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9962,6 +9998,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET COOKING -->
+<div class="cook-panel" id="cookPanel">
+  <div class="cook-header">
+    <div class="cook-title">🍳 HUSMANSKÖK</div>
+    <button class="close-btn" onclick="closeCook()">✕</button>
+  </div>
+  <div class="cook-scroll">
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px">AKTIVA BUFFS (max 2)</div>
+    <div class="cook-buffs" id="cookBuffs"></div>
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px">DINA INGREDIENSER</div>
+    <div class="cook-ing-row" id="cookIngRow"></div>
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:10px">RECEPT</div>
+    <div class="cook-recipes" id="cookRecipes"></div>
+  </div>
+</div>
 
 <!-- DAILY CALENDAR -->
 <div class="cal-panel" id="calPanel">
@@ -38309,6 +38362,141 @@ function _renderCal(){
       +'<div class="cal-day-emoji">'+(claimed?'✅':rw.emoji)+'</div>'
       +'<div class="cal-day-label">'+rw.label+'</div>'
       +'</div>';
+  }).join('');
+}
+
+
+// PET COOKING
+const COOK_KEY = 'k0509_cook';
+const COOK_RECIPES = [
+  {id:'svampgrot', name:'Svampgröt', emoji:'🍲', buffType:'coins', buffVal:50, mins:20,
+   eff:'+50% Mynt i 20min', ings:{mushroom:2,herb:1}},
+  {id:'eldsoppa', name:'Eldsoppa', emoji:'🔥', buffType:'str', buffVal:20, mins:30,
+   eff:'+20 STR i 30min', ings:{fire:2,bone:1}},
+  {id:'kristallte', name:'Kristallte', emoji:'💎', buffType:'int', buffVal:20, mins:30,
+   eff:'+20 INT i 30min', ings:{crystal:2,water:2}},
+  {id:'fjaderpaj', name:'Fjäderpaj', emoji:'🥧', buffType:'agi', buffVal:20, mins:30,
+   eff:'+20 AGI i 30min', ings:{feather:3,herb:1}},
+  {id:'manbar', name:'Månbärsgröt', emoji:'🌙', buffType:'xp', buffVal:100, mins:20,
+   eff:'+100% XP i 20min', ings:{moon:2,herb:2}},
+  {id:'stjarnhonung', name:'Stjärnhonung', emoji:'⭐', buffType:'lck', buffVal:30, mins:30,
+   eff:'+30 LCK i 30min', ings:{star:2,feather:1}},
+  {id:'adelstensbrygd', name:'Ädelstensbrygd', emoji:'💠', buffType:'fish', buffVal:50, mins:20,
+   eff:'+50% Fiskechans i 20min', ings:{gem:1,water:2}},
+  {id:'morkt_extrakt', name:'Mörkt Extrakt', emoji:'🖤', buffType:'dng', buffVal:30, mins:20,
+   eff:'+30% Dungeon-skada i 20min', ings:{venom:2,mushroom:2}},
+  {id:'ljuselixir', name:'Ljuselixir', emoji:'✨', buffType:'end', buffVal:25, mins:30,
+   eff:'+25 END i 30min', ings:{light:2,moon:1}},
+  {id:'frukost', name:'Storfrukost', emoji:'🍳', buffType:'all', buffVal:8, mins:25,
+   eff:'Alla stats +8 i 25min', ings:{herb:2,mushroom:1,bone:1,feather:1}},
+];
+
+function _cookData(){try{return JSON.parse(localStorage.getItem(COOK_KEY)||'null');}catch(e){return null;}}
+function _cookSave(d){localStorage.setItem(COOK_KEY,JSON.stringify(d));}
+function _cookGetData(){var d=_cookData(); if(!d) d={meals:[],cooked:0}; return d;}
+
+function cookGetBuff(type){
+  var d=_cookGetData(),now=Date.now();
+  for(var i=0;i<d.meals.length;i++){
+    var m=d.meals[i];
+    if(m.exp>now&&(m.buffType===type||m.buffType==='all')) return m.buffVal;
+  }
+  return 0;
+}
+
+function cookMake(recipeId){
+  var rec=COOK_RECIPES.find(function(r){return r.id===recipeId;});
+  if(!rec) return;
+  var d=_cookGetData();
+  // Clean expired meals
+  var now=Date.now();
+  d.meals=d.meals.filter(function(m){return m.exp>now;});
+  if(d.meals.length>=2){showFloatBubble('Max 2 aktiva buffs! Vänta på att en tar slut','info');return;}
+  // Check same type active
+  var sameType=d.meals.some(function(m){return m.buffType===rec.buffType;});
+  if(sameType){showFloatBubble('En '+rec.buffType+'-buff är redan aktiv!','info');return;}
+  // Check ingredients
+  var alchD=null; try{alchD=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+  if(!alchD) alchD={ings:{},potions:{},brews:0,labLevel:0};
+  if(!alchD.ings) alchD.ings={};
+  var ok=true;
+  Object.keys(rec.ings).forEach(function(k){if((alchD.ings[k]||0)<rec.ings[k]) ok=false;});
+  if(!ok){showFloatBubble('Inte nog ingredienser!','debuff');return;}
+  // Deduct
+  Object.keys(rec.ings).forEach(function(k){alchD.ings[k]=(alchD.ings[k]||0)-rec.ings[k];});
+  localStorage.setItem(ALCH_KEY,JSON.stringify(alchD));
+  // Add meal buff
+  var exp=now+rec.mins*60*1000;
+  d.meals.push({id:rec.id,name:rec.name,emoji:rec.emoji,buffType:rec.buffType,buffVal:rec.buffVal,exp:exp});
+  d.cooked=(d.cooked||0)+1;
+  // If all-stats, apply immediately to G
+  if(rec.buffType==='all'){
+    G.str=(G.str||0)+rec.buffVal;G.agi=(G.agi||0)+rec.buffVal;
+    G.int=(G.int||0)+rec.buffVal;G.end=(G.end||0)+rec.buffVal;G.lck=(G.lck||0)+rec.buffVal;
+    save();
+  }
+  _cookSave(d);
+  showFloatBubble(rec.emoji+' '+rec.name+' lagad! '+rec.eff,'buff');
+  misTrack('craft',1);
+  checkAchievements();
+  _renderCook();
+}
+
+function openCook(){$('cookPanel').classList.add('open');_renderCook();}
+function closeCook(){$('cookPanel').classList.remove('open');}
+
+function _cookFmtTimer(ms){
+  if(ms<=0) return 'Utgått';
+  var m=Math.floor(ms/60000),s=Math.floor((ms%60000)/1000);
+  return m+'m '+s+'s';
+}
+
+function _renderCook(){
+  var d=_cookGetData(),now=Date.now();
+  d.meals=d.meals.filter(function(m){return m.exp>now;});
+  _cookSave(d);
+  // Active buffs
+  var buffsEl=$('cookBuffs');
+  if(buffsEl){
+    if(d.meals.length===0){
+      buffsEl.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2);padding:8px 0">Inga aktiva buffs — laga mat för att aktivera!</div>';
+    } else {
+      buffsEl.innerHTML=d.meals.map(function(m){
+        return '<div class="cook-buff-chip"><div class="cook-buff-left"><span class="cook-buff-emoji">'+m.emoji+'</span><div><div class="cook-buff-name">'+m.name+'</div><div class="cook-buff-eff">'+COOK_RECIPES.find(function(r){return r.id===m.id;})||{eff:''}+'</div></div></div><div class="cook-buff-timer">'+_cookFmtTimer(m.exp-now)+'</div></div>';
+      }).join('');
+      // Fix: rebuild with proper eff
+      buffsEl.innerHTML=d.meals.map(function(m){
+        var rec=COOK_RECIPES.find(function(r){return r.id===m.id;});
+        return '<div class="cook-buff-chip"><div class="cook-buff-left"><span class="cook-buff-emoji">'+m.emoji+'</span><div><div class="cook-buff-name">'+m.name+'</div><div class="cook-buff-eff">'+(rec?rec.eff:'')+'</div></div></div><div class="cook-buff-timer">'+_cookFmtTimer(m.exp-now)+'</div></div>';
+      }).join('');
+    }
+  }
+  // Ingredients
+  var alchD=null; try{alchD=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+  var ings=alchD&&alchD.ings||{};
+  var ingNames={herb:'Ört',crystal:'Kristall',fire:'Eldboll',water:'Månvatten',bone:'Ben',gem:'Ädelsten',feather:'Fjäder',moon:'Månvatten',star:'Stjärna',mushroom:'Svamp',venom:'Gift',light:'Ljus'};
+  var ingRow=$('cookIngRow');
+  if(ingRow){
+    ingRow.innerHTML=Object.keys(ingNames).map(function(k){
+      var qty=ings[k]||0;
+      return '<div class="cook-ing-chip'+(qty>0?' has':'')+'">'+ingNames[k]+' ×'+qty+'</div>';
+    }).join('');
+  }
+  // Recipes
+  var recs=$('cookRecipes');
+  if(!recs) return;
+  recs.innerHTML=COOK_RECIPES.map(function(rec){
+    var canMake=true;
+    Object.keys(rec.ings).forEach(function(k){if((ings[k]||0)<rec.ings[k]) canMake=false;});
+    var activeType=d.meals.some(function(m){return m.buffType===rec.buffType;});
+    var full=d.meals.length>=2;
+    var ingHtml=Object.keys(rec.ings).map(function(k){
+      var have=(ings[k]||0)>=rec.ings[k];
+      return '<span class="cook-recipe-ing'+(have?' ok':' miss')+'">'+(ingNames[k]||k)+' ×'+rec.ings[k]+'</span>';
+    }).join('');
+    var disabled=!canMake||activeType||full;
+    var btnText=activeType?'Buff aktiv':full?'Max buffs':!canMake?'Saknar ingredienser':'🍳 Laga nu!';
+    return '<div class="cook-recipe"><div class="cook-recipe-top"><span class="cook-recipe-emoji">'+rec.emoji+'</span><div class="cook-recipe-info"><div class="cook-recipe-name">'+rec.name+'</div><div class="cook-recipe-eff">'+rec.eff+'</div><div class="cook-recipe-time">⏱ '+rec.mins+' min</div></div></div><div class="cook-recipe-ings">'+ingHtml+'</div><button class="cook-btn" onclick="cookMake(\''+rec.id+'\')" '+(disabled?'disabled':'')+'>'+btnText+'</button></div>';
   }).join('');
 }
 
