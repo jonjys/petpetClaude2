@@ -1445,6 +1445,55 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET GARDEN ══ */
+.gard-panel{position:fixed;inset:0;background:#030d04;z-index:958;display:none;flex-direction:column;overflow:hidden}
+.gard-panel.open{display:flex}
+.gard-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#061208,#030d04)}
+.gard-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#88ff44,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gard-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Stats row */
+.gard-stats{display:flex;gap:8px;margin-bottom:12px}
+.gard-stat{flex:1;background:rgba(0,200,80,.05);border:1px solid rgba(0,200,80,.15);border-radius:12px;padding:8px;text-align:center}
+.gard-stat-val{font:900 16px var(--ff-head);color:#44ff88}
+.gard-stat-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+/* Weather bonus banner */
+.gard-wx-banner{display:flex;align-items:center;gap:8px;background:rgba(255,200,0,.05);border:1px solid rgba(255,200,0,.2);border-radius:12px;padding:8px 12px;margin-bottom:12px;font:600 10px var(--ff-body);color:rgba(255,200,0,.7)}
+/* Plot grid */
+.gard-plots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.gard-plot{background:rgba(60,30,10,.3);border:2px solid rgba(80,50,20,.4);border-radius:18px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .15s;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.gard-plot:active{transform:scale(.96)}
+.gard-plot.empty{background:rgba(40,20,5,.2);border-color:rgba(60,40,10,.3);border-style:dashed}
+.gard-plot.growing{border-color:rgba(0,180,60,.3)}
+.gard-plot.ready{border-color:rgba(255,200,0,.6);background:rgba(255,200,0,.05);box-shadow:0 0 10px rgba(255,200,0,.15);animation:gardReady 1.5s ease-in-out infinite}
+@keyframes gardReady{0%,100%{box-shadow:0 0 8px rgba(255,200,0,.1)}50%{box-shadow:0 0 18px rgba(255,200,0,.3)}}
+.gard-plot.locked{background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.06);cursor:default}
+.gard-plot-emoji{font-size:28px;display:block;margin-bottom:4px}
+.gard-plot-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.6);margin-bottom:3px}
+.gard-plot-timer{font:600 8px var(--ff-body);color:#44ff88}
+.gard-plot-ready{font:700 9px var(--ff-head);color:#ffcc00;animation:gardReadyText .8s ease-in-out infinite alternate}
+@keyframes gardReadyText{from{opacity:.7}to{opacity:1}}
+.gard-plot-prog{width:80%;height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:6px;overflow:hidden}
+.gard-plot-prog-fill{height:100%;background:linear-gradient(90deg,#00aa44,#44ff88);border-radius:2px;transition:width .5s}
+/* Seed shop */
+.gard-shop-title{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
+.gard-seed-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+.gard-seed-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.gard-seed-card:active{transform:scale(.97)}
+.gard-seed-emoji{font-size:26px;flex-shrink:0}
+.gard-seed-info{flex:1;min-width:0}
+.gard-seed-name{font:700 10px var(--ff-head);color:rgba(255,255,255,.8)}
+.gard-seed-time{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.gard-seed-yield{font:700 9px var(--ff-head);color:#ffcc00}
+.gard-seed-cost{font:800 10px var(--ff-head);color:#44ff88;flex-shrink:0}
+/* Action modal */
+.gard-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:959;display:none;align-items:flex-end;justify-content:center}
+.gard-modal.open{display:flex}
+.gard-modal-card{background:#0a1a0b;border:1.5px solid rgba(0,200,80,.2);border-radius:22px 22px 0 0;padding:20px 16px 32px;width:100%;max-width:430px}
+.gard-modal-title{font:800 15px var(--ff-head);color:#44ff88;margin-bottom:12px;text-align:center}
+.gard-modal-btn{display:block;width:100%;background:rgba(0,200,80,.15);border:1px solid rgba(0,200,80,.3);border-radius:12px;padding:11px;font:800 12px var(--ff-head);color:#44ff88;cursor:pointer;margin-bottom:8px;text-align:center}
+.gard-modal-cancel{display:block;width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px;font:700 12px var(--ff-head);color:rgba(255,255,255,.4);cursor:pointer;text-align:center}
+
 /* ══ MEMORY DUEL ══ */
 .mem-panel{position:fixed;inset:0;background:#030810;z-index:957;display:none;flex-direction:column;overflow:hidden}
 .mem-panel.open{display:flex}
@@ -8213,6 +8262,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAlch()"><div class="ddr-i">⚗️</div>Alkemi</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
+          <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9428,6 +9478,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET GARDEN -->
+<div class="gard-panel" id="gardPanel">
+  <div class="gard-header">
+    <div class="gard-title">🌱 TRÄDGÅRD</div>
+    <button class="close-btn" onclick="closeGard()">✕</button>
+  </div>
+  <div class="gard-scroll">
+    <div class="gard-stats">
+      <div class="gard-stat"><div class="gard-stat-val" id="gardHarvVal">0</div><div class="gard-stat-lbl">Totalt skördat</div></div>
+      <div class="gard-stat"><div class="gard-stat-val" id="gardStreakVal">0</div><div class="gard-stat-lbl">Daglig streak</div></div>
+      <div class="gard-stat"><div class="gard-stat-val" id="gardPlotsVal">0/6</div><div class="gard-stat-lbl">Aktiva odlingar</div></div>
+    </div>
+    <div class="gard-wx-banner" id="gardWxBanner">🌤 Kontrollera vädret för odlingsbonusar</div>
+    <div class="gard-plots" id="gardPlots"></div>
+    <div class="gard-shop-title">Fröaffär</div>
+    <div class="gard-seed-grid" id="gardSeedGrid"></div>
+  </div>
+</div>
+<div class="gard-modal" id="gardModal">
+  <div class="gard-modal-card">
+    <div class="gard-modal-title" id="gardModalTitle">Välj åtgärd</div>
+    <div id="gardModalBtns"></div>
+    <button class="gard-modal-cancel" onclick="gardCloseModal()">Avbryt</button>
+  </div>
+</div>
 
 <!-- MEMORY DUEL -->
 <div class="mem-panel" id="memPanel">
@@ -35615,6 +35692,208 @@ function _renderMemMeta(){
     });
     sc.innerHTML=rows;
   }
+}
+
+
+// PET GARDEN
+const GARD_KEY = 'k0509_gard';
+const GARD_SEEDS = [
+  {id:'carrot',  name:'Morot',      emoji:'🥕', grow:120000,   cost:20,  yield:[60,80],   ing:'herb'},
+  {id:'berry',   name:'Bär',        emoji:'🍓', grow:300000,   cost:35,  yield:[100,150], ing:'mushroom'},
+  {id:'corn',    name:'Majs',       emoji:'🌽', grow:600000,   cost:50,  yield:[180,250], ing:null},
+  {id:'flower',  name:'Blomma',     emoji:'🌸', grow:900000,   cost:80,  yield:[250,400], ing:'herb'},
+  {id:'pumpkin', name:'Pumpa',      emoji:'🎃', grow:1800000,  cost:120, yield:[500,700], ing:'mushroom'},
+  {id:'sunflwr', name:'Solros',     emoji:'🌻', grow:3600000,  cost:200, yield:[900,1200],ing:'star'},
+  {id:'rainbow', name:'Regnbågsblomma',emoji:'🌈',grow:7200000,cost:500,yield:[2500,3500],ing:'light'},
+  {id:'crystal', name:'Kristallträd',emoji:'💎',grow:14400000, cost:1000,yield:[6000,8000],ing:'crystal'},
+];
+var _gardSelPlot=-1;
+var _gardSelSeed=null;
+var _gardTickTimer=null;
+
+function _gardData(){try{return JSON.parse(localStorage.getItem(GARD_KEY)||'null');}catch(e){return null;}}
+function _gardSave(d){localStorage.setItem(GARD_KEY,JSON.stringify(d));}
+function _gardGetData(){
+  var d=_gardData();
+  if(!d) d={plots:Array(6).fill(null),harvest:0,streak:0,lastDay:'',unlockedPlots:6};
+  while(d.plots.length<6) d.plots.push(null);
+  return d;
+}
+
+function openGard(){
+  $('gardPanel').classList.add('open');
+  if(_gardTickTimer) clearInterval(_gardTickTimer);
+  _gardTickTimer=setInterval(_gardTick,5000);
+  _renderGard();
+}
+function closeGard(){
+  $('gardPanel').classList.remove('open');
+  if(_gardTickTimer){clearInterval(_gardTickTimer);_gardTickTimer=null;}
+}
+
+function _gardTick(){if($('gardPanel').classList.contains('open')) _renderGard();}
+
+function gardPlotClick(idx){
+  var d=_gardGetData();
+  var plot=d.plots[idx];
+  _gardSelPlot=idx;
+  if(!plot){
+    // show seed picker
+    var btns=$('gardModalBtns');
+    if(btns){
+      btns.innerHTML=GARD_SEEDS.map(function(s){
+        return '<button class="gard-modal-btn" onclick="gardPlant(\''+s.id+'\')">'+s.emoji+' '+s.name+' — '+_gardFmt(s.grow)+' — 🪙'+s.cost+'</button>';
+      }).join('');
+    }
+    $('gardModalTitle').textContent='🌱 Välj ett frö att plantera';
+  } else {
+    var now=Date.now();
+    var seed=GARD_SEEDS.find(function(s){return s.id===plot.seedId;});
+    var growTime=seed?seed.grow:300000;
+    if(plot.watered) growTime=growTime*0.6;
+    var done=plot.plantedAt+growTime<=now;
+    var btns=$('gardModalBtns');
+    if(btns){
+      var actions='';
+      if(done){
+        actions+='<button class="gard-modal-btn" onclick="gardHarvest('+idx+')">🌾 Skörda!</button>';
+      } else {
+        if(!plot.watered){
+          actions+='<button class="gard-modal-btn" onclick="gardWater('+idx+')">💧 Vattna (40% snabbare)</button>';
+        } else {
+          actions+='<button class="gard-modal-btn" style="opacity:.4;cursor:default">💧 Redan vattnад</button>';
+        }
+        actions+='<button class="gard-modal-btn" style="background:rgba(255,68,85,.1);border-color:rgba(255,68,85,.3);color:#ff4455" onclick="gardRemove('+idx+')">🗑 Ta bort</button>';
+      }
+      btns.innerHTML=actions;
+    }
+    $('gardModalTitle').textContent=(seed?seed.emoji+' ':'')+((seed?seed.name:'Växt')+(done?' — KLAR!':' — Växer...'));
+  }
+  $('gardModal').classList.add('open');
+}
+
+function gardCloseModal(){$('gardModal').classList.remove('open');}
+
+function gardPlant(seedId){
+  var seed=GARD_SEEDS.find(function(s){return s.id===seedId;});
+  if(!seed) return;
+  if((G.coins||0)<seed.cost){showFloatBubble('Inte nog mynt!','debuff');gardCloseModal();return;}
+  G.coins-=seed.cost; save();
+  var d=_gardGetData();
+  d.plots[_gardSelPlot]={seedId:seedId,plantedAt:Date.now(),watered:false};
+  _gardSave(d);
+  showFloatBubble(seed.emoji+' '+seed.name+' planterad!','buff');
+  gardCloseModal();
+  _renderGard();
+}
+
+function gardWater(idx){
+  var d=_gardGetData();
+  if(!d.plots[idx]) return;
+  d.plots[idx].watered=true;
+  _gardSave(d);
+  showFloatBubble('💧 Vattnад! 40% snabbare tillväxt','buff');
+  gardCloseModal();
+  _renderGard();
+}
+
+function gardRemove(idx){
+  var d=_gardGetData();
+  d.plots[idx]=null;
+  _gardSave(d);
+  showFloatBubble('Växt borttagen','info');
+  gardCloseModal();
+  _renderGard();
+}
+
+function gardHarvest(idx){
+  var d=_gardGetData();
+  var plot=d.plots[idx];
+  if(!plot) return;
+  var seed=GARD_SEEDS.find(function(s){return s.id===plot.seedId;});
+  if(!seed) return;
+  var min=seed.yield[0];var max=seed.yield[1];
+  var earned=min+Math.floor(Math.random()*(max-min));
+  // Weather bonus
+  if(typeof wxGetBonus==='function') earned=Math.floor(earned*(1+wxGetBonus('harvest')));
+  gainCoins(earned);
+  d.plots[idx]=null;
+  d.harvest=(d.harvest||0)+1;
+  // Streak
+  var tk=getTodayKey();
+  if(d.lastDay!==tk){d.lastDay=tk;d.streak=(d.streak||0)+1;}
+  if(seed.ing){
+    var alchD=null; try{alchD=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+    if(alchD){if(!alchD.ings)alchD.ings={};alchD.ings[seed.ing]=(alchD.ings[seed.ing]||0)+1;localStorage.setItem(ALCH_KEY,JSON.stringify(alchD));}
+  }
+  _gardSave(d);
+  showFloatBubble(seed.emoji+' Skördad! +'+earned+' 🪙'+(seed.ing?' +1 '+seed.ing:''),'buff');
+  misTrack('harvest',1);
+  checkAchievements();
+  gardCloseModal();
+  _renderGard();
+}
+
+function _gardFmt(ms){
+  var s=Math.floor(ms/1000);
+  if(s<60) return s+'s';
+  var m=Math.floor(s/60); if(m<60) return m+'m';
+  var h=Math.floor(m/60); return h+'h'+(m%60?''+m%60+'m':'');
+}
+
+function gardQuickPlant(seedId){
+  var d=_gardGetData();
+  var freeIdx=d.plots.indexOf(null);
+  if(freeIdx<0){showFloatBubble('Inga tomma platser!','info');return;}
+  _gardSelPlot=freeIdx;
+  gardPlant(seedId);
+}
+
+function _renderGard(){
+  var d=_gardGetData();
+  var hv=$('gardHarvVal'); if(hv) hv.textContent=d.harvest||0;
+  var sv=$('gardStreakVal'); if(sv) sv.textContent=d.streak||0;
+  var active=d.plots.filter(function(p){return p!==null;}).length;
+  var pv=$('gardPlotsVal'); if(pv) pv.textContent=active+'/6';
+  // Weather banner
+  var wb=$('gardWxBanner');
+  if(wb && typeof wxGetBonus==='function'){
+    var bonus=wxGetBonus('harvest');
+    if(bonus>0) wb.textContent='🌞 Solig dag! +'+(Math.round(bonus*100))+'% skördeintäkt';
+    else if(bonus<0) wb.textContent='🌧 Regnigt! '+(Math.round(bonus*100))+'% skördeintäkt';
+    else wb.textContent='🌤 Normalt väder — ingen skördebonus idag';
+  }
+  // Plots
+  var now=Date.now();
+  var plots=$('gardPlots');
+  if(plots) plots.innerHTML=d.plots.map(function(plot,idx){
+    if(!plot){
+      return '<div class="gard-plot empty" onclick="gardPlotClick('+idx+')">'
+        +'<span class="gard-plot-emoji">➕</span>'
+        +'<div class="gard-plot-name">Tom</div>'
+        +'</div>';
+    }
+    var seed=GARD_SEEDS.find(function(s){return s.id===plot.seedId;})||{emoji:'🌱',name:'Växt',grow:300000};
+    var growTime=seed.grow*(plot.watered?0.6:1);
+    var elapsed=now-plot.plantedAt;
+    var prog=Math.min(1,elapsed/growTime);
+    var done=prog>=1;
+    var remaining=Math.max(0,Math.ceil((growTime-elapsed)/1000));
+    return '<div class="gard-plot '+(done?'ready':'growing')+'" onclick="gardPlotClick('+idx+')">'
+      +'<span class="gard-plot-emoji">'+seed.emoji+(plot.watered?'💧':'')+'</span>'
+      +'<div class="gard-plot-name">'+seed.name+'</div>'
+      +(done?'<div class="gard-plot-ready">✨ Klar!</div>':'<div class="gard-plot-timer">'+_gardFmt(remaining*1000)+'</div><div class="gard-plot-prog"><div class="gard-plot-prog-fill" style="width:'+(prog*100)+'%"></div></div>')
+      +'</div>';
+  }).join('');
+  // Seed shop
+  var sg=$('gardSeedGrid');
+  if(sg) sg.innerHTML=GARD_SEEDS.map(function(s){
+    return '<div class="gard-seed-card" onclick="gardQuickPlant(\''+s.id+'\')">'
+      +'<span class="gard-seed-emoji">'+s.emoji+'</span>'
+      +'<div class="gard-seed-info"><div class="gard-seed-name">'+s.name+'</div><div class="gard-seed-time">⏱ '+_gardFmt(s.grow)+'</div><div class="gard-seed-yield">🪙 '+s.yield[0]+'-'+s.yield[1]+'</div></div>'
+      +'<div class="gard-seed-cost">'+s.cost+'🪙</div>'
+      +'</div>';
+  }).join('');
 }
 
 </script>
