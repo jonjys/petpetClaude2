@@ -1436,6 +1436,51 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SLOT MACHINE ══ */
+.slot-panel{position:fixed;inset:0;background:#06020e;z-index:949;display:none;flex-direction:column;overflow:hidden}
+.slot-panel.open{display:flex}
+.slot-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0520,#06020e)}
+.slot-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8844,#ff4455);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.slot-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Main machine */
+.slot-machine{background:radial-gradient(ellipse at 50% 0%,rgba(255,204,0,.1),transparent 60%),linear-gradient(180deg,#120830,#06020e);border:2px solid rgba(255,204,0,.25);border-radius:24px;padding:16px;margin-bottom:14px;text-align:center}
+.slot-display{background:#000;border:3px solid rgba(255,204,0,.4);border-radius:16px;padding:12px;margin-bottom:12px;display:flex;gap:8px;justify-content:center;overflow:hidden;position:relative}
+.slot-reel{width:72px;height:72px;display:flex;align-items:center;justify-content:center;font-size:44px;border-radius:10px;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);transition:all .15s;flex-shrink:0}
+.slot-reel.spinning{animation:slotSpin .12s linear infinite}
+@keyframes slotSpin{0%{transform:translateY(-10px);opacity:.7}50%{transform:translateY(5px)}100%{transform:translateY(-10px);opacity:.7}}
+.slot-reel.winner{border-color:rgba(255,204,0,.8);background:rgba(255,204,0,.12);box-shadow:0 0 20px rgba(255,204,0,.3);animation:slotGlow .4s ease-out 3}
+@keyframes slotGlow{0%,100%{box-shadow:0 0 10px rgba(255,204,0,.3)}50%{box-shadow:0 0 30px rgba(255,204,0,.7)}}
+.slot-win-line{position:absolute;top:50%;left:12px;right:12px;height:2px;background:rgba(255,204,0,.5);transform:translateY(-50%);display:none}
+.slot-win-line.show{display:block;animation:winLine .5s ease-out}
+@keyframes winLine{0%{opacity:0;transform:translateY(-50%) scaleX(0)}100%{opacity:1;transform:translateY(-50%) scaleX(1)}}
+/* Bet controls */
+.slot-bet-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;justify-content:center}
+.slot-bet-label{font:700 10px var(--ff-head);color:rgba(255,255,255,.5)}
+.slot-bet-btn{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font:800 11px var(--ff-head);padding:7px 12px;cursor:pointer;transition:all .12s}
+.slot-bet-btn:active{transform:scale(.92)}
+.slot-bet-val{font:900 18px var(--ff-head);color:#ffcc00;min-width:60px;text-align:center}
+.slot-spin-btn{width:100%;max-width:220px;background:linear-gradient(135deg,#3a1200,#ffcc00);border:none;border-radius:16px;color:#000;font:900 16px var(--ff-head);padding:14px;cursor:pointer;transition:all .15s;margin:0 auto;display:block}
+.slot-spin-btn:active{transform:scale(.96)}
+.slot-spin-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)}
+/* Win popup */
+.slot-result{margin:10px 0;min-height:32px;font:900 16px var(--ff-head);text-align:center}
+.slot-result.win{color:#ffcc00;text-shadow:0 0 12px rgba(255,204,0,.5)}
+.slot-result.jackpot{color:#ff4455;text-shadow:0 0 20px rgba(255,68,85,.7);animation:jackpotPulse 1s ease-in-out infinite}
+@keyframes jackpotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}
+.slot-result.loss{color:rgba(255,255,255,.3)}
+/* Pay table */
+.slot-paytable{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+.slot-pt-title{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.slot-pt-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.slot-pt-symbols{font-size:14px;letter-spacing:2px}
+.slot-pt-payout{font:700 10px var(--ff-head);color:#ffcc00}
+/* Stats */
+.slot-stats-row{display:flex;gap:8px}
+.slot-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.slot-stat-val{font:800 14px var(--ff-head);color:#ffcc00}
+.slot-stat-label{font:500 8px var(--ff-body);color:rgba(255,255,255,.35)}
+
 /* ══ BATTLE PASS ══ */
 .bp-panel{position:fixed;inset:0;background:#060408;z-index:948;display:none;flex-direction:column;overflow:hidden}
 .bp-panel.open{display:flex}
@@ -7827,6 +7872,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openHunt()"><div class="ddr-i">🗺️</div>Skattjakt</div>
           <div class="ddr" onclick="cM();openWx()"><div class="ddr-i">🌤️</div>Väder</div>
           <div class="ddr" onclick="cM();openBP()"><div class="ddr-i">🎖️</div>Battle Pass</div>
+          <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Slots</div>
         </div>
       </div>
     </div>
@@ -9001,6 +9047,53 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- SLOT MACHINE -->
+<div class="slot-panel" id="slotPanel">
+  <div class="slot-header">
+    <div class="slot-title">🎰 SLOTS</div>
+    <button class="close-btn" onclick="closeSlot()">✕</button>
+  </div>
+  <div class="slot-scroll">
+    <div class="slot-machine">
+      <div style="font:900 11px var(--ff-head);color:rgba(255,204,0,.6);letter-spacing:2px;margin-bottom:10px">🎰 PET SLOTS 🎰</div>
+      <div class="slot-display">
+        <div class="slot-win-line" id="slotWinLine"></div>
+        <div class="slot-reel" id="slotR0">🍀</div>
+        <div class="slot-reel" id="slotR1">💎</div>
+        <div class="slot-reel" id="slotR2">⭐</div>
+      </div>
+      <div class="slot-result" id="slotResult">Tryck Snurra för att spela!</div>
+      <div class="slot-bet-row">
+        <button class="slot-bet-btn" onclick="slotChangeBet(-1)">−</button>
+        <div>
+          <div class="slot-bet-label">Insats</div>
+          <div class="slot-bet-val" id="slotBetVal">50💰</div>
+        </div>
+        <button class="slot-bet-btn" onclick="slotChangeBet(1)">+</button>
+      </div>
+      <button class="slot-spin-btn" id="slotSpinBtn" onclick="slotSpin()">🎰 SNURRA!</button>
+    </div>
+    <div class="slot-paytable">
+      <div class="slot-pt-title">💰 Utbetalningstabell (per 50💰 insats)</div>
+      <div class="slot-pt-row"><span class="slot-pt-symbols">🎰🎰🎰</span><span class="slot-pt-payout">JACKPOT × 100</span></div>
+      <div class="slot-pt-row"><span class="slot-pt-symbols">💎💎💎</span><span class="slot-pt-payout">× 50 + 5 KC</span></div>
+      <div class="slot-pt-row"><span class="slot-pt-symbols">7️⃣7️⃣7️⃣</span><span class="slot-pt-payout">× 30</span></div>
+      <div class="slot-pt-row"><span class="slot-pt-symbols">⭐⭐⭐</span><span class="slot-pt-payout">× 20</span></div>
+      <div class="slot-pt-row"><span class="slot-pt-symbols">🍒🍒🍒</span><span class="slot-pt-payout">× 10</span></div>
+      <div class="slot-pt-row"><span class="slot-pt-symbols">🍀🍀🍀</span><span class="slot-pt-payout">× 8</span></div>
+      <div class="slot-pt-row"><span class="slot-pt-symbols">🔔🔔🔔</span><span class="slot-pt-payout">× 5</span></div>
+      <div class="slot-pt-row"><span class="slot-pt-symbols">Alla lika</span><span class="slot-pt-payout">× 3</span></div>
+      <div class="slot-pt-row"><span class="slot-pt-symbols">2 lika</span><span class="slot-pt-payout">× 1.5</span></div>
+    </div>
+    <div class="slot-stats-row">
+      <div class="slot-stat"><div class="slot-stat-val" id="slotSpins">0</div><div class="slot-stat-label">Snurrningar</div></div>
+      <div class="slot-stat"><div class="slot-stat-val" id="slotBigWin">0</div><div class="slot-stat-label">Bästa Vinst</div></div>
+      <div class="slot-stat"><div class="slot-stat-val" id="slotJackpots">0</div><div class="slot-stat-label">🎰 Jackpots</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- BATTLE PASS -->
 <div class="bp-panel" id="bpPanel">
@@ -33388,6 +33481,144 @@ function _renderBP(){
       '<div class="bp-ch-reward">'+(done?'✅ Klar':'+'+(ch.reward.bpXP||0)+' BP XP')+'</div>'+
       '</div>';
   }).join('');
+}
+
+
+// SLOT MACHINE SYSTEM
+const SLOT_KEY = 'k0509_slot';
+const SLOT_SYMBOLS = ['🎰','💎','7️⃣','⭐','🍒','🍀','🔔','🍋','🍇','🐾'];
+const SLOT_WEIGHTS = [1, 2, 3, 5, 8, 8, 10, 12, 12, 20];  // lower = rarer
+const SLOT_BETS = [25, 50, 100, 200, 500];
+const SLOT_PAYOUTS = {
+  '🎰🎰🎰': {mult:100, kc:0, jackpot:true},
+  '💎💎💎': {mult:50, kc:5},
+  '7️⃣7️⃣7️⃣': {mult:30, kc:0},
+  '⭐⭐⭐':  {mult:20, kc:0},
+  '🍒🍒🍒': {mult:10, kc:0},
+  '🍀🍀🍀': {mult:8,  kc:0},
+  '🔔🔔🔔': {mult:5,  kc:0},
+};
+
+let _slotBetIdx = 1;
+let _slotSpinning = false;
+
+function _slotLoad(){try{return JSON.parse(localStorage.getItem(SLOT_KEY)||'null');}catch(e){return null;}}
+function _slotSave(d){localStorage.setItem(SLOT_KEY,JSON.stringify(d));}
+function _slotData(){var d=_slotLoad(); if(!d) d={spins:0,bigWin:0,jackpots:0}; return d;}
+
+function openSlot(){
+  $('slotPanel').classList.add('open');
+  _renderSlotStats();
+  _renderSlotBet();
+}
+function closeSlot(){
+  $('slotPanel').classList.remove('open');
+}
+
+function slotChangeBet(dir){
+  if(_slotSpinning) return;
+  _slotBetIdx=Math.max(0,Math.min(SLOT_BETS.length-1,_slotBetIdx+dir));
+  _renderSlotBet();
+}
+
+function _renderSlotBet(){
+  var bv=$('slotBetVal'); if(bv) bv.textContent=SLOT_BETS[_slotBetIdx]+'💰';
+}
+
+function _slotRollSymbol(){
+  var total=SLOT_WEIGHTS.reduce(function(a,b){return a+b;},0);
+  var r=Math.random()*total;
+  var acc=0;
+  for(var i=0;i<SLOT_SYMBOLS.length;i++){
+    acc+=SLOT_WEIGHTS[i];
+    if(r<acc) return SLOT_SYMBOLS[i];
+  }
+  return SLOT_SYMBOLS[SLOT_SYMBOLS.length-1];
+}
+
+function slotSpin(){
+  if(_slotSpinning) return;
+  var bet=SLOT_BETS[_slotBetIdx];
+  if((G.coins||0)<bet){showFloatBubble('Inte nog med mynt!','debuff');return;}
+  G.coins-=bet;save();
+  _slotSpinning=true;
+  $('slotSpinBtn').disabled=true;
+  $('slotResult').className='slot-result';
+  $('slotResult').textContent='';
+  $('slotWinLine').className='slot-win-line';
+  // Start spin animation
+  var reels=[$('slotR0'),$('slotR1'),$('slotR2')];
+  reels.forEach(function(r){if(r){r.className='slot-reel spinning';}});
+  // Random delay per reel, then stop
+  var results=[];
+  var stopTimes=[600,900,1200];
+  reels.forEach(function(r,i){
+    var sym=_slotRollSymbol();
+    results.push(sym);
+    setTimeout(function(){
+      if(r){r.className='slot-reel';r.textContent=sym;}
+      if(i===2) _slotResolveSpin(bet,results);
+    },stopTimes[i]);
+  });
+}
+
+function _slotResolveSpin(bet, results){
+  _slotSpinning=false;
+  $('slotSpinBtn').disabled=false;
+  var d=_slotData();
+  d.spins=(d.spins||0)+1;
+  var key=results.join('');
+  var payout=SLOT_PAYOUTS[key];
+  var win=0;
+  var msg='';
+  var cls='loss';
+  var reels=[$('slotR0'),$('slotR1'),$('slotR2')];
+  if(payout){
+    win=Math.round(bet*payout.mult);
+    gainCoins(win);
+    if(payout.kc) gainKC(payout.kc);
+    if(payout.jackpot){
+      d.jackpots=(d.jackpots||0)+1;
+      cls='jackpot';
+      msg='🎰🎰🎰 JACKPOT! +'+win+'💰!!!';
+      showFloatBubble('🎰 JACKPOT! +'+win+'💰','buff');
+    } else {
+      cls='win';
+      msg='✨ '+key+' Vinst: +'+win+'💰'+(payout.kc?' +'+payout.kc+'KC':'')+'!';
+    }
+    if(win>d.bigWin) d.bigWin=win;
+    reels.forEach(function(r){if(r) r.className='slot-reel winner';});
+    $('slotWinLine').className='slot-win-line show';
+  } else {
+    // Check 2 of a kind or all same
+    var counts={};
+    results.forEach(function(s){counts[s]=(counts[s]||0)+1;});
+    var maxCount=Math.max.apply(null,Object.values(counts));
+    if(maxCount===3){
+      win=Math.round(bet*3);gainCoins(win);
+      cls='win';msg='🎊 Tre lika! +'+win+'💰';
+      if(win>d.bigWin) d.bigWin=win;
+      reels.forEach(function(r){if(r) r.className='slot-reel winner';});
+      $('slotWinLine').className='slot-win-line show';
+    } else if(maxCount===2){
+      win=Math.round(bet*1.5);gainCoins(win);
+      cls='win';msg='💫 Två lika! +'+win+'💰';
+    } else {
+      msg='💨 Ingen vinst...';
+    }
+  }
+  $('slotResult').className='slot-result '+cls;
+  $('slotResult').textContent=msg;
+  gainXP(Math.round(bet/5),'action');
+  _slotSave(d);
+  _renderSlotStats();
+}
+
+function _renderSlotStats(){
+  var d=_slotData();
+  var ss=$('slotSpins'); if(ss) ss.textContent=d.spins||0;
+  var sb=$('slotBigWin'); if(sb) sb.textContent=d.bigWin||0;
+  var sj=$('slotJackpots'); if(sj) sj.textContent=d.jackpots||0;
 }
 
 </script>
