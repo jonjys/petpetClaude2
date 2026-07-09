@@ -1459,6 +1459,37 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET WARDROBE ══ */
+.ward-panel{position:fixed;inset:0;background:#050208;z-index:972;display:none;flex-direction:column;overflow:hidden}
+.ward-panel.open{display:flex}
+.ward-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#150a24,#050208)}
+.ward-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88ff,#aa44ff,#ff44aa,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ward-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Pet preview */
+.ward-preview{background:rgba(255,255,255,.02);border:2px solid rgba(180,100,255,.25);border-radius:24px;padding:16px;margin-bottom:16px;text-align:center}
+.ward-preview-pet{font-size:56px;line-height:1;margin:6px 0;filter:drop-shadow(0 0 20px rgba(200,100,255,.5))}
+.ward-preview-name{font:900 14px var(--ff-head);color:#fff;margin-bottom:2px}
+.ward-preview-look{font:600 10px var(--ff-body);color:rgba(200,150,255,.6);letter-spacing:1px}
+/* Slot tabs */
+.ward-slots{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px}
+.ward-slot-tab{flex-shrink:0;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;padding:8px 12px;text-align:center;cursor:pointer;transition:all .2s;min-width:60px}
+.ward-slot-tab.active{background:rgba(180,100,255,.1);border-color:rgba(180,100,255,.4)}
+.ward-slot-tab-emoji{font-size:18px;display:block}
+.ward-slot-tab-name{font:600 7px var(--ff-body);color:rgba(255,255,255,.4);margin-top:2px}
+.ward-slot-tab.active .ward-slot-tab-name{color:rgba(200,150,255,.8)}
+/* Items grid */
+.ward-items{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ward-item{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.ward-item.equipped{background:rgba(180,100,255,.1);border-color:rgba(180,100,255,.5);box-shadow:0 0 12px rgba(180,100,255,.2)}
+.ward-item.locked{opacity:.4;cursor:default}
+.ward-item.locked::after{content:'🔒';position:absolute;top:4px;right:6px;font-size:10px}
+.ward-item-emoji{font-size:28px;display:block;margin-bottom:4px}
+.ward-item-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.8);margin-bottom:3px}
+.ward-item-cost{font:600 7px var(--ff-body);color:rgba(255,200,50,.7)}
+.ward-item.equipped .ward-item-cost{color:rgba(80,255,150,.8)}
+.ward-item.free .ward-item-cost{color:rgba(255,255,255,.3)}
+
 /* ══ TOWN BUILDER ══ */
 .town-panel{position:fixed;inset:0;background:#020608;z-index:971;display:none;flex-direction:column;overflow:hidden}
 .town-panel.open{display:flex}
@@ -8810,6 +8841,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCal()"><div class="ddr-i">📅</div>Kalender</div>
           <div class="ddr" onclick="cM();openCook()"><div class="ddr-i">🍳</div>Kök</div>
           <div class="ddr" onclick="cM();openTown()"><div class="ddr-i">🏘</div>Stad</div>
+          <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Garderob</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10039,6 +10071,24 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET WARDROBE -->
+<div class="ward-panel" id="wardPanel">
+  <div class="ward-header">
+    <div class="ward-title">👗 GARDEROBEN</div>
+    <button class="close-btn" onclick="closeWard()">✕</button>
+  </div>
+  <div class="ward-scroll">
+    <div class="ward-preview">
+      <div class="ward-preview-pet" id="wardPreviewPet">🐾</div>
+      <div class="ward-preview-name" id="wardPreviewName">Din Husdjur</div>
+      <div class="ward-preview-look" id="wardPreviewLook">Välj utseende nedan</div>
+    </div>
+    <div class="ward-slots" id="wardSlots"></div>
+    <div class="ward-items" id="wardItems"></div>
+  </div>
+</div>
 
 <!-- TOWN BUILDER -->
 <div class="town-panel" id="townPanel">
@@ -38730,6 +38780,128 @@ function _renderTown(){
       picker.innerHTML='';
     }
   }
+}
+
+
+// PET WARDROBE
+const WARD_KEY = 'k0509_ward';
+const WARD_CATS = [
+  {id:'hat', name:'Hatt', emoji:'🎩',
+   items:[
+    {id:'none',name:'Ingen',emoji:'',cost:0,free:true},
+    {id:'crown',name:'Krona',emoji:'👑',cost:0,free:true},
+    {id:'wizard',name:'Trollkarl',emoji:'🧙',cost:200},
+    {id:'cowboy',name:'Cowboy',emoji:'🤠',cost:300},
+    {id:'flower',name:'Blommig',emoji:'🌸',cost:500},
+    {id:'party',name:'Fest',emoji:'🎉',cost:1000},
+  ]},
+  {id:'body', name:'Stil', emoji:'✨',
+   items:[
+    {id:'none',name:'Normal',emoji:'🐾',cost:0,free:true},
+    {id:'fire',name:'Eld',emoji:'🔥',cost:0,free:true},
+    {id:'ice',name:'Is',emoji:'❄️',cost:300},
+    {id:'thunder',name:'Åska',emoji:'⚡',cost:400},
+    {id:'rainbow',name:'Regnbåge',emoji:'🌈',cost:800},
+    {id:'cosmic',name:'Kosmisk',emoji:'🌌',cost:1500},
+  ]},
+  {id:'aura', name:'Aura', emoji:'💫',
+   items:[
+    {id:'none',name:'Ingen',emoji:'',cost:0,free:true},
+    {id:'stars',name:'Stjärnor',emoji:'⭐',cost:0,free:true},
+    {id:'hearts',name:'Hjärtan',emoji:'💕',cost:250,kc:true},
+    {id:'music',name:'Musik',emoji:'🎵',cost:2},
+    {id:'ghost',name:'Spöke',emoji:'👻',cost:3},
+    {id:'angel',name:'Ängel',emoji:'😇',cost:5},
+  ]},
+  {id:'acc', name:'Tillbehör', emoji:'🎀',
+   items:[
+    {id:'none',name:'Inget',emoji:'',cost:0,free:true},
+    {id:'ribbon',name:'Rosett',emoji:'🎀',cost:0,free:true},
+    {id:'glasses',name:'Glasögon',emoji:'🕶️',cost:400},
+    {id:'medal',name:'Medalj',emoji:'🏅',cost:500},
+    {id:'sword',name:'Svärd',emoji:'⚔️',cost:1000},
+    {id:'magic',name:'Trollstav',emoji:'🪄',cost:1500},
+  ]},
+];
+var _wardActiveSlot='hat';
+
+function _wardData(){try{return JSON.parse(localStorage.getItem(WARD_KEY)||'null');}catch(e){return null;}}
+function _wardSave(d){localStorage.setItem(WARD_KEY,JSON.stringify(d));}
+function _wardGetData(){
+  var d=_wardData();
+  if(!d) d={owned:{},equipped:{hat:'crown',body:'fire',aura:'stars',acc:'ribbon'}};
+  if(!d.owned) d.owned={};
+  if(!d.equipped) d.equipped={hat:'crown',body:'fire',aura:'stars',acc:'ribbon'};
+  // Free items always owned
+  WARD_CATS.forEach(function(cat){
+    cat.items.forEach(function(item){
+      if(item.free) d.owned[item.id]=true;
+    });
+  });
+  return d;
+}
+
+function wardEquip(catId, itemId){
+  var cat=WARD_CATS.find(function(c){return c.id===catId;});
+  if(!cat) return;
+  var item=cat.items.find(function(i){return i.id===itemId;});
+  if(!item) return;
+  var d=_wardGetData();
+  if(!d.owned[itemId]){
+    // Try to buy
+    if(item.kc){
+      if((G.kc||0)<item.cost){showFloatBubble('Behöver '+item.cost+' KC!','debuff');return;}
+      G.kc-=item.cost; save();
+    } else {
+      if((G.coins||0)<item.cost){showFloatBubble('Behöver '+item.cost+'🪙!','debuff');return;}
+      G.coins-=item.cost; save();
+    }
+    d.owned[itemId]=true;
+    showFloatBubble(item.emoji+' '+item.name+' köpt!','buff');
+  }
+  d.equipped[catId]=itemId;
+  _wardSave(d);
+  _renderWard();
+}
+
+function wardSetSlot(catId){_wardActiveSlot=catId;_renderWard();}
+function openWard(){$('wardPanel').classList.add('open');_renderWard();}
+function closeWard(){$('wardPanel').classList.remove('open');}
+
+function _wardBuildLook(d){
+  var parts=[];
+  var hat=d.equipped.hat; var hatCat=WARD_CATS[0]; var hatItem=hatCat.items.find(function(i){return i.id===hat;});
+  var body=d.equipped.body; var bodyCat=WARD_CATS[1]; var bodyItem=bodyCat.items.find(function(i){return i.id===body;});
+  var aura=d.equipped.aura; var auraCat=WARD_CATS[2]; var auraItem=auraCat.items.find(function(i){return i.id===aura;});
+  var acc=d.equipped.acc; var accCat=WARD_CATS[3]; var accItem=accCat.items.find(function(i){return i.id===acc;});
+  var display=(hatItem&&hatItem.emoji?hatItem.emoji:'')+(bodyItem&&bodyItem.emoji?bodyItem.emoji:'🐾')+(accItem&&accItem.emoji?accItem.emoji:'');
+  var auraEmoji=auraItem&&auraItem.emoji?auraItem.emoji:'';
+  return {display:display,aura:auraEmoji,names:[hatItem,bodyItem,auraItem,accItem].filter(function(x){return x&&x.emoji;}).map(function(x){return x.name;}).join(' · ')};
+}
+
+function _renderWard(){
+  var d=_wardGetData();
+  var look=_wardBuildLook(d);
+  var pp=$('wardPreviewPet'); if(pp) pp.textContent=(look.display||'🐾')+(look.aura?' '+look.aura:'');
+  var pn=$('wardPreviewName'); if(pn) pn.textContent=(G.name||'Husdjur');
+  var pl=$('wardPreviewLook'); if(pl) pl.textContent=look.names||'Grundutseende';
+  var slots=$('wardSlots');
+  if(slots){
+    slots.innerHTML=WARD_CATS.map(function(cat){
+      return '<div class="ward-slot-tab'+(cat.id===_wardActiveSlot?' active':'')+'" onclick="wardSetSlot(\''+cat.id+'\')"><span class="ward-slot-tab-emoji">'+cat.emoji+'</span><div class="ward-slot-tab-name">'+cat.name+'</div></div>';
+    }).join('');
+  }
+  var items=$('wardItems');
+  if(!items) return;
+  var cat=WARD_CATS.find(function(c){return c.id===_wardActiveSlot;});
+  if(!cat) return;
+  items.innerHTML=cat.items.map(function(item){
+    var owned=!!d.owned[item.id];
+    var equipped=d.equipped[cat.id]===item.id;
+    var cls='ward-item'+(item.free?' free':'')+(equipped?' equipped':'')+((!owned&&!item.free)?' ':' ');
+    var costTxt=equipped?'✓ Iklädd':owned?'Ägs':(item.cost===0?'Gratis':(item.kc?item.cost+' KC':item.cost+'🪙'));
+    return '<div class="'+cls+'" onclick="wardEquip(\''+cat.id+'\',\''+item.id+'\')"><span class="ward-item-emoji">'+(item.emoji||'⬜')+'</span><div class="ward-item-name">'+item.name+'</div><div class="ward-item-cost">'+costTxt+'</div></div>';
+  }).join('');
 }
 
 </script>
