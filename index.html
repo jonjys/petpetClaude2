@@ -1465,6 +1465,53 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DRAGON HATCHERY ══ */
+.drgn-panel{position:fixed;inset:0;background:#050102;z-index:978;display:none;flex-direction:column;overflow:hidden}
+.drgn-panel.open{display:flex}
+.drgn-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#180308,#050102)}
+.drgn-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4400,#ff8800,#ffcc00,#ff4400);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:drgnShimmer 3s linear infinite}
+@keyframes drgnShimmer{0%{background-position:0%}100%{background-position:200%}}
+.drgn-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Bonus summary */
+.drgn-bonuses{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.drgn-bonus-chip{background:rgba(255,100,0,.08);border:1px solid rgba(255,100,0,.25);border-radius:10px;padding:5px 10px;font:700 8px var(--ff-head);color:rgba(255,180,80,.8)}
+/* Dragon slots */
+.drgn-slots{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.drgn-slot{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,100,0,.12);border-radius:20px;padding:14px}
+.drgn-slot.hatched{background:rgba(255,100,0,.04);border-color:rgba(255,100,0,.3)}
+.drgn-slot.incubating{border-color:rgba(255,200,0,.3)}
+.drgn-slot-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.drgn-egg-emoji{font-size:40px;animation:drgnPulse 2s ease-in-out infinite}
+@keyframes drgnPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.drgn-adult-emoji{font-size:40px;filter:drop-shadow(0 0 12px rgba(255,100,0,.5));animation:drgnFloat 3s ease-in-out infinite}
+@keyframes drgnFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.drgn-info{flex:1}
+.drgn-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.drgn-type{font:600 8px var(--ff-body);color:rgba(255,150,50,.6);margin-bottom:3px}
+.drgn-eff{font:700 9px var(--ff-head);color:rgba(255,200,100,.8);margin-bottom:3px}
+.drgn-timer{font:700 10px var(--ff-head);color:#ffcc00}
+/* Level bar */
+.drgn-lv-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.drgn-lv-label{font:700 8px var(--ff-head);color:rgba(255,255,255,.4);width:30px}
+.drgn-lv-bar{flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden}
+.drgn-lv-fill{height:100%;background:linear-gradient(90deg,#ff4400,#ffcc00);border-radius:4px;transition:width .3s}
+.drgn-lv-val{font:700 8px var(--ff-head);color:rgba(255,180,50,.8);width:30px;text-align:right}
+/* Buttons */
+.drgn-btn-row{display:flex;gap:6px;flex-wrap:wrap}
+.drgn-btn{flex:1;border:none;border-radius:12px;padding:9px 8px;font:800 9px var(--ff-head);cursor:pointer;min-width:80px}
+.drgn-btn-hatch{background:linear-gradient(135deg,#ff6600,#ffaa00);color:#000}
+.drgn-btn-feed{background:rgba(80,255,150,.15);border:1px solid rgba(80,255,150,.3);color:#44ff88}
+.drgn-btn-pet{background:rgba(255,200,50,.1);border:1px solid rgba(255,200,50,.25);color:#ffcc44}
+.drgn-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)}
+/* Shop */
+.drgn-shop{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
+.drgn-egg-buy{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,100,0,.15);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.drgn-egg-buy:active{transform:scale(.97)}
+.drgn-egg-emoji2{font-size:24px;display:block;margin-bottom:4px}
+.drgn-egg-name{font:700 8px var(--ff-head);color:#fff;margin-bottom:2px}
+.drgn-egg-cost{font:600 7px var(--ff-body);color:rgba(255,200,50,.7)}
+
 /* ══ TAVERN TALES ══ */
 .tavn-panel{position:fixed;inset:0;background:#04020a;z-index:977;display:none;flex-direction:column;overflow:hidden}
 .tavn-panel.open{display:flex}
@@ -9037,6 +9084,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openShr()"><div class="ddr-i">🔮</div>Skrin</div>
           <div class="ddr" onclick="cM();openEvo()"><div class="ddr-i">🌟</div>Evolution</div>
           <div class="ddr" onclick="cM();openTavn()"><div class="ddr-i">🍺</div>Berättelser</div>
+          <div class="ddr" onclick="cM();openDrgn()"><div class="ddr-i">🐉</div>Drakar</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10272,6 +10320,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DRAGON HATCHERY -->
+<div class="drgn-panel" id="drgnPanel">
+  <div class="drgn-header">
+    <div class="drgn-title">🐉 DRAKKLÄCKERIET</div>
+    <button class="close-btn" onclick="closeDrgn()">✕</button>
+  </div>
+  <div class="drgn-scroll">
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px">AKTIVA DRAKBONUSAR</div>
+    <div class="drgn-bonuses" id="drgnBonuses"></div>
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px">DINA DRAKAR (3 PLATSER)</div>
+    <div class="drgn-slots" id="drgnSlots"></div>
+    <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px">ÄGG-BUTIK</div>
+    <div class="drgn-shop" id="drgnShop"></div>
+  </div>
+</div>
 
 <!-- TAVERN TALES -->
 <div class="tavn-panel" id="tavnPanel">
@@ -39901,6 +39966,184 @@ function _renderTavn(){
         }).join('')+'</div>')
       +'</div>';
   }).join('');
+}
+
+
+// DRAGON HATCHERY
+const DRGN_KEY = 'k0509_drgn';
+const DRGN_TYPES = {
+  fire: {name:'Elddraken',emoji:'🔥',adultEmoji:'🐲',color:'rgba(255,100,0,.5)',eff:'Dungeon ATK',effDesc:'+10% Dungeon-skada/lv',hatchMs:30*60*1000,
+    feedLevels:[{herb:3},{crystal:2,herb:2},{gem:2,crystal:2},{star:3,gem:2}]},
+  water:{name:'Vattendraken',emoji:'💧',adultEmoji:'🦕',color:'rgba(50,150,255,.5)',eff:'Fiskechans',effDesc:'+15% Fiskechans/lv',hatchMs:30*60*1000,
+    feedLevels:[{herb:3},{water:3,herb:2},{gem:2,water:3},{moon:3,gem:2}]},
+  ice:  {name:'Isdraken',emoji:'❄️',adultEmoji:'🦎',color:'rgba(150,220,255,.5)',eff:'Grävlycka',effDesc:'+10% Relik-lycka/lv',hatchMs:30*60*1000,
+    feedLevels:[{crystal:3},{crystal:3,feather:2},{gem:2,crystal:3},{star:2,gem:3}]},
+  thunder:{name:'Åskdraken',emoji:'⚡',adultEmoji:'🐊',color:'rgba(255,220,50,.5)',eff:'KC-bonus',effDesc:'+5% KC-inkomst/lv',hatchMs:60*60*1000,
+    feedLevels:[{gem:2,feather:2},{star:2,gem:2},{star:3,light:2},{star:4,light:3}]},
+  nature:{name:'Naturdraken',emoji:'🌿',adultEmoji:'🦖',color:'rgba(80,220,80,.5)',eff:'Skördeintäkt',effDesc:'+20% Skördeintäkt/lv',hatchMs:2*60*60*1000,
+    feedLevels:[{herb:5,moon:1},{herb:5,moon:2,feather:2},{gem:3,herb:4,moon:2},{star:3,gem:3,moon:3}]},
+};
+const DRGN_EGGS = [
+  {id:'common',name:'Vanligt Ägg',emoji:'🥚',types:['fire','water','ice'],cost:500,kc:false},
+  {id:'rare',name:'Sällsynt Ägg',emoji:'🪺',types:['thunder','nature'],cost:1500,kc:false},
+  {id:'premium',name:'Premium Ägg',emoji:'✨',types:['fire','water','ice','thunder','nature'],cost:3,kc:true},
+];
+
+function _drgnData(){try{return JSON.parse(localStorage.getItem(DRGN_KEY)||'null');}catch(e){return null;}}
+function _drgnSave(d){localStorage.setItem(DRGN_KEY,JSON.stringify(d));}
+function _drgnGetData(){
+  var d=_drgnData();
+  if(!d) d={slots:[null,null,null],petted:{}};
+  while(d.slots.length<3) d.slots.push(null);
+  return d;
+}
+
+function drgnGetBonus(type){
+  var d=_drgnGetData(),now=Date.now(),total=0;
+  d.slots.forEach(function(slot){
+    if(!slot||slot.state!=='hatched') return;
+    var dt=DRGN_TYPES[slot.typeId];
+    if(!dt) return;
+    if(dt.eff===type) total+=slot.level||1;
+  });
+  return total;
+}
+
+function drgnBuyEgg(eggId,slotIdx){
+  var egg=DRGN_EGGS.find(function(e){return e.id===eggId;});
+  if(!egg) return;
+  var d=_drgnGetData();
+  if(d.slots[slotIdx]){showFloatBubble('Platsen är redan upptagen!','info');return;}
+  if(egg.kc){
+    if((G.kc||0)<egg.cost){showFloatBubble('Behöver '+egg.cost+' KC!','debuff');return;}
+    G.kc-=egg.cost;save();
+  } else {
+    if((G.coins||0)<egg.cost){showFloatBubble('Behöver '+egg.cost+'🪙!','debuff');return;}
+    G.coins-=egg.cost;save();
+  }
+  var typeId=egg.types[Math.floor(Math.random()*egg.types.length)];
+  var dt=DRGN_TYPES[typeId];
+  d.slots[slotIdx]={typeId:typeId,state:'incubating',hatchAt:Date.now()+dt.hatchMs,level:0};
+  _drgnSave(d);
+  showFloatBubble('🥚 Ägg placerat! Kläcks om '+(dt.hatchMs/60000)+'min','buff');
+  _renderDrgn();
+}
+
+function drgnHatch(slotIdx){
+  var d=_drgnGetData();
+  var slot=d.slots[slotIdx];
+  if(!slot||slot.state!=='incubating') return;
+  if(Date.now()<slot.hatchAt){showFloatBubble('Inte kläckt ännu! Vänta lite till...','info');return;}
+  slot.state='hatched';
+  slot.level=1;
+  _drgnSave(d);
+  var dt=DRGN_TYPES[slot.typeId];
+  showFloatBubble(dt.adultEmoji+' '+dt.name+' kläcktes! Nivå 1 — '+dt.effDesc,'buff');
+  checkAchievements();
+  _renderDrgn();
+}
+
+function drgnFeed(slotIdx){
+  var d=_drgnGetData();
+  var slot=d.slots[slotIdx];
+  if(!slot||slot.state!=='hatched') return;
+  if((slot.level||1)>=5){showFloatBubble('Max nivå nådd!','info');return;}
+  var dt=DRGN_TYPES[slot.typeId];
+  var feedReq=dt.feedLevels[(slot.level||1)-1];
+  var alchD=null;try{alchD=JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){}
+  if(!alchD) alchD={ings:{},potions:{},brews:0,labLevel:0};
+  if(!alchD.ings) alchD.ings={};
+  var ok=true;
+  Object.keys(feedReq).forEach(function(k){if((alchD.ings[k]||0)<feedReq[k]) ok=false;});
+  if(!ok){
+    var needs=Object.keys(feedReq).map(function(k){return k+'×'+feedReq[k];}).join(', ');
+    showFloatBubble('Behöver: '+needs,'debuff');return;
+  }
+  Object.keys(feedReq).forEach(function(k){alchD.ings[k]-=feedReq[k];});
+  localStorage.setItem(ALCH_KEY,JSON.stringify(alchD));
+  slot.level=(slot.level||1)+1;
+  _drgnSave(d);
+  showFloatBubble(dt.adultEmoji+' Matad! Nivå '+slot.level+' — '+dt.eff+' bonus ökar','buff');
+  _renderDrgn();
+}
+
+function drgnPet(slotIdx){
+  var d=_drgnGetData();
+  var slot=d.slots[slotIdx];
+  if(!slot||slot.state!=='hatched') return;
+  var today=getTodayKey();
+  var petKey='pet'+slotIdx;
+  if(d.petted[petKey]===today){showFloatBubble('Redan klappad idag! Kom tillbaka imorgon.','info');return;}
+  d.petted[petKey]=today;
+  _drgnSave(d);
+  gainCoins(50*(slot.level||1));
+  showFloatBubble('💕 Draken är glad! +'+50*(slot.level||1)+'🪙','buff');
+  _renderDrgn();
+}
+
+function openDrgn(){$('drgnPanel').classList.add('open');_renderDrgn();}
+function closeDrgn(){$('drgnPanel').classList.remove('open');}
+
+function _drgnFmtTime(ms){
+  if(ms<=0) return 'Klar!';
+  var h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000);
+  if(h>0) return h+'t '+m+'m';
+  if(m>0) return m+'m '+s+'s';
+  return s+'s';
+}
+
+function _renderDrgn(){
+  var d=_drgnGetData(),now=Date.now(),today=getTodayKey();
+  // Bonuses
+  var bon=$('drgnBonuses');
+  if(bon){
+    var chips='';
+    var bonusTypes={'Dungeon ATK':0,'Fiskechans':0,'Grävlycka':0,'KC-bonus':0,'Skördeintäkt':0};
+    d.slots.forEach(function(slot){
+      if(!slot||slot.state!=='hatched') return;
+      var dt=DRGN_TYPES[slot.typeId];
+      if(dt&&bonusTypes[dt.eff]!==undefined) bonusTypes[dt.eff]+=(slot.level||1);
+    });
+    Object.keys(bonusTypes).forEach(function(k){
+      if(bonusTypes[k]>0){
+        var dt2=Object.values(DRGN_TYPES).find(function(t){return t.eff===k;});
+        chips+='<div class="drgn-bonus-chip">'+k+': '+(dt2?dt2.effDesc.replace('/lv',' ×'+bonusTypes[k]):'')+'</div>';
+      }
+    });
+    bon.innerHTML=chips||'<div style="font:600 8px var(--ff-body);color:rgba(255,255,255,.2)">Inga aktiva drakbonusar ännu</div>';
+  }
+  // Slots
+  var slots=$('drgnSlots');
+  if(slots){
+    slots.innerHTML=d.slots.map(function(slot,i){
+      if(!slot){
+        return '<div class="drgn-slot"><div class="drgn-slot-top"><span class="drgn-egg-emoji">🪹</span><div class="drgn-info"><div class="drgn-name">Tom Plats '+(i+1)+'</div><div class="drgn-type">Köp ett ägg nedan</div></div></div></div>';
+      }
+      if(slot.state==='incubating'){
+        var dt=DRGN_TYPES[slot.typeId];
+        var remaining=slot.hatchAt-now;
+        var ready=remaining<=0;
+        return '<div class="drgn-slot incubating"><div class="drgn-slot-top"><span class="drgn-egg-emoji">🥚</span><div class="drgn-info"><div class="drgn-name">'+(dt?dt.name:'Ägg')+'</div><div class="drgn-type">Kläcks...</div><div class="drgn-timer">'+(ready?'✅ Redo att kläckas!':_drgnFmtTime(remaining)+' kvar')+'</div></div></div><div class="drgn-btn-row"><button class="drgn-btn drgn-btn-hatch" onclick="drgnHatch('+i+')" '+(ready?'':'disabled')+'>'+(ready?'🥚 Kläck Ägget!':'⏳ Kläcks...')+'</button></div></div>';
+      }
+      // hatched
+      var dt=DRGN_TYPES[slot.typeId];
+      var lv=slot.level||1;
+      var fillPct=(lv/5)*100;
+      var feedReq=lv<5?dt.feedLevels[lv-1]:null;
+      var feedDesc=feedReq?Object.keys(feedReq).map(function(k){return k+'×'+feedReq[k];}).join('+'):'MAX';
+      var pettedToday=(d.petted||{})['pet'+i]===today;
+      return '<div class="drgn-slot hatched"><div class="drgn-slot-top"><span class="drgn-adult-emoji">'+dt.adultEmoji+'</span><div class="drgn-info"><div class="drgn-name">'+dt.name+'</div><div class="drgn-type">'+dt.eff+'</div><div class="drgn-eff">'+dt.effDesc+' × '+lv+'</div></div></div><div class="drgn-lv-row"><span class="drgn-lv-label">Lv '+lv+'</span><div class="drgn-lv-bar"><div class="drgn-lv-fill" style="width:'+fillPct+'%"></div></div><span class="drgn-lv-val">'+lv+'/5</span></div><div class="drgn-btn-row"><button class="drgn-btn drgn-btn-feed" onclick="drgnFeed('+i+')" '+(lv>=5?'disabled':'')+'>'+(lv>=5?'MAX Nivå':'🍖 Mata ('+feedDesc+')')+'</button><button class="drgn-btn drgn-btn-pet" onclick="drgnPet('+i+')" '+(pettedToday?'disabled':'')+'>'+( pettedToday?'✅ Klappad':'💕 Klappa')+'</button></div></div>';
+    }).join('');
+  }
+  // Shop
+  var shop=$('drgnShop');
+  if(shop){
+    shop.innerHTML=DRGN_EGGS.map(function(egg){
+      var emptySlot=d.slots.findIndex(function(s){return !s;});
+      var canBuy=emptySlot>=0&&(egg.kc?(G.kc||0)>=egg.cost:(G.coins||0)>=egg.cost);
+      return '<div class="drgn-egg-buy" onclick="'+(canBuy&&emptySlot>=0?'drgnBuyEgg(\''+egg.id+'\','+emptySlot+')':'')+'\" style="opacity:'+(canBuy?'1':'.4')+'"><span class="drgn-egg-emoji2">'+egg.emoji+'</span><div class="drgn-egg-name">'+egg.name+'</div><div class="drgn-egg-cost">'+egg.cost+(egg.kc?' KC':'🪙')+'</div></div>';
+    }).join('');
+  }
 }
 
 </script>
