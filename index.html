@@ -1471,6 +1471,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MONSTER ARENA ══ */
+.arna-panel{position:fixed;inset:0;background:#0a0004;z-index:984;display:none;flex-direction:column;overflow:hidden}
+.arna-panel.open{display:flex}
+.arna-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#1a0008,#0a0004)}
+.arna-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff2244,#ff8844,#ff2244);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:arnaShim 2.5s linear infinite}
+@keyframes arnaShim{0%{background-position:0%}100%{background-position:200%}}
+.arna-scroll{flex:1;overflow-y:auto;padding:10px 12px 24px}
+.arna-stats-row{display:flex;gap:6px;margin-bottom:10px}
+.arna-stat{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:7px;text-align:center}
+.arna-stat-v{font:900 15px var(--ff-head);color:#ff4455}
+.arna-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.35);margin-top:1px}
+/* Battle field */
+.arna-field{background:rgba(255,0,50,.03);border:1.5px solid rgba(255,0,50,.12);border-radius:18px;padding:14px 12px;margin-bottom:10px}
+.arna-wave-badge{font:900 10px var(--ff-head);color:#ff8844;text-align:center;margin-bottom:10px;letter-spacing:1px}
+.arna-combatant{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.arna-combatant:last-child{margin-bottom:0}
+.arna-combatant-emoji{font-size:36px;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(255,50,50,.4))}
+.arna-combatant-info{flex:1}
+.arna-combatant-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:4px}
+.arna-hp-bar{height:10px;background:rgba(255,255,255,.07);border-radius:5px;overflow:hidden}
+.arna-hp-fill{height:100%;border-radius:5px;transition:width .3s}
+.arna-hp-fill.player{background:linear-gradient(90deg,#00ff88,#44ffaa)}
+.arna-hp-fill.mob{background:linear-gradient(90deg,#ff4455,#ff8844)}
+.arna-hp-txt{font:700 8px var(--ff-body);color:rgba(255,255,255,.4);margin-top:2px}
+.arna-vs{font:900 16px var(--ff-head);color:rgba(255,255,255,.2);text-align:center;margin:4px 0}
+/* Battle log */
+.arna-log{background:rgba(0,0,0,.3);border-radius:10px;padding:8px 10px;min-height:52px;margin-bottom:10px;font:600 9px var(--ff-body);color:rgba(255,255,255,.5);line-height:1.7}
+/* Buttons */
+.arna-btns{display:flex;gap:8px;margin-bottom:10px}
+.arna-atk-btn{flex:2;background:linear-gradient(135deg,#aa0022,#ff2244);border:none;border-radius:14px;padding:14px;font:900 15px var(--ff-head);color:#fff;cursor:pointer}
+.arna-atk-btn:active{transform:scale(.95)}
+.arna-atk-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.07)}
+.arna-auto-btn{flex:1;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.03);border-radius:14px;padding:14px;font:800 11px var(--ff-head);color:rgba(255,255,255,.6);cursor:pointer}
+.arna-auto-btn.on{background:rgba(255,100,100,.15);border-color:rgba(255,100,100,.4);color:#ff8888}
+.arna-start-btn{width:100%;background:linear-gradient(135deg,#660011,#cc0033);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px}
+.arna-start-btn:disabled{opacity:.35;cursor:default;background:rgba(255,255,255,.07)}
+.arna-loot{text-align:center;font:800 12px var(--ff-head);color:#ffcc00;min-height:20px;margin-bottom:6px}
+.arna-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ DAILY CHALLENGES ══ */
 .chal-panel{position:fixed;inset:0;background:#040012;z-index:983;display:none;flex-direction:column;overflow:hidden}
 .chal-panel.open{display:flex}
@@ -9238,6 +9278,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openEnch()"><div class="ddr-i">✨</div>Smide</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkartan</div>
           <div class="ddr" onclick="cM();openChal()"><div class="ddr-i">🏆</div>Utmaningar</div>
+          <div class="ddr" onclick="cM();openArna()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10479,6 +10520,51 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- MONSTER ARENA -->
+<div class="arna-panel" id="arnaPanel">
+  <div class="arna-header">
+    <div class="arna-title">⚔️ MONSTER ARENA</div>
+    <button class="close-btn" onclick="closeArna()">✕</button>
+  </div>
+  <div class="arna-scroll">
+    <div class="arna-stats-row">
+      <div class="arna-stat"><div class="arna-stat-v" id="arnaRuns">5</div><div class="arna-stat-l">Lopp kvar idag</div></div>
+      <div class="arna-stat"><div class="arna-stat-v" id="arnaAtk">0</div><div class="arna-stat-l">Ditt ATK</div></div>
+      <div class="arna-stat"><div class="arna-stat-v" id="arnaMaxHp">0</div><div class="arna-stat-l">Ditt MAX HP</div></div>
+      <div class="arna-stat"><div class="arna-stat-v" id="arnaBest">0</div><div class="arna-stat-l">Bästa våg</div></div>
+    </div>
+    <div class="arna-field">
+      <div class="arna-wave-badge" id="arnaWaveLbl">VÄLJ SVÅRIGHETSGRAD</div>
+      <div class="arna-combatant" id="arnaPlayerRow">
+        <div class="arna-combatant-emoji" id="arnaPlayerEmoji">🐣</div>
+        <div class="arna-combatant-info">
+          <div class="arna-combatant-name">Ditt husdjur</div>
+          <div class="arna-hp-bar"><div class="arna-hp-fill player" id="arnaPlayerHpFill" style="width:100%"></div></div>
+          <div class="arna-hp-txt" id="arnaPlayerHpTxt">HP: —</div>
+        </div>
+      </div>
+      <div class="arna-vs">VS</div>
+      <div class="arna-combatant" id="arnaMobRow">
+        <div class="arna-combatant-emoji" id="arnaMobEmoji">👾</div>
+        <div class="arna-combatant-info">
+          <div class="arna-combatant-name" id="arnaMobName">Monster</div>
+          <div class="arna-hp-bar"><div class="arna-hp-fill mob" id="arnaMobHpFill" style="width:100%"></div></div>
+          <div class="arna-hp-txt" id="arnaMobHpTxt">HP: —</div>
+        </div>
+      </div>
+    </div>
+    <div class="arna-log" id="arnaLog">Starta ett lopp för att strida!</div>
+    <div class="arna-loot" id="arnaLoot"></div>
+    <div class="arna-btns">
+      <button class="arna-atk-btn" id="arnaAtkBtn" onclick="arnaAttack()" disabled>⚔️ ATTACK</button>
+      <button class="arna-auto-btn" id="arnaAutoBtn" onclick="arnaToggleAuto()">⚡ AUTO</button>
+    </div>
+    <button class="arna-start-btn" id="arnaStartBtn" onclick="arnaStart()">▶ Starta Strid</button>
+    <div class="arna-info">STR=ATK, END=HP, AGI=Dodge, LCK=Krit! Våg 10 = Boss +KC!</div>
+  </div>
+</div>
 
 <!-- DAILY CHALLENGES -->
 <div class="chal-panel" id="chalPanel">
@@ -41061,6 +41147,157 @@ function _renderChal(d){
     ab.disabled=!allDone||d.allClaimed;
     ab.textContent=d.allClaimed?'✓ Jackpot hämtad!':allDone?'🌟 Hämta JACKPOT!':'Klar alla 3 först';
   }
+}
+
+
+// MONSTER ARENA
+const ARNA_KEY = 'k0509_arna';
+const ARNA_MAX_RUNS = 5;
+const ARNA_MOBS = [
+  {name:'Slime',    emoji:'🟢',hp:1,atk:1},
+  {name:'Goblin',   emoji:'👺',hp:1.5,atk:1.3},
+  {name:'Wolf',     emoji:'🐺',hp:2,atk:1.6},
+  {name:'Orc',      emoji:'👹',hp:2.5,atk:2},
+  {name:'Troll',    emoji:'🧌',hp:3,atk:2.5},
+  {name:'Golem',    emoji:'🗿',hp:4,atk:3},
+  {name:'Vampire',  emoji:'🧛',hp:4.5,atk:3.5},
+  {name:'Dragon',   emoji:'🐲',hp:5.5,atk:4},
+  {name:'Titan',    emoji:'💀',hp:7,atk:5},
+  {name:'BOSS',     emoji:'👿',hp:10,atk:7},
+];
+var _arnaS={active:false,wave:0,pHp:0,pMax:0,mHp:0,mMax:0,log:[],auto:false,iv:null,earned:0,earnedKc:0};
+
+function _arnaData(){try{return JSON.parse(localStorage.getItem(ARNA_KEY)||'null');}catch(e){return null;}}
+function _arnaSave(d){localStorage.setItem(ARNA_KEY,JSON.stringify(d));}
+function _arnaGetData(){
+  var d=_arnaData(); var t=getTodayKey();
+  if(!d||d.day!==t) d={day:t,runs:0,best:0};
+  return d;
+}
+
+function _arnaPlayerAtk(){
+  var base=(G.str||0)*3+20;
+  var drgnB=typeof drgnGetBonus==='function'?drgnGetBonus('atk'):0;
+  return Math.floor(base*(1+drgnB/100));
+}
+function _arnaPlayerHp(){return (G.end||0)*10+100;}
+function _arnaMobStats(wave){
+  var m=ARNA_MOBS[Math.min(wave-1,9)];
+  var baseHp=60+wave*50; var baseAtk=8+wave*7;
+  return {hp:Math.floor(baseHp*m.hp),atk:Math.floor(baseAtk*m.atk),name:m.name,emoji:m.emoji};
+}
+
+function arnaStart(){
+  var d=_arnaGetData();
+  if(d.runs>=ARNA_MAX_RUNS){showFloatBubble('Max '+ARNA_MAX_RUNS+' lopp per dag!','debuff');return;}
+  d.runs++;_arnaSave(d);
+  _arnaS={active:true,wave:1,auto:false,iv:null,log:[],earned:0,earnedKc:0};
+  _arnaS.pMax=_arnaPlayerHp(); _arnaS.pHp=_arnaS.pMax;
+  var mob=_arnaMobStats(1);
+  _arnaS.mMax=mob.hp; _arnaS.mHp=mob.hp; _arnaS.mob=mob;
+  _arnaLog('⚔️ Lopp startat! Våg 1 — '+mob.name+' ('+mob.hp+' HP)');
+  var ab=$('arnaAutoBtn'); if(ab) ab.classList.remove('on');
+  _renderArna();
+}
+
+function arnaAttack(){
+  if(!_arnaS.active) return;
+  var pAtk=_arnaPlayerAtk();
+  // Crit
+  var crit=Math.random()<Math.min((G.lck||0)*0.003,0.25);
+  if(crit) pAtk=Math.floor(pAtk*2);
+  _arnaS.mHp=Math.max(_arnaS.mHp-pAtk,0);
+  _arnaLog((crit?'💥 KRIT! ':'')+'Du träffar '+_arnaS.mob.name+' för '+pAtk+' skada!');
+  if(_arnaS.mHp<=0){_arnaClearWave();return;}
+  // Mob counter-attack
+  var mAtk=_arnaS.mob.atk;
+  // Dodge
+  var dodge=Math.random()<Math.min((G.agi||0)*0.004,0.30);
+  if(dodge){_arnaLog('💨 Du undviker attacken!');}
+  else{
+    _arnaS.pHp=Math.max(_arnaS.pHp-mAtk,0);
+    _arnaLog(_arnaS.mob.emoji+' '+_arnaS.mob.name+' träffar dig för '+mAtk+'!');
+  }
+  if(_arnaS.pHp<=0){_arnaDefeat();return;}
+  _renderArna();
+}
+
+function _arnaClearWave(){
+  var wave=_arnaS.wave;
+  var coinGain=wave*50+(wave===10?500:0);
+  var kcGain=wave===10?3:0;
+  gainCoins(coinGain);
+  if(kcGain>0) gainKC(kcGain);
+  _arnaS.earned+=coinGain; _arnaS.earnedKc+=kcGain;
+  misTrack('fight',1);
+  _arnaLog('✅ Våg '+wave+' klar! +'+coinGain+'🪙'+(kcGain>0?' +'+kcGain+'KC':''));
+  if(wave>=10){_arnaVictory();return;}
+  _arnaS.wave++;
+  var mob=_arnaMobStats(_arnaS.wave);
+  _arnaS.mMax=mob.hp;_arnaS.mHp=mob.hp;_arnaS.mob=mob;
+  _arnaLog('👾 Våg '+_arnaS.wave+' — '+mob.name+' dyker upp!');
+  _renderArna();
+}
+
+function _arnaVictory(){
+  _arnaS.active=false;
+  clearInterval(_arnaS.iv);_arnaS.iv=null;_arnaS.auto=false;
+  var d=_arnaGetData();
+  if(_arnaS.wave>d.best){d.best=_arnaS.wave;_arnaSave(d);}
+  _arnaLog('🏆 SEGER! Alla 10 vågor besegrade! +3KC!');
+  var lt=$('arnaLoot');if(lt) lt.textContent='🏆 SEGER! +'+_arnaS.earned+'🪙 +'+_arnaS.earnedKc+'KC intjänat!';
+  showFloatBubble('🏆 Arena seger! +3KC!','buff');
+  checkAchievements();
+  _renderArna();
+}
+
+function _arnaDefeat(){
+  _arnaS.active=false;
+  clearInterval(_arnaS.iv);_arnaS.iv=null;_arnaS.auto=false;
+  var d=_arnaGetData();
+  if(_arnaS.wave>d.best){d.best=_arnaS.wave;_arnaSave(d);}
+  _arnaLog('💀 Du förlorade på våg '+_arnaS.wave+'... Intjänat: '+_arnaS.earned+'🪙');
+  var lt=$('arnaLoot');if(lt) lt.textContent='💀 Besegrad på våg '+_arnaS.wave+'. +'+_arnaS.earned+'🪙 intjänat.';
+  _renderArna();
+}
+
+function _arnaLog(msg){
+  _arnaS.log.push(msg);
+  if(_arnaS.log.length>4) _arnaS.log.shift();
+  var el=$('arnaLog');if(el) el.innerHTML=_arnaS.log.map(function(l){return '<div>'+l+'</div>';}).join('');
+}
+
+function arnaToggleAuto(){
+  if(!_arnaS.active) return;
+  _arnaS.auto=!_arnaS.auto;
+  var ab=$('arnaAutoBtn');if(ab){ab.classList.toggle('on',_arnaS.auto);ab.textContent=_arnaS.auto?'⚡ AUTO ON':'⚡ AUTO';}
+  if(_arnaS.auto&&!_arnaS.iv){_arnaS.iv=setInterval(function(){if(_arnaS.active&&_arnaS.auto)arnaAttack();else{clearInterval(_arnaS.iv);_arnaS.iv=null;}},700);}
+  else if(!_arnaS.auto){clearInterval(_arnaS.iv);_arnaS.iv=null;}
+}
+
+function openArna(){$('arnaPanel').classList.add('open');_renderArna();}
+function closeArna(){clearInterval(_arnaS.iv);_arnaS.iv=null;$('arnaPanel').classList.remove('open');}
+
+function _renderArna(){
+  var d=_arnaGetData();
+  var ar=$('arnaRuns');if(ar) ar.textContent=Math.max(ARNA_MAX_RUNS-d.runs,0);
+  var aa=$('arnaAtk');if(aa) aa.textContent=_arnaPlayerAtk();
+  var ah=$('arnaMaxHp');if(ah) ah.textContent=_arnaPlayerHp();
+  var ab2=$('arnaBest');if(ab2) ab2.textContent=d.best;
+  var pe=$('arnaPlayerEmoji');if(pe) pe.textContent=typeof evoGetEmoji==='function'?evoGetEmoji():'🐣';
+  var wl=$('arnaWaveLbl');if(wl) wl.textContent=_arnaS.active?'VÅNING '+_arnaS.wave+' AV 10':(_arnaS.wave>0?'LOPP SLUT':'VÄLJ STARTA');
+  var phf=$('arnaPlayerHpFill'),pht=$('arnaPlayerHpTxt');
+  if(phf) phf.style.width=(_arnaS.pMax>0?Math.round(_arnaS.pHp/_arnaS.pMax*100):100)+'%';
+  if(pht) pht.textContent='HP: '+_arnaS.pHp+'/'+_arnaS.pMax;
+  var mob=_arnaS.mob||{emoji:'👾',name:'???',hp:0};
+  var me=$('arnaMobEmoji'),mn=$('arnaMobName');
+  if(me) me.textContent=mob.emoji;if(mn) mn.textContent=mob.name;
+  var mhf=$('arnaMobHpFill'),mht=$('arnaMobHpTxt');
+  if(mhf) mhf.style.width=(_arnaS.mMax>0?Math.round(_arnaS.mHp/_arnaS.mMax*100):100)+'%';
+  if(mht) mht.textContent='HP: '+_arnaS.mHp+'/'+_arnaS.mMax;
+  var atkBtn=$('arnaAtkBtn');if(atkBtn) atkBtn.disabled=!_arnaS.active;
+  var stBtn=$('arnaStartBtn');
+  if(stBtn){stBtn.disabled=_arnaS.active||d.runs>=ARNA_MAX_RUNS;stBtn.textContent=d.runs>=ARNA_MAX_RUNS?'✋ Max lopp idag':'▶ Starta Strid';}
 }
 
 </script>
