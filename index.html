@@ -1454,6 +1454,56 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ VOID RIFT ══ */
+.void-panel{position:fixed;inset:0;background:#020003;z-index:967;display:none;flex-direction:column;overflow:hidden}
+.void-panel.open{display:flex}
+.void-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0018,#020003)}
+.void-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc00ff,#ff0066,#ff6600);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.void-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+/* Boss arena */
+.void-arena{background:radial-gradient(ellipse at 50% 40%,rgba(80,0,120,.3),#020003);border:2px solid rgba(150,0,200,.25);border-radius:22px;padding:20px 16px;margin-bottom:14px;text-align:center;position:relative;min-height:200px;overflow:hidden}
+.void-boss{font-size:72px;display:block;filter:drop-shadow(0 0 24px rgba(180,0,255,.7));animation:voidBoss 1.5s ease-in-out infinite}
+@keyframes voidBoss{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.05) translateY(-6px)}}
+.void-boss.hurt{animation:voidHurt .3s ease-out}
+@keyframes voidHurt{0%,100%{transform:scale(1)}50%{transform:scale(.9)}}
+.void-boss-name{font:900 16px var(--ff-head);color:rgba(200,100,255,.9);margin-top:6px;margin-bottom:4px}
+.void-boss-phase{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:10px}
+/* HP bar */
+.void-hp-bar{background:rgba(255,255,255,.06);border-radius:6px;height:10px;margin-bottom:6px;overflow:hidden;border:1px solid rgba(180,0,255,.2)}
+.void-hp-fill{height:100%;background:linear-gradient(90deg,#cc0044,#ff0066);border-radius:6px;transition:width .5s}
+.void-hp-text{font:700 11px var(--ff-head);color:rgba(255,255,255,.5);margin-bottom:12px}
+/* Attack buttons */
+.void-atks{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.void-atk-btn{background:rgba(150,0,200,.1);border:1.5px solid rgba(150,0,200,.25);border-radius:14px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .15s}
+.void-atk-btn:active{transform:scale(.95)}
+.void-atk-btn.sel{background:rgba(150,0,200,.2);border-color:rgba(200,0,255,.5);box-shadow:0 0 10px rgba(180,0,255,.25)}
+.void-atk-btn.disabled{opacity:.35;cursor:default}
+.void-atk-emoji{font-size:22px;display:block;margin-bottom:4px}
+.void-atk-name{font:700 10px var(--ff-head);color:rgba(255,255,255,.8);margin-bottom:2px}
+.void-atk-dmg{font:600 8px var(--ff-body);color:rgba(200,150,255,.6)}
+/* Attack btn */
+.void-strike-btn{display:block;width:100%;background:linear-gradient(135deg,#660088,#cc00aa);border:none;border-radius:16px;padding:14px;font:900 15px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 0 20px rgba(180,0,200,.4);margin-bottom:12px}
+.void-strike-btn:active{transform:scale(.97)}
+.void-strike-btn:disabled{opacity:.4;cursor:default}
+/* Battle log */
+.void-log{background:rgba(0,0,0,.5);border:1px solid rgba(150,0,200,.1);border-radius:12px;padding:8px 12px;margin-bottom:12px;max-height:120px;overflow-y:auto;font:600 9px var(--ff-body);line-height:1.7;color:rgba(255,255,255,.5)}
+.void-log-dmg{color:#ff8844}
+.void-log-crit{color:#ffcc00}
+.void-log-def{color:#8888ff}
+/* Stats + charges */
+.void-charges-row{display:flex;gap:8px;margin-bottom:12px}
+.void-charge{flex:1;background:rgba(180,0,255,.06);border:1px solid rgba(180,0,255,.2);border-radius:12px;padding:8px;text-align:center}
+.void-charge-val{font:900 16px var(--ff-head);color:#cc44ff}
+.void-charge-lbl{font:500 8px var(--ff-body);color:rgba(255,255,255,.35);margin-top:2px}
+/* Weekly reward */
+.void-reward-bar{display:flex;align-items:center;gap:8px;background:rgba(255,180,0,.05);border:1px solid rgba(255,180,0,.2);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.void-reward-prog{flex:1}
+.void-reward-title{font:700 11px var(--ff-head);color:#ffaa44;margin-bottom:4px}
+.void-reward-fill-wrap{background:rgba(255,255,255,.06);border-radius:3px;height:4px;overflow:hidden}
+.void-reward-fill{height:100%;background:linear-gradient(90deg,#880044,#ff6644);border-radius:3px;transition:width .5s}
+.void-claim-btn{background:rgba(255,180,0,.15);border:1px solid rgba(255,180,0,.4);border-radius:10px;padding:7px 14px;font:800 10px var(--ff-head);color:#ffaa44;cursor:pointer;flex-shrink:0}
+
 /* ══ PET 2048 ══ */
 .p48-panel{position:fixed;inset:0;background:#06040a;z-index:966;display:none;flex-direction:column;overflow:hidden}
 .p48-panel.open{display:flex}
@@ -8623,6 +8673,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSpin()"><div class="ddr-i">🎡</div>Snurrhjul</div>
           <div class="ddr" onclick="cM();openSpir()"><div class="ddr-i">🌟</div>Andar</div>
           <div class="ddr" onclick="cM();openP48()"><div class="ddr-i">🔢</div>Pet 2048</div>
+          <div class="ddr" onclick="cM();openVoid()"><div class="ddr-i">🌀</div>Void Rift</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -9847,6 +9898,40 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- VOID RIFT -->
+<div class="void-panel" id="voidPanel">
+  <div class="void-header">
+    <div class="void-title">🌀 TOMRUMSSPRICKAN</div>
+    <button class="close-btn" onclick="closeVoid()">✕</button>
+  </div>
+  <div class="void-scroll">
+    <div class="void-charges-row">
+      <div class="void-charge"><div class="void-charge-val" id="voidCharges">5</div><div class="void-charge-lbl">Attacker kvar</div></div>
+      <div class="void-charge"><div class="void-charge-val" id="voidLevel">1</div><div class="void-charge-lbl">Rift-nivå</div></div>
+      <div class="void-charge"><div class="void-charge-val" id="voidCP">0</div><div class="void-charge-lbl">Din stridskraft</div></div>
+    </div>
+    <div class="void-arena">
+      <span class="void-boss" id="voidBoss">👁</span>
+      <div class="void-boss-name" id="voidBossName">Tomrumsguden Nihilus</div>
+      <div class="void-boss-phase" id="voidBossPhase">Fas 1 — Vaknar...</div>
+      <div class="void-hp-bar"><div class="void-hp-fill" id="voidHPFill" style="width:100%"></div></div>
+      <div class="void-hp-text" id="voidHPText">1,000,000 / 1,000,000 HP</div>
+    </div>
+    <div class="void-reward-bar">
+      <div class="void-reward-prog">
+        <div class="void-reward-title" id="voidRewardTitle">Veckans belöning</div>
+        <div class="void-reward-fill-wrap"><div class="void-reward-fill" id="voidRewardFill" style="width:0%"></div></div>
+        <div style="font:600 8px var(--ff-body);color:rgba(255,255,255,.3);margin-top:3px" id="voidRewardSub">0 / 1,000,000 skada gjord</div>
+      </div>
+      <button class="void-claim-btn" id="voidClaimBtn" onclick="voidClaimReward()">Hämta</button>
+    </div>
+    <div class="void-atks" id="voidAtks"></div>
+    <button class="void-strike-btn" id="voidStrikeBtn" onclick="voidAttack()">⚡ ATTACK!</button>
+    <div class="void-log" id="voidLog">Tomrumssprickan öppnar sig... Välj attacktyp och slå till!</div>
+  </div>
+</div>
 
 <!-- PET 2048 -->
 <div class="p48-panel" id="p48Panel">
@@ -37755,6 +37840,153 @@ document.addEventListener('keydown', function(e) {
   var map = {'ArrowLeft':'left','ArrowRight':'right','ArrowUp':'up','ArrowDown':'down'};
   if(map[e.key]) { e.preventDefault(); p48Move(map[e.key]); }
 });
+
+
+// VOID RIFT
+const VOID_KEY = 'k0509_void';
+const VOID_MAX_HP = 1000000;
+const VOID_ATTACKS = [
+  {id:'normal', name:'Normal Attack',  emoji:'⚔️', mult:1.0,  critChance:0.1, desc:'Standardattack'},
+  {id:'power',  name:'Power Strike',   emoji:'💥', mult:2.0,  critChance:0.05,desc:'×2 skada, låg crit'},
+  {id:'crit',   name:'Critical Slash', emoji:'⚡', mult:0.8,  critChance:0.5, desc:'Hög crit-chans'},
+  {id:'magic',  name:'Magic Burst',    emoji:'🔮', mult:1.5,  critChance:0.2, desc:'×1.5 INT-baserad'},
+  {id:'spirit', name:'Spirit Call',    emoji:'🌟', mult:3.0,  critChance:0.15,desc:'×3 med andbuff'},
+];
+var _voidSelAtk=0;
+
+function _voidData(){try{return JSON.parse(localStorage.getItem(VOID_KEY)||'null');}catch(e){return null;}}
+function _voidSave(d){localStorage.setItem(VOID_KEY,JSON.stringify(d));}
+function _voidGetData(){var d=_voidData(); if(!d) d={weekKey:'',weekDmg:0,weekClaimed:false,dayKey:'',dayCharges:5,bossHP:VOID_MAX_HP,level:1,log:[]}; return d;}
+
+function _voidWeekKey(){var d=new Date();var dow=d.getDay();var start=new Date(d.getFullYear(),d.getMonth(),d.getDate()-dow);return start.getFullYear()+'-'+(start.getMonth()+1)+'-'+start.getDate();}
+
+function openVoid(){$('voidPanel').classList.add('open');_voidSelAtk=0;_renderVoid();}
+function closeVoid(){$('voidPanel').classList.remove('open');}
+
+function voidSelAtk(idx){_voidSelAtk=idx;_renderVoidAtks();}
+
+function _voidCalcCP(){
+  var base=(G.str||0)+(G.agi||0)+(G.int||0)+(G.end||0)+(G.lck||0)+((G.lv||1)*5);
+  // Rune bonus
+  var runeD=null;try{runeD=JSON.parse(localStorage.getItem('k0509_rune')||'null');}catch(e){}
+  if(runeD&&runeD.runeStats){Object.values(runeD.runeStats).forEach(function(v){base+=v;});}
+  // Spirit bonus
+  if(typeof spirGetBonus==='function'){base+=spirGetBonus('fire')*5;}
+  // Temp buffs
+  if(G.tempBuffs&&G.tempBuffs.str>Date.now()) base+=5;
+  if(G.tempBuffs&&G.tempBuffs.firePot){base+=30;}
+  return base;
+}
+
+function voidAttack(){
+  var d=_voidGetData();
+  var tk=getTodayKey();
+  var wk=_voidWeekKey();
+  // Reset weekly
+  if(d.weekKey!==wk){d.weekKey=wk;d.weekDmg=0;d.weekClaimed=false;d.bossHP=VOID_MAX_HP;}
+  // Reset daily charges
+  if(d.dayKey!==tk){d.dayKey=tk;d.dayCharges=5;}
+  if(d.dayCharges<=0){showFloatBubble('Inga attacker kvar idag! Kom tillbaka imorgon.','info');return;}
+  d.dayCharges--;
+  var atk=VOID_ATTACKS[_voidSelAtk]||VOID_ATTACKS[0];
+  var cp=_voidCalcCP();
+  var baseDmg=Math.floor(cp*atk.mult*10*(0.8+Math.random()*0.4));
+  var isCrit=Math.random()<atk.critChance;
+  if(isCrit) baseDmg=Math.floor(baseDmg*2.5);
+  // Spirit call bonus
+  if(atk.id==='spirit'&&typeof spirGetBonus==='function'&&spirGetBonus('thunder')>0){
+    baseDmg=Math.floor(baseDmg*(1+spirGetBonus('thunder')*0.2));
+  }
+  var dmg=Math.max(100,baseDmg);
+  d.bossHP=Math.max(0,d.bossHP-dmg);
+  d.weekDmg=(d.weekDmg||0)+dmg;
+  if(!d.log) d.log=[];
+  var logMsg='<span class="void-log-'+(isCrit?'crit':'dmg')+'">'+atk.emoji+' '+atk.name+': -'+dmg.toLocaleString()+' HP'+(isCrit?' ⚡CRIT!':'')+'</span>';
+  d.log.unshift(logMsg);
+  if(d.log.length>8) d.log.pop();
+  // Boss dies
+  if(d.bossHP<=0){
+    d.bossHP=VOID_MAX_HP;
+    d.level=(d.level||1)+1;
+    d.log.unshift('<span class="void-log-crit">💀 BOSSEN BESEGRADES! Rift-nivå '+(d.level)+' aktiverad!</span>');
+    gainKC(20);gainCoins(5000);
+    showFloatBubble('🌟 Void Boss besegrades! +5000🪙 +20KC!','buff');
+  }
+  _voidSave(d);
+  var boss=$('voidBoss');
+  if(boss){boss.className='void-boss hurt';setTimeout(function(){boss.className='void-boss';},400);}
+  misTrack('wb',1);
+  checkAchievements();
+  _renderVoid();
+}
+
+function voidClaimReward(){
+  var d=_voidGetData();
+  var wk=_voidWeekKey();
+  if(d.weekKey!==wk){d.weekKey=wk;d.weekDmg=0;d.weekClaimed=false;d.bossHP=VOID_MAX_HP;}
+  if(d.weekClaimed){showFloatBubble('Veckans belöning redan hämtad!','info');return;}
+  var needed=VOID_MAX_HP*0.05; // 5% damage = reward
+  if((d.weekDmg||0)<needed){showFloatBubble('Gör mer skada för att låsa upp belöningen!','info');return;}
+  d.weekClaimed=true;
+  _voidSave(d);
+  var tiers=Math.floor(d.weekDmg/VOID_MAX_HP*10);
+  var coins=500+tiers*200;
+  var kc=2+tiers;
+  gainCoins(coins);gainKC(kc);
+  showFloatBubble('🌀 Rift-belöning! +'+coins+'🪙 +'+kc+'KC!','buff');
+  _renderVoid();
+}
+
+function _renderVoidAtks(){
+  var atks=$('voidAtks');
+  if(atks) atks.innerHTML=VOID_ATTACKS.map(function(a,i){
+    return '<div class="void-atk-btn'+(i===_voidSelAtk?' sel':'')+'" onclick="voidSelAtk('+i+')">'
+      +'<span class="void-atk-emoji">'+a.emoji+'</span>'
+      +'<div class="void-atk-name">'+a.name+'</div>'
+      +'<div class="void-atk-dmg">'+a.desc+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function _renderVoid(){
+  var d=_voidGetData();
+  var wk=_voidWeekKey();
+  if(d.weekKey!==wk){d.weekDmg=0;d.weekClaimed=false;}
+  var tk=getTodayKey();
+  var charges=(d.dayKey===tk)?d.dayCharges:5;
+  // Charges
+  var cv=$('voidCharges'); if(cv) cv.textContent=charges;
+  var lv=$('voidLevel'); if(lv) lv.textContent=d.level||1;
+  var cp=_voidCalcCP();
+  var cpv=$('voidCP'); if(cpv) cpv.textContent=cp;
+  // Boss HP
+  var hpPct=(d.bossHP/VOID_MAX_HP)*100;
+  var hpF=$('voidHPFill'); if(hpF) hpF.style.width=hpPct+'%';
+  var hpT=$('voidHPText'); if(hpT) hpT.textContent=d.bossHP.toLocaleString()+' / '+VOID_MAX_HP.toLocaleString()+' HP';
+  // Phase
+  var phase=Math.floor((1-hpPct/100)*10)+1;
+  var bossNames=['Tomrumsguden Nihilus','Skuggelord Nihilus','Kaosens Nihilus'];
+  var bossEmojis=['👁','🌑','💀'];
+  var bossIdx=Math.min(2,Math.floor((d.level-1)/3));
+  var bn=$('voidBossName'); if(bn) bn.textContent=bossNames[bossIdx];
+  var bb=$('voidBoss'); if(bb&&bb.textContent!==bossEmojis[bossIdx]) bb.textContent=bossEmojis[bossIdx];
+  var bp=$('voidBossPhase'); if(bp) bp.textContent='Fas '+Math.min(10,phase)+' — '+(hpPct>80?'Sovande':hpPct>50?'Vaknar':hpPct>20?'Rasande':'DESPERATE');
+  // Reward bar
+  var weekDmg=d.weekDmg||0;
+  var needed=VOID_MAX_HP*0.05;
+  var fill=Math.min(100,(weekDmg/needed)*100);
+  var rf=$('voidRewardFill'); if(rf) rf.style.width=fill+'%';
+  var rs=$('voidRewardSub'); if(rs) rs.textContent=weekDmg.toLocaleString()+' / '+Math.floor(needed).toLocaleString()+' skada';
+  var rt=$('voidRewardTitle'); if(rt) rt.textContent='Veckans belöning'+(d.weekClaimed?' ✅':'');
+  var cb=$('voidClaimBtn');
+  if(cb){cb.style.opacity=(fill>=100&&!d.weekClaimed)?'1':'0.4';cb.style.cursor=(fill>=100&&!d.weekClaimed)?'pointer':'default';}
+  // Strike btn
+  var sb=$('voidStrikeBtn'); if(sb) sb.disabled=charges<=0;
+  _renderVoidAtks();
+  // Log
+  var log=$('voidLog');
+  if(log&&d.log&&d.log.length) log.innerHTML=d.log.join('<br>');
+}
 
 </script>
 
