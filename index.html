@@ -1525,6 +1525,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ NUMBER GUESSER ══ */
+.guess-panel{position:fixed;inset:0;background:#000812;z-index:1038;display:none;flex-direction:column;overflow:hidden}
+.guess-panel.open{display:flex}
+.guess-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#001020,#000812)}
+.guess-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ddcc,#4488ff,#00ddcc);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:guessShim 1.8s linear infinite}
+@keyframes guessShim{0%{background-position:0%}100%{background-position:200%}}
+.guess-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+/* HUD */
+.guess-hud{display:flex;gap:8px;margin-bottom:10px}
+.guess-hud-box{flex:1;background:rgba(0,220,200,.04);border:1px solid rgba(0,220,200,.15);border-radius:10px;padding:6px;text-align:center}
+.guess-hud-v{font:900 18px var(--ff-head);color:#00ddcc}
+.guess-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Number display */
+.guess-number-area{background:rgba(0,20,30,.8);border:2px solid rgba(0,220,200,.2);border-radius:20px;padding:20px;margin-bottom:12px;text-align:center}
+.guess-question-mark{font:900 64px var(--ff-head);color:rgba(0,220,200,.3);display:block;margin-bottom:6px}
+.guess-hint{font:600 11px var(--ff-body);color:rgba(0,220,200,.7);min-height:16px}
+.guess-feedback{font:800 18px var(--ff-head);min-height:24px;text-align:center;margin-bottom:4px}
+.guess-feedback.up{color:#ff8844}
+.guess-feedback.down{color:#44ccff}
+.guess-feedback.win{color:#44ff88}
+/* Guess history */
+.guess-history{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;justify-content:center;min-height:32px}
+.guess-hist-chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:4px 10px;font:700 10px var(--ff-head);color:rgba(255,255,255,.5)}
+.guess-hist-chip.high{border-color:rgba(255,136,68,.4);color:#ff8844}
+.guess-hist-chip.low{border-color:rgba(68,204,255,.4);color:#44ccff}
+/* Numpad */
+.guess-input-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+.guess-input-display{flex:1;background:rgba(0,220,200,.06);border:2px solid rgba(0,220,200,.25);border-radius:12px;padding:12px;font:900 24px var(--ff-head);color:#00ddcc;text-align:center;min-height:50px;min-width:80px}
+.guess-submit-btn{background:linear-gradient(135deg,#003333,#006666);border:none;border-radius:12px;padding:12px 16px;font:800 12px var(--ff-head);color:#fff;cursor:pointer}
+.guess-submit-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
+.guess-numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.guess-num-btn{background:rgba(0,220,200,.08);border:1.5px solid rgba(0,220,200,.15);border-radius:12px;padding:12px;font:700 16px var(--ff-head);color:#00ddcc;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent}
+.guess-num-btn:active{background:rgba(0,220,200,.25)}
+.guess-clear-btn{background:rgba(255,100,100,.1);border:1.5px solid rgba(255,100,100,.2);border-radius:12px;padding:12px;font:700 14px var(--ff-head);color:#ff6666;cursor:pointer;text-align:center}
+.guess-lives{text-align:center;font:600 10px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:8px}
+/* Over */
+.guess-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.7);border:1.5px solid rgba(0,220,200,.3);border-radius:14px;margin-bottom:10px}
+.guess-over.show{display:flex}
+.guess-over-num{font:900 48px var(--ff-head);color:#00ddcc}
+.guess-over-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.guess-over-rw{font:700 12px var(--ff-head);color:#ffcc00}
+.guess-start-btn{width:100%;background:linear-gradient(135deg,#003333,#006644);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.guess-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.guess-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ CHAMPION TITLES ══ */
 .title-panel{position:fixed;inset:0;background:#08050a;z-index:1037;display:none;flex-direction:column;overflow:hidden}
 .title-panel.open{display:flex}
@@ -11454,6 +11500,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
+          <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11512,6 +11559,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
+          <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11553,6 +11601,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
+          <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11632,6 +11681,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
+          <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12217,6 +12267,54 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- NUMBER GUESSER -->
+<div class="guess-panel" id="guessPanel">
+  <div class="guess-header">
+    <div class="guess-title">🔢 GISSNINGSSPELET</div>
+    <button class="close-btn" onclick="closeGuess()">✕</button>
+  </div>
+  <div class="guess-scroll">
+    <div class="guess-hud">
+      <div class="guess-hud-box"><div class="guess-hud-v" id="guessBest">-</div><div class="guess-hud-l">Bästa (gissn.)</div></div>
+      <div class="guess-hud-box"><div class="guess-hud-v" id="guessGuessLeft">0</div><div class="guess-hud-l">Gissn. kvar</div></div>
+      <div class="guess-hud-box"><div class="guess-hud-v" id="guessPlays">0</div><div class="guess-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="guess-number-area">
+      <span class="guess-question-mark" id="guessQMark">?</span>
+      <div class="guess-feedback" id="guessFeedback"></div>
+      <div class="guess-hint" id="guessHint"></div>
+    </div>
+    <div class="guess-history" id="guessHistory"></div>
+    <div class="guess-lives" id="guessLives"></div>
+    <div class="guess-input-row">
+      <div class="guess-input-display" id="guessInputDisplay">–</div>
+      <button class="guess-submit-btn" id="guessSubmitBtn" onclick="guessSubmit()" disabled>Gissa!</button>
+    </div>
+    <div class="guess-numpad">
+      <button class="guess-num-btn" onclick="guessInput('1')">1</button>
+      <button class="guess-num-btn" onclick="guessInput('2')">2</button>
+      <button class="guess-num-btn" onclick="guessInput('3')">3</button>
+      <button class="guess-num-btn" onclick="guessInput('4')">4</button>
+      <button class="guess-num-btn" onclick="guessInput('5')">5</button>
+      <button class="guess-num-btn" onclick="guessInput('6')">6</button>
+      <button class="guess-num-btn" onclick="guessInput('7')">7</button>
+      <button class="guess-num-btn" onclick="guessInput('8')">8</button>
+      <button class="guess-num-btn" onclick="guessInput('9')">9</button>
+      <button class="guess-clear-btn" onclick="guessInput('clear')">⌫</button>
+      <button class="guess-num-btn" onclick="guessInput('0')">0</button>
+      <button class="guess-num-btn" onclick="guessInput('00')">00</button>
+    </div>
+    <div class="guess-over" id="guessOver">
+      <div class="guess-over-lbl">RÄTT SVAR:</div>
+      <div class="guess-over-num" id="guessOverNum">0</div>
+      <div class="guess-over-rw" id="guessOverRw"></div>
+    </div>
+    <button class="guess-start-btn" id="guessStartBtn" onclick="guessStart()">🔢 NY GISSNING</button>
+    <div class="guess-info">Räkna 1-100 · INT = fler gissningar · LCK = tips om siffra · Snabbare = mer mynt!</div>
+  </div>
+</div>
 
 <!-- CHAMPION TITLES -->
 <div class="title-panel" id="titlePanel">
@@ -52757,6 +52855,155 @@ function _renderTitle(d){
       '</div>';
     }).join('');
   }
+}
+
+
+// NUMBER GUESSER
+const GUESS_KEY = 'k0509_guess';
+const GUESS_MAX_PLAYS = 8;
+const GUESS_BASE_TRIES = 7;
+
+var _guessState = null;
+
+function _guessData(){try{return JSON.parse(localStorage.getItem(GUESS_KEY)||'null');}catch(e){return null;}}
+function _guessSave(d){localStorage.setItem(GUESS_KEY,JSON.stringify(d));}
+function _guessGetData(){
+  var d=_guessData();
+  if(!d) d={best:null,playsToday:0,lastDay:'',totalWins:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function guessInput(v){
+  if(!_guessState||!_guessState.active) return;
+  var s=_guessState;
+  if(v==='clear'){s.currentInput=s.currentInput.slice(0,-1);}
+  else{
+    var next=s.currentInput+v;
+    if(parseInt(next,10)>100) return;
+    if(next.length>3) return;
+    s.currentInput=next;
+  }
+  var disp=$('guessInputDisplay');
+  if(disp) disp.textContent=s.currentInput||'–';
+  var btn=$('guessSubmitBtn');
+  if(btn) btn.disabled=!(s.currentInput.length>0);
+}
+
+function guessStart(){
+  var d=_guessGetData();
+  if(d.playsToday>=GUESS_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  var btn=$('guessStartBtn');if(btn) btn.disabled=true;
+  var over=$('guessOver');if(over) over.classList.remove('show');
+  // Max tries: base 7 + INT/10
+  var maxTries=Math.min(12, GUESS_BASE_TRIES+Math.floor((G.int||0)/10));
+  // Secret number
+  var secret=Math.floor(Math.random()*100)+1;
+  // LCK hint: reveal last digit if LCK > 20
+  var lastDigitHint=(G.lck||0)>=20;
+  _guessState={active:true, secret:secret, tries:0, maxTries:maxTries, history:[], currentInput:'', won:false};
+  var qm=$('guessQMark');if(qm) qm.textContent='?';
+  var fb=$('guessFeedback');if(fb){fb.textContent='Gissa ett tal 1-100!';fb.className='guess-feedback';}
+  var ht=$('guessHint');
+  if(ht) ht.textContent=lastDigitHint?'Tips: sista siffran är '+(secret%10):'';
+  var hist=$('guessHistory');if(hist) hist.innerHTML='';
+  var disp=$('guessInputDisplay');if(disp) disp.textContent='–';
+  var sb=$('guessSubmitBtn');if(sb) sb.disabled=true;
+  _guessUpdateLives();
+}
+
+function guessSubmit(){
+  var s=_guessState;
+  if(!s||!s.active) return;
+  var num=parseInt(s.currentInput,10);
+  if(isNaN(num)||num<1||num>100){showFloatBubble('Ange 1-100!','debuff');return;}
+  s.tries++;
+  s.currentInput='';
+  var disp=$('guessInputDisplay');if(disp) disp.textContent='–';
+  var sb=$('guessSubmitBtn');if(sb) sb.disabled=true;
+  // Feedback
+  var fb=$('guessFeedback');
+  var hist=$('guessHistory');
+  var chip=document.createElement('div');
+  chip.className='guess-hist-chip';
+  if(num===s.secret){
+    s.won=true;s.active=false;
+    if(fb){fb.textContent='🎉 RÄTT! Det var '+num+'!';fb.className='guess-feedback win';}
+    chip.textContent=num+' ✓';chip.className='guess-hist-chip';
+    var qm=$('guessQMark');if(qm) qm.textContent=num;
+    if(hist) hist.appendChild(chip);
+    _guessEnd(true);
+  } else if(num<s.secret){
+    chip.textContent=num+' ▲';chip.className='guess-hist-chip low';
+    if(fb){fb.textContent='📈 '+num+' är för LÅGT!';fb.className='guess-feedback down';}
+    if(hist) hist.appendChild(chip);
+    s.history.push({n:num,dir:'low'});
+    _guessUpdateLives();
+    if(s.tries>=s.maxTries){s.active=false;_guessEnd(false);}
+  } else {
+    chip.textContent=num+' ▼';chip.className='guess-hist-chip high';
+    if(fb){fb.textContent='📉 '+num+' är för HÖGT!';fb.className='guess-feedback up';}
+    if(hist) hist.appendChild(chip);
+    s.history.push({n:num,dir:'high'});
+    _guessUpdateLives();
+    if(s.tries>=s.maxTries){s.active=false;_guessEnd(false);}
+  }
+}
+
+function _guessUpdateLives(){
+  var s=_guessState;
+  if(!s) return;
+  var gl=$('guessGuessLeft');if(gl) gl.textContent=Math.max(0,s.maxTries-s.tries);
+  var lv=$('guessLives');if(lv) lv.textContent='Gissningar kvar: '+(s.maxTries-s.tries)+' / '+s.maxTries;
+}
+
+function _guessEnd(won){
+  var s=_guessState;
+  var d=_guessGetData();
+  d.playsToday=(d.playsToday||0)+1;
+  var coins=0;var xp=0;var kcs=0;
+  if(won){
+    d.totalWins=(d.totalWins||0)+1;
+    // Fewer guesses = more coins
+    var efficiency=Math.max(1, s.maxTries-s.tries+1);
+    coins=efficiency*80;xp=efficiency*20;
+    if(s.tries<=3) kcs=1;
+    // Best = fewest guesses to win
+    if(d.best===null||s.tries<d.best) d.best=s.tries;
+  } else {
+    // Consolation
+    coins=20;xp=10;
+    var qm=$('guessQMark');if(qm) qm.textContent=s.secret;
+    var fb=$('guessFeedback');if(fb){fb.textContent='Svaret var '+s.secret+'!';fb.className='guess-feedback';}
+  }
+  gainCoins(coins);gainXP(xp,'int');
+  if(kcs) gainKC(kcs);
+  _guessSave(d);
+  misTrack('quiz',won?1:0);checkAchievements();
+  var over=$('guessOver');if(over) over.classList.add('show');
+  var on=$('guessOverNum');if(on) on.textContent=s.secret;
+  var orw=$('guessOverRw');if(orw) orw.textContent=(won?'✓ Rätt på '+s.tries+' gissningar! ':'')+'+'+coins+'🪙 +'+xp+'XP'+(kcs?' +1KC':'');
+  var playsLeft=GUESS_MAX_PLAYS-d.playsToday;
+  var btn=$('guessStartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🔢 NY GISSNING ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+  _renderGuess(d);
+}
+
+function openGuess(){$('guessPanel').classList.add('open');_renderGuess();}
+function closeGuess(){$('guessPanel').classList.remove('open');}
+
+function _renderGuess(d){
+  if(!d) d=_guessGetData();
+  var bv=$('guessBest');if(bv) bv.textContent=d.best!==null?d.best+' gissn.':'–';
+  var pl=$('guessPlays');if(pl) pl.textContent=Math.max(0,GUESS_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('guessStartBtn');
+  if(btn&&!(_guessState&&_guessState.active)){
+    var playsLeft=GUESS_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=playsLeft<=0;
+    btn.textContent=playsLeft>0?'🔢 NY GISSNING ('+playsLeft+' kvar)':'✓ Klar för idag!';
+  }
+  var gl=$('guessGuessLeft');if(gl) gl.textContent=0;
 }
 
 </script>
