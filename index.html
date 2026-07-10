@@ -1540,6 +1540,42 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ CONNECT FOUR ══ */
+.c4-panel{position:fixed;inset:0;background:#000a14;z-index:1053;display:none;flex-direction:column;overflow:hidden}
+.c4-panel.open{display:flex}
+.c4-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#001428,#000a14)}
+.c4-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#4488ff,#44ff88,#ffcc00,#4488ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:c4Shim 2s linear infinite}
+@keyframes c4Shim{0%{background-position:0%}100%{background-position:300%}}
+.c4-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+.c4-hud{display:flex;gap:8px;margin-bottom:8px}
+.c4-hud-box{flex:1;background:rgba(68,136,255,.04);border:1px solid rgba(68,136,255,.15);border-radius:10px;padding:6px;text-align:center}
+.c4-hud-v{font:900 18px var(--ff-head);color:#4488ff}
+.c4-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Board */
+.c4-board-wrap{display:flex;justify-content:center;margin-bottom:8px}
+.c4-board{background:rgba(0,40,120,.3);border:2px solid rgba(68,136,255,.25);border-radius:14px;padding:8px;display:inline-block}
+.c4-row{display:flex;gap:4px;margin-bottom:4px}
+.c4-cell{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);cursor:pointer;transition:background .1s;-webkit-tap-highlight-color:transparent}
+.c4-cell:active{transform:scale(.9)}
+.c4-cell.p1{background:radial-gradient(circle,#ff6644,#ff2200);border-color:#ff4422;box-shadow:0 0 6px rgba(255,68,34,.4)}
+.c4-cell.p2{background:radial-gradient(circle,#ffee44,#ffcc00);border-color:#ffcc00;box-shadow:0 0 6px rgba(255,200,0,.4)}
+.c4-cell.win{box-shadow:0 0 14px rgba(255,255,255,.6)!important;transform:scale(1.05)}
+/* Col hover buttons */
+.c4-cols{display:flex;justify-content:center;gap:4px;margin-bottom:4px}
+.c4-col-btn{width:36px;height:24px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:5px;font:700 9px var(--ff-head);color:rgba(68,136,255,.6);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.c4-col-btn:active{background:rgba(68,136,255,.2);}
+.c4-col-btn:disabled{opacity:.2;cursor:default}
+/* Status */
+.c4-status{text-align:center;font:700 11px var(--ff-head);color:#4488ff;margin-bottom:8px;min-height:18px}
+.c4-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.7);border:1.5px solid rgba(68,136,255,.3);border-radius:14px;margin-bottom:8px}
+.c4-over.show{display:flex}
+.c4-over-score{font:900 22px var(--ff-head);color:#4488ff}
+.c4-over-rw{font:700 12px var(--ff-head);color:#ffcc00}
+.c4-start-btn{width:100%;background:linear-gradient(135deg,#001440,#003388);border:none;border-radius:14px;padding:13px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.c4-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.c4-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ ZODIAC CALENDAR ══ */
 .zod-panel{position:fixed;inset:0;background:#01010a;z-index:1052;display:none;flex-direction:column;overflow:hidden}
 .zod-panel.open{display:flex}
@@ -12061,6 +12097,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Fängelsehåla</div>
           <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
+          <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12134,6 +12171,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Fängelsehåla</div>
           <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
+          <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12190,6 +12228,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Fängelsehåla</div>
           <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
+          <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12284,6 +12323,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Fängelsehåla</div>
           <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
+          <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12884,6 +12924,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- CONNECT FOUR -->
+<div class="c4-panel" id="c4Panel">
+  <div class="c4-header">
+    <div class="c4-title">🔵 FYRA I RAD</div>
+    <button class="close-btn" onclick="closeC4()">✕</button>
+  </div>
+  <div class="c4-scroll">
+    <div class="c4-hud">
+      <div class="c4-hud-box"><div class="c4-hud-v" id="c4Wins">0</div><div class="c4-hud-l">Vinster</div></div>
+      <div class="c4-hud-box"><div class="c4-hud-v" id="c4Losses">0</div><div class="c4-hud-l">Förluster</div></div>
+      <div class="c4-hud-box"><div class="c4-hud-v" id="c4Plays">0</div><div class="c4-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="c4-cols" id="c4ColBtns"></div>
+    <div class="c4-board-wrap"><div class="c4-board" id="c4Board"></div></div>
+    <div class="c4-status" id="c4Status">Tryck START — gör Fyra i Rad!</div>
+    <div class="c4-over" id="c4Over">
+      <div class="c4-over-score" id="c4OverMsg">Oavgjort!</div>
+      <div class="c4-over-rw" id="c4OverRw"></div>
+    </div>
+    <button class="c4-start-btn" id="c4StartBtn" onclick="c4Start()">🔵 NY MATCH</button>
+    <div class="c4-info">🔴 Du vs 🟡 AI · Du börjar · AGI = AI svårighet · 5 spel/dag</div>
+  </div>
+</div>
 
 <!-- ZODIAC CALENDAR -->
 <div class="zod-panel" id="zodPanel">
@@ -56283,6 +56348,258 @@ function _renderZod(d){
       '</div>';
     }).join('');
   }
+}
+
+
+// CONNECT FOUR
+const C4_KEY = 'k0509_c4';
+const C4_ROWS = 6;
+const C4_COLS = 7;
+const C4_MAX_PLAYS = 5;
+
+var _c4State = null;
+
+function _c4Data(){try{return JSON.parse(localStorage.getItem(C4_KEY)||'null');}catch(e){return null;}}
+function _c4Save(d){localStorage.setItem(C4_KEY,JSON.stringify(d));}
+function _c4GetData(){
+  var d=_c4Data();
+  if(!d) d={wins:0,losses:0,playsToday:0,lastDay:'',streak:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function _c4NewBoard(){
+  var b=[];
+  for(var r=0;r<C4_ROWS;r++){b.push(new Array(C4_COLS).fill(0));}
+  return b;
+}
+
+function c4Start(){
+  var d=_c4GetData();
+  if(d.playsToday>=C4_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  var btn=$('c4StartBtn');if(btn) btn.disabled=true;
+  var over=$('c4Over');if(over) over.classList.remove('show');
+  _c4State={board:_c4NewBoard(),turn:1,running:true,won:0};
+  _c4Render();
+  var st=$('c4Status');if(st) st.textContent='Din tur 🔴 — välj kolumn!';
+}
+
+function c4Drop(col){
+  var s=_c4State;
+  if(!s||!s.running||s.turn!==1) return;
+  if(!_c4CanDrop(s.board,col)) return;
+  _c4DoMove(s.board,col,1);
+  _c4Render();
+  var win=_c4CheckWin(s.board,1);
+  if(win){_c4End(1,win);return;}
+  if(_c4IsFull(s.board)){_c4End(0,null);return;}
+  s.turn=2;
+  var st=$('c4Status');if(st) st.textContent='AI:s tur 🟡...';
+  // Disable buttons while AI thinks
+  _c4SetBtns(false);
+  setTimeout(function(){_c4AiMove();},350);
+}
+
+function _c4CanDrop(board,col){return board[0][col]===0;}
+function _c4IsFull(board){for(var c=0;c<C4_COLS;c++){if(board[0][c]===0) return false;}return true;}
+
+function _c4DoMove(board,col,player){
+  for(var r=C4_ROWS-1;r>=0;r--){
+    if(board[r][col]===0){board[r][col]=player;return r;}
+  }
+  return -1;
+}
+
+function _c4CheckWin(board,player){
+  var dirs=[[0,1],[1,0],[1,1],[1,-1]];
+  var winning=[];
+  for(var r=0;r<C4_ROWS;r++){
+    for(var c=0;c<C4_COLS;c++){
+      if(board[r][c]!==player) continue;
+      for(var d=0;d<dirs.length;d++){
+        var dr=dirs[d][0],dc=dirs[d][1];
+        var cells=[[r,c]];
+        for(var i=1;i<4;i++){
+          var nr=r+dr*i,nc=c+dc*i;
+          if(nr<0||nr>=C4_ROWS||nc<0||nc>=C4_COLS||board[nr][nc]!==player) break;
+          cells.push([nr,nc]);
+        }
+        if(cells.length===4) winning=winning.concat(cells);
+      }
+    }
+  }
+  return winning.length>0?winning:null;
+}
+
+function _c4Score(board,player){
+  var score=0;
+  var opp=player===1?2:1;
+  var dirs=[[0,1],[1,0],[1,1],[1,-1]];
+  for(var r=0;r<C4_ROWS;r++){
+    for(var c=0;c<C4_COLS;c++){
+      for(var d=0;d<dirs.length;d++){
+        var dr=dirs[d][0],dc=dirs[d][1];
+        var me=0,empty2=0,them=0;
+        for(var i=0;i<4;i++){
+          var nr=r+dr*i,nc=c+dc*i;
+          if(nr<0||nr>=C4_ROWS||nc<0||nc>=C4_COLS) break;
+          if(board[nr][nc]===player) me++;
+          else if(board[nr][nc]===opp) them++;
+          else empty2++;
+        }
+        if(me+empty2===4){
+          if(me===3) score+=100;
+          else if(me===2) score+=5;
+        }
+        if(them===3&&empty2===1) score+=80; // block
+      }
+    }
+  }
+  return score;
+}
+
+function _c4AiMove(){
+  var s=_c4State;
+  if(!s||!s.running) return;
+  var agi=G.agi||1;
+  var depth=agi>=30?3:agi>=15?2:1;
+  var bestCol=3;var bestScore=-Infinity;
+  // Try each column
+  for(var c=0;c<C4_COLS;c++){
+    if(!_c4CanDrop(s.board,c)) continue;
+    var nb=s.board.map(function(r){return r.slice();});
+    _c4DoMove(nb,c,2);
+    if(_c4CheckWin(nb,2)){bestCol=c;break;}
+    var sc=_c4Score(nb,2);
+    // Also check opponent threats
+    var oppB=s.board.map(function(r){return r.slice();});
+    _c4DoMove(oppB,c,1);
+    if(_c4CheckWin(oppB,1)) sc+=90;
+    sc+=_c4Score(nb,1)*0.5;
+    // Add some randomness for low AGI
+    var rand=(1-Math.min(1,agi/30))*(Math.random()*40-20);
+    sc+=rand;
+    if(sc>bestScore){bestScore=sc;bestCol=c;}
+  }
+  _c4DoMove(s.board,bestCol,2);
+  _c4Render();
+  var win=_c4CheckWin(s.board,2);
+  if(win){_c4End(2,win);return;}
+  if(_c4IsFull(s.board)){_c4End(0,null);return;}
+  s.turn=1;
+  _c4SetBtns(true);
+  var st=$('c4Status');if(st) st.textContent='Din tur 🔴';
+}
+
+function _c4SetBtns(enabled){
+  var s=_c4State;
+  for(var c=0;c<C4_COLS;c++){
+    var btn=$('c4Col'+c);
+    if(btn) btn.disabled=!enabled||!s||!_c4CanDrop(s.board,c);
+  }
+}
+
+function _c4Render(){
+  var s=_c4State;
+  // Col buttons
+  var colWrap=$('c4ColBtns');
+  if(colWrap){
+    colWrap.innerHTML='';
+    for(var c=0;c<C4_COLS;c++){
+      var b=document.createElement('button');
+      b.className='c4-col-btn';
+      b.id='c4Col'+c;
+      b.textContent='▼';
+      b.disabled=!s||!s.running||s.turn!==1||!_c4CanDrop(s.board,c);
+      b.onclick=(function(col){return function(){c4Drop(col);};})(c);
+      colWrap.appendChild(b);
+    }
+  }
+  // Board
+  var board=$('c4Board');
+  if(!board) return;
+  board.innerHTML='';
+  if(!s){return;}
+  for(var r=0;r<C4_ROWS;r++){
+    var row=document.createElement('div');
+    row.className='c4-row';
+    for(var cc=0;cc<C4_COLS;cc++){
+      var cell=document.createElement('div');
+      cell.className='c4-cell';
+      if(s.board[r][cc]===1) cell.classList.add('p1');
+      else if(s.board[r][cc]===2) cell.classList.add('p2');
+      if(s.running&&s.turn===1) {
+        cell.onclick=(function(col2){return function(){c4Drop(col2);};})(cc);
+      }
+      row.appendChild(cell);
+    }
+    board.appendChild(row);
+  }
+}
+
+function _c4MarkWin(cells){
+  var board=$('c4Board');if(!board) return;
+  var rows=board.querySelectorAll('.c4-row');
+  cells.forEach(function(p){
+    var row=rows[p[0]];
+    if(row) row.children[p[1]].classList.add('win');
+  });
+}
+
+function _c4End(winner, winCells){
+  var s=_c4State;if(!s) return;
+  s.running=false;
+  if(winCells) setTimeout(function(){_c4MarkWin(winCells);},50);
+  var d=_c4GetData();
+  d.playsToday=(d.playsToday||0)+1;
+  var coins=0,xp=0,kc=0;
+  var msg='';
+  if(winner===1){
+    d.wins=(d.wins||0)+1;
+    d.streak=(d.streak||0)+1;
+    coins=100+(d.streak-1)*20;xp=60;
+    if(d.streak>=3) kc=1;
+    msg='🏆 Du vann!';
+    misTrack('battle',1);
+  } else if(winner===2){
+    d.losses=(d.losses||0)+1;
+    d.streak=0;
+    coins=15;xp=20;
+    msg='❌ AI vann!';
+  } else {
+    d.streak=0;
+    coins=30;xp=30;
+    msg='🤝 Oavgjort!';
+  }
+  gainCoins(coins);gainXP(xp,'agi');if(kc) gainKC(kc);
+  _c4Save(d);checkAchievements();
+  var over=$('c4Over');if(over) over.classList.add('show');
+  var om=$('c4OverMsg');if(om) om.textContent=msg;
+  var orw=$('c4OverRw');if(orw) orw.textContent='+'+coins+'🪙 +'+xp+'XP'+(kc?' +1KC':'')+(d.streak>=3?' Streak '+d.streak+'!':'');
+  var st=$('c4Status');if(st) st.textContent=msg;
+  var playsLeft=C4_MAX_PLAYS-d.playsToday;
+  var btn=$('c4StartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🔵 NY MATCH ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+  _c4SetBtns(false);
+  _renderC4(d);
+}
+
+function openC4(){$('c4Panel').classList.add('open');_renderC4();}
+function closeC4(){$('c4Panel').classList.remove('open');}
+
+function _renderC4(d){
+  if(!d) d=_c4GetData();
+  var wv=$('c4Wins');if(wv) wv.textContent=d.wins||0;
+  var lv=$('c4Losses');if(lv) lv.textContent=d.losses||0;
+  var pl=$('c4Plays');if(pl) pl.textContent=Math.max(0,C4_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('c4StartBtn');
+  if(btn&&!(_c4State&&_c4State.running)){
+    var left=C4_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=left<=0;
+    btn.textContent=left>0?'🔵 NY MATCH ('+left+' kvar)':'✓ Klar för idag!';
+  }
+  _c4Render();
 }
 
 </script>
