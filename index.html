@@ -1506,6 +1506,57 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET HATCHERY ══ */
+.htch-panel{position:fixed;inset:0;background:#020108;z-index:1019;display:none;flex-direction:column;overflow:hidden}
+.htch-panel.open{display:flex}
+.htch-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060220,#020108)}
+.htch-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8844,#ffcc00,#44ff88,#4488ff,#cc44ff,#ff8844);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:htchShim 4s linear infinite}
+@keyframes htchShim{0%{background-position:0%}100%{background-position:400%}}
+.htch-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Team */
+.htch-team{display:flex;gap:8px;margin-bottom:14px}
+.htch-slot{flex:1;background:rgba(255,255,255,.02);border:1.5px dashed rgba(255,255,255,.12);border-radius:14px;padding:10px;text-align:center;min-height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
+.htch-slot.filled{border-style:solid;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.03)}
+.htch-slot-emoji{font-size:30px;margin-bottom:3px}
+.htch-slot-name{font:700 8px var(--ff-head);color:#fff;margin-bottom:2px}
+.htch-slot-bonus{font:600 7px var(--ff-body);color:rgba(255,200,100,.7)}
+.htch-slot-empty{font:600 8px var(--ff-body);color:rgba(255,255,255,.2)}
+.htch-slot-remove{font:600 7px var(--ff-body);color:rgba(255,80,80,.5);margin-top:2px}
+/* Incubator */
+.htch-incubator{background:rgba(255,255,255,.02);border:2px solid rgba(255,200,0,.15);border-radius:18px;padding:14px;margin-bottom:12px;text-align:center}
+.htch-inc-lbl{font:700 8px var(--ff-head);color:rgba(255,200,0,.5);letter-spacing:1px;margin-bottom:10px}
+.htch-inc-egg{font-size:56px;display:block;margin-bottom:6px;animation:htchWobble 2s ease-in-out infinite}
+@keyframes htchWobble{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.htch-inc-egg.idle{animation:none;opacity:.3}
+.htch-inc-name{font:800 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.htch-inc-timer{font:700 11px var(--ff-head);color:#ffcc00;margin-bottom:6px}
+.htch-inc-bar{background:rgba(255,255,255,.06);border-radius:20px;height:8px;overflow:hidden;margin-bottom:8px}
+.htch-inc-fill{height:100%;background:linear-gradient(90deg,#ffcc00,#ff8844);border-radius:20px;transition:width .5s}
+.htch-hatch-btn{background:linear-gradient(135deg,#442200,#886600);border:none;border-radius:12px;padding:10px 20px;font:900 12px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 0 14px rgba(255,150,0,.2)}
+.htch-hatch-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+/* Collection */
+.htch-coll-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px}
+.htch-coll-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:12px}
+.htch-egg-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px;cursor:pointer;transition:border-color .2s}
+.htch-egg-card.hatched{border-color:rgba(255,200,0,.25);background:rgba(255,200,0,.03)}
+.htch-egg-card:hover{border-color:rgba(255,255,255,.15)}
+.htch-egg-card.incubating{border-color:rgba(255,150,0,.4);background:rgba(255,150,0,.04)}
+.htch-egg-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.htch-egg-ico{font-size:28px}
+.htch-egg-info{flex:1}
+.htch-egg-name{font:800 10px var(--ff-head);color:#fff;margin-bottom:1px}
+.htch-egg-dur{font:600 7px var(--ff-body);color:rgba(255,255,255,.35)}
+.htch-egg-bonus{font:600 7px var(--ff-body);color:rgba(255,200,100,.7);margin-bottom:4px}
+.htch-egg-cost{font:700 8px var(--ff-head);color:rgba(255,255,255,.4)}
+.htch-egg-cost.free{color:#44ff88}
+/* Stats */
+.htch-stats{display:flex;gap:8px;margin-bottom:10px}
+.htch-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,150,0,.1);border-radius:10px;padding:7px;text-align:center}
+.htch-stat-v{font:900 14px var(--ff-head);color:#ff8844}
+.htch-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.htch-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET BUSINESSES ══ */
 .biz-panel{position:fixed;inset:0;background:#010304;z-index:1018;display:none;flex-direction:column;overflow:hidden}
 .biz-panel.open{display:flex}
@@ -10580,6 +10631,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
+          <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10619,6 +10671,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
+          <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10641,6 +10694,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
+          <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -10701,6 +10755,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
+          <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11267,6 +11322,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET HATCHERY -->
+<div class="htch-panel" id="htchPanel">
+  <div class="htch-header">
+    <div class="htch-title">🥚 KLÄCKERI</div>
+    <button class="close-btn" onclick="closeHtch()">✕</button>
+  </div>
+  <div class="htch-scroll">
+    <div class="htch-team" id="htchTeam"></div>
+    <div class="htch-stats">
+      <div class="htch-stat"><div class="htch-stat-v" id="htchHatched">0</div><div class="htch-stat-l">Kläckta</div></div>
+      <div class="htch-stat"><div class="htch-stat-v" id="htchActive">0/3</div><div class="htch-stat-l">Aktiva komp.</div></div>
+      <div class="htch-stat"><div class="htch-stat-v" id="htchBonus">+0</div><div class="htch-stat-l">Kompbonusar</div></div>
+    </div>
+    <div class="htch-incubator">
+      <div class="htch-inc-lbl">INKUBATOR</div>
+      <span class="htch-inc-egg idle" id="htchIncEgg">🥚</span>
+      <div class="htch-inc-name" id="htchIncName">Tom</div>
+      <div class="htch-inc-timer" id="htchIncTimer">—</div>
+      <div class="htch-inc-bar"><div class="htch-inc-fill" id="htchIncFill" style="width:0%"></div></div>
+      <button class="htch-hatch-btn" id="htchHatchBtn" onclick="htchHatch()" disabled>🐣 Kläck!</button>
+    </div>
+    <div class="htch-coll-lbl">ÄGG ATT KLÄCKA</div>
+    <div class="htch-coll-grid" id="htchGrid"></div>
+    <div class="htch-info">Kläckta husdjur kan väljas som aktiva följeslagare (max 3). AGI minskar kläcktid!</div>
+  </div>
+</div>
 
 <!-- PET BUSINESSES -->
 <div class="biz-panel" id="bizPanel">
@@ -48240,6 +48323,158 @@ function _renderBiz(d){
           (owned&&lvl<maxLvl?'<button class="biz-upg-btn" onclick="bizUpgrade(\''+def.id+'\')" '+(G.coins<upgCost?'disabled':'')+'>Uppgradera '+upgCost+'🪙</button>':'')+
           (owned&&lvl>=maxLvl?'<button class="biz-upg-btn" disabled>✓ Max Niv.</button>':'')+
           (owned?'<button class="biz-collect-btn" onclick="bizCollect(\''+def.id+'\')" '+(pending<=0?'disabled':'')+'>+'+(pending||0)+'🪙</button>':'')+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// PET HATCHERY
+const HTCH_KEY = 'k0509_htch';
+const HTCH_EGGS = [
+  {id:'stone',   egg:'🪨', pet:'🦔', name:'Stenspett',    dur:5*60,   cost:0,    bonus:{end:8},           bonusTxt:'+8 END'},
+  {id:'fire',    egg:'🔴', pet:'🦊', name:'Eldräven',     dur:10*60,  cost:300,  bonus:{str:10},           bonusTxt:'+10 STR'},
+  {id:'ice',     egg:'🔵', pet:'🐺', name:'Isulven',      dur:15*60,  cost:500,  bonus:{agi:10},           bonusTxt:'+10 AGI'},
+  {id:'thunder', egg:'🟡', pet:'⚡', name:'Åskfågeln',    dur:20*60,  cost:800,  bonus:{agi:8,str:5},      bonusTxt:'+8 AGI +5 STR'},
+  {id:'wind',    egg:'🟢', pet:'🦋', name:'Vindfärilen',  dur:12*60,  cost:400,  bonus:{agi:12},           bonusTxt:'+12 AGI'},
+  {id:'earth',   egg:'🟤', pet:'🐢', name:'Jordsköldpaddan',dur:25*60,cost:1000, bonus:{end:15},           bonusTxt:'+15 END'},
+  {id:'cosmic',  egg:'🟣', pet:'🦄', name:'Kosmisk Enhörning',dur:60*60,cost:2500,bonus:{int:12,lck:12},   bonusTxt:'+12 INT +12 LCK'},
+  {id:'rainbow', egg:'🌈', pet:'🐉', name:'Regnbågsdraken',dur:90*60, cost:5000, bonus:{str:10,agi:10,int:10,end:10,lck:10},bonusTxt:'+10 ALLA'},
+];
+
+function _htchData(){try{return JSON.parse(localStorage.getItem(HTCH_KEY)||'null');}catch(e){return null;}}
+function _htchSave(d){localStorage.setItem(HTCH_KEY,JSON.stringify(d));}
+function _htchGetData(){
+  var d=_htchData();
+  if(!d) d={hatched:[],active:[],incubator:null,earned:0};
+  return d;
+}
+
+function htchStartEgg(id){
+  var d=_htchGetData();
+  if(d.incubator){showFloatBubble('Inkubatorn är full! Vänta tills ägget kläcks!','debuff');return;}
+  var egg=HTCH_EGGS.filter(function(e){return e.id===id;})[0];
+  if(!egg) return;
+  if(egg.cost>0&&(G.coins||0)<egg.cost){showFloatBubble('Behöver '+egg.cost+'🪙!','debuff');return;}
+  if(egg.cost>0){G.coins-=egg.cost;save();}
+  var agiBonus=1-Math.min((G.agi||0)*0.003,0.3);
+  var dur=Math.floor(egg.dur*agiBonus);
+  d.incubator={id:id,end:Date.now()+dur*1000};
+  _htchSave(d);
+  showFloatBubble(egg.egg+' Kläckning börjar! '+Math.floor(dur/60)+'min','buff');
+  _renderHtch(d);
+}
+
+function htchHatch(){
+  var d=_htchGetData();
+  if(!d.incubator||d.incubator.end>Date.now()){showFloatBubble('Inte klar än!','debuff');return;}
+  var egg=HTCH_EGGS.filter(function(e){return e.id===d.incubator.id;})[0];
+  if(!egg) return;
+  d.hatched.push(egg.id);
+  d.incubator=null;
+  _htchSave(d);
+  showFloatBubble(egg.pet+' '+egg.name+' kläckt! '+egg.bonusTxt,'buff');
+  _renderHtch(d);
+}
+
+function htchToggleActive(id){
+  var d=_htchGetData();
+  if(d.hatched.indexOf(id)<0) return;
+  var idx=d.active.indexOf(id);
+  if(idx>=0){
+    // Deactivate — remove bonus
+    var egg=HTCH_EGGS.filter(function(e){return e.id===id;})[0];
+    if(egg) Object.keys(egg.bonus).forEach(function(s){G[s]=Math.max(0,(G[s]||0)-egg.bonus[s]);});
+    d.active.splice(idx,1);
+    save();
+  } else {
+    if(d.active.length>=3){showFloatBubble('Max 3 aktiva följeslagare!','debuff');return;}
+    var egg=HTCH_EGGS.filter(function(e){return e.id===id;})[0];
+    if(egg){
+      Object.keys(egg.bonus).forEach(function(s){G[s]=(G[s]||0)+egg.bonus[s];});
+      save();
+    }
+    d.active.push(id);
+  }
+  _htchSave(d);
+  _renderHtch(d);
+}
+
+function openHtch(){$('htchPanel').classList.add('open');_renderHtch();}
+function closeHtch(){$('htchPanel').classList.remove('open');}
+
+function _renderHtch(d){
+  if(!d) d=_htchGetData();
+  var now=Date.now();
+  var hv=$('htchHatched');if(hv) hv.textContent=d.hatched.length;
+  var av=$('htchActive');if(av) av.textContent=d.active.length+'/3';
+  var totalBonus=0;
+  d.active.forEach(function(id){var e=HTCH_EGGS.filter(function(e){return e.id===id;})[0];if(e) totalBonus+=Object.values(e.bonus).reduce(function(a,b){return a+b;},0);});
+  var bv=$('htchBonus');if(bv) bv.textContent='+'+totalBonus;
+  // Team slots
+  var team=$('htchTeam');
+  if(team){
+    var html='';
+    for(var si=0;si<3;si++){
+      var activeId=d.active[si];
+      var ae=activeId?HTCH_EGGS.filter(function(e){return e.id===activeId;})[0]:null;
+      html+='<div class="htch-slot'+(ae?' filled':'')+(ae?' ":onclick="htchToggleActive(\''+activeId+'\')"':'')+'">'+
+        (ae?'<div class="htch-slot-emoji">'+ae.pet+'</div><div class="htch-slot-name">'+ae.name+'</div><div class="htch-slot-bonus">'+ae.bonusTxt+'</div><div class="htch-slot-remove">Tryck att ta bort</div>':
+          '<div class="htch-slot-empty">Tom</div>')+
+      '</div>';
+    }
+    // Fix onclick
+    team.innerHTML=html;
+    d.active.forEach(function(id,si){
+      var el=team.children[si];
+      if(el)(function(cid){el.onclick=function(){htchToggleActive(cid);};})(id);
+    });
+  }
+  // Incubator
+  var ie=$('htchIncEgg');var iname=$('htchIncName');var itimer=$('htchIncTimer');var ifill=$('htchIncFill');var ihatch=$('htchHatchBtn');
+  if(d.incubator){
+    var inc=d.incubator;
+    var egg=HTCH_EGGS.filter(function(e){return e.id===inc.id;})[0];
+    var ready=inc.end<=now;
+    var remaining=Math.max(0,Math.ceil((inc.end-now)/1000));
+    var totalDur=0;
+    if(egg){
+      var agiBonus=1-Math.min((G.agi||0)*0.003,0.3);
+      totalDur=Math.floor(egg.dur*agiBonus);
+    }
+    var pct=totalDur>0?Math.min(100,(1-(inc.end-now)/(totalDur*1000))*100):100;
+    if(ie){ie.textContent=egg?egg.egg:'🥚';ie.className='htch-inc-egg'+(ready?' ':'');}
+    if(iname) iname.textContent=egg?egg.name:'...';
+    if(itimer) itimer.textContent=ready?'✅ KLAR ATT KLÄCKAS!':(Math.floor(remaining/60)+'m '+remaining%60+'s kvar');
+    if(ifill) ifill.style.width=pct.toFixed(1)+'%';
+    if(ihatch) ihatch.disabled=!ready;
+  } else {
+    if(ie){ie.textContent='🥚';ie.className='htch-inc-egg idle';}
+    if(iname) iname.textContent='Tom';
+    if(itimer) itimer.textContent='Välj ett ägg nedan';
+    if(ifill) ifill.style.width='0%';
+    if(ihatch) ihatch.disabled=true;
+  }
+  // Grid
+  var grid=$('htchGrid');
+  if(grid){
+    grid.innerHTML=HTCH_EGGS.map(function(egg){
+      var isHatched=d.hatched.indexOf(egg.id)>=0;
+      var isActive=d.active.indexOf(egg.id)>=0;
+      var isInc=d.incubator&&d.incubator.id===egg.id;
+      var canHatch=!d.incubator&&!isInc;
+      return '<div class="htch-egg-card'+(isHatched?' hatched':isInc?' incubating':'')+'" onclick="'+(isHatched?'htchToggleActive(\''+egg.id+'\')':'htchStartEgg(\''+egg.id+'\')')+'">'+
+        '<div class="htch-egg-top">'+
+          '<div class="htch-egg-ico">'+(isHatched?egg.pet:egg.egg)+'</div>'+
+          '<div class="htch-egg-info">'+
+            '<div class="htch-egg-name">'+egg.name+'</div>'+
+            '<div class="htch-egg-dur">'+(isHatched?'✓ Kläckt':Math.floor(egg.dur/60)+'min')+'</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="htch-egg-bonus">'+egg.bonusTxt+'</div>'+
+        '<div class="htch-egg-cost'+(egg.cost===0?' free':'')+'">'+
+          (isHatched?(isActive?'✓ Aktiv':'Tryck att aktivera'):isInc?'⏳ Kläcks...':egg.cost===0?'Gratis!':egg.cost+'🪙')+
         '</div>'+
       '</div>';
     }).join('');
