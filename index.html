@@ -1529,6 +1529,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET TALENTS ══ */
+.tal-panel{position:fixed;inset:0;background:#060008;z-index:1042;display:none;flex-direction:column;overflow:hidden}
+.tal-panel.open{display:flex}
+.tal-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0020,#060008)}
+.tal-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aa44ff,#ff44aa,#ffcc00,#aa44ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:talShim 2s linear infinite}
+@keyframes talShim{0%{background-position:0%}100%{background-position:300%}}
+.tal-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Points banner */
+.tal-pts-banner{background:radial-gradient(ellipse,rgba(170,68,255,.08),rgba(0,0,0,0));border:2px solid rgba(170,68,255,.3);border-radius:18px;padding:14px;margin-bottom:12px;text-align:center}
+.tal-pts-num{font:900 40px var(--ff-head);color:#aa44ff;text-shadow:0 0 20px rgba(170,68,255,.4)}
+.tal-pts-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:4px}
+.tal-pts-sub{font:600 8px var(--ff-body);color:rgba(170,68,255,.5)}
+/* Reset btn */
+.tal-reset-btn{background:rgba(255,68,68,.1);border:1px solid rgba(255,68,68,.2);border-radius:10px;padding:6px 14px;font:700 9px var(--ff-head);color:#ff4444;cursor:pointer;margin-top:8px}
+/* Trees */
+.tal-trees{display:flex;flex-direction:column;gap:12px;margin-bottom:10px}
+.tal-tree{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 14px}
+.tal-tree-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.tal-tree-icon{font-size:26px}
+.tal-tree-name{font:800 13px var(--ff-head);color:#fff}
+.tal-tree-stat{font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+/* Talent nodes in tiers */
+.tal-tier{display:flex;gap:8px;margin-bottom:6px}
+.tal-node{flex:1;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;padding:8px 6px;text-align:center;position:relative}
+.tal-node.unlocked{border-color:rgba(170,68,255,.4);background:rgba(170,68,255,.08)}
+.tal-node.maxed{border-color:rgba(255,200,0,.5);background:rgba(255,180,0,.08);box-shadow:0 0 8px rgba(255,200,0,.1)}
+.tal-node.cant-afford{opacity:.5}
+.tal-node-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.6);margin-bottom:2px}
+.tal-node.unlocked .tal-node-name,.tal-node.maxed .tal-node-name{color:#fff}
+.tal-node-bonus{font:700 9px var(--ff-head);color:#aa44ff;margin-bottom:2px}
+.tal-node.maxed .tal-node-bonus{color:#ffcc00}
+.tal-node-cost{font:600 7px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:4px}
+.tal-node-btn{background:rgba(170,68,255,.2);border:1px solid rgba(170,68,255,.3);border-radius:7px;padding:3px 8px;font:700 7px var(--ff-head);color:#aa44ff;cursor:pointer;width:100%}
+.tal-node.maxed .tal-node-btn{background:rgba(255,200,0,.15);border-color:rgba(255,200,0,.3);color:#ffcc00}
+.tal-node-btn:disabled{opacity:.3;cursor:default}
+/* Connector lines */
+.tal-connector{display:flex;justify-content:center;margin:-4px 0;opacity:.3}
+.tal-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-top:6px}
+
 /* ══ ENDLESS RUNNER ══ */
 .run-panel{position:fixed;inset:0;background:#000508;z-index:1041;display:none;flex-direction:column;overflow:hidden}
 .run-panel.open{display:flex}
@@ -11609,6 +11649,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
+          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11671,6 +11712,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
+          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11716,6 +11758,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
+          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11799,6 +11842,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
+          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12388,6 +12432,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET TALENTS -->
+<div class="tal-panel" id="talPanel">
+  <div class="tal-header">
+    <div class="tal-title">🌟 TALANGER</div>
+    <button class="close-btn" onclick="closeTal()">✕</button>
+  </div>
+  <div class="tal-scroll">
+    <div class="tal-pts-banner">
+      <div class="tal-pts-lbl">TILLGÄNGLIGA TALANGPOÄNG</div>
+      <div class="tal-pts-num" id="talPtsNum">0</div>
+      <div class="tal-pts-sub">Tjäna 1 poäng per 2 levels (Level <span id="talLvlShow">1</span>)</div>
+      <button class="tal-reset-btn" onclick="talReset()">↺ Återställ talanger (1 KC)</button>
+    </div>
+    <div class="tal-trees" id="talTrees"></div>
+    <div class="tal-info">Talangpoäng = Golv(level / 2) · Varje talang ger permanenta stats!</div>
+  </div>
+</div>
 
 <!-- ENDLESS RUNNER -->
 <div class="run-panel" id="runPanel">
@@ -53693,6 +53756,145 @@ function _renderRun(d){
     btn.textContent=playsLeft>0?'🏃 STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';
   }
   _runDraw();
+}
+
+
+// PET TALENTS
+const TAL_KEY = 'k0509_tal';
+const TAL_TREES = [
+  {id:'combat', icon:'⚔️', name:'Strid', stat:'STR/END', color:'#ff4444',
+    tiers:[
+      [{id:'iron_fist',  name:'Järnnäve',    cost:1, bonus:{str:5},         bonusTxt:'+5 STR'},
+       {id:'iron_skin',  name:'Järnhud',     cost:1, bonus:{end:5},         bonusTxt:'+5 END'}],
+      [{id:'warrior',    name:'Krigarens',   cost:3, bonus:{str:15},        bonusTxt:'+15 STR',  req:'iron_fist'},
+       {id:'fortitude',  name:'Uthållighet', cost:3, bonus:{end:15},        bonusTxt:'+15 END',  req:'iron_skin'}],
+      [{id:'champion',   name:'Mästerkraft', cost:8, bonus:{str:25,end:10}, bonusTxt:'+25 STR +10 END', req:'warrior'}],
+    ]
+  },
+  {id:'speed', icon:'⚡', name:'Fart', stat:'AGI', color:'#44ff88',
+    tiers:[
+      [{id:'quick_step', name:'Snabba Steg', cost:1, bonus:{agi:5},         bonusTxt:'+5 AGI'}],
+      [{id:'sprint',     name:'Sprint',      cost:3, bonus:{agi:15},        bonusTxt:'+15 AGI', req:'quick_step'}],
+      [{id:'blur',       name:'Blixt',       cost:8, bonus:{agi:30,lck:5},  bonusTxt:'+30 AGI +5 LCK', req:'sprint'}],
+    ]
+  },
+  {id:'wisdom', icon:'📚', name:'Visdom', stat:'INT', color:'#4488ff',
+    tiers:[
+      [{id:'scholar',    name:'Lärling',     cost:1, bonus:{int:5},         bonusTxt:'+5 INT'}],
+      [{id:'sage',       name:'Vis Man',     cost:3, bonus:{int:15},        bonusTxt:'+15 INT', req:'scholar'}],
+      [{id:'oracle',     name:'Orakel',      cost:8, bonus:{int:30,end:5},  bonusTxt:'+30 INT +5 END', req:'sage'}],
+    ]
+  },
+  {id:'fortune', icon:'🍀', name:'Lycka', stat:'LCK', color:'#ffcc00',
+    tiers:[
+      [{id:'lucky',      name:'Lyckosam',    cost:1, bonus:{lck:5},         bonusTxt:'+5 LCK'}],
+      [{id:'blessed',    name:'Välsignad',   cost:3, bonus:{lck:15},        bonusTxt:'+15 LCK', req:'lucky'}],
+      [{id:'chosen',     name:'Utvald',      cost:8, bonus:{lck:30,str:5},  bonusTxt:'+30 LCK +5 STR', req:'blessed'}],
+    ]
+  },
+];
+
+function _talData(){try{return JSON.parse(localStorage.getItem(TAL_KEY)||'null');}catch(e){return null;}}
+function _talSave(d){localStorage.setItem(TAL_KEY,JSON.stringify(d));}
+function _talGetData(){
+  var d=_talData();
+  if(!d) d={unlocked:{},bonusGiven:{}};
+  return d;
+}
+function _talTotalPts(){return Math.floor((G.lvl||1)/2);}
+function _talUsedPts(d){
+  var used=0;
+  TAL_TREES.forEach(function(tree){
+    tree.tiers.forEach(function(tier){
+      tier.forEach(function(node){
+        if(d.unlocked[node.id]) used+=node.cost;
+      });
+    });
+  });
+  return used;
+}
+
+function talUnlock(nodeId){
+  var d=_talGetData();
+  if(d.unlocked[nodeId]) return;
+  // Find node
+  var node=null;
+  TAL_TREES.forEach(function(t){t.tiers.forEach(function(tier){tier.forEach(function(n){if(n.id===nodeId) node=n;});});});
+  if(!node) return;
+  // Check req
+  if(node.req&&!d.unlocked[node.req]){showFloatBubble('Lås upp föregående talang först!','debuff');return;}
+  // Check points
+  var avail=_talTotalPts()-_talUsedPts(d);
+  if(avail<node.cost){showFloatBubble('Behöver '+node.cost+' talangpoäng! Du har '+avail,'debuff');return;}
+  // Apply bonus
+  Object.keys(node.bonus).forEach(function(s){G[s]=(G[s]||0)+node.bonus[s];});
+  save();
+  d.unlocked[nodeId]=true;
+  d.bonusGiven[nodeId]=node.bonus;
+  _talSave(d);
+  showFloatBubble('🌟 Talang upplåst: '+node.name+'! '+node.bonusTxt,'buff');
+  checkAchievements();
+  _renderTal(d);
+}
+
+function talReset(){
+  var d=_talGetData();
+  if((G.kc||0)<1){showFloatBubble('Behöver 1 KC för att återställa!','debuff');return;}
+  G.kc=Math.max(0,(G.kc||0)-1);
+  // Reverse all bonuses
+  Object.keys(d.bonusGiven).forEach(function(nodeId){
+    var bonus=d.bonusGiven[nodeId];
+    Object.keys(bonus).forEach(function(s){G[s]=Math.max(0,(G[s]||0)-bonus[s]);});
+  });
+  save();
+  d.unlocked={};d.bonusGiven={};
+  _talSave(d);
+  showFloatBubble('↺ Talanger återställda! Poäng tillbaka.','buff');
+  _renderTal(d);
+}
+
+function openTal(){$('talPanel').classList.add('open');_renderTal();}
+function closeTal(){$('talPanel').classList.remove('open');}
+
+function _renderTal(d){
+  if(!d) d=_talGetData();
+  var total=_talTotalPts();
+  var used=_talUsedPts(d);
+  var avail=total-used;
+  var pn=$('talPtsNum');if(pn) pn.textContent=avail;
+  var ls=$('talLvlShow');if(ls) ls.textContent=G.lvl||1;
+  var trees=$('talTrees');
+  if(!trees) return;
+  trees.innerHTML=TAL_TREES.map(function(tree){
+    return '<div class="tal-tree">'+
+      '<div class="tal-tree-header">'+
+        '<div class="tal-tree-icon">'+tree.icon+'</div>'+
+        '<div>'+
+          '<div class="tal-tree-name">'+tree.name+'</div>'+
+          '<div class="tal-tree-stat">'+tree.stat+'</div>'+
+        '</div>'+
+      '</div>'+
+      tree.tiers.map(function(tier,ti){
+        return (ti>0?'<div class="tal-connector">│</div>':'')+
+          '<div class="tal-tier">'+
+          tier.map(function(node){
+            var unlkd=d.unlocked[node.id];
+            var reqOk=!node.req||d.unlocked[node.req];
+            var canAfford=avail>=node.cost;
+            var cls='tal-node'+(unlkd?' maxed':reqOk&&canAfford?' unlocked':' cant-afford');
+            return '<div class="'+cls+'">'+
+              '<div class="tal-node-name">'+node.name+'</div>'+
+              '<div class="tal-node-bonus">'+node.bonusTxt+'</div>'+
+              '<div class="tal-node-cost">'+(unlkd?'✓ Upplåst':node.cost+' poäng')+'</div>'+
+              '<button class="tal-node-btn" onclick="talUnlock(\''+node.id+'\')" '+(unlkd||!reqOk||!canAfford?'disabled':'')+'>'+
+                (unlkd?'✓':reqOk?'Lås upp':'🔒')+
+              '</button>'+
+            '</div>';
+          }).join('')+
+          '</div>';
+      }).join('')+
+    '</div>';
+  }).join('');
 }
 
 </script>
