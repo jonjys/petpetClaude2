@@ -1515,6 +1515,50 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ LOGIN CALENDAR ══ */
+.lcal-panel{position:fixed;inset:0;background:#010206;z-index:1028;display:none;flex-direction:column;overflow:hidden}
+.lcal-panel.open{display:flex}
+.lcal-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#050215,#010206)}
+.lcal-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8844,#ff44cc,#4488ff,#ffcc00);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:lcalShim 4s linear infinite}
+@keyframes lcalShim{0%{background-position:0%}100%{background-position:400%}}
+.lcal-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Streak banner */
+.lcal-streak{background:radial-gradient(ellipse,rgba(255,200,0,.07),rgba(0,0,0,0));border:2px solid rgba(255,200,0,.25);border-radius:20px;padding:16px;margin-bottom:14px;text-align:center}
+.lcal-streak-fire{font-size:48px;display:block;animation:lcalBounce 1.5s ease-in-out infinite}
+@keyframes lcalBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.lcal-streak-num{font:900 32px var(--ff-head);color:#ffcc00;text-shadow:0 0 20px rgba(255,200,0,.4)}
+.lcal-streak-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.lcal-streak-week{font:700 9px var(--ff-head);color:rgba(255,200,0,.6);margin-top:4px}
+/* Calendar grid */
+.lcal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:14px}
+.lcal-day{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:12px;padding:6px 4px;text-align:center;position:relative}
+.lcal-day.claimed{background:rgba(68,255,136,.05);border-color:rgba(68,255,136,.3)}
+.lcal-day.claimed::after{content:'✓';position:absolute;top:2px;right:4px;font:700 7px var(--ff-head);color:#44ff88;opacity:.7}
+.lcal-day.today{border-color:rgba(255,200,0,.5);background:rgba(255,200,0,.06);box-shadow:0 0 10px rgba(255,200,0,.1)}
+.lcal-day.today:not(.claimed){animation:lcalPulse 2s ease-in-out infinite}
+@keyframes lcalPulse{0%,100%{border-color:rgba(255,200,0,.5)}50%{border-color:rgba(255,200,0,.9)}}
+.lcal-day.future{opacity:.4}
+.lcal-day.day7{border-color:rgba(255,100,0,.3);background:rgba(255,100,0,.04)}
+.lcal-day.day7.today{border-color:rgba(255,150,0,.8);box-shadow:0 0 20px rgba(255,100,0,.2)}
+.lcal-day-num{font:700 8px var(--ff-head);color:rgba(255,255,255,.4);margin-bottom:3px}
+.lcal-day-icon{font-size:18px;display:block;margin-bottom:2px}
+.lcal-day-reward{font:600 6px var(--ff-body);color:rgba(255,200,100,.7);line-height:1.3}
+/* Stats */
+.lcal-stats{display:flex;gap:8px;margin-bottom:12px}
+.lcal-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,200,0,.1);border-radius:10px;padding:7px;text-align:center}
+.lcal-stat-v{font:900 15px var(--ff-head);color:#ffcc00}
+.lcal-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Claim button */
+.lcal-claim-btn{width:100%;background:linear-gradient(135deg,#442200,#aa5500);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px;box-shadow:0 0 20px rgba(255,150,0,.25);animation:lcalGlow 2s ease-in-out infinite}
+@keyframes lcalGlow{0%,100%{box-shadow:0 0 20px rgba(255,150,0,.25)}50%{box-shadow:0 0 40px rgba(255,200,0,.4)}}
+.lcal-claim-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none;animation:none}
+/* Next reward */
+.lcal-next{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px 14px;margin-bottom:10px}
+.lcal-next-lbl{font:700 7px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.lcal-next-content{font:700 11px var(--ff-head);color:#fff}
+.lcal-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET GYM ══ */
 .gym-panel{position:fixed;inset:0;background:#020100;z-index:1027;display:none;flex-direction:column;overflow:hidden}
 .gym-panel.open{display:flex}
@@ -11010,6 +11054,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
+          <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11058,6 +11103,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
+          <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11089,6 +11135,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
+          <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11158,6 +11205,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
+          <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11733,6 +11781,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- LOGIN CALENDAR -->
+<div class="lcal-panel" id="lcalPanel">
+  <div class="lcal-header">
+    <div class="lcal-title">📅 INLOGGNINGSBELÖNING</div>
+    <button class="close-btn" onclick="closeLcal()">✕</button>
+  </div>
+  <div class="lcal-scroll">
+    <div class="lcal-streak">
+      <span class="lcal-streak-fire" id="lcalFire">🔥</span>
+      <div class="lcal-streak-num" id="lcalStreakNum">0</div>
+      <div class="lcal-streak-lbl">Dagars streak</div>
+      <div class="lcal-streak-week" id="lcalWeekLbl">Vecka 1</div>
+    </div>
+    <div class="lcal-stats">
+      <div class="lcal-stat"><div class="lcal-stat-v" id="lcalDays">0</div><div class="lcal-stat-l">Totala dagar</div></div>
+      <div class="lcal-stat"><div class="lcal-stat-v" id="lcalWeeks">0</div><div class="lcal-stat-l">Veckor klar</div></div>
+      <div class="lcal-stat"><div class="lcal-stat-v" id="lcalEarned">0</div><div class="lcal-stat-l">Totalt tjänat</div></div>
+    </div>
+    <div class="lcal-grid" id="lcalGrid"></div>
+    <button class="lcal-claim-btn" id="lcalClaimBtn" onclick="lcalClaim()">🎁 HÄMTA DAGENS BELÖNING!</button>
+    <div class="lcal-next" id="lcalNext"></div>
+    <div class="lcal-info">Logga in varje dag för ökande belöningar! Dag 7 = JACKPOT!</div>
+  </div>
+</div>
 
 <!-- PET GYM -->
 <div class="gym-panel" id="gymPanel">
@@ -50319,6 +50393,97 @@ function _renderGym(d){
         '</div>'+
       '</div>';
     }).join('');
+  }
+}
+
+
+// LOGIN CALENDAR
+const LCAL_KEY = 'k0509_lcal';
+const LCAL_REWARDS = [
+  {day:1, icon:'🪙', text:'200 mynt',      reward:{coins:200}},
+  {day:2, icon:'⭐', text:'XP boost',       reward:{xp:100}},
+  {day:3, icon:'💎', text:'500 mynt',       reward:{coins:500}},
+  {day:4, icon:'🧪', text:'+3 LCK',         reward:{stat:'lck',val:3}},
+  {day:5, icon:'🔮', text:'1000 mynt',      reward:{coins:1000}},
+  {day:6, icon:'💪', text:'+5 STR',         reward:{stat:'str',val:5}},
+  {day:7, icon:'👑', text:'3000🪙 +3KC +stat!', reward:{coins:3000,kc:3,stat:'all',val:3}},
+];
+
+function _lcalData(){try{return JSON.parse(localStorage.getItem(LCAL_KEY)||'null');}catch(e){return null;}}
+function _lcalSave(d){localStorage.setItem(LCAL_KEY,JSON.stringify(d));}
+function _lcalGetData(){
+  var d=_lcalData();
+  if(!d) d={streak:0,totalDays:0,weeks:0,earned:0,lastClaim:'',dayInCycle:0,claimedToday:false};
+  var today=getTodayKey();
+  if(d.lastClaim!==today) d.claimedToday=false;
+  return d;
+}
+
+function lcalClaim(){
+  var d=_lcalGetData();
+  var today=getTodayKey();
+  if(d.claimedToday){showFloatBubble('Redan hämtat idag!','debuff');return;}
+  // Check if streak is maintained (yesterday must have been claimed)
+  var yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+  var yKey=yesterday.getFullYear()+'-'+(yesterday.getMonth()<9?'0':'')+(yesterday.getMonth()+1)+'-'+(yesterday.getDate()<10?'0':'')+yesterday.getDate();
+  if(d.lastClaim!==yKey&&d.lastClaim!==''){
+    // Streak broken
+    d.streak=0;d.dayInCycle=0;
+  }
+  d.streak=(d.streak||0)+1;
+  d.dayInCycle=(d.dayInCycle||0)%7+1; // 1-7
+  d.totalDays=(d.totalDays||0)+1;
+  var weekMultiplier=1+Math.floor((d.totalDays-1)/7)*0.1; // +10% per week
+  // Apply reward
+  var rew=LCAL_REWARDS.filter(function(r){return r.day===d.dayInCycle;})[0]||LCAL_REWARDS[0];
+  var msg='';
+  if(rew.reward.coins){var c=Math.floor(rew.reward.coins*weekMultiplier);gainCoins(c);d.earned=(d.earned||0)+c;msg='+'+(c)+'🪙';}
+  if(rew.reward.xp) gainXP(Math.floor(rew.reward.xp*weekMultiplier),'int');
+  if(rew.reward.kc) gainKC(rew.reward.kc);
+  if(rew.reward.stat==='all'){['str','agi','int','end','lck'].forEach(function(s){G[s]=(G[s]||0)+rew.reward.val;});save();msg+=' +'+rew.reward.val+' ALLA stats!';}
+  else if(rew.reward.stat){G[rew.reward.stat]=(G[rew.reward.stat]||0)+rew.reward.val;save();msg+=' +'+rew.reward.val+' '+rew.reward.stat.toUpperCase()+'!';}
+  if(rew.reward.kc) msg+=' +'+rew.reward.kc+'KC!';
+  if(d.dayInCycle===7){d.weeks=(d.weeks||0)+1;}
+  d.lastClaim=today;d.claimedToday=true;
+  _lcalSave(d);
+  showFloatBubble('📅 Dag '+d.dayInCycle+' hämtad! '+msg,'buff');
+  checkAchievements();
+  _renderLcal(d);
+}
+
+function openLcal(){$('lcalPanel').classList.add('open');_renderLcal();}
+function closeLcal(){$('lcalPanel').classList.remove('open');}
+
+function _renderLcal(d){
+  if(!d) d=_lcalGetData();
+  var sn=$('lcalStreakNum');if(sn) sn.textContent=d.streak||0;
+  var fi=$('lcalFire');if(fi) fi.textContent=(d.streak||0)>=7?'🔥':'🕯️';
+  var wl=$('lcalWeekLbl');if(wl) wl.textContent='Vecka '+(Math.floor((d.totalDays||0)/7)+1)+' • Dag '+(d.dayInCycle||1)+'/7';
+  var dv=$('lcalDays');if(dv) dv.textContent=d.totalDays||0;
+  var wv=$('lcalWeeks');if(wv) wv.textContent=d.weeks||0;
+  var ev=$('lcalEarned');if(ev) ev.textContent=d.earned||0;
+  var cb=$('lcalClaimBtn');if(cb){cb.disabled=d.claimedToday;cb.textContent=d.claimedToday?'✓ Dagens belöning hämtad!':'🎁 HÄMTA DAGENS BELÖNING!';}
+  // Grid
+  var grid=$('lcalGrid');
+  if(grid){
+    var dayInCycle=d.dayInCycle||0;
+    grid.innerHTML=LCAL_REWARDS.map(function(rew){
+      var isToday=rew.day===dayInCycle||(!d.claimedToday&&rew.day===(dayInCycle===0?1:dayInCycle));
+      var claimed=rew.day<dayInCycle||(rew.day===dayInCycle&&d.claimedToday);
+      if(!d.claimedToday&&dayInCycle===0) isToday=rew.day===1;
+      return '<div class="lcal-day'+(claimed?' claimed':'')+(isToday?' today':'')+(rew.day>=(d.dayInCycle||1)+1&&!claimed?' future':'')+(rew.day===7?' day7':'')+'">'+
+        '<div class="lcal-day-num">Dag '+rew.day+'</div>'+
+        '<span class="lcal-day-icon">'+rew.icon+'</span>'+
+        '<div class="lcal-day-reward">'+rew.text+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  // Next reward
+  var next=$('lcalNext');
+  if(next){
+    var nextDay=(d.dayInCycle||0)%7+1;
+    var nextRew=LCAL_REWARDS.filter(function(r){return r.day===nextDay;})[0];
+    if(nextRew) next.innerHTML='<div class="lcal-next-lbl">IMORGON</div><div class="lcal-next-content">'+nextRew.icon+' '+nextRew.text+'</div>';
   }
 }
 
