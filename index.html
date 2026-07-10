@@ -1534,6 +1534,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY QUEST BOARD ══ */
+.dqb-panel{position:fixed;inset:0;background:#050302;z-index:1047;display:none;flex-direction:column;overflow:hidden}
+.dqb-panel.open{display:flex}
+.dqb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0804,#050302)}
+.dqb-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ffcc00,#fff,#ffcc00);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:dqbShim 2.5s linear infinite}
+@keyframes dqbShim{0%{background-position:0%}100%{background-position:400%}}
+.dqb-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Banner */
+.dqb-banner{background:radial-gradient(ellipse,rgba(255,200,0,.07),rgba(0,0,0,0));border:2px solid rgba(255,200,0,.25);border-radius:18px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.dqb-banner-left{display:flex;flex-direction:column;gap:2px}
+.dqb-banner-title{font:800 14px var(--ff-head);color:#ffcc00}
+.dqb-banner-sub{font:600 8px var(--ff-body);color:rgba(255,200,0,.4)}
+.dqb-banner-right{text-align:right}
+.dqb-complete-num{font:900 26px var(--ff-head);color:#ffcc00}
+.dqb-complete-lbl{font:600 7px var(--ff-body);color:rgba(255,200,0,.4)}
+/* Progress bar */
+.dqb-prog-wrap{background:rgba(255,255,255,.06);border-radius:6px;height:6px;margin-bottom:14px;overflow:hidden}
+.dqb-prog-bar{height:100%;border-radius:6px;background:linear-gradient(90deg,#ffcc00,#ff8800);transition:width .4s ease}
+/* Quest cards */
+.dqb-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.dqb-quest{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;transition:border-color .2s}
+.dqb-quest.done{border-color:rgba(68,255,136,.3);background:rgba(68,255,136,.03)}
+.dqb-quest.claimed{opacity:.4}
+.dqb-quest-icon{font-size:28px;flex-shrink:0;width:36px;text-align:center}
+.dqb-quest-body{flex:1;min-width:0}
+.dqb-quest-name{font:700 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.dqb-quest.done .dqb-quest-name{color:#44ff88}
+.dqb-quest-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:5px}
+.dqb-quest-prog{background:rgba(255,255,255,.06);border-radius:4px;height:4px;overflow:hidden;margin-bottom:4px}
+.dqb-quest-prog-inner{height:100%;border-radius:4px;background:linear-gradient(90deg,#ffcc00,#44ff88);transition:width .3s}
+.dqb-quest.done .dqb-quest-prog-inner{background:#44ff88}
+.dqb-quest-pct{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.dqb-quest-rw{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.dqb-quest-rw-pill{background:rgba(255,200,0,.1);border:1px solid rgba(255,200,0,.2);border-radius:6px;padding:2px 6px;font:700 8px var(--ff-head);color:#ffcc00}
+.dqb-claim-btn{background:linear-gradient(135deg,#2a1800,#554400);border:1.5px solid rgba(255,200,0,.4);border-radius:10px;padding:6px 12px;font:800 10px var(--ff-head);color:#ffcc00;cursor:pointer;flex-shrink:0}
+.dqb-claim-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.04)}
+.dqb-done-check{font-size:22px;flex-shrink:0;color:#44ff88}
+/* All done */
+.dqb-all-done{display:none;flex-direction:column;align-items:center;gap:6px;padding:16px;background:rgba(68,255,136,.05);border:2px solid rgba(68,255,136,.2);border-radius:18px;margin-bottom:10px;text-align:center}
+.dqb-all-done.show{display:flex}
+.dqb-all-done-icon{font-size:36px}
+.dqb-all-done-text{font:800 14px var(--ff-head);color:#44ff88}
+.dqb-all-done-sub{font:600 9px var(--ff-body);color:rgba(68,255,136,.5)}
+.dqb-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ SPEED MATH ══ */
 .math-panel{position:fixed;inset:0;background:#020a04;z-index:1046;display:none;flex-direction:column;overflow:hidden}
 .math-panel.open{display:flex}
@@ -11802,6 +11848,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
+          <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11869,6 +11916,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
+          <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11919,6 +11967,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
+          <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12007,6 +12056,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
+          <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12601,6 +12651,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY QUEST BOARD -->
+<div class="dqb-panel" id="dqbPanel">
+  <div class="dqb-header">
+    <div class="dqb-title">📋 DAGLIGA UPPDRAG</div>
+    <button class="close-btn" onclick="closeDqb()">✕</button>
+  </div>
+  <div class="dqb-scroll">
+    <div class="dqb-banner">
+      <div class="dqb-banner-left">
+        <div class="dqb-banner-title">Dagens Uppdrag</div>
+        <div class="dqb-banner-sub" id="dqbDateLbl">Datum</div>
+      </div>
+      <div class="dqb-banner-right">
+        <div class="dqb-complete-num" id="dqbCompleteNum">0/6</div>
+        <div class="dqb-complete-lbl">slutförda</div>
+      </div>
+    </div>
+    <div class="dqb-prog-wrap"><div class="dqb-prog-bar" id="dqbProgBar" style="width:0%"></div></div>
+    <div class="dqb-all-done" id="dqbAllDone">
+      <div class="dqb-all-done-icon">🏆</div>
+      <div class="dqb-all-done-text">ALLA UPPDRAG KLARA!</div>
+      <div class="dqb-all-done-sub">+500🪙 +200XP +2KC bonusbelöning!</div>
+    </div>
+    <div class="dqb-list" id="dqbList"></div>
+    <div class="dqb-info">Uppdragen återställs varje dag. Slutför alla 6 för bonusbelöning!</div>
+  </div>
+</div>
 
 <!-- SPEED MATH -->
 <div class="math-panel" id="mathPanel">
@@ -39973,6 +40052,7 @@ function misTrack(type, amount){
   if(typeof questTrack==='function') questTrack(type,amount);
   if(typeof smithDrop==='function') smithDrop(type,amount);
   if(typeof bestEncounter==='function') bestEncounter(type);
+  if(typeof dqbTrack==='function') dqbTrack(type,amount);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -54878,6 +54958,127 @@ function _renderMath(d){
     btn.disabled=left<=0;
     btn.textContent=left>0?'🔢 STARTA! ('+left+' kvar)':'✓ Klar för idag!';
   }
+}
+
+
+// DAILY QUEST BOARD
+const DQB_KEY = 'k0509_dqb';
+
+// Quest templates: type, target, icon, name, desc, rewards
+const DQB_TEMPLATES = [
+  {type:'battle', icon:'⚔️', name:'Krigets Väg',   desc:'Vinn %t strider',   targets:[3,5,8],   rw:{coins:80,  xp:60,  kc:0}},
+  {type:'fish',   icon:'🎣', name:'Fiskemästare', desc:'Fångad %t fiskar',  targets:[3,5,10],  rw:{coins:60,  xp:50,  kc:0}},
+  {type:'cook',   icon:'🍳', name:'Kockens Kall',  desc:'Laga %t rätter',    targets:[2,4,6],   rw:{coins:70,  xp:55,  kc:0}},
+  {type:'quiz',   icon:'🧠', name:'Kunskapsprof',  desc:'Svara rätt %t ggr', targets:[5,10,15], rw:{coins:90,  xp:80,  kc:1}},
+  {type:'race',   icon:'🏃', name:'Maraton',       desc:'Springat %t meter', targets:[50,100,200],rw:{coins:75, xp:60,  kc:0}},
+  {type:'craft',  icon:'⚒️', name:'Hantverkare',   desc:'Smid %t föremål',   targets:[1,2,3],   rw:{coins:100, xp:70,  kc:1}},
+  {type:'elem',   icon:'🔥', name:'Elementmagiker',desc:'Kasta %t stavningar',targets:[5,10,20], rw:{coins:85,  xp:65,  kc:0}},
+  {type:'garden', icon:'🌱', name:'Trädgårdsmästare',desc:'Skörda %t grödor',targets:[3,5,8],   rw:{coins:65,  xp:50,  kc:0}},
+  {type:'alchemy',icon:'⚗️', name:'Alkemist',     desc:'Brygga %t drycker', targets:[2,3,5],   rw:{coins:80,  xp:65,  kc:0}},
+  {type:'pet',    icon:'🐾', name:'Kärleksfullt',  desc:'Klappa ditt husdjur %t ggr',targets:[5,10,20],rw:{coins:50,xp:40,kc:0}},
+];
+
+function _dqbData(){try{return JSON.parse(localStorage.getItem(DQB_KEY)||'null');}catch(e){return null;}}
+function _dqbSave(d){localStorage.setItem(DQB_KEY,JSON.stringify(d));}
+function _dqbGetData(){
+  var d=_dqbData();
+  var today=getTodayKey();
+  if(!d||d.day!==today){
+    // Generate 6 daily quests seeded by date
+    var seed=0;
+    for(var i=0;i<today.length;i++) seed=(seed*31+today.charCodeAt(i))>>>0;
+    var rng=_dqbRng(seed);
+    var pool=DQB_TEMPLATES.slice();
+    // Shuffle
+    for(var j=pool.length-1;j>0;j--){
+      var k=Math.floor(rng()*(j+1));
+      var tmp=pool[j];pool[j]=pool[k];pool[k]=tmp;
+    }
+    var chosen=pool.slice(0,6);
+    var quests=chosen.map(function(t){
+      var tierIdx=Math.floor(rng()*t.targets.length);
+      var target=t.targets[tierIdx];
+      return {type:t.type,icon:t.icon,name:t.name,desc:t.desc.replace('%t',target),target:target,
+              progress:0,done:false,claimed:false,
+              coins:t.rw.coins+(tierIdx*20),xp:t.rw.xp+(tierIdx*15),kc:t.rw.kc};
+    });
+    d={day:today,quests:quests,allClaimed:false,progress:{}};
+    _dqbSave(d);
+  }
+  return d;
+}
+
+function _dqbRng(seed){
+  var s=seed;
+  return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};
+}
+
+// Track progress — called from misTrack
+function dqbTrack(type, amount){
+  var d=_dqbGetData();
+  var changed=false;
+  d.quests.forEach(function(q){
+    if(q.done||q.claimed) return;
+    if(q.type===type){
+      q.progress=Math.min(q.target,(q.progress||0)+(amount||1));
+      if(q.progress>=q.target) q.done=true;
+      changed=true;
+    }
+  });
+  if(changed) _dqbSave(d);
+}
+
+function dqbClaim(idx){
+  var d=_dqbGetData();
+  var q=d.quests[idx];
+  if(!q||!q.done||q.claimed) return;
+  q.claimed=true;
+  gainCoins(q.coins);gainXP(q.xp,'int');
+  if(q.kc) gainKC(q.kc);
+  showFloatBubble('📋 Uppdrag klart! +'+q.coins+'🪙 +'+q.xp+'XP'+(q.kc?' +'+q.kc+'KC':''),'buff');
+  // Check all done
+  var allDone=d.quests.every(function(qq){return qq.claimed;});
+  if(allDone&&!d.allClaimed){
+    d.allClaimed=true;
+    gainCoins(500);gainXP(200,'int');gainKC(2);
+    showFloatBubble('🏆 ALLA UPPDRAG KLARA! +500🪙 +200XP +2KC!','buff');
+  }
+  _dqbSave(d);
+  checkAchievements();
+  _renderDqb(d);
+}
+
+function openDqb(){$('dqbPanel').classList.add('open');_renderDqb();}
+function closeDqb(){$('dqbPanel').classList.remove('open');}
+
+function _renderDqb(d){
+  if(!d) d=_dqbGetData();
+  var lbl=$('dqbDateLbl');if(lbl) lbl.textContent=d.day||getTodayKey();
+  var claimed=d.quests.filter(function(q){return q.claimed;}).length;
+  var cn=$('dqbCompleteNum');if(cn) cn.textContent=claimed+'/6';
+  var pb=$('dqbProgBar');if(pb) pb.style.width=Math.round(claimed/6*100)+'%';
+  var ad=$('dqbAllDone');if(ad){ad.classList.toggle('show',!!d.allClaimed);}
+  var list=$('dqbList');
+  if(!list) return;
+  list.innerHTML=d.quests.map(function(q,i){
+    var pct=q.target>0?Math.min(100,Math.round((q.progress||0)/q.target*100)):0;
+    var cls='dqb-quest'+(q.claimed?' claimed':q.done?' done':'');
+    var rwHtml='<div class="dqb-quest-rw-pill">+'+q.coins+'🪙</div><div class="dqb-quest-rw-pill">+'+q.xp+'XP</div>'+(q.kc?'<div class="dqb-quest-rw-pill">+'+q.kc+'KC</div>':'');
+    var rightHtml=q.claimed?'<div class="dqb-done-check">✅</div>':
+      q.done?'<button class="dqb-claim-btn" onclick="dqbClaim('+i+')">Hämta</button>':
+      '<button class="dqb-claim-btn" disabled>'+pct+'%</button>';
+    return '<div class="'+cls+'">'+
+      '<div class="dqb-quest-icon">'+q.icon+'</div>'+
+      '<div class="dqb-quest-body">'+
+        '<div class="dqb-quest-name">'+(q.claimed?'✓ ':'')+q.name+'</div>'+
+        '<div class="dqb-quest-desc">'+q.desc+'</div>'+
+        '<div class="dqb-quest-prog"><div class="dqb-quest-prog-inner" style="width:'+pct+'%"></div></div>'+
+        '<div class="dqb-quest-pct">'+(q.claimed?'Klar!':(q.progress||0)+'/'+q.target)+' · '+q.desc+'</div>'+
+        '<div class="dqb-quest-rw">'+rwHtml+'</div>'+
+      '</div>'+
+      rightHtml+
+    '</div>';
+  }).join('');
 }
 
 </script>
