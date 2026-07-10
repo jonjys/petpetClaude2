@@ -1518,6 +1518,69 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET BLACKSMITH ══ */
+.smith-panel{position:fixed;inset:0;background:#0a0500;z-index:1031;display:none;flex-direction:column;overflow:hidden}
+.smith-panel.open{display:flex}
+.smith-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#1a0800,#0a0500)}
+.smith-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff6600,#ffaa00,#ff6600);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:smithShim 1.6s linear infinite}
+@keyframes smithShim{0%{background-position:0%}100%{background-position:200%}}
+.smith-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Anvil banner */
+.smith-banner{background:radial-gradient(ellipse,rgba(255,100,0,.08),rgba(0,0,0,0));border:2px solid rgba(255,100,0,.2);border-radius:18px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.smith-banner-icon{font-size:40px;animation:smithHammer 2s ease-in-out infinite}
+@keyframes smithHammer{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+.smith-banner-info{flex:1}
+.smith-banner-name{font:900 14px var(--ff-head);color:#fff;margin-bottom:2px}
+.smith-banner-sub{font:600 9px var(--ff-body);color:rgba(255,150,50,.7)}
+/* Materials */
+.smith-mats-lbl{font:700 8px var(--ff-head);color:rgba(255,150,50,.5);letter-spacing:1px;margin-bottom:6px}
+.smith-mats-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.smith-mat{background:rgba(255,100,0,.06);border:1px solid rgba(255,100,0,.15);border-radius:10px;padding:5px 8px;display:flex;align-items:center;gap:4px}
+.smith-mat-icon{font-size:16px}
+.smith-mat-count{font:800 11px var(--ff-head);color:#ff8844}
+.smith-mat-name{font:500 7px var(--ff-body);color:rgba(255,255,255,.4)}
+/* Gear slots */
+.smith-slots-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px}
+.smith-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.smith-slot{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 8px;text-align:center;position:relative}
+.smith-slot.equipped{border-color:rgba(255,150,50,.4);background:rgba(255,100,0,.05)}
+.smith-slot.equipped.bronze{border-color:rgba(180,120,60,.5)}
+.smith-slot.equipped.silver{border-color:rgba(200,200,220,.5);background:rgba(180,180,200,.04)}
+.smith-slot.equipped.gold{border-color:rgba(255,210,0,.5);background:rgba(255,180,0,.05);box-shadow:0 0 12px rgba(255,200,0,.1)}
+.smith-slot-icon{font-size:28px;margin-bottom:4px;display:block}
+.smith-slot-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.6);margin-bottom:2px}
+.smith-slot-bonus{font:600 7px var(--ff-body);color:#ff8844;min-height:9px}
+.smith-slot-tier{font:700 7px var(--ff-head);letter-spacing:.5px;margin-bottom:5px;min-height:9px}
+.smith-slot-tier.bronze{color:#b47c3c}
+.smith-slot-tier.silver{color:#c0c0dc}
+.smith-slot-tier.gold{color:#ffd200}
+.smith-slot-btn{background:rgba(255,100,0,.15);border:1px solid rgba(255,100,0,.25);border-radius:8px;padding:4px 6px;font:700 7px var(--ff-head);color:#ff8844;cursor:pointer;width:100%}
+.smith-slot-btn:disabled{opacity:.3;cursor:default}
+/* Forge card */
+.smith-forge-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px}
+.smith-recipes{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.smith-recipe{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color .2s}
+.smith-recipe:hover:not(.locked){border-color:rgba(255,100,0,.3)}
+.smith-recipe.locked{opacity:.5}
+.smith-recipe-icon{font-size:26px;flex-shrink:0}
+.smith-recipe-info{flex:1}
+.smith-recipe-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:1px}
+.smith-recipe-cost{font:600 8px var(--ff-body);color:rgba(255,200,100,.6)}
+.smith-recipe-bonus{font:700 9px var(--ff-head);color:#ff8844}
+.smith-recipe-tier{font:600 7px var(--ff-body);margin-bottom:2px}
+.smith-recipe-tier.bronze{color:#b47c3c}
+.smith-recipe-tier.silver{color:#c0c0dc}
+.smith-recipe-tier.gold{color:#ffd200}
+.smith-forge-btn{background:linear-gradient(135deg,#440000,#993300);border:none;border-radius:10px;padding:8px 12px;font:800 10px var(--ff-head);color:#fff;cursor:pointer;flex-shrink:0}
+.smith-forge-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
+/* Stats */
+.smith-stats{display:flex;gap:8px;margin-bottom:12px}
+.smith-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,100,0,.1);border-radius:10px;padding:7px;text-align:center}
+.smith-stat-v{font:900 15px var(--ff-head);color:#ff6600}
+.smith-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.smith-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-top:6px}
+
 /* ══ DAILY MAZE ══ */
 .maze-panel{position:fixed;inset:0;background:#010204;z-index:1030;display:none;flex-direction:column;overflow:hidden}
 .maze-panel.open{display:flex}
@@ -11154,6 +11217,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
+          <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11205,6 +11269,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
+          <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11239,6 +11304,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
+          <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11311,6 +11377,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
+          <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11889,6 +11956,36 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET BLACKSMITH -->
+<div class="smith-panel" id="smithPanel">
+  <div class="smith-header">
+    <div class="smith-title">⚒️ SMEDEN</div>
+    <button class="close-btn" onclick="closeSmith()">✕</button>
+  </div>
+  <div class="smith-scroll">
+    <div class="smith-banner">
+      <div class="smith-banner-icon">🔨</div>
+      <div class="smith-banner-info">
+        <div class="smith-banner-name">Husdjurets Smedja</div>
+        <div class="smith-banner-sub">Samla material → Smid utrustning → Få permanenta stats!</div>
+      </div>
+    </div>
+    <div class="smith-stats">
+      <div class="smith-stat"><div class="smith-stat-v" id="smithForged">0</div><div class="smith-stat-l">Smidda föremål</div></div>
+      <div class="smith-stat"><div class="smith-stat-v" id="smithBonus">0</div><div class="smith-stat-l">Bonus stats</div></div>
+      <div class="smith-stat"><div class="smith-stat-v" id="smithMatsTotal">0</div><div class="smith-stat-l">Mat. samlat</div></div>
+    </div>
+    <div class="smith-mats-lbl">MATERIAL</div>
+    <div class="smith-mats-row" id="smithMatsRow"></div>
+    <div class="smith-slots-lbl">UTRUSTAD GEAR</div>
+    <div class="smith-slots" id="smithSlots"></div>
+    <div class="smith-forge-lbl">SMIDESRECEPT</div>
+    <div class="smith-recipes" id="smithRecipes"></div>
+    <div class="smith-info">Material droppar från alla aktiviteter! Smid bättre gear för starkare stats!</div>
+  </div>
+</div>
 
 <!-- DAILY MAZE -->
 <div class="maze-panel" id="mazePanel">
@@ -38774,6 +38871,7 @@ function misTrack(type, amount){
   if(typeof gardDropSeed==='function') gardDropSeed(type);
   if(typeof alchDrop==='function') alchDrop(type);
   if(typeof questTrack==='function') questTrack(type,amount);
+  if(typeof smithDrop==='function') smithDrop(type,amount);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -51033,6 +51131,197 @@ function _renderMaze(d){
   var trv=$('mazeTries');if(trv) trv.textContent=Math.max(0,MAZE_DAILY_TRIES-(d.todayTries||0));
   var sb=$('mazeStartBtn');
   if(sb&&!_mazeRunning){sb.disabled=d.todayTries>=MAZE_DAILY_TRIES;sb.textContent=d.todayTries>=MAZE_DAILY_TRIES?'✓ Max försök idag':'🔀 STARTA LABYRINT! ('+(MAZE_DAILY_TRIES-d.todayTries)+' kvar)';}
+}
+
+
+// PET BLACKSMITH
+const SMITH_KEY = 'k0509_smith';
+const SMITH_MATS = [
+  {id:'iron',   icon:'🪨', name:'Järnmalm'},
+  {id:'mana',   icon:'💠', name:'Manakristall'},
+  {id:'feather',icon:'🪶', name:'Snabbjärnfjäder'},
+  {id:'scale',  icon:'🐉', name:'Drakfjäll'},
+  {id:'dust',   icon:'✨', name:'Stjärndamm'},
+  {id:'coin',   icon:'🍀', name:'Lyckoenhet'},
+];
+// Drop rules: {activity: [matId, ...]}
+const SMITH_MAT_DROPS = {
+  battle:['iron','scale'], train:['iron','feather'], mine:['iron','dust'],
+  race:['feather'], fish:['mana'], quiz:['mana','dust'],
+  alchemy:['mana','scale'], garden:['dust','coin'], casino:['coin'],
+  dungeon:['scale','iron'], boss:['scale','dust'], react:['feather'],
+};
+const SMITH_SLOTS = [
+  {id:'weapon', icon:'⚔️', name:'Vapen',    stat:'str'},
+  {id:'helm',   icon:'⛑️',  name:'Hjälm',    stat:'end'},
+  {id:'chest',  icon:'🛡️', name:'Rustning',  stat:'end'},
+  {id:'boots',  icon:'👢', name:'Stövlar',   stat:'agi'},
+  {id:'ring',   icon:'💍', name:'Ring',      stat:'lck'},
+  {id:'tome',   icon:'📖', name:'Bok',       stat:'int'},
+];
+const SMITH_TIERS = [
+  {key:'bronze', label:'BRONS',  color:'bronze', mult:1},
+  {key:'silver', label:'SILVER', color:'silver', mult:2.5},
+  {key:'gold',   label:'GULD',   color:'gold',   mult:5},
+];
+// Recipes: [{slot, tier, costs:{matId:amount}, bonus:{stat:val}, coins}]
+const SMITH_RECIPES = (function(){
+  var r=[];
+  SMITH_SLOTS.forEach(function(sl){
+    SMITH_TIERS.forEach(function(ti,ti_i){
+      var base=5+ti_i*8;
+      var costs={};
+      if(ti_i===0){costs['iron']=base;}
+      else if(ti_i===1){costs['iron']=base;costs['mana']=3+ti_i*2;}
+      else{costs['iron']=base;costs['mana']=8;costs['scale']=5;}
+      // Add a secondary mat per slot
+      if(sl.id==='weapon') costs['feather']=(ti_i+1)*2;
+      if(sl.id==='ring') costs['coin']=(ti_i+1)*3;
+      if(sl.id==='tome') costs['dust']=(ti_i+1)*3;
+      var bonus={};bonus[sl.stat]=Math.round(3*ti.mult);
+      if(ti_i>=1) bonus['str']=(ti_i===1?2:5); // cross-stat on higher tiers
+      r.push({id:sl.id+'_'+ti.key, slot:sl.id, tier:ti.key, label:ti.label, color:ti.color, costs:costs, bonus:bonus, coins:(ti_i+1)*100});
+    });
+  });
+  return r;
+}());
+
+function _smithData(){try{return JSON.parse(localStorage.getItem(SMITH_KEY)||'null');}catch(e){return null;}}
+function _smithSave(d){localStorage.setItem(SMITH_KEY,JSON.stringify(d));}
+function _smithGetData(){
+  var d=_smithData();
+  if(!d) d={mats:{},equipped:{},forged:0,matsTotal:0};
+  return d;
+}
+
+// Called from misTrack to randomly drop materials
+function smithDrop(type, amount){
+  var pool=SMITH_MAT_DROPS[type];
+  if(!pool||!pool.length) return;
+  var d=_smithGetData();
+  var dropped=false;
+  pool.forEach(function(matId){
+    var chance=0.25*(amount||1);
+    if(Math.random()<Math.min(chance,0.6)){
+      d.mats[matId]=(d.mats[matId]||0)+1;
+      d.matsTotal=(d.matsTotal||0)+1;
+      dropped=true;
+    }
+  });
+  if(dropped) _smithSave(d);
+}
+
+function smithForge(recipeId){
+  var rec=SMITH_RECIPES.filter(function(r){return r.id===recipeId;})[0];
+  if(!rec) return;
+  var d=_smithGetData();
+  // Check coins
+  if((G.coins||0)<rec.coins){showFloatBubble('Behöver '+rec.coins+'🪙!','debuff');return;}
+  // Check materials
+  var ok=true;
+  Object.keys(rec.costs).forEach(function(matId){
+    if((d.mats[matId]||0)<rec.costs[matId]) ok=false;
+  });
+  if(!ok){showFloatBubble('Inte nog material!','debuff');return;}
+  // Deduct
+  G.coins-=rec.costs_coins||rec.coins;
+  Object.keys(rec.costs).forEach(function(matId){
+    d.mats[matId]=(d.mats[matId]||0)-rec.costs[matId];
+  });
+  // Unequip old gear in same slot (reverse old bonuses)
+  var oldEq=d.equipped[rec.slot];
+  if(oldEq){
+    var oldRec=SMITH_RECIPES.filter(function(r){return r.id===oldEq;})[0];
+    if(oldRec) Object.keys(oldRec.bonus).forEach(function(s){G[s]=Math.max(0,(G[s]||0)-oldRec.bonus[s]);});
+  }
+  // Equip new gear (apply bonuses)
+  d.equipped[rec.slot]=recipeId;
+  Object.keys(rec.bonus).forEach(function(s){G[s]=(G[s]||0)+rec.bonus[s];});
+  save();
+  d.forged=(d.forged||0)+1;
+  G.coins-=rec.coins;save();
+  _smithSave(d);
+  var bonusText=Object.keys(rec.bonus).map(function(s){return '+'+rec.bonus[s]+' '+s.toUpperCase();}).join(' ');
+  showFloatBubble('⚒️ '+rec.label+' smitt! '+bonusText,'buff');
+  checkAchievements();
+  _renderSmith(d);
+}
+
+function openSmith(){$('smithPanel').classList.add('open');_renderSmith();}
+function closeSmith(){$('smithPanel').classList.remove('open');}
+
+function _renderSmith(d){
+  if(!d) d=_smithGetData();
+  // Stats bar
+  var sf=$('smithForged');if(sf) sf.textContent=d.forged||0;
+  var sb=$('smithBonus');
+  if(sb){
+    var totalBonus=0;
+    Object.values(d.equipped).forEach(function(recId){
+      var r=SMITH_RECIPES.filter(function(x){return x.id===recId;})[0];
+      if(r) Object.values(r.bonus).forEach(function(v){totalBonus+=v;});
+    });
+    sb.textContent=totalBonus;
+  }
+  var sm=$('smithMatsTotal');if(sm) sm.textContent=d.matsTotal||0;
+  // Materials row
+  var mr=$('smithMatsRow');
+  if(mr){
+    mr.innerHTML=SMITH_MATS.map(function(mat){
+      var count=d.mats[mat.id]||0;
+      return '<div class="smith-mat">'+
+        '<span class="smith-mat-icon">'+mat.icon+'</span>'+
+        '<span class="smith-mat-count">'+count+'</span>'+
+        '<span class="smith-mat-name">'+mat.name+'</span>'+
+      '</div>';
+    }).join('');
+  }
+  // Gear slots
+  var slots=$('smithSlots');
+  if(slots){
+    slots.innerHTML=SMITH_SLOTS.map(function(sl){
+      var eqId=d.equipped[sl.id];
+      var eqRec=eqId?SMITH_RECIPES.filter(function(r){return r.id===eqId;})[0]:null;
+      var tierCls=eqRec?' '+eqRec.color:'';
+      var bonusText=eqRec?Object.keys(eqRec.bonus).map(function(s){return '+'+eqRec.bonus[s]+' '+s.toUpperCase();}).join(' '):'Ej utrustad';
+      return '<div class="smith-slot'+(eqRec?' equipped'+tierCls:'')+'">'+
+        '<span class="smith-slot-icon">'+sl.icon+'</span>'+
+        '<div class="smith-slot-name">'+sl.name+'</div>'+
+        '<div class="smith-slot-tier'+(eqRec?' '+eqRec.color:'')+'">'+(eqRec?eqRec.label:'—')+'</div>'+
+        '<div class="smith-slot-bonus">'+bonusText+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  // Recipes
+  var recs=$('smithRecipes');
+  if(recs){
+    recs.innerHTML=SMITH_RECIPES.map(function(rec){
+      var sl=SMITH_SLOTS.filter(function(s){return s.id===rec.slot;})[0];
+      var canAffordCoins=(G.coins||0)>=rec.coins;
+      var canAffordMats=Object.keys(rec.costs).every(function(matId){return (d.mats[matId]||0)>=rec.costs[matId];});
+      var canForge=canAffordCoins&&canAffordMats;
+      var costText=Object.keys(rec.costs).map(function(matId){
+        var mat=SMITH_MATS.filter(function(m){return m.id===matId;})[0];
+        var have=d.mats[matId]||0;
+        var need=rec.costs[matId];
+        return mat.icon+(have>=need?'<span style="color:#44ff88">':'')+have+'/'+need+(have>=need?'</span>':'');
+      }).join(' ');
+      var bonusText=Object.keys(rec.bonus).map(function(s){return '+'+rec.bonus[s]+' '+s.toUpperCase();}).join(' ');
+      var isEquipped=d.equipped[rec.slot]===rec.id;
+      return '<div class="smith-recipe'+(canForge?'':' locked')+'">'+
+        '<div class="smith-recipe-icon">'+(sl?sl.icon:'⚒️')+'</div>'+
+        '<div class="smith-recipe-info">'+
+          '<div class="smith-recipe-tier '+rec.color+'">'+rec.label+' '+sl.name+'</div>'+
+          '<div class="smith-recipe-name">'+(sl?sl.name:'?')+'</div>'+
+          '<div class="smith-recipe-cost">'+costText+' · '+rec.coins+'🪙</div>'+
+          '<div class="smith-recipe-bonus">'+bonusText+'</div>'+
+        '</div>'+
+        '<button class="smith-forge-btn" onclick="smithForge(\''+rec.id+'\')" '+(canForge&&!isEquipped?'':'disabled')+'>'+
+          (isEquipped?'✓ På':'⚒️ Smid')+
+        '</button>'+
+      '</div>';
+    }).join('');
+  }
 }
 
 </script>
