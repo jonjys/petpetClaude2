@@ -1519,6 +1519,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SNAKE GAME ══ */
+.snake-panel{position:fixed;inset:0;background:#000d00;z-index:1032;display:none;flex-direction:column;overflow:hidden}
+.snake-panel.open{display:flex}
+.snake-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#001a00,#000d00)}
+.snake-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ff44,#88ffaa,#00ff44);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:snakeShim 2s linear infinite}
+@keyframes snakeShim{0%{background-position:0%}100%{background-position:200%}}
+.snake-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+/* HUD */
+.snake-hud{display:flex;gap:8px;margin-bottom:10px}
+.snake-hud-box{flex:1;background:rgba(0,255,68,.04);border:1px solid rgba(0,255,68,.15);border-radius:10px;padding:6px;text-align:center}
+.snake-hud-v{font:900 16px var(--ff-head);color:#00ff44}
+.snake-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Arena */
+.snake-arena-wrap{background:rgba(0,20,0,.8);border:2px solid rgba(0,255,68,.2);border-radius:16px;padding:8px;margin-bottom:10px;display:flex;justify-content:center}
+#snakeCanvas{display:block;border-radius:8px}
+/* Status bar */
+.snake-status{text-align:center;font:700 11px var(--ff-head);color:#00ff44;margin-bottom:8px;min-height:18px}
+/* D-pad */
+.snake-dpad{display:grid;grid-template-areas:". u ." "l . r" ". d .";grid-template-columns:56px 56px 56px;grid-template-rows:56px 56px 56px;gap:4px;justify-content:center;margin-bottom:12px}
+.snake-btn{background:rgba(0,255,68,.1);border:1.5px solid rgba(0,255,68,.25);border-radius:12px;font:700 20px var(--ff-head);color:#00ff44;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.snake-btn:active{background:rgba(0,255,68,.25);transform:scale(.92)}
+.snake-btn-u{grid-area:u}
+.snake-btn-d{grid-area:d}
+.snake-btn-l{grid-area:l}
+.snake-btn-r{grid-area:r}
+/* Start/info */
+.snake-start-btn{width:100%;background:linear-gradient(135deg,#004400,#008800);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.snake-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.snake-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+/* Game over overlay */
+.snake-over{display:none;flex-direction:column;align-items:center;gap:6px;padding:12px;background:rgba(0,0,0,.7);border:1.5px solid rgba(0,255,68,.3);border-radius:16px;margin-bottom:10px}
+.snake-over.show{display:flex}
+.snake-over-score{font:900 32px var(--ff-head);color:#00ff44}
+.snake-over-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.snake-over-reward{font:700 12px var(--ff-head);color:#ffcc00}
+
 /* ══ PET BLACKSMITH ══ */
 .smith-panel{position:fixed;inset:0;background:#0a0500;z-index:1031;display:none;flex-direction:column;overflow:hidden}
 .smith-panel.open{display:flex}
@@ -11218,6 +11255,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
+          <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11270,6 +11308,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
+          <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11305,6 +11344,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
+          <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11378,6 +11418,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
+          <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11957,6 +11998,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- SNAKE GAME -->
+<div class="snake-panel" id="snakePanel">
+  <div class="snake-header">
+    <div class="snake-title">🐍 ORMEN</div>
+    <button class="close-btn" onclick="closeSnake()">✕</button>
+  </div>
+  <div class="snake-scroll">
+    <div class="snake-hud">
+      <div class="snake-hud-box"><div class="snake-hud-v" id="snakeScore">0</div><div class="snake-hud-l">Poäng</div></div>
+      <div class="snake-hud-box"><div class="snake-hud-v" id="snakeBest">0</div><div class="snake-hud-l">Rekord</div></div>
+      <div class="snake-hud-box"><div class="snake-hud-v" id="snakePlays">0</div><div class="snake-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="snake-arena-wrap"><canvas id="snakeCanvas" width="280" height="280"></canvas></div>
+    <div class="snake-status" id="snakeStatus">Tryck START för att spela!</div>
+    <div class="snake-over" id="snakeOver">
+      <div class="snake-over-lbl">GAME OVER</div>
+      <div class="snake-over-score" id="snakeOverScore">0</div>
+      <div class="snake-over-lbl">poäng</div>
+      <div class="snake-over-reward" id="snakeOverReward"></div>
+    </div>
+    <div class="snake-dpad">
+      <button class="snake-btn snake-btn-u" ontouchstart="snakeDir(0,-1)" onclick="snakeDir(0,-1)">▲</button>
+      <button class="snake-btn snake-btn-l" ontouchstart="snakeDir(-1,0)" onclick="snakeDir(-1,0)">◀</button>
+      <button class="snake-btn snake-btn-r" ontouchstart="snakeDir(1,0)" onclick="snakeDir(1,0)">▶</button>
+      <button class="snake-btn snake-btn-d" ontouchstart="snakeDir(0,1)" onclick="snakeDir(0,1)">▼</button>
+    </div>
+    <button class="snake-start-btn" id="snakeStartBtn" onclick="snakeStart()">🐍 STARTA SPELET</button>
+    <div class="snake-info">AGI = snabbare reaktion · INT = mer XP · LCK = dubbla äpplen · 10 spel/dag</div>
+  </div>
+</div>
 
 <!-- PET BLACKSMITH -->
 <div class="smith-panel" id="smithPanel">
@@ -51322,6 +51395,193 @@ function _renderSmith(d){
       '</div>';
     }).join('');
   }
+}
+
+
+// SNAKE GAME
+const SNAKE_KEY = 'k0509_snake';
+const SNAKE_COLS = 14;
+const SNAKE_ROWS = 14;
+const SNAKE_CELL = 20;
+const SNAKE_MAX_PLAYS = 10;
+
+var _snakeState = null; // running game state
+
+function _snakeData(){try{return JSON.parse(localStorage.getItem(SNAKE_KEY)||'null');}catch(e){return null;}}
+function _snakeSave(d){localStorage.setItem(SNAKE_KEY,JSON.stringify(d));}
+function _snakeGetData(){
+  var d=_snakeData();
+  if(!d) d={best:0,totalPlays:0,playsToday:0,lastDay:''};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function snakeDir(dx,dy){
+  if(!_snakeState||!_snakeState.running) return;
+  var s=_snakeState;
+  // Prevent reversing
+  if(s.dx===-dx&&s.dy===-dy) return;
+  s.nextDx=dx;s.nextDy=dy;
+}
+
+function snakeStart(){
+  var d=_snakeGetData();
+  if(d.playsToday>=SNAKE_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  var btn=$('snakeStartBtn');if(btn) btn.disabled=true;
+  var over=$('snakeOver');if(over) over.classList.remove('show');
+  var status=$('snakeStatus');if(status) status.textContent='';
+  // Speed: base 320ms, -2ms per AGI, min 150ms
+  var speed=Math.max(150, 320-(G.agi||0)*2);
+  // Initial snake in center
+  var midC=Math.floor(SNAKE_COLS/2);var midR=Math.floor(SNAKE_ROWS/2);
+  _snakeState={
+    running:true,
+    snake:[{x:midC,y:midR},{x:midC-1,y:midR},{x:midC-2,y:midR}],
+    dx:1,dy:0,nextDx:1,nextDy:0,
+    food:[],score:0,
+    interval:null,speed:speed,
+  };
+  _snakeSpawnFood();_snakeSpawnFood();
+  _snakeDraw();
+  _snakeState.interval=setInterval(_snakeTick, speed);
+  var sv=$('snakeScore');if(sv) sv.textContent=0;
+}
+
+function _snakeSpawnFood(){
+  var s=_snakeState;
+  var tries=0;
+  while(tries<50){
+    var x=Math.floor(Math.random()*SNAKE_COLS);
+    var y=Math.floor(Math.random()*SNAKE_ROWS);
+    var onSnake=s.snake.some(function(p){return p.x===x&&p.y===y;});
+    var onFood=s.food.some(function(f){return f.x===x&&f.y===y;});
+    if(!onSnake&&!onFood){
+      // LCK: 15% chance for gold (double) food
+      var gold=(Math.random()<0.15+(G.lck||0)*0.003);
+      s.food.push({x:x,y:y,gold:gold});
+      return;
+    }
+    tries++;
+  }
+}
+
+function _snakeTick(){
+  var s=_snakeState;
+  if(!s||!s.running) return;
+  // Apply direction
+  s.dx=s.nextDx;s.dy=s.nextDy;
+  var head=s.snake[0];
+  var nx=head.x+s.dx;var ny=head.y+s.dy;
+  // Wall collision
+  if(nx<0||nx>=SNAKE_COLS||ny<0||ny>=SNAKE_ROWS){_snakeEnd();return;}
+  // Self collision
+  if(s.snake.some(function(p){return p.x===nx&&p.y===ny;})){_snakeEnd();return;}
+  // Move
+  s.snake.unshift({x:nx,y:ny});
+  // Check food
+  var ate=s.food.findIndex(function(f){return f.x===nx&&f.y===ny;});
+  if(ate>=0){
+    var food=s.food.splice(ate,1)[0];
+    var pts=food.gold?2:1;
+    s.score+=pts;
+    var sv=$('snakeScore');if(sv) sv.textContent=s.score;
+    _snakeSpawnFood();
+  } else {
+    s.snake.pop();
+  }
+  _snakeDraw();
+}
+
+function _snakeDraw(){
+  var canvas=$('snakeCanvas');if(!canvas) return;
+  var ctx=canvas.getContext('2d');
+  var s=_snakeState;
+  // Background
+  ctx.fillStyle='#000d00';
+  ctx.fillRect(0,0,SNAKE_COLS*SNAKE_CELL,SNAKE_ROWS*SNAKE_CELL);
+  // Grid lines
+  ctx.strokeStyle='rgba(0,255,68,.05)';
+  ctx.lineWidth=1;
+  for(var i=0;i<=SNAKE_COLS;i++){ctx.beginPath();ctx.moveTo(i*SNAKE_CELL,0);ctx.lineTo(i*SNAKE_CELL,SNAKE_ROWS*SNAKE_CELL);ctx.stroke();}
+  for(var j=0;j<=SNAKE_ROWS;j++){ctx.beginPath();ctx.moveTo(0,j*SNAKE_CELL);ctx.lineTo(SNAKE_COLS*SNAKE_CELL,j*SNAKE_CELL);ctx.stroke();}
+  if(!s) return;
+  // Food
+  s.food.forEach(function(f){
+    ctx.font=(SNAKE_CELL-2)+'px serif';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(f.gold?'🌟':'🍎',(f.x+0.5)*SNAKE_CELL,(f.y+0.5)*SNAKE_CELL);
+  });
+  // Snake body
+  s.snake.forEach(function(p,i){
+    var isHead=i===0;
+    if(isHead){
+      ctx.fillStyle='#00ff44';
+    } else {
+      var alpha=Math.max(0.3, 1-i/s.snake.length);
+      ctx.fillStyle='rgba(0,200,60,'+alpha+')';
+    }
+    var pad=isHead?1:2;
+    ctx.fillRect(p.x*SNAKE_CELL+pad, p.y*SNAKE_CELL+pad, SNAKE_CELL-pad*2, SNAKE_CELL-pad*2);
+    if(isHead){
+      // Eyes
+      ctx.fillStyle='#000';
+      var ex=p.x*SNAKE_CELL;var ey=p.y*SNAKE_CELL;
+      if(s.dx===1){ctx.fillRect(ex+14,ey+5,3,3);ctx.fillRect(ex+14,ey+12,3,3);}
+      else if(s.dx===-1){ctx.fillRect(ex+3,ey+5,3,3);ctx.fillRect(ex+3,ey+12,3,3);}
+      else if(s.dy===-1){ctx.fillRect(ex+5,ey+3,3,3);ctx.fillRect(ex+12,ey+3,3,3);}
+      else{ctx.fillRect(ex+5,ey+14,3,3);ctx.fillRect(ex+12,ey+14,3,3);}
+    }
+  });
+}
+
+function _snakeEnd(){
+  var s=_snakeState;
+  clearInterval(s.interval);
+  s.running=false;
+  var d=_snakeGetData();
+  var isNew=s.score>d.best;
+  if(isNew) d.best=s.score;
+  d.playsToday=(d.playsToday||0)+1;
+  d.totalPlays=(d.totalPlays||0)+1;
+  // Rewards: coins = score*10, XP = score*5*(1+INT*0.01)
+  var coins=s.score*10;
+  var xpMult=1+(G.int||0)*0.01;
+  var xp=Math.floor(s.score*5*xpMult);
+  gainCoins(coins);gainXP(xp,'agi');
+  if(isNew) gainKC(1);
+  _snakeSave(d);
+  misTrack('react',s.score);checkAchievements();
+  var over=$('snakeOver');if(over) over.classList.add('show');
+  var os=$('snakeOverScore');if(os) os.textContent=s.score;
+  var or_=$('snakeOverReward');if(or_) or_.textContent='+'+coins+'🪙 +'+xp+'XP'+(isNew?' 🏆 Nytt rekord! +1KC':'');
+  var status=$('snakeStatus');if(status) status.textContent=isNew?'🏆 NYTT REKORD!':'Bra spel!';
+  var btn=$('snakeStartBtn');
+  var playsLeft=SNAKE_MAX_PLAYS-d.playsToday;
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🐍 SPELA IGEN ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+  _renderSnake(d);
+}
+
+function openSnake(){$('snakePanel').classList.add('open');_renderSnake();}
+function closeSnake(){
+  if(_snakeState&&_snakeState.running){
+    clearInterval(_snakeState.interval);_snakeState.running=false;
+    _snakeEnd();
+  }
+  $('snakePanel').classList.remove('open');
+}
+
+function _renderSnake(d){
+  if(!d) d=_snakeGetData();
+  var bs=$('snakeBest');if(bs) bs.textContent=d.best||0;
+  var pl=$('snakePlays');if(pl) pl.textContent=Math.max(0,SNAKE_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('snakeStartBtn');
+  if(btn){
+    var playsLeft=SNAKE_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=playsLeft<=0||(_snakeState&&_snakeState.running);
+    btn.textContent=playsLeft>0?'🐍 STARTA SPELET ('+playsLeft+' kvar)':'✓ Klar för idag!';
+  }
+  _snakeDraw();
 }
 
 </script>
