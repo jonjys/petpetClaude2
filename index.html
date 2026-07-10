@@ -1536,6 +1536,45 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PIXEL ART STUDIO ══ */
+.pix-panel{position:fixed;inset:0;background:#010108;z-index:1049;display:none;flex-direction:column;overflow:hidden}
+.pix-panel.open{display:flex}
+.pix-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#020214,#010108)}
+.pix-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4488,#4488ff,#44ff88,#ffcc00,#ff4488);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:pixShim 2s linear infinite}
+@keyframes pixShim{0%{background-position:0%}100%{background-position:400%}}
+.pix-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+/* Toolbar */
+.pix-toolbar{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.pix-tool-btn{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:6px 10px;font:700 10px var(--ff-head);color:rgba(255,255,255,.6);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pix-tool-btn.active{background:rgba(68,136,255,.2);border-color:#4488ff;color:#4488ff}
+.pix-tool-btn:active{transform:scale(.93)}
+.pix-cur-color{width:32px;height:32px;border-radius:8px;border:2px solid rgba(255,255,255,.3);flex-shrink:0;cursor:pointer}
+/* Canvas */
+.pix-canvas-wrap{display:flex;justify-content:center;margin-bottom:8px;touch-action:none}
+#pixCanvas{border:2px solid rgba(255,255,255,.1);border-radius:8px;cursor:crosshair;image-rendering:pixelated;touch-action:none}
+/* Palette */
+.pix-palette-wrap{margin-bottom:8px}
+.pix-palette-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:5px}
+.pix-palette{display:flex;flex-wrap:wrap;gap:5px}
+.pix-color{width:28px;height:28px;border-radius:7px;border:1.5px solid rgba(255,255,255,.15);cursor:pointer;transition:transform .1s;-webkit-tap-highlight-color:transparent}
+.pix-color:active{transform:scale(.88)}
+.pix-color.selected{border-color:#fff;transform:scale(1.15);box-shadow:0 0 8px rgba(255,255,255,.3)}
+.pix-color.locked{opacity:.3;position:relative}
+/* Saves */
+.pix-saves-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:5px}
+.pix-saves{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;padding-bottom:4px}
+.pix-save-slot{width:52px;height:52px;border-radius:8px;border:1.5px solid rgba(255,255,255,.1);cursor:pointer;flex-shrink:0;position:relative;overflow:hidden;background:rgba(255,255,255,.03)}
+.pix-save-slot.active{border-color:#4488ff}
+.pix-save-slot canvas{width:52px;height:52px;image-rendering:pixelated}
+.pix-save-slot .pix-slot-lbl{position:absolute;bottom:0;left:0;right:0;font:700 7px var(--ff-head);color:rgba(255,255,255,.6);text-align:center;background:rgba(0,0,0,.5);padding:1px}
+/* Action bar */
+.pix-actions{display:flex;gap:6px;margin-bottom:8px}
+.pix-act-btn{flex:1;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:8px;font:700 10px var(--ff-head);color:#fff;cursor:pointer}
+.pix-act-btn.primary{background:rgba(68,136,255,.15);border-color:rgba(68,136,255,.4);color:#4488ff}
+.pix-act-btn.danger{background:rgba(255,68,68,.1);border-color:rgba(255,68,68,.3);color:#ff4444}
+.pix-status{text-align:center;font:600 9px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:4px}
+
 /* ══ ARENA SEASON ══ */
 .ars-panel{position:fixed;inset:0;background:#030005;z-index:1048;display:none;flex-direction:column;overflow:hidden}
 .ars-panel.open{display:flex}
@@ -11897,6 +11936,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
+          <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11966,6 +12006,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
+          <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12018,6 +12059,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
+          <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12108,6 +12150,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
+          <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12704,6 +12747,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PIXEL ART STUDIO -->
+<div class="pix-panel" id="pixPanel">
+  <div class="pix-header">
+    <div class="pix-title">🎨 PIXELKONST</div>
+    <button class="close-btn" onclick="closePix()">✕</button>
+  </div>
+  <div class="pix-scroll">
+    <div class="pix-toolbar">
+      <button class="pix-tool-btn active" id="pixToolDraw" onclick="pixSetTool('draw')">✏️ Rita</button>
+      <button class="pix-tool-btn" id="pixToolFill" onclick="pixSetTool('fill')">🪣 Fyll</button>
+      <button class="pix-tool-btn" id="pixToolErase" onclick="pixSetTool('erase')">🧹 Sudda</button>
+      <div class="pix-cur-color" id="pixCurColor" style="background:#ff4488"></div>
+    </div>
+    <div class="pix-canvas-wrap">
+      <canvas id="pixCanvas" width="256" height="256"></canvas>
+    </div>
+    <div class="pix-palette-wrap">
+      <div class="pix-palette-lbl">PALETT</div>
+      <div class="pix-palette" id="pixPalette"></div>
+    </div>
+    <div class="pix-saves-lbl">SPARADE VERK (3 platser)</div>
+    <div class="pix-saves" id="pixSaves"></div>
+    <div class="pix-actions">
+      <button class="pix-act-btn primary" onclick="pixSave()">💾 Spara</button>
+      <button class="pix-act-btn" onclick="pixLoad()">📂 Ladda</button>
+      <button class="pix-act-btn danger" onclick="pixClear()">🗑 Rensa</button>
+    </div>
+    <div class="pix-status" id="pixStatus">Rita på duken — välj verktyg och färg!</div>
+  </div>
+</div>
 
 <!-- ARENA SEASON -->
 <div class="ars-panel" id="arsPanel">
@@ -55293,6 +55368,201 @@ function _renderArs(d){
     }).join('');
   }
 }
+
+
+// PIXEL ART STUDIO
+const PIX_KEY = 'k0509_pix';
+const PIX_SIZE = 16;
+const PIX_SCALE = 16; // 16*16 = 256px canvas
+const PIX_SLOTS = 3;
+const PIX_PALETTE = [
+  '#000000','#ffffff','#ff4488','#ff8800','#ffcc00','#44ff88',
+  '#4488ff','#cc44ff','#00ddcc','#ff4444','#aaaaaa','#555555',
+  '#8b4513','#228b22','#1e90ff','#ff69b4','#ffd700','#dc143c',
+];
+
+var _pixState = {
+  tool:'draw',
+  color:'#ff4488',
+  painting:false,
+  grid:null, // 16x16 array of color strings
+  activeSlot:0,
+};
+
+function _pixData(){try{return JSON.parse(localStorage.getItem(PIX_KEY)||'null');}catch(e){return null;}}
+function _pixSaveData(d){localStorage.setItem(PIX_KEY,JSON.stringify(d));}
+function _pixGetData(){
+  var d=_pixData();
+  if(!d) d={slots:[null,null,null],saves:0};
+  return d;
+}
+
+function _pixNewGrid(){
+  var g=[];
+  for(var i=0;i<PIX_SIZE*PIX_SIZE;i++) g.push('#010108');
+  return g;
+}
+
+function pixSetTool(t){
+  _pixState.tool=t;
+  ['draw','fill','erase'].forEach(function(tool){
+    var btn=$('pixTool'+tool.charAt(0).toUpperCase()+tool.slice(1));
+    if(btn) btn.classList.toggle('active',tool===t);
+  });
+}
+
+function _pixCanvasXY(e){
+  var canvas=$('pixCanvas');if(!canvas) return null;
+  var rect=canvas.getBoundingClientRect();
+  var clientX=e.touches?e.touches[0].clientX:e.clientX;
+  var clientY=e.touches?e.touches[0].clientY:e.clientY;
+  var x=Math.floor((clientX-rect.left)/rect.width*PIX_SIZE);
+  var y=Math.floor((clientY-rect.top)/rect.height*PIX_SIZE);
+  if(x<0||x>=PIX_SIZE||y<0||y>=PIX_SIZE) return null;
+  return {x:x,y:y};
+}
+
+function _pixPaint(x,y){
+  var s=_pixState;
+  if(!s.grid) return;
+  var idx=y*PIX_SIZE+x;
+  if(s.tool==='erase'){s.grid[idx]='#010108';}
+  else if(s.tool==='fill'){_pixFloodFill(x,y,s.grid[idx],s.color);}
+  else{s.grid[idx]=s.color;}
+  _pixDraw();
+}
+
+function _pixFloodFill(x,y,target,fill){
+  if(target===fill) return;
+  var g=_pixState.grid;
+  var stack=[[x,y]];
+  while(stack.length){
+    var p=stack.pop();
+    var px=p[0],py=p[1];
+    if(px<0||px>=PIX_SIZE||py<0||py>=PIX_SIZE) continue;
+    var i=py*PIX_SIZE+px;
+    if(g[i]!==target) continue;
+    g[i]=fill;
+    stack.push([px-1,py],[px+1,py],[px,py-1],[px,py+1]);
+  }
+}
+
+function _pixDraw(){
+  var canvas=$('pixCanvas');if(!canvas) return;
+  var ctx=canvas.getContext('2d');
+  var g=_pixState.grid;
+  if(!g) return;
+  for(var r=0;r<PIX_SIZE;r++){
+    for(var c=0;c<PIX_SIZE;c++){
+      ctx.fillStyle=g[r*PIX_SIZE+c];
+      ctx.fillRect(c*PIX_SCALE,r*PIX_SCALE,PIX_SCALE,PIX_SCALE);
+    }
+  }
+  // Grid overlay
+  ctx.strokeStyle='rgba(255,255,255,.05)';
+  ctx.lineWidth=0.5;
+  for(var i=0;i<=PIX_SIZE;i++){
+    ctx.beginPath();ctx.moveTo(i*PIX_SCALE,0);ctx.lineTo(i*PIX_SCALE,PIX_SIZE*PIX_SCALE);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(0,i*PIX_SCALE);ctx.lineTo(PIX_SIZE*PIX_SCALE,i*PIX_SCALE);ctx.stroke();
+  }
+}
+
+function _pixRenderPalette(){
+  var pal=$('pixPalette');if(!pal) return;
+  pal.innerHTML=PIX_PALETTE.map(function(c){
+    var sel=c===_pixState.color;
+    return '<div class="pix-color'+(sel?' selected':'')+'" style="background:'+c+'" onclick="pixSelectColor(\''+c+'\')"></div>';
+  }).join('');
+}
+
+function pixSelectColor(c){
+  _pixState.color=c;
+  var cc=$('pixCurColor');if(cc) cc.style.background=c;
+  _pixRenderPalette();
+  if(_pixState.tool==='erase') pixSetTool('draw');
+}
+
+function _pixRenderSaves(){
+  var saves=$('pixSaves');if(!saves) return;
+  var d=_pixGetData();
+  saves.innerHTML='';
+  for(var i=0;i<PIX_SLOTS;i++){
+    var slot=document.createElement('div');
+    slot.className='pix-save-slot'+(i===_pixState.activeSlot?' active':'');
+    slot.onclick=(function(idx){return function(){_pixState.activeSlot=idx;_pixRenderSaves();};})(i);
+    var c=document.createElement('canvas');
+    c.width=PIX_SIZE;c.height=PIX_SIZE;
+    if(d.slots[i]){
+      var ctx2=c.getContext('2d');
+      var g2=d.slots[i];
+      for(var r=0;r<PIX_SIZE;r++){
+        for(var cc2=0;cc2<PIX_SIZE;cc2++){
+          ctx2.fillStyle=g2[r*PIX_SIZE+cc2];
+          ctx2.fillRect(cc2,r,1,1);
+        }
+      }
+    }
+    slot.appendChild(c);
+    var lbl=document.createElement('div');
+    lbl.className='pix-slot-lbl';
+    lbl.textContent='S'+(i+1);
+    slot.appendChild(lbl);
+    saves.appendChild(slot);
+  }
+}
+
+function pixSave(){
+  if(!_pixState.grid) return;
+  var d=_pixGetData();
+  d.slots[_pixState.activeSlot]=_pixState.grid.slice();
+  d.saves=(d.saves||0)+1;
+  _pixSaveData(d);
+  _pixRenderSaves();
+  // Reward for first few saves
+  var xp=15;gainXP(xp,'int');gainCoins(20);
+  arsGainAp(2);
+  var st=$('pixStatus');if(st) st.textContent='💾 Sparat i slot S'+((_pixState.activeSlot+1))+' | +20🪙 +'+xp+'XP';
+  showFloatBubble('🎨 Konstverk sparat! +20🪙 +'+xp+'XP','buff');
+}
+
+function pixLoad(){
+  var d=_pixGetData();
+  var slot=d.slots[_pixState.activeSlot];
+  if(!slot){var st=$('pixStatus');if(st) st.textContent='Inget sparat i slot S'+(_pixState.activeSlot+1);return;}
+  _pixState.grid=slot.slice();
+  _pixDraw();
+  var st=$('pixStatus');if(st) st.textContent='📂 Laddade slot S'+(_pixState.activeSlot+1);
+}
+
+function pixClear(){
+  _pixState.grid=_pixNewGrid();
+  _pixDraw();
+  var st=$('pixStatus');if(st) st.textContent='🗑 Duken rensad';
+}
+
+function _pixSetupEvents(){
+  var canvas=$('pixCanvas');if(!canvas||canvas._pixBound) return;
+  canvas._pixBound=true;
+  function onDown(e){e.preventDefault();_pixState.painting=true;var p=_pixCanvasXY(e);if(p) _pixPaint(p.x,p.y);}
+  function onMove(e){e.preventDefault();if(!_pixState.painting) return;var p=_pixCanvasXY(e);if(p) _pixPaint(p.x,p.y);}
+  function onUp(e){_pixState.painting=false;}
+  canvas.addEventListener('mousedown',onDown);
+  canvas.addEventListener('mousemove',onMove);
+  canvas.addEventListener('mouseup',onUp);
+  canvas.addEventListener('touchstart',onDown,{passive:false});
+  canvas.addEventListener('touchmove',onMove,{passive:false});
+  canvas.addEventListener('touchend',onUp);
+}
+
+function openPix(){
+  $('pixPanel').classList.add('open');
+  if(!_pixState.grid) _pixState.grid=_pixNewGrid();
+  _pixSetupEvents();
+  _pixDraw();
+  _pixRenderPalette();
+  _pixRenderSaves();
+}
+function closePix(){$('pixPanel').classList.remove('open');}
 
 </script>
 
