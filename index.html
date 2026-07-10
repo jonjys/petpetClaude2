@@ -1517,6 +1517,55 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY MAZE ══ */
+.maze-panel{position:fixed;inset:0;background:#010204;z-index:1030;display:none;flex-direction:column;overflow:hidden}
+.maze-panel.open{display:flex}
+.maze-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#020810,#010204)}
+.maze-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ddff,#8844ff,#44ddff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:mazeShim 2.5s linear infinite}
+@keyframes mazeShim{0%{background-position:0%}100%{background-position:200%}}
+.maze-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* HUD */
+.maze-hud{display:flex;gap:8px;margin-bottom:10px}
+.maze-hud-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(50,200,255,.1);border-radius:10px;padding:7px;text-align:center}
+.maze-hud-v{font:900 16px var(--ff-head);color:#44ddff}
+.maze-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Timer bar */
+.maze-timer-bar{background:rgba(255,255,255,.06);border-radius:20px;height:8px;margin-bottom:10px;overflow:hidden}
+.maze-timer-fill{height:100%;background:linear-gradient(90deg,#44ddff,#8844ff);border-radius:20px;transition:width .5s linear}
+.maze-timer-fill.warn{background:linear-gradient(90deg,#ff8800,#ff3300)}
+/* Maze grid */
+.maze-container{display:flex;justify-content:center;margin-bottom:12px}
+.maze-grid{display:grid;gap:0;border:2px solid rgba(50,200,255,.25);border-radius:8px;overflow:hidden}
+.maze-cell{width:52px;height:52px;background:rgba(255,255,255,.02);display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;position:relative;box-sizing:border-box;transition:background .15s}
+.maze-cell.wall-top{border-top:2px solid rgba(50,200,255,.6)}
+.maze-cell.wall-right{border-right:2px solid rgba(50,200,255,.6)}
+.maze-cell.wall-bottom{border-bottom:2px solid rgba(50,200,255,.6)}
+.maze-cell.wall-left{border-left:2px solid rgba(50,200,255,.6)}
+.maze-cell.player{background:rgba(50,200,255,.15)}
+.maze-cell.exit{background:rgba(255,200,0,.1)}
+.maze-cell.visited{background:rgba(50,200,255,.04)}
+.maze-cell.hint{background:rgba(68,255,136,.12);animation:mazeHintFlash .5s ease}
+@keyframes mazeHintFlash{0%,100%{background:rgba(68,255,136,.12)}50%{background:rgba(68,255,136,.25)}}
+/* Message */
+.maze-msg{text-align:center;font:700 12px var(--ff-head);color:#ffcc00;min-height:26px;margin-bottom:8px}
+/* Controls */
+.maze-controls{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,44px);gap:6px;justify-content:center;margin-bottom:12px}
+.maze-ctrl-btn{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none;-webkit-user-select:none;transition:all .1s}
+.maze-ctrl-btn:active{background:rgba(50,200,255,.2);transform:scale(.9)}
+.maze-ctrl-btn:disabled{opacity:.3;cursor:default}
+/* Buttons */
+.maze-start-btn{width:100%;background:linear-gradient(135deg,#001133,#003366);border:none;border-radius:14px;padding:13px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px;box-shadow:0 0 16px rgba(50,100,200,.2)}
+.maze-start-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.maze-hint-btn{width:100%;background:rgba(68,255,136,.08);border:1px solid rgba(68,255,136,.2);border-radius:12px;padding:9px;font:800 10px var(--ff-head);color:#44ff88;cursor:pointer;margin-bottom:10px}
+.maze-hint-btn:disabled{opacity:.3;cursor:default}
+/* Stats */
+.maze-stats{display:flex;gap:8px;margin-bottom:10px}
+.maze-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(50,150,255,.1);border-radius:10px;padding:7px;text-align:center}
+.maze-stat-v{font:900 14px var(--ff-head);color:#44aaff}
+.maze-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.maze-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ WISH WELL ══ */
 .well-panel{position:fixed;inset:0;background:#010203;z-index:1029;display:none;flex-direction:column;overflow:hidden}
 .well-panel.open{display:flex}
@@ -11104,6 +11153,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
           <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
+          <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11154,6 +11204,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
           <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
+          <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11187,6 +11238,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
           <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
+          <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11258,6 +11310,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
           <div class="ddr" onclick="cM();openLcal()"><div class="ddr-i">📅</div>Inloggning</div>
           <div class="ddr" onclick="cM();openWell()"><div class="ddr-i">🪄</div>Önskebrunn</div>
+          <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11835,6 +11888,41 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY MAZE -->
+<div class="maze-panel" id="mazePanel">
+  <div class="maze-header">
+    <div class="maze-title">🔀 DAGLIG LABYRINT</div>
+    <button class="close-btn" onclick="closeMaze()">✕</button>
+  </div>
+  <div class="maze-scroll">
+    <div class="maze-hud">
+      <div class="maze-hud-box"><div class="maze-hud-v" id="mazeTime">—</div><div class="maze-hud-l">Sekunder</div></div>
+      <div class="maze-hud-box"><div class="maze-hud-v" id="mazeMoves">0</div><div class="maze-hud-l">Drag</div></div>
+      <div class="maze-hud-box"><div class="maze-hud-v" id="mazeTries">3</div><div class="maze-hud-l">Försök kvar</div></div>
+    </div>
+    <div class="maze-timer-bar"><div class="maze-timer-fill" id="mazeTimerFill" style="width:100%"></div></div>
+    <div class="maze-msg" id="mazeMsg">Tryck Start för att börja!</div>
+    <div class="maze-container"><div class="maze-grid" id="mazeGrid" style="grid-template-columns:repeat(5,52px)"></div></div>
+    <div class="maze-controls">
+      <div></div>
+      <button class="maze-ctrl-btn" id="mazeUp" onclick="mazeMove(0,-1)">⬆️</button>
+      <div></div>
+      <button class="maze-ctrl-btn" id="mazeLeft" onclick="mazeMove(-1,0)">⬅️</button>
+      <button class="maze-ctrl-btn" id="mazeDown" onclick="mazeMove(0,1)">⬇️</button>
+      <button class="maze-ctrl-btn" id="mazeRight" onclick="mazeMove(1,0)">➡️</button>
+    </div>
+    <button class="maze-hint-btn" id="mazeHintBtn" onclick="mazeHint()" disabled>💡 Hint (INT: <span id="mazeHintCount">0</span> kvar)</button>
+    <button class="maze-start-btn" id="mazeStartBtn" onclick="mazeStart()">🔀 STARTA LABYRINT!</button>
+    <div class="maze-stats">
+      <div class="maze-stat"><div class="maze-stat-v" id="mazeSolves">0</div><div class="maze-stat-l">Lösta labyrinter</div></div>
+      <div class="maze-stat"><div class="maze-stat-v" id="mazeBest">—</div><div class="maze-stat-l">Bästa tid (s)</div></div>
+      <div class="maze-stat"><div class="maze-stat-v" id="mazeEarned">0</div><div class="maze-stat-l">Totalt tjänat</div></div>
+    </div>
+    <div class="maze-info">INT ger fler ledtrådar! Snabbare lösning = mer belöning!</div>
+  </div>
+</div>
 
 <!-- WISH WELL -->
 <div class="well-panel" id="wellPanel">
@@ -50724,6 +50812,227 @@ function _renderWell(d){
     if(hb) hb.style.display='block';
     if(hl) hl.innerHTML=(d.history||[]).map(function(h){return '<div class="well-hist-item"><span>'+h.icon+'</span>'+h.text+'</div>';}).join('');
   }
+}
+
+
+// DAILY MAZE
+const MAZE_KEY = 'k0509_maze';
+const MAZE_SIZE = 5;
+const MAZE_DAILY_TRIES = 3;
+var _mazeCells = [];
+var _mazePlayerX = 0;var _mazePlayerY = 0;
+var _mazeMoves = 0;var _mazeTimer = 0;var _mazeTimerInt = null;
+var _mazeRunning = false;var _mazeHints = 0;var _mazeMaxTime = 120;
+
+function _mazeData(){try{return JSON.parse(localStorage.getItem(MAZE_KEY)||'null');}catch(e){return null;}}
+function _mazeSave(d){localStorage.setItem(MAZE_KEY,JSON.stringify(d));}
+function _mazeGetData(){
+  var d=_mazeData();
+  if(!d) d={solves:0,best:9999,earned:0,today:getTodayKey(),todayTries:0};
+  if(d.today!==getTodayKey()){d.today=getTodayKey();d.todayTries=0;}
+  return d;
+}
+
+// LCG seeded random
+function _mazeLCG(seed){seed=(seed*1664525+1013904223)>>>0;return seed;}
+
+function _mazeGenerate(seed){
+  // Create 5x5 grid with all walls
+  var cells=[];
+  for(var i=0;i<MAZE_SIZE*MAZE_SIZE;i++) cells.push({top:true,right:true,bottom:true,left:true,visited:false});
+  // DFS maze generation
+  function idx(x,y){return y*MAZE_SIZE+x;}
+  function neighbors(x,y){
+    var nb=[];
+    if(x>0&&!cells[idx(x-1,y)].visited) nb.push({x:x-1,y:y,dir:'left'});
+    if(x<MAZE_SIZE-1&&!cells[idx(x+1,y)].visited) nb.push({x:x+1,y:y,dir:'right'});
+    if(y>0&&!cells[idx(x,y-1)].visited) nb.push({x:x,y:y-1,dir:'up'});
+    if(y<MAZE_SIZE-1&&!cells[idx(x,y+1)].visited) nb.push({x:x,y:y+1,dir:'down'});
+    return nb;
+  }
+  function carve(x,y){
+    cells[idx(x,y)].visited=true;
+    var nb=neighbors(x,y);
+    while(nb.length>0){
+      seed=_mazeLCG(seed);
+      var pick=nb[seed%nb.length];
+      nb.splice(nb.indexOf(pick),1);
+      if(!cells[idx(pick.x,pick.y)].visited){
+        if(pick.dir==='left'){cells[idx(x,y)].left=false;cells[idx(pick.x,pick.y)].right=false;}
+        else if(pick.dir==='right'){cells[idx(x,y)].right=false;cells[idx(pick.x,pick.y)].left=false;}
+        else if(pick.dir==='up'){cells[idx(x,y)].top=false;cells[idx(pick.x,pick.y)].bottom=false;}
+        else if(pick.dir==='down'){cells[idx(x,y)].bottom=false;cells[idx(pick.x,pick.y)].top=false;}
+        carve(pick.x,pick.y);
+        nb=neighbors(x,y);
+      }
+    }
+  }
+  carve(0,0);
+  return cells;
+}
+
+function _mazeGetSeed(){
+  var today=getTodayKey();
+  var seed=0;for(var i=0;i<today.length;i++) seed=(seed*31+today.charCodeAt(i))>>>0;
+  return seed;
+}
+
+function mazeStart(){
+  var d=_mazeGetData();
+  if(d.todayTries>=MAZE_DAILY_TRIES){showFloatBubble('Max '+MAZE_DAILY_TRIES+' försök idag!','debuff');return;}
+  if(_mazeRunning) return;
+  _mazeCells=_mazeGenerate(_mazeGetSeed());
+  _mazePlayerX=0;_mazePlayerY=0;_mazeMoves=0;
+  _mazeRunning=true;
+  var intBonus=Math.min((G.int||0)*0.4,40);
+  _mazeMaxTime=Math.floor(120+intBonus);
+  _mazeTimer=_mazeMaxTime;
+  _mazeHints=Math.min(3+Math.floor((G.int||0)/30),6);
+  if(_mazeTimerInt) clearInterval(_mazeTimerInt);
+  _mazeTimerInt=setInterval(function(){
+    _mazeTimer--;
+    _mazeUpdateTimerBar();
+    var tv=$('mazeTime');if(tv) tv.textContent=_mazeTimer;
+    if(_mazeTimer<=0){clearInterval(_mazeTimerInt);_mazeRunning=false;_mazeFinish(false,d);}
+  },1000);
+  var sb=$('mazeStartBtn');if(sb) sb.disabled=true;
+  var hb=$('mazeHintBtn');if(hb){hb.disabled=false;var hc=$('mazeHintCount');if(hc) hc.textContent=_mazeHints;}
+  var msg=$('mazeMsg');if(msg) msg.textContent='Hitta utgången! ↓→ = nästa cell';
+  _renderMazeGrid();
+  _mazeUpdateCtrls();
+}
+
+function mazeMove(dx,dy){
+  if(!_mazeRunning) return;
+  var nx=_mazePlayerX+dx,ny=_mazePlayerY+dy;
+  if(nx<0||nx>=MAZE_SIZE||ny<0||ny>=MAZE_SIZE) return;
+  var cur=_mazeCells[_mazePlayerY*MAZE_SIZE+_mazePlayerX];
+  // Check wall
+  if(dx===-1&&cur.left) return;
+  if(dx===1&&cur.right) return;
+  if(dy===-1&&cur.top) return;
+  if(dy===1&&cur.bottom) return;
+  _mazePlayerX=nx;_mazePlayerY=ny;_mazeMoves++;
+  var mv=$('mazeMoves');if(mv) mv.textContent=_mazeMoves;
+  _renderMazeGrid();
+  _mazeUpdateCtrls();
+  if(_mazePlayerX===MAZE_SIZE-1&&_mazePlayerY===MAZE_SIZE-1){
+    clearInterval(_mazeTimerInt);_mazeRunning=false;
+    var d=_mazeGetData();_mazeFinish(true,d);
+  }
+}
+
+function mazeHint(){
+  if(!_mazeRunning||_mazeHints<=0) return;
+  _mazeHints--;
+  var hc=$('mazeHintCount');if(hc) hc.textContent=_mazeHints;
+  var hb=$('mazeHintBtn');if(hb) hb.disabled=_mazeHints<=0;
+  // BFS to find path, highlight next 2 cells
+  var path=_mazeBFS();
+  if(!path||path.length<2) return;
+  var toHighlight=path.slice(1,3);
+  toHighlight.forEach(function(pos){
+    var el=document.querySelector('.maze-cell[data-x="'+pos.x+'"][data-y="'+pos.y+'"]');
+    if(el){el.classList.add('hint');setTimeout(function(){el.classList.remove('hint');},2000);}
+  });
+}
+
+function _mazeBFS(){
+  var queue=[{x:_mazePlayerX,y:_mazePlayerY,path:[]}];
+  var visited={};
+  visited[_mazePlayerX+','+_mazePlayerY]=true;
+  while(queue.length){
+    var cur=queue.shift();
+    var path=cur.path.concat([{x:cur.x,y:cur.y}]);
+    if(cur.x===MAZE_SIZE-1&&cur.y===MAZE_SIZE-1) return path;
+    var cell=_mazeCells[cur.y*MAZE_SIZE+cur.x];
+    var dirs=[{dx:-1,dy:0,wall:'left'},{dx:1,dy:0,wall:'right'},{dx:0,dy:-1,wall:'top'},{dx:0,dy:1,wall:'bottom'}];
+    dirs.forEach(function(d){
+      if(!cell[d.wall]){
+        var nx=cur.x+d.dx,ny=cur.y+d.dy;
+        var key=nx+','+ny;
+        if(!visited[key]&&nx>=0&&nx<MAZE_SIZE&&ny>=0&&ny<MAZE_SIZE){visited[key]=true;queue.push({x:nx,y:ny,path:path});}
+      }
+    });
+  }
+  return null;
+}
+
+function _mazeFinish(won,d){
+  var hb=$('mazeHintBtn');if(hb) hb.disabled=true;
+  d.todayTries=(d.todayTries||0)+1;
+  var msg=$('mazeMsg');
+  if(won){
+    d.solves=(d.solves||0)+1;
+    if(_mazeTimer<d.best||d.best===9999) d.best=_mazeTimer;
+    var prize=Math.floor(200+_mazeTimer*10+(_mazeMoves<20?500:0));
+    gainCoins(prize);gainXP(40,'int');
+    if(_mazeTimer>60) gainKC(1);
+    d.earned=(d.earned||0)+prize;
+    _mazeSave(d);
+    if(msg) msg.textContent='🎉 LÖST! '+_mazeTimer+'s kvar! +'+prize+'🪙'+((_mazeTimer>60)?' +1KC!':'');
+    showFloatBubble('🔀 Labyrint löst! +'+prize+'🪙','buff');
+    misTrack('maze',1);
+    checkAchievements();
+  } else {
+    _mazeSave(d);
+    if(msg) msg.textContent='⏰ Tid slut! Du kom till ('+_mazePlayerX+','+_mazePlayerY+')';
+    gainCoins(50);
+    showFloatBubble('⏰ Tid slut! +50🪙','debuff');
+  }
+  var sb=$('mazeStartBtn');
+  if(sb){sb.disabled=d.todayTries>=MAZE_DAILY_TRIES;sb.textContent=d.todayTries>=MAZE_DAILY_TRIES?'✓ Max försök idag':'🔀 SPELA IGEN! ('+(MAZE_DAILY_TRIES-d.todayTries)+' kvar)';}
+  _renderMaze(d);
+}
+
+function _renderMazeGrid(){
+  var grid=$('mazeGrid');
+  if(!grid||!_mazeCells.length) return;
+  grid.innerHTML=_mazeCells.map(function(cell,i){
+    var x=i%MAZE_SIZE,y=Math.floor(i/MAZE_SIZE);
+    var cls='maze-cell';
+    if(cell.top) cls+=' wall-top';
+    if(cell.right) cls+=' wall-right';
+    if(cell.bottom) cls+=' wall-bottom';
+    if(cell.left) cls+=' wall-left';
+    if(x===_mazePlayerX&&y===_mazePlayerY) cls+=' player';
+    else if(x===MAZE_SIZE-1&&y===MAZE_SIZE-1) cls+=' exit';
+    var content=x===_mazePlayerX&&y===_mazePlayerY?'🐾':(x===MAZE_SIZE-1&&y===MAZE_SIZE-1?'🏁':'');
+    return '<div class="'+cls+'" data-x="'+x+'" data-y="'+y+'">'+content+'</div>';
+  }).join('');
+}
+
+function _mazeUpdateCtrls(){
+  if(!_mazeCells.length) return;
+  var cell=_mazeCells[_mazePlayerY*MAZE_SIZE+_mazePlayerX];
+  var ub=$('mazeUp');var db=$('mazeDown');var lb=$('mazeLeft');var rb=$('mazeRight');
+  if(ub) ub.disabled=cell.top||_mazePlayerY===0;
+  if(db) db.disabled=cell.bottom||_mazePlayerY===MAZE_SIZE-1;
+  if(lb) lb.disabled=cell.left||_mazePlayerX===0;
+  if(rb) rb.disabled=cell.right||_mazePlayerX===MAZE_SIZE-1;
+}
+
+function _mazeUpdateTimerBar(){
+  var pct=Math.max(0,_mazeTimer/_mazeMaxTime*100);
+  var tf=$('mazeTimerFill');
+  if(tf){tf.style.width=pct+'%';tf.className='maze-timer-fill'+(pct<25?' warn':'');}
+}
+
+function openMaze(){$('mazePanel').classList.add('open');_renderMaze();}
+function closeMaze(){
+  $('mazePanel').classList.remove('open');
+  if(_mazeTimerInt) clearInterval(_mazeTimerInt);
+  _mazeRunning=false;
+}
+
+function _renderMaze(d){
+  if(!d) d=_mazeGetData();
+  var sv=$('mazeSolves');if(sv) sv.textContent=d.solves||0;
+  var bv=$('mazeBest');if(bv) bv.textContent=d.best===9999?'—':d.best+'s';
+  var ev=$('mazeEarned');if(ev) ev.textContent=d.earned||0;
+  var trv=$('mazeTries');if(trv) trv.textContent=Math.max(0,MAZE_DAILY_TRIES-(d.todayTries||0));
+  var sb=$('mazeStartBtn');
+  if(sb&&!_mazeRunning){sb.disabled=d.todayTries>=MAZE_DAILY_TRIES;sb.textContent=d.todayTries>=MAZE_DAILY_TRIES?'✓ Max försök idag':'🔀 STARTA LABYRINT! ('+(MAZE_DAILY_TRIES-d.todayTries)+' kvar)';}
 }
 
 </script>
