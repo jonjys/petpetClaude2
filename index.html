@@ -1531,6 +1531,37 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ COLOR FLOOD ══ */
+.flood-panel{position:fixed;inset:0;background:#020810;z-index:1044;display:none;flex-direction:column;overflow:hidden}
+.flood-panel.open{display:flex}
+.flood-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#040e20,#020810)}
+.flood-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4488,#ff8800,#ffcc00,#44ff88,#4488ff,#cc44ff,#ff4488);background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:floodShim 2.5s linear infinite}
+@keyframes floodShim{0%{background-position:0%}100%{background-position:500%}}
+.flood-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+.flood-hud{display:flex;gap:8px;margin-bottom:10px}
+.flood-hud-box{flex:1;background:rgba(68,136,255,.04);border:1px solid rgba(68,136,255,.15);border-radius:10px;padding:6px;text-align:center}
+.flood-hud-v{font:900 18px var(--ff-head);color:#4488ff}
+.flood-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Grid */
+.flood-grid-wrap{display:flex;justify-content:center;margin-bottom:10px}
+.flood-grid{display:grid;gap:2px}
+.flood-cell{border-radius:3px;transition:background-color .15s;cursor:default}
+/* Color buttons */
+.flood-colors{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
+.flood-color-btn{width:48px;height:48px;border-radius:14px;border:2px solid rgba(255,255,255,.2);cursor:pointer;transition:transform .1s,border-color .1s;-webkit-tap-highlight-color:transparent}
+.flood-color-btn:active{transform:scale(.88)}
+.flood-color-btn.active-color{border-color:rgba(255,255,255,.8);transform:scale(1.1);box-shadow:0 0 12px rgba(255,255,255,.3)}
+.flood-status{text-align:center;font:700 11px var(--ff-head);color:#4488ff;margin-bottom:8px;min-height:18px}
+.flood-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.7);border:1.5px solid rgba(68,136,255,.3);border-radius:14px;margin-bottom:8px}
+.flood-over.show{display:flex}
+.flood-over-score{font:900 28px var(--ff-head);color:#44ff88}
+.flood-over-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.flood-over-rw{font:700 12px var(--ff-head);color:#ffcc00}
+.flood-start-btn{width:100%;background:linear-gradient(135deg,#002244,#004488);border:none;border-radius:14px;padding:13px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.flood-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.flood-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PRESTIGE SYSTEM ══ */
 .pres-panel{position:fixed;inset:0;background:#030006;z-index:1043;display:none;flex-direction:column;overflow:hidden}
 .pres-panel.open{display:flex}
@@ -11688,6 +11719,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
           <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
+          <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11752,6 +11784,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
           <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
+          <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11799,6 +11832,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
           <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
+          <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11884,6 +11918,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
           <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
+          <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12475,6 +12510,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- COLOR FLOOD -->
+<div class="flood-panel" id="floodPanel">
+  <div class="flood-header">
+    <div class="flood-title">🎨 FÄRGFLÖDE</div>
+    <button class="close-btn" onclick="closeFlood()">✕</button>
+  </div>
+  <div class="flood-scroll">
+    <div class="flood-hud">
+      <div class="flood-hud-box"><div class="flood-hud-v" id="floodMoves">0</div><div class="flood-hud-l">Drag kvar</div></div>
+      <div class="flood-hud-box"><div class="flood-hud-v" id="floodPct">0%</div><div class="flood-hud-l">Täckt</div></div>
+      <div class="flood-hud-box"><div class="flood-hud-v" id="floodPlays">0</div><div class="flood-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="flood-grid-wrap"><div class="flood-grid" id="floodGrid"></div></div>
+    <div class="flood-colors" id="floodColors"></div>
+    <div class="flood-status" id="floodStatus">Tryck START — täck hela rutnätet!</div>
+    <div class="flood-over" id="floodOver">
+      <div class="flood-over-lbl" id="floodOverLbl">KLART!</div>
+      <div class="flood-over-score" id="floodOverScore">0</div>
+      <div class="flood-over-lbl">drag använda</div>
+      <div class="flood-over-rw" id="floodOverRw"></div>
+    </div>
+    <button class="flood-start-btn" id="floodStartBtn" onclick="floodStart()">🎨 NY PUZZLE</button>
+    <div class="flood-info">Välj färg längst ner — flödet sprider sig från övre hörnet! INT = fler drag!</div>
+  </div>
+</div>
 
 <!-- PRESTIGE SYSTEM -->
 <div class="pres-panel" id="presPanel">
@@ -54073,6 +54135,190 @@ function _renderPres(d){
   if(_oc) gainCoins=function(n){return _oc(Math.round(n*presBoostFactor()));};
   if(_ox) gainXP=function(n,s){return _ox(Math.round(n*presBoostFactor()),s);};
 }());
+
+
+// COLOR FLOOD
+const FLOOD_KEY = 'k0509_flood';
+const FLOOD_COLS = 10;
+const FLOOD_ROWS = 10;
+const FLOOD_CELL_PX = 26;
+const FLOOD_MAX_PLAYS = 5;
+const FLOOD_BASE_MOVES = 20;
+const FLOOD_COLORS_HEX = ['#ff4488','#ff8800','#44ff88','#4488ff','#ffcc00','#cc44ff'];
+const FLOOD_COLORS_CSS = ['rgba(255,68,136,.7)','rgba(255,136,0,.7)','rgba(68,255,136,.7)','rgba(68,136,255,.7)','rgba(255,200,0,.7)','rgba(200,68,255,.7)'];
+
+var _floodState = null;
+
+function _floodData(){try{return JSON.parse(localStorage.getItem(FLOOD_KEY)||'null');}catch(e){return null;}}
+function _floodSave(d){localStorage.setItem(FLOOD_KEY,JSON.stringify(d));}
+function _floodGetData(){
+  var d=_floodData();
+  if(!d) d={best:null,playsToday:0,lastDay:'',totalWins:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function _floodRng(seed){
+  // LCG random for seeded generation
+  var s=seed;
+  return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};
+}
+
+function floodStart(){
+  var d=_floodGetData();
+  if(d.playsToday>=FLOOD_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  var btn=$('floodStartBtn');if(btn) btn.disabled=true;
+  var over=$('floodOver');if(over) over.classList.remove('show');
+  // Max moves: base + INT/5
+  var maxMoves=FLOOD_BASE_MOVES+Math.floor((G.int||0)/5);
+  // Seeded grid (different each play within the day)
+  var today=getTodayKey();var seed=0;
+  for(var i=0;i<today.length;i++) seed=(seed*31+today.charCodeAt(i))>>>0;
+  seed+=d.playsToday*12345;
+  var rng=_floodRng(seed);
+  // Generate grid
+  var grid=[];
+  for(var r=0;r<FLOOD_ROWS;r++){
+    grid.push([]);
+    for(var c=0;c<FLOOD_COLS;c++){
+      grid[r].push(Math.floor(rng()*FLOOD_COLORS_HEX.length));
+    }
+  }
+  // Flood fill: controlled = cells reachable from (0,0) of same initial color
+  var controlled=[];
+  for(var rr=0;rr<FLOOD_ROWS;rr++){controlled.push(new Array(FLOOD_COLS).fill(false));}
+  _floodState={running:true,grid:grid,controlled:controlled,moves:maxMoves,maxMoves:maxMoves,currentColor:grid[0][0]};
+  // Init flood from (0,0)
+  _floodExpand(grid[0][0]);
+  _floodDraw();
+  _floodUpdateColors();
+  var mv=$('floodMoves');if(mv) mv.textContent=maxMoves;
+  var st=$('floodStatus');if(st) st.textContent='Välj en färg för att starta!';
+}
+
+function _floodExpand(color){
+  var s=_floodState;
+  // BFS flood fill: mark all connected cells of 'color' that touch controlled area as controlled
+  // First set chosen color to current controlled cells
+  for(var r=0;r<FLOOD_ROWS;r++){
+    for(var c=0;c<FLOOD_COLS;c++){
+      if(s.controlled[r][c]) s.grid[r][c]=color;
+    }
+  }
+  s.currentColor=color;
+  // Now expand: find neighbors of controlled cells with the same color
+  var changed=true;
+  while(changed){
+    changed=false;
+    for(var rr=0;rr<FLOOD_ROWS;rr++){
+      for(var cc=0;cc<FLOOD_COLS;cc++){
+        if(s.controlled[rr][cc]) continue;
+        if(s.grid[rr][cc]!==color) continue;
+        // Check if adjacent to controlled
+        var adj=[[rr-1,cc],[rr+1,cc],[rr,cc-1],[rr,cc+1]];
+        var touches=adj.some(function(p){return p[0]>=0&&p[0]<FLOOD_ROWS&&p[1]>=0&&p[1]<FLOOD_COLS&&s.controlled[p[0]][p[1]];});
+        if(touches){s.controlled[rr][cc]=true;changed=true;}
+      }
+    }
+  }
+}
+
+function floodPick(colorIdx){
+  var s=_floodState;
+  if(!s||!s.running) return;
+  if(colorIdx===s.currentColor) return;
+  s.moves--;
+  _floodExpand(colorIdx);
+  _floodDraw();
+  _floodUpdateColors();
+  // Check win/lose
+  var totalControlled=0;
+  for(var r=0;r<FLOOD_ROWS;r++) for(var c=0;c<FLOOD_COLS;c++) if(s.controlled[r][c]) totalControlled++;
+  var pct=Math.round(totalControlled/FLOOD_COLS/FLOOD_ROWS*100);
+  var mv=$('floodMoves');if(mv) mv.textContent=s.moves;
+  var pc=$('floodPct');if(pc) pc.textContent=pct+'%';
+  if(totalControlled===FLOOD_COLS*FLOOD_ROWS){_floodEnd(true,s.maxMoves-s.moves);}
+  else if(s.moves<=0){_floodEnd(false,s.maxMoves);}
+  else{
+    var st=$('floodStatus');if(st) st.textContent=pct+'% täckt · '+s.moves+' drag kvar';
+  }
+}
+
+function _floodUpdateColors(){
+  var s=_floodState;
+  var cc=$('floodColors');
+  if(!cc) return;
+  cc.innerHTML=FLOOD_COLORS_HEX.map(function(hex,i){
+    var isActive=s&&i===s.currentColor;
+    return '<button class="flood-color-btn'+(isActive?' active-color':'')+'" style="background:'+hex+'" onclick="floodPick('+i+')"></button>';
+  }).join('');
+}
+
+function _floodDraw(){
+  var grid=$('floodGrid');
+  if(!grid) return;
+  var s=_floodState;
+  if(!s){grid.innerHTML='';return;}
+  grid.style.gridTemplateColumns='repeat('+FLOOD_COLS+', '+FLOOD_CELL_PX+'px)';
+  grid.innerHTML='';
+  for(var r=0;r<FLOOD_ROWS;r++){
+    for(var c=0;c<FLOOD_COLS;c++){
+      var cell=document.createElement('div');
+      cell.className='flood-cell';
+      cell.style.width=FLOOD_CELL_PX+'px';cell.style.height=FLOOD_CELL_PX+'px';
+      var ci=s.grid[r][c];
+      var isCtrl=s.controlled[r][c];
+      cell.style.background=isCtrl?FLOOD_COLORS_HEX[ci]:FLOOD_COLORS_CSS[ci];
+      if(isCtrl) cell.style.borderRadius='4px';
+      grid.appendChild(cell);
+    }
+  }
+}
+
+function _floodEnd(won, movesUsed){
+  var s=_floodState;
+  s.running=false;
+  var d=_floodGetData();
+  d.playsToday=(d.playsToday||0)+1;
+  var coins=0;var xp=0;var kcs=0;
+  if(won){
+    d.totalWins=(d.totalWins||0)+1;
+    var efficiency=Math.max(1,s.maxMoves-movesUsed+1);
+    coins=efficiency*50;xp=efficiency*15;
+    if(movesUsed<=15) kcs=1;
+    if(d.best===null||movesUsed<d.best) d.best=movesUsed;
+  } else {
+    var pct2=0;for(var r=0;r<FLOOD_ROWS;r++) for(var c=0;c<FLOOD_COLS;c++) if(s.controlled[r][c]) pct2++;
+    coins=Math.floor(pct2*3);xp=Math.floor(pct2);
+  }
+  gainCoins(coins);gainXP(xp,'int');if(kcs) gainKC(kcs);
+  _floodSave(d);
+  misTrack('quiz',won?1:0);checkAchievements();
+  var over=$('floodOver');if(over) over.classList.add('show');
+  var ol=$('floodOverLbl');if(ol) ol.textContent=won?'KLART! 🎉':'SPELET SLUT!';
+  var os=$('floodOverScore');if(os) os.textContent=won?movesUsed:s.maxMoves;
+  var orw=$('floodOverRw');if(orw) orw.textContent=(won?'Löst på '+movesUsed+' drag! ':'')+'+'+coins+'🪙 +'+xp+'XP'+(kcs?' +1KC':'');
+  var st=$('floodStatus');if(st) st.textContent=won?'🎨 Perfekt! Hela rutnätet täckt!':'Inga drag kvar!';
+  var playsLeft=FLOOD_MAX_PLAYS-d.playsToday;
+  var btn=$('floodStartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🎨 NY PUZZLE ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+}
+
+function openFlood(){$('floodPanel').classList.add('open');_renderFlood();}
+function closeFlood(){$('floodPanel').classList.remove('open');}
+
+function _renderFlood(d){
+  if(!d) d=_floodGetData();
+  var pl=$('floodPlays');if(pl) pl.textContent=Math.max(0,FLOOD_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('floodStartBtn');
+  if(btn&&!(_floodState&&_floodState.running)){
+    var left=FLOOD_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=left<=0;
+    btn.textContent=left>0?'🎨 NY PUZZLE ('+left+' kvar)':'✓ Klar för idag!';
+  }
+  _floodDraw();_floodUpdateColors();
+}
 
 </script>
 
