@@ -1521,6 +1521,42 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WHACK-A-MOLE ══ */
+.whack-panel{position:fixed;inset:0;background:#000a02;z-index:1034;display:none;flex-direction:column;overflow:hidden}
+.whack-panel.open{display:flex}
+.whack-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#001504,#000a02)}
+.whack-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#ffcc00,#ff4488,#44ff88);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:whackShim 2s linear infinite}
+@keyframes whackShim{0%{background-position:0%}100%{background-position:300%}}
+.whack-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+/* HUD */
+.whack-hud{display:flex;gap:8px;margin-bottom:10px}
+.whack-hud-box{flex:1;background:rgba(68,255,136,.04);border:1px solid rgba(68,255,136,.15);border-radius:10px;padding:6px;text-align:center}
+.whack-hud-v{font:900 18px var(--ff-head);color:#44ff88}
+.whack-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Timer bar */
+.whack-timer-wrap{background:rgba(255,255,255,.05);border-radius:20px;height:8px;margin-bottom:12px;overflow:hidden}
+.whack-timer-bar{height:100%;background:linear-gradient(90deg,#44ff88,#ffcc00);border-radius:20px;transition:width .1s linear;width:100%}
+/* Grid */
+.whack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;padding:0 10px}
+.whack-hole{background:rgba(0,0,0,.6);border:2px solid rgba(68,255,136,.1);border-radius:50%;aspect-ratio:1;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;cursor:pointer;position:relative;-webkit-tap-highlight-color:transparent}
+.whack-hole:active{transform:scale(.92)}
+.whack-mole{font-size:44px;display:block;transform:translateY(100%);transition:transform .15s ease-out;line-height:1;padding-bottom:4px}
+.whack-mole.up{transform:translateY(0)}
+.whack-mole.golden{filter:drop-shadow(0 0 8px gold)}
+.whack-hit-fx{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font:700 16px var(--ff-head);color:#ffcc00;pointer-events:none;animation:whackFx .4s ease-out forwards}
+@keyframes whackFx{0%{opacity:1;transform:translate(-50%,-100%)}100%{opacity:0;transform:translate(-50%,-200%)}}
+/* Status */
+.whack-status{text-align:center;font:700 12px var(--ff-head);color:#44ff88;margin-bottom:8px;min-height:18px}
+.whack-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.7);border:1.5px solid rgba(68,255,136,.3);border-radius:14px;margin-bottom:10px}
+.whack-over.show{display:flex}
+.whack-over-score{font:900 32px var(--ff-head);color:#44ff88}
+.whack-over-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.whack-over-rw{font:700 12px var(--ff-head);color:#ffcc00}
+.whack-start-btn{width:100%;background:linear-gradient(135deg,#004400,#008800);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.whack-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.whack-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ TOWER BUILDER ══ */
 .tower-panel{position:fixed;inset:0;background:#080010;z-index:1033;display:none;flex-direction:column;overflow:hidden}
 .tower-panel.open{display:flex}
@@ -11284,6 +11320,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
+          <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11338,6 +11375,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
+          <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11375,6 +11413,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
+          <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11450,6 +11489,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
+          <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12031,6 +12071,43 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- WHACK-A-MOLE -->
+<div class="whack-panel" id="whackPanel">
+  <div class="whack-header">
+    <div class="whack-title">🔨 HAMMARHJÄLTEN</div>
+    <button class="close-btn" onclick="closeWhack()">✕</button>
+  </div>
+  <div class="whack-scroll">
+    <div class="whack-hud">
+      <div class="whack-hud-box"><div class="whack-hud-v" id="whackScore">0</div><div class="whack-hud-l">Poäng</div></div>
+      <div class="whack-hud-box"><div class="whack-hud-v" id="whackBest">0</div><div class="whack-hud-l">Rekord</div></div>
+      <div class="whack-hud-box"><div class="whack-hud-v" id="whackPlays">0</div><div class="whack-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="whack-timer-wrap"><div class="whack-timer-bar" id="whackTimerBar"></div></div>
+    <div class="whack-grid" id="whackGrid">
+      <div class="whack-hole" id="wh0" onclick="whackHit(0)"><span class="whack-mole" id="wm0">🐹</span></div>
+      <div class="whack-hole" id="wh1" onclick="whackHit(1)"><span class="whack-mole" id="wm1">🦔</span></div>
+      <div class="whack-hole" id="wh2" onclick="whackHit(2)"><span class="whack-mole" id="wm2">🐭</span></div>
+      <div class="whack-hole" id="wh3" onclick="whackHit(3)"><span class="whack-mole" id="wm3">🐰</span></div>
+      <div class="whack-hole" id="wh4" onclick="whackHit(4)"><span class="whack-mole" id="wm4">🐱</span></div>
+      <div class="whack-hole" id="wh5" onclick="whackHit(5)"><span class="whack-mole" id="wm5">🦊</span></div>
+      <div class="whack-hole" id="wh6" onclick="whackHit(6)"><span class="whack-mole" id="wm6">🐻</span></div>
+      <div class="whack-hole" id="wh7" onclick="whackHit(7)"><span class="whack-mole" id="wm7">🐼</span></div>
+      <div class="whack-hole" id="wh8" onclick="whackHit(8)"><span class="whack-mole" id="wm8">🐨</span></div>
+    </div>
+    <div class="whack-status" id="whackStatus">Tryck START och klappa djuren!</div>
+    <div class="whack-over" id="whackOver">
+      <div class="whack-over-lbl">RUNDAN KLAR!</div>
+      <div class="whack-over-score" id="whackOverScore">0</div>
+      <div class="whack-over-lbl">träffar</div>
+      <div class="whack-over-rw" id="whackOverRw"></div>
+    </div>
+    <button class="whack-start-btn" id="whackStartBtn" onclick="whackStart()">🔨 STARTA!</button>
+    <div class="whack-info">AGI = längre tid synlig · LCK = gulddejur (3x) · STR = mer mynt · 10 spel/dag</div>
+  </div>
+</div>
 
 <!-- TOWER BUILDER -->
 <div class="tower-panel" id="towerPanel">
@@ -51829,6 +51906,157 @@ function _renderTower(d){
     btn.textContent=playsLeft>0?'🏗️ BYGG TORNET ('+playsLeft+' kvar)':'✓ Klar för idag!';
   }
   if(!_towerState||!_towerState.running) _towerDraw();
+}
+
+
+// WHACK-A-MOLE
+const WHACK_KEY = 'k0509_whack';
+const WHACK_MAX_PLAYS = 10;
+const WHACK_DURATION = 30000; // 30 second rounds
+const WHACK_EMOJIS = ['🐹','🦔','🐭','🐰','🐱','🦊','🐻','🐼','🐨'];
+
+var _whackTimers = []; // per-hole timeout
+var _whackActive = []; // which holes have moles
+var _whackGolden = []; // which holes are golden
+var _whackRunning = false;
+var _whackScore = 0;
+var _whackSpawnInt = null;
+var _whackEndTimeout = null;
+var _whackTimerInt = null;
+var _whackEndTime = 0;
+
+function _whackData(){try{return JSON.parse(localStorage.getItem(WHACK_KEY)||'null');}catch(e){return null;}}
+function _whackSave(d){localStorage.setItem(WHACK_KEY,JSON.stringify(d));}
+function _whackGetData(){
+  var d=_whackData();
+  if(!d) d={best:0,totalHits:0,playsToday:0,lastDay:''};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function whackStart(){
+  var d=_whackGetData();
+  if(d.playsToday>=WHACK_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  _whackScore=0;
+  _whackActive=new Array(9).fill(false);
+  _whackGolden=new Array(9).fill(false);
+  _whackRunning=true;
+  // Hide all moles
+  for(var i=0;i<9;i++){var m=$('wm'+i);if(m){m.classList.remove('up','golden');}}
+  var btn=$('whackStartBtn');if(btn) btn.disabled=true;
+  var over=$('whackOver');if(over) over.classList.remove('show');
+  var sv=$('whackScore');if(sv) sv.textContent=0;
+  var st=$('whackStatus');if(st) st.textContent='Klappa djuren!';
+  // Spawn interval: base 800ms, -4ms per AGI, min 350ms
+  var spawnMs=Math.max(350, 800-(G.agi||0)*4);
+  // Mole visible time: base 1200ms, +10ms per AGI, max 2000ms
+  var visMs=Math.min(2000, 1200+(G.agi||0)*10);
+  _whackEndTime=Date.now()+WHACK_DURATION;
+  _whackEndTimeout=setTimeout(_whackEnd, WHACK_DURATION);
+  _whackTimerInt=setInterval(function(){
+    var left=Math.max(0,_whackEndTime-Date.now());
+    var pct=(left/WHACK_DURATION*100).toFixed(1)+'%';
+    var bar=$('whackTimerBar');if(bar) bar.style.width=pct;
+    if(left===0) clearInterval(_whackTimerInt);
+  },100);
+  _whackSpawnInt=setInterval(function(){
+    if(!_whackRunning) return;
+    _whackSpawnMole(visMs);
+  }, spawnMs);
+}
+
+function _whackSpawnMole(visMs){
+  // Pick a free hole
+  var free=[];
+  for(var i=0;i<9;i++){if(!_whackActive[i]) free.push(i);}
+  if(!free.length) return;
+  var hole=free[Math.floor(Math.random()*free.length)];
+  _whackActive[hole]=true;
+  // LCK: chance for golden mole
+  var goldChance=0.08+(G.lck||0)*0.003;
+  _whackGolden[hole]=Math.random()<goldChance;
+  var mole=$('wm'+hole);
+  if(mole){
+    mole.textContent=_whackGolden[hole]?'⭐':WHACK_EMOJIS[hole];
+    if(_whackGolden[hole]) mole.classList.add('golden'); else mole.classList.remove('golden');
+    mole.classList.add('up');
+  }
+  // Auto-hide after visMs
+  _whackTimers[hole]=setTimeout(function(){
+    _whackHideMole(hole);
+  }, visMs);
+}
+
+function _whackHideMole(hole){
+  _whackActive[hole]=false;
+  _whackGolden[hole]=false;
+  var mole=$('wm'+hole);
+  if(mole) mole.classList.remove('up','golden');
+  clearTimeout(_whackTimers[hole]);
+}
+
+function whackHit(hole){
+  if(!_whackRunning||!_whackActive[hole]) return;
+  var pts=_whackGolden[hole]?3:1;
+  _whackScore+=pts;
+  var sv=$('whackScore');if(sv) sv.textContent=_whackScore;
+  // Hit FX
+  var holeEl=$('wh'+hole);
+  if(holeEl){
+    var fx=document.createElement('div');
+    fx.className='whack-hit-fx';
+    fx.textContent=pts===3?'+3⭐':'+1';
+    holeEl.appendChild(fx);
+    setTimeout(function(){if(fx.parentNode) fx.parentNode.removeChild(fx);},500);
+  }
+  _whackHideMole(hole);
+  var st=$('whackStatus');if(st) st.textContent=_whackScore+' träffar!';
+}
+
+function _whackEnd(){
+  _whackRunning=false;
+  clearInterval(_whackSpawnInt);clearInterval(_whackTimerInt);clearTimeout(_whackEndTimeout);
+  for(var i=0;i<9;i++){_whackHideMole(i);}
+  var bar=$('whackTimerBar');if(bar) bar.style.width='0%';
+  var d=_whackGetData();
+  var isNew=_whackScore>d.best;
+  if(isNew) d.best=_whackScore;
+  d.playsToday=(d.playsToday||0)+1;d.totalPlays=(d.totalPlays||0)+1;
+  d.totalHits=(d.totalHits||0)+_whackScore;
+  var coinMult=1+(G.str||0)*0.02;
+  var coins=Math.floor(_whackScore*12*coinMult);
+  var xp=_whackScore*6;
+  gainCoins(coins);gainXP(xp,'agi');
+  if(isNew) gainKC(1);
+  _whackSave(d);
+  misTrack('react',_whackScore);checkAchievements();
+  var over=$('whackOver');if(over) over.classList.add('show');
+  var os=$('whackOverScore');if(os) os.textContent=_whackScore;
+  var orw=$('whackOverRw');if(orw) orw.textContent='+'+coins+'🪙 +'+xp+'XP'+(isNew?' 🏆 Rekord! +1KC':'');
+  var st=$('whackStatus');if(st) st.textContent=isNew?'🏆 NYTT REKORD!':'Bra jobbat!';
+  var playsLeft=WHACK_MAX_PLAYS-d.playsToday;
+  var btn=$('whackStartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🔨 SPELA IGEN ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+  _renderWhack(d);
+}
+
+function openWhack(){$('whackPanel').classList.add('open');_renderWhack();}
+function closeWhack(){
+  if(_whackRunning) _whackEnd();
+  $('whackPanel').classList.remove('open');
+}
+
+function _renderWhack(d){
+  if(!d) d=_whackGetData();
+  var bv=$('whackBest');if(bv) bv.textContent=d.best||0;
+  var pl=$('whackPlays');if(pl) pl.textContent=Math.max(0,WHACK_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('whackStartBtn');
+  if(btn&&!_whackRunning){
+    var playsLeft=WHACK_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=playsLeft<=0;
+    btn.textContent=playsLeft>0?'🔨 STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';
+  }
 }
 
 </script>
