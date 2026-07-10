@@ -1533,6 +1533,44 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SPEED MATH ══ */
+.math-panel{position:fixed;inset:0;background:#020a04;z-index:1046;display:none;flex-direction:column;overflow:hidden}
+.math-panel.open{display:flex}
+.math-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#051408,#020a04)}
+.math-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#ffcc00,#ff4488,#44ff88);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:mathShim 2s linear infinite}
+@keyframes mathShim{0%{background-position:0%}100%{background-position:300%}}
+.math-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+.math-hud{display:flex;gap:8px;margin-bottom:10px}
+.math-hud-box{flex:1;background:rgba(68,255,136,.04);border:1px solid rgba(68,255,136,.15);border-radius:10px;padding:6px;text-align:center}
+.math-hud-v{font:900 18px var(--ff-head);color:#44ff88}
+.math-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Timer */
+.math-timer-wrap{background:rgba(255,255,255,.06);border-radius:8px;height:8px;margin-bottom:12px;overflow:hidden}
+.math-timer-bar{height:100%;border-radius:8px;background:linear-gradient(90deg,#44ff88,#ffcc00);transition:width .1s linear;width:100%}
+/* Problem card */
+.math-card{background:rgba(68,255,136,.04);border:2px solid rgba(68,255,136,.15);border-radius:20px;padding:18px;text-align:center;margin-bottom:12px;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.math-problem{font:900 42px var(--ff-head);color:#fff;letter-spacing:2px;margin-bottom:4px;min-height:50px}
+.math-prompt{font:600 10px var(--ff-body);color:rgba(255,255,255,.4)}
+.math-q-num{font:700 9px var(--ff-head);color:rgba(68,255,136,.5);margin-bottom:6px}
+/* Answer grid */
+.math-answers{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.math-ans-btn{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;font:800 22px var(--ff-head);color:#fff;cursor:pointer;transition:background .1s,border-color .1s;-webkit-tap-highlight-color:transparent}
+.math-ans-btn:active{transform:scale(.95)}
+.math-ans-btn.correct{background:rgba(68,255,136,.2);border-color:#44ff88;color:#44ff88}
+.math-ans-btn.wrong{background:rgba(255,68,68,.2);border-color:#ff4444;color:#ff4444}
+.math-ans-btn:disabled{cursor:default}
+/* Status */
+.math-status{text-align:center;font:700 11px var(--ff-head);color:#44ff88;margin-bottom:8px;min-height:18px}
+.math-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.7);border:1.5px solid rgba(68,255,136,.3);border-radius:14px;margin-bottom:8px}
+.math-over.show{display:flex}
+.math-over-score{font:900 32px var(--ff-head);color:#44ff88}
+.math-over-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.math-over-rw{font:700 12px var(--ff-head);color:#ffcc00}
+.math-start-btn{width:100%;background:linear-gradient(135deg,#0a2a10,#145220);border:none;border-radius:14px;padding:13px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.math-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.math-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ KNOWLEDGE QUIZ ══ */
 .kquiz-panel{position:fixed;inset:0;background:#02040a;z-index:1045;display:none;flex-direction:column;overflow:hidden}
 .kquiz-panel.open{display:flex}
@@ -11763,6 +11801,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
           <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
+          <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11829,6 +11868,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
           <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
+          <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11878,6 +11918,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
           <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
+          <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11965,6 +12006,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
           <div class="ddr" onclick="cM();openFlood()"><div class="ddr-i">🎨</div>Färgflöde</div>
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
+          <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12558,6 +12600,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- SPEED MATH -->
+<div class="math-panel" id="mathPanel">
+  <div class="math-header">
+    <div class="math-title">🔢 SNABBMATTE</div>
+    <button class="close-btn" onclick="closeMath()">✕</button>
+  </div>
+  <div class="math-scroll">
+    <div class="math-hud">
+      <div class="math-hud-box"><div class="math-hud-v" id="mathRight">0</div><div class="math-hud-l">Rätt</div></div>
+      <div class="math-hud-box"><div class="math-hud-v" id="mathStreak">0</div><div class="math-hud-l">Streak</div></div>
+      <div class="math-hud-box"><div class="math-hud-v" id="mathPlays">0</div><div class="math-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="math-timer-wrap"><div class="math-timer-bar" id="mathTimerBar"></div></div>
+    <div class="math-card" id="mathCard" style="display:none">
+      <div class="math-q-num" id="mathQNum">Fråga 1/10</div>
+      <div class="math-problem" id="mathProblem">?</div>
+      <div class="math-prompt">= ?</div>
+    </div>
+    <div class="math-answers" id="mathAnswers" style="display:none"></div>
+    <div class="math-status" id="mathStatus">Tryck START — svara snabbt för bonuspoäng!</div>
+    <div class="math-over" id="mathOver">
+      <div class="math-over-lbl">OMGÅNG KLAR!</div>
+      <div class="math-over-score" id="mathOverScore">0/10</div>
+      <div class="math-over-lbl">rätta svar</div>
+      <div class="math-over-rw" id="mathOverRw"></div>
+    </div>
+    <button class="math-start-btn" id="mathStartBtn" onclick="mathStart()">🔢 STARTA!</button>
+    <div class="math-info">INT = mer tid per fråga · Alla rätt = +1 KC · 5 spel/dag</div>
+  </div>
+</div>
 
 <!-- KNOWLEDGE QUIZ -->
 <div class="kquiz-panel" id="kquizPanel">
@@ -54583,6 +54657,226 @@ function _renderKquiz(d){
   if(btn&&!(_kquizState&&_kquizState.running)){
     var left=KQUIZ_MAX_PLAYS-(d.playsToday||0);
     btn.disabled=left<=0;btn.textContent=left>0?'🧠 STARTA QUIZ ('+left+' kvar)':'✓ Klar för idag!';
+  }
+}
+
+
+// SPEED MATH
+const MATH_KEY = 'k0509_math';
+const MATH_MAX_PLAYS = 5;
+const MATH_QUESTIONS = 10;
+const MATH_BASE_TIME = 8000; // ms per question
+
+var _mathState = null;
+var _mathTimer = null;
+var _mathTimerStart = 0;
+var _mathTimerDur = 0;
+var _mathTimerRaf = null;
+
+function _mathData(){try{return JSON.parse(localStorage.getItem(MATH_KEY)||'null');}catch(e){return null;}}
+function _mathSave(d){localStorage.setItem(MATH_KEY,JSON.stringify(d));}
+function _mathGetData(){
+  var d=_mathData();
+  if(!d) d={best:0,playsToday:0,lastDay:'',totalRight:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function _mathGenProblem(rng, difficulty){
+  // difficulty 1-5 based on question number
+  var ops=['+','-','*'];
+  var op;
+  if(difficulty<=2) op=ops[Math.floor(rng()*2)]; // +/-
+  else op=ops[Math.floor(rng()*ops.length)];
+  var a,b,ans;
+  if(op==='+'){a=Math.floor(rng()*(10*difficulty))+1;b=Math.floor(rng()*(10*difficulty))+1;ans=a+b;}
+  else if(op==='-'){a=Math.floor(rng()*(10*difficulty))+5;b=Math.floor(rng()*a)+1;ans=a-b;}
+  else{a=Math.floor(rng()*8)+2;b=Math.floor(rng()*8)+2;ans=a*b;}
+  // Generate 3 wrong answers
+  var wrongs=[];
+  while(wrongs.length<3){
+    var off=Math.floor(rng()*10)-5;
+    if(off===0) off=rng()<0.5?1:-1;
+    var w=ans+off;
+    if(w!==ans&&wrongs.indexOf(w)<0&&w>=0) wrongs.push(w);
+  }
+  // Shuffle options
+  var opts=[ans].concat(wrongs);
+  for(var i=opts.length-1;i>0;i--){
+    var j=Math.floor(rng()*(i+1));
+    var tmp=opts[i];opts[i]=opts[j];opts[j]=tmp;
+  }
+  var correctIdx=opts.indexOf(ans);
+  return {text:a+' '+op+' '+b, ans:ans, opts:opts, correctIdx:correctIdx};
+}
+
+function _mathRng(seed){
+  var s=seed;
+  return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};
+}
+
+function mathStart(){
+  var d=_mathGetData();
+  if(d.playsToday>=MATH_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  var btn=$('mathStartBtn');if(btn) btn.disabled=true;
+  var over=$('mathOver');if(over) over.classList.remove('show');
+  // Seed
+  var today=getTodayKey();var seed=0;
+  for(var i=0;i<today.length;i++) seed=(seed*31+today.charCodeAt(i))>>>0;
+  seed+=d.playsToday*99991;
+  var rng=_mathRng(seed);
+  // Generate all questions
+  var questions=[];
+  for(var q=0;q<MATH_QUESTIONS;q++){
+    var diff=Math.floor(q/2)+1;
+    questions.push(_mathGenProblem(rng, diff));
+  }
+  _mathState={running:true,questions:questions,current:0,right:0,streak:0,maxStreak:0};
+  var card=$('mathCard');if(card) card.style.display='flex';
+  var ans=$('mathAnswers');if(ans) ans.style.display='grid';
+  _mathShowQuestion();
+}
+
+function _mathShowQuestion(){
+  var s=_mathState;
+  if(!s||!s.running) return;
+  var q=s.questions[s.current];
+  var qn=$('mathQNum');if(qn) qn.textContent='Fråga '+(s.current+1)+'/'+MATH_QUESTIONS;
+  var mp=$('mathProblem');if(mp) mp.textContent=q.text;
+  var ma=$('mathAnswers');
+  if(ma){
+    ma.innerHTML=q.opts.map(function(opt,i){
+      return '<button class="math-ans-btn" onclick="mathAnswer('+i+')" id="mathOpt'+i+'">'+opt+'</button>';
+    }).join('');
+  }
+  var st=$('mathStatus');if(st) st.textContent='Fråga '+(s.current+1)+' — välj rätt svar!';
+  // Timer
+  var dur=MATH_BASE_TIME+Math.floor((G.int||0)*200);
+  _mathTimerStart=Date.now();
+  _mathTimerDur=dur;
+  if(_mathTimer) clearTimeout(_mathTimer);
+  _mathTimer=setTimeout(function(){_mathTimerOut();},dur);
+  _mathAnimTimer();
+}
+
+function _mathAnimTimer(){
+  if(_mathTimerRaf) cancelAnimationFrame(_mathTimerRaf);
+  function tick(){
+    var elapsed=Date.now()-_mathTimerStart;
+    var pct=Math.max(0,1-elapsed/_mathTimerDur);
+    var bar=$('mathTimerBar');
+    if(bar) bar.style.width=(pct*100)+'%';
+    if(pct>0&&_mathState&&_mathState.running&&!_mathState.answered){
+      _mathTimerRaf=requestAnimationFrame(tick);
+    }
+  }
+  _mathTimerRaf=requestAnimationFrame(tick);
+}
+
+function _mathTimerOut(){
+  var s=_mathState;
+  if(!s||!s.running||s.answered) return;
+  s.answered=true;
+  s.streak=0;
+  // Flash correct
+  var q=s.questions[s.current];
+  var btn=$('mathOpt'+q.correctIdx);
+  if(btn) btn.classList.add('correct');
+  // Disable all
+  for(var i=0;i<4;i++){var b=$('mathOpt'+i);if(b) b.disabled=true;}
+  var bar=$('mathTimerBar');if(bar) bar.style.width='0%';
+  var st=$('mathStatus');if(st) st.textContent='Tid ute! Rätt svar: '+q.ans;
+  var mr=$('mathRight');if(mr) mr.textContent=s.right;
+  var ms=$('mathStreak');if(ms) ms.textContent=s.streak;
+  setTimeout(function(){_mathNext();},1200);
+}
+
+function mathAnswer(optIdx){
+  var s=_mathState;
+  if(!s||!s.running||s.answered) return;
+  s.answered=true;
+  if(_mathTimer) clearTimeout(_mathTimer);
+  if(_mathTimerRaf) cancelAnimationFrame(_mathTimerRaf);
+  var bar=$('mathTimerBar');if(bar) bar.style.width='0%';
+  var q=s.questions[s.current];
+  var correct=optIdx===q.correctIdx;
+  var btn=$('mathOpt'+optIdx);
+  if(correct){
+    if(btn) btn.classList.add('correct');
+    s.right++;s.streak++;
+    if(s.streak>s.maxStreak) s.maxStreak=s.streak;
+    var elapsed=Date.now()-_mathTimerStart;
+    var speedBonus=elapsed<2000?3:elapsed<4000?2:1;
+    gainCoins(10*speedBonus);gainXP(8,'int');
+    var st=$('mathStatus');if(st) st.textContent='✓ Rätt! +'+(10*speedBonus)+'🪙'+(speedBonus>1?' Snabbhet x'+speedBonus:'');
+  } else {
+    if(btn) btn.classList.add('wrong');
+    var cb=$('mathOpt'+q.correctIdx);if(cb) cb.classList.add('correct');
+    s.streak=0;
+    gainXP(2,'int');
+    var st2=$('mathStatus');if(st2) st2.textContent='✗ Fel! Rätt: '+q.ans;
+  }
+  for(var i=0;i<4;i++){var b=$('mathOpt'+i);if(b) b.disabled=true;}
+  var mr=$('mathRight');if(mr) mr.textContent=s.right;
+  var ms=$('mathStreak');if(ms) ms.textContent=s.streak;
+  setTimeout(function(){_mathNext();},900);
+}
+
+function _mathNext(){
+  var s=_mathState;
+  if(!s) return;
+  s.answered=false;
+  s.current++;
+  if(s.current>=MATH_QUESTIONS){_mathEnd();return;}
+  _mathShowQuestion();
+}
+
+function _mathEnd(){
+  var s=_mathState;
+  if(!s) return;
+  s.running=false;
+  if(_mathTimer) clearTimeout(_mathTimer);
+  if(_mathTimerRaf) cancelAnimationFrame(_mathTimerRaf);
+  var bar=$('mathTimerBar');if(bar) bar.style.width='0%';
+  var d=_mathGetData();
+  d.playsToday=(d.playsToday||0)+1;
+  d.totalRight=(d.totalRight||0)+s.right;
+  if(s.right>d.best) d.best=s.right;
+  var perfect=s.right===MATH_QUESTIONS;
+  var kcs=perfect?1:0;
+  var bonusCoins=s.right*5+s.maxStreak*10;
+  gainCoins(bonusCoins);gainXP(s.right*10,'int');
+  if(kcs) gainKC(kcs);
+  if(s.right>=8)(G.int=(G.int||0)+1,save());
+  _mathSave(d);
+  misTrack('quiz',s.right);checkAchievements();
+  var card=$('mathCard');if(card) card.style.display='none';
+  var ans=$('mathAnswers');if(ans) ans.style.display='none';
+  var over=$('mathOver');if(over) over.classList.add('show');
+  var os=$('mathOverScore');if(os) os.textContent=s.right+'/'+MATH_QUESTIONS;
+  var orw=$('mathOverRw');if(orw) orw.textContent='+'+bonusCoins+'🪙 +'+s.right*10+'XP'+(kcs?' +1KC':'')+(s.right>=8?' +1 INT':'');
+  var st=$('mathStatus');if(st) st.textContent=perfect?'🔥 Perfekt! Alla rätt!':s.right>=7?'🎯 Bra jobbat!':'Öva mer för bonus INT!';
+  var playsLeft=MATH_MAX_PLAYS-d.playsToday;
+  var btn=$('mathStartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🔢 STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+}
+
+function openMath(){$('mathPanel').classList.add('open');_renderMath();}
+function closeMath(){
+  if(_mathTimer) clearTimeout(_mathTimer);
+  if(_mathTimerRaf) cancelAnimationFrame(_mathTimerRaf);
+  $('mathPanel').classList.remove('open');
+}
+
+function _renderMath(d){
+  if(!d) d=_mathGetData();
+  var pl=$('mathPlays');if(pl) pl.textContent=Math.max(0,MATH_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('mathStartBtn');
+  if(btn&&!(_mathState&&_mathState.running)){
+    var left=MATH_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=left<=0;
+    btn.textContent=left>0?'🔢 STARTA! ('+left+' kvar)':'✓ Klar för idag!';
   }
 }
 
