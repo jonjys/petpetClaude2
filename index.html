@@ -1523,6 +1523,57 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PATTERN MEMORY ══ */
+.patt-panel{position:fixed;inset:0;background:#05000f;z-index:1036;display:none;flex-direction:column;overflow:hidden}
+.patt-panel.open{display:flex}
+.patt-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0020,#05000f)}
+.patt-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff44cc,#4488ff,#44ffcc,#ff44cc);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:pattShim 2s linear infinite}
+@keyframes pattShim{0%{background-position:0%}100%{background-position:300%}}
+.patt-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+/* HUD */
+.patt-hud{display:flex;gap:8px;margin-bottom:10px}
+.patt-hud-box{flex:1;background:rgba(170,68,255,.04);border:1px solid rgba(170,68,255,.15);border-radius:10px;padding:6px;text-align:center}
+.patt-hud-v{font:900 18px var(--ff-head);color:#cc44ff}
+.patt-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Grid */
+.patt-grid-wrap{display:flex;justify-content:center;margin-bottom:12px;padding:0 10px}
+.patt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:260px}
+.patt-cell{aspect-ratio:1;border-radius:16px;border:2px solid rgba(255,255,255,.1);cursor:pointer;transition:all .12s;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;font-size:28px}
+.patt-cell:active{transform:scale(.88)}
+.patt-cell.c0{background:rgba(255,68,136,.15);border-color:rgba(255,68,136,.3)}
+.patt-cell.c1{background:rgba(68,136,255,.15);border-color:rgba(68,136,255,.3)}
+.patt-cell.c2{background:rgba(68,255,136,.15);border-color:rgba(68,255,136,.3)}
+.patt-cell.c3{background:rgba(255,200,0,.15);border-color:rgba(255,200,0,.3)}
+.patt-cell.c4{background:rgba(200,68,255,.15);border-color:rgba(200,68,255,.3)}
+.patt-cell.c5{background:rgba(0,220,220,.15);border-color:rgba(0,220,220,.3)}
+.patt-cell.c6{background:rgba(255,130,0,.15);border-color:rgba(255,130,0,.3)}
+.patt-cell.c7{background:rgba(200,200,255,.15);border-color:rgba(200,200,255,.3)}
+.patt-cell.c8{background:rgba(255,80,80,.15);border-color:rgba(255,80,80,.3)}
+.patt-cell.lit.c0{background:rgba(255,68,136,.8);border-color:#ff4488;box-shadow:0 0 20px rgba(255,68,136,.5)}
+.patt-cell.lit.c1{background:rgba(68,136,255,.8);border-color:#4488ff;box-shadow:0 0 20px rgba(68,136,255,.5)}
+.patt-cell.lit.c2{background:rgba(68,255,136,.8);border-color:#44ff88;box-shadow:0 0 20px rgba(68,255,136,.5)}
+.patt-cell.lit.c3{background:rgba(255,200,0,.8);border-color:#ffcc00;box-shadow:0 0 20px rgba(255,200,0,.5)}
+.patt-cell.lit.c4{background:rgba(200,68,255,.8);border-color:#cc44ff;box-shadow:0 0 20px rgba(200,68,255,.5)}
+.patt-cell.lit.c5{background:rgba(0,220,220,.8);border-color:#00ddcc;box-shadow:0 0 20px rgba(0,220,220,.5)}
+.patt-cell.lit.c6{background:rgba(255,130,0,.8);border-color:#ff8800;box-shadow:0 0 20px rgba(255,130,0,.5)}
+.patt-cell.lit.c7{background:rgba(200,200,255,.8);border-color:#ccccff;box-shadow:0 0 20px rgba(200,200,255,.5)}
+.patt-cell.lit.c8{background:rgba(255,80,80,.8);border-color:#ff5050;box-shadow:0 0 20px rgba(255,80,80,.5)}
+.patt-cell.error{animation:pattErr .4s ease forwards}
+@keyframes pattErr{0%,100%{transform:scale(1)}25%{transform:scale(.8);filter:brightness(0.4)}75%{transform:scale(1.1)}}
+/* Lives */
+.patt-lives{text-align:center;font:700 20px var(--ff-head);margin-bottom:8px;letter-spacing:4px}
+/* Status */
+.patt-status{text-align:center;font:700 12px var(--ff-head);color:#cc44ff;margin-bottom:10px;min-height:18px}
+.patt-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.7);border:1.5px solid rgba(170,68,255,.4);border-radius:14px;margin-bottom:10px}
+.patt-over.show{display:flex}
+.patt-over-score{font:900 32px var(--ff-head);color:#cc44ff}
+.patt-over-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.patt-over-rw{font:700 12px var(--ff-head);color:#ffcc00}
+.patt-start-btn{width:100%;background:linear-gradient(135deg,#220033,#550088);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.patt-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.patt-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ COIN CATCHER ══ */
 .catch-panel{position:fixed;inset:0;background:#000610;z-index:1035;display:none;flex-direction:column;overflow:hidden}
 .catch-panel.open{display:flex}
@@ -11356,6 +11407,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
+          <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11412,6 +11464,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
+          <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11451,6 +11504,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
+          <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11528,6 +11582,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
+          <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12111,6 +12166,45 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PATTERN MEMORY -->
+<div class="patt-panel" id="pattPanel">
+  <div class="patt-header">
+    <div class="patt-title">🧠 MÖNSTERMINNE</div>
+    <button class="close-btn" onclick="closePatt()">✕</button>
+  </div>
+  <div class="patt-scroll">
+    <div class="patt-hud">
+      <div class="patt-hud-box"><div class="patt-hud-v" id="pattRound">0</div><div class="patt-hud-l">Runda</div></div>
+      <div class="patt-hud-box"><div class="patt-hud-v" id="pattBest">0</div><div class="patt-hud-l">Rekord</div></div>
+      <div class="patt-hud-box"><div class="patt-hud-v" id="pattPlays">0</div><div class="patt-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="patt-lives" id="pattLives">❤️❤️❤️</div>
+    <div class="patt-grid-wrap">
+      <div class="patt-grid" id="pattGrid">
+        <div class="patt-cell c0" id="pc0" onclick="pattTap(0)">🌸</div>
+        <div class="patt-cell c1" id="pc1" onclick="pattTap(1)">⚡</div>
+        <div class="patt-cell c2" id="pc2" onclick="pattTap(2)">🌿</div>
+        <div class="patt-cell c3" id="pc3" onclick="pattTap(3)">🌙</div>
+        <div class="patt-cell c4" id="pc4" onclick="pattTap(4)">💜</div>
+        <div class="patt-cell c5" id="pc5" onclick="pattTap(5)">💠</div>
+        <div class="patt-cell c6" id="pc6" onclick="pattTap(6)">🔥</div>
+        <div class="patt-cell c7" id="pc7" onclick="pattTap(7)">❄️</div>
+        <div class="patt-cell c8" id="pc8" onclick="pattTap(8)">💫</div>
+      </div>
+    </div>
+    <div class="patt-status" id="pattStatus">Tryck START och memorera mönstret!</div>
+    <div class="patt-over" id="pattOver">
+      <div class="patt-over-lbl">SPELET SLUT!</div>
+      <div class="patt-over-score" id="pattOverScore">0</div>
+      <div class="patt-over-lbl">rundor klarade</div>
+      <div class="patt-over-rw" id="pattOverRw"></div>
+    </div>
+    <button class="patt-start-btn" id="pattStartBtn" onclick="pattStart()">🧠 STARTA!</button>
+    <div class="patt-info">INT = mer tid att memorera · 3 fel = spelet slut · Längre sekvens = fler poäng · 8 spel/dag</div>
+  </div>
+</div>
 
 <!-- COIN CATCHER -->
 <div class="catch-panel" id="catchPanel">
@@ -52304,6 +52398,183 @@ function _renderCatch(d){
     btn.textContent=playsLeft>0?'🪣 STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';
   }
   _catchDraw();
+}
+
+
+// PATTERN MEMORY
+const PATT_KEY = 'k0509_patt';
+const PATT_MAX_PLAYS = 8;
+const PATT_CELLS = 9;
+const PATT_MAX_LIVES = 3;
+
+var _pattState = null;
+
+function _pattData(){try{return JSON.parse(localStorage.getItem(PATT_KEY)||'null');}catch(e){return null;}}
+function _pattSave(d){localStorage.setItem(PATT_KEY,JSON.stringify(d));}
+function _pattGetData(){
+  var d=_pattData();
+  if(!d) d={best:0,playsToday:0,lastDay:'',totalRounds:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function pattStart(){
+  var d=_pattGetData();
+  if(d.playsToday>=PATT_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  var btn=$('pattStartBtn');if(btn) btn.disabled=true;
+  var over=$('pattOver');if(over) over.classList.remove('show');
+  _pattState={
+    running:true,
+    sequence:[],
+    playerIdx:0,
+    round:0,
+    lives:PATT_MAX_LIVES,
+    phase:'showing', // 'showing' | 'input'
+  };
+  _pattUpdateLives();
+  var rv=$('pattRound');if(rv) rv.textContent=0;
+  _pattNextRound();
+}
+
+function _pattNextRound(){
+  var s=_pattState;
+  if(!s||!s.running) return;
+  s.round++;
+  s.playerIdx=0;
+  s.phase='showing';
+  // Add one more to sequence
+  s.sequence.push(Math.floor(Math.random()*PATT_CELLS));
+  var rv=$('pattRound');if(rv) rv.textContent=s.round;
+  var st=$('pattStatus');if(st) st.textContent='Memorera mönstret... ('+s.sequence.length+' steg)';
+  // Disable clicks during showing
+  _pattSetClickable(false);
+  // Show time: 600ms per step + INT bonus 20ms/INT, min 400ms per step
+  var stepMs=Math.max(400, 600+(G.int||0)*20);
+  _pattShowSequence(0, stepMs, function(){
+    s.phase='input';
+    _pattSetClickable(true);
+    var st2=$('pattStatus');if(st2) st2.textContent='Tryck i rätt ordning! ('+s.sequence.length+' steg)';
+  });
+}
+
+function _pattShowSequence(idx, stepMs, done){
+  var s=_pattState;
+  if(!s||!s.running) return;
+  if(idx>=s.sequence.length){
+    // Pause then call done
+    setTimeout(done, 300);
+    return;
+  }
+  var cellId=s.sequence[idx];
+  _pattLightCell(cellId, true);
+  setTimeout(function(){
+    _pattLightCell(cellId, false);
+    setTimeout(function(){
+      _pattShowSequence(idx+1, stepMs, done);
+    }, stepMs*0.3);
+  }, stepMs*0.6);
+}
+
+function _pattLightCell(cellId, on){
+  var cell=$('pc'+cellId);
+  if(!cell) return;
+  if(on) cell.classList.add('lit'); else cell.classList.remove('lit');
+}
+
+function _pattSetClickable(on){
+  var grid=$('pattGrid');
+  if(grid) grid.style.pointerEvents=on?'auto':'none';
+}
+
+function pattTap(cellId){
+  var s=_pattState;
+  if(!s||!s.running||s.phase!=='input') return;
+  var expected=s.sequence[s.playerIdx];
+  _pattLightCell(cellId, true);
+  setTimeout(function(){_pattLightCell(cellId, false);},200);
+  if(cellId!==expected){
+    // Wrong
+    var cell=$('pc'+cellId);if(cell) cell.classList.add('error');
+    setTimeout(function(){var c=$('pc'+cellId);if(c) c.classList.remove('error');},500);
+    s.lives--;
+    _pattUpdateLives();
+    if(s.lives<=0){
+      setTimeout(_pattEnd, 400);
+    } else {
+      showFloatBubble('Fel! '+s.lives+' liv kvar','debuff');
+      // Repeat same sequence
+      s.playerIdx=0;s.phase='showing';
+      _pattSetClickable(false);
+      setTimeout(function(){
+        var stepMs=Math.max(400,600+(G.int||0)*20);
+        var st=$('pattStatus');if(st) st.textContent='Försök igen...';
+        _pattShowSequence(0, stepMs, function(){
+          s.phase='input';
+          _pattSetClickable(true);
+          var st2=$('pattStatus');if(st2) st2.textContent='Tryck i rätt ordning!';
+        });
+      },500);
+    }
+    return;
+  }
+  s.playerIdx++;
+  if(s.playerIdx>=s.sequence.length){
+    // Completed this round
+    _pattSetClickable(false);
+    var st=$('pattStatus');if(st) st.textContent='✓ Rätt! Nästa runda...';
+    setTimeout(_pattNextRound, 700);
+  }
+}
+
+function _pattUpdateLives(){
+  var s=_pattState;
+  var lives=s?s.lives:PATT_MAX_LIVES;
+  var el=$('pattLives');
+  if(el) el.textContent=['❤️','❤️','❤️'].slice(0,lives).join('')+['🖤','🖤','🖤'].slice(0,PATT_MAX_LIVES-lives).join('');
+}
+
+function _pattEnd(){
+  var s=_pattState;
+  if(!s) return;
+  s.running=false;_pattSetClickable(false);
+  var round=s.round-1; // last completed round
+  var d=_pattGetData();
+  var isNew=round>d.best;
+  if(isNew) d.best=round;
+  d.playsToday=(d.playsToday||0)+1;d.totalRounds=(d.totalRounds||0)+round;
+  var coins=round*20;var xp=round*15;
+  gainCoins(coins);gainXP(xp,'int');
+  if(isNew&&round>=3) gainKC(1);
+  _pattSave(d);
+  misTrack('quiz',round);checkAchievements();
+  var over=$('pattOver');if(over) over.classList.add('show');
+  var os=$('pattOverScore');if(os) os.textContent=round;
+  var orw=$('pattOverRw');if(orw) orw.textContent='+'+coins+'🪙 +'+xp+'XP'+(isNew&&round>=3?' 🏆 Rekord! +1KC':'');
+  var st=$('pattStatus');if(st) st.textContent=isNew?'🏆 NYTT REKORD!':'Bra försök!';
+  var playsLeft=PATT_MAX_PLAYS-d.playsToday;
+  var btn=$('pattStartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🧠 SPELA IGEN ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+  _renderPatt(d);
+}
+
+function openPatt(){$('pattPanel').classList.add('open');_renderPatt();}
+function closePatt(){
+  if(_pattState&&_pattState.running){_pattState.running=false;_pattSetClickable(false);}
+  $('pattPanel').classList.remove('open');
+}
+
+function _renderPatt(d){
+  if(!d) d=_pattGetData();
+  var bv=$('pattBest');if(bv) bv.textContent=d.best||0;
+  var pl=$('pattPlays');if(pl) pl.textContent=Math.max(0,PATT_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('pattStartBtn');
+  if(btn&&!(_pattState&&_pattState.running)){
+    var playsLeft=PATT_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=playsLeft<=0;
+    btn.textContent=playsLeft>0?'🧠 STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';
+  }
+  _pattUpdateLives();
 }
 
 </script>
