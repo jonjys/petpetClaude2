@@ -1526,6 +1526,49 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MONSTER BESTIARY ══ */
+.best-panel{position:fixed;inset:0;background:#07000f;z-index:1039;display:none;flex-direction:column;overflow:hidden}
+.best-panel.open{display:flex}
+.best-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#120020,#07000f)}
+.best-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4444,#ff8800,#cc44ff,#ff4444);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:bestShim 2.5s linear infinite}
+@keyframes bestShim{0%{background-position:0%}100%{background-position:300%}}
+.best-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Progress banner */
+.best-banner{background:radial-gradient(ellipse,rgba(255,68,68,.06),rgba(0,0,0,0));border:2px solid rgba(255,68,68,.2);border-radius:18px;padding:12px 16px;margin-bottom:12px}
+.best-banner-row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.best-banner-icon{font-size:36px}
+.best-banner-text{flex:1}
+.best-banner-name{font:900 14px var(--ff-head);color:#fff}
+.best-banner-sub{font:600 9px var(--ff-body);color:rgba(255,100,100,.7)}
+.best-progress-bar{background:rgba(255,255,255,.06);border-radius:20px;height:6px;overflow:hidden;margin-top:4px}
+.best-progress-fill{height:100%;background:linear-gradient(90deg,#ff4444,#ff8800);border-radius:20px;transition:width .4s}
+/* Stats */
+.best-stats{display:flex;gap:8px;margin-bottom:12px}
+.best-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,68,68,.1);border-radius:10px;padding:6px;text-align:center}
+.best-stat-v{font:900 14px var(--ff-head);color:#ff4444}
+.best-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Category */
+.best-cat-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px;margin-top:4px}
+.best-cat{margin-bottom:12px}
+.best-cat-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.best-cat-icon{font-size:20px}
+.best-cat-name{font:800 11px var(--ff-head);color:rgba(255,255,255,.7)}
+.best-cat-prog{font:600 8px var(--ff-body);color:rgba(255,200,100,.6)}
+.best-cat-bonus{font:700 8px var(--ff-head);color:#ff8844;margin-left:auto}
+/* Monster grid */
+.best-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:4px}
+.best-cell{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.06);border-radius:12px;padding:8px 4px;text-align:center}
+.best-cell.found{border-color:rgba(255,68,68,.3);background:rgba(255,40,40,.05)}
+.best-cell.found.rare{border-color:rgba(255,150,0,.4);background:rgba(255,100,0,.06)}
+.best-cell.found.epic{border-color:rgba(170,68,255,.4);background:rgba(150,50,255,.06)}
+.best-cell-icon{font-size:24px;display:block;margin-bottom:3px;filter:grayscale(1)}
+.best-cell.found .best-cell-icon{filter:none}
+.best-cell-name{font:600 6px var(--ff-body);color:rgba(255,255,255,.3);line-height:1.2}
+.best-cell.found .best-cell-name{color:rgba(255,200,150,.7)}
+.best-cell-bonus{font:700 7px var(--ff-head);color:#ff8844;min-height:10px}
+.best-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-top:6px}
+
 /* ══ NUMBER GUESSER ══ */
 .guess-panel{position:fixed;inset:0;background:#000812;z-index:1038;display:none;flex-direction:column;overflow:hidden}
 .guess-panel.open{display:flex}
@@ -11501,6 +11544,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
+          <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11560,6 +11604,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
+          <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11602,6 +11647,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
+          <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11682,6 +11728,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
+          <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12268,6 +12315,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- MONSTER BESTIARY -->
+<div class="best-panel" id="bestPanel">
+  <div class="best-header">
+    <div class="best-title">📖 MONSTERLEXIKON</div>
+    <button class="close-btn" onclick="closeBest()">✕</button>
+  </div>
+  <div class="best-scroll">
+    <div class="best-banner">
+      <div class="best-banner-row">
+        <div class="best-banner-icon">📖</div>
+        <div class="best-banner-text">
+          <div class="best-banner-name">Monsterlexikon</div>
+          <div class="best-banner-sub">Besegra monster för permanenta bonusar!</div>
+        </div>
+      </div>
+      <div class="best-progress-bar"><div class="best-progress-fill" id="bestProgressFill" style="width:0%"></div></div>
+    </div>
+    <div class="best-stats">
+      <div class="best-stat"><div class="best-stat-v" id="bestFound">0</div><div class="best-stat-l">Hittade</div></div>
+      <div class="best-stat"><div class="best-stat-v" id="bestTotal">0</div><div class="best-stat-l">Totalt</div></div>
+      <div class="best-stat"><div class="best-stat-v" id="bestBonusTotal">0</div><div class="best-stat-l">Bonus stats</div></div>
+    </div>
+    <div id="bestContent"></div>
+    <div class="best-info">Monster dyker upp automatiskt när du gör aktiviteter! Kompletta kategorier = extra bonus!</div>
+  </div>
+</div>
 
 <!-- NUMBER GUESSER -->
 <div class="guess-panel" id="guessPanel">
@@ -39416,6 +39491,7 @@ function misTrack(type, amount){
   if(typeof alchDrop==='function') alchDrop(type);
   if(typeof questTrack==='function') questTrack(type,amount);
   if(typeof smithDrop==='function') smithDrop(type,amount);
+  if(typeof bestEncounter==='function') bestEncounter(type);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -53004,6 +53080,147 @@ function _renderGuess(d){
     btn.textContent=playsLeft>0?'🔢 NY GISSNING ('+playsLeft+' kvar)':'✓ Klar för idag!';
   }
   var gl=$('guessGuessLeft');if(gl) gl.textContent=0;
+}
+
+
+// MONSTER BESTIARY
+const BEST_KEY = 'k0509_best';
+const BEST_CATS = [
+  {id:'battle',  icon:'⚔️', name:'Strid',      bonus:{str:3},  bonusTxt:'+3 STR',  monsters:[
+    {id:'goblin',  icon:'👺', name:'Goblin',    rarity:'common', bonus:{str:1}},
+    {id:'troll',   icon:'👹', name:'Troll',     rarity:'common', bonus:{str:1}},
+    {id:'bandit',  icon:'🦹', name:'Banditen',  rarity:'common', bonus:{str:1}},
+    {id:'knight',  icon:'🤺', name:'Riddaren',  rarity:'rare',   bonus:{str:2}},
+  ]},
+  {id:'train',   icon:'🏋️', name:'Träning',    bonus:{str:2,end:2}, bonusTxt:'+2 STR +2 END', monsters:[
+    {id:'golem',   icon:'🗿', name:'Golem',      rarity:'common', bonus:{end:1}},
+    {id:'brute',   icon:'💪', name:'Besten',     rarity:'common', bonus:{str:1}},
+    {id:'juggern', icon:'🔩', name:'Jätten',     rarity:'rare',   bonus:{str:2,end:1}},
+  ]},
+  {id:'dungeon', icon:'🏚️', name:'Fängelsehåla', bonus:{agi:3,int:2}, bonusTxt:'+3 AGI +2 INT', monsters:[
+    {id:'bat',     icon:'🦇', name:'Grottfladder', rarity:'common', bonus:{agi:1}},
+    {id:'spider',  icon:'🕷️', name:'Grottspin',   rarity:'common', bonus:{end:1}},
+    {id:'wraith',  icon:'👻', name:'Skuggandar',  rarity:'rare',   bonus:{int:2}},
+    {id:'skeleton',icon:'💀', name:'Skelett',     rarity:'rare',   bonus:{str:1,end:1}},
+  ]},
+  {id:'boss',    icon:'👑', name:'Boss',        bonus:{all:3},   bonusTxt:'+3 ALLA', monsters:[
+    {id:'dragon',  icon:'🐉', name:'Draken',     rarity:'epic',  bonus:{str:3,end:2}},
+    {id:'demon',   icon:'😈', name:'Demonen',    rarity:'epic',  bonus:{str:2,lck:2}},
+    {id:'serpent', icon:'🐍', name:'Ormen',      rarity:'epic',  bonus:{agi:3,int:2}},
+  ]},
+  {id:'magic',   icon:'✨', name:'Magi',        bonus:{int:3,lck:2}, bonusTxt:'+3 INT +2 LCK', monsters:[
+    {id:'slime',   icon:'🫧', name:'Slime',       rarity:'common', bonus:{lck:1}},
+    {id:'mage',    icon:'🧙', name:'Mage',        rarity:'rare',   bonus:{int:2}},
+    {id:'elemental',icon:'🌀',name:'Elementalen', rarity:'rare',   bonus:{int:1,lck:1}},
+    {id:'phoenix', icon:'🔥', name:'Fenix',       rarity:'epic',   bonus:{int:3,lck:2}},
+  ]},
+  {id:'luck',    icon:'🍀', name:'Lycka',       bonus:{lck:5},   bonusTxt:'+5 LCK', monsters:[
+    {id:'leprechaun',icon:'🧝',name:'Lyckogabbe', rarity:'rare',   bonus:{lck:2}},
+    {id:'unicorn', icon:'🦄', name:'Enhörningen', rarity:'epic',   bonus:{lck:3}},
+    {id:'sphinx',  icon:'🦁', name:'Sfinxen',     rarity:'epic',   bonus:{lck:3,int:2}},
+  ]},
+];
+// Activity → which categories can spawn monsters
+const BEST_SPAWN = {
+  battle:['battle','dungeon'], train:['train','battle'], dungeon:['dungeon','magic'],
+  boss:['boss','magic'], alchemy:['magic'], race:['luck'],
+  casino:['luck'], fish:['luck','dungeon'], garden:['magic','luck'],
+  mine:['train','dungeon'], react:['battle','train'],
+};
+
+function _bestData(){try{return JSON.parse(localStorage.getItem(BEST_KEY)||'null');}catch(e){return null;}}
+function _bestSave(d){localStorage.setItem(BEST_KEY,JSON.stringify(d));}
+function _bestGetData(){
+  var d=_bestData();
+  if(!d) d={found:{},catBonusGiven:{},monBonusGiven:{}};
+  return d;
+}
+
+function bestEncounter(activity){
+  var cats=BEST_SPAWN[activity];
+  if(!cats||!cats.length) return;
+  var d=_bestGetData();
+  var changed=false;
+  cats.forEach(function(catId){
+    var cat=BEST_CATS.filter(function(c){return c.id===catId;})[0];
+    if(!cat) return;
+    cat.monsters.forEach(function(m){
+      if(d.found[m.id]) return;
+      var chance=m.rarity==='epic'?0.04:m.rarity==='rare'?0.10:0.18;
+      if(Math.random()<chance){
+        d.found[m.id]=true;changed=true;
+        // Apply monster bonus
+        if(!d.monBonusGiven[m.id]){
+          Object.keys(m.bonus).forEach(function(s){
+            if(s==='all'){['str','agi','int','end','lck'].forEach(function(st){G[st]=(G[st]||0)+m.bonus[s];});}
+            else G[s]=(G[s]||0)+m.bonus[s];
+          });
+          save();
+          d.monBonusGiven[m.id]=true;
+          var bonusStr=Object.keys(m.bonus).map(function(s){return '+'+m.bonus[s]+' '+(s==='all'?'ALLA':s.toUpperCase());}).join(' ');
+          showFloatBubble('📖 Ny monster: '+m.icon+' '+m.name+'! '+bonusStr,'buff');
+        }
+        // Check category complete bonus
+        var catComplete=cat.monsters.every(function(cm){return d.found[cm.id];});
+        if(catComplete&&!d.catBonusGiven[catId]){
+          d.catBonusGiven[catId]=true;
+          Object.keys(cat.bonus).forEach(function(s){
+            if(s==='all'){['str','agi','int','end','lck'].forEach(function(st){G[st]=(G[st]||0)+cat.bonus[s];});}
+            else G[s]=(G[s]||0)+cat.bonus[s];
+          });
+          save();
+          showFloatBubble('🏆 '+cat.name+' kategori klar! '+cat.bonusTxt,'buff');
+        }
+      }
+    });
+  });
+  if(changed){_bestSave(d);}
+}
+
+function openBest(){$('bestPanel').classList.add('open');_renderBest();}
+function closeBest(){$('bestPanel').classList.remove('open');}
+
+function _renderBest(d){
+  if(!d) d=_bestGetData();
+  var totalMonsters=BEST_CATS.reduce(function(a,c){return a+c.monsters.length;},0);
+  var foundCount=Object.keys(d.found).length;
+  var pct=totalMonsters>0?Math.round(foundCount/totalMonsters*100):0;
+  var pf=$('bestProgressFill');if(pf) pf.style.width=pct+'%';
+  var bf=$('bestFound');if(bf) bf.textContent=foundCount;
+  var bt=$('bestTotal');if(bt) bt.textContent=totalMonsters;
+  // Total bonus stats given
+  var totalBonus=0;
+  BEST_CATS.forEach(function(cat){
+    cat.monsters.forEach(function(m){
+      if(d.found[m.id]) Object.values(m.bonus).forEach(function(v){totalBonus+=v;});
+    });
+    if(d.catBonusGiven[cat.id]) Object.values(cat.bonus).forEach(function(v){totalBonus+=v;});
+  });
+  var bb=$('bestBonusTotal');if(bb) bb.textContent=totalBonus;
+  var cont=$('bestContent');
+  if(!cont) return;
+  cont.innerHTML=BEST_CATS.map(function(cat){
+    var catFound=cat.monsters.filter(function(m){return d.found[m.id];}).length;
+    var catComplete=catFound===cat.monsters.length;
+    return '<div class="best-cat">'+
+      '<div class="best-cat-header">'+
+        '<div class="best-cat-icon">'+cat.icon+'</div>'+
+        '<div class="best-cat-name">'+cat.name+'</div>'+
+        '<div class="best-cat-prog">'+catFound+'/'+cat.monsters.length+'</div>'+
+        '<div class="best-cat-bonus">'+(catComplete?'✓ '+cat.bonusTxt:cat.bonusTxt)+'</div>'+
+      '</div>'+
+      '<div class="best-grid">'+
+        cat.monsters.map(function(m){
+          var found=d.found[m.id];
+          return '<div class="best-cell'+(found?' found':'')+(found&&m.rarity==='rare'?' rare':'')+(found&&m.rarity==='epic'?' epic':'')+'">'+
+            '<span class="best-cell-icon">'+m.icon+'</span>'+
+            '<div class="best-cell-name">'+(found?m.name:'???')+'</div>'+
+            '<div class="best-cell-bonus">'+(found?Object.keys(m.bonus).map(function(s){return '+'+m.bonus[s]+' '+(s==='all'?'ALL':s.toUpperCase());}).join(' '):'')+'</div>'+
+          '</div>';
+        }).join('')+
+      '</div>'+
+    '</div>';
+  }).join('');
 }
 
 </script>
