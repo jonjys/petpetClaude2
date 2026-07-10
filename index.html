@@ -1539,6 +1539,38 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ZODIAC CALENDAR ══ */
+.zod-panel{position:fixed;inset:0;background:#01010a;z-index:1052;display:none;flex-direction:column;overflow:hidden}
+.zod-panel.open{display:flex}
+.zod-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#04041a,#01010a)}
+.zod-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#4488ff,#aa44ff,#ff44aa,#ffcc00,#4488ff);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:zodShim 3s linear infinite}
+@keyframes zodShim{0%{background-position:0%}100%{background-position:400%}}
+.zod-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Today card */
+.zod-today{background:radial-gradient(ellipse at 50% 0,rgba(68,136,255,.12),rgba(0,0,0,0));border:2px solid rgba(68,136,255,.3);border-radius:24px;padding:20px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden}
+.zod-today::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(170,68,255,.08),transparent);pointer-events:none}
+.zod-today-icon{font-size:52px;display:block;margin-bottom:6px}
+.zod-today-name{font:900 22px var(--ff-head);color:#fff;margin-bottom:2px}
+.zod-today-date{font:600 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:10px;letter-spacing:1px}
+.zod-today-element{display:inline-block;font:700 9px var(--ff-head);background:rgba(68,136,255,.15);border:1px solid rgba(68,136,255,.3);border-radius:8px;padding:3px 10px;color:#4488ff;margin-bottom:10px}
+/* Buff pills */
+.zod-buffs{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:8px}
+.zod-buff-pill{background:rgba(68,255,136,.08);border:1px solid rgba(68,255,136,.2);border-radius:10px;padding:4px 10px;font:700 10px var(--ff-head);color:#44ff88}
+.zod-buff-pill.stat{background:rgba(255,200,0,.08);border-color:rgba(255,200,0,.25);color:#ffcc00}
+.zod-claim-btn{background:linear-gradient(135deg,#0a1840,#1040a0);border:1.5px solid rgba(68,136,255,.4);border-radius:14px;padding:10px 24px;font:800 12px var(--ff-head);color:#fff;cursor:pointer;display:block;margin:0 auto 8px}
+.zod-claim-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
+.zod-claim-lbl{text-align:center;font:600 9px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:12px}
+/* All signs */
+.zod-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.zod-sign{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 8px;text-align:center}
+.zod-sign.today{border-color:rgba(68,136,255,.4);background:rgba(68,136,255,.06)}
+.zod-sign-icon{font-size:22px;display:block;margin-bottom:3px}
+.zod-sign-name{font:700 10px var(--ff-head);color:#fff;margin-bottom:1px}
+.zod-sign-date{font:600 7px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:3px}
+.zod-sign-buff{font:700 8px var(--ff-head);color:#44ff88}
+.zod-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ DUNGEON CRAWLER ══ */
 .dng-panel{position:fixed;inset:0;background:#020102;z-index:1051;display:none;flex-direction:column;overflow:hidden}
 .dng-panel.open{display:flex}
@@ -12028,6 +12060,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
           <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Fängelsehåla</div>
+          <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12100,6 +12133,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
           <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Fängelsehåla</div>
+          <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12155,6 +12189,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
           <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Fängelsehåla</div>
+          <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12248,6 +12283,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
           <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openDng()"><div class="ddr-i">⚔️</div>Fängelsehåla</div>
+          <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12847,6 +12883,28 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- ZODIAC CALENDAR -->
+<div class="zod-panel" id="zodPanel">
+  <div class="zod-header">
+    <div class="zod-title">🌟 ZODIAK</div>
+    <button class="close-btn" onclick="closeZod()">✕</button>
+  </div>
+  <div class="zod-scroll">
+    <div class="zod-today">
+      <span class="zod-today-icon" id="zodTodayIcon">♈</span>
+      <div class="zod-today-name" id="zodTodayName">Väduren</div>
+      <div class="zod-today-date" id="zodTodayDate">21 mar – 19 apr</div>
+      <div class="zod-today-element" id="zodTodayElement">Eld</div>
+      <div class="zod-buffs" id="zodBuffs"></div>
+      <button class="zod-claim-btn" id="zodClaimBtn" onclick="zodClaim()">🌟 Hämta daglig zodiakbonus!</button>
+      <div class="zod-claim-lbl" id="zodClaimLbl"></div>
+    </div>
+    <div class="zod-grid" id="zodGrid"></div>
+    <div class="zod-info">Varje zodiaktecken ger unika dagliga bonusar till ditt husdjur!</div>
+  </div>
+</div>
 
 <!-- DUNGEON CRAWLER -->
 <div class="dng-panel" id="dngPanel">
@@ -56114,6 +56172,116 @@ function _renderDng(d){
     var left=DNG_MAX_PLAYS-(d.playsToday||0);
     btn.disabled=left<=0;
     btn.textContent=left>0?'⚔️ UTFORSKA! ('+left+' kvar)':'✓ Klar för idag!';
+  }
+}
+
+
+// ZODIAC CALENDAR
+const ZOD_KEY = 'k0509_zod';
+const ZOD_SIGNS = [
+  {name:'Väduren',    icon:'♈', start:[3,21],end:[4,19],  element:'Eld',   bonus:{str:8,lck:3},  coins:50, xp:30},
+  {name:'Oxen',       icon:'♉', start:[4,20],end:[5,20],  element:'Jord',  bonus:{end:8,str:3},  coins:50, xp:30},
+  {name:'Tvillingarna',icon:'♊',start:[5,21],end:[6,20],  element:'Luft',  bonus:{int:8,agi:3},  coins:55, xp:35},
+  {name:'Kräftan',    icon:'♋', start:[6,21],end:[7,22],  element:'Vatten',bonus:{end:6,lck:5},  coins:50, xp:30},
+  {name:'Lejonet',    icon:'♌', start:[7,23],end:[8,22],  element:'Eld',   bonus:{str:10,end:3}, coins:60, xp:40},
+  {name:'Jungfrun',   icon:'♍', start:[8,23],end:[9,22],  element:'Jord',  bonus:{int:10,lck:3}, coins:60, xp:40},
+  {name:'Vågen',      icon:'♎', start:[9,23],end:[10,22], element:'Luft',  bonus:{agi:8,lck:5},  coins:55, xp:35},
+  {name:'Skorpionen', icon:'♏', start:[10,23],end:[11,21],element:'Vatten',bonus:{str:8,int:5},  coins:60, xp:38},
+  {name:'Skytten',    icon:'♐', start:[11,22],end:[12,21],element:'Eld',   bonus:{agi:10,str:3}, coins:60, xp:40},
+  {name:'Stenbocken', icon:'♑', start:[12,22],end:[1,19], element:'Jord',  bonus:{end:10,str:5}, coins:65, xp:40},
+  {name:'Vattumannen',icon:'♒', start:[1,20],end:[2,18],  element:'Luft',  bonus:{int:8,agi:5},  coins:60, xp:38},
+  {name:'Fiskarna',   icon:'♓', start:[2,19],end:[3,20],  element:'Vatten',bonus:{lck:10,int:3}, coins:55, xp:35},
+];
+
+function _zodGetSign(month, day){
+  for(var i=0;i<ZOD_SIGNS.length;i++){
+    var s=ZOD_SIGNS[i];
+    var sm=s.start[0],sd=s.start[1],em=s.end[0],ed=s.end[1];
+    if(sm<=em){
+      if(month===sm&&day>=sd) return s;
+      if(month===em&&day<=ed) return s;
+      if(month>sm&&month<em) return s;
+    } else {
+      // Wraps year (Capricorn: Dec 22 - Jan 19)
+      if((month===sm&&day>=sd)||(month>sm)) return s;
+      if((month===em&&day<=ed)||(month<em)) return s;
+    }
+  }
+  return ZOD_SIGNS[0];
+}
+
+function _zodTodaySign(){
+  var today=getTodayKey();
+  var parts=today.split('-');
+  var month=parseInt(parts[1]);
+  var day=parseInt(parts[2]);
+  return _zodGetSign(month,day);
+}
+
+function _zodData(){try{return JSON.parse(localStorage.getItem(ZOD_KEY)||'null');}catch(e){return null;}}
+function _zodSave(d){localStorage.setItem(ZOD_KEY,JSON.stringify(d));}
+function _zodGetData(){
+  var d=_zodData();
+  if(!d) d={lastClaim:'',totalClaims:0};
+  return d;
+}
+
+function zodClaim(){
+  var d=_zodGetData();
+  var today=getTodayKey();
+  if(d.lastClaim===today){showFloatBubble('Redan hämtat idag!','debuff');return;}
+  var sign=_zodTodaySign();
+  d.lastClaim=today;
+  d.totalClaims=(d.totalClaims||0)+1;
+  // Apply stat bonuses temporarily (as flat stats for now)
+  gainCoins(sign.coins);gainXP(sign.xp,'int');
+  // Bonus: add small permanent stats from zodiac
+  Object.keys(sign.bonus).forEach(function(s){G[s]=(G[s]||0)+1;});
+  save();
+  _zodSave(d);
+  showFloatBubble(sign.icon+' '+sign.name+' bonus! +'+sign.coins+'🪙 +'+sign.xp+'XP +1 alla zodiakstats','buff');
+  checkAchievements();
+  _renderZod(d);
+}
+
+function openZod(){$('zodPanel').classList.add('open');_renderZod();}
+function closeZod(){$('zodPanel').classList.remove('open');}
+
+function _renderZod(d){
+  if(!d) d=_zodGetData();
+  var today=getTodayKey();
+  var sign=_zodTodaySign();
+  var ti=$('zodTodayIcon');if(ti) ti.textContent=sign.icon;
+  var tn=$('zodTodayName');if(tn) tn.textContent=sign.name;
+  var td=$('zodTodayDate');
+  if(td){
+    var months=['','jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
+    td.textContent=sign.start[1]+' '+months[sign.start[0]]+' – '+sign.end[1]+' '+months[sign.end[0]];
+  }
+  var te=$('zodTodayElement');if(te) te.textContent=sign.element;
+  var zb=$('zodBuffs');
+  if(zb){
+    zb.innerHTML=Object.keys(sign.bonus).map(function(s){
+      return '<div class="zod-buff-pill stat">+'+sign.bonus[s]+' '+s.toUpperCase()+'</div>';
+    }).join('')+'<div class="zod-buff-pill">+'+sign.coins+'🪙</div><div class="zod-buff-pill">+'+sign.xp+'XP</div>';
+  }
+  var claimed=d.lastClaim===today;
+  var btn=$('zodClaimBtn');if(btn){btn.disabled=claimed;btn.textContent=claimed?'✓ Hämtat idag!':'🌟 Hämta daglig zodiakbonus!';}
+  var lbl=$('zodClaimLbl');if(lbl) lbl.textContent=claimed?'Kom tillbaka imorgon för ny sign!':'Daglig bonus tillgänglig!';
+  // Grid of all signs
+  var grid=$('zodGrid');
+  if(grid){
+    grid.innerHTML=ZOD_SIGNS.map(function(s){
+      var isCurrent=s.name===sign.name;
+      var bonusTxt=Object.keys(s.bonus).map(function(k){return '+'+s.bonus[k]+k.toUpperCase();}).join(' ');
+      var months2=['','jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
+      return '<div class="zod-sign'+(isCurrent?' today':'')+'">'+
+        '<span class="zod-sign-icon">'+s.icon+'</span>'+
+        '<div class="zod-sign-name">'+s.name+'</div>'+
+        '<div class="zod-sign-date">'+s.start[1]+' '+months2[s.start[0]]+' – '+s.end[1]+' '+months2[s.end[0]]+'</div>'+
+        '<div class="zod-sign-buff">'+bonusTxt+'</div>'+
+      '</div>';
+    }).join('');
   }
 }
 
