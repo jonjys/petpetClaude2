@@ -1503,6 +1503,45 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MEMORY MATCH ══ */
+.mem-panel{position:fixed;inset:0;background:#020104;z-index:1016;display:none;flex-direction:column;overflow:hidden}
+.mem-panel.open{display:flex}
+.mem-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080315,#020104)}
+.mem-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aa44ff,#ff44cc,#4488ff,#aa44ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:memShim 3s linear infinite}
+@keyframes memShim{0%{background-position:0%}100%{background-position:300%}}
+.mem-scroll{flex:1;overflow-y:auto;padding:8px 14px 28px}
+/* HUD */
+.mem-hud{display:flex;gap:8px;margin-bottom:10px}
+.mem-hud-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(170,68,255,.12);border-radius:10px;padding:7px;text-align:center}
+.mem-hud-v{font:900 16px var(--ff-head);color:#aa44ff}
+.mem-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Timer */
+.mem-timer-bar{background:rgba(255,255,255,.06);border-radius:20px;height:10px;margin-bottom:10px;overflow:hidden}
+.mem-timer-fill{height:100%;background:linear-gradient(90deg,#44ff88,#ffcc00);border-radius:20px;transition:width .5s linear}
+.mem-timer-fill.warn{background:linear-gradient(90deg,#ff8844,#ff3344)}
+/* Grid */
+.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;max-width:320px;margin-left:auto;margin-right:auto}
+.mem-card{aspect-ratio:1;border-radius:12px;cursor:pointer;position:relative;transform-style:preserve-3d;transition:transform .35s ease}
+.mem-card.flipped{transform:rotateY(180deg)}
+.mem-card.matched{transform:rotateY(180deg);cursor:default}
+.mem-card.matched .mem-card-back{background:rgba(68,255,136,.15);border-color:rgba(68,255,136,.4)}
+.mem-card-front,.mem-card-back{position:absolute;inset:0;border-radius:12px;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.mem-card-front{background:rgba(255,255,255,.04);border:2px solid rgba(170,68,255,.2);font-size:26px}
+.mem-card-front-inner{font-size:18px;color:rgba(170,68,255,.4)}
+.mem-card-back{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);transform:rotateY(180deg);font-size:32px}
+/* Message */
+.mem-msg{text-align:center;font:700 13px var(--ff-head);color:#ffcc00;min-height:28px;margin-bottom:8px}
+/* Controls */
+.mem-start-btn{width:100%;background:linear-gradient(135deg,#220044,#660099);border:none;border-radius:14px;padding:13px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px;box-shadow:0 0 16px rgba(170,68,255,.2)}
+.mem-start-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+/* Stats */
+.mem-stats{display:flex;gap:8px;margin-bottom:10px}
+.mem-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(170,68,255,.1);border-radius:10px;padding:7px;text-align:center}
+.mem-stat-v{font:900 14px var(--ff-head);color:#cc44ff}
+.mem-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.mem-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ DAILY QUESTS ══ */
 .qday-panel{position:fixed;inset:0;background:#010203;z-index:1015;display:none;flex-direction:column;overflow:hidden}
 .qday-panel.open{display:flex}
@@ -10451,6 +10490,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
+          <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10487,6 +10527,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
+          <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10506,6 +10547,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
+          <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -10563,6 +10605,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
+          <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11126,6 +11169,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- MEMORY MATCH -->
+<div class="mem-panel" id="memPanel">
+  <div class="mem-header">
+    <div class="mem-title">🃏 MINNESSPEL</div>
+    <button class="close-btn" onclick="closeMem()">✕</button>
+  </div>
+  <div class="mem-scroll">
+    <div class="mem-hud">
+      <div class="mem-hud-box"><div class="mem-hud-v" id="memTime">90</div><div class="mem-hud-l">Sekunder</div></div>
+      <div class="mem-hud-box"><div class="mem-hud-v" id="memPairs">0/8</div><div class="mem-hud-l">Par hittade</div></div>
+      <div class="mem-hud-box"><div class="mem-hud-v" id="memMoves">0</div><div class="mem-hud-l">Drag</div></div>
+    </div>
+    <div class="mem-timer-bar"><div class="mem-timer-fill" id="memTimerFill" style="width:100%"></div></div>
+    <div class="mem-msg" id="memMsg">Tryck Start för att spela!</div>
+    <div class="mem-grid" id="memGrid"></div>
+    <button class="mem-start-btn" id="memStartBtn" onclick="memStart()">🃏 STARTA SPELET!</button>
+    <div class="mem-stats">
+      <div class="mem-stat"><div class="mem-stat-v" id="memGames">0</div><div class="mem-stat-l">Spel spelade</div></div>
+      <div class="mem-stat"><div class="mem-stat-v" id="memWins">0</div><div class="mem-stat-l">Fullbordade</div></div>
+      <div class="mem-stat"><div class="mem-stat-v" id="memBest">-</div><div class="mem-stat-l">Bästa tid (s kvar)</div></div>
+    </div>
+    <div class="mem-info">INT ger extra tid! Alla par inom tidsgränsen = bonus!</div>
+  </div>
+</div>
 
 <!-- DAILY QUESTS -->
 <div class="qday-panel" id="qdayPanel">
@@ -47581,6 +47650,157 @@ function _renderQday(d){
       '</div>';
     }).join('');
   }
+}
+
+
+// MEMORY MATCH
+const MEM_KEY = 'k0509_mem';
+const MEM_EMOJIS = ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼'];
+const MEM_DAILY = 5;
+const MEM_BASE_TIME = 90;
+var _memCards = [];
+var _memFlipped = [];
+var _memMatched = 0;
+var _memMoves = 0;
+var _memTimer = 0;
+var _memTimerInt = null;
+var _memRunning = false;
+var _memLocked = false;
+
+function _memData(){try{return JSON.parse(localStorage.getItem(MEM_KEY)||'null');}catch(e){return null;}}
+function _memSave(d){localStorage.setItem(MEM_KEY,JSON.stringify(d));}
+function _memGetData(){
+  var d=_memData();
+  if(!d) d={games:0,wins:0,best:999,earned:0,today:getTodayKey(),todayCount:0};
+  if(d.today!==getTodayKey()){d.today=getTodayKey();d.todayCount=0;}
+  return d;
+}
+
+function memStart(){
+  var d=_memGetData();
+  if(d.todayCount>=MEM_DAILY){showFloatBubble('Max '+MEM_DAILY+' spel/dag!','debuff');return;}
+  // Clear previous
+  if(_memTimerInt) clearInterval(_memTimerInt);
+  _memFlipped=[];_memMatched=0;_memMoves=0;_memRunning=true;_memLocked=false;
+  // Shuffle deck
+  var deck=MEM_EMOJIS.concat(MEM_EMOJIS);
+  for(var i=deck.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=deck[i];deck[i]=deck[j];deck[j]=tmp;}
+  _memCards=deck;
+  // Timer
+  var intBonus=Math.min((G.int||0)*0.2,20);
+  _memTimer=Math.floor(MEM_BASE_TIME+intBonus);
+  var maxTime=_memTimer;
+  // Build grid
+  _memBuildGrid();
+  // UI
+  var sb=$('memStartBtn');if(sb) sb.disabled=true;
+  var msg=$('memMsg');if(msg) msg.textContent='Hitta alla par!';
+  _memUpdateHud();
+  _memTimerInt=setInterval(function(){
+    _memTimer--;
+    _memUpdateHud(maxTime);
+    if(_memTimer<=0){
+      clearInterval(_memTimerInt);_memRunning=false;
+      _memGameOver(false,d,maxTime);
+    }
+  },1000);
+}
+
+function _memBuildGrid(){
+  var grid=$('memGrid');
+  if(!grid) return;
+  grid.innerHTML=_memCards.map(function(emoji,i){
+    return '<div class="mem-card" id="mc'+i+'" onclick="memFlip('+i+')">'+
+      '<div class="mem-card-front"><span class="mem-card-front-inner">?</span></div>'+
+      '<div class="mem-card-back">'+emoji+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+function memFlip(i){
+  if(!_memRunning||_memLocked) return;
+  var card=$('mc'+i);
+  if(!card||card.classList.contains('flipped')||card.classList.contains('matched')) return;
+  card.classList.add('flipped');
+  _memFlipped.push(i);
+  if(_memFlipped.length===2){
+    _memLocked=true;_memMoves++;
+    var a=_memFlipped[0],b=_memFlipped[1];
+    if(_memCards[a]===_memCards[b]){
+      setTimeout(function(){
+        var ca=$('mc'+a),cb=$('mc'+b);
+        if(ca) ca.classList.add('matched');
+        if(cb) cb.classList.add('matched');
+        _memFlipped=[];_memMatched++;_memLocked=false;
+        _memUpdateHud();
+        if(_memMatched>=8){
+          clearInterval(_memTimerInt);_memRunning=false;
+          var d=_memGetData();
+          _memGameOver(true,d,_memTimer);
+        }
+      },300);
+    } else {
+      setTimeout(function(){
+        var ca=$('mc'+a),cb=$('mc'+b);
+        if(ca) ca.classList.remove('flipped');
+        if(cb) cb.classList.remove('flipped');
+        _memFlipped=[];_memLocked=false;
+      },800);
+    }
+    _memUpdateHud();
+  }
+}
+
+function _memUpdateHud(maxTime){
+  var tv=$('memTime');if(tv) tv.textContent=_memTimer;
+  var pv=$('memPairs');if(pv) pv.textContent=_memMatched+'/8';
+  var mv=$('memMoves');if(mv) mv.textContent=_memMoves;
+  if(maxTime){
+    var pct=Math.max(0,_memTimer/maxTime*100);
+    var tf=$('memTimerFill');
+    if(tf){tf.style.width=pct+'%';tf.className='mem-timer-fill'+(pct<25?' warn':'');}
+  }
+}
+
+function _memGameOver(won,d,timeLeft){
+  d.games=(d.games||0)+1;
+  d.todayCount=(d.todayCount||0)+1;
+  if(won){
+    d.wins=(d.wins||0)+1;
+    if(timeLeft>d.best||d.best===999) d.best=timeLeft;
+    var prize=Math.floor(300+timeLeft*10);
+    gainCoins(prize);gainXP(50,'int');
+    if(timeLeft>60) gainKC(1);
+    d.earned=(d.earned||0)+prize;
+    _memSave(d);
+    var msg=$('memMsg');if(msg) msg.textContent='🎉 KLART! +'+prize+'🪙'+(timeLeft>60?' +1KC!':'');
+    showFloatBubble('🃏 Minnesspel klart! +'+prize+'🪙','buff');
+    misTrack('memory',1);
+    checkAchievements();
+  } else {
+    _memSave(d);
+    var msg=$('memMsg');if(msg) msg.textContent='⏰ Tiden tog slut! '+_memMatched+'/8 par';
+    showFloatBubble('⏰ Minnesspel - '+_memMatched+'/8 par','debuff');
+  }
+  var sb=$('memStartBtn');
+  if(sb){sb.disabled=d.todayCount>=MEM_DAILY;sb.textContent=d.todayCount>=MEM_DAILY?'✓ Max spel idag':'🃏 SPELA IGEN!';}
+  _renderMem(d);
+}
+
+function openMem(){$('memPanel').classList.add('open');_renderMem();}
+function closeMem(){
+  $('memPanel').classList.remove('open');
+  if(_memTimerInt) clearInterval(_memTimerInt);
+  _memRunning=false;
+}
+
+function _renderMem(d){
+  if(!d) d=_memGetData();
+  var gv=$('memGames');if(gv) gv.textContent=d.games||0;
+  var wv=$('memWins');if(wv) wv.textContent=d.wins||0;
+  var bv=$('memBest');if(bv) bv.textContent=d.best===999?'-':(d.best+'s kvar');
+  var sb=$('memStartBtn');
+  if(sb&&!_memRunning){sb.disabled=d.todayCount>=MEM_DAILY;sb.textContent=d.todayCount>=MEM_DAILY?'✓ Max spel idag ('+MEM_DAILY+')':'🃏 STARTA SPELET! ('+d.todayCount+'/'+MEM_DAILY+')';}
 }
 
 </script>
