@@ -1505,6 +1505,49 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET BUSINESSES ══ */
+.biz-panel{position:fixed;inset:0;background:#010304;z-index:1018;display:none;flex-direction:column;overflow:hidden}
+.biz-panel.open{display:flex}
+.biz-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#040c10,#010304)}
+.biz-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ddcc,#4488ff,#aa44ff,#00ddcc);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:bizShim 3s linear infinite}
+@keyframes bizShim{0%{background-position:0%}100%{background-position:300%}}
+.biz-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Summary */
+.biz-summary{background:radial-gradient(ellipse,rgba(0,200,180,.05),rgba(0,0,0,0));border:2px solid rgba(0,200,180,.18);border-radius:18px;padding:14px;margin-bottom:12px;text-align:center}
+.biz-total-rate{font:900 22px var(--ff-head);color:#00ddcc}
+.biz-total-lbl{font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.biz-collect-all{width:100%;background:linear-gradient(135deg,#003322,#006655);border:none;border-radius:12px;padding:11px;font:900 12px var(--ff-head);color:#fff;cursor:pointer;margin-top:10px;box-shadow:0 0 14px rgba(0,200,180,.15)}
+.biz-collect-all:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+/* Stats */
+.biz-stats{display:flex;gap:8px;margin-bottom:12px}
+.biz-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(0,200,180,.1);border-radius:10px;padding:7px;text-align:center}
+.biz-stat-v{font:900 15px var(--ff-head);color:#00ddcc}
+.biz-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Business cards */
+.biz-cards{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.biz-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 14px}
+.biz-card.owned{border-color:rgba(0,200,180,.2)}
+.biz-card-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.biz-card-icon{font-size:32px;flex-shrink:0}
+.biz-card-info{flex:1}
+.biz-card-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.biz-card-rate{font:700 9px var(--ff-body);color:#00ddcc}
+.biz-card-lvl{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+.biz-card-pending{font:700 10px var(--ff-head);color:#ffcc00;text-align:right;flex-shrink:0}
+/* Progress to next collect */
+.biz-card-bar{background:rgba(255,255,255,.05);border-radius:20px;height:5px;margin-bottom:8px;overflow:hidden}
+.biz-card-barfill{height:100%;background:linear-gradient(90deg,#00ddcc,#4488ff);border-radius:20px;transition:width .5s}
+/* Buttons */
+.biz-card-btns{display:flex;gap:6px}
+.biz-buy-btn{flex:1;background:rgba(0,200,180,.1);border:1px solid rgba(0,200,180,.25);border-radius:10px;padding:8px;font:800 9px var(--ff-head);color:#00ddcc;cursor:pointer}
+.biz-buy-btn:disabled{opacity:.3;cursor:default}
+.biz-upg-btn{flex:1;background:rgba(68,136,255,.1);border:1px solid rgba(68,136,255,.25);border-radius:10px;padding:8px;font:800 9px var(--ff-head);color:#4488ff;cursor:pointer}
+.biz-upg-btn:disabled{opacity:.3;cursor:default}
+.biz-collect-btn{flex:1;background:rgba(255,200,0,.1);border:1px solid rgba(255,200,0,.25);border-radius:10px;padding:8px;font:800 9px var(--ff-head);color:#ffcc00;cursor:pointer}
+.biz-collect-btn:disabled{opacity:.2;cursor:default}
+.biz-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ DICE TOWER ══ */
 .dice-panel{position:fixed;inset:0;background:#030200;z-index:1017;display:none;flex-direction:column;overflow:hidden}
 .dice-panel.open{display:flex}
@@ -10536,6 +10579,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
+          <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10574,6 +10618,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
+          <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10595,6 +10640,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
+          <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -10654,6 +10700,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
+          <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11219,6 +11266,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET BUSINESSES -->
+<div class="biz-panel" id="bizPanel">
+  <div class="biz-header">
+    <div class="biz-title">🏪 HUSDJURSFÖRETAG</div>
+    <button class="close-btn" onclick="closeBiz()">✕</button>
+  </div>
+  <div class="biz-scroll">
+    <div class="biz-summary">
+      <div class="biz-total-rate" id="bizTotalRate">0🪙/tim</div>
+      <div class="biz-total-lbl">Total inkomst per timme</div>
+      <button class="biz-collect-all" id="bizCollectAll" onclick="bizCollectAll()">💰 Samla Allt!</button>
+    </div>
+    <div class="biz-stats">
+      <div class="biz-stat"><div class="biz-stat-v" id="bizOwned">0</div><div class="biz-stat-l">Ägda företag</div></div>
+      <div class="biz-stat"><div class="biz-stat-v" id="bizPending">0</div><div class="biz-stat-l">Väntande🪙</div></div>
+      <div class="biz-stat"><div class="biz-stat-v" id="bizEarned">0</div><div class="biz-stat-l">Totalt tjänat</div></div>
+    </div>
+    <div class="biz-cards" id="bizCards"></div>
+    <div class="biz-info">INT ger +0.5% per punkt till alla inkomster! Max 8 timmar samlad inkomst.</div>
+  </div>
+</div>
 
 <!-- DICE TOWER -->
 <div class="dice-panel" id="dicePanel">
@@ -48025,6 +48095,155 @@ function _renderDice(d){
   var ev=$('diceEarned');if(ev) ev.textContent=d.earned||0;
   var rb=$('diceRollBtn');
   if(rb&&!_diceTurnActive){rb.disabled=d.todayCount>=DICE_DAILY;rb.textContent=d.todayCount>=DICE_DAILY?'✓ Max omgångar idag ('+DICE_DAILY+')':'🎲 KASTA! ('+d.todayCount+'/'+DICE_DAILY+')';}
+}
+
+
+// PET BUSINESSES
+const BIZ_KEY = 'k0509_biz';
+const BIZ_DEFS = [
+  {id:'fish',  emoji:'🐟', name:'Fiskboden',      buyCost:500,   upgCosts:[1000,3000], rates:[30,70,150],  desc:'Säljer färsk fisk'},
+  {id:'alch',  emoji:'⚗️', name:'Alkemistbutiken', buyCost:800,   upgCosts:[2000,5000], rates:[50,110,230],  desc:'Säljer magdrycker'},
+  {id:'gard',  emoji:'🌱', name:'Trädgårdsbutiken',buyCost:600,   upgCosts:[1500,4000], rates:[40,90,190],   desc:'Säljer grönsaker'},
+  {id:'tav',   emoji:'🍺', name:'Krogen',          buyCost:1200,  upgCosts:[3000,8000], rates:[80,170,360],  desc:'Serverar äventyrare'},
+  {id:'arena', emoji:'🏟️', name:'Arenan',          buyCost:2000,  upgCosts:[5000,12000],rates:[130,280,580], desc:'Huserar strider'},
+  {id:'guild', emoji:'⚔️', name:'Äventyrargillet', buyCost:4000,  upgCosts:[10000,25000],rates:[250,530,1100],desc:'Rekryterar hjältar'},
+];
+const BIZ_MAX_HOURS = 8;
+
+function _bizData(){try{return JSON.parse(localStorage.getItem(BIZ_KEY)||'null');}catch(e){return null;}}
+function _bizSave(d){localStorage.setItem(BIZ_KEY,JSON.stringify(d));}
+function _bizGetData(){
+  var d=_bizData();
+  if(!d) d={businesses:{},earned:0};
+  return d;
+}
+function _bizOwned(d,id){return d.businesses[id]&&d.businesses[id].owned;}
+function _bizLevel(d,id){return d.businesses[id]?d.businesses[id].level:0;}
+
+function _bizRate(d,id){
+  if(!_bizOwned(d,id)) return 0;
+  var def=BIZ_DEFS.filter(function(b){return b.id===id;})[0];
+  if(!def) return 0;
+  var lvl=_bizLevel(d,id);
+  var base=def.rates[Math.min(lvl,def.rates.length-1)];
+  var intBonus=1+Math.min((G.int||0)*0.005,0.5);
+  return Math.floor(base*intBonus);
+}
+
+function _bizPending(d,id){
+  if(!_bizOwned(d,id)) return 0;
+  var b=d.businesses[id];
+  var elapsed=(Date.now()-b.lastCollect)/3600000; // hours
+  elapsed=Math.min(elapsed,BIZ_MAX_HOURS);
+  return Math.floor(_bizRate(d,id)*elapsed);
+}
+
+function bizBuy(id){
+  var d=_bizGetData();
+  if(_bizOwned(d,id)){showFloatBubble('Redan äger!','debuff');return;}
+  var def=BIZ_DEFS.filter(function(b){return b.id===id;})[0];
+  if(!def) return;
+  if((G.coins||0)<def.buyCost){showFloatBubble('Behöver '+def.buyCost+'🪙!','debuff');return;}
+  G.coins-=def.buyCost;save();
+  d.businesses[id]={owned:true,level:0,lastCollect:Date.now()};
+  _bizSave(d);
+  showFloatBubble(def.emoji+' '+def.name+' köpt!','buff');
+  _renderBiz(d);
+}
+
+function bizUpgrade(id){
+  var d=_bizGetData();
+  if(!_bizOwned(d,id)) return;
+  var def=BIZ_DEFS.filter(function(b){return b.id===id;})[0];
+  if(!def) return;
+  var lvl=_bizLevel(d,id);
+  if(lvl>=def.upgCosts.length){showFloatBubble('Max nivå!','debuff');return;}
+  var cost=def.upgCosts[lvl];
+  if((G.coins||0)<cost){showFloatBubble('Behöver '+cost+'🪙!','debuff');return;}
+  G.coins-=cost;save();
+  d.businesses[id].level=lvl+1;
+  _bizSave(d);
+  showFloatBubble(def.emoji+' Uppgraderat till Niv.'+(lvl+2)+'!','buff');
+  _renderBiz(d);
+}
+
+function bizCollect(id){
+  var d=_bizGetData();
+  var pending=_bizPending(d,id);
+  if(pending<=0){showFloatBubble('Inget att samla ännu!','debuff');return;}
+  gainCoins(pending);
+  d.businesses[id].lastCollect=Date.now();
+  d.earned=(d.earned||0)+pending;
+  _bizSave(d);
+  var def=BIZ_DEFS.filter(function(b){return b.id===id;})[0];
+  showFloatBubble((def?def.emoji:'')+'  Samlade +'+pending+'🪙!','buff');
+  _renderBiz(d);
+}
+
+function bizCollectAll(){
+  var d=_bizGetData();
+  var total=0;
+  BIZ_DEFS.forEach(function(def){
+    if(!_bizOwned(d,def.id)) return;
+    var p=_bizPending(d,def.id);
+    total+=p;
+    d.businesses[def.id].lastCollect=Date.now();
+  });
+  if(total<=0){showFloatBubble('Inget att samla!','debuff');return;}
+  gainCoins(total);
+  d.earned=(d.earned||0)+total;
+  _bizSave(d);
+  showFloatBubble('💰 Samlat +'+total+'🪙 från alla!','buff');
+  checkAchievements();
+  _renderBiz(d);
+}
+
+function openBiz(){$('bizPanel').classList.add('open');_renderBiz();}
+function closeBiz(){$('bizPanel').classList.remove('open');}
+
+function _renderBiz(d){
+  if(!d) d=_bizGetData();
+  var now=Date.now();
+  var totalRate=0;var totalPending=0;var ownedCount=0;
+  BIZ_DEFS.forEach(function(def){
+    if(_bizOwned(d,def.id)){totalRate+=_bizRate(d,def.id);totalPending+=_bizPending(d,def.id);ownedCount++;}
+  });
+  var trv=$('bizTotalRate');if(trv) trv.textContent=totalRate+'🪙/tim';
+  var ov=$('bizOwned');if(ov) ov.textContent=ownedCount;
+  var pv=$('bizPending');if(pv) pv.textContent=totalPending;
+  var ev=$('bizEarned');if(ev) ev.textContent=d.earned||0;
+  var cab=$('bizCollectAll');if(cab) cab.disabled=totalPending<=0;
+  var cards=$('bizCards');
+  if(cards){
+    cards.innerHTML=BIZ_DEFS.map(function(def){
+      var owned=_bizOwned(d,def.id);
+      var lvl=_bizLevel(d,def.id);
+      var rate=_bizRate(d,def.id);
+      var pending=_bizPending(d,def.id);
+      var maxLvl=def.upgCosts.length;
+      var elapsed=owned?(Date.now()-d.businesses[def.id].lastCollect)/3600000:0;
+      var barPct=Math.min(100,elapsed/BIZ_MAX_HOURS*100);
+      var upgCost=lvl<maxLvl?def.upgCosts[lvl]:0;
+      return '<div class="biz-card'+(owned?' owned':'')+'">'+
+        '<div class="biz-card-top">'+
+          '<div class="biz-card-icon">'+def.emoji+'</div>'+
+          '<div class="biz-card-info">'+
+            '<div class="biz-card-name">'+def.name+'</div>'+
+            '<div class="biz-card-rate">'+(owned?rate+'🪙/tim':def.desc)+'</div>'+
+            '<div class="biz-card-lvl">'+(owned?'Niv.'+(lvl+1)+'/'+( maxLvl+1):'Köp för '+def.buyCost+'🪙')+'</div>'+
+          '</div>'+
+          (owned?'<div class="biz-card-pending">'+pending+'🪙</div>':'')+
+        '</div>'+
+        (owned?'<div class="biz-card-bar"><div class="biz-card-barfill" style="width:'+barPct.toFixed(1)+'%"></div></div>':'')+
+        '<div class="biz-card-btns">'+
+          (!owned?'<button class="biz-buy-btn" onclick="bizBuy(\''+def.id+'\')" '+(G.coins<def.buyCost?'disabled':'')+'>Köp '+def.buyCost+'🪙</button>':'')+
+          (owned&&lvl<maxLvl?'<button class="biz-upg-btn" onclick="bizUpgrade(\''+def.id+'\')" '+(G.coins<upgCost?'disabled':'')+'>Uppgradera '+upgCost+'🪙</button>':'')+
+          (owned&&lvl>=maxLvl?'<button class="biz-upg-btn" disabled>✓ Max Niv.</button>':'')+
+          (owned?'<button class="biz-collect-btn" onclick="bizCollect(\''+def.id+'\')" '+(pending<=0?'disabled':'')+'>+'+(pending||0)+'🪙</button>':'')+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
 }
 
 </script>
