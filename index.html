@@ -1537,6 +1537,44 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ RELIC COLLECTION ══ */
+.rel-panel{position:fixed;inset:0;background:#06040a;z-index:1050;display:none;flex-direction:column;overflow:hidden}
+.rel-panel.open{display:flex}
+.rel-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#100818,#06040a)}
+.rel-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aa66ff,#ff8800,#ffcc00,#aa66ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:relShim 2.5s linear infinite}
+@keyframes relShim{0%{background-position:0%}100%{background-position:300%}}
+.rel-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Banner */
+.rel-banner{background:radial-gradient(ellipse,rgba(170,102,255,.08),rgba(0,0,0,0));border:2px solid rgba(170,102,255,.25);border-radius:20px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.rel-count{font:900 36px var(--ff-head);color:#aa66ff;text-shadow:0 0 15px rgba(170,102,255,.4)}
+.rel-count-lbl{font:600 8px var(--ff-body);color:rgba(170,102,255,.4)}
+.rel-bonus-col{text-align:right}
+.rel-bonus-val{font:800 14px var(--ff-head);color:#ffcc00}
+.rel-bonus-lbl{font:600 8px var(--ff-body);color:rgba(255,200,0,.4)}
+/* Filter tabs */
+.rel-tabs{display:flex;gap:5px;margin-bottom:10px;overflow-x:auto;padding-bottom:2px}
+.rel-tab{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:5px 10px;font:700 9px var(--ff-head);color:rgba(255,255,255,.4);cursor:pointer;flex-shrink:0;white-space:nowrap}
+.rel-tab.active{background:rgba(170,102,255,.15);border-color:rgba(170,102,255,.4);color:#aa66ff}
+/* Grid */
+.rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.rel-card{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px;position:relative;overflow:hidden}
+.rel-card.owned{border-color:rgba(170,102,255,.4);background:rgba(170,102,255,.05)}
+.rel-card.legendary{border-color:rgba(255,200,0,.5);background:rgba(255,180,0,.05);box-shadow:0 0 10px rgba(255,200,0,.1)}
+.rel-card.locked{opacity:.4}
+.rel-card-icon{font-size:30px;margin-bottom:4px;display:block}
+.rel-card-name{font:700 10px var(--ff-head);color:#fff;margin-bottom:2px}
+.rel-card.owned .rel-card-name{color:#aa66ff}
+.rel-card.legendary .rel-card-name{color:#ffcc00}
+.rel-card-bonus{font:700 9px var(--ff-head);color:#44ff88;margin-bottom:3px}
+.rel-card-src{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.rel-card-rarity{position:absolute;top:6px;right:8px;font:700 7px var(--ff-head);border-radius:5px;padding:1px 5px}
+.rel-card-rarity.common{background:rgba(255,255,255,.1);color:rgba(255,255,255,.4)}
+.rel-card-rarity.rare{background:rgba(68,136,255,.15);color:#4488ff}
+.rel-card-rarity.epic{background:rgba(170,68,255,.15);color:#aa44ff}
+.rel-card-rarity.legendary{background:rgba(255,200,0,.15);color:#ffcc00}
+.rel-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PIXEL ART STUDIO ══ */
 .pix-panel{position:fixed;inset:0;background:#010108;z-index:1049;display:none;flex-direction:column;overflow:hidden}
 .pix-panel.open{display:flex}
@@ -11937,6 +11975,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
           <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
+          <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12007,6 +12046,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
           <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
+          <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12060,6 +12100,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
           <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
+          <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12151,6 +12192,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
           <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
           <div class="ddr" onclick="cM();openPix()"><div class="ddr-i">🎨</div>Pixelkonst</div>
+          <div class="ddr" onclick="cM();openRel()"><div class="ddr-i">🏺</div>Reliker</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12748,6 +12790,36 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- RELIC COLLECTION -->
+<div class="rel-panel" id="relPanel">
+  <div class="rel-header">
+    <div class="rel-title">🏺 RELIKER</div>
+    <button class="close-btn" onclick="closeRel()">✕</button>
+  </div>
+  <div class="rel-scroll">
+    <div class="rel-banner">
+      <div>
+        <div class="rel-count" id="relCount">0</div>
+        <div class="rel-count-lbl" id="relCountLbl">av 20 reliker</div>
+      </div>
+      <div class="rel-bonus-col">
+        <div class="rel-bonus-val" id="relBonusVal">+0</div>
+        <div class="rel-bonus-lbl">totala passiva bonusar</div>
+      </div>
+    </div>
+    <div class="rel-tabs" id="relTabs">
+      <div class="rel-tab active" onclick="relSetFilter('all')">Alla</div>
+      <div class="rel-tab" onclick="relSetFilter('battle')">⚔️ Strid</div>
+      <div class="rel-tab" onclick="relSetFilter('nature')">🌿 Natur</div>
+      <div class="rel-tab" onclick="relSetFilter('magic')">✨ Magi</div>
+      <div class="rel-tab" onclick="relSetFilter('legendary')">⭐ Legendarisk</div>
+    </div>
+    <div class="rel-grid" id="relGrid"></div>
+    <div class="rel-info">Hitta reliker via strider, fiske, matlagning och andra aktiviteter!</div>
+  </div>
+</div>
 
 <!-- PIXEL ART STUDIO -->
 <div class="pix-panel" id="pixPanel">
@@ -40218,6 +40290,7 @@ function misTrack(type, amount){
   if(typeof bestEncounter==='function') bestEncounter(type);
   if(typeof dqbTrack==='function') dqbTrack(type,amount);
   if(typeof arsTrack==='function') arsTrack(type,amount);
+  if(typeof relTrack==='function') relTrack(type,amount);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -55563,6 +55636,112 @@ function openPix(){
   _pixRenderSaves();
 }
 function closePix(){$('pixPanel').classList.remove('open');}
+
+
+// RELIC COLLECTION
+const REL_KEY = 'k0509_rel';
+const REL_ALL = [
+  // Battle relics
+  {id:'sword_shard',  icon:'🗡️', name:'Svärdsbit',    cat:'battle',    rarity:'common',    bonus:{str:3},    bonusTxt:'+3 STR',    drop:'battle',   dropChance:0.08, src:'Strider'},
+  {id:'shield_frag',  icon:'🛡️', name:'Sköldfragment',cat:'battle',    rarity:'common',    bonus:{end:3},    bonusTxt:'+3 END',    drop:'battle',   dropChance:0.08, src:'Strider'},
+  {id:'war_drum',     icon:'🥁', name:'Krigartrumma', cat:'battle',    rarity:'rare',      bonus:{str:8},    bonusTxt:'+8 STR',    drop:'battle',   dropChance:0.03, src:'Strider'},
+  {id:'hero_cape',    icon:'🦸', name:'Hjältemanteln',cat:'battle',    rarity:'epic',      bonus:{str:15,end:10},bonusTxt:'+15 STR +10 END',drop:'battle',dropChance:0.01,src:'Strider'},
+  // Nature relics
+  {id:'leaf_fossil',  icon:'🍃', name:'Lövfossil',    cat:'nature',   rarity:'common',    bonus:{lck:3},    bonusTxt:'+3 LCK',    drop:'fish',     dropChance:0.07, src:'Fiske'},
+  {id:'pearl',        icon:'🦪', name:'Pärla',        cat:'nature',   rarity:'rare',      bonus:{lck:8},    bonusTxt:'+8 LCK',    drop:'fish',     dropChance:0.03, src:'Fiske'},
+  {id:'ancient_seed', icon:'🌱', name:'Urgammal Frö', cat:'nature',   rarity:'common',    bonus:{int:3},    bonusTxt:'+3 INT',    drop:'garden',   dropChance:0.08, src:'Trädgård'},
+  {id:'nature_stone', icon:'🪨', name:'Natursten',    cat:'nature',   rarity:'rare',      bonus:{end:8,lck:4},bonusTxt:'+8 END +4 LCK',drop:'garden',dropChance:0.025,src:'Trädgård'},
+  // Magic relics
+  {id:'mana_shard',   icon:'💎', name:'Manafragment',  cat:'magic',    rarity:'common',    bonus:{int:4},    bonusTxt:'+4 INT',    drop:'elem',     dropChance:0.08, src:'Elementmagi'},
+  {id:'spell_scroll', icon:'📜', name:'Trollrollsformel',cat:'magic',  rarity:'rare',      bonus:{int:10},   bonusTxt:'+10 INT',   drop:'elem',     dropChance:0.03, src:'Elementmagi'},
+  {id:'crystal_ball', icon:'🔮', name:'Kristallkula',  cat:'magic',    rarity:'epic',      bonus:{int:15,lck:8},bonusTxt:'+15 INT +8 LCK',drop:'elem',dropChance:0.01,src:'Elementmagi'},
+  {id:'alch_flask',   icon:'⚗️', name:'Alkemistflaska',cat:'magic',   rarity:'rare',      bonus:{int:7,str:5},bonusTxt:'+7 INT +5 STR',drop:'alchemy',dropChance:0.04,src:'Alkemi'},
+  // Crafting/misc
+  {id:'forge_ember',  icon:'🔥', name:'Smidesglöd',   cat:'battle',   rarity:'common',    bonus:{str:5},    bonusTxt:'+5 STR',    drop:'craft',    dropChance:0.06, src:'Smide'},
+  {id:'clock_piece',  icon:'⌚', name:'Urgammal Ur',  cat:'magic',    rarity:'rare',      bonus:{agi:10},   bonusTxt:'+10 AGI',   drop:'quiz',     dropChance:0.03, src:'Quiz'},
+  {id:'runners_boot', icon:'👟', name:'Löparskor',    cat:'battle',   rarity:'common',    bonus:{agi:5},    bonusTxt:'+5 AGI',    drop:'race',     dropChance:0.07, src:'Löpning'},
+  {id:'speed_gem',    icon:'💨', name:'Hastighetsjuvel',cat:'nature',  rarity:'rare',      bonus:{agi:12},   bonusTxt:'+12 AGI',   drop:'race',     dropChance:0.025,src:'Löpning'},
+  // Legendary
+  {id:'phoenix_feather',icon:'🦅',name:'Fenixfjäder', cat:'legendary',rarity:'legendary', bonus:{str:20,agi:20,int:20,end:20,lck:20},bonusTxt:'+20 alla stats',drop:'battle',dropChance:0.003,src:'Episka strider'},
+  {id:'world_tree_seed',icon:'🌳',name:'Världsträdfrö',cat:'legendary',rarity:'legendary',bonus:{end:30,lck:15},bonusTxt:'+30 END +15 LCK',drop:'garden',dropChance:0.003,src:'Trädgård'},
+  {id:'time_crystal', icon:'🕐', name:'Tidskristall', cat:'legendary',rarity:'legendary', bonus:{int:30,agi:15},bonusTxt:'+30 INT +15 AGI',drop:'elem',  dropChance:0.003,src:'Elementmagi'},
+  {id:'dragonscale',  icon:'🐉', name:'Drakfjäll',   cat:'legendary',rarity:'legendary', bonus:{str:30,end:15},bonusTxt:'+30 STR +15 END',drop:'battle',dropChance:0.003,src:'Legendarisk strid'},
+];
+
+var _relFilter='all';
+
+function _relData(){try{return JSON.parse(localStorage.getItem(REL_KEY)||'null');}catch(e){return null;}}
+function _relSave(d){localStorage.setItem(REL_KEY,JSON.stringify(d));}
+function _relGetData(){
+  var d=_relData();
+  if(!d) d={owned:{}};
+  return d;
+}
+
+function relTryDrop(dropType){
+  var d=_relGetData();
+  var candidates=REL_ALL.filter(function(r){return r.drop===dropType&&!d.owned[r.id];});
+  if(!candidates.length) return;
+  var rng=Math.random();
+  for(var i=0;i<candidates.length;i++){
+    var r=candidates[i];
+    if(rng<r.dropChance){
+      d.owned[r.id]=true;
+      // Apply bonus permanently
+      Object.keys(r.bonus).forEach(function(s){G[s]=(G[s]||0)+r.bonus[s];});
+      save();
+      _relSave(d);
+      showFloatBubble('🏺 RELIKA HITTAD: '+r.icon+' '+r.name+'! '+r.bonusTxt,'buff');
+      checkAchievements();
+      return;
+    }
+  }
+}
+
+function relSetFilter(f){
+  _relFilter=f;
+  document.querySelectorAll('.rel-tab').forEach(function(t,i){
+    var filters=['all','battle','nature','magic','legendary'];
+    t.classList.toggle('active',filters[i]===f);
+  });
+  _renderRel();
+}
+
+function openRel(){$('relPanel').classList.add('open');_renderRel();}
+function closeRel(){$('relPanel').classList.remove('open');}
+
+function _renderRel(d){
+  if(!d) d=_relGetData();
+  var owned=Object.keys(d.owned).length;
+  var rc=$('relCount');if(rc) rc.textContent=owned;
+  var rcl=$('relCountLbl');if(rcl) rcl.textContent='av '+REL_ALL.length+' reliker';
+  // Calculate total bonus points
+  var totalBonus=0;
+  REL_ALL.forEach(function(r){if(d.owned[r.id]) totalBonus+=Object.values(r.bonus).reduce(function(a,b){return a+b;},0);});
+  var rbv=$('relBonusVal');if(rbv) rbv.textContent='+'+totalBonus;
+  var grid=$('relGrid');
+  if(!grid) return;
+  var shown=REL_ALL.filter(function(r){
+    if(_relFilter==='all') return true;
+    return r.cat===_relFilter;
+  });
+  grid.innerHTML=shown.map(function(r){
+    var isOwned=!!d.owned[r.id];
+    var cls='rel-card'+(isOwned?' owned':'')+(r.rarity==='legendary'?' legendary':'')+(isOwned?'':' locked');
+    return '<div class="'+cls+'">'+
+      '<span class="rel-card-rarity '+r.rarity+'">'+r.rarity.charAt(0).toUpperCase()+r.rarity.slice(1)+'</span>'+
+      '<span class="rel-card-icon">'+(isOwned?r.icon:'❓')+'</span>'+
+      '<div class="rel-card-name">'+(isOwned?r.name:'???')+'</div>'+
+      '<div class="rel-card-bonus">'+(isOwned?r.bonusTxt:'Ej hittad')+'</div>'+
+      '<div class="rel-card-src">'+(isOwned?'Från: '+r.src:'Källa: '+r.src)+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+// Hook into misTrack for relic drops
+function relTrack(type, amount){
+  relTryDrop(type);
+}
 
 </script>
 
