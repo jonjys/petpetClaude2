@@ -1509,6 +1509,58 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SLOT MACHINE ══ */
+.slot-panel{position:fixed;inset:0;background:#020100;z-index:1022;display:none;flex-direction:column;overflow:hidden}
+.slot-panel.open{display:flex}
+.slot-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#150a00,#020100)}
+.slot-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4400,#ffcc00,#ff8800,#ff4400);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:slotShim 1.5s linear infinite}
+@keyframes slotShim{0%{background-position:0%}100%{background-position:300%}}
+.slot-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Machine */
+.slot-machine{background:linear-gradient(180deg,#1a0800,#0a0300);border:3px solid rgba(255,150,0,.3);border-radius:22px;padding:16px;margin-bottom:12px;box-shadow:0 0 30px rgba(255,100,0,.1),inset 0 2px 0 rgba(255,200,100,.1)}
+.slot-machine-top{text-align:center;margin-bottom:14px}
+.slot-lights{display:flex;justify-content:center;gap:6px;margin-bottom:8px}
+.slot-light{width:8px;height:8px;border-radius:50%;background:#ff4400;animation:slotLightBlink var(--d,0.5s) ease-in-out infinite alternate;opacity:.8}
+@keyframes slotLightBlink{0%{opacity:.3}100%{opacity:1}}
+.slot-balance{font:900 20px var(--ff-head);color:#ffcc00;text-shadow:0 0 10px rgba(255,200,0,.4)}
+.slot-balance-lbl{font:600 7px var(--ff-body);color:rgba(255,200,100,.5)}
+/* Reels */
+.slot-reels{display:flex;gap:8px;justify-content:center;margin-bottom:14px;position:relative}
+.slot-reel-wrap{width:80px;height:90px;overflow:hidden;border-radius:12px;border:2px solid rgba(255,150,0,.25);background:rgba(0,0,0,.4);position:relative}
+.slot-reel-wrap::before,.slot-reel-wrap::after{content:'';position:absolute;left:0;right:0;height:20px;z-index:2;pointer-events:none}
+.slot-reel-wrap::before{top:0;background:linear-gradient(180deg,rgba(10,3,0,.9),transparent)}
+.slot-reel-wrap::after{bottom:0;background:linear-gradient(0deg,rgba(10,3,0,.9),transparent)}
+.slot-win-line{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:2px;background:rgba(255,200,0,.3);z-index:1;pointer-events:none}
+.slot-reel{display:flex;flex-direction:column;align-items:center;transition:transform .7s cubic-bezier(.15,.6,.3,1);will-change:transform}
+.slot-reel.spinning{transition:none;animation:slotSpin .1s linear infinite}
+@keyframes slotSpin{0%{transform:translateY(0)}100%{transform:translateY(-90px)}}
+.slot-sym{width:80px;height:90px;display:flex;align-items:center;justify-content:center;font-size:44px;flex-shrink:0;line-height:1}
+/* Bet */
+.slot-bet-row{display:flex;align-items:center;gap:6px;justify-content:center;margin-bottom:10px}
+.slot-bet-lbl{font:700 9px var(--ff-head);color:rgba(255,200,100,.6)}
+.slot-bet-btn{background:rgba(255,150,0,.1);border:1px solid rgba(255,150,0,.2);border-radius:8px;padding:5px 10px;font:800 10px var(--ff-head);color:#ff8800;cursor:pointer}
+.slot-bet-btn.active{background:rgba(255,150,0,.25);border-color:rgba(255,150,0,.6);color:#ffcc00}
+/* Spin buttons */
+.slot-spin-btn{width:100%;background:linear-gradient(135deg,#550000,#cc3300);border:none;border-radius:14px;padding:14px;font:900 15px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px;box-shadow:0 4px 20px rgba(255,80,0,.3);letter-spacing:1px}
+.slot-spin-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.slot-free-btn{width:100%;background:rgba(255,200,0,.08);border:1px solid rgba(255,200,0,.2);border-radius:12px;padding:10px;font:800 11px var(--ff-head);color:#ffcc00;cursor:pointer;margin-bottom:10px}
+.slot-free-btn:disabled{opacity:.3;cursor:default}
+/* Result */
+.slot-result{text-align:center;min-height:36px;font:900 13px var(--ff-head);color:#ffcc00;margin-bottom:8px}
+/* Stats */
+.slot-stats{display:flex;gap:8px;margin-bottom:10px}
+.slot-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,100,0,.1);border-radius:10px;padding:7px;text-align:center}
+.slot-stat-v{font:900 14px var(--ff-head);color:#ff6600}
+.slot-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Paytable */
+.slot-pay{background:rgba(255,255,255,.02);border:1px solid rgba(255,100,0,.08);border-radius:12px;padding:10px;margin-bottom:10px}
+.slot-pay-lbl{font:700 7px var(--ff-head);color:rgba(255,100,0,.4);letter-spacing:1px;margin-bottom:6px}
+.slot-pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.slot-pay-row{display:flex;justify-content:space-between;font:700 9px var(--ff-body);color:rgba(255,255,255,.5)}
+.slot-pay-mult{color:#ffcc00}
+.slot-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ STAR GAZING ══ */
 .star-panel{position:fixed;inset:0;background:#000408;z-index:1021;display:none;flex-direction:column;overflow:hidden}
 .star-panel.open{display:flex}
@@ -10729,6 +10781,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
+          <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10771,6 +10824,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
+          <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10796,6 +10850,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
+          <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -10859,6 +10914,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
+          <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11428,6 +11484,56 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- SLOT MACHINE -->
+<div class="slot-panel" id="slotPanel">
+  <div class="slot-header">
+    <div class="slot-title">🎰 SPELAUTOMATEN</div>
+    <button class="close-btn" onclick="closeSlot()">✕</button>
+  </div>
+  <div class="slot-scroll">
+    <div class="slot-machine">
+      <div class="slot-machine-top">
+        <div class="slot-lights" id="slotLights"></div>
+        <div class="slot-balance" id="slotBalance">0</div>
+        <div class="slot-balance-lbl">MYNT</div>
+      </div>
+      <div class="slot-reels">
+        <div class="slot-reel-wrap"><div class="slot-win-line"></div><div class="slot-reel" id="slotReel0"></div></div>
+        <div class="slot-reel-wrap"><div class="slot-win-line"></div><div class="slot-reel" id="slotReel1"></div></div>
+        <div class="slot-reel-wrap"><div class="slot-win-line"></div><div class="slot-reel" id="slotReel2"></div></div>
+      </div>
+      <div class="slot-bet-row">
+        <div class="slot-bet-lbl">INSATS:</div>
+        <button class="slot-bet-btn" onclick="slotSetBet(50)">50</button>
+        <button class="slot-bet-btn" onclick="slotSetBet(100)">100</button>
+        <button class="slot-bet-btn" onclick="slotSetBet(200)">200</button>
+        <button class="slot-bet-btn" onclick="slotSetBet(500)">500</button>
+      </div>
+    </div>
+    <div class="slot-result" id="slotResult">Välj insats och snurra!</div>
+    <button class="slot-spin-btn" id="slotSpinBtn" onclick="slotSpin()">🎰 SNURRA! (100🪙)</button>
+    <button class="slot-free-btn" id="slotFreeBtn" onclick="slotFree()">🎁 GRATIS SNURR (1/dag)</button>
+    <div class="slot-stats">
+      <div class="slot-stat"><div class="slot-stat-v" id="slotSpins">0</div><div class="slot-stat-l">Snurrningar</div></div>
+      <div class="slot-stat"><div class="slot-stat-v" id="slotBiggest">0</div><div class="slot-stat-l">Bästa vinst</div></div>
+      <div class="slot-stat"><div class="slot-stat-v" id="slotEarned">0</div><div class="slot-stat-l">Netto tjänat</div></div>
+    </div>
+    <div class="slot-pay">
+      <div class="slot-pay-lbl">VINSTUTBETALNING (× INSATS)</div>
+      <div class="slot-pay-grid">
+        <div class="slot-pay-row"><span>🐾🐾🐾</span><span class="slot-pay-mult">×5</span></div>
+        <div class="slot-pay-row"><span>🐟🐟🐟</span><span class="slot-pay-mult">×8</span></div>
+        <div class="slot-pay-row"><span>🌟🌟🌟</span><span class="slot-pay-mult">×15</span></div>
+        <div class="slot-pay-row"><span>💎💎💎</span><span class="slot-pay-mult">×40 +KC</span></div>
+        <div class="slot-pay-row"><span>👑👑👑</span><span class="slot-pay-mult">×100 +3KC 🎊</span></div>
+        <div class="slot-pay-row"><span>Två lika</span><span class="slot-pay-mult">×2</span></div>
+      </div>
+    </div>
+    <div class="slot-info">LCK ökar chansen för bättre symboler!</div>
+  </div>
+</div>
 
 <!-- STAR GAZING -->
 <div class="star-panel" id="starPanel">
@@ -48912,6 +49018,170 @@ function _renderStar(d){
       }).join('');
     }
   }
+}
+
+
+// SLOT MACHINE
+const SLOT_KEY = 'k0509_slot';
+const SLOT_SYMS = ['🐾','🐾','🐟','🐟','🌟','🌟','💎','👑'];
+var _slotBet = 100;
+var _slotSpinning = false;
+var _slotFinalSyms = ['🐾','🐾','🐾'];
+
+function _slotData(){try{return JSON.parse(localStorage.getItem(SLOT_KEY)||'null');}catch(e){return null;}}
+function _slotSave(d){localStorage.setItem(SLOT_KEY,JSON.stringify(d));}
+function _slotGetData(){
+  var d=_slotData();
+  if(!d) d={spins:0,biggest:0,net:0,today:getTodayKey(),freeUsed:false};
+  if(d.today!==getTodayKey()){d.today=getTodayKey();d.freeUsed=false;}
+  return d;
+}
+
+function slotSetBet(val){
+  _slotBet=val;
+  var btns=document.querySelectorAll('.slot-bet-btn');
+  btns.forEach(function(b){b.classList.toggle('active',b.textContent==String(val));});
+  var sb=$('slotSpinBtn');if(sb) sb.textContent='🎰 SNURRA! ('+val+'🪙)';
+}
+
+function _slotPickSym(){
+  var lckBias=Math.min((G.lck||0)*0.002,0.15);
+  var pool=SLOT_SYMS.slice();
+  // Add extra good symbols based on LCK
+  if(Math.random()<lckBias) pool.push('💎');
+  if(Math.random()<lckBias*0.5) pool.push('👑');
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+
+function _slotBuildReel(reelId, symbols, targetIdx){
+  var reel=$('slotReel'+reelId);
+  if(!reel) return;
+  // Build a reel strip: pad above + symbols + target at center
+  var strip=[];
+  for(var i=0;i<3;i++) strip.push(SLOT_SYMS[Math.floor(Math.random()*SLOT_SYMS.length)]);
+  strip.push(symbols[targetIdx]); // target at position 3
+  for(var i=0;i<2;i++) strip.push(SLOT_SYMS[Math.floor(Math.random()*SLOT_SYMS.length)]);
+  reel.innerHTML=strip.map(function(s){return '<div class="slot-sym">'+s+'</div>';}).join('');
+  reel.style.transform='translateY(0)';
+}
+
+function _slotSetResult(syms, animate, delay, cb){
+  setTimeout(function(){
+    var reel=$('slotReel0');
+    if(reel) reel.style.transform='translateY(-270px)'; // show idx 3 in center (3×90=270)
+    var reel=$('slotReel1');
+    if(reel) reel.style.transform='translateY(-270px)';
+    var reel=$('slotReel2');
+    if(reel) reel.style.transform='translateY(-270px)';
+    if(cb) setTimeout(cb,800);
+  },delay);
+}
+
+function slotSpin(free){
+  if(_slotSpinning) return;
+  var d=_slotGetData();
+  var bet=free?0:_slotBet;
+  if(!free){
+    if((G.coins||0)<bet){showFloatBubble('Behöver '+bet+'🪙!','debuff');return;}
+    G.coins-=bet;save();
+  }
+  _slotSpinning=true;
+  var sb=$('slotSpinBtn');var fb=$('slotFreeBtn');
+  if(sb) sb.disabled=true;if(fb) fb.disabled=true;
+  var res=$('slotResult');if(res) res.textContent='Snurrar...';
+  // Pick results with LCK
+  var s0=_slotPickSym(),s1=_slotPickSym(),s2=_slotPickSym();
+  _slotFinalSyms=[s0,s1,s2];
+  // Build spinning reels
+  for(var ri=0;ri<3;ri++){
+    _slotBuildReel(ri,[s0,s1,s2],ri);
+    (function(r){
+      var reel=$('slotReel'+r);
+      if(reel){reel.classList.add('spinning');reel.style.transform='';}
+    })(ri);
+  }
+  // Stop reels one by one
+  for(var ri2=0;ri2<3;ri2++){
+    (function(r,delay){
+      setTimeout(function(){
+        var reel=$('slotReel'+r);
+        if(reel){reel.classList.remove('spinning');reel.style.transition='transform .5s cubic-bezier(.15,.6,.3,1)';reel.style.transform='translateY(-270px)';}
+        if(r===2){
+          setTimeout(function(){
+            _slotSpinning=false;
+            _slotResolve(d,bet,free);
+          },600);
+        }
+      },delay);
+    })(ri2, 600+ri2*500);
+  }
+}
+
+function slotFree(){
+  var d=_slotGetData();
+  if(d.freeUsed){showFloatBubble('Gratis snurr redan använt idag!','debuff');return;}
+  d.freeUsed=true;_slotSave(d);
+  slotSpin(true);
+}
+
+function _slotResolve(d,bet,free){
+  var s=_slotFinalSyms;
+  var mult=0;var kc=0;var label='';
+  if(s[0]===s[1]&&s[1]===s[2]){
+    if(s[0]==='👑'){mult=100;kc=3;label='👑 JACKPOT! ×100';}
+    else if(s[0]==='💎'){mult=40;kc=1;label='💎 STORVINN! ×40';}
+    else if(s[0]==='🌟'){mult=15;label='🌟 Trippel Stjärna! ×15';}
+    else if(s[0]==='🐟'){mult=8;label='🐟 Trippel Fisk! ×8';}
+    else if(s[0]==='🐾'){mult=5;label='🐾 Trippel Tass! ×5';}
+  } else if(s[0]===s[1]||s[1]===s[2]||s[0]===s[2]){
+    mult=2;label='Två lika! ×2';
+  } else {
+    label='Inget — försök igen!';
+  }
+  var effectiveBet=free?100:bet;
+  var won=Math.floor(effectiveBet*mult);
+  if(won>0){gainCoins(won);gainXP(10,'lck');}
+  if(kc>0) gainKC(kc);
+  var net=(free?won:won-bet);
+  d.spins=(d.spins||0)+1;
+  if(won>d.biggest) d.biggest=won;
+  d.net=(d.net||0)+net;
+  _slotSave(d);
+  var res=$('slotResult');
+  if(res) res.textContent=s[0]+s[1]+s[2]+' — '+label+(won?' → +'+won+'🪙'+(kc?' +'+kc+'KC!':''):'');
+  if(won>0) showFloatBubble('🎰 '+label+' +'+won+'🪙','buff');
+  else showFloatBubble('🎰 '+s[0]+s[1]+s[2]+' — Inget','debuff');
+  if(won>0) checkAchievements();
+  _renderSlot(d);
+  var sb=$('slotSpinBtn');if(sb) sb.disabled=false;
+  var fb=$('slotFreeBtn');if(fb) fb.disabled=d.freeUsed;
+}
+
+function openSlot(){
+  $('slotPanel').classList.add('open');
+  // Build lights
+  var lights=$('slotLights');
+  if(lights&&!lights.innerHTML){var lh='';for(var i=0;i<8;i++) lh+='<div class="slot-light" style="--d:'+(0.2+i*0.07).toFixed(2)+'s"></div>';lights.innerHTML=lh;}
+  // Init reels
+  for(var ri=0;ri<3;ri++){
+    var reel=$('slotReel'+ri);
+    if(reel&&!reel.innerHTML){
+      var html='';for(var j=0;j<5;j++) html+='<div class="slot-sym">'+SLOT_SYMS[Math.floor(Math.random()*SLOT_SYMS.length)]+'</div>';
+      reel.innerHTML=html;
+    }
+  }
+  slotSetBet(100);
+  _renderSlot();
+}
+function closeSlot(){$('slotPanel').classList.remove('open');}
+
+function _renderSlot(d){
+  if(!d) d=_slotGetData();
+  var bv=$('slotBalance');if(bv) bv.textContent=(G.coins||0).toLocaleString();
+  var sv=$('slotSpins');if(sv) sv.textContent=d.spins||0;
+  var biv=$('slotBiggest');if(biv) biv.textContent=d.biggest||0;
+  var ev=$('slotEarned');if(ev) ev.textContent=d.net||0;
+  var fb=$('slotFreeBtn');if(fb){fb.disabled=d.freeUsed||_slotSpinning;fb.textContent=d.freeUsed?'✓ Gratis snurr använt idag':'🎁 GRATIS SNURR (1/dag)';}
 }
 
 </script>
