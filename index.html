@@ -1513,6 +1513,49 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ POTION SHOP ══ */
+.pot-panel{position:fixed;inset:0;background:#020108;z-index:1026;display:none;flex-direction:column;overflow:hidden}
+.pot-panel.open{display:flex}
+.pot-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0318,#020108)}
+.pot-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc44ff,#ff44aa,#cc44ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:potShim 2s linear infinite}
+@keyframes potShim{0%{background-position:0%}100%{background-position:200%}}
+.pot-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Active potions */
+.pot-active-lbl{font:700 8px var(--ff-head);color:rgba(200,100,255,.4);letter-spacing:1px;margin-bottom:6px}
+.pot-active-list{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.pot-active-item{display:flex;align-items:center;gap:8px;background:rgba(200,100,255,.05);border:1px solid rgba(200,100,255,.15);border-radius:10px;padding:7px 10px}
+.pot-active-emoji{font-size:18px}
+.pot-active-text{flex:1;font:600 9px var(--ff-body);color:rgba(220,180,255,.8)}
+.pot-active-cd{font:700 8px var(--ff-head);color:rgba(200,100,255,.6)}
+.pot-no-active{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center;padding:8px}
+/* Inventory */
+.pot-inv-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.pot-inv-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.pot-inv-item{background:rgba(200,100,255,.08);border:1.5px solid rgba(200,100,255,.2);border-radius:10px;padding:6px 8px;display:flex;align-items:center;gap:5px;cursor:pointer;position:relative}
+.pot-inv-item:active{transform:scale(.95)}
+.pot-inv-emoji{font-size:22px}
+.pot-inv-count{position:absolute;top:-4px;right:-4px;background:#cc44ff;color:#fff;font:900 8px var(--ff-head);border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center}
+/* Shop grid */
+.pot-shop-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px}
+.pot-shop-grid{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.pot-shop-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.pot-shop-emoji{font-size:30px;flex-shrink:0}
+.pot-shop-info{flex:1}
+.pot-shop-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.pot-shop-effect{font:600 8px var(--ff-body);color:rgba(200,150,255,.7);margin-bottom:1px}
+.pot-shop-dur{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.pot-shop-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.pot-buy-btn{background:rgba(200,100,255,.15);border:1px solid rgba(200,100,255,.3);border-radius:8px;padding:6px 10px;font:800 9px var(--ff-head);color:#cc44ff;cursor:pointer;white-space:nowrap}
+.pot-buy-btn:disabled{opacity:.3;cursor:default}
+.pot-inv-lbl2{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Stats */
+.pot-stats{display:flex;gap:8px;margin-bottom:12px}
+.pot-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(200,100,255,.1);border-radius:10px;padding:7px;text-align:center}
+.pot-stat-v{font:900 14px var(--ff-head);color:#aa44ff}
+.pot-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.pot-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ REACTION TEST ══ */
 .react-panel{position:fixed;inset:0;background:#000200;z-index:1025;display:none;flex-direction:column;overflow:hidden}
 .react-panel.open{display:flex}
@@ -10919,6 +10962,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
+          <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10965,6 +11009,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
+          <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10994,6 +11039,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
+          <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11061,6 +11107,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
+          <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11634,6 +11681,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- POTION SHOP -->
+<div class="pot-panel" id="potPanel">
+  <div class="pot-header">
+    <div class="pot-title">🧪 POTIONBUTIKEN</div>
+    <button class="close-btn" onclick="closePot()">✕</button>
+  </div>
+  <div class="pot-scroll">
+    <div class="pot-stats">
+      <div class="pot-stat"><div class="pot-stat-v" id="potUsed">0</div><div class="pot-stat-l">Potioner använda</div></div>
+      <div class="pot-stat"><div class="pot-stat-v" id="potActive">0</div><div class="pot-stat-l">Aktiva buffs</div></div>
+      <div class="pot-stat"><div class="pot-stat-v" id="potSpent">0</div><div class="pot-stat-l">Mynt spenderat</div></div>
+    </div>
+    <div class="pot-active-lbl">AKTIVA POTIONER</div>
+    <div class="pot-active-list" id="potActiveList"></div>
+    <div class="pot-inv-lbl">INVENTARIE — tryck för att använda</div>
+    <div class="pot-inv-row" id="potInvRow"></div>
+    <div class="pot-shop-lbl">BUTIK</div>
+    <div class="pot-shop-grid" id="potShopGrid"></div>
+    <div class="pot-info">Potioner staplas INTE av samma typ. Köp → Inventarie → Tryck för att använda!</div>
+  </div>
+</div>
 
 <!-- REACTION TEST -->
 <div class="react-panel" id="reactPanel">
@@ -49906,6 +49976,141 @@ function _renderReact(d){
   var sb=$('reactStartBtn');
   if(sb&&_reactState==='idle'){sb.disabled=d.todayCount>=REACT_DAILY;sb.textContent=d.todayCount>=REACT_DAILY?'✓ Max tester idag ('+REACT_DAILY+')':'⚡ STARTA TEST! ('+(REACT_DAILY-d.todayCount)+' kvar)';}
   _renderReactPips(d);
+}
+
+
+// POTION SHOP
+const POT_KEY = 'k0509_pot';
+const POT_DEFS = [
+  {id:'xp',    emoji:'✨', name:'XP-Elixir',       dur:3600000,  cost:200,  stats:{xpBoost:2},    effect:'+2× XP (1h)',         statKeys:[]},
+  {id:'coin',  emoji:'🪙', name:'Myntmagnet',       dur:3600000,  cost:300,  stats:{coinBoost:1.5},effect:'+50% mynt (1h)',       statKeys:[]},
+  {id:'lck',   emoji:'🍀', name:'Lyckocharm',       dur:1800000,  cost:400,  stats:{lck:20},       effect:'+20 LCK (30min)',      statKeys:['lck']},
+  {id:'end',   emoji:'🛡️', name:'Järnvilja',         dur:7200000,  cost:500,  stats:{end:30},       effect:'+30 END (2h)',         statKeys:['end']},
+  {id:'agi',   emoji:'💨', name:'Snabbtrank',        dur:3600000,  cost:450,  stats:{agi:25},       effect:'+25 AGI (1h)',         statKeys:['agi']},
+  {id:'int',   emoji:'🔮', name:'Visdomsdryck',      dur:7200000,  cost:500,  stats:{int:20},       effect:'+20 INT (2h)',         statKeys:['int']},
+  {id:'str',   emoji:'💪', name:'Stridsbrygg',       dur:1800000,  cost:600,  stats:{str:35},       effect:'+35 STR (30min)',      statKeys:['str']},
+  {id:'grand', emoji:'⚗️', name:'Grand Elixir',      dur:14400000, cost:2000, stats:{str:15,agi:15,int:15,end:15,lck:15}, effect:'+15 ALLA (4h)', statKeys:['str','agi','int','end','lck']},
+];
+const POT_MAX_INV = 5;
+
+function _potData(){try{return JSON.parse(localStorage.getItem(POT_KEY)||'null');}catch(e){return null;}}
+function _potSave(d){localStorage.setItem(POT_KEY,JSON.stringify(d));}
+function _potGetData(){
+  var d=_potData();
+  if(!d) d={inventory:{},active:[],used:0,spent:0};
+  return d;
+}
+
+function potBuy(id){
+  var def=POT_DEFS.filter(function(p){return p.id===id;})[0];
+  if(!def) return;
+  if((G.coins||0)<def.cost){showFloatBubble('Behöver '+def.cost+'🪙!','debuff');return;}
+  var d=_potGetData();
+  var inv=d.inventory[id]||0;
+  if(inv>=POT_MAX_INV){showFloatBubble('Max '+POT_MAX_INV+' av denna potion!','debuff');return;}
+  G.coins-=def.cost;save();
+  d.inventory[id]=(inv||0)+1;
+  d.spent=(d.spent||0)+def.cost;
+  _potSave(d);
+  showFloatBubble(def.emoji+' '+def.name+' köpt!','buff');
+  _renderPot(d);
+}
+
+function potUse(id){
+  var def=POT_DEFS.filter(function(p){return p.id===id;})[0];
+  if(!def) return;
+  var d=_potGetData();
+  if(!(d.inventory[id]>0)){showFloatBubble('Inga '+def.name+' kvar!','debuff');return;}
+  // Check if already active
+  var existing=d.active.filter(function(a){return a.id===id;})[0];
+  if(existing&&existing.expires>Date.now()){showFloatBubble('Denna potion är redan aktiv!','debuff');return;}
+  // Remove old if expired
+  d.active=d.active.filter(function(a){return a.id!==id;});
+  // Apply stat effects
+  def.statKeys.forEach(function(s){G[s]=(G[s]||0)+def.stats[s];});
+  save();
+  // Track active
+  d.active.push({id:id,expires:Date.now()+def.dur,stats:def.stats,statKeys:def.statKeys});
+  d.inventory[id]--;
+  d.used=(d.used||0)+1;
+  _potSave(d);
+  showFloatBubble(def.emoji+' '+def.name+' aktiverad! '+def.effect,'buff');
+  _renderPot(d);
+}
+
+function openPot(){$('potPanel').classList.add('open');_renderPot();}
+function closePot(){$('potPanel').classList.remove('open');}
+
+function _renderPot(d){
+  if(!d) d=_potGetData();
+  var now=Date.now();
+  // Expire active potions — reverse stats
+  var changed=false;
+  d.active=d.active.filter(function(a){
+    if(a.expires<=now){
+      (a.statKeys||[]).forEach(function(s){G[s]=Math.max(0,(G[s]||0)-(a.stats[s]||0));});
+      changed=true;return false;
+    }
+    return true;
+  });
+  if(changed){save();_potSave(d);}
+  var uv=$('potUsed');if(uv) uv.textContent=d.used||0;
+  var av=$('potActive');if(av) av.textContent=d.active.length;
+  var sv=$('potSpent');if(sv) sv.textContent=d.spent||0;
+  // Active list
+  var al=$('potActiveList');
+  if(al){
+    var actives=d.active.filter(function(a){return a.expires>now;});
+    if(actives.length===0){
+      al.innerHTML='<div class="pot-no-active">Inga aktiva potioner</div>';
+    } else {
+      al.innerHTML=actives.map(function(a){
+        var def=POT_DEFS.filter(function(p){return p.id===a.id;})[0];
+        var remaining=Math.ceil((a.expires-now)/60000);
+        return '<div class="pot-active-item">'+
+          '<div class="pot-active-emoji">'+(def?def.emoji:'🧪')+'</div>'+
+          '<div class="pot-active-text">'+(def?def.effect:a.id)+'</div>'+
+          '<div class="pot-active-cd">'+remaining+'min</div>'+
+        '</div>';
+      }).join('');
+    }
+  }
+  // Inventory
+  var inv=$('potInvRow');
+  if(inv){
+    var invItems=POT_DEFS.filter(function(def){return (d.inventory[def.id]||0)>0;});
+    if(invItems.length===0){
+      inv.innerHTML='<div class="pot-no-active">Inventariet är tomt — köp potioner nedan!</div>';
+    } else {
+      inv.innerHTML=invItems.map(function(def){
+        var count=d.inventory[def.id]||0;
+        return '<div class="pot-inv-item" onclick="potUse(\''+def.id+'\')">'+
+          '<div class="pot-inv-emoji">'+def.emoji+'</div>'+
+          '<div class="pot-inv-count">'+count+'</div>'+
+        '</div>';
+      }).join('');
+    }
+  }
+  // Shop
+  var shop=$('potShopGrid');
+  if(shop){
+    shop.innerHTML=POT_DEFS.map(function(def){
+      var inv=(d.inventory[def.id]||0);
+      var alreadyActive=d.active.some(function(a){return a.id===def.id&&a.expires>now;});
+      return '<div class="pot-shop-card">'+
+        '<div class="pot-shop-emoji">'+def.emoji+'</div>'+
+        '<div class="pot-shop-info">'+
+          '<div class="pot-shop-name">'+def.name+'</div>'+
+          '<div class="pot-shop-effect">'+def.effect+'</div>'+
+          '<div class="pot-shop-dur">'+Math.floor(def.dur/60000)+'min varaktighet</div>'+
+        '</div>'+
+        '<div class="pot-shop-right">'+
+          '<button class="pot-buy-btn" onclick="potBuy(\''+def.id+'\')" '+(G.coins<def.cost||inv>=POT_MAX_INV?'disabled':'')+'>Köp '+def.cost+'🪙</button>'+
+          '<div class="pot-inv-lbl2">Inv: '+inv+'/'+POT_MAX_INV+(alreadyActive?' ✓aktiv':'')+'</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
 }
 
 </script>
