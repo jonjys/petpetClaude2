@@ -1512,6 +1512,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ REACTION TEST ══ */
+.react-panel{position:fixed;inset:0;background:#000200;z-index:1025;display:none;flex-direction:column;overflow:hidden}
+.react-panel.open{display:flex}
+.react-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#001a00,#000200)}
+.react-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ff88,#44ffcc,#00ff88);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:reactShim 1.5s linear infinite}
+@keyframes reactShim{0%{background-position:0%}100%{background-position:200%}}
+.react-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Stats */
+.react-stats{display:flex;gap:8px;margin-bottom:12px}
+.react-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(0,255,100,.1);border-radius:10px;padding:7px;text-align:center}
+.react-stat-v{font:900 14px var(--ff-head);color:#00ff88}
+.react-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Arena */
+.react-arena{position:relative;background:rgba(255,255,255,.01);border:2px solid rgba(0,255,100,.12);border-radius:20px;height:260px;margin-bottom:12px;overflow:hidden;cursor:pointer;user-select:none;-webkit-user-select:none}
+.react-arena-idle{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:8px}
+.react-arena-idle-icon{font-size:48px;animation:reactPulse 2s ease-in-out infinite}
+@keyframes reactPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.react-arena-idle-txt{font:700 12px var(--ff-head);color:rgba(0,255,100,.5)}
+.react-target{position:absolute;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#00ff88,#00cc55);display:flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer;box-shadow:0 0 30px rgba(0,255,100,.6);transform:translate(-50%,-50%);animation:reactAppear .15s ease-out;z-index:2}
+@keyframes reactAppear{0%{transform:translate(-50%,-50%) scale(0)}100%{transform:translate(-50%,-50%) scale(1)}}
+.react-target.disappear{animation:reactDisappear .2s ease-in forwards}
+@keyframes reactDisappear{0%{transform:translate(-50%,-50%) scale(1)}100%{transform:translate(-50%,-50%) scale(0);opacity:0}}
+.react-wait-msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}
+.react-wait-lbl{font:900 14px var(--ff-head);color:rgba(255,200,0,.6)}
+.react-wait-hint{font:600 9px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Result bar */
+.react-result{text-align:center;min-height:40px;margin-bottom:10px}
+.react-result-time{font:900 28px var(--ff-head);color:#00ff88}
+.react-result-grade{font:700 11px var(--ff-head);color:rgba(255,255,255,.6)}
+/* Rating bands */
+.react-bands{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.react-band{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:6px 10px}
+.react-band.active{border-color:rgba(0,255,100,.3);background:rgba(0,255,100,.04)}
+.react-band-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.7)}
+.react-band-range{font:600 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.react-band-reward{font:700 9px var(--ff-head);color:#ffcc00}
+/* Pips */
+.react-pips{display:flex;gap:5px;justify-content:center;margin-bottom:10px;flex-wrap:wrap}
+.react-pip{width:10px;height:10px;border-radius:50%;background:rgba(0,255,100,.7)}
+.react-pip.used{background:rgba(255,255,255,.1)}
+/* Start btn */
+.react-start-btn{width:100%;background:linear-gradient(135deg,#003300,#006633);border:none;border-radius:14px;padding:13px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px;box-shadow:0 0 16px rgba(0,200,100,.2)}
+.react-start-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.react-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ TREASURE MAP ══ */
 .tmap-panel{position:fixed;inset:0;background:#020301;z-index:1024;display:none;flex-direction:column;overflow:hidden}
 .tmap-panel.open{display:flex}
@@ -10872,6 +10918,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
           <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
+          <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10917,6 +10964,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
           <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
+          <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10945,6 +10993,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
           <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
+          <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11011,6 +11060,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
           <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
+          <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11583,6 +11633,42 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- REACTION TEST -->
+<div class="react-panel" id="reactPanel">
+  <div class="react-header">
+    <div class="react-title">⚡ REAKTIONSTESTET</div>
+    <button class="close-btn" onclick="closeReact()">✕</button>
+  </div>
+  <div class="react-scroll">
+    <div class="react-stats">
+      <div class="react-stat"><div class="react-stat-v" id="reactBest">—</div><div class="react-stat-l">Bästa (ms)</div></div>
+      <div class="react-stat"><div class="react-stat-v" id="reactAvg">—</div><div class="react-stat-l">Snitt (ms)</div></div>
+      <div class="react-stat"><div class="react-stat-v" id="reactTests">0</div><div class="react-stat-l">Tester totalt</div></div>
+    </div>
+    <div class="react-arena" id="reactArena" onclick="reactAreaClick()">
+      <div class="react-arena-idle" id="reactIdle">
+        <span class="react-arena-idle-icon">⚡</span>
+        <div class="react-arena-idle-txt">Tryck START och vänta...</div>
+      </div>
+    </div>
+    <div class="react-result">
+      <div class="react-result-time" id="reactTime">—</div>
+      <div class="react-result-grade" id="reactGrade"></div>
+    </div>
+    <div class="react-pips" id="reactPips"></div>
+    <div class="react-bands">
+      <div class="react-band" id="rbLEGENDARY"><span class="react-band-name">⚡ LEGENDARISK</span><span class="react-band-range">&lt;200ms</span><span class="react-band-reward">500🪙 +3AGI</span></div>
+      <div class="react-band" id="rbEXCELLENT"><span class="react-band-name">🔥 UTMÄRKT</span><span class="react-band-range">200-350ms</span><span class="react-band-reward">300🪙 +2AGI</span></div>
+      <div class="react-band" id="rbGOOD"><span class="react-band-name">✅ BRA</span><span class="react-band-range">350-550ms</span><span class="react-band-reward">150🪙 +1AGI</span></div>
+      <div class="react-band" id="rbOK"><span class="react-band-name">👍 OK</span><span class="react-band-range">550-900ms</span><span class="react-band-reward">75🪙</span></div>
+      <div class="react-band" id="rbSLOW"><span class="react-band-name">🐌 LÅNGSAM</span><span class="react-band-range">&gt;900ms</span><span class="react-band-reward">20🪙</span></div>
+    </div>
+    <button class="react-start-btn" id="reactStartBtn" onclick="reactStart()">⚡ STARTA TEST!</button>
+    <div class="react-info">AGI ökar din träffsäkerhet! 10 tester per dag. Snabbast vinner mest!</div>
+  </div>
+</div>
 
 <!-- TREASURE MAP -->
 <div class="tmap-panel" id="tmapPanel">
@@ -49672,6 +49758,154 @@ function _renderTmap(d){
       '</div>';
     }).join('');
   }
+}
+
+
+// REACTION TEST
+const REACT_KEY = 'k0509_react';
+const REACT_DAILY = 10;
+var _reactState = 'idle'; // idle, waiting, active, done
+var _reactTimeout = null;
+var _reactStartTime = 0;
+var _reactDoneToday = 0;
+var _reactTodayResults = [];
+
+function _reactData(){try{return JSON.parse(localStorage.getItem(REACT_KEY)||'null');}catch(e){return null;}}
+function _reactSave(d){localStorage.setItem(REACT_KEY,JSON.stringify(d));}
+function _reactGetData(){
+  var d=_reactData();
+  if(!d) d={tests:0,best:9999,totalMs:0,today:getTodayKey(),todayCount:0};
+  if(d.today!==getTodayKey()){d.today=getTodayKey();d.todayCount=0;}
+  return d;
+}
+
+function reactStart(){
+  var d=_reactGetData();
+  if(d.todayCount>=REACT_DAILY){showFloatBubble('Max '+REACT_DAILY+' tester idag!','debuff');return;}
+  if(_reactState==='waiting'||_reactState==='active') return;
+  _reactState='waiting';
+  var sb=$('reactStartBtn');if(sb) sb.disabled=true;
+  var idle=$('reactIdle');if(idle) idle.style.display='none';
+  // Show waiting state
+  var arena=$('reactArena');
+  if(arena){
+    var wait=document.createElement('div');
+    wait.className='react-wait-msg';wait.id='reactWaitMsg';
+    wait.innerHTML='<div class="react-wait-lbl">⏳ Vänta...</div><div class="react-wait-hint">Tryck på cirkeln när den dyker upp!</div>';
+    arena.appendChild(wait);
+  }
+  // Delay before showing target (1-4s, shorter with higher AGI)
+  var agiBonus=Math.min((G.agi||0)*0.005,0.4);
+  var delay=Math.floor((1+Math.random()*3)*(1-agiBonus)*1000);
+  _reactTimeout=setTimeout(function(){
+    var waitMsg=$('reactWaitMsg');if(waitMsg) waitMsg.remove();
+    _reactShowTarget();
+  },delay);
+}
+
+function _reactShowTarget(){
+  var arena=$('reactArena');
+  if(!arena) return;
+  _reactState='active';
+  // Random position within arena bounds
+  var aW=arena.offsetWidth||320;var aH=arena.offsetHeight||260;
+  var x=Math.floor(50+Math.random()*(aW-100));
+  var y=Math.floor(50+Math.random()*(aH-100));
+  var target=document.createElement('div');
+  target.className='react-target';target.id='reactTarget';
+  target.textContent='👆';
+  target.style.left=x+'px';target.style.top=y+'px';
+  target.onclick=function(e){e.stopPropagation();reactHit();};
+  arena.appendChild(target);
+  _reactStartTime=Date.now();
+  // Auto-miss after 3s
+  _reactTimeout=setTimeout(function(){
+    if(_reactState==='active') reactMiss();
+  },3000);
+}
+
+function reactAreaClick(){
+  if(_reactState==='active') reactMiss();
+}
+
+function reactHit(){
+  if(_reactState!=='active') return;
+  clearTimeout(_reactTimeout);
+  var ms=Date.now()-_reactStartTime;
+  _reactState='done';
+  var tgt=$('reactTarget');if(tgt) tgt.remove();
+  _reactResolve(ms);
+}
+
+function reactMiss(){
+  clearTimeout(_reactTimeout);
+  _reactState='done';
+  var tgt=$('reactTarget');if(tgt) tgt.remove();
+  var waitMsg=$('reactWaitMsg');if(waitMsg) waitMsg.remove();
+  _reactResolve(3000);
+}
+
+function _reactResolve(ms){
+  var d=_reactGetData();
+  d.tests=(d.tests||0)+1;
+  d.todayCount=(d.todayCount||0)+1;
+  if(ms<d.best) d.best=ms;
+  d.totalMs=(d.totalMs||0)+ms;
+  var bands=[
+    {name:'⚡ LEGENDARISK!',id:'LEGENDARY',max:200, coins:500,agi:3},
+    {name:'🔥 UTMÄRKT!',    id:'EXCELLENT',max:350, coins:300,agi:2},
+    {name:'✅ BRA!',         id:'GOOD',     max:550, coins:150,agi:1},
+    {name:'👍 OK',           id:'OK',       max:900, coins:75, agi:0},
+    {name:'🐌 Långsam',      id:'SLOW',     max:9999,coins:20, agi:0},
+  ];
+  var band=bands[bands.length-1];
+  for(var i=0;i<bands.length;i++){if(ms<bands[i].max){band=bands[i];break;}}
+  gainCoins(band.coins);gainXP(15,'agi');
+  if(band.agi>0){G.agi=(G.agi||0)+band.agi;save();}
+  d.earned=(d.earned||0)+band.coins;
+  _reactSave(d);
+  var tv=$('reactTime');if(tv) tv.textContent=ms<3000?ms+'ms':'MISS';
+  var gv=$('reactGrade');if(gv) gv.textContent=band.name+' → +'+band.coins+'🪙'+(band.agi?' +'+band.agi+'AGI':'');
+  // Highlight band
+  bands.forEach(function(b){var el=$('rb'+b.id);if(el) el.classList.toggle('active',b.id===band.id);});
+  showFloatBubble('⚡ '+ms+'ms — '+band.name,'buff');
+  checkAchievements();
+  _renderReact(d);
+  // Re-enable start
+  var idle=$('reactIdle');if(idle) idle.style.display='flex';
+  var sb=$('reactStartBtn');
+  if(sb){sb.disabled=d.todayCount>=REACT_DAILY;sb.textContent=d.todayCount>=REACT_DAILY?'✓ Max tester idag':'⚡ TESTA IGEN! ('+(REACT_DAILY-d.todayCount)+' kvar)';}
+  _reactState='idle';
+  _renderReactPips(d);
+  misTrack('react',1);
+}
+
+function _renderReactPips(d){
+  var pp=$('reactPips');
+  if(!pp) return;
+  var html='';
+  for(var i=0;i<REACT_DAILY;i++) html+='<div class="react-pip'+(i>=(REACT_DAILY-(d.todayCount||0))?' used':'')+'"></div>';
+  pp.innerHTML=html;
+}
+
+function openReact(){$('reactPanel').classList.add('open');_renderReact();}
+function closeReact(){
+  $('reactPanel').classList.remove('open');
+  clearTimeout(_reactTimeout);
+  _reactState='idle';
+  var tgt=$('reactTarget');if(tgt) tgt.remove();
+  var wm=$('reactWaitMsg');if(wm) wm.remove();
+}
+
+function _renderReact(d){
+  if(!d) d=_reactGetData();
+  var bv=$('reactBest');if(bv) bv.textContent=d.best===9999?'—':d.best+'ms';
+  var avg=(d.tests&&d.totalMs)?Math.floor(d.totalMs/d.tests):0;
+  var av=$('reactAvg');if(av) av.textContent=avg?avg+'ms':'—';
+  var tv=$('reactTests');if(tv) tv.textContent=d.tests||0;
+  var sb=$('reactStartBtn');
+  if(sb&&_reactState==='idle'){sb.disabled=d.todayCount>=REACT_DAILY;sb.textContent=d.todayCount>=REACT_DAILY?'✓ Max tester idag ('+REACT_DAILY+')':'⚡ STARTA TEST! ('+(REACT_DAILY-d.todayCount)+' kvar)';}
+  _renderReactPips(d);
 }
 
 </script>
