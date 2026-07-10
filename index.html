@@ -1522,6 +1522,40 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ COIN CATCHER ══ */
+.catch-panel{position:fixed;inset:0;background:#000610;z-index:1035;display:none;flex-direction:column;overflow:hidden}
+.catch-panel.open{display:flex}
+.catch-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#000d20,#000610)}
+.catch-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ffcc00);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:catchShim 1.5s linear infinite}
+@keyframes catchShim{0%{background-position:0%}100%{background-position:200%}}
+.catch-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+/* HUD */
+.catch-hud{display:flex;gap:8px;margin-bottom:8px}
+.catch-hud-box{flex:1;background:rgba(255,200,0,.04);border:1px solid rgba(255,200,0,.15);border-radius:10px;padding:6px;text-align:center}
+.catch-hud-v{font:900 18px var(--ff-head);color:#ffcc00}
+.catch-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Timer bar */
+.catch-timer-wrap{background:rgba(255,255,255,.05);border-radius:20px;height:6px;margin-bottom:10px;overflow:hidden}
+.catch-timer-bar{height:100%;background:linear-gradient(90deg,#ffcc00,#ff8800);border-radius:20px;transition:width .2s linear;width:100%}
+/* Arena */
+.catch-arena-wrap{background:rgba(0,6,16,.9);border:2px solid rgba(255,200,0,.2);border-radius:16px;padding:8px;margin-bottom:10px;display:flex;justify-content:center;position:relative}
+#catchCanvas{display:block;border-radius:8px}
+/* Controls */
+.catch-controls{display:flex;gap:10px;margin-bottom:10px}
+.catch-ctrl-btn{flex:1;background:rgba(255,200,0,.1);border:2px solid rgba(255,200,0,.25);border-radius:14px;padding:16px;font:700 24px var(--ff-head);color:#ffcc00;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent}
+.catch-ctrl-btn:active{background:rgba(255,200,0,.25);transform:scale(.93)}
+/* Status */
+.catch-status{text-align:center;font:700 11px var(--ff-head);color:#ffcc00;margin-bottom:8px;min-height:18px}
+.catch-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.8);border:1.5px solid rgba(255,200,0,.3);border-radius:14px;margin-bottom:10px}
+.catch-over.show{display:flex}
+.catch-over-score{font:900 32px var(--ff-head);color:#ffcc00}
+.catch-over-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.catch-over-rw{font:700 12px var(--ff-head);color:#44ff88}
+.catch-start-btn{width:100%;background:linear-gradient(135deg,#443300,#886600);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.catch-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.catch-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ WHACK-A-MOLE ══ */
 .whack-panel{position:fixed;inset:0;background:#000a02;z-index:1034;display:none;flex-direction:column;overflow:hidden}
 .whack-panel.open{display:flex}
@@ -11321,6 +11355,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
+          <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11376,6 +11411,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
+          <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11414,6 +11450,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
+          <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11490,6 +11527,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
           <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
+          <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12072,6 +12110,37 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- COIN CATCHER -->
+<div class="catch-panel" id="catchPanel">
+  <div class="catch-header">
+    <div class="catch-title">🪣 MYNTFÅNGAREN</div>
+    <button class="close-btn" onclick="closeCatch()">✕</button>
+  </div>
+  <div class="catch-scroll">
+    <div class="catch-hud">
+      <div class="catch-hud-box"><div class="catch-hud-v" id="catchScore">0</div><div class="catch-hud-l">Mynt fångat</div></div>
+      <div class="catch-hud-box"><div class="catch-hud-v" id="catchBest">0</div><div class="catch-hud-l">Rekord</div></div>
+      <div class="catch-hud-box"><div class="catch-hud-v" id="catchPlays">0</div><div class="catch-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="catch-timer-wrap"><div class="catch-timer-bar" id="catchTimerBar"></div></div>
+    <div class="catch-arena-wrap"><canvas id="catchCanvas" width="280" height="320"></canvas></div>
+    <div class="catch-status" id="catchStatus">Tryck START och fånga mynt!</div>
+    <div class="catch-over" id="catchOver">
+      <div class="catch-over-lbl">RUNDAN KLAR!</div>
+      <div class="catch-over-score" id="catchOverScore">0</div>
+      <div class="catch-over-lbl">mynt fångat</div>
+      <div class="catch-over-rw" id="catchOverRw"></div>
+    </div>
+    <div class="catch-controls">
+      <button class="catch-ctrl-btn" ontouchstart="catchMove(-1)" onclick="catchMove(-1)">◀</button>
+      <button class="catch-ctrl-btn" ontouchstart="catchMove(1)" onclick="catchMove(1)">▶</button>
+    </div>
+    <button class="catch-start-btn" id="catchStartBtn" onclick="catchStart()">🪣 STARTA!</button>
+    <div class="catch-info">AGI = snabbare korg · STR = bredare korg · LCK = sällsynta mynt · INT = bonuspoäng</div>
+  </div>
+</div>
 
 <!-- WHACK-A-MOLE -->
 <div class="whack-panel" id="whackPanel">
@@ -52057,6 +52126,184 @@ function _renderWhack(d){
     btn.disabled=playsLeft<=0;
     btn.textContent=playsLeft>0?'🔨 STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';
   }
+}
+
+
+// COIN CATCHER
+const CATCH_KEY = 'k0509_catch';
+const CATCH_MAX_PLAYS = 10;
+const CATCH_DURATION = 30000;
+const CATCH_W = 280;
+const CATCH_H = 320;
+
+var _catchState = null;
+var _catchRaf = null;
+var _catchEndTimeout = null;
+var _catchTimerInt = null;
+
+function _catchData(){try{return JSON.parse(localStorage.getItem(CATCH_KEY)||'null');}catch(e){return null;}}
+function _catchSave(d){localStorage.setItem(CATCH_KEY,JSON.stringify(d));}
+function _catchGetData(){
+  var d=_catchData();
+  if(!d) d={best:0,playsToday:0,lastDay:'',totalCaught:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function catchMove(dir){
+  if(!_catchState||!_catchState.running) return;
+  var s=_catchState;
+  s.basket.vx=dir*s.speed;
+}
+
+function catchStart(){
+  var d=_catchGetData();
+  if(d.playsToday>=CATCH_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  var btn=$('catchStartBtn');if(btn) btn.disabled=true;
+  var over=$('catchOver');if(over) over.classList.remove('show');
+  // Basket width: 50 + STR*0.5, max 90
+  var bw=Math.min(90, 50+(G.str||0)*0.5);
+  // Basket speed: 4 + AGI*0.08, max 10
+  var speed=Math.min(10, 4+(G.agi||0)*0.08);
+  _catchState={
+    running:true,
+    basket:{x:(CATCH_W-bw)/2, w:bw, vx:0},
+    coins:[],score:0,speed:speed,
+    spawnTimer:0,spawnInterval:800,
+    frameCount:0,
+  };
+  clearTimeout(_catchEndTimeout);clearInterval(_catchTimerInt);
+  var endTime=Date.now()+CATCH_DURATION;
+  _catchEndTimeout=setTimeout(_catchEnd, CATCH_DURATION);
+  _catchTimerInt=setInterval(function(){
+    var left=Math.max(0,endTime-Date.now());
+    var bar=$('catchTimerBar');if(bar) bar.style.width=(left/CATCH_DURATION*100).toFixed(1)+'%';
+    if(left===0) clearInterval(_catchTimerInt);
+  },150);
+  if(_catchRaf) cancelAnimationFrame(_catchRaf);
+  _catchLoop();
+}
+
+function _catchLoop(){
+  var s=_catchState;
+  if(!s||!s.running){_catchDraw();return;}
+  s.frameCount++;
+  // Move basket
+  s.basket.x+=s.basket.vx;
+  s.basket.vx*=0.8; // friction
+  s.basket.x=Math.max(0,Math.min(CATCH_W-s.basket.w, s.basket.x));
+  // Spawn coins
+  s.spawnTimer++;
+  var spawnEvery=Math.floor((s.spawnInterval-(s.frameCount*0.1))/16.67); // approx frames
+  if(s.spawnTimer>Math.max(15,spawnEvery)){
+    s.spawnTimer=0;
+    // LCK: chance for rare/super coin
+    var r=Math.random();
+    var lckBonus=(G.lck||0)*0.004;
+    var type='normal';
+    if(r<0.05+lckBonus) type='super'; // ⭐ worth 5
+    else if(r<0.2+lckBonus*2) type='rare'; // 💎 worth 2
+    var speed=1.5+Math.random()*2+s.frameCount*0.003;
+    s.coins.push({x:Math.random()*(CATCH_W-20)+10, y:-20, vy:speed, type:type});
+  }
+  // Move coins
+  var newCoins=[];
+  var caught=0;
+  s.coins.forEach(function(c){
+    c.y+=c.vy;
+    // Check catch
+    var basketTop=CATCH_H-50;
+    if(c.y>=basketTop&&c.y<basketTop+20&&c.x>=s.basket.x&&c.x<=s.basket.x+s.basket.w){
+      var pts=c.type==='super'?5:c.type==='rare'?2:1;
+      s.score+=pts;caught++;
+      var sv=$('catchScore');if(sv) sv.textContent=s.score;
+    } else if(c.y<CATCH_H+30){
+      newCoins.push(c);
+    }
+  });
+  s.coins=newCoins;
+  if(caught) {var st=$('catchStatus');if(st) st.textContent=s.score+' mynt fångat!';}
+  _catchDraw();
+  _catchRaf=requestAnimationFrame(_catchLoop);
+}
+
+function _catchDraw(){
+  var canvas=$('catchCanvas');if(!canvas) return;
+  var ctx=canvas.getContext('2d');
+  ctx.fillStyle='#000610';
+  ctx.fillRect(0,0,CATCH_W,CATCH_H);
+  // Stars
+  ctx.fillStyle='rgba(255,255,255,.3)';
+  for(var i=0;i<20;i++){ctx.fillRect((i*67)%CATCH_W,(i*43)%CATCH_H,1,1);}
+  var s=_catchState;
+  if(!s) return;
+  // Coins
+  s.coins.forEach(function(c){
+    ctx.font='20px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(c.type==='super'?'⭐':c.type==='rare'?'💎':'🪙', c.x, c.y);
+  });
+  // Basket
+  var bx=s.basket.x;var bw=s.basket.w;var by=CATCH_H-50;
+  // Basket body
+  ctx.fillStyle='rgba(255,200,0,.15)';
+  ctx.strokeStyle='rgba(255,200,0,.8)';
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.moveTo(bx, by);ctx.lineTo(bx+bw, by);
+  ctx.lineTo(bx+bw-6, by+30);ctx.lineTo(bx+6, by+30);
+  ctx.closePath();ctx.fill();ctx.stroke();
+  // Handle
+  ctx.fillStyle='rgba(255,180,0,.4)';
+  ctx.fillRect(bx+bw*0.1, by, bw*0.8, 4);
+}
+
+function _catchEnd(){
+  if(!_catchState) return;
+  _catchState.running=false;
+  if(_catchRaf){cancelAnimationFrame(_catchRaf);_catchRaf=null;}
+  clearInterval(_catchTimerInt);clearTimeout(_catchEndTimeout);
+  var bar=$('catchTimerBar');if(bar) bar.style.width='0%';
+  var score=_catchState.score;
+  var d=_catchGetData();
+  var isNew=score>d.best;
+  if(isNew) d.best=score;
+  d.playsToday=(d.playsToday||0)+1;
+  d.totalCaught=(d.totalCaught||0)+score;
+  var intMult=1+(G.int||0)*0.015;
+  var coins=Math.floor(score*8*intMult);
+  var xp=score*5;
+  gainCoins(coins);gainXP(xp,'lck');
+  if(isNew) gainKC(1);
+  _catchSave(d);
+  misTrack('casino',score);checkAchievements();
+  var over=$('catchOver');if(over) over.classList.add('show');
+  var os=$('catchOverScore');if(os) os.textContent=score;
+  var orw=$('catchOverRw');if(orw) orw.textContent='+'+coins+'🪙 +'+xp+'XP'+(isNew?' 🏆 Rekord! +1KC':'');
+  var st=$('catchStatus');if(st) st.textContent=isNew?'🏆 NYTT REKORD!':'Bra fångst!';
+  var playsLeft=CATCH_MAX_PLAYS-d.playsToday;
+  var btn=$('catchStartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🪣 SPELA IGEN ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+  _renderCatch(d);
+}
+
+function openCatch(){$('catchPanel').classList.add('open');_renderCatch();}
+function closeCatch(){
+  if(_catchState&&_catchState.running){_catchEnd();}
+  $('catchPanel').classList.remove('open');
+}
+
+function _renderCatch(d){
+  if(!d) d=_catchGetData();
+  var bv=$('catchBest');if(bv) bv.textContent=d.best||0;
+  var pl=$('catchPlays');if(pl) pl.textContent=Math.max(0,CATCH_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('catchStartBtn');
+  if(btn&&!(_catchState&&_catchState.running)){
+    var playsLeft=CATCH_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=playsLeft<=0;
+    btn.textContent=playsLeft>0?'🪣 STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';
+  }
+  _catchDraw();
 }
 
 </script>
