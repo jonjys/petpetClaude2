@@ -1510,6 +1510,53 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WORD SCRAMBLE ══ */
+.wscr-panel{position:fixed;inset:0;background:#010205;z-index:1023;display:none;flex-direction:column;overflow:hidden}
+.wscr-panel.open{display:flex}
+.wscr-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#030818,#010205)}
+.wscr-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44aaff,#aa88ff,#ff88aa,#44aaff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:wscrShim 3s linear infinite}
+@keyframes wscrShim{0%{background-position:0%}100%{background-position:300%}}
+.wscr-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* HUD */
+.wscr-hud{display:flex;gap:8px;margin-bottom:10px}
+.wscr-hud-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(100,170,255,.12);border-radius:10px;padding:7px;text-align:center}
+.wscr-hud-v{font:900 16px var(--ff-head);color:#44aaff}
+.wscr-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Timer */
+.wscr-timer-bar{background:rgba(255,255,255,.06);border-radius:20px;height:8px;margin-bottom:10px;overflow:hidden}
+.wscr-timer-fill{height:100%;background:linear-gradient(90deg,#44aaff,#aa66ff);border-radius:20px;transition:width .3s linear}
+.wscr-timer-fill.warn{background:linear-gradient(90deg,#ff8800,#ff3300)}
+/* Animal display */
+.wscr-animal{text-align:center;margin-bottom:14px}
+.wscr-animal-emoji{font-size:56px;display:block;margin-bottom:4px}
+.wscr-animal-hint{font:600 9px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Answer area */
+.wscr-answer-area{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:12px;min-height:54px;background:rgba(255,255,255,.02);border:1.5px dashed rgba(100,170,255,.2);border-radius:14px;padding:10px 8px;align-items:center}
+.wscr-letter{width:44px;height:44px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font:900 18px var(--ff-head);color:#fff;cursor:pointer;transition:all .15s;user-select:none}
+.wscr-letter:active{transform:scale(.9)}
+.wscr-letter.answer{background:rgba(100,170,255,.15);border-color:rgba(100,170,255,.4);color:#88ccff}
+.wscr-letter.correct{background:rgba(68,255,136,.15);border-color:rgba(68,255,136,.4);color:#44ff88}
+.wscr-letter.wrong{background:rgba(255,50,50,.15);border-color:rgba(255,50,50,.3);color:#ff4444;animation:wscrShake .3s ease}
+@keyframes wscrShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+/* Scramble pool */
+.wscr-pool-lbl{font:700 7px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;text-align:center;margin-bottom:6px}
+.wscr-pool{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:14px;min-height:54px;padding:8px}
+/* Buttons */
+.wscr-btns{display:flex;gap:8px;margin-bottom:10px}
+.wscr-clear-btn{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px;font:800 10px var(--ff-head);color:rgba(255,255,255,.5);cursor:pointer}
+.wscr-skip-btn{flex:1;background:rgba(255,100,100,.08);border:1px solid rgba(255,100,100,.15);border-radius:12px;padding:10px;font:800 10px var(--ff-head);color:rgba(255,100,100,.6);cursor:pointer}
+.wscr-start-btn{width:100%;background:linear-gradient(135deg,#001133,#003399);border:none;border-radius:14px;padding:13px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px;box-shadow:0 0 16px rgba(50,100,255,.2)}
+.wscr-start-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+/* Message */
+.wscr-msg{text-align:center;font:700 12px var(--ff-head);color:#ffcc00;min-height:26px;margin-bottom:6px}
+/* Stats */
+.wscr-stats{display:flex;gap:8px;margin-bottom:10px}
+.wscr-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(100,150,255,.1);border-radius:10px;padding:7px;text-align:center}
+.wscr-stat-v{font:900 14px var(--ff-head);color:#6699ff}
+.wscr-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.wscr-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ SLOT MACHINE ══ */
 .slot-panel{position:fixed;inset:0;background:#020100;z-index:1022;display:none;flex-direction:column;overflow:hidden}
 .slot-panel.open{display:flex}
@@ -10782,6 +10829,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
+          <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10825,6 +10873,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
+          <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10851,6 +10900,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
+          <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -10915,6 +10965,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openSlot()"><div class="ddr-i">🎰</div>Spelautomat</div>
+          <div class="ddr" onclick="cM();openWscr()"><div class="ddr-i">🔤</div>Ordpussel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11485,6 +11536,42 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- WORD SCRAMBLE -->
+<div class="wscr-panel" id="wscrPanel">
+  <div class="wscr-header">
+    <div class="wscr-title">🔤 ORDPUSSEL</div>
+    <button class="close-btn" onclick="closeWscr()">✕</button>
+  </div>
+  <div class="wscr-scroll">
+    <div class="wscr-hud">
+      <div class="wscr-hud-box"><div class="wscr-hud-v" id="wscrWord">0/5</div><div class="wscr-hud-l">Ord</div></div>
+      <div class="wscr-hud-box"><div class="wscr-hud-v" id="wscrTime">—</div><div class="wscr-hud-l">Sekunder</div></div>
+      <div class="wscr-hud-box"><div class="wscr-hud-v" id="wscrScore">0</div><div class="wscr-hud-l">Poäng</div></div>
+    </div>
+    <div class="wscr-timer-bar"><div class="wscr-timer-fill" id="wscrTimerFill" style="width:100%"></div></div>
+    <div class="wscr-msg" id="wscrMsg">Stava djurnamnet med bokstäverna!</div>
+    <div class="wscr-animal">
+      <span class="wscr-animal-emoji" id="wscrEmoji">🐾</span>
+      <div class="wscr-animal-hint" id="wscrHint">—</div>
+    </div>
+    <div class="wscr-answer-area" id="wscrAnswer"></div>
+    <div class="wscr-pool-lbl">BOKSTÄVER — tryck för att lägga till</div>
+    <div class="wscr-pool" id="wscrPool"></div>
+    <div class="wscr-btns">
+      <button class="wscr-clear-btn" onclick="wscrClear()">🔄 Rensa</button>
+      <button class="wscr-skip-btn" onclick="wscrSkip()">⏭️ Hoppa</button>
+    </div>
+    <button class="wscr-start-btn" id="wscrStartBtn" onclick="wscrStart()">🔤 STARTA ORDPUSSEL!</button>
+    <div class="wscr-stats">
+      <div class="wscr-stat"><div class="wscr-stat-v" id="wscrGames">0</div><div class="wscr-stat-l">Spel</div></div>
+      <div class="wscr-stat"><div class="wscr-stat-v" id="wscrCorrect">0</div><div class="wscr-stat-l">Rätta ord</div></div>
+      <div class="wscr-stat"><div class="wscr-stat-v" id="wscrBest">0</div><div class="wscr-stat-l">Bästa poäng</div></div>
+    </div>
+    <div class="wscr-info">INT ger mer tid! Snabbt svar = bonus! 5/5 rätt = 1000🪙 +1KC!</div>
+  </div>
+</div>
 
 <!-- SLOT MACHINE -->
 <div class="slot-panel" id="slotPanel">
@@ -49182,6 +49269,200 @@ function _renderSlot(d){
   var biv=$('slotBiggest');if(biv) biv.textContent=d.biggest||0;
   var ev=$('slotEarned');if(ev) ev.textContent=d.net||0;
   var fb=$('slotFreeBtn');if(fb){fb.disabled=d.freeUsed||_slotSpinning;fb.textContent=d.freeUsed?'✓ Gratis snurr använt idag':'🎁 GRATIS SNURR (1/dag)';}
+}
+
+
+// WORD SCRAMBLE
+const WSCR_KEY = 'k0509_wscr';
+const WSCR_WORDS = [
+  {word:'KATT',    emoji:'🐱', hint:'Mjauandes husdjur'},
+  {word:'HUND',    emoji:'🐶', hint:'Mannens bäste vän'},
+  {word:'FISK',    emoji:'🐟', hint:'Simmar i havet'},
+  {word:'BJÖRN',   emoji:'🐻', hint:'Stor brun skogsbo'},
+  {word:'ÖRNEN',   emoji:'🦅', hint:'Majestätisk fågel'},
+  {word:'KANIN',   emoji:'🐰', hint:'Mjuka långa öron'},
+  {word:'TIGER',   emoji:'🐯', hint:'Randig rovkatt'},
+  {word:'LEJON',   emoji:'🦁', hint:'Savannas konung'},
+  {word:'HÄST',    emoji:'🐴', hint:'Riddjur med man'},
+  {word:'RÄVEN',   emoji:'🦊', hint:'Listig röd djur'},
+  {word:'UGGLA',   emoji:'🦉', hint:'Nattens jägare'},
+  {word:'VARGEN',  emoji:'🐺', hint:'Uler i natten'},
+  {word:'KOBRAN',  emoji:'🐍', hint:'Giftig orm'},
+  {word:'ZEBRAN',  emoji:'🦓', hint:'Randig häst'},
+  {word:'DRAKEN',  emoji:'🐲', hint:'Fantastisk eldpustare'},
+  {word:'PANDAN',  emoji:'🐼', hint:'Svart-vit bambuälskare'},
+  {word:'GORILLA', emoji:'🦍', hint:'Stor primas'},
+  {word:'FLAMINGO',emoji:'🦩', hint:'Rosa styvbent fågel'},
+  {word:'KROKODIL',emoji:'🐊', hint:'Pansrad flodbebo'},
+  {word:'PINGVIN', emoji:'🐧', hint:'Fågel som simmar'},
+];
+const WSCR_DAILY = 5;
+const WSCR_BASE_TIME = 30;
+var _wscrRunning=false;var _wscrWords=[];var _wscrWordIdx=0;
+var _wscrAnswer=[];var _wscrPool=[];var _wscrTimer=0;var _wscrTimerInt=null;
+var _wscrScore=0;var _wscrCorrectCount=0;var _wscrMaxTime=30;
+
+function _wscrData(){try{return JSON.parse(localStorage.getItem(WSCR_KEY)||'null');}catch(e){return null;}}
+function _wscrSave(d){localStorage.setItem(WSCR_KEY,JSON.stringify(d));}
+function _wscrGetData(){
+  var d=_wscrData();
+  if(!d) d={games:0,correct:0,best:0,today:getTodayKey(),todayDone:false};
+  if(d.today!==getTodayKey()){d.today=getTodayKey();d.todayDone=false;}
+  return d;
+}
+
+function _wscrPickWords(){
+  var today=getTodayKey();
+  var seed=0;for(var i=0;i<today.length;i++) seed=(seed*31+today.charCodeAt(i))>>>0;
+  var pool=WSCR_WORDS.slice();
+  for(var j=pool.length-1;j>0;j--){seed=(seed*1664525+1013904223)>>>0;var k=seed%(j+1);var tmp=pool[j];pool[j]=pool[k];pool[k]=tmp;}
+  return pool.slice(0,WSCR_DAILY);
+}
+
+function _wscrShuffle(arr){
+  var a=arr.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+  return a;
+}
+
+function wscrStart(){
+  var d=_wscrGetData();
+  if(d.todayDone){showFloatBubble('Dagens ordpussel klart!','debuff');return;}
+  _wscrWords=_wscrPickWords();
+  _wscrWordIdx=0;_wscrScore=0;_wscrCorrectCount=0;_wscrRunning=true;
+  var sb=$('wscrStartBtn');if(sb) sb.style.display='none';
+  _wscrLoadWord();
+}
+
+function _wscrLoadWord(){
+  if(_wscrWordIdx>=_wscrWords.length){_wscrFinish();return;}
+  if(_wscrTimerInt) clearInterval(_wscrTimerInt);
+  var entry=_wscrWords[_wscrWordIdx];
+  var intBonus=Math.min((G.int||0)*0.5,30);
+  _wscrMaxTime=Math.floor(WSCR_BASE_TIME+intBonus);
+  _wscrTimer=_wscrMaxTime;
+  _wscrAnswer=[];
+  _wscrPool=_wscrShuffle(entry.word.split(''));
+  var we=$('wscrEmoji');if(we) we.textContent=entry.emoji;
+  var wh=$('wscrHint');if(wh) wh.textContent=entry.hint;
+  var ww=$('wscrWord');if(ww) ww.textContent=(_wscrWordIdx+1)+'/'+WSCR_DAILY;
+  _wscrRenderTiles();
+  _wscrUpdateMsg('');
+  _wscrTimerInt=setInterval(function(){
+    _wscrTimer--;
+    _wscrUpdateTimerBar();
+    if(_wscrTimer<=0){clearInterval(_wscrTimerInt);_wscrTimeout();}
+  },1000);
+}
+
+function _wscrUpdateTimerBar(){
+  var pct=Math.max(0,_wscrTimer/_wscrMaxTime*100);
+  var tf=$('wscrTimerFill');
+  if(tf){tf.style.width=pct+'%';tf.className='wscr-timer-fill'+(pct<25?' warn':'');}
+  var tv=$('wscrTime');if(tv) tv.textContent=_wscrTimer;
+}
+
+function _wscrRenderTiles(){
+  var ans=$('wscrAnswer');var pool=$('wscrPool');
+  if(ans) ans.innerHTML=_wscrAnswer.map(function(l,i){return '<div class="wscr-letter answer" onclick="wscrRemoveLetter('+i+')">'+l+'</div>';}).join('');
+  if(pool) pool.innerHTML=_wscrPool.map(function(l,i){return '<div class="wscr-letter" onclick="wscrAddLetter('+i+')">'+l+'</div>';}).join('');
+}
+
+function wscrAddLetter(i){
+  if(!_wscrRunning) return;
+  _wscrAnswer.push(_wscrPool[i]);
+  _wscrPool.splice(i,1);
+  _wscrRenderTiles();
+  // Auto-check when all letters placed
+  var entry=_wscrWords[_wscrWordIdx];
+  if(_wscrAnswer.length===entry.word.length) _wscrCheck();
+}
+
+function wscrRemoveLetter(i){
+  if(!_wscrRunning) return;
+  _wscrPool.push(_wscrAnswer[i]);
+  _wscrAnswer.splice(i,1);
+  _wscrRenderTiles();
+}
+
+function wscrClear(){
+  if(!_wscrRunning) return;
+  _wscrPool=_wscrPool.concat(_wscrAnswer);
+  _wscrAnswer=[];
+  _wscrRenderTiles();
+}
+
+function _wscrCheck(){
+  var entry=_wscrWords[_wscrWordIdx];
+  var guess=_wscrAnswer.join('');
+  if(guess===entry.word){
+    clearInterval(_wscrTimerInt);
+    var bonus=_wscrTimer>10?2:1;
+    var coins=Math.floor(150*bonus);
+    gainCoins(coins);gainXP(20,'int');
+    _wscrScore+=coins;_wscrCorrectCount++;
+    _wscrUpdateMsg('✅ Rätt! +'+coins+'🪙'+(bonus>1?' SNABBBONUS!':''));
+    var sc=$('wscrScore');if(sc) sc.textContent=_wscrScore;
+    setTimeout(function(){_wscrWordIdx++;_wscrLoadWord();},1200);
+  } else {
+    // Shake effect: reset answer after brief flash
+    var ans=$('wscrAnswer');
+    if(ans) ans.querySelectorAll('.wscr-letter').forEach(function(el){el.classList.add('wrong');});
+    setTimeout(function(){wscrClear();_wscrRenderTiles();},500);
+  }
+}
+
+function _wscrTimeout(){
+  _wscrUpdateMsg('⏰ Tid slut! Nästa ord...');
+  setTimeout(function(){_wscrWordIdx++;_wscrLoadWord();},1200);
+}
+
+function wscrSkip(){
+  if(!_wscrRunning) return;
+  clearInterval(_wscrTimerInt);
+  _wscrUpdateMsg('⏭️ Hoppade...');
+  setTimeout(function(){_wscrWordIdx++;_wscrLoadWord();},800);
+}
+
+function _wscrFinish(){
+  _wscrRunning=false;
+  if(_wscrTimerInt) clearInterval(_wscrTimerInt);
+  var d=_wscrGetData();
+  d.games=(d.games||0)+1;
+  d.correct=(d.correct||0)+_wscrCorrectCount;
+  if(_wscrScore>d.best) d.best=_wscrScore;
+  if(_wscrCorrectCount>=WSCR_DAILY){
+    gainCoins(1000);gainKC(1);d.todayDone=true;
+    showFloatBubble('🔤 5/5 PERFEKT! +1000🪙 +1KC!','buff');
+    _wscrUpdateMsg('🏆 PERFEKT! '+_wscrCorrectCount+'/'+WSCR_DAILY+' rätt! +1000🪙 +1KC');
+  } else {
+    _wscrUpdateMsg('Klart! '+_wscrCorrectCount+'/'+WSCR_DAILY+' rätt! Poäng: '+_wscrScore);
+    d.todayDone=true;
+  }
+  _wscrSave(d);
+  checkAchievements();
+  var sb=$('wscrStartBtn');if(sb){sb.style.display='block';sb.disabled=true;sb.textContent='✓ Dagens ordpussel klart!';}
+  _renderWscr(d);
+}
+
+function _wscrUpdateMsg(txt){
+  var msg=$('wscrMsg');if(msg) msg.textContent=txt||'Stava djurnamnet med bokstäverna!';
+}
+
+function openWscr(){$('wscrPanel').classList.add('open');_renderWscr();}
+function closeWscr(){
+  $('wscrPanel').classList.remove('open');
+  if(_wscrTimerInt) clearInterval(_wscrTimerInt);
+  _wscrRunning=false;
+}
+
+function _renderWscr(d){
+  if(!d) d=_wscrGetData();
+  var gv=$('wscrGames');if(gv) gv.textContent=d.games||0;
+  var cv=$('wscrCorrect');if(cv) cv.textContent=d.correct||0;
+  var bv=$('wscrBest');if(bv) bv.textContent=d.best||0;
+  var sb=$('wscrStartBtn');
+  if(sb&&!_wscrRunning){sb.disabled=d.todayDone;sb.textContent=d.todayDone?'✓ Dagens ordpussel klart!':'🔤 STARTA ORDPUSSEL!';}
 }
 
 </script>
