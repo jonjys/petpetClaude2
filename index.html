@@ -1500,6 +1500,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ FORTUNE WHEEL ══ */
+.fwhl-panel{position:fixed;inset:0;background:#020108;z-index:1013;display:none;flex-direction:column;overflow:hidden}
+.fwhl-panel.open{display:flex}
+.fwhl-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0520,#020108)}
+.fwhl-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff6600,#ff3377,#cc44ff,#4488ff,#ffcc00);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fwhlShim 3s linear infinite}
+@keyframes fwhlShim{0%{background-position:0%}100%{background-position:400%}}
+.fwhl-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Wheel Container */
+.fwhl-wheel-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:16px;position:relative}
+.fwhl-pointer{font-size:28px;margin-bottom:-8px;z-index:2;position:relative;filter:drop-shadow(0 2px 6px rgba(255,200,0,.6))}
+.fwhl-wheel{width:280px;height:280px;border-radius:50%;position:relative;border:4px solid rgba(255,200,0,.4);box-shadow:0 0 30px rgba(255,150,0,.2),inset 0 0 20px rgba(0,0,0,.5);transition:transform 4s cubic-bezier(.17,.67,.12,1);overflow:hidden}
+.fwhl-wheel.spinning{transition:transform 4s cubic-bezier(.17,.67,.12,1)}
+.fwhl-wheel-inner{width:100%;height:100%;border-radius:50%;position:relative}
+.fwhl-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:radial-gradient(circle,#ffcc00,#ff8844);z-index:10;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 12px rgba(255,200,0,.6)}
+.fwhl-seg{position:absolute;top:0;left:0;width:100%;height:100%;transform-origin:center}
+.fwhl-seg-inner{position:absolute;top:0;left:50%;width:50%;height:50%;transform-origin:bottom left;display:flex;align-items:flex-start;justify-content:center;padding-top:16px;font:700 9px var(--ff-head);text-align:center;overflow:hidden}
+.fwhl-seg-text{transform:rotate(22.5deg);display:flex;flex-direction:column;align-items:center;gap:1px;max-width:60px}
+.fwhl-seg-emoji{font-size:18px;line-height:1}
+.fwhl-seg-label{font:700 7px var(--ff-head);color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.8);line-height:1.1;text-align:center}
+/* Stats */
+.fwhl-stats{display:flex;gap:8px;margin-bottom:12px}
+.fwhl-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,200,0,.1);border-radius:10px;padding:7px;text-align:center}
+.fwhl-stat-v{font:900 15px var(--ff-head);color:#ffcc00}
+.fwhl-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Result */
+.fwhl-result{background:rgba(255,200,0,.06);border:1.5px solid rgba(255,200,0,.2);border-radius:14px;padding:12px;text-align:center;margin-bottom:12px;min-height:50px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.fwhl-result-emoji{font-size:32px;margin-bottom:4px}
+.fwhl-result-text{font:700 11px var(--ff-head);color:#ffcc00}
+/* Buttons */
+.fwhl-spin-btn{width:100%;background:linear-gradient(135deg,#442200,#aa5500);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px;box-shadow:0 0 20px rgba(255,150,0,.25)}
+.fwhl-spin-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.fwhl-extra-btn{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,200,0,.15);border-radius:12px;padding:10px;font:800 11px var(--ff-head);color:rgba(255,200,100,.7);cursor:pointer;margin-bottom:12px}
+.fwhl-extra-btn:disabled{opacity:.3;cursor:default}
+.fwhl-history{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px 14px;margin-bottom:10px}
+.fwhl-hist-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.fwhl-hist-list{display:flex;flex-direction:column;gap:4px}
+.fwhl-hist-item{font:600 9px var(--ff-body);color:rgba(255,255,255,.5);display:flex;align-items:center;gap:6px}
+.fwhl-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET SHRINE ══ */
 .shri-panel{position:fixed;inset:0;background:#020206;z-index:1012;display:none;flex-direction:column;overflow:hidden}
 .shri-panel.open{display:flex}
@@ -10325,6 +10365,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
+          <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10358,6 +10399,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
+          <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10374,6 +10416,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
+          <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -10428,6 +10471,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
+          <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -10988,6 +11032,40 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- FORTUNE WHEEL -->
+<div class="fwhl-panel" id="fwhlPanel">
+  <div class="fwhl-header">
+    <div class="fwhl-title">🎡 LYCKOHJULET</div>
+    <button class="close-btn" onclick="closeFwhl()">✕</button>
+  </div>
+  <div class="fwhl-scroll">
+    <div class="fwhl-wheel-wrap">
+      <div class="fwhl-pointer">▼</div>
+      <div class="fwhl-wheel" id="fwhlWheel">
+        <div class="fwhl-wheel-inner" id="fwhlWheelInner"></div>
+        <div class="fwhl-center">⭐</div>
+      </div>
+    </div>
+    <div class="fwhl-stats">
+      <div class="fwhl-stat"><div class="fwhl-stat-v" id="fwhlSpins">0</div><div class="fwhl-stat-l">Totalt snurrat</div></div>
+      <div class="fwhl-stat"><div class="fwhl-stat-v" id="fwhlBest">0</div><div class="fwhl-stat-l">Bästa vinst</div></div>
+      <div class="fwhl-stat"><div class="fwhl-stat-v" id="fwhlEarned">0</div><div class="fwhl-stat-l">Tjänat</div></div>
+    </div>
+    <div class="fwhl-result" id="fwhlResult">
+      <div class="fwhl-result-emoji" id="fwhlResEmoji">🎡</div>
+      <div class="fwhl-result-text" id="fwhlResText">Snurra hjulet för att vinna!</div>
+    </div>
+    <button class="fwhl-spin-btn" id="fwhlFreeBtn" onclick="fwhlSpin(true)">🎡 GRATIS SNURR!</button>
+    <button class="fwhl-extra-btn" id="fwhlPaidBtn" onclick="fwhlSpin(false)">💰 Extra snurr (500🪙)</button>
+    <div class="fwhl-history" id="fwhlHistory" style="display:none">
+      <div class="fwhl-hist-lbl">SENASTE VINSTER</div>
+      <div class="fwhl-hist-list" id="fwhlHistList"></div>
+    </div>
+    <div class="fwhl-info">LCK ökar chansen för bättre priser! Gratissnurr återställs varje dag.</div>
+  </div>
+</div>
 
 <!-- PET SHRINE -->
 <div class="shri-panel" id="shriPanel">
@@ -46914,6 +46992,152 @@ function _renderShri(){
         '<div class="shri-spirit-effect">'+(isMax?'✨ FULLT AWAKENED!':'Nästa offer: '+nextCost+'🪙')+'</div>'+
       '</div>';
     }).join('');
+  }
+}
+
+
+// FORTUNE WHEEL
+const FWHL_KEY = 'k0509_fwhl';
+const FWHL_SEGS = [
+  {emoji:'🪙', label:'200\nMynt',    color:'#cc6600', reward:{coins:200}},
+  {emoji:'⭐', label:'+5\nAGI',      color:'#3344aa', reward:{stat:'agi',val:5}},
+  {emoji:'💎', label:'1000\nMynt',   color:'#006633', reward:{coins:1000}},
+  {emoji:'🔮', label:'+5\nINT',      color:'#440066', reward:{stat:'int',val:5}},
+  {emoji:'🪙', label:'500\nMynt',    color:'#994400', reward:{coins:500}},
+  {emoji:'💪', label:'+5\nSTR',      color:'#660000', reward:{stat:'str',val:5}},
+  {emoji:'👑', label:'1 KC\n+300🪙', color:'#775500', reward:{coins:300,kc:1}},
+  {emoji:'🍀', label:'+8\nLCK',      color:'#005500', reward:{stat:'lck',val:8}},
+  {emoji:'🪙', label:'100\nMynt',    color:'#553300', reward:{coins:100}},
+  {emoji:'🛡️', label:'+5\nEND',      color:'#445500', reward:{stat:'end',val:5}},
+  {emoji:'🎉', label:'2000\nMynt',   color:'#006655', reward:{coins:2000}},
+  {emoji:'🌟', label:'2KC\n+500🪙',  color:'#664400', reward:{coins:500,kc:2}},
+];
+var _fwhlSpinning = false;
+var _fwhlCurDeg = 0;
+
+function _fwhlData(){try{return JSON.parse(localStorage.getItem(FWHL_KEY)||'null');}catch(e){return null;}}
+function _fwhlSave(d){localStorage.setItem(FWHL_KEY,JSON.stringify(d));}
+function _fwhlGetData(){
+  var d=_fwhlData();
+  if(!d) d={spins:0,best:0,earned:0,lastFree:0,history:[]};
+  return d;
+}
+
+function _fwhlBuildWheel(){
+  var inner=$('fwhlWheelInner');
+  if(!inner) return;
+  var n=FWHL_SEGS.length;
+  var deg=360/n;
+  var html='';
+  for(var i=0;i<n;i++){
+    var seg=FWHL_SEGS[i];
+    var rot=i*deg;
+    var lines=seg.label.split('\n');
+    html+='<div class="fwhl-seg" style="transform:rotate('+rot+'deg)">'+
+      '<svg style="position:absolute;top:0;left:0;width:100%;height:100%" viewBox="0 0 280 280">'+
+        '<path d="M140,140 L'+_fwhlPoint(140,140,140,rot-deg/2)+' A140,140 0 0,1 '+_fwhlPoint(140,140,140,rot+deg/2)+' Z" fill="'+seg.color+'" stroke="rgba(0,0,0,.3)" stroke-width="1.5"/>'+
+      '</svg>'+
+      '<div class="fwhl-seg-inner" style="transform:rotate('+rot+'deg)">'+
+        '<div class="fwhl-seg-text" style="transform:rotate('+(deg/2)+'deg)">'+
+          '<span class="fwhl-seg-emoji">'+seg.emoji+'</span>'+
+          lines.map(function(l){return '<span class="fwhl-seg-label">'+l+'</span>';}).join('')+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }
+  inner.innerHTML=html;
+}
+
+function _fwhlPoint(cx,cy,r,angleDeg){
+  var rad=(angleDeg-90)*Math.PI/180;
+  return (cx+r*Math.cos(rad)).toFixed(2)+','+(cy+r*Math.sin(rad)).toFixed(2);
+}
+
+function fwhlSpin(free){
+  if(_fwhlSpinning) return;
+  var d=_fwhlGetData();
+  var now=Date.now();
+  if(free){
+    var today=getTodayKey();
+    if(d.lastFree===today){showFloatBubble('Gratissnurr redan använt idag!','debuff');return;}
+  } else {
+    if((G.coins||0)<500){showFloatBubble('Behöver 500🪙!','debuff');return;}
+    G.coins-=500;save();
+  }
+  _fwhlSpinning=true;
+  var freeBtn=$('fwhlFreeBtn');var paidBtn=$('fwhlPaidBtn');
+  if(freeBtn) freeBtn.disabled=true;
+  if(paidBtn) paidBtn.disabled=true;
+  // LCK bias: weighted random toward better segments
+  var lckBias=Math.min((G.lck||0)*0.003,0.2);
+  var weights=FWHL_SEGS.map(function(s,i){
+    var baseW=1;
+    if(s.reward.kc) baseW+=lckBias*10;
+    if((s.reward.coins||0)>=2000) baseW+=lckBias*8;
+    if((s.reward.coins||0)>=1000) baseW+=lckBias*5;
+    if(s.reward.stat) baseW+=lckBias*3;
+    return baseW;
+  });
+  var total=weights.reduce(function(a,b){return a+b;},0);
+  var r=Math.random()*total;
+  var segIdx=0;
+  for(var i=0;i<weights.length;i++){r-=weights[i];if(r<=0){segIdx=i;break;}}
+  var n=FWHL_SEGS.length;
+  var segDeg=360/n;
+  // Target angle: pointer at top (0deg visual), segment center at 0
+  // Segment i occupies [i*segDeg, (i+1)*segDeg] from top-clockwise
+  // To land segment i under pointer: wheel rotation = -(i*segDeg + segDeg/2) + jitter
+  var targetDeg=-(segIdx*segDeg+segDeg/2)+(Math.random()-0.5)*segDeg*0.5;
+  var spins=5+Math.floor(Math.random()*3);
+  var newDeg=_fwhlCurDeg+(360*spins)+targetDeg-(_fwhlCurDeg%360);
+  var wheel=$('fwhlWheel');
+  if(wheel){
+    wheel.style.transition='transform 4s cubic-bezier(.17,.67,.12,1)';
+    wheel.style.transform='rotate('+newDeg+'deg)';
+  }
+  _fwhlCurDeg=newDeg;
+  setTimeout(function(){
+    _fwhlSpinning=false;
+    var seg=FWHL_SEGS[segIdx];
+    var gained=0;
+    if(seg.reward.coins){gainCoins(seg.reward.coins);gained=seg.reward.coins;}
+    if(seg.reward.kc) gainKC(seg.reward.kc);
+    if(seg.reward.stat){G[seg.reward.stat]=(G[seg.reward.stat]||0)+seg.reward.val;save();}
+    var label=seg.emoji+' '+seg.label.replace('\n',' ');
+    if(free){
+      var today=getTodayKey();
+      d.lastFree=today;
+    }
+    d.spins=(d.spins||0)+1;
+    if(gained>d.best) d.best=gained;
+    d.earned=(d.earned||0)+gained;
+    d.history=([{emoji:seg.emoji,label:seg.label.replace('\n',' ')}].concat(d.history)).slice(0,5);
+    _fwhlSave(d);
+    var re=$('fwhlResEmoji');if(re) re.textContent=seg.emoji;
+    var rt=$('fwhlResText');if(rt) rt.textContent='Du vann: '+seg.label.replace('\n',' ')+'!';
+    showFloatBubble(seg.emoji+' '+seg.label.replace('\n',' ')+'!','buff');
+    checkAchievements();
+    _renderFwhl(d);
+  },4200);
+}
+
+function openFwhl(){$('fwhlPanel').classList.add('open');_fwhlBuildWheel();_renderFwhl();}
+function closeFwhl(){$('fwhlPanel').classList.remove('open');}
+
+function _renderFwhl(d){
+  if(!d) d=_fwhlGetData();
+  var sv=$('fwhlSpins');if(sv) sv.textContent=d.spins||0;
+  var bv=$('fwhlBest');if(bv) bv.textContent=d.best||0;
+  var ev=$('fwhlEarned');if(ev) ev.textContent=d.earned||0;
+  var today=getTodayKey();
+  var canFree=d.lastFree!==today;
+  var fb=$('fwhlFreeBtn');
+  if(fb){fb.disabled=_fwhlSpinning||!canFree;fb.textContent=canFree?'🎡 GRATIS SNURR!':'✓ Gratissnurr använt';}
+  var pb=$('fwhlPaidBtn');if(pb) pb.disabled=_fwhlSpinning||(G.coins||0)<500;
+  var hist=$('fwhlHistory');var hl=$('fwhlHistList');
+  if((d.history||[]).length>0){
+    if(hist) hist.style.display='block';
+    if(hl) hl.innerHTML=(d.history||[]).map(function(h){return '<div class="fwhl-hist-item">'+h.emoji+' '+h.label+'</div>';}).join('');
   }
 }
 
