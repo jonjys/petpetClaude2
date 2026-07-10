@@ -11583,7 +11583,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
-          <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Kistor</div>
+          <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11644,7 +11644,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
-          <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Kistor</div>
+          <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11688,7 +11688,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
-          <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Kistor</div>
+          <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11770,7 +11770,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
-          <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Kistor</div>
+          <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12361,10 +12361,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 <!-- LOOT CHESTS -->
-<div class="chest-panel" id="chestPanel">
+<div class="chest-panel" id="lootChestPanel">
   <div class="chest-header">
     <div class="chest-title">📦 SKATTKISTOR</div>
-    <button class="close-btn" onclick="closeChest()">✕</button>
+    <button class="close-btn" onclick="closeLootChest()">✕</button>
   </div>
   <div class="chest-scroll">
     <div class="chest-stats">
@@ -53370,7 +53370,7 @@ function _chestGetData(){
   return d;
 }
 
-function chestOpen(typeId, count){
+function lootChestOpen(typeId, count){
   var d=_chestGetData();
   var ct=CHEST_TYPES.filter(function(t){return t.id===typeId;})[0];
   if(!ct) return;
@@ -53391,13 +53391,13 @@ function chestOpen(typeId, count){
   var lcc=$('chestLastContent');if(lcc) lcc.textContent=rewardText;
   showFloatBubble(ct.icon+' '+ct.name+' öppnad!','buff');
   misTrack('casino',toOpen);checkAchievements();
-  _renderChest(d);
+  _lootRenderChest(d);
 }
 
-function openChest(){$('chestPanel').classList.add('open');_renderChest();}
-function closeChest(){$('chestPanel').classList.remove('open');}
+function openLootChest(){$('lootChestPanel').classList.add('open');_lootRenderChest();}
+function closeLootChest(){$('lootChestPanel').classList.remove('open');}
 
-function _renderChest(d){
+function _lootRenderChest(d){
   if(!d) d=_chestGetData();
   var totalAvail=CHEST_TYPES.reduce(function(a,ct){return a+(d.stored[ct.id]||0);},0);
   var ov=$('chestTotal');if(ov) ov.textContent=d.opened||0;
@@ -53422,8 +53422,8 @@ function _renderChest(d){
         '</div>'+
       '</div>'+
       '<div class="chest-card-loot">'+ct.lootDesc+'</div>'+
-      '<button class="chest-open-btn" onclick="chestOpen(\''+ct.id+'\',1)" '+(count<=0?'disabled':'')+'>'+ct.icon+' Öppna 1'+(count>1?' ('+count+' kvar)':'')+'</button>'+
-      (count>1?'<button class="chest-open-all-btn" onclick="chestOpen(\''+ct.id+'\','+count+')">Öppna alla ('+count+')</button>':'')+
+      '<button class="chest-open-btn" onclick="lootChestOpen(\''+ct.id+'\',1)" '+(count<=0?'disabled':'')+'>'+ct.icon+' Öppna 1'+(count>1?' ('+count+' kvar)':'')+'</button>'+
+      (count>1?'<button class="chest-open-all-btn" onclick="lootChestOpen(\''+ct.id+'\','+count+')">Öppna alla ('+count+')</button>':'')+
     '</div>';
   }).join('');
 }
