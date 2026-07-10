@@ -1528,6 +1528,30 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ENDLESS RUNNER ══ */
+.run-panel{position:fixed;inset:0;background:#000508;z-index:1041;display:none;flex-direction:column;overflow:hidden}
+.run-panel.open{display:flex}
+.run-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#000c18,#000508)}
+.run-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#00ddcc,#4488ff,#44ff88);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:runShim 1.8s linear infinite}
+@keyframes runShim{0%{background-position:0%}100%{background-position:300%}}
+.run-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+.run-hud{display:flex;gap:8px;margin-bottom:8px}
+.run-hud-box{flex:1;background:rgba(68,255,136,.04);border:1px solid rgba(68,255,136,.15);border-radius:10px;padding:6px;text-align:center}
+.run-hud-v{font:900 18px var(--ff-head);color:#44ff88}
+.run-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.run-arena-wrap{background:rgba(0,5,10,.95);border:2px solid rgba(68,255,136,.15);border-radius:16px;padding:0;margin-bottom:8px;overflow:hidden;cursor:pointer}
+#runCanvas{display:block;width:100%}
+.run-status{text-align:center;font:700 11px var(--ff-head);color:#44ff88;margin-bottom:8px;min-height:18px}
+.run-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.7);border:1.5px solid rgba(68,255,136,.3);border-radius:14px;margin-bottom:8px}
+.run-over.show{display:flex}
+.run-over-score{font:900 28px var(--ff-head);color:#44ff88}
+.run-over-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.run-over-rw{font:700 12px var(--ff-head);color:#ffcc00}
+.run-start-btn{width:100%;background:linear-gradient(135deg,#003322,#006644);border:none;border-radius:14px;padding:13px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.run-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.run-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ LOOT CHESTS ══ */
 .chest-panel{position:fixed;inset:0;background:#060410;z-index:1040;display:none;flex-direction:column;overflow:hidden}
 .chest-panel.open{display:flex}
@@ -11584,6 +11608,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
+          <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11645,6 +11670,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
+          <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11689,6 +11715,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
+          <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11771,6 +11798,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
+          <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12359,6 +12387,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- ENDLESS RUNNER -->
+<div class="run-panel" id="runPanel">
+  <div class="run-header">
+    <div class="run-title">🏃 ÄNDLÖSA ÄVENTYRET</div>
+    <button class="close-btn" onclick="closeRun()">✕</button>
+  </div>
+  <div class="run-scroll">
+    <div class="run-hud">
+      <div class="run-hud-box"><div class="run-hud-v" id="runScore">0</div><div class="run-hud-l">Poäng</div></div>
+      <div class="run-hud-box"><div class="run-hud-v" id="runBest">0</div><div class="run-hud-l">Rekord</div></div>
+      <div class="run-hud-box"><div class="run-hud-v" id="runPlays">0</div><div class="run-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="run-arena-wrap" onclick="runJump()" id="runArena">
+      <canvas id="runCanvas" width="320" height="180"></canvas>
+    </div>
+    <div class="run-status" id="runStatus">Tryck START och hoppa över hinder!</div>
+    <div class="run-over" id="runOver">
+      <div class="run-over-lbl">SPELET SLUT!</div>
+      <div class="run-over-score" id="runOverScore">0</div>
+      <div class="run-over-lbl">meter</div>
+      <div class="run-over-rw" id="runOverRw"></div>
+    </div>
+    <button class="run-start-btn" id="runStartBtn" onclick="runStart()">🏃 STARTA!</button>
+    <div class="run-info">Tryck var som helst för att hoppa! AGI = längre hopp · END = extra liv · LCK = mynt · 10 spel/dag</div>
+  </div>
+</div>
 
 <!-- LOOT CHESTS -->
 <div class="chest-panel" id="lootChestPanel">
@@ -53426,6 +53482,217 @@ function _lootRenderChest(d){
       (count>1?'<button class="chest-open-all-btn" onclick="lootChestOpen(\''+ct.id+'\','+count+')">Öppna alla ('+count+')</button>':'')+
     '</div>';
   }).join('');
+}
+
+
+// ENDLESS RUNNER
+const RUN_KEY = 'k0509_run';
+const RUN_W = 320;
+const RUN_H = 180;
+const RUN_GROUND = 140;
+const RUN_MAX_PLAYS = 10;
+const RUN_PET_X = 60;
+const RUN_PET_W = 28;
+const RUN_PET_H = 32;
+
+var _runState = null;
+var _runRaf = null;
+
+function _runData(){try{return JSON.parse(localStorage.getItem(RUN_KEY)||'null');}catch(e){return null;}}
+function _runSave(d){localStorage.setItem(RUN_KEY,JSON.stringify(d));}
+function _runGetData(){
+  var d=_runData();
+  if(!d) d={best:0,playsToday:0,lastDay:'',totalScore:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function runJump(){
+  var s=_runState;
+  if(!s) return;
+  if(!s.running) return;
+  if(s.onGround||s.lives>1&&!s.jumping2){
+    if(s.onGround){
+      s.vy=-11-(G.agi||0)*0.05;
+      s.onGround=false;s.jumping2=false;
+    } else if(!s.jumping2){
+      s.vy=-9;s.jumping2=true;
+    }
+  }
+}
+
+function runStart(){
+  var d=_runGetData();
+  if(d.playsToday>=RUN_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  var btn=$('runStartBtn');if(btn) btn.disabled=true;
+  var over=$('runOver');if(over) over.classList.remove('show');
+  var status=$('runStatus');if(status) status.textContent='Hoppa!';
+  // Lives: 1 base + 1 if END >= 30 (double jump)
+  var doubleJump=(G.end||0)>=30;
+  _runState={
+    running:true,
+    petY:RUN_GROUND-RUN_PET_H,
+    vy:0,
+    onGround:true,
+    jumping2:false,
+    obstacles:[],
+    coins:[],
+    score:0,
+    frameCount:0,
+    speed:3,
+    spawnTimer:0,
+    spawnInterval:80,
+    lives:doubleJump?2:1,
+    coinScore:0,
+    bgOffset:0,
+  };
+  if(_runRaf) cancelAnimationFrame(_runRaf);
+  _runLoop();
+}
+
+function _runLoop(){
+  var s=_runState;
+  if(!s||!s.running){_runDraw();return;}
+  s.frameCount++;
+  s.score++;
+  // Speed up every 200 frames
+  s.speed=3+Math.floor(s.frameCount/200)*0.4;
+  s.bgOffset=(s.bgOffset+s.speed)%(RUN_W*2);
+  // Gravity
+  s.vy+=0.5;
+  s.petY+=s.vy;
+  if(s.petY>=RUN_GROUND-RUN_PET_H){
+    s.petY=RUN_GROUND-RUN_PET_H;
+    s.vy=0;s.onGround=true;s.jumping2=false;
+  }
+  // Spawn obstacles
+  s.spawnTimer++;
+  var spawnEvery=Math.max(40, s.spawnInterval - Math.floor(s.frameCount/300)*5);
+  if(s.spawnTimer>spawnEvery){
+    s.spawnTimer=0;
+    var h=Math.random()<0.4?60:40;
+    s.obstacles.push({x:RUN_W+20, w:20, h:h, y:RUN_GROUND-h, type:h>50?'tall':'short'});
+    // LCK: spawn coin
+    if(Math.random()<0.08+(G.lck||0)*0.003){
+      s.coins.push({x:RUN_W+20+Math.random()*40, y:RUN_GROUND-60-Math.random()*40, hit:false});
+    }
+  }
+  // Move obstacles
+  var alive=true;
+  s.obstacles=s.obstacles.filter(function(ob){
+    ob.x-=s.speed;
+    if(ob.x+ob.w<0) return false;
+    // Collision with pet
+    var petL=RUN_PET_X;var petR=petL+RUN_PET_W;var petT=s.petY;var petB=petT+RUN_PET_H;
+    if(petR>ob.x+4&&petL<ob.x+ob.w-4&&petB>ob.y+4&&petT<RUN_GROUND){
+      alive=false;
+    }
+    return true;
+  });
+  // Move coins
+  s.coins.forEach(function(c){
+    c.x-=s.speed;
+    if(!c.hit){
+      var petL=RUN_PET_X;var petR=petL+RUN_PET_W;
+      if(c.x>petL&&c.x<petR&&s.petY<c.y+16&&s.petY+RUN_PET_H>c.y){
+        c.hit=true;s.coinScore++;
+        gainCoins(5);
+      }
+    }
+  });
+  s.coins=s.coins.filter(function(c){return c.x>-20&&!c.hit;});
+  var sv=$('runScore');if(sv) sv.textContent=Math.floor(s.score/10);
+  if(!alive){_runEnd();return;}
+  _runDraw();
+  _runRaf=requestAnimationFrame(_runLoop);
+}
+
+function _runDraw(){
+  var canvas=$('runCanvas');if(!canvas) return;
+  var ctx=canvas.getContext('2d');
+  var s=_runState;
+  // Sky BG
+  ctx.fillStyle='#000508';
+  ctx.fillRect(0,0,RUN_W,RUN_H);
+  // Stars
+  ctx.fillStyle='rgba(255,255,255,.5)';
+  for(var i=0;i<15;i++){
+    var sx=((i*89+s?(s.bgOffset/3):0)%RUN_W+RUN_W)%RUN_W;
+    var sy=(i*37)%100;
+    ctx.fillRect(sx,sy,1,1);
+  }
+  if(!s) return;
+  // Ground
+  ctx.fillStyle='rgba(0,180,100,.25)';
+  ctx.fillRect(0,RUN_GROUND,RUN_W,RUN_H-RUN_GROUND);
+  ctx.fillStyle='rgba(0,255,136,.4)';
+  ctx.fillRect(0,RUN_GROUND,RUN_W,2);
+  // Coins
+  s.coins.forEach(function(c){
+    ctx.font='14px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('🪙',c.x,c.y+8);
+  });
+  // Obstacles
+  s.obstacles.forEach(function(ob){
+    ctx.fillStyle='rgba(255,68,68,.8)';
+    ctx.fillRect(ob.x,ob.y,ob.w,ob.h);
+    ctx.fillStyle='rgba(255,100,100,.4)';
+    ctx.fillRect(ob.x,ob.y,ob.w,4);
+  });
+  // Pet character
+  var emoji=typeof evoGetEmoji==='function'?evoGetEmoji():'🐾';
+  ctx.font=RUN_PET_H+'px serif';ctx.textAlign='center';ctx.textBaseline='bottom';
+  ctx.fillText(emoji,RUN_PET_X+RUN_PET_W/2,s.petY+RUN_PET_H);
+  // Score
+  ctx.fillStyle='rgba(68,255,136,.6)';
+  ctx.font='800 12px sans-serif';ctx.textAlign='left';ctx.textBaseline='top';
+  ctx.fillText(Math.floor(s.score/10)+'m',8,8);
+}
+
+function _runEnd(){
+  var s=_runState;
+  if(!s) return;
+  s.running=false;
+  if(_runRaf){cancelAnimationFrame(_runRaf);_runRaf=null;}
+  var meters=Math.floor(s.score/10);
+  var d=_runGetData();
+  var isNew=meters>d.best;
+  if(isNew) d.best=meters;
+  d.playsToday=(d.playsToday||0)+1;d.totalScore=(d.totalScore||0)+meters;
+  var coins=meters*3+s.coinScore*5;
+  var xp=meters*2;
+  gainCoins(coins);gainXP(xp,'agi');
+  if(isNew&&meters>=50) gainKC(1);
+  _runSave(d);
+  misTrack('race',meters);checkAchievements();
+  var over=$('runOver');if(over) over.classList.add('show');
+  var os=$('runOverScore');if(os) os.textContent=meters;
+  var orw=$('runOverRw');if(orw) orw.textContent='+'+coins+'🪙 +'+xp+'XP'+(isNew&&meters>=50?' 🏆 Rekord! +1KC':'');
+  var st=$('runStatus');if(st) st.textContent=isNew?'🏆 NYTT REKORD!':'Bra körning!';
+  var playsLeft=RUN_MAX_PLAYS-d.playsToday;
+  var btn=$('runStartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🏃 STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+  _renderRun(d);
+}
+
+function openRun(){$('runPanel').classList.add('open');_renderRun();}
+function closeRun(){
+  if(_runState&&_runState.running){_runEnd();}
+  $('runPanel').classList.remove('open');
+}
+
+function _renderRun(d){
+  if(!d) d=_runGetData();
+  var bv=$('runBest');if(bv) bv.textContent=(d.best||0)+'m';
+  var pl=$('runPlays');if(pl) pl.textContent=Math.max(0,RUN_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('runStartBtn');
+  if(btn&&!(_runState&&_runState.running)){
+    var playsLeft=RUN_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=playsLeft<=0;
+    btn.textContent=playsLeft>0?'🏃 STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';
+  }
+  _runDraw();
 }
 
 </script>
