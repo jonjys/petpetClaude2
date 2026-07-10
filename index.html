@@ -1504,6 +1504,50 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DICE TOWER ══ */
+.dice-panel{position:fixed;inset:0;background:#030200;z-index:1017;display:none;flex-direction:column;overflow:hidden}
+.dice-panel.open{display:flex}
+.dice-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0c0800,#030200)}
+.dice-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ff4400,#ffcc00);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:diceShim 2s linear infinite}
+@keyframes diceShim{0%{background-position:0%}100%{background-position:300%}}
+.dice-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Stats */
+.dice-stats{display:flex;gap:8px;margin-bottom:12px}
+.dice-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,150,0,.1);border-radius:10px;padding:7px;text-align:center}
+.dice-stat-v{font:900 15px var(--ff-head);color:#ff8800}
+.dice-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Tray */
+.dice-tray{background:linear-gradient(180deg,rgba(80,50,0,.15),rgba(40,20,0,.1));border:2px solid rgba(255,150,0,.15);border-radius:20px;padding:16px 12px;margin-bottom:12px}
+.dice-tray-lbl{font:700 8px var(--ff-head);color:rgba(255,150,0,.4);letter-spacing:1px;text-align:center;margin-bottom:12px}
+.dice-row{display:flex;justify-content:center;gap:10px;margin-bottom:12px}
+.dice-die{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+.dice-face{width:52px;height:52px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:32px;transition:all .15s;user-select:none}
+.dice-face.held{background:rgba(255,150,0,.15);border-color:rgba(255,150,0,.5);box-shadow:0 0 10px rgba(255,150,0,.2)}
+.dice-face.rolling{animation:diceRoll .4s ease}
+@keyframes diceRoll{0%{transform:rotate(0)}25%{transform:rotate(-15deg)}75%{transform:rotate(15deg)}100%{transform:rotate(0)}}
+.dice-hold-lbl{font:700 7px var(--ff-head);color:rgba(255,255,255,.3)}
+.dice-hold-lbl.held{color:#ff8800}
+.dice-rolls-left{text-align:center;font:700 10px var(--ff-head);color:rgba(255,255,255,.4);margin-bottom:8px}
+.dice-rolls-pips{display:flex;gap:6px;justify-content:center;margin-bottom:12px}
+.dice-roll-pip{width:12px;height:12px;border-radius:50%;background:rgba(255,150,0,.8)}
+.dice-roll-pip.used{background:rgba(255,255,255,.1)}
+/* Combo display */
+.dice-combo{text-align:center;min-height:44px;margin-bottom:10px}
+.dice-combo-name{font:900 16px var(--ff-head);color:#ffcc00}
+.dice-combo-val{font:700 10px var(--ff-body);color:rgba(255,200,100,.6);margin-top:2px}
+/* Buttons */
+.dice-roll-btn{width:100%;background:linear-gradient(135deg,#442200,#884400);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px;box-shadow:0 0 16px rgba(255,100,0,.2)}
+.dice-roll-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.dice-score-btn{width:100%;background:linear-gradient(135deg,#003322,#006644);border:none;border-radius:14px;padding:12px;font:900 12px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 0 12px rgba(0,200,100,.15)}
+.dice-score-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+/* Combos list */
+.dice-combos-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.dice-combo-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,150,0,.08);border-radius:10px;padding:7px 8px;display:flex;justify-content:space-between;align-items:center}
+.dice-combo-card-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.6)}
+.dice-combo-card-val{font:700 8px var(--ff-head);color:#ffcc00}
+.dice-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ MEMORY MATCH ══ */
 .mem-panel{position:fixed;inset:0;background:#020104;z-index:1016;display:none;flex-direction:column;overflow:hidden}
 .mem-panel.open{display:flex}
@@ -10491,6 +10535,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
+          <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10528,6 +10573,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
+          <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10548,6 +10594,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
+          <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -10606,6 +10653,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
           <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Minnesspel</div>
+          <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11170,6 +11218,42 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DICE TOWER -->
+<div class="dice-panel" id="dicePanel">
+  <div class="dice-header">
+    <div class="dice-title">🎲 TÄRNINGSSPELET</div>
+    <button class="close-btn" onclick="closeDice()">✕</button>
+  </div>
+  <div class="dice-scroll">
+    <div class="dice-stats">
+      <div class="dice-stat"><div class="dice-stat-v" id="diceTurns">0</div><div class="dice-stat-l">Omgångar</div></div>
+      <div class="dice-stat"><div class="dice-stat-v" id="diceBest">-</div><div class="dice-stat-l">Bästa kombination</div></div>
+      <div class="dice-stat"><div class="dice-stat-v" id="diceEarned">0</div><div class="dice-stat-l">Tjänat</div></div>
+    </div>
+    <div class="dice-tray">
+      <div class="dice-tray-lbl">TÄRNINGSBRICKA</div>
+      <div class="dice-row" id="diceRow"></div>
+      <div class="dice-rolls-pips" id="diceRollPips"></div>
+      <div class="dice-rolls-left" id="diceRollsLeft">Tryck Roll för att börja!</div>
+    </div>
+    <div class="dice-combo" id="diceComboDisplay"><div class="dice-combo-name">—</div></div>
+    <button class="dice-roll-btn" id="diceRollBtn" onclick="diceRoll()">🎲 KASTA!</button>
+    <button class="dice-score-btn" id="diceScoreBtn" onclick="diceScore()" disabled>✅ Poängsätt denna kombination</button>
+    <div class="dice-combos-grid">
+      <div class="dice-combo-card"><span class="dice-combo-card-name">Par</span><span class="dice-combo-card-val">100🪙</span></div>
+      <div class="dice-combo-card"><span class="dice-combo-card-name">2 Par</span><span class="dice-combo-card-val">200🪙</span></div>
+      <div class="dice-combo-card"><span class="dice-combo-card-name">Tretal</span><span class="dice-combo-card-val">350🪙</span></div>
+      <div class="dice-combo-card"><span class="dice-combo-card-name">Kåk (FH)</span><span class="dice-combo-card-val">500🪙</span></div>
+      <div class="dice-combo-card"><span class="dice-combo-card-name">Liten Stege</span><span class="dice-combo-card-val">700🪙</span></div>
+      <div class="dice-combo-card"><span class="dice-combo-card-name">Fyrtal</span><span class="dice-combo-card-val">1000🪙</span></div>
+      <div class="dice-combo-card"><span class="dice-combo-card-name">Stor Stege</span><span class="dice-combo-card-val">1500🪙</span></div>
+      <div class="dice-combo-card"><span class="dice-combo-card-name">Femtal 👑</span><span class="dice-combo-card-val">3000🪙+KC</span></div>
+    </div>
+    <div class="dice-info">LCK ökar chansen att rulla höga värden! 5 omgångar per dag.</div>
+  </div>
+</div>
 
 <!-- MEMORY MATCH -->
 <div class="mem-panel" id="memPanel">
@@ -47801,6 +47885,146 @@ function _renderMem(d){
   var bv=$('memBest');if(bv) bv.textContent=d.best===999?'-':(d.best+'s kvar');
   var sb=$('memStartBtn');
   if(sb&&!_memRunning){sb.disabled=d.todayCount>=MEM_DAILY;sb.textContent=d.todayCount>=MEM_DAILY?'✓ Max spel idag ('+MEM_DAILY+')':'🃏 STARTA SPELET! ('+d.todayCount+'/'+MEM_DAILY+')';}
+}
+
+
+// DICE TOWER
+const DICE_KEY = 'k0509_dice';
+const DICE_FACES = ['⚀','⚁','⚂','⚃','⚄','⚅'];
+const DICE_DAILY = 5;
+var _diceVals = [1,1,1,1,1];
+var _diceHeld = [false,false,false,false,false];
+var _diceRollsLeft = 3;
+var _diceTurnActive = false;
+
+function _diceData(){try{return JSON.parse(localStorage.getItem(DICE_KEY)||'null');}catch(e){return null;}}
+function _diceSave(d){localStorage.setItem(DICE_KEY,JSON.stringify(d));}
+function _diceGetData(){
+  var d=_diceData();
+  if(!d) d={turns:0,best:'',earned:0,today:getTodayKey(),todayCount:0};
+  if(d.today!==getTodayKey()){d.today=getTodayKey();d.todayCount=0;}
+  return d;
+}
+
+function diceToggleHold(i){
+  if(!_diceTurnActive||_diceRollsLeft>=3) return;
+  _diceHeld[i]=!_diceHeld[i];
+  _diceBuildRow();
+}
+
+function diceRoll(){
+  var d=_diceGetData();
+  if(!_diceTurnActive){
+    if(d.todayCount>=DICE_DAILY){showFloatBubble('Max '+DICE_DAILY+' omgångar/dag!','debuff');return;}
+    _diceTurnActive=true;_diceRollsLeft=3;_diceHeld=[false,false,false,false,false];
+    _diceVals=[1,1,1,1,1];
+  }
+  if(_diceRollsLeft<=0) return;
+  var lckBias=Math.min((G.lck||0)*0.002,0.2);
+  for(var i=0;i<5;i++){
+    if(!_diceHeld[i]){
+      var r=Math.random();
+      // LCK bias toward high values
+      if(r<lckBias) _diceVals[i]=6;
+      else if(r<lckBias*1.5) _diceVals[i]=5;
+      else _diceVals[i]=Math.floor(Math.random()*6)+1;
+    }
+  }
+  _diceRollsLeft--;
+  _diceBuildRow(true);
+  _diceUpdateCombo();
+  var rl=$('diceRollsLeft');if(rl) rl.textContent=_diceRollsLeft>0?'Kast kvar: '+_diceRollsLeft+' (tryck tärning för att hålla)':'Inga kast kvar — poängsätt nu!';
+  var rb=$('diceRollBtn');if(rb) rb.disabled=_diceRollsLeft<=0;
+  var sb=$('diceScoreBtn');if(sb) sb.disabled=false;
+  _diceUpdatePips();
+}
+
+function _diceBuildRow(rolling){
+  var row=$('diceRow');
+  if(!row) return;
+  row.innerHTML=_diceVals.map(function(v,i){
+    return '<div class="dice-die" onclick="diceToggleHold('+i+')">'+
+      '<div class="dice-face'+(_diceHeld[i]?' held':'')+(rolling&&!_diceHeld[i]?' rolling':'')+'">'+DICE_FACES[v-1]+'</div>'+
+      '<div class="dice-hold-lbl'+(_diceHeld[i]?' held':'')+'">'+(_diceHeld[i]?'HÅLLS':'håll')+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+function _diceUpdatePips(){
+  var pp=$('diceRollPips');
+  if(!pp) return;
+  var html='';
+  for(var i=0;i<3;i++) html+='<div class="dice-roll-pip'+(i>=3-_diceRollsLeft?' used':'')+'"></div>';
+  pp.innerHTML=html;
+}
+
+function _diceEvalCombo(){
+  var counts={};
+  _diceVals.forEach(function(v){counts[v]=(counts[v]||0)+1;});
+  var vals=Object.values(counts).sort(function(a,b){return b-a;});
+  var sorted=_diceVals.slice().sort();
+  var isSmStraight=(sorted[0]===sorted[1]-1&&sorted[1]===sorted[2]-1&&sorted[2]===sorted[3]-1)||(sorted[1]===sorted[2]-1&&sorted[2]===sorted[3]-1&&sorted[3]===sorted[4]-1);
+  var isLgStraight=sorted[0]===sorted[1]-1&&sorted[1]===sorted[2]-1&&sorted[2]===sorted[3]-1&&sorted[3]===sorted[4]-1;
+  if(vals[0]===5) return {name:'FEMTAL!!! 🎊',coins:3000,kc:2};
+  if(isLgStraight) return {name:'Stor Stege! 🎯',coins:1500,kc:1};
+  if(vals[0]===4) return {name:'Fyrtal! 🔥',coins:1000,kc:0};
+  if(vals[0]===3&&vals[1]===2) return {name:'Kåk! (Full House)',coins:500,kc:0};
+  if(isSmStraight) return {name:'Liten Stege',coins:700,kc:0};
+  if(vals[0]===3) return {name:'Tretal',coins:350,kc:0};
+  if(vals[0]===2&&vals[1]===2) return {name:'Två Par',coins:200,kc:0};
+  if(vals[0]===2) return {name:'Ett Par',coins:100,kc:0};
+  return {name:'Inget...',coins:30,kc:0};
+}
+
+function _diceUpdateCombo(){
+  var combo=_diceEvalCombo();
+  var cd=$('diceComboDisplay');
+  if(cd) cd.innerHTML='<div class="dice-combo-name">'+combo.name+'</div><div class="dice-combo-val">+'+combo.coins+'🪙'+(combo.kc?' +'+combo.kc+'KC':'')+'</div>';
+}
+
+function diceScore(){
+  if(!_diceTurnActive) return;
+  var combo=_diceEvalCombo();
+  gainCoins(combo.coins);
+  gainXP(20,'lck');
+  if(combo.kc) gainKC(combo.kc);
+  var d=_diceGetData();
+  d.turns=(d.turns||0)+1;
+  d.todayCount=(d.todayCount||0)+1;
+  d.earned=(d.earned||0)+combo.coins;
+  if(!d.best||combo.coins>_diceComboCoins(d.best)) d.best=combo.name;
+  _diceSave(d);
+  showFloatBubble('🎲 '+combo.name+' +'+combo.coins+'🪙','buff');
+  _diceTurnActive=false;
+  _diceHeld=[false,false,false,false,false];
+  _diceVals=[1,1,1,1,1];
+  _diceRollsLeft=3;
+  _diceBuildRow(false);
+  _diceUpdatePips();
+  var rl=$('diceRollsLeft');if(rl) rl.textContent=d.todayCount>=DICE_DAILY?'Max omgångar idag!':'Tryck Roll för ny omgång!';
+  var rb=$('diceRollBtn');if(rb){rb.disabled=d.todayCount>=DICE_DAILY;rb.textContent=d.todayCount>=DICE_DAILY?'✓ Max idag':'🎲 KASTA!';}
+  var sb=$('diceScoreBtn');if(sb) sb.disabled=true;
+  var cd=$('diceComboDisplay');if(cd) cd.innerHTML='<div class="dice-combo-name">—</div>';
+  misTrack('dice',1);
+  checkAchievements();
+  _renderDice(d);
+}
+
+function _diceComboCoins(name){
+  var map={'FEMTAL!!! 🎊':3000,'Stor Stege! 🎯':1500,'Fyrtal! 🔥':1000,'Kåk! (Full House)':500,'Liten Stege':700,'Tretal':350,'Två Par':200,'Ett Par':100};
+  return map[name]||0;
+}
+
+function openDice(){$('dicePanel').classList.add('open');_diceBuildRow(false);_diceUpdatePips();_renderDice();}
+function closeDice(){$('dicePanel').classList.remove('open');}
+
+function _renderDice(d){
+  if(!d) d=_diceGetData();
+  var tv=$('diceTurns');if(tv) tv.textContent=d.turns||0;
+  var bv=$('diceBest');if(bv) bv.textContent=d.best||'-';
+  var ev=$('diceEarned');if(ev) ev.textContent=d.earned||0;
+  var rb=$('diceRollBtn');
+  if(rb&&!_diceTurnActive){rb.disabled=d.todayCount>=DICE_DAILY;rb.textContent=d.todayCount>=DICE_DAILY?'✓ Max omgångar idag ('+DICE_DAILY+')':'🎲 KASTA! ('+d.todayCount+'/'+DICE_DAILY+')';}
 }
 
 </script>
