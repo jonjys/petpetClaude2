@@ -1514,6 +1514,52 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET GYM ══ */
+.gym-panel{position:fixed;inset:0;background:#020100;z-index:1027;display:none;flex-direction:column;overflow:hidden}
+.gym-panel.open{display:flex}
+.gym-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#150500,#020100)}
+.gym-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4400,#ffcc00,#ff4400);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gymShim 1.8s linear infinite}
+@keyframes gymShim{0%{background-position:0%}100%{background-position:200%}}
+.gym-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Gym level banner */
+.gym-banner{background:radial-gradient(ellipse,rgba(255,80,0,.06),rgba(0,0,0,0));border:2px solid rgba(255,80,0,.2);border-radius:18px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.gym-banner-icon{font-size:36px}
+.gym-banner-info{flex:1}
+.gym-banner-name{font:900 14px var(--ff-head);color:#fff;margin-bottom:2px}
+.gym-banner-lvl{font:700 9px var(--ff-body);color:#ff8844}
+.gym-banner-bar{background:rgba(255,255,255,.08);border-radius:20px;height:6px;margin-top:5px;overflow:hidden}
+.gym-banner-fill{height:100%;background:linear-gradient(90deg,#ff4400,#ffcc00);border-radius:20px;transition:width .4s}
+/* WOD */
+.gym-wod{background:rgba(255,200,0,.05);border:1.5px solid rgba(255,200,0,.2);border-radius:14px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.gym-wod-badge{background:rgba(255,200,0,.2);border-radius:8px;padding:4px 8px;font:700 8px var(--ff-head);color:#ffcc00;flex-shrink:0}
+.gym-wod-text{font:700 10px var(--ff-head);color:#fff;flex:1}
+.gym-wod-bonus{font:600 8px var(--ff-body);color:rgba(255,200,100,.6)}
+/* Stats */
+.gym-stats{display:flex;gap:8px;margin-bottom:12px}
+.gym-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,80,0,.1);border-radius:10px;padding:7px;text-align:center}
+.gym-stat-v{font:900 14px var(--ff-head);color:#ff4400}
+.gym-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Station cards */
+.gym-stations{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.gym-station{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 14px}
+.gym-station-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.gym-station-icon{font-size:30px;flex-shrink:0}
+.gym-station-name{font:800 12px var(--ff-head);color:#fff}
+.gym-station-val{font:700 9px var(--ff-body);color:rgba(255,200,100,.7)}
+.gym-workouts{display:flex;gap:6px}
+.gym-workout{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:8px;text-align:center;cursor:pointer;transition:border-color .2s}
+.gym-workout:hover{border-color:rgba(255,100,0,.3)}
+.gym-workout.wod{border-color:rgba(255,200,0,.3);background:rgba(255,200,0,.04)}
+.gym-workout.on-cd{opacity:.4;cursor:default}
+.gym-workout-intensity{font:700 8px var(--ff-head);color:rgba(255,255,255,.6);margin-bottom:3px}
+.gym-workout-gain{font:900 11px var(--ff-head);color:#ff8844}
+.gym-workout-cost{font:600 7px var(--ff-body);color:rgba(255,200,100,.5);margin-bottom:3px}
+.gym-workout-cd{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.gym-workout-btn{background:linear-gradient(135deg,#330000,#660000);border:none;border-radius:8px;padding:5px 8px;font:800 8px var(--ff-head);color:#fff;cursor:pointer;width:100%;margin-top:4px}
+.gym-workout-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
+.gym-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ POTION SHOP ══ */
 .pot-panel{position:fixed;inset:0;background:#020108;z-index:1026;display:none;flex-direction:column;overflow:hidden}
 .pot-panel.open{display:flex}
@@ -10963,6 +11009,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
+          <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11010,6 +11057,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
+          <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11040,6 +11088,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
+          <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11108,6 +11157,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkarta</div>
           <div class="ddr" onclick="cM();openReact()"><div class="ddr-i">⚡</div>Reaktion</div>
           <div class="ddr" onclick="cM();openPot()"><div class="ddr-i">🧪</div>Potioner</div>
+          <div class="ddr" onclick="cM();openGym()"><div class="ddr-i">🏋️</div>Träning</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11682,6 +11732,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET GYM -->
+<div class="gym-panel" id="gymPanel">
+  <div class="gym-header">
+    <div class="gym-title">🏋️ TRÄNINGSCENTER</div>
+    <button class="close-btn" onclick="closeGym()">✕</button>
+  </div>
+  <div class="gym-scroll">
+    <div class="gym-banner">
+      <div class="gym-banner-icon">🏋️</div>
+      <div class="gym-banner-info">
+        <div class="gym-banner-name">Träningscenter <span id="gymLvlName">Nybörjar</span></div>
+        <div class="gym-banner-lvl">Gym-nivå <span id="gymLvl">1</span> • <span id="gymDiscount">0%</span> rabatt</div>
+        <div class="gym-banner-bar"><div class="gym-banner-fill" id="gymLvlBar" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="gym-wod" id="gymWod"></div>
+    <div class="gym-stats">
+      <div class="gym-stat"><div class="gym-stat-v" id="gymSessions">0</div><div class="gym-stat-l">Sessioner</div></div>
+      <div class="gym-stat"><div class="gym-stat-v" id="gymGained">0</div><div class="gym-stat-l">Stats vunna</div></div>
+      <div class="gym-stat"><div class="gym-stat-v" id="gymSpent">0</div><div class="gym-stat-l">Mynt spenderat</div></div>
+    </div>
+    <div class="gym-stations" id="gymStations"></div>
+    <div class="gym-info">Intensivare träning = mer stats + chans på KC! Gym-nivå ger rabatt!</div>
+  </div>
+</div>
 
 <!-- POTION SHOP -->
 <div class="pot-panel" id="potPanel">
@@ -50107,6 +50184,138 @@ function _renderPot(d){
         '<div class="pot-shop-right">'+
           '<button class="pot-buy-btn" onclick="potBuy(\''+def.id+'\')" '+(G.coins<def.cost||inv>=POT_MAX_INV?'disabled':'')+'>Köp '+def.cost+'🪙</button>'+
           '<div class="pot-inv-lbl2">Inv: '+inv+'/'+POT_MAX_INV+(alreadyActive?' ✓aktiv':'')+'</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// PET GYM
+const GYM_KEY = 'k0509_gym';
+const GYM_STATIONS = [
+  {stat:'str', icon:'🏋️', name:'Styrkelyftning',   color:'#ff4400'},
+  {stat:'agi', icon:'🏃', name:'Löparbana',         color:'#44ff88'},
+  {stat:'int', icon:'📚', name:'Studierum',          color:'#4488ff'},
+  {stat:'end', icon:'🥊', name:'Boxning',            color:'#ff8844'},
+  {stat:'lck', icon:'🍀', name:'Meditationsrum',     color:'#cc44ff'},
+];
+const GYM_WORKOUTS = [
+  {key:'light',    label:'Lätt',    cost:50,  cd:3600000,   gain:1,  xp:10,  kc:0},
+  {key:'moderate', label:'Medel',   cost:200, cd:14400000,  gain:3,  xp:30,  kc:0},
+  {key:'intense',  label:'Intensiv',cost:800, cd:43200000,  gain:8,  xp:80,  kc:1},
+];
+const GYM_LEVELS = [
+  {name:'Nybörjar',    threshold:0,   discount:0},
+  {name:'Amateur',     threshold:10,  discount:5},
+  {name:'Veteran',     threshold:30,  discount:10},
+  {name:'Pro',         threshold:60,  discount:15},
+  {name:'Champion',    threshold:100, discount:20},
+  {name:'Legendarisk', threshold:200, discount:30},
+];
+
+function _gymData(){try{return JSON.parse(localStorage.getItem(GYM_KEY)||'null');}catch(e){return null;}}
+function _gymSave(d){localStorage.setItem(GYM_KEY,JSON.stringify(d));}
+function _gymGetData(){
+  var d=_gymData();
+  if(!d) d={sessions:0,gained:0,spent:0,cooldowns:{}};
+  return d;
+}
+function _gymLevel(sessions){
+  var lvl=0;
+  for(var i=GYM_LEVELS.length-1;i>=0;i--){if(sessions>=GYM_LEVELS[i].threshold){lvl=i;break;}}
+  return lvl;
+}
+function _gymWodStat(){
+  var today=getTodayKey();
+  var seed=0;for(var i=0;i<today.length;i++) seed=(seed*31+today.charCodeAt(i))>>>0;
+  return GYM_STATIONS[seed%GYM_STATIONS.length].stat;
+}
+
+function gymTrain(statId, workoutKey){
+  var d=_gymGetData();
+  var now=Date.now();
+  var cdKey=statId+'_'+workoutKey;
+  var lastTime=d.cooldowns[cdKey]||0;
+  var wo=GYM_WORKOUTS.filter(function(w){return w.key===workoutKey;})[0];
+  var st=GYM_STATIONS.filter(function(s){return s.stat===statId;})[0];
+  if(!wo||!st) return;
+  if(now-lastTime<wo.cd){
+    var wait=Math.ceil((wo.cd-(now-lastTime))/3600000);
+    showFloatBubble('Vänta '+wait+'h innan nästa '+wo.label+'!','debuff');return;
+  }
+  var lvlIdx=_gymLevel(d.sessions);
+  var discount=GYM_LEVELS[lvlIdx].discount/100;
+  var cost=Math.floor(wo.cost*(1-discount));
+  if((G.coins||0)<cost){showFloatBubble('Behöver '+cost+'🪙!','debuff');return;}
+  G.coins-=cost;
+  var wodStat=_gymWodStat();
+  var wodBonus=statId===wodStat?2:1;
+  var totalGain=wo.gain*wodBonus;
+  G[statId]=(G[statId]||0)+totalGain;
+  gainXP(wo.xp*wodBonus,statId);
+  if(wo.kc&&Math.random()<0.3) gainKC(1);
+  save();
+  d.sessions=(d.sessions||0)+1;
+  d.gained=(d.gained||0)+totalGain;
+  d.spent=(d.spent||0)+cost;
+  d.cooldowns[cdKey]=now;
+  _gymSave(d);
+  showFloatBubble(st.icon+' '+wo.label+' träning! +'+totalGain+' '+statId.toUpperCase()+(wodBonus>1?' 2× WOD!':''),'buff');
+  misTrack('train',1);
+  checkAchievements();
+  _renderGym(d);
+}
+
+function openGym(){$('gymPanel').classList.add('open');_renderGym();}
+function closeGym(){$('gymPanel').classList.remove('open');}
+
+function _renderGym(d){
+  if(!d) d=_gymGetData();
+  var now=Date.now();
+  var lvlIdx=_gymLevel(d.sessions);
+  var lvlDef=GYM_LEVELS[lvlIdx];
+  var nextLvl=GYM_LEVELS[Math.min(lvlIdx+1,GYM_LEVELS.length-1)];
+  var pct=lvlIdx>=GYM_LEVELS.length-1?100:Math.floor((d.sessions-lvlDef.threshold)/(nextLvl.threshold-lvlDef.threshold)*100);
+  var lv=$('gymLvl');if(lv) lv.textContent=lvlIdx+1;
+  var ln=$('gymLvlName');if(ln) ln.textContent=lvlDef.name;
+  var ld=$('gymDiscount');if(ld) ld.textContent=lvlDef.discount+'%';
+  var lb=$('gymLvlBar');if(lb) lb.style.width=pct+'%';
+  var sv=$('gymSessions');if(sv) sv.textContent=d.sessions||0;
+  var gv=$('gymGained');if(gv) gv.textContent=d.gained||0;
+  var spv=$('gymSpent');if(spv) spv.textContent=d.spent||0;
+  var wod=$('gymWod');var wodStat=_gymWodStat();
+  var wodSt=GYM_STATIONS.filter(function(s){return s.stat===wodStat;})[0];
+  if(wod) wod.innerHTML='<div class="gym-wod-badge">TRÄNING I DAG</div><div class="gym-wod-text">'+wodSt.icon+' '+wodSt.name+'<div class="gym-wod-bonus">2× bonus på '+wodStat.toUpperCase()+'!</div></div>';
+  var discount=lvlDef.discount/100;
+  var stations=$('gymStations');
+  if(stations){
+    stations.innerHTML=GYM_STATIONS.map(function(st){
+      return '<div class="gym-station">'+
+        '<div class="gym-station-top">'+
+          '<div class="gym-station-icon">'+st.icon+'</div>'+
+          '<div><div class="gym-station-name">'+st.name+'</div>'+
+          '<div class="gym-station-val">'+st.stat.toUpperCase()+': '+(G[st.stat]||0)+'</div></div>'+
+        '</div>'+
+        '<div class="gym-workouts">'+
+          GYM_WORKOUTS.map(function(wo){
+            var cdKey=st.stat+'_'+wo.key;
+            var lastTime=d.cooldowns[cdKey]||0;
+            var cdLeft=Math.max(0,wo.cd-(now-lastTime));
+            var onCd=cdLeft>0;
+            var isWod=st.stat===wodStat;
+            var cost=Math.floor(wo.cost*(1-discount));
+            var gain=wo.gain*(isWod&&wo.key!=='light'?2:1);
+            return '<div class="gym-workout'+(isWod?' wod':'')+(onCd?' on-cd':'')+'">'+
+              '<div class="gym-workout-intensity">'+wo.label+'</div>'+
+              '<div class="gym-workout-gain">+'+gain+' '+st.stat.toUpperCase()+'</div>'+
+              '<div class="gym-workout-cost">'+cost+'🪙</div>'+
+              '<div class="gym-workout-cd">'+(onCd?Math.ceil(cdLeft/3600000)+'h':wo.cd>=3600000?wo.cd/3600000+'h cooldown':'Klar')+'</div>'+
+              '<button class="gym-workout-btn" onclick="gymTrain(\''+st.stat+'\',\''+wo.key+'\')" '+(onCd||G.coins<cost?'disabled':'')+'>'+
+                (onCd?'⏳':'🏋️ Träna')+
+              '</button>'+
+            '</div>';
+          }).join('')+
         '</div>'+
       '</div>';
     }).join('');
