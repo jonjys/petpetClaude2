@@ -1507,6 +1507,51 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ RAID BOSS ══ */
+.raid-panel{position:fixed;inset:0;background:#010000;z-index:1020;display:none;flex-direction:column;overflow:hidden}
+.raid-panel.open{display:flex}
+.raid-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#200000,#010000)}
+.raid-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff0000,#ff6600,#ffcc00,#ff0000);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:raidShim 1.5s linear infinite}
+@keyframes raidShim{0%{background-position:0%}100%{background-position:300%}}
+.raid-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Boss arena */
+.raid-arena{background:radial-gradient(ellipse at 50% 30%,rgba(255,0,0,.08),rgba(0,0,0,0));border:2px solid rgba(255,0,0,.2);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center}
+.raid-boss-emoji{font-size:72px;display:block;margin-bottom:4px;animation:raidBreath 3s ease-in-out infinite}
+@keyframes raidBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.raid-boss-emoji.hurt{animation:raidHurt .3s ease}
+@keyframes raidHurt{0%,100%{transform:scale(1)}50%{transform:scale(.9) translateX(5px)}}
+.raid-boss-name{font:900 18px var(--ff-head);color:#fff;margin-bottom:3px}
+.raid-boss-week{font:600 8px var(--ff-body);color:rgba(255,0,0,.5);margin-bottom:10px}
+.raid-hp-bar{background:rgba(255,255,255,.06);border-radius:20px;height:16px;overflow:hidden;border:1px solid rgba(255,0,0,.2);margin-bottom:6px}
+.raid-hp-fill{height:100%;background:linear-gradient(90deg,#ff4400,#ff0000);border-radius:20px;transition:width .5s ease}
+.raid-hp-fill.low{background:linear-gradient(90deg,#880000,#440000)}
+.raid-hp-text{font:700 10px var(--ff-head);color:rgba(255,255,255,.6);margin-bottom:10px}
+/* Damage flash */
+.raid-dmg-flash{font:900 20px var(--ff-head);color:#ff4400;min-height:28px;text-align:center;margin-bottom:4px}
+/* Stats */
+.raid-stats{display:flex;gap:8px;margin-bottom:12px}
+.raid-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,50,0,.1);border-radius:10px;padding:7px;text-align:center}
+.raid-stat-v{font:900 14px var(--ff-head);color:#ff4400}
+.raid-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Attack btn */
+.raid-atk-btn{width:100%;background:linear-gradient(135deg,#440000,#990000);border:none;border-radius:14px;padding:16px;font:900 16px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px;box-shadow:0 0 24px rgba(255,0,0,.3)}
+.raid-atk-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.raid-atk-pips{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.raid-atk-pip{width:10px;height:10px;border-radius:50%;background:rgba(255,80,0,.8)}
+.raid-atk-pip.used{background:rgba(255,255,255,.08)}
+/* Claim */
+.raid-claim-btn{width:100%;background:linear-gradient(135deg,#550000,#aa2200);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#ffcc00;cursor:pointer;margin-bottom:10px;box-shadow:0 0 20px rgba(255,100,0,.2);animation:raidGlow 1.5s ease-in-out infinite}
+@keyframes raidGlow{0%,100%{box-shadow:0 0 20px rgba(255,100,0,.2)}50%{box-shadow:0 0 40px rgba(255,150,0,.5)}}
+/* Damage log */
+.raid-log{background:rgba(255,255,255,.02);border:1px solid rgba(255,0,0,.08);border-radius:12px;padding:10px 14px;margin-bottom:10px;max-height:100px;overflow-y:auto}
+.raid-log-lbl{font:700 7px var(--ff-head);color:rgba(255,0,0,.3);letter-spacing:1px;margin-bottom:6px}
+.raid-log-item{font:600 8px var(--ff-body);color:rgba(255,180,180,.6);margin-bottom:3px}
+.raid-reward-box{background:rgba(255,100,0,.05);border:1px solid rgba(255,100,0,.2);border-radius:12px;padding:10px;text-align:center;margin-bottom:10px}
+.raid-reward-lbl{font:700 8px var(--ff-head);color:rgba(255,150,0,.5);letter-spacing:1px;margin-bottom:4px}
+.raid-reward-val{font:900 13px var(--ff-head);color:#ffcc00}
+.raid-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET HATCHERY ══ */
 .htch-panel{position:fixed;inset:0;background:#020108;z-index:1019;display:none;flex-direction:column;overflow:hidden}
 .htch-panel.open{display:flex}
@@ -10632,6 +10677,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
+          <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10672,6 +10718,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
+          <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10695,6 +10742,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
+          <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -10756,6 +10804,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDice()"><div class="ddr-i">🎲</div>Tärningar</div>
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
+          <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11323,6 +11372,39 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- RAID BOSS -->
+<div class="raid-panel" id="raidPanel">
+  <div class="raid-header">
+    <div class="raid-title">💀 RAIDBOSS</div>
+    <button class="close-btn" onclick="closeRaid()">✕</button>
+  </div>
+  <div class="raid-scroll">
+    <div class="raid-arena">
+      <span class="raid-boss-emoji" id="raidBossEmoji">💀</span>
+      <div class="raid-boss-name" id="raidBossName">???</div>
+      <div class="raid-boss-week" id="raidBossWeek">Vecka —</div>
+      <div class="raid-hp-bar"><div class="raid-hp-fill" id="raidHpFill" style="width:100%"></div></div>
+      <div class="raid-hp-text" id="raidHpText">HP: — / —</div>
+      <div class="raid-dmg-flash" id="raidDmgFlash"></div>
+    </div>
+    <div class="raid-stats">
+      <div class="raid-stat"><div class="raid-stat-v" id="raidTotalDmg">0</div><div class="raid-stat-l">Total skada</div></div>
+      <div class="raid-stat"><div class="raid-stat-v" id="raidKills">0</div><div class="raid-stat-l">Boss besegrat</div></div>
+      <div class="raid-stat"><div class="raid-stat-v" id="raidEarned">0</div><div class="raid-stat-l">Tjänat</div></div>
+    </div>
+    <div class="raid-reward-box">
+      <div class="raid-reward-lbl">VECKOBOSS-BELÖNING</div>
+      <div class="raid-reward-val" id="raidRewardVal">—</div>
+    </div>
+    <div class="raid-atk-pips" id="raidAtkPips"></div>
+    <button class="raid-atk-btn" id="raidAtkBtn" onclick="raidAttack()">⚔️ ATTACKERA!</button>
+    <button class="raid-claim-btn" id="raidClaimBtn" onclick="raidClaim()" style="display:none">🏆 HÄMTA SEGERPRISET!</button>
+    <div class="raid-log" id="raidLog"><div class="raid-log-lbl">SKADELOGG</div><div id="raidLogItems"></div></div>
+    <div class="raid-info">STR avgör skadan! 10 attacker/dag. Boss återställs varje vecka.</div>
+  </div>
+</div>
 
 <!-- PET HATCHERY -->
 <div class="htch-panel" id="htchPanel">
@@ -48479,6 +48561,124 @@ function _renderHtch(d){
       '</div>';
     }).join('');
   }
+}
+
+
+// RAID BOSS
+const RAID_KEY = 'k0509_raid';
+const RAID_DAILY_ATK = 10;
+const RAID_BOSSES = [
+  {emoji:'💀', name:'Skelettkonungen',   baseHp:30000, reward:{coins:5000,  xp:500,  kc:3,  stat:'str', val:5}},
+  {emoji:'🐲', name:'Draken Darnak',     baseHp:50000, reward:{coins:8000,  xp:800,  kc:5,  stat:'agi', val:5}},
+  {emoji:'👹', name:'Demonen Drak',      baseHp:70000, reward:{coins:12000, xp:1200, kc:8,  stat:'int', val:5}},
+  {emoji:'🧟', name:'Zombie-Mästaren',   baseHp:40000, reward:{coins:6000,  xp:600,  kc:4,  stat:'end', val:5}},
+  {emoji:'🕷️', name:'Jätteedderkoppa',   baseHp:45000, reward:{coins:7000,  xp:700,  kc:5,  stat:'lck', val:8}},
+  {emoji:'🌋', name:'Vulkanvakten',      baseHp:60000, reward:{coins:10000, xp:1000, kc:7,  stat:'str', val:8}},
+];
+
+function _raidData(){try{return JSON.parse(localStorage.getItem(RAID_KEY)||'null');}catch(e){return null;}}
+function _raidSave(d){localStorage.setItem(RAID_KEY,JSON.stringify(d));}
+
+function _raidWeekKey(){
+  var now=new Date();
+  var jan1=new Date(now.getFullYear(),0,1);
+  var week=Math.ceil((((now-jan1)/86400000)+jan1.getDay()+1)/7);
+  return now.getFullYear()+'-W'+week;
+}
+
+function _raidGetData(){
+  var d=_raidData();
+  var wk=_raidWeekKey();
+  if(!d) d={kills:0,earned:0,log:[]};
+  if(d.weekKey!==wk){
+    // New week: new boss
+    var seed=0;for(var i=0;i<wk.length;i++) seed=(seed*31+wk.charCodeAt(i))>>>0;
+    var bossIdx=seed%RAID_BOSSES.length;
+    var weekNum=((d.kills||0)+1);
+    var hpScale=1+Math.floor((d.kills||0)/RAID_BOSSES.length)*0.2;
+    var boss=RAID_BOSSES[bossIdx];
+    d.weekKey=wk;
+    d.bossIdx=bossIdx;
+    d.bossHp=Math.floor(boss.baseHp*hpScale);
+    d.dmgDone=0;
+    d.claimed=false;
+    d.today=getTodayKey();
+    d.todayAtk=0;
+  }
+  if(d.today!==getTodayKey()){d.today=getTodayKey();d.todayAtk=0;}
+  return d;
+}
+
+function raidAttack(){
+  var d=_raidGetData();
+  if(d.dmgDone>=d.bossHp){showFloatBubble('Boss redan besegrad! Hämta priset!','debuff');return;}
+  if(d.todayAtk>=RAID_DAILY_ATK){showFloatBubble('Max '+RAID_DAILY_ATK+' attacker idag!','debuff');return;}
+  // Calculate damage
+  var base=(G.str||0)*50+20;
+  var crit=Math.random()<Math.min((G.lck||0)*0.005,0.3);
+  var dmg=Math.floor(base*(1+Math.random()*0.5)*(crit?2:1));
+  d.dmgDone=Math.min(d.bossHp,(d.dmgDone||0)+dmg);
+  d.todayAtk=(d.todayAtk||0)+1;
+  d.totalDmg=(d.totalDmg||0)+dmg;
+  // Log
+  d.log=([{dmg:dmg,crit:crit,ts:new Date().toLocaleTimeString('sv-SE',{hour:'2-digit',minute:'2-digit'})}].concat(d.log||[])).slice(0,10);
+  _raidSave(d);
+  // Visual
+  var be=$('raidBossEmoji');
+  if(be){be.className='raid-boss-emoji hurt';setTimeout(function(){if(be) be.className='raid-boss-emoji';},350);}
+  var df=$('raidDmgFlash');
+  if(df){df.textContent=(crit?'💥 KRITISK! ':'')+'−'+dmg.toLocaleString();setTimeout(function(){if(df) df.textContent='';},1200);}
+  gainXP(15,'str');
+  misTrack('pvp',1);
+  checkAchievements();
+  _renderRaid(d);
+}
+
+function raidClaim(){
+  var d=_raidGetData();
+  if(d.dmgDone<d.bossHp||d.claimed){return;}
+  var boss=RAID_BOSSES[d.bossIdx];
+  gainCoins(boss.reward.coins);
+  gainXP(boss.reward.xp,'str');
+  gainKC(boss.reward.kc);
+  G[boss.reward.stat]=(G[boss.reward.stat]||0)+boss.reward.val;
+  save();
+  d.kills=(d.kills||0)+1;
+  d.earned=(d.earned||0)+boss.reward.coins;
+  d.claimed=true;
+  _raidSave(d);
+  showFloatBubble('🏆 '+boss.emoji+' '+boss.name+' besegrad! +'+boss.reward.kc+'KC +'+boss.reward.coins+'🪙','buff');
+  checkAchievements();
+  _renderRaid(d);
+}
+
+function openRaid(){$('raidPanel').classList.add('open');_renderRaid();}
+function closeRaid(){$('raidPanel').classList.remove('open');}
+
+function _renderRaid(d){
+  if(!d) d=_raidGetData();
+  var boss=RAID_BOSSES[d.bossIdx||0];
+  var hpPct=Math.max(0,(1-(d.dmgDone||0)/d.bossHp)*100);
+  var defeated=(d.dmgDone||0)>=d.bossHp;
+  var be=$('raidBossEmoji');if(be&&be.className!=='raid-boss-emoji hurt') be.textContent=boss.emoji;
+  var bn=$('raidBossName');if(bn) bn.textContent=boss.name+(defeated?' [BESEGRAD]':'');
+  var bw=$('raidBossWeek');if(bw) bw.textContent='Vecka: '+d.weekKey;
+  var hf=$('raidHpFill');if(hf){hf.style.width=hpPct.toFixed(1)+'%';hf.className='raid-hp-fill'+(hpPct<20?' low':'');}
+  var ht=$('raidHpText');if(ht) ht.textContent='HP: '+(d.bossHp-(d.dmgDone||0)).toLocaleString()+' / '+d.bossHp.toLocaleString();
+  var tdv=$('raidTotalDmg');if(tdv) tdv.textContent=(d.totalDmg||0).toLocaleString();
+  var kv=$('raidKills');if(kv) kv.textContent=d.kills||0;
+  var ev=$('raidEarned');if(ev) ev.textContent=d.earned||0;
+  var rv=$('raidRewardVal');if(rv) rv.textContent=boss.reward.coins+'🪙 +'+boss.reward.xp+'XP +'+boss.reward.kc+'KC +'+boss.reward.val+' '+boss.reward.stat.toUpperCase();
+  // Pips
+  var pp=$('raidAtkPips');
+  if(pp){var ph='';for(var i=0;i<RAID_DAILY_ATK;i++) ph+='<div class="raid-atk-pip'+(i>=(RAID_DAILY_ATK-(d.todayAtk||0))?' used':'')+'"></div>';pp.innerHTML=ph;}
+  var ab=$('raidAtkBtn');
+  if(ab){ab.disabled=defeated||(d.todayAtk||0)>=RAID_DAILY_ATK;ab.textContent=defeated?'Boss besegrad!':'⚔️ ATTACKERA! ('+(RAID_DAILY_ATK-(d.todayAtk||0))+' kvar)';}
+  var cb=$('raidClaimBtn');
+  if(cb) cb.style.display=defeated&&!d.claimed?'block':'none';
+  // Log
+  var li=$('raidLogItems');
+  if(li) li.innerHTML=(d.log||[]).map(function(l){return '<div class="raid-log-item">'+(l.crit?'💥 KRITISK ':'')+'−'+l.dmg.toLocaleString()+' skada ['+(l.ts||'')+'</div>';}).join('');
 }
 
 </script>
