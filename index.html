@@ -1520,6 +1520,33 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TOWER BUILDER ══ */
+.tower-panel{position:fixed;inset:0;background:#080010;z-index:1033;display:none;flex-direction:column;overflow:hidden}
+.tower-panel.open{display:flex}
+.tower-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#100020,#080010)}
+.tower-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aa44ff,#ff44cc,#4488ff,#aa44ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:towerShim 2s linear infinite}
+@keyframes towerShim{0%{background-position:0%}100%{background-position:300%}}
+.tower-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+/* HUD */
+.tower-hud{display:flex;gap:8px;margin-bottom:10px}
+.tower-hud-box{flex:1;background:rgba(170,68,255,.04);border:1px solid rgba(170,68,255,.15);border-radius:10px;padding:6px;text-align:center}
+.tower-hud-v{font:900 16px var(--ff-head);color:#aa44ff}
+.tower-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Arena */
+.tower-arena-wrap{background:rgba(8,0,16,.9);border:2px solid rgba(170,68,255,.2);border-radius:16px;padding:8px;margin-bottom:10px;display:flex;justify-content:center;cursor:pointer}
+#towerCanvas{display:block;border-radius:8px}
+/* Status */
+.tower-status{text-align:center;font:700 12px var(--ff-head);color:#aa44ff;margin-bottom:8px;min-height:18px}
+.tower-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.7);border:1.5px solid rgba(170,68,255,.3);border-radius:14px;margin-bottom:10px}
+.tower-over.show{display:flex}
+.tower-over-h{font:900 28px var(--ff-head);color:#aa44ff}
+.tower-over-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.tower-over-rw{font:700 12px var(--ff-head);color:#ffcc00}
+.tower-start-btn{width:100%;background:linear-gradient(135deg,#220044,#550088);border:none;border-radius:14px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.tower-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.tower-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ SNAKE GAME ══ */
 .snake-panel{position:fixed;inset:0;background:#000d00;z-index:1032;display:none;flex-direction:column;overflow:hidden}
 .snake-panel.open{display:flex}
@@ -11256,6 +11283,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
+          <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11309,6 +11337,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
+          <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11345,6 +11374,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
+          <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11419,6 +11449,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMaze()"><div class="ddr-i">🔀</div>Labyrint</div>
           <div class="ddr" onclick="cM();openSmith()"><div class="ddr-i">⚒️</div>Smeden</div>
           <div class="ddr" onclick="cM();openSnake()"><div class="ddr-i">🐍</div>Ormen</div>
+          <div class="ddr" onclick="cM();openTower()"><div class="ddr-i">🏗️</div>Tornet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11999,6 +12030,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- TOWER BUILDER -->
+<div class="tower-panel" id="towerPanel">
+  <div class="tower-header">
+    <div class="tower-title">🏗️ TORNBYGGARE</div>
+    <button class="close-btn" onclick="closeTower()">✕</button>
+  </div>
+  <div class="tower-scroll">
+    <div class="tower-hud">
+      <div class="tower-hud-box"><div class="tower-hud-v" id="towerFloor">0</div><div class="tower-hud-l">Våning</div></div>
+      <div class="tower-hud-box"><div class="tower-hud-v" id="towerBest">0</div><div class="tower-hud-l">Rekord</div></div>
+      <div class="tower-hud-box"><div class="tower-hud-v" id="towerPlays">0</div><div class="tower-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="tower-arena-wrap" onclick="towerTap()" id="towerArena">
+      <canvas id="towerCanvas" width="280" height="380"></canvas>
+    </div>
+    <div class="tower-status" id="towerStatus">Tryck START för att bygga!</div>
+    <div class="tower-over" id="towerOver">
+      <div class="tower-over-lbl">TORN FÖLL!</div>
+      <div class="tower-over-h" id="towerOverH">0</div>
+      <div class="tower-over-lbl">våningar</div>
+      <div class="tower-over-rw" id="towerOverRw"></div>
+    </div>
+    <button class="tower-start-btn" id="towerStartBtn" onclick="towerStart()">🏗️ BYGG TORNET</button>
+    <div class="tower-info">STR = bredare start · AGI = långsammare rörelser · Tryck var som helst för att lägga block!</div>
+  </div>
+</div>
 
 <!-- SNAKE GAME -->
 <div class="snake-panel" id="snakePanel">
@@ -51582,6 +51641,194 @@ function _renderSnake(d){
     btn.textContent=playsLeft>0?'🐍 STARTA SPELET ('+playsLeft+' kvar)':'✓ Klar för idag!';
   }
   _snakeDraw();
+}
+
+
+// TOWER BUILDER
+const TOWER_KEY = 'k0509_tower';
+const TOWER_MAX_PLAYS = 8;
+const TOWER_W = 280;
+const TOWER_H = 380;
+const TOWER_BLOCK_H = 28;
+const TOWER_VISIBLE = Math.floor(TOWER_H / TOWER_BLOCK_H); // ~13 blocks visible
+
+var _towerState = null;
+var _towerRaf = null;
+
+function _towerData(){try{return JSON.parse(localStorage.getItem(TOWER_KEY)||'null');}catch(e){return null;}}
+function _towerSave(d){localStorage.setItem(TOWER_KEY,JSON.stringify(d));}
+function _towerGetData(){
+  var d=_towerData();
+  if(!d) d={best:0,totalPlays:0,playsToday:0,lastDay:''};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function towerStart(){
+  var d=_towerGetData();
+  if(d.playsToday>=TOWER_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  var btn=$('towerStartBtn');if(btn) btn.disabled=true;
+  var over=$('towerOver');if(over) over.classList.remove('show');
+  // Starting width: base 140 + STR*1, max 200
+  var startW=Math.min(200, 140+(G.str||0));
+  // Sliding speed: base 2.5 - AGI*0.04, min 1.2
+  var baseSpeed=Math.max(1.2, 2.5-(G.agi||0)*0.04);
+  _towerState={
+    running:true,
+    blocks:[{x:(TOWER_W-startW)/2, w:startW, floor:0}], // ground block
+    sliderX:0, sliderDir:1,
+    sliderW:startW,
+    floor:0,
+    speed:baseSpeed,
+    perfect:0,
+  };
+  if(_towerRaf) cancelAnimationFrame(_towerRaf);
+  _towerLoop();
+  var status=$('towerStatus');if(status) status.textContent='Tryck för att lägga block!';
+  var fv=$('towerFloor');if(fv) fv.textContent=0;
+}
+
+function _towerLoop(){
+  var s=_towerState;
+  if(!s||!s.running){_towerDraw();return;}
+  s.sliderX+=s.sliderDir*s.speed;
+  if(s.sliderX+s.sliderW>TOWER_W){s.sliderDir=-1;s.sliderX=TOWER_W-s.sliderW;}
+  if(s.sliderX<0){s.sliderDir=1;s.sliderX=0;}
+  _towerDraw();
+  _towerRaf=requestAnimationFrame(_towerLoop);
+}
+
+function towerTap(){
+  var s=_towerState;
+  if(!s||!s.running) return;
+  // Get current slider position and last placed block
+  var last=s.blocks[s.blocks.length-1];
+  var sx=s.sliderX;var sw=s.sliderW;
+  // Calculate overlap
+  var overlapStart=Math.max(last.x, sx);
+  var overlapEnd=Math.min(last.x+last.w, sx+sw);
+  var overlap=overlapEnd-overlapStart;
+  if(overlap<=0){
+    // Missed entirely
+    _towerEnd('miss');return;
+  }
+  var perfect=(Math.abs(overlapStart-last.x)<3&&Math.abs(overlap-last.w)<3);
+  if(perfect){
+    overlap=last.w; // perfect = no trimming
+    s.perfect=(s.perfect||0)+1;
+    showFloatBubble('✨ PERFEKT!','buff');
+  }
+  // Place block
+  s.floor++;
+  s.blocks.push({x:overlapStart, w:overlap, floor:s.floor});
+  s.sliderW=overlap;
+  // Speed up slightly each floor
+  s.speed=Math.min(s.speed+0.08, 6);
+  // New slider starts from random side
+  s.sliderDir=Math.random()<0.5?1:-1;
+  s.sliderX=s.sliderDir===1?0:TOWER_W-s.sliderW;
+  var fv=$('towerFloor');if(fv) fv.textContent=s.floor;
+  var status=$('towerStatus');if(status) status.textContent=s.floor+' våning'+(s.floor===1?'':'ar')+'!';
+  _towerDraw();
+}
+
+function _towerDraw(){
+  var canvas=$('towerCanvas');if(!canvas) return;
+  var ctx=canvas.getContext('2d');
+  var s=_towerState;
+  ctx.fillStyle='#080010';
+  ctx.fillRect(0,0,TOWER_W,TOWER_H);
+  if(!s||!s.blocks) return;
+  // Stars BG
+  ctx.fillStyle='rgba(255,255,255,.4)';
+  for(var i=0;i<30;i++){
+    var sx2=(i*73+11)%TOWER_W;var sy2=(i*97+17)%TOWER_H;
+    ctx.fillRect(sx2,sy2,1,1);
+  }
+  // Draw blocks from bottom up (show top TOWER_VISIBLE blocks)
+  var topFloor=s.blocks.length-1;
+  var viewOffset=Math.max(0, topFloor-TOWER_VISIBLE+2);
+  var colors=['#aa44ff','#8833ee','#cc66ff','#9944dd','#bb55ff'];
+  s.blocks.forEach(function(bl){
+    var relFloor=bl.floor-viewOffset;
+    if(relFloor<0||relFloor>TOWER_VISIBLE) return;
+    var y=TOWER_H-(relFloor+1)*TOWER_BLOCK_H;
+    var col=colors[bl.floor%colors.length];
+    ctx.fillStyle=col;
+    ctx.fillRect(bl.x, y, bl.w, TOWER_BLOCK_H-2);
+    // Shine
+    ctx.fillStyle='rgba(255,255,255,.15)';
+    ctx.fillRect(bl.x, y, bl.w, 4);
+    // Floor number
+    if(bl.floor>0){
+      ctx.fillStyle='rgba(255,255,255,.6)';
+      ctx.font='9px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(bl.floor, bl.x+bl.w/2, y+TOWER_BLOCK_H/2-1);
+    }
+  });
+  // Draw slider (active block being moved)
+  if(s.running){
+    var topBlock=s.blocks[s.blocks.length-1];
+    var sliderFloor=topBlock.floor+1;
+    var relFloor=sliderFloor-viewOffset;
+    var y=TOWER_H-(relFloor+1)*TOWER_BLOCK_H;
+    ctx.fillStyle='rgba(255,200,0,.9)';
+    ctx.fillRect(s.sliderX, y, s.sliderW, TOWER_BLOCK_H-2);
+    ctx.fillStyle='rgba(255,255,255,.3)';
+    ctx.fillRect(s.sliderX, y, s.sliderW, 4);
+  }
+}
+
+function _towerEnd(reason){
+  var s=_towerState;
+  if(!s) return;
+  s.running=false;
+  if(_towerRaf){cancelAnimationFrame(_towerRaf);_towerRaf=null;}
+  _towerDraw();
+  var d=_towerGetData();
+  var floors=s.floor;
+  var isNew=floors>d.best;
+  if(isNew) d.best=floors;
+  d.playsToday=(d.playsToday||0)+1;d.totalPlays=(d.totalPlays||0)+1;
+  // Rewards: coins=floors*15*(INT bonus), XP=floors*8
+  var coinMult=1+(G.int||0)*0.01;
+  var coins=Math.floor(floors*15*coinMult);
+  var xp=floors*8;
+  var kcs=0;
+  if(floors>=10) kcs=1;
+  if(floors>=20) kcs=2;
+  gainCoins(coins);gainXP(xp,'str');
+  if(kcs) gainKC(kcs);
+  _towerSave(d);
+  misTrack('battle',floors);checkAchievements();
+  var over=$('towerOver');if(over) over.classList.add('show');
+  var oh=$('towerOverH');if(oh) oh.textContent=floors;
+  var orw=$('towerOverRw');if(orw) orw.textContent='+'+coins+'🪙 +'+xp+'XP'+(isNew?' 🏆 Rekord!':'')+(kcs?' +'+kcs+'KC':'');
+  var status=$('towerStatus');if(status) status.textContent=reason==='miss'?'Missa! Tornet föll.':'Tornet föll!';
+  var playsLeft=TOWER_MAX_PLAYS-d.playsToday;
+  var btn=$('towerStartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🏗️ SPELA IGEN ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+  _renderTower(d);
+}
+
+function openTower(){$('towerPanel').classList.add('open');_renderTower();}
+function closeTower(){
+  if(_towerState&&_towerState.running){_towerState.running=false;if(_towerRaf){cancelAnimationFrame(_towerRaf);_towerRaf=null;}}
+  $('towerPanel').classList.remove('open');
+}
+
+function _renderTower(d){
+  if(!d) d=_towerGetData();
+  var bv=$('towerBest');if(bv) bv.textContent=d.best||0;
+  var pl=$('towerPlays');if(pl) pl.textContent=Math.max(0,TOWER_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('towerStartBtn');
+  if(btn){
+    var playsLeft=TOWER_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=playsLeft<=0||(_towerState&&_towerState.running);
+    btn.textContent=playsLeft>0?'🏗️ BYGG TORNET ('+playsLeft+' kvar)':'✓ Klar för idag!';
+  }
+  if(!_towerState||!_towerState.running) _towerDraw();
 }
 
 </script>
