@@ -1502,6 +1502,44 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ DAILY QUESTS ══ */
+.qday-panel{position:fixed;inset:0;background:#010203;z-index:1015;display:none;flex-direction:column;overflow:hidden}
+.qday-panel.open{display:flex}
+.qday-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#030810,#010203)}
+.qday-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#00ddcc,#4488ff,#44ff88);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:qdayShim 3s linear infinite}
+@keyframes qdayShim{0%{background-position:0%}100%{background-position:300%}}
+.qday-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Banner */
+.qday-banner{background:radial-gradient(ellipse,rgba(0,200,150,.06),rgba(0,0,0,0));border:2px solid rgba(0,200,150,.2);border-radius:18px;padding:14px 16px;margin-bottom:12px;text-align:center}
+.qday-banner-title{font:900 16px var(--ff-head);color:#44ff88;margin-bottom:3px}
+.qday-banner-sub{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.qday-banner-reward{font:700 11px var(--ff-head);color:#ffcc00;margin-top:6px}
+.qday-allbar{background:rgba(255,255,255,.06);border-radius:20px;height:8px;margin-top:8px;overflow:hidden}
+.qday-allbar-fill{height:100%;background:linear-gradient(90deg,#44ff88,#00ddcc);border-radius:20px;transition:width .4s ease}
+/* Quest cards */
+.qday-quests{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.qday-quest{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;position:relative;overflow:hidden}
+.qday-quest.done{border-color:rgba(68,255,136,.25);background:rgba(68,255,136,.03)}
+.qday-quest.done::after{content:'✓';position:absolute;right:12px;top:50%;transform:translateY(-50%);font:900 16px var(--ff-head);color:#44ff88;opacity:.6}
+.qday-quest-icon{font-size:28px;flex-shrink:0}
+.qday-quest-body{flex:1;min-width:0}
+.qday-quest-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.qday-quest-prog{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.qday-quest-bar{flex:1;background:rgba(255,255,255,.08);border-radius:20px;height:6px;overflow:hidden}
+.qday-quest-fill{height:100%;background:linear-gradient(90deg,#44ff88,#00ddcc);border-radius:20px;transition:width .3s ease}
+.qday-quest.done .qday-quest-fill{background:linear-gradient(90deg,#44ff88,#44ff88)}
+.qday-quest-count{font:700 8px var(--ff-head);color:rgba(255,255,255,.4);white-space:nowrap}
+.qday-quest-reward{font:600 8px var(--ff-body);color:#ffcc00}
+/* Stats */
+.qday-stats{display:flex;gap:8px;margin-bottom:12px}
+.qday-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(0,200,150,.1);border-radius:10px;padding:7px;text-align:center}
+.qday-stat-v{font:900 15px var(--ff-head);color:#00ddcc}
+.qday-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.qday-all-btn{width:100%;background:linear-gradient(135deg,#003322,#006644);border:none;border-radius:14px;padding:13px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 0 16px rgba(0,200,100,.15)}
+.qday-all-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.qday-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET RACING ══ */
 .race-panel{position:fixed;inset:0;background:#010205;z-index:1014;display:none;flex-direction:column;overflow:hidden}
 .race-panel.open{display:flex}
@@ -10412,6 +10450,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
           <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
+          <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10447,6 +10486,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
           <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
+          <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10465,6 +10505,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
           <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
+          <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -10521,6 +10562,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
           <div class="ddr" onclick="cM();openFwhl()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Husdjurslopp</div>
+          <div class="ddr" onclick="cM();openQday()"><div class="ddr-i">📋</div>Daguppdrag</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11083,6 +11125,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- DAILY QUESTS -->
+<div class="qday-panel" id="qdayPanel">
+  <div class="qday-header">
+    <div class="qday-title">📋 DAGLIGA UPPDRAG</div>
+    <button class="close-btn" onclick="closeQday()">✕</button>
+  </div>
+  <div class="qday-scroll">
+    <div class="qday-banner">
+      <div class="qday-banner-title">DAGENS UPPDRAG</div>
+      <div class="qday-banner-sub">Slutför alla 5 för bonusbelöning!</div>
+      <div class="qday-banner-reward">🏆 2000🪙 + 3KC vid alla klara</div>
+      <div class="qday-allbar"><div class="qday-allbar-fill" id="qdayAllBar" style="width:0%"></div></div>
+    </div>
+    <div class="qday-stats">
+      <div class="qday-stat"><div class="qday-stat-v" id="qdayDone">0</div><div class="qday-stat-l">Idag klara</div></div>
+      <div class="qday-stat"><div class="qday-stat-v" id="qdayStreak">0</div><div class="qday-stat-l">Dagars streak</div></div>
+      <div class="qday-stat"><div class="qday-stat-v" id="qdayEarned">0</div><div class="qday-stat-l">Tjänat</div></div>
+    </div>
+    <div class="qday-quests" id="qdayQuests"></div>
+    <button class="qday-all-btn" id="qdayAllBtn" onclick="qdayClaimAll()" disabled>🏆 Hämta Alla-Klara-Bonus!</button>
+    <div class="qday-info">Uppdrag spåras automatiskt via dina aktiviteter!</div>
+  </div>
+</div>
 
 <!-- PET RACING -->
 <div class="race-panel" id="racePanel">
@@ -37453,6 +37520,7 @@ function misTrack(type, amount){
   if(typeof cardDrop==='function') cardDrop(type);
   if(typeof gardDropSeed==='function') gardDropSeed(type);
   if(typeof alchDrop==='function') alchDrop(type);
+  if(typeof questTrack==='function') questTrack(type,amount);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -47385,6 +47453,134 @@ function _renderRace(d){
   var sb=$('raceStartBtn');if(sb) sb.disabled=_raceRunning||d.todayCount>=RACE_DAILY;
   if(sb&&d.todayCount>=RACE_DAILY) sb.textContent='✓ Max lopp idag ('+RACE_DAILY+')';
   else if(sb) sb.textContent='🏁 STARTA LOPP! ('+d.todayCount+'/'+RACE_DAILY+')';
+}
+
+
+// DAILY QUESTS
+const QDAY_KEY = 'k0509_qday';
+const QDAY_TEMPLATES = [
+  {id:'fish',      icon:'🐟', name:'Fiska 3 gånger',       type:'fish',       target:3,  reward:{coins:300,xp:40}},
+  {id:'harvest',   icon:'🌱', name:'Skörda i trädgården 2ggr', type:'harvest',  target:2,  reward:{coins:250,xp:35}},
+  {id:'pvp',       icon:'⚔️', name:'Vinn 1 Kolosseumstrid', type:'pvp',        target:1,  reward:{coins:400,xp:50}},
+  {id:'expedition',icon:'⏰', name:'Genomför 1 tidsresa',   type:'expedition', target:1,  reward:{coins:350,xp:45}},
+  {id:'craft',     icon:'⚗️', name:'Brygga 2 alkemidrycker', type:'craft',     target:2,  reward:{coins:300,xp:40}},
+  {id:'race',      icon:'🏁', name:'Spring 1 husdjurslopp', type:'race',       target:1,  reward:{coins:200,xp:30}},
+  {id:'mine',      icon:'⛏️', name:'Gräv 4 ggr i gruvschaktet', type:'mine',  target:4,  reward:{coins:250,xp:35}},
+  {id:'perform',   icon:'🎪', name:'Uppträd 2 cirkusakter',  type:'perform',   target:2,  reward:{coins:350,xp:45}},
+  {id:'compose',   icon:'🎵', name:'Komponera 1 musikstycke', type:'compose',  target:1,  reward:{coins:300,xp:40}},
+  {id:'dungeon',   icon:'🏰', name:'Utforska 1 dungeonrum', type:'dungeon',    target:1,  reward:{coins:400,xp:50}},
+];
+const QDAY_DAILY_COUNT = 5;
+
+function _qdayData(){try{return JSON.parse(localStorage.getItem(QDAY_KEY)||'null');}catch(e){return null;}}
+function _qdaySave(d){localStorage.setItem(QDAY_KEY,JSON.stringify(d));}
+
+function _qdayGenQuests(seed){
+  var pool=QDAY_TEMPLATES.slice();
+  for(var j=pool.length-1;j>0;j--){
+    seed=(seed*1664525+1013904223)>>>0;
+    var k=seed%(j+1);
+    var tmp=pool[j];pool[j]=pool[k];pool[k]=tmp;
+  }
+  return pool.slice(0,QDAY_DAILY_COUNT).map(function(t){return {id:t.id,progress:0,done:false};});
+}
+
+function _qdayGetData(){
+  var d=_qdayData();
+  var today=getTodayKey();
+  if(!d){d={today:'',quests:[],streak:0,lastDay:'',earned:0,allClaimed:false};}
+  if(d.today!==today){
+    var s=0;for(var i=0;i<today.length;i++) s=(s*31+today.charCodeAt(i))>>>0;
+    d.quests=_qdayGenQuests(s);
+    var prevDay=d.today;
+    // Streak: if yesterday's date matches lastDay with all done
+    if(d.lastDay&&d.allClaimed){
+      // check if lastDay was yesterday
+      var ld=new Date(prevDay);
+      var td=new Date(today);
+      var diff=(td-ld)/(86400000);
+      if(diff===1) d.streak=(d.streak||0)+1;
+      else d.streak=0;
+    } else {
+      d.streak=0;
+    }
+    d.today=today;
+    d.allClaimed=false;
+  }
+  return d;
+}
+
+function questTrack(type,amount){
+  var d=_qdayGetData();
+  var changed=false;
+  d.quests.forEach(function(q,i){
+    if(q.done) return;
+    var tmpl=QDAY_TEMPLATES.filter(function(t){return t.id===q.id;})[0];
+    if(!tmpl||tmpl.type!==type) return;
+    q.progress=Math.min(tmpl.target,(q.progress||0)+1);
+    if(q.progress>=tmpl.target){
+      q.done=true;
+      gainCoins(tmpl.reward.coins);
+      gainXP(tmpl.reward.xp,'int');
+      showFloatBubble(tmpl.icon+' Uppdrag klart! +'+tmpl.reward.coins+'🪙','buff');
+      d.earned=(d.earned||0)+tmpl.reward.coins;
+    }
+    changed=true;
+  });
+  if(changed){
+    _qdaySave(d);
+    _renderQday(d);
+    // Auto-popup if open
+  }
+}
+
+function qdayClaimAll(){
+  var d=_qdayGetData();
+  if(d.allClaimed) return;
+  var allDone=d.quests.every(function(q){return q.done;});
+  if(!allDone){showFloatBubble('Klart alla uppdrag först!','debuff');return;}
+  gainCoins(2000);gainKC(3);
+  d.allClaimed=true;
+  d.lastDay=d.today;
+  d.earned=(d.earned||0)+2000;
+  _qdaySave(d);
+  showFloatBubble('🏆 ALLA UPPDRAG KLARA! +2000🪙 +3KC!','buff');
+  checkAchievements();
+  _renderQday(d);
+}
+
+function openQday(){$('qdayPanel').classList.add('open');_renderQday();}
+function closeQday(){$('qdayPanel').classList.remove('open');}
+
+function _renderQday(d){
+  if(!d) d=_qdayGetData();
+  var doneCount=d.quests.filter(function(q){return q.done;}).length;
+  var dv=$('qdayDone');if(dv) dv.textContent=doneCount+'/'+QDAY_DAILY_COUNT;
+  var sv=$('qdayStreak');if(sv) sv.textContent=d.streak||0;
+  var ev=$('qdayEarned');if(ev) ev.textContent=d.earned||0;
+  var ab=$('qdayAllBar');if(ab) ab.style.width=Math.floor(doneCount/QDAY_DAILY_COUNT*100)+'%';
+  var allDone=doneCount>=QDAY_DAILY_COUNT;
+  var btn=$('qdayAllBtn');
+  if(btn){btn.disabled=!allDone||d.allClaimed;btn.textContent=d.allClaimed?'✓ Bonus redan hämtad!':'🏆 Hämta Alla-Klara-Bonus!';}
+  var qc=$('qdayQuests');
+  if(qc){
+    qc.innerHTML=d.quests.map(function(q){
+      var tmpl=QDAY_TEMPLATES.filter(function(t){return t.id===q.id;})[0];
+      if(!tmpl) return '';
+      var pct=Math.min(100,Math.floor((q.progress||0)/tmpl.target*100));
+      return '<div class="qday-quest'+(q.done?' done':'')+'">'+
+        '<div class="qday-quest-icon">'+tmpl.icon+'</div>'+
+        '<div class="qday-quest-body">'+
+          '<div class="qday-quest-name">'+tmpl.name+'</div>'+
+          '<div class="qday-quest-prog">'+
+            '<div class="qday-quest-bar"><div class="qday-quest-fill" style="width:'+pct+'%"></div></div>'+
+            '<div class="qday-quest-count">'+(q.progress||0)+'/'+tmpl.target+'</div>'+
+          '</div>'+
+          '<div class="qday-quest-reward">+'+tmpl.reward.coins+'🪙 +'+tmpl.reward.xp+'XP</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
 }
 
 </script>
