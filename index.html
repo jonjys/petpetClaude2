@@ -1530,6 +1530,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PRESTIGE SYSTEM ══ */
+.pres-panel{position:fixed;inset:0;background:#030006;z-index:1043;display:none;flex-direction:column;overflow:hidden}
+.pres-panel.open{display:flex}
+.pres-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080018,#030006)}
+.pres-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ff44aa,#aa44ff,#4488ff,#ffcc00);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:presShim 3s linear infinite}
+@keyframes presShim{0%{background-position:0%}100%{background-position:400%}}
+.pres-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Main banner */
+.pres-banner{background:radial-gradient(ellipse,rgba(255,200,0,.1),rgba(0,0,0,0));border:3px solid rgba(255,200,0,.3);border-radius:22px;padding:18px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden}
+.pres-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,200,0,.03),rgba(170,68,255,.03));pointer-events:none}
+.pres-stars{font-size:28px;display:block;margin-bottom:4px;letter-spacing:4px;min-height:34px}
+.pres-level-num{font:900 48px var(--ff-head);color:#ffcc00;text-shadow:0 0 30px rgba(255,200,0,.5);line-height:1}
+.pres-level-lbl{font:700 10px var(--ff-head);color:rgba(255,200,0,.6);letter-spacing:2px;margin-bottom:8px}
+.pres-boost-val{font:800 20px var(--ff-head);color:#44ff88}
+.pres-boost-lbl{font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+/* Requirements */
+.pres-req{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.pres-req-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px}
+.pres-req-list{display:flex;flex-direction:column;gap:5px}
+.pres-req-item{display:flex;align-items:center;gap:8px}
+.pres-req-check{font-size:14px;flex-shrink:0}
+.pres-req-text{font:600 9px var(--ff-body);color:rgba(255,255,255,.5);flex:1}
+.pres-req-val{font:700 9px var(--ff-head);color:#ffcc00}
+/* Prestige button */
+.pres-btn{width:100%;background:linear-gradient(135deg,#332200,#775500,#332200);background-size:200%;border:2px solid rgba(255,200,0,.4);border-radius:16px;padding:16px;font:900 16px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 0 30px rgba(255,200,0,.2);animation:presGlow 2s ease-in-out infinite}
+@keyframes presGlow{0%,100%{box-shadow:0 0 20px rgba(255,200,0,.2)}50%{box-shadow:0 0 40px rgba(255,200,0,.4)}}
+.pres-btn:disabled{opacity:.3;cursor:default;animation:none;box-shadow:none;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}
+/* What's kept/reset */
+.pres-section-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px;margin-top:8px}
+.pres-kept,.pres-reset-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.pres-kept-item{background:rgba(68,255,136,.07);border:1px solid rgba(68,255,136,.2);border-radius:8px;padding:4px 8px;font:600 8px var(--ff-body);color:rgba(68,255,136,.8)}
+.pres-reset-item{background:rgba(255,68,68,.07);border:1px solid rgba(255,68,68,.2);border-radius:8px;padding:4px 8px;font:600 8px var(--ff-body);color:rgba(255,100,100,.8)}
+/* History */
+.pres-history{font:600 9px var(--ff-body);color:rgba(255,200,0,.5);text-align:center;margin-top:4px;min-height:16px}
+.pres-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-top:6px}
+
 /* ══ PET TALENTS ══ */
 .tal-panel{position:fixed;inset:0;background:#060008;z-index:1042;display:none;flex-direction:column;overflow:hidden}
 .tal-panel.open{display:flex}
@@ -11650,6 +11687,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
+          <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11713,6 +11751,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
+          <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11759,6 +11798,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
+          <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11843,6 +11883,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLootChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openRun()"><div class="ddr-i">🏃</div>Löpare</div>
           <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌟</div>Talanger</div>
+          <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">⭐</div>Prestige</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12433,6 +12474,49 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PRESTIGE SYSTEM -->
+<div class="pres-panel" id="presPanel">
+  <div class="pres-header">
+    <div class="pres-title">⭐ PRESTIGE</div>
+    <button class="close-btn" onclick="closePres()">✕</button>
+  </div>
+  <div class="pres-scroll">
+    <div class="pres-banner">
+      <span class="pres-stars" id="presStars"></span>
+      <div class="pres-level-num" id="presLvl">0</div>
+      <div class="pres-level-lbl">PRESTIGENIVÅ</div>
+      <div class="pres-boost-val" id="presBoostVal">+0%</div>
+      <div class="pres-boost-lbl">bonus på ALLA stats & mynt-gains</div>
+    </div>
+    <div class="pres-req">
+      <div class="pres-req-lbl">KRAV FÖR NÄSTA PRESTIGE</div>
+      <div class="pres-req-list" id="presReqList"></div>
+    </div>
+    <button class="pres-btn" id="presBtn" onclick="doPrestige()">⭐ PRESTIGE NU!</button>
+    <div class="pres-history" id="presHistory"></div>
+    <div class="pres-section-lbl">✓ BEHÅLLS VID PRESTIGE</div>
+    <div class="pres-kept">
+      <div class="pres-kept-item">💠 KC</div>
+      <div class="pres-kept-item">🏅 Prestationer</div>
+      <div class="pres-kept-item">⚒️ Smedjan</div>
+      <div class="pres-kept-item">👑 Titlar</div>
+      <div class="pres-kept-item">🌟 Talanger</div>
+      <div class="pres-kept-item">📖 Monsterlexikon</div>
+      <div class="pres-kept-item">📦 Kistor</div>
+      <div class="pres-kept-item">⭐ Prestigenivå</div>
+    </div>
+    <div class="pres-section-lbl">✕ ÅTERSTÄLLS</div>
+    <div class="pres-reset-list">
+      <div class="pres-reset-item">Stats (→ 1)</div>
+      <div class="pres-reset-item">Level (→ 1)</div>
+      <div class="pres-reset-item">XP (→ 0)</div>
+      <div class="pres-reset-item">Mynt (→ 100)</div>
+    </div>
+    <div class="pres-info">Varje prestigenivå ger +15% permanent bonus till alla gains!</div>
+  </div>
+</div>
 
 <!-- PET TALENTS -->
 <div class="tal-panel" id="talPanel">
@@ -53896,6 +53980,99 @@ function _renderTal(d){
     '</div>';
   }).join('');
 }
+
+
+// PRESTIGE SYSTEM
+const PRES_KEY = 'k0509_pres';
+const PRES_MAX_LEVEL = 5;
+const PRES_BOOST_PER_LEVEL = 0.15; // 15% per prestige
+const PRES_STAT_REQ = 50;
+const PRES_LVL_REQ = 25;
+
+function _presData(){try{return JSON.parse(localStorage.getItem(PRES_KEY)||'null');}catch(e){return null;}}
+function _presSave(d){localStorage.setItem(PRES_KEY,JSON.stringify(d));}
+function _presGetData(){
+  var d=_presData();
+  if(!d) d={level:0,history:[]};
+  return d;
+}
+function presBoostFactor(){
+  try{var d=JSON.parse(localStorage.getItem(PRES_KEY)||'null');return 1+(((d&&d.level)||0)*PRES_BOOST_PER_LEVEL);}catch(e){return 1;}
+}
+
+function _presCanPrestige(){
+  if((G.lvl||1)<PRES_LVL_REQ) return false;
+  if((G.str||0)<PRES_STAT_REQ) return false;
+  if((G.agi||0)<PRES_STAT_REQ) return false;
+  if((G.int||0)<PRES_STAT_REQ) return false;
+  if((G.end||0)<PRES_STAT_REQ) return false;
+  if((G.lck||0)<PRES_STAT_REQ) return false;
+  return true;
+}
+
+function doPrestige(){
+  var d=_presGetData();
+  if(d.level>=PRES_MAX_LEVEL){showFloatBubble('Max prestige uppnådd!','debuff');return;}
+  if(!_presCanPrestige()){showFloatBubble('Uppfyll alla krav först!','debuff');return;}
+  if(!confirm('Är du säker? Stats, level, XP och mynt återställs!')){return;}
+  d.level=(d.level||0)+1;
+  d.history.push({level:d.level,date:getTodayKey(),stats:{str:G.str,agi:G.agi,int:G.int,end:G.end,lck:G.lck,lvl:G.lvl}});
+  // Reset stats
+  G.str=1;G.agi=1;G.int=1;G.end=1;G.lck=1;
+  G.lvl=1;G.xp=0;G.coins=100;
+  // Keep KC, achievements etc
+  save();
+  _presSave(d);
+  showFloatBubble('⭐ PRESTIGE '+d.level+'! +'+Math.round(d.level*15)+'% bonus!','buff');
+  checkAchievements();
+  _renderPres(d);
+}
+
+function openPres(){$('presPanel').classList.add('open');_renderPres();}
+function closePres(){$('presPanel').classList.remove('open');}
+
+function _renderPres(d){
+  if(!d) d=_presGetData();
+  var pln=$('presLvl');if(pln) pln.textContent=d.level;
+  var pst=$('presStars');if(pst) pst.textContent='⭐'.repeat(d.level)||'○';
+  var boostPct=Math.round(d.level*PRES_BOOST_PER_LEVEL*100);
+  var pbv=$('presBoostVal');if(pbv) pbv.textContent='+'+boostPct+'%';
+  var canPres=_presCanPrestige()&&d.level<PRES_MAX_LEVEL;
+  var btn=$('presBtn');
+  if(btn){
+    btn.disabled=!canPres;
+    btn.textContent=d.level>=PRES_MAX_LEVEL?'⭐ MAX PRESTIGE!':canPres?'⭐ PRESTIGE NU!':'⭐ PRESTIGE (uppfyll krav)';
+  }
+  // Requirements
+  var reqList=$('presReqList');
+  if(reqList){
+    var reqs=[
+      {label:'Alla stats ≥ '+PRES_STAT_REQ, met:(G.str||0)>=PRES_STAT_REQ&&(G.agi||0)>=PRES_STAT_REQ&&(G.int||0)>=PRES_STAT_REQ&&(G.end||0)>=PRES_STAT_REQ&&(G.lck||0)>=PRES_STAT_REQ, val:'STR:'+( G.str||0)+' AGI:'+(G.agi||0)+' INT:'+(G.int||0)+' END:'+(G.end||0)+' LCK:'+(G.lck||0)},
+      {label:'Level ≥ '+PRES_LVL_REQ, met:(G.lvl||1)>=PRES_LVL_REQ, val:'Level '+(G.lvl||1)},
+      {label:'Prestige < '+PRES_MAX_LEVEL, met:d.level<PRES_MAX_LEVEL, val:d.level+'/'+PRES_MAX_LEVEL},
+    ];
+    reqList.innerHTML=reqs.map(function(r){
+      return '<div class="pres-req-item">'+
+        '<div class="pres-req-check">'+(r.met?'✅':'❌')+'</div>'+
+        '<div class="pres-req-text">'+r.label+'</div>'+
+        '<div class="pres-req-val">'+r.val+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  var ph=$('presHistory');
+  if(ph&&d.history&&d.history.length){
+    var last=d.history[d.history.length-1];
+    ph.textContent='Senaste: Prestige '+last.level+' den '+last.date+' (Stats: STR'+last.stats.str+' Lvl'+last.stats.lvl+')';
+  }
+}
+
+// Apply prestige boost to gainCoins and gainXP
+(function(){
+  var _oc=typeof gainCoins==='function'?gainCoins:null;
+  var _ox=typeof gainXP==='function'?gainXP:null;
+  if(_oc) gainCoins=function(n){return _oc(Math.round(n*presBoostFactor()));};
+  if(_ox) gainXP=function(n,s){return _ox(Math.round(n*presBoostFactor()),s);};
+}());
 
 </script>
 
