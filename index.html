@@ -1499,6 +1499,51 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET SHRINE ══ */
+.shri-panel{position:fixed;inset:0;background:#020206;z-index:1012;display:none;flex-direction:column;overflow:hidden}
+.shri-panel.open{display:flex}
+.shri-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060612,#020206)}
+.shri-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aaaaff,#ffffff,#ffddaa,#aaaaff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shriShim 5s linear infinite}
+@keyframes shriShim{0%{background-position:0%}100%{background-position:300%}}
+.shri-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Shrine visual */
+.shri-altar{text-align:center;margin-bottom:16px;position:relative}
+.shri-glow{width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(180,180,255,.1),transparent);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(180,180,255,.15);animation:shriPulse 3s ease-in-out infinite}
+@keyframes shriPulse{0%,100%{box-shadow:0 0 20px rgba(180,180,255,.1)}50%{box-shadow:0 0 40px rgba(180,180,255,.25)}}
+.shri-main-emoji{font-size:52px}
+.shri-bless-count{font:900 16px var(--ff-head);color:#aaaaff;margin-top:4px}
+.shri-bless-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.35)}
+/* Spirits */
+.shri-spirits-lbl{font:700 9px var(--ff-head);color:rgba(255,255,255,.35);letter-spacing:1px;margin-bottom:8px}
+.shri-spirits{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.shri-spirit{background:rgba(255,255,255,.02);border:1.5px solid rgba(180,180,255,.1);border-radius:16px;padding:12px 14px;cursor:pointer;transition:border-color .2s}
+.shri-spirit.selected{border-color:rgba(180,180,255,.4);background:rgba(180,180,255,.04)}
+.shri-spirit.maxed{border-color:rgba(255,200,0,.2);background:rgba(255,200,0,.02);cursor:default}
+.shri-spirit-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.shri-spirit-emoji{font-size:28px}
+.shri-spirit-info{flex:1}
+.shri-spirit-name{font:800 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.shri-spirit-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.shri-spirit-lv{font:900 12px var(--ff-head);padding:4px 10px;border-radius:8px;flex-shrink:0}
+.shri-prog-row{display:flex;justify-content:space-between;font:700 7px var(--ff-head);color:rgba(255,255,255,.3);margin-bottom:3px}
+.shri-prog-bar{height:6px;background:rgba(255,255,255,.04);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.shri-prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#aaaaff,#ffffff);transition:width .3s}
+.shri-spirit-effect{font:700 9px var(--ff-head);color:#aaaaff}
+/* Offering */
+.shri-offering-box{background:rgba(180,180,255,.03);border:1px solid rgba(180,180,255,.12);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.shri-offering-lbl{font:700 9px var(--ff-head);color:rgba(180,180,255,.5);letter-spacing:1px;margin-bottom:8px}
+.shri-offer-btn{width:100%;background:linear-gradient(135deg,#111133,#222266);border:none;border-radius:13px;padding:12px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;box-shadow:0 0 16px rgba(180,180,255,.15)}
+.shri-offer-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
+.shri-offer-cost{font:700 9px var(--ff-body);color:rgba(255,255,255,.4);text-align:center;margin-top:6px}
+/* Stats */
+.shri-stats{display:flex;gap:8px;margin-bottom:12px}
+.shri-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(180,180,255,.08);border-radius:10px;padding:7px;text-align:center}
+.shri-stat-v{font:900 14px var(--ff-head);color:#aaaaff}
+.shri-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.shri-result{font:700 10px var(--ff-head);color:#aaaaff;text-align:center;min-height:18px;margin-bottom:8px}
+.shri-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ COLOSSEUM ══ */
 .colo-panel{position:fixed;inset:0;background:#060200;z-index:1011;display:none;flex-direction:column;overflow:hidden}
 .colo-panel.open{display:flex}
@@ -10280,6 +10325,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
+          <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
           <div class="ddr" onclick="cM();openNews()"><div class="ddr-i">📰</div>Petsborough Times</div>
@@ -10312,6 +10358,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
+          <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
           <div class="ddr" onclick="cM();openGard()"><div class="ddr-i">🌱</div>Trädgård</div>
@@ -10327,6 +10374,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
+          <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
@@ -10380,6 +10428,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash()"><div class="ddr-i">👗</div>Modeshow</div>
           <div class="ddr" onclick="cM();openTwrp()"><div class="ddr-i">⏰</div>Tidsvarp</div>
           <div class="ddr" onclick="cM();openColo()"><div class="ddr-i">🏟️</div>Kolosseum</div>
+          <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏️</div>Kristallgrotta</div>
@@ -10938,6 +10987,36 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET SHRINE -->
+<div class="shri-panel" id="shriPanel">
+  <div class="shri-header">
+    <div class="shri-title">⛩️ HUSDJURSSKRIN</div>
+    <button class="close-btn" onclick="closeShri()">✕</button>
+  </div>
+  <div class="shri-scroll">
+    <div class="shri-altar">
+      <div class="shri-glow"><span class="shri-main-emoji">⛩️</span></div>
+      <div class="shri-bless-count" id="shriBlessCount">0 välsignelser</div>
+      <div class="shri-bless-lbl">Totalt mottagna andars välsignelser</div>
+    </div>
+    <div class="shri-stats">
+      <div class="shri-stat"><div class="shri-stat-v" id="shriOfferings">0</div><div class="shri-stat-l">Offer</div></div>
+      <div class="shri-stat"><div class="shri-stat-v" id="shriSpirits">0/5</div><div class="shri-stat-l">Andar awakened</div></div>
+      <div class="shri-stat"><div class="shri-stat-v" id="shriCoinsSpent">0</div><div class="shri-stat-l">Mynt offrade</div></div>
+    </div>
+    <div class="shri-result" id="shriResult"></div>
+    <div class="shri-spirits-lbl">ANDAR (välj en att hylla)</div>
+    <div class="shri-spirits" id="shriSpirits"></div>
+    <div class="shri-offering-box">
+      <div class="shri-offering-lbl">OFFER</div>
+      <button class="shri-offer-btn" id="shriOfferBtn" onclick="shriOffer()" disabled>🙏 Ge Offer</button>
+      <div class="shri-offer-cost" id="shriOfferCost">Välj en ande</div>
+    </div>
+    <div class="shri-info">Ge offer för att awaken andar och få permanenta välsignelser! LCK ökar chansen för mystiska gåvor!</div>
+  </div>
+</div>
 
 <!-- COLOSSEUM -->
 <div class="colo-panel" id="coloPanel">
@@ -46714,6 +46793,125 @@ function _renderColo(){
         '</div>'+
         '<div class="colo-match-status '+(m.result||'next')+'">'+labels[status]+'</div>'+
         '<div class="colo-match-reward">+'+m.reward.coins+'🪙</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// PET SHRINE
+const SHRI_KEY = 'k0509_shri';
+const SHRI_SPIRITS = [
+  {id:'strength',emoji:'💪', name:'Styrkandens Ande',  desc:'Ande av oändlig styrka',
+   color:'#ff6644', bg:'rgba(255,100,70,.1)', maxLv:5,
+   costs:[500,1000,2000,4000,8000],
+   bless:function(lv){G.str=(G.str||0)+10;save();return '+10 STR';}},
+  {id:'swift',   emoji:'💨', name:'Vindens Ande',      desc:'Ande av hastighet och smidighet',
+   color:'#44ffcc', bg:'rgba(70,255,200,.1)', maxLv:5,
+   costs:[500,1000,2000,4000,8000],
+   bless:function(lv){G.agi=(G.agi||0)+10;save();return '+10 AGI';}},
+  {id:'wisdom',  emoji:'🌀', name:'Visdomens Ande',    desc:'Ande av djup kunskap',
+   color:'#88aaff', bg:'rgba(130,170,255,.1)', maxLv:5,
+   costs:[500,1000,2000,4000,8000],
+   bless:function(lv){G.int=(G.int||0)+10;save();return '+10 INT';}},
+  {id:'fortune', emoji:'🍀', name:'Lyckans Ande',      desc:'Ande av obruten lycka',
+   color:'#ffcc44', bg:'rgba(255,200,70,.1)', maxLv:5,
+   costs:[800,1500,3000,6000,12000],
+   bless:function(lv){G.lck=(G.lck||0)+15;save();return '+15 LCK';}},
+  {id:'cosmos',  emoji:'🌟', name:'Kosmosens Ande',    desc:'Ande som ger allt och inget',
+   color:'#ffffff', bg:'rgba(255,255,255,.06)', maxLv:3,
+   costs:[2000,5000,10000],
+   bless:function(lv){['str','agi','int','end','lck'].forEach(function(s){G[s]=(G[s]||0)+5;});save();if(lv===3) gainKC(3);return '+5 ALLA stats'+(lv===3?' +3KC':'');}},
+];
+
+function _shriData(){try{return JSON.parse(localStorage.getItem(SHRI_KEY)||'null');}catch(e){return null;}}
+function _shriSave(d){localStorage.setItem(SHRI_KEY,JSON.stringify(d));}
+function _shriGetData(){
+  var d=_shriData();
+  if(!d) d={levels:{},blessCount:0,offerings:0,coinsSpent:0};
+  return d;
+}
+var _shriSelected=null;
+
+function shriSelectSpirit(id){
+  var d=_shriGetData();
+  var spirit=SHRI_SPIRITS.filter(function(s){return s.id===id;})[0];
+  if(!spirit) return;
+  var lv=d.levels[id]||0;
+  if(lv>=spirit.maxLv) return;
+  _shriSelected=id;
+  var cost=spirit.costs[lv];
+  var ob=$('shriOfferBtn');if(ob) ob.disabled=false;
+  var oc=$('shriOfferCost');if(oc) oc.textContent='Kostnad: '+cost+'\u{1F48A} → Välsignelse!';
+  _renderShri();
+}
+
+function shriOffer(){
+  if(!_shriSelected) return;
+  var d=_shriGetData();
+  var spirit=SHRI_SPIRITS.filter(function(s){return s.id===_shriSelected;})[0];
+  if(!spirit) return;
+  var lv=d.levels[_shriSelected]||0;
+  if(lv>=spirit.maxLv){showFloatBubble('Anden är fullt awakened!','debuff');return;}
+  var cost=spirit.costs[lv];
+  if((G.coins||0)<cost){showFloatBubble('Behöver '+cost+'\u{1F48A}!','debuff');return;}
+  G.coins-=cost;save();
+  d.levels[_shriSelected]=(lv+1);
+  d.coinsSpent=(d.coinsSpent||0)+cost;
+  d.offerings=(d.offerings||0)+1;
+  var newLv=d.levels[_shriSelected];
+  var blessMsg=spirit.bless(newLv);
+  d.blessCount=(d.blessCount||0)+1;
+  if(Math.random()<Math.min((G.lck||0)*0.003,0.2)){
+    G.lck=(G.lck||0)+5;save();
+    blessMsg+=' + Mystisk gåva: +5 LCK!';
+  }
+  _shriSave(d);
+  var res=$('shriResult');
+  if(res) res.textContent=spirit.emoji+' '+spirit.name+' välsignar: '+blessMsg;
+  showFloatBubble(spirit.emoji+' Välsignad! '+blessMsg,'buff');
+  checkAchievements();
+  _shriSelected=null;
+  var ob=$('shriOfferBtn');if(ob) ob.disabled=true;
+  var oc=$('shriOfferCost');if(oc) oc.textContent='Välj en ande';
+  _renderShri();
+}
+
+function openShri(){$('shriPanel').classList.add('open');_shriSelected=null;_renderShri();}
+function closeShri(){$('shriPanel').classList.remove('open');}
+
+function _renderShri(){
+  var d=_shriGetData();
+  var sbc=$('shriBlessCount');if(sbc) sbc.textContent=(d.blessCount||0)+' välsignelser';
+  var awk=SHRI_SPIRITS.filter(function(s){return (d.levels[s.id]||0)>0;}).length;
+  // Update stats via panel querySelectorAll
+  var panel=$('shriPanel');
+  if(panel){
+    var statVals=panel.querySelectorAll('.shri-stat-v');
+    if(statVals[0]) statVals[0].textContent=d.offerings||0;
+    if(statVals[1]) statVals[1].textContent=awk+'/'+SHRI_SPIRITS.length;
+    if(statVals[2]) statVals[2].textContent=d.coinsSpent||0;
+  }
+  var spPanel=$('shriSpirits');
+  if(spPanel){
+    spPanel.innerHTML=SHRI_SPIRITS.map(function(spirit){
+      var lv=d.levels[spirit.id]||0;
+      var isMax=lv>=spirit.maxLv;
+      var isSel=_shriSelected===spirit.id;
+      var pct=Math.round(lv/spirit.maxLv*100);
+      var nextCost=isMax?0:spirit.costs[lv];
+      return '<div class="shri-spirit'+(isMax?' maxed':isSel?' selected':'')+'" onclick="shriSelectSpirit(''+spirit.id+'')">'+
+        '<div class="shri-spirit-top">'+
+          '<div class="shri-spirit-emoji">'+spirit.emoji+'</div>'+
+          '<div class="shri-spirit-info">'+
+            '<div class="shri-spirit-name">'+spirit.name+'</div>'+
+            '<div class="shri-spirit-desc">'+spirit.desc+'</div>'+
+          '</div>'+
+          '<div class="shri-spirit-lv" style="background:'+spirit.bg+';color:'+spirit.color+'">Lv'+lv+'/'+spirit.maxLv+'</div>'+
+        '</div>'+
+        '<div class="shri-prog-row"><span>Awakening</span><span>'+pct+'%</span></div>'+
+        '<div class="shri-prog-bar"><div class="shri-prog-fill" style="width:'+pct+'%;background:linear-gradient(90deg,'+spirit.color+','+spirit.color+'88)"></div></div>'+
+        '<div class="shri-spirit-effect">'+(isMax?'✨ FULLT AWAKENED!':'Nästa offer: '+nextCost+'🪙')+'</div>'+
       '</div>';
     }).join('');
   }
