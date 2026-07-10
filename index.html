@@ -1524,6 +1524,51 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ CHAMPION TITLES ══ */
+.title-panel{position:fixed;inset:0;background:#08050a;z-index:1037;display:none;flex-direction:column;overflow:hidden}
+.title-panel.open{display:flex}
+.title-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#120918,#08050a)}
+.title-h-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ffcc44,#ffdd00);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:titleShim 1.8s linear infinite}
+@keyframes titleShim{0%{background-position:0%}100%{background-position:200%}}
+.title-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Equipped banner */
+.title-equipped{background:radial-gradient(ellipse,rgba(255,200,0,.08),rgba(0,0,0,0));border:2px solid rgba(255,200,0,.3);border-radius:20px;padding:14px 18px;margin-bottom:14px;text-align:center}
+.title-eq-lbl{font:700 8px var(--ff-head);color:rgba(255,200,0,.5);letter-spacing:1.5px;margin-bottom:4px}
+.title-eq-name{font:900 20px var(--ff-head);color:#ffdd00;text-shadow:0 0 20px rgba(255,200,0,.4);margin-bottom:4px}
+.title-eq-bonus{font:600 10px var(--ff-body);color:rgba(255,200,100,.8)}
+.title-eq-tier{font:600 8px var(--ff-head);letter-spacing:1px;margin-top:4px}
+.title-eq-tier.bronze{color:#b47c3c}
+.title-eq-tier.silver{color:#c0c0dc}
+.title-eq-tier.gold{color:#ffd200}
+.title-eq-tier.legend{color:#ff8800;text-shadow:0 0 8px rgba(255,136,0,.4)}
+/* Stats bar */
+.title-stats{display:flex;gap:8px;margin-bottom:12px}
+.title-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,200,0,.1);border-radius:10px;padding:6px;text-align:center}
+.title-stat-v{font:900 14px var(--ff-head);color:#ffcc00}
+.title-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Title list */
+.title-section-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px;margin-top:4px}
+.title-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.title-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.06);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.title-card.unlocked{border-color:rgba(255,200,0,.2);background:rgba(255,200,0,.03)}
+.title-card.equipped-card{border-color:rgba(255,200,0,.5);background:rgba(255,200,0,.07);box-shadow:0 0 12px rgba(255,200,0,.1)}
+.title-card.locked{opacity:.4}
+.title-card-icon{font-size:28px;flex-shrink:0}
+.title-card-info{flex:1}
+.title-card-name{font:800 12px var(--ff-head);color:#fff;margin-bottom:1px}
+.title-card-req{font:500 8px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:2px}
+.title-card-bonus{font:700 9px var(--ff-head);color:#ffaa00}
+.title-card-tier{font:600 7px var(--ff-body);letter-spacing:.5px}
+.title-card-tier.bronze{color:#b47c3c}
+.title-card-tier.silver{color:#c0c0dc}
+.title-card-tier.gold{color:#ffd200}
+.title-card-tier.legend{color:#ff8800}
+.title-equip-btn{background:rgba(255,200,0,.15);border:1px solid rgba(255,200,0,.3);border-radius:8px;padding:5px 10px;font:700 8px var(--ff-head);color:#ffcc00;cursor:pointer;flex-shrink:0}
+.title-equip-btn:disabled{opacity:.3;cursor:default}
+.title-lock-icon{font-size:16px;flex-shrink:0}
+.title-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-top:6px}
+
 /* ══ PATTERN MEMORY ══ */
 .patt-panel{position:fixed;inset:0;background:#05000f;z-index:1036;display:none;flex-direction:column;overflow:hidden}
 .patt-panel.open{display:flex}
@@ -11408,6 +11453,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
+          <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11465,6 +11511,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
+          <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11505,6 +11552,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
+          <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11583,6 +11631,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWhack()"><div class="ddr-i">🔨</div>Slå</div>
           <div class="ddr" onclick="cM();openCatch()"><div class="ddr-i">🪣</div>Fånga</div>
           <div class="ddr" onclick="cM();openPatt()"><div class="ddr-i">🧠</div>Mönster</div>
+          <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12167,6 +12216,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- CHAMPION TITLES -->
+<div class="title-panel" id="titlePanel">
+  <div class="title-header">
+    <div class="title-h-title">👑 TITLAR</div>
+    <button class="close-btn" onclick="closeTitle()">✕</button>
+  </div>
+  <div class="title-scroll">
+    <div class="title-equipped">
+      <div class="title-eq-lbl">AKTIV TITEL</div>
+      <div class="title-eq-name" id="titleEqName">Nybörjare</div>
+      <div class="title-eq-bonus" id="titleEqBonus">Inga bonusar</div>
+      <div class="title-eq-tier bronze" id="titleEqTier">BRONS</div>
+    </div>
+    <div class="title-stats">
+      <div class="title-stat-box"><div class="title-stat-v" id="titleUnlocked">0</div><div class="title-stat-l">Upplåsta</div></div>
+      <div class="title-stat-box"><div class="title-stat-v" id="titleTotal">0</div><div class="title-stat-l">Totalt</div></div>
+      <div class="title-stat-box"><div class="title-stat-v" id="titleBonusTotal">0</div><div class="title-stat-l">Aktiv bonus</div></div>
+    </div>
+    <div class="title-section-lbl">ALLA TITLAR</div>
+    <div class="title-list" id="titleList"></div>
+    <div class="title-info">Utrusta en titel för permanenta bonusar! Lås upp fler genom att bli starkare!</div>
+  </div>
+</div>
 
 <!-- PATTERN MEMORY -->
 <div class="patt-panel" id="pattPanel">
@@ -52575,6 +52649,114 @@ function _renderPatt(d){
     btn.textContent=playsLeft>0?'🧠 STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';
   }
   _pattUpdateLives();
+}
+
+
+// CHAMPION TITLES
+const TITLE_KEY = 'k0509_title';
+const TITLE_DEFS = [
+  // Tier: bronze=1, silver=2, gold=3, legend=4
+  {id:'beginner', icon:'🌱', name:'Nybörjare',      tier:'bronze', req:'Alltid upplåst',           check:function(){return true;},            bonus:{},              bonusTxt:'Ingen bonus'},
+  {id:'fighter',  icon:'⚔️', name:'Krigaren',        tier:'bronze', req:'STR 15+',                  check:function(){return (G.str||0)>=15;},   bonus:{str:2},         bonusTxt:'+2 STR'},
+  {id:'runner',   icon:'🏃', name:'Löparen',         tier:'bronze', req:'AGI 15+',                  check:function(){return (G.agi||0)>=15;},   bonus:{agi:2},         bonusTxt:'+2 AGI'},
+  {id:'scholar',  icon:'📚', name:'Läraren',         tier:'bronze', req:'INT 15+',                  check:function(){return (G.int||0)>=15;},   bonus:{int:2},         bonusTxt:'+2 INT'},
+  {id:'ironwill', icon:'🛡️', name:'Järnviljaren',   tier:'bronze', req:'END 15+',                  check:function(){return (G.end||0)>=15;},   bonus:{end:2},         bonusTxt:'+2 END'},
+  {id:'lucky1',   icon:'🍀', name:'Lyckliga',        tier:'bronze', req:'LCK 15+',                  check:function(){return (G.lck||0)>=15;},   bonus:{lck:2},         bonusTxt:'+2 LCK'},
+  {id:'warrior',  icon:'🗡️', name:'Krigsmästaren',  tier:'silver', req:'STR 35+',                  check:function(){return (G.str||0)>=35;},   bonus:{str:5},         bonusTxt:'+5 STR'},
+  {id:'sprinter', icon:'⚡', name:'Blixtsnabb',      tier:'silver', req:'AGI 35+',                  check:function(){return (G.agi||0)>=35;},   bonus:{agi:5},         bonusTxt:'+5 AGI'},
+  {id:'wizard',   icon:'🔮', name:'Vise Wizarden',   tier:'silver', req:'INT 35+',                  check:function(){return (G.int||0)>=35;},   bonus:{int:5},         bonusTxt:'+5 INT'},
+  {id:'guardian', icon:'🏰', name:'Väktaren',        tier:'silver', req:'END 35+',                  check:function(){return (G.end||0)>=35;},   bonus:{end:5},         bonusTxt:'+5 END'},
+  {id:'fortunate',icon:'🌟', name:'Lyckobarnet',     tier:'silver', req:'LCK 35+',                  check:function(){return (G.lck||0)>=35;},   bonus:{lck:5},         bonusTxt:'+5 LCK'},
+  {id:'rich1',    icon:'🪙', name:'Silverhand',      tier:'silver', req:'Level 10+',                check:function(){return (G.lvl||0)>=10;},   bonus:{lck:3,int:2},   bonusTxt:'+3 LCK +2 INT'},
+  {id:'kc1',      icon:'💠', name:'Kristallriddaren',tier:'silver', req:'20+ KC',                   check:function(){return (G.kc||0)>=20;},    bonus:{all:2},         bonusTxt:'+2 ALLA stats'},
+  {id:'champion', icon:'🏆', name:'Mästaren',        tier:'gold',   req:'STR 70+',                  check:function(){return (G.str||0)>=70;},   bonus:{str:12},        bonusTxt:'+12 STR'},
+  {id:'gale',     icon:'🌪️', name:'Orkanvinden',    tier:'gold',   req:'AGI 70+',                  check:function(){return (G.agi||0)>=70;},   bonus:{agi:12},        bonusTxt:'+12 AGI'},
+  {id:'sage',     icon:'🧙', name:'Urvisaren',       tier:'gold',   req:'INT 70+',                  check:function(){return (G.int||0)>=70;},   bonus:{int:12},        bonusTxt:'+12 INT'},
+  {id:'fortress', icon:'🗿', name:'Oförstörbaren',   tier:'gold',   req:'END 70+',                  check:function(){return (G.end||0)>=70;},   bonus:{end:12},        bonusTxt:'+12 END'},
+  {id:'oracle',   icon:'🔯', name:'Ödesläsaren',     tier:'gold',   req:'LCK 70+',                  check:function(){return (G.lck||0)>=70;},   bonus:{lck:12},        bonusTxt:'+12 LCK'},
+  {id:'allstar',  icon:'🌈', name:'Allstjärnan',     tier:'gold',   req:'All stats 50+',            check:function(){return (G.str||0)>=50&&(G.agi||0)>=50&&(G.int||0)>=50&&(G.end||0)>=50&&(G.lck||0)>=50;}, bonus:{str:5,agi:5,int:5,end:5,lck:5}, bonusTxt:'+5 ALLA'},
+  {id:'kc2',      icon:'💎', name:'Diamantbäraren',  tier:'gold',   req:'50+ KC',                   check:function(){return (G.kc||0)>=50;},    bonus:{all:5},         bonusTxt:'+5 ALLA stats'},
+  {id:'legend1',  icon:'👑', name:'Legenden',        tier:'legend', req:'STR+AGI+INT+END+LCK 500+', check:function(){return (G.str||0)+(G.agi||0)+(G.int||0)+(G.end||0)+(G.lck||0)>=500;}, bonus:{str:20,agi:20,int:20,end:20,lck:20}, bonusTxt:'+20 ALLA stats'},
+  {id:'godlike',  icon:'⚜️', name:'Gudabeläten',    tier:'legend', req:'Level 50+',                check:function(){return (G.lvl||0)>=50;},   bonus:{all:10},        bonusTxt:'+10 ALLA stats'},
+];
+
+function _titleData(){try{return JSON.parse(localStorage.getItem(TITLE_KEY)||'null');}catch(e){return null;}}
+function _titleSave(d){localStorage.setItem(TITLE_KEY,JSON.stringify(d));}
+function _titleGetData(){
+  var d=_titleData();
+  if(!d) d={equipped:'beginner',bonusActive:{}};
+  return d;
+}
+
+function _titleBonusStats(titleId){
+  var def=TITLE_DEFS.filter(function(t){return t.id===titleId;})[0];
+  if(!def) return {};
+  if(def.bonus.all){
+    var out={};
+    ['str','agi','int','end','lck'].forEach(function(s){out[s]=def.bonus.all;});
+    return out;
+  }
+  return def.bonus||{};
+}
+
+function titleEquip(id){
+  var def=TITLE_DEFS.filter(function(t){return t.id===id;})[0];
+  if(!def||!def.check()) return;
+  var d=_titleGetData();
+  // Unequip old
+  if(d.equipped){
+    var oldBonus=_titleBonusStats(d.equipped);
+    Object.keys(oldBonus).forEach(function(s){G[s]=Math.max(0,(G[s]||0)-oldBonus[s]);});
+  }
+  // Equip new
+  d.equipped=id;
+  var newBonus=_titleBonusStats(id);
+  Object.keys(newBonus).forEach(function(s){G[s]=(G[s]||0)+newBonus[s];});
+  save();
+  d.bonusActive=newBonus;
+  _titleSave(d);
+  showFloatBubble('👑 Titel utrustad: '+def.name,'buff');
+  _renderTitle(d);
+}
+
+function openTitle(){$('titlePanel').classList.add('open');_renderTitle();}
+function closeTitle(){$('titlePanel').classList.remove('open');}
+
+function _renderTitle(d){
+  if(!d) d=_titleGetData();
+  var eqDef=TITLE_DEFS.filter(function(t){return t.id===d.equipped;})[0]||TITLE_DEFS[0];
+  var en=$('titleEqName');if(en) en.textContent=eqDef.name;
+  var eb=$('titleEqBonus');if(eb) eb.textContent=eqDef.bonusTxt;
+  var et=$('titleEqTier');if(et){et.textContent=eqDef.tier.toUpperCase();et.className='title-eq-tier '+eqDef.tier;}
+  var unlocked=TITLE_DEFS.filter(function(t){return t.check();}).length;
+  var uv=$('titleUnlocked');if(uv) uv.textContent=unlocked;
+  var tv=$('titleTotal');if(tv) tv.textContent=TITLE_DEFS.length;
+  var bonusTotal=Object.values(_titleBonusStats(d.equipped)).reduce(function(a,b){return a+b;},0);
+  var bv=$('titleBonusTotal');if(bv) bv.textContent=bonusTotal;
+  var list=$('titleList');
+  if(list){
+    var tierOrder={bronze:0,silver:1,gold:2,legend:3};
+    var sorted=TITLE_DEFS.slice().sort(function(a,b){return tierOrder[a.tier]-tierOrder[b.tier];});
+    list.innerHTML=sorted.map(function(t){
+      var unlk=t.check();
+      var isEq=d.equipped===t.id;
+      return '<div class="title-card'+(unlk?' unlocked':'')+(isEq?' equipped-card':'')+(!unlk?' locked':'')+'">'+
+        '<div class="title-card-icon">'+t.icon+'</div>'+
+        '<div class="title-card-info">'+
+          '<div class="title-card-name">'+t.name+'</div>'+
+          '<div class="title-card-req">Krav: '+t.req+'</div>'+
+          '<div class="title-card-bonus">'+t.bonusTxt+'</div>'+
+          '<div class="title-card-tier '+t.tier+'">'+t.tier.toUpperCase()+'</div>'+
+        '</div>'+
+        (unlk?
+          '<button class="title-equip-btn" onclick="titleEquip(\''+t.id+'\')" '+(isEq?'disabled':'')+'>'+
+            (isEq?'✓ Aktiv':'Utrusta')+
+          '</button>':
+          '<span class="title-lock-icon">🔒</span>'
+        )+
+      '</div>';
+    }).join('');
+  }
 }
 
 </script>
