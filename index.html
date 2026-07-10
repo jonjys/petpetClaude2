@@ -1527,6 +1527,44 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ LOOT CHESTS ══ */
+.chest-panel{position:fixed;inset:0;background:#060410;z-index:1040;display:none;flex-direction:column;overflow:hidden}
+.chest-panel.open{display:flex}
+.chest-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0820,#060410)}
+.chest-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#cc44ff,#ffcc00);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:chestShim 2s linear infinite}
+@keyframes chestShim{0%{background-position:0%}100%{background-position:300%}}
+.chest-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Stats bar */
+.chest-stats{display:flex;gap:8px;margin-bottom:12px}
+.chest-stat{flex:1;background:rgba(255,200,0,.04);border:1px solid rgba(255,200,0,.12);border-radius:10px;padding:6px;text-align:center}
+.chest-stat-v{font:900 15px var(--ff-head);color:#ffcc00}
+.chest-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Chest cards */
+.chest-list{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.chest-card{background:rgba(255,255,255,.02);border:2px solid rgba(255,255,255,.07);border-radius:18px;padding:12px 14px}
+.chest-card.bronze{border-color:rgba(180,120,60,.3)}
+.chest-card.silver{border-color:rgba(200,200,220,.3)}
+.chest-card.gold{border-color:rgba(255,200,0,.4);box-shadow:0 0 15px rgba(255,200,0,.08)}
+.chest-card.epic{border-color:rgba(170,68,255,.4);box-shadow:0 0 15px rgba(170,68,255,.1)}
+.chest-card-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.chest-icon{font-size:40px;animation:chestFloat 2s ease-in-out infinite}
+@keyframes chestFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.chest-card-info{flex:1}
+.chest-card-name{font:800 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.chest-card-count{font:700 9px var(--ff-body);color:rgba(255,200,100,.7);margin-bottom:2px}
+.chest-card-next{font:600 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.chest-card-loot{font:600 8px var(--ff-body);color:rgba(200,150,255,.6);margin-bottom:8px}
+.chest-open-btn{width:100%;background:linear-gradient(135deg,#220033,#553300);border:none;border-radius:12px;padding:11px;font:800 11px var(--ff-head);color:#fff;cursor:pointer}
+.chest-open-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
+.chest-open-all-btn{width:100%;background:linear-gradient(135deg,#442200,#aa5500);border:none;border-radius:12px;padding:11px;font:800 11px var(--ff-head);color:#fff;cursor:pointer;margin-top:6px}
+/* Last opened */
+.chest-last{background:rgba(255,200,0,.04);border:1px solid rgba(255,200,0,.1);border-radius:12px;padding:10px;margin-bottom:10px;display:none}
+.chest-last.show{display:block}
+.chest-last-lbl{font:700 8px var(--ff-head);color:rgba(255,200,0,.4);letter-spacing:1px;margin-bottom:4px}
+.chest-last-content{font:700 11px var(--ff-head);color:#ffcc00}
+.chest-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ MONSTER BESTIARY ══ */
 .best-panel{position:fixed;inset:0;background:#07000f;z-index:1039;display:none;flex-direction:column;overflow:hidden}
 .best-panel.open{display:flex}
@@ -11545,6 +11583,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
+          <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11605,6 +11644,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
+          <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11648,6 +11688,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
+          <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -11729,6 +11770,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTitle()"><div class="ddr-i">👑</div>Titlar</div>
           <div class="ddr" onclick="cM();openGuess()"><div class="ddr-i">🔢</div>Gissning</div>
           <div class="ddr" onclick="cM();openBest()"><div class="ddr-i">📖</div>Monster</div>
+          <div class="ddr" onclick="cM();openChest()"><div class="ddr-i">📦</div>Kistor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12316,6 +12358,28 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- LOOT CHESTS -->
+<div class="chest-panel" id="chestPanel">
+  <div class="chest-header">
+    <div class="chest-title">📦 SKATTKISTOR</div>
+    <button class="close-btn" onclick="closeChest()">✕</button>
+  </div>
+  <div class="chest-scroll">
+    <div class="chest-stats">
+      <div class="chest-stat"><div class="chest-stat-v" id="chestTotal">0</div><div class="chest-stat-l">Kistor öppnade</div></div>
+      <div class="chest-stat"><div class="chest-stat-v" id="chestAvail">0</div><div class="chest-stat-l">Tillgängliga</div></div>
+      <div class="chest-stat"><div class="chest-stat-v" id="chestCoinsEarned">0</div><div class="chest-stat-l">Mynt tjänade</div></div>
+    </div>
+    <div class="chest-last" id="chestLast">
+      <div class="chest-last-lbl">SENASTE ÖPPNING</div>
+      <div class="chest-last-content" id="chestLastContent"></div>
+    </div>
+    <div class="chest-list" id="chestList"></div>
+    <div class="chest-info">Kistor samlas automatiskt med tid! LCK ökar belöningarna!</div>
+  </div>
+</div>
 
 <!-- MONSTER BESTIARY -->
 <div class="best-panel" id="bestPanel">
@@ -53219,6 +53283,147 @@ function _renderBest(d){
           '</div>';
         }).join('')+
       '</div>'+
+    '</div>';
+  }).join('');
+}
+
+
+// LOOT CHESTS
+const CHEST_KEY = 'k0509_chest';
+const CHEST_TYPES = [
+  {
+    id:'bronze', tier:'bronze', icon:'📦', name:'Bronsskrin',
+    intervalMs:3600000,  // 1h
+    maxStored:12,
+    loot: function(){
+      var lck=G.lck||0;
+      var coins=Math.floor((80+Math.random()*120)*(1+lck*0.01));
+      var stat=['str','agi','int','end','lck'][Math.floor(Math.random()*5)];
+      G[stat]=(G[stat]||0)+1;save();
+      gainCoins(coins);
+      return '+'+coins+'🪙 +1 '+stat.toUpperCase();
+    },
+    lootDesc:'50-200🪙 + random stat +1',
+  },
+  {
+    id:'silver', tier:'silver', icon:'🎁', name:'Silverskrin',
+    intervalMs:14400000, // 4h
+    maxStored:6,
+    loot: function(){
+      var lck=G.lck||0;
+      var coins=Math.floor((300+Math.random()*700)*(1+lck*0.01));
+      var stats=['str','agi','int','end','lck'];
+      var s1=stats[Math.floor(Math.random()*5)];
+      var s2=stats[Math.floor(Math.random()*5)];
+      G[s1]=(G[s1]||0)+2;G[s2]=(G[s2]||0)+1;save();
+      gainCoins(coins);gainXP(50,'int');
+      return '+'+coins+'🪙 +2 '+s1.toUpperCase()+' +1 '+s2.toUpperCase()+' +50XP';
+    },
+    lootDesc:'300-1000🪙 + 2 stats + XP',
+  },
+  {
+    id:'gold', tier:'gold', icon:'🏆', name:'Guldskrin',
+    intervalMs:43200000, // 12h
+    maxStored:2,
+    loot: function(){
+      var lck=G.lck||0;
+      var coins=Math.floor((2000+Math.random()*3000)*(1+lck*0.01));
+      ['str','agi','int','end','lck'].forEach(function(s){G[s]=(G[s]||0)+2;});save();
+      gainCoins(coins);gainXP(200,'int');
+      var kc=Math.random()<0.3+lck*0.005?1:0;
+      if(kc) gainKC(1);
+      return '+'+coins+'🪙 +2 ALLA stats +200XP'+(kc?' +1KC':'');
+    },
+    lootDesc:'2000-5000🪙 + all stats + XP + KC chance',
+  },
+  {
+    id:'epic', tier:'epic', icon:'💎', name:'Epicskrin',
+    intervalMs:86400000, // 24h
+    maxStored:1,
+    loot: function(){
+      var lck=G.lck||0;
+      var coins=Math.floor((5000+Math.random()*5000)*(1+lck*0.01));
+      ['str','agi','int','end','lck'].forEach(function(s){G[s]=(G[s]||0)+5;});save();
+      gainCoins(coins);gainXP(500,'int');gainKC(2);
+      return '+'+coins+'🪙 +5 ALLA stats +500XP +2KC!';
+    },
+    lootDesc:'5000-10000🪙 + all stats +5 + 2KC guaranteed',
+  },
+];
+
+function _chestData(){try{return JSON.parse(localStorage.getItem(CHEST_KEY)||'null');}catch(e){return null;}}
+function _chestSave(d){localStorage.setItem(CHEST_KEY,JSON.stringify(d));}
+function _chestGetData(){
+  var now=Date.now();
+  var d=_chestData();
+  if(!d){
+    d={opened:0,coinsEarned:0,lastCheck:now,stored:{}};
+    CHEST_TYPES.forEach(function(ct){d.stored[ct.id]=0;});
+  }
+  // Accumulate chests since last check
+  var elapsed=now-(d.lastCheck||now);
+  CHEST_TYPES.forEach(function(ct){
+    var gained=Math.floor(elapsed/ct.intervalMs);
+    d.stored[ct.id]=Math.min(ct.maxStored,(d.stored[ct.id]||0)+gained);
+  });
+  d.lastCheck=now;
+  return d;
+}
+
+function chestOpen(typeId, count){
+  var d=_chestGetData();
+  var ct=CHEST_TYPES.filter(function(t){return t.id===typeId;})[0];
+  if(!ct) return;
+  var available=d.stored[ct.id]||0;
+  if(available<=0){showFloatBubble('Inga '+ct.name+' att öppna!','debuff');return;}
+  var toOpen=count?Math.min(count,available):1;
+  var rewards=[];
+  for(var i=0;i<toOpen;i++){
+    rewards.push(ct.loot());
+    d.opened=(d.opened||0)+1;
+  }
+  d.stored[ct.id]=(d.stored[ct.id]||0)-toOpen;
+  // Track coins roughly
+  d.coinsEarned=(d.coinsEarned||0)+(toOpen*100); // rough estimate
+  _chestSave(d);
+  var rewardText='x'+toOpen+' '+ct.name+': '+rewards[rewards.length-1];
+  var lc=$('chestLast');if(lc) lc.classList.add('show');
+  var lcc=$('chestLastContent');if(lcc) lcc.textContent=rewardText;
+  showFloatBubble(ct.icon+' '+ct.name+' öppnad!','buff');
+  misTrack('casino',toOpen);checkAchievements();
+  _renderChest(d);
+}
+
+function openChest(){$('chestPanel').classList.add('open');_renderChest();}
+function closeChest(){$('chestPanel').classList.remove('open');}
+
+function _renderChest(d){
+  if(!d) d=_chestGetData();
+  var totalAvail=CHEST_TYPES.reduce(function(a,ct){return a+(d.stored[ct.id]||0);},0);
+  var ov=$('chestTotal');if(ov) ov.textContent=d.opened||0;
+  var av=$('chestAvail');if(av) av.textContent=totalAvail;
+  var ce=$('chestCoinsEarned');if(ce) ce.textContent=d.coinsEarned||0;
+  var list=$('chestList');
+  if(!list) return;
+  var now=Date.now();
+  list.innerHTML=CHEST_TYPES.map(function(ct){
+    var count=d.stored[ct.id]||0;
+    var timeUntilNext=ct.intervalMs-((now-d.lastCheck)%ct.intervalMs);
+    var hoursLeft=Math.ceil(timeUntilNext/3600000);
+    var minutesLeft=Math.ceil(timeUntilNext/60000);
+    var timeText=timeUntilNext>3600000?hoursLeft+'h':minutesLeft+'min';
+    return '<div class="chest-card '+ct.tier+'">'+
+      '<div class="chest-card-top">'+
+        '<div class="chest-icon">'+ct.icon+'</div>'+
+        '<div class="chest-card-info">'+
+          '<div class="chest-card-name">'+ct.name+'</div>'+
+          '<div class="chest-card-count">'+count+' / '+ct.maxStored+' tillgängliga</div>'+
+          '<div class="chest-card-next">'+(count<ct.maxStored?'Nästa om: '+timeText:'Max uppnådd!')+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="chest-card-loot">'+ct.lootDesc+'</div>'+
+      '<button class="chest-open-btn" onclick="chestOpen(\''+ct.id+'\',1)" '+(count<=0?'disabled':'')+'>'+ct.icon+' Öppna 1'+(count>1?' ('+count+' kvar)':'')+'</button>'+
+      (count>1?'<button class="chest-open-all-btn" onclick="chestOpen(\''+ct.id+'\','+count+')">Öppna alla ('+count+')</button>':'')+
     '</div>';
   }).join('');
 }
