@@ -1535,6 +1535,53 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ARENA SEASON ══ */
+.ars-panel{position:fixed;inset:0;background:#030005;z-index:1048;display:none;flex-direction:column;overflow:hidden}
+.ars-panel.open{display:flex}
+.ars-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#08001a,#030005)}
+.ars-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc44ff,#4488ff,#44ffcc,#ffcc00,#cc44ff);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:arsShim 2.5s linear infinite}
+@keyframes arsShim{0%{background-position:0%}100%{background-position:400%}}
+.ars-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Rank card */
+.ars-rank-card{background:linear-gradient(135deg,rgba(60,0,100,.3),rgba(20,0,50,.3));border:2px solid rgba(200,68,255,.3);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center;position:relative;overflow:hidden}
+.ars-rank-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0,rgba(200,68,255,.1),transparent 70%);pointer-events:none}
+.ars-rank-icon{font-size:48px;display:block;margin-bottom:4px}
+.ars-rank-name{font:900 20px var(--ff-head);background:linear-gradient(90deg,#cc44ff,#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2px}
+.ars-rank-tier{font:600 9px var(--ff-body);color:rgba(255,255,255,.4);letter-spacing:2px;margin-bottom:10px}
+.ars-ap-num{font:900 38px var(--ff-head);color:#cc44ff;text-shadow:0 0 20px rgba(200,68,255,.4);line-height:1}
+.ars-ap-lbl{font:600 8px var(--ff-body);color:rgba(200,68,255,.5)}
+/* Progress to next tier */
+.ars-next{margin-top:10px}
+.ars-next-lbl{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:4px}
+.ars-next-bar-wrap{background:rgba(255,255,255,.06);border-radius:5px;height:6px;overflow:hidden}
+.ars-next-bar{height:100%;border-radius:5px;background:linear-gradient(90deg,#cc44ff,#4488ff);transition:width .5s ease}
+.ars-next-num{font:600 7px var(--ff-body);color:rgba(255,255,255,.3);margin-top:3px}
+/* Tier list */
+.ars-tiers{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.ars-tier-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.06);border-radius:12px;padding:10px 12px}
+.ars-tier-row.current{border-color:rgba(200,68,255,.4);background:rgba(200,68,255,.05)}
+.ars-tier-row.achieved{border-color:rgba(68,255,200,.2);background:rgba(68,255,200,.02)}
+.ars-tier-icon{font-size:22px;flex-shrink:0;width:28px;text-align:center}
+.ars-tier-info{flex:1}
+.ars-tier-name{font:700 11px var(--ff-head);color:#fff}
+.ars-tier-row.achieved .ars-tier-name{color:#44ffcc}
+.ars-tier-row.current .ars-tier-name{color:#cc44ff}
+.ars-tier-req{font:600 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.ars-tier-badge{font:700 8px var(--ff-head);color:#ffcc00;flex-shrink:0}
+/* Season info */
+.ars-season-box{background:rgba(255,200,0,.04);border:1px solid rgba(255,200,0,.15);border-radius:12px;padding:10px 12px;margin-bottom:10px;text-align:center}
+.ars-season-lbl{font:700 8px var(--ff-head);color:rgba(255,200,0,.5);letter-spacing:1px;margin-bottom:4px}
+.ars-season-week{font:800 13px var(--ff-head);color:#ffcc00}
+/* Earn AP section */
+.ars-earn-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px;margin-top:4px}
+.ars-earn-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.ars-earn-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:8px;text-align:center}
+.ars-earn-icon{font-size:18px}
+.ars-earn-ap{font:800 10px var(--ff-head);color:#cc44ff}
+.ars-earn-name{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.ars-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-top:6px}
+
 /* ══ DAILY QUEST BOARD ══ */
 .dqb-panel{position:fixed;inset:0;background:#050302;z-index:1047;display:none;flex-direction:column;overflow:hidden}
 .dqb-panel.open{display:flex}
@@ -11849,6 +11896,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
+          <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -11917,6 +11965,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
+          <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -11968,6 +12017,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
+          <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12057,6 +12107,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openKquiz()"><div class="ddr-i">🧠</div>Kunskapsquiz</div>
           <div class="ddr" onclick="cM();openMath()"><div class="ddr-i">🔢</div>Snabbmatte</div>
           <div class="ddr" onclick="cM();openDqb()"><div class="ddr-i">📋</div>Dagliga Uppdrag</div>
+          <div class="ddr" onclick="cM();openArs()"><div class="ddr-i">🏆</div>Arenaranking</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12652,6 +12703,44 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- ARENA SEASON -->
+<div class="ars-panel" id="arsPanel">
+  <div class="ars-header">
+    <div class="ars-title">🏆 ARENARANKING</div>
+    <button class="close-btn" onclick="closeArs()">✕</button>
+  </div>
+  <div class="ars-scroll">
+    <div class="ars-rank-card">
+      <span class="ars-rank-icon" id="arsRankIcon">🥉</span>
+      <div class="ars-rank-name" id="arsRankName">Brons</div>
+      <div class="ars-rank-tier" id="arsRankTier">TIER I</div>
+      <div class="ars-ap-num" id="arsApNum">0</div>
+      <div class="ars-ap-lbl">ARENAPOÄNG DENNA VECKA</div>
+      <div class="ars-next">
+        <div class="ars-next-lbl" id="arsNextLbl">Till nästa tier</div>
+        <div class="ars-next-bar-wrap"><div class="ars-next-bar" id="arsNextBar" style="width:0%"></div></div>
+        <div class="ars-next-num" id="arsNextNum"></div>
+      </div>
+    </div>
+    <div class="ars-season-box">
+      <div class="ars-season-lbl">SÄSONG</div>
+      <div class="ars-season-week" id="arsSeasonWeek">Vecka 1</div>
+    </div>
+    <div class="ars-tiers" id="arsTierList"></div>
+    <div class="ars-earn-lbl">TJÄNA ARENAPOÄNG</div>
+    <div class="ars-earn-grid">
+      <div class="ars-earn-item"><div class="ars-earn-icon">⚔️</div><div class="ars-earn-ap">+5 AP</div><div class="ars-earn-name">Per strid</div></div>
+      <div class="ars-earn-item"><div class="ars-earn-icon">🧠</div><div class="ars-earn-ap">+3 AP</div><div class="ars-earn-name">Per rätt svar</div></div>
+      <div class="ars-earn-item"><div class="ars-earn-icon">🏃</div><div class="ars-earn-ap">+1 AP/10m</div><div class="ars-earn-name">Löpning</div></div>
+      <div class="ars-earn-item"><div class="ars-earn-icon">⚒️</div><div class="ars-earn-ap">+8 AP</div><div class="ars-earn-name">Per smide</div></div>
+      <div class="ars-earn-item"><div class="ars-earn-icon">📋</div><div class="ars-earn-ap">+15 AP</div><div class="ars-earn-name">Dagligt uppdrag</div></div>
+      <div class="ars-earn-item"><div class="ars-earn-icon">🎨</div><div class="ars-earn-ap">+10 AP</div><div class="ars-earn-name">Minispel</div></div>
+    </div>
+    <div class="ars-info">Säsongen återställs varje måndag. Diamond = +3KC belöning!</div>
+  </div>
+</div>
 
 <!-- DAILY QUEST BOARD -->
 <div class="dqb-panel" id="dqbPanel">
@@ -40053,6 +40142,7 @@ function misTrack(type, amount){
   if(typeof smithDrop==='function') smithDrop(type,amount);
   if(typeof bestEncounter==='function') bestEncounter(type);
   if(typeof dqbTrack==='function') dqbTrack(type,amount);
+  if(typeof arsTrack==='function') arsTrack(type,amount);
   var d=_misData();
   d.missions.forEach(function(misId){
     var mis=MIS_POOL.find(function(m){return m.id===misId;});
@@ -55079,6 +55169,129 @@ function _renderDqb(d){
       rightHtml+
     '</div>';
   }).join('');
+}
+
+
+// ARENA SEASON
+const ARS_KEY = 'k0509_ars';
+const ARS_TIERS = [
+  {name:'Brons',   icon:'🥉', min:0,    max:200,  color:'#cd7f32', kc:0},
+  {name:'Silver',  icon:'🥈', min:200,  max:500,  color:'#c0c0c0', kc:0},
+  {name:'Guld',    icon:'🥇', min:500,  max:1000, color:'#ffcc00', kc:1},
+  {name:'Platina', icon:'💎', min:1000, max:2000, color:'#44ffcc', kc:2},
+  {name:'Diamond', icon:'🔷', min:2000, max:99999,color:'#4488ff', kc:3},
+];
+
+function _arsGetWeekKey(){
+  var today=getTodayKey();
+  var parts=today.split('-');
+  var d=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+  // ISO week number
+  var jan1=new Date(d.getFullYear(),0,1);
+  var week=Math.ceil(((d-jan1)/86400000+jan1.getDay()+1)/7);
+  return d.getFullYear()+'W'+week;
+}
+
+function _arsData(){try{return JSON.parse(localStorage.getItem(ARS_KEY)||'null');}catch(e){return null;}}
+function _arsSave(d){localStorage.setItem(ARS_KEY,JSON.stringify(d));}
+function _arsGetData(){
+  var d=_arsData();
+  var week=_arsGetWeekKey();
+  if(!d||d.week!==week){
+    // New week - give rewards for last season if earned
+    if(d&&d.ap>0){
+      var tier=_arsTierForAp(d.ap);
+      if(tier.kc>0){
+        gainKC(tier.kc);
+        showFloatBubble('🏆 Säsongsslut! '+tier.name+' rang: +'+tier.kc+'KC!','buff');
+      }
+    }
+    d={week:week,ap:0,history:d?d.history||[]:[]};
+    if(d.history.length>8) d.history=d.history.slice(-8);
+    _arsSave(d);
+  }
+  return d;
+}
+
+function _arsTierForAp(ap){
+  var t=ARS_TIERS[0];
+  for(var i=0;i<ARS_TIERS.length;i++){
+    if(ap>=ARS_TIERS[i].min) t=ARS_TIERS[i];
+  }
+  return t;
+}
+
+function arsGainAp(amount){
+  var d=_arsGetData();
+  d.ap=(d.ap||0)+amount;
+  _arsSave(d);
+  // Don't re-render every single AP gain to avoid performance issues
+}
+
+// Hook into misTrack
+function arsTrack(type, amount){
+  var ap=0;
+  if(type==='battle') ap=5*(amount||1);
+  else if(type==='quiz') ap=3*(amount||1);
+  else if(type==='race') ap=Math.floor((amount||0)/10);
+  else if(type==='craft') ap=8*(amount||1);
+  else if(type==='minigame') ap=10*(amount||1);
+  if(ap>0) arsGainAp(ap);
+}
+
+// Called when daily quest claimed
+var _dqbOrigClaim=typeof dqbClaim==='function'?dqbClaim:null;
+
+function openArs(){$('arsPanel').classList.add('open');_renderArs();}
+function closeArs(){$('arsPanel').classList.remove('open');}
+
+function _renderArs(d){
+  if(!d) d=_arsGetData();
+  var ap=d.ap||0;
+  var tier=_arsTierForAp(ap);
+  var apn=$('arsApNum');if(apn) apn.textContent=ap;
+  var ri=$('arsRankIcon');if(ri) ri.textContent=tier.icon;
+  var rn=$('arsRankName');if(rn) rn.textContent=tier.name;
+  var rt=$('arsRankTier');if(rt){
+    var idx=ARS_TIERS.indexOf(tier);
+    rt.textContent='TIER '+(idx+1);
+  }
+  // Next tier progress
+  var nl=$('arsNextLbl');
+  var nb=$('arsNextBar');
+  var nn=$('arsNextNum');
+  var tierIdx=ARS_TIERS.indexOf(tier);
+  if(tierIdx<ARS_TIERS.length-1){
+    var next=ARS_TIERS[tierIdx+1];
+    var pct=Math.round((ap-tier.min)/(next.min-tier.min)*100);
+    if(nl) nl.textContent='Till '+next.name+' ('+next.icon+')';
+    if(nb) nb.style.width=pct+'%';
+    if(nn) nn.textContent=(ap-tier.min)+'/'+(next.min-tier.min)+' AP';
+  } else {
+    if(nl) nl.textContent='MAX TIER UPPNÅDD!';
+    if(nb) nb.style.width='100%';
+    if(nn) nn.textContent='Diamond 🔷';
+  }
+  // Week
+  var sw=$('arsSeasonWeek');if(sw) sw.textContent=d.week||_arsGetWeekKey();
+  // Tier list
+  var tl=$('arsTierList');
+  if(tl){
+    tl.innerHTML=ARS_TIERS.map(function(t){
+      var achieved=ap>=t.min;
+      var current=tier===t;
+      var cls='ars-tier-row'+(current?' current':achieved?' achieved':'');
+      var badge=t.kc>0?'+'+t.kc+'KC':'gratis';
+      return '<div class="'+cls+'">'+
+        '<div class="ars-tier-icon">'+t.icon+'</div>'+
+        '<div class="ars-tier-info">'+
+          '<div class="ars-tier-name">'+(current?'▶ ':achieved?'✓ ':'')+t.name+'</div>'+
+          '<div class="ars-tier-req">'+t.min+' AP'+( t.max<99999?' → '+t.max+' AP':'+')+'</div>'+
+        '</div>'+
+        '<div class="ars-tier-badge">'+badge+'</div>'+
+      '</div>';
+    }).join('');
+  }
 }
 
 </script>
