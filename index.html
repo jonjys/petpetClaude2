@@ -1508,6 +1508,56 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ STAR GAZING ══ */
+.star-panel{position:fixed;inset:0;background:#000408;z-index:1021;display:none;flex-direction:column;overflow:hidden}
+.star-panel.open{display:flex}
+.star-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#000210,#000408)}
+.star-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aaccff,#ffffff,#ccaaff,#aaccff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:starShim 4s linear infinite}
+@keyframes starShim{0%{background-position:0%}100%{background-position:300%}}
+.star-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Sky */
+.star-sky{position:relative;background:radial-gradient(ellipse at 50% 30%,#020820,#000408);border:2px solid rgba(100,150,255,.15);border-radius:22px;padding:14px;margin-bottom:12px;text-align:center;overflow:hidden;min-height:120px}
+.star-sky-dots{position:absolute;inset:0;pointer-events:none}
+.star-dot{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:starTwinkle var(--dur,2s) ease-in-out infinite;opacity:var(--op,.6)}
+@keyframes starTwinkle{0%,100%{opacity:var(--op,.6)}50%{opacity:.1}}
+.star-telescope{font-size:40px;display:block;margin-bottom:6px;position:relative;z-index:1}
+.star-sky-lbl{font:900 13px var(--ff-head);color:#aaccff;position:relative;z-index:1}
+.star-sky-sub{font:600 8px var(--ff-body);color:rgba(150,180,255,.5);position:relative;z-index:1}
+/* Stats */
+.star-stats{display:flex;gap:8px;margin-bottom:12px}
+.star-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(100,150,255,.12);border-radius:10px;padding:7px;text-align:center}
+.star-stat-v{font:900 15px var(--ff-head);color:#aaccff}
+.star-stat-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Tonight's visible */
+.star-tonight-lbl{font:700 8px var(--ff-head);color:rgba(150,180,255,.4);letter-spacing:1px;margin-bottom:8px}
+.star-tonight{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.star-const{background:rgba(255,255,255,.02);border:1.5px solid rgba(100,150,255,.1);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.star-const.active{border-color:rgba(150,200,255,.3);background:rgba(100,150,255,.04)}
+.star-const.observed{border-color:rgba(100,255,200,.2);background:rgba(0,200,150,.03)}
+.star-const-emoji{font-size:28px;flex-shrink:0}
+.star-const-info{flex:1}
+.star-const-name{font:800 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.star-const-buff{font:600 8px var(--ff-body);color:#aaccff;margin-bottom:2px}
+.star-const-perm{font:600 7px var(--ff-body);color:rgba(255,200,100,.6)}
+.star-const-status{flex-shrink:0;text-align:right}
+.star-const-obs-btn{background:rgba(100,150,255,.15);border:1px solid rgba(100,150,255,.3);border-radius:10px;padding:7px 10px;font:800 9px var(--ff-head);color:#aaccff;cursor:pointer}
+.star-const-obs-btn:disabled{opacity:.3;cursor:default}
+.star-const-obs-lbl{font:700 8px var(--ff-head);color:rgba(100,255,200,.7)}
+.star-const-cd{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Active buffs */
+.star-buffs-lbl{font:700 8px var(--ff-head);color:rgba(150,180,255,.4);letter-spacing:1px;margin-bottom:8px}
+.star-buff-list{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.star-buff-item{display:flex;align-items:center;gap:8px;background:rgba(100,200,150,.04);border:1px solid rgba(100,200,150,.1);border-radius:10px;padding:7px 10px}
+.star-buff-emoji{font-size:16px}
+.star-buff-text{flex:1;font:600 9px var(--ff-body);color:rgba(200,255,230,.7)}
+.star-buff-cd{font:600 7px var(--ff-body);color:rgba(100,200,150,.5)}
+.star-dust-box{display:flex;align-items:center;gap:8px;background:rgba(100,150,255,.04);border:1px solid rgba(100,150,255,.12);border-radius:12px;padding:10px 14px;margin-bottom:10px}
+.star-dust-icon{font-size:22px}
+.star-dust-text{flex:1;font:700 10px var(--ff-head);color:#aaccff}
+.star-dust-val{font:900 14px var(--ff-head);color:#ffffff}
+.star-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ RAID BOSS ══ */
 .raid-panel{position:fixed;inset:0;background:#010000;z-index:1020;display:none;flex-direction:column;overflow:hidden}
 .raid-panel.open{display:flex}
@@ -10678,6 +10728,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
+          <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -10719,6 +10770,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
+          <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -10743,6 +10795,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
+          <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -10805,6 +10858,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBiz()"><div class="ddr-i">🏪</div>Företag</div>
           <div class="ddr" onclick="cM();openHtch()"><div class="ddr-i">🥚</div>Kläckeri</div>
           <div class="ddr" onclick="cM();openRaid()"><div class="ddr-i">💀</div>Raidboss</div>
+          <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🔭</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -11373,6 +11427,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- STAR GAZING -->
+<div class="star-panel" id="starPanel">
+  <div class="star-header">
+    <div class="star-title">🔭 STJÄRNSKÅDNING</div>
+    <button class="close-btn" onclick="closeStar()">✕</button>
+  </div>
+  <div class="star-scroll">
+    <div class="star-sky" id="starSky">
+      <div class="star-sky-dots" id="starDots"></div>
+      <span class="star-telescope">🔭</span>
+      <div class="star-sky-lbl">Nattens himmel</div>
+      <div class="star-sky-sub" id="starSkyDate"></div>
+    </div>
+    <div class="star-stats">
+      <div class="star-stat"><div class="star-stat-v" id="starObs">0</div><div class="star-stat-l">Observationer</div></div>
+      <div class="star-stat"><div class="star-stat-v" id="starDustV">0</div><div class="star-stat-l">Stjärndamm⭐</div></div>
+      <div class="star-stat"><div class="star-stat-v" id="starUnlocked">0</div><div class="star-stat-l">Konstellationer</div></div>
+    </div>
+    <div class="star-tonight-lbl">IKVÄLL SYNLIGA</div>
+    <div class="star-tonight" id="starTonight"></div>
+    <div class="star-buffs-lbl">AKTIVA STJÄRNBUFFS</div>
+    <div class="star-buff-list" id="starBuffList"></div>
+    <div class="star-dust-box">
+      <div class="star-dust-icon">⭐</div>
+      <div class="star-dust-text">Stjärndamm (permanent bonus vid 10+)</div>
+      <div class="star-dust-val" id="starDustBox">0</div>
+    </div>
+    <div class="star-info">INT ökar stjärndammsinsamling! Buffs varar 12 timmar.</div>
+  </div>
+</div>
 
 <!-- RAID BOSS -->
 <div class="raid-panel" id="raidPanel">
@@ -48679,6 +48765,153 @@ function _renderRaid(d){
   // Log
   var li=$('raidLogItems');
   if(li) li.innerHTML=(d.log||[]).map(function(l){return '<div class="raid-log-item">'+(l.crit?'💥 KRITISK ':'')+'−'+l.dmg.toLocaleString()+' skada ['+(l.ts||'')+'</div>';}).join('');
+}
+
+
+// STAR GAZING
+const STAR_KEY = 'k0509_star';
+const STAR_CONSTS = [
+  {id:'bear',    emoji:'🐻', name:'Björnen',   buff:{stat:'str',val:10,dur:12*3600000}, dust:8,  perm:{stat:'str',val:3},  permAt:15},
+  {id:'dragon',  emoji:'🐲', name:'Draken',    buff:{stat:'str',val:15,dur:12*3600000}, dust:12, perm:{stat:'str',val:5},  permAt:20},
+  {id:'phoenix', emoji:'🔥', name:'Fenixen',   buff:{stat:'end',val:12,dur:12*3600000}, dust:10, perm:{stat:'end',val:4},  permAt:15},
+  {id:'wolf',    emoji:'🐺', name:'Ulven',     buff:{stat:'agi',val:12,dur:12*3600000}, dust:9,  perm:{stat:'agi',val:3},  permAt:15},
+  {id:'eagle',   emoji:'🦅', name:'Örnen',     buff:{stat:'agi',val:10,dur:12*3600000}, dust:8,  perm:{stat:'agi',val:4},  permAt:12},
+  {id:'fish',    emoji:'🐟', name:'Fisken',    buff:{stat:'lck',val:10,dur:12*3600000}, dust:7,  perm:{stat:'lck',val:5},  permAt:10},
+  {id:'cat',     emoji:'🐱', name:'Katten',    buff:{stat:'lck',val:8, dur:12*3600000}, dust:6,  perm:{stat:'lck',val:3},  permAt:10},
+  {id:'owl',     emoji:'🦉', name:'Ugglan',    buff:{stat:'int',val:12,dur:12*3600000}, dust:10, perm:{stat:'int',val:4},  permAt:15},
+  {id:'lion',    emoji:'🦁', name:'Lejonet',   buff:{stat:'str',val:8, dur:12*3600000}, dust:7,  perm:{stat:'str',val:2},  permAt:10},
+  {id:'horse',   emoji:'🐴', name:'Hästen',    buff:{stat:'agi',val:8, dur:12*3600000}, dust:6,  perm:{stat:'agi',val:2},  permAt:10},
+  {id:'rabbit',  emoji:'🐰', name:'Kaninen',   buff:{stat:'lck',val:6, dur:12*3600000}, dust:5,  perm:{stat:'lck',val:2},  permAt:8},
+  {id:'cosmic',  emoji:'🌌', name:'Kosmos',    buff:{stat:'int',val:20,dur:12*3600000}, dust:20, perm:{stat:'int',val:8},  permAt:25},
+];
+const STAR_OBS_CD = 30*60*1000; // 30min cooldown per constellation
+
+function _starData(){try{return JSON.parse(localStorage.getItem(STAR_KEY)||'null');}catch(e){return null;}}
+function _starSave(d){localStorage.setItem(STAR_KEY,JSON.stringify(d));}
+function _starGetData(){
+  var d=_starData();
+  if(!d) d={obs:0,dust:0,unlocked:[],buffs:[],observations:{},permApplied:[]};
+  return d;
+}
+
+function _starVisibleTonight(){
+  var today=getTodayKey();
+  var seed=0;for(var i=0;i<today.length;i++) seed=(seed*31+today.charCodeAt(i))>>>0;
+  var pool=STAR_CONSTS.slice();
+  for(var j=pool.length-1;j>0;j--){seed=(seed*1664525+1013904223)>>>0;var k=seed%(j+1);var tmp=pool[j];pool[j]=pool[k];pool[k]=tmp;}
+  return pool.slice(0,4).map(function(c){return c.id;});
+}
+
+function starObserve(id){
+  var d=_starGetData();
+  var now=Date.now();
+  var lastObs=d.observations[id]||0;
+  if(now-lastObs<STAR_OBS_CD){
+    var wait=Math.ceil((STAR_OBS_CD-(now-lastObs))/60000);
+    showFloatBubble('Vänta '+wait+' min!','debuff');return;
+  }
+  var c=STAR_CONSTS.filter(function(x){return x.id===id;})[0];
+  if(!c) return;
+  // Apply buff (removes old same-stat buff first)
+  d.buffs=d.buffs.filter(function(b){return !(b.id===id);});
+  d.buffs.push({id:id,stat:c.buff.stat,val:c.buff.val,expires:now+c.buff.dur});
+  // Apply stat immediately
+  G[c.buff.stat]=(G[c.buff.stat]||0)+c.buff.val;save();
+  // Dust
+  var intBonus=1+Math.min((G.int||0)*0.005,0.3);
+  var dustGained=Math.floor(c.dust*intBonus);
+  d.dust=(d.dust||0)+dustGained;
+  d.obs=(d.obs||0)+1;
+  d.observations[id]=now;
+  if(d.unlocked.indexOf(id)<0) d.unlocked.push(id);
+  // Permanent unlock at dust threshold
+  if(d.dust>=c.permAt&&d.permApplied.indexOf(id)<0){
+    d.permApplied.push(id);
+    G[c.perm.stat]=(G[c.perm.stat]||0)+c.perm.val;save();
+    showFloatBubble('⭐ KONSTELLATIONSLÅST UPP! +'+c.perm.val+' '+c.perm.stat.toUpperCase()+' permanent!','buff');
+  }
+  _starSave(d);
+  showFloatBubble(c.emoji+' '+c.name+' observerat! +'+c.buff.val+' '+c.buff.stat.toUpperCase()+' +'+dustGained+'⭐','buff');
+  _renderStar(d);
+}
+
+function _starBuildDots(){
+  var dots=$('starDots');
+  if(!dots) return;
+  var html='';
+  for(var i=0;i<30;i++){
+    var x=Math.random()*100;var y=Math.random()*100;
+    var op=(0.3+Math.random()*0.7).toFixed(2);
+    var dur=(1+Math.random()*3).toFixed(1);
+    html+='<div class="star-dot" style="left:'+x.toFixed(1)+'%;top:'+y.toFixed(1)+'%;--op:'+op+';--dur:'+dur+'s"></div>';
+  }
+  dots.innerHTML=html;
+}
+
+function openStar(){$('starPanel').classList.add('open');_starBuildDots();_renderStar();}
+function closeStar(){$('starPanel').classList.remove('open');}
+
+function _renderStar(d){
+  if(!d) d=_starGetData();
+  var now=Date.now();
+  // Expire buffs
+  var changed=false;
+  d.buffs=(d.buffs||[]).filter(function(b){
+    if(b.expires<=now){G[b.stat]=Math.max(0,(G[b.stat]||0)-b.val);changed=true;return false;}
+    return true;
+  });
+  if(changed){save();_starSave(d);}
+  var ov=$('starObs');if(ov) ov.textContent=d.obs||0;
+  var dv=$('starDustV');if(dv) dv.textContent=d.dust||0;
+  var uv=$('starUnlocked');if(uv) uv.textContent=(d.unlocked||[]).length;
+  var dbv=$('starDustBox');if(dbv) dbv.textContent=d.dust||0;
+  var sd=$('starSkyDate');if(sd) sd.textContent=getTodayKey();
+  // Tonight visible
+  var visible=_starVisibleTonight();
+  var tn=$('starTonight');
+  if(tn){
+    tn.innerHTML=visible.map(function(id){
+      var c=STAR_CONSTS.filter(function(x){return x.id===id;})[0];
+      if(!c) return '';
+      var lastObs=d.observations[id]||0;
+      var cdLeft=Math.max(0,STAR_OBS_CD-(now-lastObs));
+      var ready=cdLeft===0;
+      var isObserved=d.unlocked&&d.unlocked.indexOf(id)>=0;
+      var hasBuff=d.buffs&&d.buffs.some(function(b){return b.id===id&&b.expires>now;});
+      var permDone=d.permApplied&&d.permApplied.indexOf(id)>=0;
+      return '<div class="star-const'+(hasBuff?' observed':ready?' active':'')+'">'+
+        '<div class="star-const-emoji">'+c.emoji+'</div>'+
+        '<div class="star-const-info">'+
+          '<div class="star-const-name">'+c.name+'</div>'+
+          '<div class="star-const-buff">⏳ Buff: +'+c.buff.val+' '+c.buff.stat.toUpperCase()+' (12h)</div>'+
+          '<div class="star-const-perm">⭐'+c.dust+'damm/obs • Perm: +'+c.perm.val+' '+c.perm.stat.toUpperCase()+' vid '+c.permAt+'⭐'+(permDone?' ✓':'')+'</div>'+
+        '</div>'+
+        '<div class="star-const-status">'+
+          (hasBuff?'<div class="star-const-obs-lbl">Aktiv buff</div>':
+           ready?'<button class="star-const-obs-btn" onclick="starObserve(\''+id+'\')">🔭 Observera</button>':
+           '<div class="star-const-cd">'+Math.ceil(cdLeft/60000)+'min</div>')+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+  // Buff list
+  var bl=$('starBuffList');
+  if(bl){
+    var activeBuffs=d.buffs.filter(function(b){return b.expires>now;});
+    if(activeBuffs.length===0){
+      bl.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center;padding:6px">Inga aktiva stjärnbuffs</div>';
+    } else {
+      bl.innerHTML=activeBuffs.map(function(b){
+        var c=STAR_CONSTS.filter(function(x){return x.id===b.id;})[0];
+        var remaining=Math.ceil((b.expires-now)/3600000);
+        return '<div class="star-buff-item">'+
+          '<div class="star-buff-emoji">'+(c?c.emoji:'⭐')+'</div>'+
+          '<div class="star-buff-text">+'+(b.val)+' '+(b.stat.toUpperCase())+' • '+(c?c.name:'')+'</div>'+
+          '<div class="star-buff-cd">'+remaining+'h kvar</div>'+
+        '</div>';
+      }).join('');
+    }
+  }
 }
 
 </script>
