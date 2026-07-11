@@ -3006,6 +3006,69 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WEATHER STATION ══ */
+.wthr-panel{position:fixed;inset:0;background:linear-gradient(160deg,#061428,#0a2a1a);z-index:1125;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.wthr-panel h2{color:#80e8ff;font-size:1.4rem;margin-bottom:8px;text-shadow:0 0 12px #40c0ff}
+.wthr-current{background:rgba(64,192,255,0.15);border:2px solid #208090;border-radius:16px;padding:16px;text-align:center;width:100%;max-width:320px;margin-bottom:12px}
+.wthr-icon{font-size:3.5rem;margin-bottom:4px}
+.wthr-name{color:#80e8ff;font-size:1.2rem;font-weight:700}
+.wthr-desc{color:#a0d0e0;font-size:.75rem;margin-top:4px}
+.wthr-bonus-badge{background:rgba(64,255,160,0.15);border:1px solid #40ffa0;border-radius:8px;padding:4px 10px;color:#40ffa0;font-size:.7rem;margin-top:6px;display:inline-block}
+.wthr-tokens{background:rgba(64,192,255,0.12);border:1px solid #2080a0;border-radius:8px;padding:6px 14px;color:#80e8ff;font-size:.85rem;margin-bottom:8px}
+.wthr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;width:100%;max-width:340px}
+.wthr-card{background:rgba(30,60,80,0.4);border:1px solid #204060;border-radius:10px;padding:10px;cursor:pointer;transition:all .2s}
+.wthr-card:hover{border-color:#40c0ff;background:rgba(64,192,255,0.12)}
+.wthr-card.active-weather{border-color:#80e8ff;background:rgba(128,232,255,0.15);box-shadow:0 0 8px rgba(128,232,255,.3)}
+.wthr-card .wc-icon{font-size:1.6rem;margin-bottom:3px}
+.wthr-card .wc-name{font-size:.75rem;font-weight:700;color:#80d0e8}
+.wthr-card .wc-bonus{font-size:.62rem;color:#60ffa0;margin-top:2px}
+.wthr-card .wc-cost{font-size:.6rem;color:#a0b8c0;margin-top:2px}
+.wthr-collect-btn{background:linear-gradient(135deg,#206080,#104050);border:1px solid #40c0ff;color:#80e8ff;border-radius:10px;padding:10px 24px;font-size:.9rem;cursor:pointer;margin:8px 0;transition:all .2s}
+.wthr-collect-btn:hover{background:linear-gradient(135deg,#307090,#185060);box-shadow:0 0 10px rgba(64,192,255,.4)}
+
+/* ══ RUNE INSCRIPTION ══ */
+.rune-panel{position:fixed;inset:0;background:linear-gradient(135deg,#0a0a1a,#1a0a2e);z-index:1124;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.rune-panel h2{color:#c8a0ff;font-size:1.4rem;margin-bottom:8px;text-shadow:0 0 12px #9060ff}
+.rune-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:340px;margin:10px 0}
+.rune-slot{background:rgba(150,80,255,0.15);border:2px solid #6030cc;border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .25s;min-height:70px}
+.rune-slot.filled{border-color:#c8a0ff;background:rgba(200,160,255,0.2);box-shadow:0 0 10px rgba(200,160,255,0.3)}
+.rune-slot .rune-icon{font-size:1.6rem}
+.rune-slot .rune-name{font-size:.65rem;color:#b080ff;margin-top:3px}
+.rune-slot .rune-bonus{font-size:.6rem;color:#80d0ff;margin-top:1px}
+.rune-catalog{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;width:100%;max-width:340px;max-height:280px;overflow-y:auto;margin-top:8px}
+.rune-card{background:rgba(100,50,180,0.2);border:1px solid #5030aa;border-radius:8px;padding:8px;cursor:pointer;transition:all .2s}
+.rune-card:hover{border-color:#c8a0ff;background:rgba(150,80,255,0.25)}
+.rune-card.inscribed{border-color:#40ff80;background:rgba(64,255,128,0.1)}
+.rune-card.locked{opacity:.4;cursor:not-allowed}
+.rune-card .rc-head{display:flex;align-items:center;gap:6px}
+.rune-card .rc-icon{font-size:1.2rem}
+.rune-card .rc-name{font-size:.75rem;font-weight:700;color:#d0a0ff}
+.rune-card .rc-req{font-size:.6rem;color:#9090c0;margin-top:2px}
+.rune-card .rc-bonus{font-size:.62rem;color:#80ffb0;margin-top:1px}
+.rune-pts{background:rgba(200,160,255,0.15);border:1px solid #8040ff;border-radius:8px;padding:8px 16px;color:#d0b0ff;font-size:.85rem;margin-bottom:6px}
+
+/* ══ DIMENSION GATE ══ */
+.dimg-panel{position:fixed;inset:0;background:#020206;z-index:1123;display:none;flex-direction:column;overflow:hidden}
+.dimg-panel.open{display:flex}
+.dimg-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#03030a,#060610)}
+.dimg-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc44ff,#4488ff,#44ffcc,#cc44ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:dimgShim 4s linear infinite}
+@keyframes dimgShim{0%{background-position:0%}100%{background-position:300%}}
+.dimg-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.dimg-portal{background:radial-gradient(ellipse at 50% 50%,rgba(136,68,255,.15),transparent);border:2px solid rgba(136,68,255,.3);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center;position:relative;overflow:hidden}
+.dimg-portal::before{content:'';position:absolute;inset:0;background:conic-gradient(from 0deg,transparent,rgba(136,68,255,.05),transparent,rgba(68,136,255,.05),transparent);animation:portalSpin 8s linear infinite;pointer-events:none}
+@keyframes portalSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.dimg-portal-icon{font-size:64px;margin-bottom:6px;position:relative;z-index:1}
+.dimg-portal-name{font:800 16px var(--ff-head);color:rgba(200,180,255,.9);margin-bottom:3px;position:relative;z-index:1}
+.dimg-portal-desc{font:600 9px var(--ff-body);color:rgba(160,140,220,.4);margin-bottom:8px;position:relative;z-index:1}
+.dimg-enter-btn{background:linear-gradient(135deg,#100028,#200060);border:2px solid rgba(136,68,255,.45);border-radius:14px;padding:11px;font:900 12px var(--ff-head);color:#bb88ff;cursor:pointer;width:100%;position:relative;z-index:1}
+.dimg-enter-btn:disabled{opacity:.3;cursor:default}
+.dimg-history{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.dimg-visit{background:rgba(136,68,255,.04);border:1px solid rgba(136,68,255,.1);border-radius:10px;padding:7px 12px;display:flex;align-items:center;gap:8px}
+.dimg-visit-icon{font-size:20px}
+.dimg-visit-info{flex:1;font:600 8px var(--ff-body);color:rgba(180,150,230,.4)}
+.dimg-visit-rew{font:700 8px var(--ff-head);color:rgba(160,120,255,.5)}
+
 /* ══ DREAM HUNTER ══ */
 .drhnt-panel{position:fixed;inset:0;background:#02020a;z-index:1122;display:none;flex-direction:column;overflow:hidden}
 .drhnt-panel.open{display:flex}
@@ -14818,6 +14881,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCbnk()"><div class="ddr-i">🏦</div>Kosmisk Bank</div>
           <div class="ddr" onclick="cM();openTowr()"><div class="ddr-i">🗼</div>Tornstigning</div>
           <div class="ddr" onclick="cM();openDrhnt()"><div class="ddr-i">🌙</div>Drömjägaren</div>
+          <div class="ddr" onclick="cM();openDimg()"><div class="ddr-i">🌀</div>Dimensionsgatan</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -16554,6 +16618,48 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- WEATHER STATION -->
+<div class="wthr-panel" id="wthrPanel" style="display:none">
+  <button onclick="closeWthr()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#80e8ff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🌤️ Weather Station</h2>
+  <div class="wthr-tokens" id="wthrTokens">☁️ Weather Tokens: 0</div>
+  <div class="wthr-current" id="wthrCurrent"></div>
+  <button class="wthr-collect-btn" onclick="wthrCollect()">Collect Weather Tokens</button>
+  <div style="color:#80c8d8;font-size:.78rem;margin:4px 0 8px;text-align:center">Spend tokens to summon weather & gain its bonus</div>
+  <div class="wthr-grid" id="wthrGrid"></div>
+</div>
+
+<!-- RUNE INSCRIPTION -->
+<div class="rune-panel" id="runePanel" style="display:none">
+  <button onclick="closeRune()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#c8a0ff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>⚡ Rune Inscription</h2>
+  <div class="rune-pts" id="runePts">Rune Points: 0</div>
+  <div style="color:#a080d0;font-size:.75rem;margin-bottom:4px;text-align:center">Tap a slot to unequip • Tap a rune to inscribe</div>
+  <div style="color:#c8a0ff;font-size:.8rem;font-weight:700;margin-bottom:4px">Equipped Runes (9 slots)</div>
+  <div class="rune-slots" id="runeSlots"></div>
+  <div style="color:#c8a0ff;font-size:.8rem;font-weight:700;margin:6px 0 4px">Rune Library</div>
+  <div class="rune-catalog" id="runeCatalog"></div>
+</div>
+
+<!-- DIMENSION GATE -->
+<div class="dimg-panel" id="dimgPanel">
+  <div class="dimg-header">
+    <div class="dimg-title">🌀 DIMENSIONSGATAN</div>
+    <button class="close-btn" onclick="closeDimg()">✕</button>
+  </div>
+  <div class="dimg-scroll">
+    <div class="dimg-portal">
+      <div class="dimg-portal-icon" id="dimgPortalIcon">🌀</div>
+      <div class="dimg-portal-name" id="dimgPortalName">Portalen öppnas...</div>
+      <div class="dimg-portal-desc" id="dimgPortalDesc">Klicka för att öppna en slumpmässig dimension</div>
+      <button class="dimg-enter-btn" id="dimgEnterBtn" onclick="dimgEnter()">🌀 Steg in i dimensionen!</button>
+    </div>
+    <div style="font:700 8px var(--ff-head);color:rgba(136,68,255,.35);letter-spacing:1px;margin-bottom:6px">SENASTE DIMENSIONER</div>
+    <div class="dimg-history" id="dimgHistory"></div>
+  </div>
+</div>
 
 <!-- DREAM HUNTER -->
 <div class="drhnt-panel" id="drhntPanel">
@@ -69061,6 +69167,283 @@ function _renderDrhnt(d){
       }).join('');
     }
   }
+}
+
+
+// DIMENSION GATE
+const DIMG_KEY = 'k0509_dimg';
+const DIMG_DIMENSIONS = [
+  {icon:'🔥', name:'Eldsdimensionen',    desc:'Allt brinner, men skatterna smälter inte!',  bonus:{str:8,end:4},   coins:200,  kc:0, prob:0.25},
+  {icon:'🌊', name:'Vattendimensionen',  desc:'Oändliga djup med forntida skatter',          bonus:{agi:8,lck:4},   coins:180,  kc:0, prob:0.25},
+  {icon:'⚡', name:'Stormens Rike',      desc:'Blixtar och åska, kraftfull energi',           bonus:{str:6,agi:6},   coins:220,  kc:0, prob:0.2},
+  {icon:'🌑', name:'Tomrumsdimensionen', desc:'Absolut mörker, oändliga möjligheter',        bonus:{int:8,lck:6},   coins:250,  kc:0, prob:0.15},
+  {icon:'🌸', name:'Blomsterdimensionen',desc:'Paradis av eviga blommor och fred',           bonus:{lck:10,agi:5},  coins:300,  kc:0, prob:0.1},
+  {icon:'💎', name:'Kristalldimensionen',desc:'Allt är gjort av ädelstenar',                bonus:{int:10,end:5},  coins:350,  kc:1, prob:0.04},
+  {icon:'🌌', name:'Kosmosrummet',       desc:'Bortom universum, bortom möjlig förståelse!', bonus:{str:10,agi:10,int:10,lck:10,end:10},coins:500,kc:2,prob:0.01},
+];
+
+function _dimgData(){try{return JSON.parse(localStorage.getItem(DIMG_KEY)||'null');}catch(e){return null;}}
+function _dimgSave(d){localStorage.setItem(DIMG_KEY,JSON.stringify(d));}
+function _dimgGetData(){
+  var d=_dimgData();
+  if(!d) d={visitsToday:0,lastDay:'',history:[],totalVisits:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.visitsToday=0;d.lastDay=today;_dimgSave(d);}
+  return d;
+}
+
+function dimgEnter(){
+  var d=_dimgGetData();
+  if((d.visitsToday||0)>=3){showFloatBubble('Max 3 dimensioner per dag!','debuff');return;}
+  d.visitsToday=(d.visitsToday||0)+1;
+  d.totalVisits=(d.totalVisits||0)+1;
+  // Pick dimension (weighted)
+  var total=DIMG_DIMENSIONS.reduce(function(s,dim){return s+dim.prob;},0);
+  var r=Math.random()*total;
+  var cum=0;
+  var dim=DIMG_DIMENSIONS[0];
+  for(var i=0;i<DIMG_DIMENSIONS.length;i++){
+    cum+=DIMG_DIMENSIONS[i].prob;
+    if(r<cum){dim=DIMG_DIMENSIONS[i];break;}
+  }
+  Object.keys(dim.bonus).forEach(function(s){G[s]=(G[s]||0)+dim.bonus[s];});
+  save();
+  gainCoins(dim.coins);gainXP(80,'int');
+  if(dim.kc>0) gainKC(dim.kc);
+  var bonusTxt=Object.keys(dim.bonus).map(function(s){return '+'+dim.bonus[s]+s.toUpperCase();}).join(' ');
+  d.history=d.history||[];
+  d.history.unshift({icon:dim.icon,name:dim.name,rew:bonusTxt+' +'+dim.coins+'🪙'+(dim.kc?' +'+dim.kc+'KC':'')});
+  if(d.history.length>5) d.history=d.history.slice(0,5);
+  _dimgSave(d);
+  showFloatBubble('🌀 '+dim.icon+' '+dim.name+'! '+bonusTxt+' +'+dim.coins+'🪙','buff');
+  checkAchievements();
+  _renderDimg(d);
+}
+
+function openDimg(){$('dimgPanel').classList.add('open');_renderDimg();}
+function closeDimg(){$('dimgPanel').classList.remove('open');}
+
+function _renderDimg(d){
+  if(!d) d=_dimgGetData();
+  var visits=d.visitsToday||0;
+  var btn=$('dimgEnterBtn');
+  if(btn){
+    btn.disabled=visits>=3;
+    btn.textContent=visits>=3?'Max 3/dag nådd':'🌀 Steg in i dimensionen! ('+visits+'/3)';
+  }
+  // Random preview
+  var previewDim=DIMG_DIMENSIONS[Math.floor(Math.random()*DIMG_DIMENSIONS.length)];
+  var pi=$('dimgPortalIcon');if(pi) pi.textContent=previewDim.icon;
+  var pn=$('dimgPortalName');if(pn) pn.textContent=previewDim.name+'?';
+  var pd=$('dimgPortalDesc');if(pd) pd.textContent=previewDim.desc;
+  var hist=$('dimgHistory');
+  if(hist){
+    hist.innerHTML=(d.history||[]).length===0?
+      '<div style="font:600 8px var(--ff-body);color:rgba(136,68,255,.25);text-align:center;padding:8px">Inga besök ännu. Öppna portalen!</div>':
+      (d.history||[]).map(function(v){
+        return '<div class="dimg-visit">'+
+          '<div class="dimg-visit-icon">'+v.icon+'</div>'+
+          '<div class="dimg-visit-info">'+v.name+'</div>'+
+          '<div class="dimg-visit-rew">'+v.rew+'</div>'+
+        '</div>';
+      }).join('');
+  }
+}
+
+
+// ══ RUNE INSCRIPTION ══
+var RUNE_KEY = 'k0509_rune';
+const RUNE_DEFS = [
+  {id:'r01',icon:'🔥',name:'Fire Rune',req:'str>=20',bonus:'+3 STR',apply:g=>{g.str+=3}},
+  {id:'r02',icon:'💧',name:'Water Rune',req:'int>=20',bonus:'+3 INT',apply:g=>{g.int+=3}},
+  {id:'r03',icon:'🍃',name:'Wind Rune',req:'agi>=20',bonus:'+3 AGI',apply:g=>{g.agi+=3}},
+  {id:'r04',icon:'⚡',name:'Thunder Rune',req:'str>=30',bonus:'+5 STR +2 AGI',apply:g=>{g.str+=5;g.agi+=2}},
+  {id:'r05',icon:'🌊',name:'Ocean Rune',req:'int>=30',bonus:'+5 INT +2 STR',apply:g=>{g.int+=5;g.str+=2}},
+  {id:'r06',icon:'🌙',name:'Moon Rune',req:'int>=40',bonus:'+4 INT +4 AGI',apply:g=>{g.int+=4;g.agi+=4}},
+  {id:'r07',icon:'☀️',name:'Sun Rune',req:'str>=40',bonus:'+4 STR +4 INT',apply:g=>{g.str+=4;g.int+=4}},
+  {id:'r08',icon:'❄️',name:'Frost Rune',req:'agi>=30',bonus:'+5 AGI +2 INT',apply:g=>{g.agi+=5;g.int+=2}},
+  {id:'r09',icon:'💀',name:'Death Rune',req:'level>=20',bonus:'+2 All Stats',apply:g=>{g.str+=2;g.int+=2;g.agi+=2}},
+  {id:'r10',icon:'🌟',name:'Star Rune',req:'level>=30',bonus:'+10 KC',apply:g=>{gainKC(10)}},
+  {id:'r11',icon:'🐉',name:'Dragon Rune',req:'str>=50',bonus:'+8 STR',apply:g=>{g.str+=8}},
+  {id:'r12',icon:'🦋',name:'Spirit Rune',req:'int>=50',bonus:'+8 INT',apply:g=>{g.int+=8}},
+  {id:'r13',icon:'⚔️',name:'Battle Rune',req:'str>=35',bonus:'+6 STR +1 AGI',apply:g=>{g.str+=6;g.agi+=1}},
+  {id:'r14',icon:'🛡️',name:'Guard Rune',req:'agi>=35',bonus:'+6 AGI +1 STR',apply:g=>{g.agi+=6;g.str+=1}},
+  {id:'r15',icon:'💫',name:'Cosmos Rune',req:'level>=50',bonus:'+5 All Stats',apply:g=>{g.str+=5;g.int+=5;g.agi+=5}},
+];
+function _runeData(){
+  const d=JSON.parse(localStorage.getItem(RUNE_KEY)||'{}');
+  return {pts:d.pts||0, slots:d.slots||Array(9).fill(null), unlocked:d.unlocked||[]};
+}
+function _runeSave(d){localStorage.setItem(RUNE_KEY,JSON.stringify(d));}
+function _runeReqMet(req){
+  const g=G;
+  if(req.startsWith('str>=')){return (g.str||0)>=parseInt(req.slice(4));}
+  if(req.startsWith('int>=')){return (g.int||0)>=parseInt(req.slice(4));}
+  if(req.startsWith('agi>=')){return (g.agi||0)>=parseInt(req.slice(4));}
+  if(req.startsWith('level>=')){return (g.level||1)>=parseInt(req.slice(7));}
+  return false;
+}
+function runeInscribe(rid){
+  const d=_runeData();
+  const def=RUNE_DEFS.find(r=>r.id===rid);
+  if(!def)return;
+  if(!_runeReqMet(def.req)){showFloatBubble('Requirement not met!','bad');return;}
+  if(d.slots.includes(rid)){showFloatBubble('Already inscribed!','bad');return;}
+  const freeSlot=d.slots.indexOf(null);
+  if(freeSlot<0){showFloatBubble('No free slots! Remove a rune first.','bad');return;}
+  d.slots[freeSlot]=rid;
+  if(!d.unlocked.includes(rid))d.unlocked.push(rid);
+  _runeSave(d);
+  def.apply(G);
+  save();
+  showFloatBubble(`${def.icon} ${def.name} inscribed!`,'good');
+  checkAchievements();
+  _renderRune();
+}
+function runeRemove(slotIdx){
+  const d=_runeData();
+  const rid=d.slots[slotIdx];
+  if(!rid){return;}
+  d.slots[slotIdx]=null;
+  _runeSave(d);
+  showFloatBubble('Rune removed','neutral');
+  _renderRune();
+}
+function runeEarnPts(n){
+  const d=_runeData();
+  d.pts=(d.pts||0)+n;
+  _runeSave(d);
+}
+function openRune(){
+  // earn 1 point for visiting
+  const d=_runeData();
+  if(!d._lastVisit || d._lastVisit!==getTodayKey()){
+    d.pts=(d.pts||0)+1;
+    d._lastVisit=getTodayKey();
+    _runeSave(d);
+  }
+  $('runePanel').style.display='flex';
+  _renderRune();
+}
+function closeRune(){$('runePanel').style.display='none';}
+function _renderRune(){
+  const d=_runeData();
+  $('runePts').textContent='Rune Points: '+d.pts;
+  // Slots
+  let sh='';
+  for(let i=0;i<9;i++){
+    const rid=d.slots[i];
+    if(rid){
+      const def=RUNE_DEFS.find(r=>r.id===rid);
+      sh+=`<div class="rune-slot filled" onclick="runeRemove(${i})">
+        <div class="rune-icon">${def.icon}</div>
+        <div class="rune-name">${def.name}</div>
+        <div class="rune-bonus">${def.bonus}</div>
+      </div>`;
+    } else {
+      sh+=`<div class="rune-slot"><div style="font-size:1.4rem;color:#4a2a8a">✧</div><div style="font-size:.6rem;color:#6040aa;margin-top:4px">Empty</div></div>`;
+    }
+  }
+  $('runeSlots').innerHTML=sh;
+  // Catalog
+  let ch='';
+  RUNE_DEFS.forEach(def=>{
+    const met=_runeReqMet(def.req);
+    const ins=d.slots.includes(def.id);
+    const cls=ins?'inscribed':(!met?'locked':'');
+    ch+=`<div class="rune-card ${cls}" onclick="${met&&!ins?'runeInscribe(''+def.id+'')':''}">
+      <div class="rc-head"><span class="rc-icon">${def.icon}</span><span class="rc-name">${def.name}</span></div>
+      <div class="rc-req">Req: ${def.req}</div>
+      <div class="rc-bonus">${def.bonus}</div>
+      ${ins?'<div style="font-size:.6rem;color:#40ff80;margin-top:2px">✓ Inscribed</div>':''}
+    </div>`;
+  });
+  $('runeCatalog').innerHTML=ch;
+}
+
+
+// ══ WEATHER STATION ══
+const WTHR_KEY = 'k0509_wthr';
+const WTHR_TYPES = [
+  {id:'sunny',icon:'☀️',name:'Sunny',desc:'Brilliant sunshine',bonus:'Coins +20%',cost:0,
+   effect:g=>{gainCoins(Math.floor((g.coins||0)*0.20)||10)}},
+  {id:'cloudy',icon:'⛅',name:'Partly Cloudy',desc:'Mild overcast skies',bonus:'XP +15%',cost:2,
+   effect:g=>{gainXP(Math.floor((g.xp||0)*0.15)||5,'str')}},
+  {id:'rain',icon:'🌧️',name:'Rainy',desc:'Steady rainfall',bonus:'INT +2',cost:3,
+   effect:g=>{g.int=(g.int||10)+2;save()}},
+  {id:'storm',icon:'⛈️',name:'Thunderstorm',desc:'Electric energy crackles',bonus:'STR +2',cost:4,
+   effect:g=>{g.str=(g.str||10)+2;save()}},
+  {id:'snow',icon:'❄️',name:'Snowfall',desc:'Peaceful white flurry',bonus:'AGI +2',cost:3,
+   effect:g=>{g.agi=(g.agi||10)+2;save()}},
+  {id:'fog',icon:'🌫️',name:'Foggy',desc:'Mysterious mist',bonus:'+5 KC',cost:5,
+   effect:g=>{gainKC(5)}},
+  {id:'rainbow',icon:'🌈',name:'Rainbow',desc:'Magic in the air',bonus:'+50 Coins & XP',cost:6,
+   effect:g=>{gainCoins(50);gainXP(50,'int')}},
+  {id:'aurora',icon:'🌌',name:'Aurora',desc:'Celestial lights dance',bonus:'+3 All Stats',cost:10,
+   effect:g=>{g.str+=3;g.int+=3;g.agi+=3;save()}},
+];
+function _wthrData(){
+  const d=JSON.parse(localStorage.getItem(WTHR_KEY)||'{}');
+  return {tokens:d.tokens||0,active:d.active||'sunny',lastCollect:d.lastCollect||'',lastBonus:d.lastBonus||''};
+}
+function _wthrSave(d){localStorage.setItem(WTHR_KEY,JSON.stringify(d));}
+function _wthrCurrent(){
+  // Weather rotates every 3h based on time
+  const idx=Math.floor(Date.now()/(1000*60*60*3))%WTHR_TYPES.length;
+  return WTHR_TYPES[idx];
+}
+function wthrCollect(){
+  const d=_wthrData();
+  const now=getTodayKey();
+  if(d.lastCollect===now){showFloatBubble('Already collected today!','bad');return;}
+  const w=_wthrCurrent();
+  const earned=3+Math.floor(Math.random()*4);
+  d.tokens+=earned;
+  d.lastCollect=now;
+  _wthrSave(d);
+  showFloatBubble(`+${earned} Weather Tokens (${w.icon} ${w.name})`,'good');
+  _renderWthr();
+}
+function wthrSummon(wid){
+  const d=_wthrData();
+  const def=WTHR_TYPES.find(w=>w.id===wid);
+  if(!def)return;
+  if(d.tokens<def.cost){showFloatBubble('Not enough tokens!','bad');return;}
+  const now=getTodayKey();
+  if(d.lastBonus===wid+'_'+now){showFloatBubble('Already summoned this today!','bad');return;}
+  d.tokens-=def.cost;
+  d.active=wid;
+  d.lastBonus=wid+'_'+now;
+  _wthrSave(d);
+  def.effect(G);
+  showFloatBubble(`${def.icon} ${def.name} summoned! ${def.bonus}`,'good');
+  checkAchievements();
+  _renderWthr();
+}
+function openWthr(){$('wthrPanel').style.display='flex';_renderWthr();}
+function closeWthr(){$('wthrPanel').style.display='none';}
+function _renderWthr(){
+  const d=_wthrData();
+  const cur=_wthrCurrent();
+  $('wthrTokens').textContent='☁️ Weather Tokens: '+d.tokens;
+  $('wthrCurrent').innerHTML=`<div class="wthr-icon">${cur.icon}</div>
+    <div class="wthr-name">${cur.name}</div>
+    <div class="wthr-desc">${cur.desc}</div>
+    <div class="wthr-bonus-badge">${cur.bonus}</div>
+    <div style="font-size:.6rem;color:#6090a0;margin-top:4px">Current weather rotates every 3h</div>`;
+  let gh='';
+  WTHR_TYPES.forEach(w=>{
+    const now=getTodayKey();
+    const usedToday=d.lastBonus===w.id+'_'+now;
+    const active=d.active===w.id;
+    gh+=`<div class="wthr-card ${active?'active-weather':''}" onclick="wthrSummon('${w.id}')">
+      <div class="wc-icon">${w.icon}</div>
+      <div class="wc-name">${w.name}</div>
+      <div class="wc-bonus">${w.bonus}</div>
+      <div class="wc-cost">Cost: ${w.cost} tokens${usedToday?' ✓':''}</div>
+    </div>`;
+  });
+  $('wthrGrid').innerHTML=gh;
 }
 
 </script>
