@@ -1567,6 +1567,53 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ CARD BATTLE ══ */
+.cbat-panel{position:fixed;inset:0;background:#040010;z-index:1080;display:none;flex-direction:column;overflow:hidden}
+.cbat-panel.open{display:flex}
+.cbat-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080020,#040010)}
+.cbat-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#4488ff,#aa44ff,#ff44aa,#4488ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:cbatShim 3s linear infinite}
+@keyframes cbatShim{0%{background-position:0%}100%{background-position:300%}}
+.cbat-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.cbat-field{background:radial-gradient(ellipse at 50% 50%,rgba(68,136,255,.08),transparent);border:2px solid rgba(68,136,255,.15);border-radius:20px;padding:14px;margin-bottom:12px}
+.cbat-vs-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cbat-side{flex:1;text-align:center}
+.cbat-side-lbl{font:700 7px var(--ff-head);color:rgba(255,255,255,.25);letter-spacing:2px;margin-bottom:4px}
+.cbat-hp-bar{background:rgba(255,255,255,.06);border-radius:4px;height:6px;overflow:hidden;margin:4px 0}
+.cbat-hp-fill{height:100%;border-radius:4px;transition:width .3s}
+.cbat-hp-fill.player{background:linear-gradient(90deg,#44ff88,#00cc66)}
+.cbat-hp-fill.enemy{background:linear-gradient(90deg,#ff4444,#cc0000)}
+.cbat-hp-txt{font:700 10px var(--ff-head);color:rgba(255,255,255,.6)}
+.cbat-card-big{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.12);border-radius:14px;padding:10px;display:inline-block;min-width:70px;text-align:center}
+.cbat-card-big.player{border-color:rgba(68,136,255,.4)}
+.cbat-card-big.enemy{border-color:rgba(255,68,68,.4)}
+.cbat-card-icon{font-size:32px;display:block;margin-bottom:3px}
+.cbat-card-nm{font:700 9px var(--ff-head);color:rgba(255,255,255,.7);margin-bottom:2px}
+.cbat-card-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.cbat-vs-sep{font:900 18px var(--ff-head);color:rgba(255,255,255,.2)}
+.cbat-log{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:8px 10px;min-height:44px;margin-bottom:10px;font:600 9px var(--ff-body);color:rgba(255,255,255,.5);line-height:1.6;white-space:pre-line}
+.cbat-hand-lbl{font:700 8px var(--ff-head);color:rgba(68,136,255,.5);letter-spacing:1px;margin-bottom:6px}
+.cbat-hand{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:10px}
+.cbat-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:8px 6px;min-width:62px;text-align:center;cursor:pointer;transition:all .15s;flex-shrink:0}
+.cbat-card:hover{transform:translateY(-4px);border-color:rgba(68,136,255,.5);background:rgba(68,136,255,.08)}
+.cbat-card-i{font-size:24px;display:block;margin-bottom:3px}
+.cbat-card-n{font:700 7px var(--ff-head);color:rgba(255,255,255,.6);margin-bottom:2px}
+.cbat-card-s{font:600 7px var(--ff-body);color:rgba(68,136,255,.6)}
+.cbat-result{background:rgba(255,255,255,.03);border:2px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;text-align:center;margin-bottom:10px;display:none}
+.cbat-result.show{display:block}
+.cbat-result-icon{font-size:48px;display:block;margin-bottom:6px}
+.cbat-result-txt{font:800 16px var(--ff-head);margin-bottom:4px}
+.cbat-result-txt.win{color:#44ff88}
+.cbat-result-txt.loss{color:#ff4444}
+.cbat-result-sub{font:600 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:10px}
+.cbat-result-btn{background:linear-gradient(135deg,#001040,#002060);border:1.5px solid rgba(68,136,255,.4);border-radius:12px;padding:10px 20px;font:800 11px var(--ff-head);color:#fff;cursor:pointer}
+.cbat-stats{display:flex;gap:5px;margin-bottom:8px}
+.cbat-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.cbat-stat-v{font:800 16px var(--ff-head);color:#4488ff}
+.cbat-stat-l{font:600 7px var(--ff-body);color:rgba(68,136,255,.35)}
+.cbat-start-btn{background:linear-gradient(135deg,#001040,#0030a0);border:1.5px solid rgba(68,136,255,.4);border-radius:14px;padding:12px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;width:100%;margin-bottom:6px}
+.cbat-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.25);text-align:center}
+
 /* ══ LOOT BOX OPENER ══ */
 .lootb-panel{position:fixed;inset:0;background:#030208;z-index:1079;display:none;flex-direction:column;overflow:hidden}
 .lootb-panel.open{display:flex}
@@ -13133,6 +13180,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
+          <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -13233,6 +13281,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
+          <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -13316,6 +13365,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
+          <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -13437,6 +13487,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
+          <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -14064,6 +14115,58 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- CARD BATTLE -->
+<div class="cbat-panel" id="cbatPanel">
+  <div class="cbat-header">
+    <div class="cbat-title">🃏 KORTSTRIDEN</div>
+    <button class="close-btn" onclick="closeCbat()">✕</button>
+  </div>
+  <div class="cbat-scroll">
+    <div class="cbat-stats">
+      <div class="cbat-stat-box"><div class="cbat-stat-v" id="cbatWinsV">0</div><div class="cbat-stat-l">Vinster</div></div>
+      <div class="cbat-stat-box"><div class="cbat-stat-v" id="cbatLossV">0</div><div class="cbat-stat-l">Forluster</div></div>
+      <div class="cbat-stat-box"><div class="cbat-stat-v" id="cbatStreakV">0</div><div class="cbat-stat-l">Streak</div></div>
+    </div>
+    <div class="cbat-field" id="cbatField" style="display:none">
+      <div class="cbat-vs-row">
+        <div class="cbat-side">
+          <div class="cbat-side-lbl">DU</div>
+          <div class="cbat-card-big player" id="cbatPlayerCard">
+            <span class="cbat-card-icon">?</span>
+            <div class="cbat-card-nm">Valj ett kort</div>
+            <div class="cbat-card-stats">-</div>
+          </div>
+          <div class="cbat-hp-bar"><div class="cbat-hp-fill player" id="cbatPHp" style="width:100%"></div></div>
+          <div class="cbat-hp-txt" id="cbatPHpTxt">HP -</div>
+        </div>
+        <div class="cbat-vs-sep">VS</div>
+        <div class="cbat-side">
+          <div class="cbat-side-lbl">FIENDEN</div>
+          <div class="cbat-card-big enemy" id="cbatEnemyCard">
+            <span class="cbat-card-icon">?</span>
+            <div class="cbat-card-nm">Vantar...</div>
+            <div class="cbat-card-stats">-</div>
+          </div>
+          <div class="cbat-hp-bar"><div class="cbat-hp-fill enemy" id="cbatEHp" style="width:100%"></div></div>
+          <div class="cbat-hp-txt" id="cbatEHpTxt">HP -</div>
+        </div>
+      </div>
+      <div class="cbat-log" id="cbatLog">Valj ett kort for att attackera!</div>
+      <div class="cbat-hand-lbl">DIN HAND - valj ett kort att spela</div>
+      <div class="cbat-hand" id="cbatHand"></div>
+    </div>
+    <div class="cbat-result" id="cbatResult">
+      <span class="cbat-result-icon" id="cbatResIcon">?</span>
+      <div class="cbat-result-txt" id="cbatResTxt">-</div>
+      <div class="cbat-result-sub" id="cbatResSub">-</div>
+      <button class="cbat-result-btn" onclick="cbatStart()">Spela igen!</button>
+    </div>
+    <button class="cbat-start-btn" id="cbatStartBtn" onclick="cbatStart()">Starta Kortstriden!</button>
+    <div class="cbat-info">Valj kort klokt - ATK vs DEF avgor skadan. Dina STR/END-stats bostar dina kort!</div>
+  </div>
+</div>
 
 <!-- LOOT BOX OPENER -->
 <div class="lootb-panel" id="lootbPanel">
@@ -61894,6 +61997,166 @@ function _renderLootb(){
   }).join('');
   lootbSelBox(_lootbCurBox);
   _renderLootbHist(d);
+}
+
+
+// CARD BATTLE
+const CBAT_KEY = 'k0509_cbat';
+const CBAT_CARDS = [
+  {id:'warrior', icon:'S', name:'Krigare',  atk:8,  def:4},
+  {id:'mage',    icon:'M', name:'Magiker',  atk:10, def:2},
+  {id:'archer',  icon:'B', name:'Bagskj.',  atk:7,  def:3},
+  {id:'tank',    icon:'T', name:'Tank',     atk:4,  def:10},
+  {id:'rogue',   icon:'R', name:'Skurk',    atk:9,  def:1},
+  {id:'paladin', icon:'P', name:'Paladin',  atk:7,  def:7},
+];
+const CBAT_ENEMIES = [
+  {name:'Rattvik Roven', icon:'R', hp:30, cards:[{icon:'K',name:'Kniven', atk:5,def:2},{icon:'F',name:'Fallan',atk:3,def:6}]},
+  {name:'Torstein Troll', icon:'T', hp:40, cards:[{icon:'K',name:'Klippa', atk:7,def:8},{icon:'N',name:'Knytev',atk:9,def:3}]},
+  {name:'Ulrik Ulv', icon:'U', hp:35, cards:[{icon:'B',name:'Bett',atk:8,def:4},{icon:'Y',name:'Ylan',atk:6,def:6}]},
+  {name:'Magda Mort', icon:'X', hp:45, cards:[{icon:'D',name:'Doden',atk:10,def:5},{icon:'B',name:'Blodet',atk:7,def:7}]},
+  {name:'Draken Faas', icon:'D', hp:60, cards:[{icon:'E',name:'Eld',atk:12,def:6},{icon:'I',name:'Is',atk:9,def:9}]},
+];
+
+var _cbatState = null;
+
+function _cbatGetData2(){
+  try{return JSON.parse(localStorage.getItem(CBAT_KEY)||'null');}catch(e){return null;}
+}
+function _cbatSave2(d){localStorage.setItem(CBAT_KEY,JSON.stringify(d));}
+
+function cbatStart(){
+  var saved=_cbatGetData2()||{wins:0,losses:0,streak:0,bestStreak:0,totalBattles:0};
+  var lvl=G.lvl||1;
+  var eIdx=Math.min(Math.floor(lvl/5),CBAT_ENEMIES.length-1);
+  var enemy=CBAT_ENEMIES[eIdx];
+  var deck=CBAT_CARDS.slice();
+  var hand=[];
+  for(var i=0;i<3;i++){
+    var j=Math.floor(Math.random()*deck.length);
+    hand.push(deck.splice(j,1)[0]);
+  }
+  var strBonus=Math.floor((G.str||0)/5);
+  var endBonus=Math.floor((G.end||0)/5);
+  _cbatState={
+    saved:saved,
+    enemy:enemy,
+    enemyHp:enemy.hp,
+    enemyHpMax:enemy.hp,
+    playerHp:20+endBonus*2,
+    playerHpMax:20+endBonus*2,
+    hand:hand,
+    strBonus:strBonus,
+    endBonus:endBonus,
+    round:0,
+    log:'Strid mot '+enemy.name+' borjar! Valj ett kort!',
+  };
+  var f=$('cbatField');if(f) f.style.display='';
+  var r=$('cbatResult');if(r) r.classList.remove('show');
+  var sb=$('cbatStartBtn');if(sb) sb.style.display='none';
+  _renderCbat(_cbatState);
+}
+
+function cbatPlayCard(idx){
+  if(!_cbatState) return;
+  var s=_cbatState;
+  if(idx>=s.hand.length) return;
+  var pc=s.hand[idx];
+  var atk=pc.atk+s.strBonus;
+  var def=pc.def+s.endBonus;
+  var ec=s.enemy.cards[Math.floor(Math.random()*s.enemy.cards.length)];
+  var pDmg=Math.max(1,atk-ec.def);
+  var eDmg=Math.max(1,ec.atk-def);
+  s.enemyHp=Math.max(0,s.enemyHp-pDmg);
+  s.playerHp=Math.max(0,s.playerHp-eDmg);
+  s.round++;
+  s.log=pc.icon+' '+pc.name+' (ATK '+atk+') vs '+ec.icon+' '+ec.name+' (ATK '+ec.atk+')\n=> Du ger '+pDmg+' skada, tar '+eDmg+' skada';
+  var pcd=$('cbatPlayerCard');
+  if(pcd) pcd.innerHTML='<span class="cbat-card-icon">'+pc.icon+'</span><div class="cbat-card-nm">'+pc.name+'</div><div class="cbat-card-stats">ATK '+atk+' DEF '+def+'</div>';
+  var ecd=$('cbatEnemyCard');
+  if(ecd) ecd.innerHTML='<span class="cbat-card-icon">'+ec.icon+'</span><div class="cbat-card-nm">'+ec.name+'</div><div class="cbat-card-stats">ATK '+ec.atk+' DEF '+ec.def+'</div>';
+  s.hand.splice(idx,1);
+  var remaining=CBAT_CARDS.filter(function(c){
+    return !s.hand.some(function(h){return h.id===c.id;});
+  });
+  if(remaining.length>0){
+    var ni=Math.floor(Math.random()*remaining.length);
+    s.hand.push(remaining[ni]);
+  }
+  _renderCbat(s);
+  if(s.enemyHp<=0) return _cbatEnd(true);
+  if(s.playerHp<=0) return _cbatEnd(false);
+}
+
+function _cbatEnd(won){
+  if(!_cbatState) return;
+  var s=_cbatState;
+  var saved=s.saved;
+  saved.totalBattles=(saved.totalBattles||0)+1;
+  var ri=$('cbatResult');
+  var ricon=$('cbatResIcon'),rtxt=$('cbatResTxt'),rsub=$('cbatResSub');
+  if(won){
+    saved.wins=(saved.wins||0)+1;
+    saved.streak=(saved.streak||0)+1;
+    if(saved.streak>(saved.bestStreak||0)) saved.bestStreak=saved.streak;
+    var coins=20+(s.round*5);
+    var xp=15+s.round*3;
+    gainCoins(coins);gainXP(xp,'str');
+    G.str=(G.str||0)+1;save();
+    if(saved.streak%5===0) gainKC(1);
+    if(ricon) ricon.textContent='W';
+    if(rtxt){rtxt.textContent='SEGER!';rtxt.className='cbat-result-txt win';}
+    if(rsub) rsub.textContent=s.enemy.name+' besegrad! +'+coins+' mynt +'+xp+'XP +1STR'+(saved.streak%5===0?' +1KC':'');
+    showFloatBubble('Kortstriden vunnen! +'+coins+' mynt +1STR','buff');
+  } else {
+    saved.losses=(saved.losses||0)+1;
+    saved.streak=0;
+    gainCoins(5);gainXP(5,'str');
+    if(ricon) ricon.textContent='L';
+    if(rtxt){rtxt.textContent='NEDERLAGET';rtxt.className='cbat-result-txt loss';}
+    if(rsub) rsub.textContent=s.enemy.name+' var starkare... +5 mynt';
+    showFloatBubble('Forlorade kortstriden...','debuff');
+  }
+  _cbatSave2(saved);
+  checkAchievements();
+  _cbatState=null;
+  if(ri) ri.classList.add('show');
+  var f=$('cbatField');if(f) f.style.display='none';
+  var sb=$('cbatStartBtn');if(sb) sb.style.display='block';
+  _renderCbatStats(saved);
+}
+
+function openCbat(){$('cbatPanel').classList.add('open');_renderCbat(null);_renderCbatStats(_cbatGetData2()||{});}
+function closeCbat(){$('cbatPanel').classList.remove('open');}
+
+function _renderCbat(s){
+  if(!s) return;
+  var php=$('cbatPHp'),phptxt=$('cbatPHpTxt');
+  var ehp=$('cbatEHp'),ehptxt=$('cbatEHpTxt');
+  if(php) php.style.width=(s.playerHp/s.playerHpMax*100)+'%';
+  if(phptxt) phptxt.textContent='HP '+s.playerHp+'/'+s.playerHpMax;
+  if(ehp) ehp.style.width=(s.enemyHp/s.enemyHpMax*100)+'%';
+  if(ehptxt) ehptxt.textContent='HP '+s.enemyHp+'/'+s.enemyHpMax;
+  var log=$('cbatLog');
+  if(log) log.textContent=s.log;
+  var hand=$('cbatHand');
+  if(hand){
+    var sb=s.strBonus,eb=s.endBonus;
+    hand.innerHTML=s.hand.map(function(c,i){
+      return '<div class="cbat-card" onclick="cbatPlayCard('+i+')">'+
+        '<span class="cbat-card-i">'+c.icon+'</span>'+
+        '<div class="cbat-card-n">'+c.name+'</div>'+
+        '<div class="cbat-card-s">A:'+(c.atk+sb)+' D:'+(c.def+eb)+'</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+function _renderCbatStats(saved){
+  if(!saved) return;
+  var wv=$('cbatWinsV');if(wv) wv.textContent=saved.wins||0;
+  var lv=$('cbatLossV');if(lv) lv.textContent=saved.losses||0;
+  var sv=$('cbatStreakV');if(sv) sv.textContent=saved.streak||0;
 }
 
 </script>
