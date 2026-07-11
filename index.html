@@ -5702,12 +5702,62 @@ textarea.inp { resize:none;min-height:72px; }
 .ldb-claim-btn:disabled{opacity:.3;cursor:default}
 .ldb-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
 
+
+
+/* ══ GODS BLESSING ══ */
+.gods-panel{position:fixed;inset:0;background:#080408;z-index:1113;display:none;flex-direction:column;overflow:hidden}
+.gods-panel.open{display:flex}
+.gods-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0c0810,#14101a)}
+.gods-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffdd44,#ffaa00,#ff6600,#ffdd44);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:godsShim 4s linear infinite}
+@keyframes godsShim{0%{background-position:0%}100%{background-position:300%}}
+.gods-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.gods-favor{display:flex;justify-content:space-between;align-items:center;background:rgba(255,220,60,.05);border:1.5px solid rgba(255,200,50,.15);border-radius:14px;padding:10px 14px;margin-bottom:10px}
+.gods-favor-v{font:800 22px var(--ff-head);color:#ffdd44}
+.gods-favor-lbl{font:600 7px var(--ff-body);color:rgba(255,220,60,.35)}
+.gods-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.gods-god{border:2px solid;border-radius:18px;padding:12px 14px;transition:all .2s}
+.gods-god-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.gods-god-icon{font-size:36px;flex-shrink:0}
+.gods-god-info{flex:1}
+.gods-god-name{font:800 13px var(--ff-head);margin-bottom:1px}
+.gods-god-domain{font:600 8px var(--ff-body);opacity:.5;margin-bottom:3px}
+.gods-god-eff{font:700 8px var(--ff-head);opacity:.6}
+.gods-god-cd{font:600 7px var(--ff-body);opacity:.35;text-align:right;flex-shrink:0}
+.gods-pray-btn{width:100%;border:1.5px solid;border-radius:12px;padding:8px;font:800 10px var(--ff-head);cursor:pointer}
+.gods-pray-btn:disabled{opacity:.3;cursor:default}
+
+/* ══ LABYRINTH ══ */
+.labr-panel{position:fixed;inset:0;background:#030406;z-index:1112;display:none;flex-direction:column;overflow:hidden}
+.labr-panel.open{display:flex}
+.labr-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#040508,#08090c)}
+.labr-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aabb00,#eeff00,#88aaff,#aabb00);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:labrShim 4s linear infinite}
+@keyframes labrShim{0%{background-position:0%}100%{background-position:300%}}
+.labr-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.labr-status{display:flex;justify-content:space-around;background:rgba(170,187,0,.05);border:1.5px solid rgba(170,187,0,.15);border-radius:14px;padding:10px;margin-bottom:10px}
+.labr-stat-block{text-align:center}
+.labr-stat-v{font:800 20px var(--ff-head);color:rgba(200,220,80,.8)}
+.labr-stat-l{font:600 7px var(--ff-body);color:rgba(170,190,60,.35)}
+.labr-maze{display:flex;flex-direction:column;gap:3px;margin-bottom:10px;align-items:center}
+.labr-row{display:flex;gap:3px}
+.labr-cell{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.labr-cell.wall{background:rgba(60,70,20,.8)}
+.labr-cell.path{background:rgba(170,187,0,.06);border:1px solid rgba(170,187,0,.15);cursor:pointer}
+.labr-cell.path:hover{background:rgba(170,187,0,.15)}
+.labr-cell.player{background:rgba(170,220,0,.18);border:1.5px solid rgba(170,220,0,.5)}
+.labr-cell.treasure{background:rgba(255,200,0,.1);border:1px solid rgba(255,200,0,.3)}
+.labr-cell.exit{background:rgba(68,255,136,.1);border:1px solid rgba(68,255,136,.3)}
+.labr-cell.visited{background:rgba(100,120,0,.1);border:1px solid rgba(100,120,0,.1)}
+.labr-ctrl{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;max-width:160px;margin:0 auto 10px}
+.labr-ctrl-btn{background:rgba(170,187,0,.08);border:1.5px solid rgba(170,187,0,.2);border-radius:10px;padding:8px;font:700 10px var(--ff-head);color:rgba(200,220,80,.7);cursor:pointer}
+.labr-ctrl-btn:disabled{opacity:.3;cursor:default}
+.labr-log{font:600 8px var(--ff-body);color:rgba(170,190,60,.4);text-align:center;min-height:16px;margin-bottom:6px}
+
 /* ══ ALCHEMY LAB ══ */
 .alch-panel{position:fixed;inset:0;background:#020506;z-index:1000;display:none;flex-direction:column;overflow:hidden}
 .alch-panel.open{display:flex}
 .alch-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#050b10,#020506)}
-.alch-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ddcc,#aa44ff,#ffcc00,#00ddcc);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:alchShim 4s linear infinite}
-@keyframes alchShim{0%{background-position:0%}100%{background-position:300%}}
+.alch-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ddcc,#aa44ff,#ffcc00,#00ddcc);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:alc3Shim 4s linear infinite}
+@keyframes alc3Shim{0%{background-position:0%}100%{background-position:300%}}
 .alch-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
 /* Materials */
 .alch-mats{background:rgba(255,255,255,.02);border:1.5px solid rgba(0,200,200,.1);border-radius:16px;padding:12px;margin-bottom:12px}
@@ -7396,8 +7446,8 @@ textarea.inp { resize:none;min-height:72px; }
 .alch-pot-card{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 8px;text-align:center}
 .alch-pot-card.owned{border-color:rgba(160,0,220,.4);background:rgba(160,0,220,.07)}
 .alch-pot-emoji{font-size:28px;display:block;margin-bottom:4px}
-.alch-pot-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.7);margin-bottom:4px}
-.alch-pot-effect{font:600 7px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:6px}
+.alc3-pot-name{font:700 9px var(--ff-head);color:rgba(255,255,255,.7);margin-bottom:4px}
+.alc3-pot-effect{font:600 7px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:6px}
 .alch-pot-use{background:rgba(160,0,220,.2);border:1px solid rgba(160,0,220,.4);border-radius:8px;padding:4px 10px;font:800 8px var(--ff-head);color:#cc44ff;cursor:pointer}
 .alch-pot-qty{font:700 9px var(--ff-head);color:#aa44ff}
 /* Lab level bar */
@@ -9715,24 +9765,24 @@ textarea.inp { resize:none;min-height:72px; }
 .horo-hist-row{background:rgba(255,255,255,.03);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:10px}
 .horo-quality-stars{color:var(--gold)}
 
-/* ══ ALCHEMY LAB ══ */
+/* ══ ALCHEMY LAB 3 ══ */
 .alch-panel{position:fixed;inset:0;background:#050308;z-index:900;display:none;flex-direction:column;overflow:hidden}
-.alch-panel.open{display:flex}
-.alch-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0312,#040210)}
-.alch-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aa66ff,#ff88cc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.alch-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.alc3-panel.open{display:flex}
+.alc3-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0312,#040210)}
+.alc3-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aa66ff,#ff88cc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.alc3-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
 .alch-cauldron{background:rgba(170,102,255,.08);border:1px solid rgba(170,102,255,.25);border-radius:24px;padding:18px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden}
 .alch-cauldron-emoji{font-size:72px;line-height:1;margin-bottom:8px;filter:drop-shadow(0 0 20px rgba(170,102,255,.5))}
-.alch-cauldron-emoji.brewing{animation:cauldronBrew 0.8s ease-in-out infinite}
+.alc3-cauldron-emoji.brewing{animation:cauldronBrew 0.8s ease-in-out infinite}
 @keyframes cauldronBrew{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.05) rotate(3deg)}}
 .alch-slots{display:flex;gap:10px;justify-content:center;margin-bottom:12px}
 .alch-slot{width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.06);border:2px dashed rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;transition:all .2s}
 .alch-slot.filled{border-style:solid;border-color:rgba(170,102,255,.6);background:rgba(170,102,255,.15)}
 .alch-slot.filled:active{transform:scale(.95)}
 .alch-brew-btn{width:100%;padding:13px;background:linear-gradient(135deg,#aa66ff,#ff88cc);border:none;border-radius:14px;color:#fff;font:800 13px var(--ff-head);cursor:pointer}
-.alch-brew-btn:disabled{opacity:.4;cursor:default}
+.alc3-brew-btn:disabled{opacity:.4;cursor:default}
 .alch-section{font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;margin-top:14px}
-.alch-ingredients{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.alc3-ingredients{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .alch-ing-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px;text-align:center;cursor:pointer;transition:all .15s;position:relative}
 .alch-ing-card:active{transform:scale(.97)}
 .alch-ing-card.selected{background:rgba(170,102,255,.15);border-color:rgba(170,102,255,.6)}
@@ -9743,7 +9793,7 @@ textarea.inp { resize:none;min-height:72px; }
 .alch-potion-list{display:flex;flex-direction:column;gap:8px}
 .alch-potion-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
 .alch-potion-card:active{transform:scale(.98)}
-.alch-potion-card.owned{background:rgba(170,102,255,.08);border-color:rgba(170,102,255,.25)}
+.alc3-potion-card.owned{background:rgba(170,102,255,.08);border-color:rgba(170,102,255,.25)}
 .alch-result-flash{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:80px;z-index:9999;animation:alchFlash .8s ease-out forwards;pointer-events:none}
 @keyframes alchFlash{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}
 
@@ -14554,6 +14604,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWdrg()"><div class="ddr-i">🐉</div>Veckodrakens Raid</div>
           <div class="ddr" onclick="cM();openComb()"><div class="ddr-i">⚡</div>Kombomästaren</div>
           <div class="ddr" onclick="cM();openPrs2()"><div class="ddr-i">👑</div>Gudomlighetens Väg</div>
+          <div class="ddr" onclick="cM();openAlc3()"><div class="ddr-i">⚗️</div>Alkemilabbet</div>
+          <div class="ddr" onclick="cM();openLabr()"><div class="ddr-i">🌀</div>Labyrinten</div>
+          <div class="ddr" onclick="cM();openGods()"><div class="ddr-i">🏛️</div>Gudarnas Välsignelse</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -18282,6 +18335,64 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+
+
+<!-- GODS BLESSING -->
+<div class="gods-panel" id="godsPanel">
+  <div class="gods-header">
+    <div class="gods-title">🏛️ GUDARNAS VÄLSIGNELSE</div>
+    <button class="close-btn" onclick="closeGods()">✕</button>
+  </div>
+  <div class="gods-scroll">
+    <div class="gods-favor">
+      <div>
+        <div class="gods-favor-lbl">GUDSTJÄNST</div>
+        <div class="gods-favor-v" id="godsFavorV">0 🙏</div>
+      </div>
+    </div>
+    <div class="gods-list" id="godsList"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(255,200,50,.25);text-align:center">Be till gudarna för kraftfulla välsignelser! 8h cooldown per gud. 🏛️</div>
+  </div>
+</div>
+
+<!-- LABYRINTH -->
+<div class="labr-panel" id="labrPanel">
+  <div class="labr-header">
+    <div class="labr-title">🌀 LABYRINTEN</div>
+    <button class="close-btn" onclick="closeLabr()">✕</button>
+  </div>
+  <div class="labr-scroll">
+    <div class="labr-status">
+      <div class="labr-stat-block">
+        <div class="labr-stat-v" id="labrLvlV">1</div>
+        <div class="labr-stat-l">NIVÅ</div>
+      </div>
+      <div class="labr-stat-block">
+        <div class="labr-stat-v" id="labrStepsV">0</div>
+        <div class="labr-stat-l">STEG</div>
+      </div>
+      <div class="labr-stat-block">
+        <div class="labr-stat-v" id="labrTreasV">0</div>
+        <div class="labr-stat-l">SKATTER</div>
+      </div>
+    </div>
+    <div class="labr-maze" id="labrMaze"></div>
+    <div class="labr-log" id="labrLog">Navigera labyrinten och hitta utgången!</div>
+    <div class="labr-ctrl">
+      <div></div>
+      <button class="labr-ctrl-btn" onclick="labrMove('up')">↑</button>
+      <div></div>
+      <button class="labr-ctrl-btn" onclick="labrMove('left')">←</button>
+      <button class="labr-ctrl-btn" onclick="labrReset()">🔄</button>
+      <button class="labr-ctrl-btn" onclick="labrMove('right')">→</button>
+      <div></div>
+      <button class="labr-ctrl-btn" onclick="labrMove('down')">↓</button>
+      <div></div>
+    </div>
+    <div style="font:600 9px var(--ff-body);color:rgba(170,190,60,.25);text-align:center">Nå utgången (🚪) för belöning! 💎=skatt. Ny labyrint varje dag. 🌀</div>
+  </div>
+</div>
+
 <!-- ALCHEMY LAB -->
 <div class="alch-panel" id="alchPanel">
   <div class="alch-header">
@@ -20162,7 +20273,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="alch-cauldron-area">
       <span class="alch-cauldron" id="alchCauldron">🪄</span>
       <div class="alch-slots" id="alchSlots"></div>
-      <button class="alch-brew-btn" onclick="alchBrew()">✨ Brygg!</button>
+      <button class="alch-brew-btn" onclick="alc3Brew()">✨ Brygg!</button>
       <div class="alch-hint" id="alchHint">Välj ingredienser och brygg en ny trolldryck</div>
     </div>
     <div class="alch-section-title">Ingredienser</div>
@@ -22293,11 +22404,11 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
-<!-- ALCHEMY LAB -->
-<div class="alch-panel" id="alchPanel">
+<!-- ALCHEMY LAB 3 -->
+<div class="alc3-panel" id="alc3Panel">
   <div class="alch-header">
     <div class="alch-title">⚗️ ALKEMILABB</div>
-    <button class="close-btn" onclick="closeAlch()">✕</button>
+    <button class="close-btn" onclick="closeAlc3()">✕</button>
   </div>
   <div class="alch-scroll">
     <div id="alchActivePotionBox"></div>
@@ -22309,10 +22420,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
         <div style="font:800 20px var(--ff-head);color:rgba(255,255,255,.2);align-self:center">+</div>
         <div class="alch-slot" id="alchSlot1" onclick="clearAlchSlot(1)">?</div>
       </div>
-      <button class="alch-brew-btn" id="alchBrewBtn" onclick="brewPotion()" disabled>⚗️ BRYGGA ELIKSIR</button>
+      <button class="alch-brew-btn" id="alc3BrewBtn" onclick="brewPotion()" disabled>⚗️ BRYGGA ELIKSIR</button>
     </div>
     <div class="alch-section">Ingredienser</div>
-    <div class="alch-ingredients" id="alchIngredients"></div>
+    <div class="alch-ingredients" id="alc3Ingredients"></div>
     <div class="alch-section">Dina Eliksirer</div>
     <div class="alch-potion-list" id="alchPotionList"></div>
   </div>
@@ -67290,6 +67401,420 @@ function _renderPrs2(d){
   }
   var rb=$('prs2RebirthBtn');
   if(rb) rb.disabled=!(nextTier&&lvl>=nextTier.minLvl);
+}
+
+
+// ALCHEMY LAB
+var ALC3_KEY = 'k0509_alc3';
+const ALCH_INGRS = [
+  {id:'herb_fire',   icon:'🌶️', name:'Eldört',     minLvl:1},
+  {id:'herb_moon',   icon:'🌿', name:'Månblad',    minLvl:1},
+  {id:'herb_star',   icon:'⭐', name:'Stjärnört',  minLvl:2},
+  {id:'root_dark',   icon:'🍄', name:'Skuggsvamp', minLvl:3},
+  {id:'crystal',     icon:'💎', name:'Tona-sten',  minLvl:4},
+  {id:'dragon_blood',icon:'🩸', name:'Drakblod',   minLvl:5},
+];
+var ALC3_RECIPES = [
+  {mats:['herb_fire','herb_moon'],    icon:'🧪', name:'Styrkedryck',  eff:'+10 STR',       fn:function(){G.str=(G.str||0)+10;save();},  prob:.8},
+  {mats:['herb_moon','herb_star'],    icon:'💙', name:'Rörelsetrunk', eff:'+10 AGI',       fn:function(){G.agi=(G.agi||0)+10;save();},  prob:.8},
+  {mats:['herb_star','root_dark'],    icon:'🟢', name:'Visdomsbrygd', eff:'+10 INT',       fn:function(){G.int=(G.int||0)+10;save();},  prob:.7},
+  {mats:['root_dark','crystal'],      icon:'💜', name:'Lyckoextrakt', eff:'+10 LCK',       fn:function(){G.lck=(G.lck||0)+10;save();},  prob:.7},
+  {mats:['crystal','herb_fire'],      icon:'🔴', name:'Härdningssaft',eff:'+10 END',       fn:function(){G.end=(G.end||0)+10;save();},  prob:.75},
+  {mats:['dragon_blood','crystal'],   icon:'🌟', name:'Titanserum',  eff:'+8 STR +8 END', fn:function(){G.str=(G.str||0)+8;G.end=(G.end||0)+8;save();}, prob:.5},
+  {mats:['dragon_blood','herb_star'], icon:'✨', name:'Geniuspotion', eff:'+8 INT +8 LCK', fn:function(){G.int=(G.int||0)+8;G.lck=(G.lck||0)+8;save();}, prob:.5},
+  {mats:['dragon_blood','root_dark'], icon:'💥', name:'Kaosbrygd',   eff:'+6 alla stats', fn:function(){['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+6;});save();}, prob:.3},
+];
+
+var _alc3SelIngrs = [];
+
+function _alc3Data(){try{return JSON.parse(localStorage.getItem(ALCH_KEY)||'null');}catch(e){return null;}}
+function _alc3Save(d){localStorage.setItem(ALCH_KEY,JSON.stringify(d));}
+function _alc3GetData(){
+  var d=_alchData();
+  if(!d) d={ingrs:{herb_fire:4,herb_moon:4,herb_star:2},potions:{},totalBrewed:0};
+  return d;
+}
+
+function alc3SelIngr(id){
+  if(_alchSelIngrs.length>=2&&_alchSelIngrs.indexOf(id)<0) return;
+  var idx=_alchSelIngrs.indexOf(id);
+  if(idx>=0) _alchSelIngrs.splice(idx,1);
+  else _alchSelIngrs.push(id);
+  var d=_alchGetData();
+  var recipe=ALCH_RECIPES.find(function(r){
+    return r.mats.length===_alchSelIngrs.length&&
+      r.mats.every(function(m){return _alchSelIngrs.indexOf(m)>=0;});
+  });
+  var ci=$('alchCauldronIcon'),cn=$('alchCauldronName'),cd=$('alchCauldronDesc');
+  if(recipe){
+    if(ci) ci.textContent=recipe.icon;
+    if(cn) cn.textContent=recipe.name;
+    if(cd) cd.textContent=recipe.eff+' · Chans: '+Math.round(recipe.prob*100)+'%';
+  } else if(_alchSelIngrs.length>0){
+    if(ci) ci.textContent='❓';
+    if(cn) cn.textContent='Okänt recept...';
+    if(cd) cd.textContent='Välj en annan kombination';
+  } else {
+    if(ci) ci.textContent='🪣';
+    if(cn) cn.textContent='Välj ingredienser';
+    if(cd) cd.textContent='Välj 2 ingredienser för att se möjligt recept';
+  }
+  var bb=$('alchBrewBtn');if(bb) bb.disabled=_alchSelIngrs.length<2;
+  _renderAlchIngrs(d);
+}
+
+function alc3Brew(){
+  if(_alchSelIngrs.length<2) return;
+  var d=_alchGetData();
+  for(var i=0;i<_alchSelIngrs.length;i++){
+    if((d.ingrs[_alchSelIngrs[i]]||0)<1){showFloatBubble('Saknar ingrediens!','debuff');return;}
+  }
+  var recipe=ALCH_RECIPES.find(function(r){
+    return r.mats.length===_alchSelIngrs.length&&
+      r.mats.every(function(m){return _alchSelIngrs.indexOf(m)>=0;});
+  });
+  _alchSelIngrs.forEach(function(id){d.ingrs[id]=Math.max(0,(d.ingrs[id]||0)-1);});
+  if(recipe&&Math.random()<recipe.prob){
+    d.potions[recipe.icon+'_'+recipe.name]=(d.potions[recipe.icon+'_'+recipe.name]||0)+1;
+    d.totalBrewed=(d.totalBrewed||0)+1;
+    gainCoins(50);gainXP(45,'int');
+    showFloatBubble('⚗️ '+recipe.icon+' '+recipe.name+' brygd! '+recipe.eff,'buff');
+    checkAchievements();
+  } else {
+    gainCoins(10);
+    showFloatBubble('💨 Bryggning misslyckades... +10🪙','debuff');
+    if(!recipe){
+      // Earn random ingredient
+      var rndIngr=ALCH_INGRS[Math.floor(Math.random()*3)];
+      d.ingrs[rndIngr.id]=(d.ingrs[rndIngr.id]||0)+1;
+      showFloatBubble('🌿 Hittade '+rndIngr.icon+' '+rndIngr.name+' som biprodukt!','buff');
+    }
+  }
+  _alchSelIngrs=[];
+  _alchSave(d);
+  _renderAlch(d);
+}
+
+function alc3UsePotion(key){
+  var d=_alchGetData();
+  if((d.potions[key]||0)<=0) return;
+  var recipe=ALCH_RECIPES.find(function(r){return (r.icon+'_'+r.name)===key;});
+  if(!recipe) return;
+  d.potions[key]=(d.potions[key]||0)-1;
+  recipe.fn();
+  gainXP(60,'int');
+  _alchSave(d);
+  showFloatBubble('✨ Använde '+recipe.icon+' '+recipe.name+'! '+recipe.eff,'buff');
+  checkAchievements();
+  _renderAlch(d);
+}
+
+function alc3GatherIngr(){
+  var d=_alchGetData();
+  var today=getTodayKey();
+  d.lastGather=d.lastGather||{};
+  if(d.lastGather.day===today&&(d.lastGather.count||0)>=3){showFloatBubble('Max 3 samlingar per dag!','debuff');return;}
+  if(d.lastGather.day!==today) d.lastGather={day:today,count:0};
+  d.lastGather.count=(d.lastGather.count||0)+1;
+  var ingr=ALCH_INGRS[Math.floor(Math.random()*ALCH_INGRS.length)];
+  var lvl=G.lvl||1;
+  if(lvl<ingr.minLvl) ingr=ALCH_INGRS[0];
+  d.ingrs[ingr.id]=(d.ingrs[ingr.id]||0)+1;
+  _alchSave(d);
+  showFloatBubble('🌿 Samlade '+ingr.icon+' '+ingr.name+'! ('+d.lastGather.count+'/3 idag)','buff');
+  _renderAlch(d);
+}
+
+function openAlc3(){$('alchPanel').classList.add('open');_renderAlch();}
+function closeAlc3(){$('alchPanel').classList.remove('open');}
+
+function _renderAlc3Ingrs(d){
+  var c=$('alchIngredients');if(!c) return;
+  var lvl=G.lvl||1;
+  c.innerHTML=ALCH_INGRS.map(function(ingr){
+    var cnt=d.ingrs[ingr.id]||0;
+    var locked=lvl<ingr.minLvl;
+    var isSel=_alchSelIngrs.indexOf(ingr.id)>=0;
+    var noStock=cnt<1||locked;
+    var cls='alch-ingr'+(isSel?' sel':noStock?' no-stock':'');
+    return '<div class="'+cls+'" onclick="alchSelIngr(\''+ingr.id+'\')">'+
+      '<div class="alch-ingr-icon">'+ingr.icon+'</div>'+
+      '<div class="alch-ingr-name">'+ingr.name+'</div>'+
+      '<div class="alch-ingr-cnt">'+(locked?'🔒 Lvl'+ingr.minLvl:'×'+cnt)+'</div>'+
+    '</div>';
+  }).join('')+
+  '<div class="alch-ingr" onclick="alchGatherIngr()" style="background:rgba(68,200,68,.08);border-color:rgba(68,200,68,.2)">'+
+    '<div class="alch-ingr-icon">🌿</div>'+
+    '<div class="alch-ingr-name">Samla</div>'+
+    '<div class="alch-ingr-cnt">3/dag</div>'+
+  '</div>';
+}
+
+function _renderAlc3(d){
+  if(!d) d=_alchGetData();
+  _alchSelIngrs=[];
+  _renderAlchIngrs(d);
+  var ci=$('alchCauldronIcon');if(ci) ci.textContent='🪣';
+  var cn=$('alchCauldronName');if(cn) cn.textContent='Välj ingredienser';
+  var bb=$('alchBrewBtn');if(bb) bb.disabled=true;
+  var pots=$('alchPotions');
+  if(pots){
+    var hasPots=false;
+    var html='';
+    Object.keys(d.potions||{}).forEach(function(key){
+      if((d.potions[key]||0)<=0) return;
+      hasPots=true;
+      var recipe=ALCH_RECIPES.find(function(r){return (r.icon+'_'+r.name)===key;});
+      if(!recipe) return;
+      html+='<div class="alch-potion">'+
+        '<div class="alch-pot-icon">'+recipe.icon+'</div>'+
+        '<div class="alch-pot-info">'+
+          '<div class="alch-pot-name">'+recipe.name+'</div>'+
+          '<div class="alch-pot-eff">'+recipe.eff+'</div>'+
+        '</div>'+
+        '<div class="alch-pot-cnt">×'+d.potions[key]+'</div>'+
+        '<button class="alch-use-btn" onclick="alchUsePotion(\''+key+'\')">Använd</button>'+
+      '</div>';
+    });
+    pots.innerHTML=hasPots?html:'<div style="font:600 8px var(--ff-body);color:rgba(68,200,68,.25);text-align:center;padding:8px">Inga drycker ännu. Brygga några!</div>';
+  }
+}
+
+
+// LABYRINTH
+const LABR_KEY = 'k0509_labr';
+var _labrMaze = null;
+var _labrW = 9, _labrH = 9;
+
+function _labrData(){try{return JSON.parse(localStorage.getItem(LABR_KEY)||'null');}catch(e){return null;}}
+function _labrSave(d){localStorage.setItem(LABR_KEY,JSON.stringify(d));}
+function _labrGetData(){
+  var d=_labrData();
+  if(!d) d={mazeLevel:1,totalTreasures:0,dailySolved:0,lastDay:''};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.dailySolved=0;d.lastDay=today;_labrSave(d);}
+  return d;
+}
+
+function _labrGenMaze(seed, level){
+  var w=_labrW, h=_labrH;
+  // Simple seeded pseudo-random maze using grid
+  var rng=(function(s){var x=s;return function(){x=((x*1103515245+12345)&0x7fffffff);return x/0x7fffffff;};})(seed*level);
+  // Fill with walls
+  var cells=[];
+  for(var y=0;y<h;y++){cells.push([]);for(var x=0;x<w;x++) cells[y].push('wall');}
+  // Carve paths using recursive backtrack
+  var stack=[[1,1]];cells[1][1]='path';
+  while(stack.length>0){
+    var cur=stack[stack.length-1];
+    var cx=cur[0],cy=cur[1];
+    var dirs=[[0,-2],[0,2],[-2,0],[2,0]];
+    // Shuffle dirs
+    for(var i=dirs.length-1;i>0;i--){var j=Math.floor(rng()*(i+1));var tmp=dirs[i];dirs[i]=dirs[j];dirs[j]=tmp;}
+    var moved=false;
+    for(var di=0;di<dirs.length;di++){
+      var nx=cx+dirs[di][0],ny=cy+dirs[di][1];
+      if(nx>0&&ny>0&&nx<w-1&&ny<h-1&&cells[ny][nx]==='wall'){
+        cells[(cy+ny)/2][(cx+nx)/2]='path';
+        cells[ny][nx]='path';
+        stack.push([nx,ny]);
+        moved=true;break;
+      }
+    }
+    if(!moved) stack.pop();
+  }
+  // Place treasures (3 + level)
+  var treasures=[];
+  var placed=0,tries=0;
+  while(placed<Math.min(3+level,6)&&tries<200){
+    tries++;
+    var tx=1+Math.floor(rng()*(w-2)),ty=1+Math.floor(rng()*(h-2));
+    if(cells[ty][tx]==='path'&&!(tx===1&&ty===1)&&!(tx===w-2&&ty===h-2)){
+      treasures.push([tx,ty]);placed++;
+    }
+  }
+  // Exit at bottom-right
+  cells[h-2][w-2]='exit';
+  return {cells:cells,treasures:treasures,w:w,h:h};
+}
+
+function _labrInit(){
+  var d=_labrGetData();
+  var today=getTodayKey();
+  var seed=today.replace(/-/g,'').slice(-6)|0;
+  _labrMaze=_labrGenMaze(seed,d.mazeLevel||1);
+  _labrMaze.px=1;_labrMaze.py=1;
+  _labrMaze.visited=[];
+  _labrMaze.foundTreasures=[];
+  _labrMaze.steps=0;
+  return d;
+}
+
+function labrMove(dir){
+  if(!_labrMaze) _labrInit();
+  var m=_labrMaze;
+  var nx=m.px,ny=m.py;
+  if(dir==='up') ny--;
+  else if(dir==='down') ny++;
+  else if(dir==='left') nx--;
+  else if(dir==='right') nx++;
+  if(nx<0||ny<0||nx>=m.w||ny>=m.h) return;
+  var cell=m.cells[ny][nx];
+  if(cell==='wall') return;
+  m.px=nx;m.py=ny;m.steps=(m.steps||0)+1;
+  var key=nx+','+ny;
+  var log=$('labrLog');
+  // Check treasure
+  var tIdx=m.treasures.findIndex(function(t){return t[0]===nx&&t[1]===ny;});
+  if(tIdx>=0&&m.foundTreasures.indexOf(tIdx)<0){
+    m.foundTreasures.push(tIdx);
+    var d=_labrGetData();
+    d.totalTreasures=(d.totalTreasures||0)+1;
+    _labrSave(d);
+    gainCoins(30*(d.mazeLevel||1));gainXP(25,'agi');
+    if(log) log.textContent='💎 Skatt hittad! +'+(30*(d.mazeLevel||1))+'🪙';
+  }
+  // Check exit
+  if(cell==='exit'){
+    var d=_labrGetData();
+    d.dailySolved=(d.dailySolved||0)+1;
+    d.mazeLevel=(d.mazeLevel||1)+1;
+    var kc=Math.floor((d.mazeLevel-1)/5);
+    gainCoins(100*(d.mazeLevel-1));gainXP(80,'agi');
+    if(kc>0) gainKC(kc);
+    G.agi=(G.agi||0)+2;save();
+    showFloatBubble('🚪 Utgång nådd! Nivå '+(d.mazeLevel-1)+' klar! +2AGI +100🪙','buff');
+    checkAchievements();
+    _labrSave(d);
+    _labrInit();
+    if(log) log.textContent='Ny labyrint! Nivå '+(d.mazeLevel||1);
+    _renderLabr(d);return;
+  }
+  _renderLabrMaze(d||_labrGetData());
+  if(log&&tIdx<0) log.textContent='Steg: '+(m.steps||0)+' | Skatter: '+(m.foundTreasures||[]).length+'/'+m.treasures.length;
+}
+
+function labrReset(){
+  var d=_labrGetData();
+  _labrInit();
+  _renderLabr(d);
+  var log=$('labrLog');if(log) log.textContent='Labyrint återställd!';
+}
+
+function openLabr(){$('labrPanel').classList.add('open');if(!_labrMaze) _labrInit();_renderLabr();}
+function closeLabr(){$('labrPanel').classList.remove('open');}
+
+function _renderLabrMaze(d){
+  if(!_labrMaze) _labrInit();
+  var m=_labrMaze;
+  var container=$('labrMaze');if(!container) return;
+  var rows='';
+  for(var y=0;y<m.h;y++){
+    rows+='<div class="labr-row">';
+    for(var x=0;x<m.w;x++){
+      var cls='labr-cell ';
+      var txt='';
+      if(x===m.px&&y===m.py){cls+='player';txt='🧙';}
+      else if(m.cells[y][x]==='wall'){cls+='wall';txt='';}
+      else if(m.cells[y][x]==='exit'){cls+='exit';txt='🚪';}
+      else {
+        var isTreasure=m.treasures.some(function(t,i){return t[0]===x&&t[1]===y&&m.foundTreasures.indexOf(i)<0;});
+        if(isTreasure){cls+='treasure';txt='💎';}
+        else cls+='path';
+      }
+      rows+='<div class="'+cls+'">'+txt+'</div>';
+    }
+    rows+='</div>';
+  }
+  container.innerHTML=rows;
+  var lv=$('labrLvlV');if(lv) lv.textContent=d.mazeLevel||1;
+  var sv=$('labrStepsV');if(sv) sv.textContent=m.steps||0;
+  var tv=$('labrTreasV');if(tv) tv.textContent=(m.foundTreasures||[]).length+'/'+m.treasures.length;
+}
+
+function _renderLabr(d){
+  if(!d) d=_labrGetData();
+  _renderLabrMaze(d);
+}
+
+
+// GODS BLESSING
+const GODS_KEY = 'k0509_gods';
+const GODS_LIST = [
+  {id:'thor',   icon:'⚡', name:'Tor',      domain:'Åska & Styrka',   color:'#ff8800', bg:'rgba(255,136,0,.08)', border:'rgba(255,136,0,.25)',
+   eff:'+15 STR +10 END', fn:function(){G.str=(G.str||0)+15;G.end=(G.end||0)+10;save();gainCoins(100);gainXP(80,'str');}},
+  {id:'athena', icon:'🦉', name:'Athena',   domain:'Visdom & Strategi',color:'#4488ff', bg:'rgba(68,136,255,.08)', border:'rgba(68,136,255,.25)',
+   eff:'+15 INT +10 AGI', fn:function(){G.int=(G.int||0)+15;G.agi=(G.agi||0)+10;save();gainCoins(80);gainXP(80,'int');}},
+  {id:'lakshmi',icon:'🌺', name:'Lakshmi',  domain:'Rikedom & Lycka',  color:'#ffee00', bg:'rgba(255,238,0,.06)', border:'rgba(255,238,0,.2)',
+   eff:'+15 LCK +500🪙',  fn:function(){G.lck=(G.lck||0)+15;save();gainCoins(500);gainXP(60,'lck');}},
+  {id:'ares',   icon:'🗡️', name:'Ares',     domain:'Krig & Segrar',    color:'#ff2200', bg:'rgba(255,34,0,.08)', border:'rgba(255,34,0,.25)',
+   eff:'+20 STR Krigare',  fn:function(){G.str=(G.str||0)+20;G.end=(G.end||0)+5;save();gainCoins(150);gainXP(100,'str');}},
+  {id:'hermes', icon:'🪽',  name:'Hermes',   domain:'Hastighet & List', color:'#44ffaa', bg:'rgba(68,255,170,.05)', border:'rgba(68,255,170,.2)',
+   eff:'+20 AGI +5 LCK',  fn:function(){G.agi=(G.agi||0)+20;G.lck=(G.lck||0)+5;save();gainCoins(120);gainXP(90,'agi');}},
+  {id:'cosmos', icon:'🌌', name:'Kosmosen', domain:'Universum & Allt', color:'#cc88ff', bg:'rgba(200,136,255,.06)', border:'rgba(200,136,255,.2)',
+   eff:'+10 alla stats +2KC', fn:function(){['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+10;});save();gainKC(2);gainCoins(200);gainXP(150,'int');}},
+];
+
+function _godsData(){try{return JSON.parse(localStorage.getItem(GODS_KEY)||'null');}catch(e){return null;}}
+function _godsSave(d){localStorage.setItem(GODS_KEY,JSON.stringify(d));}
+function _godsGetData(){
+  var d=_godsData();
+  if(!d) d={favor:0,lastPray:{},totalPrayers:0};
+  return d;
+}
+
+function godsPray(godId){
+  var d=_godsGetData();
+  var now=Date.now();
+  var cd=8*3600*1000;
+  var last=d.lastPray[godId]||0;
+  if(now-last<cd){
+    var left=Math.ceil((cd-(now-last))/3600000);
+    showFloatBubble('Cooldown! '+left+'h kvar','debuff');return;
+  }
+  var god=GODS_LIST.find(function(g){return g.id===godId;});
+  if(!god) return;
+  d.lastPray[godId]=now;
+  d.favor=(d.favor||0)+10;
+  d.totalPrayers=(d.totalPrayers||0)+1;
+  god.fn();
+  _godsSave(d);
+  showFloatBubble('🙏 '+god.icon+' '+god.name+' välsignar dig! '+god.eff,'buff');
+  checkAchievements();
+  _renderGods(d);
+}
+
+function openGods(){$('godsPanel').classList.add('open');_renderGods();}
+function closeGods(){$('godsPanel').classList.remove('open');}
+
+function _renderGods(d){
+  if(!d) d=_godsGetData();
+  var fv=$('godsFavorV');if(fv) fv.textContent=(d.favor||0)+' 🙏 ('+d.totalPrayers+' böner totalt)';
+  var container=$('godsList');if(!container) return;
+  var now=Date.now();
+  var cd=8*3600*1000;
+  container.innerHTML=GODS_LIST.map(function(god){
+    var last=d.lastPray[god.id]||0;
+    var elapsed=now-last;
+    var ready=elapsed>=cd;
+    var secsLeft=Math.max(0,Math.ceil((cd-elapsed)/1000));
+    var h=Math.floor(secsLeft/3600),m=Math.floor((secsLeft%3600)/60);
+    var cdTxt=ready?'Redo!':h+'h '+m+'m kvar';
+    return '<div class="gods-god" style="background:'+god.bg+';border-color:'+god.border+'">'+
+      '<div class="gods-god-top">'+
+        '<div class="gods-god-icon">'+god.icon+'</div>'+
+        '<div class="gods-god-info">'+
+          '<div class="gods-god-name" style="color:'+god.color+'">'+god.name+'</div>'+
+          '<div class="gods-god-domain">'+god.domain+'</div>'+
+          '<div class="gods-god-eff">'+god.eff+'</div>'+
+        '</div>'+
+        '<div class="gods-god-cd" style="color:'+god.color+'">'+cdTxt+'</div>'+
+      '</div>'+
+      '<button class="gods-pray-btn" style="color:'+god.color+';border-color:'+god.border+';background:rgba(0,0,0,.3)" onclick="godsPray(\''+god.id+'\')" '+(ready?'':'disabled')+'>'+
+        (ready?'🙏 Be till '+god.name:'⏳ '+cdTxt)+
+      '</button>'+
+    '</div>';
+  }).join('');
 }
 
 </script>
