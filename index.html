@@ -1730,6 +1730,94 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+
+/* ══ WARRIOR GUILD ══ */
+.wgld-panel{position:fixed;inset:0;background:#08040a;z-index:1104;display:none;flex-direction:column;overflow:hidden}
+.wgld-panel.open{display:flex}
+.wgld-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#08040a,#120810)}
+.wgld-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc6600,#ff8800,#ffcc44,#cc6600);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:wgldShim 4s linear infinite}
+@keyframes wgldShim{0%{background-position:0%}100%{background-position:300%}}
+.wgld-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.wgld-rank-bar{background:rgba(204,102,0,.05);border:2px solid rgba(204,102,0,.2);border-radius:20px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.wgld-rank-icon{font-size:36px}
+.wgld-rank-info{flex:1;padding-left:12px}
+.wgld-rank-name{font:800 14px var(--ff-head);color:rgba(255,180,80,.9)}
+.wgld-rank-rep{font:700 10px var(--ff-head);color:rgba(204,136,50,.5)}
+.wgld-missions{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.wgld-mission{background:rgba(204,102,0,.04);border:1.5px solid rgba(204,102,0,.12);border-radius:14px;padding:10px 13px;display:flex;align-items:center;gap:10px}
+.wgld-mission.accepted{border-color:rgba(68,255,136,.25);background:rgba(68,255,136,.03)}
+.wgld-mission.done{opacity:.4}
+.wgld-mis-icon{font-size:26px;flex-shrink:0}
+.wgld-mis-info{flex:1}
+.wgld-mis-name{font:700 11px var(--ff-head);color:rgba(255,200,100,.8)}
+.wgld-mis-desc{font:600 8px var(--ff-body);color:rgba(200,150,80,.4);margin-bottom:2px}
+.wgld-mis-rew{font:700 8px var(--ff-head);color:rgba(255,180,80,.5)}
+.wgld-mis-btns{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
+.wgld-accept-btn{background:linear-gradient(135deg,#180800,#300c00);border:1.5px solid rgba(204,102,0,.3);border-radius:9px;padding:5px 10px;font:700 8px var(--ff-head);color:rgba(255,180,80,.8);cursor:pointer;white-space:nowrap}
+.wgld-accept-btn:disabled{opacity:.3;cursor:default}
+.wgld-complete-btn{background:linear-gradient(135deg,#001a00,#004400);border:1.5px solid rgba(68,255,136,.3);border-radius:9px;padding:5px 10px;font:700 8px var(--ff-head);color:rgba(68,255,136,.8);cursor:pointer;white-space:nowrap}
+.wgld-complete-btn:disabled{opacity:.3;cursor:default}
+
+/* ══ OCEAN DEPTHS ══ */
+.ocn-panel{position:fixed;inset:0;background:#000810;z-index:1103;display:none;flex-direction:column;overflow:hidden}
+.ocn-panel.open{display:flex}
+.ocn-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#000810,#001020)}
+.ocn-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#0088ff,#00ccff,#0044aa,#0088ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:ocnShim 4s linear infinite}
+@keyframes ocnShim{0%{background-position:0%}100%{background-position:300%}}
+.ocn-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.ocn-depth-hdr{background:radial-gradient(ellipse at 50% 80%,rgba(0,136,255,.1),transparent);border:2px solid rgba(0,136,255,.2);border-radius:20px;padding:14px;margin-bottom:12px;text-align:center}
+.ocn-depth-v{font:900 36px var(--ff-head);color:rgba(0,200,255,.8)}
+.ocn-depth-lbl{font:600 8px var(--ff-body);color:rgba(0,150,200,.4);letter-spacing:1px}
+.ocn-air-bar{background:rgba(255,255,255,.04);border-radius:5px;height:8px;overflow:hidden;margin:6px auto;max-width:200px}
+.ocn-air-fill{height:100%;background:linear-gradient(90deg,#0088ff,#00eeff);border-radius:5px;transition:width .5s}
+.ocn-air-pct{font:600 8px var(--ff-body);color:rgba(0,200,255,.4)}
+.ocn-zones{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.ocn-zone{background:rgba(0,136,255,.04);border:1.5px solid rgba(0,136,255,.12);border-radius:16px;padding:10px 13px;cursor:pointer;transition:all .2s}
+.ocn-zone:hover{background:rgba(0,136,255,.08)}
+.ocn-zone.active{border-color:rgba(0,200,255,.4);background:rgba(0,136,255,.1)}
+.ocn-zone.locked{opacity:.4;cursor:default}
+.ocn-zone-top{display:flex;align-items:center;gap:10px}
+.ocn-zone-icon{font-size:28px;flex-shrink:0}
+.ocn-zone-info{flex:1}
+.ocn-zone-name{font:700 11px var(--ff-head);color:rgba(0,230,255,.8)}
+.ocn-zone-desc{font:600 7px var(--ff-body);color:rgba(0,150,200,.4);margin-bottom:2px}
+.ocn-zone-rew{font:700 7px var(--ff-head);color:rgba(0,180,220,.5)}
+.ocn-zone-btn{background:linear-gradient(135deg,#000820,#001540);border:1.5px solid rgba(0,136,255,.3);border-radius:9px;padding:6px 12px;font:700 8px var(--ff-head);color:#00ccff;cursor:pointer;flex-shrink:0}
+.ocn-zone-btn:disabled{opacity:.3;cursor:default}
+
+/* ══ COSMIC CASINO ══ */
+.casi-panel{position:fixed;inset:0;background:#04000a;z-index:1102;display:none;flex-direction:column;overflow:hidden}
+.casi-panel.open{display:flex}
+.casi-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#08000c,#10001a)}
+.casi-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff4488,#44ffcc,#ffcc00);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:casiShim 3s linear infinite}
+@keyframes casiShim{0%{background-position:0%}100%{background-position:300%}}
+.casi-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.casi-chips{display:flex;justify-content:space-between;align-items:center;background:rgba(255,200,0,.05);border:1.5px solid rgba(255,200,0,.15);border-radius:14px;padding:10px 14px;margin-bottom:10px}
+.casi-chips-v{font:800 24px var(--ff-head);color:#ffd700}
+.casi-chips-lbl{font:600 7px var(--ff-body);color:rgba(255,200,0,.4)}
+.casi-convert-btn{background:rgba(255,200,0,.08);border:1px solid rgba(255,200,0,.2);border-radius:9px;padding:6px 11px;font:700 8px var(--ff-head);color:#ffd700;cursor:pointer}
+/* Slot machine */
+.casi-slot{background:rgba(255,200,0,.04);border:2px solid rgba(255,200,0,.18);border-radius:20px;padding:14px;margin-bottom:10px;text-align:center}
+.casi-slot-title{font:700 9px var(--ff-head);color:rgba(255,200,0,.4);letter-spacing:1px;margin-bottom:8px}
+.casi-reels{display:flex;justify-content:center;gap:8px;margin-bottom:10px}
+.casi-reel{width:56px;height:56px;background:rgba(0,0,0,.4);border:2px solid rgba(255,200,0,.25);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:30px;transition:all .3s}
+.casi-reel.spin{animation:reelSpin .4s ease-out}
+@keyframes reelSpin{0%{transform:scaleY(0)}50%{transform:scaleY(1.2)}100%{transform:scaleY(1)}}
+.casi-bet-row{display:flex;gap:6px;justify-content:center;margin-bottom:8px;flex-wrap:wrap}
+.casi-bet-btn{background:rgba(255,200,0,.07);border:1px solid rgba(255,200,0,.2);border-radius:8px;padding:5px 10px;font:700 8px var(--ff-head);color:#ffd700;cursor:pointer}
+.casi-bet-btn.sel{background:rgba(255,200,0,.18);border-color:rgba(255,200,0,.4)}
+.casi-spin-btn{background:linear-gradient(135deg,#1a0a00,#3a1a00);border:2px solid rgba(255,200,0,.4);border-radius:14px;padding:10px;font:900 12px var(--ff-head);color:#ffd700;cursor:pointer;width:100%}
+.casi-spin-btn:disabled{opacity:.3;cursor:default}
+.casi-result{font:700 10px var(--ff-head);color:#ffd700;min-height:16px;margin-top:4px}
+/* Coin flip */
+.casi-flip{background:rgba(255,200,0,.03);border:1.5px solid rgba(255,200,0,.1);border-radius:16px;padding:12px;margin-bottom:8px}
+.casi-flip-title{font:700 8px var(--ff-head);color:rgba(255,200,0,.35);letter-spacing:1px;margin-bottom:8px;text-align:center}
+.casi-flip-btns{display:flex;gap:8px}
+.casi-flip-btn{flex:1;background:rgba(255,200,0,.06);border:1.5px solid rgba(255,200,0,.18);border-radius:12px;padding:8px;font:700 10px var(--ff-head);color:#ffd700;cursor:pointer}
+.casi-flip-info{font:600 8px var(--ff-body);color:rgba(255,200,0,.3);text-align:center;margin-top:6px}
+
 /* ══ NIGHT MARKET ══ */
 .nmark-panel{position:fixed;inset:0;background:#04020a;z-index:1101;display:none;flex-direction:column;overflow:hidden}
 .nmark-panel.open{display:flex}
@@ -13888,6 +13976,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTime()"><div class="ddr-i">⏳</div>Tidsmaskinen</div>
           <div class="ddr" onclick="cM();openFleg()"><div class="ddr-i">🔥</div>Eldligan</div>
           <div class="ddr" onclick="cM();openNmark()"><div class="ddr-i">🌙</div>Nattmarknaden</div>
+          <div class="ddr" onclick="cM();openCasi()"><div class="ddr-i">🎰</div>Kosmisk Kasino</div>
+          <div class="ddr" onclick="cM();openOcn()"><div class="ddr-i">🌊</div>Havets Djup</div>
+          <div class="ddr" onclick="cM();openWgld()"><div class="ddr-i">⚔️</div>Krigargildet</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14010,6 +14101,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTime()"><div class="ddr-i">⏳</div>Tidsmaskinen</div>
           <div class="ddr" onclick="cM();openFleg()"><div class="ddr-i">🔥</div>Eldligan</div>
           <div class="ddr" onclick="cM();openNmark()"><div class="ddr-i">🌙</div>Nattmarknaden</div>
+          <div class="ddr" onclick="cM();openCasi()"><div class="ddr-i">🎰</div>Kosmisk Kasino</div>
+          <div class="ddr" onclick="cM();openOcn()"><div class="ddr-i">🌊</div>Havets Djup</div>
+          <div class="ddr" onclick="cM();openWgld()"><div class="ddr-i">⚔️</div>Krigargildet</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14115,6 +14209,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTime()"><div class="ddr-i">⏳</div>Tidsmaskinen</div>
           <div class="ddr" onclick="cM();openFleg()"><div class="ddr-i">🔥</div>Eldligan</div>
           <div class="ddr" onclick="cM();openNmark()"><div class="ddr-i">🌙</div>Nattmarknaden</div>
+          <div class="ddr" onclick="cM();openCasi()"><div class="ddr-i">🎰</div>Kosmisk Kasino</div>
+          <div class="ddr" onclick="cM();openOcn()"><div class="ddr-i">🌊</div>Havets Djup</div>
+          <div class="ddr" onclick="cM();openWgld()"><div class="ddr-i">⚔️</div>Krigargildet</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14151,6 +14248,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTime()"><div class="ddr-i">⏳</div>Tidsmaskinen</div>
           <div class="ddr" onclick="cM();openFleg()"><div class="ddr-i">🔥</div>Eldligan</div>
           <div class="ddr" onclick="cM();openNmark()"><div class="ddr-i">🌙</div>Nattmarknaden</div>
+          <div class="ddr" onclick="cM();openCasi()"><div class="ddr-i">🎰</div>Kosmisk Kasino</div>
+          <div class="ddr" onclick="cM();openOcn()"><div class="ddr-i">🌊</div>Havets Djup</div>
+          <div class="ddr" onclick="cM();openWgld()"><div class="ddr-i">⚔️</div>Krigargildet</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14268,6 +14368,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTime()"><div class="ddr-i">⏳</div>Tidsmaskinen</div>
           <div class="ddr" onclick="cM();openFleg()"><div class="ddr-i">🔥</div>Eldligan</div>
           <div class="ddr" onclick="cM();openNmark()"><div class="ddr-i">🌙</div>Nattmarknaden</div>
+          <div class="ddr" onclick="cM();openCasi()"><div class="ddr-i">🎰</div>Kosmisk Kasino</div>
+          <div class="ddr" onclick="cM();openOcn()"><div class="ddr-i">🌊</div>Havets Djup</div>
+          <div class="ddr" onclick="cM();openWgld()"><div class="ddr-i">⚔️</div>Krigargildet</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -15039,6 +15142,84 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+
+<!-- WARRIOR GUILD -->
+<div class="wgld-panel" id="wgldPanel">
+  <div class="wgld-header">
+    <div class="wgld-title">⚔️ KRIGARGILDET</div>
+    <button class="close-btn" onclick="closeWgld()">✕</button>
+  </div>
+  <div class="wgld-scroll">
+    <div class="wgld-rank-bar">
+      <div class="wgld-rank-icon" id="wgldRankIcon">🪵</div>
+      <div class="wgld-rank-info">
+        <div class="wgld-rank-name" id="wgldRankName">Trä-rang</div>
+        <div class="wgld-rank-rep" id="wgldRankRep">0 / 100 Rykte</div>
+      </div>
+    </div>
+    <div class="wgld-missions" id="wgldMissions"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(200,150,80,.3);text-align:center">Acceptera uppdrag och slutför dem för rykte och belöningar! ⚔️</div>
+  </div>
+</div>
+
+<!-- OCEAN DEPTHS -->
+<div class="ocn-panel" id="ocnPanel">
+  <div class="ocn-header">
+    <div class="ocn-title">🌊 HAVETS DJUP</div>
+    <button class="close-btn" onclick="closeOcn()">✕</button>
+  </div>
+  <div class="ocn-scroll">
+    <div class="ocn-depth-hdr">
+      <div class="ocn-depth-lbl">NUVARANDE DJUP</div>
+      <div class="ocn-depth-v" id="ocnDepthV">0m</div>
+      <div style="margin:4px 0">
+        <div class="ocn-air-bar"><div class="ocn-air-fill" id="ocnAirFill" style="width:100%"></div></div>
+        <div class="ocn-air-pct" id="ocnAirPct">Luft: 100/100</div>
+      </div>
+    </div>
+    <div class="ocn-zones" id="ocnZones"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(0,150,200,.3);text-align:center">Dyk djupare för sällsynta skatter! Luft fylls på med tid. 🌊</div>
+  </div>
+</div>
+
+<!-- COSMIC CASINO -->
+<div class="casi-panel" id="casiPanel">
+  <div class="casi-header">
+    <div class="casi-title">🎰 KOSMISK KASINO</div>
+    <button class="close-btn" onclick="closeCasi()">✕</button>
+  </div>
+  <div class="casi-scroll">
+    <div class="casi-chips">
+      <div>
+        <div class="casi-chips-lbl">KASINOCHIPS</div>
+        <div class="casi-chips-v" id="casiChipsV">0 🎲</div>
+      </div>
+      <button class="casi-convert-btn" onclick="casiConvert()">100🪙 → 10🎲</button>
+    </div>
+    <div class="casi-slot">
+      <div class="casi-slot-title">🎰 ENARMAD BANDIT</div>
+      <div class="casi-reels">
+        <div class="casi-reel" id="casiReel0">🍒</div>
+        <div class="casi-reel" id="casiReel1">🍒</div>
+        <div class="casi-reel" id="casiReel2">🍒</div>
+      </div>
+      <div class="casi-bet-row" id="casiBets"></div>
+      <button class="casi-spin-btn" id="casiSpinBtn" onclick="casiSpin()">🎰 Snurra!</button>
+      <div class="casi-result" id="casiResult"></div>
+    </div>
+    <div class="casi-flip">
+      <div class="casi-flip-title">🪙 MYNTFLIPP — Dubbla eller förlora allt</div>
+      <div class="casi-flip-btns">
+        <button class="casi-flip-btn" onclick="casiFlip('heads')">👑 Krona</button>
+        <button class="casi-flip-btn" onclick="casiFlip('tails')">🦅 Klave</button>
+      </div>
+      <div class="casi-flip-info" id="casiFlipInfo">Välj sida — satsa 5 chips</div>
+    </div>
+  </div>
+</div>
 
 <!-- NIGHT MARKET -->
 <div class="nmark-panel" id="nmarkPanel">
@@ -65861,6 +66042,362 @@ function _renderNmark(d){
       '<button class="nmark-buy-btn" onclick="nmarkBuy(\''+item.id+'\')" '+(sold||!canAfford?'disabled':'')+'>'+
         (sold?'Slutsåld':(!canAfford?'Råd ej':'Köp ×'+slot.stock))+
       '</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// COSMIC CASINO
+const CASI_KEY = 'k0509_casi';
+const CASI_SYMBOLS = ['🍒','🍋','🍊','🍇','💎','🌟','🎰','💰'];
+const CASI_PAYOUTS = {
+  '🍒🍒🍒':  {mult:3,  label:'Tre Körsbär!'},
+  '🍋🍋🍋':  {mult:4,  label:'Tre Citroner!'},
+  '🍊🍊🍊':  {mult:5,  label:'Tre Apelsiner!'},
+  '🍇🍇🍇':  {mult:7,  label:'Tre Druvor!'},
+  '💎💎💎':  {mult:20, label:'DIAMANTER!!'},
+  '🌟🌟🌟':  {mult:15, label:'TRE STJÄRNOR!'},
+  '🎰🎰🎰':  {mult:50, label:'JACKPOT!!!'},
+  '💰💰💰':  {mult:30, label:'TRE PÄNGAR!!!'},
+};
+const CASI_BETS = [1,5,10,25];
+
+var _casiBet = 5;
+var _casiSpinning = false;
+
+function _casiData(){try{return JSON.parse(localStorage.getItem(CASI_KEY)||'null');}catch(e){return null;}}
+function _casiSave(d){localStorage.setItem(CASI_KEY,JSON.stringify(d));}
+function _casiGetData(){
+  var d=_casiData();
+  if(!d) d={chips:20,totalWon:0,totalSpun:0,jackpots:0};
+  return d;
+}
+
+function casiConvert(){
+  var d=_casiGetData();
+  if((G.coins||0)<100){showFloatBubble('Behöver 100🪙!','debuff');return;}
+  G.coins-=100;save();
+  d.chips=(d.chips||0)+10;
+  _casiSave(d);
+  showFloatBubble('🎲 Konverterade 100🪙 → 10 chips!','buff');
+  _renderCasi(d);
+}
+
+function casiSelBet(bet){
+  _casiBet=bet;
+  _renderCasiBets();
+}
+
+function _renderCasiBets(){
+  var c=$('casiBets');if(!c) return;
+  c.innerHTML=CASI_BETS.map(function(b){
+    return '<button class="casi-bet-btn'+(_casiBet===b?' sel':'')+'" onclick="casiSelBet('+b+')">'+b+'🎲</button>';
+  }).join('');
+}
+
+function casiSpin(){
+  if(_casiSpinning) return;
+  var d=_casiGetData();
+  if((d.chips||0)<_casiBet){showFloatBubble('Inte tillräckligt med chips!','debuff');return;}
+  _casiSpinning=true;
+  d.chips-=_casiBet;
+  d.totalSpun=(d.totalSpun||0)+1;
+  var sb=$('casiSpinBtn');if(sb) sb.disabled=true;
+  // Animate reels
+  var symbols=[];
+  var delays=[0,150,300];
+  delays.forEach(function(delay,i){
+    var reel=$('casiReel'+i);
+    if(reel){
+      reel.classList.add('spin');
+      setTimeout(function(){reel.classList.remove('spin');},delay+400);
+    }
+  });
+  setTimeout(function(){
+    var lck=G.lck||0;
+    // Luck boosts same-symbol probability slightly
+    symbols=[0,1,2].map(function(){
+      var r=Math.random();
+      if(lck>20&&r<0.05) return symbols[0]; // slight luck bonus
+      return Math.floor(Math.random()*CASI_SYMBOLS.length);
+    });
+    var syms=[CASI_SYMBOLS[symbols[0]],CASI_SYMBOLS[symbols[1]],CASI_SYMBOLS[symbols[2]]];
+    [0,1,2].forEach(function(i){
+      var reel=$('casiReel'+i);
+      if(reel) reel.textContent=syms[i];
+    });
+    var key=syms.join('');
+    var payout=CASI_PAYOUTS[key];
+    var res=$('casiResult');
+    if(payout){
+      var won=_casiBet*payout.mult;
+      d.chips=(d.chips||0)+won;
+      d.totalWon=(d.totalWon||0)+won;
+      if(payout.mult>=50) d.jackpots=(d.jackpots||0)+1;
+      gainCoins(won*5);
+      if(res) res.textContent='🎉 '+payout.label+' +'+won+'🎲 (+'+won*5+'🪙)';
+      showFloatBubble('🎰 '+payout.label+' +'+won+'🎲','buff');
+      checkAchievements();
+    } else if(syms[0]===syms[1]||syms[1]===syms[2]||syms[0]===syms[2]){
+      var partWon=_casiBet;
+      d.chips=(d.chips||0)+partWon;
+      if(res) res.textContent='Par! Tillbaka '+partWon+'🎲';
+      gainCoins(partWon*2);
+    } else {
+      if(res) res.textContent='Ingen vinst. Försök igen!';
+    }
+    _casiSave(d);
+    _renderCasi(d);
+    var sb2=$('casiSpinBtn');if(sb2) sb2.disabled=false;
+    _casiSpinning=false;
+  }, 500);
+}
+
+function casiFlip(choice){
+  var d=_casiGetData();
+  var bet=5;
+  if((d.chips||0)<bet){showFloatBubble('Behöver minst '+bet+' chips!','debuff');return;}
+  d.chips-=bet;
+  var result=Math.random()<0.5?'heads':'tails';
+  var won=result===choice;
+  var fi=$('casiFlipInfo');
+  if(won){
+    d.chips=(d.chips||0)+bet*2;
+    d.totalWon=(d.totalWon||0)+bet*2;
+    gainCoins(bet*2*5);
+    if(fi) fi.textContent='🎉 '+(choice==='heads'?'👑 Krona':'🦅 Klave')+'! Vann '+bet*2+'🎲!';
+    showFloatBubble('🪙 Korrekt! +'+(bet*2)+'🎲','buff');
+  } else {
+    if(fi) fi.textContent='💥 '+(result==='heads'?'👑 Krona':'🦅 Klave')+'! Förlorade '+bet+'🎲';
+    showFloatBubble('🪙 Fel sida! -'+bet+'🎲','debuff');
+  }
+  _casiSave(d);
+  _renderCasi(d);
+}
+
+function openCasi(){$('casiPanel').classList.add('open');_renderCasi();}
+function closeCasi(){$('casiPanel').classList.remove('open');}
+
+function _renderCasi(d){
+  if(!d) d=_casiGetData();
+  var cv=$('casiChipsV');if(cv) cv.textContent=(d.chips||0)+' 🎲';
+  _renderCasiBets();
+  var sb=$('casiSpinBtn');if(sb) sb.disabled=_casiSpinning||(d.chips||0)<_casiBet;
+}
+
+
+// OCEAN DEPTHS
+const OCN_KEY = 'k0509_ocn';
+const OCN_ZONES = [
+  {id:'surface', icon:'🌊', name:'Ytzonen',     desc:'Grunt vatten, enkla fynd', depth:'0-30m',   airCost:5,  minLvl:1,  bonus:{agi:1},         coins:25,  xp:20,  spec:'🐠 Tropisk fisk'},
+  {id:'coral',   icon:'🪸', name:'Koralldrivet', desc:'Vackra korallrev',         depth:'30-100m', airCost:10, minLvl:3,  bonus:{lck:2},         coins:45,  xp:40,  spec:'🪸 Korall'},
+  {id:'sunken',  icon:'⚓', name:'Sjunket skepp', desc:'Gammalt vrak fullt av guld', depth:'100-300m',airCost:15, minLvl:6,  bonus:{lck:2,int:1},  coins:80,  xp:70,  spec:'⚓ Vrakguld'},
+  {id:'abyss',   icon:'🦑', name:'Avgrunden',   desc:'Mörka djup, monster lurар', depth:'300-1km', airCost:25, minLvl:10, bonus:{str:3,end:2},   coins:120, xp:100, spec:'🦑 Bläckfisk-gem'},
+  {id:'hadal',   icon:'🌋', name:'Hadal-zonen',  desc:'Extremt djup, vulkaner',   depth:'1-11km',  airCost:40, minLvl:15, bonus:{end:5,str:3},   coins:180, xp:160, spec:'🌋 Vulkankristall'},
+  {id:'trench',  icon:'🌀', name:'Djupaste Djupet', desc:'Jordens botten',       depth:'>11km',   airCost:60, minLvl:20, bonus:{str:5,agi:5,int:5},coins:280,xp:250, spec:'🌀 Urdjupsskatt'},
+];
+
+function _ocnData(){try{return JSON.parse(localStorage.getItem(OCN_KEY)||'null');}catch(e){return null;}}
+function _ocnSave(d){localStorage.setItem(OCN_KEY,JSON.stringify(d));}
+function _ocnGetData(){
+  var d=_ocnData();
+  var now=Date.now();
+  if(!d) d={air:100,lastAirTime:now,maxDepth:0,diveCount:0,doneToday:{},lastDay:''};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.doneToday={};d.lastDay=today;_ocnSave(d);}
+  // Regen air: 10 per minute
+  var minPassed=Math.floor((now-(d.lastAirTime||now))/60000);
+  if(minPassed>0){
+    d.air=Math.min(100,(d.air||0)+minPassed*10);
+    d.lastAirTime=now-(((now-d.lastAirTime)%60000));
+    _ocnSave(d);
+  }
+  return d;
+}
+
+function ocnDive(zoneId){
+  var d=_ocnGetData();
+  var zone=OCN_ZONES.find(function(z){return z.id===zoneId;});
+  if(!zone) return;
+  var lvl=G.lvl||1;
+  if(lvl<zone.minLvl){showFloatBubble('Behöver nivå '+zone.minLvl+'!','debuff');return;}
+  if((d.air||0)<zone.airCost){showFloatBubble('Inte tillräckligt luft! ('+zone.airCost+' behövs)','debuff');return;}
+  if(d.doneToday[zoneId]){showFloatBubble('Redan dykt här idag!','debuff');return;}
+  d.air-=zone.airCost;
+  d.lastAirTime=Date.now();
+  d.diveCount=(d.diveCount||0)+1;
+  d.doneToday[zoneId]=true;
+  var depth=parseInt(zone.depth)||0;
+  if(depth>d.maxDepth) d.maxDepth=depth;
+  // Combat check (deeper = harder)
+  var myPow=(G.end||0)+(G.agi||0)+Math.random()*20;
+  var dangerPow=zone.airCost*0.8+Math.random()*15;
+  var won=myPow>dangerPow;
+  if(won){
+    Object.keys(zone.bonus).forEach(function(s){G[s]=(G[s]||0)+zone.bonus[s];});
+    save();
+    gainCoins(zone.coins);gainXP(zone.xp,'agi');
+    var bonusTxt=Object.keys(zone.bonus).map(function(s){return '+'+zone.bonus[s]+s.toUpperCase();}).join(' ');
+    showFloatBubble('🌊 '+zone.spec+' funnen! '+bonusTxt+' +'+zone.coins+'🪙','buff');
+    checkAchievements();
+  } else {
+    gainCoins(Math.floor(zone.coins*0.2));
+    showFloatBubble('⚠️ Farlig zon — knappt undkommen! +'+Math.floor(zone.coins*0.2)+'🪙','debuff');
+  }
+  _ocnSave(d);
+  _renderOcn(d);
+}
+
+function openOcn(){$('ocnPanel').classList.add('open');_renderOcn();}
+function closeOcn(){$('ocnPanel').classList.remove('open');}
+
+function _renderOcn(d){
+  if(!d) d=_ocnGetData();
+  var dv=$('ocnDepthV');if(dv) dv.textContent=(d.maxDepth||0)+'m';
+  var af=$('ocnAirFill');if(af) af.style.width=((d.air||0))+'%';
+  var ap=$('ocnAirPct');if(ap) ap.textContent='Luft: '+(d.air||0)+'/100 (+10/min)';
+  var container=$('ocnZones');if(!container) return;
+  var lvl=G.lvl||1;
+  container.innerHTML=OCN_ZONES.map(function(zone){
+    var locked=lvl<zone.minLvl;
+    var done=!!d.doneToday[zone.id];
+    var hasAir=(d.air||0)>=zone.airCost;
+    var cls='ocn-zone'+(done?' active':locked?' locked':'');
+    var bonusTxt=Object.keys(zone.bonus).map(function(s){return '+'+zone.bonus[s]+s.toUpperCase();}).join(' ');
+    return '<div class="'+cls+'">'+
+      '<div class="ocn-zone-top">'+
+        '<div class="ocn-zone-icon">'+zone.icon+'</div>'+
+        '<div class="ocn-zone-info">'+
+          '<div class="ocn-zone-name">'+zone.name+' <span style="font:600 7px var(--ff-body);color:rgba(0,150,200,.35)">'+zone.depth+'</span></div>'+
+          '<div class="ocn-zone-desc">'+zone.desc+'</div>'+
+          '<div class="ocn-zone-rew">'+bonusTxt+' · '+zone.spec+' · '+zone.airCost+'💨</div>'+
+        '</div>'+
+        '<button class="ocn-zone-btn" onclick="ocnDive(\''+zone.id+'\')" '+(done||locked||!hasAir?'disabled':'')+'>'+
+          (done?'✓':locked?'🔒 Lvl '+zone.minLvl:!hasAir?'💨...':'Dyk')+
+        '</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+
+// WARRIOR GUILD
+const WGLD_KEY = 'k0509_wgld';
+const WGLD_RANKS = [
+  {name:'Trä-rang',    icon:'🪵', rep:100},
+  {name:'Sten-rang',   icon:'🪨', rep:250},
+  {name:'Koppar-rang', icon:'🟤', rep:500},
+  {name:'Silver-rang', icon:'🥈', rep:1000},
+  {name:'Guld-rang',   icon:'🥇', rep:2000},
+  {name:'Platina-rang',icon:'💎', rep:5000},
+  {name:'Mästare',     icon:'👑', rep:99999},
+];
+const WGLD_MISSION_POOL = [
+  {id:'slay_wolf',  icon:'🐺', name:'Slakta Vargar',     desc:'Döda 10 vargar i skogen',  rep:15, coins:80,  xp:60,  statReq:{str:8}},
+  {id:'escort',     icon:'🛡️', name:'Eskort till torget', desc:'Skydda en köpman',         rep:10, coins:60,  xp:45,  statReq:{}},
+  {id:'find_herb',  icon:'🌿', name:'Samla Örter',        desc:'Hitta 5 magiska örter',    rep:8,  coins:50,  xp:40,  statReq:{int:5}},
+  {id:'kill_bandit',icon:'💀', name:'Eliminera Banditer', desc:'Rensa en banditläger',     rep:20, coins:100, xp:80,  statReq:{str:12}},
+  {id:'explore',    icon:'🗺️', name:'Kartlägg Område',   desc:'Utforska ett okänt land',  rep:12, coins:70,  xp:55,  statReq:{agi:8}},
+  {id:'defend_town',icon:'🏰', name:'Försvara Stan',      desc:'Håll ute fiender i 3 dagar',rep:25,coins:120, xp:100, statReq:{str:10,end:10}},
+  {id:'find_relic', icon:'🏺', name:'Hitta Relik',        desc:'Återfinn ett förlorat föremål',rep:18,coins:90,xp:70, statReq:{int:8,lck:5}},
+  {id:'slay_dragon',icon:'🐉', name:'Dräpa Drake',        desc:'Utmana och dräp draken',  rep:50, coins:250, xp:200, statReq:{str:20,end:15}},
+];
+
+function _wgldData(){try{return JSON.parse(localStorage.getItem(WGLD_KEY)||'null');}catch(e){return null;}}
+function _wgldSave(d){localStorage.setItem(WGLD_KEY,JSON.stringify(d));}
+function _wgldGetData(){
+  var d=_wgldData();
+  if(!d) d={rep:0,rank:0,dailyMissions:[],accepted:{},completed:{},lastDay:''};
+  var today=getTodayKey();
+  if(d.lastDay!==today){
+    // Pick 5 daily missions
+    var pool=WGLD_MISSION_POOL.slice();
+    d.dailyMissions=[];
+    while(d.dailyMissions.length<5&&pool.length>0){
+      var i=Math.floor(Math.random()*pool.length);
+      d.dailyMissions.push(pool[i].id);
+      pool.splice(i,1);
+    }
+    d.accepted={};d.completed={};d.lastDay=today;
+    _wgldSave(d);
+  }
+  return d;
+}
+
+function wgldAccept(missionId){
+  var d=_wgldGetData();
+  if(d.accepted[missionId]||d.completed[missionId]) return;
+  var mis=WGLD_MISSION_POOL.find(function(m){return m.id===missionId;});
+  if(!mis) return;
+  // Check stat requirements
+  var fails=[];
+  Object.keys(mis.statReq).forEach(function(s){if((G[s]||0)<mis.statReq[s]) fails.push(s.toUpperCase()+' '+mis.statReq[s]);});
+  if(fails.length>0){showFloatBubble('Behöver: '+fails.join(', '),'debuff');return;}
+  d.accepted[missionId]=true;
+  _wgldSave(d);
+  showFloatBubble('⚔️ Uppdrag accepterat: '+mis.name,'buff');
+  _renderWgld(d);
+}
+
+function wgldComplete(missionId){
+  var d=_wgldGetData();
+  if(!d.accepted[missionId]||d.completed[missionId]) return;
+  var mis=WGLD_MISSION_POOL.find(function(m){return m.id===missionId;});
+  if(!mis) return;
+  // Fight: based on total power vs mission difficulty
+  var myPow=(G.str||0)+(G.agi||0)+(G.end||0)+Math.random()*15;
+  var missionPow=mis.rep*1.5+Math.random()*20;
+  var won=myPow>missionPow;
+  d.completed[missionId]=true;
+  if(won){
+    d.rep=(d.rep||0)+mis.rep;
+    // Rank up check
+    while((d.rank||0)<WGLD_RANKS.length-1&&d.rep>=WGLD_RANKS[d.rank||0].rep){
+      d.rank=(d.rank||0)+1;
+      gainKC(d.rank);
+      showFloatBubble('⚔️ Gick upp till '+WGLD_RANKS[d.rank].name+'! +'+d.rank+'KC','buff');
+    }
+    gainCoins(mis.coins);gainXP(mis.xp,'str');
+    showFloatBubble('⚔️ '+mis.icon+' '+mis.name+' slutförd! +'+mis.rep+' rykte +'+mis.coins+'🪙','buff');
+    checkAchievements();
+  } else {
+    d.rep=(d.rep||0)+Math.floor(mis.rep*0.2);
+    gainCoins(Math.floor(mis.coins*0.2));
+    showFloatBubble('💥 Misslyckades! Delvis belöning +'+Math.floor(mis.coins*0.2)+'🪙','debuff');
+  }
+  _wgldSave(d);
+  _renderWgld(d);
+}
+
+function openWgld(){$('wgldPanel').classList.add('open');_renderWgld();}
+function closeWgld(){$('wgldPanel').classList.remove('open');}
+
+function _renderWgld(d){
+  if(!d) d=_wgldGetData();
+  var rank=WGLD_RANKS[Math.min(d.rank||0,WGLD_RANKS.length-1)];
+  var ri=$('wgldRankIcon');if(ri) ri.textContent=rank.icon;
+  var rn=$('wgldRankName');if(rn) rn.textContent=rank.name;
+  var rr=$('wgldRankRep');if(rr) rr.textContent=(d.rep||0)+' / '+rank.rep+' Rykte';
+  var container=$('wgldMissions');if(!container) return;
+  container.innerHTML=(d.dailyMissions||[]).map(function(misId){
+    var mis=WGLD_MISSION_POOL.find(function(m){return m.id===misId;});
+    if(!mis) return '';
+    var isAcc=!!d.accepted[misId];
+    var isDone=!!d.completed[misId];
+    var reqTxt=Object.keys(mis.statReq).length?Object.keys(mis.statReq).map(function(s){return s.toUpperCase()+'≥'+mis.statReq[s];}).join(' '):'Inga krav';
+    return '<div class="wgld-mission'+(isDone?' done':isAcc?' accepted':'')+'">'+
+      '<div class="wgld-mis-icon">'+mis.icon+'</div>'+
+      '<div class="wgld-mis-info">'+
+        '<div class="wgld-mis-name">'+mis.name+'</div>'+
+        '<div class="wgld-mis-desc">'+mis.desc+' ('+reqTxt+')</div>'+
+        '<div class="wgld-mis-rew">+'+mis.rep+' rykte · +'+mis.coins+'🪙 · +'+mis.xp+' XP</div>'+
+      '</div>'+
+      '<div class="wgld-mis-btns">'+
+        '<button class="wgld-accept-btn" onclick="wgldAccept(\''+misId+'\')" '+(isAcc||isDone?'disabled':'')+'>'+
+          (isDone?'✓':isAcc?'Aktiv':'Acceptera')+
+        '</button>'+
+        (isAcc&&!isDone?'<button class="wgld-complete-btn" onclick="wgldComplete(\''+misId+'\')">Slutför</button>':'')+
+      '</div>'+
     '</div>';
   }).join('');
 }
