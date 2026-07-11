@@ -25581,7 +25581,7 @@ updatePet = function() {
 };
 
 /* Hook renderGamesHdrStats into games nav */
-const _origNav = nav;
+var _origNav = nav;
 nav = function(name) {
   _origNav(name);
   updateNbIndicator(name);
@@ -26873,7 +26873,7 @@ window.petTap=function(){
   if(getBondTier(G.bond||0)>=1) gainCoins(1);
 };
 // Hook updateHUD to also update bond UI
-const _origUpdateHUD=updateHUD;
+var _origUpdateHUD=updateHUD;
 window.updateHUD=function(){
   _origUpdateHUD.apply(this,arguments);
   updateBondUI();
@@ -27821,7 +27821,7 @@ function _vbgProfile(){
   draw();
 }
 // Hook nav to start/stop bg anims
-const _origNav=nav;
+var _origNav=nav;
 window.nav=function(id){
   _origNav(id);
   _vbgStop('pet');_vbgStop('games');_vbgStop('lb');_vbgStop('profile');
@@ -38513,7 +38513,7 @@ const CRAFT_MATERIALS = [
   {id:'starfrag', emoji:'⭐', name:'Stjärnfragment', rarity:'legendary', sellFor:100},
 ];
 
-const CRAFT_RECIPES = [
+var CRAFT_RECIPES = [
   {id:'potion_small', emoji:'🧪', name:'Liten Eliksir', rarity:'common',
    ingredients:{herb:2,crystal:1}, coins:50, xp:30,
    desc:'Helar 25% HP i Arena'},
@@ -39602,7 +39602,7 @@ function medComplete(){
 
 
 // PET AUCTION HOUSE SYSTEM
-const AUCTION_KEY = 'k0509_auction';
+var AUCTION_KEY = 'k0509_auction';
 
 // Simulated NPC listings (always present)
 const AUCTION_NPC_LISTINGS = [
@@ -41359,7 +41359,7 @@ function _renderHunt(){
 
 
 // WEATHER SYSTEM
-const WX_TYPES = [
+var WX_TYPES = [
   {
     id:'sunny', emoji:'☀️', name:'Soligt', bg:'linear-gradient(180deg,rgba(255,204,0,.12),rgba(255,136,68,.06))',
     border:'rgba(255,204,0,.3)', desc:'Solen lyser starkt! Perfekt dag för utomhusäventyr och skattjakt.',
@@ -42326,9 +42326,9 @@ function _wbFormatHP(n){
 
 
 // PET RACING SYSTEM
-const RACE_KEY = 'k0509_race';
+var RACE_KEY = 'k0509_race';
 const RACE_BETS = [50, 100, 200, 500, 1000];
-const RACE_NPCS = [
+var RACE_NPCS = [
   {emoji:'🐢', name:'Sege Sköldbagge', speedBase:0.6, speedVar:0.3, odds:5.0},
   {emoji:'🐰', name:'Raketkanin',       speedBase:0.8, speedVar:0.4, odds:2.5},
   {emoji:'🦊', name:'Snabba Räven',     speedBase:0.85,speedVar:0.3, odds:2.0},
@@ -42497,7 +42497,7 @@ function _raceResolve(){
 
 
 // PET FISHING
-const FISH_KEY = 'k0509_fish';
+var FISH_KEY = 'k0509_fish';
 const FISH_SPOTS = [
   {id:'pond',   name:'Damm',    emoji:'🏡', fishBias:'common'},
   {id:'river',  name:'Flod',    emoji:'🌊', fishBias:'uncommon'},
@@ -43041,8 +43041,8 @@ function _renderStar(){
 
 // MEMORY DUEL
 const MEM_KEY = 'k0509_mem';
-const MEM_EMOJIS = ['🐣','🦁','🐉','🌸','⭐','🔥','💎','🌊','🍄','🎃','🦋','🌈','🎯','🏆','🧩','💜','🌙','🦊','🐸','🎸'];
-const MEM_DIFFS = {
+var MEM_EMOJIS = ['🐣','🦁','🐉','🌸','⭐','🔥','💎','🌊','🍄','🎃','🦋','🌈','🎯','🏆','🧩','💜','🌙','🦊','🐸','🎸'];
+var MEM_DIFFS = {
   easy:  {cols:3, rows:4, pairs:6,  label:'Lätt',  maxSec:60,  coins:50,  bonus:200},
   normal:{cols:4, rows:4, pairs:8,  label:'Normal', maxSec:90,  coins:100, bonus:500},
   hard:  {cols:4, rows:5, pairs:10, label:'Svår',   maxSec:120, coins:200, bonus:1200},
@@ -43909,7 +43909,7 @@ function fortGetBuff(type){
 
 
 // CRYSTAL MINE
-const MINE_KEY = 'k0509_mine';
+var MINE_KEY = 'k0509_mine';
 const MINE_CRYSTALS = [
   {id:'quartz',  name:'Kvarts',         emoji:'🔷', val:5,   depth:0,   weight:40},
   {id:'amethyst',name:'Ametist',        emoji:'💜', val:15,  depth:50,  weight:25},
@@ -44285,8 +44285,8 @@ function _renderBnty(){
 
 
 // SPIN WHEEL
-const SPIN_KEY = 'k0509_spin';
-const SPIN_SEGMENTS = [
+var SPIN_KEY = 'k0509_spin';
+var SPIN_SEGMENTS = [
   {id:'coins100',  label:'100🪙',   emoji:'💰', color:'#2200aa', reward:{type:'coins',val:100}},
   {id:'coins300',  label:'300🪙',   emoji:'💰', color:'#440088', reward:{type:'coins',val:300}},
   {id:'coins50',   label:'50🪙',    emoji:'🪙',  color:'#660066', reward:{type:'coins',val:50}},
@@ -45071,8 +45071,8 @@ function _renderCal(){
 
 
 // PET COOKING
-const COOK_KEY = 'k0509_cook';
-const COOK_RECIPES = [
+var COOK_KEY = 'k0509_cook';
+var COOK_RECIPES = [
   {id:'svampgrot', name:'Svampgröt', emoji:'🍲', buffType:'coins', buffVal:50, mins:20,
    eff:'+50% Mynt i 20min', ings:{mushroom:2,herb:1}},
   {id:'eldsoppa', name:'Eldsoppa', emoji:'🔥', buffType:'str', buffVal:20, mins:30,
@@ -45381,7 +45381,7 @@ function _renderTown(){
 
 
 // PET WARDROBE
-const WARD_KEY = 'k0509_ward';
+var WARD_KEY = 'k0509_ward';
 const WARD_CATS = [
   {id:'hat', name:'Hatt', emoji:'🎩',
    items:[
@@ -45958,8 +45958,8 @@ function _renderShr(){
 
 
 // PET EVOLUTION
-const EVO_KEY = 'k0509_evo';
-const EVO_STAGES = [
+var EVO_KEY = 'k0509_evo';
+var EVO_STAGES = [
   {id:'egg',    name:'Ägg',       emoji:'🥚', req:0,    bonus:0,  title:'Stadiet 1 av 7'},
   {id:'hatch',  name:'Kläckling', emoji:'🐣', req:50,   bonus:5,  title:'Stadiet 2 av 7'},
   {id:'cub',    name:'Valp',      emoji:'🐱', req:150,  bonus:10, title:'Stadiet 3 av 7'},
@@ -46531,8 +46531,8 @@ function _renderMatc(){
 
 
 // PET RACING
-const RACE_KEY = 'k0509_race';
-const RACE_NPCS = [
+var RACE_KEY = 'k0509_race';
+var RACE_NPCS = [
   {name:'Rocket',emoji:'🐇',speed:0.80},
   {name:'Blaze', emoji:'🦊',speed:0.70},
   {name:'Storm', emoji:'🐺',speed:0.90},
@@ -47132,7 +47132,7 @@ function _renderArna(){
 
 
 // LUCKY SPIN
-const SPIN_KEY = 'k0509_spin';
+var SPIN_KEY = 'k0509_spin';
 const SPIN_EXTRA_COST = 300;
 const SPIN_MAX_EXTRA = 5;
 const SPIN_SEGS = [
@@ -47701,8 +47701,8 @@ function _renderWmap(){
 
 
 // FORTUNE CARDS
-const FORT_KEY = 'k0509_fort';
-const FORT_CARDS = [
+var FORT_KEY = 'k0509_fort';
+var FORT_CARDS = [
   // Common (weight 20 each)
   {id:'c1', emoji:'🌟',name:'Polaris',    rarity:'common',  effect:'+800🪙',     fn:function(){gainCoins(800);}},
   {id:'c2', emoji:'☀️',name:'Sol',        rarity:'common',  effect:'+5 Alla Stats',fn:function(){G.str=(G.str||0)+5;G.agi=(G.agi||0)+5;G.int=(G.int||0)+5;G.end=(G.end||0)+5;G.lck=(G.lck||0)+5;save();}},
@@ -48175,8 +48175,8 @@ function _renderElemCards(d){
 
 
 // PET HOROSCOPE
-const HORO_KEY = 'k0509_horo';
-const HORO_SIGNS = [
+var HORO_KEY = 'k0509_horo';
+var HORO_SIGNS = [
   {emoji:'♈',name:'Väduren',   element:'Eld',  color:'#ff4455'},
   {emoji:'♉',name:'Oxen',      element:'Jord', color:'#44aa33'},
   {emoji:'♊',name:'Tvillingarna',element:'Luft',color:'#44aaff'},
@@ -48427,7 +48427,7 @@ function _moodPick(id){
 
 
 // PET COOKBOOK
-const COOK_KEY = 'k0509_cook';
+var COOK_KEY = 'k0509_cook';
 const COOK_INGR = {
   fish:     {emoji:'🐟', name:'Fisk'},
   herb:     {emoji:'🌿', name:'Ört'},
@@ -48438,7 +48438,7 @@ const COOK_INGR = {
   meat:     {emoji:'🥩', name:'Kött'},
   honey:    {emoji:'🍯', name:'Honung'},
 };
-const COOK_RECIPES = [
+var COOK_RECIPES = [
   {id:'fish_stew', emoji:'🍲', name:'Fisksoppa',
    ingr:{fish:2,herb:1}, duration:20*60,
    bonus:{stat:'agi',val:15}, effect:'+15 AGI i 20min'},
@@ -48790,8 +48790,8 @@ function _renderCard(){
 
 
 // PET GARDEN
-const GARD_KEY = 'k0509_gard';
-const GARD_SEEDS = [
+var GARD_KEY = 'k0509_gard';
+var GARD_SEEDS = [
   {id:'carrot',  emoji:'🥕', name:'Morot',    grow:5*60,    stages:['🌱','🌿','🥕'], reward:{coins:120, xp:20, ingr:'berry'}},
   {id:'wheat',   emoji:'🌾', name:'Vete',     grow:8*60,    stages:['🌱','🌿','🌾'], reward:{coins:200, xp:30, ingr:'grain'}},
   {id:'berry',   emoji:'🫐', name:'Blåbär',   grow:12*60,   stages:['🌱','🌿','🫐'], reward:{coins:300, xp:40, ingr:'berry', extra:2}},
@@ -48957,7 +48957,7 @@ function _gardPickSeed(id){
 
 
 // ALCHEMY LAB
-const ALCH_KEY = 'k0509_alch';
+var ALCH_KEY = 'k0509_alch';
 const ALCH_MATS = {
   essence:  {emoji:'✨', name:'Essens'},
   dust:     {emoji:'💫', name:'Damm'},
@@ -48968,7 +48968,7 @@ const ALCH_MATS = {
   lightning:{emoji:'⚡', name:'Blixt'},
   nature:   {emoji:'🍃', name:'Natur'},
 };
-const ALCH_RECIPES = [
+var ALCH_RECIPES = [
   {id:'power_elixir', result:'💪', name:'Krafteliksir', ingr:['flame','essence','essence'],
    effect:'+25 STR permanent', fn:function(){G.str=(G.str||0)+25;save();}},
   {id:'speed_potion', result:'🏃', name:'Snabbhetstinktur', ingr:['lightning','essence','dust'],
@@ -49262,7 +49262,7 @@ function _renderLdb(){
 
 
 // PET QUIZ
-const QUIZ_KEY = 'k0509_quiz';
+var QUIZ_KEY = 'k0509_quiz';
 const QUIZ_MAX = 3;
 const QUIZ_POOL = [
   {e:'🐶',q:'Vad äter hundar helst som godis?',a:['Kex','Ben med kött','Katttass','Fisk'],c:1},
@@ -49579,9 +49579,9 @@ function _renderMstd(){
 
 
 // MINESHAFT
-const MINE_KEY = 'k0509_mine';
+var MINE_KEY = 'k0509_mine';
 const MINE_MAX_PICKS = 10;
-const MINE_GRID_SIZE = 15; // 5x3 = 15 cells
+var MINE_GRID_SIZE = 15; // 5x3 = 15 cells
 const MINE_LAYERS = [
   {depth:1,   name:'Ytjord',      emoji:'🟫', color:'rgba(100,60,20,.2)'},
   {depth:5,   name:'Lera',        emoji:'🧱', color:'rgba(120,80,40,.2)'},
@@ -50943,14 +50943,14 @@ function _renderFwhl(d){
 
 
 // PET RACING
-const RACE_KEY = 'k0509_race';
-const RACE_NPCS = [
+var RACE_KEY = 'k0509_race';
+var RACE_NPCS = [
   {emoji:'🐭', name:'Lille Pip',   agi:40},
   {emoji:'🦊', name:'Rex',         agi:55},
   {emoji:'🐯', name:'Tigern',      agi:70},
   {emoji:'🦅', name:'Örnen',       agi:60},
 ];
-const RACE_PRIZES = [1000,500,200,75,25];
+var RACE_PRIZES = [1000,500,200,75,25];
 const RACE_DAILY  = 5;
 var _raceRunning = false;
 var _raceInterval = null;
@@ -51238,8 +51238,8 @@ function _renderQday(d){
 
 
 // MEMORY MATCH
-const MEM_KEY = 'k0509_mem';
-const MEM_EMOJIS = ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼'];
+var MEM_KEY = 'k0509_mem';
+var MEM_EMOJIS = ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼'];
 const MEM_DAILY = 5;
 const MEM_BASE_TIME = 90;
 var _memCards = [];
@@ -51389,8 +51389,8 @@ function _renderMem(d){
 
 
 // DICE TOWER
-const DICE_KEY = 'k0509_dice';
-const DICE_FACES = ['⚀','⚁','⚂','⚃','⚄','⚅'];
+var DICE_KEY = 'k0509_dice';
+var DICE_FACES = ['⚀','⚁','⚂','⚃','⚄','⚅'];
 const DICE_DAILY = 5;
 var _diceVals = [1,1,1,1,1];
 var _diceHeld = [false,false,false,false,false];
@@ -51832,7 +51832,7 @@ function _renderHtch(d){
 // RAID BOSS
 const RAID_KEY = 'k0509_raid';
 const RAID_DAILY_ATK = 10;
-const RAID_BOSSES = [
+var RAID_BOSSES = [
   {emoji:'💀', name:'Skelettkonungen',   baseHp:30000, reward:{coins:5000,  xp:500,  kc:3,  stat:'str', val:5}},
   {emoji:'🐲', name:'Draken Darnak',     baseHp:50000, reward:{coins:8000,  xp:800,  kc:5,  stat:'agi', val:5}},
   {emoji:'👹', name:'Demonen Drak',      baseHp:70000, reward:{coins:12000, xp:1200, kc:8,  stat:'int', val:5}},
@@ -51948,8 +51948,8 @@ function _renderRaid(d){
 
 
 // STAR GAZING
-const STAR_KEY = 'k0509_star';
-const STAR_CONSTS = [
+var STAR_KEY = 'k0509_star';
+var STAR_CONSTS = [
   {id:'bear',    emoji:'🐻', name:'Björnen',   buff:{stat:'str',val:10,dur:12*3600000}, dust:8,  perm:{stat:'str',val:3},  permAt:15},
   {id:'dragon',  emoji:'🐲', name:'Draken',    buff:{stat:'str',val:15,dur:12*3600000}, dust:12, perm:{stat:'str',val:5},  permAt:20},
   {id:'phoenix', emoji:'🔥', name:'Fenixen',   buff:{stat:'end',val:12,dur:12*3600000}, dust:10, perm:{stat:'end',val:4},  permAt:15},
@@ -52095,7 +52095,7 @@ function _renderStar(d){
 
 
 // SLOT MACHINE
-const SLOT_KEY = 'k0509_slot';
+var SLOT_KEY = 'k0509_slot';
 const SLOT_SYMS = ['🐾','🐾','🐟','🐟','🌟','🌟','💎','👑'];
 var _slotBet = 100;
 var _slotSpinning = false;
@@ -52453,7 +52453,7 @@ function _renderWscr(d){
 
 
 // TREASURE MAP
-const TMAP_KEY = 'k0509_tmap';
+var TMAP_KEY = 'k0509_tmap';
 const TMAP_TERRAIN = ['🌊','🌊','🌳','🌳','🌳','🏔️','🌾','🌾','🌾','🏜️','🏜️','💀'];
 const TMAP_TREASURES = [
   {emoji:'💰', name:'Myntpåse',      reward:{coins:300}},
@@ -52581,7 +52581,7 @@ function _renderTmap(d){
 
 
 // REACTION TEST
-const REACT_KEY = 'k0509_react';
+var REACT_KEY = 'k0509_react';
 const REACT_DAILY = 10;
 var _reactState = 'idle'; // idle, waiting, active, done
 var _reactTimeout = null;
@@ -52864,7 +52864,7 @@ function _renderPot(d){
 
 
 // PET GYM
-const GYM_KEY = 'k0509_gym';
+var GYM_KEY = 'k0509_gym';
 const GYM_STATIONS = [
   {stat:'str', icon:'🏋️', name:'Styrkelyftning',   color:'#ff4400'},
   {stat:'agi', icon:'🏃', name:'Löparbana',         color:'#44ff88'},
@@ -54908,7 +54908,7 @@ function _renderBest(d){
 
 // LOOT CHESTS
 const CHEST_KEY = 'k0509_chest';
-const CHEST_TYPES = [
+var CHEST_TYPES = [
   {
     id:'bronze', tier:'bronze', icon:'📦', name:'Bronsskrin',
     intervalMs:3600000,  // 1h
@@ -56628,7 +56628,7 @@ function relTrack(type, amount){
 
 
 // DUNGEON CRAWLER
-const DNG_KEY = 'k0509_dng';
+var DNG_KEY = 'k0509_dng';
 const DNG_MAX_PLAYS = 3;
 const DNG_MONSTERS = [
   {name:'Råtta',    icon:'🐀', hpMult:0.6,  atkMult:0.5,  xp:8,  coins:10},
@@ -57266,7 +57266,7 @@ function _renderC4(d){
 
 
 // MOOD TRACKER
-const MOOD_KEY = 'k0509_mood';
+var MOOD_KEY = 'k0509_mood';
 const MOOD_EMOJIS = ['😄','😊','😐','😔','😢'];
 const MOOD_LABELS = ['Super','Bra','Ok','Dålig','Ledsen'];
 const MOOD_COLORS = ['#44ff88','#88ff44','#ffcc00','#ff8800','#ff4444'];
@@ -57583,10 +57583,10 @@ function _renderTyp(d){
 
 
 // MEMORY MATCH
-const MEM_KEY = 'k0509_mem';
+var MEM_KEY = 'k0509_mem';
 const MEM_MAX_PLAYS = 5;
 const MEM_CARDS_BASE = 8; // 8 pairs = 16 cards
-const MEM_EMOJIS = ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🦄','🐔','🦆'];
+var MEM_EMOJIS = ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🦄','🐔','🦆'];
 
 var _memState = null;
 var _memTimerRaf = null;
