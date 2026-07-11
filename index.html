@@ -1560,6 +1560,80 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+/* ══ POTION BREWERY ══ */
+.brew-panel{position:fixed;inset:0;background:#030804;z-index:1074;display:none;flex-direction:column;overflow:hidden}
+.brew-panel.open{display:flex}
+.brew-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#050e06,#030804)}
+.brew-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#88ffaa,#ffff44,#ff88ff,#44ff88);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:brewShim 2.5s linear infinite}
+@keyframes brewShim{0%{background-position:0%}100%{background-position:400%}}
+.brew-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Cauldron */
+.brew-cauldron{background:radial-gradient(ellipse at 50% 80%,rgba(68,255,136,.12),transparent);border:2px solid rgba(68,255,136,.2);border-radius:22px;padding:14px;margin-bottom:12px;text-align:center}
+.brew-pot{font-size:52px;margin-bottom:4px}
+.brew-cauldron-lbl{font:700 9px var(--ff-head);color:rgba(68,255,136,.4);letter-spacing:1px;margin-bottom:6px}
+.brew-slots{display:flex;justify-content:center;gap:8px;margin-bottom:8px}
+.brew-slot{width:44px;height:44px;border:2px dashed rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:all .15s}
+.brew-slot.filled{border-style:solid;border-color:rgba(68,255,136,.4);background:rgba(68,255,136,.06)}
+.brew-slot-empty{font-size:12px;color:rgba(255,255,255,.2)}
+.brew-btn{background:linear-gradient(135deg,#001a08,#003515);border:1.5px solid rgba(68,255,136,.4);border-radius:12px;padding:10px;font:800 11px var(--ff-head);color:#fff;cursor:pointer;width:100%}
+.brew-btn:disabled{opacity:.3;cursor:default}
+/* Ingredient shelf */
+.brew-shelf-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.brew-shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.brew-ingr{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;padding:8px 4px;text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.brew-ingr.selected{border-color:rgba(68,255,136,.5);background:rgba(68,255,136,.08)}
+.brew-ingr.locked{opacity:.3;cursor:default}
+.brew-ingr-icon{font-size:20px;margin-bottom:2px}
+.brew-ingr-name{font:600 6px var(--ff-body);color:rgba(255,255,255,.4);word-break:break-word;line-height:1.1}
+.brew-ingr-count{position:absolute;top:3px;right:4px;font:700 7px var(--ff-head);color:#44ff88}
+/* Recipe book */
+.brew-recipes{display:flex;flex-direction:column;gap:7px;margin-bottom:8px}
+.brew-recipe{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:12px;padding:8px 10px;display:flex;align-items:center;gap:8px}
+.brew-recipe.known{border-color:rgba(68,255,136,.2)}
+.brew-recipe-icon{font-size:22px;flex-shrink:0}
+.brew-recipe-body{flex:1}
+.brew-recipe-name{font:700 10px var(--ff-head);color:#fff;margin-bottom:1px}
+.brew-recipe-ingrs{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:2px}
+.brew-recipe-eff{font:700 8px var(--ff-head);color:#44ff88}
+.brew-recipe-badge{font:600 7px var(--ff-body);color:rgba(255,255,255,.2);margin-left:auto;flex-shrink:0}
+.brew-inventory-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.brew-inv-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.brew-inv-item{background:rgba(68,255,136,.07);border:1px solid rgba(68,255,136,.2);border-radius:8px;padding:3px 8px;font:700 8px var(--ff-head);color:#44ff88;cursor:pointer}
+.brew-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
+/* ══ STAR GAZING ══ */
+.stgz-panel{position:fixed;inset:0;background:#000208;z-index:1073;display:none;flex-direction:column;overflow:hidden}
+.stgz-panel.open{display:flex}
+.stgz-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#000412,#000208)}
+.stgz-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aaaaff,#ffffff,#ffeeaa,#aaaaff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:stgzShim 4s linear infinite}
+@keyframes stgzShim{0%{background-position:0%}100%{background-position:300%}}
+.stgz-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Sky canvas */
+.stgz-sky{background:radial-gradient(ellipse at 50% 100%,rgba(10,20,80,.8),rgba(0,2,8,1));border:1.5px solid rgba(100,100,255,.15);border-radius:20px;width:100%;height:220px;position:relative;overflow:hidden;margin-bottom:12px;cursor:crosshair}
+.stgz-star-dot{position:absolute;border-radius:50%;background:#fff;transform:translate(-50%,-50%);transition:all .2s;pointer-events:none}
+.stgz-star-dot.bright{box-shadow:0 0 6px rgba(200,200,255,.8)}
+.stgz-connect-line{position:absolute;background:rgba(150,150,255,.3);height:1px;transform-origin:left center;pointer-events:none}
+.stgz-tap-hint{position:absolute;bottom:8px;left:0;right:0;text-align:center;font:600 8px var(--ff-body);color:rgba(255,255,255,.2)}
+/* Constellation info */
+.stgz-info-box{background:rgba(100,100,255,.04);border:1.5px solid rgba(100,100,255,.15);border-radius:16px;padding:12px 14px;margin-bottom:10px}
+.stgz-const-name{font:800 16px var(--ff-head);color:#aaaaff;margin-bottom:3px}
+.stgz-const-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:6px}
+.stgz-const-bonus{font:700 9px var(--ff-head);color:#ffeeaa;margin-bottom:6px}
+.stgz-const-prog{background:rgba(255,255,255,.05);border-radius:4px;height:6px;overflow:hidden;margin-bottom:3px}
+.stgz-const-fill{height:100%;background:linear-gradient(90deg,#aaaaff,#ffffff);border-radius:4px;transition:width .4s}
+.stgz-const-txt{font:600 7px var(--ff-body);color:rgba(150,150,255,.5)}
+/* Stats row */
+.stgz-stats{display:flex;gap:6px;margin-bottom:10px}
+.stgz-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:8px;text-align:center}
+.stgz-stat-v{font:800 14px var(--ff-head);color:#aaaaff}
+.stgz-stat-l{font:600 7px var(--ff-body);color:rgba(150,150,255,.4)}
+/* Observe button */
+.stgz-obs-btn{background:linear-gradient(135deg,#040420,#101060);border:1.5px solid rgba(100,100,255,.4);border-radius:14px;padding:12px;font:800 11px var(--ff-head);color:#fff;cursor:pointer;width:100%;margin-bottom:6px}
+.stgz-obs-btn:disabled{opacity:.3;cursor:default}
+.stgz-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ TREASURE HUNT ══ */
 .thunt-panel{position:fixed;inset:0;background:#030204;z-index:1072;display:none;flex-direction:column;overflow:hidden}
 .thunt-panel.open{display:flex}
@@ -12854,6 +12928,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash2()"><div class="ddr-i">👗</div>Mode-Show</div>
           <div class="ddr" onclick="cM();openOlym()"><div class="ddr-i">🏅</div>Pet Olympiad</div>
           <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
+          <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
+          <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12947,6 +13023,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash2()"><div class="ddr-i">👗</div>Mode-Show</div>
           <div class="ddr" onclick="cM();openOlym()"><div class="ddr-i">🏅</div>Pet Olympiad</div>
           <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
+          <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
+          <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -13023,6 +13101,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash2()"><div class="ddr-i">👗</div>Mode-Show</div>
           <div class="ddr" onclick="cM();openOlym()"><div class="ddr-i">🏅</div>Pet Olympiad</div>
           <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
+          <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
+          <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -13137,6 +13217,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openFash2()"><div class="ddr-i">👗</div>Mode-Show</div>
           <div class="ddr" onclick="cM();openOlym()"><div class="ddr-i">🏅</div>Pet Olympiad</div>
           <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
+          <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
+          <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13757,6 +13839,58 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+<!-- POTION BREWERY -->
+<div class="brew-panel" id="brewPanel">
+  <div class="brew-header">
+    <div class="brew-title">⚗️ BRYGGERIET</div>
+    <button class="close-btn" onclick="closeBrew()">✕</button>
+  </div>
+  <div class="brew-scroll">
+    <div class="brew-cauldron">
+      <div class="brew-pot">🪄</div>
+      <div class="brew-cauldron-lbl">TROLLKITTEL</div>
+      <div class="brew-slots" id="brewSlots"></div>
+      <button class="brew-btn" id="brewBrewBtn" onclick="brewBrew()" disabled>✨ Brygga!</button>
+    </div>
+    <div class="brew-shelf-lbl">INGREDIENSHYLLA</div>
+    <div class="brew-shelf" id="brewShelf"></div>
+    <div class="brew-inventory-lbl">DINA POTIONER</div>
+    <div class="brew-inv-list" id="brewInvList"></div>
+    <div class="brew-shelf-lbl">KÄNDA RECEPT</div>
+    <div class="brew-recipes" id="brewRecipes"></div>
+    <div class="brew-info">Välj ingredienser och brygga potioner — drick dem för stats! 🧪</div>
+  </div>
+</div>
+
+<!-- STAR GAZING -->
+<div class="stgz-panel" id="stgzPanel">
+  <div class="stgz-header">
+    <div class="stgz-title">🔭 STJÄRNKIKARE</div>
+    <button class="close-btn" onclick="closeStgz()">✕</button>
+  </div>
+  <div class="stgz-scroll">
+    <div class="stgz-sky" id="stgzSky" onclick="stgzTapSky(event)">
+      <div class="stgz-tap-hint">Tryck i natten för att identifiera stjärnor</div>
+    </div>
+    <div class="stgz-info-box">
+      <div class="stgz-const-name" id="stgzConstName">Välj en konstellation nedan</div>
+      <div class="stgz-const-desc" id="stgzConstDesc">Titta upp i himlen och hitta stjärnorna</div>
+      <div class="stgz-const-bonus" id="stgzConstBonus"></div>
+      <div class="stgz-const-prog"><div class="stgz-const-fill" id="stgzConstFill" style="width:0%"></div></div>
+      <div class="stgz-const-txt" id="stgzConstTxt">0 / 0 observationer</div>
+    </div>
+    <div class="stgz-stats">
+      <div class="stgz-stat"><div class="stgz-stat-v" id="stgzObs">0</div><div class="stgz-stat-l">Observationer</div></div>
+      <div class="stgz-stat"><div class="stgz-stat-v" id="stgzConsts">0</div><div class="stgz-stat-l">Konstellationer</div></div>
+      <div class="stgz-stat"><div class="stgz-stat-v" id="stgzNights">0</div><div class="stgz-stat-l">Nätter</div></div>
+    </div>
+    <button class="stgz-obs-btn" id="stgzObsBtn" onclick="stgzObserve()">🔭 Observera natten (1/dag)</button>
+    <div class="stgz-info">Hitta alla konstellationer för massiva INT och LCK-bonusar! 🌌</div>
+  </div>
+</div>
 
 <!-- TREASURE HUNT -->
 <div class="thunt-panel" id="thuntPanel">
@@ -60435,6 +60569,332 @@ function _renderThunt(d){
       var p=c.split('|');var hId=p[0];var hDate=p[1]||'';
       var hObj=THUNT_HUNTS.find(function(h){return h.id===hId;})||{name:hId,icon:'🏆'};
       return '<div class="thunt-hist-chip">'+hObj.icon+' '+hObj.name+'</div>';
+    }).join('');
+  }
+}
+
+
+// STAR GAZING
+const STGZ_KEY = 'k0509_stgz';
+const STGZ_CONSTELLATIONS = [
+  {id:'orion',    name:'Orion',           icon:'⚔️',  stars:7,  obs:5,  bonus:{str:3,int:2},  bonusTxt:'+3 STR +2 INT', desc:'Den mäktige jägaren Orion spanar ut i universum'},
+  {id:'ursa',     name:'Stora Björnen',   icon:'🐻',  stars:7,  obs:5,  bonus:{end:3,lck:1},  bonusTxt:'+3 END +1 LCK', desc:'Nordstjärnans guide, alltid synlig i norr'},
+  {id:'scorpius', name:'Skorpionen',      icon:'🦂',  stars:8,  obs:6,  bonus:{str:2,lck:3},  bonusTxt:'+2 STR +3 LCK', desc:'Den mäktiga skorpionen som jagade Orion'},
+  {id:'cassiopeia',name:'Kassiopeia',     icon:'👑',  stars:5,  obs:4,  bonus:{int:3,lck:2},  bonusTxt:'+3 INT +2 LCK', desc:'Drottningen på himlavalvet sitter på sin tron'},
+  {id:'lyra',     name:'Lyran',           icon:'🎵',  stars:4,  obs:4,  bonus:{int:4},        bonusTxt:'+4 INT',         desc:'Orfeus luta, musikens stjärnbild'},
+  {id:'leo',      name:'Lejonet',         icon:'🦁',  stars:9,  obs:7,  bonus:{str:4,agi:2},  bonusTxt:'+4 STR +2 AGI', desc:'Det kungliga lejonet råder över vårens himmel'},
+  {id:'aquarius', name:'Vattumannen',     icon:'🌊',  stars:10, obs:8,  bonus:{int:3,lck:3},  bonusTxt:'+3 INT +3 LCK', desc:'Vatubäraren häller ut livets vatten'},
+  {id:'cygnus',   name:'Svanen',          icon:'🦢',  stars:6,  obs:5,  bonus:{agi:3,lck:2},  bonusTxt:'+3 AGI +2 LCK', desc:'Den vita svanen flyger längs Vintergatan'},
+];
+
+var _stgzTaps = [];
+var _stgzStarsOnScreen = [];
+
+function _stgzData(){try{return JSON.parse(localStorage.getItem(STGZ_KEY)||'null');}catch(e){return null;}}
+function _stgzSave(d){localStorage.setItem(STGZ_KEY,JSON.stringify(d));}
+function _stgzGetData(){
+  var d=_stgzData();
+  if(!d) d={obs:0,consts:{},nights:0,lastObs:'',totalObs:0};
+  return d;
+}
+
+function stgzObserve(){
+  var d=_stgzGetData();
+  var today=getTodayKey();
+  if(d.lastObs===today){showFloatBubble('Redan observerat idag! Natten återkommer imorgon.','debuff');return;}
+  d.lastObs=today;
+  d.totalObs=(d.totalObs||0)+1;
+  d.nights=(d.nights||0)+1;
+  // Random constellation progress
+  var lckBonus=Math.min(0.3,(G.lck||0)*0.006);
+  var available=STGZ_CONSTELLATIONS.filter(function(c){
+    return (d.consts[c.id]||0)<c.obs;
+  });
+  if(!available.length){
+    // All mastered
+    gainCoins(100);gainXP(80,'int');
+    showFloatBubble('🌌 Alla konstellationer mastrade! +100🪙 +80XP','buff');
+    _stgzSave(d);
+    _renderStgz(d);
+    return;
+  }
+  // Pick 1-3 constellations to progress
+  var picks=Math.floor(1+Math.random()*2+(lckBonus>0.1?1:0));
+  var gained=[];
+  for(var i=0;i<picks&&i<available.length;i++){
+    var idx=Math.floor(Math.random()*available.length);
+    var c=available.splice(idx,1)[0];
+    d.consts[c.id]=(d.consts[c.id]||0)+1;
+    gained.push(c.name);
+    if(d.consts[c.id]>=c.obs){
+      // Mastered!
+      Object.keys(c.bonus).forEach(function(s){G[s]=(G[s]||0)+c.bonus[s];});
+      save();
+      gainKC(1);
+      showFloatBubble('🌟 '+c.name+' mastrad! '+c.bonusTxt+' +1KC','buff');
+    }
+  }
+  gainCoins(30*picks);gainXP(25*picks,'int');
+  if(gained.length) showFloatBubble('🔭 Observerade: '+gained.join(', ')+' · +'+30*picks+'🪙','buff');
+  _stgzSave(d);
+  checkAchievements();
+  // Animate sky
+  stgzAnimateSky();
+  _renderStgz(d);
+}
+
+function stgzTapSky(e){
+  var sky=$('stgzSky');if(!sky) return;
+  var rect=sky.getBoundingClientRect();
+  var x=e.clientX-rect.left,y=e.clientY-rect.top;
+  // Find nearest star and flash it
+  var nearest=null,nearDist=999;
+  _stgzStarsOnScreen.forEach(function(s){
+    var dx=s.x*rect.width-x,dy=s.y*rect.height-y;
+    var dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<nearDist){nearDist=dist;nearest=s;}
+  });
+  if(nearest&&nearDist<40){
+    var el=document.querySelector('.stgz-star-dot[data-idx="'+nearest.idx+'"]');
+    if(el){el.style.background='#ffeeaa';el.style.boxShadow='0 0 12px rgba(255,238,170,.9)';setTimeout(function(){el.style.background='#fff';el.style.boxShadow='';},500);}
+  }
+}
+
+function stgzAnimateSky(){
+  var sky=$('stgzSky');if(!sky) return;
+  // Remove old stars
+  sky.querySelectorAll('.stgz-star-dot,.stgz-connect-line').forEach(function(el){el.remove();});
+  _stgzStarsOnScreen=[];
+  // Generate random stars
+  var count=30+Math.floor(Math.random()*20);
+  for(var i=0;i<count;i++){
+    var x=0.05+Math.random()*0.9;
+    var y=0.05+Math.random()*0.85;
+    var size=1+Math.random()*2.5;
+    var bright=Math.random()<0.15;
+    var el=document.createElement('div');
+    el.className='stgz-star-dot'+(bright?' bright':'');
+    el.style.left=(x*100)+'%';el.style.top=(y*100)+'%';
+    el.style.width=size+'px';el.style.height=size+'px';
+    el.style.opacity=(0.4+Math.random()*0.6).toFixed(2);
+    el.dataset.idx=i;
+    sky.appendChild(el);
+    _stgzStarsOnScreen.push({x:x,y:y,idx:i});
+  }
+  // Draw a few connecting lines for visual flair
+  for(var j=0;j<6;j++){
+    var s1=_stgzStarsOnScreen[Math.floor(Math.random()*_stgzStarsOnScreen.length)];
+    var s2=_stgzStarsOnScreen[Math.floor(Math.random()*_stgzStarsOnScreen.length)];
+    if(!s1||!s2) continue;
+    var w=sky.offsetWidth||300,h=sky.offsetHeight||220;
+    var x1=s1.x*w,y1=s1.y*h,x2=s2.x*w,y2=s2.y*h;
+    var len=Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+    var angle=Math.atan2(y2-y1,x2-x1)*180/Math.PI;
+    var line=document.createElement('div');
+    line.className='stgz-connect-line';
+    line.style.left=x1+'px';line.style.top=y1+'px';
+    line.style.width=len+'px';line.style.transform='rotate('+angle+'deg)';
+    sky.appendChild(line);
+  }
+}
+
+function openStgz(){
+  $('stgzPanel').classList.add('open');
+  _renderStgz();
+  setTimeout(stgzAnimateSky,100);
+}
+function closeStgz(){$('stgzPanel').classList.remove('open');}
+
+function _renderStgz(d){
+  if(!d) d=_stgzGetData();
+  var mastered=STGZ_CONSTELLATIONS.filter(function(c){return (d.consts[c.id]||0)>=c.obs;}).length;
+  var ob=$('stgzObs');if(ob) ob.textContent=d.totalObs||0;
+  var cn=$('stgzConsts');if(cn) cn.textContent=mastered;
+  var ni=$('stgzNights');if(ni) ni.textContent=d.nights||0;
+  var today=getTodayKey();
+  var btn=$('stgzObsBtn');if(btn) btn.disabled=d.lastObs===today;
+  // Show most progressed non-mastered constellation
+  var inProg=STGZ_CONSTELLATIONS.filter(function(c){return (d.consts[c.id]||0)<c.obs;})
+    .sort(function(a,b){return (d.consts[b.id]||0)-(d.consts[a.id]||0)});
+  var cur=inProg[0]||STGZ_CONSTELLATIONS[0];
+  var curObs=d.consts[cur.id]||0;
+  var cn2=$('stgzConstName');if(cn2) cn2.textContent=cur.icon+' '+cur.name;
+  var cd=$('stgzConstDesc');if(cd) cd.textContent=cur.desc;
+  var cb=$('stgzConstBonus');if(cb) cb.textContent='Belöning: '+cur.bonusTxt+' +1KC';
+  var cf=$('stgzConstFill');if(cf) cf.style.width=(curObs/cur.obs*100)+'%';
+  var ct=$('stgzConstTxt');if(ct) ct.textContent=curObs+' / '+cur.obs+' observationer';
+}
+
+
+// POTION BREWERY
+const BREW_KEY = 'k0509_brew';
+const BREW_INGREDIENTS = [
+  {id:'fire_leaf',   icon:'🍁', name:'Eldlöv',      minLvl:1},
+  {id:'moon_root',   icon:'🌿', name:'Månrot',       minLvl:1},
+  {id:'star_dust',   icon:'✨', name:'Stjärndamm',   minLvl:2},
+  {id:'deep_moss',   icon:'🍄', name:'Djupmossa',    minLvl:2},
+  {id:'void_crystal',icon:'💎', name:'Tomkristall',  minLvl:4},
+  {id:'life_essence',icon:'💧', name:'Livessens',    minLvl:3},
+  {id:'dragon_scale',icon:'🐉', name:'Drakfjäll',    minLvl:6},
+  {id:'time_shard',  icon:'⌛', name:'Tidsskärva',   minLvl:5},
+];
+const BREW_RECIPES = [
+  {id:'str_pot',   icon:'💪', name:'Styrkebrygd',   ingrs:['fire_leaf','moon_root'],           effect:{str:5},  effTxt:'+5 STR 1h',  coins:60, xp:45},
+  {id:'agi_pot',   icon:'⚡', name:'Rörelsebrygd',  ingrs:['moon_root','star_dust'],           effect:{agi:5},  effTxt:'+5 AGI 1h',  coins:55, xp:42},
+  {id:'int_pot',   icon:'🧠', name:'Visdomsbrygd',  ingrs:['star_dust','deep_moss'],           effect:{int:5},  effTxt:'+5 INT 1h',  coins:55, xp:42},
+  {id:'lck_pot',   icon:'🍀', name:'Turbrygd',      ingrs:['deep_moss','life_essence'],        effect:{lck:6},  effTxt:'+6 LCK 1h',  coins:70, xp:55},
+  {id:'end_pot',   icon:'🛡️', name:'Uthållighetsbrygd',ingrs:['life_essence','moon_root'],    effect:{end:6},  effTxt:'+6 END 1h',  coins:65, xp:50},
+  {id:'power_pot', icon:'🔮', name:'Kraftbrygd',    ingrs:['fire_leaf','void_crystal'],        effect:{str:8,end:4},effTxt:'+8 STR +4 END',coins:120,xp:90},
+  {id:'genius_pot',icon:'💫', name:'Genialitetsbrygd',ingrs:['star_dust','void_crystal'],     effect:{int:8,lck:4},effTxt:'+8 INT +4 LCK',coins:120,xp:90},
+  {id:'legend_pot',icon:'👑', name:'Legendarisk Brygd',ingrs:['dragon_scale','time_shard'],   effect:{str:5,agi:5,int:5,lck:5,end:5},effTxt:'+5 to ALL stats',coins:250,xp:200},
+];
+
+var _brewSelected = [];
+
+function _brewData(){try{return JSON.parse(localStorage.getItem(BREW_KEY)||'null');}catch(e){return null;}}
+function _brewSave(d){localStorage.setItem(BREW_KEY,JSON.stringify(d));}
+function _brewGetData(){
+  var d=_brewData();
+  if(!d) d={ingredients:{},potions:{},known:[],total:0};
+  // Grant some starter ingredients
+  if(!d.seeded){
+    d.seeded=true;
+    d.ingredients['fire_leaf']=3;d.ingredients['moon_root']=3;d.ingredients['star_dust']=2;d.ingredients['deep_moss']=2;
+    _brewSave(d);
+  }
+  return d;
+}
+
+function brewSelectIngr(id){
+  if(_brewSelected.length>=2&&_brewSelected.indexOf(id)<0) return;
+  var idx=_brewSelected.indexOf(id);
+  if(idx>=0) _brewSelected.splice(idx,1);
+  else _brewSelected.push(id);
+  var d=_brewGetData();
+  _renderBrewShelf(d);
+  _renderBrewSlots();
+  var btn=$('brewBrewBtn');if(btn) btn.disabled=_brewSelected.length<2;
+}
+
+function brewBrew(){
+  if(_brewSelected.length<2) return;
+  var d=_brewGetData();
+  // Check ingredients available
+  for(var i=0;i<_brewSelected.length;i++){
+    if((d.ingredients[_brewSelected[i]]||0)<1){
+      showFloatBubble('Inte tillräckligt med '+_brewSelected[i]+'!','debuff');return;
+    }
+  }
+  // Find matching recipe
+  var match=BREW_RECIPES.find(function(r){
+    return r.ingrs.length===_brewSelected.length&&
+      r.ingrs.every(function(ri){return _brewSelected.indexOf(ri)>=0;});
+  });
+  // Consume ingredients
+  _brewSelected.forEach(function(id){d.ingredients[id]=Math.max(0,(d.ingredients[id]||0)-1);});
+  if(match){
+    if(d.known.indexOf(match.id)<0) d.known.push(match.id);
+    d.potions[match.id]=(d.potions[match.id]||0)+1;
+    d.total=(d.total||0)+1;
+    gainXP(match.xp,'int');gainCoins(Math.floor(match.coins*0.3));
+    showFloatBubble('⚗️ '+match.name+' bryggd! Drick den för '+match.effTxt,'buff');
+    checkAchievements();
+  } else {
+    // Failure gives scraps
+    gainCoins(5);
+    showFloatBubble('💨 Oidentifierbar blandning... recept ej hittat. +5🪙','debuff');
+  }
+  _brewSelected=[];
+  _brewSave(d);
+  _renderBrew(d);
+}
+
+function brewDrink(potionId){
+  var d=_brewGetData();
+  if((d.potions[potionId]||0)<1) return;
+  var recipe=BREW_RECIPES.find(function(r){return r.id===potionId;});
+  if(!recipe) return;
+  d.potions[potionId]--;
+  Object.keys(recipe.effect).forEach(function(s){G[s]=(G[s]||0)+recipe.effect[s];});
+  save();
+  gainCoins(recipe.coins);gainXP(recipe.xp,'int');
+  _brewSave(d);
+  checkAchievements();
+  showFloatBubble('🍶 '+recipe.icon+' '+recipe.name+' drucken! '+recipe.effTxt+' +'+recipe.coins+'🪙','buff');
+  _renderBrew(d);
+}
+
+// Also give ingredients as loot from other activities
+function brewGrantIngr(id, amount){
+  var d=_brewGetData();
+  d.ingredients[id]=(d.ingredients[id]||0)+(amount||1);
+  _brewSave(d);
+}
+
+function openBrew(){$('brewPanel').classList.add('open');_renderBrew();}
+function closeBrew(){$('brewPanel').classList.remove('open');}
+
+function _renderBrewSlots(){
+  var slots=$('brewSlots');
+  if(!slots) return;
+  var html='';
+  for(var i=0;i<2;i++){
+    var id=_brewSelected[i];
+    if(id){
+      var ingr=BREW_INGREDIENTS.find(function(g){return g.id===id;});
+      html+='<div class="brew-slot filled" onclick="brewSelectIngr(\''+id+'\')">'+( ingr?ingr.icon:'?')+'</div>';
+    } else {
+      html+='<div class="brew-slot"><div class="brew-slot-empty">+</div></div>';
+    }
+  }
+  slots.innerHTML=html;
+}
+
+function _renderBrewShelf(d){
+  var shelf=$('brewShelf');if(!shelf) return;
+  var lvl=G.lvl||1;
+  shelf.innerHTML=BREW_INGREDIENTS.map(function(ingr){
+    var count=d.ingredients[ingr.id]||0;
+    var locked=lvl<ingr.minLvl||count<1;
+    var isSel=_brewSelected.indexOf(ingr.id)>=0;
+    var cls='brew-ingr'+(isSel?' selected':locked?' locked':'');
+    return '<div class="'+cls+'" onclick="brewSelectIngr(\''+ingr.id+'\')">'+
+      '<div class="brew-ingr-icon">'+ingr.icon+'</div>'+
+      '<div class="brew-ingr-name">'+ingr.name+'</div>'+
+      '<div class="brew-ingr-count">×'+count+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+function _renderBrew(d){
+  if(!d) d=_brewGetData();
+  _renderBrewSlots();
+  _renderBrewShelf(d);
+  // Inventory
+  var inv=$('brewInvList');
+  if(inv){
+    var items=Object.keys(d.potions).filter(function(id){return (d.potions[id]||0)>0;});
+    if(!items.length) inv.innerHTML='<div style="font:600 8px var(--ff-body);color:rgba(255,255,255,.2)">Inga potioner brygda ännu.</div>';
+    else inv.innerHTML=items.map(function(id){
+      var r=BREW_RECIPES.find(function(rec){return rec.id===id;});
+      if(!r) return '';
+      return '<div class="brew-inv-item" onclick="brewDrink(\''+id+'\')">'+r.icon+' '+r.name+' ×'+d.potions[id]+'</div>';
+    }).join('');
+  }
+  // Recipes
+  var recs=$('brewRecipes');
+  if(recs){
+    recs.innerHTML=BREW_RECIPES.map(function(r){
+      var known=d.known.indexOf(r.id)>=0;
+      return '<div class="brew-recipe'+(known?' known':'')+'">'+
+        '<div class="brew-recipe-icon">'+r.icon+'</div>'+
+        '<div class="brew-recipe-body">'+
+          '<div class="brew-recipe-name">'+(known?r.name:'???')+'</div>'+
+          '<div class="brew-recipe-ingrs">'+(known?r.ingrs.map(function(id){var g=BREW_INGREDIENTS.find(function(i){return i.id===id;});return g?g.icon+' '+g.name:id;}).join(' + '):'Ingredienser okända')+'</div>'+
+          '<div class="brew-recipe-eff">'+(known?r.effTxt:'Effekt okänd')+'</div>'+
+        '</div>'+
+        '<div class="brew-recipe-badge">'+(known?'✓ Känd':'?')+'</div>'+
+      '</div>';
     }).join('');
   }
 }
