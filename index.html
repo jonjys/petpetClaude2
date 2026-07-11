@@ -1550,6 +1550,196 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+
+
+
+/* ══ BESTIARY ══ */
+.bes-panel{position:fixed;inset:0;background:#020a04;z-index:1067;display:none;flex-direction:column;overflow:hidden}
+.bes-panel.open{display:flex}
+.bes-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#030e06,#020a04)}
+.bes-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8844,#ffcc22,#88ff44,#ff8844);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:besShim 2.5s linear infinite}
+@keyframes besShim{0%{background-position:0%}100%{background-position:300%}}
+.bes-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Progress bar */
+.bes-progress{background:rgba(255,200,0,.04);border:1.5px solid rgba(255,200,0,.15);border-radius:14px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.bes-prog-body{flex:1}
+.bes-prog-bar{background:rgba(255,255,255,.06);border-radius:5px;height:7px;overflow:hidden;margin-bottom:3px}
+.bes-prog-fill{height:100%;background:linear-gradient(90deg,#ff8844,#ffcc22);border-radius:5px;transition:width .4s}
+.bes-prog-txt{font:600 8px var(--ff-body);color:rgba(255,200,0,.5)}
+.bes-total{text-align:center}
+.bes-total-v{font:900 24px var(--ff-head);color:#ffcc22}
+.bes-total-l{font:600 7px var(--ff-body);color:rgba(255,200,0,.4)}
+/* Monster cards grid */
+.bes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
+.bes-card{border-radius:14px;padding:10px 6px;text-align:center;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);cursor:pointer;transition:all .15s;position:relative}
+.bes-card.caught{border-color:var(--mc)}
+.bes-card.locked{filter:grayscale(0.9);opacity:.35}
+.bes-card-icon{font-size:26px;margin-bottom:3px}
+.bes-card-name{font:700 7px var(--ff-head);color:#fff;word-break:break-word;line-height:1.1;margin-bottom:2px}
+.bes-card-rarity{font:600 6px var(--ff-body);color:var(--mc);margin-bottom:2px}
+.bes-card-power{font:700 8px var(--ff-head);color:rgba(255,255,255,.5)}
+.bes-card-badge{position:absolute;top:4px;right:4px;font-size:10px}
+/* Hunt modal */
+.bes-hunt-wrap{background:rgba(255,255,255,.03);border:2px solid rgba(255,136,68,.2);border-radius:18px;padding:14px;margin-bottom:10px}
+.bes-hunt-lbl{font:700 8px var(--ff-head);color:rgba(255,136,68,.5);letter-spacing:1px;margin-bottom:6px}
+.bes-hunt-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:8px}
+.bes-hunt-btn{background:linear-gradient(135deg,#2a0e00,#5a2000);border:1.5px solid rgba(255,136,68,.4);border-radius:12px;padding:10px;font:800 11px var(--ff-head);color:#fff;cursor:pointer;width:100%}
+.bes-hunt-btn:disabled{opacity:.3;cursor:default}
+.bes-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
+/* ══ GUILD HALL ══ */
+.guild-panel{position:fixed;inset:0;background:#030208;z-index:1066;display:none;flex-direction:column;overflow:hidden}
+.guild-panel.open{display:flex}
+.guild-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#050210,#030208)}
+.guild-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#8844ff,#4488ff,#44ccff,#8844ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:guildShim 3s linear infinite}
+@keyframes guildShim{0%{background-position:0%}100%{background-position:300%}}
+.guild-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Guild card */
+.guild-card{background:radial-gradient(ellipse at 50% 0,rgba(136,68,255,.1),transparent);border:2px solid rgba(136,68,255,.25);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center;position:relative}
+.guild-emblem{font-size:48px;margin-bottom:6px}
+.guild-name{font:800 18px var(--ff-head);color:#fff;margin-bottom:2px}
+.guild-motto{font:600 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:8px;font-style:italic}
+.guild-rank-row{display:flex;justify-content:center;gap:16px}
+.guild-rank-item{text-align:center}
+.guild-rank-v{font:900 18px var(--ff-head);color:#8844ff}
+.guild-rank-l{font:600 7px var(--ff-body);color:rgba(136,68,255,.4)}
+/* Missions */
+.guild-mis-lbl{font:700 8px var(--ff-head);color:rgba(136,68,255,.5);letter-spacing:1px;margin-bottom:7px}
+.guild-mis-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.guild-mis{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 12px}
+.guild-mis.active{border-color:rgba(136,68,255,.3);background:rgba(136,68,255,.04)}
+.guild-mis.done{opacity:.5}
+.guild-mis-icon{font-size:24px;flex-shrink:0}
+.guild-mis-body{flex:1}
+.guild-mis-name{font:700 11px var(--ff-head);color:#fff;margin-bottom:1px}
+.guild-mis-desc{font:600 7px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:3px}
+.guild-mis-rew{font:700 8px var(--ff-head);color:#8844ff}
+/* Progress bar */
+.guild-mis-prog{background:rgba(255,255,255,.06);border-radius:4px;height:5px;margin-top:4px;overflow:hidden}
+.guild-mis-prog-fill{height:100%;background:linear-gradient(90deg,#8844ff,#4488ff);border-radius:4px;transition:width .4s}
+.guild-mis-btn{background:linear-gradient(135deg,#1a0040,#3a0080);border:1.5px solid rgba(136,68,255,.4);border-radius:10px;padding:7px 12px;font:800 9px var(--ff-head);color:#fff;cursor:pointer;flex-shrink:0}
+.guild-mis-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.04)}
+/* XP bar */
+.guild-xp-wrap{background:rgba(255,255,255,.03);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.guild-xp-lbl{font:600 7px var(--ff-body);color:rgba(136,68,255,.4);margin-bottom:4px}
+.guild-xp-bar{background:rgba(255,255,255,.06);border-radius:5px;height:8px;overflow:hidden}
+.guild-xp-fill{height:100%;background:linear-gradient(90deg,#8844ff,#cc44ff);border-radius:5px;transition:width .5s}
+.guild-xp-txt{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);margin-top:3px}
+.guild-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
+/* ══ PET CIRCUS ══ */
+.cir-panel{position:fixed;inset:0;background:#080204;z-index:1065;display:none;flex-direction:column;overflow:hidden}
+.cir-panel.open{display:flex}
+.cir-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0108,#080204)}
+.cir-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4488,#ff8800,#ffcc00,#88ff44,#4488ff,#ff4488);background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:cirShim 2s linear infinite}
+@keyframes cirShim{0%{background-position:0%}100%{background-position:500%}}
+.cir-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Fame banner */
+.cir-fame{background:radial-gradient(ellipse,rgba(255,136,0,.08),transparent);border:2px solid rgba(255,136,0,.2);border-radius:20px;padding:14px;margin-bottom:12px;text-align:center}
+.cir-fame-v{font:900 42px var(--ff-head);background:linear-gradient(180deg,#ffcc00,#ff8800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.cir-fame-l{font:700 8px var(--ff-head);color:rgba(255,136,0,.4);letter-spacing:2px;margin-top:4px}
+.cir-fame-rank{font:600 9px var(--ff-body);color:rgba(255,200,0,.6);margin-top:4px}
+/* Audience meter */
+.cir-aud-wrap{margin-bottom:12px}
+.cir-aud-lbl{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:4px}
+.cir-aud-bar{background:rgba(255,255,255,.06);border-radius:5px;height:9px;overflow:hidden;margin-bottom:3px}
+.cir-aud-fill{height:100%;background:linear-gradient(90deg,#ff4488,#ffcc00);border-radius:5px;transition:width .5s}
+.cir-aud-txt{font:600 8px var(--ff-body);color:rgba(255,200,0,.5)}
+/* Trick cards */
+.cir-tricks{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.cir-trick{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.02);border:2px solid rgba(255,255,255,.07);border-radius:16px;padding:12px}
+.cir-trick.available{border-color:rgba(255,136,0,.3);background:rgba(255,136,0,.03)}
+.cir-trick.done{opacity:.5}
+.cir-trick-icon{font-size:28px;width:34px;text-align:center;flex-shrink:0}
+.cir-trick-body{flex:1}
+.cir-trick-name{font:700 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.cir-trick-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:3px}
+.cir-trick-earn{font:700 9px var(--ff-head);color:#ff8800}
+.cir-trick-req{font:600 7px var(--ff-body);color:rgba(255,255,255,.25)}
+.cir-trick-btn{background:linear-gradient(135deg,#2a0600,#5a1400);border:1.5px solid rgba(255,136,0,.4);border-radius:10px;padding:7px 14px;font:800 9px var(--ff-head);color:#fff;cursor:pointer;flex-shrink:0}
+.cir-trick-btn.done-btn{background:rgba(68,255,136,.08);border-color:rgba(68,255,136,.3);color:#44ff88}
+.cir-trick-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.04)}
+/* Show schedule */
+.cir-show-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.cir-show-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
+/* ══ WORLD MAP ══ */
+.wmap-panel{position:fixed;inset:0;background:#010a06;z-index:1064;display:none;flex-direction:column;overflow:hidden}
+.wmap-panel.open{display:flex}
+.wmap-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#010e08,#010a06)}
+.wmap-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#88ff44,#ffee44,#44ff88);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:wmapShim 2.5s linear infinite}
+@keyframes wmapShim{0%{background-position:0%}100%{background-position:300%}}
+.wmap-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Status bar */
+.wmap-status{display:flex;align-items:center;justify-content:space-between;background:rgba(68,255,136,.04);border:1.5px solid rgba(68,255,136,.15);border-radius:14px;padding:10px 14px;margin-bottom:12px}
+.wmap-stamina-wrap{flex:1;margin-right:12px}
+.wmap-stamina-lbl{font:600 8px var(--ff-body);color:rgba(68,255,136,.4);margin-bottom:4px}
+.wmap-stamina-bar{background:rgba(255,255,255,.06);border-radius:4px;height:7px;overflow:hidden}
+.wmap-stamina-fill{height:100%;background:linear-gradient(90deg,#44ff88,#88ff44);border-radius:4px;transition:width .4s}
+.wmap-stamina-txt{font:600 8px var(--ff-body);color:rgba(68,255,136,.5);margin-top:2px}
+.wmap-explored{text-align:right}
+.wmap-exp-v{font:900 22px var(--ff-head);color:#44ff88}
+.wmap-exp-l{font:600 7px var(--ff-body);color:rgba(68,255,136,.4)}
+/* Region cards */
+.wmap-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.wmap-region{border-radius:20px;overflow:hidden;border:2px solid rgba(255,255,255,.08);position:relative}
+.wmap-region.discovered{border-color:var(--rc)}
+.wmap-region-bg{padding:14px;position:relative}
+.wmap-region-icon{font-size:38px;margin-bottom:6px}
+.wmap-region-name{font:800 16px var(--ff-head);color:#fff;margin-bottom:3px}
+.wmap-region-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:8px}
+.wmap-region-rewards{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.wmap-rew-chip{background:rgba(255,255,255,.07);border-radius:6px;padding:2px 7px;font:600 8px var(--ff-body);color:rgba(255,255,255,.5)}
+.wmap-region-footer{display:flex;align-items:center;justify-content:space-between}
+.wmap-visits{font:600 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.wmap-explore-btn{background:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.2));border:1.5px solid var(--rc);border-radius:12px;padding:8px 16px;font:800 10px var(--ff-head);color:#fff;cursor:pointer}
+.wmap-explore-btn:disabled{opacity:.3;cursor:default}
+.wmap-explore-btn.done{border-color:rgba(68,255,136,.4);color:#44ff88}
+/* Locked overlay */
+.wmap-locked{position:absolute;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.wmap-lock-icon{font-size:28px}
+.wmap-lock-txt{font:700 9px var(--ff-head);color:rgba(255,255,255,.5)}
+/* Loot popup */
+.wmap-loot{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;padding:8px 12px;margin-top:-4px;display:none;font:600 9px var(--ff-body);color:rgba(255,255,255,.6)}
+.wmap-loot.show{display:block}
+
+/* ══ TALENT TREE ══ */
+.tal-panel{position:fixed;inset:0;background:#020308;z-index:1063;display:none;flex-direction:column;overflow:hidden}
+.tal-panel.open{display:flex}
+.tal-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#010218,#020308)}
+.tal-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ffcc,#4488ff,#cc44ff,#ff4488,#44ffcc);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:talShim 3s linear infinite}
+@keyframes talShim{0%{background-position:0%}100%{background-position:400%}}
+.tal-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Points banner */
+.tal-points{display:flex;align-items:center;justify-content:space-between;background:rgba(68,255,200,.04);border:2px solid rgba(68,255,200,.18);border-radius:16px;padding:12px 16px;margin-bottom:12px}
+.tal-pts-left{display:flex;flex-direction:column}
+.tal-pts-v{font:900 28px var(--ff-head);color:#44ffcc}
+.tal-pts-l{font:600 8px var(--ff-body);color:rgba(68,255,200,.4);letter-spacing:1px}
+.tal-pts-info{font:600 8px var(--ff-body);color:rgba(255,255,255,.25);text-align:right;max-width:140px}
+/* Branches */
+.tal-branch{margin-bottom:14px}
+.tal-branch-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tal-branch-icon{font-size:18px}
+.tal-branch-name{font:700 11px var(--ff-head);color:#fff}
+.tal-branch-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);flex:1}
+/* Nodes */
+.tal-nodes{display:flex;gap:6px;flex-wrap:wrap}
+.tal-node{position:relative;width:72px;flex-shrink:0;background:rgba(255,255,255,.02);border:2px solid rgba(255,255,255,.08);border-radius:14px;padding:8px 4px;text-align:center;cursor:pointer;transition:all .15s}
+.tal-node.unlocked{border-color:var(--nc);background:rgba(var(--ncr),0.08)}
+.tal-node.maxed{border-color:var(--nc);background:rgba(var(--ncr),0.14);box-shadow:0 0 12px rgba(var(--ncr),0.2)}
+.tal-node.locked{opacity:.35;cursor:default}
+.tal-node-icon{font-size:20px;margin-bottom:3px}
+.tal-node-name{font:700 7px var(--ff-head);color:#fff;margin-bottom:2px;word-break:break-word;line-height:1.1}
+.tal-node-bonus{font:700 7px var(--ff-head);color:var(--nc)}
+.tal-node-rank{font:600 6px var(--ff-body);color:rgba(255,255,255,.3);margin-top:2px}
+.tal-node-cost{font:600 6px var(--ff-body);color:rgba(255,255,255,.25);margin-top:1px}
+/* Tooltip */
+.tal-tip{font:600 9px var(--ff-body);color:rgba(255,255,255,.6);background:rgba(0,0,0,.9);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 10px;margin-top:8px;display:none}
+.tal-tip.show{display:block}
+.tal-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-top:4px}
+
 /* ══ GRAND DASHBOARD ══ */
 .dash-panel{position:fixed;inset:0;background:#000208;z-index:1062;display:none;flex-direction:column;overflow:hidden}
 .dash-panel.open{display:flex}
@@ -12468,6 +12658,11 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
+          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌳</div>Talangträd</div>
+          <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
+          <div class="ddr" onclick="cM();openCir()"><div class="ddr-i">🎪</div>Pet Cirkus</div>
+          <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Gille-huset</div>
+          <div class="ddr" onclick="cM();openBes()"><div class="ddr-i">📖</div>Bestarium</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12551,6 +12746,11 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
+          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌳</div>Talangträd</div>
+          <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
+          <div class="ddr" onclick="cM();openCir()"><div class="ddr-i">🎪</div>Pet Cirkus</div>
+          <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Gille-huset</div>
+          <div class="ddr" onclick="cM();openBes()"><div class="ddr-i">📖</div>Bestarium</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12617,6 +12817,11 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
+          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌳</div>Talangträd</div>
+          <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
+          <div class="ddr" onclick="cM();openCir()"><div class="ddr-i">🎪</div>Pet Cirkus</div>
+          <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Gille-huset</div>
+          <div class="ddr" onclick="cM();openBes()"><div class="ddr-i">📖</div>Bestarium</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12721,6 +12926,11 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
+          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌳</div>Talangträd</div>
+          <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
+          <div class="ddr" onclick="cM();openCir()"><div class="ddr-i">🎪</div>Pet Cirkus</div>
+          <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Gille-huset</div>
+          <div class="ddr" onclick="cM();openBes()"><div class="ddr-i">📖</div>Bestarium</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13331,6 +13541,129 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+
+
+
+<!-- BESTIARY -->
+<div class="bes-panel" id="besPanel">
+  <div class="bes-header">
+    <div class="bes-title">📖 BESTARIUM</div>
+    <button class="close-btn" onclick="closeBes()">✕</button>
+  </div>
+  <div class="bes-scroll">
+    <div class="bes-progress">
+      <div class="bes-prog-body">
+        <div class="bes-prog-bar"><div class="bes-prog-fill" id="besProgFill" style="width:0%"></div></div>
+        <div class="bes-prog-txt" id="besProgTxt">0 / 0 monster fångade</div>
+      </div>
+      <div class="bes-total">
+        <div class="bes-total-v" id=besTotalV>0</div>
+        <div class="bes-total-l">Fångade</div>
+      </div>
+    </div>
+    <div class="bes-hunt-wrap">
+      <div class="bes-hunt-lbl">MONSTER-JAKT</div>
+      <div class="bes-hunt-info" id="besHuntInfo">3 jakter kvar idag. LCK ökar chansen att fånga sällsynta monster!</div>
+      <button class="bes-hunt-btn" id="besHuntBtn" onclick="besHunt()">🎯 Jaga Monster! (1 jakt)</button>
+    </div>
+    <div class="bes-grid" id="besGrid"></div>
+    <div class="bes-info">Fånga alla monster för stora belöningar! Sällsynta monster ger massiva stats. 🐉</div>
+  </div>
+</div>
+
+<!-- GUILD HALL -->
+<div class="guild-panel" id="guildPanel">
+  <div class="guild-header">
+    <div class="guild-title">🏰 GILLE-HUSET</div>
+    <button class="close-btn" onclick="closeGuild()">✕</button>
+  </div>
+  <div class="guild-scroll">
+    <div class="guild-card">
+      <div class="guild-emblem">🏰</div>
+      <div class="guild-name" id="guildName">Husdjurens Orden</div>
+      <div class="guild-motto">"Styrka i enhet, makt i lojalitet"</div>
+      <div class="guild-rank-row">
+        <div class="guild-rank-item"><div class="guild-rank-v" id="guildRankV">Rekryt</div><div class="guild-rank-l">RANK</div></div>
+        <div class="guild-rank-item"><div class="guild-rank-v" id="guildContrib">0</div><div class="guild-rank-l">BIDRAG</div></div>
+        <div class="guild-rank-item"><div class="guild-rank-v" id="guildDays">0</div><div class="guild-rank-l">DAGAR</div></div>
+      </div>
+    </div>
+    <div class="guild-xp-wrap">
+      <div class="guild-xp-lbl">GILLE XP</div>
+      <div class="guild-xp-bar"><div class="guild-xp-fill" id="guildXpFill" style="width:0%"></div></div>
+      <div class="guild-xp-txt" id="guildXpTxt">0 / 100 XP till nästa rank</div>
+    </div>
+    <div class="guild-mis-lbl">DAGLIGA GILLEUPPDRAG</div>
+    <div class="guild-mis-list" id="guildMisList"></div>
+    <div class="guild-info">Slutför uppdrag för att stärka gillets rang och låsa upp exklusiva belöningar! 🏅</div>
+  </div>
+</div>
+
+<!-- PET CIRCUS -->
+<div class="cir-panel" id="cirPanel">
+  <div class="cir-header">
+    <div class="cir-title">🎪 PET CIRKUS</div>
+    <button class="close-btn" onclick="closeCir()">✕</button>
+  </div>
+  <div class="cir-scroll">
+    <div class="cir-fame">
+      <div class="cir-fame-v" id="cirFameV">0</div>
+      <div class="cir-fame-l">BERÖMMELSE</div>
+      <div class="cir-fame-rank" id="cirFameRank">Okänd</div>
+    </div>
+    <div class="cir-aud-wrap">
+      <div class="cir-aud-lbl">PUBLIK ENTUSIASM (daglig)</div>
+      <div class="cir-aud-bar"><div class="cir-aud-fill" id="cirAudFill" style="width:0%"></div></div>
+      <div class="cir-aud-txt" id="cirAudTxt">0/5 tricks idag</div>
+    </div>
+    <div class="cir-tricks" id="cirTricks"></div>
+    <div class="cir-show-info">Alla 5 tricks = Storshow-bonus! Berömmelse låser upp fler tricks 🎠</div>
+  </div>
+</div>
+
+<!-- WORLD MAP -->
+<div class="wmap-panel" id="wmapPanel">
+  <div class="wmap-header">
+    <div class="wmap-title">🗺️ VÄRLDSKARTAN</div>
+    <button class="close-btn" onclick="closeWmap()">✕</button>
+  </div>
+  <div class="wmap-scroll">
+    <div class="wmap-status">
+      <div class="wmap-stamina-wrap">
+        <div class="wmap-stamina-lbl">UTHÅLLIGHET (resettas dagligen)</div>
+        <div class="wmap-stamina-bar"><div class="wmap-stamina-fill" id="wmapStamFill" style="width:100%"></div></div>
+        <div class="wmap-stamina-txt" id="wmapStamTxt">5/5</div>
+      </div>
+      <div class="wmap-explored">
+        <div class="wmap-exp-v" id="wmapExpV">0</div>
+        <div class="wmap-exp-l">Utforskningar</div>
+      </div>
+    </div>
+    <div class="wmap-grid" id="wmapGrid"></div>
+  </div>
+</div>
+
+<!-- TALENT TREE -->
+<div class="tal-panel" id="talPanel">
+  <div class="tal-header">
+    <div class="tal-title">🌳 TALANGTRÄD</div>
+    <button class="close-btn" onclick="closeTal()">✕</button>
+  </div>
+  <div class="tal-scroll">
+    <div class="tal-points">
+      <div class="tal-pts-left">
+        <div class="tal-pts-v" id="talPtsV">0</div>
+        <div class="tal-pts-l">TALANGPOÄNG</div>
+      </div>
+      <div class="tal-pts-info">+1 poäng per level upp · Köp noder för att stärka ditt husdjur permanent</div>
+    </div>
+    <div id="talBranches"></div>
+    <div class="tal-info" id="talTotalInfo">0 noder upplåsta</div>
+  </div>
+</div>
 
 <!-- GRAND DASHBOARD -->
 <div class="dash-panel" id="dashPanel">
@@ -58516,6 +58849,624 @@ function _renderDash(){
       return '<div class="dash-feat active">'+f.icon+' '+f.name+'</div>';
     }).join('');
   }
+}
+
+
+// TALENT TREE
+const TAL_KEY = 'k0509_tal';
+const TAL_BRANCHES = [
+  {
+    id:'combat', name:'Strid', icon:'⚔️', color:'#ff4455', rgb:'255,68,85',
+    nodes:[
+      {id:'str1',name:'Kraft I',    icon:'💪',bonus:{str:3},  cost:1,maxRank:3,desc:'Ökar STR permanent'},
+      {id:'str2',name:'Kraft II',   icon:'🔥',bonus:{str:5},  cost:2,maxRank:2,desc:'Stor STR ökning',req:'str1'},
+      {id:'brawl',name:'Slagsmål',  icon:'🥊',bonus:{str:2,end:2},cost:2,maxRank:2,desc:'+STR och +END'},
+      {id:'berserk',name:'Beserker',icon:'😡',bonus:{str:8},  cost:3,maxRank:1,desc:'Massiv STR boost',req:'brawl'},
+    ]
+  },
+  {
+    id:'defense', name:'Försvar', icon:'🛡️', color:'#4488ff', rgb:'68,136,255',
+    nodes:[
+      {id:'end1',name:'Uthållighet I', icon:'🪨',bonus:{end:3}, cost:1,maxRank:3,desc:'Ökar END permanent'},
+      {id:'end2',name:'Uthållighet II',icon:'⛰️',bonus:{end:5}, cost:2,maxRank:2,desc:'Stor END ökning',req:'end1'},
+      {id:'tank', name:'Tank',         icon:'🛡️',bonus:{end:3,str:1},cost:2,maxRank:2,desc:'+END och +STR'},
+      {id:'fortress',name:'Fästning',  icon:'🏰',bonus:{end:8}, cost:3,maxRank:1,desc:'Max END boost',req:'tank'},
+    ]
+  },
+  {
+    id:'agility', name:'Smidighet', icon:'🏃', color:'#44ff88', rgb:'68,255,136',
+    nodes:[
+      {id:'agi1',name:'Hastighet I', icon:'💨',bonus:{agi:3}, cost:1,maxRank:3,desc:'Ökar AGI permanent'},
+      {id:'agi2',name:'Hastighet II',icon:'⚡',bonus:{agi:5}, cost:2,maxRank:2,desc:'Stor AGI ökning',req:'agi1'},
+      {id:'dodge',name:'Undvikande', icon:'🌀',bonus:{agi:2,lck:2},cost:2,maxRank:2,desc:'+AGI och +LCK'},
+      {id:'phantom',name:'Fantom',   icon:'👻',bonus:{agi:8}, cost:3,maxRank:1,desc:'Max AGI boost',req:'dodge'},
+    ]
+  },
+  {
+    id:'magic', name:'Magi', icon:'✨', color:'#cc44ff', rgb:'204,68,255',
+    nodes:[
+      {id:'int1',name:'Visdom I', icon:'📚',bonus:{int:3}, cost:1,maxRank:3,desc:'Ökar INT permanent'},
+      {id:'int2',name:'Visdom II',icon:'🔮',bonus:{int:5}, cost:2,maxRank:2,desc:'Stor INT ökning',req:'int1'},
+      {id:'arcane',name:'Arkan',  icon:'✨',bonus:{int:2,lck:1},cost:2,maxRank:2,desc:'+INT och +LCK'},
+      {id:'wizard',name:'Trollkarl',icon:'🧙',bonus:{int:8},cost:3,maxRank:1,desc:'Max INT boost',req:'arcane'},
+    ]
+  },
+  {
+    id:'fortune', name:'Tur', icon:'🍀', color:'#ffcc00', rgb:'255,204,0',
+    nodes:[
+      {id:'lck1',name:'Tur I',  icon:'🍀',bonus:{lck:3}, cost:1,maxRank:3,desc:'Ökar LCK permanent'},
+      {id:'lck2',name:'Tur II', icon:'🌟',bonus:{lck:5}, cost:2,maxRank:2,desc:'Stor LCK ökning',req:'lck1'},
+      {id:'gold', name:'Guldrör',icon:'🪙',bonus:{lck:2,int:1},cost:2,maxRank:2,desc:'+LCK och +INT'},
+      {id:'legend',name:'Legend',icon:'👑',bonus:{lck:8},cost:3,maxRank:1,desc:'Max LCK boost',req:'gold'},
+    ]
+  },
+];
+
+function _talData(){try{return JSON.parse(localStorage.getItem(TAL_KEY)||'null');}catch(e){return null;}}
+function _talSave(d){localStorage.setItem(TAL_KEY,JSON.stringify(d));}
+function _talGetData(){
+  var d=_talData();
+  if(!d) d={points:0,nodes:{},totalSpent:0};
+  // Give 1 point per level (minus already-granted points)
+  var earned=G.lvl||1;
+  if(!d.earnedBase) d.earnedBase=0;
+  if(earned>d.earnedBase){
+    d.points+=(earned-d.earnedBase);
+    d.earnedBase=earned;
+    _talSave(d);
+  }
+  return d;
+}
+
+function talUnlock(branchId, nodeId){
+  var d=_talGetData();
+  var branch=TAL_BRANCHES.find(function(b){return b.id===branchId;});
+  if(!branch) return;
+  var node=branch.nodes.find(function(n){return n.id===nodeId;});
+  if(!node) return;
+  var key=branchId+'_'+nodeId;
+  var curRank=d.nodes[key]||0;
+  if(curRank>=node.maxRank){showFloatBubble('Redan maxad!','debuff');return;}
+  // Check req
+  if(node.req){
+    var reqKey=branchId+'_'+node.req;
+    var reqNode=branch.nodes.find(function(n){return n.id===node.req;});
+    if(!reqNode||(d.nodes[reqKey]||0)<1){showFloatBubble('Lås upp föregångaren först!','debuff');return;}
+  }
+  if((d.points||0)<node.cost){showFloatBubble('Inte tillräckligt med talangpoäng!','debuff');return;}
+  d.points-=node.cost;
+  d.nodes[key]=(curRank+1);
+  d.totalSpent=(d.totalSpent||0)+node.cost;
+  // Apply bonus
+  Object.keys(node.bonus).forEach(function(s){G[s]=(G[s]||0)+node.bonus[s];});
+  save();
+  _talSave(d);
+  checkAchievements();
+  var bonusTxt=Object.keys(node.bonus).map(function(s){return '+'+node.bonus[s]+' '+s.toUpperCase();}).join(' ');
+  showFloatBubble('🌳 '+node.name+' upplåst! '+bonusTxt,'buff');
+  _renderTal(d);
+}
+
+function openTal(){$('talPanel').classList.add('open');_renderTal();}
+function closeTal(){$('talPanel').classList.remove('open');}
+
+function _renderTal(d){
+  if(!d) d=_talGetData();
+  var pv=$('talPtsV');if(pv) pv.textContent=d.points||0;
+  var container=$('talBranches');
+  if(!container) return;
+  var totalUnlocked=Object.keys(d.nodes).filter(function(k){return (d.nodes[k]||0)>0;}).length;
+  var info=$('talTotalInfo');if(info) info.textContent=totalUnlocked+' noder upplåsta · '+( d.totalSpent||0)+' poäng spenderade';
+  container.innerHTML=TAL_BRANCHES.map(function(branch){
+    var nodesHtml=branch.nodes.map(function(node){
+      var key=branch.id+'_'+node.id;
+      var rank=d.nodes[key]||0;
+      var isMaxed=rank>=node.maxRank;
+      var reqMet=!node.req||(d.nodes[branch.id+'_'+node.req]||0)>=1;
+      var canAfford=(d.points||0)>=node.cost;
+      var cls='tal-node'+(isMaxed?' maxed':rank>0?' unlocked':!reqMet?' locked':'');
+      var bonusTxt=Object.keys(node.bonus).map(function(s){return '+'+node.bonus[s]+s.toUpperCase().slice(0,3);}).join(' ');
+      var rankTxt=node.maxRank>1?rank+'/'+node.maxRank:'';
+      var costTxt=isMaxed?'MAX':node.cost+'pt';
+      return '<div class="'+cls+'" style="--nc:'+branch.color+';--ncr:'+branch.rgb+'" onclick="talUnlock(\''+branch.id+'\',\''+node.id+'\')">'+
+        '<div class="tal-node-icon">'+node.icon+'</div>'+
+        '<div class="tal-node-name">'+node.name+'</div>'+
+        '<div class="tal-node-bonus">'+bonusTxt+'</div>'+
+        (rankTxt?'<div class="tal-node-rank">'+rankTxt+'</div>':'')+
+        '<div class="tal-node-cost">'+costTxt+'</div>'+
+      '</div>';
+    }).join('');
+    return '<div class="tal-branch">'+
+      '<div class="tal-branch-header">'+
+        '<div class="tal-branch-icon">'+branch.icon+'</div>'+
+        '<div class="tal-branch-name">'+branch.name+'</div>'+
+      '</div>'+
+      '<div class="tal-nodes">'+nodesHtml+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+
+// WORLD MAP
+const WMAP_KEY = 'k0509_wmap';
+const WMAP_MAX_STAM = 5;
+const WMAP_REGIONS = [
+  {
+    id:'forest', name:'Mystisk Skog', icon:'🌲',
+    bg:'linear-gradient(135deg,#0a2a0a,#143a14)',
+    color:'#44ff88', rgb:'68,255,136',
+    desc:'Täta träd, hemliga stigar och skogsvarelser.',
+    minLvl:1,
+    rewards:[
+      {label:'🌿 Örter',     coins:25,  xp:20,  stat:{agi:1},    prob:0.7},
+      {label:'🍄 Svampar',   coins:15,  xp:12,  stat:{int:1},    prob:0.5},
+      {label:'🦊 Räv möte',  coins:40,  xp:35,  stat:{lck:1},    prob:0.3},
+      {label:'💎 Stensläkt', coins:80,  xp:60,  stat:{str:2},    prob:0.1},
+    ]
+  },
+  {
+    id:'desert', name:'Glödande Öken', icon:'🏜️',
+    bg:'linear-gradient(135deg,#2a1a00,#4a2a00)',
+    color:'#ff8800', rgb:'255,136,0',
+    desc:'Brännande sand, antika ruiner och ökendjur.',
+    minLvl:3,
+    rewards:[
+      {label:'🌵 Kaktus',    coins:30,  xp:25,  stat:{end:1},    prob:0.65},
+      {label:'🦂 Skorpion',  coins:20,  xp:15,  stat:{str:1},    prob:0.55},
+      {label:'🏺 Urna',      coins:70,  xp:50,  stat:{int:2},    prob:0.25},
+      {label:'👑 Ökentronen',coins:120, xp:90,  stat:{lck:3},    prob:0.08},
+    ]
+  },
+  {
+    id:'ocean', name:'Djupa Havet', icon:'🌊',
+    bg:'linear-gradient(135deg,#001430,#002255)',
+    color:'#4499ff', rgb:'68,153,255',
+    desc:'Oändliga vatten, havsskatter och sjöodjur.',
+    minLvl:5,
+    rewards:[
+      {label:'🐚 Snäcka',    coins:35,  xp:28,  stat:{lck:1},    prob:0.65},
+      {label:'🐠 Fisk',      coins:25,  xp:20,  stat:{agi:1},    prob:0.5},
+      {label:'🦈 Haj jakt',  coins:90,  xp:70,  stat:{str:2},    prob:0.2},
+      {label:'🧜 Sjöjungfru',coins:150, xp:110, stat:{int:3,lck:2},prob:0.06},
+    ]
+  },
+  {
+    id:'mountain', name:'Stormiga Berg', icon:'⛰️',
+    bg:'linear-gradient(135deg,#1a1a2a,#2a2a3a)',
+    color:'#aaaaff', rgb:'170,170,255',
+    desc:'Klippiga toppar, drakkläckor och sten-kristaller.',
+    minLvl:8,
+    rewards:[
+      {label:'💎 Kristall',  coins:50,  xp:40,  stat:{end:1},    prob:0.6},
+      {label:'⛏️ Malm',     coins:35,  xp:28,  stat:{str:1},    prob:0.5},
+      {label:'🐉 Drak spår', coins:110, xp:85,  stat:{str:3},    prob:0.18},
+      {label:'✨ Drakegg',   coins:200, xp:150, stat:{str:4,end:3},prob:0.05},
+    ]
+  },
+  {
+    id:'volcano', name:'Vulkanlanden', icon:'🌋',
+    bg:'linear-gradient(135deg,#2a0a00,#4a1500)',
+    color:'#ff4422', rgb:'255,68,34',
+    desc:'Flödande lava, elddemoner och magiska mineraler.',
+    minLvl:12,
+    rewards:[
+      {label:'🔥 Eldsten',   coins:60,  xp:50,  stat:{str:2},    prob:0.55},
+      {label:'💥 Explosion',  coins:40,  xp:32,  stat:{end:2},    prob:0.5},
+      {label:'😈 Demon möte', coins:130, xp:100, stat:{str:4},    prob:0.15},
+      {label:'🌟 Magmakärna',coins:250, xp:180, stat:{str:5,int:3},prob:0.04},
+    ]
+  },
+];
+
+function _wmapData(){try{return JSON.parse(localStorage.getItem(WMAP_KEY)||'null');}catch(e){return null;}}
+function _wmapSave(d){localStorage.setItem(WMAP_KEY,JSON.stringify(d));}
+function _wmapGetData(){
+  var d=_wmapData();
+  if(!d) d={stam:WMAP_MAX_STAM,lastDay:'',visits:{},total:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.stam=WMAP_MAX_STAM;d.lastDay=today;_wmapSave(d);}
+  return d;
+}
+
+function wmapExplore(regionId){
+  var d=_wmapGetData();
+  if((d.stam||0)<1){showFloatBubble('Ingen uthållighet kvar! Återställs imorgon.','debuff');return;}
+  var region=WMAP_REGIONS.find(function(r){return r.id===regionId;});
+  if(!region) return;
+  if((G.lvl||1)<region.minLvl){showFloatBubble('Kräver level '+region.minLvl+'!','debuff');return;}
+  d.stam--;
+  d.total=(d.total||0)+1;
+  d.visits[regionId]=(d.visits[regionId]||0)+1;
+  // Roll rewards (LCK bonus)
+  var lckBonus=Math.min(0.2,(G.lck||0)*0.004);
+  var got=[];
+  region.rewards.forEach(function(rew){
+    if(Math.random()<(rew.prob+lckBonus)){
+      got.push(rew);
+      gainCoins(rew.coins);
+      gainXP(rew.xp,'agi');
+      if(rew.stat) Object.keys(rew.stat).forEach(function(s){G[s]=(G[s]||0)+rew.stat[s];});
+    }
+  });
+  if(!got.length){
+    // Always get at least something
+    var fallback=region.rewards[0];
+    got.push(fallback);
+    gainCoins(Math.floor(fallback.coins*0.5));
+    gainXP(Math.floor(fallback.xp*0.5),'agi');
+  }
+  save();
+  _wmapSave(d);
+  checkAchievements();
+  var loot=got.map(function(r){return r.label;}).join(' · ');
+  showFloatBubble(region.icon+' '+region.name+': '+loot,'buff');
+  // Show loot in UI
+  var lootDiv=$('wmapLoot_'+regionId);
+  if(lootDiv){
+    lootDiv.textContent='Hittade: '+loot;
+    lootDiv.classList.add('show');
+    setTimeout(function(){lootDiv.classList.remove('show');},4000);
+  }
+  _renderWmap(d);
+}
+
+function openWmap(){$('wmapPanel').classList.add('open');_renderWmap();}
+function closeWmap(){$('wmapPanel').classList.remove('open');}
+
+function _renderWmap(d){
+  if(!d) d=_wmapGetData();
+  var sf=$('wmapStamFill');if(sf) sf.style.width=(d.stam/WMAP_MAX_STAM*100)+'%';
+  var st=$('wmapStamTxt');if(st) st.textContent=d.stam+'/'+WMAP_MAX_STAM;
+  var ev=$('wmapExpV');if(ev) ev.textContent=d.total||0;
+  var grid=$('wmapGrid');
+  if(!grid) return;
+  var lvl=G.lvl||1;
+  grid.innerHTML=WMAP_REGIONS.map(function(region){
+    var locked=lvl<region.minLvl;
+    var visits=d.visits[region.id]||0;
+    var canExplore=!locked&&(d.stam||0)>0;
+    var rewList=region.rewards.map(function(r){return '<span class="wmap-rew-chip">'+r.label+' '+r.coins+'🪙</span>';}).join('');
+    var lockHtml=locked?'<div class="wmap-locked"><div class="wmap-lock-icon">🔒</div><div class="wmap-lock-txt">Kräver Lv.'+region.minLvl+'</div></div>':'';
+    return '<div class="wmap-region'+(visits>0?' discovered':'')+'" style="--rc:'+region.color+'">'+
+      '<div class="wmap-region-bg" style="background:'+region.bg+'">'+
+        '<div class="wmap-region-icon">'+region.icon+'</div>'+
+        '<div class="wmap-region-name">'+region.name+'</div>'+
+        '<div class="wmap-region-desc">'+region.desc+'</div>'+
+        '<div class="wmap-region-rewards">'+rewList+'</div>'+
+        '<div class="wmap-region-footer">'+
+          '<div class="wmap-visits">'+visits+' besök</div>'+
+          '<button class="wmap-explore-btn" onclick="wmapExplore(\''+region.id+'\')" '+(canExplore?'':'disabled')+'>'+
+            (locked?'🔒 Låst':d.stam>0?'🧭 Utforska':'⏳ Vilar')+
+          '</button>'+
+        '</div>'+
+        '<div class="wmap-loot" id="wmapLoot_'+region.id+'"></div>'+
+      '</div>'+
+      lockHtml+
+    '</div>';
+  }).join('');
+}
+
+
+// PET CIRCUS
+const CIR_KEY = 'k0509_cir';
+const CIR_TRICKS = [
+  {id:'juggle',  icon:'🤹', name:'Jonglering',       desc:'Kasta 3 bollar i luften',          fame:15, coins:40, xp:30, req:0,   stat:{agi:1}, statTxt:'+1 AGI'},
+  {id:'magic',   icon:'🪄', name:'Trolleritrick',    desc:'Försvinn och kom tillbaka',         fame:20, coins:50, xp:38, req:0,   stat:{int:1}, statTxt:'+1 INT'},
+  {id:'balance', icon:'🎭', name:'Balansnummer',      desc:'Stå på en hand i 10 sekunder',     fame:25, coins:60, xp:45, req:50,  stat:{agi:1,end:1}, statTxt:'+1 AGI +1 END'},
+  {id:'fire',    icon:'🔥', name:'Eld-sprutning',     desc:'Spotta lågor mot publiken',         fame:40, coins:90, xp:70, req:100, stat:{str:2}, statTxt:'+2 STR'},
+  {id:'tightrope',icon:'🎡',name:'Linfärdsel',        desc:'Gå över arenaringen på lina',      fame:35, coins:80, xp:62, req:150, stat:{agi:2}, statTxt:'+2 AGI'},
+  {id:'lion',    icon:'🦁', name:'Lejonbricka',       desc:'Styr ett vilt lejon med staven',   fame:60, coins:130,xp:100,req:250, stat:{str:3,end:2}, statTxt:'+3 STR +2 END'},
+  {id:'cannonball',icon:'💥',name:'Kanonkula',        desc:'Flyg genom luften i kanonkula',    fame:80, coins:170,xp:130,req:400, stat:{str:4}, statTxt:'+4 STR'},
+  {id:'invisible',icon:'👻',name:'Osynlighets-show',  desc:'Gå osynlig inför 10 000 fans',    fame:100,coins:220,xp:170,req:600, stat:{lck:4,int:3}, statTxt:'+4 LCK +3 INT'},
+];
+
+const CIR_RANKS = [
+  {min:0,   name:'Okänd',      icon:'🎠'},
+  {min:50,  name:'Gatuartist', icon:'🎪'},
+  {min:150, name:'Lokal Stjärna',icon:'⭐'},
+  {min:300, name:'Regional Idol',icon:'🌟'},
+  {min:600, name:'National Ikon',icon:'✨'},
+  {min:1000,name:'Världskändis', icon:'👑'},
+];
+
+function _cirData(){try{return JSON.parse(localStorage.getItem(CIR_KEY)||'null');}catch(e){return null;}}
+function _cirSave(d){localStorage.setItem(CIR_KEY,JSON.stringify(d));}
+function _cirGetData(){
+  var d=_cirData();
+  if(!d) d={fame:0,doneToday:{},lastDay:'',total:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.doneToday={};d.lastDay=today;_cirSave(d);}
+  return d;
+}
+
+function cirPerform(id){
+  var d=_cirGetData();
+  if(d.doneToday[id]) return;
+  var trick=CIR_TRICKS.find(function(t){return t.id===id;});
+  if(!trick) return;
+  if((d.fame||0)<trick.req){showFloatBubble('Kräver '+trick.req+' berömmelse!','debuff');return;}
+  d.doneToday[id]=true;
+  d.total=(d.total||0)+1;
+  d.fame=(d.fame||0)+trick.fame;
+  gainCoins(trick.coins);
+  gainXP(trick.xp,'agi');
+  if(trick.stat) Object.keys(trick.stat).forEach(function(s){G[s]=(G[s]||0)+trick.stat[s];});
+  save();
+  // Big show bonus if all 5 basic tricks done today
+  var doneCount=Object.keys(d.doneToday).length;
+  if(doneCount>=5&&!d.bigShowToday){
+    d.bigShowToday=true;
+    d.fame+=50;
+    gainKC(1);
+    showFloatBubble('🎪 STORSHOW! +50 Berömmelse, +1 KC!','buff');
+  } else {
+    showFloatBubble(trick.icon+' '+trick.name+'! +'+trick.fame+' Berömmelse, +'+trick.coins+'🪙 '+trick.statTxt,'buff');
+  }
+  _cirSave(d);
+  checkAchievements();
+  _renderCir(d);
+}
+
+function openCir(){$('cirPanel').classList.add('open');_renderCir();}
+function closeCir(){$('cirPanel').classList.remove('open');}
+
+function _cirGetRank(fame){
+  var rank=CIR_RANKS[0];
+  CIR_RANKS.forEach(function(r){if(fame>=r.min) rank=r;});
+  return rank;
+}
+
+function _renderCir(d){
+  if(!d) d=_cirGetData();
+  var fame=d.fame||0;
+  var fv=$('cirFameV');if(fv) fv.textContent=fame;
+  var rank=_cirGetRank(fame);
+  var fr=$('cirFameRank');if(fr) fr.textContent=rank.icon+' '+rank.name;
+  var doneCount=Object.keys(d.doneToday).length;
+  var af=$('cirAudFill');if(af) af.style.width=Math.min(100,doneCount/5*100)+'%';
+  var at=$('cirAudTxt');if(at) at.textContent=doneCount+'/5 tricks idag';
+  var container=$('cirTricks');
+  if(!container) return;
+  container.innerHTML=CIR_TRICKS.map(function(t){
+    var isDone=!!d.doneToday[t.id];
+    var canDo=fame>=t.req&&!isDone;
+    var locked=fame<t.req;
+    var cls='cir-trick'+(isDone?' done':canDo?' available':'');
+    var btnCls=isDone?'cir-trick-btn done-btn':'cir-trick-btn';
+    return '<div class="'+cls+'">'+
+      '<div class="cir-trick-icon">'+t.icon+'</div>'+
+      '<div class="cir-trick-body">'+
+        '<div class="cir-trick-name">'+t.name+'</div>'+
+        '<div class="cir-trick-desc">'+t.desc+'</div>'+
+        '<div class="cir-trick-earn">+'+t.fame+' berömmelse · +'+t.coins+'🪙 · '+t.statTxt+'</div>'+
+        (t.req>0?'<div class="cir-trick-req">Kräver '+t.req+' berömmelse</div>':'')+
+      '</div>'+
+      '<button class="'+btnCls+'" onclick="cirPerform(\''+t.id+'\')" '+(isDone||locked?'disabled':'')+'>'+
+        (isDone?'✓ Klar':locked?'🔒':'Utför')+
+      '</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// GUILD HALL
+const GUILD_KEY = 'k0509_guild';
+const GUILD_MISSIONS = [
+  {id:'train',  icon:'⚔️', name:'Träning',        desc:'Träna ditt husdjur 3 gånger idag',   xp:30,coins:60,  kc:0, req:3,  stat:{str:1}, statTxt:'+1 STR'},
+  {id:'explore',icon:'🗺️', name:'Expedition',     desc:'Utforska en region på världskartan', xp:25,coins:50,  kc:0, req:1,  stat:{agi:1}, statTxt:'+1 AGI'},
+  {id:'craft',  icon:'⚒️', name:'Hantverksarbete',desc:'Smid ett föremål i smedjan',        xp:20,coins:45,  kc:0, req:1,  stat:{int:1}, statTxt:'+1 INT'},
+  {id:'battle', icon:'🛡️', name:'Strid',          desc:'Vinn 2 strider i arenan',           xp:35,coins:70,  kc:0, req:2,  stat:{str:2}, statTxt:'+2 STR'},
+  {id:'collect',icon:'📦', name:'Insamling',       desc:'Öppna 1 kista i dungeonen',         xp:40,coins:80,  kc:0, req:1,  stat:{lck:2}, statTxt:'+2 LCK'},
+  {id:'daily',  icon:'📋', name:'Dagsorden',       desc:'Slutför alla dagliga uppdrag',      xp:50,coins:100, kc:1, req:1,  stat:{int:2,lck:1}, statTxt:'+2 INT +1 LCK'},
+];
+
+const GUILD_RANKS = [
+  {min:0,   name:'Rekryt',     icon:'🥉'},
+  {min:100, name:'Soldat',     icon:'🥈'},
+  {min:250, name:'Veteran',    icon:'🥇'},
+  {min:500, name:'Ridder',     icon:'⚜️'},
+  {min:1000,name:'Champion',   icon:'🏆'},
+  {min:2000,name:'Legendär',   icon:'👑'},
+];
+
+function _guildData(){try{return JSON.parse(localStorage.getItem(GUILD_KEY)||'null');}catch(e){return null;}}
+function _guildSave(d){localStorage.setItem(GUILD_KEY,JSON.stringify(d));}
+function _guildGetData(){
+  var d=_guildData();
+  if(!d) d={gxp:0,contrib:0,days:0,doneToday:{},progress:{},lastDay:'',joinDate:getTodayKey()};
+  var today=getTodayKey();
+  if(d.lastDay!==today){
+    if(d.lastDay) d.days=(d.days||0)+1;
+    d.doneToday={};d.progress={};d.lastDay=today;
+    _guildSave(d);
+  }
+  return d;
+}
+
+function _guildGetRank(gxp){
+  var r=GUILD_RANKS[0];
+  GUILD_RANKS.forEach(function(rank){if(gxp>=rank.min) r=rank;});
+  return r;
+}
+
+function guildDoMission(id){
+  var d=_guildGetData();
+  if(d.doneToday[id]){showFloatBubble('Uppdrag redan klart idag!','debuff');return;}
+  var mis=GUILD_MISSIONS.find(function(m){return m.id===id;});
+  if(!mis) return;
+  var prog=(d.progress[id]||0)+1;
+  d.progress[id]=prog;
+  if(prog<mis.req){
+    _guildSave(d);
+    showFloatBubble(mis.icon+' Framsteg: '+prog+'/'+mis.req,'buff');
+    _renderGuild(d);
+    return;
+  }
+  d.doneToday[id]=true;
+  d.gxp=(d.gxp||0)+mis.xp;
+  d.contrib=(d.contrib||0)+mis.xp;
+  gainCoins(mis.coins);
+  gainXP(mis.xp,'int');
+  if(mis.kc>0) gainKC(mis.kc);
+  if(mis.stat) Object.keys(mis.stat).forEach(function(s){G[s]=(G[s]||0)+mis.stat[s];});
+  save();
+  _guildSave(d);
+  checkAchievements();
+  showFloatBubble(mis.icon+' '+mis.name+' klar! +'+mis.xp+' Gille-XP, +'+mis.coins+'🪙 '+mis.statTxt,'buff');
+  _renderGuild(d);
+}
+
+function openGuild(){$('guildPanel').classList.add('open');_renderGuild();}
+function closeGuild(){$('guildPanel').classList.remove('open');}
+
+function _renderGuild(d){
+  if(!d) d=_guildGetData();
+  var gxp=d.gxp||0;
+  var rank=_guildGetRank(gxp);
+  var rv=$('guildRankV');if(rv) rv.textContent=rank.icon+' '+rank.name;
+  var cv=$('guildContrib');if(cv) cv.textContent=d.contrib||0;
+  var dv=$('guildDays');if(dv) dv.textContent=d.days||0;
+  // XP progress to next rank
+  var nextIdx=GUILD_RANKS.indexOf(rank)+1;
+  var nextRank=nextIdx<GUILD_RANKS.length?GUILD_RANKS[nextIdx]:null;
+  var xfill=$('guildXpFill');
+  var xtxt=$('guildXpTxt');
+  if(nextRank){
+    var pct=Math.min(100,(gxp-rank.min)/(nextRank.min-rank.min)*100);
+    if(xfill) xfill.style.width=pct+'%';
+    if(xtxt) xtxt.textContent=gxp+' / '+nextRank.min+' XP till '+nextRank.name;
+  } else {
+    if(xfill) xfill.style.width='100%';
+    if(xtxt) xtxt.textContent='MAX RANK uppnådd! '+gxp+' total XP';
+  }
+  var list=$('guildMisList');
+  if(!list) return;
+  list.innerHTML=GUILD_MISSIONS.map(function(mis){
+    var isDone=!!d.doneToday[mis.id];
+    var prog=d.progress[mis.id]||0;
+    var pct=Math.min(100,prog/mis.req*100);
+    var cls='guild-mis'+(isDone?' done':prog>0?' active':'');
+    var kcTxt=mis.kc>0?' +'+mis.kc+'KC':'';
+    return '<div class="'+cls+'">'+
+      '<div class="guild-mis-icon">'+mis.icon+'</div>'+
+      '<div class="guild-mis-body">'+
+        '<div class="guild-mis-name">'+mis.name+'</div>'+
+        '<div class="guild-mis-desc">'+mis.desc+'</div>'+
+        '<div class="guild-mis-rew">+'+mis.xp+' GXP · +'+mis.coins+'🪙'+kcTxt+' · '+mis.statTxt+'</div>'+
+        (mis.req>1?'<div class="guild-mis-prog"><div class="guild-mis-prog-fill" style="width:'+pct+'%"></div></div>':'')+
+      '</div>'+
+      '<button class="guild-mis-btn" onclick="guildDoMission(\''+mis.id+'\')" '+(isDone?'disabled':'')+'>'+
+        (isDone?'✓':prog>0?prog+'/'+mis.req:'Start')+
+      '</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// BESTIARY
+const BES_KEY = 'k0509_bes';
+const BES_MONSTERS = [
+  // Common
+  {id:'slime',   icon:'🫧', name:'Slem',       rarity:'vanlig',  rgb:'68,255,136',  power:5,  bonus:{end:1},    prob:0.35, minLvl:1},
+  {id:'goblin',  icon:'👺', name:'Goblin',      rarity:'vanlig',  rgb:'68,255,136',  power:8,  bonus:{agi:1},    prob:0.30, minLvl:1},
+  {id:'bat',     icon:'🦇', name:'Fladdermus',  rarity:'vanlig',  rgb:'68,255,136',  power:6,  bonus:{lck:1},    prob:0.28, minLvl:1},
+  {id:'spider',  icon:'🕷️', name:'Spindel',    rarity:'vanlig',  rgb:'68,255,136',  power:7,  bonus:{agi:1},    prob:0.27, minLvl:1},
+  {id:'wolf',    icon:'🐺', name:'Varg',        rarity:'vanlig',  rgb:'68,255,136',  power:12, bonus:{str:2},    prob:0.22, minLvl:2},
+  // Uncommon
+  {id:'orc',     icon:'👹', name:'Ork',         rarity:'ovanlig', rgb:'255,200,0',   power:20, bonus:{str:3,end:1},prob:0.15,minLvl:3},
+  {id:'witch',   icon:'🧙', name:'Häxa',        rarity:'ovanlig', rgb:'255,200,0',   power:22, bonus:{int:3},    prob:0.14, minLvl:3},
+  {id:'troll',   icon:'👾', name:'Troll',       rarity:'ovanlig', rgb:'255,200,0',   power:25, bonus:{end:3,str:1},prob:0.12,minLvl:4},
+  {id:'kraken',  icon:'🦑', name:'Kraken',      rarity:'ovanlig', rgb:'255,200,0',   power:30, bonus:{str:2,agi:2},prob:0.10,minLvl:5},
+  // Rare
+  {id:'phoenix', icon:'🦅', name:'Fenix',       rarity:'sällsynt',rgb:'255,100,0',   power:45, bonus:{str:4,int:3},prob:0.06,minLvl:7},
+  {id:'unicorn', icon:'🦄', name:'Enhörning',   rarity:'sällsynt',rgb:'255,100,0',   power:48, bonus:{lck:5,int:2},prob:0.05,minLvl:8},
+  {id:'golem',   icon:'🗿', name:'Golem',       rarity:'sällsynt',rgb:'255,100,0',   power:50, bonus:{end:5,str:3},prob:0.04,minLvl:9},
+  // Legendary
+  {id:'dragon',  icon:'🐉', name:'Drak',        rarity:'legendarisk',rgb:'204,68,255',power:80, bonus:{str:8,end:5,int:3},prob:0.015,minLvl:12},
+  {id:'demon',   icon:'😈', name:'Demon',       rarity:'legendarisk',rgb:'204,68,255',power:85, bonus:{str:10,lck:5},prob:0.01,minLvl:15},
+  {id:'god',     icon:'✨', name:'Ljusguden',   rarity:'legendarisk',rgb:'255,220,50',power:100,bonus:{str:5,end:5,agi:5,int:5,lck:5},prob:0.005,minLvl:20},
+];
+const BES_MAX_HUNTS = 3;
+
+function _besData(){try{return JSON.parse(localStorage.getItem(BES_KEY)||'null');}catch(e){return null;}}
+function _besSave(d){localStorage.setItem(BES_KEY,JSON.stringify(d));}
+function _besGetData(){
+  var d=_besData();
+  if(!d) d={caught:[],hunts:BES_MAX_HUNTS,lastDay:'',total:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.hunts=BES_MAX_HUNTS;d.lastDay=today;_besSave(d);}
+  return d;
+}
+
+function besHunt(){
+  var d=_besGetData();
+  if((d.hunts||0)<1){showFloatBubble('Inga jakter kvar idag!','debuff');return;}
+  var lvl=G.lvl||1;
+  var lckBonus=Math.min(0.05,(G.lck||0)*0.001);
+  // Filter monsters by level
+  var available=BES_MONSTERS.filter(function(m){return lvl>=m.minLvl;});
+  // Roll for encounter
+  var roll=Math.random();
+  var found=null;
+  // Try each monster from rarest to most common
+  var sorted=available.slice().sort(function(a,b){return a.prob-b.prob;});
+  for(var i=0;i<sorted.length;i++){
+    var m=sorted[i];
+    if(roll<(m.prob+lckBonus)){found=m;break;}
+  }
+  if(!found) found=available[Math.floor(Math.random()*Math.min(5,available.length))];
+  d.hunts--;
+  d.total=(d.total||0)+1;
+  // Catch chance based on LCK
+  var catchChance=0.5+Math.min(0.35,(G.lck||0)*0.007);
+  var caught=Math.random()<catchChance;
+  if(caught&&d.caught.indexOf(found.id)<0){
+    d.caught.push(found.id);
+    Object.keys(found.bonus).forEach(function(s){G[s]=(G[s]||0)+found.bonus[s];});
+    save();
+    var bonusTxt=Object.keys(found.bonus).map(function(s){return '+'+found.bonus[s]+s.toUpperCase();}).join(' ');
+    gainXP(found.power*3,'int');
+    gainCoins(found.power*5);
+    if(found.rarity==='legendarisk') gainKC(1);
+    showFloatBubble(found.icon+' '+found.name+' fångad! '+bonusTxt+' ('+found.rarity+')','buff');
+    checkAchievements();
+  } else if(caught){
+    showFloatBubble(found.icon+' '+found.name+' hittad (redan fångad) · +'+found.power+'🪙','buff');
+    gainCoins(found.power);
+  } else {
+    showFloatBubble(found.icon+' '+found.name+' sprang iväg! Försök igen.','debuff');
+  }
+  _besSave(d);
+  _renderBes(d);
+}
+
+function openBes(){$('besPanel').classList.add('open');_renderBes();}
+function closeBes(){$('besPanel').classList.remove('open');}
+
+function _renderBes(d){
+  if(!d) d=_besGetData();
+  var caught=d.caught||[];
+  var pf=$('besProgFill');if(pf) pf.style.width=(caught.length/BES_MONSTERS.length*100)+'%';
+  var pt=$('besProgTxt');if(pt) pt.textContent=caught.length+' / '+BES_MONSTERS.length+' monster fångade';
+  var tv=$('besTotalV');if(tv) tv.textContent=d.total||0;
+  var hi=$('besHuntInfo');if(hi) hi.textContent=(d.hunts||0)+' jakter kvar idag. LCK ökar chansen!';
+  var hb=$('besHuntBtn');if(hb) hb.disabled=(d.hunts||0)<1;
+  var grid=$('besGrid');
+  if(!grid) return;
+  var lvl=G.lvl||1;
+  grid.innerHTML=BES_MONSTERS.map(function(m){
+    var isCaught=caught.indexOf(m.id)>=0;
+    var isLocked=lvl<m.minLvl;
+    var cls='bes-card'+(isCaught?' caught':isLocked?' locked':'');
+    var bonusTxt=Object.keys(m.bonus).map(function(s){return '+'+m.bonus[s]+s.toUpperCase();}).join(' ');
+    return '<div class="'+cls+'" style="--mc:rgb('+m.rgb+')">'+
+      '<div class="bes-card-icon">'+m.icon+'</div>'+
+      '<div class="bes-card-name">'+(isCaught?m.name:'???')+'</div>'+
+      '<div class="bes-card-rarity">'+m.rarity+'</div>'+
+      '<div class="bes-card-power">'+(isCaught?bonusTxt:'?')+'</div>'+
+      (isCaught?'<div class="bes-card-badge">✓</div>':'')+
+    '</div>';
+  }).join('');
 }
 
 </script>
