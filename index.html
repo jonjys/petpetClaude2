@@ -2596,6 +2596,48 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ REALM BUILDER ══ */
+.rlmb-panel{position:fixed;inset:0;background:linear-gradient(170deg,#04080e,#08100a);z-index:1141;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.rlmb-panel h2{color:#88ffaa;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #44cc66}
+.rlmb-realm{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:340px;margin:6px 0;background:rgba(5,12,8,.4);border:2px solid #1a4020;border-radius:14px;padding:10px}
+.rlmb-slot{aspect-ratio:1;background:rgba(10,25,12,.5);border:1px solid #1a4020;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;padding:4px}
+.rlmb-slot:hover{border-color:#44cc66;background:rgba(20,45,22,.6)}
+.rlmb-slot.built{border-color:#44cc66;background:rgba(20,50,20,.5)}
+.rlmb-slot .rs-icon{font-size:1.4rem}
+.rlmb-slot .rs-name{font-size:.55rem;color:#66aa66;margin-top:2px;text-align:center}
+.rlmb-slot .rs-lvl{font-size:.55rem;color:#44aa44;font-weight:700}
+.rlmb-gold{background:rgba(10,30,12,.35);border:1px solid #1a5020;border-radius:8px;padding:6px 14px;color:#88ffaa;font-size:.82rem;margin-bottom:6px;text-align:center;width:100%;max-width:320px}
+.rlmb-collect-btn{background:linear-gradient(135deg,#1a5028,#0c2614);border:1px solid #44cc66;color:#88ffaa;border-radius:10px;padding:9px 22px;font-size:.84rem;cursor:pointer;margin:4px 0;transition:all .2s}
+.rlmb-collect-btn:hover{background:linear-gradient(135deg,#2a6638,#142a1c);box-shadow:0 0 10px rgba(68,204,102,.3)}
+.rlmb-list{display:flex;flex-direction:column;gap:6px;width:100%;max-width:340px;margin-top:4px}
+.rlmb-bld{background:rgba(8,22,10,.4);border:1px solid #1a4020;border-radius:10px;padding:8px 12px;cursor:pointer;transition:all .2s}
+.rlmb-bld:hover{border-color:#44cc66;background:rgba(15,38,18,.5)}
+.rlmb-bld .rb-head{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.rlmb-bld .rb-icon{font-size:1.3rem}
+.rlmb-bld .rb-name{color:#88ffaa;font-size:.78rem;font-weight:700}
+.rlmb-bld .rb-income{color:#44cc66;font-size:.65rem;margin-left:auto}
+.rlmb-bld .rb-cost{color:#ffcc44;font-size:.63rem}
+.rlmb-bld .rb-desc{color:#508850;font-size:.62rem}
+
+/* ══ FORGE OF AGES ══ */
+.forg-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 80%,#1a0800,#070300);z-index:1140;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.forg-panel h2{color:#ff9922;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #ff6600}
+.forg-forge{width:100%;max-width:340px;background:linear-gradient(180deg,#1a0900,#0a0400);border:2px solid #883300;border-radius:16px;padding:14px;text-align:center;margin:6px 0;position:relative;overflow:hidden}
+.forg-forge::after{content:'🔥';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);font-size:2rem;opacity:.4;filter:blur(4px)}
+.forg-items{display:flex;flex-direction:column;gap:7px;width:100%;max-width:340px}
+.forg-item{background:rgba(40,15,0,.4);border:1px solid #663300;border-radius:12px;padding:10px 12px;cursor:pointer;transition:all .2s}
+.forg-item:hover{border-color:#ff9922;background:rgba(70,25,0,.5)}
+.forg-item.forged{border-color:#cc6600;background:rgba(80,30,0,.45);opacity:.65;cursor:default}
+.forg-item.locked{opacity:.35;cursor:not-allowed}
+.forg-item .fi-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.forg-item .fi-icon{font-size:1.6rem}
+.forg-item .fi-name{color:#ff9922;font-size:.82rem;font-weight:700}
+.forg-item .fi-type{font-size:.6rem;color:#aa5500;background:rgba(80,30,0,.5);padding:1px 5px;border-radius:3px;margin-left:auto}
+.forg-item .fi-mat{color:#8a6030;font-size:.65rem;margin-bottom:2px}
+.forg-item .fi-bonus{color:#ffaa44;font-size:.65rem}
+.forg-item .fi-req{color:#664422;font-size:.6rem;margin-top:2px}
+.forg-mats{background:rgba(30,12,0,.35);border:1px solid #553300;border-radius:8px;padding:6px 14px;color:#ff9922;font-size:.8rem;margin-bottom:8px;text-align:center;width:100%;max-width:320px}
+
 /* ══ MOON FESTIVAL ══ */
 .mnfst-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 10%,#050a20,#020408);z-index:1139;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .mnfst-panel h2{color:#ccddff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #8899ff}
@@ -16653,6 +16695,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <button class="sfam-collect-btn" onclick="sfamCollect()">💫 Collect Daily Blessing</button>
   <div style="color:#5577aa;font-size:.72rem;margin:4px 0 8px">Choose your spirit familiar:</div>
   <div class="sfam-familiars" id="sfamFamiliars"></div>
+</div>
+
+<!-- REALM BUILDER -->
+<div class="rlmb-panel" id="rlmbPanel" style="display:none">
+  <button onclick="closeRlmb()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#88ffaa;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🏰 Realm Builder</h2>
+  <div class="rlmb-gold" id="rlmbGold">🏅 Realm Gold: 0 | Income: 0/hr</div>
+  <div class="rlmb-realm" id="rlmbRealm"></div>
+  <button class="rlmb-collect-btn" onclick="rlmbCollect()">💰 Collect Realm Income</button>
+  <div style="color:#508850;font-size:.72rem;margin:4px 0 6px">Build structures to earn passive gold</div>
+  <div style="color:#88ffaa;font-size:.78rem;font-weight:700;margin-bottom:4px;align-self:flex-start">🏗️ Available Structures</div>
+  <div class="rlmb-list" id="rlmbList"></div>
+</div>
+
+<!-- FORGE OF AGES -->
+<div class="forg-panel" id="forgPanel" style="display:none">
+  <button onclick="closeForg()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ff9922;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>⚒️ Forge of Ages</h2>
+  <div class="forg-mats" id="forgMats">Ore: 0 | Steel: 0 | Gems: 0</div>
+  <div class="forg-forge">
+    <div style="font-size:2.8rem">⚒️</div>
+    <div style="color:#cc7710;font-size:.75rem;margin-top:4px">Visit daily to gather materials</div>
+    <button onclick="forgGather()" style="background:linear-gradient(135deg,#883300,#441800);border:1px solid #ff6600;color:#ffaa44;border-radius:8px;padding:6px 16px;font-size:.78rem;cursor:pointer;margin-top:8px">⛏️ Gather Materials</button>
+  </div>
+  <div style="color:#ff9922;font-size:.78rem;font-weight:700;margin:6px 0 4px;align-self:flex-start">🗡️ Forge Legendary Gear</div>
+  <div class="forg-items" id="forgItems"></div>
 </div>
 
 <!-- MOON FESTIVAL -->
@@ -71093,6 +71161,168 @@ function _renderMnfst(){
     <span class="mi-icon">${item.icon}</span>
     <div class="mi-info"><div class="mi-name">${item.name}</div><div class="mi-effect">${item.desc}</div><div class="mi-cost">🌙 ${item.cost} tokens${d.bought.includes(item.id)?' ✅':''}</div></div>
   </div>`).join('');
+}
+
+
+// ══ FORGE OF AGES ══
+const FORG_KEY = 'k0509_forg';
+const FORG_GEAR = [
+  {id:'g01',icon:'🗡️',name:'Iron Sword',type:'Weapon',mat:{ore:5,steel:0,gems:0},req:null,bonus:'+5 STR',apply:()=>{G.str=(G.str||10)+5;save()}},
+  {id:'g02',icon:'🛡️',name:'Steel Shield',type:'Armor',mat:{ore:4,steel:2,gems:0},req:null,bonus:'+4 AGI',apply:()=>{G.agi=(G.agi||10)+4;save()}},
+  {id:'g03',icon:'🔮',name:'Mage Staff',type:'Weapon',mat:{ore:3,steel:0,gems:3},req:null,bonus:'+6 INT',apply:()=>{G.int=(G.int||10)+6;save()}},
+  {id:'g04',icon:'⚔️',name:'Battle Axe',type:'Weapon',mat:{ore:8,steel:4,gems:0},req:'g01',bonus:'+8 STR',apply:()=>{G.str=(G.str||10)+8;save()}},
+  {id:'g05',icon:'🏹',name:'Elven Bow',type:'Weapon',mat:{ore:3,steel:3,gems:4},req:'g02',bonus:'+6 AGI +3 STR',apply:()=>{G.agi+=6;G.str+=3;save()}},
+  {id:'g06',icon:'💎',name:'Crystal Orb',type:'Offhand',mat:{ore:0,steel:4,gems:8},req:'g03',bonus:'+10 INT',apply:()=>{G.int=(G.int||10)+10;save()}},
+  {id:'g07',icon:'🦺',name:'Dragon Armor',type:'Armor',mat:{ore:10,steel:8,gems:5},req:'g04',bonus:'+6 STR +6 AGI',apply:()=>{G.str+=6;G.agi+=6;save()}},
+  {id:'g08',icon:'👑',name:'Crown of Ages',type:'Helm',mat:{ore:5,steel:5,gems:10},req:'g06',bonus:'+5 All Stats +10KC',apply:()=>{G.str+=5;G.int+=5;G.agi+=5;save();gainKC(10)}},
+  {id:'g09',icon:'🌟',name:'Celestial Blade',type:'Weapon',mat:{ore:15,steel:12,gems:8},req:'g07',bonus:'+15 STR +5 INT',apply:()=>{G.str+=15;G.int+=5;save()}},
+  {id:'g10',icon:'💫',name:'Legendary Set',type:'Set',mat:{ore:20,steel:15,gems:15},req:'g09',bonus:'+15 All Stats +20KC +1000🪙',apply:()=>{G.str+=15;G.int+=15;G.agi+=15;save();gainKC(20);gainCoins(1000)}},
+];
+function _forgData(){
+  const d=JSON.parse(localStorage.getItem(FORG_KEY)||'{}');
+  return {ore:d.ore||0,steel:d.steel||0,gems:d.gems||0,forged:d.forged||[],lastGather:d.lastGather||''};
+}
+function _forgSave(d){localStorage.setItem(FORG_KEY,JSON.stringify(d));}
+function forgGather(){
+  const d=_forgData();
+  const today=getTodayKey();
+  if(d.lastGather===today){showFloatBubble('Gathered today! Come back tomorrow.','bad');return;}
+  const ore=3+Math.floor(Math.random()*4);
+  const steel=Math.random()<0.4?1+Math.floor(Math.random()*2):0;
+  const gems=Math.random()<0.25?1:0;
+  d.ore+=ore;d.steel+=steel;d.gems+=gems;
+  d.lastGather=today;
+  _forgSave(d);
+  showFloatBubble(`⛏️ +${ore}ore ${steel>0?'+'+steel+'steel':''} ${gems>0?'+'+gems+'gem':''}`,'good');
+  _renderForg();
+}
+function forgCraft(gid){
+  const d=_forgData();
+  const gear=FORG_GEAR.find(g=>g.id===gid);
+  if(d.forged.includes(gid)){showFloatBubble('Already forged!','bad');return;}
+  if(gear.req&&!d.forged.includes(gear.req)){showFloatBubble('Forge prerequisite first!','bad');return;}
+  const m=gear.mat;
+  if(d.ore<m.ore||d.steel<m.steel||d.gems<m.gems){
+    showFloatBubble(`Need: ${m.ore}ore ${m.steel}steel ${m.gems}gems`,'bad');return;
+  }
+  d.ore-=m.ore;d.steel-=m.steel;d.gems-=m.gems;
+  d.forged.push(gid);
+  _forgSave(d);
+  gear.apply();
+  showFloatBubble(`${gear.icon} ${gear.name} forged! ${gear.bonus}`,'good');
+  checkAchievements();
+  _renderForg();
+}
+function openForg(){$('forgPanel').style.display='flex';_renderForg();}
+function closeForg(){$('forgPanel').style.display='none';}
+function _renderForg(){
+  const d=_forgData();
+  $('forgMats').textContent=`Ore: ${d.ore} | Steel: ${d.steel} | Gems: ${d.gems}`;
+  $('forgItems').innerHTML=FORG_GEAR.map(g=>{
+    const forged=d.forged.includes(g.id);
+    const reqMet=!g.req||d.forged.includes(g.req);
+    const canAfford=d.ore>=g.mat.ore&&d.steel>=g.mat.steel&&d.gems>=g.mat.gems;
+    const locked=!reqMet;
+    let cls='forg-item';
+    if(forged)cls+=' forged';
+    else if(locked)cls+=' locked';
+    const matStr=`${g.mat.ore}ore ${g.mat.steel>0?g.mat.steel+'steel ':''} ${g.mat.gems>0?g.mat.gems+'gems':''}`.trim();
+    return `<div class="${cls}" onclick="${!forged&&!locked?'forgCraft(''+g.id+'')':''}">
+      <div class="fi-head"><span class="fi-icon">${g.icon}</span><span class="fi-name">${g.name}</span><span class="fi-type">${g.type}</span></div>
+      <div class="fi-mat">Materials: ${matStr}</div>
+      <div class="fi-bonus">${g.bonus}</div>
+      ${g.req?`<div class="fi-req">Requires: ${FORG_GEAR.find(x=>x.id===g.req)?.name||g.req}</div>`:''}
+      ${forged?'<div style="color:#cc6600;font-size:.62rem;margin-top:2px">✅ Forged</div>':!locked&&canAfford?'<div style="color:#ffaa44;font-size:.62rem;margin-top:2px">✨ Ready to forge!</div>':''}
+    </div>`;
+  }).join('');
+}
+
+
+// ══ REALM BUILDER ══
+const RLMB_KEY = 'k0509_rlmb';
+const RLMB_BLDGS = [
+  {id:'farm',icon:'🌾',name:'Farm',desc:'Produces basic food income',base:5,upgCost:50,maxLvl:10},
+  {id:'mine',icon:'⛏️',name:'Mine',desc:'Extracts ore for gold',base:8,upgCost:80,maxLvl:10},
+  {id:'market',icon:'🏪',name:'Market',desc:'Boosts all income by 20%',base:0,upgCost:120,maxLvl:5,mult:true},
+  {id:'barracks',icon:'🏟️',name:'Barracks',desc:'Trains warriors for raids',base:10,upgCost:100,maxLvl:10},
+  {id:'library',icon:'📚',name:'Library',desc:'Researches better income',base:12,upgCost:150,maxLvl:8},
+  {id:'tower',icon:'🗼',name:'Watch Tower',desc:'Scouts bonus treasure',base:6,upgCost:90,maxLvl:10},
+  {id:'shrine',icon:'⛩️',name:'Shrine',desc:'Generates divine blessing',base:15,upgCost:200,maxLvl:6},
+  {id:'castle',icon:'🏰',name:'Castle',desc:'Doubles realm income',base:0,upgCost:500,maxLvl:3,mult:true},
+  {id:'portal',icon:'🌀',name:'Portal Gate',desc:'Attracts cosmic income',base:20,upgCost:300,maxLvl:5},
+];
+function _rlmbData(){
+  const d=JSON.parse(localStorage.getItem(RLMB_KEY)||'{}');
+  return {gold:d.gold||0,bldgs:d.bldgs||{},lastCollect:d.lastCollect||Date.now(),lastDay:d.lastDay||''};
+}
+function _rlmbSave(d){localStorage.setItem(RLMB_KEY,JSON.stringify(d));}
+function _rlmbIncome(d){
+  let base=0,mult=1;
+  RLMB_BLDGS.forEach(b=>{
+    const lvl=d.bldgs[b.id]||0;
+    if(lvl>0){
+      if(b.mult){mult+=0.2*lvl;}
+      else{base+=b.base*lvl;}
+    }
+  });
+  return Math.floor(base*mult);
+}
+function rlmbBuild(bid){
+  const d=_rlmbData();
+  const b=RLMB_BLDGS.find(x=>x.id===bid);
+  const lvl=d.bldgs[bid]||0;
+  if(lvl>=b.maxLvl){showFloatBubble('Max level!','bad');return;}
+  const cost=b.upgCost*(lvl+1);
+  if((G.coins||0)<cost){showFloatBubble(`Need ${cost} coins!`,'bad');return;}
+  G.coins-=cost;save();
+  d.bldgs[bid]=(lvl+1);
+  _rlmbSave(d);
+  showFloatBubble(`${b.icon} ${b.name} Lv${d.bldgs[bid]} built!`,'good');
+  _renderRlmb();
+}
+function rlmbCollect(){
+  const d=_rlmbData();
+  const income=_rlmbIncome(d);
+  if(income===0){showFloatBubble('Build structures first!','bad');return;}
+  const now=Date.now();
+  const hrs=Math.min(8,(now-d.lastCollect)/(1000*60*60));
+  const earned=Math.floor(income*hrs);
+  if(earned<1){showFloatBubble('Come back in a bit!','bad');return;}
+  gainCoins(earned);
+  d.lastCollect=now;
+  _rlmbSave(d);
+  showFloatBubble(`💰 +${earned} Realm Gold!`,'good');
+  checkAchievements();
+  _renderRlmb();
+}
+function openRlmb(){$('rlmbPanel').style.display='flex';_renderRlmb();}
+function closeRlmb(){$('rlmbPanel').style.display='none';}
+function _renderRlmb(){
+  const d=_rlmbData();
+  const income=_rlmbIncome(d);
+  const hrs=Math.min(8,(Date.now()-d.lastCollect)/(1000*60*60));
+  const pending=Math.floor(income*hrs);
+  $('rlmbGold').textContent=`🏅 Pending: ${pending} | Income: ${income}/hr`;
+  // Realm grid (9 slots = all buildings)
+  $('rlmbRealm').innerHTML=RLMB_BLDGS.map(b=>{
+    const lvl=d.bldgs[b.id]||0;
+    return `<div class="rlmb-slot ${lvl>0?'built':''}" onclick="rlmbBuild('${b.id}')">
+      <div class="rs-icon">${lvl>0?b.icon:'+'}</div>
+      <div class="rs-name">${lvl>0?b.name:'Empty'}</div>
+      ${lvl>0?`<div class="rs-lvl">Lv${lvl}</div>`:''}
+    </div>`;
+  }).join('');
+  $('rlmbList').innerHTML=RLMB_BLDGS.map(b=>{
+    const lvl=d.bldgs[b.id]||0;
+    const cost=b.upgCost*(lvl+1);
+    const maxed=lvl>=b.maxLvl;
+    const canAfford=(G.coins||0)>=cost;
+    return `<div class="rlmb-bld" onclick="rlmbBuild('${b.id}')">
+      <div class="rb-head"><span class="rb-icon">${b.icon}</span><span class="rb-name">${b.name} Lv${lvl}/${b.maxLvl}</span><span class="rb-income">${b.mult?'×1.2/lvl':'+'+b.base+'/hr/lvl'}</span></div>
+      <div class="rb-desc">${b.desc}</div>
+      <div class="rb-cost">${maxed?'MAX':canAfford?`✨ Upgrade: ${cost}🪙`:`🔒 ${cost}🪙 needed`}</div>
+    </div>`;
+  }).join('');
 }
 
 </script>
