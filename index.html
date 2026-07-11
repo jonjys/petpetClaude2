@@ -1715,6 +1715,105 @@ textarea.inp { resize:none;min-height:72px; }
 .rest-stat-l{font:600 7px var(--ff-body);color:rgba(255,140,0,.3)}
 .rest-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
 
+
+
+
+/* ══ ANCIENT PROPHECY ══ */
+.proph-panel{position:fixed;inset:0;background:#030201;z-index:1089;display:none;flex-direction:column;overflow:hidden}
+.proph-panel.open{display:flex}
+.proph-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060402,#030201)}
+.proph-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc44,#ff8800,#ffaa00,#ffcc44);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:prophShim 4s linear infinite}
+@keyframes prophShim{0%{background-position:0%}100%{background-position:300%}}
+.proph-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.proph-stone{background:radial-gradient(ellipse at 50% 30%,rgba(255,200,68,.1),transparent);border:2px solid rgba(255,200,68,.2);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center}
+.proph-stone-icon{font-size:52px;display:block;margin-bottom:6px}
+.proph-stone-title{font:700 8px var(--ff-head);color:rgba(255,200,68,.4);letter-spacing:2px;margin-bottom:4px}
+.proph-text{font:700 14px var(--ff-head);color:rgba(255,220,100,.9);line-height:1.5;margin-bottom:8px;font-style:italic}
+.proph-bonus{font:700 10px var(--ff-head);color:rgba(255,200,68,.6);margin-bottom:6px}
+.proph-read-btn{background:linear-gradient(135deg,#201000,#604000);border:1.5px solid rgba(255,200,68,.4);border-radius:12px;padding:10px 20px;font:800 11px var(--ff-head);color:rgba(255,220,100,.9);cursor:pointer}
+.proph-read-btn:disabled{opacity:.3;cursor:default}
+.proph-history-lbl{font:700 8px var(--ff-head);color:rgba(255,200,68,.35);letter-spacing:1px;margin-bottom:8px}
+.proph-history{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.proph-hist-item{background:rgba(255,255,255,.02);border:1px solid rgba(255,200,68,.1);border-radius:12px;padding:9px 12px;display:flex;gap:10px;align-items:flex-start}
+.proph-hist-date{font:700 7px var(--ff-head);color:rgba(255,200,68,.3);flex-shrink:0;padding-top:1px}
+.proph-hist-txt{font:600 8px var(--ff-body);color:rgba(255,200,100,.5);line-height:1.5}
+.proph-hist-bon{font:700 8px var(--ff-head);color:rgba(255,200,68,.4)}
+.proph-stats{display:flex;gap:5px;margin-bottom:8px}
+.proph-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.proph-stat-v{font:800 16px var(--ff-head);color:#ffaa00}
+.proph-stat-l{font:600 7px var(--ff-body);color:rgba(255,170,0,.3)}
+.proph-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
+/* ══ PIRATE VOYAGE ══ */
+.pirat-panel{position:fixed;inset:0;background:#010508;z-index:1088;display:none;flex-direction:column;overflow:hidden}
+.pirat-panel.open{display:flex}
+.pirat-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#020a10,#010508)}
+.pirat-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00aaff,#00ffaa,#0044ff,#00aaff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:piratShim 3s linear infinite}
+@keyframes piratShim{0%{background-position:0%}100%{background-position:300%}}
+.pirat-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.pirat-ship{background:radial-gradient(ellipse at 50% 60%,rgba(0,170,255,.08),transparent);border:2px solid rgba(0,170,255,.18);border-radius:22px;padding:14px;margin-bottom:12px;text-align:center}
+.pirat-ship-icon{font-size:48px;display:block;margin-bottom:4px}
+.pirat-ship-name{font:800 16px var(--ff-head);color:rgba(0,220,255,.9)}
+.pirat-coord{font:700 9px var(--ff-head);color:rgba(0,170,255,.5);margin-bottom:6px}
+.pirat-fuel{background:rgba(0,0,0,.3);border-radius:5px;height:7px;overflow:hidden;max-width:180px;margin:0 auto 3px}
+.pirat-fuel-fill{height:100%;background:linear-gradient(90deg,#00aaff,#00ffaa);border-radius:5px;transition:width .3s}
+.pirat-fuel-txt{font:600 8px var(--ff-body);color:rgba(0,170,255,.4)}
+.pirat-action-row{display:flex;gap:6px;margin-top:8px}
+.pirat-sail-btn{flex:1;background:rgba(0,170,255,.07);border:1.5px solid rgba(0,170,255,.25);border-radius:12px;padding:10px;font:800 11px var(--ff-head);color:rgba(0,220,255,.9);cursor:pointer}
+.pirat-sail-btn:disabled{opacity:.3;cursor:default}
+.pirat-islands-lbl{font:700 8px var(--ff-head);color:rgba(0,170,255,.4);letter-spacing:1px;margin-bottom:8px}
+.pirat-islands{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.pirat-isle{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+.pirat-isle.explored{opacity:.35}
+.pirat-isle.current{border-color:rgba(0,170,255,.35);background:rgba(0,170,255,.05)}
+.pirat-isle-icon{font-size:28px;flex-shrink:0}
+.pirat-isle-body{flex:1}
+.pirat-isle-name{font:700 11px var(--ff-head);color:rgba(0,220,255,.7);margin-bottom:2px}
+.pirat-isle-desc{font:600 8px var(--ff-body);color:rgba(0,170,255,.4);margin-bottom:2px}
+.pirat-isle-rew{font:700 8px var(--ff-head);color:rgba(0,220,255,.5)}
+.pirat-sail-isle-btn{background:rgba(0,170,255,.07);border:1px solid rgba(0,170,255,.25);border-radius:9px;padding:7px 12px;font:700 9px var(--ff-head);color:rgba(0,220,255,.8);cursor:pointer;flex-shrink:0}
+.pirat-sail-isle-btn:disabled{opacity:.3;cursor:default}
+.pirat-stats{display:flex;gap:5px;margin-bottom:8px}
+.pirat-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.pirat-stat-v{font:800 16px var(--ff-head);color:#00aaff}
+.pirat-stat-l{font:600 7px var(--ff-body);color:rgba(0,170,255,.3)}
+.pirat-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
+/* ══ ENCHANT LAB ══ */
+.ench-panel{position:fixed;inset:0;background:#02020a;z-index:1087;display:none;flex-direction:column;overflow:hidden}
+.ench-panel.open{display:flex}
+.ench-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#04041a,#02020a)}
+.ench-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#00ffcc,#0088ff,#8844ff,#00ffcc);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:enchShim 3s linear infinite}
+@keyframes enchShim{0%{background-position:0%}100%{background-position:300%}}
+.ench-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.ench-pet{background:radial-gradient(ellipse at 50% 30%,rgba(0,255,204,.08),transparent);border:2px solid rgba(0,255,204,.15);border-radius:22px;padding:14px;margin-bottom:12px;text-align:center}
+.ench-pet-lbl{font:700 7px var(--ff-head);color:rgba(0,255,204,.3);letter-spacing:2px;margin-bottom:6px}
+.ench-slots{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.ench-slot{width:52px;height:52px;border:2px dashed rgba(0,255,204,.2);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
+.ench-slot.filled{border-style:solid;border-color:rgba(0,255,204,.5);background:rgba(0,255,204,.06)}
+.ench-slot-i{font-size:20px;margin-bottom:1px}
+.ench-slot-n{font:600 6px var(--ff-body);color:rgba(0,255,204,.5)}
+.ench-power{font:700 9px var(--ff-head);color:rgba(0,255,204,.4);margin-top:4px}
+.ench-spells-lbl{font:700 8px var(--ff-head);color:rgba(0,255,204,.4);letter-spacing:1px;margin-bottom:8px}
+.ench-spells{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.ench-spell{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.ench-spell:hover{background:rgba(0,255,204,.04);border-color:rgba(0,255,204,.2)}
+.ench-spell.active{border-color:rgba(0,255,204,.4);background:rgba(0,255,204,.06)}
+.ench-spell.locked{opacity:.3;cursor:default}
+.ench-spell-icon{font-size:26px;flex-shrink:0}
+.ench-spell-body{flex:1}
+.ench-spell-name{font:700 11px var(--ff-head);color:rgba(0,220,180,.8);margin-bottom:2px}
+.ench-spell-desc{font:600 8px var(--ff-body);color:rgba(0,200,160,.4);margin-bottom:2px}
+.ench-spell-eff{font:700 8px var(--ff-head);color:rgba(0,255,204,.5)}
+.ench-apply-btn{background:rgba(0,255,204,.07);border:1px solid rgba(0,255,204,.25);border-radius:9px;padding:7px 12px;font:700 9px var(--ff-head);color:rgba(0,220,180,.8);cursor:pointer;flex-shrink:0}
+.ench-apply-btn.on-btn{background:rgba(0,255,204,.12);border-color:rgba(0,255,204,.4);color:rgba(0,255,204,.9)}
+.ench-apply-btn:disabled{opacity:.3;cursor:default}
+.ench-stats{display:flex;gap:5px;margin-bottom:8px}
+.ench-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.ench-stat-v{font:800 16px var(--ff-head);color:#00ffcc}
+.ench-stat-l{font:600 7px var(--ff-body);color:rgba(0,255,204,.3)}
+.ench-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
 /* ══ BOUNTY HUNTER ══ */
 .bnty-panel{position:fixed;inset:0;background:#050300;z-index:1084;display:none;flex-direction:column;overflow:hidden}
 .bnty-panel.open{display:flex}
@@ -13396,6 +13495,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openProph()"><div class="ddr-i">📜</div>Uralda Profetian</div>
+          <div class="ddr" onclick="cM();openPirat()"><div class="ddr-i">⚓</div>Sjörövaren</div>
+          <div class="ddr" onclick="cM();openEnch2()"><div class="ddr-i">✨</div>Förtrollningslabb</div>
           <div class="ddr" onclick="cM();openBnty2()"><div class="ddr-i">🎯</div>Prisjägaren</div>
           <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
@@ -13503,6 +13605,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openProph()"><div class="ddr-i">📜</div>Uralda Profetian</div>
+          <div class="ddr" onclick="cM();openPirat()"><div class="ddr-i">⚓</div>Sjörövaren</div>
+          <div class="ddr" onclick="cM();openEnch2()"><div class="ddr-i">✨</div>Förtrollningslabb</div>
           <div class="ddr" onclick="cM();openBnty2()"><div class="ddr-i">🎯</div>Prisjägaren</div>
           <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
@@ -13593,6 +13698,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openProph()"><div class="ddr-i">📜</div>Uralda Profetian</div>
+          <div class="ddr" onclick="cM();openPirat()"><div class="ddr-i">⚓</div>Sjörövaren</div>
+          <div class="ddr" onclick="cM();openEnch2()"><div class="ddr-i">✨</div>Förtrollningslabb</div>
           <div class="ddr" onclick="cM();openBnty2()"><div class="ddr-i">🎯</div>Prisjägaren</div>
           <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
@@ -13723,6 +13831,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openProph()"><div class="ddr-i">📜</div>Uralda Profetian</div>
+          <div class="ddr" onclick="cM();openPirat()"><div class="ddr-i">⚓</div>Sjörövaren</div>
+          <div class="ddr" onclick="cM();openEnch2()"><div class="ddr-i">✨</div>Förtrollningslabb</div>
           <div class="ddr" onclick="cM();openBnty2()"><div class="ddr-i">🎯</div>Prisjägaren</div>
           <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
@@ -14466,6 +14577,85 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="rest-menu-lbl">MENYN — välj rätt att servera</div>
     <div class="rest-menu" id="restMenu"></div>
     <div class="rest-info">Matcha kundens beställning för maximal dricks! Sällsynta rätter ger extra bonusar. 🍽️</div>
+  </div>
+</div>
+
+
+
+
+<!-- ANCIENT PROPHECY -->
+<div class="proph-panel" id="prophPanel">
+  <div class="proph-header">
+    <div class="proph-title">📜 DEN URALDA PROFETIAN</div>
+    <button class="close-btn" onclick="closeProph()">✕</button>
+  </div>
+  <div class="proph-scroll">
+    <div class="proph-stats">
+      <div class="proph-stat-box"><div class="proph-stat-v" id="prophTotalV">0</div><div class="proph-stat-l">Profetior</div></div>
+      <div class="proph-stat-box"><div class="proph-stat-v" id="prophFateV">0</div><div class="proph-stat-l">Ödespoäng</div></div>
+      <div class="proph-stat-box"><div class="proph-stat-v" id="prophStreakV">0</div><div class="proph-stat-l">Dagar rad</div></div>
+    </div>
+    <div class="proph-stone">
+      <span class="proph-stone-icon" id="prophIcon">📜</span>
+      <div class="proph-stone-title">DAGENS PROFETIA</div>
+      <div class="proph-text" id="prophText">Tysta stenarna väntar på att avslöja sin hemlighet...</div>
+      <div class="proph-bonus" id="prophBonus"></div>
+      <button class="proph-read-btn" id="prophReadBtn" onclick="prophRead()">Läs Profetian</button>
+    </div>
+    <div class="proph-history-lbl">TIDIGARE PROFETIOR</div>
+    <div class="proph-history" id="prophHistory"></div>
+    <div class="proph-info">Profetian avslöjar ditt öde varje dag! Varje profetia ger unika stats och belöningar. 📜</div>
+  </div>
+</div>
+
+<!-- PIRATE VOYAGE -->
+<div class="pirat-panel" id="piratPanel">
+  <div class="pirat-header">
+    <div class="pirat-title">⚓ SJORÖVAREN</div>
+    <button class="close-btn" onclick="closePirat()">✕</button>
+  </div>
+  <div class="pirat-scroll">
+    <div class="pirat-stats">
+      <div class="pirat-stat-box"><div class="pirat-stat-v" id="piratVoyV">0</div><div class="pirat-stat-l">Resor</div></div>
+      <div class="pirat-stat-box"><div class="pirat-stat-v" id="piratIsleV">0</div><div class="pirat-stat-l">Öar</div></div>
+      <div class="pirat-stat-box"><div class="pirat-stat-v" id="piratGoldV">0</div><div class="pirat-stat-l">Guldfynd</div></div>
+    </div>
+    <div class="pirat-ship">
+      <span class="pirat-ship-icon">⛵</span>
+      <div class="pirat-ship-name">Havstjärnan</div>
+      <div class="pirat-coord" id="piratCoord">Hemmahamn</div>
+      <div class="pirat-fuel-txt" id="piratFuelTxt">Vindruta: full</div>
+      <div class="pirat-fuel"><div class="pirat-fuel-fill" id="piratFuelFill" style="width:100%"></div></div>
+      <div class="pirat-action-row">
+        <button class="pirat-sail-btn" id="piratSailBtn" onclick="piratSailRandom()">Segla ut!</button>
+      </div>
+    </div>
+    <div class="pirat-islands-lbl">KÄNDA ÖARNA</div>
+    <div class="pirat-islands" id="piratIslands"></div>
+    <div class="pirat-info">Segla till okanda öar och samla skatter! Piratbataljer ger massiva belöningar. Vinden ater pa 1h. ⚓</div>
+  </div>
+</div>
+
+<!-- ENCHANT LAB -->
+<div class="ench-panel" id="enchPanel">
+  <div class="ench-header">
+    <div class="ench-title">✨ FÖRTROLLNINGSLABBET</div>
+    <button class="close-btn" onclick="closeEnch()">✕</button>
+  </div>
+  <div class="ench-scroll">
+    <div class="ench-stats">
+      <div class="ench-stat-box"><div class="ench-stat-v" id="ench2TotalV">0</div><div class="ench-stat-l">Totalt</div></div>
+      <div class="ench-stat-box"><div class="ench-stat-v" id="ench2ActiveV">0</div><div class="ench-stat-l">Aktiva</div></div>
+      <div class="ench-stat-box"><div class="ench-stat-v" id="ench2PowerV">0</div><div class="ench-stat-l">Kraft</div></div>
+    </div>
+    <div class="ench-pet">
+      <div class="ench-pet-lbl">AKTIVA FÖRTROLLNINGAR (max 5)</div>
+      <div class="ench-slots" id="ench2Slots"></div>
+      <div class="ench-power" id="ench2PowerTxt">Total förtrollningskraft: 0</div>
+    </div>
+    <div class="ench-spells-lbl">TILLGÄNGLIGA FÖRTROLLNINGAR</div>
+    <div class="ench-spells" id="ench2Spells"></div>
+    <div class="ench-info">Aktivera förtrollningar för permanenta stat-bonusar. Max 5 aktiva. Sällsynta ger massiva effekter! ✨</div>
   </div>
 </div>
 
@@ -18107,10 +18297,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- ENCHANTING FORGE -->
-<div class="ench-panel" id="enchPanel">
+<div class="ench-panel" id="ench2Panel">
   <div class="ench-header">
     <div class="ench-title">✨ ENCHANTING FORGE</div>
-    <button class="close-btn" onclick="closeEnch()">✕</button>
+    <button class="close-btn" onclick="closeEnch2()">✕</button>
   </div>
   <div class="ench-scroll">
     <div class="ench-total">
@@ -63301,6 +63491,303 @@ function _renderGach2(d){
         '<div class="gach-coll-qty">'+(owned?'x'+qty:'')+'</div>'+
       '</div>';
     }).join('');
+  }
+}
+
+
+// ENCHANT LAB
+const ENCH2_KEY = 'k0509_ench2';
+const ENCH2_SPELLS = [
+  {id:'swift',    icon:'W', name:'Vindfort',        desc:'Vinden fyller benen med kraft',  bonus:{agi:3},           power:15, cost:80,  minLvl:1},
+  {id:'iron',     icon:'I', name:'Järnhud',         desc:'Huden hadrnar som metal',        bonus:{end:4},           power:18, cost:100, minLvl:1},
+  {id:'flame',    icon:'F', name:'Eldblod',         desc:'Eld pumpar genom adorna',        bonus:{str:4},           power:20, cost:120, minLvl:2},
+  {id:'lunar',    icon:'L', name:'Manstyrka',       desc:'Manen lader intellektet',        bonus:{int:4,lck:2},     power:25, cost:160, minLvl:3},
+  {id:'shadow',   icon:'S', name:'Skuggsteg',       desc:'Rorelser doljs i skuggor',       bonus:{agi:5,lck:3},     power:30, cost:200, minLvl:4},
+  {id:'ancient',  icon:'A', name:'Uraldersmagi',    desc:'Urgammal kraft vaknades',        bonus:{str:5,int:4,end:3},power:40,cost:300, minLvl:6},
+  {id:'celestial',icon:'C', name:'Himmelsk Aning',  desc:'Stjarnornas kraft kanalad',      bonus:{lck:6,int:5},     power:45, cost:400, minLvl:8},
+  {id:'divine',   icon:'D', name:'Gudomlig Vakt',   desc:'Gudarna vakar over den valde',   bonus:{str:6,agi:6,end:6,int:6,lck:6},power:80,cost:800,minLvl:15},
+];
+
+function _ench2Data(){try{return JSON.parse(localStorage.getItem(ENCH2_KEY)||'null');}catch(e){return null;}}
+function _ench2Save(d){localStorage.setItem(ENCH2_KEY,JSON.stringify(d));}
+function _ench2GetData(){
+  var d=_ench2Data();
+  if(!d) d={active:[],totalApplied:0,totalPower:0};
+  return d;
+}
+
+function ench2Toggle(spellId){
+  var d=_ench2GetData();
+  var spell=ENCH2_SPELLS.find(function(s){return s.id===spellId;});
+  if(!spell) return;
+  if((G.lvl||1)<spell.minLvl){showFloatBubble('Niva '+spell.minLvl+' kravs!','debuff');return;}
+  var idx=d.active.indexOf(spellId);
+  if(idx>=0){
+    d.active.splice(idx,1);
+    showFloatBubble(spell.icon+' '+spell.name+' avaktiverad','buff');
+  } else {
+    if(d.active.length>=5){showFloatBubble('Max 5 aktiva fortrollningar!','debuff');return;}
+    if((G.coins||0)<spell.cost){showFloatBubble('Behover '+spell.cost+' mynt!','debuff');return;}
+    gainCoins(-spell.cost);
+    d.active.push(spellId);
+    d.totalApplied=(d.totalApplied||0)+1;
+    Object.keys(spell.bonus).forEach(function(s){G[s]=(G[s]||0)+spell.bonus[s];});
+    save();
+    var bonusTxt=Object.keys(spell.bonus).map(function(s){return '+'+spell.bonus[s]+s.toUpperCase();}).join(' ');
+    showFloatBubble(spell.icon+' '+spell.name+' aktiverad! '+bonusTxt,'buff');
+    checkAchievements();
+  }
+  d.totalPower=d.active.reduce(function(sum,id){
+    var sp=ENCH2_SPELLS.find(function(s){return s.id===id;});
+    return sum+(sp?sp.power:0);
+  },0);
+  _ench2Save(d);
+  _renderEnch2(d);
+}
+
+function openEnch2(){$('ench2Panel').classList.add('open');_renderEnch2(_ench2GetData());}
+function closeEnch2(){$('ench2Panel').classList.remove('open');}
+
+function _renderEnch2(d){
+  if(!d) d=_ench2GetData();
+  var tv=$('ench2TotalV');if(tv) tv.textContent=d.totalApplied||0;
+  var av=$('ench2ActiveV');if(av) av.textContent=d.active.length;
+  var pv=$('ench2PowerV');if(pv) pv.textContent=d.totalPower||0;
+  var pt=$('ench2PowerTxt');if(pt) pt.textContent='Total fortrollningskraft: '+(d.totalPower||0);
+  var slots=$('ench2Slots');
+  if(slots){
+    var activeSpells=d.active.map(function(id){return ENCH2_SPELLS.find(function(s){return s.id===id;});}).filter(Boolean);
+    var html='';
+    for(var i=0;i<5;i++){
+      var sp=activeSpells[i];
+      html+='<div class="ench-slot'+(sp?' filled':'')+'">';
+      if(sp) html+='<div class="ench-slot-i">'+sp.icon+'</div><div class="ench-slot-n">'+sp.name.substring(0,8)+'</div>';
+      html+='</div>';
+    }
+    slots.innerHTML=html;
+  }
+  var lvl=G.lvl||1;
+  var spells=$('ench2Spells');
+  if(spells){
+    spells.innerHTML=ENCH2_SPELLS.map(function(spell){
+      var isActive=d.active.indexOf(spell.id)>=0;
+      var isLocked=lvl<spell.minLvl;
+      var cls='ench-spell'+(isActive?' active':isLocked?' locked':'');
+      var bonusTxt=Object.keys(spell.bonus).map(function(s){return '+'+spell.bonus[s]+s.toUpperCase();}).join(' ');
+      return '<div class="'+cls+'">'+
+        '<div class="ench-spell-icon">'+spell.icon+'</div>'+
+        '<div class="ench-spell-body">'+
+          '<div class="ench-spell-name">'+spell.name+(isLocked?' (Niva '+spell.minLvl+')':'')+'</div>'+
+          '<div class="ench-spell-desc">'+spell.desc+'</div>'+
+          '<div class="ench-spell-eff">'+bonusTxt+' · Kraft '+spell.power+'</div>'+
+        '</div>'+
+        '<button class="ench-apply-btn'+(isActive?' on-btn':'')+'" onclick="ench2Toggle(\''+spell.id+'\')" '+(isLocked?'disabled':'')+'>'+
+          (isActive?'Aktiv':spell.cost+' mynt')+
+        '</button>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// PIRATE VOYAGE
+const PIRAT_KEY = 'k0509_pirat';
+const PIRAT_ISLANDS = [
+  {id:'pearl',   icon:'P', name:'Parlokn',     desc:'En o full av parlor och kristaller',    coins:120, xp:80,  bonus:{lck:2},     fuel:20, minLvl:1},
+  {id:'skull',   icon:'S', name:'Skalle-on',   desc:'Farlig piratbas med guldskatter',       coins:200, xp:130, bonus:{str:2},     fuel:30, minLvl:2},
+  {id:'volcano', icon:'V', name:'Vulkano',     desc:'En brinnande o med magiska mineraler',  coins:280, xp:180, bonus:{str:3,end:2},fuel:40, minLvl:4},
+  {id:'ghost',   icon:'G', name:'Spookon',     desc:'En obebodd spookol full av mysterier',  coins:350, xp:220, bonus:{int:3,lck:2},fuel:50, minLvl:6},
+  {id:'dragon',  icon:'D', name:'Drakon',      desc:'En drake vaktar ett legendarskt skatt', coins:500, xp:330, bonus:{str:4,end:4,lck:3},fuel:70,minLvl:10},
+  {id:'cosmos',  icon:'C', name:'Kosmison',    desc:'En o bortom tid och rum',               coins:800, xp:500, bonus:{int:6,lck:6},fuel:100,minLvl:15,kc:1},
+];
+
+function _piratData(){try{return JSON.parse(localStorage.getItem(PIRAT_KEY)||'null');}catch(e){return null;}}
+function _piratSave(d){localStorage.setItem(PIRAT_KEY,JSON.stringify(d));}
+function _piratGetData(){
+  var d=_piratData();
+  if(!d) d={fuel:100,lastFuelAt:Date.now(),explored:{},voyages:0,totalGold:0};
+  // Recharge fuel over time (100 fuel per hour)
+  var now=Date.now();
+  var elapsed=(now-d.lastFuelAt)/1000;
+  var regained=Math.floor(elapsed/36); // 100 per hour = 1 per 36s
+  if(regained>0){
+    d.fuel=Math.min(100,d.fuel+regained);
+    d.lastFuelAt=now;
+  }
+  return d;
+}
+
+function piratSailTo(isleId){
+  var d=_piratGetData();
+  var isle=PIRAT_ISLANDS.find(function(i){return i.id===isleId;});
+  if(!isle) return;
+  if((G.lvl||1)<isle.minLvl){showFloatBubble('Niva '+isle.minLvl+' kravs!','debuff');return;}
+  if(d.fuel<isle.fuel){showFloatBubble('Inte tillrackligt med vind! ('+isle.fuel+' kravs)','debuff');return;}
+  d.fuel-=isle.fuel;
+  d.lastFuelAt=Date.now();
+  d.voyages=(d.voyages||0)+1;
+  // Combat chance
+  var myPower=(G.str||0)+(G.agi||0)+(G.lck||0)*0.5;
+  var won=Math.random()<0.6+myPower*0.005;
+  if(won){
+    d.explored[isleId]=(d.explored[isleId]||0)+1;
+    d.totalGold=(d.totalGold||0)+isle.coins;
+    gainCoins(isle.coins);
+    gainXP(isle.xp,'agi');
+    Object.keys(isle.bonus).forEach(function(s){G[s]=(G[s]||0)+isle.bonus[s];});
+    save();
+    if(isle.kc) gainKC(isle.kc);
+    var bonusTxt=Object.keys(isle.bonus).map(function(s){return '+'+isle.bonus[s]+s.toUpperCase();}).join(' ');
+    showFloatBubble(isle.icon+' '+isle.name+' erövrad! +'+isle.coins+' mynt '+bonusTxt,'buff');
+  } else {
+    gainCoins(Math.floor(isle.coins*0.1));
+    gainXP(20,'agi');
+    showFloatBubble(isle.icon+' Pirater jagade bort oss! +'+Math.floor(isle.coins*0.1)+' mynt','debuff');
+  }
+  _piratSave(d);
+  checkAchievements();
+  _renderPirat(d);
+}
+
+function piratSailRandom(){
+  var d=_piratGetData();
+  var lvl=G.lvl||1;
+  var avail=PIRAT_ISLANDS.filter(function(i){return i.minLvl<=lvl&&d.fuel>=i.fuel;});
+  if(avail.length===0){showFloatBubble('Ingen o nar eller for lite vind!','debuff');return;}
+  var isle=avail[Math.floor(Math.random()*avail.length)];
+  piratSailTo(isle.id);
+}
+
+function openPirat(){$('piratPanel').classList.add('open');_renderPirat(_piratGetData());}
+function closePirat(){$('piratPanel').classList.remove('open');}
+
+function _renderPirat(d){
+  if(!d) d=_piratGetData();
+  var vv=$('piratVoyV');if(vv) vv.textContent=d.voyages||0;
+  var iv=$('piratIsleV');if(iv) iv.textContent=Object.keys(d.explored).length;
+  var gv=$('piratGoldV');if(gv) gv.textContent=d.totalGold||0;
+  var ff=$('piratFuelFill');if(ff) ff.style.width=d.fuel+'%';
+  var ft=$('piratFuelTxt');if(ft) ft.textContent='Vindstyrka: '+d.fuel+'/100';
+  var sb=$('piratSailBtn');if(sb) sb.disabled=d.fuel<20;
+  var lvl=G.lvl||1;
+  var islands=$('piratIslands');
+  if(islands){
+    islands.innerHTML=PIRAT_ISLANDS.map(function(isle){
+      var cnt=d.explored[isle.id]||0;
+      var locked=(G.lvl||1)<isle.minLvl;
+      var noFuel=d.fuel<isle.fuel;
+      var cls='pirat-isle'+(cnt>0&&!locked?' current':'');
+      if(locked) cls='pirat-isle';
+      var bonusTxt=Object.keys(isle.bonus).map(function(s){return '+'+isle.bonus[s]+s.toUpperCase();}).join(' ');
+      return '<div class="'+cls+'">'+
+        '<div class="pirat-isle-icon">'+isle.icon+'</div>'+
+        '<div class="pirat-isle-body">'+
+          '<div class="pirat-isle-name">'+isle.name+(locked?' (Niva '+isle.minLvl+')':'')+'</div>'+
+          '<div class="pirat-isle-desc">'+isle.desc+'</div>'+
+          '<div class="pirat-isle-rew">'+bonusTxt+' · +'+isle.coins+' mynt · Vind: '+isle.fuel+'</div>'+
+        '</div>'+
+        (!locked?'<button class="pirat-sail-isle-btn" onclick="piratSailTo(\''+isle.id+'\')" '+(noFuel?'disabled':'')+'>Segla</button>':'')+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// ANCIENT PROPHECY
+const PROPH_KEY = 'k0509_proph';
+const PROPH_TEXTS = [
+  {text:'Stjärnorna vänder sig mot den modige. Styrka och uthallighet kalls fram ur djupet.',        icon:'X', bonus:{str:3,end:2},   coins:80, fate:5},
+  {text:'Vindarna viskar hemliga sanningar. Intellektet skarpas och lyckan leendes.',               icon:'Y', bonus:{int:3,lck:2},   coins:90, fate:6},
+  {text:'Draken sover i bergen. Den vakne tar hans kraft innan solen gar ned.',                     icon:'Z', bonus:{str:4},          coins:70, fate:4},
+  {text:'Manen lyser pa det dolda. Rörelseförmagan och finessen nar sin höjdpunkt i natt.',        icon:'A', bonus:{agi:4,lck:1},   coins:85, fate:5},
+  {text:'Urtidens kraft vaknades i dina lungor. Uthalligheten ökas och kroppen halas.',            icon:'B', bonus:{end:5},          coins:75, fate:5},
+  {text:'Den gudomliga visdomens öga oppnas. Alla krafter samlas i ett aldrig sett ögonblick.',    icon:'C', bonus:{int:4,lck:3,agi:2},coins:120,fate:8,kc:1},
+  {text:'Eldgudarna drar nars. Din kraft brinner med tusenfalt eld och din ande starks.',          icon:'D', bonus:{str:5,end:3},   coins:100, fate:7},
+  {text:'Det kosmiska hjulet snurrar till din fördel. Allting star i linje for succe.',            icon:'E', bonus:{lck:5,int:2},   coins:110, fate:7},
+  {text:'Havets djup avslöjar sin hemlighet. Snabbhet och intution nar nya höjder.',              icon:'F', bonus:{agi:5,int:2},   coins:95, fate:6},
+  {text:'Den legendariske hjälten aterfods i dig. Alla stats ökar nagot i ljuset av ödet.',       icon:'G', bonus:{str:2,agi:2,int:2,lck:2,end:2},coins:150,fate:10,kc:1},
+];
+
+function _prophData(){try{return JSON.parse(localStorage.getItem(PROPH_KEY)||'null');}catch(e){return null;}}
+function _prophSave(d){localStorage.setItem(PROPH_KEY,JSON.stringify(d));}
+function _prophGetData(){
+  var d=_prophData();
+  if(!d) d={lastDay:'',history:[],total:0,fate:0,streak:0};
+  return d;
+}
+
+function prophRead(){
+  var d=_prophGetData();
+  var today=getTodayKey();
+  if(d.lastDay===today){showFloatBubble('Du har redan last dagens profetia!','debuff');return;}
+  // Pick prophecy based on day + level
+  var seed=0;
+  for(var i=0;i<today.length;i++) seed+=today.charCodeAt(i);
+  seed+=(G.lvl||1)*3+(G.lck||0);
+  var proph=PROPH_TEXTS[seed%PROPH_TEXTS.length];
+  // Apply bonus
+  Object.keys(proph.bonus).forEach(function(s){G[s]=(G[s]||0)+proph.bonus[s];});
+  save();
+  gainCoins(proph.coins);
+  gainXP(40,'int');
+  if(proph.kc) gainKC(proph.kc);
+  // Update streak
+  var yesterday=new Date(Date.now()-86400000);
+  var yd=yesterday.getFullYear()+'-'+String(yesterday.getMonth()+1).padStart(2,'0')+'-'+String(yesterday.getDate()).padStart(2,'0');
+  d.streak=(d.lastDay===yd)?(d.streak||0)+1:1;
+  d.lastDay=today;
+  d.total=(d.total||0)+1;
+  d.fate=(d.fate||0)+proph.fate;
+  // Store in history
+  d.history.unshift({date:today,text:proph.text,bonus:proph.bonus,coins:proph.coins,icon:proph.icon});
+  if(d.history.length>7) d.history=d.history.slice(0,7);
+  var bonusTxt=Object.keys(proph.bonus).map(function(s){return '+'+proph.bonus[s]+s.toUpperCase();}).join(' ');
+  showFloatBubble('Profetia lasta! '+bonusTxt+' +'+proph.coins+' mynt','buff');
+  _prophSave(d);
+  checkAchievements();
+  _renderProph(d,proph);
+}
+
+function openProph(){$('prophPanel').classList.add('open');_renderProph(_prophGetData(),null);}
+function closeProph(){$('prophPanel').classList.remove('open');}
+
+function _renderProph(d,todayProph){
+  if(!d) d=_prophGetData();
+  var tv=$('prophTotalV');if(tv) tv.textContent=d.total||0;
+  var fv=$('prophFateV');if(fv) fv.textContent=d.fate||0;
+  var sv=$('prophStreakV');if(sv) sv.textContent=d.streak||0;
+  var today=getTodayKey();
+  var hasRead=d.lastDay===today;
+  var rb=$('prophReadBtn');if(rb) rb.disabled=hasRead;
+  if(hasRead&&d.history.length>0){
+    var latest=d.history[0];
+    var pi=$('prophIcon');if(pi) pi.textContent=latest.icon;
+    var pt=$('prophText');if(pt) pt.textContent=latest.text;
+    var pb=$('prophBonus');
+    if(pb){
+      var bonusTxt=Object.keys(latest.bonus).map(function(s){return '+'+latest.bonus[s]+s.toUpperCase();}).join(' ');
+      pb.textContent=bonusTxt+' · +'+latest.coins+' mynt · +'+((d.fate&&d.total?Math.floor(d.fate/d.total):0))+' ödespoang/dag';
+    }
+  } else if(!hasRead){
+    var pt2=$('prophText');if(pt2) pt2.textContent='Tysta stenarna vantar pa att avsloja sin hemlighet...';
+    var pb2=$('prophBonus');if(pb2) pb2.textContent='';
+  }
+  var hist=$('prophHistory');
+  if(hist){
+    if(!d.history||d.history.length===0){
+      hist.innerHTML='<div style="text-align:center;padding:12px;font:600 9px var(--ff-body);color:rgba(255,255,255,.15)">Inga profetior lasta an</div>';
+    } else {
+      hist.innerHTML=d.history.map(function(h){
+        var bonusTxt=Object.keys(h.bonus).map(function(s){return '+'+h.bonus[s]+s.toUpperCase();}).join(' ');
+        return '<div class="proph-hist-item">'+
+          '<div class="proph-hist-date">'+h.date+'</div>'+
+          '<div>'+
+            '<div class="proph-hist-txt">'+h.text+'</div>'+
+            '<div class="proph-hist-bon">'+bonusTxt+' · +'+h.coins+' mynt</div>'+
+          '</div>'+
+        '</div>';
+      }).join('');
+    }
   }
 }
 
