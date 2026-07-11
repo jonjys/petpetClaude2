@@ -1568,6 +1568,108 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+
+/* ══ PET SPA ══ */
+.spa-panel{position:fixed;inset:0;background:#040208;z-index:1083;display:none;flex-direction:column;overflow:hidden}
+.spa-panel.open{display:flex}
+.spa-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080410,#040208)}
+.spa-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88cc,#cc44ff,#88ccff,#ff88cc);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:spaShim 4s linear infinite}
+@keyframes spaShim{0%{background-position:0%}100%{background-position:300%}}
+.spa-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.spa-wellness{background:radial-gradient(ellipse at 50% 0,rgba(255,136,204,.08),transparent);border:2px solid rgba(255,136,204,.15);border-radius:20px;padding:14px;margin-bottom:12px;text-align:center}
+.spa-well-v{font:900 40px var(--ff-head);background:linear-gradient(180deg,#ff88cc,#cc44ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.spa-well-l{font:700 8px var(--ff-head);color:rgba(255,136,204,.3);letter-spacing:2px;margin-bottom:6px}
+.spa-well-bar{background:rgba(255,255,255,.05);border-radius:5px;height:8px;overflow:hidden;margin:0 auto 4px;max-width:180px}
+.spa-well-fill{height:100%;background:linear-gradient(90deg,#ff88cc,#cc44ff);border-radius:5px;transition:width .4s}
+.spa-well-desc{font:600 8px var(--ff-body);color:rgba(255,136,204,.35)}
+.spa-treats-lbl{font:700 8px var(--ff-head);color:rgba(255,136,204,.4);letter-spacing:1px;margin-bottom:8px}
+.spa-treats{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.spa-treat{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.spa-treat:hover{background:rgba(255,136,204,.04);border-color:rgba(255,136,204,.2)}
+.spa-treat.done{opacity:.3;cursor:default}
+.spa-treat.locked{opacity:.25;cursor:default}
+.spa-treat-icon{font-size:30px;flex-shrink:0}
+.spa-treat-body{flex:1}
+.spa-treat-name{font:700 11px var(--ff-head);color:rgba(255,200,220,.7);margin-bottom:2px}
+.spa-treat-desc{font:600 8px var(--ff-body);color:rgba(255,136,204,.4);margin-bottom:3px}
+.spa-treat-rew{font:700 8px var(--ff-head);color:rgba(255,136,204,.5)}
+.spa-treat-btn{background:rgba(255,136,204,.07);border:1px solid rgba(255,136,204,.2);border-radius:9px;padding:7px 12px;font:700 9px var(--ff-head);color:rgba(255,200,220,.7);cursor:pointer;flex-shrink:0}
+.spa-treat-btn.done-btn{background:rgba(68,255,136,.05);border-color:rgba(68,255,136,.2);color:rgba(68,255,136,.6)}
+.spa-treat-btn:disabled{opacity:.3;cursor:default}
+.spa-buffs-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.2);letter-spacing:1px;margin-bottom:6px}
+.spa-buffs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.spa-buff-tag{background:rgba(255,136,204,.08);border:1px solid rgba(255,136,204,.2);border-radius:20px;padding:4px 10px;font:700 8px var(--ff-head);color:rgba(255,200,220,.7)}
+.spa-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
+/* ══ DRAGON TAMING ══ */
+.drag-panel{position:fixed;inset:0;background:#050202;z-index:1082;display:none;flex-direction:column;overflow:hidden}
+.drag-panel.open{display:flex}
+.drag-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0404,#050202)}
+.drag-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff6600,#ff0044,#ff6600);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:dragShim 2s linear infinite}
+@keyframes dragShim{0%{background-position:0%}100%{background-position:300%}}
+.drag-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.drag-active{background:radial-gradient(ellipse at 50% 30%,rgba(255,100,0,.1),transparent);border:2px solid rgba(255,100,0,.2);border-radius:22px;padding:14px;margin-bottom:12px;text-align:center}
+.drag-icon-big{font-size:60px;display:block;margin-bottom:4px}
+.drag-name-big{font:800 18px var(--ff-head);color:rgba(255,200,100,.9);margin-bottom:2px}
+.drag-type-lbl{font:600 8px var(--ff-body);color:rgba(255,100,0,.4);letter-spacing:1px;margin-bottom:8px}
+.drag-bond-bar{background:rgba(255,255,255,.06);border-radius:6px;height:10px;overflow:hidden;margin:4px auto 2px;max-width:180px}
+.drag-bond-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#ff6600,#ffaa00);transition:width .3s}
+.drag-bond-txt{font:700 9px var(--ff-head);color:rgba(255,150,0,.6)}
+.drag-bond-lbl{font:700 7px var(--ff-head);color:rgba(255,100,0,.3);letter-spacing:2px;margin-bottom:3px}
+.drag-actions{display:flex;gap:6px;margin:8px 0 0}
+.drag-act-btn{flex:1;background:rgba(255,100,0,.06);border:1.5px solid rgba(255,100,0,.2);border-radius:10px;padding:8px 4px;font:700 9px var(--ff-head);color:rgba(255,150,0,.8);cursor:pointer}
+.drag-act-btn:disabled{opacity:.3;cursor:default}
+.drag-list-lbl{font:700 8px var(--ff-head);color:rgba(255,100,0,.4);letter-spacing:1px;margin-bottom:8px}
+.drag-dragons{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.drag-item{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.drag-item:hover{background:rgba(255,100,0,.04);border-color:rgba(255,100,0,.2)}
+.drag-item.active{border-color:rgba(255,100,0,.35);background:rgba(255,100,0,.06)}
+.drag-item.locked{opacity:.3;cursor:default}
+.drag-item-icon{font-size:30px;flex-shrink:0}
+.drag-item-body{flex:1}
+.drag-item-name{font:700 11px var(--ff-head);color:rgba(255,200,100,.7);margin-bottom:2px}
+.drag-item-desc{font:600 8px var(--ff-body);color:rgba(255,100,0,.4);margin-bottom:2px}
+.drag-item-bond{font:700 8px var(--ff-head);color:rgba(255,150,0,.5)}
+.drag-catch-btn{background:rgba(255,100,0,.08);border:1px solid rgba(255,100,0,.25);border-radius:8px;padding:6px 10px;font:700 8px var(--ff-head);color:rgba(255,150,0,.8);cursor:pointer;flex-shrink:0}
+.drag-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
+/* ══ CRYSTAL GARDEN ══ */
+.cgar-panel{position:fixed;inset:0;background:#030108;z-index:1081;display:none;flex-direction:column;overflow:hidden}
+.cgar-panel.open{display:flex}
+.cgar-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060212,#030108)}
+.cgar-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#88ffee,#44aaff,#cc88ff,#88ffee);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:cgarShim 3s linear infinite}
+@keyframes cgarShim{0%{background-position:0%}100%{background-position:300%}}
+.cgar-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.cgar-income{background:radial-gradient(ellipse at 50% 0,rgba(136,255,238,.08),transparent);border:2px solid rgba(136,255,238,.15);border-radius:20px;padding:12px;margin-bottom:12px;text-align:center}
+.cgar-income-v{font:900 32px var(--ff-head);color:rgba(136,255,238,.8);line-height:1}
+.cgar-income-l{font:700 8px var(--ff-head);color:rgba(136,255,238,.3);letter-spacing:2px}
+.cgar-income-rate{font:600 9px var(--ff-body);color:rgba(136,255,238,.4);margin-top:4px}
+.cgar-harvest-btn{background:linear-gradient(135deg,#001820,#004840);border:1.5px solid rgba(136,255,238,.3);border-radius:12px;padding:9px 18px;font:800 10px var(--ff-head);color:rgba(136,255,238,.9);cursor:pointer;margin-top:6px}
+.cgar-harvest-btn:disabled{opacity:.3;cursor:default}
+.cgar-plot-lbl{font:700 8px var(--ff-head);color:rgba(136,255,238,.4);letter-spacing:1px;margin-bottom:8px}
+.cgar-plots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.cgar-plot{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .15s;min-height:90px}
+.cgar-plot:hover{background:rgba(136,255,238,.04);border-color:rgba(136,255,238,.2)}
+.cgar-plot.growing{border-color:rgba(136,255,238,.25);background:rgba(136,255,238,.03)}
+.cgar-plot.ready{border-color:rgba(68,255,136,.4);background:rgba(68,255,136,.06);animation:cgarGlow .8s ease-in-out infinite alternate}
+@keyframes cgarGlow{0%{box-shadow:0 0 0 rgba(68,255,136,0)}100%{box-shadow:0 0 12px rgba(68,255,136,.25)}}
+.cgar-plot-icon{font-size:28px;margin-bottom:3px;display:block}
+.cgar-plot-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.5);margin-bottom:2px}
+.cgar-plot-timer{font:600 8px var(--ff-body);color:rgba(136,255,238,.4)}
+.cgar-shop-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.25);letter-spacing:1px;margin-bottom:6px}
+.cgar-seeds{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:8px}
+.cgar-seed{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:12px;padding:9px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all .15s}
+.cgar-seed:hover{background:rgba(136,255,238,.04);border-color:rgba(136,255,238,.2)}
+.cgar-seed.locked{opacity:.35;cursor:default}
+.cgar-seed-icon{font-size:24px;flex-shrink:0}
+.cgar-seed-body{flex:1}
+.cgar-seed-name{font:700 8px var(--ff-head);color:rgba(255,255,255,.5);margin-bottom:1px}
+.cgar-seed-info{font:600 7px var(--ff-body);color:rgba(136,255,238,.35)}
+.cgar-seed-cost{font:700 8px var(--ff-head);color:rgba(255,200,0,.6)}
+.cgar-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
 /* ══ CARD BATTLE ══ */
 .cbat-panel{position:fixed;inset:0;background:#040010;z-index:1080;display:none;flex-direction:column;overflow:hidden}
 .cbat-panel.open{display:flex}
@@ -13180,6 +13282,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
+          <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Pet Spa</div>
+          <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
+          <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
@@ -13281,6 +13386,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
+          <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Pet Spa</div>
+          <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
+          <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
@@ -13365,6 +13473,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
+          <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Pet Spa</div>
+          <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
+          <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
@@ -13487,6 +13598,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
+          <div class="ddr" onclick="cM();openLyx()"><div class="ddr-i">🛁</div>Lyxspa</div>
+          <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
+          <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
@@ -14117,6 +14231,77 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+<!-- PET SPA -->
+<div class="spa-panel" id="spaPanel">
+  <div class="spa-header">
+    <div class="spa-title">🛁 PET SPA</div>
+    <button class="close-btn" onclick="closeSpa()">✕</button>
+  </div>
+  <div class="spa-scroll">
+    <div class="spa-wellness">
+      <div class="spa-well-l">VÄLMÅENDE</div>
+      <div class="spa-well-v" id="lyxWellV">0</div>
+      <div class="spa-well-bar"><div class="spa-well-fill" id="lyxWellFill" style="width:0%"></div></div>
+      <div class="spa-well-desc" id="lyxWellDesc">Besök spat för att öka välmåendet!</div>
+    </div>
+    <div class="spa-treats-lbl">DAGENS BEHANDLINGAR</div>
+    <div class="spa-treats" id="lyxTreats"></div>
+    <div class="spa-buffs-lbl">AKTIVA BONUSAR</div>
+    <div class="spa-buffs" id="lyxBuffs"></div>
+    <div class="spa-info">Varje behandling ger permanenta stat-bonusar och mynt! Återställs dagligen. 🌸</div>
+  </div>
+</div>
+
+<!-- DRAGON TAMING -->
+<div class="drag-panel" id="dragPanel">
+  <div class="drag-header">
+    <div class="drag-title">🐉 DRAKTÄMJAREN</div>
+    <button class="close-btn" onclick="closeDrag()">✕</button>
+  </div>
+  <div class="drag-scroll">
+    <div class="drag-active" id="dragActive">
+      <span class="drag-icon-big" id="dragActiveIcon">🥚</span>
+      <div class="drag-name-big" id="dragActiveName">Ingen drake tämjd</div>
+      <div class="drag-type-lbl" id="dragActiveType">Välj en drake att tämja</div>
+      <div class="drag-bond-lbl">BONDLEVEL</div>
+      <div class="drag-bond-bar"><div class="drag-bond-fill" id="dragBondFill" style="width:0%"></div></div>
+      <div class="drag-bond-txt" id="dragBondTxt">0/100</div>
+      <div class="drag-actions">
+        <button class="drag-act-btn" id="dragFeedBtn" onclick="dragFeed()" disabled>Mata</button>
+        <button class="drag-act-btn" id="dragTrainBtn" onclick="dragTrain()" disabled>Träna</button>
+        <button class="drag-act-btn" id="dragFlyBtn" onclick="dragFly()" disabled>Flyg!</button>
+      </div>
+    </div>
+    <div class="drag-list-lbl">DRAKAR ATT TÄMJA</div>
+    <div class="drag-dragons" id="dragList"></div>
+    <div class="drag-info">Tämj drakar och öka ditt bond för att låsa upp kraftfulla förmågor! Varje drake ger unika bonusar.</div>
+  </div>
+</div>
+
+<!-- CRYSTAL GARDEN -->
+<div class="cgar-panel" id="cgarPanel">
+  <div class="cgar-header">
+    <div class="cgar-title">💎 KRISTALLTRÄDGÅRDEN</div>
+    <button class="close-btn" onclick="closeCgar()">✕</button>
+  </div>
+  <div class="cgar-scroll">
+    <div class="cgar-income">
+      <div class="cgar-income-v" id="cgarGems">0</div>
+      <div class="cgar-income-l">KRISTALLER ATT SKÖRDA</div>
+      <div class="cgar-income-rate" id="cgarRate">Plant kristaller för passiv inkomst</div>
+      <button class="cgar-harvest-btn" id="cgarHarvestBtn" onclick="cgarHarvestAll()" disabled>Skörda Alla</button>
+    </div>
+    <div class="cgar-plot-lbl">ODLINGSBÄDDAR (6 platser)</div>
+    <div class="cgar-plots" id="cgarPlots"></div>
+    <div class="cgar-shop-lbl">FRÖBUTIKEN</div>
+    <div class="cgar-seeds" id="cgarSeeds"></div>
+    <div class="cgar-info">Plantera kristaller och skörda dem när de är redo. Sällsynta kristaller ger massiva belöningar!</div>
+  </div>
+</div>
+
 <!-- CARD BATTLE -->
 <div class="cbat-panel" id="cbatPanel">
   <div class="cbat-header">
@@ -14652,10 +14837,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- PET SPA -->
-<div class="spa-panel" id="spaPanel">
+<div class="spa-panel" id="lyxPanel">
   <div class="spa-header">
     <div class="spa-title">🛁 HUSDJURSSPA</div>
-    <button class="close-btn" onclick="closeSpa()">✕</button>
+    <button class="close-btn" onclick="closeLyx()">✕</button>
   </div>
   <div class="spa-scroll">
     <div class="spa-banner">
@@ -62157,6 +62342,394 @@ function _renderCbatStats(saved){
   var wv=$('cbatWinsV');if(wv) wv.textContent=saved.wins||0;
   var lv=$('cbatLossV');if(lv) lv.textContent=saved.losses||0;
   var sv=$('cbatStreakV');if(sv) sv.textContent=saved.streak||0;
+}
+
+
+// CRYSTAL GARDEN
+const CGAR_KEY = 'k0509_cgar';
+const CGAR_SEEDS = [
+  {id:'quartz',   icon:'🔷', name:'Kvarts',     cost:30,  growMs:60000,   coins:80,   xp:20, bonus:{}, minLvl:1},
+  {id:'amethyst', icon:'💜', name:'Ametist',    cost:60,  growMs:120000,  coins:160,  xp:40, bonus:{int:1}, minLvl:2},
+  {id:'emerald',  icon:'💚', name:'Smaragd',    cost:100, growMs:180000,  coins:280,  xp:60, bonus:{agi:1}, minLvl:4},
+  {id:'sapphire', icon:'💙', name:'Safir',      cost:150, growMs:300000,  coins:450,  xp:90, bonus:{str:1}, minLvl:6},
+  {id:'ruby',     icon:'❤️', name:'Rubin',      cost:200, growMs:420000,  coins:650,  xp:120,bonus:{end:1}, minLvl:8},
+  {id:'diamond',  icon:'💎', name:'Diamant',    cost:400, growMs:600000,  coins:1200, xp:200,bonus:{lck:2,str:1}, minLvl:12},
+];
+const CGAR_PLOT_COUNT = 6;
+
+function _cgarData(){try{return JSON.parse(localStorage.getItem(CGAR_KEY)||'null');}catch(e){return null;}}
+function _cgarSave(d){localStorage.setItem(CGAR_KEY,JSON.stringify(d));}
+function _cgarGetData(){
+  var d=_cgarData();
+  if(!d) d={plots:new Array(CGAR_PLOT_COUNT).fill(null),ready:[],totalHarvest:0};
+  if(!d.plots||d.plots.length<CGAR_PLOT_COUNT) d.plots=new Array(CGAR_PLOT_COUNT).fill(null);
+  return d;
+}
+
+function cgarPlant(plotIdx, seedId){
+  var d=_cgarGetData();
+  if(d.plots[plotIdx]) return;
+  var seed=CGAR_SEEDS.find(function(s){return s.id===seedId;});
+  if(!seed||(G.lvl||1)<seed.minLvl){showFloatBubble('Niva '+seed.minLvl+' kravs!','debuff');return;}
+  if((G.coins||0)<seed.cost){showFloatBubble('Inte tillrackligt med mynt!','debuff');return;}
+  gainCoins(-seed.cost);
+  d.plots[plotIdx]={seedId:seedId,plantedAt:Date.now(),growMs:seed.growMs};
+  _cgarSave(d);
+  _renderCgar(d);
+}
+
+function cgarHarvestPlot(plotIdx){
+  var d=_cgarGetData();
+  var plot=d.plots[plotIdx];
+  if(!plot) return;
+  var now=Date.now();
+  if(now-plot.plantedAt<plot.growMs){
+    showFloatBubble('Inte redo att skorda an!','debuff');return;
+  }
+  var seed=CGAR_SEEDS.find(function(s){return s.id===plot.seedId;});
+  if(seed){
+    gainCoins(seed.coins);
+    gainXP(seed.xp,'int');
+    Object.keys(seed.bonus).forEach(function(s2){G[s2]=(G[s2]||0)+seed.bonus[s2];});
+    save();
+    var bonusTxt=Object.keys(seed.bonus).length?(' '+Object.keys(seed.bonus).map(function(s2){return '+'+seed.bonus[s2]+s2.toUpperCase();}).join(' ')):'';
+    showFloatBubble(seed.icon+' '+seed.name+' skordad! +'+seed.coins+' mynt'+bonusTxt,'buff');
+    d.totalHarvest=(d.totalHarvest||0)+1;
+  }
+  d.plots[plotIdx]=null;
+  _cgarSave(d);
+  checkAchievements();
+  _renderCgar(d);
+}
+
+function cgarHarvestAll(){
+  var d=_cgarGetData();
+  var now=Date.now();
+  var harvested=0;
+  d.plots.forEach(function(plot,i){
+    if(plot&&(now-plot.plantedAt>=plot.growMs)){
+      var seed=CGAR_SEEDS.find(function(s){return s.id===plot.seedId;});
+      if(seed){gainCoins(seed.coins);gainXP(seed.xp,'int');Object.keys(seed.bonus).forEach(function(s2){G[s2]=(G[s2]||0)+seed.bonus[s2];});save();}
+      d.plots[i]=null;harvested++;
+    }
+  });
+  if(harvested>0){
+    d.totalHarvest=(d.totalHarvest||0)+harvested;
+    showFloatBubble('Skordade '+harvested+' kristaller!','buff');
+    checkAchievements();
+  }
+  _cgarSave(d);
+  _renderCgar(d);
+}
+
+var _cgarSelSeed=null;
+
+function cgarSelSeed(seedId){
+  _cgarSelSeed=_cgarSelSeed===seedId?null:seedId;
+  _renderCgar(_cgarGetData());
+}
+
+function cgarClickPlot(idx){
+  var d=_cgarGetData();
+  var plot=d.plots[idx];
+  if(plot){
+    var now=Date.now();
+    if(now-plot.plantedAt>=plot.growMs) cgarHarvestPlot(idx);
+    else showFloatBubble('Vaxter fortfarande...','debuff');
+  } else if(_cgarSelSeed){
+    cgarPlant(idx,_cgarSelSeed);
+  } else {
+    showFloatBubble('Valj ett fro fran butiken forst!','debuff');
+  }
+}
+
+function openCgar(){$('cgarPanel').classList.add('open');_renderCgar(_cgarGetData());}
+function closeCgar(){$('cgarPanel').classList.remove('open');}
+
+function _renderCgar(d){
+  if(!d) d=_cgarGetData();
+  var now=Date.now();
+  var readyCount=d.plots.filter(function(p){return p&&(now-p.plantedAt>=p.growMs);}).length;
+  var gv=$('cgarGems');if(gv) gv.textContent=readyCount;
+  var hb=$('cgarHarvestBtn');if(hb) hb.disabled=readyCount===0;
+  var growingCount=d.plots.filter(function(p){return p&&(now-p.plantedAt<p.growMs);}).length;
+  var rate=$('cgarRate');
+  if(rate) rate.textContent=(growingCount>0?growingCount+' kristaller vaxter...':(d.totalHarvest||0)+' totalt skordade');
+  var plots=$('cgarPlots');
+  if(plots){
+    plots.innerHTML=d.plots.map(function(plot,i){
+      if(!plot){
+        return '<div class="cgar-plot" onclick="cgarClickPlot('+i+')" style="opacity:.4">'+
+          '<span class="cgar-plot-icon">+</span>'+
+          '<div class="cgar-plot-name">Tom bed</div>'+
+          '<div class="cgar-plot-timer">Klicka for att plantera</div>'+
+        '</div>';
+      }
+      var seed=CGAR_SEEDS.find(function(s){return s.id===plot.seedId;});
+      var elapsed=now-plot.plantedAt;
+      var ready=elapsed>=plot.growMs;
+      var pct=Math.min(100,Math.floor(elapsed/plot.growMs*100));
+      var rem=Math.max(0,Math.ceil((plot.growMs-elapsed)/1000));
+      var remTxt=rem>60?Math.ceil(rem/60)+'min':rem+'s';
+      return '<div class="cgar-plot '+(ready?'ready':'growing')+'" onclick="cgarClickPlot('+i+')">'+
+        '<span class="cgar-plot-icon">'+(seed?seed.icon:'?')+'</span>'+
+        '<div class="cgar-plot-name">'+(seed?seed.name:'?')+'</div>'+
+        '<div class="cgar-plot-timer">'+(ready?'Redo att skorda!':pct+'% - '+remTxt+' kvar')+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  var lvl=G.lvl||1;
+  var seeds=$('cgarSeeds');
+  if(seeds){
+    seeds.innerHTML=CGAR_SEEDS.map(function(seed){
+      var locked=lvl<seed.minLvl;
+      var isSel=_cgarSelSeed===seed.id;
+      return '<div class="cgar-seed'+(locked?' locked':'')+(isSel?' growing':'')+'" onclick="cgarSelSeed(\''+seed.id+'\')">'+
+        '<div class="cgar-seed-icon">'+seed.icon+'</div>'+
+        '<div class="cgar-seed-body">'+
+          '<div class="cgar-seed-name">'+seed.name+(locked?' (Niva '+seed.minLvl+')':'')+'</div>'+
+          '<div class="cgar-seed-info">'+Math.ceil(seed.growMs/60000)+'min vaxt · +'+seed.coins+' mynt</div>'+
+          '<div class="cgar-seed-cost">'+seed.cost+' mynt</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// DRAGON TAMING
+const DRAG_KEY = 'k0509_drag';
+const DRAG_TYPES = [
+  {id:'fire',    icon:'D', name:'Elddrak',     type:'Eld',    catchCost:100, bonus:{str:3,end:2}, feedBonus:{str:1},   trainBonus:{end:1},  flyReward:{coins:80,xp:50},  minLvl:1},
+  {id:'ice',     icon:'I', name:'Isdrak',      type:'Is',     catchCost:120, bonus:{agi:3,int:2}, feedBonus:{agi:1},   trainBonus:{int:1},  flyReward:{coins:90,xp:55},  minLvl:3},
+  {id:'thunder', icon:'T', name:'Askdrak',     type:'Aska',   catchCost:160, bonus:{agi:4,lck:2}, feedBonus:{lck:1},   trainBonus:{agi:1},  flyReward:{coins:110,xp:70}, minLvl:5},
+  {id:'shadow',  icon:'S', name:'Skuggdrak',   type:'Skugga', catchCost:220, bonus:{lck:4,int:3}, feedBonus:{int:1},   trainBonus:{lck:1},  flyReward:{coins:140,xp:90}, minLvl:8},
+  {id:'cosmic',  icon:'C', name:'Kosmisk Drak',type:'Kosmos', catchCost:400, bonus:{str:5,agi:5,int:5,lck:5,end:5}, feedBonus:{lck:2}, trainBonus:{str:2}, flyReward:{coins:250,xp:150,kc:1}, minLvl:15},
+];
+
+function _dragData(){try{return JSON.parse(localStorage.getItem(DRAG_KEY)||'null');}catch(e){return null;}}
+function _dragSave(d){localStorage.setItem(DRAG_KEY,JSON.stringify(d));}
+function _dragGetData(){
+  var d=_dragData();
+  if(!d) d={dragons:{},activeDrag:null,totalFlights:0};
+  return d;
+}
+
+function dragCatch(dragId){
+  var d=_dragGetData();
+  var dt=DRAG_TYPES.find(function(t){return t.id===dragId;});
+  if(!dt) return;
+  if((G.lvl||1)<dt.minLvl){showFloatBubble('Niva '+dt.minLvl+' kravs!','debuff');return;}
+  if((G.coins||0)<dt.catchCost){showFloatBubble('Behover '+dt.catchCost+' mynt!','debuff');return;}
+  gainCoins(-dt.catchCost);
+  d.dragons[dragId]={bond:0,lastFeed:0,lastTrain:0,lastFly:0};
+  Object.keys(dt.bonus).forEach(function(s){G[s]=(G[s]||0)+dt.bonus[s];});
+  save();
+  showFloatBubble(dt.icon+' '+dt.name+' tamjd! '+Object.keys(dt.bonus).map(function(s){return '+'+dt.bonus[s]+s.toUpperCase();}).join(' '),'buff');
+  checkAchievements();
+  _dragSave(d);
+  _renderDrag(d);
+}
+
+function dragSelect(dragId){
+  var d=_dragGetData();
+  if(!d.dragons[dragId]) return;
+  d.activeDrag=dragId;
+  _dragSave(d);
+  _renderDrag(d);
+}
+
+function dragFeed(){
+  var d=_dragGetData();
+  if(!d.activeDrag||!d.dragons[d.activeDrag]) return;
+  var now=Date.now();
+  var dr=d.dragons[d.activeDrag];
+  if(now-dr.lastFeed<3600000){showFloatBubble('Draken ar matt! Vanta lite.','debuff');return;}
+  var dt=DRAG_TYPES.find(function(t){return t.id===d.activeDrag;});
+  dr.bond=Math.min(100,dr.bond+10);
+  dr.lastFeed=now;
+  gainCoins(-10);
+  Object.keys(dt.feedBonus).forEach(function(s){G[s]=(G[s]||0)+dt.feedBonus[s];});
+  save();
+  showFloatBubble(dt.icon+' '+dt.name+' matad! Bond +10','buff');
+  _dragSave(d);
+  _renderDrag(d);
+}
+
+function dragTrain(){
+  var d=_dragGetData();
+  if(!d.activeDrag||!d.dragons[d.activeDrag]) return;
+  var now=Date.now();
+  var dr=d.dragons[d.activeDrag];
+  if(now-dr.lastTrain<3600000){showFloatBubble('Draken ar trott! Vanta lite.','debuff');return;}
+  var dt=DRAG_TYPES.find(function(t){return t.id===d.activeDrag;});
+  dr.bond=Math.min(100,dr.bond+15);
+  dr.lastTrain=now;
+  gainXP(30,'str');
+  Object.keys(dt.trainBonus).forEach(function(s){G[s]=(G[s]||0)+dt.trainBonus[s];});
+  save();
+  showFloatBubble(dt.icon+' '+dt.name+' tranad! Bond +15','buff');
+  _dragSave(d);
+  _renderDrag(d);
+}
+
+function dragFly(){
+  var d=_dragGetData();
+  if(!d.activeDrag||!d.dragons[d.activeDrag]) return;
+  var dr=d.dragons[d.activeDrag];
+  if(dr.bond<50){showFloatBubble('Bond maste vara minst 50 for att flyga!','debuff');return;}
+  var now=Date.now();
+  if(now-dr.lastFly<7200000){showFloatBubble('Draken behover vila efter flygning!','debuff');return;}
+  var dt=DRAG_TYPES.find(function(t){return t.id===d.activeDrag;});
+  dr.lastFly=now;
+  d.totalFlights=(d.totalFlights||0)+1;
+  gainCoins(dt.flyReward.coins);
+  gainXP(dt.flyReward.xp,'str');
+  if(dt.flyReward.kc) gainKC(dt.flyReward.kc);
+  showFloatBubble(dt.icon+' Flygade med '+dt.name+'! +'+dt.flyReward.coins+' mynt'+(dt.flyReward.kc?' +1KC':''),'buff');
+  _dragSave(d);
+  checkAchievements();
+  _renderDrag(d);
+}
+
+function openDrag(){$('dragPanel').classList.add('open');_renderDrag(_dragGetData());}
+function closeDrag(){$('dragPanel').classList.remove('open');}
+
+function _renderDrag(d){
+  if(!d) d=_dragGetData();
+  var ai=$('dragActiveIcon'),an=$('dragActiveName'),at=$('dragActiveType');
+  var bf=$('dragBondFill'),bt=$('dragBondTxt');
+  var fb=$('dragFeedBtn'),tb=$('dragTrainBtn'),flyb=$('dragFlyBtn');
+  if(d.activeDrag&&d.dragons[d.activeDrag]){
+    var dt=DRAG_TYPES.find(function(t){return t.id===d.activeDrag;});
+    var dr=d.dragons[d.activeDrag];
+    if(ai) ai.textContent=dt.icon;
+    if(an) an.textContent=dt.name;
+    if(at) at.textContent=dt.type+' · Bond '+dr.bond+'/100';
+    if(bf) bf.style.width=dr.bond+'%';
+    if(bt) bt.textContent=dr.bond+'/100';
+    if(fb) fb.disabled=false;
+    if(tb) tb.disabled=false;
+    if(flyb) flyb.disabled=dr.bond<50;
+  } else {
+    if(ai) ai.textContent='E';
+    if(an) an.textContent='Ingen drake vald';
+    if(at) at.textContent='Valj en drake nedan';
+    if(bf) bf.style.width='0%';
+    if(bt) bt.textContent='0/100';
+    if(fb) fb.disabled=true;
+    if(tb) tb.disabled=true;
+    if(flyb) flyb.disabled=true;
+  }
+  var list=$('dragList');
+  if(!list) return;
+  var lvl=G.lvl||1;
+  list.innerHTML=DRAG_TYPES.map(function(dt){
+    var owned=!!d.dragons[dt.id];
+    var locked=!owned&&lvl<dt.minLvl;
+    var isActive=d.activeDrag===dt.id;
+    var cls='drag-item'+(isActive?' active':locked?' locked':'');
+    var bond=owned?d.dragons[dt.id].bond:0;
+    return '<div class="'+cls+'" onclick="'+(owned?'dragSelect(\''+dt.id+'\')':'dragCatch(\''+dt.id+'\')')+'">'+
+      '<div class="drag-item-icon">'+dt.icon+'</div>'+
+      '<div class="drag-item-body">'+
+        '<div class="drag-item-name">'+dt.name+' ('+dt.type+')</div>'+
+        '<div class="drag-item-desc">'+Object.keys(dt.bonus).map(function(s){return '+'+dt.bonus[s]+s.toUpperCase();}).join(' ')+'</div>'+
+        '<div class="drag-item-bond">'+(owned?'Bond: '+bond+'/100':(locked?'Niva '+dt.minLvl+' kravs':dt.catchCost+' mynt'))+'</div>'+
+      '</div>'+
+      (!owned&&!locked?'<button class="drag-catch-btn" onclick="event.stopPropagation();dragCatch(\''+dt.id+'\')">Tam</button>':'')+
+    '</div>';
+  }).join('');
+}
+
+
+// PET SPA
+const LYX_KEY = 'k0509_lyx';
+const SPA_TREATS = [
+  {id:'bath',        icon:'B', name:'Lyxbad',        desc:'Rena pälsen och koppla av',      cost:20,  bonus:{agi:1},        well:15, coins:30, xp:25,  minLvl:1},
+  {id:'massage',     icon:'M', name:'Massage',        desc:'Lossa spannda muskler',          cost:35,  bonus:{end:1,str:1},  well:20, coins:40, xp:35,  minLvl:1},
+  {id:'aromatherapy',icon:'A', name:'Aromaterapi',    desc:'Helande oljor och rorelser',     cost:50,  bonus:{int:1,lck:1},  well:25, coins:55, xp:45,  minLvl:2},
+  {id:'mudwrap',     icon:'W', name:'Lerlindning',    desc:'Djuprengoring med magisk lera',  cost:80,  bonus:{end:2},        well:30, coins:70, xp:60,  minLvl:3},
+  {id:'crystalhealing',icon:'H',name:'Kristallhealing',desc:'Kristaller balanserar energin', cost:120, bonus:{int:2,lck:1},  well:35, coins:100,xp:80,  minLvl:5},
+  {id:'goldenfacial', icon:'G', name:'Guldansiktsbehandling',desc:'22k guld for glansig hy',cost:200, bonus:{lck:3},        well:40, coins:150,xp:120, minLvl:8},
+  {id:'dragonstone',  icon:'D', name:'Dragstensterapi', desc:'Uråldriga drakkrafter',        cost:350, bonus:{str:2,end:2,agi:2},well:50,coins:250,xp:200,minLvl:12},
+];
+
+function _lyxData(){try{return JSON.parse(localStorage.getItem(LYX_KEY)||'null');}catch(e){return null;}}
+function _lyxSave(d){localStorage.setItem(LYX_KEY,JSON.stringify(d));}
+function _lyxGetData(){
+  var d=_lyxData();
+  if(!d) d={doneToday:{},lastDay:'',wellness:0,totalTreats:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.doneToday={};d.lastDay=today;_lyxSave(d);}
+  return d;
+}
+
+function lyxTreat(treatId){
+  var d=_lyxGetData();
+  if(d.doneToday[treatId]) return;
+  var treat=SPA_TREATS.find(function(t){return t.id===treatId;});
+  if(!treat) return;
+  if((G.lvl||1)<treat.minLvl){showFloatBubble('Niva '+treat.minLvl+' kravs!','debuff');return;}
+  if((G.coins||0)<treat.cost){showFloatBubble('Behovet '+treat.cost+' mynt!','debuff');return;}
+  gainCoins(-treat.cost+treat.coins);
+  gainXP(treat.xp,'agi');
+  Object.keys(treat.bonus).forEach(function(s){G[s]=(G[s]||0)+treat.bonus[s];});
+  save();
+  d.wellness=Math.min(100,d.wellness+treat.well);
+  d.doneToday[treatId]=true;
+  d.totalTreats=(d.totalTreats||0)+1;
+  var bonusTxt=Object.keys(treat.bonus).map(function(s){return '+'+treat.bonus[s]+s.toUpperCase();}).join(' ');
+  showFloatBubble(treat.icon+' '+treat.name+' klar! '+bonusTxt,'buff');
+  _lyxSave(d);
+  checkAchievements();
+  _renderLyx(d);
+}
+
+function openLyx(){$('lyxPanel').classList.add('open');_renderLyx(_lyxGetData());}
+function closeLyx(){$('lyxPanel').classList.remove('open');}
+
+function _renderLyx(d){
+  if(!d) d=_lyxGetData();
+  var wv=$('lyxWellV');if(wv) wv.textContent=d.wellness||0;
+  var wf=$('lyxWellFill');if(wf) wf.style.width=(d.wellness||0)+'%';
+  var wd=$('lyxWellDesc');
+  if(wd){
+    var w=d.wellness||0;
+    wd.textContent=w>=80?'Maximalt valmaende! Alla stats ar toppad!':w>=50?'Bra valmaende! Halv val.':w>=20?'Okej valmaende. Beh overhandling!':'Lagt valmaende. Beh overhandling nu!';
+  }
+  var lvl=G.lvl||1;
+  var treats=$('lyxTreats');
+  if(treats){
+    treats.innerHTML=SPA_TREATS.map(function(t){
+      var isDone=!!d.doneToday[t.id];
+      var isLocked=lvl<t.minLvl;
+      var cls='spa-treat'+(isDone?' done':isLocked?' locked':'');
+      var bonusTxt=Object.keys(t.bonus).map(function(s){return '+'+t.bonus[s]+s.toUpperCase();}).join(' ');
+      return '<div class="'+cls+'">'+
+        '<div class="spa-treat-icon">'+t.icon+'</div>'+
+        '<div class="spa-treat-body">'+
+          '<div class="spa-treat-name">'+t.name+(isLocked?' (Niva '+t.minLvl+')':'')+'</div>'+
+          '<div class="spa-treat-desc">'+t.desc+'</div>'+
+          '<div class="spa-treat-rew">'+bonusTxt+' · +'+t.coins+' mynt · +'+t.xp+'XP</div>'+
+        '</div>'+
+        '<button class="spa-treat-btn'+(isDone?' done-btn':'')+'" onclick="lyxTreat(\''+t.id+'\')" '+(isDone||isLocked?'disabled':'')+'>'+
+          (isDone?'Klar':t.cost+' mynt')+
+        '</button>'+
+      '</div>';
+    }).join('');
+  }
+  var buffs=$('lyxBuffs');
+  if(buffs){
+    var doneList=SPA_TREATS.filter(function(t){return d.doneToday[t.id];});
+    if(doneList.length===0){
+      buffs.innerHTML='<span style="font:600 9px var(--ff-body);color:rgba(255,255,255,.15)">Inga aktiva bonusar</span>';
+    } else {
+      buffs.innerHTML=doneList.map(function(t){
+        return '<div class="spa-buff-tag">'+t.icon+' '+Object.keys(t.bonus).map(function(s){return '+'+t.bonus[s]+s.toUpperCase();}).join(' ')+'</div>';
+      }).join('');
+    }
+  }
 }
 
 </script>
