@@ -2596,6 +2596,43 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ BLOOD MOON ══ */
+.bmoon-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 15%,#200008,#080002);z-index:1156;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.bmoon-panel h2{color:#ff6666;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 16px #cc0022}
+.bmoon-moon{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff3333,#880000);box-shadow:0 0 30px rgba(200,0,50,.5),inset 0 0 20px rgba(0,0,0,.4);margin:8px 0;animation:moonRise 4s ease-in-out infinite}
+@keyframes moonRise{0%,100%{box-shadow:0 0 20px rgba(200,0,50,.3)}50%{box-shadow:0 0 40px rgba(255,0,60,.6)}}
+.bmoon-rituals{display:flex;flex-direction:column;gap:7px;width:100%;max-width:340px}
+.bmoon-ritual{background:rgba(30,4,8,.4);border:1px solid #660018;border-radius:12px;padding:10px 12px;cursor:pointer;transition:all .2s}
+.bmoon-ritual:hover{border-color:#ff6666;background:rgba(55,8,15,.5)}
+.bmoon-ritual.done{opacity:.55;cursor:default}
+.bmoon-ritual .br-head{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.bmoon-ritual .br-icon{font-size:1.4rem}
+.bmoon-ritual .br-name{color:#ff8888;font-size:.82rem;font-weight:700}
+.bmoon-ritual .br-bonus{color:#cc4444;font-size:.65rem;margin-left:auto}
+.bmoon-ritual .br-desc{color:#883333;font-size:.65rem}
+.bmoon-blood{background:rgba(25,3,6,.35);border:1px solid #550015;border-radius:8px;padding:5px 14px;color:#ff6666;font-size:.8rem;margin-bottom:8px}
+
+/* ══ ENCHANTED GARDEN ══ */
+.egrd-panel{position:fixed;inset:0;background:linear-gradient(165deg,#020a02,#050f04);z-index:1155;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.egrd-panel h2{color:#88ff88;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #44dd44}
+.egrd-plots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:320px;margin:8px 0}
+.egrd-plot{aspect-ratio:1;background:rgba(8,22,8,.5);border:2px solid #1a4018;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;position:relative}
+.egrd-plot:hover{border-color:#88ff88;transform:scale(1.04)}
+.egrd-plot.planted{border-color:#44aa44;background:rgba(12,32,10,.6)}
+.egrd-plot.ready{border-color:#88ff44;background:rgba(20,45,10,.6);box-shadow:0 0 8px rgba(100,255,50,.3);animation:readyPulse 2s ease-in-out infinite}
+@keyframes readyPulse{0%,100%{box-shadow:0 0 6px rgba(100,255,50,.2)}50%{box-shadow:0 0 14px rgba(100,255,50,.5)}}
+.egrd-plot .ep-icon{font-size:1.6rem}
+.egrd-plot .ep-name{font-size:.58rem;color:#66aa44;margin-top:3px}
+.egrd-plot .ep-time{font-size:.55rem;color:#448844;margin-top:1px}
+.egrd-seeds{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;width:100%;max-width:340px;margin:4px 0}
+.egrd-seed{background:rgba(10,25,8,.4);border:1px solid #2a5520;border-radius:8px;padding:5px 10px;cursor:pointer;transition:all .2s;text-align:center;min-width:70px}
+.egrd-seed:hover{border-color:#88ff44;background:rgba(20,45,15,.5)}
+.egrd-seed.selected{border-color:#88ff44;background:rgba(25,55,15,.6)}
+.egrd-seed .gs-icon{font-size:1.1rem}
+.egrd-seed .gs-name{font-size:.6rem;color:#66aa44;margin-top:1px}
+.egrd-seed .gs-count{font-size:.65rem;color:#44aa44;font-weight:700}
+.egrd-info{background:rgba(5,15,5,.35);border:1px solid #1a4018;border-radius:8px;padding:5px 14px;color:#88ff88;font-size:.8rem;margin-bottom:6px;text-align:center;width:100%;max-width:320px}
+
 /* ══ TIME WARP ══ */
 .twarp-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 40%,#080410,#020108);z-index:1154;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .twarp-panel h2{color:#ffaaff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #dd44ff}
@@ -17041,6 +17078,28 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="twarp-clock">⏰</div>
   <div style="color:#8855aa;font-size:.72rem;margin-bottom:8px">Warp to different eras to collect artifacts</div>
   <div class="twarp-eras" id="twarpEras"></div>
+</div>
+
+<!-- BLOOD MOON -->
+<div class="bmoon-panel" id="bmoonPanel" style="display:none">
+  <button onclick="closeBmoon()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ff6666;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🌕 Blood Moon</h2>
+  <div class="bmoon-blood" id="bmoonStat">Blood Energy: 0 | Rituals: 0/7 done</div>
+  <div class="bmoon-moon"></div>
+  <div style="color:#883333;font-size:.72rem;margin-bottom:8px">Perform dark rituals under the blood moon</div>
+  <div class="bmoon-rituals" id="bmoonRituals"></div>
+</div>
+
+<!-- ENCHANTED GARDEN -->
+<div class="egrd-panel" id="egrdPanel" style="display:none">
+  <button onclick="closeEgrd()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#88ff88;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🌻 Enchanted Garden</h2>
+  <div class="egrd-info" id="egrdInfo">Seeds: 0 | Ready to harvest: 0</div>
+  <div style="color:#448844;font-size:.7rem;margin-bottom:6px">Select a seed type then tap an empty plot to plant</div>
+  <div class="egrd-seeds" id="egrdSeeds"></div>
+  <div style="color:#88ff88;font-size:.78rem;font-weight:700;margin:6px 0 4px;align-self:flex-start">🌱 Garden Plots</div>
+  <div class="egrd-plots" id="egrdPlots"></div>
+  <button onclick="egrdHarvestAll()" style="background:linear-gradient(135deg,#1a5018,#0c2808);border:1px solid #44ff44;color:#88ff88;border-radius:10px;padding:8px 20px;font-size:.82rem;cursor:pointer;margin-top:6px;transition:all .2s">🌾 Harvest All Ready Plants</button>
 </div>
 
 <!-- VOID RIFT -->
@@ -72765,6 +72824,169 @@ function _renderTwarp(){
     <div class="te-desc">${e.desc}</div>
     <div class="te-reward">Visited: ${d.visited[e.id]||0}× | Rewards vary</div>
   </div>`).join('');
+}
+
+
+// ══ ENCHANTED GARDEN ══
+const EGRD_KEY = 'k0509_egrd';
+const EGRD_SEED_TYPES = [
+  {id:'wheat',icon:'🌾',name:'Wheat',growMs:30*60*1000,bonus:{coins:40},bdesc:'+40🪙'},
+  {id:'rose',icon:'🌹',name:'Magic Rose',growMs:60*60*1000,bonus:{int:1,coins:30},bdesc:'+1 INT +30🪙'},
+  {id:'fern',icon:'🌿',name:'Power Fern',growMs:45*60*1000,bonus:{str:1,coins:25},bdesc:'+1 STR +25🪙'},
+  {id:'mushroom',icon:'🍄',name:'Dream Shroom',growMs:90*60*1000,bonus:{int:2,kc:1},bdesc:'+2 INT +1KC'},
+  {id:'sunflower',icon:'🌻',name:'Sunflower',growMs:2*60*60*1000,bonus:{agi:2,coins:60},bdesc:'+2 AGI +60🪙'},
+  {id:'crystal',icon:'💎',name:'Crystal Bloom',growMs:4*60*60*1000,bonus:{str:3,int:3,kc:3},bdesc:'+3 STR +3 INT +3KC'},
+];
+var _egrdSelectedSeed = null;
+function _egrdData(){
+  const d=JSON.parse(localStorage.getItem(EGRD_KEY)||'{}');
+  const seeds={};EGRD_SEED_TYPES.forEach(s=>{seeds[s.id]=d.seeds&&d.seeds[s.id]||0;});
+  const plots=d.plots||Array(6).fill(null);
+  return {seeds:seeds,plots:plots,lastGive:d.lastGive||''};
+}
+function _egrdSave(d){localStorage.setItem(EGRD_KEY,JSON.stringify(d));}
+function egrdGiveSeeds(){
+  const d=_egrdData();
+  const today=getTodayKey();
+  if(d.lastGive===today){showFloatBubble('Seeds given today!','bad');return;}
+  EGRD_SEED_TYPES.forEach(s=>{d.seeds[s.id]+=2;});
+  d.lastGive=today;
+  _egrdSave(d);
+  showFloatBubble('🌱 +2 of each seed!','good');
+  _renderEgrd();
+}
+function egrdSelectSeed(sid){
+  _egrdSelectedSeed=sid;
+  document.querySelectorAll('.egrd-seed').forEach(el=>{el.classList.toggle('selected',el.dataset.id===sid);});
+}
+function egrdPlant(idx){
+  const d=_egrdData();
+  if(!_egrdSelectedSeed){showFloatBubble('Select a seed first!','bad');return;}
+  if(d.plots[idx]!==null){
+    // Check if ready to harvest
+    const p=d.plots[idx];
+    const st=EGRD_SEED_TYPES.find(x=>x.id===p.type);
+    if(Date.now()-p.plantedAt>=st.growMs){
+      // Harvest
+      if(st.bonus.coins)gainCoins(st.bonus.coins);
+      if(st.bonus.str){G.str=(G.str||10)+st.bonus.str;save();}
+      if(st.bonus.int){G.int=(G.int||10)+st.bonus.int;save();}
+      if(st.bonus.agi){G.agi=(G.agi||10)+st.bonus.agi;save();}
+      if(st.bonus.kc)gainKC(st.bonus.kc);
+      d.plots[idx]=null;
+      _egrdSave(d);
+      showFloatBubble(`${st.icon} Harvested ${st.name}! ${st.bdesc}`,'good');
+      checkAchievements();_renderEgrd();return;
+    }
+    showFloatBubble('Plot occupied! Wait for it to grow.','bad');return;
+  }
+  if((d.seeds[_egrdSelectedSeed]||0)<1){showFloatBubble('No seeds of that type!','bad');return;}
+  d.seeds[_egrdSelectedSeed]--;
+  d.plots[idx]={type:_egrdSelectedSeed,plantedAt:Date.now()};
+  _egrdSave(d);
+  showFloatBubble('🌱 Planted!','good');
+  _renderEgrd();
+}
+function egrdHarvestAll(){
+  const d=_egrdData();
+  let harvested=0;
+  d.plots.forEach((p,i)=>{
+    if(!p)return;
+    const st=EGRD_SEED_TYPES.find(x=>x.id===p.type);
+    if(Date.now()-p.plantedAt>=st.growMs){
+      if(st.bonus.coins)gainCoins(st.bonus.coins);
+      if(st.bonus.str){G.str=(G.str||10)+st.bonus.str;save();}
+      if(st.bonus.int){G.int=(G.int||10)+st.bonus.int;save();}
+      if(st.bonus.agi){G.agi=(G.agi||10)+st.bonus.agi;save();}
+      if(st.bonus.kc)gainKC(st.bonus.kc);
+      d.plots[i]=null;harvested++;
+    }
+  });
+  _egrdSave(d);
+  if(harvested>0){showFloatBubble(`🌾 Harvested ${harvested} plants!`,'good');checkAchievements();}
+  else showFloatBubble('Nothing ready yet!','bad');
+  _renderEgrd();
+}
+function openEgrd(){
+  egrdGiveSeeds();
+  $('egrdPanel').style.display='flex';_renderEgrd();
+}
+function closeEgrd(){$('egrdPanel').style.display='none';}
+function _renderEgrd(){
+  const d=_egrdData();
+  const ready=d.plots.filter(p=>{if(!p)return false;const st=EGRD_SEED_TYPES.find(x=>x.id===p.type);return Date.now()-p.plantedAt>=st.growMs;}).length;
+  const totalSeeds=Object.values(d.seeds).reduce((s,v)=>s+v,0);
+  $('egrdInfo').textContent=`Seeds: ${totalSeeds} | Ready to harvest: ${ready}`;
+  $('egrdSeeds').innerHTML=EGRD_SEED_TYPES.map(s=>`<div class="egrd-seed ${_egrdSelectedSeed===s.id?'selected':''}" data-id="${s.id}" onclick="egrdSelectSeed('${s.id}')">
+    <div class="gs-icon">${s.icon}</div>
+    <div class="gs-name">${s.name.replace(' ','
+')}</div>
+    <div class="gs-count">${d.seeds[s.id]||0}</div>
+  </div>`).join('');
+  $('egrdPlots').innerHTML=d.plots.map((p,i)=>{
+    if(!p)return `<div class="egrd-plot" onclick="egrdPlant(${i})"><div class="ep-icon">🟫</div><div class="ep-name">Empty</div></div>`;
+    const st=EGRD_SEED_TYPES.find(x=>x.id===p.type);
+    const elapsed=Date.now()-p.plantedAt;
+    const isReady=elapsed>=st.growMs;
+    const pct=Math.min(100,Math.floor(elapsed/st.growMs*100));
+    return `<div class="egrd-plot ${isReady?'ready':'planted'}" onclick="egrdPlant(${i})">
+      <div class="ep-icon">${st.icon}</div>
+      <div class="ep-name">${st.name}</div>
+      <div class="ep-time">${isReady?'Ready! Tap!':pct+'%'}</div>
+    </div>`;
+  }).join('');
+}
+
+
+// ══ BLOOD MOON ══
+const BMOON_KEY = 'k0509_bmoon';
+const BMOON_RITUALS = [
+  {id:'b1',icon:'🩸',name:'Blood Offering',desc:'Offer strength to the moon',bonus:'+3 STR',apply:()=>{G.str=(G.str||10)+3;save()},be:10},
+  {id:'b2',icon:'💀',name:'Death Chant',desc:'Channel death energy',bonus:'+3 INT',apply:()=>{G.int=(G.int||10)+3;save()},be:10},
+  {id:'b3',icon:'🌑',name:'Shadow Dance',desc:'Dance in the moonlight',bonus:'+3 AGI',apply:()=>{G.agi=(G.agi||10)+3;save()},be:10},
+  {id:'b4',icon:'⚗️',name:'Crimson Brew',desc:'Brew a blood potion',bonus:'+200 Coins',apply:()=>gainCoins(200),be:15},
+  {id:'b5',icon:'🔮',name:'Dark Vision',desc:'See through shadows',bonus:'+5 INT +2KC',apply:()=>{G.int+=5;save();gainKC(2)},be:20},
+  {id:'b6',icon:'🐺',name:'Wolf Howl',desc:'Channel the beast within',bonus:'+6 STR +3 AGI',apply:()=>{G.str+=6;G.agi+=3;save()},be:25},
+  {id:'b7',icon:'🌟',name:'Blood Ascension',desc:'Ultimate blood moon ritual',bonus:'+5 All +5KC',apply:()=>{G.str+=5;G.int+=5;G.agi+=5;save();gainKC(5)},be:40},
+];
+function _bmoonData(){
+  const d=JSON.parse(localStorage.getItem(BMOON_KEY)||'{}');
+  return {be:d.be||0,done:d.done||[],lastDay:d.lastDay||''};
+}
+function _bmoonSave(d){localStorage.setItem(BMOON_KEY,JSON.stringify(d));}
+function bmoonRitual(rid){
+  const d=_bmoonData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.done=[];d.lastDay=today;}
+  if(d.done.includes(rid)){showFloatBubble('Already done today!','bad');return;}
+  const r=BMOON_RITUALS.find(x=>x.id===rid);
+  d.done.push(rid);
+  d.be+=r.be;
+  _bmoonSave(d);
+  r.apply();
+  showFloatBubble(`${r.icon} ${r.name}: ${r.bonus}`,'good');
+  checkAchievements();_renderBmoon();
+}
+function openBmoon(){
+  // Give daily blood energy on visit
+  const d=_bmoonData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.be+=5;d.done=[];d.lastDay=today;_bmoonSave(d);}
+  $('bmoonPanel').style.display='flex';_renderBmoon();
+}
+function closeBmoon(){$('bmoonPanel').style.display='none';}
+function _renderBmoon(){
+  const d=_bmoonData();
+  const today=getTodayKey();
+  const done=d.lastDay===today?d.done:[];
+  $('bmoonStat').textContent=`Blood Energy: ${d.be} | Rituals: ${done.length}/7`;
+  $('bmoonRituals').innerHTML=BMOON_RITUALS.map(r=>{
+    const isDone=done.includes(r.id);
+    return `<div class="bmoon-ritual ${isDone?'done':''}" onclick="bmoonRitual('${r.id}')">
+      <div class="br-head"><span class="br-icon">${r.icon}</span><span class="br-name">${r.name}</span><span class="br-bonus">+${r.be} BE</span></div>
+      <div class="br-desc">${r.desc} → ${r.bonus} ${isDone?'✅':''}</div>
+    </div>`;
+  }).join('');
 }
 
 </script>
