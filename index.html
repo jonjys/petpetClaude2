@@ -1723,6 +1723,35 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ CHAOS TRIALS ══ */
+.chtr-panel{position:fixed;inset:0;background:#030200;z-index:1095;display:none;flex-direction:column;overflow:hidden}
+.chtr-panel.open{display:flex}
+.chtr-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060400,#030200)}
+.chtr-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4400,#ffaa00,#ff0044,#ff4400);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:chtrShim 1.5s linear infinite}
+@keyframes chtrShim{0%{background-position:0%}100%{background-position:300%}}
+.chtr-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.chtr-active{background:radial-gradient(ellipse at 50% 0,rgba(255,68,0,.1),transparent);border:2px solid rgba(255,68,0,.2);border-radius:22px;padding:14px;margin-bottom:12px;text-align:center}
+.chtr-chaos-icon{font-size:52px;display:block;margin-bottom:4px;animation:chtrSpin 3s linear infinite}
+@keyframes chtrSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.chtr-chaos-lbl{font:700 8px var(--ff-head);color:rgba(255,68,0,.4);letter-spacing:2px;margin-bottom:3px}
+.chtr-chaos-name{font:800 16px var(--ff-head);color:rgba(255,150,80,.9);margin-bottom:4px}
+.chtr-chaos-desc{font:600 9px var(--ff-body);color:rgba(255,68,0,.5);margin-bottom:8px}
+.chtr-mod-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-bottom:8px}
+.chtr-mod{background:rgba(255,68,0,.08);border:1px solid rgba(255,68,0,.2);border-radius:20px;padding:3px 10px;font:700 8px var(--ff-head);color:rgba(255,150,80,.8)}
+.chtr-accept-btn{background:linear-gradient(135deg,#200800,#601800);border:1.5px solid rgba(255,68,0,.4);border-radius:14px;padding:11px;font:900 12px var(--ff-head);color:#fff;cursor:pointer;width:100%}
+.chtr-accept-btn:disabled{opacity:.3;cursor:default}
+.chtr-history-lbl{font:700 8px var(--ff-head);color:rgba(255,68,0,.35);letter-spacing:1px;margin-bottom:8px}
+.chtr-hist{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.chtr-hist-item{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center}
+.chtr-hist-l{font:700 10px var(--ff-head);color:rgba(255,150,80,.6)}
+.chtr-hist-r{font:700 9px var(--ff-head);color:rgba(255,68,0,.5)}
+.chtr-stats{display:flex;gap:5px;margin-bottom:8px}
+.chtr-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.chtr-stat-v{font:800 16px var(--ff-head);color:#ff4400}
+.chtr-stat-l{font:600 7px var(--ff-body);color:rgba(255,68,0,.3)}
+.chtr-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
 /* ══ SOUL NEXUS ══ */
 .soul-panel{position:fixed;inset:0;background:#030006;z-index:1094;display:none;flex-direction:column;overflow:hidden}
 .soul-panel.open{display:flex}
@@ -13668,6 +13697,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
           <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
           <div class="ddr" onclick="cM();openMyth()"><div class="ddr-i">💀</div>Mytarean</div>
@@ -13783,6 +13813,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
           <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
           <div class="ddr" onclick="cM();openMyth()"><div class="ddr-i">💀</div>Mytarean</div>
@@ -13881,6 +13912,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
           <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
           <div class="ddr" onclick="cM();openMyth()"><div class="ddr-i">💀</div>Mytarean</div>
@@ -13910,6 +13942,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTown()"><div class="ddr-i">🏘</div>Stad</div>
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Garderob</div>
           <div class="ddr" onclick="cM();openGach()"><div class="ddr-i">✨</div>Portal</div>
+          <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
           <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic()"><div class="ddr-i">⛏</div>Reliker</div>
           <div class="ddr" onclick="cM();openShr()"><div class="ddr-i">🔮</div>Skrin</div>
@@ -14020,6 +14053,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
           <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
           <div class="ddr" onclick="cM();openMyth()"><div class="ddr-i">💀</div>Mytarean</div>
@@ -14781,6 +14815,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- CHAOS TRIALS -->
+<div class="chtr-panel" id="chtrPanel">
+  <div class="chtr-header">
+    <div class="chtr-title">💥 KAOSUTMANINGARNA</div>
+    <button class="close-btn" onclick="closeChtr()">✕</button>
+  </div>
+  <div class="chtr-scroll">
+    <div class="chtr-stats">
+      <div class="chtr-stat-box"><div class="chtr-stat-v" id="chtrTotalV">0</div><div class="chtr-stat-l">Totalt</div></div>
+      <div class="chtr-stat-box"><div class="chtr-stat-v" id="chtrWinsV">0</div><div class="chtr-stat-l">Vinster</div></div>
+      <div class="chtr-stat-box"><div class="chtr-stat-v" id="chtrKCV">0</div><div class="chtr-stat-l">KC</div></div>
+    </div>
+    <div class="chtr-active">
+      <span class="chtr-chaos-icon" id="chtrIcon">💥</span>
+      <div class="chtr-chaos-lbl">DAGENS KAOSUTMANING</div>
+      <div class="chtr-chaos-name" id="chtrName">Laddar utmaning...</div>
+      <div class="chtr-chaos-desc" id="chtrDesc">–</div>
+      <div class="chtr-mod-tags" id="chtrMods"></div>
+      <button class="chtr-accept-btn" id="chtrAcceptBtn" onclick="chtrAccept()">Acceptera Utmaningen!</button>
+    </div>
+    <div class="chtr-history-lbl">HISTORIK</div>
+    <div class="chtr-hist" id="chtrHist"></div>
+    <div class="chtr-info">Nya utmaningar varje dag med slumpmässiga modifiers. Svårare = bättre belöningar! 💥</div>
+  </div>
+</div>
 
 <!-- SOUL NEXUS -->
 <div class="soul-panel" id="soulPanel">
@@ -64637,6 +64698,116 @@ function _renderSoul(d){
          '<div style="font:700 9px var(--ff-head);color:rgba(68,255,136,.5)">MAX</div>')+
       '</div>';
     }).join('');
+  }
+}
+
+
+// CHAOS TRIALS
+const CHTR_KEY = 'k0509_chtr';
+const CHTR_MODIFIERS = [
+  'x2 Mynt',  'x2 XP',  'Dubbel Styrka',  'Lyckobonus',  'Snabbhet+',
+  'Ingen INT', 'Ingen LCK', 'Halvt HP',  'x3 Belöning',  'Kaosläge',
+];
+const CHTR_CHALLENGES = [
+  {icon:'F', name:'Eldproven',        desc:'Gå igenom eld och lågor',             diff:1, coins:100, xp:80,  bonus:{str:2}},
+  {icon:'I', name:'Isproven',         desc:'Överlev isens bitande kyla',           diff:1, coins:110, xp:85,  bonus:{end:2}},
+  {icon:'T', name:'Tidsbegränsad',    desc:'Klara det pa halv tid',               diff:2, coins:160, xp:120, bonus:{agi:2,str:1}},
+  {icon:'M', name:'Mörket Runt',      desc:'Navigera i totalt morker',            diff:2, coins:180, xp:130, bonus:{int:2,lck:1}},
+  {icon:'C', name:'Kaosmästaren',     desc:'Möt kaosets oförutsägbara makter',    diff:3, coins:250, xp:200, bonus:{str:3,lck:2}},
+  {icon:'D', name:'Dödsdansen',       desc:'Dansa med döden i kaosringarna',      diff:4, coins:350, xp:280, bonus:{str:3,agi:3,lck:2},kc:1},
+  {icon:'X', name:'Omöjliga Provan',  desc:'En utmaning bortom möjlighetens gräns',diff:5,coins:500, xp:400, bonus:{str:4,agi:4,int:4,lck:4,end:4},kc:2},
+];
+
+function _chtrData(){try{return JSON.parse(localStorage.getItem(CHTR_KEY)||'null');}catch(e){return null;}}
+function _chtrSave(d){localStorage.setItem(CHTR_KEY,JSON.stringify(d));}
+function _chtrGetData(){
+  var d=_chtrData();
+  if(!d) d={doneToday:false,lastDay:'',total:0,wins:0,kcTotal:0,history:[]};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.doneToday=false;d.lastDay=today;_chtrSave(d);}
+  return d;
+}
+
+function _chtrDailyChallenge(){
+  var today=getTodayKey();
+  var seed=0;
+  for(var i=0;i<today.length;i++) seed+=today.charCodeAt(i);
+  seed+=(G.lvl||1)*17;
+  var ch=CHTR_CHALLENGES[seed%CHTR_CHALLENGES.length];
+  var mods=[];
+  for(var j=0;j<3;j++){
+    seed=(seed*1664525+1013904223)>>>0;
+    mods.push(CHTR_MODIFIERS[seed%CHTR_MODIFIERS.length]);
+  }
+  return {challenge:ch,mods:mods};
+}
+
+function chtrAccept(){
+  var d=_chtrGetData();
+  if(d.doneToday){showFloatBubble('Dagens utmaning är klar!','debuff');return;}
+  var today=getTodayKey();
+  var daily=_chtrDailyChallenge();
+  var ch=daily.challenge;
+  var mods=daily.mods;
+  var myPower=(G.str||0)+(G.agi||0)+(G.int||0)*0.5+(G.lck||0)*0.5+(G.end||0)*0.5;
+  var hasX2=mods.indexOf('x2 Mynt')>=0||mods.indexOf('x3 Belöning')>=0;
+  var mult=hasX2?2:1;
+  var winChance=Math.min(0.88,Math.max(0.18,myPower/(myPower+ch.diff*15)));
+  var won=Math.random()<winChance;
+  d.doneToday=true;
+  d.total=(d.total||0)+1;
+  if(won){
+    d.wins=(d.wins||0)+1;
+    var coins=ch.coins*mult;
+    var xp=ch.xp*mult;
+    gainCoins(coins);gainXP(xp,'str');
+    Object.keys(ch.bonus).forEach(function(s){G[s]=(G[s]||0)+ch.bonus[s];});
+    save();
+    if(ch.kc) gainKC(ch.kc);
+    d.kcTotal=(d.kcTotal||0)+(ch.kc||0);
+    var bonusTxt=Object.keys(ch.bonus).map(function(s){return '+'+ch.bonus[s]+s.toUpperCase();}).join(' ');
+    showFloatBubble(ch.icon+' Utmaning klarad! +'+coins+' mynt '+bonusTxt,'buff');
+    d.history.unshift({date:today,name:ch.name,won:true,coins:coins,kc:ch.kc||0});
+  } else {
+    gainCoins(Math.floor(ch.coins*0.15));gainXP(20,'str');
+    showFloatBubble(ch.icon+' Utmaning misslyckades! Starka krafter...','debuff');
+    d.history.unshift({date:today,name:ch.name,won:false,coins:Math.floor(ch.coins*0.15),kc:0});
+  }
+  if(d.history.length>7) d.history=d.history.slice(0,7);
+  _chtrSave(d);
+  checkAchievements();
+  _renderChtr(d);
+}
+
+function openChtr(){$('chtrPanel').classList.add('open');_renderChtr(_chtrGetData());}
+function closeChtr(){$('chtrPanel').classList.remove('open');}
+
+function _renderChtr(d){
+  if(!d) d=_chtrGetData();
+  var tv=$('chtrTotalV');if(tv) tv.textContent=d.total||0;
+  var wv=$('chtrWinsV');if(wv) wv.textContent=d.wins||0;
+  var kv=$('chtrKCV');if(kv) kv.textContent=d.kcTotal||0;
+  var daily=_chtrDailyChallenge();
+  var ch=daily.challenge;
+  var mods=daily.mods;
+  var ci=$('chtrIcon');if(ci) ci.textContent=ch.icon;
+  var cn=$('chtrName');if(cn) cn.textContent=ch.name;
+  var cd=$('chtrDesc');if(cd) cd.textContent=ch.desc;
+  var cm=$('chtrMods');
+  if(cm) cm.innerHTML=mods.map(function(m){return '<div class="chtr-mod">'+m+'</div>';}).join('');
+  var ab=$('chtrAcceptBtn');if(ab) ab.disabled=d.doneToday;
+  var hist=$('chtrHist');
+  if(hist){
+    if(!d.history||d.history.length===0){
+      hist.innerHTML='<div style="text-align:center;padding:10px;font:600 9px var(--ff-body);color:rgba(255,255,255,.15)">Inga utmaningar klarade an</div>';
+    } else {
+      hist.innerHTML=d.history.map(function(h){
+        return '<div class="chtr-hist-item">'+
+          '<div class="chtr-hist-l">'+(h.won?'V':'F')+' · '+h.name+' ('+h.date+')</div>'+
+          '<div class="chtr-hist-r">'+h.coins+' mynt'+(h.kc>0?' +'+h.kc+'KC':'')+'</div>'+
+        '</div>';
+      }).join('');
+    }
   }
 }
 
