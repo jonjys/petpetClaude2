@@ -1913,6 +1913,41 @@ textarea.inp { resize:none;min-height:72px; }
 .wgld-complete-btn{background:linear-gradient(135deg,#001a00,#004400);border:1.5px solid rgba(68,255,136,.3);border-radius:9px;padding:5px 10px;font:700 8px var(--ff-head);color:rgba(68,255,136,.8);cursor:pointer;white-space:nowrap}
 .wgld-complete-btn:disabled{opacity:.3;cursor:default}
 
+/* ══ CONSTELLATION MAP ══ */
+.cmap-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#01010d,#040420,#010110);z-index:1168;overflow-y:auto;padding:0 0 80px}
+.cmap-header{text-align:center;padding:22px 16px 10px;color:#aaddff}
+.cmap-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 20px #4499ff}
+.cmap-energy{text-align:center;color:#5588bb;font-size:.85rem;margin:4px 0 12px}
+.cmap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 12px}
+.cmap-star{background:rgba(10,20,60,.4);border:1px solid #1a3060;border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.cmap-star:active{transform:scale(.95)}
+.cmap-star.linked{border-color:#aaddff;background:rgba(20,50,100,.5);box-shadow:0 0 12px rgba(100,180,255,.3)}
+.cs-icon{font-size:1.8rem}
+.cs-name{font-size:.72rem;color:#88bbdd;font-weight:700;margin-top:3px}
+.cs-bonus{font-size:.68rem;color:#ffcc44;margin-top:2px}
+.cmap-btn{margin:12px 12px 0;background:linear-gradient(135deg,#112244,#2244aa);color:#fff;border:none;border-radius:10px;padding:11px;font-size:.9rem;font-weight:700;width:calc(100% - 24px);cursor:pointer}
+.cmap-log{margin:10px 12px 0;background:rgba(0,0,0,.4);border-radius:10px;padding:10px;max-height:100px;overflow-y:auto}
+.cmap-log div{font-size:.75rem;color:#5588bb;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
+/* ══ SPIRIT AUCTION ══ */
+.sauc-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#0e0e20,#1a1a35,#08081a);z-index:1167;overflow-y:auto;padding:0 0 80px}
+.sauc-header{text-align:center;padding:22px 16px 10px;color:#cc99ff}
+.sauc-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 16px #9955ff}
+.sauc-energy{text-align:center;color:#9977cc;font-size:.85rem;margin:4px 0 12px}
+.sauc-items{display:flex;flex-direction:column;gap:8px;padding:0 12px}
+.sauc-item{background:rgba(40,20,80,.35);border:1px solid #4a2a80;border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;transition:all .2s}
+.sauc-item.won{border-color:#ffcc44;background:rgba(60,50,0,.4)}
+.sauc-item.outbid{opacity:.5}
+.si-icon{font-size:2rem;flex-shrink:0}
+.si-info{flex:1}
+.si-name{font-size:.88rem;color:#cc99ff;font-weight:700}
+.si-desc{font-size:.73rem;color:#7766aa}
+.si-bid{display:flex;gap:6px;align-items:center;margin-top:6px}
+.si-bid input{flex:1;background:#1a1030;border:1px solid #4a2a80;border-radius:6px;color:#cc99ff;padding:4px 8px;font-size:.82rem;width:70px}
+.si-bid button{background:linear-gradient(135deg,#4422aa,#7733ff);color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:.8rem;cursor:pointer}
+.sauc-log{margin:14px 12px 0;background:rgba(0,0,0,.3);border-radius:10px;padding:10px;max-height:100px;overflow-y:auto}
+.sauc-log div{font-size:.75rem;color:#9977cc;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
 /* ══ BOUNTY BOARD ══ */
 .bounty-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#1a1200,#2b1e00,#100d00);z-index:1166;overflow-y:auto;padding:0 0 80px}
 .bounty-header{text-align:center;padding:22px 16px 10px;color:#ffd700}
@@ -16580,6 +16615,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+<!-- CONSTELLATION MAP -->
+<div id="cmapPanel" class="cmap-panel">
+  <div class="cmap-header"><h2>🌠 Constellation Map</h2></div>
+  <div class="cmap-energy" id="cmapEnergy"></div>
+  <div class="cmap-grid" id="cmapGrid"></div>
+  <button class="cmap-btn" onclick="cmapTrace()">⭐ Trace Constellation</button>
+  <div class="cmap-log" id="cmapLog"></div>
+  <button onclick="closeCmap()" style="margin:12px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
+<!-- SPIRIT AUCTION -->
+<div id="saucPanel" class="sauc-panel">
+  <div class="sauc-header"><h2>🏺 Spirit Auction</h2></div>
+  <div class="sauc-energy" id="saucEnergy"></div>
+  <div class="sauc-items" id="saucItems"></div>
+  <div class="sauc-log" id="saucLog"></div>
+  <button onclick="closeSauc()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
 <!-- BOUNTY BOARD -->
 <div id="bountyPanel" class="bounty-panel">
   <div class="bounty-header"><h2>📋 Bounty Board</h2></div>
@@ -73982,6 +74034,126 @@ function _renderBounty(){
     </div>`;
   }).join('');
   $('bountyLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Claim bounties for rewards!</div>';
+}
+
+
+// ══ SPIRIT AUCTION ══
+const SAUC_KEY='k0509_sauc';
+const SAUC_CATALOG=[
+  {id:'s1',icon:'💍',name:'Spirit Ring',desc:'Ethereal ring of power',bonus:{str:8},base:300},
+  {id:'s2',icon:'📿',name:'Mana Necklace',desc:'Flows with arcane mana',bonus:{int:8},base:280},
+  {id:'s3',icon:'🧤',name:'Ghost Gloves',desc:'Faster than shadow',bonus:{agi:8},base:260},
+  {id:'s4',icon:'👑',name:'Soul Crown',desc:'Crown of the spirit king',bonus:{str:5,int:5},base:500},
+  {id:'s5',icon:'🗡️',name:'Specter Blade',desc:'Cuts through reality',bonus:{str:12},base:450},
+  {id:'s6',icon:'🛡️',name:'Veil Shield',desc:'Absorbs spirit damage',bonus:{str:4,agi:4},base:380},
+  {id:'s7',icon:'📖',name:'Void Tome',desc:'Ancient forbidden knowledge',bonus:{int:15},base:600},
+  {id:'s8',icon:'🌟',name:'Star Amulet',desc:'Power of ancient stars',bonus:{str:6,int:6,agi:6},base:800},
+];
+function _saucData(){return JSON.parse(localStorage.getItem(SAUC_KEY)||'{"bids":{},"won":[],"daily":0,"lastDay":"","log":[]}');}
+function _saucSave(d){localStorage.setItem(SAUC_KEY,JSON.stringify(d));}
+function saucBid(sid){
+  const d=_saucData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.daily=0;d.lastDay=today;}
+  if(d.won.includes(sid)){showFloatBubble('Already won!','bad');return;}
+  if(d.daily>=4){showFloatBubble('4 bids today!','bad');return;}
+  const item=SAUC_CATALOG.find(x=>x.id===sid);
+  if(!item)return;
+  const inputEl=$('saucBid_'+sid);
+  const amount=parseInt(inputEl?inputEl.value:0)||item.base;
+  if(amount<item.base){showFloatBubble(`Min bid: ${item.base}🪙`,'bad');return;}
+  if((G.coins||0)<amount){showFloatBubble('Not enough coins!','bad');return;}
+  G.coins-=amount;save();
+  d.bids[sid]=amount;d.daily++;
+  d.won.push(sid);
+  for(const [stat,val] of Object.entries(item.bonus)){
+    if(stat==='str'){G.str=(G.str||10)+val;}
+    else if(stat==='int'){G.int=(G.int||10)+val;}
+    else if(stat==='agi'){G.agi=(G.agi||10)+val;}
+  }
+  save();gainXP(15,'int');
+  const bonusStr=Object.entries(item.bonus).map(([k,v])=>'+'+v+k).join(' ');
+  d.log.unshift(`${item.icon} Won ${item.name}! ${bonusStr}`);
+  if(d.log.length>12)d.log.pop();
+  _saucSave(d);
+  showFloatBubble(`${item.icon} Won ${item.name}!`,'good');
+  checkAchievements();_renderSauc();
+}
+function openSauc(){$('saucPanel').style.display='flex';_renderSauc();}
+function closeSauc(){$('saucPanel').style.display='none';}
+function _renderSauc(){
+  const d=_saucData();
+  const today=getTodayKey();
+  const daily=d.lastDay===today?d.daily:0;
+  $('saucEnergy').textContent=`Spirit Coins: ${G.coins||0}🪙 | Bids today: ${daily}/4 | Won: ${d.won.length}`;
+  $('saucItems').innerHTML=SAUC_CATALOG.map(item=>{
+    const won=d.won.includes(item.id);
+    const bonusStr=Object.entries(item.bonus).map(([k,v])=>'+'+v+k).join(' ');
+    return `<div class="sauc-item ${won?'won':''}">
+      <div class="si-icon">${item.icon}</div>
+      <div class="si-info">
+        <div class="si-name">${item.name} ${won?'✓':''}</div>
+        <div class="si-desc">${item.desc} — ${bonusStr}</div>
+        ${won?'':`<div class="si-bid">
+          <input id="saucBid_${item.id}" type="number" placeholder="${item.base}" min="${item.base}">
+          <button onclick="saucBid('${item.id}')">Bid</button>
+        </div>`}
+      </div>
+    </div>`;
+  }).join('');
+  $('saucLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Bid on spirit items!</div>';
+}
+
+// ══ CONSTELLATION MAP ══
+const CMAP_KEY='k0509_cmap';
+const CMAP_STARS=[
+  {id:'c1',icon:'⭐',name:'Orion',bonus:'+4 STR',str:4},
+  {id:'c2',icon:'🌟',name:'Sirius',bonus:'+4 INT',int:4},
+  {id:'c3',icon:'✨',name:'Vega',bonus:'+4 AGI',agi:4},
+  {id:'c4',icon:'💫',name:'Polaris',bonus:'50 KC',kc:50},
+  {id:'c5',icon:'⭐',name:'Rigel',bonus:'+5 STR',str:5},
+  {id:'c6',icon:'🌟',name:'Arcturus',bonus:'+5 INT',int:5},
+  {id:'c7',icon:'✨',name:'Capella',bonus:'+5 AGI',agi:5},
+  {id:'c8',icon:'💫',name:'Aldebaran',bonus:'80 KC',kc:80},
+  {id:'c9',icon:'⭐',name:'Antares',bonus:'+6 STR',str:6},
+  {id:'c10',icon:'🌟',name:'Spica',bonus:'+6 INT',int:6},
+  {id:'c11',icon:'✨',name:'Fomalhaut',bonus:'+6 AGI',agi:6},
+  {id:'c12',icon:'🌌',name:'Andromeda',bonus:'+8 all',str:8,int:8,agi:8},
+];
+function _cmapData(){return JSON.parse(localStorage.getItem(CMAP_KEY)||'{"stardust":0,"traces":0,"lastDay":"","linked":[],"log":[]}');}
+function _cmapSave(d){localStorage.setItem(CMAP_KEY,JSON.stringify(d));}
+function cmapTrace(){
+  const d=_cmapData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.traces=0;d.lastDay=today;}
+  if(d.traces>=6){showFloatBubble('6 traces today!','bad');return;}
+  const unlinked=CMAP_STARS.filter(s=>!d.linked.includes(s.id));
+  if(unlinked.length===0){showFloatBubble('All constellations linked!','good');return;}
+  const star=unlinked[Math.floor(Math.random()*unlinked.length)];
+  d.linked.push(star.id);d.traces++;d.stardust+=10;
+  if(star.str){G.str=(G.str||10)+star.str;save();}
+  if(star.int){G.int=(G.int||10)+star.int;save();}
+  if(star.agi){G.agi=(G.agi||10)+star.agi;save();}
+  if(star.kc){gainKC(star.kc);}
+  d.log.unshift(`${star.icon} ${star.name} linked! ${star.bonus}`);
+  if(d.log.length>12)d.log.pop();
+  _cmapSave(d);
+  showFloatBubble(`${star.icon} ${star.name} constellation traced!`,'good');
+  checkAchievements();_renderCmap();
+}
+function openCmap(){$('cmapPanel').style.display='flex';_renderCmap();}
+function closeCmap(){$('cmapPanel').style.display='none';}
+function _renderCmap(){
+  const d=_cmapData();
+  const today=getTodayKey();
+  const traces=d.lastDay===today?d.traces:0;
+  $('cmapEnergy').textContent=`Stardust: ${d.stardust} | Linked: ${d.linked.length}/${CMAP_STARS.length} | Traces: ${traces}/6`;
+  $('cmapGrid').innerHTML=CMAP_STARS.map(s=>`<div class="cmap-star ${d.linked.includes(s.id)?'linked':''}">
+    <div class="cs-icon">${s.icon}</div>
+    <div class="cs-name">${s.name}</div>
+    <div class="cs-bonus">${d.linked.includes(s.id)?'✓':s.bonus}</div>
+  </div>`).join('');
+  $('cmapLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Trace constellations for cosmic power!</div>';
 }
 
 </script>
