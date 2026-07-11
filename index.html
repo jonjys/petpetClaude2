@@ -1546,6 +1546,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET SPA ══ */
+.spa-panel{position:fixed;inset:0;background:#060108;z-index:1059;display:none;flex-direction:column;overflow:hidden}
+.spa-panel.open{display:flex}
+.spa-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0e0218,#060108)}
+.spa-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff88dd,#dd44ff,#8844ff,#ff88dd);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:spaShim 3s linear infinite}
+@keyframes spaShim{0%{background-position:0%}100%{background-position:300%}}
+.spa-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Wellness banner */
+.spa-banner{background:radial-gradient(ellipse,rgba(220,68,255,.07),rgba(0,0,0,0));border:2px solid rgba(220,68,255,.2);border-radius:22px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.spa-banner-left{display:flex;flex-direction:column;gap:3px}
+.spa-wellness-lbl{font:700 9px var(--ff-head);color:rgba(220,68,255,.5);letter-spacing:1px}
+.spa-wellness-bar-wrap{background:rgba(255,255,255,.06);border-radius:5px;height:8px;width:130px;overflow:hidden}
+.spa-wellness-bar{height:100%;border-radius:5px;background:linear-gradient(90deg,#dd44ff,#ff88dd);transition:width .5s}
+.spa-wellness-pct{font:600 8px var(--ff-body);color:rgba(220,68,255,.5);margin-top:2px}
+.spa-banner-right{text-align:right}
+.spa-streak-v{font:900 26px var(--ff-head);color:#dd44ff}
+.spa-streak-l{font:600 7px var(--ff-body);color:rgba(220,68,255,.4)}
+/* Treatment cards */
+.spa-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.spa-treatment{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 14px;position:relative;overflow:hidden}
+.spa-treatment.available{border-color:rgba(220,68,255,.3);background:rgba(220,68,255,.04)}
+.spa-treatment.done{opacity:.5}
+.spa-treat-icon{font-size:30px;flex-shrink:0;width:36px;text-align:center}
+.spa-treat-body{flex:1}
+.spa-treat-name{font:700 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.spa-treat-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:4px}
+.spa-treat-bonus{font:700 9px var(--ff-head);color:#dd44ff;margin-bottom:4px}
+.spa-treat-btn{background:linear-gradient(135deg,#2a0040,#6000a0);border:1px solid rgba(220,68,255,.4);border-radius:10px;padding:6px 14px;font:800 10px var(--ff-head);color:#fff;cursor:pointer;flex-shrink:0}
+.spa-treat-btn.done-btn{background:rgba(68,255,136,.1);border-color:rgba(68,255,136,.3);color:#44ff88}
+.spa-treat-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.04)}
+/* Relax animation bar */
+.spa-treat-progress{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,#dd44ff,#ff88dd);border-radius:0 0 0 0;transition:width .05s}
+/* Stats section */
+.spa-stats{display:flex;gap:6px;margin-bottom:8px}
+.spa-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:8px;text-align:center}
+.spa-stat-v{font:800 16px var(--ff-head);color:#dd44ff}
+.spa-stat-l{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.spa-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ WEATHER FARM ══ */
 .wf-panel{position:fixed;inset:0;background:#010a04;z-index:1058;display:none;flex-direction:column;overflow:hidden}
 .wf-panel.open{display:flex}
@@ -12300,6 +12340,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
+          <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12379,6 +12420,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
+          <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12441,6 +12483,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
+          <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12541,6 +12584,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
+          <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13147,6 +13191,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET SPA -->
+<div class="spa-panel" id="spaPanel">
+  <div class="spa-header">
+    <div class="spa-title">🛁 HUSDJURSSPA</div>
+    <button class="close-btn" onclick="closeSpa()">✕</button>
+  </div>
+  <div class="spa-scroll">
+    <div class="spa-banner">
+      <div class="spa-banner-left">
+        <div class="spa-wellness-lbl">VÄLMÅENDE</div>
+        <div class="spa-wellness-bar-wrap"><div class="spa-wellness-bar" id="spaWellnessBar" style="width:0%"></div></div>
+        <div class="spa-wellness-pct" id="spaWellnessPct">0%</div>
+      </div>
+      <div class="spa-banner-right">
+        <div class="spa-streak-v" id="spaStreakV">0</div>
+        <div class="spa-streak-l">dagar streak</div>
+      </div>
+    </div>
+    <div class="spa-stats">
+      <div class="spa-stat-box"><div class="spa-stat-v" id="spaTotal">0</div><div class="spa-stat-l">Behandlingar</div></div>
+      <div class="spa-stat-box"><div class="spa-stat-v" id="spaTodayDone">0/5</div><div class="spa-stat-l">Idag</div></div>
+      <div class="spa-stat-box"><div class="spa-stat-v" id="spaBestStreak">0</div><div class="spa-stat-l">Bästa streak</div></div>
+    </div>
+    <div class="spa-grid" id="spaGrid"></div>
+    <div class="spa-info">Välmående-streak ger bonus KC varje 7 dagar! Alla behandlingar = +1 KC</div>
+  </div>
+</div>
 
 <!-- WEATHER FARM -->
 <div class="wf-panel" id="wfPanel">
@@ -57718,6 +57791,133 @@ function _renderWf(d){
       return '<div class="wf-hist-item"><span class="wf-hist-icon">'+h.icon+'</span>'+h.day+' · '+h.weather+(h.streak>1?' 🔥'+h.streak:'')+'<span class="wf-hist-rw">+'+h.coins+'🪙</span></div>';
     }).join('');
   }
+}
+
+
+// PET SPA
+const SPA_KEY = 'k0509_spa';
+const SPA_TREATMENTS = [
+  {id:'massage',   icon:'💆', name:'Massage',          desc:'Djupvävnadsmassage för husdjuret',           bonus:{end:2},   bonusTxt:'+2 END',    coins:30, xp:25, duration:3000},
+  {id:'bath',      icon:'🛁', name:'Lyxigt Bad',        desc:'Kryddört och eteriska oljor',                bonus:{lck:2},   bonusTxt:'+2 LCK',    coins:25, xp:20, duration:2500},
+  {id:'grooming',  icon:'✂️', name:'Grooming',          desc:'Klipp, borste och nagelvård',                bonus:{agi:2},   bonusTxt:'+2 AGI',    coins:20, xp:18, duration:2000},
+  {id:'acupuncture',icon:'🪡',name:'Akupunktur',        desc:'Energiflödet balanseras',                    bonus:{int:2},   bonusTxt:'+2 INT',    coins:35, xp:30, duration:4000},
+  {id:'crystal',   icon:'💎', name:'Kristallterapi',    desc:'Magiska kristaller stärker anden',           bonus:{str:2,lck:1},bonusTxt:'+2 STR +1 LCK',coins:40,xp:35,duration:3500},
+];
+
+var _spaActive = {};
+
+function _spaData(){try{return JSON.parse(localStorage.getItem(SPA_KEY)||'null');}catch(e){return null;}}
+function _spaSave(d){localStorage.setItem(SPA_KEY,JSON.stringify(d));}
+function _spaGetData(){
+  var d=_spaData();
+  if(!d) d={doneToday:{},lastDay:'',streak:0,bestStreak:0,total:0,hasAllDone:false};
+  var today=getTodayKey();
+  if(d.lastDay!==today){
+    // Check streak
+    var yesterday=_spaYesterday(today);
+    if(d.lastDay===yesterday&&Object.keys(d.doneToday).length===SPA_TREATMENTS.length){
+      d.streak=(d.streak||0)+1;
+    } else if(d.lastDay!==today){
+      d.streak=0;
+    }
+    if(d.streak>(d.bestStreak||0)) d.bestStreak=d.streak;
+    d.doneToday={};d.lastDay=today;d.hasAllDone=false;
+    _spaSave(d);
+  }
+  return d;
+}
+
+function spaTreat(id){
+  var d=_spaGetData();
+  if(d.doneToday[id]) return;
+  if(_spaActive[id]) return;
+  var treatment=SPA_TREATMENTS.find(function(t){return t.id===id;});
+  if(!treatment) return;
+  _spaActive[id]=true;
+  _spaRenderGrid(d);
+  // Progress animation
+  var start=Date.now();
+  var dur=treatment.duration;
+  var progBar=$('spaProgress_'+id);
+  function tick(){
+    var elapsed=Date.now()-start;
+    var pct=Math.min(100,elapsed/dur*100);
+    if(progBar) progBar.style.width=pct+'%';
+    if(elapsed<dur) requestAnimationFrame(tick);
+    else _spaFinish(id,treatment,d);
+  }
+  requestAnimationFrame(tick);
+}
+
+function _spaFinish(id, treatment, d){
+  delete _spaActive[id];
+  var freshD=_spaGetData();
+  freshD.doneToday[id]=true;
+  freshD.total=(freshD.total||0)+1;
+  // Apply bonus
+  Object.keys(treatment.bonus).forEach(function(s){G[s]=(G[s]||0)+treatment.bonus[s];});
+  save();
+  gainCoins(treatment.coins);gainXP(treatment.xp,'end');
+  // Check all done
+  if(!freshD.hasAllDone&&Object.keys(freshD.doneToday).length===SPA_TREATMENTS.length){
+    freshD.hasAllDone=true;
+    gainKC(1);
+    showFloatBubble('🛁 Alla behandlingar klara! +1KC bonus!','buff');
+    freshD.streak=(freshD.streak||0)+1;
+    if(freshD.streak>(freshD.bestStreak||0)) freshD.bestStreak=freshD.streak;
+  } else {
+    showFloatBubble(treatment.icon+' '+treatment.name+' klar! '+treatment.bonusTxt+' +'+treatment.coins+'🪙','buff');
+  }
+  _spaSave(freshD);
+  checkAchievements();
+  _renderSpa(freshD);
+}
+
+function _spaYesterday(today){
+  var p=today.split('-');
+  var d2=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
+  d2.setDate(d2.getDate()-1);
+  var mm=d2.getMonth()+1,dd=d2.getDate();
+  return d2.getFullYear()+'-'+(mm<10?'0'+mm:mm)+'-'+(dd<10?'0'+dd:dd);
+}
+
+function _spaRenderGrid(d){
+  var grid=$('spaGrid');if(!grid) return;
+  if(!d) d=_spaGetData();
+  var done=Object.keys(d.doneToday).length;
+  grid.innerHTML=SPA_TREATMENTS.map(function(t){
+    var isDone=!!d.doneToday[t.id];
+    var isActive=!!_spaActive[t.id];
+    var cls='spa-treatment'+(isDone?' done':!isDone&&!isActive?' available':'');
+    var btnCls=isDone?'spa-treat-btn done-btn':'spa-treat-btn';
+    var btnTxt=isDone?'✓ Klar':isActive?'...':t.name;
+    return '<div class="'+cls+'" id="spaTreatment_'+t.id+'">'+
+      '<div class="spa-treat-icon">'+t.icon+'</div>'+
+      '<div class="spa-treat-body">'+
+        '<div class="spa-treat-name">'+t.name+'</div>'+
+        '<div class="spa-treat-desc">'+t.desc+'</div>'+
+        '<div class="spa-treat-bonus">'+t.bonusTxt+' · +'+t.coins+'🪙 +'+t.xp+'XP</div>'+
+      '</div>'+
+      '<button class="'+btnCls+'" onclick="spaTreat(\''+t.id+'\')" '+(isDone||isActive?'disabled':'')+'>'+btnTxt+'</button>'+
+      '<div class="spa-treat-progress" id="spaProgress_'+t.id+'" style="width:'+(isActive?'50':'0')+'%"></div>'+
+    '</div>';
+  }).join('');
+}
+
+function openSpa(){$('spaPanel').classList.add('open');_renderSpa();}
+function closeSpa(){$('spaPanel').classList.remove('open');}
+
+function _renderSpa(d){
+  if(!d) d=_spaGetData();
+  var done=Object.keys(d.doneToday).length;
+  var pct=Math.round(done/SPA_TREATMENTS.length*100);
+  var wb=$('spaWellnessBar');if(wb) wb.style.width=pct+'%';
+  var wp=$('spaWellnessPct');if(wp) wp.textContent=pct+'%';
+  var sv=$('spaStreakV');if(sv) sv.textContent=d.streak||0;
+  var st=$('spaTotal');if(st) st.textContent=d.total||0;
+  var td=$('spaTodayDone');if(td) td.textContent=done+'/'+SPA_TREATMENTS.length;
+  var bs=$('spaBestStreak');if(bs) bs.textContent=d.bestStreak||0;
+  _spaRenderGrid(d);
 }
 
 </script>
