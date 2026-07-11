@@ -4706,6 +4706,54 @@ textarea.inp { resize:none;min-height:72px; }
 .react-start-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06);box-shadow:none}
 .react-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
 
+
+
+/* ══ STAR ACADEMY 2 ══ */
+.acad-panel{position:fixed;inset:0;background:#02040a;z-index:1116;display:none;flex-direction:column;overflow:hidden}
+.acad-panel.open{display:flex}
+.acad-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#030508,#060a10)}
+.acad-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44aaff,#88ddff,#44ffcc,#44aaff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:acd2Shim 4s linear infinite}
+@keyframes acd2Shim{0%{background-position:0%}100%{background-position:300%}}
+.acad-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.acd2-top-row{display:flex;justify-content:space-between;align-items:center;background:rgba(68,170,255,.05);border:1.5px solid rgba(68,170,255,.12);border-radius:14px;padding:10px 14px;margin-bottom:10px}
+.acad-income{font:800 20px var(--ff-head);color:#44aaff}
+.acd2-income-lbl{font:600 7px var(--ff-body);color:rgba(68,170,255,.35)}
+.acd2-collect-btn{background:rgba(68,170,255,.1);border:1px solid rgba(68,170,255,.25);border-radius:9px;padding:6px 12px;font:700 9px var(--ff-head);color:#44aaff;cursor:pointer}
+.acd2-courses{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.acad-course{background:rgba(68,170,255,.04);border:1.5px solid rgba(68,170,255,.1);border-radius:16px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+.acad-course.maxed{border-color:rgba(68,255,200,.25);background:rgba(68,255,200,.04)}
+.acd2-course-icon{font-size:28px;flex-shrink:0}
+.acd2-course-info{flex:1}
+.acd2-course-name{font:700 11px var(--ff-head);color:rgba(140,200,255,.8)}
+.acd2-course-desc{font:600 8px var(--ff-body);color:rgba(100,160,220,.4);margin-bottom:2px}
+.acd2-course-inc{font:700 8px var(--ff-head);color:rgba(68,200,255,.6)}
+.acd2-course-lv{font:700 22px var(--ff-head);color:rgba(68,170,255,.5);flex-shrink:0}
+.acad-upg-btn{background:linear-gradient(135deg,#001428,#002048);border:1.5px solid rgba(68,170,255,.3);border-radius:9px;padding:5px 11px;font:700 8px var(--ff-head);color:#44aaff;cursor:pointer;flex-shrink:0}
+.acd2-upg-btn:disabled{opacity:.3;cursor:default}
+
+/* ══ HEROES ARENA ══ */
+.hero-panel{position:fixed;inset:0;background:#060208;z-index:1115;display:none;flex-direction:column;overflow:hidden}
+.hero-panel.open{display:flex}
+.hero-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#08030a,#100514)}
+.hero-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc44ff,#ff44aa,#4444ff,#cc44ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroShim 4s linear infinite}
+@keyframes heroShim{0%{background-position:0%}100%{background-position:300%}}
+.hero-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.hero-glory{display:flex;justify-content:space-between;align-items:center;background:rgba(200,68,255,.05);border:1.5px solid rgba(200,68,255,.15);border-radius:14px;padding:10px 14px;margin-bottom:10px}
+.hero-glory-v{font:800 22px var(--ff-head);color:#cc88ff}
+.hero-glory-lbl{font:600 7px var(--ff-body);color:rgba(200,136,255,.35)}
+.hero-roster{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.hero-card{border:2px solid;border-radius:18px;padding:11px 13px;transition:all .2s}
+.hero-card-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.hero-card-icon{font-size:32px;flex-shrink:0}
+.hero-card-info{flex:1}
+.hero-card-name{font:800 12px var(--ff-head);margin-bottom:1px}
+.hero-card-class{font:600 7px var(--ff-body);opacity:.45;margin-bottom:3px}
+.hero-card-stats{font:700 8px var(--ff-head);opacity:.6}
+.hero-card-lv{font:700 20px var(--ff-head);text-align:right;flex-shrink:0;opacity:.6}
+.hero-card-btns{display:flex;gap:5px}
+.hero-deploy-btn{flex:1;border:1.5px solid;border-radius:10px;padding:7px;font:700 9px var(--ff-head);cursor:pointer}
+.hero-train-btn{flex:1;border:1.5px solid;border-radius:10px;padding:7px;font:700 9px var(--ff-head);cursor:pointer}
+
 /* ══ TREASURE MAP ══ */
 .tmap-panel{position:fixed;inset:0;background:#020301;z-index:1024;display:none;flex-direction:column;overflow:hidden}
 .tmap-panel.open{display:flex}
@@ -5704,6 +5752,34 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TREASURE MAP ══ */
+.tmap-panel{position:fixed;inset:0;background:#050402;z-index:1114;display:none;flex-direction:column;overflow:hidden}
+.tmap-panel.open{display:flex}
+.tmap-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080600,#120900)}
+.tmap-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ddaa44,#ffcc66,#aa8822,#ddaa44);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:tmapShim 4s linear infinite}
+@keyframes tmapShim{0%{background-position:0%}100%{background-position:300%}}
+.tmap-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.tmap-found{display:flex;justify-content:space-between;align-items:center;background:rgba(200,160,50,.05);border:1.5px solid rgba(200,160,50,.15);border-radius:14px;padding:10px 14px;margin-bottom:10px}
+.tmp3-found-v{font:800 22px var(--ff-head);color:#ddaa44}
+.tmp3-found-lbl{font:600 7px var(--ff-body);color:rgba(200,160,50,.35)}
+.tmap-clue{background:radial-gradient(ellipse at 30% 30%,rgba(200,150,40,.1),transparent);border:2px solid rgba(200,150,40,.2);border-radius:18px;padding:14px;margin-bottom:10px}
+.tmp3-clue-lbl{font:700 8px var(--ff-head);color:rgba(200,150,40,.4);letter-spacing:1px;margin-bottom:8px}
+.tmp3-clue-text{font:700 13px var(--ff-body);color:rgba(240,210,120,.8);margin-bottom:10px;line-height:1.5}
+.tmp3-answers{display:flex;flex-direction:column;gap:6px}
+.tmap-answer{background:rgba(200,150,40,.06);border:1.5px solid rgba(200,150,40,.15);border-radius:12px;padding:10px 14px;cursor:pointer;font:600 10px var(--ff-body);color:rgba(220,180,100,.7);transition:all .15s}
+.tmap-answer:hover{background:rgba(200,150,40,.12);border-color:rgba(200,150,40,.3)}
+.tmap-answer.correct{background:rgba(68,255,136,.08);border-color:rgba(68,255,136,.3);color:rgba(68,255,136,.8);cursor:default}
+.tmp3-answer.wrong{background:rgba(255,80,80,.05);border-color:rgba(255,80,80,.2);color:rgba(255,100,100,.5);cursor:default}
+.tmp3-maps{display:flex;flex-direction:column;gap:6px}
+.tmap-map{background:rgba(200,150,40,.04);border:1px solid rgba(200,150,40,.1);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.tmp3-map-icon{font-size:26px;flex-shrink:0}
+.tmp3-map-info{flex:1}
+.tmp3-map-name{font:700 10px var(--ff-head);color:rgba(220,180,100,.7)}
+.tmp3-map-rew{font:600 7px var(--ff-body);color:rgba(180,140,60,.4)}
+.tmp3-map-btn{background:rgba(200,150,40,.1);border:1px solid rgba(200,150,40,.25);border-radius:8px;padding:5px 10px;font:700 8px var(--ff-head);color:#ddaa44;cursor:pointer;flex-shrink:0}
+.tmp3-map-btn:disabled{opacity:.3;cursor:default}
+
 /* ══ GODS BLESSING ══ */
 .gods-panel{position:fixed;inset:0;background:#080408;z-index:1113;display:none;flex-direction:column;overflow:hidden}
 .gods-panel.open{display:flex}
@@ -6399,13 +6475,13 @@ textarea.inp { resize:none;min-height:72px; }
 .chal-all-btn{background:linear-gradient(135deg,#cc6600,#ff9900);border:none;border-radius:12px;padding:12px 24px;font:900 13px var(--ff-head);color:#fff;cursor:pointer}
 .chal-all-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.06)}
 
-/* ══ TREASURE MAP ══ */
+/* ══ TREASURE MAP 3 ══ */
 .tmap-panel{position:fixed;inset:0;background:#050a00;z-index:982;display:none;flex-direction:column;overflow:hidden}
-.tmap-panel.open{display:flex}
-.tmap-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a1400,#050a00)}
-.tmap-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ffcc00);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:tmapShim 3s linear infinite}
-@keyframes tmapShim{0%{background-position:0%}100%{background-position:200%}}
-.tmap-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.tmp3-panel.open{display:flex}
+.tmp3-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a1400,#050a00)}
+.tmp3-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ffcc00);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:tmp3Shim 3s linear infinite}
+@keyframes tmp3Shim{0%{background-position:0%}100%{background-position:200%}}
+.tmp3-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
 .tmap-dig-info{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,200,0,.1);border-radius:12px;padding:10px 14px;margin-bottom:12px}
 .tmap-dig-left{font:900 16px var(--ff-head);color:#ffcc00}
 .tmap-dig-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
@@ -9672,10 +9748,10 @@ textarea.inp { resize:none;min-height:72px; }
 
 /* ══ PET ACADEMY ══ */
 .acad-panel{position:fixed;inset:0;background:#030508;z-index:903;display:none;flex-direction:column;overflow:hidden}
-.acad-panel.open{display:flex}
-.acad-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080612,#040412)}
-.acad-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#4488ff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.acad-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
+.acd2-panel.open{display:flex}
+.acd2-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080612,#040412)}
+.acd2-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#4488ff,#aa66ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.acd2-scroll{flex:1;overflow-y:auto;padding:12px 14px 28px}
 .acad-stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px}
 .acad-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:6px 4px;text-align:center}
 .acad-stat-icon{font-size:16px;margin-bottom:2px}
@@ -14491,6 +14567,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRace()"><div class="ddr-i">🏁</div>Racing</div>
           <div class="ddr" onclick="cM();openEnch()"><div class="ddr-i">✨</div>Smide</div>
           <div class="ddr" onclick="cM();openTmap()"><div class="ddr-i">🗺️</div>Skattkartan</div>
+          <div class="ddr" onclick="cM();openHero()"><div class="ddr-i">🦸</div>Hjältarenas</div>
+          <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Stjärnakademin</div>
           <div class="ddr" onclick="cM();openChal()"><div class="ddr-i">🏆</div>Utmaningar</div>
           <div class="ddr" onclick="cM();openArna()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openSpin()"><div class="ddr-i">🎰</div>Lyckohjul</div>
@@ -14607,6 +14685,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAlc3()"><div class="ddr-i">⚗️</div>Alkemilabbet</div>
           <div class="ddr" onclick="cM();openLabr()"><div class="ddr-i">🌀</div>Labyrinten</div>
           <div class="ddr" onclick="cM();openGods()"><div class="ddr-i">🏛️</div>Gudarnas Välsignelse</div>
+          <div class="ddr" onclick="cM();openTmp3()"><div class="ddr-i">🗺️</div>Skattkartan</div>
+          <div class="ddr" onclick="cM();openHero()"><div class="ddr-i">🦸</div>Hjältarenas</div>
+          <div class="ddr" onclick="cM();openAcd2()"><div class="ddr-i">🎓</div>Stjärnakademin</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -17609,6 +17690,45 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+
+
+<!-- STAR ACADEMY 2 -->
+<div class="acad-panel" id="acadPanel">
+  <div class="acad-header">
+    <div class="acad-title">🎓 STJÄRNAKADEMIN</div>
+    <button class="close-btn" onclick="closeAcad()">✕</button>
+  </div>
+  <div class="acad-scroll">
+    <div class="acad-top-row">
+      <div>
+        <div class="acad-income-lbl">PASSIV INKOMST (VÄNTANDE)</div>
+        <div class="acad-income" id="acd2IncomeV">0 🪙</div>
+      </div>
+      <button class="acad-collect-btn" onclick="acadCollect()">Samla</button>
+    </div>
+    <div class="acad-courses" id="acd2Courses"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(68,170,255,.25);text-align:center">Uppgradera kurser för passiv inkomst! Samla när du vill. 🎓</div>
+  </div>
+</div>
+
+<!-- HEROES ARENA -->
+<div class="hero-panel" id="heroPanel">
+  <div class="hero-header">
+    <div class="hero-title">🦸 HJÄLTARENAS</div>
+    <button class="close-btn" onclick="closeHero()">✕</button>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-glory">
+      <div>
+        <div class="hero-glory-lbl">TOTALT ÄRA</div>
+        <div class="hero-glory-v" id="heroGloryV">0 ⭐</div>
+      </div>
+    </div>
+    <div class="hero-roster" id="heroRoster"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(200,136,255,.25);text-align:center">Träna och deploja hjältar i arenorna! Dagliga belöningar. 🦸</div>
+  </div>
+</div>
+
 <!-- TREASURE MAP -->
 <div class="tmap-panel" id="tmapPanel">
   <div class="tmap-header">
@@ -18336,6 +18456,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 
+
+
+<!-- TREASURE MAP -->
+<div class="tmap-panel" id="tmapPanel">
+  <div class="tmap-header">
+    <div class="tmap-title">🗺️ SKATTKARTAN</div>
+    <button class="close-btn" onclick="closeTmap()">✕</button>
+  </div>
+  <div class="tmap-scroll">
+    <div class="tmap-found">
+      <div>
+        <div class="tmap-found-lbl">SKATTER FUNNA TOTALT</div>
+        <div class="tmap-found-v" id="tmp3FoundV">0 💰</div>
+      </div>
+    </div>
+    <div class="tmap-clue" id="tmp3ClueBox">
+      <div class="tmap-clue-lbl">DAGENS GÅTA</div>
+      <div class="tmap-clue-text" id="tmp3ClueText">Laddar...</div>
+      <div class="tmap-answers" id="tmp3Answers"></div>
+    </div>
+    <div style="font:700 8px var(--ff-head);color:rgba(200,150,40,.35);letter-spacing:1px;margin-bottom:6px">BONUSSKATTKARTOR</div>
+    <div class="tmap-maps" id="tmp3Maps"></div>
+  </div>
+</div>
 
 <!-- GODS BLESSING -->
 <div class="gods-panel" id="godsPanel">
@@ -19588,11 +19732,11 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
-<!-- TREASURE MAP -->
-<div class="tmap-panel" id="tmapPanel">
+<!-- TREASURE MAP 3 -->
+<div class="tmp3-panel" id="tmp3Panel">
   <div class="tmap-header">
     <div class="tmap-title">🗺️ SKATTKARTAN</div>
-    <button class="close-btn" onclick="closeTmap()">✕</button>
+    <button class="close-btn" onclick="closeTmp3()">✕</button>
   </div>
   <div class="tmap-scroll">
     <div class="tmap-dig-info">
@@ -22326,10 +22470,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- PET ACADEMY -->
-<div class="acad-panel" id="acadPanel">
+<div class="acd2-panel" id="acd2Panel">
   <div class="acad-header">
     <div class="acad-title">🎓 PET ACADEMY</div>
-    <button class="close-btn" onclick="closeAcad()">✕</button>
+    <button class="close-btn" onclick="closeAcd2()">✕</button>
   </div>
   <div class="acad-scroll">
     <div class="acad-stats-row">
@@ -22348,7 +22492,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div style="font:600 11px var(--ff-body);color:var(--teal)" id="acadCurTime">—</div>
           <div class="acad-prog-bg" style="margin-top:6px;margin-bottom:0"><div class="acad-prog-fill" id="acadCurProg" style="width:0%"></div></div>
         </div>
-        <button style="padding:8px 14px;background:linear-gradient(135deg,var(--green),#aaff44);border:none;border-radius:12px;color:#000;font:700 10px var(--ff-head);cursor:pointer;flex-shrink:0" onclick="acadCollect()" id="acadCollectBtn" style="display:none">HÄMTA!</button>
+        <button style="padding:8px 14px;background:linear-gradient(135deg,var(--green),#aaff44);border:none;border-radius:12px;color:#000;font:700 10px var(--ff-head);cursor:pointer;flex-shrink:0" onclick="acd2Collect()" id="acadCollectBtn" style="display:none">HÄMTA!</button>
       </div>
     </div>
     <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Välj en kurs</div>
@@ -67812,6 +67956,300 @@ function _renderGods(d){
       '</div>'+
       '<button class="gods-pray-btn" style="color:'+god.color+';border-color:'+god.border+';background:rgba(0,0,0,.3)" onclick="godsPray(\''+god.id+'\')" '+(ready?'':'disabled')+'>'+
         (ready?'🙏 Be till '+god.name:'⏳ '+cdTxt)+
+      '</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// TREASURE MAP
+var TMP3_KEY = 'k0509_tmp3';
+const TMAP_RIDDLES = [
+  {q:'Vad har rötter men inga ben, är högre än berg men aldrig sett?', opts:['Ett berg','Ett träd','En flod','Molnet'], ans:1, rew:{coins:150,bonus:{int:3}}},
+  {q:'Jag har städer men inga hus, berg men inga träd, vatten men inga fiskar. Vad är jag?', opts:['En planet','En karta','Havet','Rymden'], ans:1, rew:{coins:200,bonus:{int:4}}},
+  {q:'Ju mer du tar, desto mer lämnar du av mig. Vad är jag?', opts:['Mat','Fotspår','Pengar','Ord'], ans:1, rew:{coins:175,bonus:{lck:3}}},
+  {q:'Vad kan du fånga men inte kasta?', opts:['En boll','En förkylning','En fisk','En fågel'], ans:1, rew:{coins:180,bonus:{lck:4}}},
+  {q:'Vad löper men har inga ben, har en mun men ingen tunga?', opts:['Vinden','En flod','Elden','Havet'], ans:1, rew:{coins:160,bonus:{agi:3}}},
+  {q:'Jag pratar utan mun, hör utan öron, har ingen kropp men lever med vinden. Vad är jag?', opts:['En dröm','Ekot','Tanken','Musiken'], ans:1, rew:{coins:220,bonus:{int:5}}},
+  {q:'Vad är alltid framför dig men kan aldrig ses?', opts:['Framtiden','Ödet','Hoppet','Verkligheten'], ans:0, rew:{coins:200,bonus:{lck:5}}},
+];
+const TMAP_MAPS = [
+  {id:'jungle', icon:'🌴', name:'Djungelkarta',  desc:'En gammal karta till djungeln',  cost:0,   coins:100, bonus:{str:3,agi:2}},
+  {id:'desert', icon:'🏜️', name:'Ökenkarta',     desc:'Mystisk karta till öknen',       cost:0,   coins:150, bonus:{end:4,lck:2}},
+  {id:'ocean',  icon:'🌊', name:'Havskarta',     desc:'Sjökarta till en skattö',        cost:0,   coins:200, bonus:{agi:3,lck:3}},
+  {id:'volcano',icon:'🌋', name:'Vulkankarta',   desc:'Karta till vulkanens skatt',     cost:0,   coins:300, bonus:{str:5,end:3}},
+];
+
+function _tmp3Data(){try{return JSON.parse(localStorage.getItem(TMAP_KEY)||'null');}catch(e){return null;}}
+function _tmp3Save(d){localStorage.setItem(TMAP_KEY,JSON.stringify(d));}
+function _tmp3GetData(){
+  var d=_tmapData();
+  if(!d) d={totalFound:0,answered:{},mapsDone:{},lastDay:''};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.answered={};d.mapsDone={};d.lastDay=today;_tmapSave(d);}
+  return d;
+}
+
+function tmp3Answer(riddleIdx, ansIdx){
+  var d=_tmapGetData();
+  var today=getTodayKey();
+  var key='riddle_'+today;
+  if(d.answered[key]!==undefined) return;
+  var riddle=TMAP_RIDDLES[riddleIdx];
+  var correct=ansIdx===riddle.ans;
+  d.answered[key]=correct;
+  if(correct){
+    d.totalFound=(d.totalFound||0)+1;
+    gainCoins(riddle.rew.coins);
+    Object.keys(riddle.rew.bonus).forEach(function(s){G[s]=(G[s]||0)+riddle.rew.bonus[s];});
+    save();gainXP(80,'int');
+    var bonusTxt=Object.keys(riddle.rew.bonus).map(function(s){return '+'+riddle.rew.bonus[s]+s.toUpperCase();}).join(' ');
+    showFloatBubble('🗺️ Rätt svar! +'+riddle.rew.coins+'🪙 '+bonusTxt,'buff');
+    checkAchievements();
+  } else {
+    gainCoins(20);
+    showFloatBubble('❌ Fel svar! +20🪙 tröst','debuff');
+  }
+  _tmapSave(d);
+  _renderTmap(d);
+}
+
+function tmp3ExploreMap(mapId){
+  var d=_tmapGetData();
+  if(d.mapsDone[mapId]){showFloatBubble('Redan utforskad idag!','debuff');return;}
+  var map=TMAP_MAPS.find(function(m){return m.id===mapId;});
+  if(!map) return;
+  d.mapsDone[mapId]=true;
+  d.totalFound=(d.totalFound||0)+1;
+  gainCoins(map.coins);
+  Object.keys(map.bonus).forEach(function(s){G[s]=(G[s]||0)+map.bonus[s];});
+  save();gainXP(60,'agi');
+  var bonusTxt=Object.keys(map.bonus).map(function(s){return '+'+map.bonus[s]+s.toUpperCase();}).join(' ');
+  showFloatBubble('🗺️ '+map.icon+' Skatt hittad! +'+map.coins+'🪙 '+bonusTxt,'buff');
+  _tmapSave(d);checkAchievements();_renderTmap(d);
+}
+
+function openTmp3(){$('tmapPanel').classList.add('open');_renderTmap();}
+function closeTmp3(){$('tmapPanel').classList.remove('open');}
+
+function _renderTmp3(d){
+  if(!d) d=_tmapGetData();
+  var fv=$('tmapFoundV');if(fv) fv.textContent=(d.totalFound||0)+' 💰';
+  // Pick riddle for today
+  var today=getTodayKey();
+  var seed=today.replace(/-/g,'')|0;
+  var riddleIdx=seed%TMAP_RIDDLES.length;
+  var riddle=TMAP_RIDDLES[riddleIdx];
+  var key='riddle_'+today;
+  var answered=d.answered[key];
+  var ct=$('tmapClueText');if(ct) ct.textContent='"'+riddle.q+'"';
+  var ans=$('tmapAnswers');
+  if(ans){
+    ans.innerHTML=riddle.opts.map(function(opt,i){
+      var cls='tmap-answer';
+      if(answered!==undefined) cls+=(i===riddle.ans?' correct':' wrong');
+      return '<div class="'+cls+'" onclick="tmapAnswer('+riddleIdx+','+i+')">'+opt+'</div>';
+    }).join('');
+  }
+  var maps=$('tmapMaps');
+  if(maps){
+    maps.innerHTML=TMAP_MAPS.map(function(map){
+      var done=!!d.mapsDone[map.id];
+      var bonusTxt=Object.keys(map.bonus).map(function(s){return '+'+map.bonus[s]+s.toUpperCase();}).join(' ');
+      return '<div class="tmap-map">'+
+        '<div class="tmap-map-icon">'+map.icon+'</div>'+
+        '<div class="tmap-map-info">'+
+          '<div class="tmap-map-name">'+map.name+'</div>'+
+          '<div class="tmap-map-rew">'+map.desc+' — '+bonusTxt+' +'+map.coins+'🪙</div>'+
+        '</div>'+
+        '<button class="tmap-map-btn" onclick="tmapExploreMap(\''+map.id+'\')" '+(done?'disabled':'')+'>'+
+          (done?'✓ Klar':'Utforska')+
+        '</button>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// HEROES ARENA
+const HERO_KEY = 'k0509_hero';
+const HERO_ROSTER_DEF = [
+  {id:'warrior', icon:'⚔️', name:'Krigaren',  cls:'Krigare',  color:'#ff6600', bg:'rgba(255,100,0,.08)', border:'rgba(255,100,0,.25)',
+   basePow:function(){return (G.str||0)*2+(G.end||0);}, trainStat:'str', trainBonus:3},
+  {id:'mage',    icon:'🧙', name:'Trollkarlen',cls:'Magiker', color:'#8844ff', bg:'rgba(136,68,255,.08)', border:'rgba(136,68,255,.25)',
+   basePow:function(){return (G.int||0)*2+(G.lck||0);}, trainStat:'int', trainBonus:3},
+  {id:'rogue',   icon:'🗡️', name:'Skurken',   cls:'Skurk',   color:'#44ffaa', bg:'rgba(68,255,170,.06)', border:'rgba(68,255,170,.2)',
+   basePow:function(){return (G.agi||0)*2+(G.lck||0);}, trainStat:'agi', trainBonus:3},
+  {id:'paladin', icon:'🛡️', name:'Paladinen', cls:'Paladin',  color:'#ffee44', bg:'rgba(255,238,68,.06)', border:'rgba(255,238,68,.2)',
+   basePow:function(){return (G.end||0)*3+(G.str||0);}, trainStat:'end', trainBonus:3},
+];
+
+function _heroData(){try{return JSON.parse(localStorage.getItem(HERO_KEY)||'null');}catch(e){return null;}}
+function _heroSave(d){localStorage.setItem(HERO_KEY,JSON.stringify(d));}
+function _heroGetData(){
+  var d=_heroData();
+  if(!d) d={glory:0,levels:{},deployed:{},trainedToday:{},deployedToday:{},lastDay:''};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.trainedToday={};d.deployedToday={};d.lastDay=today;_heroSave(d);}
+  return d;
+}
+
+function heroTrain(heroId){
+  var d=_heroGetData();
+  if(d.trainedToday[heroId]){showFloatBubble('Hjälten har tränat idag!','debuff');return;}
+  var hero=HERO_ROSTER_DEF.find(function(h){return h.id===heroId;});
+  if(!hero) return;
+  d.trainedToday[heroId]=true;
+  d.levels[heroId]=(d.levels[heroId]||1)+1;
+  G[hero.trainStat]=(G[hero.trainStat]||0)+hero.trainBonus;
+  save();gainXP(50,hero.trainStat);gainCoins(30);
+  showFloatBubble('💪 '+hero.icon+' '+hero.name+' tränade! Lv.'+d.levels[heroId]+' +'+hero.trainBonus+hero.trainStat.toUpperCase(),'buff');
+  _heroSave(d);checkAchievements();_renderHero(d);
+}
+
+function heroDeploy(heroId){
+  var d=_heroGetData();
+  if(d.deployedToday[heroId]){showFloatBubble('Hjälten har deployats idag!','debuff');return;}
+  var hero=HERO_ROSTER_DEF.find(function(h){return h.id===heroId;});
+  if(!hero) return;
+  var lv=d.levels[heroId]||1;
+  var myPow=hero.basePow()*lv;
+  var enemyPow=50+Math.random()*myPow*1.5;
+  var won=myPow>enemyPow;
+  d.deployedToday[heroId]=true;
+  var rew=Math.floor(50*lv+(won?50:0));
+  if(won){
+    d.glory=(d.glory||0)+lv*10;
+    gainCoins(rew);gainXP(lv*15,hero.trainStat);
+    showFloatBubble('🏆 '+hero.icon+' seger! Ära +'+lv*10+' +'+rew+'🪙','buff');
+    checkAchievements();
+  } else {
+    gainCoins(Math.floor(rew*0.3));
+    showFloatBubble('💥 '+hero.icon+' besegrades! +'+Math.floor(rew*0.3)+'🪙 tröst','debuff');
+  }
+  _heroSave(d);_renderHero(d);
+}
+
+function openHero(){$('heroPanel').classList.add('open');_renderHero();}
+function closeHero(){$('heroPanel').classList.remove('open');}
+
+function _renderHero(d){
+  if(!d) d=_heroGetData();
+  var gv=$('heroGloryV');if(gv) gv.textContent=(d.glory||0)+' ⭐';
+  var container=$('heroRoster');if(!container) return;
+  container.innerHTML=HERO_ROSTER_DEF.map(function(hero){
+    var lv=d.levels[hero.id]||1;
+    var trained=!!d.trainedToday[hero.id];
+    var deployed=!!d.deployedToday[hero.id];
+    var pow=Math.round(hero.basePow()*lv);
+    return '<div class="hero-card" style="background:'+hero.bg+';border-color:'+hero.border+'">'+
+      '<div class="hero-card-top">'+
+        '<div class="hero-card-icon">'+hero.icon+'</div>'+
+        '<div class="hero-card-info">'+
+          '<div class="hero-card-name" style="color:'+hero.color+'">'+hero.name+'</div>'+
+          '<div class="hero-card-class">'+hero.cls+'</div>'+
+          '<div class="hero-card-stats">Kraft: '+pow+' | +'+hero.trainBonus+hero.trainStat.toUpperCase()+'/träning</div>'+
+        '</div>'+
+        '<div class="hero-card-lv" style="color:'+hero.color+'">Lv.'+lv+'</div>'+
+      '</div>'+
+      '<div class="hero-card-btns">'+
+        '<button class="hero-train-btn" style="color:'+hero.color+';border-color:'+hero.border+';background:rgba(0,0,0,.3)" onclick="heroTrain(\''+hero.id+'\')" '+(trained?'disabled':'')+'>'+
+          (trained?'✓ Tränad':'💪 Träna')+
+        '</button>'+
+        '<button class="hero-deploy-btn" style="color:'+hero.color+';border-color:'+hero.border+';background:rgba(0,0,0,.3)" onclick="heroDeploy(\''+hero.id+'\')" '+(deployed?'disabled':'')+'>'+
+          (deployed?'✓ Deployad':'⚔️ Deploya')+
+        '</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+
+// STAR ACADEMY
+var ACD2_KEY = 'k0509_acd2';
+const ACAD_COURSES = [
+  {id:'basic',   icon:'📚', name:'Grundkurs',      desc:'Grundläggande utbildning',         incPerHr:5,   upgCost:50,  statBonus:{int:1}},
+  {id:'science', icon:'🔭', name:'Naturvetenskap',  desc:'Lär ut om universum',              incPerHr:12,  upgCost:120, statBonus:{int:2}},
+  {id:'combat',  icon:'⚔️', name:'Stridskonst',     desc:'Tränar krigskonst',                incPerHr:10,  upgCost:100, statBonus:{str:2}},
+  {id:'magic',   icon:'🔮', name:'Trollkonstkurs',  desc:'Magisk utbildning',                incPerHr:15,  upgCost:150, statBonus:{int:3}},
+  {id:'trade',   icon:'💰', name:'Handelsskola',    desc:'Ekonomi och handel',               incPerHr:20,  upgCost:200, statBonus:{lck:2}},
+  {id:'cosmic',  icon:'🌌', name:'Kosmologi',       desc:'Galaktisk vetenskap, toppklass',   incPerHr:35,  upgCost:400, statBonus:{int:5}},
+];
+
+function _acd2Data(){try{return JSON.parse(localStorage.getItem(ACAD_KEY)||'null');}catch(e){return null;}}
+function _acd2Save(d){localStorage.setItem(ACAD_KEY,JSON.stringify(d));}
+function _acd2GetData(){
+  var d=_acadData();
+  var now=Date.now();
+  if(!d) d={levels:{},lastCollect:now,totalEarned:0};
+  return d;
+}
+
+function _acd2CalcIncome(d){
+  var now=Date.now();
+  var hoursElapsed=Math.min((now-(d.lastCollect||now))/3600000, 8); // max 8h accumulate
+  var incPerHr=ACAD_COURSES.reduce(function(sum,c){
+    var lv=d.levels[c.id]||0;
+    return sum+c.incPerHr*lv;
+  },0);
+  return Math.floor(incPerHr*hoursElapsed);
+}
+
+function acd2Collect(){
+  var d=_acadGetData();
+  var pending=_acadCalcIncome(d);
+  if(pending<=0){showFloatBubble('Inget att samla ännu!','debuff');return;}
+  d.lastCollect=Date.now();
+  d.totalEarned=(d.totalEarned||0)+pending;
+  gainCoins(pending);gainXP(Math.floor(pending/10),'int');
+  _acadSave(d);
+  showFloatBubble('🎓 Samlat! +'+pending+'🪙 akademiinkomst','buff');
+  checkAchievements();
+  _renderAcad(d);
+}
+
+function acd2Upgrade(courseId){
+  var d=_acadGetData();
+  var course=ACAD_COURSES.find(function(c){return c.id===courseId;});
+  if(!course) return;
+  var lv=d.levels[courseId]||0;
+  var cost=course.upgCost*(lv+1);
+  if((G.coins||0)<cost){showFloatBubble('Behöver '+cost+'🪙!','debuff');return;}
+  G.coins-=cost;save();
+  d.levels[courseId]=(lv||0)+1;
+  Object.keys(course.statBonus).forEach(function(s){G[s]=(G[s]||0)+course.statBonus[s];});
+  save();
+  _acadSave(d);
+  gainXP(40,'int');
+  showFloatBubble('🎓 '+course.icon+' Uppgraderad till Lv.'+(d.levels[courseId])+'! +'+course.incPerHr+'🪙/h mer','buff');
+  checkAchievements();
+  _renderAcad(d);
+}
+
+function openAcd2(){$('acadPanel').classList.add('open');_renderAcad();}
+function closeAcd2(){$('acadPanel').classList.remove('open');}
+
+function _renderAcd2(d){
+  if(!d) d=_acadGetData();
+  var pending=_acadCalcIncome(d);
+  var iv=$('acadIncomeV');if(iv) iv.textContent=pending+' 🪙';
+  var container=$('acadCourses');if(!container) return;
+  container.innerHTML=ACAD_COURSES.map(function(course){
+    var lv=d.levels[course.id]||0;
+    var cost=course.upgCost*(lv+1);
+    var canAff=(G.coins||0)>=cost;
+    var maxed=lv>=10;
+    var totalInc=course.incPerHr*lv;
+    return '<div class="acad-course'+(maxed?' maxed':'')+'">'+
+      '<div class="acad-course-icon">'+course.icon+'</div>'+
+      '<div class="acad-course-info">'+
+        '<div class="acad-course-name">'+course.name+'</div>'+
+        '<div class="acad-course-desc">'+course.desc+'</div>'+
+        '<div class="acad-course-inc">'+totalInc+'🪙/h '+(lv>0?'(+'+course.incPerHr+' per nivå)':'(Köp för att starta)')+'</div>'+
+      '</div>'+
+      '<div class="acad-course-lv">Lv.'+lv+'</div>'+
+      '<button class="acad-upg-btn" onclick="acadUpgrade(\''+course.id+'\')" '+(maxed||!canAff?'disabled':'')+'>'+
+        (maxed?'MAX':canAff?'+1 ('+cost+'🪙)':'💸 '+cost+'🪙')+
       '</button>'+
     '</div>';
   }).join('');
