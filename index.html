@@ -2596,6 +2596,37 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ QUANTUM REALM ══ */
+.qrealm-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 40%,#020a12,#020408);z-index:1160;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.qrealm-panel h2{color:#44ffdd;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #00ddaa}
+.qrealm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;max-width:340px;margin:8px 0}
+.qrealm-node{aspect-ratio:1;border-radius:10px;background:rgba(0,20,30,.5);border:1px solid #0a3040;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.qrealm-node:hover{border-color:#44ffdd;background:rgba(0,40,60,.6);transform:scale(1.04)}
+.qrealm-node.active{border-color:#00ffcc;background:rgba(0,50,40,.6);box-shadow:0 0 8px rgba(0,255,200,.3);animation:qNodePulse 2s infinite}
+@keyframes qNodePulse{0%,100%{box-shadow:0 0 6px rgba(0,255,200,.2)}50%{box-shadow:0 0 14px rgba(0,255,200,.5)}}
+.qrealm-node .qn-icon{font-size:1.3rem}
+.qrealm-node .qn-name{font-size:.55rem;color:#33ccaa;margin-top:2px;text-align:center}
+.qrealm-energy{background:rgba(0,15,25,.35);border:1px solid #0a3040;border-radius:8px;padding:5px 14px;color:#44ffdd;font-size:.8rem;margin-bottom:8px;text-align:center;width:100%;max-width:320px}
+.qrealm-collapse-btn{background:linear-gradient(135deg,#0a2840,#041828);border:1px solid #00ffcc;color:#44ffdd;border-radius:10px;padding:8px 20px;font-size:.82rem;cursor:pointer;margin:4px 0;transition:all .2s}
+.qrealm-collapse-btn:hover{border-color:#44ffdd;box-shadow:0 0 10px rgba(0,255,200,.3)}
+.qrealm-log{background:rgba(0,10,18,.5);border:1px solid #082030;border-radius:8px;padding:8px;width:100%;max-width:320px;max-height:80px;overflow-y:auto;font-size:.67rem;color:#339988;margin-top:6px}
+
+/* ══ FALLEN KINGDOM ══ */
+.fkng-panel{position:fixed;inset:0;background:linear-gradient(160deg,#060402,#090604);z-index:1159;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.fkng-panel h2{color:#ccaa66;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #aa8844}
+.fkng-ruins{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:320px;background:rgba(20,12,0,.4);border:2px solid #553300;border-radius:14px;padding:10px;margin:6px 0}
+.fkng-tile{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;background:rgba(30,15,0,.5);border:1px solid #442200}
+.fkng-tile:hover{border-color:#ccaa66;transform:scale(1.04)}
+.fkng-tile.restored{border-color:#aa8844;background:rgba(60,35,0,.5);box-shadow:0 0 6px rgba(180,140,60,.3)}
+.fkng-tile.ruin{border-color:#331a00;background:rgba(20,10,0,.6)}
+.fkng-tile .fk-icon{font-size:1.4rem}
+.fkng-tile .fk-name{font-size:.55rem;color:#997755;margin-top:2px;text-align:center}
+.fkng-tile .fk-cost{font-size:.52rem;color:#664422;margin-top:1px}
+.fkng-resources{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:6px}
+.fkng-res{background:rgba(25,12,0,.4);border:1px solid #442200;border-radius:6px;padding:3px 8px;font-size:.7rem;color:#ccaa66}
+.fkng-collect-btn{background:linear-gradient(135deg,#553300,#2a1800);border:1px solid #aa7744;color:#ccaa66;border-radius:10px;padding:8px 20px;font-size:.82rem;cursor:pointer;margin:4px 0;transition:all .2s}
+.fkng-collect-btn:hover{border-color:#ccaa66;box-shadow:0 0 8px rgba(180,140,60,.3)}
+
 /* ══ DESERT OASIS ══ */
 .doasis-panel{position:fixed;inset:0;background:linear-gradient(180deg,#120a00,#0a0600);z-index:1158;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .doasis-panel h2{color:#ffdd88;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #ddaa44}
@@ -17138,6 +17169,28 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="doasis-oasis" id="doasisMap"></div>
   <div style="color:#ffdd88;font-size:.78rem;font-weight:700;margin:6px 0 4px;align-self:flex-start">🏪 Desert Bazaar</div>
   <div class="doasis-trades" id="doasisTrades"></div>
+</div>
+
+<!-- QUANTUM REALM -->
+<div class="qrealm-panel" id="qrealmPanel" style="display:none">
+  <button onclick="closeQrealm()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#44ffdd;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>⚛️ Quantum Realm</h2>
+  <div class="qrealm-energy" id="qrealmEnergy">Quanta: 0 | Collapses today: 0/6</div>
+  <div style="color:#227755;font-size:.72rem;margin-bottom:6px">Tap nodes to superpose them, then collapse for rewards</div>
+  <div class="qrealm-grid" id="qrealmGrid"></div>
+  <button class="qrealm-collapse-btn" onclick="qrealmCollapse()">⚡ Quantum Collapse!</button>
+  <div class="qrealm-log" id="qrealmLog"><div>The quantum realm awaits...</div></div>
+</div>
+
+<!-- FALLEN KINGDOM -->
+<div class="fkng-panel" id="fkngPanel" style="display:none">
+  <button onclick="closeFkng()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ccaa66;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🏚️ Fallen Kingdom</h2>
+  <div style="color:#886633;font-size:.72rem;margin-bottom:6px">Restore ancient structures with resources</div>
+  <div class="fkng-resources" id="fkngRes"></div>
+  <button class="fkng-collect-btn" onclick="fkngGather()">⛏️ Gather Resources</button>
+  <button class="fkng-collect-btn" onclick="fkngCollect()">💰 Collect Kingdom Income</button>
+  <div class="fkng-ruins" id="fkngMap"></div>
 </div>
 
 <!-- LIBRARY OF SECRETS -->
@@ -73189,6 +73242,167 @@ function _renderDoasis(){
       <div class="dtr-reward">${t.rdesc}</div>
     </div>`;
   }).join('');
+}
+
+
+// ══ FALLEN KINGDOM ══
+const FKNG_KEY = 'k0509_fkng';
+const FKNG_STRUCTURES = [
+  {id:'walls',icon:'🧱',name:'Walls',res:{stone:15,wood:5},income:8,bonus:null},
+  {id:'keep',icon:'🏰',name:'Keep',res:{stone:25,wood:10},income:15,bonus:{str:3}},
+  {id:'market',icon:'🏪',name:'Market',res:{wood:20,gold:50},income:20,bonus:null},
+  {id:'farm',icon:'🌾',name:'Farm',res:{wood:10,stone:5},income:10,bonus:null},
+  {id:'forge',icon:'⚒️',name:'Forge',res:{stone:30,wood:5},income:12,bonus:{str:5}},
+  {id:'library',icon:'📚',name:'Library',res:{wood:20,stone:10},income:10,bonus:{int:4}},
+  {id:'barracks',icon:'⚔️',name:'Barracks',res:{stone:20,gold:80},income:15,bonus:{agi:4}},
+  {id:'tower',icon:'🗼',name:'Tower',res:{stone:40,wood:15},income:25,bonus:{str:3,int:3}},
+  {id:'palace',icon:'👑',name:'Palace',res:{stone:60,wood:30,gold:200},income:50,bonus:{str:5,int:5,agi:5}},
+];
+function _fkngData(){
+  const d=JSON.parse(localStorage.getItem(FKNG_KEY)||'{}');
+  return {stone:d.stone||0,wood:d.wood||0,gold:d.gold||0,built:d.built||[],lastGather:d.lastGather||'',lastCollect:d.lastCollect||Date.now()};
+}
+function _fkngSave(d){localStorage.setItem(FKNG_KEY,JSON.stringify(d));}
+function _fkngIncome(d){return FKNG_STRUCTURES.reduce((s,b)=>s+(d.built.includes(b.id)?b.income:0),0);}
+function fkngGather(){
+  const d=_fkngData();
+  const today=getTodayKey();
+  if(d.lastGather===today){showFloatBubble('Gathered today!','bad');return;}
+  d.stone+=5+Math.floor(Math.random()*5);
+  d.wood+=4+Math.floor(Math.random()*4);
+  d.gold+=10+Math.floor(Math.random()*15);
+  d.lastGather=today;
+  _fkngSave(d);
+  showFloatBubble(`⛏️ +${d.stone-_fkngData().stone+5} stone, wood & gold!`,'good');
+  _renderFkng();
+}
+function fkngCollect(){
+  const d=_fkngData();
+  const income=_fkngIncome(d);
+  if(income===0){showFloatBubble('Restore structures first!','bad');return;}
+  const now=Date.now();
+  const hrs=Math.min(8,(now-d.lastCollect)/(1000*60*60));
+  const earned=Math.floor(income*hrs);
+  if(earned<1){showFloatBubble('Come back in a bit!','bad');return;}
+  gainCoins(earned);
+  d.lastCollect=now;
+  _fkngSave(d);
+  showFloatBubble(`💰 +${earned} Kingdom income!`,'good');
+  checkAchievements();_renderFkng();
+}
+function fkngBuild(sid){
+  const d=_fkngData();
+  const s=FKNG_STRUCTURES.find(x=>x.id===sid);
+  if(d.built.includes(sid)){showFloatBubble('Already restored!','bad');return;}
+  const r=s.res;
+  if((d.stone||0)<(r.stone||0)||(d.wood||0)<(r.wood||0)||(d.gold||0)<(r.gold||0)){
+    showFloatBubble(`Need: ${r.stone||0} stone, ${r.wood||0} wood, ${r.gold||0} gold`,'bad');return;
+  }
+  d.stone-=(r.stone||0);d.wood-=(r.wood||0);d.gold-=(r.gold||0);
+  d.built.push(sid);
+  _fkngSave(d);
+  if(s.bonus){
+    if(s.bonus.str){G.str=(G.str||10)+s.bonus.str;save();}
+    if(s.bonus.int){G.int=(G.int||10)+s.bonus.int;save();}
+    if(s.bonus.agi){G.agi=(G.agi||10)+s.bonus.agi;save();}
+  }
+  showFloatBubble(`🏰 ${s.name} restored! +${s.income}/hr`,'good');
+  checkAchievements();_renderFkng();
+}
+function openFkng(){$('fkngPanel').style.display='flex';_renderFkng();}
+function closeFkng(){$('fkngPanel').style.display='none';}
+function _renderFkng(){
+  const d=_fkngData();
+  const income=_fkngIncome(d);
+  const hrs=Math.min(8,(Date.now()-d.lastCollect)/(1000*60*60));
+  const pending=Math.floor(income*hrs);
+  $('fkngRes').innerHTML=`<div class="fkng-res">🪨 ${d.stone}</div><div class="fkng-res">🌲 ${d.wood}</div><div class="fkng-res">💰 ${d.gold}</div><div class="fkng-res">Income: ${income}/hr</div><div class="fkng-res">Pending: ${pending}</div>`;
+  $('fkngMap').innerHTML=FKNG_STRUCTURES.map(s=>{
+    const built=d.built.includes(s.id);
+    const r=s.res;
+    const canAfford=(d.stone||0)>=(r.stone||0)&&(d.wood||0)>=(r.wood||0)&&(d.gold||0)>=(r.gold||0);
+    const costStr=`${r.stone||0}🪨 ${r.wood||0}🌲 ${r.gold||0}💰`;
+    return `<div class="fkng-tile ${built?'restored':'ruin'}" onclick="fkngBuild('${s.id}')">
+      <div class="fk-icon">${built?s.icon:'🪦'}</div>
+      <div class="fk-name">${built?s.name:'Ruin'}</div>
+      <div class="fk-cost">${built?'+'+s.income+'/hr':canAfford?'✨ '+costStr:costStr}</div>
+    </div>`;
+  }).join('');
+}
+
+
+// ══ QUANTUM REALM ══
+const QREALM_KEY = 'k0509_qrealm';
+const QREALM_NODES = [
+  {id:'q1',icon:'⚡',name:'Energy',reward:{coins:50,xp:30}},
+  {id:'q2',icon:'🔬',name:'Matter',reward:{int:2}},
+  {id:'q3',icon:'🌊',name:'Wave',reward:{agi:2,coins:40}},
+  {id:'q4',icon:'🧲',name:'Force',reward:{str:2,coins:40}},
+  {id:'q5',icon:'🌟',name:'Photon',reward:{coins:80,kc:1}},
+  {id:'q6',icon:'⚫',name:'Dark Matter',reward:{str:3,int:3}},
+  {id:'q7',icon:'🌀',name:'Quantum',reward:{agi:3,kc:2}},
+  {id:'q8',icon:'🔮',name:'Entangle',reward:{str:2,int:2,agi:2}},
+  {id:'q9',icon:'💫',name:'Singularity',reward:{str:5,int:5,agi:5,kc:5}},
+  {id:'q10',icon:'🌈',name:'Spectrum',reward:{coins:200,kc:3}},
+  {id:'q11',icon:'🔷',name:'Crystal',reward:{int:4,coins:60}},
+  {id:'q12',icon:'⭐',name:'Neutron',reward:{str:4,coins:60}},
+];
+function _qrealmData(){
+  const d=JSON.parse(localStorage.getItem(QREALM_KEY)||'{}');
+  return {quanta:d.quanta||0,active:d.active||[],collapses:d.collapses||0,lastDay:d.lastDay||'',log:d.log||[]};
+}
+function _qrealmSave(d){localStorage.setItem(QREALM_KEY,JSON.stringify(d));}
+function qrealmToggle(nid){
+  const d=_qrealmData();
+  if(d.active.includes(nid)){
+    d.active=d.active.filter(x=>x!==nid);
+  } else if(d.active.length<4){
+    d.active.push(nid);
+  } else {
+    showFloatBubble('Max 4 nodes active!','bad');return;
+  }
+  _qrealmSave(d);
+  _renderQrealm();
+}
+function qrealmCollapse(){
+  const d=_qrealmData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.collapses=0;d.lastDay=today;}
+  if(d.collapses>=6){showFloatBubble('6 collapses today!','bad');return;}
+  if(d.active.length===0){showFloatBubble('Activate nodes first!','bad');return;}
+  d.collapses++;
+  d.quanta+=d.active.length*3;
+  let rewards=[];
+  d.active.forEach(nid=>{
+    const node=QREALM_NODES.find(n=>n.id===nid);
+    const r=node.reward;
+    if(r.coins)gainCoins(r.coins);
+    if(r.kc)gainKC(r.kc);
+    if(r.xp)gainXP(r.xp,'int');
+    if(r.str){G.str=(G.str||10)+r.str;save();}
+    if(r.int){G.int=(G.int||10)+r.int;save();}
+    if(r.agi){G.agi=(G.agi||10)+r.agi;save();}
+    rewards.push(node.icon);
+  });
+  d.log.unshift(`⚛️ Collapsed: ${rewards.join('')}`);
+  if(d.log.length>10)d.log.pop();
+  d.active=[];
+  _qrealmSave(d);
+  showFloatBubble(`⚛️ Quantum collapse! ${rewards.join('')}`,'good');
+  checkAchievements();_renderQrealm();
+}
+function openQrealm(){$('qrealmPanel').style.display='flex';_renderQrealm();}
+function closeQrealm(){$('qrealmPanel').style.display='none';}
+function _renderQrealm(){
+  const d=_qrealmData();
+  const today=getTodayKey();
+  const collapses=d.lastDay===today?d.collapses:0;
+  $('qrealmEnergy').textContent=`Quanta: ${d.quanta} | Collapses: ${collapses}/6 | Active: ${d.active.length}/4`;
+  $('qrealmGrid').innerHTML=QREALM_NODES.map(n=>`<div class="qrealm-node ${d.active.includes(n.id)?'active':''}" onclick="qrealmToggle('${n.id}')">
+    <div class="qn-icon">${n.icon}</div>
+    <div class="qn-name">${n.name}</div>
+  </div>`).join('');
+  $('qrealmLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Activate nodes and collapse!</div>';
 }
 
 </script>
