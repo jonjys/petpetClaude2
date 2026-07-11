@@ -2596,6 +2596,45 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ CELESTIAL TRIALS ══ */
+.ctrl-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%,#060818,#02040e);z-index:1133;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.ctrl-panel h2{color:#88ccff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #4488ff}
+.ctrl-header{background:rgba(20,40,80,.35);border:1px solid #2050a0;border-radius:10px;padding:8px 16px;color:#88ccff;font-size:.82rem;margin-bottom:8px;text-align:center;width:100%;max-width:320px}
+.ctrl-trials{display:flex;flex-direction:column;gap:8px;width:100%;max-width:340px}
+.ctrl-trial{background:rgba(10,25,60,.4);border:2px solid #1a3080;border-radius:14px;padding:12px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.ctrl-trial:hover{border-color:#4488ff;background:rgba(20,45,100,.5)}
+.ctrl-trial.done{border-color:#4040cc;opacity:.6;cursor:default}
+.ctrl-trial.available{border-color:#88aaff;box-shadow:0 0 8px rgba(100,150,255,.3)}
+.ctrl-trial .ct-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ctrl-trial .ct-icon{font-size:1.8rem}
+.ctrl-trial .ct-name{color:#88ccff;font-size:.9rem;font-weight:700}
+.ctrl-trial .ct-diff{font-size:.6rem;padding:2px 6px;border-radius:4px;margin-left:auto}
+.ctrl-trial .ct-diff.easy{background:#1a4020;color:#40cc60}
+.ctrl-trial .ct-diff.hard{background:#401a1a;color:#cc4040}
+.ctrl-trial .ct-diff.med{background:#3a2a00;color:#cc9920}
+.ctrl-trial .ct-task{color:#6080c0;font-size:.7rem;margin-bottom:4px}
+.ctrl-trial .ct-reward{color:#40cc80;font-size:.65rem}
+.ctrl-trial .ct-status{position:absolute;top:8px;right:10px;font-size:.7rem;color:#4040cc}
+
+/* ══ DRAGON EGGS ══ */
+.drge-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 30%,#1a0a00,#0d0500);z-index:1132;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.drge-panel h2{color:#ff8830;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #ff5500}
+.drge-nest{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:320px;margin:8px 0}
+.drge-egg{background:rgba(40,15,0,.5);border:2px solid #502000;border-radius:50%;width:80px;height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;position:relative;margin:0 auto}
+.drge-egg:hover{transform:scale(1.1);border-color:#ff8830}
+.drge-egg .de-icon{font-size:2.2rem}
+.drge-egg .de-prog{position:absolute;bottom:-18px;font-size:.58rem;color:#cc7020;text-align:center;width:100%}
+.drge-egg.hatched{border-color:#ff6600;background:rgba(80,30,0,.5);box-shadow:0 0 12px rgba(255,100,0,.3)}
+.drge-hatch-btn{background:linear-gradient(135deg,#882200,#441100);border:1px solid #ff5500;color:#ff9944;border-radius:10px;padding:8px 20px;font-size:.85rem;cursor:pointer;margin:6px 0;transition:all .2s}
+.drge-hatch-btn:hover{background:linear-gradient(135deg,#cc4400,#662200);box-shadow:0 0 10px rgba(255,80,0,.4)}
+.drge-dragons{display:flex;flex-direction:column;gap:6px;width:100%;max-width:340px;margin-top:4px}
+.drge-dragon{background:rgba(50,20,0,.4);border:1px solid #664400;border-radius:10px;padding:10px;display:flex;align-items:center;gap:10px}
+.drge-dragon .dd-icon{font-size:2rem}
+.drge-dragon .dd-info{flex:1}
+.drge-dragon .dd-name{color:#ff8830;font-size:.8rem;font-weight:700}
+.drge-dragon .dd-bonus{font-size:.65rem;color:#dd6610;margin-top:2px}
+.drge-dragon .dd-lvl{font-size:.65rem;color:#aa5500}
+
 /* ══ PIRATE COVE ══ */
 .pirate-panel{position:fixed;inset:0;background:linear-gradient(180deg,#020d18,#061428,#0a0a06);z-index:1131;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .pirate-panel h2{color:#f0d060;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #c09010}
@@ -16462,6 +16501,26 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
   <div class="pirate-grid" id="pirateSeas"></div>
   <div class="pirate-log" id="pirateLog"><div>Set sail, adventurer!</div></div>
+</div>
+
+<!-- CELESTIAL TRIALS -->
+<div class="ctrl-panel" id="ctrlPanel" style="display:none">
+  <button onclick="closeCtrl()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#88ccff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>⚔️ Celestial Trials</h2>
+  <div class="ctrl-header" id="ctrlHeader">Daily Trials: 0/6 completed</div>
+  <div class="ctrl-trials" id="ctrlTrials"></div>
+</div>
+
+<!-- DRAGON EGGS -->
+<div class="drge-panel" id="drgePanel" style="display:none">
+  <button onclick="closeDrge()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ff8830;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🥚 Dragon Eggs</h2>
+  <div style="color:#cc6610;font-size:.72rem;margin-bottom:6px">Warm eggs daily to hatch dragons with passive bonuses</div>
+  <div style="background:rgba(50,20,0,.3);border:1px solid #663300;border-radius:8px;padding:5px 14px;color:#ff8830;font-size:.82rem;margin-bottom:8px" id="drgeStat">Heat: 0 | Dragons: 0</div>
+  <div style="color:#ff8830;font-size:.78rem;font-weight:700;margin-bottom:4px;align-self:flex-start">🪺 Nest (tap to warm)</div>
+  <div class="drge-nest" id="drgeNest"></div>
+  <div style="color:#ff8830;font-size:.78rem;font-weight:700;margin:10px 0 4px;align-self:flex-start">🐉 Your Dragons</div>
+  <div class="drge-dragons" id="drgeDragons"></div>
 </div>
 
 <!-- MYTH CODEX -->
@@ -70154,6 +70213,167 @@ function _renderPirate(){
     <div class="pc-cost">Cost: ${s.cost}⚓ doubloons</div>
   </div>`).join('');
   $('pirateLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Set sail, adventurer!</div>';
+}
+
+
+// ══ DRAGON EGGS ══
+const DRGE_KEY = 'k0509_drge';
+const DRGE_EGG_TYPES = [
+  {id:'fire',icon:'🔴',dragon:'🔥',name:'Fire Drake',cost:50,bonus:'+3 STR per level',apply:lvl=>{G.str=(G.str||10)+3*lvl;save()}},
+  {id:'ice',icon:'🔵',dragon:'❄️',name:'Frost Wyrm',cost:50,bonus:'+3 INT per level',apply:lvl=>{G.int=(G.int||10)+3*lvl;save()}},
+  {id:'storm',icon:'🟡',dragon:'⚡',name:'Storm Wing',cost:50,bonus:'+3 AGI per level',apply:lvl=>{G.agi=(G.agi||10)+3*lvl;save()}},
+  {id:'shadow',icon:'⚫',dragon:'🌑',name:'Void Serpent',cost:80,bonus:'+2 All Stats per level',apply:lvl=>{G.str+=2*lvl;G.int+=2*lvl;G.agi+=2*lvl;save()}},
+  {id:'cosmic',icon:'🟣',dragon:'🌌',name:'Astral Dragon',cost:150,bonus:'+5 KC per level',apply:lvl=>gainKC(5*lvl)},
+  {id:'gold',icon:'🟠',dragon:'✨',name:'Gold Leviathan',cost:120,bonus:'+200 Coins per level',apply:lvl=>gainCoins(200*lvl)},
+];
+function _drgeData(){
+  const d=JSON.parse(localStorage.getItem(DRGE_KEY)||'{}');
+  return {heat:d.heat||0,eggs:d.eggs||{},dragons:d.dragons||{},lastWarm:d.lastWarm||''};
+}
+function _drgeSave(d){localStorage.setItem(DRGE_KEY,JSON.stringify(d));}
+function drgeWarm(eid){
+  const d=_drgeData();
+  const today=getTodayKey();
+  if(d.lastWarm===today){showFloatBubble('Already warmed today!','bad');return;}
+  d.heat=(d.heat||0)+10;
+  d.lastWarm=today;
+  // Progress all eggs
+  DRGE_EGG_TYPES.forEach(et=>{
+    if(!(et.id in d.eggs))d.eggs[et.id]=0;
+    if(!d.dragons[et.id])d.eggs[et.id]+=3;
+  });
+  _drgeSave(d);
+  showFloatBubble('+10 Heat, eggs warmed!','good');
+  _renderDrge();
+}
+function drgeHatch(eid){
+  const d=_drgeData();
+  const et=DRGE_EGG_TYPES.find(e=>e.id===eid);
+  if((d.eggs[eid]||0)<100){showFloatBubble(`Egg needs ${100-(d.eggs[eid]||0)} more warmth!`,'bad');return;}
+  if(d.dragons[eid]){showFloatBubble('Dragon already hatched!','bad');return;}
+  if(d.heat<et.cost){showFloatBubble(`Need ${et.cost} heat!`,'bad');return;}
+  d.heat-=et.cost;
+  d.dragons[eid]=1;
+  d.eggs[eid]=100;
+  et.apply(1);
+  _drgeSave(d);
+  showFloatBubble(`${et.dragon} ${et.name} hatched! ${et.bonus}`,'good');
+  checkAchievements();
+  _renderDrge();
+}
+function drgeLevelUp(eid){
+  const d=_drgeData();
+  const et=DRGE_EGG_TYPES.find(e=>e.id===eid);
+  if(!d.dragons[eid]){showFloatBubble('Hatch first!','bad');return;}
+  const lvl=d.dragons[eid];
+  const cost=(lvl+1)*40;
+  if(d.heat<cost){showFloatBubble(`Need ${cost} heat!`,'bad');return;}
+  d.heat-=cost;
+  d.dragons[eid]++;
+  et.apply(1);
+  _drgeSave(d);
+  showFloatBubble(`${et.dragon} Level up! Now Lv${d.dragons[eid]}`,'good');
+  _renderDrge();
+}
+function openDrge(){$('drgePanel').style.display='flex';_renderDrge();}
+function closeDrge(){$('drgePanel').style.display='none';}
+function _renderDrge(){
+  const d=_drgeData();
+  const dcount=Object.values(d.dragons).filter(v=>v>0).length;
+  $('drgeStat').textContent=`Heat: ${d.heat} | Dragons: ${dcount}`;
+  $('drgeNest').innerHTML=DRGE_EGG_TYPES.map(et=>{
+    const prog=Math.min(d.eggs[et.id]||0,100);
+    const hatched=!!d.dragons[et.id];
+    return `<div>
+      <div class="drge-egg ${hatched?'hatched':''}" onclick="${hatched?'drgeLevelUp(''+et.id+'')':'drgeWarm(''+et.id+'')'}">
+        <div class="de-icon">${hatched?et.dragon:et.icon}</div>
+      </div>
+      <div class="de-prog">${hatched?'Lv'+d.dragons[et.id]:prog+'%'}</div>
+    </div>`;
+  }).join('');
+  const myDragons=DRGE_EGG_TYPES.filter(et=>d.dragons[et.id]);
+  if(myDragons.length===0){
+    $('drgeDragons').innerHTML='<div style="color:#664400;font-size:.72rem;text-align:center;padding:12px">No dragons yet — warm eggs daily!</div>';
+  } else {
+    $('drgeDragons').innerHTML=myDragons.map(et=>`<div class="drge-dragon">
+      <span class="dd-icon">${et.dragon}</span>
+      <div class="dd-info">
+        <div class="dd-name">${et.name}</div>
+        <div class="dd-bonus">${et.bonus}</div>
+        <div class="dd-lvl">Level ${d.dragons[et.id]} — tap egg to level up</div>
+      </div>
+    </div>`).join('');
+  }
+}
+
+
+// ══ CELESTIAL TRIALS ══
+const CTRL_KEY = 'k0509_ctrl';
+const CTRL_ALL = [
+  {id:'t01',icon:'💪',name:'Strength Trial',diff:'easy',task:'Have STR ≥ 15',check:()=>(G.str||0)>=15,reward:{coins:100,xp:50},rdesc:'+100🪙 +50XP'},
+  {id:'t02',icon:'🧠',name:'Wisdom Trial',diff:'easy',task:'Have INT ≥ 15',check:()=>(G.int||0)>=15,reward:{coins:100,xp:50},rdesc:'+100🪙 +50XP'},
+  {id:'t03',icon:'⚡',name:'Agility Trial',diff:'easy',task:'Have AGI ≥ 15',check:()=>(G.agi||0)>=15,reward:{coins:100,xp:50},rdesc:'+100🪙 +50XP'},
+  {id:'t04',icon:'⭐',name:'Level Trial',diff:'med',task:'Reach Level 10',check:()=>(G.level||1)>=10,reward:{coins:200,kc:2},rdesc:'+200🪙 +2KC'},
+  {id:'t05',icon:'💰',name:'Wealth Trial',diff:'med',task:'Hold 1000 coins',check:()=>(G.coins||0)>=1000,reward:{str:2,int:2},rdesc:'+2 STR +2 INT'},
+  {id:'t06',icon:'🏆',name:'Balance Trial',diff:'med',task:'All stats ≥ 20',check:()=>(G.str||0)>=20&&(G.int||0)>=20&&(G.agi||0)>=20,reward:{coins:300,kc:3},rdesc:'+300🪙 +3KC'},
+  {id:'t07',icon:'🔥',name:'Fire Trial',diff:'hard',task:'Have STR ≥ 40',check:()=>(G.str||0)>=40,reward:{coins:500,kc:8,agi:3},rdesc:'+500🪙 +8KC +3AGI'},
+  {id:'t08',icon:'🌊',name:'Ocean Trial',diff:'hard',task:'Have INT ≥ 40',check:()=>(G.int||0)>=40,reward:{coins:500,kc:8,str:3},rdesc:'+500🪙 +8KC +3STR'},
+  {id:'t09',icon:'🌪️',name:'Storm Trial',diff:'hard',task:'Have AGI ≥ 40',check:()=>(G.agi||0)>=40,reward:{coins:500,kc:8,int:3},rdesc:'+500🪙 +8KC +3INT'},
+  {id:'t10',icon:'🌟',name:'Ascension Trial',diff:'hard',task:'Reach Level 30',check:()=>(G.level||1)>=30,reward:{str:5,int:5,agi:5,kc:10},rdesc:'+5 All +10KC'},
+  {id:'t11',icon:'🌌',name:'Cosmic Trial',diff:'hard',task:'All stats ≥ 50',check:()=>(G.str||0)>=50&&(G.int||0)>=50&&(G.agi||0)>=50,reward:{coins:1000,kc:20},rdesc:'+1000🪙 +20KC'},
+  {id:'t12',icon:'♾️',name:'Infinity Trial',diff:'hard',task:'Reach Level 50',check:()=>(G.level||1)>=50,reward:{str:10,int:10,agi:10,kc:30,coins:2000},rdesc:'+10 All +30KC +2000🪙'},
+];
+function _ctrlData(){
+  const d=JSON.parse(localStorage.getItem(CTRL_KEY)||'{}');
+  return {done:d.done||[],dailyClaimed:d.dailyClaimed||[],lastDay:d.lastDay||''};
+}
+function _ctrlSave(d){localStorage.setItem(CTRL_KEY,JSON.stringify(d));}
+function ctrlClaim(tid){
+  const d=_ctrlData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.dailyClaimed=[];d.lastDay=today;}
+  const trial=CTRL_ALL.find(t=>t.id===tid);
+  if(d.dailyClaimed.includes(tid)){showFloatBubble('Already claimed today!','bad');return;}
+  if(!trial.check()){showFloatBubble('Requirement not met!','bad');return;}
+  d.dailyClaimed.push(tid);
+  if(!d.done.includes(tid))d.done.push(tid);
+  _ctrlSave(d);
+  const r=trial.reward;
+  if(r.coins)gainCoins(r.coins);
+  if(r.kc)gainKC(r.kc);
+  if(r.xp)gainXP(r.xp,'str');
+  if(r.str){G.str=(G.str||10)+r.str;save();}
+  if(r.int){G.int=(G.int||10)+r.int;save();}
+  if(r.agi){G.agi=(G.agi||10)+r.agi;save();}
+  showFloatBubble(`⚔️ ${trial.name} cleared! ${trial.rdesc}`,'good');
+  checkAchievements();
+  _renderCtrl();
+}
+function openCtrl(){$('ctrlPanel').style.display='flex';_renderCtrl();}
+function closeCtrl(){$('ctrlPanel').style.display='none';}
+function _renderCtrl(){
+  const d=_ctrlData();
+  const today=getTodayKey();
+  const daily=d.lastDay===today?d.dailyClaimed:[];
+  $('ctrlHeader').textContent=`Daily Trials: ${daily.length}/6 claimed today`;
+  $('ctrlTrials').innerHTML=CTRL_ALL.map(t=>{
+    const met=t.check();
+    const claimedToday=daily.includes(t.id);
+    const everDone=d.done.includes(t.id);
+    let cls='ctrl-trial';
+    if(claimedToday)cls+=' done';
+    else if(met)cls+=' available';
+    return `<div class="${cls}" onclick="ctrlClaim('${t.id}')">
+      <div class="ct-head">
+        <span class="ct-icon">${t.icon}</span>
+        <span class="ct-name">${t.name}</span>
+        <span class="ct-diff ${t.diff}">${t.diff}</span>
+      </div>
+      <div class="ct-task">📋 ${t.task}</div>
+      <div class="ct-reward">🎁 ${t.rdesc}</div>
+      ${claimedToday?'<div class="ct-status">✅ Done</div>':met?'<div style="color:#80ff80;font-size:.65rem;text-align:right">✨ Claim!</div>':''}
+    </div>`;
+  }).join('');
 }
 
 </script>
