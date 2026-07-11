@@ -2596,6 +2596,39 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ PIRATE COVE ══ */
+.pirate-panel{position:fixed;inset:0;background:linear-gradient(180deg,#020d18,#061428,#0a0a06);z-index:1131;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.pirate-panel h2{color:#f0d060;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #c09010}
+.pirate-ship{background:linear-gradient(135deg,#0a2040,#051020);border:2px solid #1a5080;border-radius:16px;width:100%;max-width:320px;padding:14px;text-align:center;margin-bottom:10px;position:relative;overflow:hidden}
+.pirate-ship::before{content:'🌊';position:absolute;bottom:-2px;left:0;right:0;font-size:1.4rem;letter-spacing:-4px;opacity:.4}
+.pirate-doubloons{background:rgba(80,60,0,.3);border:1px solid #806000;border-radius:8px;padding:6px 14px;color:#f0d060;font-size:.85rem;margin-bottom:8px}
+.pirate-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;width:100%;max-width:340px}
+.pirate-card{background:rgba(10,30,50,.4);border:1px solid #1a4060;border-radius:12px;padding:10px;cursor:pointer;transition:all .2s}
+.pirate-card:hover{border-color:#40a0ff;background:rgba(20,50,80,.5)}
+.pirate-card .pc-icon{font-size:2rem;margin-bottom:4px}
+.pirate-card .pc-name{color:#a0c8e0;font-size:.78rem;font-weight:700}
+.pirate-card .pc-desc{color:#6080a0;font-size:.62rem;margin-top:2px}
+.pirate-card .pc-cost{color:#f0d060;font-size:.65rem;margin-top:3px}
+.pirate-log{background:rgba(10,20,30,.5);border:1px solid #1a3040;border-radius:8px;padding:8px;width:100%;max-width:320px;max-height:90px;overflow-y:auto;font-size:.67rem;color:#80a0b0;margin-top:6px}
+
+/* ══ MYTH CODEX ══ */
+.myth-panel{position:fixed;inset:0;background:linear-gradient(160deg,#0d0800,#1a1000);z-index:1130;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.myth-panel h2{color:#f0c060;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #c08000}
+.myth-progress{background:rgba(80,50,0,.3);border:1px solid #604000;border-radius:8px;padding:6px 14px;color:#f0c060;font-size:.82rem;margin-bottom:8px}
+.myth-list{display:flex;flex-direction:column;gap:8px;width:100%;max-width:340px}
+.myth-entry{background:rgba(60,40,0,.35);border:1px solid #604000;border-radius:12px;padding:12px;cursor:pointer;transition:all .2s}
+.myth-entry:hover{border-color:#f0a020;background:rgba(90,60,0,.4)}
+.myth-entry.completed{border-color:#40cc80;background:rgba(30,80,30,.3)}
+.myth-entry.completed .me-icon{filter:none}
+.myth-entry .me-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.myth-entry .me-icon{font-size:1.8rem}
+.myth-entry .me-title{color:#f0c060;font-size:.85rem;font-weight:700}
+.myth-entry .me-era{font-size:.6rem;color:#a08040;margin-left:auto}
+.myth-entry .me-story{color:#c0a060;font-size:.68rem;line-height:1.4;margin-bottom:6px}
+.myth-entry .me-task{background:rgba(100,70,0,.3);border-radius:6px;padding:4px 8px;font-size:.65rem;color:#d0a040;margin-bottom:4px}
+.myth-entry .me-reward{font-size:.65rem;color:#40ff80}
+.myth-entry .me-status{font-size:.62rem;color:#80ff80;text-align:right}
+
 /* ══ ENCHANTED FOREST ══ */
 .enfo-panel{position:fixed;inset:0;background:linear-gradient(160deg,#02100a,#051a08);z-index:1129;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .enfo-panel h2{color:#66ee88;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #00cc44}
@@ -16416,6 +16449,28 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="lootb-hist" id="lootbHist"></div>
     <div class="lootb-stats" id="lootbStats"></div>
   </div>
+</div>
+
+<!-- PIRATE COVE -->
+<div class="pirate-panel" id="piratePanel" style="display:none">
+  <button onclick="closePirate()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#f0d060;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🏴‍☠️ Pirate Cove</h2>
+  <div class="pirate-doubloons" id="pirateDbl">⚓ Doubloons: 0 | Sails: 0/6</div>
+  <div class="pirate-ship">
+    <div style="font-size:2.5rem">⛵</div>
+    <div style="color:#a0c0e0;font-size:.78rem;margin-top:4px" id="pirateShipName">The Wandering Tide</div>
+  </div>
+  <div class="pirate-grid" id="pirateSeas"></div>
+  <div class="pirate-log" id="pirateLog"><div>Set sail, adventurer!</div></div>
+</div>
+
+<!-- MYTH CODEX -->
+<div class="myth-panel" id="mythPanel" style="display:none">
+  <button onclick="closeMyth()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#f0c060;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>📜 Myth Codex</h2>
+  <div class="myth-progress" id="mythProgress">Myths: 0/10 completed</div>
+  <div style="color:#a08030;font-size:.72rem;margin-bottom:8px">Tap a myth to claim its reward</div>
+  <div class="myth-list" id="mythList"></div>
 </div>
 
 <!-- ENCHANTED FOREST -->
@@ -69929,6 +69984,176 @@ function _renderEnfo(){
       <div class="ep-eff">${p.desc}</div>
     </div>`;
   }).join('');
+}
+
+
+// ══ MYTH CODEX ══
+var MYTH_KEY = 'k0509_myth';
+const MYTH_ENTRIES = [
+  {id:'hercules',icon:'💪',title:'Trials of Hercules',era:'Greece',
+   story:'Twelve legendary labors tested the demigod Hercules.',
+   task:'Reach STR 30',check:()=>(G.str||0)>=30,
+   reward:{coins:200,kc:5},rdesc:'+200🪙 +5KC'},
+  {id:'athena',icon:'🦉',title:'Wisdom of Athena',era:'Greece',
+   story:'The goddess of wisdom granted knowledge to the worthy.',
+   task:'Reach INT 30',check:()=>(G.int||0)>=30,
+   reward:{coins:200,kc:5},rdesc:'+200🪙 +5KC'},
+  {id:'hermes',icon:'⚡',title:'Speed of Hermes',era:'Greece',
+   story:'The messenger god dashed between worlds faster than thought.',
+   task:'Reach AGI 30',check:()=>(G.agi||0)>=30,
+   reward:{coins:200,kc:5},rdesc:'+200🪙 +5KC'},
+  {id:'thor',icon:'🔨',title:'Hammer of Thor',era:'Norse',
+   story:'Mjolnir, the mightiest weapon, could only be wielded by the worthy.',
+   task:'Reach Level 15',check:()=>(G.level||1)>=15,
+   reward:{str:5},rdesc:'+5 STR'},
+  {id:'odin',icon:'🐦',title:'Sacrifice of Odin',era:'Norse',
+   story:'Odin hung from Yggdrasil to gain the runes of power.',
+   task:'Reach Level 25',check:()=>(G.level||1)>=25,
+   reward:{int:5},rdesc:'+5 INT'},
+  {id:'anubis',icon:'⚖️',title:'Scales of Anubis',era:'Egypt',
+   story:'The jackal god weighed hearts against a feather of truth.',
+   task:'Earn 5000 coins total',check:()=>(G.totalCoins||G.coins||0)>=5000,
+   reward:{agi:5},rdesc:'+5 AGI'},
+  {id:'ra',icon:'☀️',title:'Eye of Ra',era:'Egypt',
+   story:'Ra sailed the cosmic barque across the sky and underworld.',
+   task:'Reach Level 35',check:()=>(G.level||1)>=35,
+   reward:{coins:500,kc:10},rdesc:'+500🪙 +10KC'},
+  {id:'vishnu',icon:'🌺',title:'Preservation of Vishnu',era:'Hindu',
+   story:'Vishnu descended to earth in ten avatars to restore balance.',
+   task:'All stats 40+',check:()=>(G.str||0)>=40&&(G.int||0)>=40&&(G.agi||0)>=40,
+   reward:{str:8,int:8,agi:8},rdesc:'+8 All Stats'},
+  {id:'shiva',icon:'🔱',title:'Dance of Shiva',era:'Hindu',
+   story:'The cosmic dance of creation and destruction shapes reality.',
+   task:'Reach Level 50',check:()=>(G.level||1)>=50,
+   reward:{coins:1000,kc:20},rdesc:'+1000🪙 +20KC'},
+  {id:'universe',icon:'🌌',title:'Origin of All',era:'Cosmos',
+   story:'In the beginning, there was only void — then the spark of life.',
+   task:'Complete 9 other myths',check:(done)=>done>=9,
+   reward:{str:10,int:10,agi:10,kc:50},rdesc:'+10 All +50KC'},
+];
+function _mythData(){
+  const d=JSON.parse(localStorage.getItem(MYTH_KEY)||'{}');
+  return {done:d.done||[]};
+}
+function _mythSave(d){localStorage.setItem(MYTH_KEY,JSON.stringify(d));}
+function mythClaim(id){
+  const d=_mythData();
+  if(d.done.includes(id)){showFloatBubble('Already claimed!','bad');return;}
+  const m=MYTH_ENTRIES.find(e=>e.id===id);
+  const doneCount=d.done.length;
+  const met=id==='universe'?m.check(doneCount):m.check();
+  if(!met){showFloatBubble('Requirement not met yet!','bad');return;}
+  d.done.push(id);
+  _mythSave(d);
+  const r=m.reward;
+  if(r.coins)gainCoins(r.coins);
+  if(r.kc)gainKC(r.kc);
+  if(r.str){G.str=(G.str||10)+r.str;save();}
+  if(r.int){G.int=(G.int||10)+r.int;save();}
+  if(r.agi){G.agi=(G.agi||10)+r.agi;save();}
+  showFloatBubble(`📜 ${m.title} complete! ${m.rdesc}`,'good');
+  checkAchievements();
+  _renderMyth();
+}
+function openMyth(){$('mythPanel').style.display='flex';_renderMyth();}
+function closeMyth(){$('mythPanel').style.display='none';}
+function _renderMyth(){
+  const d=_mythData();
+  $('mythProgress').textContent=`Myths: ${d.done.length}/10 completed`;
+  $('mythList').innerHTML=MYTH_ENTRIES.map(m=>{
+    const done=d.done.includes(m.id);
+    const met=m.id==='universe'?m.check(d.done.length):m.check();
+    return `<div class="myth-entry ${done?'completed':''}" onclick="mythClaim('${m.id}')">
+      <div class="me-head"><span class="me-icon">${m.icon}</span><span class="me-title">${m.title}</span><span class="me-era">${m.era}</span></div>
+      <div class="me-story">${m.story}</div>
+      <div class="me-task">📋 ${m.task}</div>
+      <div class="me-reward">🎁 ${m.rdesc}</div>
+      <div class="me-status">${done?'✅ Completed':met?'✨ Ready to claim!':'🔒 Locked'}</div>
+    </div>`;
+  }).join('');
+}
+
+
+// ══ PIRATE COVE ══
+const PIRATE_KEY = 'k0509_pirate';
+const PIRATE_SEAS = [
+  {id:'calm',icon:'🌅',name:'Calm Waters',desc:'Safe sailing, modest haul',cost:0,
+   outcomes:[
+     {txt:'Found a chest!',coins:60,kc:0,dbl:3},
+     {txt:'Caught fine fish',coins:40,kc:0,dbl:2},
+     {txt:'Spotted dolphins',coins:20,kc:1,dbl:1},
+   ]},
+  {id:'trade',icon:'🏪',name:'Trade Routes',desc:'Merchant ships ahead',cost:2,
+   outcomes:[
+     {txt:'Traded spices for gold!',coins:150,kc:0,dbl:5},
+     {txt:'Fair deal with merchants',coins:100,kc:0,dbl:3},
+     {txt:'Rough negotiation',coins:50,kc:0,dbl:2},
+   ]},
+  {id:'storm',icon:'⛈️',name:'Storm Seas',desc:'Treacherous but rich',cost:3,
+   outcomes:[
+     {txt:'Survived! Found wreck gold',coins:300,kc:2,dbl:8},
+     {txt:'Weathered the storm',coins:100,kc:1,dbl:4},
+     {txt:'Storm tossed the cargo',coins:20,kc:0,dbl:1},
+   ]},
+  {id:'island',icon:'🏝️',name:'Hidden Island',desc:'Rumored treasure cache',cost:4,
+   outcomes:[
+     {txt:'TREASURE MAP found!',coins:400,kc:5,dbl:10},
+     {txt:'Exotic goods',coins:200,kc:2,dbl:6},
+     {txt:'Just coconuts',coins:30,kc:0,dbl:2},
+   ]},
+  {id:'kraken',icon:'🦑',name:'Kraken Waters',desc:'Maximum risk & reward',cost:6,
+   outcomes:[
+     {txt:'Slew the Kraken!',coins:800,kc:15,dbl:20,str:3},
+     {txt:'Drove it off',coins:300,kc:5,dbl:8},
+     {txt:'Barely escaped...',coins:0,kc:0,dbl:0},
+   ]},
+  {id:'navy',icon:'⚔️',name:'Naval Battle',desc:'Board an enemy galleon',cost:5,
+   outcomes:[
+     {txt:'Victory! Seized the galleon!',coins:600,kc:8,dbl:15,str:2},
+     {txt:'Honorable draw',coins:200,kc:3,dbl:6},
+     {txt:'Forced to retreat',coins:50,kc:0,dbl:1},
+   ]},
+];
+function _pirateData(){
+  const d=JSON.parse(localStorage.getItem(PIRATE_KEY)||'{}');
+  return {dbl:d.dbl||0,sails:d.sails||0,lastDay:d.lastDay||'',log:d.log||[]};
+}
+function _pirateSave(d){localStorage.setItem(PIRATE_KEY,JSON.stringify(d));}
+function pirateSail(sid){
+  const d=_pirateData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.sails=0;d.lastDay=today;}
+  if(d.sails>=6){showFloatBubble('No more sails today! Drop anchor.','bad');return;}
+  const sea=PIRATE_SEAS.find(s=>s.id===sid);
+  if(d.dbl<sea.cost){showFloatBubble(`Need ${sea.cost} doubloons!`,'bad');return;}
+  d.dbl-=sea.cost;
+  d.sails++;
+  const out=sea.outcomes[Math.floor(Math.random()*sea.outcomes.length)];
+  if(out.coins)gainCoins(out.coins);
+  if(out.kc)gainKC(out.kc);
+  if(out.str){G.str=(G.str||10)+out.str;save();}
+  d.dbl+=out.dbl||0;
+  d.log.unshift(`⛵ ${sea.name}: ${out.txt} +${out.coins||0}🪙 +${out.dbl||0}⚓`);
+  if(d.log.length>15)d.log.pop();
+  _pirateSave(d);
+  showFloatBubble(`⛵ ${out.txt}`,'good');
+  checkAchievements();
+  _renderPirate();
+}
+function openPirate(){$('piratePanel').style.display='flex';_renderPirate();}
+function closePirate(){$('piratePanel').style.display='none';}
+function _renderPirate(){
+  const d=_pirateData();
+  const today=getTodayKey();
+  const sails=d.lastDay===today?d.sails:0;
+  $('pirateDbl').textContent=`⚓ Doubloons: ${d.dbl} | Sails: ${sails}/6`;
+  $('pirateSeas').innerHTML=PIRATE_SEAS.map(s=>`<div class="pirate-card" onclick="pirateSail('${s.id}')">
+    <div class="pc-icon">${s.icon}</div>
+    <div class="pc-name">${s.name}</div>
+    <div class="pc-desc">${s.desc}</div>
+    <div class="pc-cost">Cost: ${s.cost}⚓ doubloons</div>
+  </div>`).join('');
+  $('pirateLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Set sail, adventurer!</div>';
 }
 
 </script>
