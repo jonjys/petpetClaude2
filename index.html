@@ -3003,6 +3003,80 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+
+/* ══ DREAM HUNTER ══ */
+.drhnt-panel{position:fixed;inset:0;background:#02020a;z-index:1122;display:none;flex-direction:column;overflow:hidden}
+.drhnt-panel.open{display:flex}
+.drhnt-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#040412,#080820)}
+.drhnt-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#8866ff,#cc88ff,#88aaff,#8866ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:drhntShim 5s linear infinite}
+@keyframes drhntShim{0%{background-position:0%}100%{background-position:300%}}
+.drhnt-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.drhnt-dreamscape{background:radial-gradient(ellipse at 50% 50%,rgba(136,102,255,.1),transparent);border:2px solid rgba(136,102,255,.2);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center}
+.drhnt-dream-icon{font-size:52px;margin-bottom:8px;display:block}
+.drhnt-dream-name{font:800 16px var(--ff-head);color:rgba(200,180,255,.9);margin-bottom:3px}
+.drhnt-dream-desc{font:600 9px var(--ff-body);color:rgba(160,140,220,.4);margin-bottom:8px}
+.drhnt-catch-btn{background:linear-gradient(135deg,#100028,#200050);border:2px solid rgba(136,102,255,.4);border-radius:14px;padding:11px;font:900 12px var(--ff-head);color:#aa88ff;cursor:pointer;width:100%}
+.drhnt-catch-btn:disabled{opacity:.3;cursor:default}
+.drhnt-dreams-caught{display:flex;flex-direction:column;gap:5px;margin-top:10px}
+.drhnt-caught{background:rgba(136,102,255,.05);border:1px solid rgba(136,102,255,.15);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px}
+.drhnt-caught-icon{font-size:22px;flex-shrink:0}
+.drhnt-caught-info{flex:1}
+.drhnt-caught-name{font:700 9px var(--ff-head);color:rgba(200,180,255,.7)}
+.drhnt-caught-eff{font:600 7px var(--ff-body);color:rgba(160,140,220,.4)}
+.drhnt-caught-use{background:rgba(136,102,255,.1);border:1px solid rgba(136,102,255,.25);border-radius:7px;padding:4px 9px;font:700 7px var(--ff-head);color:#aa88ff;cursor:pointer;flex-shrink:0}
+.drhnt-caught-use:disabled{opacity:.3;cursor:default}
+.drhnt-dreamcount{font:700 9px var(--ff-head);color:rgba(136,102,255,.4);text-align:center;margin-bottom:6px}
+
+/* ══ TOWER ASCENSION ══ */
+.towr-panel{position:fixed;inset:0;background:#040208;z-index:1121;display:none;flex-direction:column;overflow:hidden}
+.towr-panel.open{display:flex}
+.towr-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060310,#0a0518)}
+.towr-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff44ff,#aa44ff,#4488ff,#ff44ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:towrShim 4s linear infinite}
+@keyframes towrShim{0%{background-position:0%}100%{background-position:300%}}
+.towr-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.towr-floor{background:radial-gradient(ellipse at 50% 20%,rgba(170,68,255,.12),transparent);border:2px solid rgba(170,68,255,.25);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center}
+.towr-floor-v{font:900 60px var(--ff-head);color:rgba(200,150,255,.9);line-height:1}
+.towr-floor-lbl{font:700 8px var(--ff-head);color:rgba(170,100,255,.4);letter-spacing:2px}
+.towr-floor-enemy{font:700 12px var(--ff-head);color:rgba(255,180,255,.6);margin-top:4px}
+.towr-floor-hp{background:rgba(255,255,255,.04);border-radius:4px;height:6px;overflow:hidden;margin:6px auto;max-width:180px}
+.towr-floor-hp-fill{height:100%;background:linear-gradient(90deg,#aa44ff,#ff44ff);border-radius:4px;transition:width .6s}
+.towr-climb-btn{background:linear-gradient(135deg,#1a0030,#3a0060);border:2px solid rgba(170,68,255,.4);border-radius:14px;padding:11px;font:900 12px var(--ff-head);color:#cc88ff;cursor:pointer;width:100%;margin-bottom:8px}
+.towr-climb-btn:disabled{opacity:.3;cursor:default}
+.towr-best{font:600 8px var(--ff-body);color:rgba(170,100,255,.35);text-align:center;margin-bottom:8px}
+.towr-milestone-lbl{font:700 8px var(--ff-head);color:rgba(170,100,255,.35);letter-spacing:1px;margin-bottom:6px}
+.towr-milestones{display:flex;flex-direction:column;gap:4px}
+.towr-ms{background:rgba(170,68,255,.04);border:1px solid rgba(170,68,255,.1);border-radius:10px;padding:7px 12px;display:flex;align-items:center;gap:8px}
+.towr-ms.reached{border-color:rgba(68,255,136,.25);background:rgba(68,255,136,.04)}
+.towr-ms-floor{font:700 11px var(--ff-head);color:rgba(200,150,255,.7);flex-shrink:0;width:50px}
+.towr-ms-rew{flex:1;font:600 8px var(--ff-body);color:rgba(170,120,220,.4)}
+
+/* ══ COSMIC BANK ══ */
+.cbnk-panel{position:fixed;inset:0;background:#020604;z-index:1120;display:none;flex-direction:column;overflow:hidden}
+.cbnk-panel.open{display:flex}
+.cbnk-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#030806,#05100a)}
+.cbnk-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ffaa,#88ff44,#ffee44,#44ffaa);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:cbnkShim 4s linear infinite}
+@keyframes cbnkShim{0%{background-position:0%}100%{background-position:300%}}
+.cbnk-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.cbnk-balance{background:radial-gradient(ellipse at 50% 30%,rgba(68,255,170,.08),transparent);border:2px solid rgba(68,255,170,.2);border-radius:20px;padding:14px;margin-bottom:12px;text-align:center}
+.cbnk-bal-v{font:900 36px var(--ff-head);color:rgba(100,255,180,.9)}
+.cbnk-bal-lbl{font:600 8px var(--ff-body);color:rgba(68,200,136,.4);margin-bottom:4px}
+.cbnk-interest-v{font:700 12px var(--ff-head);color:rgba(68,220,136,.6)}
+.cbnk-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.cbnk-action-btn{background:rgba(68,255,136,.08);border:1.5px solid rgba(68,255,136,.2);border-radius:13px;padding:10px;font:700 10px var(--ff-head);color:#44ffaa;cursor:pointer}
+.cbnk-tiers{display:flex;flex-direction:column;gap:6px}
+.cbnk-tier{background:rgba(68,255,136,.04);border:1.5px solid rgba(68,255,136,.1);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.cbnk-tier.active{border-color:rgba(68,255,170,.35);background:rgba(68,255,170,.08)}
+.cbnk-tier-icon{font-size:24px;flex-shrink:0}
+.cbnk-tier-info{flex:1}
+.cbnk-tier-name{font:700 10px var(--ff-head);color:rgba(140,255,200,.8)}
+.cbnk-tier-rate{font:700 9px var(--ff-head);color:rgba(68,220,136,.6)}
+.cbnk-tier-req{font:600 7px var(--ff-body);color:rgba(100,180,140,.35)}
+.cbnk-dep-input{display:flex;gap:6px;margin-bottom:8px}
+.cbnk-dep-field{flex:1;background:rgba(68,255,136,.06);border:1.5px solid rgba(68,255,136,.2);border-radius:10px;padding:8px 12px;font:700 12px var(--ff-head);color:#44ffaa;outline:none}
+.cbnk-dep-btn{background:rgba(68,255,136,.1);border:1.5px solid rgba(68,255,136,.3);border-radius:10px;padding:8px 14px;font:700 9px var(--ff-head);color:#44ffaa;cursor:pointer}
+
 /* ══ SPIRIT VOICES ══ */
 .sprt-panel{position:fixed;inset:0;background:#020208;z-index:1119;display:none;flex-direction:column;overflow:hidden}
 .sprt-panel.open{display:flex}
@@ -14741,6 +14815,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBst2()"><div class="ddr-i">📖</div>Bestiariet</div>
           <div class="ddr" onclick="cM();openTourn()"><div class="ddr-i">🏆</div>Veckoturnering</div>
           <div class="ddr" onclick="cM();openSprt()"><div class="ddr-i">👻</div>Andelarnas Röst</div>
+          <div class="ddr" onclick="cM();openCbnk()"><div class="ddr-i">🏦</div>Kosmisk Bank</div>
+          <div class="ddr" onclick="cM();openTowr()"><div class="ddr-i">🗼</div>Tornstigning</div>
+          <div class="ddr" onclick="cM();openDrhnt()"><div class="ddr-i">🌙</div>Drömjägaren</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -16474,6 +16551,74 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 
+
+
+
+
+<!-- DREAM HUNTER -->
+<div class="drhnt-panel" id="drhntPanel">
+  <div class="drhnt-header">
+    <div class="drhnt-title">🌙 DRÖMJÄGAREN</div>
+    <button class="close-btn" onclick="closeDrhnt()">✕</button>
+  </div>
+  <div class="drhnt-scroll">
+    <div class="drhnt-dreamscape">
+      <span class="drhnt-dream-icon" id="drhntIcon">💫</span>
+      <div class="drhnt-dream-name" id="drhntName">Drömmen svävar...</div>
+      <div class="drhnt-dream-desc" id="drhntDesc">En ny dröm väntar på att fångas</div>
+      <button class="drhnt-catch-btn" id="drhntCatchBtn" onclick="drhntCatch()">🌙 Fånga drömmen!</button>
+    </div>
+    <div class="drhnt-dreamcount" id="drhntCount">0 drömmar fångade idag</div>
+    <div style="font:700 8px var(--ff-head);color:rgba(136,102,255,.35);letter-spacing:1px;margin-bottom:6px">FÅNGADE DRÖMMAR (KAN AKTIVERAS)</div>
+    <div class="drhnt-dreams-caught" id="drhntCaughtList"></div>
+  </div>
+</div>
+
+<!-- TOWER ASCENSION -->
+<div class="towr-panel" id="towrPanel">
+  <div class="towr-header">
+    <div class="towr-title">🗼 TORNSTIGNING</div>
+    <button class="close-btn" onclick="closeTowr()">✕</button>
+  </div>
+  <div class="towr-scroll">
+    <div class="towr-floor">
+      <div class="towr-floor-lbl">NUVARANDE VÅN</div>
+      <div class="towr-floor-v" id="towrFloorV">1</div>
+      <div class="towr-floor-enemy" id="towrEnemyV">🏰 Vakten väntar...</div>
+      <div class="towr-floor-hp"><div class="towr-floor-hp-fill" id="towrEHpFill" style="width:100%"></div></div>
+    </div>
+    <button class="towr-climb-btn" id="towrClimbBtn" onclick="towrClimb()">⬆️ Klättra upp</button>
+    <div class="towr-best" id="towrBestV">Bästa: Vån 1</div>
+    <div class="towr-milestone-lbl">MILSTOLPE-BELÖNINGAR</div>
+    <div class="towr-milestones" id="towrMilestones"></div>
+  </div>
+</div>
+
+<!-- COSMIC BANK -->
+<div class="cbnk-panel" id="cbnkPanel">
+  <div class="cbnk-header">
+    <div class="cbnk-title">🏦 KOSMISK BANK</div>
+    <button class="close-btn" onclick="closeCbnk()">✕</button>
+  </div>
+  <div class="cbnk-scroll">
+    <div class="cbnk-balance">
+      <div class="cbnk-bal-lbl">INSATT KAPITAL</div>
+      <div class="cbnk-bal-v" id="cbnkBalV">0 🪙</div>
+      <div class="cbnk-interest-v" id="cbnkIntV">+0 ränta per dag</div>
+    </div>
+    <div class="cbnk-dep-input">
+      <input class="cbnk-dep-field" type="number" id="cbnkDepAmt" placeholder="Belopp..." min="1">
+      <button class="cbnk-dep-btn" onclick="cbnkDeposit()">Sätt in</button>
+      <button class="cbnk-dep-btn" onclick="cbnkWithdraw()">Ta ut</button>
+    </div>
+    <div class="cbnk-actions">
+      <button class="cbnk-action-btn" onclick="cbnkCollectInt()">💰 Hämta Ränta</button>
+      <button class="cbnk-action-btn" onclick="cbnkDeposit100()">+100 Snabb insättning</button>
+    </div>
+    <div style="font:700 8px var(--ff-head);color:rgba(68,200,136,.35);letter-spacing:1px;margin-bottom:6px">KONTOTYPER</div>
+    <div class="cbnk-tiers" id="cbnkTiers"></div>
+  </div>
+</div>
 
 <!-- SPIRIT VOICES -->
 <div class="sprt-panel" id="sprtPanel">
@@ -68620,6 +68765,302 @@ function _renderSprt(d){
       '</button>'+
     '</div>';
   }).join('');
+}
+
+
+// COSMIC BANK
+const CBNK_KEY = 'k0509_cbnk';
+const CBNK_TIERS = [
+  {id:'basic',   icon:'💵', name:'Sparkonto',        rate:0.05, minDep:0,    desc:'5% daglig ränta'},
+  {id:'silver',  icon:'🥈', name:'Silverförvaring',  rate:0.08, minDep:500,  desc:'8% daglig ränta (min 500🪙)'},
+  {id:'gold',    icon:'🥇', name:'Guldvalv',         rate:0.12, minDep:2000, desc:'12% daglig ränta (min 2000🪙)'},
+  {id:'diamond', icon:'💎', name:'Diamantklubb',     rate:0.18, minDep:5000, desc:'18% daglig ränta (min 5000🪙)'},
+  {id:'cosmic',  icon:'🌌', name:'Kosmisk Reserv',   rate:0.25, minDep:10000,desc:'25% daglig ränta (min 10000🪙)'},
+];
+
+function _cbnkData(){try{return JSON.parse(localStorage.getItem(CBNK_KEY)||'null');}catch(e){return null;}}
+function _cbnkSave(d){localStorage.setItem(CBNK_KEY,JSON.stringify(d));}
+function _cbnkGetData(){
+  var d=_cbnkData();
+  if(!d) d={deposited:0,lastCollect:Date.now(),totalEarned:0,totalDeposited:0};
+  return d;
+}
+
+function _cbnkGetTier(deposited){
+  var tier=CBNK_TIERS[0];
+  for(var i=CBNK_TIERS.length-1;i>=0;i--){
+    if(deposited>=CBNK_TIERS[i].minDep){tier=CBNK_TIERS[i];break;}
+  }
+  return tier;
+}
+
+function _cbnkCalcInterest(d){
+  var hoursElapsed=Math.min((Date.now()-(d.lastCollect||Date.now()))/3600000,24);
+  var tier=_cbnkGetTier(d.deposited||0);
+  return Math.floor((d.deposited||0)*tier.rate*(hoursElapsed/24));
+}
+
+function cbnkDeposit(){
+  var d=_cbnkGetData();
+  var input=$('cbnkDepAmt');
+  var amt=parseInt((input&&input.value)||0);
+  if(!amt||amt<=0){showFloatBubble('Ange ett giltigt belopp!','debuff');return;}
+  if((G.coins||0)<amt){showFloatBubble('Inte tillräckligt mynt!','debuff');return;}
+  G.coins-=amt;save();
+  d.deposited=(d.deposited||0)+amt;
+  d.totalDeposited=(d.totalDeposited||0)+amt;
+  _cbnkSave(d);
+  showFloatBubble('🏦 Satte in '+amt+'🪙! Saldo: '+d.deposited+'🪙','buff');
+  if(input) input.value='';
+  _renderCbnk(d);
+}
+
+function cbnkDeposit100(){
+  var d=_cbnkGetData();
+  var amt=100;
+  if((G.coins||0)<amt){showFloatBubble('Inte tillräckligt mynt!','debuff');return;}
+  G.coins-=amt;save();
+  d.deposited=(d.deposited||0)+amt;
+  _cbnkSave(d);
+  showFloatBubble('🏦 +100🪙 insatt!','buff');
+  _renderCbnk(d);
+}
+
+function cbnkWithdraw(){
+  var d=_cbnkGetData();
+  if((d.deposited||0)<=0){showFloatBubble('Inget att ta ut!','debuff');return;}
+  G.coins=(G.coins||0)+d.deposited;save();
+  showFloatBubble('🏦 Tog ut '+d.deposited+'🪙','buff');
+  d.deposited=0;
+  _cbnkSave(d);
+  _renderCbnk(d);
+}
+
+function cbnkCollectInt(){
+  var d=_cbnkGetData();
+  var interest=_cbnkCalcInterest(d);
+  if(interest<=0){showFloatBubble('Ingen ränta ännu! Vänta lite.','debuff');return;}
+  d.lastCollect=Date.now();
+  d.totalEarned=(d.totalEarned||0)+interest;
+  gainCoins(interest);gainXP(Math.floor(interest/10),'lck');
+  _cbnkSave(d);
+  showFloatBubble('💰 Ränta insamlad! +'+interest+'🪙','buff');
+  checkAchievements();
+  _renderCbnk(d);
+}
+
+function openCbnk(){$('cbnkPanel').classList.add('open');_renderCbnk();}
+function closeCbnk(){$('cbnkPanel').classList.remove('open');}
+
+function _renderCbnk(d){
+  if(!d) d=_cbnkGetData();
+  var tier=_cbnkGetTier(d.deposited||0);
+  var interest=_cbnkCalcInterest(d);
+  var bv=$('cbnkBalV');if(bv) bv.textContent=(d.deposited||0).toLocaleString()+' 🪙';
+  var iv=$('cbnkIntV');if(iv) iv.textContent='+'+interest+'🪙 väntande ränta ('+Math.round(tier.rate*100)+'%/dag '+tier.name+')';
+  var container=$('cbnkTiers');if(!container) return;
+  container.innerHTML=CBNK_TIERS.map(function(t){
+    var active=t.id===tier.id;
+    var has=(d.deposited||0)>=t.minDep;
+    var dailyIncome=Math.floor((d.deposited||0)*t.rate);
+    return '<div class="cbnk-tier'+(active?' active':'')+'">'+
+      '<div class="cbnk-tier-icon">'+t.icon+'</div>'+
+      '<div class="cbnk-tier-info">'+
+        '<div class="cbnk-tier-name">'+(active?'✓ ':'')+t.name+'</div>'+
+        '<div class="cbnk-tier-rate">'+t.desc+(active&&dailyIncome>0?' → +'+dailyIncome+'🪙/dag':'')+'</div>'+
+        '<div class="cbnk-tier-req">'+(has?'✓ Krav uppfyllt':'Behöver '+t.minDep+'🪙 insatt')+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+
+// TOWER ASCENSION
+const TOWR_KEY = 'k0509_towr';
+const TOWR_ENEMIES = [
+  'Gatekeeper','Shadowling','Stone Golem','Void Imp','Cursed Knight',
+  'Thunder Wyrm','Soul Reaper','Chaos Fiend','Celestial Guard','Tower Titan',
+];
+const TOWR_MILESTONES = [
+  {floor:5,   rew:'+5 STR +5 END',       fn:function(){G.str=(G.str||0)+5;G.end=(G.end||0)+5;save();gainCoins(200);}},
+  {floor:10,  rew:'+5 INT +5 AGI +1KC',  fn:function(){G.int=(G.int||0)+5;G.agi=(G.agi||0)+5;save();gainKC(1);gainCoins(400);}},
+  {floor:20,  rew:'+10 alla stats +2KC',  fn:function(){['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+10;});save();gainKC(2);gainCoins(800);}},
+  {floor:30,  rew:'+15 alla stats +3KC',  fn:function(){['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+15;});save();gainKC(3);gainCoins(1500);}},
+  {floor:50,  rew:'+20 alla stats +5KC',  fn:function(){['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+20;});save();gainKC(5);gainCoins(3000);}},
+  {floor:75,  rew:'+25 alla stats +8KC',  fn:function(){['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+25;});save();gainKC(8);gainCoins(5000);}},
+  {floor:100, rew:'+50 alla stats +15KC', fn:function(){['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+50;});save();gainKC(15);gainCoins(10000);}},
+];
+
+function _towrData(){try{return JSON.parse(localStorage.getItem(TOWR_KEY)||'null');}catch(e){return null;}}
+function _towrSave(d){localStorage.setItem(TOWR_KEY,JSON.stringify(d));}
+function _towrGetData(){
+  var d=_towrData();
+  if(!d) d={floor:1,bestFloor:1,claimedMs:{},climbsToday:0,lastDay:''};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.climbsToday=0;d.lastDay=today;_towrSave(d);}
+  return d;
+}
+
+function towrClimb(){
+  var d=_towrGetData();
+  if((d.climbsToday||0)>=10){showFloatBubble('Max 10 klättringar per dag!','debuff');return;}
+  d.climbsToday=(d.climbsToday||0)+1;
+  var floor=d.floor||1;
+  var myPow=(G.str||0)+(G.agi||0)+(G.end||0)+Math.random()*30;
+  var enemyPow=floor*5+Math.random()*floor*3;
+  var won=myPow>enemyPow;
+  if(won){
+    d.floor=(floor||1)+1;
+    if(d.floor>(d.bestFloor||1)) d.bestFloor=d.floor;
+    gainCoins(floor*5);gainXP(floor*3,'str');
+    // Check milestones
+    TOWR_MILESTONES.forEach(function(ms){
+      if(d.floor>=ms.floor&&!d.claimedMs[ms.floor]){
+        d.claimedMs[ms.floor]=true;ms.fn();
+        showFloatBubble('🗼 Milstolpe Vån '+ms.floor+'! '+ms.rew,'buff');
+        checkAchievements();
+      }
+    });
+    showFloatBubble('🗼 Vån '+(d.floor-1)+' klarad! Nu på Vån '+d.floor+' +'+floor*5+'🪙','buff');
+  } else {
+    // Fall down 1 floor (min 1)
+    d.floor=Math.max(1,(floor||1)-1);
+    gainCoins(Math.floor(floor));
+    showFloatBubble('💥 Besegrad! Fell till Vån '+d.floor,'debuff');
+  }
+  _towrSave(d);_renderTowr(d);
+}
+
+function openTowr(){$('towrPanel').classList.add('open');_renderTowr();}
+function closeTowr(){$('towrPanel').classList.remove('open');}
+
+function _renderTowr(d){
+  if(!d) d=_towrGetData();
+  var fv=$('towrFloorV');if(fv) fv.textContent=d.floor||1;
+  var floor=d.floor||1;
+  var enemyIdx=(floor-1)%TOWR_ENEMIES.length;
+  var ev=$('towrEnemyV');if(ev) ev.textContent='👾 '+TOWR_ENEMIES[enemyIdx]+' (Kraft: '+Math.round(floor*5)+')';
+  var myPow=(G.str||0)+(G.agi||0)+(G.end||0);
+  var enemyPow=floor*5;
+  var ratio=Math.min(1,myPow/(enemyPow+1));
+  var ef=$('towrEHpFill');if(ef) ef.style.width=Math.round(ratio*100)+'%';
+  var bv=$('towrBestV');if(bv) bv.textContent='Bästa: Vån '+(d.bestFloor||1)+' | Klättringar idag: '+(d.climbsToday||0)+'/10';
+  var cb=$('towrClimbBtn');if(cb) cb.disabled=(d.climbsToday||0)>=10;
+  var ms=$('towrMilestones');
+  if(ms){
+    ms.innerHTML=TOWR_MILESTONES.map(function(milestone){
+      var reached=d.floor>=milestone.floor;
+      var claimed=!!d.claimedMs[milestone.floor];
+      return '<div class="towr-ms'+(claimed?' reached':'')+'">'+
+        '<div class="towr-ms-floor">Vån '+milestone.floor+'</div>'+
+        '<div class="towr-ms-rew">'+(claimed?'✓ ':'')+(claimed?milestone.rew:milestone.rew+(reached?' (hämta nu!)':''))+'</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// DREAM HUNTER
+const DRHNT_KEY = 'k0509_drhnt';
+const DRHNT_DREAMS = [
+  {id:'dream_power',  icon:'💪', name:'Styrkedröm',    desc:'Muskler glöder i drömmen',    bonus:{str:10},    eff:'+10 STR', prob:0.7},
+  {id:'dream_speed',  icon:'⚡', name:'Hastighetsdröm', desc:'Du rör dig som vinden',       bonus:{agi:10},    eff:'+10 AGI', prob:0.7},
+  {id:'dream_wisdom', icon:'🧠', name:'Visdomsdröm',   desc:'Kunskap strömmar in',         bonus:{int:10},    eff:'+10 INT', prob:0.6},
+  {id:'dream_luck',   icon:'🍀', name:'Lyckodröm',     desc:'Alla stjärnor är i linje',    bonus:{lck:12},    eff:'+12 LCK', prob:0.6},
+  {id:'dream_iron',   icon:'🛡️', name:'Järndröm',      desc:'Din kropp härdas',            bonus:{end:10},    eff:'+10 END', prob:0.65},
+  {id:'dream_gold',   icon:'💰', name:'Gulddröm',      desc:'Mynt regnar från himlen',     bonus:{},coins:500, eff:'+500🪙',  prob:0.8},
+  {id:'dream_kc',     icon:'💎', name:'Ädelstensdröm', desc:'Värdefulla stenar glimmar',   bonus:{},kc:2,      eff:'+2 KC',   prob:0.3},
+  {id:'dream_all',    icon:'🌟', name:'Helighetsdröm', desc:'Universums kraft samlas i dig',bonus:{str:5,agi:5,int:5,lck:5,end:5}, eff:'+5 ALLA', prob:0.25},
+];
+
+function _drhntData(){try{return JSON.parse(localStorage.getItem(DRHNT_KEY)||'null');}catch(e){return null;}}
+function _drhntSave(d){localStorage.setItem(DRHNT_KEY,JSON.stringify(d));}
+function _drhntGetData(){
+  var d=_drhntData();
+  if(!d) d={caught:[],caughtToday:0,lastDay:'',totalCaught:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.caughtToday=0;d.lastDay=today;_drhntSave(d);}
+  return d;
+}
+
+function drhntCatch(){
+  var d=_drhntGetData();
+  if((d.caughtToday||0)>=5){showFloatBubble('Max 5 drömmar per dag!','debuff');return;}
+  // Pick random dream (weighted)
+  var total=DRHNT_DREAMS.reduce(function(s,dr){return s+dr.prob;},0);
+  var r=Math.random()*total;
+  var cum=0;
+  var dream=DRHNT_DREAMS[0];
+  for(var i=0;i<DRHNT_DREAMS.length;i++){
+    cum+=DRHNT_DREAMS[i].prob;
+    if(r<cum){dream=DRHNT_DREAMS[i];break;}
+  }
+  d.caughtToday=(d.caughtToday||0)+1;
+  d.totalCaught=(d.totalCaught||0)+1;
+  d.caught=d.caught||[];
+  d.caught.push({id:dream.id,idx:DRHNT_DREAMS.indexOf(dream)});
+  if(d.caught.length>10) d.caught=d.caught.slice(-10);
+  gainXP(30,'int');
+  _drhntSave(d);
+  showFloatBubble('🌙 Fångade '+dream.icon+' '+dream.name+'! '+dream.eff,'buff');
+  _renderDrhnt(d);
+}
+
+function drhntUseDream(caughtIdx){
+  var d=_drhntGetData();
+  if(!d.caught||!d.caught[caughtIdx]) return;
+  var entry=d.caught[caughtIdx];
+  var dream=DRHNT_DREAMS[entry.idx];
+  if(!dream) return;
+  d.caught.splice(caughtIdx,1);
+  if(dream.bonus&&Object.keys(dream.bonus).length>0){
+    Object.keys(dream.bonus).forEach(function(s){G[s]=(G[s]||0)+dream.bonus[s];});
+    save();
+  }
+  if(dream.coins) gainCoins(dream.coins);
+  if(dream.kc) gainKC(dream.kc);
+  gainXP(50,'int');
+  _drhntSave(d);
+  showFloatBubble('✨ '+dream.icon+' '+dream.name+' aktiverad! '+dream.eff,'buff');
+  checkAchievements();
+  _renderDrhnt(d);
+}
+
+function openDrhnt(){$('drhntPanel').classList.add('open');_renderDrhnt();}
+function closeDrhnt(){$('drhntPanel').classList.remove('open');}
+
+function _renderDrhnt(d){
+  if(!d) d=_drhntGetData();
+  var maxToday=5;
+  var caught=(d.caughtToday||0);
+  // Show current dream preview
+  var previewIdx=Math.floor(Math.random()*DRHNT_DREAMS.length);
+  var preview=DRHNT_DREAMS[previewIdx];
+  var di=$('drhntIcon');if(di) di.textContent=preview.icon;
+  var dn=$('drhntName');if(dn) dn.textContent=preview.name;
+  var dd=$('drhntDesc');if(dd) dd.textContent=preview.desc+' ('+preview.eff+')';
+  var cb=$('drhntCatchBtn');if(cb) cb.disabled=caught>=maxToday;
+  var dc=$('drhntCount');if(dc) dc.textContent=caught+'/'+maxToday+' drömmar fångade idag';
+  var list=$('drhntCaughtList');
+  if(list){
+    var caughtArr=d.caught||[];
+    if(caughtArr.length===0){
+      list.innerHTML='<div style="font:600 8px var(--ff-body);color:rgba(136,102,255,.25);text-align:center;padding:8px">Fånga drömmar för att se dem här!</div>';
+    } else {
+      list.innerHTML=caughtArr.map(function(entry,i){
+        var dream=DRHNT_DREAMS[entry.idx];
+        if(!dream) return '';
+        return '<div class="drhnt-caught">'+
+          '<div class="drhnt-caught-icon">'+dream.icon+'</div>'+
+          '<div class="drhnt-caught-info">'+
+            '<div class="drhnt-caught-name">'+dream.name+'</div>'+
+            '<div class="drhnt-caught-eff">'+dream.eff+'</div>'+
+          '</div>'+
+          '<button class="drhnt-caught-use" onclick="drhntUseDream('+i+')">Aktivera</button>'+
+        '</div>';
+      }).join('');
+    }
+  }
 }
 
 </script>
