@@ -2596,6 +2596,44 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ OCEAN DEPTHS ══ */
+.ocean-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#000d1a,#001a33,#000811);z-index:1164;overflow-y:auto;padding:0 0 80px}
+.ocean-header{text-align:center;padding:22px 16px 10px;color:#40c4ff}
+.ocean-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 18px #0088cc}
+.ocean-energy{text-align:center;color:#2a9ec4;font-size:.85rem;margin:4px 0 12px}
+.ocean-zones{display:grid;grid-template-columns:1fr;gap:10px;padding:0 12px}
+.ocean-zone{background:rgba(0,40,80,.35);border:1px solid #004a80;border-radius:12px;padding:14px 12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
+.ocean-zone:active{transform:scale(.97)}
+.ocean-zone.visited{border-color:#40c4ff}
+.oz-icon{font-size:2.2rem;flex-shrink:0}
+.oz-info{flex:1}
+.oz-name{font-size:.9rem;color:#40c4ff;font-weight:700}
+.oz-desc{font-size:.75rem;color:#2a7eaa;margin:2px 0}
+.oz-depth{font-size:.72rem;color:#88ccee}
+.oz-reward{font-size:.75rem;color:#ffcc44;margin-top:3px}
+.ocean-log{margin:14px 12px 0;background:rgba(0,0,0,.4);border-radius:10px;padding:10px;max-height:110px;overflow-y:auto}
+.ocean-log div{font-size:.75rem;color:#3a9eca;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
+/* ══ MECH WORKSHOP ══ */
+.mech-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#0a0f1a,#111827,#060c15);z-index:1163;overflow-y:auto;padding:0 0 80px}
+.mech-header{text-align:center;padding:22px 16px 10px;color:#5bc8ff}
+.mech-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 14px #38a3e0}
+.mech-energy{text-align:center;color:#4a9ecc;font-size:.85rem;margin:4px 0 12px}
+.mech-tabs{display:flex;gap:6px;padding:0 12px 10px;justify-content:center}
+.mech-tab{background:#1a2535;color:#6aaccc;border:1px solid #2a4060;border-radius:8px;padding:6px 14px;font-size:.82rem;cursor:pointer}
+.mech-tab.active{background:#1a4a80;color:#8dd4ff;border-color:#4488cc}
+.mech-parts{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px}
+.mech-part{background:rgba(20,40,80,.35);border:1px solid #2a4060;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:all .2s}
+.mech-part:active{transform:scale(.96)}
+.mech-part.built{border-color:#5bc8ff;background:rgba(30,80,140,.4)}
+.mp-icon{font-size:2rem}
+.mp-name{font-size:.82rem;color:#9dcce8;font-weight:700;margin:3px 0}
+.mp-cost{font-size:.72rem;color:#ffcc44}
+.mp-bonus{font-size:.72rem;color:#88ddaa}
+.mech-log{margin:14px 12px 0;background:rgba(0,0,0,.3);border-radius:10px;padding:10px;max-height:110px;overflow-y:auto}
+.mech-log div{font-size:.75rem;color:#5599cc;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+.mech-gather-btn{margin:10px 12px 0;background:linear-gradient(135deg,#1a4a80,#2a6ab0);color:#fff;border:none;border-radius:10px;padding:11px;font-size:.9rem;font-weight:700;width:calc(100% - 24px);cursor:pointer}
+
 /* ══ ANCIENT RUINS ══ */
 .ruins-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#1a1200,#2b1f00,#0f0900);z-index:1162;overflow-y:auto;padding:0 0 80px}
 .ruins-header{text-align:center;padding:22px 16px 10px;color:#d4a843}
@@ -17203,6 +17241,27 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="doasis-trades" id="doasisTrades"></div>
 </div>
 
+<!-- OCEAN DEPTHS -->
+<div id="oceanPanel" class="ocean-panel">
+  <div class="ocean-header"><h2>🌊 Ocean Depths</h2></div>
+  <div class="ocean-energy" id="oceanEnergy"></div>
+  <div class="ocean-zones" id="oceanZones"></div>
+  <div class="ocean-log" id="oceanLog"></div>
+  <button onclick="closeOcean()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
+<!-- MECH WORKSHOP -->
+<div id="mechPanel" class="mech-panel">
+  <div class="mech-header"><h2>🤖 Mech Workshop</h2></div>
+  <div class="mech-energy" id="mechEnergy"></div>
+  <div class="mech-tabs">
+    <button class="mech-tab active" id="mechTabParts" onclick="mechSetTab('parts')">⚙️ Parts</button>
+    <button class="mech-tab" id="mechTabBattle" onclick="mechSetTab('battle')">⚔️ Battle</button>
+  </div>
+  <button class="mech-gather-btn" onclick="mechGather()">🔩 Gather Alloy</button>
+  <div class="mech-parts" id="mechParts"></div>
+  <div class="mech-log" id="mechLog"></div>
+  <button onclick="closeMech()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
 <!-- ANCIENT RUINS -->
 <div id="ruinsPanel" class="ruins-panel">
   <div class="ruins-header"><h2>🏛️ Ancient Ruins</h2></div>
@@ -73561,6 +73620,165 @@ function _renderRuins(){
     <div class="rs-status">${d.excavated.includes(s.id)?'✓ Found':'Dig here'}</div>
   </div>`).join('');
   $('ruinsLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Tap a site to excavate!</div>';
+}
+
+
+// ══ MECH WORKSHOP ══
+const MECH_KEY='k0509_mech';
+const MECH_PARTS=[
+  {id:'frame',icon:'🦾',name:'Steel Frame',cost:{alloy:20},bonus:'Base structure',str:2},
+  {id:'engine',icon:'⚙️',name:'Power Engine',cost:{alloy:35},bonus:'+3 AGI',agi:3},
+  {id:'cannon',icon:'🔫',name:'Plasma Cannon',cost:{alloy:50},bonus:'+5 STR',str:5},
+  {id:'shield',icon:'🛡️',name:'Nano Shield',cost:{alloy:45},bonus:'+4 DEF',str:2,agi:2},
+  {id:'sensor',icon:'📡',name:'Radar Sensor',cost:{alloy:30},bonus:'+4 INT',int:4},
+  {id:'thruster',icon:'🚀',name:'Ion Thruster',cost:{alloy:60},bonus:'+6 AGI',agi:6},
+  {id:'core',icon:'💠',name:'Crystal Core',cost:{alloy:80},bonus:'+8 INT',int:8},
+  {id:'armor',icon:'🔩',name:'Titanium Armor',cost:{alloy:100},bonus:'+10 STR',str:10},
+];
+const MECH_ENEMIES=[
+  {name:'Rust Bot',hp:80,atk:12},{name:'Guard Drone',hp:120,atk:18},
+  {name:'Cyber Tank',hp:200,atk:25},{name:'Mech Titan',hp:350,atk:35},
+];
+var _mechTab='parts';
+function _mechData(){return JSON.parse(localStorage.getItem(MECH_KEY)||'{"alloy":0,"gathers":0,"battles":0,"lastDay":"","built":[],"log":[]}');}
+function _mechSave(d){localStorage.setItem(MECH_KEY,JSON.stringify(d));}
+function mechGather(){
+  const d=_mechData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.gathers=0;d.battles=0;d.lastDay=today;}
+  if(d.gathers>=6){showFloatBubble('6 gathers today!','bad');return;}
+  const amt=15+Math.floor(Math.random()*16);
+  d.alloy+=amt;d.gathers++;
+  d.log.unshift(`🔩 +${amt} alloy gathered`);
+  if(d.log.length>12)d.log.pop();
+  _mechSave(d);showFloatBubble(`🔩 +${amt} alloy`,'good');_renderMech();
+}
+function mechBuild(pid){
+  const d=_mechData();
+  const part=MECH_PARTS.find(p=>p.id===pid);
+  if(!part)return;
+  if(d.built.includes(pid)){showFloatBubble('Already built!','bad');return;}
+  if(d.alloy<part.cost.alloy){showFloatBubble('Not enough alloy!','bad');return;}
+  d.alloy-=part.cost.alloy;
+  d.built.push(pid);
+  if(part.str){G.str=(G.str||10)+part.str;save();}
+  if(part.agi){G.agi=(G.agi||10)+part.agi;save();}
+  if(part.int){G.int=(G.int||10)+part.int;save();}
+  d.log.unshift(`${part.icon} ${part.name} built! ${part.bonus}`);
+  if(d.log.length>12)d.log.pop();
+  _mechSave(d);showFloatBubble(`${part.icon} ${part.name} built!`,'good');
+  checkAchievements();_renderMech();
+}
+function mechBattle(){
+  const d=_mechData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.gathers=0;d.battles=0;d.lastDay=today;}
+  if(d.battles>=5){showFloatBubble('5 battles today!','bad');return;}
+  const enemy=MECH_ENEMIES[Math.min(Math.floor(d.built.length/2),MECH_ENEMIES.length-1)];
+  const power=d.built.length*15+50;
+  const win=power>enemy.hp;
+  d.battles++;
+  if(win){
+    const coins=60+d.built.length*20;
+    gainCoins(coins);gainXP(10,'str');
+    d.log.unshift(`⚔️ Defeated ${enemy.name}! +${coins}🪙`);
+  } else {
+    gainCoins(20);
+    d.log.unshift(`💥 Lost to ${enemy.name}. +20🪙`);
+  }
+  if(d.log.length>12)d.log.pop();
+  _mechSave(d);
+  showFloatBubble(win?`⚔️ Victory vs ${enemy.name}!`:`💥 Defeated by ${enemy.name}`,'good');
+  checkAchievements();_renderMech();
+}
+function mechSetTab(t){
+  _mechTab=t;
+  ['parts','battle'].forEach(x=>{
+    const el=$('mechTab'+x.charAt(0).toUpperCase()+x.slice(1));
+    if(el)el.className='mech-tab'+(x===t?' active':'');
+  });
+  _renderMech();
+}
+function openMech(){$('mechPanel').style.display='flex';_renderMech();}
+function closeMech(){$('mechPanel').style.display='none';}
+function _renderMech(){
+  const d=_mechData();
+  const today=getTodayKey();
+  const gathers=d.lastDay===today?d.gathers:0;
+  const battles=d.lastDay===today?d.battles:0;
+  $('mechEnergy').textContent=`Alloy: ${d.alloy} | Parts: ${d.built.length}/${MECH_PARTS.length} | Gathers: ${gathers}/6 | Battles: ${battles}/5`;
+  if(_mechTab==='parts'){
+    $('mechParts').innerHTML=MECH_PARTS.map(p=>`<div class="mech-part ${d.built.includes(p.id)?'built':''}" onclick="${d.built.includes(p.id)?'':'mechBuild(''+p.id+'')'}">
+      <div class="mp-icon">${p.icon}</div>
+      <div class="mp-name">${p.name}</div>
+      <div class="mp-cost">${d.built.includes(p.id)?'✓ Built':'⚙️ '+p.cost.alloy+' alloy'}</div>
+      <div class="mp-bonus">${p.bonus}</div>
+    </div>`).join('');
+  } else {
+    const enemy=MECH_ENEMIES[Math.min(Math.floor(d.built.length/2),MECH_ENEMIES.length-1)];
+    $('mechParts').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:16px;background:rgba(20,40,80,.4);border-radius:12px;border:1px solid #2a4060">
+      <div style="font-size:2.5rem">🤖</div>
+      <div style="color:#5bc8ff;font-weight:700;margin:6px 0">${enemy.name}</div>
+      <div style="color:#88aabb;font-size:.8rem">HP: ${enemy.hp} | Power: ${d.built.length*15+50}</div>
+      <button onclick="mechBattle()" style="margin-top:10px;background:linear-gradient(135deg,#1a4a80,#3a7abf);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.9rem;cursor:pointer">⚔️ Battle!</button>
+    </div>`;
+  }
+  $('mechLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Gather alloy and build your mech!</div>';
+}
+
+// ══ OCEAN DEPTHS ══
+const OCEAN_KEY='k0509_ocean';
+const OCEAN_ZONES=[
+  {id:'surf',icon:'🏄',name:'Surf Zone',depth:'0-10m',desc:'Warm shallow waters',dives:0,reward:{coins:40,xp:5}},
+  {id:'coral',icon:'🪸',name:'Coral Reef',depth:'10-50m',desc:'Vibrant coral ecosystem',dives:0,reward:{coins:80,pearls:5}},
+  {id:'ship',icon:'⚓',name:'Sunken Ship',depth:'50-200m',desc:'Ancient merchant wreck',dives:0,reward:{kc:30,coins:100}},
+  {id:'cave',icon:'🕳️',name:'Sea Caves',depth:'100-300m',desc:'Dark cold tunnels',dives:0,reward:{str:2,agi:2}},
+  {id:'trench',icon:'🦑',name:'Deep Trench',depth:'500m+',desc:'Giant squid territory',dives:0,reward:{kc:80,coins:150}},
+  {id:'abyss',icon:'🌑',name:'The Abyss',depth:'2000m+',desc:'Bioluminescent wonder',dives:0,reward:{int:5,kc:120}},
+];
+function _oceanData(){return JSON.parse(localStorage.getItem(OCEAN_KEY)||'{"pearls":0,"dives":0,"lastDay":"","visited":[],"log":[]}');}
+function _oceanSave(d){localStorage.setItem(OCEAN_KEY,JSON.stringify(d));}
+function oceanDive(zid){
+  const d=_oceanData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.dives=0;d.lastDay=today;}
+  if(d.dives>=7){showFloatBubble('7 dives today!','bad');return;}
+  const zone=OCEAN_ZONES.find(z=>z.id===zid);
+  if(!zone)return;
+  d.dives++;d.pearls+=3;
+  let rewards=[];
+  const r=zone.reward;
+  if(r.coins){gainCoins(r.coins);rewards.push(r.coins+'🪙');}
+  if(r.kc){gainKC(r.kc);rewards.push(r.kc+'KC');}
+  if(r.xp){gainXP(r.xp,'agi');rewards.push(r.xp+'XP');}
+  if(r.pearls){d.pearls+=r.pearls;rewards.push(r.pearls+'🦪');}
+  if(r.str){G.str=(G.str||10)+r.str;save();rewards.push(r.str+'STR');}
+  if(r.int){G.int=(G.int||10)+r.int;save();rewards.push(r.int+'INT');}
+  if(r.agi){G.agi=(G.agi||10)+r.agi;save();rewards.push(r.agi+'AGI');}
+  if(!d.visited.includes(zid))d.visited.push(zid);
+  d.log.unshift(`${zone.icon} ${zone.name}: ${rewards.join(' ')}`);
+  if(d.log.length>12)d.log.pop();
+  _oceanSave(d);
+  showFloatBubble(`${zone.icon} ${zone.name}!`,'good');
+  checkAchievements();_renderOcean();
+}
+function openOcean(){$('oceanPanel').style.display='flex';_renderOcean();}
+function closeOcean(){$('oceanPanel').style.display='none';}
+function _renderOcean(){
+  const d=_oceanData();
+  const today=getTodayKey();
+  const dives=d.lastDay===today?d.dives:0;
+  $('oceanEnergy').textContent=`Pearls: ${d.pearls} 🦪 | Dives: ${dives}/7 | Zones: ${d.visited.length}/${OCEAN_ZONES.length}`;
+  $('oceanZones').innerHTML=OCEAN_ZONES.map(z=>`<div class="ocean-zone ${d.visited.includes(z.id)?'visited':''}" onclick="oceanDive('${z.id}')">
+    <div class="oz-icon">${z.icon}</div>
+    <div class="oz-info">
+      <div class="oz-name">${z.name}</div>
+      <div class="oz-desc">${z.desc}</div>
+      <div class="oz-depth">Depth: ${z.depth}</div>
+      <div class="oz-reward">Reward: ${Object.entries(z.reward).map(([k,v])=>v+k).join(' ')}</div>
+    </div>
+  </div>`).join('');
+  $('oceanLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Dive into the ocean!</div>';
 }
 
 </script>
