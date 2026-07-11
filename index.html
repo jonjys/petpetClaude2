@@ -1563,6 +1563,85 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+/* ══ RUNE FORGE ══ */
+.rune-panel{position:fixed;inset:0;background:#040204;z-index:1077;display:none;flex-direction:column;overflow:hidden}
+.rune-panel.open{display:flex}
+.rune-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080308,#040204)}
+.rune-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc44ff,#ff44cc,#ffaa44,#cc44ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:runeShim 3s linear infinite}
+@keyframes runeShim{0%{background-position:0%}100%{background-position:300%}}
+.rune-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Runestone display */
+.rune-display{background:radial-gradient(ellipse at 50%50%,rgba(200,68,255,.1),transparent);border:2px solid rgba(200,68,255,.2);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center}
+.rune-stone{font-size:56px;margin-bottom:6px;display:block}
+.rune-name{font:800 16px var(--ff-head);color:#fff;margin-bottom:3px}
+.rune-power{font:700 10px var(--ff-head);color:#cc44ff;margin-bottom:6px}
+.rune-slots{display:flex;justify-content:center;gap:6px}
+.rune-slot{width:40px;height:40px;border:2px dashed rgba(200,68,255,.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
+.rune-slot.filled{border-style:solid;border-color:rgba(200,68,255,.6);background:rgba(200,68,255,.1)}
+/* Forge area */
+.rune-forge-lbl{font:700 8px var(--ff-head);color:rgba(200,68,255,.5);letter-spacing:1px;margin-bottom:6px}
+.rune-materials{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+.rune-mat{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;padding:8px;text-align:center;cursor:pointer;transition:all .15s}
+.rune-mat.selected{border-color:rgba(200,68,255,.5);background:rgba(200,68,255,.08)}
+.rune-mat.locked{opacity:.3;cursor:default}
+.rune-mat-icon{font-size:24px;margin-bottom:2px}
+.rune-mat-name{font:600 7px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:1px}
+.rune-mat-count{font:700 8px var(--ff-head);color:#cc44ff}
+.rune-forge-btn{background:linear-gradient(135deg,#1a0030,#4a0080);border:1.5px solid rgba(200,68,255,.4);border-radius:14px;padding:11px;font:900 12px var(--ff-head);color:#fff;cursor:pointer;width:100%;margin-bottom:10px}
+.rune-forge-btn:disabled{opacity:.3;cursor:default}
+/* Rune collection */
+.rune-coll-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.rune-coll{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px}
+.rune-coll-item{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:12px;padding:8px 4px;text-align:center}
+.rune-coll-item.owned{border-color:rgba(200,68,255,.3)}
+.rune-coll-icon{font-size:22px;margin-bottom:2px}
+.rune-coll-name{font:600 6px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:1px}
+.rune-coll-eff{font:700 7px var(--ff-head);color:#cc44ff}
+.rune-coll-qty{font:600 7px var(--ff-body);color:rgba(200,68,255,.4)}
+.rune-equip-row{display:flex;gap:5px;margin-bottom:6px}
+.rune-equip-btn{flex:1;background:rgba(200,68,255,.06);border:1px solid rgba(200,68,255,.2);border-radius:8px;padding:6px;font:700 8px var(--ff-head);color:#cc44ff;cursor:pointer}
+.rune-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
+/* ══ ARENA TOURNAMENT ══ */
+.atour-panel{position:fixed;inset:0;background:#050005;z-index:1076;display:none;flex-direction:column;overflow:hidden}
+.atour-panel.open{display:flex}
+.atour-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a000a,#050005)}
+.atour-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4488,#ff8800,#ffcc00,#ff4488);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:atourShim 2s linear infinite}
+@keyframes atourShim{0%{background-position:0%}100%{background-position:300%}}
+.atour-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Trophy case */
+.atour-trophy{background:radial-gradient(ellipse at 50% 0,rgba(255,200,0,.12),transparent);border:2px solid rgba(255,200,0,.2);border-radius:22px;padding:14px;margin-bottom:12px;text-align:center}
+.atour-trophy-v{font:900 40px var(--ff-head);background:linear-gradient(180deg,#ffcc00,#ff8800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.atour-trophy-l{font:700 8px var(--ff-head);color:rgba(255,200,0,.4);letter-spacing:2px;margin-bottom:8px}
+.atour-badges{display:flex;justify-content:center;gap:5px;flex-wrap:wrap}
+.atour-badge{font-size:22px}
+/* Bracket */
+.atour-bracket-lbl{font:700 8px var(--ff-head);color:rgba(255,200,0,.5);letter-spacing:1px;margin-bottom:8px}
+.atour-bracket{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.atour-match{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 12px}
+.atour-match.current{border-color:rgba(255,200,0,.35);background:rgba(255,200,0,.04);animation:atourPulse .8s ease-in-out infinite alternate}
+@keyframes atourPulse{0%{box-shadow:0 0 0 rgba(255,200,0,0)}100%{box-shadow:0 0 10px rgba(255,200,0,.2)}}
+.atour-match.won{border-color:rgba(68,255,136,.3);background:rgba(68,255,136,.03)}
+.atour-match.lost{opacity:.45}
+.atour-match-info{flex:1}
+.atour-match-round{font:700 7px var(--ff-head);color:rgba(255,200,0,.4);letter-spacing:1px;margin-bottom:2px}
+.atour-match-vs{font:600 10px var(--ff-body);color:rgba(255,255,255,.5);margin-bottom:1px}
+.atour-match-power{font:700 9px var(--ff-head);color:rgba(255,255,255,.35)}
+.atour-match-result{font:700 9px var(--ff-head)}
+.atour-match-result.win{color:#44ff88}
+.atour-match-result.loss{color:#ff4444}
+.atour-fight-btn{background:linear-gradient(135deg,#2a0020,#6a0050);border:1.5px solid rgba(255,68,136,.4);border-radius:10px;padding:8px 14px;font:800 10px var(--ff-head);color:#fff;cursor:pointer;flex-shrink:0}
+.atour-fight-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.04)}
+/* Stats */
+.atour-stats{display:flex;gap:5px;margin-bottom:8px}
+.atour-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:8px;text-align:center}
+.atour-stat-v{font:800 16px var(--ff-head);color:#ff8800}
+.atour-stat-l{font:600 7px var(--ff-body);color:rgba(255,136,0,.35)}
+.atour-new-btn{background:linear-gradient(135deg,#1a0a00,#4a2000);border:1.5px solid rgba(255,136,0,.4);border-radius:14px;padding:11px;font:900 12px var(--ff-head);color:#fff;cursor:pointer;width:100%;margin-bottom:6px}
+.atour-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET ACADEMY ══ */
 .acad-panel{position:fixed;inset:0;background:#020408;z-index:1075;display:none;flex-direction:column;overflow:hidden}
 .acad-panel.open{display:flex}
@@ -12971,6 +13050,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
           <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
+          <div class="ddr" onclick="cM();openAtour()"><div class="ddr-i">🏆</div>Arenaturnering</div>
+          <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -13067,6 +13148,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
           <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
+          <div class="ddr" onclick="cM();openAtour()"><div class="ddr-i">🏆</div>Arenaturnering</div>
+          <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -13146,6 +13229,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
           <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
+          <div class="ddr" onclick="cM();openAtour()"><div class="ddr-i">🏆</div>Arenaturnering</div>
+          <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -13263,6 +13348,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
           <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
+          <div class="ddr" onclick="cM();openAtour()"><div class="ddr-i">🏆</div>Arenaturnering</div>
+          <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13886,6 +13973,54 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+<!-- RUNE FORGE -->
+<div class="rune-panel" id="runePanel">
+  <div class="rune-header">
+    <div class="rune-title">🔮 RUNSMEDEN</div>
+    <button class="close-btn" onclick="closeRune()">✕</button>
+  </div>
+  <div class="rune-scroll">
+    <div class="rune-display">
+      <div class="rune-stone" id="runeStone">🪨</div>
+      <div class="rune-name" id="runeName">Välj en runa att smi</div>
+      <div class="rune-power" id="runePower"></div>
+    </div>
+    <div class="rune-forge-lbl">RUNMATERIAL</div>
+    <div class="rune-materials" id="runeMats"></div>
+    <button class="rune-forge-btn" id="runeForgeBtn" onclick="runeForge()" disabled>🔮 Smi Runa!</button>
+    <div class="rune-coll-lbl">DINA RUNOR</div>
+    <div class="rune-coll" id="runeColl"></div>
+    <div class="rune-equip-row" id="runeEquipRow"></div>
+    <div class="rune-info">Smid runor och utrusta dem för permanenta bonusar! Sällsynta runor ger massiva stats 🌟</div>
+  </div>
+</div>
+
+<!-- ARENA TOURNAMENT -->
+<div class="atour-panel" id="atourPanel">
+  <div class="atour-header">
+    <div class="atour-title">🏆 ARENATURNERING</div>
+    <button class="close-btn" onclick="closeAtour()">✕</button>
+  </div>
+  <div class="atour-scroll">
+    <div class="atour-trophy">
+      <div class="atour-trophy-v" id="atourTrophyV">0</div>
+      <div class="atour-trophy-l">TROFÉER</div>
+      <div class="atour-badges" id="atourBadges"></div>
+    </div>
+    <div class="atour-stats">
+      <div class="atour-stat-box"><div class="atour-stat-v" id="atourWins">0</div><div class="atour-stat-l">Vinster</div></div>
+      <div class="atour-stat-box"><div class="atour-stat-v" id="atourLosses">0</div><div class="atour-stat-l">Förluster</div></div>
+      <div class="atour-stat-box"><div class="atour-stat-v" id="atourStreak">0</div><div class="atour-stat-l">Streak</div></div>
+    </div>
+    <div class="atour-bracket-lbl">TURNERINGSBRACKET</div>
+    <div class="atour-bracket" id="atourBracket"></div>
+    <button class="atour-new-btn" id="atourNewBtn" onclick="atourNew()">⚔️ Ny Turnering!</button>
+    <div class="atour-info">Vinn alla 4 matcher för att ta troféen! Dina stats avgör kampen. 🏆</div>
+  </div>
+</div>
 
 <!-- PET ACADEMY -->
 <div class="acad-panel" id="acadPanel">
@@ -61079,6 +61214,299 @@ function _renderAcad(d){
       '</button>'+
     '</div>';
   }).join('');
+}
+
+
+// ARENA TOURNAMENT
+const ATOUR_KEY = 'k0509_atour';
+const ATOUR_OPPONENTS = [
+  {name:'Sten-Göran',   icon:'🪨', tier:1, power:15},
+  {name:'Blixten',      icon:'⚡', tier:1, power:20},
+  {name:'Järnklawen',   icon:'🦅', tier:2, power:30},
+  {name:'Skuggvapnet',  icon:'🌑', tier:2, power:40},
+  {name:'Eld-Orion',    icon:'🔥', tier:3, power:55},
+  {name:'Kristallsköld',icon:'💎', tier:3, power:70},
+  {name:'Blodmånen',    icon:'🌙', tier:4, power:90},
+  {name:'Legendarisk X',icon:'👑', tier:4, power:120},
+];
+const ATOUR_ROUNDS = ['Åttondel','Kvart','Semi','FINAL'];
+const ATOUR_TROPHIES = ['🏅','🥉','🥈','🥇','👑'];
+
+function _atourData(){try{return JSON.parse(localStorage.getItem(ATOUR_KEY)||'null');}catch(e){return null;}}
+function _atourSave(d){localStorage.setItem(ATOUR_KEY,JSON.stringify(d));}
+function _atourGetData(){
+  var d=_atourData();
+  if(!d) d={trophies:0,wins:0,losses:0,streak:0,bestStreak:0,brackets:[],activeBracket:null};
+  return d;
+}
+
+function atourNew(){
+  var d=_atourGetData();
+  if(d.activeBracket&&!_atourIsComplete(d.activeBracket)){
+    showFloatBubble('Slutför pågående turnering först!','debuff');return;
+  }
+  // Build bracket: 4 opponents seeded by level
+  var lvl=G.lvl||1;
+  var tier=Math.min(3,Math.floor(lvl/5));
+  var pool=ATOUR_OPPONENTS.filter(function(o){return o.tier<=tier+1;});
+  if(pool.length<4) pool=ATOUR_OPPONENTS.slice(0,4);
+  // Shuffle pool
+  var seed=(G.coins||0)+(G.lvl||0);
+  for(var i=pool.length-1;i>0;i--){
+    seed=(seed*1664525+1013904223)>>>0;
+    var j=seed%pool.length;
+    var t=pool[i];pool[i]=pool[j];pool[j]=t;
+  }
+  var bracket={
+    id:'tour_'+d.wins,
+    matches:ATOUR_ROUNDS.map(function(r,i){
+      return {round:r,opponent:pool[i%pool.length],result:null};
+    }),
+    current:0
+  };
+  d.activeBracket=bracket;
+  _atourSave(d);
+  _renderAtour(d);
+}
+
+function _atourIsComplete(bracket){
+  if(!bracket) return true;
+  return bracket.current>=bracket.matches.length||bracket.matches.some(function(m){return m.result==='lost';});
+}
+
+function atourFight(matchIdx){
+  var d=_atourGetData();
+  if(!d.activeBracket||d.activeBracket.current!==matchIdx) return;
+  var match=d.activeBracket.matches[matchIdx];
+  if(!match||match.result) return;
+  var myPower=(G.str||0)+(G.agi||0)*0.8+(G.end||0)*0.6+(G.int||0)*0.4+(G.lck||0)*0.5;
+  var lckBonus=Math.min(0.25,(G.lck||0)*0.005);
+  var winChance=Math.min(0.85,Math.max(0.2,myPower/(myPower+match.opponent.power)+lckBonus));
+  var won=Math.random()<winChance;
+  match.result=won?'won':'lost';
+  if(won){
+    d.wins=(d.wins||0)+1;
+    d.streak=(d.streak||0)+1;
+    if(d.streak>(d.bestStreak||0)) d.bestStreak=d.streak;
+    d.activeBracket.current++;
+    var coins=30*(matchIdx+1);var xp=20*(matchIdx+1);
+    gainCoins(coins);gainXP(xp,'str');
+    G.str=(G.str||0)+1;save();
+    // Check final win
+    if(d.activeBracket.current>=d.activeBracket.matches.length){
+      d.trophies=(d.trophies||0)+1;
+      gainKC(1);gainCoins(200);
+      showFloatBubble('🏆 TURNERINGEN VUNNEN! +1 Trofe +1KC +200🪙','buff');
+    } else {
+      showFloatBubble('⚔️ Vann mot '+match.opponent.name+'! +'+coins+'🪙 +'+xp+'XP +1 STR','buff');
+    }
+  } else {
+    d.streak=0;
+    d.losses=(d.losses||0)+1;
+    gainCoins(10);gainXP(5,'str');
+    showFloatBubble('💀 Förlorade mot '+match.opponent.name+'... Bygg upp styrkorna!','debuff');
+  }
+  _atourSave(d);
+  checkAchievements();
+  _renderAtour(d);
+}
+
+function openAtour(){$('atourPanel').classList.add('open');_renderAtour();}
+function closeAtour(){$('atourPanel').classList.remove('open');}
+
+function _renderAtour(d){
+  if(!d) d=_atourGetData();
+  var tv=$('atourTrophyV');if(tv) tv.textContent=d.trophies||0;
+  var wv=$('atourWins');if(wv) wv.textContent=d.wins||0;
+  var lv=$('atourLosses');if(lv) lv.textContent=d.losses||0;
+  var sv=$('atourStreak');if(sv) sv.textContent=d.streak||0;
+  // Badges
+  var badges=$('atourBadges');
+  if(badges){
+    var trophyCount=d.trophies||0;
+    var html='';
+    for(var i=0;i<Math.min(trophyCount,10);i++) html+=ATOUR_TROPHIES[Math.min(i,ATOUR_TROPHIES.length-1)];
+    badges.innerHTML=html||'<span style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2)">Inga troféer ännu</span>';
+  }
+  // New tournament button
+  var nb=$('atourNewBtn');
+  var bracket=d.activeBracket;
+  var isActive=bracket&&!_atourIsComplete(bracket);
+  if(nb) nb.style.display=isActive?'none':'block';
+  // Bracket
+  var container=$('atourBracket');
+  if(!container) return;
+  if(!bracket){
+    container.innerHTML='<div style="text-align:center;padding:16px;font:600 9px var(--ff-body);color:rgba(255,255,255,.2)">Starta en turnering för att se bracket!</div>';
+    return;
+  }
+  container.innerHTML=bracket.matches.map(function(m,i){
+    var isCurrent=bracket.current===i&&!m.result;
+    var isWon=m.result==='won';
+    var isLost=m.result==='lost';
+    var myPower=(G.str||0)+(G.agi||0)*0.8+(G.end||0)*0.6;
+    var cls='atour-match'+(isCurrent?' current':isWon?' won':isLost?' lost':'');
+    var resultHtml=isWon?'<div class="atour-match-result win">✓ VANN</div>':
+      isLost?'<div class="atour-match-result loss">✗ FÖRLORADE</div>':'';
+    return '<div class="'+cls+'">'+
+      '<div class="atour-match-info">'+
+        '<div class="atour-match-round">'+m.round.toUpperCase()+'</div>'+
+        '<div class="atour-match-vs">'+m.opponent.icon+' '+m.opponent.name+'</div>'+
+        '<div class="atour-match-power">Motståndare: '+m.opponent.power+' kraft · Du: '+Math.floor(myPower)+'</div>'+
+        resultHtml+
+      '</div>'+
+      (isCurrent?'<button class="atour-fight-btn" onclick="atourFight('+i+')">⚔️ Kämpa!</button>':'<div style="font:700 9px var(--ff-head);color:rgba(255,255,255,.2)">'+(isWon?'✓':'○')+'</div>')+
+    '</div>';
+  }).join('');
+}
+
+
+// RUNE FORGE
+var RUNE_KEY = 'k0509_rune';
+const RUNE_MATERIALS = [
+  {id:'iron_dust',   icon:'🪨', name:'Järndamm',    minLvl:1},
+  {id:'fire_shard',  icon:'🔥', name:'Eldskärva',   minLvl:1},
+  {id:'moon_dew',    icon:'💧', name:'Måndagg',     minLvl:2},
+  {id:'void_dust',   icon:'🌑', name:'Tomdamm',     minLvl:3},
+  {id:'star_essence',icon:'⭐', name:'Stjärnessens',minLvl:4},
+  {id:'chaos_dust',  icon:'💥', name:'Kaosdamm',    minLvl:5},
+];
+var RUNE_TYPES = [
+  {id:'rune_str',  icon:'𝕽', name:'Styrkeruna',    bonus:{str:4},    effTxt:'+4 STR',    mats:['iron_dust','fire_shard'],  prob:0.7},
+  {id:'rune_agi',  icon:'𝕴', name:'Rörelseruna',   bonus:{agi:4},    effTxt:'+4 AGI',    mats:['moon_dew','fire_shard'],   prob:0.7},
+  {id:'rune_int',  icon:'𝕬', name:'Visdomsruna',   bonus:{int:4},    effTxt:'+4 INT',    mats:['moon_dew','void_dust'],    prob:0.6},
+  {id:'rune_lck',  icon:'𝕷', name:'Turuna',        bonus:{lck:4},    effTxt:'+4 LCK',    mats:['star_essence','moon_dew'], prob:0.55},
+  {id:'rune_end',  icon:'𝕰', name:'Härdighetsruna',bonus:{end:4},    effTxt:'+4 END',    mats:['iron_dust','void_dust'],   prob:0.65},
+  {id:'rune_pow',  icon:'𝕳', name:'Kraftruna',     bonus:{str:6,end:4},effTxt:'+6 STR +4 END',mats:['chaos_dust','iron_dust'],prob:0.4},
+  {id:'rune_arc',  icon:'𝕮', name:'Arkänruna',     bonus:{int:6,lck:4},effTxt:'+6 INT +4 LCK',mats:['chaos_dust','star_essence'],prob:0.3},
+  {id:'rune_ult',  icon:'𝕼', name:'Ultimat Runa',  bonus:{str:5,agi:5,int:5,lck:5,end:5},effTxt:'+5 ALL',mats:['chaos_dust','void_dust'],prob:0.15},
+];
+
+var _runeSelMats = [];
+
+function _runeData(){try{return JSON.parse(localStorage.getItem(RUNE_KEY)||'null');}catch(e){return null;}}
+function _runeSave(d){localStorage.setItem(RUNE_KEY,JSON.stringify(d));}
+function _runeGetData(){
+  var d=_runeData();
+  if(!d) d={materials:{iron_dust:4,fire_shard:3,moon_dew:2},runes:{},equipped:[],total:0};
+  return d;
+}
+
+function runeSelMat(id){
+  if(_runeSelMats.length>=2&&_runeSelMats.indexOf(id)<0) return;
+  var idx=_runeSelMats.indexOf(id);
+  if(idx>=0) _runeSelMats.splice(idx,1);
+  else _runeSelMats.push(id);
+  var d=_runeGetData();
+  // Preview matching rune
+  var matchingRune=RUNE_TYPES.find(function(r){
+    return r.mats.length===_runeSelMats.length&&
+      r.mats.every(function(m){return _runeSelMats.indexOf(m)>=0;});
+  });
+  var rs=$('runeStone'),rn=$('runeName'),rp=$('runePower');
+  if(matchingRune){
+    if(rs) rs.textContent=matchingRune.icon;
+    if(rn) rn.textContent=matchingRune.name;
+    if(rp) rp.textContent=matchingRune.effTxt+' · Chans: '+Math.round(matchingRune.prob*100)+'%';
+  } else {
+    if(rs) rs.textContent='🪨';
+    if(rn) rn.textContent='Välj 2 material för att se runa';
+    if(rp) rp.textContent='';
+  }
+  var fb=$('runeForgeBtn');if(fb) fb.disabled=_runeSelMats.length<2;
+  _renderRuneMats(d);
+}
+
+function runeForge(){
+  if(_runeSelMats.length<2) return;
+  var d=_runeGetData();
+  for(var i=0;i<_runeSelMats.length;i++){
+    if((d.materials[_runeSelMats[i]]||0)<1){showFloatBubble('Saknar material!','debuff');return;}
+  }
+  // Find recipe
+  var recipe=RUNE_TYPES.find(function(r){
+    return r.mats.length===_runeSelMats.length&&
+      r.mats.every(function(m){return _runeSelMats.indexOf(m)>=0;});
+  });
+  _runeSelMats.forEach(function(id){d.materials[id]=Math.max(0,(d.materials[id]||0)-1);});
+  if(recipe&&Math.random()<recipe.prob){
+    d.runes[recipe.id]=(d.runes[recipe.id]||0)+1;
+    d.total=(d.total||0)+1;
+    gainXP(60,'int');gainCoins(40);
+    showFloatBubble('🔮 '+recipe.icon+' '+recipe.name+' smidd! '+recipe.effTxt,'buff');
+    checkAchievements();
+  } else {
+    gainCoins(5);
+    showFloatBubble('💨 Smidning misslyckades... recept okänt. +5🪙','debuff');
+  }
+  _runeSelMats=[];
+  _runeSave(d);
+  _renderRune(d);
+}
+
+function runeEquip(runeId){
+  var d=_runeGetData();
+  if((d.runes[runeId]||0)<1) return;
+  var rune=RUNE_TYPES.find(function(r){return r.id===runeId;});
+  if(!rune) return;
+  // Check if already equipped
+  if(d.equipped.indexOf(runeId)>=0){
+    d.equipped.splice(d.equipped.indexOf(runeId),1);
+    showFloatBubble('🔮 '+rune.name+' avutrustad','buff');
+  } else {
+    if(d.equipped.length>=3){showFloatBubble('Max 3 runor utrustade!','debuff');return;}
+    d.equipped.push(runeId);
+    Object.keys(rune.bonus).forEach(function(s){G[s]=(G[s]||0)+rune.bonus[s];});
+    save();
+    showFloatBubble('🔮 '+rune.name+' utrustad! '+rune.effTxt,'buff');
+    checkAchievements();
+  }
+  _runeSave(d);
+  _renderRune(d);
+}
+
+function openRune(){$('runePanel').classList.add('open');_renderRune();}
+function closeRune(){$('runePanel').classList.remove('open');}
+
+function _renderRuneMats(d){
+  var mats=$('runeMats');if(!mats) return;
+  var lvl=G.lvl||1;
+  mats.innerHTML=RUNE_MATERIALS.map(function(mat){
+    var count=d.materials[mat.id]||0;
+    var locked=lvl<mat.minLvl||count<1;
+    var isSel=_runeSelMats.indexOf(mat.id)>=0;
+    var cls='rune-mat'+(isSel?' selected':locked?' locked':'');
+    return '<div class="'+cls+'" onclick="runeSelMat(\''+mat.id+'\')">'+
+      '<div class="rune-mat-icon">'+mat.icon+'</div>'+
+      '<div class="rune-mat-name">'+mat.name+'</div>'+
+      '<div class="rune-mat-count">×'+count+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+function _renderRune(d){
+  if(!d) d=_runeGetData();
+  _renderRuneMats(d);
+  var rs=$('runeStone');if(rs) rs.textContent='🪨';
+  var rn=$('runeName');if(rn) rn.textContent='Välj 2 material för att smi';
+  var rp=$('runePower');if(rp) rp.textContent='';
+  var fb=$('runeForgeBtn');if(fb) fb.disabled=true;
+  // Collection
+  var coll=$('runeColl');
+  if(coll){
+    coll.innerHTML=RUNE_TYPES.map(function(r){
+      var qty=d.runes[r.id]||0;
+      var owned=qty>0;
+      var isEquipped=d.equipped.indexOf(r.id)>=0;
+      var cls='rune-coll-item'+(owned?' owned':'');
+      return '<div class="'+cls+'" onclick="runeEquip(\''+r.id+'\')">'+
+        '<div class="rune-coll-icon">'+(owned?r.icon:'❓')+'</div>'+
+        '<div class="rune-coll-name">'+(owned?r.name:'???')+'</div>'+
+        '<div class="rune-coll-eff">'+(owned?r.effTxt:'?')+'</div>'+
+        '<div class="rune-coll-qty">'+(owned?(isEquipped?'✓ Utrustad':'×'+qty):'')+'</div>'+
+      '</div>';
+    }).join('');
+  }
 }
 
 </script>
