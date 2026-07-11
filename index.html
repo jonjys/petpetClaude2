@@ -1913,6 +1913,40 @@ textarea.inp { resize:none;min-height:72px; }
 .wgld-complete-btn{background:linear-gradient(135deg,#001a00,#004400);border:1.5px solid rgba(68,255,136,.3);border-radius:9px;padding:5px 10px;font:700 8px var(--ff-head);color:rgba(68,255,136,.8);cursor:pointer;white-space:nowrap}
 .wgld-complete-btn:disabled{opacity:.3;cursor:default}
 
+/* ══ TROPHY HALL ══ */
+.trophy-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#1a0f00,#2b1800,#120c00);z-index:1170;overflow-y:auto;padding:0 0 80px}
+.trophy-header{text-align:center;padding:22px 16px 10px;color:#ffd700}
+.trophy-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 16px #ffaa00}
+.trophy-energy{text-align:center;color:#cc9900;font-size:.85rem;margin:4px 0 12px}
+.trophy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 12px}
+.trophy-item{background:rgba(50,35,0,.4);border:1px solid #4a3500;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.trophy-item:active{transform:scale(.95)}
+.trophy-item.earned{border-color:#ffd700;background:rgba(80,60,0,.5);box-shadow:0 0 10px rgba(255,200,0,.2)}
+.trophy-item.locked{opacity:.4}
+.ti-icon{font-size:1.8rem}
+.ti-name{font-size:.72rem;color:#ddaa33;font-weight:700;margin-top:3px}
+.ti-cond{font-size:.65rem;color:#886622;margin-top:2px}
+.ti-bonus{font-size:.65rem;color:#88ddaa}
+.trophy-log{margin:14px 12px 0;background:rgba(0,0,0,.35);border-radius:10px;padding:10px;max-height:100px;overflow-y:auto}
+.trophy-log div{font-size:.75rem;color:#cc9900;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
+/* ══ SHAPESHIFTER ══ */
+.shift-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#001a0a,#00260f,#001208);z-index:1169;overflow-y:auto;padding:0 0 80px}
+.shift-header{text-align:center;padding:22px 16px 10px;color:#55ff99}
+.shift-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 18px #00cc55}
+.shift-energy{text-align:center;color:#33aa66;font-size:.85rem;margin:4px 0 6px}
+.shift-current{text-align:center;font-size:3rem;padding:10px 0;filter:drop-shadow(0 0 20px #00ff66)}
+.shift-forms{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px}
+.shift-form{background:rgba(0,50,25,.35);border:1px solid #0a4a20;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:all .2s}
+.shift-form:active{transform:scale(.96)}
+.shift-form.active-form{border-color:#55ff99;background:rgba(0,80,40,.5);box-shadow:0 0 14px rgba(0,255,100,.25)}
+.sf-icon{font-size:2rem}
+.sf-name{font-size:.82rem;color:#66ddaa;font-weight:700;margin:4px 0}
+.sf-bonus{font-size:.7rem;color:#ffcc44}
+.sf-count{font-size:.68rem;color:#449966;margin-top:2px}
+.shift-log{margin:12px 12px 0;background:rgba(0,0,0,.3);border-radius:10px;padding:10px;max-height:100px;overflow-y:auto}
+.shift-log div{font-size:.75rem;color:#44bb77;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
 /* ══ CONSTELLATION MAP ══ */
 .cmap-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#01010d,#040420,#010110);z-index:1168;overflow-y:auto;padding:0 0 80px}
 .cmap-header{text-align:center;padding:22px 16px 10px;color:#aaddff}
@@ -16615,6 +16649,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+<!-- TROPHY HALL -->
+<div id="trophyPanel" class="trophy-panel">
+  <div class="trophy-header"><h2>🏆 Trophy Hall</h2></div>
+  <div class="trophy-energy" id="trophyEnergy"></div>
+  <div class="trophy-grid" id="trophyGrid"></div>
+  <div class="trophy-log" id="trophyLog"></div>
+  <button onclick="closeTrophy()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
+<!-- SHAPESHIFTER -->
+<div id="shiftPanel" class="shift-panel">
+  <div class="shift-header"><h2>🌀 Shapeshifter</h2></div>
+  <div class="shift-energy" id="shiftEnergy"></div>
+  <div class="shift-current" id="shiftCurrent">🧙</div>
+  <div class="shift-forms" id="shiftForms"></div>
+  <div class="shift-log" id="shiftLog"></div>
+  <button onclick="closeShift()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
 <!-- CONSTELLATION MAP -->
 <div id="cmapPanel" class="cmap-panel">
   <div class="cmap-header"><h2>🌠 Constellation Map</h2></div>
@@ -74154,6 +74205,113 @@ function _renderCmap(){
     <div class="cs-bonus">${d.linked.includes(s.id)?'✓':s.bonus}</div>
   </div>`).join('');
   $('cmapLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Trace constellations for cosmic power!</div>';
+}
+
+
+// ══ SHAPESHIFTER ══
+const SHIFT_KEY='k0509_shift';
+const SHIFT_FORMS=[
+  {id:'wolf',icon:'🐺',name:'Wolf',bonus:'+8 AGI',agi:8,desc:'Swift predator'},
+  {id:'bear',icon:'🐻',name:'Bear',bonus:'+8 STR',str:8,desc:'Powerful brute'},
+  {id:'eagle',icon:'🦅',name:'Eagle',bonus:'+6 AGI +4 INT',agi:6,int:4,desc:'Sky master'},
+  {id:'dragon',icon:'🐉',name:'Dragon',bonus:'+10 STR +5 INT',str:10,int:5,desc:'Ancient wyrm'},
+  {id:'fox',icon:'🦊',name:'Fox',bonus:'+5 AGI +5 INT',agi:5,int:5,desc:'Cunning trickster'},
+  {id:'panther',icon:'🐆',name:'Panther',bonus:'+9 AGI +3 STR',agi:9,str:3,desc:'Shadow stalker'},
+  {id:'phoenix',icon:'🦅',name:'Phoenix',bonus:'+12 INT',int:12,desc:'Eternal flame'},
+  {id:'titan',icon:'👊',name:'Titan',bonus:'+15 STR',str:15,desc:'Unstoppable force'},
+];
+function _shiftData(){return JSON.parse(localStorage.getItem(SHIFT_KEY)||'{"morphs":0,"lastDay":"","active":null,"shifted":[],"log":[]}');}
+function _shiftSave(d){localStorage.setItem(SHIFT_KEY,JSON.stringify(d));}
+function shiftTransform(fid){
+  const d=_shiftData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.morphs=0;d.lastDay=today;}
+  if(d.morphs>=5){showFloatBubble('5 transforms today!','bad');return;}
+  const form=SHIFT_FORMS.find(f=>f.id===fid);
+  if(!form)return;
+  d.morphs++;d.active=fid;
+  if(form.str){G.str=(G.str||10)+form.str;save();}
+  if(form.int){G.int=(G.int||10)+form.int;save();}
+  if(form.agi){G.agi=(G.agi||10)+form.agi;save();}
+  if(!d.shifted.includes(fid))d.shifted.push(fid);
+  gainKC(15);
+  d.log.unshift(`${form.icon} Shifted to ${form.name}! ${form.bonus}`);
+  if(d.log.length>12)d.log.pop();
+  _shiftSave(d);
+  $('shiftCurrent').textContent=form.icon;
+  showFloatBubble(`${form.icon} Shifted to ${form.name}!`,'good');
+  checkAchievements();_renderShift();
+}
+function openShift(){$('shiftPanel').style.display='flex';_renderShift();}
+function closeShift(){$('shiftPanel').style.display='none';}
+function _renderShift(){
+  const d=_shiftData();
+  const today=getTodayKey();
+  const morphs=d.lastDay===today?d.morphs:0;
+  $('shiftEnergy').textContent=`Transforms: ${morphs}/5 | Forms Unlocked: ${d.shifted.length}/${SHIFT_FORMS.length}`;
+  const activeForm=SHIFT_FORMS.find(f=>f.id===d.active);
+  $('shiftCurrent').textContent=activeForm?activeForm.icon:'🧙';
+  $('shiftForms').innerHTML=SHIFT_FORMS.map(f=>`<div class="shift-form ${d.active===f.id?'active-form':''}" onclick="shiftTransform('${f.id}')">
+    <div class="sf-icon">${f.icon}</div>
+    <div class="sf-name">${f.name}</div>
+    <div class="sf-bonus">${f.bonus}</div>
+    <div class="sf-count">${f.desc}</div>
+  </div>`).join('');
+  $('shiftLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Choose a form to shapeshift!</div>';
+}
+
+// ══ TROPHY HALL ══
+const TROPHY_KEY='k0509_trophy';
+const TROPHY_LIST=[
+  {id:'t1',icon:'🏆',name:'First Blood',cond:'Level 5+',condFn:()=>(G.level||1)>=5,bonus:'+3 STR',str:3},
+  {id:'t2',icon:'🥇',name:'Coin Hoarder',cond:'1000 coins',condFn:()=>(G.coins||0)>=1000,bonus:'+5 INT',int:5},
+  {id:'t3',icon:'⭐',name:'Rising Star',cond:'Level 10+',condFn:()=>(G.level||1)>=10,bonus:'+5 AGI',agi:5},
+  {id:'t4',icon:'💎',name:'KC Millionaire',cond:'500 KC',condFn:()=>(G.kc||0)>=500,bonus:'+8 STR',str:8},
+  {id:'t5',icon:'🔥',name:'Flame Walker',cond:'STR 30+',condFn:()=>(G.str||10)>=30,bonus:'100 KC',kc:100},
+  {id:'t6',icon:'🧙',name:'Arcane Master',cond:'INT 30+',condFn:()=>(G.int||10)>=30,bonus:'100 KC',kc:100},
+  {id:'t7',icon:'⚡',name:'Speed Demon',cond:'AGI 30+',condFn:()=>(G.agi||10)>=30,bonus:'100 KC',kc:100},
+  {id:'t8',icon:'👑',name:'King Slayer',cond:'Level 20+',condFn:()=>(G.level||1)>=20,bonus:'+10 all',str:10,int:10,agi:10},
+  {id:'t9',icon:'🌟',name:'Star Lord',cond:'5000 coins',condFn:()=>(G.coins||0)>=5000,bonus:'+15 INT',int:15},
+  {id:'t10',icon:'🏅',name:'Iron Will',cond:'STR 50+',condFn:()=>(G.str||10)>=50,bonus:'500 KC',kc:500},
+  {id:'t11',icon:'🎯',name:'Precision',cond:'AGI 50+',condFn:()=>(G.agi||10)>=50,bonus:'500 KC',kc:500},
+  {id:'t12',icon:'🌌',name:'Cosmic Being',cond:'All stats 50+',condFn:()=>(G.str||10)>=50&&(G.int||10)>=50&&(G.agi||10)>=50,bonus:'+20 all',str:20,int:20,agi:20},
+];
+function _trophyData(){return JSON.parse(localStorage.getItem(TROPHY_KEY)||'{"earned":[],"log":[]}');}
+function _trophySave(d){localStorage.setItem(TROPHY_KEY,JSON.stringify(d));}
+function trophyClaim(tid){
+  const d=_trophyData();
+  if(d.earned.includes(tid)){showFloatBubble('Already earned!','bad');return;}
+  const trophy=TROPHY_LIST.find(t=>t.id===tid);
+  if(!trophy)return;
+  if(!trophy.condFn()){showFloatBubble('Condition not met!','bad');return;}
+  d.earned.push(tid);
+  if(trophy.str){G.str=(G.str||10)+trophy.str;save();}
+  if(trophy.int){G.int=(G.int||10)+trophy.int;save();}
+  if(trophy.agi){G.agi=(G.agi||10)+trophy.agi;save();}
+  if(trophy.kc){gainKC(trophy.kc);}
+  gainCoins(50);
+  d.log.unshift(`${trophy.icon} ${trophy.name} earned! ${trophy.bonus}`);
+  if(d.log.length>12)d.log.pop();
+  _trophySave(d);
+  showFloatBubble(`${trophy.icon} Trophy: ${trophy.name}!`,'good');
+  checkAchievements();_renderTrophy();
+}
+function openTrophy(){$('trophyPanel').style.display='flex';_renderTrophy();}
+function closeTrophy(){$('trophyPanel').style.display='none';}
+function _renderTrophy(){
+  const d=_trophyData();
+  $('trophyEnergy').textContent=`Trophies: ${d.earned.length}/${TROPHY_LIST.length}`;
+  $('trophyGrid').innerHTML=TROPHY_LIST.map(t=>{
+    const earned=d.earned.includes(t.id);
+    const canEarn=t.condFn();
+    return `<div class="trophy-item ${earned?'earned':canEarn?'':'locked'}" onclick="${earned?'':'trophyClaim(''+t.id+'')'}">
+      <div class="ti-icon">${t.icon}</div>
+      <div class="ti-name">${t.name}</div>
+      <div class="ti-cond">${earned?'✓ Earned':t.cond}</div>
+      <div class="ti-bonus">${t.bonus}</div>
+    </div>`;
+  }).join('');
+  $('trophyLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Meet conditions to earn trophies!</div>';
 }
 
 </script>
