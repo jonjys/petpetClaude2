@@ -2596,6 +2596,46 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ MOON FESTIVAL ══ */
+.mnfst-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 10%,#050a20,#020408);z-index:1139;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.mnfst-panel h2{color:#ccddff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #8899ff}
+.mnfst-moon{font-size:4rem;margin:8px 0;filter:drop-shadow(0 0 16px rgba(180,200,255,.4));animation:moonGlow 4s ease-in-out infinite}
+@keyframes moonGlow{0%,100%{filter:drop-shadow(0 0 8px rgba(180,200,255,.3))}50%{filter:drop-shadow(0 0 20px rgba(180,200,255,.6))}}
+.mnfst-tokens{background:rgba(20,30,70,.35);border:1px solid #2a3888;border-radius:8px;padding:6px 16px;color:#ccddff;font-size:.82rem;margin-bottom:8px}
+.mnfst-activities{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;width:100%;max-width:340px;margin:4px 0}
+.mnfst-act{background:rgba(15,25,60,.4);border:1px solid #2a3888;border-radius:12px;padding:10px;cursor:pointer;transition:all .2s;text-align:center}
+.mnfst-act:hover{border-color:#ccddff;background:rgba(30,45,100,.5);box-shadow:0 0 8px rgba(180,200,255,.2)}
+.mnfst-act.done{border-color:#3344aa;opacity:.55;cursor:default}
+.mnfst-act .ma-icon{font-size:1.8rem}
+.mnfst-act .ma-name{color:#aabbee;font-size:.75rem;font-weight:700;margin-top:4px}
+.mnfst-act .ma-reward{color:#6688cc;font-size:.62rem;margin-top:2px}
+.mnfst-shop{display:flex;flex-direction:column;gap:6px;width:100%;max-width:340px;margin-top:6px}
+.mnfst-item{background:rgba(15,25,55,.4);border:1px solid #223066;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all .2s}
+.mnfst-item:hover{border-color:#8899ff;background:rgba(30,45,90,.5)}
+.mnfst-item.bought{opacity:.5;cursor:default}
+.mnfst-item .mi-icon{font-size:1.4rem}
+.mnfst-item .mi-info{flex:1}
+.mnfst-item .mi-name{color:#aabbee;font-size:.75rem;font-weight:700}
+.mnfst-item .mi-effect{color:#6688cc;font-size:.62rem}
+.mnfst-item .mi-cost{color:#ffdd66;font-size:.65rem;margin-top:2px}
+
+/* ══ WORLD BOSS ══ */
+.wboss-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 20%,#1a0005,#060002);z-index:1138;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.wboss-panel h2{color:#ff4466;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #cc0022}
+.wboss-stage{width:100%;max-width:340px;background:radial-gradient(ellipse,rgba(120,0,30,.2),transparent 70%);border:2px solid #660020;border-radius:16px;padding:16px;text-align:center;position:relative;margin-bottom:10px}
+.wboss-icon{font-size:4rem;filter:drop-shadow(0 0 16px #ff0033)}
+.wboss-name{color:#ff4466;font-size:1.1rem;font-weight:700;margin-top:4px}
+.wboss-hp-bar{width:100%;height:16px;background:rgba(60,0,15,.6);border-radius:8px;overflow:hidden;margin:8px 0;border:1px solid #660020}
+.wboss-hp-fill{height:100%;background:linear-gradient(90deg,#cc0022,#ff4400);border-radius:8px;transition:width .4s}
+.wboss-hp-txt{color:#ff8899;font-size:.72rem;margin-top:2px}
+.wboss-attacks{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:340px;margin:6px 0}
+.wboss-atk{background:rgba(60,10,20,.4);border:1px solid #660030;border-radius:10px;padding:8px 4px;cursor:pointer;transition:all .2s;text-align:center}
+.wboss-atk:hover{border-color:#ff4466;background:rgba(100,15,35,.5);box-shadow:0 0 6px rgba(255,50,80,.3)}
+.wboss-atk .wa-icon{font-size:1.5rem}
+.wboss-atk .wa-name{font-size:.65rem;color:#ff8899;margin-top:2px}
+.wboss-atk .wa-dmg{font-size:.6rem;color:#cc4460;margin-top:1px}
+.wboss-contrib{background:rgba(50,10,15,.35);border:1px solid #550020;border-radius:8px;padding:6px 14px;color:#ff8899;font-size:.8rem;margin-bottom:4px;text-align:center;width:100%;max-width:320px}
+
 /* ══ SPIRIT FAMILIAR ══ */
 .sfam-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 40%,#060a18,#02040a);z-index:1137;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .sfam-panel h2{color:#aaddff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #88aaff}
@@ -16613,6 +16653,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <button class="sfam-collect-btn" onclick="sfamCollect()">💫 Collect Daily Blessing</button>
   <div style="color:#5577aa;font-size:.72rem;margin:4px 0 8px">Choose your spirit familiar:</div>
   <div class="sfam-familiars" id="sfamFamiliars"></div>
+</div>
+
+<!-- MOON FESTIVAL -->
+<div class="mnfst-panel" id="mnfstPanel" style="display:none">
+  <button onclick="closeMnfst()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ccddff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🌕 Moon Festival</h2>
+  <div class="mnfst-moon" id="mnfstMoonIcon">🌕</div>
+  <div class="mnfst-tokens" id="mnfstTokens">🌙 Moon Tokens: 0</div>
+  <div style="color:#7788bb;font-size:.72rem;margin-bottom:8px">Complete lunar activities to earn Moon Tokens</div>
+  <div style="color:#aabbee;font-size:.78rem;font-weight:700;align-self:flex-start;margin-bottom:4px">🌟 Daily Activities</div>
+  <div class="mnfst-activities" id="mnfstActs"></div>
+  <div style="color:#aabbee;font-size:.78rem;font-weight:700;margin:8px 0 4px;align-self:flex-start">🏪 Moon Shop</div>
+  <div class="mnfst-shop" id="mnfstShop"></div>
+</div>
+
+<!-- WORLD BOSS -->
+<div class="wboss-panel" id="wbossPanel" style="display:none">
+  <button onclick="closeWboss()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ff4466;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>💀 World Boss</h2>
+  <div class="wboss-contrib" id="wbossContrib">Your damage: 0 | Attacks: 0/15</div>
+  <div class="wboss-stage">
+    <div class="wboss-icon" id="wbossIcon">👹</div>
+    <div class="wboss-name" id="wbossName">Loading...</div>
+    <div class="wboss-hp-bar"><div class="wboss-hp-fill" id="wbossHpFill" style="width:100%"></div></div>
+    <div class="wboss-hp-txt" id="wbossHpTxt">HP: ?</div>
+  </div>
+  <div class="wboss-attacks" id="wbossAtks"></div>
+  <div id="wbossReward" style="color:#ff8899;font-size:.75rem;margin-top:6px;text-align:center;max-width:320px"></div>
 </div>
 
 <!-- ARENA BATTLE PASS -->
@@ -70856,6 +70924,174 @@ function _renderSfam(){
     <div class="sf-icon">${x.icon}</div>
     <div class="sf-name">${x.name}</div>
     <div class="sf-bonus">${x.bonus}</div>
+  </div>`).join('');
+}
+
+
+// ══ WORLD BOSS ══
+const WBOSS_KEY = 'k0509_wboss';
+const WBOSS_ROSTER = [
+  {icon:'🐲',name:'Inferno Dragon',hp:5000,def:20},
+  {icon:'💀',name:'Lich King',hp:6000,def:25},
+  {icon:'🌊',name:'Kraken Lord',hp:4500,def:15},
+  {icon:'⚡',name:'Storm Titan',hp:7000,def:30},
+  {icon:'🌑',name:'Void Emperor',hp:8000,def:35},
+];
+const WBOSS_ATTACKS = [
+  {icon:'⚔️',name:'Slash',dmgBase:50,stat:'str',desc:'STR-based'},
+  {icon:'🔮',name:'Spell',dmgBase:60,stat:'int',desc:'INT-based'},
+  {icon:'💨',name:'Swift Strike',dmgBase:40,stat:'agi',desc:'AGI-based, ignore def'},
+];
+function _wbossData(){
+  const d=JSON.parse(localStorage.getItem(WBOSS_KEY)||'{}');
+  const week=Math.floor(Date.now()/(7*24*60*60*1000)).toString();
+  if(d.week!==week){
+    const bi=Math.floor(Date.now()/(7*24*60*60*1000))%WBOSS_ROSTER.length;
+    return {week:week,bossIdx:bi,bossHp:WBOSS_ROSTER[bi].hp,myDmg:0,myAtks:0,claimed:false,lastAtk:''};
+  }
+  return {week:d.week,bossIdx:d.bossIdx||0,bossHp:d.bossHp||WBOSS_ROSTER[0].hp,
+    myDmg:d.myDmg||0,myAtks:d.myAtks||0,claimed:d.claimed||false,lastAtk:d.lastAtk||''};
+}
+function _wbossSave(d){localStorage.setItem(WBOSS_KEY,JSON.stringify(d));}
+function wbossAttack(atkIdx){
+  const d=_wbossData();
+  const today=getTodayKey();
+  if(d.lastAtk===today&&d.myAtks>=15){showFloatBubble('15 attacks used today!','bad');return;}
+  if(d.lastAtk!==today){
+    // Keep existing week data but reset daily attacks
+    d._dailyAtks=0;d.lastAtk=today;
+  }
+  if(d.bossHp<=0){showFloatBubble('Boss defeated! Claim reward.','bad');return;}
+  const boss=WBOSS_ROSTER[d.bossIdx];
+  const atk=WBOSS_ATTACKS[atkIdx];
+  const statVal=atk.stat==='str'?G.str:atk.stat==='int'?G.int:G.agi;
+  const base=atk.dmgBase+Math.floor((statVal||10)*1.5);
+  const def=atk.stat==='agi'?0:boss.def;
+  const dmg=Math.max(1,base-def+Math.floor(Math.random()*20));
+  d.bossHp=Math.max(0,d.bossHp-dmg);
+  d.myDmg+=dmg;
+  d.myAtks++;
+  if(d.lastAtk!==today){d._dailyAtks=0;d.lastAtk=today;}
+  _wbossSave(d);
+  showFloatBubble(`${atk.icon} ${dmg} damage!`,'good');
+  if(d.bossHp<=0){
+    showFloatBubble('💀 World Boss DEFEATED! Claim reward!','good');
+  }
+  _renderWboss();
+}
+function wbossClaim(){
+  const d=_wbossData();
+  if(d.bossHp>0){showFloatBubble('Boss not defeated yet!','bad');return;}
+  if(d.claimed){showFloatBubble('Already claimed this week!','bad');return;}
+  d.claimed=true;
+  _wbossSave(d);
+  const bonus=Math.floor(d.myDmg/100);
+  gainCoins(500+bonus);
+  gainKC(15);
+  G.str+=5;G.int+=5;G.agi+=5;save();
+  showFloatBubble(`💀 Boss Reward! +${500+bonus}🪙 +15KC +5 All!`,'good');
+  checkAchievements();
+  _renderWboss();
+}
+function openWboss(){$('wbossPanel').style.display='flex';_renderWboss();}
+function closeWboss(){$('wbossPanel').style.display='none';}
+function _renderWboss(){
+  const d=_wbossData();
+  const boss=WBOSS_ROSTER[d.bossIdx];
+  $('wbossIcon').textContent=boss.icon;
+  $('wbossName').textContent=boss.name;
+  const hpPct=Math.max(0,d.bossHp/boss.hp*100);
+  $('wbossHpFill').style.width=hpPct+'%';
+  $('wbossHpTxt').textContent=`HP: ${d.bossHp.toLocaleString()} / ${boss.hp.toLocaleString()}`;
+  $('wbossContrib').textContent=`Your damage: ${d.myDmg} | Attacks today: ${d.myAtks}`;
+  $('wbossAtks').innerHTML=WBOSS_ATTACKS.map((a,i)=>`<div class="wboss-atk" onclick="wbossAttack(${i})">
+    <div class="wa-icon">${a.icon}</div>
+    <div class="wa-name">${a.name}</div>
+    <div class="wa-dmg">${a.desc}</div>
+  </div>`).join('');
+  if(d.bossHp<=0&&!d.claimed){
+    $('wbossReward').innerHTML='<button onclick="wbossClaim()" style="background:linear-gradient(135deg,#660022,#330011);border:1px solid #ff4466;color:#ff8899;border-radius:8px;padding:8px 18px;cursor:pointer">🎁 Claim Reward!</button>';
+  } else if(d.claimed){
+    $('wbossReward').textContent='✅ Reward claimed this week';
+  } else {
+    const bonus=Math.floor(d.myDmg/100);
+    $('wbossReward').textContent=`Defeat to earn: ${500+bonus}🪙 +15KC +5 All Stats`;
+  }
+}
+
+
+// ══ MOON FESTIVAL ══
+const MNFST_KEY = 'k0509_mnfst';
+const MNFST_PHASES = ['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
+const MNFST_ACTS = [
+  {id:'gaze',icon:'🔭',name:'Moon Gazing',reward:{tokens:5},rdesc:'+5 🌙'},
+  {id:'dance',icon:'💃',name:'Moon Dance',reward:{tokens:4,agi:1},rdesc:'+4🌙 +1AGI'},
+  {id:'pray',icon:'🙏',name:'Lunar Prayer',reward:{tokens:5,int:1},rdesc:'+5🌙 +1INT'},
+  {id:'brew',icon:'🍵',name:'Moon Tea',reward:{tokens:3,coins:50},rdesc:'+3🌙 +50🪙'},
+  {id:'hunt',icon:'🏹',name:'Night Hunt',reward:{tokens:6,str:1},rdesc:'+6🌙 +1STR'},
+  {id:'wish',icon:'✨',name:'Make a Wish',reward:{tokens:8,kc:1},rdesc:'+8🌙 +1KC'},
+];
+const MNFST_SHOP_ITEMS = [
+  {id:'s1',icon:'🌙',name:'Lunar Boost',effect:()=>{G.str+=3;G.int+=3;G.agi+=3;save()},desc:'+3 All Stats',cost:20},
+  {id:'s2',icon:'⭐',name:'Star Dust',effect:()=>gainCoins(500),desc:'+500 Coins',cost:15},
+  {id:'s3',icon:'🔮',name:'Moon Crystal',effect:()=>gainKC(10),desc:'+10 KC',cost:30},
+  {id:'s4',icon:'🌸',name:'Petal Blessing',effect:()=>{G.int+=5;save();gainXP(200,'int')},desc:'+5 INT +200 XP',cost:25},
+  {id:'s5',icon:'🌟',name:'Celestial Armor',effect:()=>{G.str+=8;G.agi+=8;save()},desc:'+8 STR +8 AGI',cost:40},
+  {id:'s6',icon:'💫',name:'Moonstone',effect:()=>{G.str+=5;G.int+=5;G.agi+=5;gainKC(5);save()},desc:'+5 All +5KC',cost:50},
+];
+function _mnfstData(){
+  const d=JSON.parse(localStorage.getItem(MNFST_KEY)||'{}');
+  return {tokens:d.tokens||0,doneActs:d.doneActs||[],lastDay:d.lastDay||'',bought:d.bought||[]};
+}
+function _mnfstSave(d){localStorage.setItem(MNFST_KEY,JSON.stringify(d));}
+function mnfstDo(aid){
+  const d=_mnfstData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.doneActs=[];d.lastDay=today;}
+  if(d.doneActs.includes(aid)){showFloatBubble('Done today!','bad');return;}
+  const act=MNFST_ACTS.find(a=>a.id===aid);
+  d.tokens+=act.reward.tokens||0;
+  d.doneActs.push(aid);
+  _mnfstSave(d);
+  if(act.reward.coins)gainCoins(act.reward.coins);
+  if(act.reward.str){G.str=(G.str||10)+act.reward.str;save();}
+  if(act.reward.int){G.int=(G.int||10)+act.reward.int;save();}
+  if(act.reward.agi){G.agi=(G.agi||10)+act.reward.agi;save();}
+  if(act.reward.kc)gainKC(act.reward.kc);
+  showFloatBubble(`${act.icon} ${act.name}: ${act.rdesc}`,'good');
+  checkAchievements();
+  _renderMnfst();
+}
+function mnfstBuy(sid){
+  const d=_mnfstData();
+  const item=MNFST_SHOP_ITEMS.find(x=>x.id===sid);
+  if(d.bought.includes(sid)){showFloatBubble('Already purchased!','bad');return;}
+  if(d.tokens<item.cost){showFloatBubble(`Need ${item.cost} Moon Tokens!`,'bad');return;}
+  d.tokens-=item.cost;
+  d.bought.push(sid);
+  _mnfstSave(d);
+  item.effect();
+  showFloatBubble(`${item.icon} ${item.name}: ${item.desc}`,'good');
+  checkAchievements();
+  _renderMnfst();
+}
+function openMnfst(){$('mnfstPanel').style.display='flex';_renderMnfst();}
+function closeMnfst(){$('mnfstPanel').style.display='none';}
+function _renderMnfst(){
+  const d=_mnfstData();
+  const today=getTodayKey();
+  const done=d.lastDay===today?d.doneActs:[];
+  const phase=MNFST_PHASES[Math.floor(Date.now()/(1000*60*60*24*3.7))%8];
+  $('mnfstMoonIcon').textContent=phase;
+  $('mnfstTokens').textContent=`🌙 Moon Tokens: ${d.tokens}`;
+  $('mnfstActs').innerHTML=MNFST_ACTS.map(a=>`<div class="mnfst-act ${done.includes(a.id)?'done':''}" onclick="mnfstDo('${a.id}')">
+    <div class="ma-icon">${a.icon}</div>
+    <div class="ma-name">${a.name}</div>
+    <div class="ma-reward">${a.rdesc}${done.includes(a.id)?' ✅':''}</div>
+  </div>`).join('');
+  $('mnfstShop').innerHTML=MNFST_SHOP_ITEMS.map(item=>`<div class="mnfst-item ${d.bought.includes(item.id)?'bought':''}" onclick="mnfstBuy('${item.id}')">
+    <span class="mi-icon">${item.icon}</span>
+    <div class="mi-info"><div class="mi-name">${item.name}</div><div class="mi-effect">${item.desc}</div><div class="mi-cost">🌙 ${item.cost} tokens${d.bought.includes(item.id)?' ✅':''}</div></div>
   </div>`).join('');
 }
 
