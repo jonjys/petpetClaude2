@@ -2596,6 +2596,48 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ ARCANE DUEL ══ */
+.aduel-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 20%,#0a0520,#030108);z-index:1147;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.aduel-panel h2{color:#cc88ff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #8844ff}
+.aduel-arena{width:100%;max-width:340px;background:rgba(15,8,35,.5);border:2px solid #4422aa;border-radius:16px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden}
+.aduel-arena::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse,rgba(100,40,200,.1),transparent 70%)}
+.aduel-combatants{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.aduel-fighter{flex:1;text-align:center}
+.aduel-fighter .af-icon{font-size:2.5rem}
+.aduel-fighter .af-name{color:#bb88ff;font-size:.72rem;margin-top:2px}
+.aduel-fighter .af-hp-bar{height:8px;background:rgba(30,10,60,.6);border-radius:4px;overflow:hidden;margin-top:4px;border:1px solid #3a1880}
+.aduel-fighter .af-hp-fill{height:100%;border-radius:4px;transition:width .3s}
+.aduel-fighter.player .af-hp-fill{background:linear-gradient(90deg,#44aaff,#88ccff)}
+.aduel-fighter.enemy .af-hp-fill{background:linear-gradient(90deg,#ff4466,#ff8888)}
+.aduel-vs{color:#8844ff;font-size:1.4rem;font-weight:900}
+.aduel-spells{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:340px;margin:6px 0}
+.aduel-spell{background:rgba(30,10,60,.4);border:1px solid #4422aa;border-radius:10px;padding:8px 4px;cursor:pointer;transition:all .2s;text-align:center}
+.aduel-spell:hover{border-color:#cc88ff;background:rgba(60,20,120,.5);box-shadow:0 0 6px rgba(170,80,255,.3)}
+.aduel-spell .as-icon{font-size:1.4rem}
+.aduel-spell .as-name{font-size:.62rem;color:#bb88ff;margin-top:2px}
+.aduel-spell .as-dmg{font-size:.58rem;color:#8866cc;margin-top:1px}
+.aduel-log{background:rgba(10,5,25,.5);border:1px solid #2a1460;border-radius:8px;padding:8px;width:100%;max-width:320px;max-height:90px;overflow-y:auto;font-size:.67rem;color:#9977cc;margin-top:4px}
+.aduel-wins{background:rgba(15,8,35,.35);border:1px solid #3a1880;border-radius:8px;padding:5px 14px;color:#cc88ff;font-size:.8rem;margin-bottom:6px}
+
+/* ══ SPACE EXPLORER ══ */
+.spex-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 30%,#020810,#010206);z-index:1146;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.spex-panel h2{color:#aaccff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #6699ff}
+.spex-ship{background:rgba(8,16,40,.4);border:2px solid #1a2a70;border-radius:16px;padding:12px;text-align:center;width:100%;max-width:320px;margin-bottom:10px}
+.spex-ship .ss-icon{font-size:2.5rem}
+.spex-ship .ss-fuel{color:#88aaff;font-size:.78rem;margin-top:4px}
+.spex-fuel-bar{width:100%;height:10px;background:rgba(20,30,70,.5);border-radius:5px;overflow:hidden;margin:4px 0;border:1px solid #1a2a70}
+.spex-fuel-fill{height:100%;background:linear-gradient(90deg,#2244aa,#4488ff);border-radius:5px;transition:width .3s}
+.spex-planets{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;width:100%;max-width:340px}
+.spex-planet{background:rgba(8,14,35,.4);border:1px solid #1a2660;border-radius:14px;padding:12px 8px;cursor:pointer;transition:all .2s;text-align:center}
+.spex-planet:hover{border-color:#6688ff;background:rgba(15,25,65,.5);transform:scale(1.02)}
+.spex-planet.visited{border-color:#4455aa;background:rgba(20,30,60,.4);opacity:.7}
+.spex-planet .sp-icon{font-size:2rem;margin-bottom:4px}
+.spex-planet .sp-name{color:#aaccff;font-size:.8rem;font-weight:700}
+.spex-planet .sp-desc{color:#5566aa;font-size:.62rem;margin-top:2px}
+.spex-planet .sp-fuel{color:#ffcc44;font-size:.62rem;margin-top:3px}
+.spex-planet .sp-reward{color:#44ccaa;font-size:.62rem;margin-top:1px}
+.spex-log{background:rgba(5,10,25,.5);border:1px solid #121e50;border-radius:8px;padding:8px;width:100%;max-width:320px;max-height:90px;overflow-y:auto;font-size:.67rem;color:#7090c0;margin-top:6px}
+
 /* ══ NINJA TRAINING ══ */
 .ninj-panel{position:fixed;inset:0;background:linear-gradient(170deg,#040406,#06040a);z-index:1145;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .ninj-panel h2{color:#aaaacc;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #666699}
@@ -16818,6 +16860,44 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="ninj-dojo" id="ninjDojo"></div>
   <div style="color:#aaaacc;font-size:.78rem;font-weight:700;margin:6px 0 4px;align-self:flex-start">📜 Missions</div>
   <div class="ninj-missions" id="ninjMissions"></div>
+</div>
+
+<!-- ARCANE DUEL -->
+<div class="aduel-panel" id="aduelPanel" style="display:none">
+  <button onclick="closeAduel()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#cc88ff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>⚡ Arcane Duel</h2>
+  <div class="aduel-wins" id="aduelWins">Wins: 0 | Mana: 0 | Duels today: 0/6</div>
+  <div class="aduel-arena" id="aduelArena">
+    <div class="aduel-combatants">
+      <div class="aduel-fighter player">
+        <div class="af-icon" id="aduelPlayerIcon">🧙</div>
+        <div class="af-name">You</div>
+        <div class="af-hp-bar"><div class="af-hp-fill player" id="aduelPlayerHp" style="width:100%"></div></div>
+      </div>
+      <div class="aduel-vs">VS</div>
+      <div class="aduel-fighter enemy">
+        <div class="af-icon" id="aduelEnemyIcon">👹</div>
+        <div class="af-name" id="aduelEnemyName">Waiting...</div>
+        <div class="af-hp-bar"><div class="af-hp-fill enemy" id="aduelEnemyHp" style="width:100%"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="aduel-spells" id="aduelSpells"></div>
+  <div class="aduel-log" id="aduelLog"><div>Cast a spell to begin the duel!</div></div>
+</div>
+
+<!-- SPACE EXPLORER -->
+<div class="spex-panel" id="spexPanel" style="display:none">
+  <button onclick="closeSpex()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#aaccff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🚀 Space Explorer</h2>
+  <div class="spex-ship">
+    <div class="ss-icon">🚀</div>
+    <div class="ss-fuel" id="spexFuelTxt">Fuel: 0/100</div>
+    <div class="spex-fuel-bar"><div class="spex-fuel-fill" id="spexFuelBar" style="width:0%"></div></div>
+    <button onclick="spexRefuel()" style="background:linear-gradient(135deg,#1a2a70,#0c1640);border:1px solid #4488ff;color:#aaccff;border-radius:8px;padding:5px 14px;font-size:.75rem;cursor:pointer;margin-top:6px">⛽ Refuel (+20)</button>
+  </div>
+  <div class="spex-planets" id="spexPlanets"></div>
+  <div class="spex-log" id="spexLog"><div>Ready for liftoff, Captain!</div></div>
 </div>
 
 <!-- TAROT READING -->
@@ -71763,6 +71843,178 @@ function _renderNinj(){
       <div class="nm-reward">${m.rdesc} ${done?'✅':''}</div>
     </div>`;
   }).join('');
+}
+
+
+// ══ SPACE EXPLORER ══
+const SPEX_KEY = 'k0509_spex';
+const SPEX_PLANETS = [
+  {id:'moon',icon:'🌙',name:'The Moon',desc:'Closest destination',fuel:10,
+   outcomes:[{txt:'Moon rocks found!',coins:60,str:1},{txt:'Crater mapped',coins:40,int:1},{txt:'Dust samples',coins:30}]},
+  {id:'mars',icon:'🔴',name:'Mars',desc:'The red planet',fuel:20,
+   outcomes:[{txt:'Ancient ruins!',coins:100,kc:2},{txt:'Iron deposits',coins:80,str:2},{txt:'Red sand storm',coins:50}]},
+  {id:'jupiter',icon:'🟡',name:'Jupiter',desc:'Gas giant storms',fuel:30,
+   outcomes:[{txt:'Storm energy harvested!',agi:3,coins:120},{txt:'Cloud materials',coins:90,int:2},{txt:'Orbital scan',coins:60}]},
+  {id:'saturn',icon:'🪐',name:'Saturn',desc:'Ring system treasure',fuel:35,
+   outcomes:[{txt:'Ring gems collected!',coins:200,kc:4},{txt:'Ice crystals',coins:150,int:3},{txt:'Ringed beauty',coins:80}]},
+  {id:'venus',icon:'✨',name:'Venus',desc:'Cloudy and mysterious',fuel:25,
+   outcomes:[{txt:'Rare minerals!',str:4,coins:130},{txt:'Atmospheric data',int:3,coins:100},{txt:'Acid clouds',coins:70}]},
+  {id:'neptune',icon:'🔵',name:'Neptune',desc:'Distant ice world',fuel:50,
+   outcomes:[{txt:'Triton treasure!',kc:8,coins:250},{txt:'Dark matter trace',str:5,int:5},{txt:'Deep space wonder',coins:120}]},
+  {id:'blackhole',icon:'🌌',name:'Event Horizon',desc:'Near a black hole',fuel:80,
+   outcomes:[{txt:'Reality warped! All +8!',str:8,int:8,agi:8,kc:10},{txt:'Time dilation bonus',kc:15,coins:500},{txt:'Barely escaped!',coins:200}]},
+];
+function _spexData(){
+  const d=JSON.parse(localStorage.getItem(SPEX_KEY)||'{}');
+  return {fuel:d.fuel||0,visited:d.visited||{},log:d.log||[],lastRefuel:d.lastRefuel||''};
+}
+function _spexSave(d){localStorage.setItem(SPEX_KEY,JSON.stringify(d));}
+function spexRefuel(){
+  const d=_spexData();
+  const today=getTodayKey();
+  if(d.lastRefuel===today&&(d.fuel>=60)){showFloatBubble('Max refuel for today!','bad');return;}
+  d.fuel=Math.min(100,(d.fuel||0)+20);
+  if(d.lastRefuel!==today)d.lastRefuel=today;
+  _spexSave(d);
+  showFloatBubble('⛽ +20 Fuel!','good');
+  _renderSpex();
+}
+function spexVisit(pid){
+  const d=_spexData();
+  const planet=SPEX_PLANETS.find(p=>p.id===pid);
+  if((d.fuel||0)<planet.fuel){showFloatBubble(`Need ${planet.fuel} fuel!`,'bad');return;}
+  d.fuel-=planet.fuel;
+  const out=planet.outcomes[Math.floor(Math.random()*planet.outcomes.length)];
+  d.visited[pid]=(d.visited[pid]||0)+1;
+  d.log.unshift(`🚀 ${planet.icon} ${planet.name}: ${out.txt}`);
+  if(d.log.length>12)d.log.pop();
+  _spexSave(d);
+  if(out.coins)gainCoins(out.coins);
+  if(out.kc)gainKC(out.kc);
+  if(out.str){G.str=(G.str||10)+out.str;save();}
+  if(out.int){G.int=(G.int||10)+out.int;save();}
+  if(out.agi){G.agi=(G.agi||10)+out.agi;save();}
+  showFloatBubble(`${planet.icon} ${out.txt}`,'good');
+  checkAchievements();
+  _renderSpex();
+}
+function openSpex(){$('spexPanel').style.display='flex';_renderSpex();}
+function closeSpex(){$('spexPanel').style.display='none';}
+function _renderSpex(){
+  const d=_spexData();
+  const fuel=d.fuel||0;
+  $('spexFuelTxt').textContent=`Fuel: ${fuel}/100`;
+  $('spexFuelBar').style.width=(fuel)+'%';
+  $('spexPlanets').innerHTML=SPEX_PLANETS.map(p=>`<div class="spex-planet ${d.fuel<p.fuel?'visited':''}" onclick="spexVisit('${p.id}')">
+    <div class="sp-icon">${p.icon}</div>
+    <div class="sp-name">${p.name}</div>
+    <div class="sp-desc">${p.desc}</div>
+    <div class="sp-fuel">Fuel: ${p.fuel}${d.fuel<p.fuel?' 🔒':''}</div>
+    <div class="sp-reward">Visited: ${d.visited[p.id]||0}×</div>
+  </div>`).join('');
+  $('spexLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Ready for liftoff, Captain!</div>';
+}
+
+
+// ══ ARCANE DUEL ══
+const ADUEL_KEY = 'k0509_aduel';
+const ADUEL_ENEMIES = [
+  {icon:'🧛',name:'Vampire',hp:60,atk:8},
+  {icon:'🐲',name:'Wyvern',hp:80,atk:12},
+  {icon:'💀',name:'Death Knight',hp:90,atk:10},
+  {icon:'🌊',name:'Sea Witch',hp:70,atk:14},
+  {icon:'🌑',name:'Shadow Mage',hp:100,atk:16},
+  {icon:'👑',name:'Lich King',hp:120,atk:18,boss:true},
+];
+const ADUEL_SPELLS = [
+  {icon:'🔥',name:'Fireball',baseDmg:25,stat:'int',hitChance:.9,mp:10},
+  {icon:'❄️',name:'Ice Shard',baseDmg:20,stat:'agi',hitChance:.95,mp:8},
+  {icon:'⚡',name:'Thunder',baseDmg:35,stat:'str',hitChance:.75,mp:15},
+  {icon:'🌪️',name:'Tornado',baseDmg:18,stat:'agi',hitChance:1,mp:6},
+  {icon:'🌟',name:'Star Burst',baseDmg:45,stat:'int',hitChance:.65,mp:20},
+  {icon:'💫',name:'Arcane Bolt',baseDmg:30,stat:'int',hitChance:.8,mp:12},
+];
+function _aduelData(){
+  const d=JSON.parse(localStorage.getItem(ADUEL_KEY)||'{}');
+  const eidx=Math.floor(Math.random()*ADUEL_ENEMIES.length);
+  return {wins:d.wins||0,mana:d.mana||30,duels:d.duels||0,lastDay:d.lastDay||'',
+    curEnemy:d.curEnemy===undefined?eidx:d.curEnemy,curEHp:d.curEHp||null,log:d.log||[]};
+}
+function _aduelSave(d){localStorage.setItem(ADUEL_KEY,JSON.stringify(d));}
+function aduelCast(spellIdx){
+  const d=_aduelData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.duels=0;d.lastDay=today;}
+  if(d.duels>=6){showFloatBubble('6 duels done today!','bad');return;}
+  const spell=ADUEL_SPELLS[spellIdx];
+  if((d.mana||0)<spell.mp){showFloatBubble(`Need ${spell.mp} mana!`,'bad');return;}
+  const enemy=ADUEL_ENEMIES[d.curEnemy%ADUEL_ENEMIES.length];
+  if(d.curEHp===null)d.curEHp=enemy.hp;
+  d.mana-=spell.mp;
+  const stat=spell.stat==='str'?G.str:spell.stat==='int'?G.int:G.agi;
+  const hit=Math.random()<spell.hitChance;
+  if(hit){
+    const dmg=spell.baseDmg+Math.floor((stat||10)/3);
+    d.curEHp=Math.max(0,d.curEHp-dmg);
+    d.log.unshift(`${spell.icon} ${spell.name}: ${dmg} dmg! Enemy HP: ${d.curEHp}`);
+  } else {
+    d.log.unshift(`💨 ${spell.name} missed!`);
+  }
+  // Enemy counter
+  if(d.curEHp>0){
+    const edm=Math.max(1,enemy.atk-Math.floor((G.agi||10)/5));
+    d.mana=Math.max(0,(d.mana||0)-Math.floor(edm/3));
+    d.log.unshift(`${enemy.icon} Counter: -${Math.floor(edm/3)} mana`);
+  }
+  // Victory
+  if(d.curEHp<=0){
+    d.wins++;d.duels++;
+    d.mana=Math.min(100,(d.mana||0)+20);
+    d.curEHp=null;
+    d.curEnemy=(d.curEnemy+1)%ADUEL_ENEMIES.length;
+    const gold=40+(enemy.boss?100:0);
+    gainCoins(gold);
+    if(enemy.boss){gainKC(5);G.int+=3;save();}
+    d.log.unshift(`✅ ${enemy.name} defeated! +${gold}🪙 +20 mana`);
+    showFloatBubble(`✅ ${enemy.name} defeated!`,'good');
+    checkAchievements();
+  } else {
+    d.duels++;
+  }
+  if(d.log.length>15)d.log.splice(15);
+  _aduelSave(d);
+  _renderAduel();
+}
+function aduelRestoreMana(){
+  const d=_aduelData();
+  const today=getTodayKey();
+  if(d.lastManaRestore===today){showFloatBubble('Already restored today!','bad');return;}
+  d.mana=Math.min(100,(d.mana||0)+30);
+  d.lastManaRestore=today;
+  _aduelSave(d);
+  showFloatBubble('+30 Mana restored!','good');
+  _renderAduel();
+}
+function openAduel(){$('aduelPanel').style.display='flex';_renderAduel();}
+function closeAduel(){$('aduelPanel').style.display='none';}
+function _renderAduel(){
+  const d=_aduelData();
+  const today=getTodayKey();
+  const duels=d.lastDay===today?d.duels:0;
+  $('aduelWins').textContent=`Wins: ${d.wins} | Mana: ${d.mana||0} | Duels: ${duels}/6`;
+  const enemy=ADUEL_ENEMIES[d.curEnemy%ADUEL_ENEMIES.length];
+  const ehp=d.curEHp!==null?d.curEHp:enemy.hp;
+  $('aduelEnemyIcon').textContent=enemy.icon;
+  $('aduelEnemyName').textContent=enemy.name;
+  $('aduelEnemyHp').style.width=Math.max(0,ehp/enemy.hp*100)+'%';
+  $('aduelSpells').innerHTML=ADUEL_SPELLS.map((s,i)=>
+    `<div class="aduel-spell" onclick="aduelCast(${i})">
+      <div class="as-icon">${s.icon}</div>
+      <div class="as-name">${s.name}</div>
+      <div class="as-dmg">${s.mp}mp | ${s.baseDmg}dmg</div>
+    </div>`
+  ).join('');
+  $('aduelLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Cast a spell to duel!</div>';
 }
 
 </script>
