@@ -1545,6 +1545,45 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ WEATHER FARM ══ */
+.wf-panel{position:fixed;inset:0;background:#010a04;z-index:1058;display:none;flex-direction:column;overflow:hidden}
+.wf-panel.open{display:flex}
+.wf-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#021608,#010a04)}
+.wf-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#00ddcc,#4488ff,#ffcc00,#44ff88);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:wfShim 3s linear infinite}
+@keyframes wfShim{0%{background-position:0%}100%{background-position:400%}}
+.wf-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Weather display */
+.wf-weather-card{background:radial-gradient(ellipse at 50% 0,rgba(68,255,136,.1),rgba(0,0,0,0));border:2px solid rgba(68,255,136,.2);border-radius:24px;padding:18px;margin-bottom:12px;text-align:center;position:relative;overflow:hidden}
+.wf-weather-bg{position:absolute;inset:0;opacity:.04;font-size:80px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.wf-weather-icon{font-size:52px;display:block;margin-bottom:6px}
+.wf-weather-name{font:900 20px var(--ff-head);color:#fff;margin-bottom:2px}
+.wf-weather-desc{font:600 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:10px}
+/* Buff pills */
+.wf-buffs{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:10px}
+.wf-buff-pill{border-radius:10px;padding:4px 10px;font:700 9px var(--ff-head)}
+.wf-buff-pill.coins{background:rgba(255,200,0,.1);border:1px solid rgba(255,200,0,.25);color:#ffcc00}
+.wf-buff-pill.xp{background:rgba(68,255,136,.1);border:1px solid rgba(68,255,136,.25);color:#44ff88}
+.wf-buff-pill.stat{background:rgba(68,136,255,.1);border:1px solid rgba(68,136,255,.25);color:#4488ff}
+/* Collect button */
+.wf-collect-btn{background:linear-gradient(135deg,#0a2a10,#1a5020);border:1.5px solid rgba(68,255,136,.4);border-radius:16px;padding:14px;font:900 15px var(--ff-head);color:#fff;cursor:pointer;width:100%;margin-bottom:4px}
+.wf-collect-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.05)}
+.wf-collect-lbl{text-align:center;font:600 9px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:12px}
+/* Farm plots */
+.wf-plots-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.wf-plots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.wf-plot{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:12px;padding:8px;text-align:center}
+.wf-plot.grown{border-color:rgba(68,255,136,.3);background:rgba(68,255,136,.04)}
+.wf-plot-icon{font-size:22px;display:block;margin-bottom:2px}
+.wf-plot-name{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.wf-plot-val{font:700 8px var(--ff-head);color:#44ff88}
+/* History */
+.wf-hist-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:5px}
+.wf-hist-list{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
+.wf-hist-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border-radius:8px;padding:6px 8px;font:600 8px var(--ff-body);color:rgba(255,255,255,.4)}
+.wf-hist-icon{font-size:14px;flex-shrink:0}
+.wf-hist-rw{font:700 8px var(--ff-head);color:#ffcc00;margin-left:auto}
+
 /* ══ PET BREEDING LAB ══ */
 .breed-panel{position:fixed;inset:0;background:#020508;z-index:1057;display:none;flex-direction:column;overflow:hidden}
 .breed-panel.open{display:flex}
@@ -12260,6 +12299,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
+          <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12338,6 +12378,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
+          <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12399,6 +12440,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
+          <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12498,6 +12540,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
+          <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13103,6 +13146,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- WEATHER FARM -->
+<div class="wf-panel" id="wfPanel">
+  <div class="wf-header">
+    <div class="wf-title">🌾 VÄDERFARMEN</div>
+    <button class="close-btn" onclick="closeWf()">✕</button>
+  </div>
+  <div class="wf-scroll">
+    <div class="wf-weather-card">
+      <div class="wf-weather-bg" id="wfWeatherBg"></div>
+      <span class="wf-weather-icon" id="wfWeatherIcon">☀️</span>
+      <div class="wf-weather-name" id="wfWeatherName">Soligt</div>
+      <div class="wf-weather-desc" id="wfWeatherDesc">Perfekt väder för farming!</div>
+      <div class="wf-buffs" id="wfBuffs"></div>
+      <button class="wf-collect-btn" id="wfCollectBtn" onclick="wfCollect()">🌾 Skörda dagens gröda!</button>
+      <div class="wf-collect-lbl" id="wfCollectLbl">Daglig skörd tillgänglig!</div>
+    </div>
+    <div class="wf-plots-lbl">FARMENS SKÖRDEPLOTS</div>
+    <div class="wf-plots" id="wfPlots"></div>
+    <div class="wf-hist-lbl">SKÖRDEHISTORIK</div>
+    <div class="wf-hist-list" id="wfHistList"></div>
+  </div>
+</div>
 
 <!-- PET BREEDING LAB -->
 <div class="breed-panel" id="breedPanel">
@@ -57548,6 +57615,109 @@ function _renderBreed(d){
   _breedRenderParents();
   _breedCheckReady();
   _breedRenderHist(d);
+}
+
+
+// WEATHER FARM
+const WF_KEY = 'k0509_wf';
+const WF_WEATHERS = [
+  {name:'Soligt',    icon:'☀️', desc:'Grödorna blommar i solen!',     coins:120,xp:60,  stat:null,  plots:['🌻','🍅','🌽','🥕']},
+  {name:'Regnigt',   icon:'🌧️', desc:'Regnet vattnar allt automatiskt!',coins:90, xp:80,  stat:'int', plots:['🍄','🌿','🎍','🌱']},
+  {name:'Stormigt',  icon:'⛈️', desc:'Stormen gör grödorna starka!',   coins:150,xp:100, stat:'end', plots:['🌳','🍀','🌾','🌲']},
+  {name:'Molnigt',   icon:'☁️', desc:'Lugnt molnigt — stabil skörd.',  coins:80, xp:50,  stat:null,  plots:['🌿','🌾','🍃','🌱']},
+  {name:'Snöigt',    icon:'❄️', desc:'Vinterskörden är rik!',          coins:100,xp:70,  stat:'lck', plots:['🌨','🍒','⛄','🏔️']},
+  {name:'Blåsigt',   icon:'💨', desc:'Vinden sprider frön överallt!',  coins:110,xp:65,  stat:'agi', plots:['🌬','🌸','🌼','🌺']},
+  {name:'Dimma',     icon:'🌫️', desc:'Mystisk dimma — bonus loot!',    coins:80, xp:60,  stat:'lck', plots:['🍄','🕯️','🌿','🔮']},
+];
+
+function _wfGetWeather(){
+  var today=getTodayKey();var seed=0;
+  for(var i=0;i<today.length;i++) seed=(seed*31+today.charCodeAt(i))>>>0;
+  return WF_WEATHERS[seed%WF_WEATHERS.length];
+}
+
+function _wfData(){try{return JSON.parse(localStorage.getItem(WF_KEY)||'null');}catch(e){return null;}}
+function _wfSave(d){localStorage.setItem(WF_KEY,JSON.stringify(d));}
+function _wfGetData(){
+  var d=_wfData();
+  if(!d) d={lastCollect:'',history:[],streak:0,bestStreak:0};
+  return d;
+}
+
+function wfCollect(){
+  var d=_wfGetData();
+  var today=getTodayKey();
+  if(d.lastCollect===today){showFloatBubble('Redan skördat idag!','debuff');return;}
+  var w=_wfGetWeather();
+  // Streak bonus
+  var yesterday=_wfYesterday(today);
+  if(d.lastCollect===yesterday) d.streak=(d.streak||0)+1;
+  else d.streak=1;
+  if(d.streak>(d.bestStreak||0)) d.bestStreak=d.streak;
+  var streakBonus=Math.floor((d.streak-1)*0.1*w.coins);
+  var coins=w.coins+streakBonus;
+  var xp=w.xp;
+  gainCoins(coins);gainXP(xp,'end');
+  if(w.stat) G[w.stat]=(G[w.stat]||0)+1,save();
+  misTrack('garden',1);
+  d.lastCollect=today;
+  d.history.unshift({day:today,weather:w.name,icon:w.icon,coins:coins,xp:xp,streak:d.streak});
+  if(d.history.length>10) d.history=d.history.slice(0,10);
+  _wfSave(d);
+  checkAchievements();
+  showFloatBubble('🌾 '+w.icon+' '+w.name+' skörd! +'+coins+'🪙 +'+xp+'XP'+(w.stat?' +1 '+w.stat.toUpperCase():'')+(d.streak>1?' 🔥'+d.streak:''),'buff');
+  _renderWf(d);
+}
+
+function _wfYesterday(today){
+  var parts=today.split('-');
+  var d2=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+  d2.setDate(d2.getDate()-1);
+  var mm=d2.getMonth()+1,dd=d2.getDate();
+  return d2.getFullYear()+'-'+(mm<10?'0'+mm:mm)+'-'+(dd<10?'0'+dd:dd);
+}
+
+function openWf(){$('wfPanel').classList.add('open');_renderWf();}
+function closeWf(){$('wfPanel').classList.remove('open');}
+
+function _renderWf(d){
+  if(!d) d=_wfGetData();
+  var today=getTodayKey();
+  var w=_wfGetWeather();
+  var wi=$('wfWeatherIcon');if(wi) wi.textContent=w.icon;
+  var wn=$('wfWeatherName');if(wn) wn.textContent=w.name;
+  var wd=$('wfWeatherDesc');if(wd) wd.textContent=w.desc;
+  var wb=$('wfWeatherBg');if(wb) wb.textContent=w.icon;
+  var buffs=$('wfBuffs');
+  if(buffs){
+    var streakBonus=d.streak>1?Math.floor((d.streak-1)*0.1*w.coins):0;
+    buffs.innerHTML='<div class="wf-buff-pill coins">+'+( w.coins+streakBonus)+'🪙</div>'+
+      '<div class="wf-buff-pill xp">+'+w.xp+'XP</div>'+
+      (w.stat?'<div class="wf-buff-pill stat">+1 '+w.stat.toUpperCase()+'</div>':'')+
+      (d.streak>1?'<div class="wf-buff-pill coins">🔥Streak '+d.streak+'</div>':'');
+  }
+  var collected=d.lastCollect===today;
+  var btn=$('wfCollectBtn');if(btn){btn.disabled=collected;btn.textContent=collected?'✓ Skördat idag!':'🌾 Skörda dagens gröda!';}
+  var lbl=$('wfCollectLbl');if(lbl) lbl.textContent=collected?'Kom tillbaka imorgon!':'Daglig skörd tillgänglig!';
+  // Plots
+  var plots=$('wfPlots');
+  if(plots){
+    plots.innerHTML=w.plots.map(function(p){
+      return '<div class="wf-plot'+(collected?' grown':'')+'">'+
+        '<span class="wf-plot-icon">'+p+'</span>'+
+        '<div class="wf-plot-name">'+(collected?'Skördad!':'Växer...')+'</div>'+
+        '<div class="wf-plot-val">'+(collected?'+30🪙':'')+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  // History
+  var hist=$('wfHistList');
+  if(hist){
+    if(!d.history||!d.history.length){hist.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2);padding:6px">Ingen historik ännu.</div>';return;}
+    hist.innerHTML=d.history.slice(0,5).map(function(h){
+      return '<div class="wf-hist-item"><span class="wf-hist-icon">'+h.icon+'</span>'+h.day+' · '+h.weather+(h.streak>1?' 🔥'+h.streak:'')+'<span class="wf-hist-rw">+'+h.coins+'🪙</span></div>';
+    }).join('');
+  }
 }
 
 </script>
