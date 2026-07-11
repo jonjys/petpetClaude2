@@ -2596,6 +2596,43 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ SKILL TREE ══ */
+.sktr-panel{position:fixed;inset:0;background:linear-gradient(170deg,#08060a,#100810);z-index:1135;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.sktr-panel h2{color:#ee99ff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #cc44ff}
+.sktr-pts{background:rgba(50,20,70,.35);border:1px solid #6620aa;border-radius:8px;padding:6px 16px;color:#ee99ff;font-size:.85rem;margin-bottom:8px}
+.sktr-tabs{display:flex;gap:6px;margin-bottom:8px;width:100%;max-width:320px}
+.sktr-tab{flex:1;background:rgba(30,10,50,.4);border:1px solid #440066;color:#9966cc;border-radius:8px;padding:7px;font-size:.75rem;cursor:pointer;transition:all .2s;text-align:center}
+.sktr-tab.active{background:rgba(80,30,120,.5);border-color:#cc88ff;color:#ee99ff}
+.sktr-tree{display:flex;flex-direction:column;gap:8px;width:100%;max-width:340px}
+.sktr-node{background:rgba(30,10,50,.4);border:1px solid #440066;border-radius:12px;padding:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px}
+.sktr-node:hover{border-color:#cc88ff;background:rgba(70,20,120,.4)}
+.sktr-node.unlocked{border-color:#66ee88;background:rgba(20,50,20,.3)}
+.sktr-node.locked{opacity:.45;cursor:not-allowed}
+.sktr-node .sn-icon{font-size:1.6rem}
+.sktr-node .sn-info{flex:1}
+.sktr-node .sn-name{color:#ee99ff;font-size:.8rem;font-weight:700}
+.sktr-node .sn-desc{color:#9966cc;font-size:.62rem;margin-top:2px}
+.sktr-node .sn-cost{color:#ffcc44;font-size:.62rem;margin-top:2px}
+.sktr-node .sn-status{font-size:.65rem;margin-left:auto;white-space:nowrap}
+
+/* ══ LOOT DUNGEON ══ */
+.ldng-panel{position:fixed;inset:0;background:linear-gradient(170deg,#060408,#0a0612);z-index:1134;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.ldng-panel h2{color:#dd88ff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #aa44ff}
+.ldng-map{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;width:100%;max-width:340px;margin:8px 0}
+.ldng-room{width:100%;aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;transition:all .2s;border:1px solid #330055}
+.ldng-room.unexplored{background:rgba(30,10,50,.6)}
+.ldng-room.current{background:rgba(100,40,180,.5);border-color:#aa66ff;box-shadow:0 0 6px rgba(170,100,255,.4)}
+.ldng-room.cleared{background:rgba(20,40,10,.4);border-color:#2a5030}
+.ldng-room.chest{background:rgba(60,40,0,.5);border-color:#886600}
+.ldng-room.boss{background:rgba(80,10,10,.5);border-color:#880000}
+.ldng-stats{display:flex;gap:8px;width:100%;max-width:320px;margin-bottom:6px}
+.ldng-stat{flex:1;background:rgba(30,10,50,.4);border:1px solid #440066;border-radius:8px;padding:6px;text-align:center}
+.ldng-stat .lds-val{color:#dd88ff;font-size:.95rem;font-weight:700}
+.ldng-stat .lds-lbl{color:#8844aa;font-size:.58rem;margin-top:1px}
+.ldng-log{background:rgba(15,5,25,.6);border:1px solid #2a0044;border-radius:8px;padding:8px;width:100%;max-width:320px;max-height:100px;overflow-y:auto;font-size:.67rem;color:#b080cc}
+.ldng-btn{background:linear-gradient(135deg,#440088,#220044);border:1px solid #8840cc;color:#dd88ff;border-radius:10px;padding:8px 20px;font-size:.82rem;cursor:pointer;margin:4px;transition:all .2s}
+.ldng-btn:hover{border-color:#dd88ff;box-shadow:0 0 8px rgba(200,100,255,.3)}
+
 /* ══ CELESTIAL TRIALS ══ */
 .ctrl-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%,#060818,#02040e);z-index:1133;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .ctrl-panel h2{color:#88ccff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #4488ff}
@@ -16509,6 +16546,35 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <h2>⚔️ Celestial Trials</h2>
   <div class="ctrl-header" id="ctrlHeader">Daily Trials: 0/6 completed</div>
   <div class="ctrl-trials" id="ctrlTrials"></div>
+</div>
+
+<!-- SKILL TREE -->
+<div class="sktr-panel" id="sktrPanel" style="display:none">
+  <button onclick="closeSktr()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ee99ff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🌱 Skill Tree</h2>
+  <div class="sktr-pts" id="sktrPts">Skill Points: 0</div>
+  <div class="sktr-tabs" id="sktrTabs">
+    <div class="sktr-tab active" onclick="sktrSetTab('warrior')">⚔️ Warrior</div>
+    <div class="sktr-tab" onclick="sktrSetTab('mage')">🔮 Mage</div>
+    <div class="sktr-tab" onclick="sktrSetTab('rogue')">🗡️ Rogue</div>
+  </div>
+  <div class="sktr-tree" id="sktrTree"></div>
+</div>
+
+<!-- LOOT DUNGEON -->
+<div class="ldng-panel" id="ldngPanel" style="display:none">
+  <button onclick="closeLdng()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#dd88ff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🗡️ Loot Dungeon</h2>
+  <div class="ldng-stats">
+    <div class="ldng-stat"><div class="lds-val" id="ldngRuns">0/3</div><div class="lds-lbl">Runs Today</div></div>
+    <div class="ldng-stat"><div class="lds-val" id="ldngFloor">0</div><div class="lds-lbl">Floor</div></div>
+    <div class="ldng-stat"><div class="lds-val" id="ldngGold">0</div><div class="lds-lbl">Run Gold</div></div>
+  </div>
+  <div id="ldngMapWrap">
+    <div class="ldng-map" id="ldngMap"></div>
+  </div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:4px 0" id="ldngActions"></div>
+  <div class="ldng-log" id="ldngLog"><div>Enter the dungeon...</div></div>
 </div>
 
 <!-- DRAGON EGGS -->
@@ -70372,6 +70438,207 @@ function _renderCtrl(){
       <div class="ct-task">📋 ${t.task}</div>
       <div class="ct-reward">🎁 ${t.rdesc}</div>
       ${claimedToday?'<div class="ct-status">✅ Done</div>':met?'<div style="color:#80ff80;font-size:.65rem;text-align:right">✨ Claim!</div>':''}
+    </div>`;
+  }).join('');
+}
+
+
+// ══ LOOT DUNGEON ══
+const LDNG_KEY = 'k0509_ldng';
+const LDNG_MONSTERS = [
+  {icon:'👹',name:'Goblin',hp:30,atk:5,coins:15},
+  {icon:'💀',name:'Skeleton',hp:40,atk:7,coins:20},
+  {icon:'🕷️',name:'Spider',hp:25,atk:6,coins:12},
+  {icon:'🐺',name:'Wolf',hp:50,atk:9,coins:25},
+  {icon:'🔮',name:'Sorcerer',hp:45,atk:11,coins:30},
+  {icon:'🐉',name:'Mini Dragon',hp:80,atk:15,coins:60,kc:2},
+];
+function _ldngData(){
+  const d=JSON.parse(localStorage.getItem(LDNG_KEY)||'{}');
+  return {runs:d.runs||0,lastDay:d.lastDay||'',totalRuns:d.totalRuns||0,
+    active:d.active||false,rooms:d.rooms||[],pos:d.pos||0,floor:d.floor||0,
+    runGold:d.runGold||0,log:d.log||[]};
+}
+function _ldngSave(d){localStorage.setItem(LDNG_KEY,JSON.stringify(d));}
+function _ldngGenRooms(){
+  const types=['monster','monster','monster','chest','monster','monster','boss'];
+  return types.map((t,i)=>({type:t,cleared:false,idx:i}));
+}
+function ldngStart(){
+  const d=_ldngData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.runs=0;d.lastDay=today;}
+  if(d.runs>=3){showFloatBubble('3 runs used today!','bad');return;}
+  d.active=true;
+  d.rooms=_ldngGenRooms();
+  d.pos=0;
+  d.floor=d.floor||0;
+  d.runGold=0;
+  d.log=['⚔️ Entered the dungeon!'];
+  _ldngSave(d);
+  _renderLdng();
+}
+function ldngMove(dir){
+  const d=_ldngData();
+  if(!d.active){return;}
+  const room=d.rooms[d.pos];
+  if(!room.cleared){
+    // Fight/interact first
+    if(room.type==='monster'||room.type==='boss'){
+      const m=room.type==='boss'?LDNG_MONSTERS[5]:LDNG_MONSTERS[Math.floor(Math.random()*5)];
+      const playerAtk=10+Math.floor((G.str||10)/3);
+      const rounds=Math.ceil(m.hp/playerAtk);
+      const dmgTaken=Math.max(0,m.atk*rounds-Math.floor((G.agi||10)/4)*rounds);
+      gainCoins(m.coins);
+      if(m.kc)gainKC(m.kc);
+      d.runGold+=m.coins;
+      d.rooms[d.pos].cleared=true;
+      d.log.unshift(`⚔️ Beat ${m.icon} ${m.name}! +${m.coins}🪙`);
+    } else if(room.type==='chest'){
+      const gold=50+Math.floor(Math.random()*100);
+      gainCoins(gold);
+      d.runGold+=gold;
+      d.rooms[d.pos].cleared=true;
+      d.log.unshift(`📦 Opened chest! +${gold}🪙`);
+    }
+  }
+  if(d.pos<d.rooms.length-1&&dir==='forward'){
+    d.pos++;
+    d.log.unshift(`🚶 Moved to room ${d.pos+1}`);
+  } else if(dir==='exit'||d.pos>=d.rooms.length-1){
+    // End run
+    d.runs++;
+    d.floor++;
+    d.active=false;
+    d.log.unshift(`🏆 Run complete! Floor ${d.floor}`);
+    gainXP(d.runGold,'str');
+    checkAchievements();
+  }
+  _ldngSave(d);
+  _renderLdng();
+}
+function openLdng(){$('ldngPanel').style.display='flex';_renderLdng();}
+function closeLdng(){$('ldngPanel').style.display='none';}
+function _renderLdng(){
+  const d=_ldngData();
+  const today=getTodayKey();
+  const runs=d.lastDay===today?d.runs:0;
+  $('ldngRuns').textContent=runs+'/3';
+  $('ldngFloor').textContent=d.floor||0;
+  $('ldngGold').textContent=d.runGold||0;
+  if(d.active&&d.rooms.length){
+    $('ldngMap').innerHTML=d.rooms.map((r,i)=>{
+      let cls='ldng-room';
+      if(i===d.pos)cls+=' current';
+      else if(r.cleared)cls+=' cleared';
+      else if(r.type==='chest')cls+=' chest';
+      else if(r.type==='boss')cls+=' boss';
+      else cls+=' unexplored';
+      const icons={monster:'👹',chest:'📦',boss:'🐉'};
+      return `<div class="${cls}">${r.cleared?'✅':(i<=d.pos?icons[r.type]:'?')}</div>`;
+    }).join('');
+    const room=d.rooms[d.pos];
+    let actHtml='';
+    if(!room.cleared){
+      const label=room.type==='boss'?'⚔️ Fight Boss':room.type==='chest'?'📦 Open Chest':'⚔️ Fight';
+      actHtml+=`<button class="ldng-btn" onclick="ldngMove('stay')">${label}</button>`;
+    } else if(d.pos<d.rooms.length-1){
+      actHtml+=`<button class="ldng-btn" onclick="ldngMove('forward')">→ Next Room</button>`;
+    }
+    actHtml+=`<button class="ldng-btn" onclick="ldngMove('exit')">🚪 Exit</button>`;
+    $('ldngActions').innerHTML=actHtml;
+  } else {
+    $('ldngMap').innerHTML='<div style="color:#6040aa;font-size:.7rem;text-align:center;grid-column:span 5;padding:20px">No active run</div>';
+    $('ldngActions').innerHTML=runs<3?`<button class="ldng-btn" onclick="ldngStart()">🗡️ Enter Dungeon</button>`:'<div style="color:#664466;font-size:.72rem">Come back tomorrow!</div>';
+  }
+  $('ldngLog').innerHTML=d.log.slice(0,12).map(l=>`<div>${l}</div>`).join('')||'<div>Enter the dungeon...</div>';
+}
+
+
+// ══ SKILL TREE ══
+const SKTR_KEY = 'k0509_sktr';
+const SKTR_TREES = {
+  warrior:[
+    {id:'w1',icon:'💪',name:'Iron Muscles',desc:'+4 STR permanently',cost:1,req:null,apply:()=>{G.str=(G.str||10)+4;save()}},
+    {id:'w2',icon:'🛡️',name:'Battle Hardened',desc:'+6 STR permanently',cost:2,req:'w1',apply:()=>{G.str=(G.str||10)+6;save()}},
+    {id:'w3',icon:'⚔️',name:'Berserker Rage',desc:'+10 STR permanently',cost:3,req:'w2',apply:()=>{G.str=(G.str||10)+10;save()}},
+    {id:'w4',icon:'🔥',name:'War Cry',desc:'+5 STR +3 AGI',cost:2,req:'w1',apply:()=>{G.str+=5;G.agi+=3;save()}},
+    {id:'w5',icon:'🏆',name:'Champion',desc:'+15 STR +5 All Stats',cost:5,req:'w3',apply:()=>{G.str+=15;G.int+=5;G.agi+=5;save()}},
+  ],
+  mage:[
+    {id:'m1',icon:'🧠',name:'Arcane Study',desc:'+4 INT permanently',cost:1,req:null,apply:()=>{G.int=(G.int||10)+4;save()}},
+    {id:'m2',icon:'🔮',name:'Spell Mastery',desc:'+6 INT permanently',cost:2,req:'m1',apply:()=>{G.int=(G.int||10)+6;save()}},
+    {id:'m3',icon:'🌟',name:'Archmage',desc:'+10 INT permanently',cost:3,req:'m2',apply:()=>{G.int=(G.int||10)+10;save()}},
+    {id:'m4',icon:'⚡',name:'Lightning Bolt',desc:'+5 INT + 200 Coins',cost:2,req:'m1',apply:()=>{G.int+=5;save();gainCoins(200)}},
+    {id:'m5',icon:'🌌',name:'Omniscience',desc:'+15 INT +5 All Stats',cost:5,req:'m3',apply:()=>{G.int+=15;G.str+=5;G.agi+=5;save()}},
+  ],
+  rogue:[
+    {id:'r1',icon:'💨',name:'Quick Feet',desc:'+4 AGI permanently',cost:1,req:null,apply:()=>{G.agi=(G.agi||10)+4;save()}},
+    {id:'r2',icon:'🗡️',name:'Shadow Step',desc:'+6 AGI permanently',cost:2,req:'r1',apply:()=>{G.agi=(G.agi||10)+6;save()}},
+    {id:'r3',icon:'🌙',name:'Phantom',desc:'+10 AGI permanently',cost:3,req:'r2',apply:()=>{G.agi=(G.agi||10)+10;save()}},
+    {id:'r4',icon:'💰',name:'Pickpocket',desc:'+5 AGI + 300 Coins',cost:2,req:'r1',apply:()=>{G.agi+=5;save();gainCoins(300)}},
+    {id:'r5',icon:'✨',name:'Ghost Walk',desc:'+15 AGI +5 All Stats',cost:5,req:'r3',apply:()=>{G.agi+=15;G.str+=5;G.int+=5;save()}},
+  ],
+};
+var _sktrTab='warrior';
+function _sktrData(){
+  const d=JSON.parse(localStorage.getItem(SKTR_KEY)||'{}');
+  return {pts:d.pts||0,unlocked:d.unlocked||[]};
+}
+function _sktrSave(d){localStorage.setItem(SKTR_KEY,JSON.stringify(d));}
+function sktrEarnPts(n){
+  const d=_sktrData();
+  d.pts=(d.pts||0)+n;
+  _sktrSave(d);
+}
+function sktrUnlock(nid){
+  const d=_sktrData();
+  if(d.unlocked.includes(nid)){showFloatBubble('Already unlocked!','bad');return;}
+  // Find node
+  let node=null;
+  for(const tree of Object.values(SKTR_TREES)){const n=tree.find(n=>n.id===nid);if(n){node=n;break;}}
+  if(!node)return;
+  if(node.req&&!d.unlocked.includes(node.req)){showFloatBubble('Unlock prerequisite first!','bad');return;}
+  if(d.pts<node.cost){showFloatBubble(`Need ${node.cost} skill points!`,'bad');return;}
+  d.pts-=node.cost;
+  d.unlocked.push(nid);
+  _sktrSave(d);
+  node.apply();
+  showFloatBubble(`🌱 ${node.name} unlocked! ${node.desc}`,'good');
+  checkAchievements();
+  _renderSktr();
+}
+function sktrSetTab(t){
+  _sktrTab=t;
+  document.querySelectorAll('.sktr-tab').forEach((el,i)=>{
+    el.className='sktr-tab'+(['warrior','mage','rogue'][i]===t?' active':'');
+  });
+  _renderSktr();
+}
+function openSktr(){
+  // Earn 1 SP for visiting if not today
+  const d=_sktrData();
+  const today=getTodayKey();
+  if(d._lastVisit!==today){d.pts++;d._lastVisit=today;_sktrSave(d);}
+  $('sktrPanel').style.display='flex';_renderSktr();
+}
+function closeSktr(){$('sktrPanel').style.display='none';}
+function _renderSktr(){
+  const d=_sktrData();
+  $('sktrPts').textContent='Skill Points: '+d.pts;
+  const tree=SKTR_TREES[_sktrTab];
+  $('sktrTree').innerHTML=tree.map(n=>{
+    const unlocked=d.unlocked.includes(n.id);
+    const reqMet=!n.req||d.unlocked.includes(n.req);
+    const cls='sktr-node'+(unlocked?' unlocked':(!reqMet?' locked':''));
+    return `<div class="${cls}" onclick="${reqMet&&!unlocked?'sktrUnlock(''+n.id+'')':''}">
+      <span class="sn-icon">${n.icon}</span>
+      <div class="sn-info">
+        <div class="sn-name">${n.name}</div>
+        <div class="sn-desc">${n.desc}</div>
+        <div class="sn-cost">Cost: ${n.cost} SP${n.req?' | Req: prev node':''}</div>
+      </div>
+      <span class="sn-status">${unlocked?'✅':reqMet?'🔓':'🔒'}</span>
     </div>`;
   }).join('');
 }
