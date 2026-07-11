@@ -1913,6 +1913,41 @@ textarea.inp { resize:none;min-height:72px; }
 .wgld-complete-btn{background:linear-gradient(135deg,#001a00,#004400);border:1.5px solid rgba(68,255,136,.3);border-radius:9px;padding:5px 10px;font:700 8px var(--ff-head);color:rgba(68,255,136,.8);cursor:pointer;white-space:nowrap}
 .wgld-complete-btn:disabled{opacity:.3;cursor:default}
 
+/* ══ HAUNTED MANSION ══ */
+.haunt-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#0a0010,#120018,#060008);z-index:1174;overflow-y:auto;padding:0 0 80px}
+.haunt-header{text-align:center;padding:22px 16px 10px;color:#cc88ff}
+.haunt-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 16px #8800cc}
+.haunt-energy{text-align:center;color:#aa66dd;font-size:.85rem;margin:4px 0 12px}
+.haunt-rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 12px}
+.haunt-room{background:rgba(30,0,50,.4);border:1px solid #3a0055;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.haunt-room:active{transform:scale(.95)}
+.haunt-room.explored{border-color:#cc88ff;background:rgba(50,0,80,.5)}
+.haunt-room.haunted{animation:haunt-flicker 1.5s infinite}
+@keyframes haunt-flicker{0%,100%{border-color:#3a0055}50%{border-color:#880033;box-shadow:0 0 10px rgba(200,0,80,.3)}}
+.hr-icon{font-size:1.6rem}
+.hr-name{font-size:.72rem;color:#cc88ff;font-weight:700;margin-top:3px}
+.hr-status{font-size:.65rem;color:#884499;margin-top:2px}
+.haunt-log{margin:14px 12px 0;background:rgba(0,0,0,.35);border-radius:10px;padding:10px;max-height:100px;overflow-y:auto}
+.haunt-log div{font-size:.75rem;color:#9955bb;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
+/* ══ MAGIC ACADEMY ══ */
+.macad-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#0a0a1f,#141430,#06061a);z-index:1173;overflow-y:auto;padding:0 0 80px}
+.macad-header{text-align:center;padding:22px 16px 10px;color:#aaccff}
+.macad-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 16px #5577ff}
+.macad-energy{text-align:center;color:#7799cc;font-size:.85rem;margin:4px 0 12px}
+.macad-courses{display:flex;flex-direction:column;gap:8px;padding:0 12px}
+.macad-course{background:rgba(20,20,60,.4);border:1px solid #2a2a60;border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s}
+.macad-course:active{transform:scale(.97)}
+.macad-course.studied{border-color:#aaccff}
+.mc-icon{font-size:2rem;flex-shrink:0}
+.mc-info{flex:1}
+.mc-name{font-size:.88rem;color:#aaccff;font-weight:700}
+.mc-desc{font-size:.73rem;color:#5577aa}
+.mc-grade{font-size:.72rem;color:#ffcc44;margin-top:3px}
+.mc-btn{background:linear-gradient(135deg,#222288,#4444cc);color:#fff;border:none;border-radius:8px;padding:5px 12px;font-size:.8rem;cursor:pointer;margin-top:6px}
+.macad-log{margin:14px 12px 0;background:rgba(0,0,0,.3);border-radius:10px;padding:10px;max-height:100px;overflow-y:auto}
+.macad-log div{font-size:.75rem;color:#7799cc;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
 /* ══ SOUL FORGE ══ */
 .sforge-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#0f0020,#1a0035,#080015);z-index:1172;overflow-y:auto;padding:0 0 80px}
 .sforge-header{text-align:center;padding:22px 16px 10px;color:#dd88ff}
@@ -16693,6 +16728,22 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+<!-- HAUNTED MANSION -->
+<div id="hauntPanel" class="haunt-panel">
+  <div class="haunt-header"><h2>👻 Haunted Mansion</h2></div>
+  <div class="haunt-energy" id="hauntEnergy"></div>
+  <div class="haunt-rooms" id="hauntRooms"></div>
+  <div class="haunt-log" id="hauntLog"></div>
+  <button onclick="closeHaunt()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
+<!-- MAGIC ACADEMY -->
+<div id="macadPanel" class="macad-panel">
+  <div class="macad-header"><h2>🎓 Magic Academy</h2></div>
+  <div class="macad-energy" id="macadEnergy"></div>
+  <div class="macad-courses" id="macadCourses"></div>
+  <div class="macad-log" id="macadLog"></div>
+  <button onclick="closeMacad()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
 <!-- SOUL FORGE -->
 <div id="sforgePanel" class="sforge-panel">
   <div class="sforge-header"><h2>💜 Soul Forge</h2></div>
@@ -74516,6 +74567,129 @@ function _renderSforge(){
     </div>
   </div>`).join('');
   $('sforgeLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Gather souls and fuse them!</div>';
+}
+
+
+// ══ MAGIC ACADEMY ══
+const MACAD_KEY='k0509_macad';
+const MACAD_COURSES=[
+  {id:'c1',icon:'🔥',name:'Pyromancy',desc:'Master fire spells',studies:0,maxStudies:5,reward:{str:3,coins:100}},
+  {id:'c2',icon:'💧',name:'Hydromancy',desc:'Control water magic',studies:0,maxStudies:5,reward:{int:4,kc:30}},
+  {id:'c3',icon:'⚡',name:'Electromancy',desc:'Harness lightning',studies:0,maxStudies:5,reward:{agi:4,coins:120}},
+  {id:'c4',icon:'🌪️',name:'Aeromancy',desc:'Bend wind to will',studies:0,maxStudies:5,reward:{agi:5,int:2}},
+  {id:'c5',icon:'🌑',name:'Necromancy',desc:'Dark arts of death',studies:0,maxStudies:7,reward:{str:5,int:5}},
+  {id:'c6',icon:'✨',name:'Chronomancy',desc:'Bend time itself',studies:0,maxStudies:10,reward:{kc:150,str:8,int:8,agi:8}},
+];
+function _macadData(){return JSON.parse(localStorage.getItem(MACAD_KEY)||'{"xp":0,"studies":0,"lastDay":"","progress":{},"graduated":[],"log":[]}');}
+function _macadSave(d){localStorage.setItem(MACAD_KEY,JSON.stringify(d));}
+function macadStudy(cid){
+  const d=_macadData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.studies=0;d.lastDay=today;}
+  if(d.studies>=6){showFloatBubble('6 studies today!','bad');return;}
+  const course=MACAD_COURSES.find(c=>c.id===cid);
+  if(!course)return;
+  if(d.graduated.includes(cid)){showFloatBubble('Already graduated!','bad');return;}
+  d.studies++;d.xp+=10;
+  d.progress[cid]=(d.progress[cid]||0)+1;
+  const prog=d.progress[cid];
+  let msg=`${course.icon} Studied ${course.name} (${prog}/${course.maxStudies})`;
+  if(prog>=course.maxStudies&&!d.graduated.includes(cid)){
+    d.graduated.push(cid);
+    const r=course.reward;
+    if(r.str){G.str=(G.str||10)+r.str;save();}
+    if(r.int){G.int=(G.int||10)+r.int;save();}
+    if(r.agi){G.agi=(G.agi||10)+r.agi;save();}
+    if(r.coins){gainCoins(r.coins);}
+    if(r.kc){gainKC(r.kc);}
+    msg+=` | 🎓 GRADUATED!`;
+    showFloatBubble(`🎓 Graduated ${course.name}!`,'good');
+  } else {
+    gainXP(5,'int');
+    showFloatBubble(`${course.icon} Studied!`,'good');
+  }
+  d.log.unshift(msg);if(d.log.length>12)d.log.pop();
+  _macadSave(d);checkAchievements();_renderMacad();
+}
+function openMacad(){$('macadPanel').style.display='flex';_renderMacad();}
+function closeMacad(){$('macadPanel').style.display='none';}
+function _renderMacad(){
+  const d=_macadData();
+  const today=getTodayKey();
+  const studies=d.lastDay===today?d.studies:0;
+  $('macadEnergy').textContent=`Academic XP: ${d.xp} | Graduated: ${d.graduated.length}/${MACAD_COURSES.length} | Studies: ${studies}/6`;
+  $('macadCourses').innerHTML=MACAD_COURSES.map(c=>{
+    const prog=d.progress[c.id]||0;
+    const grads=d.graduated.includes(c.id);
+    const pct=Math.min(100,Math.round(prog/c.maxStudies*100));
+    return `<div class="macad-course ${grads?'studied':''}">
+      <div class="mc-icon">${c.icon}</div>
+      <div class="mc-info">
+        <div class="mc-name">${c.name} ${grads?'🎓':''}</div>
+        <div class="mc-desc">${c.desc}</div>
+        <div class="mc-grade">Progress: ${prog}/${c.maxStudies} (${pct}%)</div>
+        ${grads?'':`<button class="mc-btn" onclick="macadStudy('${c.id}')">📚 Study</button>`}
+      </div>
+    </div>`;
+  }).join('');
+  $('macadLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Study courses to graduate!</div>';
+}
+
+// ══ HAUNTED MANSION ══
+const HAUNT_KEY='k0509_haunt';
+const HAUNT_ROOMS=[
+  {id:'h1',icon:'🚪',name:'Entrance',type:'normal',reward:{coins:40}},
+  {id:'h2',icon:'🕯️',name:'Candle Hall',type:'normal',reward:{kc:10}},
+  {id:'h3',icon:'👻',name:'Ghost Room',type:'haunted',reward:{coins:80,xp:5}},
+  {id:'h4',icon:'🖼️',name:'Portrait Hall',type:'normal',reward:{int:2}},
+  {id:'h5',icon:'📚',name:'Dark Library',type:'normal',reward:{int:3,kc:15}},
+  {id:'h6',icon:'💀',name:'Skeleton Room',type:'haunted',reward:{str:3,coins:60}},
+  {id:'h7',icon:'🧪',name:'Lab Room',type:'normal',reward:{int:4,agi:1}},
+  {id:'h8',icon:'🕸️',name:'Spider Den',type:'haunted',reward:{kc:25,coins:70}},
+  {id:'h9',icon:'⚰️',name:'Crypt',type:'haunted',reward:{str:4,kc:30}},
+  {id:'h10',icon:'🔮',name:'Séance Room',type:'normal',reward:{int:5}},
+  {id:'h11',icon:'🌑',name:'Void Chamber',type:'haunted',reward:{kc:50,int:4}},
+  {id:'h12',icon:'👁️',name:'The Eye',type:'legendary',reward:{str:8,int:8,agi:8}},
+];
+function _hauntData(){return JSON.parse(localStorage.getItem(HAUNT_KEY)||'{"spirit":0,"explores":0,"lastDay":"","explored":[],"log":[]}');}
+function _hauntSave(d){localStorage.setItem(HAUNT_KEY,JSON.stringify(d));}
+function hauntExplore(rid){
+  const d=_hauntData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.explores=0;d.lastDay=today;}
+  if(d.explores>=7){showFloatBubble('7 explores today!','bad');return;}
+  const room=HAUNT_ROOMS.find(r=>r.id===rid);
+  if(!room)return;
+  if(d.explored.includes(rid)&&room.type==='legendary'){showFloatBubble('Already explored!','bad');return;}
+  d.explores++;d.spirit+=8;
+  if(!d.explored.includes(rid))d.explored.push(rid);
+  let rewards=[];
+  const r=room.reward;
+  if(r.coins){gainCoins(r.coins);rewards.push(r.coins+'🪙');}
+  if(r.kc){gainKC(r.kc);rewards.push(r.kc+'KC');}
+  if(r.xp){gainXP(r.xp,'int');rewards.push(r.xp+'XP');}
+  if(r.str){G.str=(G.str||10)+r.str;save();rewards.push(r.str+'STR');}
+  if(r.int){G.int=(G.int||10)+r.int;save();rewards.push(r.int+'INT');}
+  if(r.agi){G.agi=(G.agi||10)+r.agi;save();rewards.push(r.agi+'AGI');}
+  d.log.unshift(`${room.icon} ${room.name}: ${rewards.join(' ')}`);
+  if(d.log.length>12)d.log.pop();
+  _hauntSave(d);
+  showFloatBubble(`${room.icon} ${room.name} explored!`,'good');
+  checkAchievements();_renderHaunt();
+}
+function openHaunt(){$('hauntPanel').style.display='flex';_renderHaunt();}
+function closeHaunt(){$('hauntPanel').style.display='none';}
+function _renderHaunt(){
+  const d=_hauntData();
+  const today=getTodayKey();
+  const explores=d.lastDay===today?d.explores:0;
+  $('hauntEnergy').textContent=`Spirit Energy: ${d.spirit} | Rooms: ${d.explored.length}/${HAUNT_ROOMS.length} | Explores: ${explores}/7`;
+  $('hauntRooms').innerHTML=HAUNT_ROOMS.map(r=>`<div class="haunt-room ${d.explored.includes(r.id)?'explored':''} ${r.type==='haunted'&&!d.explored.includes(r.id)?'haunted':''}" onclick="hauntExplore('${r.id}')">
+    <div class="hr-icon">${r.icon}</div>
+    <div class="hr-name">${r.name}</div>
+    <div class="hr-status">${d.explored.includes(r.id)?'✓ Explored':r.type==='legendary'?'LEGENDARY':r.type==='haunted'?'Haunted':'Explore'}</div>
+  </div>`).join('');
+  $('hauntLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Explore the haunted mansion!</div>';
 }
 
 </script>
