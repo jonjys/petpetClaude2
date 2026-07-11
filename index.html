@@ -1913,6 +1913,50 @@ textarea.inp { resize:none;min-height:72px; }
 .wgld-complete-btn{background:linear-gradient(135deg,#001a00,#004400);border:1.5px solid rgba(68,255,136,.3);border-radius:9px;padding:5px 10px;font:700 8px var(--ff-head);color:rgba(68,255,136,.8);cursor:pointer;white-space:nowrap}
 .wgld-complete-btn:disabled{opacity:.3;cursor:default}
 
+/* ══ SOUL FORGE ══ */
+.sforge-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#0f0020,#1a0035,#080015);z-index:1172;overflow-y:auto;padding:0 0 80px}
+.sforge-header{text-align:center;padding:22px 16px 10px;color:#dd88ff}
+.sforge-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 18px #aa44ff}
+.sforge-energy{text-align:center;color:#aa55cc;font-size:.85rem;margin:4px 0 12px}
+.sforge-souls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 12px}
+.sf-soul{background:rgba(40,0,80,.4);border:1px solid #3a0060;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.sf-soul:active{transform:scale(.95)}
+.sf-soul.collected{border-color:#dd88ff;background:rgba(70,0,120,.5)}
+.sf-soul-icon{font-size:1.6rem}
+.sf-soul-name{font-size:.68rem;color:#cc88ee;font-weight:700;margin-top:3px}
+.sf-soul-count{font-size:.68rem;color:#9955bb}
+.sforge-fusions{display:flex;flex-direction:column;gap:8px;padding:0 12px;margin-top:10px}
+.sf-fusion{background:rgba(40,0,80,.35);border:1px solid #3a0060;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s}
+.sf-fusion:active{transform:scale(.97)}
+.sf-fusion.done{border-color:#dd88ff;opacity:.6;cursor:default}
+.sf-f-icon{font-size:1.8rem;flex-shrink:0}
+.sf-f-info{flex:1}
+.sf-f-name{font-size:.85rem;color:#dd88ff;font-weight:700}
+.sf-f-cost{font-size:.72rem;color:#996699}
+.sf-f-bonus{font-size:.72rem;color:#88ddaa}
+.sforge-gather-btn{margin:10px 12px 0;background:linear-gradient(135deg,#3a0068,#6600cc);color:#fff;border:none;border-radius:10px;padding:11px;font-size:.9rem;font-weight:700;width:calc(100% - 24px);cursor:pointer}
+.sforge-log{margin:10px 12px 0;background:rgba(0,0,0,.3);border-radius:10px;padding:10px;max-height:100px;overflow-y:auto}
+.sforge-log div{font-size:.75rem;color:#aa66cc;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
+/* ══ CYBER ARENA ══ */
+.cyber-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#000a1a,#001533,#000d22);z-index:1171;overflow-y:auto;padding:0 0 80px}
+.cyber-header{text-align:center;padding:22px 16px 10px;color:#00ffff}
+.cyber-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 20px #00cccc}
+.cyber-energy{text-align:center;color:#0099aa;font-size:.85rem;margin:4px 0 10px}
+.cyber-arena{background:rgba(0,30,60,.4);border:1px solid #004488;border-radius:14px;margin:0 12px 10px;padding:16px;text-align:center}
+.cyber-enemy{font-size:3rem;margin-bottom:6px;filter:drop-shadow(0 0 14px #00ccff)}
+.cyber-hp{background:rgba(0,0,0,.5);border-radius:8px;height:12px;overflow:hidden;margin:6px 0}
+.cyber-hp-bar{height:100%;background:linear-gradient(90deg,#00ccff,#0066ff);border-radius:8px;transition:width .3s}
+.cyber-enemy-name{font-size:.88rem;color:#00ccff;font-weight:700}
+.cyber-attacks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 12px}
+.cyber-atk{background:rgba(0,40,80,.4);border:1px solid #003a6a;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.cyber-atk:active{transform:scale(.96)}
+.ca-icon{font-size:1.6rem}
+.ca-name{font-size:.72rem;color:#44aacc;font-weight:700;margin-top:3px}
+.ca-dmg{font-size:.68rem;color:#ffcc44}
+.cyber-log{margin:12px 12px 0;background:rgba(0,0,0,.35);border-radius:10px;padding:10px;max-height:110px;overflow-y:auto}
+.cyber-log div{font-size:.75rem;color:#0099aa;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
 /* ══ TROPHY HALL ══ */
 .trophy-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#1a0f00,#2b1800,#120c00);z-index:1170;overflow-y:auto;padding:0 0 80px}
 .trophy-header{text-align:center;padding:22px 16px 10px;color:#ffd700}
@@ -16649,6 +16693,25 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+<!-- SOUL FORGE -->
+<div id="sforgePanel" class="sforge-panel">
+  <div class="sforge-header"><h2>💜 Soul Forge</h2></div>
+  <div class="sforge-energy" id="sforgeEnergy"></div>
+  <div class="sforge-souls" id="sforgeSouls"></div>
+  <button class="sforge-gather-btn" onclick="sforgeGather()">✨ Gather Souls</button>
+  <div class="sforge-fusions" id="sforgeFusions"></div>
+  <div class="sforge-log" id="sforgeLog"></div>
+  <button onclick="closeSforge()" style="margin:12px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
+<!-- CYBER ARENA -->
+<div id="cyberPanel" class="cyber-panel">
+  <div class="cyber-header"><h2>🤖 Cyber Arena</h2></div>
+  <div class="cyber-energy" id="cyberEnergy"></div>
+  <div class="cyber-arena" id="cyberArena"></div>
+  <div class="cyber-attacks" id="cyberAttacks"></div>
+  <div class="cyber-log" id="cyberLog"></div>
+  <button onclick="closeCyber()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
 <!-- TROPHY HALL -->
 <div id="trophyPanel" class="trophy-panel">
   <div class="trophy-header"><h2>🏆 Trophy Hall</h2></div>
@@ -74312,6 +74375,147 @@ function _renderTrophy(){
     </div>`;
   }).join('');
   $('trophyLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Meet conditions to earn trophies!</div>';
+}
+
+
+// ══ CYBER ARENA ══
+const CYBER_KEY='k0509_cyber';
+const CYBER_ENEMIES=[
+  {name:'Nano Bot',icon:'🤖',hp:100,maxHp:100},
+  {name:'Cyber Knight',icon:'🦾',hp:180,maxHp:180},
+  {name:'Plasma Drone',icon:'🚀',hp:260,maxHp:260},
+  {name:'Mech Lord',icon:'⚙️',hp:400,maxHp:400},
+  {name:'AI Overlord',icon:'💻',hp:600,maxHp:600},
+];
+const CYBER_ATTACKS=[
+  {id:'laser',icon:'🔴',name:'Laser Shot',dmg:[20,35]},
+  {id:'shield',icon:'🛡️',name:'Shield Bash',dmg:[15,25]},
+  {id:'missile',icon:'🚀',name:'Missile',dmg:[30,50]},
+];
+function _cyberData(){return JSON.parse(localStorage.getItem(CYBER_KEY)||'{"credits":0,"fights":0,"lastDay":"","enemyIdx":0,"enemyHp":100,"wins":0,"log":[]}');}
+function _cyberSave(d){localStorage.setItem(CYBER_KEY,JSON.stringify(d));}
+function cyberAttack(aid){
+  const d=_cyberData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.fights=0;d.lastDay=today;}
+  if(d.fights>=8){showFloatBubble('8 fights today!','bad');return;}
+  const atk=CYBER_ATTACKS.find(a=>a.id===aid);
+  const enemy=CYBER_ENEMIES[Math.min(d.enemyIdx,CYBER_ENEMIES.length-1)];
+  const dmg=atk.dmg[0]+Math.floor(Math.random()*(atk.dmg[1]-atk.dmg[0]+1));
+  d.enemyHp=Math.max(0,d.enemyHp-dmg);
+  d.fights++;
+  let msg=`${atk.icon} ${atk.name}: -${dmg} HP`;
+  if(d.enemyHp<=0){
+    d.wins++;d.credits+=30+d.enemyIdx*20;
+    gainCoins(40+d.enemyIdx*15);gainXP(10,'str');
+    d.enemyIdx=Math.min(d.enemyIdx+1,CYBER_ENEMIES.length-1);
+    const nextEnemy=CYBER_ENEMIES[d.enemyIdx];
+    d.enemyHp=nextEnemy.maxHp;
+    msg+=` | ${enemy.name} DEFEATED! +${30+d.enemyIdx*20} credits`;
+    showFloatBubble(`⚡ ${enemy.name} defeated!`,'good');
+  } else {
+    const counterDmg=Math.floor(enemy.maxHp*0.05);
+    showFloatBubble(`${atk.icon} ${dmg} damage!`,'good');
+  }
+  d.log.unshift(msg);if(d.log.length>12)d.log.pop();
+  _cyberSave(d);checkAchievements();_renderCyber();
+}
+function openCyber(){$('cyberPanel').style.display='flex';_renderCyber();}
+function closeCyber(){$('cyberPanel').style.display='none';}
+function _renderCyber(){
+  const d=_cyberData();
+  const today=getTodayKey();
+  const fights=d.lastDay===today?d.fights:0;
+  const enemy=CYBER_ENEMIES[Math.min(d.enemyIdx,CYBER_ENEMIES.length-1)];
+  const hpPct=Math.max(0,Math.min(100,(d.enemyHp/enemy.maxHp)*100));
+  $('cyberEnergy').textContent=`Credits: ${d.credits} | Fights: ${fights}/8 | Wins: ${d.wins}`;
+  $('cyberArena').innerHTML=`<div class="cyber-enemy">${enemy.icon}</div>
+    <div class="cyber-enemy-name">${enemy.name}</div>
+    <div class="cyber-hp"><div class="cyber-hp-bar" style="width:${hpPct}%"></div></div>
+    <div style="font-size:.75rem;color:#0099aa;margin-top:4px">HP: ${d.enemyHp}/${enemy.maxHp}</div>`;
+  $('cyberAttacks').innerHTML=CYBER_ATTACKS.map(a=>`<div class="cyber-atk" onclick="cyberAttack('${a.id}')">
+    <div class="ca-icon">${a.icon}</div>
+    <div class="ca-name">${a.name}</div>
+    <div class="ca-dmg">${a.dmg[0]}-${a.dmg[1]} dmg</div>
+  </div>`).join('');
+  $('cyberLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Attack the enemy!</div>';
+}
+
+// ══ SOUL FORGE ══
+const SFORGE_KEY='k0509_sforge';
+const SFORGE_SOULS=[
+  {id:'fire',icon:'🔥',name:'Fire'},
+  {id:'water',icon:'💧',name:'Water'},
+  {id:'light',icon:'✨',name:'Light'},
+  {id:'dark',icon:'🌑',name:'Dark'},
+  {id:'storm',icon:'⚡',name:'Storm'},
+  {id:'earth',icon:'🪨',name:'Earth'},
+  {id:'void',icon:'🕳️',name:'Void'},
+  {id:'cosmos',icon:'🌌',name:'Cosmos'},
+];
+const SFORGE_FUSIONS=[
+  {id:'sf1',icon:'🌋',name:'Lava Phoenix',needs:{fire:3,earth:2},bonus:'+8 STR +5 INT',str:8,int:5},
+  {id:'sf2',icon:'🌊',name:'Tidal Spirit',needs:{water:3,storm:2},bonus:'+8 AGI +5 INT',agi:8,int:5},
+  {id:'sf3',icon:'☀️',name:'Solar Angel',needs:{light:3,fire:2},bonus:'+10 INT',int:10},
+  {id:'sf4',icon:'🌓',name:'Eclipse Wraith',needs:{dark:3,void:2},bonus:'+8 STR +6 AGI',str:8,agi:6},
+  {id:'sf5',icon:'⚡',name:'Thunder God',needs:{storm:3,cosmos:2},bonus:'+12 AGI',agi:12},
+  {id:'sf6',icon:'🌌',name:'Void Emperor',needs:{void:3,dark:3,cosmos:2},bonus:'+10 all',str:10,int:10,agi:10},
+];
+function _sforgeData(){return JSON.parse(localStorage.getItem(SFORGE_KEY)||'{"essence":0,"gathers":0,"lastDay":"","souls":{},"fused":[],"log":[]}');}
+function _sforgeSave(d){localStorage.setItem(SFORGE_KEY,JSON.stringify(d));}
+function sforgeGather(){
+  const d=_sforgeData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.gathers=0;d.lastDay=today;}
+  if(d.gathers>=6){showFloatBubble('6 gathers today!','bad');return;}
+  d.gathers++;d.essence+=8;
+  const soul=SFORGE_SOULS[Math.floor(Math.random()*SFORGE_SOULS.length)];
+  const amt=1+Math.floor(Math.random()*3);
+  d.souls[soul.id]=(d.souls[soul.id]||0)+amt;
+  d.log.unshift(`${soul.icon} +${amt} ${soul.name} soul`);
+  if(d.log.length>12)d.log.pop();
+  _sforgeSave(d);showFloatBubble(`${soul.icon} +${amt} ${soul.name} soul`,'good');_renderSforge();
+}
+function sforgeFuse(fid){
+  const d=_sforgeData();
+  const fusion=SFORGE_FUSIONS.find(f=>f.id===fid);
+  if(!fusion)return;
+  if(d.fused.includes(fid)){showFloatBubble('Already fused!','bad');return;}
+  for(const [soul,qty] of Object.entries(fusion.needs)){
+    if((d.souls[soul]||0)<qty){showFloatBubble(`Need more ${soul} souls!`,'bad');return;}
+  }
+  for(const [soul,qty] of Object.entries(fusion.needs)){d.souls[soul]-=qty;}
+  d.fused.push(fid);
+  if(fusion.str){G.str=(G.str||10)+fusion.str;save();}
+  if(fusion.int){G.int=(G.int||10)+fusion.int;save();}
+  if(fusion.agi){G.agi=(G.agi||10)+fusion.agi;save();}
+  gainKC(50);
+  d.log.unshift(`${fusion.icon} ${fusion.name} fused! ${fusion.bonus}`);
+  if(d.log.length>12)d.log.pop();
+  _sforgeSave(d);showFloatBubble(`${fusion.icon} ${fusion.name} fused!`,'good');
+  checkAchievements();_renderSforge();
+}
+function openSforge(){$('sforgePanel').style.display='flex';_renderSforge();}
+function closeSforge(){$('sforgePanel').style.display='none';}
+function _renderSforge(){
+  const d=_sforgeData();
+  const today=getTodayKey();
+  const gathers=d.lastDay===today?d.gathers:0;
+  $('sforgeEnergy').textContent=`Essence: ${d.essence} | Fused: ${d.fused.length}/${SFORGE_FUSIONS.length} | Gathers: ${gathers}/6`;
+  $('sforgeSouls').innerHTML=SFORGE_SOULS.map(s=>`<div class="sf-soul ${(d.souls[s.id]||0)>0?'collected':''}">
+    <div class="sf-soul-icon">${s.icon}</div>
+    <div class="sf-soul-name">${s.name}</div>
+    <div class="sf-soul-count">x${d.souls[s.id]||0}</div>
+  </div>`).join('');
+  $('sforgeFusions').innerHTML=SFORGE_FUSIONS.map(f=>`<div class="sf-fusion ${d.fused.includes(f.id)?'done':''}" onclick="${d.fused.includes(f.id)?'':'sforgeFuse(''+f.id+'')'}">
+    <div class="sf-f-icon">${f.icon}</div>
+    <div class="sf-f-info">
+      <div class="sf-f-name">${f.name} ${d.fused.includes(f.id)?'✓':''}</div>
+      <div class="sf-f-cost">${d.fused.includes(f.id)?'Fused':Object.entries(f.needs).map(([k,v])=>v+' '+k).join(' + ')}</div>
+      <div class="sf-f-bonus">${f.bonus}</div>
+    </div>
+  </div>`).join('');
+  $('sforgeLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Gather souls and fuse them!</div>';
 }
 
 </script>
