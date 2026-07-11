@@ -1736,6 +1736,80 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+
+/* ══ PRESTIGE REALM 2 ══ */
+.prs2-panel{position:fixed;inset:0;background:#08060e;z-index:1110;display:none;flex-direction:column;overflow:hidden}
+.pres-panel.open{display:flex}
+.prs2-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0c0818,#140c1e)}
+.prs2-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff44ff,#8844ff,#44aaff,#ff44ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:prs2Shim 4s linear infinite}
+@keyframes prs2Shim{0%{background-position:0%}100%{background-position:300%}}
+.prs2-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.prs2-tier-card{background:radial-gradient(ellipse at 50% 30%,rgba(180,100,255,.12),transparent);border:2px solid rgba(180,100,255,.25);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center}
+.prs2-tier-icon{font-size:56px;margin-bottom:6px;filter:drop-shadow(0 0 10px rgba(180,100,255,.5))}
+.prs2-tier-name{font:800 18px var(--ff-head);color:rgba(220,180,255,.9);margin-bottom:3px}
+.prs2-tier-pts{font:700 11px var(--ff-head);color:rgba(180,130,255,.5);margin-bottom:8px}
+.prs2-perks{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.prs2-perk{background:rgba(180,100,255,.05);border:1px solid rgba(180,100,255,.12);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px}
+.prs2-perk-icon{font-size:18px;flex-shrink:0}
+.prs2-perk-info{flex:1;font:600 8px var(--ff-body);color:rgba(200,170,255,.5)}
+.prs2-perk-active{font:700 8px var(--ff-head);color:rgba(180,255,180,.6)}
+.prs2-rebirth-box{background:rgba(180,100,255,.06);border:2px solid rgba(180,100,255,.2);border-radius:16px;padding:14px;margin-bottom:10px;text-align:center}
+.prs2-rebirth-btn{background:linear-gradient(135deg,#1a0030,#3a0060);border:2px solid rgba(180,100,255,.4);border-radius:14px;padding:12px;font:900 13px var(--ff-head);color:#cc88ff;cursor:pointer;width:100%;margin-bottom:8px}
+.pres-rebirth-btn:disabled{opacity:.3;cursor:default}
+.prs2-rebirth-warn{font:600 8px var(--ff-body);color:rgba(255,150,150,.4)}
+
+/* ══ COMBO MASTER ══ */
+.comb-panel{position:fixed;inset:0;background:#050a02;z-index:1109;display:none;flex-direction:column;overflow:hidden}
+.comb-panel.open{display:flex}
+.comb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060c02,#0a1404)}
+.comb-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#88ff00,#ffee00,#ff8800,#88ff00);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:combShim 3s linear infinite}
+@keyframes combShim{0%{background-position:0%}100%{background-position:300%}}
+.comb-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.comb-meter{background:radial-gradient(ellipse at 50% 80%,rgba(136,255,0,.1),transparent);border:2px solid rgba(136,255,0,.2);border-radius:20px;padding:14px;margin-bottom:12px;text-align:center}
+.comb-count{font:900 56px var(--ff-head);color:rgba(180,255,80,.9);line-height:1;margin-bottom:2px}
+.comb-lbl{font:700 8px var(--ff-head);color:rgba(136,255,0,.4);letter-spacing:2px;margin-bottom:6px}
+.comb-mult{font:800 20px var(--ff-head);color:rgba(255,200,0,.8)}
+.comb-bar{background:rgba(255,255,255,.04);border-radius:5px;height:8px;overflow:hidden;margin:6px auto;max-width:200px}
+.comb-fill{height:100%;background:linear-gradient(90deg,#88ff00,#ffee00);border-radius:5px;transition:width .3s}
+.comb-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}
+.comb-act{background:rgba(136,255,0,.04);border:1.5px solid rgba(136,255,0,.12);border-radius:14px;padding:10px;text-align:center;cursor:pointer;transition:all .15s;user-select:none}
+.comb-act:hover{background:rgba(136,255,0,.08);transform:scale(1.02)}
+.comb-act:active{transform:scale(.96)}
+.comb-act.done{opacity:.5;cursor:default}
+.comb-act-icon{font-size:28px;margin-bottom:4px}
+.comb-act-name{font:700 9px var(--ff-head);color:rgba(200,255,100,.8)}
+.comb-act-rew{font:600 7px var(--ff-body);color:rgba(150,220,80,.4)}
+.comb-history{font:700 8px var(--ff-head);color:rgba(136,255,0,.3);letter-spacing:1px;margin-bottom:5px}
+.comb-chain{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.comb-chain-item{background:rgba(136,255,0,.08);border:1px solid rgba(136,255,0,.2);border-radius:6px;padding:3px 7px;font:600 8px var(--ff-body);color:rgba(180,255,80,.7)}
+
+/* ══ WEEKLY DRAGON ══ */
+.wdrg-panel{position:fixed;inset:0;background:#060000;z-index:1108;display:none;flex-direction:column;overflow:hidden}
+.wdrg-panel.open{display:flex}
+.wdrg-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0000,#180000)}
+.wdrg-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff0000,#ff6600,#ffcc00,#ff0000);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:wdrgShim 3s linear infinite}
+@keyframes wdrgShim{0%{background-position:0%}100%{background-position:300%}}
+.wdrg-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.wdrg-boss{background:radial-gradient(ellipse at 50% 30%,rgba(255,50,0,.15),transparent);border:2px solid rgba(255,80,0,.3);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center}
+.wdrg-boss-icon{font-size:72px;margin-bottom:6px;display:block;filter:drop-shadow(0 0 12px rgba(255,50,0,.6))}
+.wdrg-boss-name{font:800 18px var(--ff-head);color:rgba(255,200,100,.9);margin-bottom:4px}
+.wdrg-boss-hp-bar{background:rgba(255,255,255,.05);border-radius:8px;height:12px;overflow:hidden;margin:6px 0;position:relative}
+.wdrg-boss-hp-fill{height:100%;background:linear-gradient(90deg,#ff3300,#ff6600);border-radius:8px;transition:width .8s}
+.wdrg-boss-hp-txt{font:700 9px var(--ff-head);color:rgba(255,150,80,.6);margin-bottom:6px}
+.wdrg-dmg-row{display:flex;gap:6px;margin-bottom:8px}
+.wdrg-dmg-btn{flex:1;border:1.5px solid;border-radius:12px;padding:8px;font:700 9px var(--ff-head);cursor:pointer;transition:all .2s}
+.wdrg-my-dmg{background:rgba(255,100,0,.06);border:1.5px solid rgba(255,100,0,.2);border-radius:14px;padding:10px;margin-bottom:8px;text-align:center}
+.wdrg-my-dmg-v{font:800 20px var(--ff-head);color:rgba(255,180,80,.8)}
+.wdrg-my-dmg-lbl{font:600 7px var(--ff-body);color:rgba(255,150,50,.4)}
+.wdrg-timer{font:700 10px var(--ff-head);color:rgba(255,100,50,.4);text-align:center;margin-bottom:8px}
+.wdrg-loot-list{display:flex;flex-direction:column;gap:5px}
+.wdrg-loot{background:rgba(255,100,0,.04);border:1px solid rgba(255,100,0,.12);border-radius:10px;padding:7px 10px;display:flex;align-items:center;gap:8px}
+.wdrg-loot-icon{font-size:20px}
+.wdrg-loot-info{flex:1;font:600 8px var(--ff-body);color:rgba(255,180,80,.5)}
+.wdrg-loot-val{font:700 8px var(--ff-head);color:rgba(255,150,50,.6)}
+
 /* ══ GALACTIC TRADE ══ */
 .gtrd-panel{position:fixed;inset:0;background:#020410;z-index:1107;display:none;flex-direction:column;overflow:hidden}
 .gtrd-panel.open{display:flex}
@@ -14061,6 +14135,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">✨</div>Elementlärlingen</div>
           <div class="ddr" onclick="cM();openMysc()"><div class="ddr-i">🃏</div>Mysterikortet</div>
           <div class="ddr" onclick="cM();openGtrd()"><div class="ddr-i">🚀</div>Galaktisk Handel</div>
+          <div class="ddr" onclick="cM();openWdrg()"><div class="ddr-i">🐉</div>Veckodrakens Raid</div>
+          <div class="ddr" onclick="cM();openComb()"><div class="ddr-i">⚡</div>Kombomästaren</div>
+          <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">👑</div>Gudomlighetens Väg</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14189,6 +14266,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">✨</div>Elementlärlingen</div>
           <div class="ddr" onclick="cM();openMysc()"><div class="ddr-i">🃏</div>Mysterikortet</div>
           <div class="ddr" onclick="cM();openGtrd()"><div class="ddr-i">🚀</div>Galaktisk Handel</div>
+          <div class="ddr" onclick="cM();openWdrg()"><div class="ddr-i">🐉</div>Veckodrakens Raid</div>
+          <div class="ddr" onclick="cM();openComb()"><div class="ddr-i">⚡</div>Kombomästaren</div>
+          <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">👑</div>Gudomlighetens Väg</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14300,6 +14380,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">✨</div>Elementlärlingen</div>
           <div class="ddr" onclick="cM();openMysc()"><div class="ddr-i">🃏</div>Mysterikortet</div>
           <div class="ddr" onclick="cM();openGtrd()"><div class="ddr-i">🚀</div>Galaktisk Handel</div>
+          <div class="ddr" onclick="cM();openWdrg()"><div class="ddr-i">🐉</div>Veckodrakens Raid</div>
+          <div class="ddr" onclick="cM();openComb()"><div class="ddr-i">⚡</div>Kombomästaren</div>
+          <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">👑</div>Gudomlighetens Väg</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14342,6 +14425,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">✨</div>Elementlärlingen</div>
           <div class="ddr" onclick="cM();openMysc()"><div class="ddr-i">🃏</div>Mysterikortet</div>
           <div class="ddr" onclick="cM();openGtrd()"><div class="ddr-i">🚀</div>Galaktisk Handel</div>
+          <div class="ddr" onclick="cM();openWdrg()"><div class="ddr-i">🐉</div>Veckodrakens Raid</div>
+          <div class="ddr" onclick="cM();openComb()"><div class="ddr-i">⚡</div>Kombomästaren</div>
+          <div class="ddr" onclick="cM();openPres()"><div class="ddr-i">👑</div>Gudomlighetens Väg</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14465,6 +14551,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openElm2()"><div class="ddr-i">✨</div>Elementlärlingen</div>
           <div class="ddr" onclick="cM();openMysc()"><div class="ddr-i">🃏</div>Mysterikortet</div>
           <div class="ddr" onclick="cM();openGtrd()"><div class="ddr-i">🚀</div>Galaktisk Handel</div>
+          <div class="ddr" onclick="cM();openWdrg()"><div class="ddr-i">🐉</div>Veckodrakens Raid</div>
+          <div class="ddr" onclick="cM();openComb()"><div class="ddr-i">⚡</div>Kombomästaren</div>
+          <div class="ddr" onclick="cM();openPrs2()"><div class="ddr-i">👑</div>Gudomlighetens Väg</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -15242,6 +15331,79 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+
+<!-- PRESTIGE REALM 2 -->
+<div class="prs2-panel" id="prs2Panel">
+  <div class="pres-header">
+    <div class="pres-title">👑 GUDOMLIGHETENS VÄG</div>
+    <button class="close-btn" onclick="closePrs2()">✕</button>
+  </div>
+  <div class="pres-scroll">
+    <div class="pres-tier-card">
+      <div class="pres-tier-icon" id="prs2TierIcon">✨</div>
+      <div class="pres-tier-name" id="prs2TierName">Dödlig</div>
+      <div class="pres-tier-pts" id="prs2TierPts">Prestigenivå 0</div>
+    </div>
+    <div style="font:700 8px var(--ff-head);color:rgba(180,130,255,.4);letter-spacing:1px;margin-bottom:6px">PRESTIGE-FÖRDELAR</div>
+    <div class="pres-perks" id="prs2Perks"></div>
+    <div class="pres-rebirth-box">
+      <div style="font:600 8px var(--ff-body);color:rgba(200,170,255,.4);margin-bottom:8px" id="prs2RebirthInfo">...</div>
+      <button class="pres-rebirth-btn" id="prs2RebirthBtn" onclick="prs2Rebirth()" disabled>🌟 Återfödelse</button>
+      <div class="pres-rebirth-warn" id="prs2RebirthWarn">Varning: Stats återställs! Permanent bonus bevaras.</div>
+    </div>
+  </div>
+</div>
+
+<!-- COMBO MASTER -->
+<div class="comb-panel" id="combPanel">
+  <div class="comb-header">
+    <div class="comb-title">⚡ KOMBOMÄSTAREN</div>
+    <button class="close-btn" onclick="closeComb()">✕</button>
+  </div>
+  <div class="comb-scroll">
+    <div class="comb-meter">
+      <div class="comb-lbl">KOMBOKEDJА</div>
+      <div class="comb-count" id="combCountV">0</div>
+      <div class="comb-mult" id="combMultV">×1.0 bonus</div>
+      <div class="comb-bar"><div class="comb-fill" id="combFill" style="width:0%"></div></div>
+    </div>
+    <div class="comb-actions" id="combActions"></div>
+    <div class="comb-history">NUVARANDE KEDJA</div>
+    <div class="comb-chain" id="combChain"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(136,255,0,.25);text-align:center">Gör aktiviteter i rad utan uppehåll för exponentiell bonus! ⚡</div>
+  </div>
+</div>
+
+<!-- WEEKLY DRAGON -->
+<div class="wdrg-panel" id="wdrgPanel">
+  <div class="wdrg-header">
+    <div class="wdrg-title">🐉 VECKODRAKENS RAID</div>
+    <button class="close-btn" onclick="closeWdrg()">✕</button>
+  </div>
+  <div class="wdrg-scroll">
+    <div class="wdrg-boss">
+      <span class="wdrg-boss-icon" id="wdrgIcon">🐉</span>
+      <div class="wdrg-boss-name" id="wdrgName">Kaosdraken Ignis</div>
+      <div class="wdrg-boss-hp-bar"><div class="wdrg-boss-hp-fill" id="wdrgHpFill" style="width:100%"></div></div>
+      <div class="wdrg-boss-hp-txt" id="wdrgHpTxt">HP: 10000/10000</div>
+    </div>
+    <div class="wdrg-my-dmg">
+      <div class="wdrg-my-dmg-lbl">DIN SKADA DENNA VECKA</div>
+      <div class="wdrg-my-dmg-v" id="wdrgMyDmg">0 skada</div>
+    </div>
+    <div class="wdrg-timer" id="wdrgTimer">Återställs om: ...</div>
+    <div class="wdrg-dmg-row">
+      <button class="wdrg-dmg-btn" style="color:#ff6600;border-color:rgba(255,100,0,.3);background:rgba(255,100,0,.06)" onclick="wdrgAttack('weak')">⚔️ Svag attack</button>
+      <button class="wdrg-dmg-btn" style="color:#ff3300;border-color:rgba(255,50,0,.3);background:rgba(255,50,0,.06)" onclick="wdrgAttack('strong')">🗡️ Stark attack</button>
+      <button class="wdrg-dmg-btn" style="color:#ffcc00;border-color:rgba(255,200,0,.3);background:rgba(255,200,0,.06)" onclick="wdrgAttack('ultimate')">💥 Ultimat</button>
+    </div>
+    <div style="font:700 8px var(--ff-head);color:rgba(255,150,50,.35);letter-spacing:1px;margin-bottom:6px">VECKOBELÖNINGAR</div>
+    <div class="wdrg-loot-list" id="wdrgLoot"></div>
+  </div>
+</div>
 
 <!-- GALACTIC TRADE -->
 <div class="gtrd-panel" id="gtrdPanel">
@@ -66848,6 +67010,286 @@ function _renderGtrd(d){
       goodsHTML+
     '</div>';
   }).join('');
+}
+
+
+// WEEKLY DRAGON
+const WDRG_KEY = 'k0509_wdrg';
+const WDRG_BOSSES = [
+  {icon:'🐉', name:'Kaosdraken Ignis',   hp:10000, str:30},
+  {icon:'🐲', name:'Iskalla Drakvingen', hp:15000, str:40},
+  {icon:'🦕', name:'Urtidens Tyrannos',  hp:20000, str:50},
+  {icon:'🦖', name:'Void-Draken Rex',    hp:30000, str:65},
+];
+const WDRG_ATTACKS = {
+  weak:    {name:'Svag',   dmgBase:50,  dmgLck:15, cost:0,   cd:0},
+  strong:  {name:'Stark',  dmgBase:150, dmgLck:30, cost:0,   cd:0},
+  ultimate:{name:'Ultimat',dmgBase:500, dmgLck:100,cost:0,   cd:0},
+};
+
+function _wdrgData(){try{return JSON.parse(localStorage.getItem(WDRG_KEY)||'null');}catch(e){return null;}}
+function _wdrgSave(d){localStorage.setItem(WDRG_KEY,JSON.stringify(d));}
+function _wdrgGetData(){
+  var d=_wdrgData();
+  var now=Date.now();
+  var weekMs=7*24*3600*1000;
+  if(!d) d={weekStart:now,bossIdx:0,bossHp:WDRG_BOSSES[0].hp,myDmg:0,attacks:0,claimed:false};
+  if(now-d.weekStart>weekMs){
+    // New week, rotate boss
+    d.weekStart=now;
+    d.bossIdx=((d.bossIdx||0)+1)%WDRG_BOSSES.length;
+    var boss=WDRG_BOSSES[d.bossIdx];
+    d.bossHp=boss.hp;
+    d.myDmg=0;d.attacks=0;d.claimed=false;
+    _wdrgSave(d);
+  }
+  return d;
+}
+
+function wdrgAttack(type){
+  var d=_wdrgGetData();
+  if((d.bossHp||0)<=0){showFloatBubble('Draken är redan besegrad!','buff');return;}
+  if((d.attacks||0)>=20){showFloatBubble('Max 20 attacker per vecka!','debuff');return;}
+  var atk=WDRG_ATTACKS[type];
+  var myStr=(G.str||0)+(G.end||0);
+  var dmg=Math.floor(atk.dmgBase+myStr*2+Math.random()*atk.dmgLck*(1+(G.lck||0)*0.1));
+  d.attacks=(d.attacks||0)+1;
+  d.myDmg=(d.myDmg||0)+dmg;
+  d.bossHp=Math.max(0,(d.bossHp||0)-dmg);
+  var boss=WDRG_BOSSES[d.bossIdx||0];
+  gainXP(30+dmg/10,'str');
+  var txt='🐉 '+dmg+' skada! '+d.attacks+'/20 attacker';
+  if(d.bossHp<=0&&!d.claimed){
+    d.claimed=true;
+    var kc=5+(d.bossIdx||0)*3;
+    gainKC(kc);gainCoins(500*(1+(d.bossIdx||0)));
+    G.str=(G.str||0)+5;G.end=(G.end||0)+5;save();
+    showFloatBubble('🎉 DRAKENS BESEGRAD! +'+kc+'KC +'+500*(1+(d.bossIdx||0))+'🪙 +5STR +5END','buff');
+    checkAchievements();
+  } else {
+    showFloatBubble(txt,'buff');
+  }
+  _wdrgSave(d);
+  _renderWdrg(d);
+}
+
+function openWdrg(){$('wdrgPanel').classList.add('open');_renderWdrg();}
+function closeWdrg(){$('wdrgPanel').classList.remove('open');}
+
+function _renderWdrg(d){
+  if(!d) d=_wdrgGetData();
+  var boss=WDRG_BOSSES[d.bossIdx||0];
+  var wi=$('wdrgIcon');if(wi) wi.textContent=boss.icon;
+  var wn=$('wdrgName');if(wn) wn.textContent=boss.name;
+  var hp=d.bossHp||0;
+  var pct=Math.max(0,hp/boss.hp*100);
+  var hf=$('wdrgHpFill');if(hf) hf.style.width=pct+'%';
+  var ht=$('wdrgHpTxt');if(ht) ht.textContent='HP: '+hp.toLocaleString()+'/'+boss.hp.toLocaleString();
+  var md=$('wdrgMyDmg');if(md) md.textContent=(d.myDmg||0).toLocaleString()+' skada ('+(d.attacks||0)+'/20 atk)';
+  var now=Date.now();
+  var weekEnd=d.weekStart+7*24*3600*1000;
+  var secsLeft=Math.max(0,Math.ceil((weekEnd-now)/1000));
+  var h=Math.floor(secsLeft/3600),m=Math.floor((secsLeft%3600)/60),s=secsLeft%60;
+  var wt=$('wdrgTimer');if(wt) wt.textContent='Återställs om: '+h+'h '+m+'m '+s+'s';
+  var loot=$('wdrgLoot');
+  if(loot){
+    var rewards=[
+      {icon:'💰', info:'Vid 1000+ skada',     val:'+100🪙'},
+      {icon:'⚔️', info:'Sista attacken kill',  val:'+5KC +500🪙'},
+      {icon:'🏆', info:'Topp skada (vecka)',   val:'+5STR +5END'},
+      {icon:'💎', info:'Drake besegrad',        val:'+5KC +500🪙/Lager'},
+    ];
+    loot.innerHTML=rewards.map(function(r){
+      return '<div class="wdrg-loot">'+
+        '<div class="wdrg-loot-icon">'+r.icon+'</div>'+
+        '<div class="wdrg-loot-info">'+r.info+'</div>'+
+        '<div class="wdrg-loot-val">'+r.val+'</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// COMBO MASTER
+const COMB_KEY = 'k0509_comb';
+const COMB_ACTS = [
+  {id:'meditate',icon:'🧘', name:'Meditera',    rew:'XP +AGI',   fn:function(mult){gainXP(Math.floor(40*mult),'agi');G.agi=(G.agi||0)+1;save();}},
+  {id:'workout', icon:'💪', name:'Träna',       rew:'XP +STR',   fn:function(mult){gainXP(Math.floor(40*mult),'str');G.str=(G.str||0)+1;save();}},
+  {id:'study',   icon:'📚', name:'Studera',     rew:'XP +INT',   fn:function(mult){gainXP(Math.floor(40*mult),'int');G.int=(G.int||0)+1;save();}},
+  {id:'craft',   icon:'🔨', name:'Tillverka',   rew:'Mynt',      fn:function(mult){gainCoins(Math.floor(50*mult));}},
+  {id:'hunt',    icon:'🏹', name:'Jaga',        rew:'XP +LCK',   fn:function(mult){gainXP(Math.floor(35*mult),'lck');G.lck=(G.lck||0)+1;save();}},
+  {id:'rest',    icon:'😴', name:'Vila',        rew:'XP +END',   fn:function(mult){gainXP(Math.floor(35*mult),'end');G.end=(G.end||0)+1;save();}},
+  {id:'explore', icon:'🗺️', name:'Utforska',    rew:'Mynt+XP',   fn:function(mult){gainCoins(Math.floor(40*mult));gainXP(Math.floor(30*mult),'agi');}},
+  {id:'battle',  icon:'⚔️', name:'Slåss',       rew:'STR+Mynt',  fn:function(mult){gainCoins(Math.floor(60*mult));G.str=(G.str||0)+2;save();}},
+];
+
+function _combData(){try{return JSON.parse(localStorage.getItem(COMB_KEY)||'null');}catch(e){return null;}}
+function _combSave(d){localStorage.setItem(COMB_KEY,JSON.stringify(d));}
+function _combGetData(){
+  var d=_combData();
+  if(!d) d={combo:0,chain:[],lastAct:null,lastTime:0,doneToday:{},lastDay:'',bestCombo:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.doneToday={};d.lastDay=today;_combSave(d);}
+  return d;
+}
+
+function combDo(actId){
+  var d=_combGetData();
+  if(d.doneToday[actId]){showFloatBubble('Redan gjort idag! Byt aktivitet.','debuff');return;}
+  var now=Date.now();
+  var act=COMB_ACTS.find(function(a){return a.id===actId;});
+  if(!act) return;
+  // Combo logic: break combo if > 60s since last action OR repeated immediately
+  var timeSinceLast=now-(d.lastTime||0);
+  if(timeSinceLast>60000&&d.combo>0){
+    d.combo=0;d.chain=[];
+  }
+  d.combo=(d.combo||0)+1;
+  d.chain=d.chain||[];
+  d.chain.push(act.icon);
+  if(d.chain.length>12) d.chain=d.chain.slice(-12);
+  if(d.combo>d.bestCombo) d.bestCombo=d.combo;
+  var mult=1+Math.floor((d.combo-1)/3)*0.5;
+  var comboBonus=d.combo>=10?gainKC(1):null;
+  act.fn(mult);
+  gainXP(20+d.combo*5,'str');
+  d.doneToday[actId]=true;
+  d.lastTime=now;
+  d.lastAct=actId;
+  _combSave(d);
+  var msg='⚡ '+act.icon+' '+act.name+'! Kombo x'+d.combo+'! (×'+mult.toFixed(1)+' bonus)';
+  if(d.combo>=10) msg+=' +1KC!';
+  showFloatBubble(msg,'buff');
+  if(d.combo%5===0) checkAchievements();
+  _renderComb(d);
+}
+
+function openComb(){$('combPanel').classList.add('open');_renderComb();}
+function closeComb(){$('combPanel').classList.remove('open');}
+
+function _renderComb(d){
+  if(!d) d=_combGetData();
+  var cv=$('combCountV');if(cv) cv.textContent=d.combo||0;
+  var mult=1+Math.floor(((d.combo||0)-1)/3)*0.5;
+  var mv=$('combMultV');if(mv) mv.textContent='×'+mult.toFixed(1)+' bonus'+(d.combo>=10?' 🔥':'');
+  var cf=$('combFill');if(cf) cf.style.width=Math.min(100,((d.combo||0)%10)/10*100)+'%';
+  var container=$('combActions');
+  if(container){
+    container.innerHTML=COMB_ACTS.map(function(act){
+      var done=!!d.doneToday[act.id];
+      return '<div class="comb-act'+(done?' done':'')+'" onclick="combDo(\''+act.id+'\')">'+
+        '<div class="comb-act-icon">'+act.icon+'</div>'+
+        '<div class="comb-act-name">'+act.name+'</div>'+
+        '<div class="comb-act-rew">'+(done?'✓ Klar':act.rew+' ×'+mult.toFixed(1))+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  var chain=$('combChain');
+  if(chain){
+    chain.innerHTML=(d.chain||[]).map(function(icon,i){
+      return '<div class="comb-chain-item">'+icon+'</div>';
+    }).join('');
+  }
+}
+
+
+// PRESTIGE REALM
+var PRS2_KEY = 'k0509_pres';
+const PRES_TIERS = [
+  {icon:'✨', name:'Dödlig',      minLvl:1,  pts:0,   bonus:{mult:1.0}},
+  {icon:'💫', name:'Hjälte',      minLvl:20, pts:1,   bonus:{mult:1.1, kc:2}},
+  {icon:'⭐', name:'Mästare',     minLvl:40, pts:2,   bonus:{mult:1.2, kc:5}},
+  {icon:'🌟', name:'Stormästare', minLvl:60, pts:3,   bonus:{mult:1.3, kc:10}},
+  {icon:'💎', name:'Legend',      minLvl:80, pts:4,   bonus:{mult:1.5, kc:20}},
+  {icon:'👑', name:'Halvgud',     minLvl:100,pts:5,   bonus:{mult:2.0, kc:50}},
+  {icon:'🔱', name:'Gud',         minLvl:150,pts:6,   bonus:{mult:3.0, kc:100}},
+];
+const PRES_PERKS = [
+  {icon:'💰', name:'+10% Mynt per prestigenivå',   desc:'Gäller all myntinsamling'},
+  {icon:'⚡', name:'+10% XP per prestigenivå',     desc:'Gäller all erfarenhet'},
+  {icon:'💪', name:'+5 alla stats vid återfödelse', desc:'Permanent stats-bonus'},
+  {icon:'🌟', name:'KC-belöning vid återfödelse',   desc:'Beroende på din nivå'},
+];
+
+function _prs2Data(){try{return JSON.parse(localStorage.getItem(PRS2_KEY)||'null');}catch(e){return null;}}
+function _prs2Save(d){localStorage.setItem(PRS2_KEY,JSON.stringify(d));}
+function _prs2GetData(){
+  var d=_presData();
+  if(!d) d={prestige:0,totalRebirths:0,permBonus:{str:0,agi:0,int:0,lck:0,end:0}};
+  return d;
+}
+
+function prs2Rebirth(){
+  var d=_presGetData();
+  var lvl=G.lvl||1;
+  // Find eligible tier
+  var eligible=PRES_TIERS.filter(function(t){return lvl>=t.minLvl&&t.pts>0;});
+  if(eligible.length===0){showFloatBubble('Behöver minst nivå '+PRES_TIERS[1].minLvl+'!','debuff');return;}
+  if(!confirm) {
+    // no confirm available, just proceed
+  }
+  var tier=eligible[eligible.length-1];
+  d.prestige=(d.prestige||0)+1;
+  d.totalRebirths=(d.totalRebirths||0)+1;
+  // Permanent stat bonuses
+  d.permBonus=d.permBonus||{};
+  ['str','agi','int','lck','end'].forEach(function(s){d.permBonus[s]=(d.permBonus[s]||0)+5;});
+  // KC reward
+  var kc=tier.bonus.kc||2;
+  gainKC(kc);
+  // Reset level and stats but keep permanent bonuses
+  G.lvl=1;G.xp=0;
+  G.str=10+(d.permBonus.str||0);
+  G.agi=10+(d.permBonus.agi||0);
+  G.int=10+(d.permBonus.int||0);
+  G.lck=10+(d.permBonus.lck||0);
+  G.end=10+(d.permBonus.end||0);
+  G.coins=(G.coins||0)+1000;
+  save();
+  _presSave(d);
+  showFloatBubble('🌟 Återfödelse! Prestige '+d.prestige+'! +'+kc+'KC +5 alla stats permanent!','buff');
+  checkAchievements();
+  _renderPres(d);
+}
+
+function openPrs2(){$('prs2Panel').classList.add('open');_renderPrs2();}
+function closePrs2(){$('prs2Panel').classList.remove('open');}
+
+function _renderPrs2(d){
+  if(!d) d=_presGetData();
+  var pres=d.prestige||0;
+  var tierIdx=Math.min(pres,PRES_TIERS.length-1);
+  var tier=PRES_TIERS[tierIdx];
+  var ti=$('prs2TierIcon');if(ti) ti.textContent=tier.icon;
+  var tn=$('prs2TierName');if(tn) tn.textContent=tier.name;
+  var tp=$('prs2TierPts');if(tp) tp.textContent='Prestigenivå '+pres+' ('+d.totalRebirths+' återfödelser totalt)';
+  var perks=$('prs2Perks');
+  if(perks){
+    perks.innerHTML=PRES_PERKS.map(function(p){
+      var activeVal=pres>0?'+'+pres*10+'%':'Ej aktiv';
+      if(p.name.includes('stats')) activeVal=pres>0?'+'+pres*5+' stats':'Ej aktiv';
+      if(p.name.includes('KC')) activeVal=pres>0?'Aktiv':'Ej aktiv';
+      return '<div class="pres-perk">'+
+        '<div class="pres-perk-icon">'+p.icon+'</div>'+
+        '<div class="pres-perk-info"><b>'+p.name+'</b><br>'+p.desc+'</div>'+
+        '<div class="pres-perk-active">'+activeVal+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  var lvl=G.lvl||1;
+  var nextTier=PRES_TIERS.find(function(t){return t.pts>(pres>0?PRES_TIERS[Math.min(pres,PRES_TIERS.length-1)].pts:0)&&lvl>=t.minLvl;});
+  if(!nextTier) nextTier=PRES_TIERS.find(function(t){return t.pts>0;});
+  var ri=$('prs2RebirthInfo');
+  if(ri){
+    if(nextTier&&lvl>=nextTier.minLvl){
+      ri.textContent='Redo för återfödelse! Klass: '+nextTier.icon+' '+nextTier.name+' (+'+nextTier.bonus.kc+'KC +5 alla stats perm)';
+    } else {
+      var needed=nextTier?nextTier.minLvl:PRES_TIERS[1].minLvl;
+      ri.textContent='Behöver nivå '+needed+' för nästa återfödelse. Nu: Nivå '+lvl;
+    }
+  }
+  var rb=$('prs2RebirthBtn');
+  if(rb) rb.disabled=!(nextTier&&lvl>=nextTier.minLvl);
 }
 
 </script>
