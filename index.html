@@ -1547,6 +1547,51 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ AUCTION HOUSE ══ */
+.auc-panel{position:fixed;inset:0;background:#04020a;z-index:1060;display:none;flex-direction:column;overflow:hidden}
+.auc-panel.open{display:flex}
+.auc-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0418,#04020a)}
+.auc-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ff44aa,#aa44ff,#ffcc00);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:aucShim 2.5s linear infinite}
+@keyframes aucShim{0%{background-position:0%}100%{background-position:400%}}
+.auc-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Wallet banner */
+.auc-wallet{display:flex;align-items:center;gap:8px;background:rgba(255,200,0,.05);border:1px solid rgba(255,200,0,.15);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.auc-wallet-icon{font-size:22px}
+.auc-wallet-body{flex:1}
+.auc-wallet-v{font:900 20px var(--ff-head);color:#ffcc00}
+.auc-wallet-l{font:600 8px var(--ff-body);color:rgba(255,200,0,.4)}
+.auc-date-lbl{font:600 8px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Auction cards */
+.auc-list{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.auc-card{background:rgba(255,255,255,.02);border:2px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;position:relative;overflow:hidden}
+.auc-card.won{border-color:rgba(68,255,136,.4);background:rgba(68,255,136,.03)}
+.auc-card.lost{opacity:.5}
+.auc-card-rarity{position:absolute;top:10px;right:12px;font:700 7px var(--ff-head);border-radius:5px;padding:2px 6px}
+.auc-card-rarity.rare{background:rgba(68,136,255,.2);color:#4488ff}
+.auc-card-rarity.epic{background:rgba(170,68,255,.2);color:#aa44ff}
+.auc-card-rarity.legendary{background:rgba(255,200,0,.2);color:#ffcc00}
+.auc-card-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.auc-card-icon{font-size:36px;flex-shrink:0}
+.auc-card-info{flex:1}
+.auc-card-name{font:700 13px var(--ff-head);color:#fff;margin-bottom:3px}
+.auc-card-bonus{font:700 10px var(--ff-head);color:#44ff88;margin-bottom:3px}
+.auc-card-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.35)}
+/* Bid section */
+.auc-bid-section{display:flex;align-items:center;gap:8px}
+.auc-bid-info{flex:1}
+.auc-bid-current{font:700 11px var(--ff-head);color:#ffcc00}
+.auc-bid-lbl{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.auc-bid-input{background:rgba(255,200,0,.06);border:1.5px solid rgba(255,200,0,.2);border-radius:10px;padding:6px 10px;font:700 13px var(--ff-head);color:#ffcc00;width:80px;outline:none;text-align:center}
+.auc-bid-btn{background:linear-gradient(135deg,#2a1400,#5a3000);border:1.5px solid rgba(255,200,0,.4);border-radius:10px;padding:8px 12px;font:800 10px var(--ff-head);color:#fff;cursor:pointer;flex-shrink:0}
+.auc-bid-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.05)}
+.auc-bid-won{font:700 11px var(--ff-head);color:#44ff88;text-align:center;padding:6px}
+/* Won items */
+.auc-owned-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px;margin-top:4px}
+.auc-owned-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.auc-owned-item{background:rgba(68,255,136,.07);border:1px solid rgba(68,255,136,.2);border-radius:8px;padding:4px 8px;font:700 9px var(--ff-head);color:#44ff88}
+.auc-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ PET SPA ══ */
 .spa-panel{position:fixed;inset:0;background:#060108;z-index:1059;display:none;flex-direction:column;overflow:hidden}
 .spa-panel.open{display:flex}
@@ -12341,6 +12386,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
+          <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12421,6 +12467,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
+          <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12484,6 +12531,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
+          <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12585,6 +12633,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
+          <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13192,6 +13241,29 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- AUCTION HOUSE -->
+<div class="auc-panel" id="aucPanel">
+  <div class="auc-header">
+    <div class="auc-title">🏷️ AUKTIONSHUSET</div>
+    <button class="close-btn" onclick="closeAuc()">✕</button>
+  </div>
+  <div class="auc-scroll">
+    <div class="auc-wallet">
+      <div class="auc-wallet-icon">🪙</div>
+      <div class="auc-wallet-body">
+        <div class="auc-wallet-v" id="aucWallet">0</div>
+        <div class="auc-wallet-l">Tillgängliga mynt</div>
+      </div>
+      <div class="auc-date-lbl" id="aucDateLbl">Auktioner idag</div>
+    </div>
+    <div class="auc-list" id="aucList"></div>
+    <div class="auc-owned-lbl">DINA VUNNA FÖREMÅL</div>
+    <div class="auc-owned-list" id="aucOwnedList"></div>
+    <div class="auc-info">Bud med mynt — LCK ökar vinstchansen vid lika bud! Auktioner roterar varje dag.</div>
+  </div>
+</div>
 
 <!-- PET SPA -->
 <div class="spa-panel" id="spaPanel">
@@ -57918,6 +57990,133 @@ function _renderSpa(d){
   var td=$('spaTodayDone');if(td) td.textContent=done+'/'+SPA_TREATMENTS.length;
   var bs=$('spaBestStreak');if(bs) bs.textContent=d.bestStreak||0;
   _spaRenderGrid(d);
+}
+
+
+// AUCTION HOUSE
+const AUC_KEY = 'k0509_auc';
+const AUC_ITEMS = [
+  {id:'sword_of_dawn',icon:'🗡️',name:'Gryningens Svärd',  rarity:'rare',     bonus:{str:12},       bonusTxt:'+12 STR',  basePrice:200},
+  {id:'shield_eternity',icon:'🛡️',name:'Evighetsskölden',  rarity:'rare',     bonus:{end:12},       bonusTxt:'+12 END',  basePrice:200},
+  {id:'boots_wind',   icon:'👢', name:'Vindstövlar',        rarity:'rare',     bonus:{agi:12},       bonusTxt:'+12 AGI',  basePrice:200},
+  {id:'tome_magic',   icon:'📚', name:'Magibok',            rarity:'epic',     bonus:{int:15},       bonusTxt:'+15 INT',  basePrice:350},
+  {id:'ring_fortune', icon:'💍', name:'Lyckoring',          rarity:'epic',     bonus:{lck:15},       bonusTxt:'+15 LCK',  basePrice:350},
+  {id:'crown_wisdom', icon:'👑', name:'Visdomskronan',      rarity:'epic',     bonus:{int:10,lck:8}, bonusTxt:'+10 INT +8 LCK',basePrice:500},
+  {id:'chaos_gem',    icon:'💥', name:'Kaosjuvel',          rarity:'epic',     bonus:{str:10,agi:10},bonusTxt:'+10 STR +10 AGI',basePrice:500},
+  {id:'mythril_armor',icon:'⚜️',name:'Mytrilpansar',        rarity:'legendary',bonus:{end:20,str:10},bonusTxt:'+20 END +10 STR',basePrice:800},
+  {id:'soul_gem',     icon:'🔮', name:'Själsjuvel',         rarity:'legendary',bonus:{int:20,lck:10},bonusTxt:'+20 INT +10 LCK',basePrice:900},
+  {id:'dragons_heart',icon:'🐉',name:'Drakarhjärta',        rarity:'legendary',bonus:{str:20,end:15,agi:10},bonusTxt:'+20 STR +15 END +10 AGI',basePrice:1200},
+];
+
+function _aucGetDailyItems(){
+  var today=getTodayKey();var seed=0;
+  for(var i=0;i<today.length;i++) seed=(seed*31+today.charCodeAt(i))>>>0;
+  // Pick 3 items from pool, seeded by date
+  var pool=AUC_ITEMS.slice();
+  for(var j=pool.length-1;j>0;j--){
+    seed=(seed*1664525+1013904223)>>>0;
+    var k=seed%pool.length;
+    var t=pool[j];pool[j]=pool[k];pool[k]=t;
+  }
+  return pool.slice(0,3).map(function(item){
+    // Randomize starting price slightly
+    seed=(seed*1664525+1013904223)>>>0;
+    var modifier=0.8+((seed%40)/100);
+    return Object.assign({},item,{currentBid:Math.floor(item.basePrice*modifier),bidCount:0,wonBy:null});
+  });
+}
+
+function _aucData(){try{return JSON.parse(localStorage.getItem(AUC_KEY)||'null');}catch(e){return null;}}
+function _aucSave(d){localStorage.setItem(AUC_KEY,JSON.stringify(d));}
+function _aucGetData(){
+  var d=_aucData();
+  var today=getTodayKey();
+  if(!d||d.day!==today){
+    var items=_aucGetDailyItems();
+    d={day:today,items:items,owned:d?d.owned||[]:[]};
+    _aucSave(d);
+  }
+  return d;
+}
+
+function aucBid(idx){
+  var d=_aucGetData();
+  var item=d.items[idx];
+  if(!item||item.wonBy) return;
+  var input=$('aucInput'+idx);
+  var bid=input?parseInt(input.value)||0:0;
+  if(bid<item.currentBid+10){
+    showFloatBubble('Budet måste vara minst '+( item.currentBid+10)+'!','debuff');return;
+  }
+  if((G.coins||0)<bid){
+    showFloatBubble('Inte tillräckligt med mynt!','debuff');return;
+  }
+  // LCK-based win calculation (immediately wins since single player)
+  var lckBonus=Math.min(0.4,(G.lck||0)*0.008);
+  var winChance=0.6+lckBonus;
+  var won=Math.random()<winChance;
+  if(won){
+    G.coins=Math.max(0,(G.coins||0)-bid);
+    save();
+    item.wonBy='player';item.currentBid=bid;
+    // Apply bonus
+    Object.keys(item.bonus).forEach(function(s){G[s]=(G[s]||0)+item.bonus[s];});
+    save();
+    if(d.owned.indexOf(item.name)<0) d.owned.push(item.name+' ('+item.rarity+')');
+    gainXP(50,'int');
+    showFloatBubble('🏷️ Du vann: '+item.icon+' '+item.name+'! '+item.bonusTxt,'buff');
+    checkAchievements();
+  } else {
+    // Outbid by NPC
+    item.currentBid=bid+Math.floor(Math.random()*50)+20;
+    item.bidCount++;
+    showFloatBubble('Överbuden av en annan budgivare! Ny öppning: '+item.currentBid,'debuff');
+  }
+  _aucSave(d);
+  _renderAuc(d);
+}
+
+function openAuc(){$('aucPanel').classList.add('open');_renderAuc();}
+function closeAuc(){$('aucPanel').classList.remove('open');}
+
+function _renderAuc(d){
+  if(!d) d=_aucGetData();
+  var w=$('aucWallet');if(w) w.textContent=G.coins||0;
+  var dl=$('aucDateLbl');if(dl) dl.textContent=d.day;
+  var list=$('aucList');
+  if(list){
+    list.innerHTML=d.items.map(function(item,i){
+      var isWon=item.wonBy==='player';
+      var cls='auc-card'+(isWon?' won':'');
+      var inputHtml='<input type="number" class="auc-bid-input" id="aucInput'+i+'" value="'+(item.currentBid+50)+'" min="'+(item.currentBid+10)+'">';
+      var bidSection=isWon?'<div class="auc-bid-won">✓ Vann för '+item.currentBid+'🪙!</div>':
+        '<div class="auc-bid-section">'+
+          '<div class="auc-bid-info"><div class="auc-bid-current">'+item.currentBid+'🪙'+( item.bidCount>0?' (+'+item.bidCount+' bud)':'')+'</div><div class="auc-bid-lbl">Nuvarande bud</div></div>'+
+          inputHtml+
+          '<button class="auc-bid-btn" onclick="aucBid('+i+')" '+(isWon?'disabled':'')+'>Bjud</button>'+
+        '</div>';
+      return '<div class="'+cls+'">'+
+        '<div class="auc-card-rarity '+item.rarity+'">'+item.rarity.charAt(0).toUpperCase()+item.rarity.slice(1)+'</div>'+
+        '<div class="auc-card-top">'+
+          '<div class="auc-card-icon">'+item.icon+'</div>'+
+          '<div class="auc-card-info">'+
+            '<div class="auc-card-name">'+item.name+'</div>'+
+            '<div class="auc-card-bonus">'+item.bonusTxt+'</div>'+
+            '<div class="auc-card-desc">Baspris: '+item.basePrice+'🪙</div>'+
+          '</div>'+
+        '</div>'+
+        bidSection+
+      '</div>';
+    }).join('');
+  }
+  // Owned
+  var owned=$('aucOwnedList');
+  if(owned){
+    if(!d.owned||!d.owned.length){owned.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2)">Inga föremål vunna ännu.</div>';return;}
+    owned.innerHTML=d.owned.map(function(name){
+      return '<div class="auc-owned-item">'+name+'</div>';
+    }).join('');
+  }
 }
 
 </script>
