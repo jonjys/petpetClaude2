@@ -1565,6 +1565,85 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+/* ══ LOOT BOX OPENER ══ */
+.lootb-panel{position:fixed;inset:0;background:#030208;z-index:1079;display:none;flex-direction:column;overflow:hidden}
+.lootb-panel.open{display:flex}
+.lootb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060410,#030208)}
+.lootb-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ff4488,#cc44ff,#ffcc00);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:lootbShim 2.5s linear infinite}
+@keyframes lootbShim{0%{background-position:0%}100%{background-position:400%}}
+.lootb-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Box display */
+.lootb-stage{background:radial-gradient(ellipse at 50% 40%,rgba(255,150,0,.1),transparent);border:2px solid rgba(255,150,0,.2);border-radius:22px;padding:20px;margin-bottom:12px;text-align:center;cursor:pointer;transition:all .2s}
+.lootb-stage.shaking{animation:lootbShake .15s ease-in-out infinite}
+@keyframes lootbShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+.lootb-box-icon{font-size:72px;line-height:1;margin-bottom:8px;transition:transform .3s;display:block}
+.lootb-box-name{font:800 18px var(--ff-head);color:#fff;margin-bottom:3px}
+.lootb-box-cost{font:600 9px var(--ff-body);color:rgba(255,150,0,.5);margin-bottom:8px}
+.lootb-box-rarity{font:700 8px var(--ff-head);letter-spacing:1px}
+.lootb-open-btn{background:linear-gradient(135deg,#2a1000,#6a2a00);border:2px solid rgba(255,150,0,.5);border-radius:14px;padding:12px 20px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;min-width:140px}
+.lootb-open-btn:disabled{opacity:.3;cursor:default}
+/* Result */
+.lootb-result{background:rgba(255,200,0,.04);border:2px solid rgba(255,200,0,.2);border-radius:16px;padding:14px;margin-bottom:10px;text-align:center;display:none}
+.lootb-result.show{display:block}
+.lootb-result-icon{font-size:40px;margin-bottom:4px}
+.lootb-result-name{font:800 14px var(--ff-head);color:#fff;margin-bottom:3px}
+.lootb-result-effect{font:700 10px var(--ff-head);color:#ffcc00;margin-bottom:3px}
+.lootb-result-rarity{font:600 8px var(--ff-body)}
+/* Box selector */
+.lootb-selector{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:8px}
+.lootb-sel-btn{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:8px 12px;text-align:center;cursor:pointer;flex-shrink:0;transition:all .15s}
+.lootb-sel-btn.active{border-color:rgba(255,150,0,.4);background:rgba(255,150,0,.06)}
+.lootb-sel-icon{font-size:24px;margin-bottom:2px}
+.lootb-sel-name{font:700 8px var(--ff-head);color:#fff}
+.lootb-sel-cost{font:600 7px var(--ff-body);color:rgba(255,150,0,.5)}
+/* History */
+.lootb-hist-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.lootb-hist{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.lootb-hist-chip{border-radius:7px;padding:3px 8px;font:700 8px var(--ff-head)}
+.lootb-hist-chip.common{background:rgba(150,150,150,.1);color:rgba(200,200,200,.6)}
+.lootb-hist-chip.rare{background:rgba(68,136,255,.1);color:#4488ff}
+.lootb-hist-chip.epic{background:rgba(170,68,255,.1);color:#aa44ff}
+.lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
+.lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
+
+/* ══ SHADOW REALM ══ */
+.shad-panel{position:fixed;inset:0;background:#000000;z-index:1078;display:none;flex-direction:column;overflow:hidden}
+.shad-panel.open{display:flex}
+.shad-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0a0a,#000000)}
+.shad-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#888888,#ffffff,#aaaacc,#888888);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shadShim 4s linear infinite}
+@keyframes shadShim{0%{background-position:0%}100%{background-position:300%}}
+.shad-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Darkness meter */
+.shad-dark{background:rgba(255,255,255,.02);border:2px solid rgba(100,100,120,.2);border-radius:20px;padding:14px;margin-bottom:12px;text-align:center}
+.shad-dark-v{font:900 42px var(--ff-head);color:rgba(180,180,200,.8);line-height:1}
+.shad-dark-lbl{font:700 8px var(--ff-head);color:rgba(150,150,180,.35);letter-spacing:2px;margin-bottom:6px}
+.shad-dark-bar{background:rgba(255,255,255,.04);border-radius:5px;height:8px;overflow:hidden;margin:0 auto 4px;max-width:180px}
+.shad-dark-fill{height:100%;background:linear-gradient(90deg,rgba(100,100,140,.8),rgba(200,200,255,.8));border-radius:5px;transition:width .5s}
+.shad-dark-pct{font:600 8px var(--ff-body);color:rgba(150,150,180,.4)}
+/* Encounter cards */
+.shad-encounters{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.shad-enc{background:rgba(255,255,255,.015);border:1.5px solid rgba(150,150,180,.12);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.shad-enc:hover{background:rgba(255,255,255,.03);border-color:rgba(150,150,180,.2)}
+.shad-enc.done{opacity:.35;cursor:default}
+.shad-enc-icon{font-size:28px;flex-shrink:0}
+.shad-enc-body{flex:1}
+.shad-enc-name{font:700 12px var(--ff-head);color:rgba(220,220,240,.8);margin-bottom:1px}
+.shad-enc-desc{font:600 8px var(--ff-body);color:rgba(150,150,180,.5);margin-bottom:3px}
+.shad-enc-rew{font:700 8px var(--ff-head);color:rgba(180,180,220,.5)}
+.shad-enc-btn{background:rgba(150,150,180,.06);border:1px solid rgba(150,150,180,.2);border-radius:9px;padding:6px 12px;font:700 9px var(--ff-head);color:rgba(200,200,220,.7);cursor:pointer;flex-shrink:0}
+.shad-enc-btn.done-btn{background:rgba(68,255,136,.05);border-color:rgba(68,255,136,.2);color:rgba(68,255,136,.6)}
+.shad-enc-btn:disabled{opacity:.3;cursor:default}
+/* Ascend */
+.shad-ascend{background:rgba(200,200,255,.03);border:1.5px solid rgba(200,200,255,.1);border-radius:14px;padding:10px 12px;margin-bottom:8px;text-align:center}
+.shad-ascend-lbl{font:700 8px var(--ff-head);color:rgba(200,200,255,.3);letter-spacing:1px;margin-bottom:6px}
+.shad-ascend-btn{background:linear-gradient(135deg,#0a0a14,#1a1a2a);border:1.5px solid rgba(150,150,200,.3);border-radius:12px;padding:10px;font:800 11px var(--ff-head);color:rgba(200,200,255,.8);cursor:pointer;width:100%}
+.shad-ascend-btn:disabled{opacity:.3;cursor:default}
+.shad-layer{font:700 24px var(--ff-head);color:rgba(180,180,220,.7);margin-bottom:3px}
+.shad-layer-l{font:600 8px var(--ff-body);color:rgba(150,150,180,.35)}
+.shad-info{font:600 9px var(--ff-body);color:rgba(150,150,180,.35);text-align:center}
+
 /* ══ RUNE FORGE ══ */
 .rune-panel{position:fixed;inset:0;background:#040204;z-index:1077;display:none;flex-direction:column;overflow:hidden}
 .rune-panel.open{display:flex}
@@ -13052,6 +13131,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
           <div class="ddr" onclick="cM();openAtour()"><div class="ddr-i">🏆</div>Arenaturnering</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
+          <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
+          <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -13150,6 +13231,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
           <div class="ddr" onclick="cM();openAtour()"><div class="ddr-i">🏆</div>Arenaturnering</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
+          <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
+          <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -13231,6 +13314,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
           <div class="ddr" onclick="cM();openAtour()"><div class="ddr-i">🏆</div>Arenaturnering</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
+          <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
+          <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -13350,6 +13435,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
           <div class="ddr" onclick="cM();openAtour()"><div class="ddr-i">🏆</div>Arenaturnering</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">🔮</div>Runsmeden</div>
+          <div class="ddr" onclick="cM();openShad()"><div class="ddr-i">🌑</div>Skuggriket</div>
+          <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13975,6 +14062,60 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+<!-- LOOT BOX OPENER -->
+<div class="lootb-panel" id="lootbPanel">
+  <div class="lootb-header">
+    <div class="lootb-title">🎁 LOOT BOX</div>
+    <button class="close-btn" onclick="closeLootb()">✕</button>
+  </div>
+  <div class="lootb-scroll">
+    <div class="lootb-stage" id="lootbStage">
+      <div class="lootb-box-icon" id="lootbBoxIcon">🎁</div>
+      <div class="lootb-box-name" id="lootbBoxName">Standard Box</div>
+      <div class="lootb-box-cost" id="lootbBoxCost">100 🪙</div>
+      <div class="lootb-box-rarity" id="lootbBoxRarity"></div>
+      <button class="lootb-open-btn" id="lootbOpenBtn" onclick="lootbOpen()">🎁 Öppna!</button>
+    </div>
+    <div class="lootb-result" id="lootbResult">
+      <div class="lootb-result-icon" id="lootbResIcon"></div>
+      <div class="lootb-result-name" id="lootbResName"></div>
+      <div class="lootb-result-effect" id="lootbResEffect"></div>
+      <div class="lootb-result-rarity" id="lootbResRarity"></div>
+    </div>
+    <div class="lootb-selector" id="lootbSelector"></div>
+    <div class="lootb-hist-lbl">SENASTE ÖPPNINGAR</div>
+    <div class="lootb-hist" id="lootbHist"></div>
+    <div class="lootb-stats" id="lootbStats"></div>
+  </div>
+</div>
+
+<!-- SHADOW REALM -->
+<div class="shad-panel" id="shadPanel">
+  <div class="shad-header">
+    <div class="shad-title">🌑 SKUGGRIKET</div>
+    <button class="close-btn" onclick="closeShad()">✕</button>
+  </div>
+  <div class="shad-scroll">
+    <div class="shad-dark">
+      <div class="shad-dark-lbl">MÖRKERSLÄCKT</div>
+      <div class="shad-layer" id="shadLayerV">Lager 1</div>
+      <div class="shad-layer-l">av det oändliga mörkret</div>
+      <div style="margin:6px 0">
+        <div class="shad-dark-bar"><div class="shad-dark-fill" id="shadDarkFill" style="width:0%"></div></div>
+        <div class="shad-dark-pct" id="shadDarkPct">0/5 möten klara</div>
+      </div>
+    </div>
+    <div class="shad-encounters" id="shadEncs"></div>
+    <div class="shad-ascend">
+      <div class="shad-ascend-lbl">GÅ DJUPARE I MÖRKRET</div>
+      <button class="shad-ascend-btn" id="shadAscendBtn" onclick="shadAscend()" disabled>⬇️ Träd ned ett lager (alla klara)</button>
+    </div>
+    <div class="shad-info">Varje lager är mörkare — och ger mäktigare belöningar. 5 möten per lager. 🌑</div>
+  </div>
+</div>
 
 <!-- RUNE FORGE -->
 <div class="rune-panel" id="runePanel">
@@ -61507,6 +61648,252 @@ function _renderRune(d){
       '</div>';
     }).join('');
   }
+}
+
+
+// SHADOW REALM
+const SHAD_KEY = 'k0509_shad';
+const SHAD_ENCOUNTERS = [
+  {id:'shadow_wolf',  icon:'🐺', name:'Skuggvarg',       desc:'En varg vävd av ren skugga',              bonus:{agi:2,str:1},  coins:50, xp:40},
+  {id:'void_spirit',  icon:'👻', name:'Tomrummets Ande',  desc:'Ett spöke från ingenstans',               bonus:{int:2},        coins:40, xp:35},
+  {id:'dark_knight',  icon:'🗡️', name:'Mörk Ridder',      desc:'En ridder som tappt ljuset',              bonus:{str:3,end:1},  coins:65, xp:55},
+  {id:'nightmare',    icon:'😱', name:'Mardröm',          desc:'En levande mardröm tar form',             bonus:{lck:2,int:1},  coins:60, xp:50},
+  {id:'shadow_titan', icon:'🌑', name:'Skuggtitan',       desc:'En titan gjord av komprimerat mörker',    bonus:{str:2,end:3},  coins:80, xp:65},
+];
+const SHAD_LAYER_BONUS = [0,1,2,3,4,5]; // KC per layer
+
+function _shadData(){try{return JSON.parse(localStorage.getItem(SHAD_KEY)||'null');}catch(e){return null;}}
+function _shadSave(d){localStorage.setItem(SHAD_KEY,JSON.stringify(d));}
+function _shadGetData(){
+  var d=_shadData();
+  if(!d) d={layer:1,doneToday:{},lastDay:'',total:0,maxLayer:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.doneToday={};d.lastDay=today;_shadSave(d);}
+  return d;
+}
+
+function shadFace(id){
+  var d=_shadGetData();
+  if(d.doneToday[id]) return;
+  var enc=SHAD_ENCOUNTERS.find(function(e){return e.id===id;});
+  if(!enc) return;
+  // Combat: use str+end vs darkness
+  var myPower=(G.str||0)+(G.end||0)+Math.random()*15;
+  var darkness=d.layer*8+Math.random()*10;
+  var won=myPower>darkness;
+  d.doneToday[id]=true;
+  d.total=(d.total||0)+1;
+  var mult=d.layer;
+  var coins=Math.floor(enc.coins*mult);
+  var xp=Math.floor(enc.xp*mult);
+  if(won){
+    Object.keys(enc.bonus).forEach(function(s){G[s]=(G[s]||0)+enc.bonus[s];});
+    save();
+    gainCoins(coins);gainXP(xp,'str');
+    var bonusTxt=Object.keys(enc.bonus).map(function(s){return '+'+enc.bonus[s]+s.toUpperCase();}).join(' ');
+    showFloatBubble(enc.icon+' '+enc.name+' besegrat! '+bonusTxt+' +'+coins+'🪙','buff');
+    checkAchievements();
+    // Check if all done
+    var doneCount=SHAD_ENCOUNTERS.filter(function(e){return d.doneToday[e.id];}).length;
+    var ab=$('shadAscendBtn');
+    if(doneCount>=SHAD_ENCOUNTERS.length&&ab) ab.disabled=false;
+  } else {
+    gainCoins(Math.floor(coins*0.3));gainXP(Math.floor(xp*0.3),'str');
+    showFloatBubble(enc.icon+' '+enc.name+' var för stark! Bygg upp STR+END','debuff');
+  }
+  _shadSave(d);
+  _renderShad(d);
+}
+
+function shadAscend(){
+  var d=_shadGetData();
+  var doneCount=SHAD_ENCOUNTERS.filter(function(e){return d.doneToday[e.id];}).length;
+  if(doneCount<SHAD_ENCOUNTERS.length){showFloatBubble('Slutför alla möten först!','debuff');return;}
+  d.layer=(d.layer||1)+1;
+  if(d.layer>(d.maxLayer||0)) d.maxLayer=d.layer;
+  // Layer bonus
+  var kc=d.layer<=SHAD_LAYER_BONUS.length?SHAD_LAYER_BONUS[d.layer-1]:0;
+  if(kc>0) gainKC(kc);
+  gainCoins(100*d.layer);gainXP(80*d.layer,'str');
+  G.str=(G.str||0)+Math.floor(d.layer/2);G.end=(G.end||0)+Math.floor(d.layer/2);save();
+  showFloatBubble('🌑 Lager '+(d.layer)+' nådd!'+(kc>0?' +'+kc+'KC':''),' buff');
+  d.doneToday={};
+  _shadSave(d);
+  checkAchievements();
+  _renderShad(d);
+}
+
+function openShad(){$('shadPanel').classList.add('open');_renderShad();}
+function closeShad(){$('shadPanel').classList.remove('open');}
+
+function _renderShad(d){
+  if(!d) d=_shadGetData();
+  var lv=$('shadLayerV');if(lv) lv.textContent='Lager '+(d.layer||1);
+  var doneCount=SHAD_ENCOUNTERS.filter(function(e){return d.doneToday[e.id];}).length;
+  var df=$('shadDarkFill');if(df) df.style.width=(doneCount/SHAD_ENCOUNTERS.length*100)+'%';
+  var dp=$('shadDarkPct');if(dp) dp.textContent=doneCount+'/'+SHAD_ENCOUNTERS.length+' möten klara';
+  var ab=$('shadAscendBtn');if(ab) ab.disabled=doneCount<SHAD_ENCOUNTERS.length;
+  var container=$('shadEncs');
+  if(!container) return;
+  var mult=d.layer||1;
+  container.innerHTML=SHAD_ENCOUNTERS.map(function(enc){
+    var isDone=!!d.doneToday[enc.id];
+    var cls='shad-enc'+(isDone?' done':'');
+    var bonusTxt=Object.keys(enc.bonus).map(function(s){return '+'+enc.bonus[s]+s.toUpperCase();}).join(' ');
+    return '<div class="'+cls+'">'+
+      '<div class="shad-enc-icon">'+enc.icon+'</div>'+
+      '<div class="shad-enc-body">'+
+        '<div class="shad-enc-name">'+enc.name+'</div>'+
+        '<div class="shad-enc-desc">'+enc.desc+'</div>'+
+        '<div class="shad-enc-rew">'+bonusTxt+' · +'+Math.floor(enc.coins*mult)+'🪙 ×Lager'+mult+'</div>'+
+      '</div>'+
+      '<button class="shad-enc-btn'+(isDone?' done-btn':'')+'" onclick="shadFace(\''+enc.id+'\')" '+(isDone?'disabled':'')+'>'+
+        (isDone?'✓':'Möt')+
+      '</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// LOOT BOX OPENER
+const LOOTB_KEY = 'k0509_lootb';
+const LOOTB_BOXES = [
+  {id:'standard',icon:'🎁',  name:'Standard Box',  cost:100,  odds:{common:0.65,rare:0.25,epic:0.09,legendary:0.01}},
+  {id:'golden',  icon:'🌟',  name:'Guld Box',       cost:300,  odds:{common:0.35,rare:0.40,epic:0.20,legendary:0.05}},
+  {id:'shadow',  icon:'🌑',  name:'Skugg Box',      cost:600,  odds:{common:0.10,rare:0.35,epic:0.40,legendary:0.15}},
+  {id:'divine',  icon:'✨',  name:'Gudomlig Box',   cost:1200, odds:{common:0.0,rare:0.15,epic:0.50,legendary:0.35}},
+];
+const LOOTB_ITEMS = {
+  common:[
+    {icon:'🌿',name:'Örter',     effect:{agi:1},          effTxt:'+1 AGI'},
+    {icon:'🪨',name:'Sten',      effect:{end:1},          effTxt:'+1 END'},
+    {icon:'💧',name:'Vattenfil', effect:{int:1},          effTxt:'+1 INT'},
+    {icon:'🍂',name:'Löv',       effect:{lck:1},          effTxt:'+1 LCK'},
+    {icon:'🌾',name:'Korn',      effect:{},               effTxt:'+50 Mynt', coins:50},
+  ],
+  rare:[
+    {icon:'💎',name:'Kristall',  effect:{int:3,lck:2},   effTxt:'+3 INT +2 LCK'},
+    {icon:'⚔️',name:'Järnsvärd', effect:{str:4},          effTxt:'+4 STR'},
+    {icon:'🛡️',name:'Järnskölden',effect:{end:4},         effTxt:'+4 END'},
+    {icon:'👢',name:'Vindstövlar',effect:{agi:4},         effTxt:'+4 AGI'},
+    {icon:'🍀',name:'Lycko-ört', effect:{lck:4},          effTxt:'+4 LCK'},
+  ],
+  epic:[
+    {icon:'🔮',name:'Magikula',  effect:{int:7,lck:3},   effTxt:'+7 INT +3 LCK'},
+    {icon:'👑',name:'Guldkrona', effect:{lck:6,int:4},   effTxt:'+6 LCK +4 INT'},
+    {icon:'🗡️',name:'Mytrilsvärd',effect:{str:8,agi:3},  effTxt:'+8 STR +3 AGI'},
+    {icon:'🌟',name:'Stjärnessens',effect:{lck:5,int:5}, effTxt:'+5 LCK +5 INT'},
+    {icon:'⚜️',name:'Mytrilpansar',effect:{end:8,str:4}, effTxt:'+8 END +4 STR'},
+  ],
+  legendary:[
+    {icon:'🐉',name:'Drakhjärta',effect:{str:12,end:8,agi:6},effTxt:'+12 STR +8 END +6 AGI',kc:1},
+    {icon:'🌈',name:'Regnbågs-essens',effect:{int:10,lck:10},effTxt:'+10 INT +10 LCK',kc:1},
+    {icon:'⚡',name:'Åskgud-stav',effect:{str:8,int:8,lck:8},effTxt:'+8 STR +8 INT +8 LCK',kc:1},
+    {icon:'🌠',name:'Stjärnfall',effect:{str:5,agi:5,int:5,lck:5,end:5},effTxt:'+5 ALL',kc:2},
+  ],
+};
+
+var _lootbCurBox = 0;
+
+function _lootbData(){try{return JSON.parse(localStorage.getItem(LOOTB_KEY)||'null');}catch(e){return null;}}
+function _lootbSave(d){localStorage.setItem(LOOTB_KEY,JSON.stringify(d));}
+function _lootbGetData(){
+  var d=_lootbData();
+  if(!d) d={history:[],total:0,legendary:0,epic:0,rare:0,common:0};
+  return d;
+}
+
+function lootbSelBox(idx){
+  _lootbCurBox=idx;
+  var box=LOOTB_BOXES[idx];
+  var bi=$('lootbBoxIcon');if(bi) bi.textContent=box.icon;
+  var bn=$('lootbBoxName');if(bn) bn.textContent=box.name;
+  var bc=$('lootbBoxCost');if(bc) bc.textContent=box.cost+' 🪙';
+  var br=$('lootbBoxRarity');
+  if(br) br.innerHTML=Object.keys(box.odds).map(function(r){
+    return '<span style="color:'+(r==='legendary'?'#ffcc00':r==='epic'?'#aa44ff':r==='rare'?'#4488ff':'#888888')+';font:700 7px var(--ff-head);margin:0 3px">'+r.toUpperCase()+' '+Math.round(box.odds[r]*100)+'%</span>';
+  }).join('');
+  var result=$('lootbResult');if(result) result.classList.remove('show');
+  document.querySelectorAll('.lootb-sel-btn').forEach(function(b,i){
+    b.className='lootb-sel-btn'+(i===idx?' active':'');
+  });
+}
+
+function lootbOpen(){
+  var d=_lootbGetData();
+  var box=LOOTB_BOXES[_lootbCurBox];
+  if((G.coins||0)<box.cost){showFloatBubble('Inte tillräckligt med mynt!','debuff');return;}
+  G.coins=Math.max(0,(G.coins||0)-box.cost);save();
+  // Roll rarity
+  var roll=Math.random();
+  var rarity='common';
+  var cumulative=0;
+  var rarityOrder=['legendary','epic','rare','common'];
+  for(var ri=0;ri<rarityOrder.length;ri++){
+    var r=rarityOrder[ri];
+    cumulative+=box.odds[r]||0;
+    if(roll<cumulative||(ri===rarityOrder.length-1)){rarity=r;break;}
+  }
+  // Pick item
+  var items=LOOTB_ITEMS[rarity];
+  var item=items[Math.floor(Math.random()*items.length)];
+  // Apply
+  Object.keys(item.effect||{}).forEach(function(s){G[s]=(G[s]||0)+item.effect[s];});
+  if(item.coins) gainCoins(item.coins);
+  if(item.kc) gainKC(item.kc);
+  save();gainXP(30,'lck');
+  d.total=(d.total||0)+1;d[rarity]=(d[rarity]||0)+1;
+  var histItem={icon:item.icon,name:item.name,rarity:rarity};
+  d.history.unshift(histItem);
+  if(d.history.length>20) d.history=d.history.slice(0,20);
+  _lootbSave(d);
+  checkAchievements();
+  // Show result
+  var result=$('lootbResult');
+  if(result){
+    result.classList.add('show');
+    var ri2=$('lootbResIcon');if(ri2) ri2.textContent=item.icon;
+    var rn=$('lootbResName');if(rn) rn.textContent=item.name;
+    var re=$('lootbResEffect');if(re) re.textContent=item.effTxt+(item.kc?' +'+item.kc+'KC':'');
+    var rr=$('lootbResRarity');if(rr){
+      var col=rarity==='legendary'?'#ffcc00':rarity==='epic'?'#aa44ff':rarity==='rare'?'#4488ff':'#888888';
+      rr.style.color=col;rr.textContent=rarity.toUpperCase();
+    }
+  }
+  // Shake animation
+  var stage=$('lootbStage');
+  if(stage){stage.classList.add('shaking');setTimeout(function(){stage.classList.remove('shaking');},600);}
+  showFloatBubble((rarity==='legendary'?'👑 LEGENDARY':'rarity'==='epic'?'✨ EPIC':'')+' '+item.icon+' '+item.name+'! '+item.effTxt,'buff');
+  _renderLootbHist(d);
+}
+
+function openLootb(){$('lootbPanel').classList.add('open');_renderLootb();}
+function closeLootb(){$('lootbPanel').classList.remove('open');}
+
+function _renderLootbHist(d){
+  var hist=$('lootbHist');
+  if(hist){
+    if(!d.history||!d.history.length) hist.innerHTML='<div style="font:600 8px var(--ff-body);color:rgba(255,255,255,.2)">Inga öppningar ännu.</div>';
+    else hist.innerHTML=d.history.map(function(h){
+      return '<div class="lootb-hist-chip '+h.rarity+'">'+h.icon+' '+h.name+'</div>';
+    }).join('');
+  }
+  var st=$('lootbStats');
+  if(st) st.textContent='Totalt: '+( d.total||0)+' öppnade · Legendary: '+(d.legendary||0)+' · Epic: '+(d.epic||0);
+}
+
+function _renderLootb(){
+  var d=_lootbGetData();
+  var sel=$('lootbSelector');
+  if(sel) sel.innerHTML=LOOTB_BOXES.map(function(box,i){
+    return '<div class="lootb-sel-btn'+(i===_lootbCurBox?' active':'')+'" onclick="lootbSelBox('+i+')">'+
+      '<div class="lootb-sel-icon">'+box.icon+'</div>'+
+      '<div class="lootb-sel-name">'+box.name+'</div>'+
+      '<div class="lootb-sel-cost">'+box.cost+'🪙</div>'+
+    '</div>';
+  }).join('');
+  lootbSelBox(_lootbCurBox);
+  _renderLootbHist(d);
 }
 
 </script>
