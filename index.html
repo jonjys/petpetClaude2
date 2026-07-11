@@ -1913,6 +1913,51 @@ textarea.inp { resize:none;min-height:72px; }
 .wgld-complete-btn{background:linear-gradient(135deg,#001a00,#004400);border:1.5px solid rgba(68,255,136,.3);border-radius:9px;padding:5px 10px;font:700 8px var(--ff-head);color:rgba(68,255,136,.8);cursor:pointer;white-space:nowrap}
 .wgld-complete-btn:disabled{opacity:.3;cursor:default}
 
+/* ══ BOUNTY BOARD ══ */
+.bounty-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#1a1200,#2b1e00,#100d00);z-index:1166;overflow-y:auto;padding:0 0 80px}
+.bounty-header{text-align:center;padding:22px 16px 10px;color:#ffd700}
+.bounty-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 14px #cc9900}
+.bounty-energy{text-align:center;color:#cc9900;font-size:.85rem;margin:4px 0 12px}
+.bounty-list{display:flex;flex-direction:column;gap:8px;padding:0 12px}
+.bounty-card{background:rgba(50,40,0,.4);border:1px solid #5a4800;border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s}
+.bounty-card:active{transform:scale(.97)}
+.bounty-card.claimed{border-color:#888;background:rgba(30,30,30,.3);opacity:.6;cursor:default}
+.bc-icon{font-size:2rem;flex-shrink:0}
+.bc-info{flex:1}
+.bc-name{font-size:.88rem;color:#ffd700;font-weight:700}
+.bc-target{font-size:.75rem;color:#aa8800}
+.bc-reward{font-size:.75rem;color:#ffcc44;margin-top:3px}
+.bc-badge{font-size:.7rem;padding:2px 6px;border-radius:6px;font-weight:700}
+.bc-badge.easy{background:#2a5a2a;color:#88ee88}
+.bc-badge.medium{background:#5a4a00;color:#ffcc44}
+.bc-badge.hard{background:#5a1a00;color:#ff8844}
+.bc-badge.legendary{background:#3a005a;color:#cc88ff}
+.bounty-log{margin:14px 12px 0;background:rgba(0,0,0,.3);border-radius:10px;padding:10px;max-height:100px;overflow-y:auto}
+.bounty-log div{font-size:.75rem;color:#cc9900;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
+/* ══ ELEMENTAL FORGE ══ */
+.eforge-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#1a0800,#2b1000,#100500);z-index:1165;overflow-y:auto;padding:0 0 80px}
+.eforge-header{text-align:center;padding:22px 16px 10px;color:#ff9944}
+.eforge-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 18px #cc6600}
+.eforge-energy{text-align:center;color:#cc7733;font-size:.85rem;margin:4px 0 12px}
+.eforge-elements{display:flex;gap:8px;padding:0 12px 10px;overflow-x:auto;justify-content:center;flex-wrap:wrap}
+.ef-elem{background:rgba(60,30,0,.4);border:2px solid #5a3a0a;border-radius:10px;padding:8px 12px;text-align:center;cursor:pointer;min-width:60px;transition:all .2s}
+.ef-elem.selected{border-color:#ff9944;background:rgba(100,50,0,.5);transform:scale(1.08)}
+.ef-elem-icon{font-size:1.5rem}
+.ef-elem-name{font-size:.68rem;color:#cc8844;margin-top:2px}
+.ef-elem-count{font-size:.68rem;color:#ffaa55}
+.eforge-recipes{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px}
+.ef-recipe{background:rgba(50,25,0,.35);border:1px solid #4a2a08;border-radius:10px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .2s}
+.ef-recipe:active{transform:scale(.96)}
+.ef-recipe.forged{border-color:#ff9944;background:rgba(80,40,0,.45)}
+.ef-r-icon{font-size:1.6rem}
+.ef-r-name{font-size:.78rem;color:#ffbb66;font-weight:700;margin:3px 0}
+.ef-r-cost{font-size:.7rem;color:#aa7744}
+.ef-r-bonus{font-size:.7rem;color:#88ddaa}
+.eforge-log{margin:12px 12px 0;background:rgba(0,0,0,.3);border-radius:10px;padding:10px;max-height:100px;overflow-y:auto}
+.eforge-log div{font-size:.75rem;color:#cc8844;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+.ef-gather-btn{margin:10px 12px 0;background:linear-gradient(135deg,#7a3300,#cc5500);color:#fff;border:none;border-radius:10px;padding:11px;font-size:.9rem;font-weight:700;width:calc(100% - 24px);cursor:pointer}
+
 /* ══ OCEAN DEPTHS ══ */
 .ocn-panel{position:fixed;inset:0;background:#000810;z-index:1103;display:none;flex-direction:column;overflow:hidden}
 .ocn-panel.open{display:flex}
@@ -16535,6 +16580,24 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+<!-- BOUNTY BOARD -->
+<div id="bountyPanel" class="bounty-panel">
+  <div class="bounty-header"><h2>📋 Bounty Board</h2></div>
+  <div class="bounty-energy" id="bountyEnergy"></div>
+  <div class="bounty-list" id="bountyList"></div>
+  <div class="bounty-log" id="bountyLog"></div>
+  <button onclick="closeBounty()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
+<!-- ELEMENTAL FORGE -->
+<div id="eforgePanel" class="eforge-panel">
+  <div class="eforge-header"><h2>🔥 Elemental Forge</h2></div>
+  <div class="eforge-energy" id="eforgeEnergy"></div>
+  <div class="eforge-elements" id="eforgeElems"></div>
+  <button class="ef-gather-btn" onclick="eforgeGather()">⚡ Gather Elements</button>
+  <div class="eforge-recipes" id="eforgeRecipes"></div>
+  <div class="eforge-log" id="eforgeLog"></div>
+  <button onclick="closeEforge()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
 <!-- OCEAN DEPTHS -->
 <div class="ocn-panel" id="ocnPanel">
   <div class="ocn-header">
@@ -73779,6 +73842,146 @@ function _renderOcean(){
     </div>
   </div>`).join('');
   $('oceanLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Dive into the ocean!</div>';
+}
+
+
+// ══ ELEMENTAL FORGE ══
+const EFORGE_KEY='k0509_eforge';
+const EFORGE_ELEMENTS=[
+  {id:'fire',icon:'🔥',name:'Fire'},
+  {id:'water',icon:'💧',name:'Water'},
+  {id:'earth',icon:'🪨',name:'Earth'},
+  {id:'wind',icon:'💨',name:'Wind'},
+  {id:'lightning',icon:'⚡',name:'Lightning'},
+  {id:'ice',icon:'❄️',name:'Ice'},
+];
+const EFORGE_RECIPES=[
+  {id:'flame',icon:'🗡️',name:'Flame Blade',needs:{fire:3,earth:2},bonus:'+6 STR',str:6},
+  {id:'tide',icon:'🌊',name:'Tide Staff',needs:{water:3,wind:2},bonus:'+6 INT',int:6},
+  {id:'bolt',icon:'⚡',name:'Thunder Axe',needs:{lightning:3,earth:2},bonus:'+5 STR +3 AGI',str:5,agi:3},
+  {id:'frost',icon:'❄️',name:'Frost Blade',needs:{ice:3,water:2},bonus:'+4 STR +4 INT',str:4,int:4},
+  {id:'storm',icon:'🌪️',name:'Storm Bow',needs:{wind:3,lightning:2},bonus:'+8 AGI',agi:8},
+  {id:'magma',icon:'🌋',name:'Magma Hammer',needs:{fire:4,earth:3},bonus:'+10 STR',str:10},
+  {id:'glacier',icon:'🏔️',name:'Glacier Shield',needs:{ice:4,water:3},bonus:'+8 DEF',str:5,agi:3},
+  {id:'cosmos',icon:'🌌',name:'Cosmic Blade',needs:{fire:3,lightning:3,ice:3},bonus:'+6 all stats',str:6,int:6,agi:6},
+];
+function _eforgeData(){return JSON.parse(localStorage.getItem(EFORGE_KEY)||'{"dust":0,"gathers":0,"lastDay":"","elems":{},"forged":[],"log":[]}');}
+function _eforgeSave(d){localStorage.setItem(EFORGE_KEY,JSON.stringify(d));}
+function eforgeGather(){
+  const d=_eforgeData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.gathers=0;d.lastDay=today;}
+  if(d.gathers>=6){showFloatBubble('6 gathers today!','bad');return;}
+  d.gathers++;d.dust+=5;
+  const elem=EFORGE_ELEMENTS[Math.floor(Math.random()*EFORGE_ELEMENTS.length)];
+  const amt=2+Math.floor(Math.random()*4);
+  d.elems[elem.id]=(d.elems[elem.id]||0)+amt;
+  d.log.unshift(`${elem.icon} +${amt} ${elem.name} gathered`);
+  if(d.log.length>12)d.log.pop();
+  _eforgeSave(d);showFloatBubble(`${elem.icon} +${amt} ${elem.name}`,'good');_renderEforge();
+}
+function eforgeForge(rid){
+  const d=_eforgeData();
+  const recipe=EFORGE_RECIPES.find(r=>r.id===rid);
+  if(!recipe)return;
+  if(d.forged.includes(rid)){showFloatBubble('Already forged!','bad');return;}
+  for(const [elem,qty] of Object.entries(recipe.needs)){
+    if((d.elems[elem]||0)<qty){showFloatBubble(`Need more ${elem}!`,'bad');return;}
+  }
+  for(const [elem,qty] of Object.entries(recipe.needs)){d.elems[elem]-=qty;}
+  d.forged.push(rid);
+  if(recipe.str){G.str=(G.str||10)+recipe.str;save();}
+  if(recipe.int){G.int=(G.int||10)+recipe.int;save();}
+  if(recipe.agi){G.agi=(G.agi||10)+recipe.agi;save();}
+  gainKC(25);
+  d.log.unshift(`${recipe.icon} ${recipe.name} forged! ${recipe.bonus}`);
+  if(d.log.length>12)d.log.pop();
+  _eforgeSave(d);showFloatBubble(`${recipe.icon} ${recipe.name} forged!`,'good');
+  checkAchievements();_renderEforge();
+}
+function openEforge(){$('eforgePanel').style.display='flex';_renderEforge();}
+function closeEforge(){$('eforgePanel').style.display='none';}
+function _renderEforge(){
+  const d=_eforgeData();
+  const today=getTodayKey();
+  const gathers=d.lastDay===today?d.gathers:0;
+  $('eforgeEnergy').textContent=`Dust: ${d.dust} | Forged: ${d.forged.length}/${EFORGE_RECIPES.length} | Gathers: ${gathers}/6`;
+  $('eforgeElems').innerHTML=EFORGE_ELEMENTS.map(e=>`<div class="ef-elem">
+    <div class="ef-elem-icon">${e.icon}</div>
+    <div class="ef-elem-name">${e.name}</div>
+    <div class="ef-elem-count">x${d.elems[e.id]||0}</div>
+  </div>`).join('');
+  $('eforgeRecipes').innerHTML=EFORGE_RECIPES.map(r=>`<div class="ef-recipe ${d.forged.includes(r.id)?'forged':''}" onclick="${d.forged.includes(r.id)?'':'eforgeForge(''+r.id+'')'}">
+    <div class="ef-r-icon">${r.icon}</div>
+    <div class="ef-r-name">${r.name}</div>
+    <div class="ef-r-cost">${d.forged.includes(r.id)?'✓ Forged':Object.entries(r.needs).map(([k,v])=>v+k).join('+')} </div>
+    <div class="ef-r-bonus">${r.bonus}</div>
+  </div>`).join('');
+  $('eforgeLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Gather elements and forge weapons!</div>';
+}
+
+// ══ BOUNTY BOARD ══
+const BOUNTY_KEY='k0509_bounty';
+const BOUNTY_LIST=[
+  {id:'b1',icon:'🐺',name:'Wolf Pack',diff:'easy',reward:{coins:80,xp:10}},
+  {id:'b2',icon:'🐻',name:'Cave Bear',diff:'easy',reward:{coins:120,xp:15}},
+  {id:'b3',icon:'🐉',name:'Young Drake',diff:'medium',reward:{coins:200,kc:20}},
+  {id:'b4',icon:'💀',name:'Undead Knight',diff:'medium',reward:{kc:40,xp:20}},
+  {id:'b5',icon:'👹',name:'Demon Lord',diff:'hard',reward:{coins:350,kc:60}},
+  {id:'b6',icon:'🌊',name:'Sea Serpent',diff:'hard',reward:{kc:80,str:4}},
+  {id:'b7',icon:'⚡',name:'Storm Giant',diff:'hard',reward:{coins:500,agi:5}},
+  {id:'b8',icon:'🌌',name:'Void Titan',diff:'legendary',reward:{kc:200,str:8,int:8}},
+];
+function _bountyData(){return JSON.parse(localStorage.getItem(BOUNTY_KEY)||'{"gold":0,"claimed":[],"lastDay":"","total":0,"log":[]}');}
+function _bountySave(d){localStorage.setItem(BOUNTY_KEY,JSON.stringify(d));}
+function bountyClaim(bid){
+  const d=_bountyData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.claimed=d.claimed.filter(x=>x.startsWith('perm_'));d.lastDay=today;}
+  const claimKey=today+'_'+bid;
+  if(d.claimed.includes(claimKey)||d.claimed.includes('perm_'+bid)){showFloatBubble('Already claimed!','bad');return;}
+  const bounty=BOUNTY_LIST.find(b=>b.id===bid);
+  if(!bounty)return;
+  const isDailyMax=d.claimed.filter(x=>x.startsWith(today)).length>=6;
+  if(isDailyMax){showFloatBubble('6 bounties claimed today!','bad');return;}
+  d.claimed.push(bounty.diff==='legendary'?'perm_'+bid:claimKey);
+  d.total++;d.gold+=20;
+  let rewards=[];
+  const r=bounty.reward;
+  if(r.coins){gainCoins(r.coins);rewards.push(r.coins+'🪙');}
+  if(r.kc){gainKC(r.kc);rewards.push(r.kc+'KC');}
+  if(r.xp){gainXP(r.xp,'str');rewards.push(r.xp+'XP');}
+  if(r.str){G.str=(G.str||10)+r.str;save();rewards.push(r.str+'STR');}
+  if(r.int){G.int=(G.int||10)+r.int;save();rewards.push(r.int+'INT');}
+  if(r.agi){G.agi=(G.agi||10)+r.agi;save();rewards.push(r.agi+'AGI');}
+  d.log.unshift(`${bounty.icon} ${bounty.name} slain! ${rewards.join(' ')}`);
+  if(d.log.length>12)d.log.pop();
+  _bountySave(d);
+  showFloatBubble(`${bounty.icon} ${bounty.name} bounty claimed!`,'good');
+  checkAchievements();_renderBounty();
+}
+function openBounty(){$('bountyPanel').style.display='flex';_renderBounty();}
+function closeBounty(){$('bountyPanel').style.display='none';}
+function _renderBounty(){
+  const d=_bountyData();
+  const today=getTodayKey();
+  const todayClaimed=d.claimed.filter(x=>x.startsWith(today)).length;
+  $('bountyEnergy').textContent=`Bounty Gold: ${d.gold} | Today: ${todayClaimed}/6 | Total: ${d.total}`;
+  $('bountyList').innerHTML=BOUNTY_LIST.map(b=>{
+    const claimKey=today+'_'+b.id;
+    const done=d.claimed.includes(claimKey)||d.claimed.includes('perm_'+b.id);
+    const rStr=Object.entries(b.reward).map(([k,v])=>v+k).join(' ');
+    return `<div class="bounty-card ${done?'claimed':''}" onclick="${done?'':'bountyClaim(''+b.id+'')'}">
+      <div class="bc-icon">${b.icon}</div>
+      <div class="bc-info">
+        <div class="bc-name">${b.name}</div>
+        <div class="bc-target">${done?'✓ Claimed':'Click to claim bounty'}</div>
+        <div class="bc-reward">${rStr}</div>
+      </div>
+      <span class="bc-badge ${b.diff}">${b.diff.toUpperCase()}</span>
+    </div>`;
+  }).join('');
+  $('bountyLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Claim bounties for rewards!</div>';
 }
 
 </script>
