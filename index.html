@@ -2596,6 +2596,38 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ ANCIENT RUINS ══ */
+.ruins-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#1a1200,#2b1f00,#0f0900);z-index:1162;overflow-y:auto;padding:0 0 80px}
+.ruins-header{text-align:center;padding:22px 16px 10px;color:#d4a843}
+.ruins-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 14px #c8962a}
+.ruins-energy{text-align:center;color:#b89a50;font-size:.85rem;margin:4px 0 12px}
+.ruins-sites{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 12px}
+.ruins-site{background:rgba(60,40,0,.4);border:1px solid #5a3d0a;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.ruins-site:active{transform:scale(.95)}
+.ruins-site.excavated{border-color:#d4a843;background:rgba(80,60,0,.45)}
+.rs-icon{font-size:1.6rem}
+.rs-name{font-size:.75rem;color:#d4a843;font-weight:700;margin-top:3px}
+.rs-status{font-size:.68rem;color:#a08030;margin-top:2px}
+.ruins-log{margin:14px 12px 0;background:rgba(0,0,0,.35);border-radius:10px;padding:10px;max-height:120px;overflow-y:auto}
+.ruins-log div{font-size:.75rem;color:#c09040;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+
+/* ══ ASTRAL PROJECTION ══ */
+.astral-panel{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#0d0d2b,#1a0535,#070722);z-index:1161;overflow-y:auto;padding:0 0 80px}
+.astral-header{text-align:center;padding:22px 16px 10px;color:#c9aaff}
+.astral-header h2{font-size:1.4rem;margin:0;text-shadow:0 0 18px #8855ff}
+.astral-energy{text-align:center;color:#a88edd;font-size:.85rem;margin:4px 0 12px}
+.astral-planes{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px}
+.astral-plane{background:rgba(80,0,160,.25);border:1px solid #6633cc;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:all .2s}
+.astral-plane:active{transform:scale(.96)}
+.astral-plane.visited{border-color:#aa77ff;background:rgba(100,30,200,.35)}
+.ap-icon{font-size:2rem;margin-bottom:4px;filter:drop-shadow(0 0 8px #9966ff)}
+.ap-name{font-size:.85rem;color:#c9aaff;font-weight:700}
+.ap-desc{font-size:.72rem;color:#8877aa;margin:3px 0}
+.ap-reward{font-size:.72rem;color:#ffcc44}
+.astral-log{margin:14px 12px 0;background:rgba(0,0,0,.3);border-radius:10px;padding:10px;max-height:120px;overflow-y:auto}
+.astral-log div{font-size:.75rem;color:#aa88dd;border-bottom:1px solid rgba(255,255,255,.05);padding:3px 0}
+.astral-btn{margin:14px 12px 0;background:linear-gradient(135deg,#6622cc,#9944ff);color:#fff;border:none;border-radius:10px;padding:12px;font-size:.95rem;font-weight:700;width:calc(100% - 24px);cursor:pointer}
+
 /* ══ QUANTUM REALM ══ */
 .qrealm-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 40%,#020a12,#020408);z-index:1160;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .qrealm-panel h2{color:#44ffdd;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #00ddaa}
@@ -17171,6 +17203,23 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="doasis-trades" id="doasisTrades"></div>
 </div>
 
+<!-- ANCIENT RUINS -->
+<div id="ruinsPanel" class="ruins-panel">
+  <div class="ruins-header"><h2>🏛️ Ancient Ruins</h2></div>
+  <div class="ruins-energy" id="ruinsEnergy"></div>
+  <div class="ruins-sites" id="ruinsSites"></div>
+  <div class="ruins-log" id="ruinsLog"></div>
+  <button onclick="closeRuins()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
+<!-- ASTRAL PROJECTION -->
+<div id="astralPanel" class="astral-panel">
+  <div class="astral-header"><h2>✨ Astral Projection</h2></div>
+  <div class="astral-energy" id="astralEnergy"></div>
+  <div class="astral-planes" id="astralPlanes"></div>
+  <button class="astral-btn" onclick="astralProject()">🌌 Project Astral Self</button>
+  <div class="astral-log" id="astralLog"></div>
+  <button onclick="closeAstral()" style="margin:14px 12px 0;background:#333;color:#fff;border:none;border-radius:10px;padding:12px;width:calc(100% - 24px);font-size:.95rem">✖ Close</button>
+</div>
 <!-- QUANTUM REALM -->
 <div class="qrealm-panel" id="qrealmPanel" style="display:none">
   <button onclick="closeQrealm()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#44ffdd;font-size:1.5rem;cursor:pointer">✕</button>
@@ -73403,6 +73452,115 @@ function _renderQrealm(){
     <div class="qn-name">${n.name}</div>
   </div>`).join('');
   $('qrealmLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Activate nodes and collapse!</div>';
+}
+
+
+// ══ ASTRAL PROJECTION ══
+const ASTRAL_KEY='k0509_astral';
+const ASTRAL_PLANES=[
+  {id:'ether',icon:'🌫️',name:'Ether Plane',desc:'Misty realm of thoughts',reward:'50 coins + 5 XP'},
+  {id:'fire',icon:'🔥',name:'Flame Astral',desc:'Burning astral fire',reward:'3 STR + 60 coins'},
+  {id:'void',icon:'🌑',name:'Void Plane',desc:'Silent endless dark',reward:'100 KC'},
+  {id:'dream',icon:'💭',name:'Dreamscape',desc:'Realm of possibility',reward:'10 INT + 50 coins'},
+  {id:'celestial',icon:'⭐',name:'Celestial Realm',desc:'Stars and light',reward:'5 KC + 3 AGI'},
+  {id:'shadow',icon:'👤',name:'Shadow Astral',desc:'Your darker side',reward:'2 STR + 2 AGI'},
+  {id:'time',icon:'⏳',name:'Temporal Plane',desc:'Past and future merge',reward:'150 coins + 5 XP'},
+  {id:'cosmos',icon:'🌌',name:'Cosmic Origin',desc:'The source of all',reward:'200 KC'},
+];
+function _astralData(){return JSON.parse(localStorage.getItem(ASTRAL_KEY)||'{"essence":0,"journeys":0,"lastDay":"","active":null,"log":[]}');}
+function _astralSave(d){localStorage.setItem(ASTRAL_KEY,JSON.stringify(d));}
+function astralProject(){
+  const d=_astralData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.journeys=0;d.lastDay=today;}
+  if(d.journeys>=5){showFloatBubble('5 journeys today!','bad');return;}
+  const plane=ASTRAL_PLANES[Math.floor(Math.random()*ASTRAL_PLANES.length)];
+  d.journeys++;d.essence+=8;d.active=plane.id;
+  let rewards=[];
+  if(plane.id==='ether'){gainCoins(50);gainXP(5,'int');rewards.push('50🪙 5XP');}
+  else if(plane.id==='fire'){G.str=(G.str||10)+3;gainCoins(60);save();rewards.push('3STR 60🪙');}
+  else if(plane.id==='void'){gainKC(100);rewards.push('100KC');}
+  else if(plane.id==='dream'){G.int=(G.int||10)+10;gainCoins(50);save();rewards.push('10INT 50🪙');}
+  else if(plane.id==='celestial'){gainKC(5);G.agi=(G.agi||10)+3;save();rewards.push('5KC 3AGI');}
+  else if(plane.id==='shadow'){G.str=(G.str||10)+2;G.agi=(G.agi||10)+2;save();rewards.push('2STR 2AGI');}
+  else if(plane.id==='time'){gainCoins(150);gainXP(5,'wis');rewards.push('150🪙 5XP');}
+  else if(plane.id==='cosmos'){gainKC(200);rewards.push('200KC');}
+  d.log.unshift(`${plane.icon} ${plane.name}: ${rewards.join(' ')}`);
+  if(d.log.length>10)d.log.pop();
+  _astralSave(d);
+  showFloatBubble(`${plane.icon} ${plane.name}!`,'good');
+  checkAchievements();_renderAstral();
+}
+function openAstral(){$('astralPanel').style.display='flex';_renderAstral();}
+function closeAstral(){$('astralPanel').style.display='none';}
+function _renderAstral(){
+  const d=_astralData();
+  const today=getTodayKey();
+  const journeys=d.lastDay===today?d.journeys:0;
+  $('astralEnergy').textContent=`Essence: ${d.essence} | Journeys: ${journeys}/5`;
+  $('astralPlanes').innerHTML=ASTRAL_PLANES.map(p=>`<div class="astral-plane ${d.active===p.id?'visited':''}" onclick="astralProject()">
+    <div class="ap-icon">${p.icon}</div>
+    <div class="ap-name">${p.name}</div>
+    <div class="ap-desc">${p.desc}</div>
+    <div class="ap-reward">${p.reward}</div>
+  </div>`).join('');
+  $('astralLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Project yourself into the astral!</div>';
+}
+
+// ══ ANCIENT RUINS ══
+const RUINS_KEY='k0509_ruins';
+const RUINS_SITES=[
+  {id:'r1',icon:'🗿',name:'Stone Altar',reward:{coins:80,xp:8}},
+  {id:'r2',icon:'⚱️',name:'Clay Urns',reward:{kc:15}},
+  {id:'r3',icon:'📜',name:'Old Scrolls',reward:{int:2,coins:50}},
+  {id:'r4',icon:'🗡️',name:'Bronze Sword',reward:{str:3}},
+  {id:'r5',icon:'👑',name:'Lost Crown',reward:{kc:50,coins:100}},
+  {id:'r6',icon:'🔮',name:'Crystal Orb',reward:{int:3,agi:1}},
+  {id:'r7',icon:'🏺',name:'Gold Vase',reward:{coins:200}},
+  {id:'r8',icon:'🧱',name:'Temple Wall',reward:{str:2,coins:60}},
+  {id:'r9',icon:'🌿',name:'Herb Chamber',reward:{xp:15,coins:40}},
+  {id:'r10',icon:'⚙️',name:'Gear Engine',reward:{agi:3}},
+  {id:'r11',icon:'🪙',name:'Coin Cache',reward:{coins:300}},
+  {id:'r12',icon:'💎',name:'Gem Vault',reward:{kc:100}},
+];
+function _ruinsData(){return JSON.parse(localStorage.getItem(RUINS_KEY)||'{"digs":0,"lastDay":"","excavated":[],"gold":0,"log":[]}');}
+function _ruinsSave(d){localStorage.setItem(RUINS_KEY,JSON.stringify(d));}
+function ruinsExcavate(sid){
+  const d=_ruinsData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.digs=0;d.lastDay=today;}
+  if(d.digs>=8){showFloatBubble('8 excavations today!','bad');return;}
+  const site=RUINS_SITES.find(s=>s.id===sid);
+  if(!site)return;
+  d.digs++;d.gold+=12;
+  let rewards=[];
+  const r=site.reward;
+  if(r.coins){gainCoins(r.coins);rewards.push(r.coins+'🪙');}
+  if(r.kc){gainKC(r.kc);rewards.push(r.kc+'KC');}
+  if(r.xp){gainXP(r.xp,'wis');rewards.push(r.xp+'XP');}
+  if(r.str){G.str=(G.str||10)+r.str;save();rewards.push(r.str+'STR');}
+  if(r.int){G.int=(G.int||10)+r.int;save();rewards.push(r.int+'INT');}
+  if(r.agi){G.agi=(G.agi||10)+r.agi;save();rewards.push(r.agi+'AGI');}
+  if(!d.excavated.includes(sid))d.excavated.push(sid);
+  d.log.unshift(`${site.icon} ${site.name}: ${rewards.join(' ')}`);
+  if(d.log.length>12)d.log.pop();
+  _ruinsSave(d);
+  showFloatBubble(`${site.icon} ${site.name}: ${rewards.join(' ')}`,'good');
+  checkAchievements();_renderRuins();
+}
+function openRuins(){$('ruinsPanel').style.display='flex';_renderRuins();}
+function closeRuins(){$('ruinsPanel').style.display='none';}
+function _renderRuins(){
+  const d=_ruinsData();
+  const today=getTodayKey();
+  const digs=d.lastDay===today?d.digs:0;
+  $('ruinsEnergy').textContent=`Ruins Gold: ${d.gold} | Digs: ${digs}/8 | Found: ${d.excavated.length}/${RUINS_SITES.length}`;
+  $('ruinsSites').innerHTML=RUINS_SITES.map(s=>`<div class="ruins-site ${d.excavated.includes(s.id)?'excavated':''}" onclick="ruinsExcavate('${s.id}')">
+    <div class="rs-icon">${s.icon}</div>
+    <div class="rs-name">${s.name}</div>
+    <div class="rs-status">${d.excavated.includes(s.id)?'✓ Found':'Dig here'}</div>
+  </div>`).join('');
+  $('ruinsLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Tap a site to excavate!</div>';
 }
 
 </script>
