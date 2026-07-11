@@ -3001,7 +3001,57 @@ textarea.inp { resize:none;min-height:72px; }
 .tcap-seal{font-size:12px}
 .tcap-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
 
-/* ══ BESTIARY ══ */
+
+
+/* ══ SPIRIT VOICES ══ */
+.sprt-panel{position:fixed;inset:0;background:#020208;z-index:1119;display:none;flex-direction:column;overflow:hidden}
+.sprt-panel.open{display:flex}
+.sprt-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#030312,#060618)}
+.sprt-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#aa88ff,#ddaaff,#6644ff,#aa88ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sprtShim 4s linear infinite}
+@keyframes sprtShim{0%{background-position:0%}100%{background-position:300%}}
+.sprt-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.sprt-essence{display:flex;justify-content:space-between;align-items:center;background:rgba(170,136,255,.05);border:1.5px solid rgba(170,136,255,.15);border-radius:14px;padding:10px 14px;margin-bottom:10px}
+.sprt-ess-v{font:800 22px var(--ff-head);color:#aa88ff}
+.sprt-ess-lbl{font:600 7px var(--ff-body);color:rgba(170,136,255,.35)}
+.sprt-spirits{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.sprt-spirit{border:2px solid;border-radius:18px;padding:12px 14px;transition:all .2s}
+.sprt-spirit-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sprt-spirit-icon{font-size:32px;flex-shrink:0}
+.sprt-spirit-info{flex:1}
+.sprt-spirit-name{font:800 12px var(--ff-head);margin-bottom:1px}
+.sprt-spirit-domain{font:600 7px var(--ff-body);opacity:.45;margin-bottom:2px}
+.sprt-spirit-eff{font:700 8px var(--ff-head);opacity:.55}
+.sprt-spirit-cd{font:600 7px var(--ff-body);opacity:.35;text-align:right;flex-shrink:0}
+.sprt-channel-btn{width:100%;border:1.5px solid;border-radius:12px;padding:8px;font:800 10px var(--ff-head);cursor:pointer;margin-top:4px}
+.sprt-channel-btn:disabled{opacity:.3;cursor:default}
+
+/* ══ WEEKLY TOURNAMENT ══ */
+.tourn-panel{position:fixed;inset:0;background:#04060a;z-index:1118;display:none;flex-direction:column;overflow:hidden}
+.tourn-panel.open{display:flex}
+.tourn-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#050810,#0a1018)}
+.tourn-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ffcc00,#ffffff,#ffcc00);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:tournShim 3s linear infinite}
+@keyframes tournShim{0%{background-position:0%}100%{background-position:300%}}
+.tourn-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.tourn-bracket{background:radial-gradient(ellipse at 50% 20%,rgba(255,200,0,.1),transparent);border:2px solid rgba(255,200,0,.2);border-radius:20px;padding:14px;margin-bottom:12px;text-align:center}
+.tourn-bracket-round{font:800 14px var(--ff-head);color:rgba(255,200,80,.8);margin-bottom:4px}
+.tourn-bracket-pos{font:700 36px var(--ff-head);color:rgba(255,220,100,.9)}
+.tourn-bracket-max{font:600 10px var(--ff-body);color:rgba(255,190,60,.4)}
+.tourn-pts{font:800 22px var(--ff-head);color:#ffcc00;margin-bottom:2px}
+.tourn-pts-lbl{font:600 7px var(--ff-body);color:rgba(255,200,0,.35)}
+.tourn-fights{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.tourn-fight{background:rgba(255,200,0,.04);border:1.5px solid rgba(255,200,0,.1);border-radius:14px;padding:10px 13px;display:flex;align-items:center;gap:10px}
+.tourn-opp-icon{font-size:26px;flex-shrink:0}
+.tourn-opp-info{flex:1}
+.tourn-opp-name{font:700 10px var(--ff-head);color:rgba(255,210,120,.8)}
+.tourn-opp-power{font:600 8px var(--ff-body);color:rgba(200,160,60,.4)}
+.tourn-fight-btn{background:linear-gradient(135deg,#181000,#302000);border:1.5px solid rgba(255,200,0,.3);border-radius:9px;padding:5px 11px;font:700 8px var(--ff-head);color:#ffcc00;cursor:pointer;flex-shrink:0}
+.tourn-fight-btn:disabled{opacity:.3;cursor:default}
+.tourn-prize-list{display:flex;flex-direction:column;gap:5px}
+.tourn-prize{background:rgba(255,200,0,.04);border:1px solid rgba(255,200,0,.1);border-radius:10px;padding:7px 12px;display:flex;align-items:center;gap:8px}
+.tourn-prize-rank{font:700 14px var(--ff-head);color:#ffcc00;flex-shrink:0;width:30px;text-align:center}
+.tourn-prize-rew{flex:1;font:600 8px var(--ff-body);color:rgba(200,170,60,.5)}
+
+/* ══ BESTIARY 2 ══ */
 .bes-panel{position:fixed;inset:0;background:#020a04;z-index:1067;display:none;flex-direction:column;overflow:hidden}
 .bes-panel.open{display:flex}
 .bes-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#030e06,#020a04)}
@@ -4065,11 +4115,11 @@ textarea.inp { resize:none;min-height:72px; }
 
 /* ══ MONSTER BESTIARY ══ */
 .best-panel{position:fixed;inset:0;background:#07000f;z-index:1039;display:none;flex-direction:column;overflow:hidden}
-.best-panel.open{display:flex}
-.best-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#120020,#07000f)}
-.best-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4444,#ff8800,#cc44ff,#ff4444);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:bestShim 2.5s linear infinite}
-@keyframes bestShim{0%{background-position:0%}100%{background-position:300%}}
-.best-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.bst2-panel.open{display:flex}
+.bst2-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#120020,#07000f)}
+.bst2-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4444,#ff8800,#cc44ff,#ff4444);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:bst2Shim 2.5s linear infinite}
+@keyframes bst2Shim{0%{background-position:0%}100%{background-position:300%}}
+.bst2-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
 /* Progress banner */
 .best-banner{background:radial-gradient(ellipse,rgba(255,68,68,.06),rgba(0,0,0,0));border:2px solid rgba(255,68,68,.2);border-radius:18px;padding:12px 16px;margin-bottom:12px}
 .best-banner-row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
@@ -4078,7 +4128,7 @@ textarea.inp { resize:none;min-height:72px; }
 .best-banner-name{font:900 14px var(--ff-head);color:#fff}
 .best-banner-sub{font:600 9px var(--ff-body);color:rgba(255,100,100,.7)}
 .best-progress-bar{background:rgba(255,255,255,.06);border-radius:20px;height:6px;overflow:hidden;margin-top:4px}
-.best-progress-fill{height:100%;background:linear-gradient(90deg,#ff4444,#ff8800);border-radius:20px;transition:width .4s}
+.bst2-progress-fill{height:100%;background:linear-gradient(90deg,#ff4444,#ff8800);border-radius:20px;transition:width .4s}
 /* Stats */
 .best-stats{display:flex;gap:8px;margin-bottom:12px}
 .best-stat{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,68,68,.1);border-radius:10px;padding:6px;text-align:center}
@@ -14688,6 +14738,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTmp3()"><div class="ddr-i">🗺️</div>Skattkartan</div>
           <div class="ddr" onclick="cM();openHero()"><div class="ddr-i">🦸</div>Hjältarenas</div>
           <div class="ddr" onclick="cM();openAcd2()"><div class="ddr-i">🎓</div>Stjärnakademin</div>
+          <div class="ddr" onclick="cM();openBst2()"><div class="ddr-i">📖</div>Bestiariet</div>
+          <div class="ddr" onclick="cM();openTourn()"><div class="ddr-i">🏆</div>Veckoturnering</div>
+          <div class="ddr" onclick="cM();openSprt()"><div class="ddr-i">👻</div>Andelarnas Röst</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -16420,7 +16473,46 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
-<!-- BESTIARY -->
+
+
+<!-- SPIRIT VOICES -->
+<div class="sprt-panel" id="sprtPanel">
+  <div class="sprt-header">
+    <div class="sprt-title">👻 ANDELARNAS RÖST</div>
+    <button class="close-btn" onclick="closeSprt()">✕</button>
+  </div>
+  <div class="sprt-scroll">
+    <div class="sprt-essence">
+      <div>
+        <div class="sprt-ess-lbl">ANDESSENS</div>
+        <div class="sprt-ess-v" id="sprtEssV">0 👻</div>
+      </div>
+    </div>
+    <div class="sprt-spirits" id="sprtSpirits"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(170,136,255,.25);text-align:center">Kanalisera andarnas kraft för hemliga välsignelser! 6h cooldown. 👻</div>
+  </div>
+</div>
+
+<!-- WEEKLY TOURNAMENT -->
+<div class="tourn-panel" id="tournPanel">
+  <div class="tourn-header">
+    <div class="tourn-title">🏆 VECKOTURNERING</div>
+    <button class="close-btn" onclick="closeTourn()">✕</button>
+  </div>
+  <div class="tourn-scroll">
+    <div class="tourn-bracket">
+      <div class="tourn-bracket-round" id="tournRound">Kvalificeringsomgång</div>
+      <div class="tourn-bracket-pos" id="tournPos">🏅</div>
+      <div class="tourn-pts-lbl">TURNERINGSPOÄNG</div>
+      <div class="tourn-pts" id="tournPts">0 TP</div>
+    </div>
+    <div class="tourn-fights" id="tournFights"></div>
+    <div style="font:700 8px var(--ff-head);color:rgba(255,200,0,.35);letter-spacing:1px;margin-bottom:6px">PRISPOOLEN DENNA VECKA</div>
+    <div class="tourn-prize-list" id="tournPrizes"></div>
+  </div>
+</div>
+
+<!-- BESTIARY 2 -->
 <div class="bes-panel" id="besPanel">
   <div class="bes-header">
     <div class="bes-title">📖 BESTARIUM</div>
@@ -17203,10 +17295,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- MONSTER BESTIARY -->
-<div class="best-panel" id="bestPanel">
+<div class="bst2-panel" id="bst2Panel">
   <div class="best-header">
     <div class="best-title">📖 MONSTERLEXIKON</div>
-    <button class="close-btn" onclick="closeBest()">✕</button>
+    <button class="close-btn" onclick="closeBst2()">✕</button>
   </div>
   <div class="best-scroll">
     <div class="best-banner">
@@ -68250,6 +68342,281 @@ function _renderAcd2(d){
       '<div class="acad-course-lv">Lv.'+lv+'</div>'+
       '<button class="acad-upg-btn" onclick="acadUpgrade(\''+course.id+'\')" '+(maxed||!canAff?'disabled':'')+'>'+
         (maxed?'MAX':canAff?'+1 ('+cost+'🪙)':'💸 '+cost+'🪙')+
+      '</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// BESTIARY
+var BST2_KEY = 'k0509_bst2';
+const BEST_MONSTERS = [
+  {id:'goblin',   icon:'👺', name:'Goblin',      info:'Liten grön varelse',  scanCost:0,  bonus:{agi:3},          reward:'AGI'},
+  {id:'orc',      icon:'👹', name:'Ork',          info:'Stor grön krigar',    scanCost:0,  bonus:{str:4},          reward:'STR'},
+  {id:'skeleton', icon:'💀', name:'Skelett',      info:'Återuppståndet ben',  scanCost:0,  bonus:{end:3},          reward:'END'},
+  {id:'wolf',     icon:'🐺', name:'Varg',         info:'Snabb rovdjur',       scanCost:0,  bonus:{agi:2,str:1},    reward:'AGI+STR'},
+  {id:'vampire',  icon:'🧛', name:'Vampyr',       info:'Blodsugande odödlig', scanCost:0,  bonus:{lck:3,int:2},   reward:'LCK+INT'},
+  {id:'dragon',   icon:'🐉', name:'Drake',        info:'Eldsprutande legenda', scanCost:0,  bonus:{str:5,end:3},    reward:'STR+END'},
+  {id:'lich',     icon:'🧟', name:'Lich',         info:'Odödlig trollkarl',   scanCost:0,  bonus:{int:5,lck:3},   reward:'INT+LCK'},
+  {id:'phoenix',  icon:'🦅', name:'Fenix',        info:'Elduppstånden fågel', scanCost:0,  bonus:{agi:4,int:2},   reward:'AGI+INT'},
+  {id:'golem',    icon:'🪨', name:'Golem',        info:'Stenskapelse',        scanCost:0,  bonus:{end:6,str:2},    reward:'END+STR'},
+  {id:'titan',    icon:'🌋', name:'Titan',        info:'Urtidens gigant',     scanCost:0,  bonus:{str:8,end:4},    reward:'STR+END'},
+  {id:'void',     icon:'🌀', name:'Tomrumsvakt',  info:'En varelse ur intet', scanCost:0,  bonus:{int:8,lck:4},   reward:'INT+LCK'},
+  {id:'cosmic',   icon:'🌌', name:'Kosmisk gud',  info:'Universums väktare',  scanCost:0,  bonus:{str:5,agi:5,int:5,lck:5,end:5}, reward:'ALLA +5'},
+];
+
+function _bst2Data(){try{return JSON.parse(localStorage.getItem(BEST_KEY)||'null');}catch(e){return null;}}
+function _bst2Save(d){localStorage.setItem(BEST_KEY,JSON.stringify(d));}
+function _bst2GetData(){
+  var d=_bestData();
+  if(!d) d={scanned:{},encountered:{},totalScanned:0};
+  return d;
+}
+
+function bst2Scan(monsterId){
+  var d=_bestGetData();
+  if(d.scanned[monsterId]){showFloatBubble('Redan skannat!','debuff');return;}
+  var mon=BEST_MONSTERS.find(function(m){return m.id===monsterId;});
+  if(!mon) return;
+  d.scanned[monsterId]=true;
+  d.totalScanned=(d.totalScanned||0)+1;
+  Object.keys(mon.bonus).forEach(function(s){G[s]=(G[s]||0)+mon.bonus[s];});
+  save();
+  gainCoins(30+d.totalScanned*5);gainXP(40,'int');
+  var bonusTxt=Object.keys(mon.bonus).map(function(s){return '+'+mon.bonus[s]+s.toUpperCase();}).join(' ');
+  showFloatBubble('📖 '+mon.icon+' '+mon.name+' skannat! '+bonusTxt,'buff');
+  // All scanned bonus
+  if(d.totalScanned>=BEST_MONSTERS.length){
+    gainKC(10);gainCoins(1000);
+    showFloatBubble('🏆 BESTIARI KOMPLETT! +10KC +1000🪙','buff');
+  }
+  _bestSave(d);checkAchievements();_renderBest(d);
+}
+
+function bst2Encounter(monsterId){
+  var d=_bestGetData();
+  var mon=BEST_MONSTERS.find(function(m){return m.id===monsterId;});
+  if(!mon) return;
+  d.encountered[monsterId]=(d.encountered[monsterId]||0)+1;
+  var fights=d.encountered[monsterId];
+  gainCoins(20+fights*2);gainXP(15,'str');
+  showFloatBubble('⚔️ Mötte '+mon.icon+' '+mon.name+'! (×'+fights+')'+(fights>=3?' Kan nu skannas!':''),'buff');
+  _bestSave(d);_renderBest(d);
+}
+
+function openBst2(){$('bestPanel').classList.add('open');_renderBest();}
+function closeBst2(){$('bestPanel').classList.remove('open');}
+
+function _renderBst2(d){
+  if(!d) d=_bestGetData();
+  var pv=$('bestProgV');
+  if(pv) pv.textContent=(d.totalScanned||0)+'/'+BEST_MONSTERS.length+' ✅';
+  var container=$('bestEntries');if(!container) return;
+  container.innerHTML=BEST_MONSTERS.map(function(mon){
+    var scanned=!!d.scanned[mon.id];
+    var encountered=d.encountered[mon.id]||0;
+    var canScan=encountered>=1||true; // Can always scan
+    var cls='best-entry'+(scanned?' unlocked':encountered>0?' scanned':'');
+    var bonusTxt=Object.keys(mon.bonus).map(function(s){return '+'+mon.bonus[s]+s.toUpperCase();}).join(' ');
+    return '<div class="'+cls+'">'+
+      (scanned?'<div class="best-badge">✓ SKANNAT</div>':'')+
+      '<div class="best-entry-icon">'+mon.icon+'</div>'+
+      '<div class="best-entry-name">'+mon.name+'</div>'+
+      '<div class="best-entry-info">'+mon.info+'</div>'+
+      '<div class="best-entry-rew">'+bonusTxt+'</div>'+
+      '<button class="best-scan-btn" onclick="bestScan(\''+mon.id+'\')" '+(scanned?'disabled':'')+'>'+
+        (scanned?'✓ Klar':'📖 Skanna')+
+      '</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// WEEKLY TOURNAMENT
+const TOURN_KEY = 'k0509_tourn';
+const TOURN_OPPS = [
+  {icon:'⚔️', name:'Järnkrigaren Bjorn',    pow:40},
+  {icon:'🧙', name:'Isylda Trollkvinnan',    pow:55},
+  {icon:'🦅', name:'Örnarnas Älskling',       pow:65},
+  {icon:'💀', name:'Skuggdöden Kael',         pow:80},
+  {icon:'🌪️', name:'Stormens Gudinna',        pow:100},
+  {icon:'🌟', name:'Stjärnriddar Theron',      pow:120},
+  {icon:'💎', name:'Diamanternas Regent',      pow:150},
+];
+const TOURN_PRIZES = [
+  {rank:'🥇 1:a', rew:'+20KC +2000🪙 +10 alla stats'},
+  {rank:'🥈 2:a', rew:'+10KC +1000🪙 +7 alla stats'},
+  {rank:'🥉 3:a', rew:'+5KC +500🪙 +5 alla stats'},
+  {rank:'4-8', rew:'+2KC +200🪙 +3 alla stats'},
+  {rank:'9-16', rew:'+1KC +100🪙'},
+];
+
+function _tournData(){try{return JSON.parse(localStorage.getItem(TOURN_KEY)||'null');}catch(e){return null;}}
+function _tournSave(d){localStorage.setItem(TOURN_KEY,JSON.stringify(d));}
+function _tournGetData(){
+  var d=_tournData();
+  var now=Date.now();
+  var weekMs=7*24*3600*1000;
+  if(!d) d={weekStart:now,tp:0,wins:0,losses:0,round:0,foughtsThisWeek:{},claimedWeek:false};
+  if(now-d.weekStart>weekMs){
+    d.weekStart=now;d.tp=0;d.wins=0;d.losses=0;d.round=0;
+    d.foughtsThisWeek={};d.claimedWeek=false;
+    _tournSave(d);
+  }
+  return d;
+}
+
+function tournFight(oppIdx){
+  var d=_tournGetData();
+  var key='opp_'+oppIdx;
+  if(d.foughtsThisWeek[key]){showFloatBubble('Redan mött denna opponent!','debuff');return;}
+  var opp=TOURN_OPPS[oppIdx];if(!opp) return;
+  d.foughtsThisWeek[key]=true;
+  var myPow=(G.str||0)+(G.agi||0)+(G.int||0)+Math.random()*25;
+  var oppPow=opp.pow+Math.random()*20;
+  var won=myPow>oppPow;
+  if(won){
+    var tp=Math.floor(20+opp.pow*0.5);
+    d.tp=(d.tp||0)+tp;d.wins=(d.wins||0)+1;
+    gainCoins(50+opp.pow);gainXP(opp.pow/2,'str');
+    showFloatBubble('🏆 '+opp.icon+' '+opp.name+' besegrad! +'+tp+' TP','buff');
+    checkAchievements();
+  } else {
+    d.losses=(d.losses||0)+1;
+    gainCoins(20);
+    showFloatBubble('💥 '+opp.icon+' '+opp.name+' vann! +20🪙 tröst','debuff');
+  }
+  _tournSave(d);_renderTourn(d);
+}
+
+function tournClaim(){
+  var d=_tournGetData();
+  if(d.claimedWeek){showFloatBubble('Redan hämtat denna vecka!','debuff');return;}
+  var rank=Math.max(1,8-Math.floor((d.tp||0)/50));
+  d.claimedWeek=true;
+  var kc=rank<=1?20:rank<=3?10:rank<=8?5:2;
+  var coins=rank<=1?2000:rank<=3?1000:rank<=8?500:200;
+  gainKC(kc);gainCoins(coins);
+  ['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+(rank<=1?10:rank<=3?7:rank<=8?5:3);});
+  save();
+  showFloatBubble('🏆 Turnering klar! Rang '+rank+' +'+kc+'KC +'+coins+'🪙','buff');
+  checkAchievements();
+  _tournSave(d);_renderTourn(d);
+}
+
+function openTourn(){$('tournPanel').classList.add('open');_renderTourn();}
+function closeTourn(){$('tournPanel').classList.remove('open');}
+
+function _renderTourn(d){
+  if(!d) d=_tournGetData();
+  var rank=Math.max(1,16-Math.floor((d.tp||0)/30));
+  var tr=$('tournRound');if(tr) tr.textContent=(d.wins||0)+(d.losses||0)+' strider ('+d.wins+' vinster)';
+  var tp=$('tournPos');if(tp) tp.textContent=(rank<=3?['🥇','🥈','🥉'][rank-1]:'#'+rank);
+  var tpts=$('tournPts');if(tpts) tpts.textContent=(d.tp||0)+' TP';
+  var fights=$('tournFights');
+  if(fights){
+    fights.innerHTML=TOURN_OPPS.map(function(opp,i){
+      var fought=!!d.foughtsThisWeek['opp_'+i];
+      var myPow=(G.str||0)+(G.agi||0)+(G.int||0);
+      var harder=myPow<opp.pow;
+      return '<div class="tourn-fight">'+
+        '<div class="tourn-opp-icon">'+opp.icon+'</div>'+
+        '<div class="tourn-opp-info">'+
+          '<div class="tourn-opp-name">'+opp.name+'</div>'+
+          '<div class="tourn-opp-power">'+(harder?'⚠️ Svårare motstånd':'✓ Likvärdig opponent')+'</div>'+
+        '</div>'+
+        '<button class="tourn-fight-btn" onclick="tournFight('+i+')" '+(fought?'disabled':'')+'>'+
+          (fought?'✓ Klar':'Slåss')+
+        '</button>'+
+      '</div>';
+    }).join('');
+  }
+  var prizes=$('tournPrizes');
+  if(prizes){
+    prizes.innerHTML=TOURN_PRIZES.map(function(p){
+      return '<div class="tourn-prize">'+
+        '<div class="tourn-prize-rank">'+p.rank+'</div>'+
+        '<div class="tourn-prize-rew">'+p.rew+'</div>'+
+      '</div>';
+    }).join('')+
+    (d.claimedWeek?'':'<button style="margin-top:8px;width:100%;padding:9px;background:linear-gradient(135deg,#181000,#302000);border:1.5px solid rgba(255,200,0,.35);border-radius:12px;font:800 10px var(--ff-head);color:#ffcc00;cursor:pointer" onclick="tournClaim()">🏆 Hämta Veckobelöning</button>');
+  }
+}
+
+
+// SPIRIT VOICES
+const SPRT_KEY = 'k0509_sprt';
+const SPRT_SPIRITS = [
+  {id:'anc_warrior',icon:'⚔️',  name:'Urgamla Krigaren',  domain:'Styrka & Mod',    color:'#ff8844', bg:'rgba(255,136,68,.07)',  border:'rgba(255,136,68,.25)',
+   eff:'+20 STR +10 END +1KC',  fn:function(){G.str=(G.str||0)+20;G.end=(G.end||0)+10;save();gainKC(1);gainCoins(150);gainXP(100,'str');}},
+  {id:'anc_sage',   icon:'🧘',  name:'Urgamla Vise',      domain:'Visdom & Insikt', color:'#8844ff', bg:'rgba(136,68,255,.07)',   border:'rgba(136,68,255,.25)',
+   eff:'+20 INT +10 LCK +1KC',  fn:function(){G.int=(G.int||0)+20;G.lck=(G.lck||0)+10;save();gainKC(1);gainCoins(120);gainXP(100,'int');}},
+  {id:'wind_spirit',icon:'💨',  name:'Vindanden',         domain:'Hastighet & Fri', color:'#44ffcc', bg:'rgba(68,255,200,.05)',   border:'rgba(68,255,200,.2)',
+   eff:'+25 AGI +5 LCK',        fn:function(){G.agi=(G.agi||0)+25;G.lck=(G.lck||0)+5;save();gainCoins(130);gainXP(90,'agi');}},
+  {id:'earth_spirit',icon:'🌍', name:'Jordsanden',        domain:'Uthållighet & Natur',color:'#66aa44',bg:'rgba(100,170,68,.06)',border:'rgba(100,170,68,.2)',
+   eff:'+25 END +8 STR',        fn:function(){G.end=(G.end||0)+25;G.str=(G.str||0)+8;save();gainCoins(140);gainXP(90,'end');}},
+  {id:'chaos_spirit',icon:'🌀', name:'Kaosanden',        domain:'Oförutsägbarhet', color:'#ff44cc', bg:'rgba(255,68,204,.06)',   border:'rgba(255,68,204,.2)',
+   eff:'+10 alla stats + mystery',fn:function(){['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+10;});save();gainCoins(200);gainKC(2);gainXP(120,'str');}},
+  {id:'cosmos_spirit',icon:'🌌',name:'Kosmosanden',      domain:'Universum & Tid', color:'#4488ff', bg:'rgba(68,136,255,.06)',   border:'rgba(68,136,255,.2)',
+   eff:'+15 alla stats +2KC',    fn:function(){['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+15;});save();gainKC(2);gainCoins(250);gainXP(150,'int');}},
+];
+
+function _sprtData(){try{return JSON.parse(localStorage.getItem(SPRT_KEY)||'null');}catch(e){return null;}}
+function _sprtSave(d){localStorage.setItem(SPRT_KEY,JSON.stringify(d));}
+function _sprtGetData(){
+  var d=_sprtData();
+  if(!d) d={essence:0,lastChannel:{},totalChannels:0};
+  return d;
+}
+
+function sprtChannel(spiritId){
+  var d=_sprtGetData();
+  var now=Date.now();
+  var cd=6*3600*1000;
+  var last=d.lastChannel[spiritId]||0;
+  if(now-last<cd){
+    var left=Math.ceil((cd-(now-last))/3600000);
+    showFloatBubble('Cooldown! '+left+'h kvar','debuff');return;
+  }
+  var spirit=SPRT_SPIRITS.find(function(s){return s.id===spiritId;});
+  if(!spirit) return;
+  d.lastChannel[spiritId]=now;
+  d.essence=(d.essence||0)+5;
+  d.totalChannels=(d.totalChannels||0)+1;
+  spirit.fn();
+  _sprtSave(d);
+  showFloatBubble('👻 '+spirit.icon+' '+spirit.name+' talar! '+spirit.eff,'buff');
+  checkAchievements();
+  _renderSprt(d);
+}
+
+function openSprt(){$('sprtPanel').classList.add('open');_renderSprt();}
+function closeSprt(){$('sprtPanel').classList.remove('open');}
+
+function _renderSprt(d){
+  if(!d) d=_sprtGetData();
+  var ev=$('sprtEssV');if(ev) ev.textContent=(d.essence||0)+' 👻 ('+(d.totalChannels||0)+' totalt)';
+  var container=$('sprtSpirits');if(!container) return;
+  var now=Date.now();var cd=6*3600*1000;
+  container.innerHTML=SPRT_SPIRITS.map(function(spirit){
+    var last=d.lastChannel[spirit.id]||0;
+    var elapsed=now-last;
+    var ready=elapsed>=cd;
+    var secsLeft=Math.max(0,Math.ceil((cd-elapsed)/1000));
+    var h=Math.floor(secsLeft/3600),m=Math.floor((secsLeft%3600)/60);
+    var cdTxt=ready?'Redo!':h+'h '+m+'m kvar';
+    return '<div class="sprt-spirit" style="background:'+spirit.bg+';border-color:'+spirit.border+'">'+
+      '<div class="sprt-spirit-top">'+
+        '<div class="sprt-spirit-icon">'+spirit.icon+'</div>'+
+        '<div class="sprt-spirit-info">'+
+          '<div class="sprt-spirit-name" style="color:'+spirit.color+'">'+spirit.name+'</div>'+
+          '<div class="sprt-spirit-domain">'+spirit.domain+'</div>'+
+          '<div class="sprt-spirit-eff">'+spirit.eff+'</div>'+
+        '</div>'+
+        '<div class="sprt-spirit-cd" style="color:'+spirit.color+'">'+cdTxt+'</div>'+
+      '</div>'+
+      '<button class="sprt-channel-btn" style="color:'+spirit.color+';border-color:'+spirit.border+';background:rgba(0,0,0,.3)" onclick="sprtChannel(\''+spirit.id+'\')" '+(ready?'':'disabled')+'>'+
+        (ready?'👻 Kanalisera '+spirit.name:'⏳ '+cdTxt)+
       '</button>'+
     '</div>';
   }).join('');
