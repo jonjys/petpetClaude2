@@ -1635,6 +1635,116 @@ textarea.inp { resize:none;min-height:72px; }
 .drag-catch-btn{background:rgba(255,100,0,.08);border:1px solid rgba(255,100,0,.25);border-radius:8px;padding:6px 10px;font:700 8px var(--ff-head);color:rgba(255,150,0,.8);cursor:pointer;flex-shrink:0}
 .drag-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
 
+
+
+
+/* ══ COSMIC GACHA ══ */
+.gach-panel{position:fixed;inset:0;background:#010008;z-index:1086;display:none;flex-direction:column;overflow:hidden}
+.gach-panel.open{display:flex}
+.gach-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#020012,#010008)}
+.gach-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffdd44,#44aaff,#ff44dd,#ffdd44);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gachShim 3s linear infinite}
+@keyframes gachShim{0%{background-position:0%}100%{background-position:300%}}
+.gach-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.gach-banner{background:radial-gradient(ellipse at 50% 30%,rgba(100,100,255,.12),transparent);border:2px solid rgba(100,100,255,.2);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center}
+.gach-banner-icon{font-size:52px;display:block;margin-bottom:5px}
+.gach-banner-name{font:800 16px var(--ff-head);color:rgba(200,200,255,.9);margin-bottom:3px}
+.gach-pity{font:700 9px var(--ff-head);color:rgba(150,150,255,.5);margin-bottom:8px}
+.gach-pull-row{display:flex;gap:8px}
+.gach-pull-btn{flex:1;background:linear-gradient(135deg,#080020,#200060);border:1.5px solid rgba(150,100,255,.4);border-radius:14px;padding:11px;font:800 11px var(--ff-head);color:#fff;cursor:pointer}
+.gach-pull-btn:disabled{opacity:.3;cursor:default}
+.gach-pull-cost{font:700 8px var(--ff-head);color:rgba(150,100,255,.6);margin-top:3px}
+.gach-result{background:rgba(255,255,255,.03);border:2px solid rgba(150,100,255,.15);border-radius:16px;padding:14px;margin-bottom:10px;display:none}
+.gach-result.show{display:block}
+.gach-result-items{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.gach-res-item{background:rgba(255,255,255,.04);border-radius:12px;padding:8px 10px;text-align:center;min-width:55px}
+.gach-res-item.star5{border:2px solid rgba(255,180,0,.6);background:rgba(255,180,0,.06)}
+.gach-res-item.star4{border:2px solid rgba(200,100,255,.5);background:rgba(200,100,255,.05)}
+.gach-res-item.star3{border:1px solid rgba(100,150,255,.3)}
+.gach-res-icon{font-size:22px;display:block;margin-bottom:3px}
+.gach-res-name{font:700 7px var(--ff-head);color:rgba(255,255,255,.5)}
+.gach-res-stars{font:700 8px var(--ff-head)}
+.gach-coll-lbl{font:700 8px var(--ff-head);color:rgba(150,100,255,.4);letter-spacing:1px;margin-bottom:6px}
+.gach-coll{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px}
+.gach-coll-item{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.06);border-radius:12px;padding:8px 4px;text-align:center}
+.gach-coll-item.owned5{border-color:rgba(255,180,0,.4)}
+.gach-coll-item.owned4{border-color:rgba(200,100,255,.3)}
+.gach-coll-icon{font-size:20px;margin-bottom:2px}
+.gach-coll-name{font:600 6px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:1px}
+.gach-coll-qty{font:700 7px var(--ff-head);color:rgba(150,100,255,.5)}
+.gach-stats{display:flex;gap:5px;margin-bottom:8px}
+.gach-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.gach-stat-v{font:800 15px var(--ff-head);color:#8866ff}
+.gach-stat-l{font:600 7px var(--ff-body);color:rgba(136,102,255,.3)}
+.gach-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
+/* ══ PET RESTAURANT ══ */
+.rest-panel{position:fixed;inset:0;background:#040200;z-index:1085;display:none;flex-direction:column;overflow:hidden}
+.rest-panel.open{display:flex}
+.rest-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080400,#040200)}
+.rest-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8c00,#ffcc44,#ff8c00);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:restShim 2s linear infinite}
+@keyframes restShim{0%{background-position:0%}100%{background-position:300%}}
+.rest-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.rest-sign{background:radial-gradient(ellipse at 50% 0,rgba(255,140,0,.1),transparent);border:2px solid rgba(255,140,0,.2);border-radius:20px;padding:13px;margin-bottom:12px;text-align:center}
+.rest-sign-name{font:800 18px var(--ff-head);color:rgba(255,200,100,.9)}
+.rest-sign-sub{font:600 8px var(--ff-body);color:rgba(255,140,0,.4)}
+.rest-earnings{font:700 11px var(--ff-head);color:rgba(255,200,100,.6);margin-top:6px}
+.rest-queue-lbl{font:700 8px var(--ff-head);color:rgba(255,140,0,.4);letter-spacing:1px;margin-bottom:8px}
+.rest-queue{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.rest-cust{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.rest-cust.served{opacity:.3}
+.rest-cust-icon{font-size:26px;flex-shrink:0}
+.rest-cust-body{flex:1}
+.rest-cust-name{font:700 10px var(--ff-head);color:rgba(255,200,100,.7);margin-bottom:2px}
+.rest-cust-order{font:600 8px var(--ff-body);color:rgba(255,140,0,.45);margin-bottom:2px}
+.rest-cust-tip{font:700 8px var(--ff-head);color:rgba(255,200,100,.5)}
+.rest-serve-btn{background:rgba(255,140,0,.07);border:1px solid rgba(255,140,0,.25);border-radius:9px;padding:7px 12px;font:700 9px var(--ff-head);color:rgba(255,200,100,.8);cursor:pointer;flex-shrink:0}
+.rest-serve-btn.served-btn{background:rgba(68,255,136,.05);border-color:rgba(68,255,136,.2);color:rgba(68,255,136,.6)}
+.rest-serve-btn:disabled{opacity:.3;cursor:default}
+.rest-menu-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.25);letter-spacing:1px;margin-bottom:6px}
+.rest-menu{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:8px}
+.rest-dish{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:12px;padding:9px 8px;text-align:center;cursor:pointer;transition:all .15s}
+.rest-dish:hover{background:rgba(255,140,0,.04);border-color:rgba(255,140,0,.2)}
+.rest-dish.selected{border-color:rgba(255,140,0,.4);background:rgba(255,140,0,.08)}
+.rest-dish.locked{opacity:.3;cursor:default}
+.rest-dish-icon{font-size:24px;margin-bottom:2px}
+.rest-dish-name{font:700 8px var(--ff-head);color:rgba(255,200,100,.6);margin-bottom:1px}
+.rest-dish-price{font:700 7px var(--ff-head);color:rgba(255,140,0,.5)}
+.rest-stats{display:flex;gap:5px;margin-bottom:8px}
+.rest-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.rest-stat-v{font:800 15px var(--ff-head);color:#ff8c00}
+.rest-stat-l{font:600 7px var(--ff-body);color:rgba(255,140,0,.3)}
+.rest-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
+/* ══ BOUNTY HUNTER ══ */
+.bnty-panel{position:fixed;inset:0;background:#050300;z-index:1084;display:none;flex-direction:column;overflow:hidden}
+.bnty-panel.open{display:flex}
+.bnty-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0600,#050300)}
+.bnty-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffaa00,#ff6600,#ffaa00);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:bntyShim 2.5s linear infinite}
+@keyframes bntyShim{0%{background-position:0%}100%{background-position:300%}}
+.bnty-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.bnty-board{background:radial-gradient(ellipse at 50% 0,rgba(255,170,0,.08),transparent);border:2px solid rgba(255,170,0,.2);border-radius:20px;padding:13px;margin-bottom:12px}
+.bnty-board-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.bnty-board-title{font:700 12px var(--ff-head);color:rgba(255,200,100,.7)}
+.bnty-board-sub{font:600 8px var(--ff-body);color:rgba(255,170,0,.3)}
+.bnty-list{display:flex;flex-direction:column;gap:7px}
+.bnty-card{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+.bnty-card.claimed{opacity:.3}
+.bnty-card.hard{border-color:rgba(255,50,50,.2);background:rgba(255,50,50,.02)}
+.bnty-card.elite{border-color:rgba(255,200,0,.25);background:rgba(255,200,0,.03)}
+.bnty-card-icon{font-size:28px;flex-shrink:0}
+.bnty-card-body{flex:1}
+.bnty-card-name{font:700 11px var(--ff-head);color:rgba(255,200,100,.8);margin-bottom:2px}
+.bnty-card-desc{font:600 8px var(--ff-body);color:rgba(255,170,0,.4);margin-bottom:3px}
+.bnty-card-rew{font:700 8px var(--ff-head);color:rgba(255,200,100,.5)}
+.bnty-hunt-btn{background:rgba(255,170,0,.07);border:1px solid rgba(255,170,0,.25);border-radius:9px;padding:7px 12px;font:700 9px var(--ff-head);color:rgba(255,200,100,.8);cursor:pointer;flex-shrink:0}
+.bnty-hunt-btn.claimed-btn{background:rgba(68,255,136,.05);border-color:rgba(68,255,136,.2);color:rgba(68,255,136,.6)}
+.bnty-hunt-btn:disabled{opacity:.3;cursor:default}
+.bnty-stats{display:flex;gap:5px;margin-bottom:8px}
+.bnty-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.bnty-stat-v{font:800 16px var(--ff-head);color:#ffaa00}
+.bnty-stat-l{font:600 7px var(--ff-body);color:rgba(255,170,0,.3)}
+.bnty-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
 /* ══ CRYSTAL GARDEN ══ */
 .cgar-panel{position:fixed;inset:0;background:#030108;z-index:1081;display:none;flex-direction:column;overflow:hidden}
 .cgar-panel.open{display:flex}
@@ -13284,6 +13394,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Pet Spa</div>
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
+          <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
+          <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openBnty2()"><div class="ddr-i">🎯</div>Prisjägaren</div>
           <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
@@ -13388,6 +13501,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Pet Spa</div>
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
+          <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
+          <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openBnty2()"><div class="ddr-i">🎯</div>Prisjägaren</div>
           <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
@@ -13475,6 +13591,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Pet Spa</div>
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
+          <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
+          <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openBnty2()"><div class="ddr-i">🎯</div>Prisjägaren</div>
           <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
@@ -13482,6 +13601,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
           <div class="ddr" onclick="cM();openFort()"><div class="ddr-i">🔮</div>Spåkvinna</div>
           <div class="ddr" onclick="cM();openMine()"><div class="ddr-i">⛏</div>Gruva</div>
+          <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
+          <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
           <div class="ddr" onclick="cM();openBnty()"><div class="ddr-i">📋</div>Uppdrag</div>
           <div class="ddr" onclick="cM();openSpin()"><div class="ddr-i">🎡</div>Snurrhjul</div>
           <div class="ddr" onclick="cM();openSpir()"><div class="ddr-i">🌟</div>Andar</div>
@@ -13600,6 +13721,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openLootb()"><div class="ddr-i">🎁</div>Loot Box</div>
           <div class="ddr" onclick="cM();openLyx()"><div class="ddr-i">🛁</div>Lyxspa</div>
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
+          <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
+          <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openBnty2()"><div class="ddr-i">🎯</div>Prisjägaren</div>
           <div class="ddr" onclick="cM();openCgar()"><div class="ddr-i">💎</div>Kristallträdgården</div>
           <div class="ddr" onclick="cM();openCbat()"><div class="ddr-i">🃏</div>Kortstriden</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
@@ -14278,6 +14402,93 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="drag-list-lbl">DRAKAR ATT TÄMJA</div>
     <div class="drag-dragons" id="dragList"></div>
     <div class="drag-info">Tämj drakar och öka ditt bond för att låsa upp kraftfulla förmågor! Varje drake ger unika bonusar.</div>
+  </div>
+</div>
+
+
+
+
+<!-- COSMIC GACHA -->
+<div class="gach-panel" id="gachPanel">
+  <div class="gach-header">
+    <div class="gach-title">⭐ KOSMISK ÖNSKAN</div>
+    <button class="close-btn" onclick="closeGach()">✕</button>
+  </div>
+  <div class="gach-scroll">
+    <div class="gach-stats">
+      <div class="gach-stat-box"><div class="gach-stat-v" id="gach2TotalV">0</div><div class="gach-stat-l">Total Pulls</div></div>
+      <div class="gach-stat-box"><div class="gach-stat-v" id="gach2Star5V">0</div><div class="gach-stat-l">5-Stars</div></div>
+      <div class="gach-stat-box"><div class="gach-stat-v" id="gach2PityV">0</div><div class="gach-stat-l">Pity</div></div>
+    </div>
+    <div class="gach-banner">
+      <span class="gach-banner-icon">✨</span>
+      <div class="gach-banner-name">Kosmisk Önskan</div>
+      <div class="gach-pity" id="gach2PityInfo">Garanterad 5-stjärna på pull 90</div>
+      <div class="gach-pull-row" style="margin-top:8px">
+        <div style="flex:1">
+          <button class="gach-pull-btn" id="gach2Pull1" onclick="gachPull(1)">x1 Önska</button>
+          <div class="gach-pull-cost">160 KC</div>
+        </div>
+        <div style="flex:1">
+          <button class="gach-pull-btn" id="gach2Pull10" onclick="gachPull(10)">x10 Önska</button>
+          <div class="gach-pull-cost">1440 KC</div>
+        </div>
+      </div>
+    </div>
+    <div class="gach-result" id="gachResult">
+      <div class="gach-result-items" id="gach2ResultItems"></div>
+    </div>
+    <div class="gach-coll-lbl">DIN SAMLING</div>
+    <div class="gach-coll" id="gach2Coll"></div>
+    <div class="gach-info">5-stjärnor garanteras vid pull 90. 4-stjärnor var 10e pull. Kosmiska karaktärer ger permanenta stats!</div>
+  </div>
+</div>
+
+<!-- PET RESTAURANT -->
+<div class="rest-panel" id="restPanel">
+  <div class="rest-header">
+    <div class="rest-title">🍽️ PETTANS RESTAURANG</div>
+    <button class="close-btn" onclick="closeRest()">✕</button>
+  </div>
+  <div class="rest-scroll">
+    <div class="rest-stats">
+      <div class="rest-stat-box"><div class="rest-stat-v" id="restServedV">0</div><div class="rest-stat-l">Serverade</div></div>
+      <div class="rest-stat-box"><div class="rest-stat-v" id="restEarnedV">0</div><div class="rest-stat-l">Totalt mynt</div></div>
+      <div class="rest-stat-box"><div class="rest-stat-v" id="restRatingV">5.0</div><div class="rest-stat-l">Stjärnbetyg</div></div>
+    </div>
+    <div class="rest-sign">
+      <div class="rest-sign-name">Pettans Lyxrestaurang</div>
+      <div class="rest-sign-sub">Dagens kunder väntar på mat!</div>
+      <div class="rest-earnings" id="restTodayEarn">0 mynt idag</div>
+    </div>
+    <div class="rest-queue-lbl">KUNDER I KÖN</div>
+    <div class="rest-queue" id="restQueue"></div>
+    <div class="rest-menu-lbl">MENYN — välj rätt att servera</div>
+    <div class="rest-menu" id="restMenu"></div>
+    <div class="rest-info">Matcha kundens beställning för maximal dricks! Sällsynta rätter ger extra bonusar. 🍽️</div>
+  </div>
+</div>
+
+<!-- BOUNTY HUNTER -->
+<div class="bnty-panel" id="bntyPanel">
+  <div class="bnty-header">
+    <div class="bnty-title">🎯 PRISJÄGAREN</div>
+    <button class="close-btn" onclick="closeBnty()">✕</button>
+  </div>
+  <div class="bnty-scroll">
+    <div class="bnty-stats">
+      <div class="bnty-stat-box"><div class="bnty-stat-v" id="bnty2TotalV">0</div><div class="bnty-stat-l">Totalt</div></div>
+      <div class="bnty-stat-box"><div class="bnty-stat-v" id="bnty2TodayV">0</div><div class="bnty-stat-l">Idag</div></div>
+      <div class="bnty-stat-box"><div class="bnty-stat-v" id="bnty2KCV">0</div><div class="bnty-stat-l">KC Tjänade</div></div>
+    </div>
+    <div class="bnty-board">
+      <div class="bnty-board-hd">
+        <div class="bnty-board-title">DAGLIGA BOUNTIES</div>
+        <div class="bnty-board-sub" id="bnty2DateLbl">–</div>
+      </div>
+      <div class="bnty-list" id="bntyList"></div>
+    </div>
+    <div class="bnty-info">Svårare bounties kräver högre stats men ger massiva belöningar. Elite bounties ger KC! 🎯</div>
   </div>
 </div>
 
@@ -18058,10 +18269,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- GACHA PORTAL -->
-<div class="gach-panel" id="gachPanel">
+<div class="gach-panel" id="gach2Panel">
   <div class="gach-header">
     <div class="gach-title">✨ MAGISKA PORTALEN</div>
-    <button class="close-btn" onclick="closeGach()">✕</button>
+    <button class="close-btn" onclick="closeGach2()">✕</button>
   </div>
   <div class="gach-scroll">
     <div class="gach-stats">
@@ -18083,7 +18294,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="gach-coll-grid" id="gachCollGrid"></div>
   </div>
 </div>
-<div class="gach-result" id="gachResult">
+<div class="gach-result" id="gach2Result">
   <div class="gach-result-cards" id="gachResultCards"></div>
   <button class="gach-result-close" onclick="gachCloseResult()">Stäng</button>
 </div>
@@ -18282,10 +18493,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- BOUNTY BOARD -->
-<div class="bnty-panel" id="bntyPanel">
+<div class="bnty-panel" id="bnty2Panel">
   <div class="bnty-header">
     <div class="bnty-title">📋 UPPDRAGSTAVLA</div>
-    <button class="close-btn" onclick="closeBnty()">✕</button>
+    <button class="close-btn" onclick="closeBnty2()">✕</button>
   </div>
   <div class="bnty-scroll">
     <div class="bnty-stats">
@@ -18299,7 +18510,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     </div>
     <div class="bnty-mega" id="bntyMega"></div>
     <div style="font:700 11px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase">Dagliga Uppdrag</div>
-    <div class="bnty-list" id="bntyList"></div>
+    <div class="bnty-list" id="bnty2List"></div>
   </div>
 </div>
 
@@ -62729,6 +62940,367 @@ function _renderLyx(d){
         return '<div class="spa-buff-tag">'+t.icon+' '+Object.keys(t.bonus).map(function(s){return '+'+t.bonus[s]+s.toUpperCase();}).join(' ')+'</div>';
       }).join('');
     }
+  }
+}
+
+
+// BOUNTY HUNTER
+const BNTY2_KEY = 'k0509_bnty2';
+const BNTY2_POOL = [
+  {id:'b01', icon:'W', name:'Skuggvargen',   desc:'En ilskna varg i skogen',            diff:'normal', power:10, coins:60,  xp:40,  kc:0, stat:'str'},
+  {id:'b02', icon:'T', name:'Trollet Gorm',  desc:'Söker sig till byborna',             diff:'normal', power:12, coins:70,  xp:45,  kc:0, stat:'str'},
+  {id:'b03', icon:'E', name:'Eldskorpionen', desc:'Brinner som eld i öknen',            diff:'normal', power:15, coins:80,  xp:55,  kc:0, stat:'agi'},
+  {id:'b04', icon:'B', name:'Birnulf Bandit', desc:'Rövare på kung Joakims land',       diff:'hard',   power:25, coins:130, xp:90,  kc:0, stat:'str'},
+  {id:'b05', icon:'D', name:'Drakspionen',   desc:'Spion med drakblod',                 diff:'hard',   power:30, coins:160, xp:110, kc:0, stat:'agi'},
+  {id:'b06', icon:'G', name:'Grottjätten',   desc:'Bor i djupa grottan norr om staden', diff:'hard',   power:35, coins:200, xp:140, kc:0, stat:'end'},
+  {id:'b07', icon:'Z', name:'Zenithdemon',   desc:'Kommit från ett annat plan',         diff:'elite',  power:50, coins:350, xp:250, kc:1, stat:'int'},
+  {id:'b08', icon:'K', name:'Krondraken',    desc:'Den sista draken i riket',           diff:'elite',  power:60, coins:450, xp:320, kc:2, stat:'str'},
+];
+
+function _bnty2Data(){try{return JSON.parse(localStorage.getItem(BNTY2_KEY)||'null');}catch(e){return null;}}
+function _bnty2Save(d){localStorage.setItem(BNTY2_KEY,JSON.stringify(d));}
+function _bnty2GetData(){
+  var d=_bnty2Data();
+  if(!d) d={claimed:{},lastDay:'',total:0,kcTotal:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.claimed={};d.lastDay=today;_bnty2Save(d);}
+  return d;
+}
+
+function _bnty2DailyBounties(){
+  // Pick 5 bounties deterministically from today's date + player level
+  var today=getTodayKey();
+  var seed=0;
+  for(var i=0;i<today.length;i++) seed+=today.charCodeAt(i);
+  seed+=(G.lvl||1)*7;
+  var pool=BNTY2_POOL.slice();
+  var selected=[];
+  for(var j=0;j<5;j++){
+    seed=(seed*1664525+1013904223)>>>0;
+    var idx=seed%pool.length;
+    selected.push(pool.splice(idx,1)[0]);
+  }
+  return selected;
+}
+
+function bnty2Hunt(bountyId){
+  var d=_bnty2GetData();
+  if(d.claimed[bountyId]) return;
+  var bounty=BNTY2_POOL.find(function(b){return b.id===bountyId;});
+  if(!bounty) return;
+  var myPower=(G.str||0)+(G.agi||0)+(G.end||0)+(G.lck||0)*0.5;
+  var winChance=Math.min(0.9,Math.max(0.2,myPower/(myPower+bounty.power)));
+  var won=Math.random()<winChance;
+  d.claimed[bountyId]=won?'claimed':'failed';
+  if(won){
+    d.total=(d.total||0)+1;
+    d.kcTotal=(d.kcTotal||0)+bounty.kc;
+    gainCoins(bounty.coins);
+    gainXP(bounty.xp,bounty.stat);
+    G[bounty.stat]=(G[bounty.stat]||0)+1;
+    save();
+    if(bounty.kc>0) gainKC(bounty.kc);
+    showFloatBubble(bounty.icon+' '+bounty.name+' nedgjord! +'+bounty.coins+' mynt'+(bounty.kc>0?' +'+bounty.kc+'KC':''),'buff');
+  } else {
+    gainCoins(Math.floor(bounty.coins*0.1));
+    gainXP(10,bounty.stat);
+    showFloatBubble(bounty.icon+' '+bounty.name+' flydde... Bygg upp dina stats!','debuff');
+  }
+  _bnty2Save(d);
+  checkAchievements();
+  _renderBnty2(d);
+}
+
+function openBnty2(){$('bnty2Panel').classList.add('open');_renderBnty2(_bnty2GetData());}
+function closeBnty2(){$('bnty2Panel').classList.remove('open');}
+
+function _renderBnty2(d){
+  if(!d) d=_bnty2GetData();
+  var todayClaimed=Object.values(d.claimed).filter(function(v){return v==='claimed';}).length;
+  var tv=$('bnty2TotalV');if(tv) tv.textContent=d.total||0;
+  var tdv=$('bnty2TodayV');if(tdv) tdv.textContent=todayClaimed;
+  var kcv=$('bnty2KCV');if(kcv) kcv.textContent=d.kcTotal||0;
+  var dl=$('bnty2DateLbl');if(dl) dl.textContent=getTodayKey();
+  var list=$('bnty2List');
+  if(!list) return;
+  var bounties=_bnty2DailyBounties();
+  list.innerHTML=bounties.map(function(b){
+    var status=d.claimed[b.id];
+    var isClaimed=status==='claimed';
+    var isFailed=status==='failed';
+    var cls='bnty-card'+(isClaimed?' claimed':b.diff==='elite'?' elite':b.diff==='hard'?' hard':'');
+    var diffColor=b.diff==='elite'?'#ffcc00':b.diff==='hard'?'#ff6644':'rgba(255,255,255,.4)';
+    return '<div class="'+cls+'">'+
+      '<div class="bnty-card-icon">'+b.icon+'</div>'+
+      '<div class="bnty-card-body">'+
+        '<div class="bnty-card-name" style="color:'+diffColor+'">'+b.name+'</div>'+
+        '<div class="bnty-card-desc">'+b.desc+'</div>'+
+        '<div class="bnty-card-rew">+'+b.coins+' mynt · +'+b.xp+'XP'+(b.kc>0?' · +'+b.kc+'KC':'')+'</div>'+
+      '</div>'+
+      '<button class="bnty-hunt-btn'+(isClaimed?' claimed-btn':'')+'" onclick="bnty2Hunt(\''+b.id+'\')" '+(status?'disabled':'')+'>'+
+        (isClaimed?'Klar':isFailed?'Misslyckad':'Jaga!')+
+      '</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// PET RESTAURANT
+const REST_KEY = 'k0509_rest';
+const REST_DISHES = [
+  {id:'soup',    icon:'S', name:'Soppa',       price:15, minLvl:1, stat:'end'},
+  {id:'burger',  icon:'B', name:'Burgare',     price:20, minLvl:1, stat:'str'},
+  {id:'sushi',   icon:'U', name:'Sushi',       price:30, minLvl:2, stat:'agi'},
+  {id:'steak',   icon:'T', name:'Biff',        price:45, minLvl:3, stat:'str'},
+  {id:'truffle', icon:'F', name:'Tryffel',     price:80, minLvl:6, stat:'lck'},
+  {id:'dragon',  icon:'D', name:'Drakbiff',    price:150,minLvl:10,stat:'str'},
+];
+const REST_CUSTOMERS = [
+  {icon:'A', name:'Anna',     wants:'soup'},
+  {icon:'K', name:'Karl',     wants:'burger'},
+  {icon:'L', name:'Lisa',     wants:'sushi'},
+  {icon:'E', name:'Erik',     wants:'steak'},
+  {icon:'M', name:'Maja',     wants:'soup'},
+  {icon:'O', name:'Olle',     wants:'burger'},
+  {icon:'F', name:'Freja',    wants:'truffle'},
+  {icon:'R', name:'Rasmus',   wants:'steak'},
+  {icon:'G', name:'Gustav',   wants:'dragon'},
+  {icon:'H', name:'Helena',   wants:'sushi'},
+];
+
+var _restSelDish=null;
+
+function _restData(){try{return JSON.parse(localStorage.getItem(REST_KEY)||'null');}catch(e){return null;}}
+function _restSave2(d){localStorage.setItem(REST_KEY,JSON.stringify(d));}
+function _restGetData(){
+  var d=_restData();
+  if(!d) d={served:{},lastDay:'',totalServed:0,totalEarned:0,todayEarned:0,rating:50};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.served={};d.lastDay=today;d.todayEarned=0;_restSave2(d);}
+  return d;
+}
+
+function _restDailyCustomers(){
+  var today=getTodayKey();
+  var seed=0;
+  for(var i=0;i<today.length;i++) seed+=today.charCodeAt(i);
+  seed+=(G.lvl||1)*13;
+  var pool=REST_CUSTOMERS.slice();
+  var selected=[];
+  for(var j=0;j<5;j++){
+    seed=(seed*1664525+1013904223)>>>0;
+    var idx=seed%pool.length;
+    selected.push(pool[idx%pool.length]);
+  }
+  return selected;
+}
+
+function restSelDish(dishId){
+  _restSelDish=_restSelDish===dishId?null:dishId;
+  _renderRest(_restGetData());
+}
+
+function restServe(custIdx){
+  var d=_restGetData();
+  if(d.served['c'+custIdx]) return;
+  var custs=_restDailyCustomers();
+  if(custIdx>=custs.length) return;
+  var cust=custs[custIdx];
+  if(!_restSelDish){showFloatBubble('Valj en ratt fran menyn forst!','debuff');return;}
+  var dish=REST_DISHES.find(function(dsh){return dsh.id===_restSelDish;});
+  if(!dish) return;
+  if((G.lvl||1)<dish.minLvl){showFloatBubble('Niva '+dish.minLvl+' kravs for denna ratt!','debuff');return;}
+  var correct=cust.wants===dish.id;
+  var coins=correct?dish.price*2:dish.price;
+  var tip=correct?Math.floor(dish.price*0.5*(1+(G.lck||0)*0.02)):0;
+  var total=coins+tip;
+  gainCoins(total);
+  gainXP(correct?25:10,dish.stat);
+  if(correct){
+    G[dish.stat]=(G[dish.stat]||0)+1;save();
+    d.rating=Math.min(50,d.rating+1);
+  } else {
+    d.rating=Math.max(0,d.rating-2);
+  }
+  d.served['c'+custIdx]=true;
+  d.totalServed=(d.totalServed||0)+1;
+  d.totalEarned=(d.totalEarned||0)+total;
+  d.todayEarned=(d.todayEarned||0)+total;
+  showFloatBubble(correct?'Perfekt beställning! +'+total+' mynt':'Fel ratt! +'+coins+' mynt','buff');
+  _restSave2(d);
+  checkAchievements();
+  _renderRest(d);
+}
+
+function openRest(){$('restPanel').classList.add('open');_renderRest(_restGetData());}
+function closeRest(){$('restPanel').classList.remove('open');}
+
+function _renderRest(d){
+  if(!d) d=_restGetData();
+  var sv=$('restServedV');if(sv) sv.textContent=d.totalServed||0;
+  var ev=$('restEarnedV');if(ev) ev.textContent=d.totalEarned||0;
+  var rv=$('restRatingV');if(rv) rv.textContent=((d.rating||0)/10).toFixed(1);
+  var te=$('restTodayEarn');if(te) te.textContent=(d.todayEarned||0)+' mynt idag';
+  var custs=_restDailyCustomers();
+  var queue=$('restQueue');
+  if(queue){
+    queue.innerHTML=custs.map(function(c,i){
+      var done=!!d.served['c'+i];
+      var cls='rest-cust'+(done?' served':'');
+      var dish=REST_DISHES.find(function(dsh){return dsh.id===c.wants;});
+      return '<div class="'+cls+'">'+
+        '<div class="rest-cust-icon">'+c.icon+'</div>'+
+        '<div class="rest-cust-body">'+
+          '<div class="rest-cust-name">'+c.name+'</div>'+
+          '<div class="rest-cust-order">Vill ha: '+(dish?dish.icon+' '+dish.name:'?')+'</div>'+
+          '<div class="rest-cust-tip">Dricks: '+(dish?Math.floor(dish.price*0.5):'?')+' mynt vid ratt ratt</div>'+
+        '</div>'+
+        '<button class="rest-serve-btn'+(done?' served-btn':'')+'" onclick="restServe('+i+')" '+(done?'disabled':'')+'>'+
+          (done?'Servad':'Servera')+
+        '</button>'+
+      '</div>';
+    }).join('');
+  }
+  var lvl=G.lvl||1;
+  var menu=$('restMenu');
+  if(menu){
+    menu.innerHTML=REST_DISHES.map(function(dsh){
+      var locked=lvl<dsh.minLvl;
+      var isSel=_restSelDish===dsh.id;
+      return '<div class="rest-dish'+(locked?' locked':isSel?' selected':'')+'" onclick="restSelDish(\''+dsh.id+'\')">'+
+        '<div class="rest-dish-icon">'+dsh.icon+'</div>'+
+        '<div class="rest-dish-name">'+dsh.name+(locked?' (Niva '+dsh.minLvl+')':'')+'</div>'+
+        '<div class="rest-dish-price">'+dsh.price+' mynt</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// COSMIC GACHA
+const GACH2_KEY = 'k0509_gach2';
+const GACH2_POOL = [
+  // 5-star
+  {id:'nebula',   icon:'N', name:'Nebula',    stars:5, bonus:{int:8,lck:6},        rate:0.006},
+  {id:'solaris',  icon:'S', name:'Solaris',   stars:5, bonus:{str:8,end:6},        rate:0.006},
+  {id:'astraea',  icon:'A', name:'Astraea',   stars:5, bonus:{agi:8,int:5,lck:4},  rate:0.006},
+  {id:'cosmox',   icon:'X', name:'Cosmox',    stars:5, bonus:{str:5,agi:5,int:5,lck:5,end:5}, rate:0.002},
+  // 4-star
+  {id:'luna',     icon:'L', name:'Luna',      stars:4, bonus:{lck:4,int:3},        rate:0.051},
+  {id:'pyro',     icon:'P', name:'Pyro',      stars:4, bonus:{str:4,end:3},        rate:0.051},
+  {id:'gale',     icon:'G', name:'Gale',      stars:4, bonus:{agi:5,lck:2},        rate:0.051},
+  {id:'terra',    icon:'T', name:'Terra',     stars:4, bonus:{end:5,str:2},        rate:0.051},
+  {id:'myst',     icon:'M', name:'Myst',      stars:4, bonus:{int:5,agi:2},        rate:0.051},
+  // 3-star (fill remaining probability)
+  {id:'stardust', icon:'D', name:'Stjärndamm', stars:3, bonus:{},                  rate:0.726},
+  {id:'meteor',   icon:'E', name:'Meteor',    stars:3, bonus:{str:1},              rate:0.0},
+];
+
+function _gach2Data(){try{return JSON.parse(localStorage.getItem(GACH2_KEY)||'null');}catch(e){return null;}}
+function _gach2Save(d){localStorage.setItem(GACH2_KEY,JSON.stringify(d));}
+function _gach2GetData(){
+  var d=_gach2Data();
+  if(!d) d={pulls:0,star5:0,star4:0,pity:0,pity4:0,collection:{},totalBonus:{}};
+  return d;
+}
+
+function _gach2SinglePull(d){
+  var roll=Math.random();
+  var pity5=d.pity>=89;
+  var pity4=d.pity4>=9;
+  d.pity++;d.pity4++;
+  var item;
+  if(pity5||roll<0.006){
+    // 5-star
+    var fives=GACH2_POOL.filter(function(p){return p.stars===5;});
+    item=fives[Math.floor(Math.random()*fives.length)];
+    d.pity=0;d.pity4=0;d.star5=(d.star5||0)+1;
+  } else if(pity4||roll<0.057){
+    // 4-star
+    var fours=GACH2_POOL.filter(function(p){return p.stars===4;});
+    item=fours[Math.floor(Math.random()*fours.length)];
+    d.pity4=0;d.star4=(d.star4||0)+1;
+  } else {
+    // 3-star
+    var threes=GACH2_POOL.filter(function(p){return p.stars===3;});
+    item=threes[Math.floor(Math.random()*threes.length)];
+  }
+  return item;
+}
+
+function gach2Pull(count){
+  var d=_gach2GetData();
+  var kcCost=count===1?160:1440;
+  if((G.kc||0)<kcCost){showFloatBubble('Behover '+kcCost+' KC!','debuff');return;}
+  gainKC(-kcCost);
+  var results=[];
+  for(var i=0;i<count;i++){
+    var item=_gach2SinglePull(d);
+    results.push(item);
+    d.collection[item.id]=(d.collection[item.id]||0)+1;
+    d.pulls=(d.pulls||0)+1;
+    // Apply bonus on first pull of character
+    if(d.collection[item.id]===1&&item.bonus&&Object.keys(item.bonus).length>0){
+      Object.keys(item.bonus).forEach(function(s){
+        G[s]=(G[s]||0)+item.bonus[s];
+        d.totalBonus[s]=(d.totalBonus[s]||0)+item.bonus[s];
+      });
+      save();
+    }
+  }
+  _gach2Save(d);
+  checkAchievements();
+  // Show results
+  var ri=$('gach2Result');
+  var rit=$('gach2ResultItems');
+  if(ri) ri.classList.add('show');
+  if(rit){
+    rit.innerHTML=results.map(function(item){
+      var starsStr='';
+      for(var s=0;s<item.stars;s++) starsStr+='*';
+      var cls='gach-res-item star'+item.stars;
+      var starColor=item.stars===5?'#ffcc00':item.stars===4?'#cc66ff':'#6699ff';
+      return '<div class="'+cls+'">'+
+        '<span class="gach-res-icon">'+item.icon+'</span>'+
+        '<div class="gach-res-name">'+item.name+'</div>'+
+        '<div class="gach-res-stars" style="color:'+starColor+'">'+starsStr+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  if(count===1&&results[0].stars>=4) showFloatBubble(results[0].stars+'-stjarna! '+results[0].name+' erhallen!','buff');
+  else if(count>1){
+    var best=results.reduce(function(a,b){return a.stars>b.stars?a:b;});
+    showFloatBubble('x10 drag! Basta: '+best.stars+'-stjarna '+best.name,'buff');
+  }
+  _renderGach2(d);
+}
+
+function openGach2(){$('gach2Panel').classList.add('open');_renderGach2(_gach2GetData());}
+function closeGach2(){$('gach2Panel').classList.remove('open');}
+
+function _renderGach2(d){
+  if(!d) d=_gach2GetData();
+  var tv=$('gach2TotalV');if(tv) tv.textContent=d.pulls||0;
+  var sv=$('gach2Star5V');if(sv) sv.textContent=d.star5||0;
+  var pv=$('gach2PityV');if(pv) pv.textContent=d.pity||0;
+  var pi=$('gach2PityInfo');if(pi) pi.textContent='Garanterad 5-stjarna pa pull '+(90-(d.pity||0));
+  var p1=$('gach2Pull1'),p10=$('gach2Pull10');
+  var kc=G.kc||0;
+  if(p1) p1.disabled=kc<160;
+  if(p10) p10.disabled=kc<1440;
+  var coll=$('gach2Coll');
+  if(coll){
+    var mainPool=GACH2_POOL.filter(function(p){return p.stars>=4;});
+    coll.innerHTML=mainPool.map(function(item){
+      var qty=d.collection[item.id]||0;
+      var owned=qty>0;
+      var cls='gach-coll-item'+(owned&&item.stars===5?' owned5':owned&&item.stars===4?' owned4':'');
+      return '<div class="'+cls+'">'+
+        '<div class="gach-coll-icon">'+(owned?item.icon:'?')+'</div>'+
+        '<div class="gach-coll-name">'+(owned?item.name:'???')+'</div>'+
+        '<div class="gach-coll-qty">'+(owned?'x'+qty:'')+'</div>'+
+      '</div>';
+    }).join('');
   }
 }
 
