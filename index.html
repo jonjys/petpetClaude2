@@ -1726,6 +1726,45 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ ASTRAL PLANE ══ */
+.astr-panel{position:fixed;inset:0;background:#020008;z-index:1098;display:none;flex-direction:column;overflow:hidden}
+.astr-panel.open{display:flex}
+.astr-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#040012,#020008)}
+.astr-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#4400ff,#00aaff,#ff00aa,#4400ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:astrShim 4s linear infinite}
+@keyframes astrShim{0%{background-position:0%}100%{background-position:300%}}
+.astr-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.astr-nexus{background:radial-gradient(ellipse at 50% 30%,rgba(68,0,255,.12),transparent);border:2px solid rgba(68,0,255,.2);border-radius:22px;padding:14px;margin-bottom:12px;text-align:center}
+.astr-nexus-icon{font-size:52px;display:block;margin-bottom:4px}
+.astr-frags{font:900 36px var(--ff-head);background:linear-gradient(180deg,#8844ff,#00aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.astr-frags-lbl{font:700 8px var(--ff-head);color:rgba(68,0,255,.4);letter-spacing:2px;margin-bottom:6px}
+.astr-planes-lbl{font:700 8px var(--ff-head);color:rgba(68,0,255,.4);letter-spacing:1px;margin-bottom:8px}
+.astr-planes{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.astr-plane{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+.astr-plane.visited{opacity:.35}
+.astr-plane-icon{font-size:28px;flex-shrink:0}
+.astr-plane-body{flex:1}
+.astr-plane-name{font:700 11px var(--ff-head);color:rgba(150,100,255,.8);margin-bottom:2px}
+.astr-plane-desc{font:600 8px var(--ff-body);color:rgba(68,0,255,.4);margin-bottom:2px}
+.astr-plane-rew{font:700 8px var(--ff-head);color:rgba(150,100,255,.5)}
+.astr-travel-btn{background:rgba(68,0,255,.07);border:1px solid rgba(68,0,255,.25);border-radius:9px;padding:7px 12px;font:700 9px var(--ff-head);color:rgba(150,100,255,.8);cursor:pointer;flex-shrink:0}
+.astr-travel-btn.visited-btn{background:rgba(68,255,136,.05);border-color:rgba(68,255,136,.2);color:rgba(68,255,136,.6)}
+.astr-travel-btn:disabled{opacity:.3;cursor:default}
+.astr-powers-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.2);letter-spacing:1px;margin-bottom:6px}
+.astr-powers{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:8px}
+.astr-power{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.06);border-radius:12px;padding:9px;text-align:center;cursor:pointer;transition:all .15s}
+.astr-power:hover{background:rgba(68,0,255,.04);border-color:rgba(68,0,255,.2)}
+.astr-power.unlocked{border-color:rgba(68,0,255,.3);background:rgba(68,0,255,.05)}
+.astr-power.locked{opacity:.3;cursor:default}
+.astr-power-icon{font-size:22px;margin-bottom:3px}
+.astr-power-name{font:700 8px var(--ff-head);color:rgba(150,100,255,.6);margin-bottom:2px}
+.astr-power-cost{font:600 7px var(--ff-body);color:rgba(68,0,255,.4)}
+.astr-stats{display:flex;gap:5px;margin-bottom:8px}
+.astr-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.astr-stat-v{font:800 16px var(--ff-head);color:#4400ff}
+.astr-stat-l{font:600 7px var(--ff-body);color:rgba(68,0,255,.3)}
+.astr-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
 /* ══ COSMIC FORGE ══ */
 .cosf-panel{position:fixed;inset:0;background:#010010;z-index:1097;display:none;flex-direction:column;overflow:hidden}
 .cosf-panel.open{display:flex}
@@ -13769,6 +13808,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openAstr()"><div class="ddr-i">🌌</div>Astralplanet</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -13887,6 +13927,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openAstr()"><div class="ddr-i">🌌</div>Astralplanet</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -13988,6 +14029,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openAstr()"><div class="ddr-i">🌌</div>Astralplanet</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14020,6 +14062,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTown()"><div class="ddr-i">🏘</div>Stad</div>
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Garderob</div>
           <div class="ddr" onclick="cM();openGach()"><div class="ddr-i">✨</div>Portal</div>
+          <div class="ddr" onclick="cM();openAstr()"><div class="ddr-i">🌌</div>Astralplanet</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14133,6 +14176,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openAstr()"><div class="ddr-i">🌌</div>Astralplanet</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14900,6 +14944,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- ASTRAL PLANE -->
+<div class="astr-panel" id="astrPanel">
+  <div class="astr-header">
+    <div class="astr-title">🌌 ASTRALPLANET</div>
+    <button class="close-btn" onclick="closeAstr()">✕</button>
+  </div>
+  <div class="astr-scroll">
+    <div class="astr-stats">
+      <div class="astr-stat-box"><div class="astr-stat-v" id="astrTravelsV">0</div><div class="astr-stat-l">Resor</div></div>
+      <div class="astr-stat-box"><div class="astr-stat-v" id="astrFragsV">0</div><div class="astr-stat-l">Fragment</div></div>
+      <div class="astr-stat-box"><div class="astr-stat-v" id="astrPowersV">0</div><div class="astr-stat-l">Krafter</div></div>
+    </div>
+    <div class="astr-nexus">
+      <span class="astr-nexus-icon">🌌</span>
+      <div class="astr-frags-lbl">ASTRALA FRAGMENT</div>
+      <div class="astr-frags" id="astrFragsBig">0</div>
+    </div>
+    <div class="astr-planes-lbl">ASTRALA DIMENSIONER</div>
+    <div class="astr-planes" id="astrPlanes"></div>
+    <div class="astr-powers-lbl">ASTRALA KRAFTER (Köp med fragment)</div>
+    <div class="astr-powers" id="astrPowers"></div>
+    <div class="astr-info">Res till astrala dimensioner för att samla fragment! Köp kosmiska krafter med dem. 🌌</div>
+  </div>
+</div>
 
 <!-- COSMIC FORGE -->
 <div class="cosf-panel" id="cosfPanel">
@@ -65199,6 +65269,119 @@ function _renderCosf(d){
         '<div class="cosf-mat-name">'+m.name+'</div>'+
         '<div class="cosf-mat-qty">x'+qty+'</div>'+
         '<div class="cosf-mat-earn">Från: '+m.earnFrom+'</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// ASTRAL PLANE
+const ASTR_KEY = 'k0509_astr';
+const ASTR_PLANES_LIST = [
+  {id:'fire',    icon:'F', name:'Elddimensionen',     desc:'Brinnande av eld och kaos',             cost:0, frags:3,  coins:60,  xp:40, bonus:{str:2}, doneToday:false, minLvl:1},
+  {id:'water',   icon:'W', name:'Havsdimensionen',    desc:'Djup och mystisk vattenvärld',          cost:0, frags:4,  coins:75,  xp:55, bonus:{agi:2}, doneToday:false, minLvl:2},
+  {id:'earth',   icon:'E', name:'Jorddimensionen',    desc:'Urtida sten och kraft',                 cost:0, frags:5,  coins:90,  xp:70, bonus:{end:2}, doneToday:false, minLvl:3},
+  {id:'shadow',  icon:'S', name:'Skuggedimensionen',  desc:'Mörkrets domän och hemliga sanningar',  cost:0, frags:7,  coins:120, xp:90, bonus:{lck:3}, doneToday:false, minLvl:5},
+  {id:'cosmic',  icon:'C', name:'Kosmisk Dimen.',     desc:'Bortom det kända universum',            cost:0, frags:12, coins:200, xp:150,bonus:{int:4,lck:2}, doneToday:false, minLvl:8},
+  {id:'omega',   icon:'X', name:'Omegadimensionen',   desc:'Begynnelsens och slutets plan',         cost:0, frags:20, coins:350, xp:280,bonus:{str:4,agi:4,int:4,lck:4,end:4}, doneToday:false, minLvl:15, kc:1},
+];
+const ASTR_POWERS_LIST = [
+  {id:'str_aura', icon:'A', name:'Styrkeaura',      eff:'+4 STR', bonus:{str:4},       cost:15, minLvl:1},
+  {id:'speed_aura',icon:'B',name:'Snabbaura',       eff:'+4 AGI', bonus:{agi:4},       cost:15, minLvl:1},
+  {id:'mind_eye', icon:'C', name:'Tankeöga',        eff:'+4 INT', bonus:{int:4},       cost:20, minLvl:3},
+  {id:'luck_star',icon:'D', name:'Lyckostjärna',    eff:'+4 LCK', bonus:{lck:4},       cost:20, minLvl:3},
+  {id:'iron_will',icon:'E', name:'Järnvilja',       eff:'+4 END', bonus:{end:4},       cost:20, minLvl:4},
+  {id:'astral_form',icon:'F',name:'Astralform',     eff:'+8 ALL', bonus:{str:8,agi:8,int:8,lck:8,end:8},cost:80,minLvl:12},
+];
+
+function _astrData(){try{return JSON.parse(localStorage.getItem(ASTR_KEY)||'null');}catch(e){return null;}}
+function _astrSave(d){localStorage.setItem(ASTR_KEY,JSON.stringify(d));}
+function _astrGetData(){
+  var d=_astrData();
+  if(!d) d={visited:{},lastDay:'',frags:0,totalTravels:0,powers:{}};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.visited={};d.lastDay=today;_astrSave(d);}
+  return d;
+}
+
+function astrTravel(planeId){
+  var d=_astrGetData();
+  if(d.visited[planeId]) return;
+  var plane=ASTR_PLANES_LIST.find(function(p){return p.id===planeId;});
+  if(!plane) return;
+  if((G.lvl||1)<plane.minLvl){showFloatBubble('Niva '+plane.minLvl+' kravs!','debuff');return;}
+  d.visited[planeId]=true;
+  d.totalTravels=(d.totalTravels||0)+1;
+  d.frags=(d.frags||0)+plane.frags;
+  gainCoins(plane.coins);
+  gainXP(plane.xp,'int');
+  Object.keys(plane.bonus).forEach(function(s){G[s]=(G[s]||0)+plane.bonus[s];});
+  save();
+  if(plane.kc) gainKC(plane.kc);
+  var bonusTxt=Object.keys(plane.bonus).map(function(s){return '+'+plane.bonus[s]+s.toUpperCase();}).join(' ');
+  showFloatBubble(plane.icon+' '+plane.name+' besökt! +'+plane.frags+' fragment '+bonusTxt,'buff');
+  _astrSave(d);
+  checkAchievements();
+  _renderAstr(d);
+}
+
+function astrBuyPower(powerId){
+  var d=_astrGetData();
+  if(d.powers[powerId]) return;
+  var power=ASTR_POWERS_LIST.find(function(p){return p.id===powerId;});
+  if(!power) return;
+  if((G.lvl||1)<power.minLvl){showFloatBubble('Niva '+power.minLvl+' kravs!','debuff');return;}
+  if((d.frags||0)<power.cost){showFloatBubble('Behover '+power.cost+' fragment!','debuff');return;}
+  d.frags-=power.cost;
+  d.powers[powerId]=true;
+  Object.keys(power.bonus).forEach(function(s){G[s]=(G[s]||0)+power.bonus[s];});
+  save();
+  showFloatBubble(power.icon+' '+power.name+' upplåst! '+power.eff,'buff');
+  _astrSave(d);
+  checkAchievements();
+  _renderAstr(d);
+}
+
+function openAstr(){$('astrPanel').classList.add('open');_renderAstr(_astrGetData());}
+function closeAstr(){$('astrPanel').classList.remove('open');}
+
+function _renderAstr(d){
+  if(!d) d=_astrGetData();
+  var tv=$('astrTravelsV');if(tv) tv.textContent=d.totalTravels||0;
+  var fv=$('astrFragsV');if(fv) fv.textContent=d.frags||0;
+  var pv=$('astrPowersV');if(pv) pv.textContent=Object.keys(d.powers||{}).length;
+  var fb=$('astrFragsBig');if(fb) fb.textContent=d.frags||0;
+  var planes=$('astrPlanes');
+  if(planes){
+    var lvl=G.lvl||1;
+    planes.innerHTML=ASTR_PLANES_LIST.map(function(plane){
+      var visited=!!d.visited[plane.id];
+      var locked=lvl<plane.minLvl;
+      var cls='astr-plane'+(visited?' visited':'');
+      var bonusTxt=Object.keys(plane.bonus).map(function(s){return '+'+plane.bonus[s]+s.toUpperCase();}).join(' ');
+      return '<div class="'+cls+'">'+
+        '<div class="astr-plane-icon">'+plane.icon+'</div>'+
+        '<div class="astr-plane-body">'+
+          '<div class="astr-plane-name">'+plane.name+(locked?' (Niva '+plane.minLvl+')':'')+'</div>'+
+          '<div class="astr-plane-desc">'+plane.desc+'</div>'+
+          '<div class="astr-plane-rew">'+bonusTxt+' · +'+plane.frags+' fragment · +'+plane.coins+' mynt</div>'+
+        '</div>'+
+        (!locked?'<button class="astr-travel-btn'+(visited?' visited-btn':'')+'" onclick="astrTravel(\''+plane.id+'\')" '+(visited?'disabled':'')+'>'+
+          (visited?'Besökt':'Res!')+'</button>':'')+
+      '</div>';
+    }).join('');
+  }
+  var powers=$('astrPowers');
+  if(powers){
+    powers.innerHTML=ASTR_POWERS_LIST.map(function(power){
+      var owned=!!d.powers[power.id];
+      var locked=(G.lvl||1)<power.minLvl;
+      var noFrag=(d.frags||0)<power.cost;
+      var cls='astr-power'+(owned?' unlocked':locked?' locked':'');
+      return '<div class="'+cls+'" onclick="astrBuyPower(\''+power.id+'\')">'+
+        '<div class="astr-power-icon">'+power.icon+'</div>'+
+        '<div class="astr-power-name">'+power.name+'</div>'+
+        '<div class="astr-power-cost">'+(owned?'Upplåst!':power.cost+' fragment | '+power.eff)+'</div>'+
       '</div>';
     }).join('');
   }
