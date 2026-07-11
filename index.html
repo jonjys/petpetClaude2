@@ -1562,6 +1562,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET ACADEMY ══ */
+.acad-panel{position:fixed;inset:0;background:#020408;z-index:1075;display:none;flex-direction:column;overflow:hidden}
+.acad-panel.open{display:flex}
+.acad-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#040810,#020408)}
+.acad-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44aaff,#aaffee,#ffeeaa,#44aaff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:acadShim 3s linear infinite}
+@keyframes acadShim{0%{background-position:0%}100%{background-position:300%}}
+.acad-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* GPA banner */
+.acad-gpa{background:radial-gradient(ellipse,rgba(68,170,255,.1),transparent);border:2px solid rgba(68,170,255,.2);border-radius:22px;padding:14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.acad-gpa-left{display:flex;flex-direction:column;gap:2px}
+.acad-gpa-v{font:900 44px var(--ff-head);background:linear-gradient(180deg,#aaffee,#44aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.acad-gpa-l{font:600 8px var(--ff-body);color:rgba(68,170,255,.4);letter-spacing:1px}
+.acad-honor{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.acad-honor-v{font:800 11px var(--ff-head);color:#aaffee}
+.acad-honor-l{font:600 7px var(--ff-body);color:rgba(100,255,200,.4)}
+.acad-sem{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:right;margin-top:2px}
+/* Subject cards */
+.acad-subjects{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.acad-subj{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.acad-subj.studying{border-color:rgba(68,170,255,.3);background:rgba(68,170,255,.04)}
+.acad-subj.aced{border-color:rgba(68,255,136,.3);background:rgba(68,255,136,.03)}
+.acad-subj-icon{font-size:28px;flex-shrink:0}
+.acad-subj-body{flex:1}
+.acad-subj-name{font:700 12px var(--ff-head);color:#fff;margin-bottom:2px}
+.acad-subj-desc{font:600 7px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:4px}
+.acad-subj-grade-row{display:flex;align-items:center;gap:6px}
+.acad-grade-bar{flex:1;background:rgba(255,255,255,.06);border-radius:4px;height:5px;overflow:hidden}
+.acad-grade-fill{height:100%;background:linear-gradient(90deg,#44aaff,#aaffee);border-radius:4px;transition:width .5s}
+.acad-grade-v{font:700 9px var(--ff-head);color:#44aaff;width:22px;text-align:right;flex-shrink:0}
+.acad-subj-bonus{font:700 8px var(--ff-head);color:rgba(68,255,200,.6);margin-bottom:3px}
+.acad-study-btn{background:linear-gradient(135deg,#000e28,#002455);border:1.5px solid rgba(68,170,255,.4);border-radius:10px;padding:7px 12px;font:800 9px var(--ff-head);color:#fff;cursor:pointer;flex-shrink:0}
+.acad-study-btn.aced{background:rgba(68,255,136,.08);border-color:rgba(68,255,136,.3);color:#44ff88}
+.acad-study-btn:disabled{opacity:.3;cursor:default}
+/* Exam */
+.acad-exam-lbl{font:700 8px var(--ff-head);color:rgba(255,200,0,.5);letter-spacing:1px;margin-bottom:6px}
+.acad-exam-btn{background:linear-gradient(135deg,#201000,#5a3000);border:1.5px solid rgba(255,200,0,.4);border-radius:14px;padding:11px;font:900 12px var(--ff-head);color:#fff;cursor:pointer;width:100%;margin-bottom:8px}
+.acad-exam-btn:disabled{opacity:.3;cursor:default}
+.acad-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ POTION BREWERY ══ */
 .brew-panel{position:fixed;inset:0;background:#030804;z-index:1074;display:none;flex-direction:column;overflow:hidden}
 .brew-panel.open{display:flex}
@@ -12930,6 +12970,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
           <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
           <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
+          <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -13025,6 +13066,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
           <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
           <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
+          <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -13103,6 +13145,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
           <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
           <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
+          <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -13219,6 +13262,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
           <div class="ddr" onclick="cM();openStgz()"><div class="ddr-i">🔭</div>Stjärnkikare</div>
           <div class="ddr" onclick="cM();openBrew()"><div class="ddr-i">⚗️</div>Bryggeriet</div>
+          <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Akademin</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13841,6 +13885,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET ACADEMY -->
+<div class="acad-panel" id="acadPanel">
+  <div class="acad-header">
+    <div class="acad-title">🎓 PET AKADEMIN</div>
+    <button class="close-btn" onclick="closeAcad()">✕</button>
+  </div>
+  <div class="acad-scroll">
+    <div class="acad-gpa">
+      <div class="acad-gpa-left">
+        <div class="acad-gpa-v" id="acadGpaV">0.0</div>
+        <div class="acad-gpa-l">MEDELBETYG (GPA)</div>
+      </div>
+      <div class="acad-honor">
+        <div class="acad-honor-v" id="acadHonorV">–</div>
+        <div class="acad-honor-l">HEDERSLISTA</div>
+        <div class="acad-sem" id="acadSemV">Termin 1</div>
+      </div>
+    </div>
+    <div class="acad-subjects" id="acadSubjects"></div>
+    <div class="acad-exam-lbl">TENTAMEN</div>
+    <button class="acad-exam-btn" id="acadExamBtn" onclick="acadExam()">📋 Skriv tentamen (1/dag)</button>
+    <div class="acad-info">Studera ämnen varje dag och höj dina betyg! Högt GPA ger hederslistan och stora bonusar 🎓</div>
+  </div>
+</div>
 
 <!-- POTION BREWERY -->
 <div class="brew-panel" id="brewPanel">
@@ -60897,6 +60967,118 @@ function _renderBrew(d){
       '</div>';
     }).join('');
   }
+}
+
+
+// PET ACADEMY
+var ACAD_KEY = 'k0509_acad';
+var ACAD_SUBJECTS = [
+  {id:'phys',  icon:'⚔️', name:'Kroppsövning',       desc:'Träning och rörelse',              stat:'str', bonus:{str:2},    bonusTxt:'+2 STR vid max'},
+  {id:'magic', icon:'🔮', name:'Magilära',            desc:'Trollformler och besvärjelser',    stat:'int', bonus:{int:2},    bonusTxt:'+2 INT vid max'},
+  {id:'alchemy',icon:'⚗️',name:'Alkemi',              desc:'Blandning av eliksirer',           stat:'int', bonus:{int:1,lck:1},bonusTxt:'+1 INT +1 LCK vid max'},
+  {id:'history',icon:'📚',name:'Historia',            desc:'Kungarikens och krigens historia', stat:'int', bonus:{int:3},    bonusTxt:'+3 INT vid max'},
+  {id:'hunt',  icon:'🏹', name:'Jaktkonst',           desc:'Spårning och pilbåge',             stat:'agi', bonus:{agi:2},    bonusTxt:'+2 AGI vid max'},
+  {id:'endure',icon:'🛡️', name:'Härdighet',           desc:'Mental och fysisk uthållighet',    stat:'end', bonus:{end:2},    bonusTxt:'+2 END vid max'},
+];
+const ACAD_MAX_GRADE = 100;
+
+function _acadData(){try{return JSON.parse(localStorage.getItem(ACAD_KEY)||'null');}catch(e){return null;}}
+function _acadSave(d){localStorage.setItem(ACAD_KEY,JSON.stringify(d));}
+function _acadGetData(){
+  var d=_acadData();
+  if(!d) d={grades:{},studiedToday:{},lastDay:'',exams:0,lastExam:'',semester:1};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.studiedToday={};d.lastDay=today;_acadSave(d);}
+  return d;
+}
+
+function acadStudy(subjId){
+  var d=_acadGetData();
+  if(d.studiedToday[subjId]){showFloatBubble('Redan studerat idag!','debuff');return;}
+  var subj=ACAD_SUBJECTS.find(function(s){return s.id===subjId;});
+  if(!subj) return;
+  d.studiedToday[subjId]=true;
+  var gain=5+Math.floor((G.int||0)*0.1)+Math.floor(Math.random()*8);
+  var prev=d.grades[subjId]||0;
+  d.grades[subjId]=Math.min(ACAD_MAX_GRADE,prev+gain);
+  gainXP(20,'int');gainCoins(15);
+  if(d.grades[subjId]>=ACAD_MAX_GRADE&&prev<ACAD_MAX_GRADE){
+    // Maxed!
+    Object.keys(subj.bonus).forEach(function(s){G[s]=(G[s]||0)+subj.bonus[s];});
+    save();
+    showFloatBubble('🎓 '+subj.name+' GODKÄND! '+subj.bonusTxt,'buff');
+    checkAchievements();
+  } else {
+    showFloatBubble(subj.icon+' '+subj.name+': +'+(d.grades[subjId]-prev)+' betyg · +15🪙 +20XP','buff');
+  }
+  _acadSave(d);
+  _renderAcad(d);
+}
+
+function acadExam(){
+  var d=_acadGetData();
+  var today=getTodayKey();
+  if(d.lastExam===today){showFloatBubble('Redan tenterat idag!','debuff');return;}
+  d.lastExam=today;
+  d.exams=(d.exams||0)+1;
+  // Calculate GPA
+  var totalGrade=ACAD_SUBJECTS.reduce(function(sum,s){return sum+(d.grades[s.id]||0);},0);
+  var gpa=(totalGrade/(ACAD_SUBJECTS.length*ACAD_MAX_GRADE)*4.0).toFixed(1);
+  var coins=Math.floor(totalGrade*1.5);var xp=Math.floor(totalGrade);
+  gainCoins(coins);gainXP(xp,'int');
+  if(parseFloat(gpa)>=3.5) gainKC(1);
+  // Each aced subject gives bonus
+  var acedCount=ACAD_SUBJECTS.filter(function(s){return (d.grades[s.id]||0)>=ACAD_MAX_GRADE;}).length;
+  if(acedCount>=ACAD_SUBJECTS.length){
+    // All aced → start new semester, reset grades
+    d.semester=(d.semester||1)+1;
+    ACAD_SUBJECTS.forEach(function(s){d.grades[s.id]=Math.floor((d.grades[s.id]||0)*0.3);});
+    showFloatBubble('🏆 ALLA ÄMNEN GODKÄNDA! Ny termin börjar! +1KC','buff');
+  } else {
+    showFloatBubble('📋 Tentamen klar! GPA: '+gpa+' · +'+coins+'🪙 +'+xp+'XP'+(parseFloat(gpa)>=3.5?' +1KC':''),'buff');
+  }
+  _acadSave(d);
+  checkAchievements();
+  _renderAcad(d);
+}
+
+function openAcad(){$('acadPanel').classList.add('open');_renderAcad();}
+function closeAcad(){$('acadPanel').classList.remove('open');}
+
+function _renderAcad(d){
+  if(!d) d=_acadGetData();
+  var totalGrade=ACAD_SUBJECTS.reduce(function(sum,s){return sum+(d.grades[s.id]||0);},0);
+  var gpa=(totalGrade/(ACAD_SUBJECTS.length*ACAD_MAX_GRADE)*4.0).toFixed(1);
+  var gv=$('acadGpaV');if(gv) gv.textContent=gpa;
+  var honor=parseFloat(gpa)>=3.8?'Summa Cum Laude':parseFloat(gpa)>=3.5?'Magna Cum Laude':parseFloat(gpa)>=3.0?'Cum Laude':'Inga utmärkelser';
+  var hv=$('acadHonorV');if(hv) hv.textContent=honor;
+  var sv=$('acadSemV');if(sv) sv.textContent='Termin '+(d.semester||1);
+  var today=getTodayKey();
+  var eb=$('acadExamBtn');if(eb) eb.disabled=d.lastExam===today;
+  var container=$('acadSubjects');
+  if(!container) return;
+  container.innerHTML=ACAD_SUBJECTS.map(function(subj){
+    var grade=d.grades[subj.id]||0;
+    var isAced=grade>=ACAD_MAX_GRADE;
+    var isDoneToday=!!d.studiedToday[subj.id];
+    var cls='acad-subj'+(isAced?' aced':isDoneToday?' studying':'');
+    var letterGrade=grade>=90?'A':grade>=80?'B':grade>=65?'C':grade>=50?'D':'F';
+    return '<div class="'+cls+'">'+
+      '<div class="acad-subj-icon">'+subj.icon+'</div>'+
+      '<div class="acad-subj-body">'+
+        '<div class="acad-subj-name">'+subj.name+'</div>'+
+        '<div class="acad-subj-desc">'+subj.desc+'</div>'+
+        '<div class="acad-subj-bonus">'+subj.bonusTxt+'</div>'+
+        '<div class="acad-subj-grade-row">'+
+          '<div class="acad-grade-bar"><div class="acad-grade-fill" style="width:'+grade+'%"></div></div>'+
+          '<div class="acad-grade-v">'+letterGrade+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<button class="acad-study-btn'+(isAced?' aced':'')+'" onclick="acadStudy(\''+subj.id+'\')" '+(isDoneToday||isAced?'disabled':'')+'>'+
+        (isAced?'A+':isDoneToday?'✓':'Studera')+
+      '</button>'+
+    '</div>';
+  }).join('');
 }
 
 </script>
