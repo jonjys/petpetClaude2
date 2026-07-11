@@ -1543,6 +1543,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MEMORY MATCH ══ */
+.mem-panel{position:fixed;inset:0;background:#010408;z-index:1056;display:none;flex-direction:column;overflow:hidden}
+.mem-panel.open{display:flex}
+.mem-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#030a18,#010408)}
+.mem-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc44ff,#4488ff,#44ffcc,#cc44ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:memShim 2s linear infinite}
+@keyframes memShim{0%{background-position:0%}100%{background-position:300%}}
+.mem-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+.mem-hud{display:flex;gap:8px;margin-bottom:8px}
+.mem-hud-box{flex:1;background:rgba(204,68,255,.04);border:1px solid rgba(204,68,255,.15);border-radius:10px;padding:6px;text-align:center}
+.mem-hud-v{font:900 18px var(--ff-head);color:#cc44ff}
+.mem-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Timer bar */
+.mem-timer-wrap{background:rgba(255,255,255,.06);border-radius:6px;height:6px;margin-bottom:8px;overflow:hidden}
+.mem-timer-bar{height:100%;border-radius:6px;background:linear-gradient(90deg,#cc44ff,#4488ff);transition:width .1s}
+/* Grid */
+.mem-grid-wrap{display:flex;justify-content:center;margin-bottom:8px}
+.mem-grid{display:grid;gap:6px}
+.mem-card{border-radius:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s;perspective:200px;width:62px;height:62px;position:relative}
+.mem-card:active{transform:scale(.9)}
+.mem-card-inner{width:100%;height:100%;position:relative;transition:transform .25s;transform-style:preserve-3d}
+.mem-card.flipped .mem-card-inner,.mem-card.matched .mem-card-inner{transform:rotateY(180deg)}
+.mem-card-back,.mem-card-front{position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;display:flex;align-items:center;justify-content:center}
+.mem-card-back{background:linear-gradient(135deg,rgba(50,0,80,.6),rgba(20,0,50,.8));border:1.5px solid rgba(204,68,255,.2);font-size:22px}
+.mem-card-front{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);transform:rotateY(180deg);font-size:30px}
+.mem-card.matched .mem-card-front{background:rgba(68,255,136,.1);border-color:rgba(68,255,136,.4);box-shadow:0 0 10px rgba(68,255,136,.2)}
+.mem-card.wrong-flash .mem-card-front{background:rgba(255,68,68,.15);border-color:rgba(255,68,68,.4)}
+/* Status */
+.mem-status{text-align:center;font:700 11px var(--ff-head);color:#cc44ff;margin-bottom:8px;min-height:18px}
+.mem-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.7);border:1.5px solid rgba(204,68,255,.3);border-radius:14px;margin-bottom:8px}
+.mem-over.show{display:flex}
+.mem-over-time{font:900 28px var(--ff-head);color:#cc44ff}
+.mem-over-rw{font:700 12px var(--ff-head);color:#ffcc00}
+.mem-start-btn{width:100%;background:linear-gradient(135deg,#1a0030,#440080);border:none;border-radius:14px;padding:13px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.mem-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.mem-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ TYPING SPEED ══ */
 .typ-panel{position:fixed;inset:0;background:#000c08;z-index:1055;display:none;flex-direction:column;overflow:hidden}
 .typ-panel.open{display:flex}
@@ -12181,6 +12218,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
+          <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12257,6 +12295,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
+          <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12316,6 +12355,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
+          <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12413,6 +12453,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
+          <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13016,6 +13057,33 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- MEMORY MATCH -->
+<div class="mem-panel" id="memPanel">
+  <div class="mem-header">
+    <div class="mem-title">🧩 MINNESSPEL</div>
+    <button class="close-btn" onclick="closeMem()">✕</button>
+  </div>
+  <div class="mem-scroll">
+    <div class="mem-hud">
+      <div class="mem-hud-box"><div class="mem-hud-v" id="memMoves">0</div><div class="mem-hud-l">Drag</div></div>
+      <div class="mem-hud-box"><div class="mem-hud-v" id="memMatched">0</div><div class="mem-hud-l">Matchat</div></div>
+      <div class="mem-hud-box"><div class="mem-hud-v" id="memPlays">0</div><div class="mem-hud-l">Spel kvar</div></div>
+    </div>
+    <div class="mem-timer-wrap"><div class="mem-timer-bar" id="memTimerBar" style="width:100%"></div></div>
+    <div class="mem-grid-wrap"><div class="mem-grid" id="memGrid"></div></div>
+    <div class="mem-status" id="memStatus">Tryck START — hitta alla par!</div>
+    <div class="mem-over" id="memOver">
+      <div class="mem-over-lbl" id="memOverLbl">KLART!</div>
+      <div class="mem-over-time" id="memOverTime">0s</div>
+      <div class="mem-over-lbl">sekunder</div>
+      <div class="mem-over-rw" id="memOverRw"></div>
+    </div>
+    <button class="mem-start-btn" id="memStartBtn" onclick="memStart()">🧩 NY OMGÅNG</button>
+    <div class="mem-info">AGI = snabbare kortpaus · INT = extra par · 5 spel/dag</div>
+  </div>
+</div>
 
 <!-- TYPING SPEED -->
 <div class="typ-panel" id="typPanel">
@@ -57078,6 +57146,160 @@ function _renderTyp(d){
     var left=TYP_MAX_PLAYS-(d.playsToday||0);
     btn.disabled=left<=0;
     btn.textContent=left>0?'⌨️ STARTA! ('+left+' kvar)':'✓ Klar för idag!';
+  }
+}
+
+
+// MEMORY MATCH
+const MEM_KEY = 'k0509_mem';
+const MEM_MAX_PLAYS = 5;
+const MEM_CARDS_BASE = 8; // 8 pairs = 16 cards
+const MEM_EMOJIS = ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🦄','🐔','🦆'];
+
+var _memState = null;
+var _memTimerRaf = null;
+var _memTimerStart = 0;
+var _memFlipping = false;
+
+function _memData(){try{return JSON.parse(localStorage.getItem(MEM_KEY)||'null');}catch(e){return null;}}
+function _memSave(d){localStorage.setItem(MEM_KEY,JSON.stringify(d));}
+function _memGetData(){
+  var d=_memData();
+  if(!d) d={best:999,playsToday:0,lastDay:'',totalWins:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function _memShuffle(arr){
+  for(var i=arr.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=arr[i];arr[i]=arr[j];arr[j]=t;
+  }
+  return arr;
+}
+
+function memStart(){
+  var d=_memGetData();
+  if(d.playsToday>=MEM_MAX_PLAYS){showFloatBubble('Inga spel kvar idag!','debuff');return;}
+  var btn=$('memStartBtn');if(btn) btn.disabled=true;
+  var over=$('memOver');if(over) over.classList.remove('show');
+  // INT = extra pairs (max 10 pairs)
+  var pairs=Math.min(10,MEM_CARDS_BASE+Math.floor((G.int||0)/20));
+  var pool=MEM_EMOJIS.slice(0,pairs);
+  var cards=_memShuffle(pool.concat(pool).map(function(e,i){return {emoji:e,id:i,flipped:false,matched:false};}));
+  _memState={running:true,cards:cards,pairs:pairs,flipped:[],moves:0,matched:0,startTime:Date.now()};
+  _memTimerStart=Date.now();
+  _memRenderGrid();
+  _memAnimTimer();
+  var st=$('memStatus');if(st) st.textContent='Hitta alla '+pairs+' par!';
+  var mv=$('memMoves');if(mv) mv.textContent='0';
+  var mt=$('memMatched');if(mt) mt.textContent='0';
+}
+
+function _memAnimTimer(){
+  if(_memTimerRaf) cancelAnimationFrame(_memTimerRaf);
+  function tick(){
+    var elapsed=Date.now()-_memTimerStart;
+    var max=60000;
+    var pct=Math.max(0,1-elapsed/max);
+    var bar=$('memTimerBar');
+    if(bar) bar.style.width=(pct*100)+'%';
+    if(pct>0&&_memState&&_memState.running) _memTimerRaf=requestAnimationFrame(tick);
+  }
+  _memTimerRaf=requestAnimationFrame(tick);
+}
+
+function memFlip(idx){
+  var s=_memState;if(!s||!s.running||_memFlipping) return;
+  var card=s.cards[idx];
+  if(card.flipped||card.matched) return;
+  if(s.flipped.length>=2) return;
+  card.flipped=true;
+  s.flipped.push(idx);
+  _memRenderGrid();
+  if(s.flipped.length===2){
+    s.moves++;
+    var mv=$('memMoves');if(mv) mv.textContent=s.moves;
+    var c1=s.cards[s.flipped[0]];
+    var c2=s.cards[s.flipped[1]];
+    if(c1.emoji===c2.emoji){
+      c1.matched=true;c2.matched=true;
+      s.matched++;
+      var mt=$('memMatched');if(mt) mt.textContent=s.matched;
+      s.flipped=[];
+      _memRenderGrid();
+      if(s.matched===s.pairs){_memEnd();return;}
+    } else {
+      // Flip back — AGI reduces delay
+      var delay=Math.max(300,800-Math.floor((G.agi||0)*8));
+      _memFlipping=true;
+      // Flash wrong
+      setTimeout(function(){
+        c1.flipped=false;c2.flipped=false;
+        s.flipped=[];
+        _memFlipping=false;
+        _memRenderGrid();
+      },delay);
+    }
+  }
+}
+
+function _memRenderGrid(){
+  var grid=$('memGrid');if(!grid) return;
+  var s=_memState;if(!s) return;
+  var cols=Math.ceil(Math.sqrt(s.cards.length));
+  grid.style.gridTemplateColumns='repeat('+cols+', 62px)';
+  grid.innerHTML='';
+  s.cards.forEach(function(card,i){
+    var div=document.createElement('div');
+    div.className='mem-card'+(card.flipped||card.matched?' flipped':'')+(card.matched?' matched':'');
+    div.innerHTML='<div class="mem-card-inner"><div class="mem-card-back">🎴</div><div class="mem-card-front">'+card.emoji+'</div></div>';
+    div.onclick=(function(idx2){return function(){memFlip(idx2);};})(i);
+    grid.appendChild(div);
+  });
+}
+
+function _memEnd(){
+  var s=_memState;if(!s) return;
+  s.running=false;
+  if(_memTimerRaf) cancelAnimationFrame(_memTimerRaf);
+  var bar=$('memTimerBar');if(bar) bar.style.width='0%';
+  var elapsed=Math.floor((Date.now()-s.startTime)/1000);
+  var d=_memGetData();
+  d.playsToday=(d.playsToday||0)+1;
+  d.totalWins=(d.totalWins||0)+1;
+  if(elapsed<d.best) d.best=elapsed;
+  var timeBonus=Math.max(0,60-elapsed);
+  var coins=80+timeBonus*2;
+  var xp=60+timeBonus;
+  var kc=elapsed<=30?1:0;
+  gainCoins(coins);gainXP(xp,'int');if(kc) gainKC(kc);
+  _memSave(d);checkAchievements();
+  var over=$('memOver');if(over) over.classList.add('show');
+  var ol=$('memOverLbl');if(ol) ol.textContent='KLART! 🎉';
+  var ot=$('memOverTime');if(ot) ot.textContent=elapsed+'s';
+  var orw=$('memOverRw');if(orw) orw.textContent='+'+coins+'🪙 +'+xp+'XP'+(kc?' +1KC':'');
+  var st=$('memStatus');if(st) st.textContent='🧩 Alla par hittade på '+elapsed+' sekunder!';
+  var playsLeft=MEM_MAX_PLAYS-d.playsToday;
+  var btn=$('memStartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'🧩 NY OMGÅNG ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+}
+
+function openMem(){$('memPanel').classList.add('open');_renderMem();}
+function closeMem(){
+  if(_memTimerRaf) cancelAnimationFrame(_memTimerRaf);
+  $('memPanel').classList.remove('open');
+}
+
+function _renderMem(d){
+  if(!d) d=_memGetData();
+  var pl=$('memPlays');if(pl) pl.textContent=Math.max(0,MEM_MAX_PLAYS-(d.playsToday||0));
+  var btn=$('memStartBtn');
+  if(btn&&!(_memState&&_memState.running)){
+    var left=MEM_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=left<=0;
+    btn.textContent=left>0?'🧩 NY OMGÅNG ('+left+' kvar)':'✓ Klar för idag!';
   }
 }
 
