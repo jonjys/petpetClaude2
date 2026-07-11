@@ -1727,6 +1727,82 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+
+/* ══ NIGHT MARKET ══ */
+.nmark-panel{position:fixed;inset:0;background:#04020a;z-index:1101;display:none;flex-direction:column;overflow:hidden}
+.nmark-panel.open{display:flex}
+.nmark-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#04020a,#080414)}
+.nmark-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#8844ff,#ff44dd,#44ffcc,#8844ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:nmarkShim 4s linear infinite}
+@keyframes nmarkShim{0%{background-position:0%}100%{background-position:300%}}
+.nmark-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.nmark-wallet{display:flex;justify-content:space-between;align-items:center;background:rgba(136,68,255,.06);border:1.5px solid rgba(136,68,255,.18);border-radius:14px;padding:10px 14px;margin-bottom:10px}
+.nmark-tokens{font:800 26px var(--ff-head);color:#c088ff}
+.nmark-tokens-lbl{font:600 8px var(--ff-body);color:rgba(192,136,255,.35)}
+.nmark-earn-btn{background:rgba(136,68,255,.1);border:1px solid rgba(136,68,255,.25);border-radius:10px;padding:7px 12px;font:700 9px var(--ff-head);color:#c088ff;cursor:pointer}
+.nmark-refresh-v{font:600 8px var(--ff-body);color:rgba(192,136,255,.3);text-align:center;margin-bottom:8px}
+.nmark-items{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.nmark-item{background:rgba(136,68,255,.04);border:1.5px solid rgba(136,68,255,.12);border-radius:16px;padding:10px;text-align:center;position:relative}
+.nmark-item.sold{opacity:.35}
+.nmark-item-icon{font-size:32px;margin-bottom:4px}
+.nmark-item-name{font:700 9px var(--ff-head);color:rgba(220,180,255,.8);margin-bottom:2px}
+.nmark-item-eff{font:600 7px var(--ff-body);color:rgba(192,136,255,.5);margin-bottom:4px}
+.nmark-item-price{font:800 11px var(--ff-head);color:#c088ff;margin-bottom:5px}
+.nmark-buy-btn{background:linear-gradient(135deg,#1a0040,#3a0080);border:1.5px solid rgba(136,68,255,.35);border-radius:9px;padding:5px 10px;font:700 8px var(--ff-head);color:rgba(220,180,255,.9);cursor:pointer;width:100%}
+.nmark-buy-btn:disabled{opacity:.3;cursor:default}
+.nmark-badge{position:absolute;top:6px;right:6px;background:rgba(255,200,50,.15);border:1px solid rgba(255,200,50,.3);border-radius:6px;font:700 6px var(--ff-head);color:#ffc832;padding:2px 5px}
+
+/* ══ FIRE LEAGUE ══ */
+.fleg-panel{position:fixed;inset:0;background:#0a0200;z-index:1100;display:none;flex-direction:column;overflow:hidden}
+.fleg-panel.open{display:flex}
+.fleg-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0a0200,#1a0400)}
+.fleg-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff6600,#ff2200,#ffaa00,#ff6600);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:flegShim 3s linear infinite}
+@keyframes flegShim{0%{background-position:0%}100%{background-position:300%}}
+.fleg-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.fleg-rank-card{background:radial-gradient(ellipse at 50% 30%,rgba(255,100,0,.12),transparent);border:2px solid rgba(255,100,0,.25);border-radius:20px;padding:14px;margin-bottom:12px;text-align:center}
+.fleg-rank-icon{font-size:48px;margin-bottom:4px}
+.fleg-rank-name{font:800 18px var(--ff-head);color:rgba(255,200,100,.9);margin-bottom:2px}
+.fleg-rank-pts{font:700 12px var(--ff-head);color:rgba(255,150,50,.6)}
+.fleg-rank-bar{background:rgba(255,255,255,.04);border-radius:5px;height:6px;overflow:hidden;margin:6px auto;max-width:200px}
+.fleg-rank-fill{height:100%;background:linear-gradient(90deg,#ff6600,#ffaa00);border-radius:5px;transition:width .5s}
+.fleg-opponents{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.fleg-opp{background:rgba(255,100,0,.04);border:1.5px solid rgba(255,100,0,.12);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.fleg-opp-icon{font-size:26px;flex-shrink:0}
+.fleg-opp-info{flex:1}
+.fleg-opp-name{font:700 11px var(--ff-head);color:rgba(255,200,100,.8)}
+.fleg-opp-power{font:600 8px var(--ff-body);color:rgba(255,150,50,.4)}
+.fleg-opp-rew{font:700 8px var(--ff-head);color:rgba(255,100,50,.5)}
+.fleg-fight-btn{background:linear-gradient(135deg,#2a0800,#4a1000);border:1.5px solid rgba(255,100,0,.35);border-radius:10px;padding:6px 12px;font:700 9px var(--ff-head);color:rgba(255,200,100,.8);cursor:pointer;flex-shrink:0}
+.fleg-fight-btn:disabled{opacity:.3;cursor:default}
+.fleg-fights-left{font:600 9px var(--ff-body);color:rgba(255,150,50,.4);text-align:center;margin-bottom:6px}
+
+/* ══ TIME MACHINE ══ */
+.time-panel{position:fixed;inset:0;background:#020814;z-index:1099;display:none;flex-direction:column;overflow:hidden}
+.time-panel.open{display:flex}
+.time-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#020814,#040820)}
+.time-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44aaff,#aa44ff,#ff4488,#44aaff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:timeShim 4s linear infinite}
+@keyframes timeShim{0%{background-position:0%}100%{background-position:300%}}
+.time-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.time-era-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.time-shards{font:800 22px var(--ff-head);color:#44aaff}
+.time-shards-lbl{font:600 8px var(--ff-body);color:rgba(68,170,255,.4)}
+.time-eras{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.time-era{background:rgba(68,170,255,.05);border:1.5px solid rgba(68,170,255,.15);border-radius:16px;padding:12px 14px;cursor:pointer;transition:all .2s}
+.time-era.locked{opacity:.4;cursor:default}
+.time-era.active{border-color:rgba(68,170,255,.5);background:rgba(68,170,255,.1)}
+.time-era-top{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.time-era-icon{font-size:28px}
+.time-era-info{flex:1}
+.time-era-name{font:700 12px var(--ff-head);color:rgba(220,230,255,.9)}
+.time-era-desc{font:600 8px var(--ff-body);color:rgba(150,170,220,.5)}
+.time-era-prog{font:700 8px var(--ff-head);color:#44aaff;text-align:right;flex-shrink:0}
+.time-discov{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.time-disc{background:rgba(68,170,255,.06);border:1px solid rgba(68,170,255,.15);border-radius:8px;padding:4px 7px;font:600 7px var(--ff-body);color:rgba(150,170,255,.6);cursor:pointer}
+.time-disc.done{background:rgba(68,255,136,.05);border-color:rgba(68,255,136,.2);color:rgba(68,255,136,.5);cursor:default}
+.time-disc.locked-d{opacity:.3;cursor:default}
+.time-info{font:600 9px var(--ff-body);color:rgba(150,170,220,.3);text-align:center}
+
 /* ══ ASTRAL PLANE ══ */
 .astr-panel{position:fixed;inset:0;background:#020008;z-index:1098;display:none;flex-direction:column;overflow:hidden}
 .astr-panel.open{display:flex}
@@ -13809,6 +13885,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
           <div class="ddr" onclick="cM();openAstr()"><div class="ddr-i">🌌</div>Astralplanet</div>
+          <div class="ddr" onclick="cM();openTime()"><div class="ddr-i">⏳</div>Tidsmaskinen</div>
+          <div class="ddr" onclick="cM();openFleg()"><div class="ddr-i">🔥</div>Eldligan</div>
+          <div class="ddr" onclick="cM();openNmark()"><div class="ddr-i">🌙</div>Nattmarknaden</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -13928,6 +14007,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
           <div class="ddr" onclick="cM();openAstr()"><div class="ddr-i">🌌</div>Astralplanet</div>
+          <div class="ddr" onclick="cM();openTime()"><div class="ddr-i">⏳</div>Tidsmaskinen</div>
+          <div class="ddr" onclick="cM();openFleg()"><div class="ddr-i">🔥</div>Eldligan</div>
+          <div class="ddr" onclick="cM();openNmark()"><div class="ddr-i">🌙</div>Nattmarknaden</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14030,6 +14112,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
           <div class="ddr" onclick="cM();openAstr()"><div class="ddr-i">🌌</div>Astralplanet</div>
+          <div class="ddr" onclick="cM();openTime()"><div class="ddr-i">⏳</div>Tidsmaskinen</div>
+          <div class="ddr" onclick="cM();openFleg()"><div class="ddr-i">🔥</div>Eldligan</div>
+          <div class="ddr" onclick="cM();openNmark()"><div class="ddr-i">🌙</div>Nattmarknaden</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14063,6 +14148,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Garderob</div>
           <div class="ddr" onclick="cM();openGach()"><div class="ddr-i">✨</div>Portal</div>
           <div class="ddr" onclick="cM();openAstr()"><div class="ddr-i">🌌</div>Astralplanet</div>
+          <div class="ddr" onclick="cM();openTime()"><div class="ddr-i">⏳</div>Tidsmaskinen</div>
+          <div class="ddr" onclick="cM();openFleg()"><div class="ddr-i">🔥</div>Eldligan</div>
+          <div class="ddr" onclick="cM();openNmark()"><div class="ddr-i">🌙</div>Nattmarknaden</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14177,6 +14265,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
           <div class="ddr" onclick="cM();openAstr()"><div class="ddr-i">🌌</div>Astralplanet</div>
+          <div class="ddr" onclick="cM();openTime()"><div class="ddr-i">⏳</div>Tidsmaskinen</div>
+          <div class="ddr" onclick="cM();openFleg()"><div class="ddr-i">🔥</div>Eldligan</div>
+          <div class="ddr" onclick="cM();openNmark()"><div class="ddr-i">🌙</div>Nattmarknaden</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14945,6 +15036,66 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+
+<!-- NIGHT MARKET -->
+<div class="nmark-panel" id="nmarkPanel">
+  <div class="nmark-header">
+    <div class="nmark-title">🌙 NATTMARKNADEN</div>
+    <button class="close-btn" onclick="closeNmark()">✕</button>
+  </div>
+  <div class="nmark-scroll">
+    <div class="nmark-wallet">
+      <div>
+        <div class="nmark-tokens-lbl">NATTMYNT</div>
+        <div class="nmark-tokens" id="nmarkTokensV">0 🌙</div>
+      </div>
+      <button class="nmark-earn-btn" onclick="nmarkEarn()">+10 Tjäna</button>
+    </div>
+    <div class="nmark-refresh-v" id="nmarkRefreshV">Sortiment roterar snart...</div>
+    <div class="nmark-items" id="nmarkItems"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(192,136,255,.25);text-align:center">Sällsynta varor dyker upp varje kväll. Lager begränsat! 🌙</div>
+  </div>
+</div>
+
+<!-- FIRE LEAGUE -->
+<div class="fleg-panel" id="flegPanel">
+  <div class="fleg-header">
+    <div class="fleg-title">🔥 ELDLIGAN</div>
+    <button class="close-btn" onclick="closeFleg()">✕</button>
+  </div>
+  <div class="fleg-scroll">
+    <div class="fleg-rank-card">
+      <div class="fleg-rank-icon" id="flegRankIcon">🥉</div>
+      <div class="fleg-rank-name" id="flegRankName">Brons I</div>
+      <div class="fleg-rank-pts" id="flegRankPts">0 / 100 LP</div>
+      <div class="fleg-rank-bar"><div class="fleg-rank-fill" id="flegRankFill" style="width:0%"></div></div>
+    </div>
+    <div class="fleg-fights-left" id="flegFightsLeft">10/10 strider kvar idag</div>
+    <div class="fleg-opponents" id="flegOpps"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(255,150,50,.3);text-align:center">Klättra i ligorna för mäktigare belöningar! 🔥</div>
+  </div>
+</div>
+
+<!-- TIME MACHINE -->
+<div class="time-panel" id="timePanel">
+  <div class="time-header">
+    <div class="time-title">⏳ TIDSMASKINEN</div>
+    <button class="close-btn" onclick="closeTime()">✕</button>
+  </div>
+  <div class="time-scroll">
+    <div class="time-era-hdr">
+      <div>
+        <div class="time-shards-lbl">TIDSSKÄRVOR</div>
+        <div class="time-shards" id="timeShardsV">0 ⌛</div>
+      </div>
+    </div>
+    <div class="time-eras" id="timeEras"></div>
+    <div class="time-info">Utforska tidsperioder och hitta artefakter! Daglig återställning. ⏳</div>
+  </div>
+</div>
 
 <!-- ASTRAL PLANE -->
 <div class="astr-panel" id="astrPanel">
@@ -65385,6 +65536,333 @@ function _renderAstr(d){
       '</div>';
     }).join('');
   }
+}
+
+
+// TIME MACHINE
+const TIME_KEY = 'k0509_time';
+const TIME_ERAS = [
+  {id:'prehist', icon:'🦕', name:'Urtiden',      desc:'Dinosaurier och primitiva verktyg', cost:0,   discov:[
+    {id:'bone',    icon:'🦴', name:'Urben',         bonus:{str:2},     coins:30, xp:25},
+    {id:'cave',    icon:'🪨', name:'Grottmålning',  bonus:{int:1},     coins:25, xp:20},
+    {id:'mammoth', icon:'🦣', name:'Mammutbete',    bonus:{end:2},     coins:40, xp:35},
+  ]},
+  {id:'egypt',  icon:'🏛️', name:'Forntida Egypten', desc:'Faraoner och pyramider', cost:5,   discov:[
+    {id:'scroll', icon:'📜', name:'Hiero-glyfrull', bonus:{int:2},     coins:45, xp:40},
+    {id:'scarab', icon:'🪲', name:'Skarabé',        bonus:{lck:2},     coins:50, xp:45},
+    {id:'ankh',   icon:'☥', name:'Ankh-amulett',   bonus:{int:1,lck:1},coins:55, xp:50},
+  ]},
+  {id:'mediev', icon:'⚔️', name:'Medeltiden',   desc:'Riddare och borgar', cost:15,  discov:[
+    {id:'sword',  icon:'🗡️', name:'Riddarsvärd',  bonus:{str:3},     coins:60, xp:55},
+    {id:'shield', icon:'🛡️', name:'Vapensköld',   bonus:{end:2},     coins:55, xp:50},
+    {id:'grail',  icon:'🏆', name:'Heliga Graal',  bonus:{lck:3},     coins:70, xp:65},
+  ]},
+  {id:'renais', icon:'🎨', name:'Renässansen',  desc:'Konst och vetenskap', cost:30,  discov:[
+    {id:'lens',   icon:'🔭', name:'Teleskop',     bonus:{int:3},     coins:75, xp:70},
+    {id:'brush',  icon:'🖌️', name:'Mästarpenseln', bonus:{int:2,agi:1},coins:80, xp:75},
+    {id:'globe',  icon:'🌐', name:'Världsglob',   bonus:{int:1,lck:2},coins:85, xp:80},
+  ]},
+  {id:'indust', icon:'⚙️', name:'Industri-åldern', desc:'Ångkraft och uppfinningar', cost:60,  discov:[
+    {id:'gear',   icon:'⚙️', name:'Kugghjul',     bonus:{end:3,str:1},coins:90, xp:85},
+    {id:'engine', icon:'🚂', name:'Ångmaskin',    bonus:{end:4},     coins:100,xp:90},
+    {id:'bulb',   icon:'💡', name:'Glödlampa',    bonus:{int:4},     coins:110,xp:100},
+  ]},
+  {id:'future', icon:'🚀', name:'Framtiden',    desc:'Rymdresor och AI', cost:100, discov:[
+    {id:'chip',   icon:'💾', name:'Kvantchip',   bonus:{int:5,agi:2},coins:130, xp:120},
+    {id:'plasma', icon:'⚡', name:'Plasmavapen', bonus:{str:5,end:2},coins:140, xp:130},
+    {id:'singul', icon:'🌀', name:'Singularitet', bonus:{str:3,int:3,lck:3},coins:160, xp:150},
+  ]},
+];
+
+function _timeData(){try{return JSON.parse(localStorage.getItem(TIME_KEY)||'null');}catch(e){return null;}}
+function _timeSave(d){localStorage.setItem(TIME_KEY,JSON.stringify(d));}
+function _timeGetData(){
+  var d=_timeData();
+  if(!d) d={shards:0,doneToday:{},lastDay:'',unlocked:['prehist']};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.doneToday={};d.lastDay=today;_timeSave(d);}
+  return d;
+}
+
+function timeDiscover(eraId, discId){
+  var d=_timeGetData();
+  var key=eraId+'_'+discId;
+  if(d.doneToday[key]) return;
+  if(d.unlocked.indexOf(eraId)<0) return;
+  var era=TIME_ERAS.find(function(e){return e.id===eraId;});
+  var disc=era&&era.discov.find(function(dc){return dc.id===discId;});
+  if(!era||!disc) return;
+  d.doneToday[key]=true;
+  d.shards=(d.shards||0)+3;
+  Object.keys(disc.bonus).forEach(function(s){G[s]=(G[s]||0)+disc.bonus[s];});
+  save();
+  gainCoins(disc.coins);gainXP(disc.xp,'int');
+  var bonusTxt=Object.keys(disc.bonus).map(function(s){return '+'+disc.bonus[s]+s.toUpperCase();}).join(' ');
+  showFloatBubble('⏳ '+disc.icon+' '+disc.name+' funnen! '+bonusTxt+' +3⌛','buff');
+  // Check era complete
+  var eraKeys=era.discov.map(function(dc){return eraId+'_'+dc.id;});
+  var eraComplete=eraKeys.every(function(k){return d.doneToday[k];});
+  if(eraComplete){
+    d.shards=(d.shards||0)+10;
+    showFloatBubble('✨ '+era.name+' utforskad fullständigt! +10⌛','buff');
+    // Unlock next era
+    var eraIdx=TIME_ERAS.findIndex(function(e){return e.id===eraId;});
+    if(eraIdx>=0&&eraIdx<TIME_ERAS.length-1){
+      var nextEra=TIME_ERAS[eraIdx+1];
+      if(d.shards>=nextEra.cost&&d.unlocked.indexOf(nextEra.id)<0){
+        d.unlocked.push(nextEra.id);
+        d.shards-=nextEra.cost;
+        showFloatBubble('⏳ '+nextEra.icon+' '+nextEra.name+' upplåst!','buff');
+      }
+    }
+  }
+  _timeSave(d);
+  checkAchievements();
+  _renderTime(d);
+}
+
+function timeUnlockEra(eraId){
+  var d=_timeGetData();
+  var era=TIME_ERAS.find(function(e){return e.id===eraId;});
+  if(!era||d.unlocked.indexOf(eraId)>=0) return;
+  if((d.shards||0)<era.cost){showFloatBubble('Behöver '+era.cost+'⌛ skärvor!','debuff');return;}
+  d.shards-=era.cost;
+  d.unlocked.push(eraId);
+  _timeSave(d);
+  showFloatBubble('⏳ '+era.icon+' '+era.name+' upplåst!','buff');
+  _renderTime(d);
+}
+
+function openTime(){$('timePanel').classList.add('open');_renderTime();}
+function closeTime(){$('timePanel').classList.remove('open');}
+
+function _renderTime(d){
+  if(!d) d=_timeGetData();
+  var sv=$('timeShardsV');if(sv) sv.textContent=(d.shards||0)+' ⌛';
+  var container=$('timeEras');if(!container) return;
+  container.innerHTML=TIME_ERAS.map(function(era){
+    var unlocked=d.unlocked.indexOf(era.id)>=0;
+    var doneCount=era.discov.filter(function(dc){return d.doneToday[era.id+'_'+dc.id];}).length;
+    var cls='time-era'+(unlocked?' active':'  locked');
+    var discHTML=era.discov.map(function(dc){
+      var doneD=!!d.doneToday[era.id+'_'+dc.id];
+      var dcls='time-disc'+(doneD?' done':!unlocked?' locked-d':'');
+      var bonusTxt=Object.keys(dc.bonus).map(function(s){return '+'+dc.bonus[s]+s.toUpperCase();}).join(' ');
+      return '<div class="'+dcls+'" onclick="timeDiscover(\''+era.id+'\',\''+dc.id+'\')">'+dc.icon+' '+dc.name+' ('+bonusTxt+')</div>';
+    }).join('');
+    var lockBtn=!unlocked?'<button style="margin-top:6px;padding:5px 10px;background:rgba(68,170,255,.1);border:1px solid rgba(68,170,255,.3);border-radius:8px;font:700 8px var(--ff-head);color:#44aaff;cursor:pointer" onclick="timeUnlockEra(\''+era.id+'\')">🔓 Lås upp ('+era.cost+'⌛)</button>':'';
+    return '<div class="'+cls+'">'+
+      '<div class="time-era-top">'+
+        '<div class="time-era-icon">'+era.icon+'</div>'+
+        '<div class="time-era-info">'+
+          '<div class="time-era-name">'+era.name+'</div>'+
+          '<div class="time-era-desc">'+era.desc+'</div>'+
+        '</div>'+
+        '<div class="time-era-prog">'+doneCount+'/'+era.discov.length+'</div>'+
+      '</div>'+
+      '<div class="time-discov">'+discHTML+'</div>'+
+      lockBtn+
+    '</div>';
+  }).join('');
+}
+
+
+// FIRE LEAGUE
+const FLEG_KEY = 'k0509_fleg';
+const FLEG_RANKS = [
+  {name:'Brons I',  icon:'🥉', maxLP:100, base:{coins:30, xp:25}},
+  {name:'Brons II', icon:'🥉', maxLP:150, base:{coins:40, xp:35}},
+  {name:'Silver I', icon:'🥈', maxLP:200, base:{coins:55, xp:45}},
+  {name:'Silver II',icon:'🥈', maxLP:250, base:{coins:70, xp:60}},
+  {name:'Guld I',   icon:'🥇', maxLP:300, base:{coins:90, xp:80}},
+  {name:'Guld II',  icon:'🥇', maxLP:350, base:{coins:110,xp:100}},
+  {name:'Platina',  icon:'💎', maxLP:500, base:{coins:140,xp:130}},
+  {name:'Diamant',  icon:'💠', maxLP:999, base:{coins:200,xp:180}},
+];
+const FLEG_OPPS = [
+  {icon:'🐉', name:'Drakeridaren',  power:20},
+  {icon:'🧙', name:'Arkanmästaren', power:30},
+  {icon:'⚔️', name:'Järnkämpen',    power:40},
+  {icon:'🌪️', name:'Vindstormaren', power:55},
+  {icon:'💀', name:'Dödsriddaren',  power:70},
+];
+
+function _flegData(){try{return JSON.parse(localStorage.getItem(FLEG_KEY)||'null');}catch(e){return null;}}
+function _flegSave(d){localStorage.setItem(FLEG_KEY,JSON.stringify(d));}
+function _flegGetData(){
+  var d=_flegData();
+  if(!d) d={lp:0,rank:0,fitsLeft:10,lastDay:'',totalWins:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.fitsLeft=10;d.lastDay=today;_flegSave(d);}
+  return d;
+}
+
+function flegFight(oppIdx){
+  var d=_flegGetData();
+  if((d.fitsLeft||0)<=0){showFloatBubble('Inga strider kvar idag!','debuff');return;}
+  var opp=FLEG_OPPS[oppIdx];if(!opp) return;
+  d.fitsLeft=Math.max(0,(d.fitsLeft||0)-1);
+  var myPow=(G.str||0)+(G.agi||0)+(G.end||0)+Math.random()*20;
+  var oppPow=opp.power*(1+(d.rank||0)*0.15)+Math.random()*15;
+  var won=myPow>oppPow;
+  var rank=FLEG_RANKS[d.rank||0];
+  var lpGain=won?Math.floor(15+(d.rank||0)*3):Math.max(0,Math.floor(-(10+(d.rank||0)*2)));
+  d.lp=Math.max(0,(d.lp||0)+lpGain);
+  if(won){
+    d.totalWins=(d.totalWins||0)+1;
+    gainCoins(rank.base.coins);gainXP(rank.base.xp,'str');
+    showFloatBubble('🔥 '+opp.icon+' '+opp.name+' besegrad! +'+ lpGain+'LP +'+rank.base.coins+'🪙','buff');
+    // Rank up
+    if(d.lp>=rank.maxLP&&(d.rank||0)<FLEG_RANKS.length-1){
+      d.rank=(d.rank||0)+1;
+      d.lp=0;
+      var newRank=FLEG_RANKS[d.rank];
+      gainKC(d.rank);
+      showFloatBubble('🏆 Gick upp till '+newRank.name+'! +'+d.rank+'KC','buff');
+    }
+  } else {
+    gainCoins(Math.floor(rank.base.coins*0.2));
+    showFloatBubble('💥 '+opp.icon+' '+opp.name+' för stark! '+lpGain+'LP','debuff');
+  }
+  _flegSave(d);
+  checkAchievements();
+  _renderFleg(d);
+}
+
+function openFleg(){$('flegPanel').classList.add('open');_renderFleg();}
+function closeFleg(){$('flegPanel').classList.remove('open');}
+
+function _renderFleg(d){
+  if(!d) d=_flegGetData();
+  var rankData=FLEG_RANKS[d.rank||0];
+  var ri=$('flegRankIcon');if(ri) ri.textContent=rankData.icon;
+  var rn=$('flegRankName');if(rn) rn.textContent=rankData.name;
+  var rp=$('flegRankPts');if(rp) rp.textContent=(d.lp||0)+' / '+rankData.maxLP+' LP';
+  var rf=$('flegRankFill');if(rf) rf.style.width=Math.min(100,((d.lp||0)/rankData.maxLP*100))+'%';
+  var fl=$('flegFightsLeft');if(fl) fl.textContent=(d.fitsLeft||0)+'/10 strider kvar idag';
+  var container=$('flegOpps');if(!container) return;
+  container.innerHTML=FLEG_OPPS.map(function(opp, i){
+    var myPow=(G.str||0)+(G.agi||0)+(G.end||0);
+    var oppPow=opp.power*(1+(d.rank||0)*0.15);
+    var diff=myPow>oppPow?'✓ Fördel':'✗ Underdog';
+    var diffColor=myPow>oppPow?'rgba(68,255,136,.5)':'rgba(255,100,50,.5)';
+    return '<div class="fleg-opp">'+
+      '<div class="fleg-opp-icon">'+opp.icon+'</div>'+
+      '<div class="fleg-opp-info">'+
+        '<div class="fleg-opp-name">'+opp.name+'</div>'+
+        '<div class="fleg-opp-power" style="color:'+diffColor+'">Kraft: '+Math.round(oppPow)+' — '+diff+'</div>'+
+        '<div class="fleg-opp-rew">+'+Math.floor(15+(d.rank||0)*3)+'LP · +'+rankData.base.coins+'🪙</div>'+
+      '</div>'+
+      '<button class="fleg-fight-btn" onclick="flegFight('+i+')" '+(((d.fitsLeft||0)<=0)?'disabled':'')+'>Strid</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// NIGHT MARKET
+const NMARK_KEY = 'k0509_nmark';
+const NMARK_POOL = [
+  {id:'elixir',   icon:'🧪', name:'Styrkeelixir',     eff:'+8 STR permanent',     price:25,  bonus:{str:8},   coins:0},
+  {id:'moonstone',icon:'🌕', name:'Månsten',          eff:'+8 AGI permanent',     price:25,  bonus:{agi:8},   coins:0},
+  {id:'starcryst',icon:'⭐', name:'Stjärnkristall',   eff:'+8 INT permanent',     price:30,  bonus:{int:8},   coins:0},
+  {id:'luckcharm', icon:'🍀', name:'Lyckobringaren',  eff:'+8 LCK permanent',     price:30,  bonus:{lck:8},   coins:0},
+  {id:'ironheart', icon:'❤️', name:'Järnhjärtat',      eff:'+8 END permanent',     price:28,  bonus:{end:8},   coins:0},
+  {id:'goldpouch', icon:'💰', name:'Guldpåse',         eff:'+500 Mynt',            price:15,  bonus:{},        coins:500},
+  {id:'kc_gem',    icon:'💎', name:'KC-pärla',          eff:'+5 KC',                price:60,  bonus:{},        coins:0, kc:5},
+  {id:'xp_tome',   icon:'📖', name:'Erfarenhetsbok',   eff:'+200 XP alla stats',   price:20,  bonus:{},        xpBoost:200},
+  {id:'void_shard',icon:'🌑', name:'Tomrumsskärva',    eff:'+5 alla stats',        price:80,  bonus:{str:5,agi:5,int:5,lck:5,end:5}, coins:0},
+  {id:'dream_dust',icon:'✨', name:'Drömstoft',        eff:'+12 LCK permanent',    price:45,  bonus:{lck:12},  coins:0},
+  {id:'fire_gem',  icon:'🔥', name:'Eldpärla',          eff:'+10 STR +5 END',       price:55,  bonus:{str:10,end:5}, coins:0},
+  {id:'arc_lens',  icon:'🔮', name:'Arkanlins',         eff:'+10 INT +5 AGI',       price:55,  bonus:{int:10,agi:5}, coins:0},
+];
+
+function _nmarkData(){try{return JSON.parse(localStorage.getItem(NMARK_KEY)||'null');}catch(e){return null;}}
+function _nmarkSave(d){localStorage.setItem(NMARK_KEY,JSON.stringify(d));}
+function _nmarkGetData(){
+  var d=_nmarkData();
+  if(!d) d={tokens:20,lastRotate:0,items:[],bought:{},earnedToday:0,lastEarnDay:''};
+  var now=Date.now();
+  var rotateInterval=4*3600*1000; // 4 hours
+  if(!d.lastRotate||now-d.lastRotate>rotateInterval){
+    // Rotate: pick 6 random items
+    var pool=NMARK_POOL.slice();
+    d.items=[];
+    while(d.items.length<6&&pool.length>0){
+      var idx=Math.floor(Math.random()*pool.length);
+      d.items.push({id:pool[idx].id,stock:Math.floor(Math.random()*3)+1});
+      pool.splice(idx,1);
+    }
+    d.lastRotate=now;
+    d.bought={};
+    _nmarkSave(d);
+  }
+  return d;
+}
+
+function nmarkEarn(){
+  var d=_nmarkGetData();
+  var today=getTodayKey();
+  if(d.lastEarnDay!==today){d.earnedToday=0;d.lastEarnDay=today;}
+  if((d.earnedToday||0)>=5){showFloatBubble('Max 5 tjänster per dag!','debuff');return;}
+  d.tokens=(d.tokens||0)+10;
+  d.earnedToday=(d.earnedToday||0)+1;
+  _nmarkSave(d);
+  showFloatBubble('🌙 +10 Nattmynt tjänade! ('+(5-d.earnedToday)+' kvar idag)','buff');
+  _renderNmark(d);
+}
+
+function nmarkBuy(itemId){
+  var d=_nmarkGetData();
+  var slot=d.items.find(function(s){return s.id===itemId;});
+  var itemDef=NMARK_POOL.find(function(i){return i.id===itemId;});
+  if(!slot||!itemDef) return;
+  if((slot.stock||0)<=0){showFloatBubble('Slutsåld!','debuff');return;}
+  if((d.tokens||0)<itemDef.price){showFloatBubble('Behöver '+itemDef.price+'🌙!','debuff');return;}
+  d.tokens-=itemDef.price;
+  slot.stock=Math.max(0,slot.stock-1);
+  // Apply rewards
+  if(itemDef.bonus) Object.keys(itemDef.bonus).forEach(function(s){G[s]=(G[s]||0)+itemDef.bonus[s];});
+  if(itemDef.coins>0) gainCoins(itemDef.coins);
+  if(itemDef.kc>0) gainKC(itemDef.kc);
+  if(itemDef.xpBoost>0){gainXP(itemDef.xpBoost,'str');gainXP(itemDef.xpBoost,'agi');gainXP(itemDef.xpBoost,'int');}
+  save();
+  _nmarkSave(d);
+  showFloatBubble('🌙 '+itemDef.icon+' '+itemDef.name+' köpt! '+itemDef.eff,'buff');
+  checkAchievements();
+  _renderNmark(d);
+}
+
+function openNmark(){$('nmarkPanel').classList.add('open');_renderNmark();}
+function closeNmark(){$('nmarkPanel').classList.remove('open');}
+
+function _renderNmark(d){
+  if(!d) d=_nmarkGetData();
+  var tv=$('nmarkTokensV');if(tv) tv.textContent=(d.tokens||0)+' 🌙';
+  var now=Date.now();
+  var secsLeft=Math.max(0,Math.ceil((4*3600*1000-(now-(d.lastRotate||now)))/1000));
+  var rv=$('nmarkRefreshV');
+  if(rv){
+    var h=Math.floor(secsLeft/3600),m=Math.floor((secsLeft%3600)/60),s=secsLeft%60;
+    rv.textContent='Sortiment roterar om '+h+'h '+m+'m '+s+'s';
+  }
+  var container=$('nmarkItems');if(!container) return;
+  container.innerHTML=(d.items||[]).map(function(slot){
+    var item=NMARK_POOL.find(function(i){return i.id===slot.id;});
+    if(!item) return '';
+    var sold=(slot.stock||0)<=0;
+    var canAfford=(d.tokens||0)>=item.price;
+    var isRare=item.price>=50;
+    return '<div class="nmark-item'+(sold?' sold':'')+'">'+
+      (isRare?'<div class="nmark-badge">SÄLLSYNT</div>':'')+
+      '<div class="nmark-item-icon">'+item.icon+'</div>'+
+      '<div class="nmark-item-name">'+item.name+'</div>'+
+      '<div class="nmark-item-eff">'+item.eff+'</div>'+
+      '<div class="nmark-item-price">'+item.price+' 🌙</div>'+
+      '<button class="nmark-buy-btn" onclick="nmarkBuy(\''+item.id+'\')" '+(sold||!canAfford?'disabled':'')+'>'+
+        (sold?'Slutsåld':(!canAfford?'Råd ej':'Köp ×'+slot.stock))+
+      '</button>'+
+    '</div>';
+  }).join('');
 }
 
 </script>
