@@ -2596,6 +2596,45 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ TITAN CLASH ══ */
+.titan-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 10%,#180208,#060002);z-index:1151;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.titan-panel h2{color:#ff6688;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 16px #dd0033}
+.titan-stage{width:100%;max-width:340px;background:radial-gradient(ellipse,rgba(150,0,40,.15),transparent 70%);border:2px solid #880030;border-radius:16px;padding:16px;text-align:center;margin:6px 0;position:relative;overflow:hidden}
+.titan-stage::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(80,0,20,.1))}
+.titan-icon{font-size:4.5rem;filter:drop-shadow(0 0 20px #ff0040)}
+.titan-name{color:#ff6688;font-size:1.1rem;font-weight:700;margin-top:4px}
+.titan-hp-bar{width:100%;height:16px;background:rgba(50,0,15,.5);border-radius:8px;overflow:hidden;margin:8px 0;border:1px solid #660020}
+.titan-hp-fill{height:100%;background:linear-gradient(90deg,#880022,#ff3355);border-radius:8px;transition:width .5s}
+.titan-hp-txt{color:#ff8899;font-size:.72rem}
+.titan-attacks{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:340px;margin:6px 0}
+.titan-atk{background:rgba(50,5,15,.4);border:1px solid #660022;border-radius:10px;padding:8px 4px;cursor:pointer;transition:all .2s;text-align:center}
+.titan-atk:hover{border-color:#ff6688;background:rgba(90,10,30,.5);box-shadow:0 0 8px rgba(255,50,80,.3)}
+.titan-atk .ta-icon{font-size:1.4rem}
+.titan-atk .ta-name{font-size:.62rem;color:#ff8899;margin-top:2px}
+.titan-atk .ta-dmg{font-size:.58rem;color:#cc4460}
+.titan-dmg-info{background:rgba(40,5,12,.35);border:1px solid #550020;border-radius:8px;padding:5px 14px;color:#ff8899;font-size:.78rem;margin-bottom:4px;text-align:center;width:100%;max-width:320px}
+
+/* ══ GEM COLLECTOR ══ */
+.gemc-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 20%,#050a18,#020408);z-index:1150;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.gemc-panel h2{color:#88ffee;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #44ddaa}
+.gemc-display{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:340px;margin:8px 0;background:rgba(5,15,25,.5);border:2px solid #1a3a5a;border-radius:14px;padding:10px}
+.gemc-gem-slot{aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #1a3050;background:rgba(10,20,35,.5);cursor:pointer;transition:all .2s}
+.gemc-gem-slot:hover{border-color:#88ffee;transform:scale(1.08)}
+.gemc-gem-slot.owned{background:rgba(20,40,30,.4)}
+.gemc-gem-slot .gg-icon{font-size:1.5rem}
+.gemc-gem-slot .gg-name{font-size:.55rem;color:#669988;margin-top:2px;text-align:center}
+.gemc-gem-slot .gg-rarity{font-size:.5rem;color:#446655;margin-top:1px}
+.gemc-challenge{display:flex;flex-direction:column;gap:6px;width:100%;max-width:340px;margin-top:4px}
+.gemc-chal{background:rgba(8,18,30,.4);border:1px solid #1a3050;border-radius:10px;padding:8px 12px;cursor:pointer;transition:all .2s}
+.gemc-chal:hover{border-color:#44ddaa;background:rgba(15,32,50,.5)}
+.gemc-chal.done{opacity:.5;cursor:default}
+.gemc-chal .gc-head{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.gemc-chal .gc-icon{font-size:1.2rem}
+.gemc-chal .gc-name{color:#88ffee;font-size:.78rem;font-weight:700}
+.gemc-chal .gc-gem{font-size:.6rem;color:#66ddaa;margin-left:auto}
+.gemc-chal .gc-req{color:#447766;font-size:.63rem}
+.gemc-score{background:rgba(5,15,25,.35);border:1px solid #1a3a5a;border-radius:8px;padding:5px 14px;color:#88ffee;font-size:.82rem;margin-bottom:6px}
+
 /* ══ POTION SHOP ══ */
 .potshop-panel{position:fixed;inset:0;background:linear-gradient(160deg,#05080a,#070500);z-index:1149;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .potshop-panel h2{color:#ffcc88;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #cc8800}
@@ -16918,6 +16957,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
   <div class="aduel-spells" id="aduelSpells"></div>
   <div class="aduel-log" id="aduelLog"><div>Cast a spell to begin the duel!</div></div>
+</div>
+
+<!-- GEM COLLECTOR -->
+<div class="gemc-panel" id="gemcPanel" style="display:none">
+  <button onclick="closeGemc()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#88ffee;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>💎 Gem Collector</h2>
+  <div class="gemc-score" id="gemcScore">Gems: 0/16 | Collection Value: 0</div>
+  <div style="color:#449977;font-size:.72rem;margin-bottom:6px">Complete challenges to earn rare gems</div>
+  <div class="gemc-display" id="gemcDisplay"></div>
+  <div style="color:#88ffee;font-size:.78rem;font-weight:700;margin:4px 0;align-self:flex-start">🔓 Gem Challenges</div>
+  <div class="gemc-challenge" id="gemcChals"></div>
+</div>
+
+<!-- TITAN CLASH -->
+<div class="titan-panel" id="titanPanel" style="display:none">
+  <button onclick="closeTitan()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ff6688;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>⚔️ Titan Clash</h2>
+  <div class="titan-dmg-info" id="titanInfo">Weekly Titan | Damage: 0 | Attacks: 0/20</div>
+  <div class="titan-stage">
+    <div class="titan-icon" id="titanIcon">👹</div>
+    <div class="titan-name" id="titanName">Loading...</div>
+    <div class="titan-hp-bar"><div class="titan-hp-fill" id="titanHpFill" style="width:100%"></div></div>
+    <div class="titan-hp-txt" id="titanHpTxt">HP: ?</div>
+  </div>
+  <div class="titan-attacks" id="titanAtks"></div>
+  <div id="titanRewardArea" style="width:100%;max-width:320px;text-align:center;margin-top:4px"></div>
 </div>
 
 <!-- ICE KINGDOM -->
@@ -72233,6 +72298,173 @@ function _renderPotshop(){
       <div class="pr-effect">${r.desc}</div>
     </div>`;
   }).join('');
+}
+
+
+// ══ GEM COLLECTOR ══
+const GEMC_KEY = 'k0509_gemc';
+const GEMC_GEMS = [
+  {id:'ruby',icon:'🔴',name:'Ruby',rarity:'Common',value:50},
+  {id:'emerald',icon:'💚',name:'Emerald',rarity:'Common',value:60},
+  {id:'sapphire',icon:'💙',name:'Sapphire',rarity:'Common',value:70},
+  {id:'topaz',icon:'🟡',name:'Topaz',rarity:'Uncommon',value:100},
+  {id:'amethyst',icon:'💜',name:'Amethyst',rarity:'Uncommon',value:120},
+  {id:'opal',icon:'🤍',name:'Opal',rarity:'Uncommon',value:150},
+  {id:'onyx',icon:'⚫',name:'Onyx',rarity:'Rare',value:200},
+  {id:'pearl',icon:'🫧',name:'Pearl',rarity:'Rare',value:250},
+  {id:'aquamarine',icon:'🩵',name:'Aquamarine',rarity:'Rare',value:300},
+  {id:'garnet',icon:'❤️',name:'Garnet',rarity:'Epic',value:400},
+  {id:'citrine',icon:'🟠',name:'Citrine',rarity:'Epic',value:450},
+  {id:'jade',icon:'🟢',name:'Jade',rarity:'Epic',value:500},
+  {id:'moonstone',icon:'🌕',name:'Moonstone',rarity:'Legendary',value:700},
+  {id:'sunstone',icon:'☀️',name:'Sunstone',rarity:'Legendary',value:800},
+  {id:'voidgem',icon:'🌑',name:'Void Gem',rarity:'Mythic',value:1000},
+  {id:'cosmicgem',icon:'🌌',name:'Cosmic Gem',rarity:'Mythic',value:2000},
+];
+const GEMC_CHALLENGES = [
+  {id:'c1',gem:'ruby',req:'Have 1000 coins',check:()=>(G.coins||0)>=1000},
+  {id:'c2',gem:'emerald',req:'Have STR 25',check:()=>(G.str||0)>=25},
+  {id:'c3',gem:'sapphire',req:'Have INT 25',check:()=>(G.int||0)>=25},
+  {id:'c4',gem:'topaz',req:'Have AGI 25',check:()=>(G.agi||0)>=25},
+  {id:'c5',gem:'amethyst',req:'Reach Level 15',check:()=>(G.level||1)>=15},
+  {id:'c6',gem:'opal',req:'All stats 30+',check:()=>(G.str||0)>=30&&(G.int||0)>=30&&(G.agi||0)>=30},
+  {id:'c7',gem:'onyx',req:'Have 5000 coins',check:()=>(G.coins||0)>=5000},
+  {id:'c8',gem:'pearl',req:'Have STR 45',check:()=>(G.str||0)>=45},
+  {id:'c9',gem:'aquamarine',req:'Have INT 45',check:()=>(G.int||0)>=45},
+  {id:'c10',gem:'garnet',req:'Reach Level 30',check:()=>(G.level||1)>=30},
+  {id:'c11',gem:'citrine',req:'All stats 50+',check:()=>(G.str||0)>=50&&(G.int||0)>=50&&(G.agi||0)>=50},
+  {id:'c12',gem:'jade',req:'Have 20000 coins',check:()=>(G.coins||0)>=20000},
+  {id:'c13',gem:'moonstone',req:'Reach Level 50',check:()=>(G.level||1)>=50},
+  {id:'c14',gem:'sunstone',req:'All stats 80+',check:()=>(G.str||0)>=80&&(G.int||0)>=80&&(G.agi||0)>=80},
+  {id:'c15',gem:'voidgem',req:'Reach Level 75',check:()=>(G.level||1)>=75},
+  {id:'c16',gem:'cosmicgem',req:'All stats 100+',check:()=>(G.str||0)>=100&&(G.int||0)>=100&&(G.agi||0)>=100},
+];
+function _gemcData(){
+  const d=JSON.parse(localStorage.getItem(GEMC_KEY)||'{}');
+  return {owned:d.owned||[],done:d.done||[]};
+}
+function _gemcSave(d){localStorage.setItem(GEMC_KEY,JSON.stringify(d));}
+function gemcClaim(cid){
+  const d=_gemcData();
+  if(d.done.includes(cid)){showFloatBubble('Already claimed!','bad');return;}
+  const chal=GEMC_CHALLENGES.find(c=>c.id===cid);
+  if(!chal.check()){showFloatBubble('Requirement not met!','bad');return;}
+  d.done.push(cid);
+  if(!d.owned.includes(chal.gem))d.owned.push(chal.gem);
+  _gemcSave(d);
+  const gem=GEMC_GEMS.find(g=>g.id===chal.gem);
+  gainCoins(Math.floor(gem.value/2));
+  showFloatBubble(`${gem.icon} ${gem.name} earned! +${Math.floor(gem.value/2)}🪙`,'good');
+  checkAchievements();
+  _renderGemc();
+}
+function openGemc(){$('gemcPanel').style.display='flex';_renderGemc();}
+function closeGemc(){$('gemcPanel').style.display='none';}
+function _renderGemc(){
+  const d=_gemcData();
+  const val=d.owned.reduce((s,id)=>{const g=GEMC_GEMS.find(x=>x.id===id);return s+(g?g.value:0);},0);
+  $('gemcScore').textContent=`Gems: ${d.owned.length}/16 | Collection Value: ${val}`;
+  $('gemcDisplay').innerHTML=GEMC_GEMS.map(g=>`<div class="gemc-gem-slot ${d.owned.includes(g.id)?'owned':''}">
+    <div class="gg-icon">${d.owned.includes(g.id)?g.icon:'❔'}</div>
+    <div class="gg-name">${d.owned.includes(g.id)?g.name:'???'}</div>
+    <div class="gg-rarity">${d.owned.includes(g.id)?g.rarity:''}</div>
+  </div>`).join('');
+  $('gemcChals').innerHTML=GEMC_CHALLENGES.map(c=>{
+    const done=d.done.includes(c.id);
+    const gem=GEMC_GEMS.find(g=>g.id===c.gem);
+    const met=c.check();
+    return `<div class="gemc-chal ${done?'done':''}" onclick="gemcClaim('${c.id}')">
+      <div class="gc-head"><span class="gc-icon">${done?gem.icon:'🔒'}</span><span class="gc-name">${gem.name}</span><span class="gc-gem">${gem.rarity}</span></div>
+      <div class="gc-req">${c.req} ${done?'✅':met?'✨ Ready!':''}</div>
+    </div>`;
+  }).join('');
+}
+
+
+// ══ TITAN CLASH ══
+const TITAN_KEY = 'k0509_titan';
+const TITAN_BOSSES = [
+  {icon:'🦖',name:'Primal Titan',hp:10000,def:30},
+  {icon:'🌋',name:'Volcano God',hp:12000,def:40},
+  {icon:'🌊',name:'Ocean Leviathan',hp:15000,def:35},
+  {icon:'⚡',name:'Storm Colossus',hp:18000,def:45},
+  {icon:'🌌',name:'Cosmic Titan',hp:25000,def:60},
+];
+const TITAN_ATTACKS = [
+  {icon:'⚔️',name:'Power Slash',dmgBase:150,stat:'str',def:true},
+  {icon:'🔮',name:'Arcane Ray',dmgBase:180,stat:'int',def:false},
+  {icon:'💨',name:'Swift Strike',dmgBase:120,stat:'agi',def:false,hitAll:true},
+];
+function _titanData(){
+  const d=JSON.parse(localStorage.getItem(TITAN_KEY)||'{}');
+  const week=Math.floor(Date.now()/(7*24*60*60*1000)).toString();
+  if(d.week!==week){
+    const bi=Math.floor(Date.now()/(7*24*60*60*1000))%TITAN_BOSSES.length;
+    return {week,bossIdx:bi,bossHp:TITAN_BOSSES[bi].hp,myDmg:0,myAtks:0,claimed:false,lastAtk:'',dailyAtks:0};
+  }
+  return {week:d.week,bossIdx:d.bossIdx||0,bossHp:d.bossHp||TITAN_BOSSES[0].hp,
+    myDmg:d.myDmg||0,myAtks:d.myAtks||0,claimed:d.claimed||false,lastAtk:d.lastAtk||'',dailyAtks:d.dailyAtks||0};
+}
+function _titanSave(d){localStorage.setItem(TITAN_KEY,JSON.stringify(d));}
+function titanAttack(atkIdx){
+  const d=_titanData();
+  const today=getTodayKey();
+  if(d.lastAtk!==today){d.dailyAtks=0;d.lastAtk=today;}
+  if(d.dailyAtks>=20){showFloatBubble('20 attacks today!','bad');return;}
+  if(d.bossHp<=0){showFloatBubble('Titan defeated! Claim reward.','bad');return;}
+  const boss=TITAN_BOSSES[d.bossIdx];
+  const atk=TITAN_ATTACKS[atkIdx];
+  const stat=atk.stat==='str'?G.str:atk.stat==='int'?G.int:G.agi;
+  const def=atk.def?boss.def:0;
+  const dmg=Math.max(50,atk.dmgBase+Math.floor((stat||10)*2)-def+Math.floor(Math.random()*50));
+  d.bossHp=Math.max(0,d.bossHp-dmg);
+  d.myDmg+=dmg;
+  d.dailyAtks++;
+  d.myAtks++;
+  _titanSave(d);
+  showFloatBubble(`${atk.icon} ${dmg} damage to Titan!`,'good');
+  if(d.bossHp<=0)showFloatBubble('💀 TITAN DEFEATED! Claim your reward!','good');
+  _renderTitan();
+}
+function titanClaim(){
+  const d=_titanData();
+  if(d.bossHp>0){showFloatBubble('Titan not defeated yet!','bad');return;}
+  if(d.claimed){showFloatBubble('Already claimed!','bad');return;}
+  d.claimed=true;
+  _titanSave(d);
+  const bonus=Math.floor(d.myDmg/200);
+  gainCoins(1000+bonus);gainKC(30);
+  G.str+=10;G.int+=10;G.agi+=10;save();
+  showFloatBubble(`⚔️ Titan Reward! +${1000+bonus}🪙 +30KC +10 All!`,'good');
+  checkAchievements();_renderTitan();
+}
+function openTitan(){$('titanPanel').style.display='flex';_renderTitan();}
+function closeTitan(){$('titanPanel').style.display='none';}
+function _renderTitan(){
+  const d=_titanData();
+  const boss=TITAN_BOSSES[d.bossIdx];
+  const today=getTodayKey();
+  const dailyAtks=d.lastAtk===today?d.dailyAtks:0;
+  $('titanInfo').textContent=`Weekly Titan | My DMG: ${d.myDmg} | Attacks: ${dailyAtks}/20`;
+  $('titanIcon').textContent=boss.icon;
+  $('titanName').textContent=boss.name;
+  const pct=Math.max(0,d.bossHp/boss.hp*100);
+  $('titanHpFill').style.width=pct+'%';
+  $('titanHpTxt').textContent=`HP: ${d.bossHp.toLocaleString()} / ${boss.hp.toLocaleString()}`;
+  $('titanAtks').innerHTML=TITAN_ATTACKS.map((a,i)=>`<div class="titan-atk" onclick="titanAttack(${i})">
+    <div class="ta-icon">${a.icon}</div>
+    <div class="ta-name">${a.name}</div>
+    <div class="ta-dmg">${a.dmgBase}+ dmg</div>
+  </div>`).join('');
+  if(d.bossHp<=0&&!d.claimed){
+    $('titanRewardArea').innerHTML='<button onclick="titanClaim()" style="background:linear-gradient(135deg,#660022,#330011);border:1px solid #ff6688;color:#ff8899;border-radius:8px;padding:9px 20px;cursor:pointer;font-size:.84rem">⚔️ Claim Victory Reward!</button>';
+  } else if(d.claimed){
+    const bonus=Math.floor(d.myDmg/200);
+    $('titanRewardArea').innerHTML=`<div style="color:#884444;font-size:.72rem">✅ Claimed | Total Reward: ${1000+bonus}🪙 +30KC +10 All</div>`;
+  } else {
+    const bonus=Math.floor(d.myDmg/200);
+    $('titanRewardArea').innerHTML=`<div style="color:#884444;font-size:.7rem">Defeat to earn: ${1000+bonus}🪙 +30KC +10 All</div>`;
+  }
 }
 
 </script>
