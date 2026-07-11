@@ -2596,6 +2596,36 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ SURVIVAL ISLAND ══ */
+.surv-panel{position:fixed;inset:0;background:linear-gradient(180deg,#042010,#061808);z-index:1143;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.surv-panel h2{color:#88ffcc;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #44cc88}
+.surv-island{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;width:100%;max-width:340px;background:rgba(4,20,10,.5);border:2px solid #1a5030;border-radius:14px;padding:8px;margin:6px 0}
+.surv-tile{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;cursor:pointer;transition:all .2s;border:1px solid #0c3018}
+.surv-tile:hover{transform:scale(1.1);border-color:#44cc88}
+.surv-tile.explored{opacity:.6}
+.surv-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;width:100%;max-width:340px;margin-bottom:8px}
+.surv-stat{background:rgba(5,20,10,.4);border:1px solid #1a4020;border-radius:8px;padding:5px 2px;text-align:center}
+.surv-stat .ss2-val{color:#88ffcc;font-size:.88rem;font-weight:700}
+.surv-stat .ss2-lbl{color:#408050;font-size:.55rem;margin-top:1px}
+.surv-log{background:rgba(4,15,8,.5);border:1px solid #1a3818;border-radius:8px;padding:8px;width:100%;max-width:320px;max-height:90px;overflow-y:auto;font-size:.67rem;color:#70aa80;margin-top:6px}
+.surv-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:4px 0}
+.surv-btn{background:linear-gradient(135deg,#1a4020,#0c2012);border:1px solid #3a8040;color:#88ffcc;border-radius:9px;padding:7px 14px;font-size:.76rem;cursor:pointer;transition:all .2s}
+.surv-btn:hover{border-color:#88ffcc;box-shadow:0 0 6px rgba(68,204,136,.3)}
+
+/* ══ ZODIAC SIGNS ══ */
+.zodiac-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 10%,#04080e,#010206);z-index:1142;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.zodiac-panel h2{color:#bbccff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #8899ee}
+.zodiac-pts{background:rgba(15,20,50,.35);border:1px solid #2233aa;border-radius:8px;padding:6px 14px;color:#bbccff;font-size:.82rem;margin-bottom:8px}
+.zodiac-wheel{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:340px;margin:6px 0}
+.zodiac-sign{background:rgba(10,15,40,.4);border:1px solid #1a2266;border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.zodiac-sign:hover{border-color:#aabbff;background:rgba(20,30,80,.5)}
+.zodiac-sign.active{border-color:#6688ff;background:rgba(30,50,120,.45);box-shadow:0 0 8px rgba(100,136,255,.3)}
+.zodiac-sign.claimed{border-color:#44cc88;background:rgba(10,40,20,.4)}
+.zodiac-sign .zs-icon{font-size:1.6rem}
+.zodiac-sign .zs-name{font-size:.6rem;color:#8899cc;margin-top:3px}
+.zodiac-sign .zs-element{font-size:.55rem;color:#5566aa;margin-top:1px}
+.zodiac-info{background:rgba(10,15,40,.4);border:1px solid #1a2266;border-radius:12px;padding:12px;width:100%;max-width:340px;min-height:80px;text-align:center}
+
 /* ══ REALM BUILDER ══ */
 .rlmb-panel{position:fixed;inset:0;background:linear-gradient(170deg,#04080e,#08100a);z-index:1141;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .rlmb-panel h2{color:#88ffaa;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #44cc66}
@@ -16707,6 +16737,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div style="color:#508850;font-size:.72rem;margin:4px 0 6px">Build structures to earn passive gold</div>
   <div style="color:#88ffaa;font-size:.78rem;font-weight:700;margin-bottom:4px;align-self:flex-start">🏗️ Available Structures</div>
   <div class="rlmb-list" id="rlmbList"></div>
+</div>
+
+<!-- SURVIVAL ISLAND -->
+<div class="surv-panel" id="survPanel" style="display:none">
+  <button onclick="closeSurv()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#88ffcc;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🏝️ Survival Island</h2>
+  <div class="surv-stats">
+    <div class="surv-stat"><div class="ss2-val" id="survFood">10</div><div class="ss2-lbl">Food</div></div>
+    <div class="surv-stat"><div class="ss2-val" id="survWood">0</div><div class="ss2-lbl">Wood</div></div>
+    <div class="surv-stat"><div class="ss2-val" id="survStone">0</div><div class="ss2-lbl">Stone</div></div>
+    <div class="surv-stat"><div class="ss2-val" id="survDays">0</div><div class="ss2-lbl">Days</div></div>
+  </div>
+  <div class="surv-island" id="survIsland"></div>
+  <div class="surv-actions">
+    <button class="surv-btn" onclick="survAction('fish')">🎣 Fish</button>
+    <button class="surv-btn" onclick="survAction('chop')">🪓 Chop</button>
+    <button class="surv-btn" onclick="survAction('mine')">⛏️ Mine</button>
+    <button class="surv-btn" onclick="survAction('explore')">🔍 Explore</button>
+    <button class="surv-btn" onclick="survAction('rest')">😴 Rest</button>
+  </div>
+  <div class="surv-log" id="survLog"></div>
+</div>
+
+<!-- ZODIAC SIGNS -->
+<div class="zodiac-panel" id="zodiacPanel" style="display:none">
+  <button onclick="closeZodiac()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#bbccff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>♈ Zodiac Signs</h2>
+  <div class="zodiac-pts" id="zodiacPts">Stardust: 0 | Unlocked: 0/12</div>
+  <div style="color:#5566aa;font-size:.72rem;margin-bottom:8px">Collect stardust daily, unlock zodiac signs for permanent bonuses</div>
+  <div class="zodiac-wheel" id="zodiacWheel"></div>
+  <div class="zodiac-info" id="zodiacInfo"><div style="color:#445588;font-size:.75rem">Tap a sign to view details</div></div>
+  <button onclick="zodiacGather()" style="background:linear-gradient(135deg,#1a2270,#0c1240);border:1px solid #6688ff;color:#bbccff;border-radius:10px;padding:9px 22px;font-size:.84rem;cursor:pointer;margin-top:8px">✨ Gather Stardust</button>
 </div>
 
 <!-- FORGE OF AGES -->
@@ -71323,6 +71385,152 @@ function _renderRlmb(){
       <div class="rb-cost">${maxed?'MAX':canAfford?`✨ Upgrade: ${cost}🪙`:`🔒 ${cost}🪙 needed`}</div>
     </div>`;
   }).join('');
+}
+
+
+// ══ ZODIAC SIGNS ══
+const ZODIAC_KEY = 'k0509_zodiac';
+const ZODIAC_SIGNS = [
+  {id:'aries',icon:'♈',name:'Aries',elem:'Fire',cost:30,bonus:'+5 STR',apply:()=>{G.str=(G.str||10)+5;save()}},
+  {id:'taurus',icon:'♉',name:'Taurus',elem:'Earth',cost:30,bonus:'+5 AGI',apply:()=>{G.agi=(G.agi||10)+5;save()}},
+  {id:'gemini',icon:'♊',name:'Gemini',elem:'Air',cost:30,bonus:'+3 STR +3 INT',apply:()=>{G.str+=3;G.int+=3;save()}},
+  {id:'cancer',icon:'♋',name:'Cancer',elem:'Water',cost:30,bonus:'+5 INT',apply:()=>{G.int=(G.int||10)+5;save()}},
+  {id:'leo',icon:'♌',name:'Leo',elem:'Fire',cost:40,bonus:'+6 STR +2 AGI',apply:()=>{G.str+=6;G.agi+=2;save()}},
+  {id:'virgo',icon:'♍',name:'Virgo',elem:'Earth',cost:40,bonus:'+6 INT +2 STR',apply:()=>{G.int+=6;G.str+=2;save()}},
+  {id:'libra',icon:'♎',name:'Libra',elem:'Air',cost:40,bonus:'+4 All Stats',apply:()=>{G.str+=4;G.int+=4;G.agi+=4;save()}},
+  {id:'scorpio',icon:'♏',name:'Scorpio',elem:'Water',cost:40,bonus:'+6 AGI +3 INT',apply:()=>{G.agi+=6;G.int+=3;save()}},
+  {id:'sagittarius',icon:'♐',name:'Sagittarius',elem:'Fire',cost:50,bonus:'+8 STR +3KC',apply:()=>{G.str+=8;save();gainKC(3)}},
+  {id:'capricorn',icon:'♑',name:'Capricorn',elem:'Earth',cost:50,bonus:'+8 AGI +3KC',apply:()=>{G.agi+=8;save();gainKC(3)}},
+  {id:'aquarius',icon:'♒',name:'Aquarius',elem:'Air',cost:50,bonus:'+8 INT +200🪙',apply:()=>{G.int+=8;save();gainCoins(200)}},
+  {id:'pisces',icon:'♓',name:'Pisces',elem:'Water',cost:60,bonus:'+6 All +5KC',apply:()=>{G.str+=6;G.int+=6;G.agi+=6;save();gainKC(5)}},
+];
+var _zodiacSelected=null;
+function _zodiacData(){
+  const d=JSON.parse(localStorage.getItem(ZODIAC_KEY)||'{}');
+  return {dust:d.dust||0,unlocked:d.unlocked||[],lastGather:d.lastGather||''};
+}
+function _zodiacSave(d){localStorage.setItem(ZODIAC_KEY,JSON.stringify(d));}
+function zodiacGather(){
+  const d=_zodiacData();
+  const today=getTodayKey();
+  if(d.lastGather===today){showFloatBubble('Gathered stardust today!','bad');return;}
+  const amt=5+Math.floor(Math.random()*6);
+  d.dust+=amt;d.lastGather=today;
+  _zodiacSave(d);
+  showFloatBubble(`✨ +${amt} Stardust!`,'good');
+  _renderZodiac();
+}
+function zodiacSelect(id){
+  _zodiacSelected=id;
+  const d=_zodiacData();
+  const sign=ZODIAC_SIGNS.find(s=>s.id===id);
+  const unlocked=d.unlocked.includes(id);
+  $('zodiacInfo').innerHTML=`<div style="font-size:2rem;margin-bottom:4px">${sign.icon}</div>
+    <div style="color:#bbccff;font-size:.9rem;font-weight:700">${sign.name}</div>
+    <div style="color:#5566aa;font-size:.65rem;margin:2px 0">${sign.elem} • Cost: ${sign.cost} stardust</div>
+    <div style="color:#80aadd;font-size:.7rem;margin:4px 0">Bonus: ${sign.bonus}</div>
+    ${unlocked?'<div style="color:#44cc88;font-size:.7rem">✅ Unlocked</div>':
+    d.dust>=sign.cost?`<button onclick="zodiacUnlock('${id}')" style="background:linear-gradient(135deg,#1a2270,#0c1240);border:1px solid #6688ff;color:#bbccff;border-radius:8px;padding:6px 14px;font-size:.75rem;cursor:pointer;margin-top:4px">✨ Unlock (${sign.cost} ✨)</button>`:
+    `<div style="color:#445588;font-size:.68rem;margin-top:4px">Need ${sign.cost-d.dust} more stardust</div>`}`;
+  _renderZodiacWheel(d);
+}
+function zodiacUnlock(id){
+  const d=_zodiacData();
+  const sign=ZODIAC_SIGNS.find(s=>s.id===id);
+  if(d.unlocked.includes(id)){showFloatBubble('Already unlocked!','bad');return;}
+  if(d.dust<sign.cost){showFloatBubble('Not enough stardust!','bad');return;}
+  d.dust-=sign.cost;d.unlocked.push(id);
+  _zodiacSave(d);
+  sign.apply();
+  showFloatBubble(`${sign.icon} ${sign.name} unlocked! ${sign.bonus}`,'good');
+  checkAchievements();
+  _renderZodiac();
+}
+function openZodiac(){$('zodiacPanel').style.display='flex';_renderZodiac();}
+function closeZodiac(){$('zodiacPanel').style.display='none';}
+function _renderZodiacWheel(d){
+  $('zodiacWheel').innerHTML=ZODIAC_SIGNS.map(s=>`<div class="zodiac-sign ${d.unlocked.includes(s.id)?'claimed':_zodiacSelected===s.id?'active':''}" onclick="zodiacSelect('${s.id}')">
+    <div class="zs-icon">${s.icon}</div>
+    <div class="zs-name">${s.name}</div>
+    <div class="zs-element">${s.elem}</div>
+  </div>`).join('');
+}
+function _renderZodiac(){
+  const d=_zodiacData();
+  $('zodiacPts').textContent=`Stardust: ${d.dust} | Unlocked: ${d.unlocked.length}/12`;
+  _renderZodiacWheel(d);
+}
+
+
+// ══ SURVIVAL ISLAND ══
+const SURV_KEY = 'k0509_surv';
+const SURV_TILES = ['🌴','🌿','🪨','🍄','🌺','💎','🦁','🐊','🏖️','⛺','🗿','🌋','🐠','🌸','🦅','🌊'];
+function _survData(){
+  const d=JSON.parse(localStorage.getItem(SURV_KEY)||'{}');
+  return {food:d.food===undefined?10:d.food,wood:d.wood||0,stone:d.stone||0,days:d.days||0,
+    explored:d.explored||[],log:d.log||[],lastAction:d.lastAction||'',actions:d.actions||0};
+}
+function _survSave(d){localStorage.setItem(SURV_KEY,JSON.stringify(d));}
+function _survLog(d,msg){d.log.unshift(msg);if(d.log.length>15)d.log.pop();}
+function survAction(type){
+  const d=_survData();
+  const today=getTodayKey();
+  if(d.lastAction===today&&d.actions>=8){showFloatBubble('Need to rest (8 actions/day)!','bad');return;}
+  if(d.lastAction!==today){d.actions=0;d.lastAction=today;d.days++;}
+  d.food=Math.max(0,(d.food||10)-1);
+  d.actions++;
+  if(type==='fish'){
+    const got=2+Math.floor(Math.random()*4);
+    d.food+=got;
+    _survLog(d,`🎣 Fished: +${got} food`);
+    gainXP(15,'agi');
+  } else if(type==='chop'){
+    const got=2+Math.floor(Math.random()*3);
+    d.wood+=got;
+    _survLog(d,`🪓 Chopped: +${got} wood`);
+    gainXP(15,'str');
+  } else if(type==='mine'){
+    const got=1+Math.floor(Math.random()*3);
+    d.stone+=got;
+    _survLog(d,`⛏️ Mined: +${got} stone`);
+    gainXP(15,'str');
+  } else if(type==='explore'){
+    const idx=d.explored.length%SURV_TILES.length;
+    const tile=SURV_TILES[idx];
+    d.explored.push(idx);
+    let reward='';
+    if(tile==='💎'){gainKC(3);reward='+3 KC';}
+    else if(tile==='🏖️'){gainCoins(80);reward='+80🪙';}
+    else if(tile==='⛺'){G.agi+=2;save();reward='+2 AGI';}
+    else if(tile==='🗿'){G.str+=2;save();reward='+2 STR';}
+    else{d.food+=3;reward='+3 food';}
+    _survLog(d,`🔍 Found ${tile}! ${reward}`);
+    gainXP(20,'int');
+    showFloatBubble(`🏝️ Found ${tile}! ${reward}`,'good');
+  } else if(type==='rest'){
+    d.food+=2;
+    gainXP(10,'int');
+    _survLog(d,`😴 Rested: +2 food, +10 XP`);
+  }
+  // Bonus for surviving N days
+  if(d.days>0&&d.days%7===0&&type!=='rest'){
+    gainCoins(d.days*10);
+    _survLog(d,`🏆 ${d.days} days survived! +${d.days*10}🪙`);
+  }
+  _survSave(d);
+  checkAchievements();
+  _renderSurv();
+}
+function openSurv(){$('survPanel').style.display='flex';_renderSurv();}
+function closeSurv(){$('survPanel').style.display='none';}
+function _renderSurv(){
+  const d=_survData();
+  $('survFood').textContent=d.food;
+  $('survWood').textContent=d.wood;
+  $('survStone').textContent=d.stone;
+  $('survDays').textContent=d.days;
+  $('survIsland').innerHTML=SURV_TILES.map((t,i)=>`<div class="surv-tile ${d.explored.includes(i)?'explored':''}">${d.explored.includes(i)?t:'❓'}</div>`).join('');
+  $('survLog').innerHTML=d.log.slice(0,12).map(l=>`<div>${l}</div>`).join('')||'<div>Start your survival adventure!</div>';
 }
 
 </script>
