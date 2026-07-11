@@ -2596,6 +2596,41 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ ENCHANTED FOREST ══ */
+.enfo-panel{position:fixed;inset:0;background:linear-gradient(160deg,#02100a,#051a08);z-index:1129;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.enfo-panel h2{color:#66ee88;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #00cc44}
+.enfo-forest{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;max-width:340px;margin:8px 0}
+.enfo-node{background:rgba(20,60,20,.4);border:1px solid #1a5020;border-radius:10px;padding:10px 4px;text-align:center;cursor:pointer;transition:all .2s;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.enfo-node:hover{border-color:#66ee88;background:rgba(60,120,40,.3)}
+.enfo-node .en-icon{font-size:1.4rem}
+.enfo-node .en-name{font-size:.6rem;color:#88dd88;margin-top:2px}
+.enfo-node .en-count{font-size:.7rem;color:#44cc66;font-weight:700;margin-top:1px}
+.enfo-herbs{background:rgba(20,60,20,.3);border:1px solid #1a5020;border-radius:8px;padding:6px 14px;color:#66ee88;font-size:.82rem;margin-bottom:6px}
+.enfo-potions{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;width:100%;max-width:340px}
+.enfo-potion{background:rgba(20,50,15,.4);border:1px solid #265020;border-radius:10px;padding:8px;cursor:pointer;transition:all .2s}
+.enfo-potion:hover{border-color:#66ee88;background:rgba(40,80,30,.4)}
+.enfo-potion .ep-icon{font-size:1.2rem}
+.enfo-potion .ep-name{font-size:.72rem;color:#88ee88;font-weight:700}
+.enfo-potion .ep-req{font-size:.6rem;color:#669966;margin-top:1px}
+.enfo-potion .ep-eff{font-size:.62rem;color:#44ff88;margin-top:1px}
+
+/* ══ FORTUNE WHEEL ══ */
+.fwhl-panel{position:fixed;inset:0;background:radial-gradient(ellipse at center,#1a0a00,#0a0500);z-index:1128;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.fwhl-panel h2{color:#ffcc44;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #ff8800}
+.fwhl-container{position:relative;width:260px;height:260px;margin:8px 0}
+.fwhl-wheel{width:260px;height:260px;border-radius:50%;border:6px solid #cc8800;position:relative;overflow:hidden;transition:transform 3s cubic-bezier(.17,.67,.12,1)}
+.fwhl-pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:1.6rem;z-index:10;filter:drop-shadow(0 2px 4px rgba(255,200,0,.5))}
+.fwhl-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;background:radial-gradient(circle,#ffdd88,#cc8800);border-radius:50%;z-index:5;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.fwhl-prizes{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;width:100%;max-width:320px;margin:8px 0}
+.fwhl-prize{background:rgba(60,30,0,.4);border:1px solid #664400;border-radius:8px;padding:6px 8px;display:flex;gap:6px;align-items:center}
+.fwhl-prize .fp-icon{font-size:1.1rem}
+.fwhl-prize .fp-info{flex:1}
+.fwhl-prize .fp-name{font-size:.7rem;color:#ffbb44}
+.fwhl-prize .fp-desc{font-size:.6rem;color:#aa7722}
+.fwhl-spin-btn{background:linear-gradient(135deg,#cc8800,#886600);border:2px solid #ffcc44;color:#fff8e0;border-radius:14px;padding:12px 32px;font-size:1rem;font-weight:700;cursor:pointer;margin:4px 0;transition:all .2s}
+.fwhl-spin-btn:hover{background:linear-gradient(135deg,#ffaa00,#aa7700);box-shadow:0 0 14px rgba(255,180,0,.5)}
+.fwhl-spins{color:#ffcc88;font-size:.85rem;margin-bottom:4px}
+
 /* ══ CRYSTAL CAVE ══ */
 .crys-panel{position:fixed;inset:0;background:linear-gradient(160deg,#050d1a,#0a1528);z-index:1127;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .crys-panel h2{color:#88ddff;font-size:1.4rem;margin-bottom:8px;text-shadow:0 0 12px #44aaff}
@@ -16381,6 +16416,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="lootb-hist" id="lootbHist"></div>
     <div class="lootb-stats" id="lootbStats"></div>
   </div>
+</div>
+
+<!-- ENCHANTED FOREST -->
+<div class="enfo-panel" id="enfoPanel" style="display:none">
+  <button onclick="closeEnfo()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#66ee88;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🌳 Enchanted Forest</h2>
+  <div class="enfo-herbs" id="enfoHerbs">Herb Bag: 0 herbs</div>
+  <div style="color:#448844;font-size:.72rem;margin-bottom:4px">Tap plants to gather herbs (10 gathers/day)</div>
+  <div style="color:#66ee88;font-size:.78rem;font-weight:700;margin-bottom:4px;align-self:flex-start">🌿 Forest Nodes (tap to gather)</div>
+  <div class="enfo-forest" id="enfoForest"></div>
+  <div style="color:#66ee88;font-size:.78rem;font-weight:700;margin:6px 0 4px;align-self:flex-start">⚗️ Brew Potions</div>
+  <div class="enfo-potions" id="enfoPotions"></div>
+</div>
+
+<!-- FORTUNE WHEEL -->
+<div class="fwhl-panel" id="fwhlPanel" style="display:none">
+  <button onclick="closeFwhl()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ffcc44;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🎡 Fortune Wheel</h2>
+  <div class="fwhl-spins" id="fwhlSpins">Spins today: 0/5</div>
+  <div class="fwhl-container">
+    <div class="fwhl-pointer">🔻</div>
+    <canvas id="fwhlCanvas" width="260" height="260" style="border-radius:50%;border:6px solid #cc8800"></canvas>
+    <div class="fwhl-center">⭐</div>
+  </div>
+  <button class="fwhl-spin-btn" onclick="fwhlSpin()">🎡 SPIN!</button>
+  <div id="fwhlResult" style="color:#ffcc44;font-size:.9rem;min-height:24px;margin:4px 0;text-align:center"></div>
+  <div style="color:#ffaa44;font-size:.78rem;margin:4px 0">Possible prizes:</div>
+  <div class="fwhl-prizes" id="fwhlPrizes"></div>
 </div>
 
 <!-- CRYSTAL CAVE -->
@@ -69693,6 +69756,178 @@ function _renderCrys(){
     return `<button class="crys-btn" onclick="crysCraft(${i})" ${canCraft?'':'style="opacity:.5"'}>
       ${r.icon} ${r.name}<br><span style="font-size:.6rem">${needsStr} → ${r.desc}</span>
     </button>`;
+  }).join('');
+}
+
+
+// ══ FORTUNE WHEEL ══
+var FWHL_KEY = 'k0509_fwhl';
+const FWHL_SEGMENTS = [
+  {icon:'🪙',name:'100 Coins',color:'#cc8800',weight:25,apply:()=>gainCoins(100)},
+  {icon:'⭐',name:'+2 XP',color:'#886600',weight:20,apply:()=>gainXP(100,'str')},
+  {icon:'💪',name:'+2 STR',color:'#994400',weight:15,apply:()=>{G.str=(G.str||10)+2;save()}},
+  {icon:'🧠',name:'+2 INT',color:'#6600aa',weight:15,apply:()=>{G.int=(G.int||10)+2;save()}},
+  {icon:'💨',name:'+2 AGI',color:'#006688',weight:15,apply:()=>{G.agi=(G.agi||10)+2;save()}},
+  {icon:'💎',name:'50 Coins',color:'#cc6600',weight:5,apply:()=>gainCoins(50)},
+  {icon:'🌟',name:'+5 KC',color:'#aa8800',weight:3,apply:()=>gainKC(5)},
+  {icon:'🎰',name:'500 Coins!',color:'#884400',weight:2,apply:()=>gainCoins(500)},
+];
+function _fwhlData(){
+  const d=JSON.parse(localStorage.getItem(FWHL_KEY)||'{}');
+  return {spins:d.spins||0,lastDay:d.lastDay||'',spinning:false};
+}
+function _fwhlSave(d){localStorage.setItem(FWHL_KEY,JSON.stringify(d));}
+function _fwhlDraw(rotDeg){
+  const canvas=$('fwhlCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const cx=130,cy=130,r=124;
+  const total=FWHL_SEGMENTS.reduce((s,sg)=>s+sg.weight,0);
+  let start=rotDeg*(Math.PI/180);
+  FWHL_SEGMENTS.forEach(sg=>{
+    const slice=(sg.weight/total)*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,start+slice);ctx.closePath();
+    ctx.fillStyle=sg.color;ctx.fill();
+    ctx.strokeStyle='rgba(255,200,0,.3)';ctx.lineWidth=1;ctx.stroke();
+    // Label
+    const mid=start+slice/2;
+    ctx.save();ctx.translate(cx+Math.cos(mid)*80,cy+Math.sin(mid)*80);ctx.rotate(mid+Math.PI/2);
+    ctx.font='bold 13px sans-serif';ctx.fillStyle='#fff';ctx.textAlign='center';
+    ctx.fillText(sg.icon,0,0);ctx.restore();
+    start+=slice;
+  });
+}
+function fwhlSpin(){
+  const d=_fwhlData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.spins=0;d.lastDay=today;}
+  if(d.spins>=5){showFloatBubble('No more spins today!','bad');return;}
+  // Pick winner weighted random
+  const total=FWHL_SEGMENTS.reduce((s,sg)=>s+sg.weight,0);
+  let r=Math.floor(Math.random()*total);
+  let winner=0;
+  for(let i=0;i<FWHL_SEGMENTS.length;i++){
+    r-=FWHL_SEGMENTS[i].weight;
+    if(r<0){winner=i;break;}
+  }
+  d.spins++;
+  _fwhlSave(d);
+  // Animate: spin several full rotations to land on winner
+  const segAngle=360/FWHL_SEGMENTS.length;
+  const landAngle=360-(winner*segAngle)+(180-segAngle/2);
+  const totalRot=1440+landAngle; // 4 full + land
+  let start=null;
+  const dur=3000;
+  function animate(ts){
+    if(!start)start=ts;
+    const p=Math.min((ts-start)/dur,1);
+    const ease=p<1?1-Math.pow(1-p,4):1;
+    _fwhlDraw(totalRot*ease);
+    if(p<1){requestAnimationFrame(animate);}
+    else{
+      const seg=FWHL_SEGMENTS[winner];
+      seg.apply();
+      $('fwhlResult').textContent='🎉 '+seg.icon+' '+seg.name+'!';
+      showFloatBubble('🎡 '+seg.name,'good');
+      checkAchievements();
+      _renderFwhl(false);
+    }
+  }
+  $('fwhlResult').textContent='Spinning...';
+  requestAnimationFrame(animate);
+  _renderFwhl(false);
+}
+function openFwhl(){$('fwhlPanel').style.display='flex';_renderFwhl(true);}
+function closeFwhl(){$('fwhlPanel').style.display='none';}
+function _renderFwhl(drawWheel){
+  const d=_fwhlData();
+  const today=getTodayKey();
+  const spins=d.lastDay===today?d.spins:0;
+  $('fwhlSpins').textContent='Spins today: '+spins+'/5';
+  if(drawWheel)_fwhlDraw(0);
+  $('fwhlPrizes').innerHTML=FWHL_SEGMENTS.map(s=>
+    `<div class="fwhl-prize"><span class="fp-icon">${s.icon}</span><div class="fp-info"><div class="fp-name">${s.name}</div><div class="fp-desc">Weight: ${s.weight}%</div></div></div>`
+  ).join('');
+}
+
+
+// ══ ENCHANTED FOREST ══
+const ENFO_KEY = 'k0509_enfo';
+const ENFO_HERBS = [
+  {id:'rose',icon:'🌹',name:'Rose',color:'#ff4466'},
+  {id:'leaf',icon:'🍃',name:'Leaf',color:'#44cc44'},
+  {id:'shroom',icon:'🍄',name:'Mushroom',color:'#cc6622'},
+  {id:'flower',icon:'🌸',name:'Flower',color:'#ff88cc'},
+  {id:'fern',icon:'🌿',name:'Fern',color:'#228844'},
+  {id:'moss',icon:'🪸',name:'Moss',color:'#558833'},
+  {id:'root',icon:'🌱',name:'Root',color:'#886633'},
+  {id:'crystal',icon:'💠',name:'Spirit Herb',color:'#44aacc'},
+];
+const ENFO_POTIONS = [
+  {name:'Strength Brew',icon:'💪',needs:{rose:2,root:1},effect:()=>{G.str=(G.str||10)+3;save()},desc:'+3 STR'},
+  {name:'Wisdom Tea',icon:'🧠',needs:{flower:2,leaf:1},effect:()=>{G.int=(G.int||10)+3;save()},desc:'+3 INT'},
+  {name:'Speed Elixir',icon:'⚡',needs:{fern:2,shroom:1},effect:()=>{G.agi=(G.agi||10)+3;save()},desc:'+3 AGI'},
+  {name:'Gold Tincture',icon:'🪙',needs:{moss:2,root:2},effect:()=>gainCoins(200),desc:'+200 Coins'},
+  {name:'XP Potion',icon:'⭐',needs:{leaf:1,flower:1,fern:1},effect:()=>gainXP(150,'int'),desc:'+150 XP'},
+  {name:'Power Potion',icon:'🌟',needs:{crystal:2,rose:1,flower:1},effect:()=>{G.str+=5;G.int+=5;G.agi+=5;save();gainKC(3)},desc:'+5 All +3KC'},
+];
+function _enfoData(){
+  const d=JSON.parse(localStorage.getItem(ENFO_KEY)||'{}');
+  const bag={};
+  ENFO_HERBS.forEach(h=>{bag[h.id]=d.bag&&d.bag[h.id]||0;});
+  return {bag:bag,gathers:d.gathers||0,lastDay:d.lastDay||''};
+}
+function _enfoSave(d){localStorage.setItem(ENFO_KEY,JSON.stringify(d));}
+function enfoGather(hid){
+  const d=_enfoData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.gathers=0;d.lastDay=today;}
+  if(d.gathers>=10){showFloatBubble('Bag full! Rest tonight.','bad');return;}
+  const herb=ENFO_HERBS.find(h=>h.id===hid);
+  const qty=1+Math.floor(Math.random()*3);
+  d.bag[hid]=(d.bag[hid]||0)+qty;
+  d.gathers++;
+  _enfoSave(d);
+  showFloatBubble(`${herb.icon} +${qty} ${herb.name}`,'good');
+  _renderEnfo();
+}
+function enfoBrew(idx){
+  const d=_enfoData();
+  const p=ENFO_POTIONS[idx];
+  for(const [id,qty] of Object.entries(p.needs)){
+    if((d.bag[id]||0)<qty){showFloatBubble('Not enough herbs!','bad');return;}
+  }
+  for(const [id,qty] of Object.entries(p.needs)){d.bag[id]-=qty;}
+  _enfoSave(d);
+  p.effect();
+  showFloatBubble(`${p.icon} ${p.name}! ${p.desc}`,'good');
+  checkAchievements();
+  _renderEnfo();
+}
+function openEnfo(){$('enfoPanel').style.display='flex';_renderEnfo();}
+function closeEnfo(){$('enfoPanel').style.display='none';}
+function _renderEnfo(){
+  const d=_enfoData();
+  const today=getTodayKey();
+  const gathers=d.lastDay===today?d.gathers:0;
+  const total=Object.values(d.bag).reduce((s,v)=>s+v,0);
+  $('enfoHerbs').textContent=`Herb Bag: ${total} herbs | Gathers: ${gathers}/10`;
+  $('enfoForest').innerHTML=ENFO_HERBS.map(h=>`<div class="enfo-node" onclick="enfoGather('${h.id}')">
+    <div class="en-icon">${h.icon}</div>
+    <div class="en-name">${h.name}</div>
+    <div class="en-count">${d.bag[h.id]||0}</div>
+  </div>`).join('');
+  $('enfoPotions').innerHTML=ENFO_POTIONS.map((p,i)=>{
+    const canBrew=Object.entries(p.needs).every(([id,q])=>(d.bag[id]||0)>=q);
+    const req=Object.entries(p.needs).map(([id,q])=>{
+      const h=ENFO_HERBS.find(x=>x.id===id);
+      return q+'×'+h.icon;
+    }).join(' ');
+    return `<div class="enfo-potion" onclick="enfoBrew(${i})" style="${canBrew?'':'opacity:.5'}">
+      <span class="ep-icon">${p.icon}</span> <span class="ep-name">${p.name}</span>
+      <div class="ep-req">${req}</div>
+      <div class="ep-eff">${p.desc}</div>
+    </div>`;
   }).join('');
 }
 
