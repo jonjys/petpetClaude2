@@ -1555,6 +1555,192 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+
+
+
+/* ══ TREASURE HUNT ══ */
+.thunt-panel{position:fixed;inset:0;background:#030204;z-index:1072;display:none;flex-direction:column;overflow:hidden}
+.thunt-panel.open{display:flex}
+.thunt-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060308,#030204)}
+.thunt-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ff4488,#ffcc00);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:thuntShim 2.5s linear infinite}
+@keyframes thuntShim{0%{background-position:0%}100%{background-position:300%}}
+.thunt-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Hunt header */
+.thunt-hunt-card{background:radial-gradient(ellipse at 50% 0,rgba(255,200,0,.1),transparent);border:2px solid rgba(255,200,0,.25);border-radius:22px;padding:14px 16px;margin-bottom:12px;text-align:center}
+.thunt-map-icon{font-size:48px;margin-bottom:6px}
+.thunt-hunt-name{font:800 16px var(--ff-head);color:#fff;margin-bottom:3px}
+.thunt-hunt-desc{font:600 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:8px}
+.thunt-progress{display:flex;justify-content:center;gap:6px;margin-bottom:6px}
+.thunt-prog-pip{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.2);font-size:8px;display:flex;align-items:center;justify-content:center}
+.thunt-prog-pip.done{background:#44ff88;border-color:#44ff88}
+.thunt-prog-pip.active{background:#ffcc00;border-color:#ffcc00;box-shadow:0 0 8px rgba(255,200,0,.4)}
+.thunt-days-left{font:600 8px var(--ff-body);color:rgba(255,200,0,.5)}
+/* Clue card */
+.thunt-clue{background:rgba(255,200,0,.03);border:1.5px solid rgba(255,200,0,.15);border-radius:16px;padding:12px 14px;margin-bottom:10px}
+.thunt-clue-lbl{font:700 8px var(--ff-head);color:rgba(255,200,0,.5);letter-spacing:1px;margin-bottom:6px}
+.thunt-clue-text{font:600 12px var(--ff-body);color:rgba(255,255,255,.7);margin-bottom:8px;line-height:1.4}
+.thunt-answer-row{display:flex;gap:6px}
+.thunt-ans-btn{flex:1;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:8px;font:700 10px var(--ff-head);color:#fff;cursor:pointer;transition:all .15s}
+.thunt-ans-btn:hover{background:rgba(255,200,0,.08);border-color:rgba(255,200,0,.3)}
+.thunt-ans-btn.correct{background:rgba(68,255,136,.1);border-color:rgba(68,255,136,.4);color:#44ff88}
+.thunt-ans-btn.wrong{background:rgba(255,68,68,.08);border-color:rgba(255,68,68,.3);color:#ff4444}
+.thunt-ans-btn:disabled{cursor:default}
+/* Final reward */
+.thunt-final{background:rgba(68,255,136,.04);border:2px solid rgba(68,255,136,.2);border-radius:16px;padding:14px;text-align:center;display:none}
+.thunt-final.show{display:block}
+.thunt-final-icon{font-size:48px;margin-bottom:6px}
+.thunt-final-lbl{font:700 12px var(--ff-head);color:#44ff88;margin-bottom:4px}
+.thunt-final-rew{font:600 9px var(--ff-body);color:rgba(255,255,255,.5)}
+/* History */
+.thunt-hist-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px;margin-top:4px}
+.thunt-hist{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.thunt-hist-chip{background:rgba(255,200,0,.06);border:1px solid rgba(255,200,0,.15);border-radius:7px;padding:3px 8px;font:600 8px var(--ff-body);color:rgba(255,200,0,.6)}
+.thunt-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
+/* ══ PET OLYMPICS ══ */
+.olym-panel{position:fixed;inset:0;background:#020206;z-index:1071;display:none;flex-direction:column;overflow:hidden}
+.olym-panel.open{display:flex}
+.olym-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#040210,#020206)}
+.olym-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ff4488,#4488ff,#ffcc00);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:olymShim 2.5s linear infinite}
+@keyframes olymShim{0%{background-position:0%}100%{background-position:400%}}
+.olym-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Medal tally */
+.olym-medals{display:flex;gap:6px;margin-bottom:12px}
+.olym-medal-box{flex:1;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:12px;padding:10px;text-align:center}
+.olym-medal-box.gold{border-color:rgba(255,200,0,.3);background:rgba(255,200,0,.04)}
+.olym-medal-box.silver{border-color:rgba(200,200,220,.2);background:rgba(200,200,220,.03)}
+.olym-medal-box.bronze{border-color:rgba(200,130,80,.2);background:rgba(200,130,80,.03)}
+.olym-medal-icon{font-size:22px;margin-bottom:2px}
+.olym-medal-v{font:900 20px var(--ff-head);color:#fff}
+.olym-medal-l{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Event cards */
+.olym-events{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.olym-event{background:rgba(255,255,255,.02);border:2px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden}
+.olym-event-top{padding:12px 14px;display:flex;align-items:center;gap:10px}
+.olym-event-icon{font-size:32px;flex-shrink:0}
+.olym-event-info{flex:1}
+.olym-event-name{font:700 13px var(--ff-head);color:#fff;margin-bottom:2px}
+.olym-event-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:3px}
+.olym-event-stat{font:700 8px var(--ff-head);color:rgba(255,200,0,.6)}
+.olym-event-result{display:flex;gap:4px;margin-top:3px}
+.olym-medal-chip{border-radius:5px;padding:2px 6px;font:700 7px var(--ff-head)}
+.olym-medal-chip.g{background:rgba(255,200,0,.15);color:#ffcc00}
+.olym-medal-chip.s{background:rgba(200,200,220,.1);color:#ccccdd}
+.olym-medal-chip.b{background:rgba(200,130,80,.1);color:#c88250}
+/* Compete bar */
+.olym-compete{padding:0 14px 12px}
+.olym-stat-bar{background:rgba(255,255,255,.05);border-radius:5px;height:8px;overflow:hidden;margin-bottom:4px}
+.olym-stat-fill{height:100%;border-radius:5px;transition:width .5s}
+.olym-stat-txt{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);margin-bottom:6px}
+.olym-compete-btn{background:linear-gradient(135deg,#080020,#200060);border:1.5px solid rgba(100,100,255,.4);border-radius:10px;padding:8px 14px;font:800 10px var(--ff-head);color:#fff;cursor:pointer;width:100%}
+.olym-compete-btn.done{background:rgba(68,255,136,.06);border-color:rgba(68,255,136,.25);color:#44ff88;cursor:default}
+.olym-compete-btn:disabled{opacity:.3;cursor:default}
+.olym-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
+/* ══ PET FASHION SHOW ══ */
+.fash-panel{position:fixed;inset:0;background:#080308;z-index:1070;display:none;flex-direction:column;overflow:hidden}
+.fash-panel.open{display:flex}
+.fash-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#100418,#080308)}
+.fash-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff44cc,#cc44ff,#4488ff,#44ffcc,#ff44cc);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fashShim 2s linear infinite}
+@keyframes fashShim{0%{background-position:0%}100%{background-position:400%}}
+.fash-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Pet display */
+.fash-stage{background:radial-gradient(ellipse at 50% 30%,rgba(200,68,255,.12),transparent);border:2px solid rgba(200,68,255,.2);border-radius:24px;padding:18px;margin-bottom:12px;text-align:center;position:relative;min-height:160px}
+.fash-pet-display{font-size:64px;line-height:1;margin-bottom:8px;display:block;transition:all .3s}
+.fash-pet-name{font:700 14px var(--ff-head);color:#fff;margin-bottom:4px}
+.fash-outfit-row{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;min-height:26px}
+.fash-worn{font-size:18px;transition:all .2s}
+/* Score */
+.fash-style-score{font:900 24px var(--ff-head);color:#ff44cc;margin-top:6px}
+.fash-style-lbl{font:600 7px var(--ff-body);color:rgba(255,68,200,.4);letter-spacing:1px}
+/* Wardrobe */
+.fash-ward-lbl{font:700 8px var(--ff-head);color:rgba(255,68,200,.5);letter-spacing:1px;margin-bottom:7px}
+.fash-cats{display:flex;gap:5px;margin-bottom:8px;overflow-x:auto;padding-bottom:2px}
+.fash-cat-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:5px 12px;font:700 9px var(--ff-head);color:rgba(255,255,255,.4);cursor:pointer;white-space:nowrap;flex-shrink:0}
+.fash-cat-btn.active{background:rgba(255,68,200,.1);border-color:rgba(255,68,200,.35);color:#ff44cc}
+.fash-items{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.fash-item{background:rgba(255,255,255,.03);border:2px solid rgba(255,255,255,.08);border-radius:12px;padding:8px 4px;text-align:center;cursor:pointer;transition:all .15s}
+.fash-item.worn{border-color:#ff44cc;background:rgba(255,68,200,.1)}
+.fash-item.locked{opacity:.3;cursor:default}
+.fash-item-icon{font-size:22px;margin-bottom:2px}
+.fash-item-name{font:600 6px var(--ff-body);color:rgba(255,255,255,.4);word-break:break-word;line-height:1.1}
+.fash-item-bonus{font:700 7px var(--ff-head);color:#ff44cc;margin-top:1px}
+/* Show button */
+.fash-show-btn{background:linear-gradient(135deg,#2a0040,#7a0066);border:1.5px solid rgba(255,68,200,.5);border-radius:14px;padding:12px;font:900 12px var(--ff-head);color:#fff;cursor:pointer;width:100%;margin-bottom:6px}
+.fash-show-btn:disabled{opacity:.3;cursor:default}
+.fash-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
+/* ══ COOKING SHOW ══ */
+.cshow-panel{position:fixed;inset:0;background:#060200;z-index:1069;display:none;flex-direction:column;overflow:hidden}
+.cshow-panel.open{display:flex}
+.cshow-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#0c0400,#060200)}
+.cshow-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff8800,#ffcc00,#ff4488,#ff8800);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:cshowShim 2.5s linear infinite}
+@keyframes cshowShim{0%{background-position:0%}100%{background-position:300%}}
+.cshow-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Score banner */
+.cshow-banner{display:flex;align-items:center;justify-content:space-between;background:rgba(255,136,0,.05);border:2px solid rgba(255,136,0,.2);border-radius:20px;padding:14px 16px;margin-bottom:12px}
+.cshow-score{text-align:center}
+.cshow-score-v{font:900 36px var(--ff-head);background:linear-gradient(180deg,#ffcc00,#ff8800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.cshow-score-l{font:600 7px var(--ff-body);color:rgba(255,136,0,.4);letter-spacing:1px}
+.cshow-stars{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.cshow-star-row{display:flex;gap:2px;font-size:14px}
+.cshow-wins{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);margin-top:2px}
+/* Challenge area */
+.cshow-challenge{background:rgba(255,255,255,.02);border:2px solid rgba(255,136,0,.18);border-radius:18px;padding:14px;margin-bottom:10px}
+.cshow-ch-lbl{font:700 8px var(--ff-head);color:rgba(255,136,0,.5);letter-spacing:1px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.cshow-timer{font:900 18px var(--ff-head);color:#ff8800}
+.cshow-recipe-name{font:800 16px var(--ff-head);color:#fff;margin-bottom:4px}
+.cshow-recipe-desc{font:600 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:10px}
+/* Ingredient grid */
+.cshow-ingr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.cshow-ingr{background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 4px;text-align:center;cursor:pointer;transition:all .15s;font-size:20px}
+.cshow-ingr.correct{border-color:#44ff88;background:rgba(68,255,136,.1);transform:scale(1.05)}
+.cshow-ingr.wrong{border-color:#ff4444;background:rgba(255,68,68,.1);animation:cshowWrong .3s ease}
+@keyframes cshowWrong{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.cshow-ingr-name{font:600 6px var(--ff-body);color:rgba(255,255,255,.4);margin-top:2px}
+/* Progress */
+.cshow-prog{display:flex;gap:4px;margin-bottom:8px;justify-content:center}
+.cshow-prog-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1);transition:all .2s}
+.cshow-prog-dot.done{background:#44ff88}
+.cshow-prog-dot.cur{background:#ffcc00;box-shadow:0 0 6px rgba(255,204,0,.5)}
+.cshow-start-btn{background:linear-gradient(135deg,#2a1200,#5a2800);border:1.5px solid rgba(255,136,0,.5);border-radius:14px;padding:12px;font:900 13px var(--ff-head);color:#fff;cursor:pointer;width:100%}
+.cshow-result{text-align:center;padding:12px;font:700 11px var(--ff-head);color:#fff;display:none}
+.cshow-result.show{display:block}
+.cshow-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
+/* ══ TIME CAPSULE ══ */
+.tcap-panel{position:fixed;inset:0;background:#030306;z-index:1068;display:none;flex-direction:column;overflow:hidden}
+.tcap-panel.open{display:flex}
+.tcap-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060410,#030306)}
+.tcap-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ccff,#8844ff,#cc44ff,#44ccff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:tcapShim 3s linear infinite}
+@keyframes tcapShim{0%{background-position:0%}100%{background-position:300%}}
+.tcap-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Create capsule */
+.tcap-create{background:rgba(68,200,255,.04);border:2px solid rgba(68,200,255,.18);border-radius:20px;padding:14px;margin-bottom:12px}
+.tcap-create-lbl{font:700 9px var(--ff-head);color:rgba(68,200,255,.5);letter-spacing:1px;margin-bottom:8px}
+.tcap-inp{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 14px;font:600 12px var(--ff-body);color:#fff;width:100%;box-sizing:border-box;margin-bottom:8px;outline:none}
+.tcap-inp::placeholder{color:rgba(255,255,255,.2)}
+.tcap-days-row{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.tcap-day-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:5px 10px;font:700 9px var(--ff-head);color:rgba(255,255,255,.4);cursor:pointer}
+.tcap-day-btn.sel{background:rgba(68,200,255,.1);border-color:rgba(68,200,255,.4);color:#44ccff}
+.tcap-create-btn{background:linear-gradient(135deg,#001830,#003a5a);border:1.5px solid rgba(68,200,255,.4);border-radius:12px;padding:10px;font:800 11px var(--ff-head);color:#fff;cursor:pointer;width:100%}
+/* Capsule list */
+.tcap-list-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:7px}
+.tcap-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.tcap-item{background:rgba(255,255,255,.02);border:2px solid rgba(255,255,255,.08);border-radius:16px;padding:12px 14px;position:relative;overflow:hidden}
+.tcap-item.ready{border-color:rgba(68,255,136,.35);background:rgba(68,255,136,.03);animation:tcapGlow .8s ease-in-out infinite alternate}
+@keyframes tcapGlow{0%{box-shadow:0 0 0 rgba(68,255,136,0)}100%{box-shadow:0 0 16px rgba(68,255,136,.2)}}
+.tcap-item-msg{font:600 12px var(--ff-body);color:rgba(255,255,255,.8);margin-bottom:4px}
+.tcap-item-date{font:600 8px var(--ff-body);color:rgba(255,255,255,.3)}
+.tcap-item-countdown{font:700 9px var(--ff-head);color:rgba(68,200,255,.6);margin-top:3px}
+.tcap-item-reward{font:700 9px var(--ff-head);color:#44ff88;margin-top:3px}
+.tcap-open-btn{background:linear-gradient(135deg,#002a14,#00552a);border:1.5px solid rgba(68,255,136,.4);border-radius:10px;padding:8px 16px;font:800 10px var(--ff-head);color:#fff;cursor:pointer;float:right}
+.tcap-seals{display:flex;gap:4px;margin-top:4px}
+.tcap-seal{font-size:12px}
+.tcap-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ BESTIARY ══ */
 .bes-panel{position:fixed;inset:0;background:#020a04;z-index:1067;display:none;flex-direction:column;overflow:hidden}
 .bes-panel.open{display:flex}
@@ -12658,11 +12844,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
-          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌳</div>Talangträd</div>
-          <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
+          <div class="ddr" onclick="cM();openTalnt()"><div class="ddr-i">🌳</div>Talangträd</div>
+          <div class="ddr" onclick="cM();openWmap2()"><div class="ddr-i">🗺️</div>Världskartan</div>
           <div class="ddr" onclick="cM();openCir()"><div class="ddr-i">🎪</div>Pet Cirkus</div>
-          <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Gille-huset</div>
+          <div class="ddr" onclick="cM();openGuildH()"><div class="ddr-i">🏰</div>Gille-huset</div>
           <div class="ddr" onclick="cM();openBes()"><div class="ddr-i">📖</div>Bestarium</div>
+          <div class="ddr" onclick="cM();openTcap()"><div class="ddr-i">⏳</div>Tidskapsel</div>
+          <div class="ddr" onclick="cM();openCshow()"><div class="ddr-i">👨‍🍳</div>Matlagningsshow</div>
+          <div class="ddr" onclick="cM();openFash2()"><div class="ddr-i">👗</div>Mode-Show</div>
+          <div class="ddr" onclick="cM();openOlym()"><div class="ddr-i">🏅</div>Pet Olympiad</div>
+          <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12746,11 +12937,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
-          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌳</div>Talangträd</div>
-          <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
+          <div class="ddr" onclick="cM();openTalnt()"><div class="ddr-i">🌳</div>Talangträd</div>
+          <div class="ddr" onclick="cM();openWmap2()"><div class="ddr-i">🗺️</div>Världskartan</div>
           <div class="ddr" onclick="cM();openCir()"><div class="ddr-i">🎪</div>Pet Cirkus</div>
-          <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Gille-huset</div>
+          <div class="ddr" onclick="cM();openGuildH()"><div class="ddr-i">🏰</div>Gille-huset</div>
           <div class="ddr" onclick="cM();openBes()"><div class="ddr-i">📖</div>Bestarium</div>
+          <div class="ddr" onclick="cM();openTcap()"><div class="ddr-i">⏳</div>Tidskapsel</div>
+          <div class="ddr" onclick="cM();openCshow()"><div class="ddr-i">👨‍🍳</div>Matlagningsshow</div>
+          <div class="ddr" onclick="cM();openFash2()"><div class="ddr-i">👗</div>Mode-Show</div>
+          <div class="ddr" onclick="cM();openOlym()"><div class="ddr-i">🏅</div>Pet Olympiad</div>
+          <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12817,11 +13013,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
-          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌳</div>Talangträd</div>
-          <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
+          <div class="ddr" onclick="cM();openTalnt()"><div class="ddr-i">🌳</div>Talangträd</div>
+          <div class="ddr" onclick="cM();openWmap2()"><div class="ddr-i">🗺️</div>Världskartan</div>
           <div class="ddr" onclick="cM();openCir()"><div class="ddr-i">🎪</div>Pet Cirkus</div>
-          <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Gille-huset</div>
+          <div class="ddr" onclick="cM();openGuildH()"><div class="ddr-i">🏰</div>Gille-huset</div>
           <div class="ddr" onclick="cM();openBes()"><div class="ddr-i">📖</div>Bestarium</div>
+          <div class="ddr" onclick="cM();openTcap()"><div class="ddr-i">⏳</div>Tidskapsel</div>
+          <div class="ddr" onclick="cM();openCshow()"><div class="ddr-i">👨‍🍳</div>Matlagningsshow</div>
+          <div class="ddr" onclick="cM();openFash2()"><div class="ddr-i">👗</div>Mode-Show</div>
+          <div class="ddr" onclick="cM();openOlym()"><div class="ddr-i">🏅</div>Pet Olympiad</div>
+          <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12926,11 +13127,16 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
-          <div class="ddr" onclick="cM();openTal()"><div class="ddr-i">🌳</div>Talangträd</div>
-          <div class="ddr" onclick="cM();openWmap()"><div class="ddr-i">🗺️</div>Världskartan</div>
+          <div class="ddr" onclick="cM();openTalnt()"><div class="ddr-i">🌳</div>Talangträd</div>
+          <div class="ddr" onclick="cM();openWmap2()"><div class="ddr-i">🗺️</div>Världskartan</div>
           <div class="ddr" onclick="cM();openCir()"><div class="ddr-i">🎪</div>Pet Cirkus</div>
-          <div class="ddr" onclick="cM();openGuild()"><div class="ddr-i">🏰</div>Gille-huset</div>
+          <div class="ddr" onclick="cM();openGuildH()"><div class="ddr-i">🏰</div>Gille-huset</div>
           <div class="ddr" onclick="cM();openBes()"><div class="ddr-i">📖</div>Bestarium</div>
+          <div class="ddr" onclick="cM();openTcap()"><div class="ddr-i">⏳</div>Tidskapsel</div>
+          <div class="ddr" onclick="cM();openCshow()"><div class="ddr-i">👨‍🍳</div>Matlagningsshow</div>
+          <div class="ddr" onclick="cM();openFash2()"><div class="ddr-i">👗</div>Mode-Show</div>
+          <div class="ddr" onclick="cM();openOlym()"><div class="ddr-i">🏅</div>Pet Olympiad</div>
+          <div class="ddr" onclick="cM();openThunt()"><div class="ddr-i">🗝️</div>Skattjakt</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13547,6 +13753,129 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+
+
+<!-- TREASURE HUNT -->
+<div class="thunt-panel" id="thuntPanel">
+  <div class="thunt-header">
+    <div class="thunt-title">🗝️ SKATTJAKT</div>
+    <button class="close-btn" onclick="closeThunt()">✕</button>
+  </div>
+  <div class="thunt-scroll">
+    <div class="thunt-hunt-card">
+      <div class="thunt-map-icon">🗺️</div>
+      <div class="thunt-hunt-name" id="thuntHuntName">Laddas...</div>
+      <div class="thunt-hunt-desc" id="thuntHuntDesc"></div>
+      <div class="thunt-progress" id="thuntProgress"></div>
+      <div class="thunt-days-left" id="thuntDaysLeft"></div>
+    </div>
+    <div class="thunt-clue" id="thuntClueArea"></div>
+    <div class="thunt-final" id="thuntFinal">
+      <div class="thunt-final-icon">🏆</div>
+      <div class="thunt-final-lbl">SKATTEN ÄR HITTAD!</div>
+      <div class="thunt-final-rew" id="thuntFinalRew"></div>
+    </div>
+    <div class="thunt-hist-lbl">SLUTFÖRDA SKATTJAKTER</div>
+    <div class="thunt-hist" id="thuntHist"></div>
+    <div class="thunt-info">1 ledtråd per dag — löst alla 5 för att hitta skatten! 🎯</div>
+  </div>
+</div>
+
+<!-- PET OLYMPICS -->
+<div class="olym-panel" id="olymPanel">
+  <div class="olym-header">
+    <div class="olym-title">🏅 PET OLYMPIAD</div>
+    <button class="close-btn" onclick="closeOlym()">✕</button>
+  </div>
+  <div class="olym-scroll">
+    <div class="olym-medals">
+      <div class="olym-medal-box gold"><div class="olym-medal-icon">🥇</div><div class="olym-medal-v" id="olymGold">0</div><div class="olym-medal-l">GULD</div></div>
+      <div class="olym-medal-box silver"><div class="olym-medal-icon">🥈</div><div class="olym-medal-v" id="olymSilver">0</div><div class="olym-medal-l">SILVER</div></div>
+      <div class="olym-medal-box bronze"><div class="olym-medal-icon">🥉</div><div class="olym-medal-v" id="olymBronze">0</div><div class="olym-medal-l">BRONS</div></div>
+    </div>
+    <div class="olym-events" id="olymEvents"></div>
+    <div class="olym-info">Tävla i 5 grenar varje dag! Stats avgör chansen att vinna guld 🏅</div>
+  </div>
+</div>
+
+<!-- PET FASHION SHOW -->
+<div class="fash-panel" id="fash2Panel">
+  <div class="fash-header">
+    <div class="fash-title">👗 PET MODE-SHOW</div>
+    <button class="close-btn" onclick="closeFash()">✕</button>
+  </div>
+  <div class="fash-scroll">
+    <div class="fash-stage">
+      <div class="fash-pet-display" id="fashPetDisp">🐾</div>
+      <div class="fash-pet-name" id="fashPetName">Mitt husdjur</div>
+      <div class="fash-outfit-row" id="fashOutfitRow"></div>
+      <div class="fash-style-score" id="fashStyleScore">0</div>
+      <div class="fash-style-lbl">STILPOÄNG</div>
+    </div>
+    <button class="fash-show-btn" id="fashShowBtn" onclick="fash2DoShow()">🎀 Tävla i Mode-Show! (1/dag)</button>
+    <div class="fash-ward-lbl">GARDEROB</div>
+    <div class="fash-cats" id="fashCats"></div>
+    <div class="fash-items" id="fashItems"></div>
+    <div class="fash-info">Klä ditt husdjur och tävla! Fler tillbehör = högre stilpoäng = bättre priser 👑</div>
+  </div>
+</div>
+
+<!-- COOKING SHOW -->
+<div class="cshow-panel" id="cshowPanel">
+  <div class="cshow-header">
+    <div class="cshow-title">👨‍🍳 MATLAGNINGSSHOW</div>
+    <button class="close-btn" onclick="closeCshow()">✕</button>
+  </div>
+  <div class="cshow-scroll">
+    <div class="cshow-banner">
+      <div class="cshow-score">
+        <div class="cshow-score-v" id="cshowScoreV">0</div>
+        <div class="cshow-score-l">POÄNG</div>
+      </div>
+      <div class="cshow-stars">
+        <div class="cshow-star-row" id="cshowStarRow">⭐⭐⭐</div>
+        <div class="cshow-wins" id="cshowWins">0 vinster</div>
+      </div>
+    </div>
+    <div class="cshow-challenge" id="cshowArea">
+      <div style="text-align:center;padding:20px 0">
+        <div style="font-size:48px;margin-bottom:8px">👨‍🍳</div>
+        <div style="font:700 14px var(--ff-head);color:#fff;margin-bottom:4px">Redo för en matlagningsutmaning?</div>
+        <div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:12px">Välj rätt ingredienser i rätt ordning!</div>
+        <button class="cshow-start-btn" onclick="cshowStart()">🍳 Starta utmaning!</button>
+      </div>
+    </div>
+    <div class="cshow-info">Välj rätt ingredienser i ordning mot klockan! Fler rätt = mer poäng och XP 🏆</div>
+  </div>
+</div>
+
+<!-- TIME CAPSULE -->
+<div class="tcap-panel" id="tcapPanel">
+  <div class="tcap-header">
+    <div class="tcap-title">⏳ TIDSKAPSEL</div>
+    <button class="close-btn" onclick="closeTcap()">✕</button>
+  </div>
+  <div class="tcap-scroll">
+    <div class="tcap-create">
+      <div class="tcap-create-lbl">SKICKA ETT MEDDELANDE TILL FRAMTIDEN</div>
+      <textarea class="tcap-inp" id="tcapMsg" rows="3" placeholder="Skriv ett mål, en önskan eller ett löfte..."></textarea>
+      <div class="tcap-days-row">
+        <div class="tcap-day-btn sel" id="tcapD1" onclick="tcapSelDays(1)">1 dag</div>
+        <div class="tcap-day-btn" id="tcapD3" onclick="tcapSelDays(3)">3 dagar</div>
+        <div class="tcap-day-btn" id="tcapD7" onclick="tcapSelDays(7)">7 dagar</div>
+        <div class="tcap-day-btn" id="tcapD30" onclick="tcapSelDays(30)">30 dagar</div>
+      </div>
+      <button class="tcap-create-btn" onclick="tcapCreate()">📮 Försegla kapseln</button>
+    </div>
+    <div class="tcap-list-lbl">DINA TIDSKAPSLAR</div>
+    <div class="tcap-list" id="tcapList"></div>
+    <div class="tcap-info">Öppna en mogen kapsel och få bonusbelöningar för ditt tålamod! ✨</div>
+  </div>
+</div>
+
 <!-- BESTIARY -->
 <div class="bes-panel" id="besPanel">
   <div class="bes-header">
@@ -13575,7 +13904,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- GUILD HALL -->
-<div class="guild-panel" id="guildPanel">
+<div class="guild-panel" id="guildHPanel">
   <div class="guild-header">
     <div class="guild-title">🏰 GILLE-HUSET</div>
     <button class="close-btn" onclick="closeGuild()">✕</button>
@@ -13625,7 +13954,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- WORLD MAP -->
-<div class="wmap-panel" id="wmapPanel">
+<div class="wmap-panel" id="wmap2Panel">
   <div class="wmap-header">
     <div class="wmap-title">🗺️ VÄRLDSKARTAN</div>
     <button class="close-btn" onclick="closeWmap()">✕</button>
@@ -13647,7 +13976,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- TALENT TREE -->
-<div class="tal-panel" id="talPanel">
+<div class="tal-panel" id="talntPanel">
   <div class="tal-header">
     <div class="tal-title">🌳 TALANGTRÄD</div>
     <button class="close-btn" onclick="closeTal()">✕</button>
@@ -14264,7 +14593,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- PET TALENTS -->
-<div class="tal-panel" id="talPanel">
+<div class="tal-panel" id="talntPanel">
   <div class="tal-header">
     <div class="tal-title">🌟 TALANGER</div>
     <button class="close-btn" onclick="closeTal()">✕</button>
@@ -15281,7 +15610,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- FASHION SHOW -->
-<div class="fash-panel" id="fashPanel">
+<div class="fash-panel" id="fash2Panel">
   <div class="fash-header">
     <div class="fash-title">👗 MODESHOW</div>
     <button class="close-btn" onclick="closeFash()">✕</button>
@@ -16548,7 +16877,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- WORLD MAP -->
-<div class="wmap-panel" id="wmapPanel">
+<div class="wmap-panel" id="wmap2Panel">
   <div class="wmap-header">
     <div class="wmap-title">🗺️ VÄRLDSKARTAN</div>
     <button class="close-btn" onclick="closeWmap()">✕</button>
@@ -19061,7 +19390,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- GUILD HALL -->
-<div class="guild-panel" id="guildPanel">
+<div class="guild-panel" id="guildHPanel">
   <div class="guild-header">
     <div class="guild-title">🏰 GUILD HALL</div>
     <button class="close-btn" onclick="closeGuild()">✕</button>
@@ -58853,8 +59182,8 @@ function _renderDash(){
 
 
 // TALENT TREE
-const TAL_KEY = 'k0509_tal';
-const TAL_BRANCHES = [
+var TALNT_KEY = 'k0509_tal';
+const TALNT_BRANCHES = [
   {
     id:'combat', name:'Strid', icon:'⚔️', color:'#ff4455', rgb:'255,68,85',
     nodes:[
@@ -58902,8 +59231,8 @@ const TAL_BRANCHES = [
   },
 ];
 
-function _talData(){try{return JSON.parse(localStorage.getItem(TAL_KEY)||'null');}catch(e){return null;}}
-function _talSave(d){localStorage.setItem(TAL_KEY,JSON.stringify(d));}
+function _talData(){try{return JSON.parse(localStorage.getItem(TALNT_KEY)||'null');}catch(e){return null;}}
+function _talSave(d){localStorage.setItem(TALNT_KEY,JSON.stringify(d));}
 function _talGetData(){
   var d=_talData();
   if(!d) d={points:0,nodes:{},totalSpent:0};
@@ -58918,9 +59247,9 @@ function _talGetData(){
   return d;
 }
 
-function talUnlock(branchId, nodeId){
+function talntUnlock(branchId, nodeId){
   var d=_talGetData();
-  var branch=TAL_BRANCHES.find(function(b){return b.id===branchId;});
+  var branch=TALNT_BRANCHES.find(function(b){return b.id===branchId;});
   if(!branch) return;
   var node=branch.nodes.find(function(n){return n.id===nodeId;});
   if(!node) return;
@@ -58944,20 +59273,20 @@ function talUnlock(branchId, nodeId){
   checkAchievements();
   var bonusTxt=Object.keys(node.bonus).map(function(s){return '+'+node.bonus[s]+' '+s.toUpperCase();}).join(' ');
   showFloatBubble('🌳 '+node.name+' upplåst! '+bonusTxt,'buff');
-  _renderTal(d);
+  _renderTalnt(d);
 }
 
-function openTal(){$('talPanel').classList.add('open');_renderTal();}
-function closeTal(){$('talPanel').classList.remove('open');}
+function openTalnt(){$('talntPanel').classList.add('open');_renderTalnt();}
+function closeTalnt(){$('talntPanel').classList.remove('open');}
 
-function _renderTal(d){
+function _renderTalnt(d){
   if(!d) d=_talGetData();
   var pv=$('talPtsV');if(pv) pv.textContent=d.points||0;
   var container=$('talBranches');
   if(!container) return;
   var totalUnlocked=Object.keys(d.nodes).filter(function(k){return (d.nodes[k]||0)>0;}).length;
   var info=$('talTotalInfo');if(info) info.textContent=totalUnlocked+' noder upplåsta · '+( d.totalSpent||0)+' poäng spenderade';
-  container.innerHTML=TAL_BRANCHES.map(function(branch){
+  container.innerHTML=TALNT_BRANCHES.map(function(branch){
     var nodesHtml=branch.nodes.map(function(node){
       var key=branch.id+'_'+node.id;
       var rank=d.nodes[key]||0;
@@ -58988,9 +59317,9 @@ function _renderTal(d){
 
 
 // WORLD MAP
-const WMAP_KEY = 'k0509_wmap';
-const WMAP_MAX_STAM = 5;
-const WMAP_REGIONS = [
+var WM2_KEY = 'k0509_wmap';
+const WM2_MAX_STAM = 5;
+var WM2_REGIONS = [
   {
     id:'forest', name:'Mystisk Skog', icon:'🌲',
     bg:'linear-gradient(135deg,#0a2a0a,#143a14)',
@@ -59058,20 +59387,20 @@ const WMAP_REGIONS = [
   },
 ];
 
-function _wmapData(){try{return JSON.parse(localStorage.getItem(WMAP_KEY)||'null');}catch(e){return null;}}
-function _wmapSave(d){localStorage.setItem(WMAP_KEY,JSON.stringify(d));}
+function _wmapData(){try{return JSON.parse(localStorage.getItem(WM2_KEY)||'null');}catch(e){return null;}}
+function _wmapSave(d){localStorage.setItem(WM2_KEY,JSON.stringify(d));}
 function _wmapGetData(){
   var d=_wmapData();
-  if(!d) d={stam:WMAP_MAX_STAM,lastDay:'',visits:{},total:0};
+  if(!d) d={stam:WM2_MAX_STAM,lastDay:'',visits:{},total:0};
   var today=getTodayKey();
-  if(d.lastDay!==today){d.stam=WMAP_MAX_STAM;d.lastDay=today;_wmapSave(d);}
+  if(d.lastDay!==today){d.stam=WM2_MAX_STAM;d.lastDay=today;_wmapSave(d);}
   return d;
 }
 
-function wmapExplore(regionId){
+function wmapExplore2(regionId){
   var d=_wmapGetData();
   if((d.stam||0)<1){showFloatBubble('Ingen uthållighet kvar! Återställs imorgon.','debuff');return;}
-  var region=WMAP_REGIONS.find(function(r){return r.id===regionId;});
+  var region=WM2_REGIONS.find(function(r){return r.id===regionId;});
   if(!region) return;
   if((G.lvl||1)<region.minLvl){showFloatBubble('Kräver level '+region.minLvl+'!','debuff');return;}
   d.stam--;
@@ -59107,21 +59436,21 @@ function wmapExplore(regionId){
     lootDiv.classList.add('show');
     setTimeout(function(){lootDiv.classList.remove('show');},4000);
   }
-  _renderWmap(d);
+  _renderWmap2(d);
 }
 
-function openWmap(){$('wmapPanel').classList.add('open');_renderWmap();}
-function closeWmap(){$('wmapPanel').classList.remove('open');}
+function openWmap2(){$('wmap2Panel').classList.add('open');_renderWmap2();}
+function closeWmap2(){$('wmap2Panel').classList.remove('open');}
 
-function _renderWmap(d){
+function _renderWmap2(d){
   if(!d) d=_wmapGetData();
-  var sf=$('wmapStamFill');if(sf) sf.style.width=(d.stam/WMAP_MAX_STAM*100)+'%';
-  var st=$('wmapStamTxt');if(st) st.textContent=d.stam+'/'+WMAP_MAX_STAM;
+  var sf=$('wmapStamFill');if(sf) sf.style.width=(d.stam/WM2_MAX_STAM*100)+'%';
+  var st=$('wmapStamTxt');if(st) st.textContent=d.stam+'/'+WM2_MAX_STAM;
   var ev=$('wmapExpV');if(ev) ev.textContent=d.total||0;
   var grid=$('wmapGrid');
   if(!grid) return;
   var lvl=G.lvl||1;
-  grid.innerHTML=WMAP_REGIONS.map(function(region){
+  grid.innerHTML=WM2_REGIONS.map(function(region){
     var locked=lvl<region.minLvl;
     var visits=d.visits[region.id]||0;
     var canExplore=!locked&&(d.stam||0)>0;
@@ -59135,7 +59464,7 @@ function _renderWmap(d){
         '<div class="wmap-region-rewards">'+rewList+'</div>'+
         '<div class="wmap-region-footer">'+
           '<div class="wmap-visits">'+visits+' besök</div>'+
-          '<button class="wmap-explore-btn" onclick="wmapExplore(\''+region.id+'\')" '+(canExplore?'':'disabled')+'>'+
+          '<button class="wmap-explore-btn" onclick="wmapExplore2(\''+region.id+'\')" '+(canExplore?'':'disabled')+'>'+
             (locked?'🔒 Låst':d.stam>0?'🧭 Utforska':'⏳ Vilar')+
           '</button>'+
         '</div>'+
@@ -59250,8 +59579,8 @@ function _renderCir(d){
 
 
 // GUILD HALL
-const GUILD_KEY = 'k0509_guild';
-const GUILD_MISSIONS = [
+var GUILDH_KEY = 'k0509_guild';
+var GUILDH_MISSIONS = [
   {id:'train',  icon:'⚔️', name:'Träning',        desc:'Träna ditt husdjur 3 gånger idag',   xp:30,coins:60,  kc:0, req:3,  stat:{str:1}, statTxt:'+1 STR'},
   {id:'explore',icon:'🗺️', name:'Expedition',     desc:'Utforska en region på världskartan', xp:25,coins:50,  kc:0, req:1,  stat:{agi:1}, statTxt:'+1 AGI'},
   {id:'craft',  icon:'⚒️', name:'Hantverksarbete',desc:'Smid ett föremål i smedjan',        xp:20,coins:45,  kc:0, req:1,  stat:{int:1}, statTxt:'+1 INT'},
@@ -59260,7 +59589,7 @@ const GUILD_MISSIONS = [
   {id:'daily',  icon:'📋', name:'Dagsorden',       desc:'Slutför alla dagliga uppdrag',      xp:50,coins:100, kc:1, req:1,  stat:{int:2,lck:1}, statTxt:'+2 INT +1 LCK'},
 ];
 
-const GUILD_RANKS = [
+const GUILDH_RANKS = [
   {min:0,   name:'Rekryt',     icon:'🥉'},
   {min:100, name:'Soldat',     icon:'🥈'},
   {min:250, name:'Veteran',    icon:'🥇'},
@@ -59269,37 +59598,37 @@ const GUILD_RANKS = [
   {min:2000,name:'Legendär',   icon:'👑'},
 ];
 
-function _guildData(){try{return JSON.parse(localStorage.getItem(GUILD_KEY)||'null');}catch(e){return null;}}
-function _guildSave(d){localStorage.setItem(GUILD_KEY,JSON.stringify(d));}
-function _guildGetData(){
-  var d=_guildData();
+function _guildHData(){try{return JSON.parse(localStorage.getItem(GUILDH_KEY)||'null');}catch(e){return null;}}
+function _guildHSave(d){localStorage.setItem(GUILDH_KEY,JSON.stringify(d));}
+function _guildHGetData(){
+  var d=_guildHData();
   if(!d) d={gxp:0,contrib:0,days:0,doneToday:{},progress:{},lastDay:'',joinDate:getTodayKey()};
   var today=getTodayKey();
   if(d.lastDay!==today){
     if(d.lastDay) d.days=(d.days||0)+1;
     d.doneToday={};d.progress={};d.lastDay=today;
-    _guildSave(d);
+    _guildHSave(d);
   }
   return d;
 }
 
-function _guildGetRank(gxp){
-  var r=GUILD_RANKS[0];
-  GUILD_RANKS.forEach(function(rank){if(gxp>=rank.min) r=rank;});
+function _guildHGetRank(gxp){
+  var r=GUILDH_RANKS[0];
+  GUILDH_RANKS.forEach(function(rank){if(gxp>=rank.min) r=rank;});
   return r;
 }
 
-function guildDoMission(id){
-  var d=_guildGetData();
+function guildHDoMission(id){
+  var d=_guildHGetData();
   if(d.doneToday[id]){showFloatBubble('Uppdrag redan klart idag!','debuff');return;}
-  var mis=GUILD_MISSIONS.find(function(m){return m.id===id;});
+  var mis=GUILDH_MISSIONS.find(function(m){return m.id===id;});
   if(!mis) return;
   var prog=(d.progress[id]||0)+1;
   d.progress[id]=prog;
   if(prog<mis.req){
-    _guildSave(d);
+    _guildHSave(d);
     showFloatBubble(mis.icon+' Framsteg: '+prog+'/'+mis.req,'buff');
-    _renderGuild(d);
+    _renderGuildH(d);
     return;
   }
   d.doneToday[id]=true;
@@ -59310,25 +59639,25 @@ function guildDoMission(id){
   if(mis.kc>0) gainKC(mis.kc);
   if(mis.stat) Object.keys(mis.stat).forEach(function(s){G[s]=(G[s]||0)+mis.stat[s];});
   save();
-  _guildSave(d);
+  _guildHSave(d);
   checkAchievements();
   showFloatBubble(mis.icon+' '+mis.name+' klar! +'+mis.xp+' Gille-XP, +'+mis.coins+'🪙 '+mis.statTxt,'buff');
-  _renderGuild(d);
+  _renderGuildH(d);
 }
 
-function openGuild(){$('guildPanel').classList.add('open');_renderGuild();}
-function closeGuild(){$('guildPanel').classList.remove('open');}
+function openGuildH(){$('guildHPanel').classList.add('open');_renderGuildH();}
+function closeGuildH(){$('guildHPanel').classList.remove('open');}
 
-function _renderGuild(d){
-  if(!d) d=_guildGetData();
+function _renderGuildH(d){
+  if(!d) d=_guildHGetData();
   var gxp=d.gxp||0;
-  var rank=_guildGetRank(gxp);
+  var rank=_guildHGetRank(gxp);
   var rv=$('guildRankV');if(rv) rv.textContent=rank.icon+' '+rank.name;
   var cv=$('guildContrib');if(cv) cv.textContent=d.contrib||0;
   var dv=$('guildDays');if(dv) dv.textContent=d.days||0;
   // XP progress to next rank
-  var nextIdx=GUILD_RANKS.indexOf(rank)+1;
-  var nextRank=nextIdx<GUILD_RANKS.length?GUILD_RANKS[nextIdx]:null;
+  var nextIdx=GUILDH_RANKS.indexOf(rank)+1;
+  var nextRank=nextIdx<GUILDH_RANKS.length?GUILDH_RANKS[nextIdx]:null;
   var xfill=$('guildXpFill');
   var xtxt=$('guildXpTxt');
   if(nextRank){
@@ -59341,7 +59670,7 @@ function _renderGuild(d){
   }
   var list=$('guildMisList');
   if(!list) return;
-  list.innerHTML=GUILD_MISSIONS.map(function(mis){
+  list.innerHTML=GUILDH_MISSIONS.map(function(mis){
     var isDone=!!d.doneToday[mis.id];
     var prog=d.progress[mis.id]||0;
     var pct=Math.min(100,prog/mis.req*100);
@@ -59355,7 +59684,7 @@ function _renderGuild(d){
         '<div class="guild-mis-rew">+'+mis.xp+' GXP · +'+mis.coins+'🪙'+kcTxt+' · '+mis.statTxt+'</div>'+
         (mis.req>1?'<div class="guild-mis-prog"><div class="guild-mis-prog-fill" style="width:'+pct+'%"></div></div>':'')+
       '</div>'+
-      '<button class="guild-mis-btn" onclick="guildDoMission(\''+mis.id+'\')" '+(isDone?'disabled':'')+'>'+
+      '<button class="guild-mis-btn" onclick="guildHDoMission(\''+mis.id+'\')" '+(isDone?'disabled':'')+'>'+
         (isDone?'✓':prog>0?prog+'/'+mis.req:'Start')+
       '</button>'+
     '</div>';
@@ -59467,6 +59796,647 @@ function _renderBes(d){
       (isCaught?'<div class="bes-card-badge">✓</div>':'')+
     '</div>';
   }).join('');
+}
+
+
+// TIME CAPSULE
+const TCAP_KEY = 'k0509_tcap';
+var _tcapDays = 1;
+
+function _tcapData(){try{return JSON.parse(localStorage.getItem(TCAP_KEY)||'null');}catch(e){return null;}}
+function _tcapSave(d){localStorage.setItem(TCAP_KEY,JSON.stringify(d));}
+function _tcapGetData(){
+  var d=_tcapData();
+  if(!d) d={capsules:[],total:0};
+  return d;
+}
+
+function tcapSelDays(n){
+  _tcapDays=n;
+  [1,3,7,30].forEach(function(d){
+    var el=$('tcapD'+d);
+    if(el) el.className='tcap-day-btn'+(d===n?' sel':'');
+  });
+}
+
+function tcapCreate(){
+  var msg=$('tcapMsg');
+  if(!msg||!msg.value.trim()){showFloatBubble('Skriv ett meddelande!','debuff');return;}
+  var d=_tcapGetData();
+  var today=getTodayKey();
+  var parts=today.split('-');
+  var dt=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+  dt.setDate(dt.getDate()+_tcapDays);
+  var mm=dt.getMonth()+1,dd=dt.getDate();
+  var openDate=dt.getFullYear()+'-'+(mm<10?'0'+mm:mm)+'-'+(dd<10?'0'+dd:dd);
+  var reward={coins:_tcapDays*30,xp:_tcapDays*25,kc:_tcapDays>=7?1:0};
+  d.capsules.push({
+    id:'cap_'+Date.now(),
+    msg:msg.value.trim(),
+    created:today,
+    openDate:openDate,
+    days:_tcapDays,
+    reward:reward,
+    opened:false
+  });
+  d.total=(d.total||0)+1;
+  _tcapSave(d);
+  msg.value='';
+  showFloatBubble('📮 Kapsel förseglad till '+openDate+'!','buff');
+  _renderTcap(d);
+}
+
+function tcapOpen(id){
+  var d=_tcapGetData();
+  var cap=d.capsules.find(function(c){return c.id===id;});
+  if(!cap||cap.opened) return;
+  var today=getTodayKey();
+  if(today<cap.openDate){showFloatBubble('Kapseln är inte mogen än!','debuff');return;}
+  cap.opened=true;
+  gainCoins(cap.reward.coins);
+  gainXP(cap.reward.xp,'int');
+  if(cap.reward.kc>0) gainKC(cap.reward.kc);
+  save();
+  _tcapSave(d);
+  checkAchievements();
+  var kcTxt=cap.reward.kc>0?' +'+cap.reward.kc+'KC':'';
+  showFloatBubble('⏳ Kapsel öppnad! +'+cap.reward.coins+'🪙 +'+cap.reward.xp+'XP'+kcTxt,'buff');
+  _renderTcap(d);
+}
+
+function openTcap(){$('tcapPanel').classList.add('open');_renderTcap();}
+function closeTcap(){$('tcapPanel').classList.remove('open');}
+
+function _renderTcap(d){
+  if(!d) d=_tcapGetData();
+  var list=$('tcapList');
+  if(!list) return;
+  var today=getTodayKey();
+  if(!d.capsules||!d.capsules.length){
+    list.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center;padding:12px">Inga kapslar ännu. Skapa din första!</div>';
+    return;
+  }
+  list.innerHTML=d.capsules.slice().reverse().map(function(cap){
+    var isReady=!cap.opened&&today>=cap.openDate;
+    var isOpen=cap.opened;
+    var cls='tcap-item'+(isReady?' ready':'');
+    var seals='';
+    for(var i=0;i<Math.min(cap.days,10);i++) seals+='<div class="tcap-seal">🔒</div>';
+    var rew=cap.reward;
+    var kcTxt=rew.kc>0?' +'+rew.kc+'KC':'';
+    return '<div class="'+cls+'">'+
+      (isReady?'<button class="tcap-open-btn" onclick="tcapOpen(\''+cap.id+'\')">🎁 Öppna!</button>':'')+
+      '<div class="tcap-item-msg">"'+cap.msg+'"</div>'+
+      '<div class="tcap-item-date">Skapad: '+cap.created+' · Öppnas: '+cap.openDate+'</div>'+
+      (!isOpen?'<div class="tcap-item-reward">Belöning: +'+rew.coins+'🪙 +'+rew.xp+'XP'+kcTxt+'</div>':'<div class="tcap-item-reward">✓ Öppnad och hämtad</div>')+
+      (isReady?'<div class="tcap-item-countdown">🎉 KAPSELN ÄR KLAR!</div>':!isOpen?'<div class="tcap-item-countdown">⏳ '+cap.openDate+' ('+cap.days+'d)</div>':'')+
+      (!isOpen?'<div class="tcap-seals">'+seals+'</div>':'')+
+    '</div>';
+  }).join('');
+}
+
+
+// COOKING SHOW
+const CSHOW_KEY = 'k0509_cshow';
+const CSHOW_RECIPES = [
+  {name:'Panna Cotta', icon:'🍮', steps:['🥛','🍬','🫐','🍓'], all:['🥛','🍬','🫐','🍓','🧁','🥚','🍫','🌿'], coins:80, xp:60},
+  {name:'Sushi', icon:'🍱', steps:['🍚','🐟','🥑','🥒'], all:['🍚','🐟','🥑','🥒','🦐','🍄','🧀','🌶️'], coins:90, xp:70},
+  {name:'Pizza Margherita',icon:'🍕',steps:['🫓','🍅','🧀','🌿'],all:['🫓','🍅','🧀','🌿','🧅','🌶️','🍄','🫑'], coins:70, xp:55},
+  {name:'Tacos',icon:'🌮',steps:['🫓','🥩','🌶️','🧀'],all:['🫓','🥩','🌶️','🧀','🥑','🍅','🧅','🥬'], coins:75, xp:58},
+  {name:'Ramen',icon:'🍜',steps:['🍝','🍖','🥚','🌿'],all:['🍝','🍖','🥚','🌿','🌶️','🧄','🧅','🍄'], coins:85, xp:65},
+  {name:'Burgare',icon:'🍔',steps:['🍞','🥩','🧀','🥬'],all:['🍞','🥩','🧀','🥬','🍅','🧅','🥚','🥒'], coins:65, xp:50},
+];
+const CSHOW_INGR_NAMES = {'🥛':'Mjölk','🍬':'Socker','🫐':'Blåbär','🍓':'Jordgubbar','🧁':'Muffin','🥚':'Ägg','🍫':'Choklad','🌿':'Basilika','🍚':'Ris','🐟':'Fisk','🥑':'Avokado','🥒':'Gurka','🦐':'Räkor','🍄':'Svamp','🧀':'Ost','🌶️':'Chili','🫓':'Bröd','🍅':'Tomat','🧅':'Lök','🫑':'Paprika','🥩':'Kött','🍖':'Revben','🧄':'Vitlök','🍝':'Pasta','🍞':'Hamburgarbröd','🥬':'Sallad','🌮':'Tortilla'};
+
+var _cshowState = null;
+
+function _cshowData(){try{return JSON.parse(localStorage.getItem(CSHOW_KEY)||'null');}catch(e){return null;}}
+function _cshowSave(d){localStorage.setItem(CSHOW_KEY,JSON.stringify(d));}
+
+function cshowStart(){
+  var seed=0;var today=getTodayKey();
+  for(var i=0;i<today.length;i++) seed=(seed*31+today.charCodeAt(i))>>>0;
+  seed=(seed*1664525+1013904223)>>>0;
+  var recipe=CSHOW_RECIPES[seed%CSHOW_RECIPES.length];
+  // Shuffle ingredients
+  var ingrs=recipe.all.slice();
+  for(var j=ingrs.length-1;j>0;j--){
+    seed=(seed*1664525+1013904223)>>>0;
+    var k=seed%ingrs.length;
+    var t=ingrs[j];ingrs[j]=ingrs[k];ingrs[k]=t;
+  }
+  _cshowState={recipe:recipe,ingrs:ingrs,step:0,score:0,startTime:Date.now(),timer:30,correct:0};
+  _cshowRender();
+  _cshowTick();
+}
+
+var _cshowTimerRef=null;
+function _cshowTick(){
+  if(_cshowTimerRef) clearInterval(_cshowTimerRef);
+  _cshowTimerRef=setInterval(function(){
+    if(!_cshowState){clearInterval(_cshowTimerRef);return;}
+    _cshowState.timer--;
+    var tEl=$('cshowTimer');if(tEl) tEl.textContent=_cshowState.timer+'s';
+    if(_cshowState.timer<=0){
+      clearInterval(_cshowTimerRef);
+      _cshowFinish(false);
+    }
+  },1000);
+}
+
+function cshowPick(ingr){
+  if(!_cshowState) return;
+  var recipe=_cshowState.recipe;
+  var expected=recipe.steps[_cshowState.step];
+  var el=document.querySelector('.cshow-ingr[data-ingr="'+ingr+'"]');
+  if(ingr===expected){
+    if(el) el.classList.add('correct');
+    _cshowState.step++;
+    _cshowState.correct++;
+    _cshowState.score+=20+Math.floor(_cshowState.timer*2);
+    if(_cshowState.step>=recipe.steps.length){
+      clearInterval(_cshowTimerRef);
+      setTimeout(function(){_cshowFinish(true);},400);
+      return;
+    }
+    // Update progress dots
+    var dots=document.querySelectorAll('.cshow-prog-dot');
+    dots.forEach(function(d,i){
+      d.className='cshow-prog-dot'+(i<_cshowState.step?' done':i===_cshowState.step?' cur':'');
+    });
+  } else {
+    if(el){el.classList.add('wrong');setTimeout(function(){el.classList.remove('wrong');},300);}
+    _cshowState.score=Math.max(0,_cshowState.score-10);
+    _cshowState.timer=Math.max(0,_cshowState.timer-3);
+  }
+}
+
+function _cshowFinish(won){
+  if(_cshowTimerRef) clearInterval(_cshowTimerRef);
+  var d=_cshowData()||{score:0,wins:0,total:0,bestScore:0};
+  var state=_cshowState;
+  _cshowState=null;
+  if(!state) return;
+  d.total=(d.total||0)+1;
+  var recipe=state.recipe;
+  var earned=won?recipe.coins:Math.floor(recipe.coins*(state.correct/recipe.steps.length)*0.5);
+  var xpEarned=won?recipe.xp:Math.floor(recipe.xp*0.3);
+  if(won){
+    d.wins=(d.wins||0)+1;
+    d.score=(d.score||0)+state.score;
+    if(state.score>(d.bestScore||0)) d.bestScore=state.score;
+    gainCoins(earned);gainXP(xpEarned,'int');
+    G.int=(G.int||0)+1;save();
+    showFloatBubble('👨‍🍳 '+recipe.name+' klar! +'+earned+'🪙 +1 INT +'+xpEarned+'XP','buff');
+  } else {
+    gainCoins(earned);gainXP(xpEarned,'int');
+    showFloatBubble('⏰ Tid slut! '+state.correct+'/'+recipe.steps.length+' rätt · +'+earned+'🪙','debuff');
+  }
+  _cshowSave(d);
+  checkAchievements();
+  // Re-render idle
+  var area=$('cshowArea');
+  if(area){
+    var stars=won?'⭐⭐⭐':(state.correct>=2?'⭐⭐':'⭐');
+    area.innerHTML='<div style="text-align:center;padding:16px 0">'+
+      '<div style="font-size:36px;margin-bottom:6px">'+(won?'🏆':'😔')+'</div>'+
+      '<div style="font:800 14px var(--ff-head);color:#fff;margin-bottom:3px">'+(won?'BRAVO! '+recipe.name+' klar!':'Nästan! Försök igen')+'</div>'+
+      '<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.4);margin-bottom:6px">Rätt: '+state.correct+'/'+recipe.steps.length+' · Poäng: +'+state.score+'</div>'+
+      '<div style="font-size:20px;margin-bottom:10px">'+stars+'</div>'+
+      '<button class="cshow-start-btn" onclick="cshowStart()">🍳 Ny utmaning!</button></div>';
+  }
+  var sv=$('cshowScoreV');if(sv) sv.textContent=d.score||0;
+  var sr=$('cshowStarRow');if(sr) sr.textContent=won?'⭐⭐⭐':(state.correct>=2?'⭐⭐':'⭐');
+  var wv=$('cshowWins');if(wv) wv.textContent=(d.wins||0)+' vinster';
+}
+
+function _cshowRender(){
+  if(!_cshowState) return;
+  var recipe=_cshowState.recipe;
+  var ingrs=_cshowState.ingrs;
+  var dotsHtml=recipe.steps.map(function(s,i){
+    return '<div class="cshow-prog-dot'+(i===0?' cur':'')+'"></div>';
+  }).join('');
+  var ingrsHtml=ingrs.map(function(ingr){
+    return '<div class="cshow-ingr" data-ingr="'+ingr+'" onclick="cshowPick(\''+ingr+'\')">'+
+      ingr+'<div class="cshow-ingr-name">'+(CSHOW_INGR_NAMES[ingr]||ingr)+'</div></div>';
+  }).join('');
+  var area=$('cshowArea');
+  if(area) area.innerHTML=
+    '<div class="cshow-ch-lbl"><span>UTMANING</span><span class="cshow-timer" id="cshowTimer">'+_cshowState.timer+'s</span></div>'+
+    '<div class="cshow-recipe-name">'+recipe.icon+' '+recipe.name+'</div>'+
+    '<div class="cshow-recipe-desc">Välj ingredienserna i rätt ordning!</div>'+
+    '<div class="cshow-prog">'+dotsHtml+'</div>'+
+    '<div class="cshow-ingr-grid">'+ingrsHtml+'</div>';
+}
+
+function openCshow(){
+  $('cshowPanel').classList.add('open');
+  var d=_cshowData()||{score:0,wins:0};
+  var sv=$('cshowScoreV');if(sv) sv.textContent=d.score||0;
+  var wv=$('cshowWins');if(wv) wv.textContent=(d.wins||0)+' vinster';
+}
+function closeCshow(){
+  if(_cshowTimerRef) clearInterval(_cshowTimerRef);
+  _cshowState=null;
+  $('cshowPanel').classList.remove('open');
+}
+
+
+// PET FASHION SHOW
+var FASH2_KEY = 'k0509_fash';
+var _fash2Cat = 'hat';
+
+const FASH2_WARDROBE = {
+  hat:[
+    {id:'cap',    icon:'🧢', name:'Keps',       bonus:{agi:1},   style:10, minLvl:1},
+    {id:'crown',  icon:'👑', name:'Krona',       bonus:{lck:2},   style:25, minLvl:5},
+    {id:'wizard', icon:'🪄', name:'Trollhatt',   bonus:{int:2},   style:20, minLvl:3},
+    {id:'tophat', icon:'🎩', name:'Hög hatt',    bonus:{lck:1,int:1},style:18,minLvl:2},
+    {id:'helmet', icon:'⛑️', name:'Hjälm',       bonus:{end:2},   style:15, minLvl:1},
+    {id:'tiara',  icon:'👸', name:'Tiara',       bonus:{lck:3},   style:30, minLvl:8},
+  ],
+  outfit:[
+    {id:'tshirt', icon:'👕', name:'T-shirt',     bonus:{end:1},   style:8,  minLvl:1},
+    {id:'suit',   icon:'🤵', name:'Kostym',      bonus:{lck:2,int:1},style:22,minLvl:4},
+    {id:'dress',  icon:'👗', name:'Klänning',    bonus:{lck:2},   style:20, minLvl:2},
+    {id:'armor',  icon:'🛡️', name:'Rustning',    bonus:{str:2,end:2},style:25,minLvl:6},
+    {id:'cape',   icon:'🦸', name:'Mantel',      bonus:{agi:2},   style:18, minLvl:3},
+    {id:'robe',   icon:'🧙', name:'Trollkappa',  bonus:{int:3},   style:28, minLvl:7},
+  ],
+  accessory:[
+    {id:'glasses',icon:'🕶️', name:'Glasögon',   bonus:{int:1},   style:10, minLvl:1},
+    {id:'necklace',icon:'📿',name:'Halsband',    bonus:{lck:1},   style:12, minLvl:1},
+    {id:'watch',  icon:'⌚', name:'Klocka',      bonus:{agi:1},   style:10, minLvl:2},
+    {id:'ring',   icon:'💍', name:'Ring',        bonus:{lck:2},   style:15, minLvl:3},
+    {id:'wings',  icon:'🦋', name:'Vingar',      bonus:{agi:3},   style:22, minLvl:5},
+    {id:'amulet', icon:'🔮', name:'Amulett',     bonus:{int:2,lck:1},style:20,minLvl:4},
+  ],
+  tool:[
+    {id:'wand',   icon:'⚡', name:'Trollstav',   bonus:{int:2},   style:16, minLvl:2},
+    {id:'sword',  icon:'⚔️', name:'Svärd',       bonus:{str:2},   style:14, minLvl:2},
+    {id:'shield2',icon:'🛡️', name:'Sköld',       bonus:{end:2},   style:14, minLvl:2},
+    {id:'bow',    icon:'🏹', name:'Båge',        bonus:{agi:3},   style:18, minLvl:4},
+    {id:'staff',  icon:'🪄', name:'Stav',        bonus:{int:3,lck:1},style:22,minLvl:5},
+    {id:'hammer', icon:'🔨', name:'Hammare',     bonus:{str:3,end:1},style:18,minLvl:4},
+  ],
+};
+
+function _fash2Data(){try{return JSON.parse(localStorage.getItem(FASH2_KEY)||'null');}catch(e){return null;}}
+function _fash2Save(d){localStorage.setItem(FASH2_KEY,JSON.stringify(d));}
+function _fash2GetData(){
+  var d=_fash2Data();
+  if(!d) d={worn:{},shows:0,lastShow:'',wins:0,styleTotal:0};
+  return d;
+}
+
+function fash2Wear(cat, id){
+  var d=_fash2GetData();
+  if(d.worn[cat]===id){delete d.worn[cat];}else{d.worn[cat]=id;}
+  _fash2Save(d);
+  _renderFash2(d);
+}
+
+function fash2DoShow(){
+  var d=_fash2GetData();
+  var today=getTodayKey();
+  if(d.lastShow===today){showFloatBubble('Redan tävlat idag!','debuff');return;}
+  var styleScore=fash2CalcStyle(d);
+  if(styleScore<1){showFloatBubble('Klä ditt husdjur i minst 1 plagg!','debuff');return;}
+  d.lastShow=today;
+  d.shows=(d.shows||0)+1;
+  d.styleTotal=(d.styleTotal||0)+styleScore;
+  // Rewards scale with style score
+  var coins=Math.floor(styleScore*2.5);
+  var xp=Math.floor(styleScore*2);
+  var lckBonus=Math.min(0.3,(G.lck||0)*0.006);
+  var won=Math.random()<(0.4+lckBonus);
+  if(won){
+    d.wins=(d.wins||0)+1;
+    gainKC(styleScore>=80?1:0);
+    showFloatBubble('👗 VANN Mode-Show! +'+coins+'🪙 +'+xp+'XP'+(styleScore>=80?' +1KC':''),'buff');
+  } else {
+    coins=Math.floor(coins*0.5);xp=Math.floor(xp*0.5);
+    showFloatBubble('👗 Trevligt försök! +'+coins+'🪙 +'+xp+'XP','buff');
+  }
+  gainCoins(coins);gainXP(xp,'lck');
+  // Bonus stats from worn items
+  Object.keys(d.worn).forEach(function(cat){
+    var itemId=d.worn[cat];
+    var items=FASH2_WARDROBE[cat];
+    if(!items) return;
+    var item=items.find(function(i){return i.id===itemId;});
+    if(item&&Math.random()<0.15) Object.keys(item.bonus).forEach(function(s){G[s]=(G[s]||0)+1;});
+  });
+  save();
+  _fash2Save(d);
+  checkAchievements();
+  var btn=$('fashShowBtn');if(btn) btn.disabled=true;
+  _renderFash2(d);
+}
+
+function fash2CalcStyle(d){
+  var total=0;
+  Object.keys(d.worn).forEach(function(cat){
+    var items=FASH2_WARDROBE[cat];
+    if(!items) return;
+    var item=items.find(function(i){return i.id===d.worn[cat];});
+    if(item) total+=item.style;
+  });
+  return total;
+}
+
+function fash2SetCat(cat){
+  _fash2Cat=cat;
+  var d=_fash2GetData();
+  _renderFash2Items(d);
+  document.querySelectorAll('.fash-cat-btn').forEach(function(b){
+    b.className='fash-cat-btn'+(b.dataset.cat===cat?' active':'');
+  });
+}
+
+function openFash2(){$('fash2Panel').classList.add('open');_renderFash2();}
+function closeFash2(){$('fash2Panel').classList.remove('open');}
+
+function _renderFash2Items(d){
+  var items=FASH2_WARDROBE[_fash2Cat]||[];
+  var lvl=G.lvl||1;
+  var container=$('fashItems');
+  if(!container) return;
+  container.innerHTML=items.map(function(item){
+    var isWorn=d.worn[_fash2Cat]===item.id;
+    var isLocked=lvl<item.minLvl;
+    var bonusTxt=Object.keys(item.bonus).map(function(s){return '+'+item.bonus[s]+s.toUpperCase().slice(0,3);}).join(' ');
+    var cls='fash-item'+(isWorn?' worn':isLocked?' locked':'');
+    return '<div class="'+cls+'" onclick="fash2Wear(\''+_fash2Cat+'\',\''+item.id+'\')">'+
+      '<div class="fash-item-icon">'+item.icon+'</div>'+
+      '<div class="fash-item-name">'+item.name+'</div>'+
+      '<div class="fash-item-bonus">'+item.style+'✨ '+bonusTxt+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+function _renderFash2(d){
+  if(!d) d=_fash2GetData();
+  var pd=$('fashPetDisp');if(pd) pd.textContent=G.petEmoji||'🐾';
+  var pn=$('fashPetName');if(pn) pn.textContent=G.petName||'Mitt husdjur';
+  var styleScore=fash2CalcStyle(d);
+  var ss=$('fashStyleScore');if(ss) ss.textContent=styleScore;
+  // Outfit row
+  var or=$('fashOutfitRow');
+  if(or) or.innerHTML=Object.keys(d.worn).map(function(cat){
+    var items=FASH2_WARDROBE[cat];if(!items) return '';
+    var item=items.find(function(i){return i.id===d.worn[cat];});
+    return item?'<div class="fash-worn">'+item.icon+'</div>':'';
+  }).join('');
+  // Category buttons
+  var cats=$('fashCats');
+  if(cats) cats.innerHTML=Object.keys(FASH2_WARDROBE).map(function(cat){
+    var labels={hat:'Hattar',outfit:'Kläder',accessory:'Tillbehör',tool:'Verktyg'};
+    return '<div class="fash-cat-btn'+(cat===_fash2Cat?' active':'')+'" data-cat="'+cat+'" onclick="fash2SetCat(\''+cat+'\')">'+labels[cat]+'</div>';
+  }).join('');
+  // Show button
+  var today=getTodayKey();
+  var btn=$('fashShowBtn');if(btn) btn.disabled=d.lastShow===today;
+  _renderFash2Items(d);
+}
+
+
+// PET OLYMPICS
+const OLYM_KEY = 'k0509_olym';
+const OLYM_EVENTS = [
+  {id:'sprint',  icon:'🏃', name:'100m Sprint',   desc:'Snabbaste husdjuret vinner',   stat:'agi',  statLbl:'AGI',  color:'#44ff88', gold:{coins:100,xp:80},silver:{coins:60,xp:50},bronze:{coins:30,xp:25}},
+  {id:'weightlift',icon:'🏋️',name:'Tyngdlyftning',desc:'Starkaste husdjuret vinner',   stat:'str',  statLbl:'STR',  color:'#ff4444', gold:{coins:100,xp:80},silver:{coins:60,xp:50},bronze:{coins:30,xp:25}},
+  {id:'archery', icon:'🎯', name:'Bågskytte',      desc:'Mest precisa husdjuret',       stat:'lck',  statLbl:'LCK',  color:'#ffcc00', gold:{coins:120,xp:90},silver:{coins:70,xp:55},bronze:{coins:35,xp:28}},
+  {id:'swimming',icon:'🏊', name:'Simning',        desc:'Uthålligaste husdjuret',       stat:'end',  statLbl:'END',  color:'#4488ff', gold:{coins:100,xp:80},silver:{coins:60,xp:50},bronze:{coins:30,xp:25}},
+  {id:'chess',   icon:'♟️', name:'Schack-Olympiad',desc:'Smartaste husdjuret',          stat:'int',  statLbl:'INT',  color:'#cc44ff', gold:{coins:130,xp:100},silver:{coins:80,xp:65},bronze:{coins:40,xp:32}},
+];
+
+function _olymData(){try{return JSON.parse(localStorage.getItem(OLYM_KEY)||'null');}catch(e){return null;}}
+function _olymSave(d){localStorage.setItem(OLYM_KEY,JSON.stringify(d));}
+function _olymGetData(){
+  var d=_olymData();
+  if(!d) d={gold:0,silver:0,bronze:0,doneToday:{},results:{},lastDay:'',total:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.doneToday={};d.results={};d.lastDay=today;_olymSave(d);}
+  return d;
+}
+
+function olymCompete(eventId){
+  var d=_olymGetData();
+  if(d.doneToday[eventId]) return;
+  var ev=OLYM_EVENTS.find(function(e){return e.id===eventId;});
+  if(!ev) return;
+  var myScore=(G[ev.stat]||0)+Math.random()*20;
+  // Simulate 3 NPC opponents
+  var npcBase=Math.max(5,(G.lvl||1)*2.5);
+  var npcs=[npcBase+Math.random()*15,npcBase+Math.random()*20,npcBase*0.8+Math.random()*10];
+  var rank=1;
+  npcs.forEach(function(n){if(n>myScore) rank++;});
+  var medal=rank===1?'g':rank===2?'s':rank===3?'b':null;
+  var rew=rank===1?ev.gold:rank===2?ev.silver:rank===3?ev.bronze:{coins:10,xp:8};
+  d.doneToday[eventId]=true;
+  d.total=(d.total||0)+1;
+  d.results[eventId]=medal||'none';
+  if(medal==='g') d.gold=(d.gold||0)+1;
+  else if(medal==='s') d.silver=(d.silver||0)+1;
+  else if(medal==='b') d.bronze=(d.bronze||0)+1;
+  gainCoins(rew.coins);gainXP(rew.xp,ev.stat);
+  if(medal==='g'){G[ev.stat]=(G[ev.stat]||0)+2;save();}
+  else if(medal){G[ev.stat]=(G[ev.stat]||0)+1;save();}
+  var medalEmoji=medal==='g'?'🥇':medal==='s'?'🥈':medal==='b'?'🥉':'4.';
+  showFloatBubble(ev.icon+' '+ev.name+': '+medalEmoji+' ('+Math.floor(myScore)+' poäng) +'+rew.coins+'🪙','buff');
+  _olymSave(d);
+  checkAchievements();
+  _renderOlym(d);
+}
+
+function openOlym(){$('olymPanel').classList.add('open');_renderOlym();}
+function closeOlym(){$('olymPanel').classList.remove('open');}
+
+function _renderOlym(d){
+  if(!d) d=_olymGetData();
+  var gv=$('olymGold');if(gv) gv.textContent=d.gold||0;
+  var sv=$('olymSilver');if(sv) sv.textContent=d.silver||0;
+  var bv=$('olymBronze');if(bv) bv.textContent=d.bronze||0;
+  var events=$('olymEvents');
+  if(!events) return;
+  events.innerHTML=OLYM_EVENTS.map(function(ev){
+    var isDone=!!d.doneToday[ev.id];
+    var result=d.results[ev.id];
+    var myStatVal=G[ev.stat]||0;
+    var maxStat=Math.max(100,myStatVal+20);
+    var pct=Math.min(100,myStatVal/maxStat*100);
+    var medalHtml='';
+    if(result==='g') medalHtml='<div class="olym-medal-chip g">🥇 Guld</div>';
+    else if(result==='s') medalHtml='<div class="olym-medal-chip s">🥈 Silver</div>';
+    else if(result==='b') medalHtml='<div class="olym-medal-chip b">🥉 Brons</div>';
+    else if(result==='none') medalHtml='<div class="olym-medal-chip" style="background:rgba(255,255,255,.05);color:rgba(255,255,255,.3)">4. plats</div>';
+    return '<div class="olym-event">'+
+      '<div class="olym-event-top">'+
+        '<div class="olym-event-icon">'+ev.icon+'</div>'+
+        '<div class="olym-event-info">'+
+          '<div class="olym-event-name">'+ev.name+'</div>'+
+          '<div class="olym-event-desc">'+ev.desc+'</div>'+
+          '<div class="olym-event-stat">Avgörande: '+ev.statLbl+' = '+myStatVal+'</div>'+
+          (medalHtml?'<div class="olym-event-result">'+medalHtml+'</div>':'')+
+        '</div>'+
+      '</div>'+
+      '<div class="olym-compete">'+
+        '<div class="olym-stat-bar"><div class="olym-stat-fill" style="width:'+pct+'%;background:'+ev.color+'"></div></div>'+
+        '<div class="olym-stat-txt">'+ev.statLbl+' '+myStatVal+' (jämfört med motståndare)</div>'+
+        '<button class="olym-compete-btn'+(isDone?' done':'')+'" onclick="olymCompete(\''+ev.id+'\')" '+(isDone?'disabled':'')+'>'+
+          (isDone?(result==='g'?'🥇 Guld!':result==='s'?'🥈 Silver!':result==='b'?'🥉 Brons!':'✓ Klart'):'🏅 Tävla!')+
+        '</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+
+// TREASURE HUNT
+const THUNT_KEY = 'k0509_thunt';
+const THUNT_HUNTS = [
+  {
+    id:'forest_gem', name:'Skogsjuvelen', icon:'💎',
+    desc:'En legendarisk juvel gömd djupt i den mystiska skogen.',
+    reward:{coins:500,xp:400,str:5,lck:3},
+    clues:[
+      {q:'Vad lever i vatten men dör om det dricker?',opts:['Fisk','Salt','Is','Eld'],a:1},
+      {q:'Vad har händer men kan inte klappa?',opts:['Klocka','Träd','Berg','Hav'],a:0},
+      {q:'Ju mer du tar, desto mer lämnar du bakom. Vad är det?',opts:['Mat','Fotspår','Vatten','Ljus'],a:1},
+      {q:'Vad kan springa men aldrig gå?',opts:['Motor','Vatten','Vind','Tid'],a:1},
+      {q:'Vad har man en gång i minuten, en gång i månaden, men aldrig på ett år?',opts:['Semester','Bokstaven M','Nyår','Födelsedag'],a:1},
+    ]
+  },
+  {
+    id:'ocean_pearl', name:'Havspärlan', icon:'🦪',
+    desc:'En magisk pärla på havets djupaste botten.',
+    reward:{coins:600,xp:480,agi:5,int:4},
+    clues:[
+      {q:'Jag har städer men inga hus, skogar men inga träd. Vad är jag?',opts:['Molnet','Kartan','Spegeln','Drömmen'],a:1},
+      {q:'Vad ser ut som dig men är inte du?',opts:['Din bror','Spegeln','Skuggan','Fotot'],a:2},
+      {q:'Vilket ord blir kortare om du lägger till en bokstav?',opts:['Ord','Kort','Stor','Lång'],a:1},
+      {q:'Vad kan du inte hålla längre än 5 minuter?',opts:['Sten','Andan','Handen','Boken'],a:1},
+      {q:'Vad har inga fötter men kan fortfarande resa världen runt?',opts:['Pengarna','Tankar','Ryggsäck','Brev'],a:0},
+    ]
+  },
+  {
+    id:'volcano_crystal', name:'Lavakristallen', icon:'🌋',
+    desc:'En urgammal kristall skapad i en vulkans hjärta.',
+    reward:{coins:700,xp:560,str:8,end:5},
+    clues:[
+      {q:'Vad är alltid framför dig men kan inte ses?',opts:['Framtiden','Ansiktet','Nose','Mörker'],a:0},
+      {q:'Vad har knogar men inga fingrar?',opts:['Dörren','Handen','Trädet','Stenen'],a:0},
+      {q:'Jag har en tunga men kan inte prata. Vad är jag?',opts:['Skon','Klippa','Hunden','Sjön'],a:0},
+      {q:'Vad kan ett barn göra idag att ett barn för 200 år sedan inte kunde?',opts:['Leka','Sova','Titta på TV','Springa'],a:2},
+      {q:'Vad är alltid lika men aldrig detsamma?',opts:['Havet','Snöflingan','Solnedgången','Floden'],a:2},
+    ]
+  },
+];
+
+function _thuntData(){try{return JSON.parse(localStorage.getItem(THUNT_KEY)||'null');}catch(e){return null;}}
+function _thuntSave(d){localStorage.setItem(THUNT_KEY,JSON.stringify(d));}
+function _thuntGetData(){
+  var d=_thuntData();
+  if(!d) d={currentHunt:0,cluesDone:{},answeredToday:'',completed:[],total:0};
+  return d;
+}
+
+function _thuntGetCurrentHunt(d){
+  return THUNT_HUNTS[d.currentHunt%THUNT_HUNTS.length];
+}
+
+function thuntAnswer(clueIdx, optIdx){
+  var d=_thuntGetData();
+  var hunt=_thuntGetCurrentHunt(d);
+  var clue=hunt.clues[clueIdx];
+  var today=getTodayKey();
+  if(d.answeredToday===today) return;
+  if(!d.cluesDone[hunt.id]) d.cluesDone[hunt.id]=[];
+  if(d.cluesDone[hunt.id].indexOf(clueIdx)>=0) return;
+  var correct=optIdx===clue.a;
+  if(correct){
+    d.cluesDone[hunt.id].push(clueIdx);
+    d.answeredToday=today;
+    gainXP(50,'int');gainCoins(30);
+    // Check if hunt complete
+    if(d.cluesDone[hunt.id].length>=hunt.clues.length){
+      d.completed.push(hunt.id+'|'+today);
+      d.total=(d.total||0)+1;
+      // Grand reward
+      gainCoins(hunt.reward.coins);gainXP(hunt.reward.xp,'int');
+      Object.keys(hunt.reward).forEach(function(k){
+        if(k!=='coins'&&k!=='xp') G[k]=(G[k]||0)+hunt.reward[k];
+      });
+      save();
+      gainKC(1);
+      showFloatBubble('🗝️ SKATTEN HITTAD! +'+hunt.reward.coins+'🪙 +1KC 🏆','buff');
+      d.currentHunt=(d.currentHunt+1)%THUNT_HUNTS.length;
+      checkAchievements();
+    } else {
+      showFloatBubble('✓ Rätt! +30🪙 +50XP · Nästa ledtråd imorgon!','buff');
+    }
+    _thuntSave(d);
+    _renderThunt(d);
+  } else {
+    showFloatBubble('✗ Fel svar! Försök igen imorgon...','debuff');
+    d.answeredToday=today;
+    _thuntSave(d);
+    _renderThunt(d);
+  }
+}
+
+function openThunt(){$('thuntPanel').classList.add('open');_renderThunt();}
+function closeThunt(){$('thuntPanel').classList.remove('open');}
+
+function _renderThunt(d){
+  if(!d) d=_thuntGetData();
+  var hunt=_thuntGetCurrentHunt(d);
+  var done=d.cluesDone[hunt.id]||[];
+  var allDone=done.length>=hunt.clues.length;
+  var hn=$('thuntHuntName');if(hn) hn.textContent=hunt.icon+' '+hunt.name;
+  var hd=$('thuntHuntDesc');if(hd) hd.textContent=hunt.desc;
+  // Progress pips
+  var prog=$('thuntProgress');
+  if(prog) prog.innerHTML=hunt.clues.map(function(c,i){
+    var cls='thunt-prog-pip'+(done.indexOf(i)>=0?' done':i===done.length?' active':'');
+    return '<div class="'+cls+'">'+(done.indexOf(i)>=0?'✓':'')+'</div>';
+  }).join('');
+  var dl=$('thuntDaysLeft');
+  if(dl) dl.textContent=(hunt.clues.length-done.length)+' ledtrådar kvar till skatten';
+  // Clue area
+  var area=$('thuntClueArea');
+  var final=$('thuntFinal');
+  var today=getTodayKey();
+  var answeredToday=d.answeredToday===today;
+  if(allDone){
+    if(area) area.style.display='none';
+    if(final){final.classList.add('show');}
+    var fr=$('thuntFinalRew');
+    if(fr) fr.textContent='Belöning: +'+hunt.reward.coins+'🪙 +'+hunt.reward.xp+'XP +1KC';
+  } else {
+    if(final) final.classList.remove('show');
+    var clueIdx=done.length;
+    var clue=hunt.clues[clueIdx];
+    if(area&&clue) area.innerHTML=
+      '<div class="thunt-clue-lbl">LEDTRÅD '+(clueIdx+1)+'/'+hunt.clues.length+'</div>'+
+      '<div class="thunt-clue-text">'+clue.q+'</div>'+
+      (answeredToday?'<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center">Svarade idag — nästa ledtråd imorgon!</div>':
+        '<div class="thunt-answer-row">'+clue.opts.map(function(opt,i){
+          return '<button class="thunt-ans-btn" onclick="thuntAnswer('+clueIdx+','+i+')">'+opt+'</button>';
+        }).join('')+'</div>');
+  }
+  // History
+  var hist=$('thuntHist');
+  if(hist){
+    if(!d.completed||!d.completed.length) hist.innerHTML='<div style="font:600 8px var(--ff-body);color:rgba(255,255,255,.2)">Inga slutförda jakter ännu.</div>';
+    else hist.innerHTML=d.completed.map(function(c){
+      var p=c.split('|');var hId=p[0];var hDate=p[1]||'';
+      var hObj=THUNT_HUNTS.find(function(h){return h.id===hId;})||{name:hId,icon:'🏆'};
+      return '<div class="thunt-hist-chip">'+hObj.icon+' '+hObj.name+'</div>';
+    }).join('');
+  }
 }
 
 </script>
