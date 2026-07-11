@@ -1721,6 +1721,79 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+/* ══ SOUL NEXUS ══ */
+.soul-panel{position:fixed;inset:0;background:#030006;z-index:1094;display:none;flex-direction:column;overflow:hidden}
+.soul-panel.open{display:flex}
+.soul-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#06000c,#030006)}
+.soul-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#cc88ff,#ff44aa,#88ccff,#cc88ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:soulShim 4s linear infinite}
+@keyframes soulShim{0%{background-position:0%}100%{background-position:300%}}
+.soul-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.soul-core{background:radial-gradient(ellipse at 50% 30%,rgba(204,136,255,.12),transparent);border:2px solid rgba(204,136,255,.2);border-radius:22px;padding:16px;margin-bottom:12px;text-align:center}
+.soul-core-icon{font-size:56px;display:block;margin-bottom:4px}
+.soul-core-lbl{font:700 8px var(--ff-head);color:rgba(204,136,255,.35);letter-spacing:2px;margin-bottom:3px}
+.soul-energy{font:900 36px var(--ff-head);background:linear-gradient(180deg,#cc88ff,#ff44aa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.soul-bar{background:rgba(255,255,255,.05);border-radius:5px;height:8px;overflow:hidden;max-width:180px;margin:5px auto 3px}
+.soul-bar-fill{height:100%;background:linear-gradient(90deg,#cc88ff,#ff44aa);border-radius:5px;transition:width .3s}
+.soul-bar-txt{font:600 8px var(--ff-body);color:rgba(204,136,255,.4)}
+.soul-meditate-btn{background:linear-gradient(135deg,#0c0020,#2c0060);border:1.5px solid rgba(204,136,255,.3);border-radius:12px;padding:10px;font:800 11px var(--ff-head);color:rgba(204,136,255,.9);cursor:pointer;width:100%;margin-top:8px}
+.soul-meditate-btn:disabled{opacity:.3;cursor:default}
+.soul-upgrades-lbl{font:700 8px var(--ff-head);color:rgba(204,136,255,.4);letter-spacing:1px;margin-bottom:8px}
+.soul-upgrades{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.soul-upg{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+.soul-upg.maxed{opacity:.4}
+.soul-upg-icon{font-size:26px;flex-shrink:0}
+.soul-upg-body{flex:1}
+.soul-upg-name{font:700 11px var(--ff-head);color:rgba(200,160,255,.7);margin-bottom:2px}
+.soul-upg-desc{font:600 8px var(--ff-body);color:rgba(180,100,255,.4);margin-bottom:2px}
+.soul-upg-lvl{font:700 8px var(--ff-head);color:rgba(204,136,255,.5)}
+.soul-upg-btn{background:rgba(204,136,255,.07);border:1px solid rgba(204,136,255,.25);border-radius:9px;padding:7px 12px;font:700 9px var(--ff-head);color:rgba(204,136,255,.8);cursor:pointer;flex-shrink:0}
+.soul-upg-btn:disabled{opacity:.3;cursor:default}
+.soul-stats{display:flex;gap:5px;margin-bottom:8px}
+.soul-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.soul-stat-v{font:800 16px var(--ff-head);color:#cc88ff}
+.soul-stat-l{font:600 7px var(--ff-body);color:rgba(204,136,255,.3)}
+.soul-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
+/* ══ RELIC HUNTER ══ */
+.relic-panel{position:fixed;inset:0;background:#040301;z-index:1093;display:none;flex-direction:column;overflow:hidden}
+.relic-panel.open{display:flex}
+.relic-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#080602,#040301)}
+.relic-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ddaa44,#ffee88,#aa8833,#ddaa44);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:relicShim 3s linear infinite}
+@keyframes relicShim{0%{background-position:0%}100%{background-position:300%}}
+.relic-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.relic-vault{background:radial-gradient(ellipse at 50% 0,rgba(221,170,68,.1),transparent);border:2px solid rgba(221,170,68,.18);border-radius:22px;padding:14px;margin-bottom:12px;text-align:center}
+.relic-vault-lbl{font:700 7px var(--ff-head);color:rgba(221,170,68,.35);letter-spacing:2px;margin-bottom:4px}
+.relic-vault-v{font:900 38px var(--ff-head);color:rgba(255,230,136,.8);line-height:1}
+.relic-vault-sub{font:700 9px var(--ff-head);color:rgba(221,170,68,.4);margin-top:4px}
+.relic-dig-btn{background:linear-gradient(135deg,#1a0e00,#4a2e00);border:1.5px solid rgba(221,170,68,.35);border-radius:14px;padding:11px;font:900 12px var(--ff-head);color:rgba(255,230,136,.9);cursor:pointer;width:100%;margin-top:8px}
+.relic-dig-btn:disabled{opacity:.3;cursor:default}
+.relic-coll-lbl{font:700 8px var(--ff-head);color:rgba(221,170,68,.4);letter-spacing:1px;margin-bottom:8px}
+.relic-coll{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.relic-item{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 8px;text-align:center;transition:all .15s}
+.relic-item.found{border-color:rgba(221,170,68,.3);background:rgba(221,170,68,.04)}
+.relic-item.legendary{border-color:rgba(255,200,0,.5);background:rgba(255,200,0,.06)}
+.relic-item-icon{font-size:26px;display:block;margin-bottom:3px}
+.relic-item-name{font:700 7px var(--ff-head);color:rgba(255,230,136,.6);margin-bottom:2px}
+.relic-item-eff{font:600 7px var(--ff-body);color:rgba(221,170,68,.4)}
+.relic-item-qty{font:700 7px var(--ff-head);color:rgba(255,200,0,.5)}
+.relic-site-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.2);letter-spacing:1px;margin-bottom:6px}
+.relic-sites{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.relic-site{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:9px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all .15s}
+.relic-site:hover{background:rgba(221,170,68,.04);border-color:rgba(221,170,68,.2)}
+.relic-site.selected{border-color:rgba(221,170,68,.4);background:rgba(221,170,68,.07)}
+.relic-site.locked{opacity:.3;cursor:default}
+.relic-site-icon{font-size:22px;flex-shrink:0}
+.relic-site-body{flex:1}
+.relic-site-name{font:700 9px var(--ff-head);color:rgba(255,230,136,.6)}
+.relic-site-info{font:600 7px var(--ff-body);color:rgba(221,170,68,.35)}
+.relic-stats{display:flex;gap:5px;margin-bottom:8px}
+.relic-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.relic-stat-v{font:800 16px var(--ff-head);color:#ddaa44}
+.relic-stat-l{font:600 7px var(--ff-body);color:rgba(221,170,68,.3)}
+.relic-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
 /* ══ MYTHIC ARENA ══ */
 .myth-panel{position:fixed;inset:0;background:#050002;z-index:1092;display:none;flex-direction:column;overflow:hidden}
 .myth-panel.open{display:flex}
@@ -13595,6 +13668,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
+          <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
           <div class="ddr" onclick="cM();openMyth()"><div class="ddr-i">💀</div>Mytarean</div>
           <div class="ddr" onclick="cM();openMage()"><div class="ddr-i">🔮</div>Magikertornet</div>
           <div class="ddr" onclick="cM();openVkng()"><div class="ddr-i">⚔️</div>Vikingariket</div>
@@ -13708,6 +13783,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
+          <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
           <div class="ddr" onclick="cM();openMyth()"><div class="ddr-i">💀</div>Mytarean</div>
           <div class="ddr" onclick="cM();openMage()"><div class="ddr-i">🔮</div>Magikertornet</div>
           <div class="ddr" onclick="cM();openVkng()"><div class="ddr-i">⚔️</div>Vikingariket</div>
@@ -13804,6 +13881,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
+          <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
           <div class="ddr" onclick="cM();openMyth()"><div class="ddr-i">💀</div>Mytarean</div>
           <div class="ddr" onclick="cM();openMage()"><div class="ddr-i">🔮</div>Magikertornet</div>
           <div class="ddr" onclick="cM();openVkng()"><div class="ddr-i">⚔️</div>Vikingariket</div>
@@ -13831,6 +13910,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTown()"><div class="ddr-i">🏘</div>Stad</div>
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Garderob</div>
           <div class="ddr" onclick="cM();openGach()"><div class="ddr-i">✨</div>Portal</div>
+          <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic()"><div class="ddr-i">⛏</div>Reliker</div>
           <div class="ddr" onclick="cM();openShr()"><div class="ddr-i">🔮</div>Skrin</div>
           <div class="ddr" onclick="cM();openEvo()"><div class="ddr-i">🌟</div>Evolution</div>
@@ -13940,6 +14020,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
+          <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
           <div class="ddr" onclick="cM();openMyth()"><div class="ddr-i">💀</div>Mytarean</div>
           <div class="ddr" onclick="cM();openMage()"><div class="ddr-i">🔮</div>Magikertornet</div>
           <div class="ddr" onclick="cM();openVkng()"><div class="ddr-i">⚔️</div>Vikingariket</div>
@@ -14697,6 +14779,60 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+<!-- SOUL NEXUS -->
+<div class="soul-panel" id="soulPanel">
+  <div class="soul-header">
+    <div class="soul-title">👁️ SIELSNEXUS</div>
+    <button class="close-btn" onclick="closeSoul()">✕</button>
+  </div>
+  <div class="soul-scroll">
+    <div class="soul-stats">
+      <div class="soul-stat-box"><div class="soul-stat-v" id="soulEnergyV">0</div><div class="soul-stat-l">Sielenergi</div></div>
+      <div class="soul-stat-box"><div class="soul-stat-v" id="soulMedV">0</div><div class="soul-stat-l">Meditationer</div></div>
+      <div class="soul-stat-box"><div class="soul-stat-v" id="soulUpgV">0</div><div class="soul-stat-l">Uppgraderingar</div></div>
+    </div>
+    <div class="soul-core">
+      <span class="soul-core-icon">👁️</span>
+      <div class="soul-core-lbl">SIELENERGI</div>
+      <div class="soul-energy" id="soulEnergyBig">0</div>
+      <div class="soul-bar"><div class="soul-bar-fill" id="soulBarFill" style="width:0%"></div></div>
+      <div class="soul-bar-txt" id="soulBarTxt">0/100</div>
+      <button class="soul-meditate-btn" id="soulMedBtn" onclick="soulMeditate()">Meditera (+10 Energia)</button>
+    </div>
+    <div class="soul-upgrades-lbl">SIELKRAFTER</div>
+    <div class="soul-upgrades" id="soulUpgrades"></div>
+    <div class="soul-info">Samla sielenergi genom meditation och använd den för permanenta kraftökningar! 👁️</div>
+  </div>
+</div>
+
+<!-- RELIC HUNTER -->
+<div class="relic-panel" id="relicPanel">
+  <div class="relic-header">
+    <div class="relic-title">🏺 RELIKTJÄGAREN</div>
+    <button class="close-btn" onclick="closeRelic()">✕</button>
+  </div>
+  <div class="relic-scroll">
+    <div class="relic-stats">
+      <div class="relic-stat-box"><div class="relic-stat-v" id="relic2FoundV">0</div><div class="relic-stat-l">Hittade</div></div>
+      <div class="relic-stat-box"><div class="relic-stat-v" id="relic2DigsV">0</div><div class="relic-stat-l">Grävningar</div></div>
+      <div class="relic-stat-box"><div class="relic-stat-v" id="relic2LegendV">0</div><div class="relic-stat-l">Legendariska</div></div>
+    </div>
+    <div class="relic-vault">
+      <div class="relic-vault-lbl">RELIKVÄLVET</div>
+      <div class="relic-vault-v" id="relic2CountV">0</div>
+      <div class="relic-vault-sub">unika reliker hittade</div>
+      <button class="relic-dig-btn" id="relic2DigBtn" onclick="relic2Dig()">Gräv efter Reliker!</button>
+    </div>
+    <div class="relic-site-lbl">UTGRÄVNINGSPLATSER</div>
+    <div class="relic-sites" id="relicSites"></div>
+    <div class="relic-coll-lbl">DIN SAMLING</div>
+    <div class="relic-coll" id="relicColl"></div>
+    <div class="relic-info">Välj en utgrävningsplats och gräv för att hitta reliker! Varje rund gör dig starkare. 🏺</div>
+  </div>
+</div>
 
 <!-- MYTHIC ARENA -->
 <div class="myth-panel" id="mythPanel">
@@ -18629,10 +18765,10 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 </div>
 
 <!-- RELIC HUNTER -->
-<div class="relic-panel" id="relicPanel">
+<div class="relic-panel" id="relic2Panel">
   <div class="relic-header">
     <div class="relic-title">⛏ RELIKTJÄGAREN</div>
-    <button class="close-btn" onclick="closeRelic()">✕</button>
+    <button class="close-btn" onclick="closeRelic2()">✕</button>
   </div>
   <div class="relic-scroll">
     <div class="relic-pick-row">
@@ -18642,9 +18778,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px">UTRUSTADE RELIKER (max 3)</div>
     <div class="relic-equip-row" id="relicEquipRow"></div>
     <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px;margin-top:6px">GRÄVPLATSER</div>
-    <div class="relic-sites" id="relicSites"></div>
+    <div class="relic-sites" id="relic2Sites"></div>
     <div style="font:700 10px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:8px">DIN SAMLING</div>
-    <div class="relic-coll" id="relicColl"></div>
+    <div class="relic-coll" id="relic2Coll"></div>
   </div>
 </div>
 
@@ -64291,6 +64427,218 @@ function _renderMythBossList(d){
 
 function openMyth(){$('mythPanel').classList.add('open');var d=_mythGetData();_renderMythStats(d);_renderMythBossList(d);}
 function closeMyth(){$('mythPanel').classList.remove('open');}
+
+
+// RELIC HUNTER
+const RELIC2_KEY = 'k0509_relic2';
+const RELIC2_SITES = [
+  {id:'ruins',   icon:'R', name:'Forna Ruiner',    info:'Enkel gravesite, goda chanser',    cost:30,  minLvl:1,  luckyMult:1},
+  {id:'temple',  icon:'T', name:'Det Heliga Templet',info:'Hog chans for sallsynta reliker',cost:80,  minLvl:3,  luckyMult:1.5},
+  {id:'pyramid', icon:'P', name:'Pyramidens Djup',  info:'Legendariska fynd mojliga har',   cost:180, minLvl:6,  luckyMult:2.5},
+  {id:'nexus',   icon:'N', name:'Dimensionsnexus',  info:'Sannolikheten bojgs utanfor regler',cost:400,minLvl:12, luckyMult:4},
+];
+const RELIC2_POOL = [
+  {id:'amber',    icon:'A', name:'Barstensamulett', eff:'LCK+2',  bonus:{lck:2},         rarity:'common'},
+  {id:'bronze',   icon:'B', name:'Bronssköld',      eff:'END+2',  bonus:{end:2},         rarity:'common'},
+  {id:'iron',     icon:'I', name:'Järnsvärd',        eff:'STR+2',  bonus:{str:2},         rarity:'common'},
+  {id:'crystal',  icon:'C', name:'Kristallkula',    eff:'INT+2',  bonus:{int:2},         rarity:'uncommon'},
+  {id:'marble',   icon:'M', name:'Marmorstatyett',  eff:'AGI+3',  bonus:{agi:3},         rarity:'uncommon'},
+  {id:'jade',     icon:'J', name:'Jadegroda',       eff:'LCK+3,INT+2', bonus:{lck:3,int:2},rarity:'rare'},
+  {id:'obsidian', icon:'O', name:'Obsidiandolk',    eff:'STR+4,AGI+2', bonus:{str:4,agi:2},rarity:'rare'},
+  {id:'gold',     icon:'G', name:'Guldkrona',       eff:'ALL+2',  bonus:{str:2,agi:2,int:2,lck:2,end:2},rarity:'epic'},
+  {id:'divine',   icon:'D', name:'Gudomlig Artefakt',eff:'ALL+5', bonus:{str:5,agi:5,int:5,lck:5,end:5},rarity:'legendary'},
+];
+
+var _relic2SelSite = null;
+
+function _relic2Data(){try{return JSON.parse(localStorage.getItem(RELIC2_KEY)||'null');}catch(e){return null;}}
+function _relic2Save(d){localStorage.setItem(RELIC2_KEY,JSON.stringify(d));}
+function _relic2GetData(){
+  var d=_relic2Data();
+  if(!d) d={found:{},digs:0,totalFound:0,legendCount:0};
+  return d;
+}
+
+function relic2SelSite(siteId){
+  _relic2SelSite=_relic2SelSite===siteId?null:siteId;
+  _renderRelic2(_relic2GetData());
+}
+
+function relic2Dig(){
+  if(!_relic2SelSite){showFloatBubble('Valj en gravesite forst!','debuff');return;}
+  var d=_relic2GetData();
+  var site=RELIC2_SITES.find(function(s){return s.id===_relic2SelSite;});
+  if(!site) return;
+  if((G.lvl||1)<site.minLvl){showFloatBubble('Niva '+site.minLvl+' kravs!','debuff');return;}
+  if((G.coins||0)<site.cost){showFloatBubble('Behover '+site.cost+' mynt!','debuff');return;}
+  gainCoins(-site.cost);
+  d.digs=(d.digs||0)+1;
+  // Pick rarity and relic based on luck and site
+  var lck=(G.lck||0)*0.02;
+  var r=Math.random()*(1+lck)/site.luckyMult;
+  var rarity='common';
+  if(r<0.02) rarity='legendary';
+  else if(r<0.08) rarity='epic';
+  else if(r<0.2) rarity='rare';
+  else if(r<0.45) rarity='uncommon';
+  var pool=RELIC2_POOL.filter(function(rp){return rp.rarity===rarity;});
+  if(!pool.length) pool=RELIC2_POOL.filter(function(rp){return rp.rarity==='common';});
+  var relic=pool[Math.floor(Math.random()*pool.length)];
+  var isNew=!d.found[relic.id];
+  d.found[relic.id]=(d.found[relic.id]||0)+1;
+  d.totalFound=(d.totalFound||0)+1;
+  if(rarity==='legendary') d.legendCount=(d.legendCount||0)+1;
+  if(isNew){
+    Object.keys(relic.bonus).forEach(function(s){G[s]=(G[s]||0)+relic.bonus[s];});
+    save();
+    showFloatBubble(relic.icon+' NYA RELIKEN: '+relic.name+'! '+relic.eff,'buff');
+  } else {
+    gainCoins(site.cost*0.5);
+    showFloatBubble(relic.icon+' Dublett av '+relic.name+'! +'+Math.floor(site.cost*0.5)+' mynt','buff');
+  }
+  _relic2Save(d);
+  checkAchievements();
+  _renderRelic2(d);
+}
+
+function openRelic2(){$('relic2Panel').classList.add('open');_renderRelic2(_relic2GetData());}
+function closeRelic2(){$('relic2Panel').classList.remove('open');}
+
+function _renderRelic2(d){
+  if(!d) d=_relic2GetData();
+  var fv=$('relic2FoundV');if(fv) fv.textContent=d.totalFound||0;
+  var dv=$('relic2DigsV');if(dv) dv.textContent=d.digs||0;
+  var lv=$('relic2LegendV');if(lv) lv.textContent=d.legendCount||0;
+  var cv=$('relic2CountV');if(cv) cv.textContent=Object.keys(d.found).length;
+  var lvl=G.lvl||1;
+  var sites=$('relic2Sites');
+  if(sites){
+    sites.innerHTML=RELIC2_SITES.map(function(site){
+      var locked=lvl<site.minLvl;
+      var isSel=_relic2SelSite===site.id;
+      return '<div class="relic-site'+(locked?' locked':isSel?' selected':'')+'" onclick="relic2SelSite(\''+site.id+'\')">'+
+        '<div class="relic-site-icon">'+site.icon+'</div>'+
+        '<div class="relic-site-body">'+
+          '<div class="relic-site-name">'+site.name+(locked?' (Niva '+site.minLvl+')':'')+'</div>'+
+          '<div class="relic-site-info">'+site.info+' · '+site.cost+' mynt per grav</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+  var coll=$('relic2Coll');
+  if(coll){
+    coll.innerHTML=RELIC2_POOL.map(function(relic){
+      var qty=d.found[relic.id]||0;
+      var owned=qty>0;
+      var cls='relic-item'+(owned&&relic.rarity==='legendary'?' legendary':owned?' found':'');
+      return '<div class="'+cls+'">'+
+        '<div class="relic-item-icon">'+(owned?relic.icon:'?')+'</div>'+
+        '<div class="relic-item-name">'+(owned?relic.name:'Okand')+'</div>'+
+        '<div class="relic-item-eff">'+(owned?relic.eff:'?')+'</div>'+
+        '<div class="relic-item-qty">'+(owned?'x'+qty:'')+'</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// SOUL NEXUS
+const SOUL_KEY = 'k0509_soul';
+const SOUL_UPGRADES = [
+  {id:'str_amp', icon:'S', name:'Styrkeforstärkning',  desc:'Forstarker kroppens naturliga styrka',  stat:'str', costPer:20, maxLvl:10},
+  {id:'agi_amp', icon:'A', name:'Smidighetsökning',    desc:'Snabbheten och smidigheten ökas',       stat:'agi', costPer:20, maxLvl:10},
+  {id:'int_amp', icon:'I', name:'Intellektupplyft',    desc:'Intellektet skarpas och klarnar',       stat:'int', costPer:20, maxLvl:10},
+  {id:'lck_amp', icon:'L', name:'Tur Magnet',          desc:'Lyckans hand grips med styrka',         stat:'lck', costPer:20, maxLvl:10},
+  {id:'end_amp', icon:'E', name:'Uthallighetsforstark',desc:'Uthalligheten ökas utan griinser',       stat:'end', costPer:20, maxLvl:10},
+  {id:'all_amp', icon:'X', name:'Allt-Forstarkning',   desc:'Alla krafter lyfts till nya höjder',    stat:'all', costPer:100,maxLvl:5},
+];
+
+function _soulData(){try{return JSON.parse(localStorage.getItem(SOUL_KEY)||'null');}catch(e){return null;}}
+function _soulSave(d){localStorage.setItem(SOUL_KEY,JSON.stringify(d));}
+function _soulGetData(){
+  var d=_soulData();
+  if(!d) d={energy:0,meditations:0,upgrades:{},lastMed:0,totalUpgrades:0};
+  return d;
+}
+
+function soulMeditate(){
+  var d=_soulGetData();
+  var now=Date.now();
+  var cooldown=1800000; // 30 min
+  if(now-d.lastMed<cooldown){
+    var rem=Math.ceil((cooldown-(now-d.lastMed))/60000);
+    showFloatBubble('Meditera igen om '+rem+' min','debuff');
+    return;
+  }
+  d.lastMed=now;
+  d.meditations=(d.meditations||0)+1;
+  var gain=10+Math.floor((G.int||0)*0.2);
+  d.energy=(d.energy||0)+gain;
+  gainXP(20,'int');
+  showFloatBubble('Meditation klar! +'+gain+' sielenergi','buff');
+  _soulSave(d);
+  _renderSoul(d);
+}
+
+function soulUpgrade(upgId){
+  var d=_soulGetData();
+  var upg=SOUL_UPGRADES.find(function(u){return u.id===upgId;});
+  if(!upg) return;
+  var lvl=(d.upgrades[upgId]||0);
+  if(lvl>=upg.maxLvl){showFloatBubble('Max niva nådd!','debuff');return;}
+  var cost=upg.costPer*(lvl+1);
+  if((d.energy||0)<cost){showFloatBubble('Behover '+cost+' sielenergi!','debuff');return;}
+  d.energy-=cost;
+  d.upgrades[upgId]=(d.upgrades[upgId]||0)+1;
+  d.totalUpgrades=(d.totalUpgrades||0)+1;
+  if(upg.stat==='all'){
+    ['str','agi','int','lck','end'].forEach(function(s){G[s]=(G[s]||0)+1;});
+  } else {
+    G[upg.stat]=(G[upg.stat]||0)+1;
+  }
+  save();
+  var bonusTxt=upg.stat==='all'?'+1 ALLA STATS':'+1 '+upg.stat.toUpperCase();
+  showFloatBubble(upg.icon+' '+upg.name+' uppgraderat! '+bonusTxt,'buff');
+  _soulSave(d);
+  checkAchievements();
+  _renderSoul(d);
+}
+
+function openSoul(){$('soulPanel').classList.add('open');_renderSoul(_soulGetData());}
+function closeSoul(){$('soulPanel').classList.remove('open');}
+
+function _renderSoul(d){
+  if(!d) d=_soulGetData();
+  var ev=$('soulEnergyV');if(ev) ev.textContent=d.energy||0;
+  var mv=$('soulMedV');if(mv) mv.textContent=d.meditations||0;
+  var uv=$('soulUpgV');if(uv) uv.textContent=d.totalUpgrades||0;
+  var eb=$('soulEnergyBig');if(eb) eb.textContent=d.energy||0;
+  var maxEnergy=500;
+  var bf=$('soulBarFill');if(bf) bf.style.width=Math.min(100,(d.energy||0)/maxEnergy*100)+'%';
+  var bt=$('soulBarTxt');if(bt) bt.textContent=(d.energy||0)+'/500 max';
+  var now=Date.now();
+  var canMed=(now-(d.lastMed||0))>=1800000;
+  var mb=$('soulMedBtn');if(mb) mb.disabled=!canMed;
+  var upgs=$('soulUpgrades');
+  if(upgs){
+    upgs.innerHTML=SOUL_UPGRADES.map(function(upg){
+      var lvl=d.upgrades[upg.id]||0;
+      var isMax=lvl>=upg.maxLvl;
+      var cost=upg.costPer*(lvl+1);
+      var noEnergy=(d.energy||0)<cost;
+      return '<div class="soul-upg'+(isMax?' maxed':'')+'">'+
+        '<div class="soul-upg-icon">'+upg.icon+'</div>'+
+        '<div class="soul-upg-body">'+
+          '<div class="soul-upg-name">'+upg.name+'</div>'+
+          '<div class="soul-upg-desc">'+upg.desc+'</div>'+
+          '<div class="soul-upg-lvl">Niva '+lvl+'/'+upg.maxLvl+(isMax?' (MAX)':' · Kostnad: '+cost+' energi')+'</div>'+
+        '</div>'+
+        (!isMax?'<button class="soul-upg-btn" onclick="soulUpgrade(\''+upg.id+'\')" '+(noEnergy?'disabled':'')+'>Uppgradera</button>':
+         '<div style="font:700 9px var(--ff-head);color:rgba(68,255,136,.5)">MAX</div>')+
+      '</div>';
+    }).join('');
+  }
+}
 
 </script>
 
