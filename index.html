@@ -2596,6 +2596,22 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ CRYSTAL CAVE ══ */
+.crys-panel{position:fixed;inset:0;background:linear-gradient(160deg,#050d1a,#0a1528);z-index:1127;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.crys-panel h2{color:#88ddff;font-size:1.4rem;margin-bottom:8px;text-shadow:0 0 12px #44aaff}
+.crys-cave{position:relative;width:100%;max-width:320px;height:160px;background:radial-gradient(ellipse,#0a2040,#020810);border:2px solid #224488;border-radius:14px;overflow:hidden;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;padding:8px;margin:8px 0;cursor:pointer}
+.crys-gem{font-size:1.8rem;transition:transform .2s;cursor:pointer}
+.crys-gem:hover{transform:scale(1.3)}
+.crys-inv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:320px;margin:4px 0}
+.crys-inv-slot{background:rgba(20,60,100,.3);border:1px solid #1a4070;border-radius:10px;padding:8px;text-align:center}
+.crys-inv-slot .ci-icon{font-size:1.4rem}
+.crys-inv-slot .ci-name{font-size:.65rem;color:#88ccff;margin-top:2px}
+.crys-inv-slot .ci-count{font-size:.75rem;color:#44aaff;font-weight:700}
+.crys-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+.crys-btn{background:linear-gradient(135deg,#103060,#061828);border:1px solid #2080cc;color:#88ccff;border-radius:10px;padding:8px 16px;font-size:.8rem;cursor:pointer;transition:all .2s}
+.crys-btn:hover{border-color:#88ddff;box-shadow:0 0 8px rgba(68,170,255,.4)}
+.crys-hdr{color:#88ccff;font-size:.8rem;font-weight:700;margin:4px 0;align-self:flex-start}
+
 /* ══ SHADOW REALM ══ */
 .shad-panel{position:fixed;inset:0;background:#000000;z-index:1078;display:none;flex-direction:column;overflow:hidden}
 .shad-panel.open{display:flex}
@@ -3006,6 +3022,23 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ SHADOW REALM ══ */
+.shad-panel{position:fixed;inset:0;background:radial-gradient(ellipse at center,#0d0010,#000005);z-index:1126;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.shad-panel h2{color:#cc66ff;font-size:1.4rem;margin-bottom:8px;text-shadow:0 0 16px #9900ff}
+.shad-arena{position:relative;width:280px;height:180px;background:rgba(80,0,120,0.2);border:2px solid #6600cc;border-radius:16px;margin:8px 0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.shad-arena::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse,rgba(120,0,200,.15),transparent 70%)}
+.shad-enemy{font-size:3.5rem;text-shadow:0 0 20px #cc00ff}
+.shad-enemy-hp{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);border-radius:6px;padding:2px 12px;color:#ff60ff;font-size:.7rem}
+.shad-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+.shad-btn{background:linear-gradient(135deg,#3a006a,#1a0040);border:1px solid #8800ee;color:#cc88ff;border-radius:10px;padding:8px 14px;font-size:.78rem;cursor:pointer;transition:all .2s}
+.shad-btn:hover{border-color:#cc66ff;background:linear-gradient(135deg,#5a00aa,#2a0060);box-shadow:0 0 8px rgba(170,0,255,.4)}
+.shad-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:320px;margin:6px 0}
+.shad-stat{background:rgba(80,0,120,0.2);border:1px solid #440088;border-radius:8px;padding:6px;text-align:center}
+.shad-stat .ss-val{color:#cc88ff;font-size:1rem;font-weight:700}
+.shad-stat .ss-lbl{color:#8860a0;font-size:.62rem;margin-top:1px}
+.shad-log{background:rgba(0,0,0,.4);border:1px solid #330066;border-radius:8px;padding:8px;width:100%;max-width:320px;max-height:100px;overflow-y:auto;font-size:.68rem;color:#b080d0}
+.shad-log div{margin-bottom:2px}
 
 /* ══ WEATHER STATION ══ */
 .wthr-panel{position:fixed;inset:0;background:linear-gradient(160deg,#061428,#0a2a1a);z-index:1125;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
@@ -16350,6 +16383,19 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
 </div>
 
+<!-- CRYSTAL CAVE -->
+<div class="crys-panel" id="crysPanel" style="display:none">
+  <button onclick="closeCrys()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#88ddff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>💎 Crystal Cave</h2>
+  <div style="color:#5588aa;font-size:.72rem;margin-bottom:2px">Mine crystals & craft powerful gems (8 mines/day)</div>
+  <div style="background:rgba(20,60,100,.3);border:1px solid #1a4070;border-radius:8px;padding:6px 14px;color:#88ccff;font-size:.85rem;margin-bottom:8px" id="crysMines">Mines today: 0/8</div>
+  <div class="crys-cave" id="crysCave" onclick="crysMineCave()"></div>
+  <div class="crys-hdr">💼 Crystal Inventory</div>
+  <div class="crys-inv" id="crysInv"></div>
+  <div class="crys-hdr" style="margin-top:6px">⚗️ Crafting</div>
+  <div class="crys-actions" id="crysCraft"></div>
+</div>
+
 <!-- SHADOW REALM -->
 <div class="shad-panel" id="shadPanel">
   <div class="shad-header">
@@ -16629,6 +16675,28 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <button class="wthr-collect-btn" onclick="wthrCollect()">Collect Weather Tokens</button>
   <div style="color:#80c8d8;font-size:.78rem;margin:4px 0 8px;text-align:center">Spend tokens to summon weather & gain its bonus</div>
   <div class="wthr-grid" id="wthrGrid"></div>
+</div>
+
+<!-- SHADOW REALM -->
+<div class="shad-panel" id="shadPanel" style="display:none">
+  <button onclick="closeShad()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#cc66ff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>👤 Shadow Realm</h2>
+  <div style="display:flex;gap:12px;margin-bottom:6px">
+    <div class="shad-stat"><div class="ss-val" id="shadPwr">0</div><div class="ss-lbl">Shadow Power</div></div>
+    <div class="shad-stat"><div class="ss-val" id="shadFights">0/8</div><div class="ss-lbl">Fights Today</div></div>
+    <div class="shad-stat"><div class="ss-val" id="shadWins">0</div><div class="ss-lbl">Total Wins</div></div>
+  </div>
+  <div class="shad-arena">
+    <div class="shad-enemy" id="shadEnemyIcon">💀</div>
+    <div class="shad-enemy-hp" id="shadEnemyHp">HP: 100</div>
+  </div>
+  <div id="shadEnemyName" style="color:#ff60ff;font-size:.85rem;margin:4px 0"></div>
+  <div class="shad-actions">
+    <button class="shad-btn" onclick="shadAttack('shadow')">🌑 Shadow Strike</button>
+    <button class="shad-btn" onclick="shadAttack('void')">🌀 Void Blast</button>
+    <button class="shad-btn" onclick="shadAttack('curse')">💜 Dark Curse</button>
+  </div>
+  <div class="shad-log" id="shadLog"><div>Enter the Shadow Realm...</div></div>
 </div>
 
 <!-- RUNE INSCRIPTION -->
@@ -69444,6 +69512,188 @@ function _renderWthr(){
     </div>`;
   });
   $('wthrGrid').innerHTML=gh;
+}
+
+
+// ══ SHADOW REALM ══
+var SHAD_KEY = 'k0509_shad';
+const SHAD_ENEMIES = [
+  {icon:'💀',name:'Bone Wraith',hp:80,atk:8,reward:{coins:30,xp:20}},
+  {icon:'🕷️',name:'Shadow Spider',hp:100,atk:12,reward:{coins:40,xp:30}},
+  {icon:'👁️',name:'Watcher',hp:120,atk:15,reward:{coins:50,xp:40,kc:2}},
+  {icon:'🦇',name:'Void Bat',hp:90,atk:10,reward:{coins:35,xp:25}},
+  {icon:'🌑',name:'Dark Elemental',hp:150,atk:18,reward:{coins:70,xp:55,kc:3}},
+  {icon:'🐍',name:'Shadow Serpent',hp:110,atk:13,reward:{coins:45,xp:35,pwr:5}},
+  {icon:'👻',name:'Phantom',hp:70,atk:9,reward:{coins:25,xp:18}},
+  {icon:'🔱',name:'Doom Lord',hp:200,atk:25,reward:{coins:120,xp:90,kc:5,pwr:10}},
+];
+const SHAD_MOVES = {
+  shadow:{name:'Shadow Strike',dmgMult:1.2,hitChance:.85,desc:'A dark lunge'},
+  void:{name:'Void Blast',dmgMult:1.5,hitChance:.7,desc:'Pure void energy'},
+  curse:{name:'Dark Curse',dmgMult:0.8,hitChance:1,debuff:true,desc:'Weakens foe (−5 ATK)'},
+};
+function _shadData(){
+  const d=JSON.parse(localStorage.getItem(SHAD_KEY)||'{}');
+  return {pwr:d.pwr||0,wins:d.wins||0,fights:d.fights||0,lastDay:d.lastDay||'',curEnemy:d.curEnemy||0,curHp:d.curHp||null,debuffed:d.debuffed||false,log:d.log||[]};
+}
+function _shadSave(d){localStorage.setItem(SHAD_KEY,JSON.stringify(d));}
+function _shadLog(d,msg){d.log.unshift(msg);if(d.log.length>20)d.log.pop();}
+function shadAttack(type){
+  const d=_shadData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.fights=0;d.lastDay=today;}
+  if(d.fights>=8){showFloatBubble('No more fights today!','bad');return;}
+  const move=SHAD_MOVES[type];
+  const enemy=SHAD_ENEMIES[d.curEnemy%SHAD_ENEMIES.length];
+  if(d.curHp===null)d.curHp=enemy.hp;
+  // Debuff
+  let enemyAtk=enemy.atk-(d.debuffed?5:0);
+  if(type==='curse'){d.debuffed=true;}
+  // Player damage
+  const baseDmg=8+Math.floor((G.str||10)/3);
+  const hit=Math.random()<move.hitChance;
+  if(hit){
+    const dmg=Math.floor(baseDmg*move.dmgMult);
+    d.curHp-=dmg;
+    _shadLog(d,`⚔️ ${move.name}: ${dmg} damage! Enemy HP: ${Math.max(0,d.curHp)}`);
+    d.pwr+=1;
+  } else {
+    _shadLog(d,`💨 ${move.name} missed!`);
+  }
+  // Enemy counter-attack
+  if(d.curHp>0){
+    const edm=Math.max(1,enemyAtk-Math.floor((G.agi||10)/4));
+    gainXP(-Math.min(edm,10),'str');
+    _shadLog(d,`💀 ${enemy.name} hits back: ${edm}`);
+  }
+  if(d.curHp<=0){
+    // Victory
+    d.wins++;
+    d.fights++;
+    d.curHp=null;
+    d.debuffed=false;
+    const r=enemy.reward;
+    if(r.coins)gainCoins(r.coins);
+    if(r.xp)gainXP(r.xp,'str');
+    if(r.kc)gainKC(r.kc);
+    if(r.pwr)d.pwr+=r.pwr;
+    d.curEnemy=(d.curEnemy+1)%SHAD_ENEMIES.length;
+    _shadLog(d,`✅ ${enemy.name} defeated! +${r.coins||0}🪙`);
+    showFloatBubble(`${enemy.icon} Defeated! +${r.coins||0}🪙`,'good');
+    checkAchievements();
+  } else {
+    d.fights++;
+  }
+  _shadSave(d);
+  _renderShad();
+}
+function openShad(){$('shadPanel').style.display='flex';_renderShad();}
+function closeShad(){$('shadPanel').style.display='none';}
+function _renderShad(){
+  const d=_shadData();
+  const today=getTodayKey();
+  const fights=d.lastDay===today?d.fights:0;
+  $('shadPwr').textContent=d.pwr;
+  $('shadFights').textContent=fights+'/8';
+  $('shadWins').textContent=d.wins;
+  const enemy=SHAD_ENEMIES[d.curEnemy%SHAD_ENEMIES.length];
+  const hp=d.curHp!==null?d.curHp:enemy.hp;
+  $('shadEnemyIcon').textContent=enemy.icon;
+  $('shadEnemyHp').textContent='HP: '+Math.max(0,hp)+'/'+enemy.hp;
+  $('shadEnemyName').textContent=enemy.name+(d.debuffed?' (Weakened)':'');
+  $('shadLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>No battles yet...</div>';
+}
+
+
+// ══ CRYSTAL CAVE ══
+const CRYS_KEY = 'k0509_crys';
+const CRYS_TYPES = [
+  {id:'blue',icon:'💎',name:'Blue Crystal',color:'#44aaff'},
+  {id:'red',icon:'🔴',name:'Red Crystal',color:'#ff4444'},
+  {id:'green',icon:'💚',name:'Green Crystal',color:'#44ff88'},
+  {id:'purple',icon:'💜',name:'Purple Crystal',color:'#aa44ff'},
+  {id:'gold',icon:'🟡',name:'Gold Crystal',color:'#ffcc00'},
+  {id:'white',icon:'🔷',name:'Ice Crystal',color:'#aaddff'},
+];
+const CRYS_RECIPES = [
+  {name:'Power Gem',icon:'💠',needs:{blue:2,red:1},reward:{str:3},desc:'+3 STR'},
+  {name:'Mind Gem',icon:'🔮',needs:{blue:2,purple:1},reward:{int:3},desc:'+3 INT'},
+  {name:'Swift Gem',icon:'⚡',needs:{green:2,blue:1},reward:{agi:3},desc:'+3 AGI'},
+  {name:'Gold Gem',icon:'⭐',needs:{gold:3},reward:{coins:200},desc:'+200 🪙'},
+  {name:'Star Gem',icon:'🌟',needs:{gold:2,white:2},reward:{kc:5},desc:'+5 KC'},
+  {name:'Supreme Gem',icon:'💫',needs:{blue:1,red:1,green:1,purple:1,gold:1,white:1},reward:{str:5,int:5,agi:5},desc:'+5 All Stats'},
+];
+function _crysData(){
+  const d=JSON.parse(localStorage.getItem(CRYS_KEY)||'{}');
+  const inv={};
+  CRYS_TYPES.forEach(c=>{inv[c.id]=d.inv&&d.inv[c.id]||0;});
+  return {mines:d.mines||0,lastDay:d.lastDay||'',inv:inv,crafted:d.crafted||0};
+}
+function _crysSave(d){localStorage.setItem(CRYS_KEY,JSON.stringify(d));}
+function crysMineCave(){
+  const d=_crysData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.mines=0;d.lastDay=today;}
+  if(d.mines>=8){showFloatBubble('No more mining today!','bad');return;}
+  // Mine 1-3 random crystals
+  const count=1+Math.floor(Math.random()*3);
+  const gained=[];
+  for(let i=0;i<count;i++){
+    const idx=Math.floor(Math.random()*CRYS_TYPES.length);
+    const t=CRYS_TYPES[idx];
+    d.inv[t.id]=(d.inv[t.id]||0)+1;
+    gained.push(t.icon);
+  }
+  d.mines++;
+  _crysSave(d);
+  showFloatBubble('Mined: '+gained.join(''),'good');
+  _renderCrys();
+}
+function crysCraft(recipeIdx){
+  const d=_crysData();
+  const r=CRYS_RECIPES[recipeIdx];
+  for(const [id,qty] of Object.entries(r.needs)){
+    if((d.inv[id]||0)<qty){showFloatBubble('Not enough crystals!','bad');return;}
+  }
+  for(const [id,qty] of Object.entries(r.needs)){d.inv[id]-=qty;}
+  d.crafted++;
+  if(r.reward.str){G.str=(G.str||10)+r.reward.str;save();}
+  if(r.reward.int){G.int=(G.int||10)+r.reward.int;save();}
+  if(r.reward.agi){G.agi=(G.agi||10)+r.reward.agi;save();}
+  if(r.reward.coins)gainCoins(r.reward.coins);
+  if(r.reward.kc)gainKC(r.reward.kc);
+  _crysSave(d);
+  showFloatBubble(`${r.icon} ${r.name} crafted! ${r.desc}`,'good');
+  checkAchievements();
+  _renderCrys();
+}
+function openCrys(){$('crysPanel').style.display='flex';_renderCrys();}
+function closeCrys(){$('crysPanel').style.display='none';}
+function _renderCrys(){
+  const d=_crysData();
+  const today=getTodayKey();
+  const mines=d.lastDay===today?d.mines:0;
+  $('crysMines').textContent='Mines today: '+mines+'/8';
+  // Cave display: scattered crystal icons
+  const caveGems=CRYS_TYPES.map(t=>`<span class="crys-gem">${t.icon}</span>`).join('');
+  $('crysCave').innerHTML=caveGems+'<div style="position:absolute;bottom:8px;color:#446688;font-size:.65rem">Tap to mine!</div>';
+  // Inventory
+  $('crysInv').innerHTML=CRYS_TYPES.map(t=>`<div class="crys-inv-slot">
+    <div class="ci-icon">${t.icon}</div>
+    <div class="ci-name">${t.name.replace(' Crystal','')}</div>
+    <div class="ci-count">${d.inv[t.id]||0}</div>
+  </div>`).join('');
+  // Crafting
+  $('crysCraft').innerHTML=CRYS_RECIPES.map((r,i)=>{
+    const canCraft=Object.entries(r.needs).every(([id,qty])=>(d.inv[id]||0)>=qty);
+    const needsStr=Object.entries(r.needs).map(([id,q])=>{
+      const t=CRYS_TYPES.find(c=>c.id===id);
+      return q+'×'+t.icon;
+    }).join(' ');
+    return `<button class="crys-btn" onclick="crysCraft(${i})" ${canCraft?'':'style="opacity:.5"'}>
+      ${r.icon} ${r.name}<br><span style="font-size:.6rem">${needsStr} → ${r.desc}</span>
+    </button>`;
+  }).join('');
 }
 
 </script>
