@@ -2596,6 +2596,30 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ MERCHANT GUILD ══ */
+.mgld-panel{position:fixed;inset:0;background:linear-gradient(165deg,#060402,#0a0600);z-index:1152;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.mgld-panel h2{color:#ffdd88;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #ddaa44}
+.mgld-rank{background:rgba(40,25,0,.4);border:2px solid #664400;border-radius:12px;width:100%;max-width:320px;padding:10px;text-align:center;margin-bottom:8px}
+.mgld-rank .mr-title{color:#ffdd88;font-size:1rem;font-weight:700}
+.mgld-rank .mr-rep{color:#cc9944;font-size:.75rem;margin-top:3px}
+.mgld-rank .mr-bar{height:10px;background:rgba(40,20,0,.5);border-radius:5px;overflow:hidden;margin:6px 0;border:1px solid #553300}
+.mgld-rank .mr-fill{height:100%;background:linear-gradient(90deg,#886600,#ffcc44);border-radius:5px;transition:width .3s}
+.mgld-contracts{display:flex;flex-direction:column;gap:7px;width:100%;max-width:340px}
+.mgld-contract{background:rgba(25,15,0,.4);border:1px solid #553300;border-radius:12px;padding:10px 12px;cursor:pointer;transition:all .2s}
+.mgld-contract:hover{border-color:#ffdd88;background:rgba(45,25,0,.5)}
+.mgld-contract.done{opacity:.55;cursor:default}
+.mgld-contract .mc-head{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.mgld-contract .mc-icon{font-size:1.3rem}
+.mgld-contract .mc-name{color:#ffdd88;font-size:.8rem;font-weight:700}
+.mgld-contract .mc-tier{font-size:.6rem;padding:1px 5px;border-radius:3px;margin-left:auto}
+.mgld-contract .mc-tier.bronze{background:#2a1500;color:#cc7722}
+.mgld-contract .mc-tier.silver{background:#1a1a1a;color:#aaaaaa}
+.mgld-contract .mc-tier.gold{background:#2a1a00;color:#ffcc00}
+.mgld-contract .mc-tier.diamond{background:#0a1a2a;color:#44ccff}
+.mgld-contract .mc-task{color:#886630;font-size:.65rem;margin-bottom:2px}
+.mgld-contract .mc-reward{color:#88dd88;font-size:.62rem}
+.mgld-rep{background:rgba(30,18,0,.35);border:1px solid #553300;border-radius:8px;padding:5px 14px;color:#ffdd88;font-size:.8rem;margin-bottom:6px}
+
 /* ══ TITAN CLASH ══ */
 .titan-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 10%,#180208,#060002);z-index:1151;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .titan-panel h2{color:#ff6688;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 16px #dd0033}
@@ -16957,6 +16981,20 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
   <div class="aduel-spells" id="aduelSpells"></div>
   <div class="aduel-log" id="aduelLog"><div>Cast a spell to begin the duel!</div></div>
+</div>
+
+<!-- MERCHANT GUILD -->
+<div class="mgld-panel" id="mgldPanel" style="display:none">
+  <button onclick="closeMgld()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ffdd88;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🏪 Merchant Guild</h2>
+  <div class="mgld-rep" id="mgldRep">Guild Rep: 0 | Contracts: 0/8 done today</div>
+  <div class="mgld-rank" id="mgldRank">
+    <div class="mr-title" id="mgldRankTitle">🪵 Apprentice</div>
+    <div class="mr-rep" id="mgldRepSub">Rep: 0 / 200</div>
+    <div class="mr-bar"><div class="mr-fill" id="mgldRepFill" style="width:0%"></div></div>
+  </div>
+  <div style="color:#886630;font-size:.72rem;margin-bottom:8px">Complete contracts to earn guild reputation</div>
+  <div class="mgld-contracts" id="mgldContracts"></div>
 </div>
 
 <!-- GEM COLLECTOR -->
@@ -72465,6 +72503,85 @@ function _renderTitan(){
     const bonus=Math.floor(d.myDmg/200);
     $('titanRewardArea').innerHTML=`<div style="color:#884444;font-size:.7rem">Defeat to earn: ${1000+bonus}🪙 +30KC +10 All</div>`;
   }
+}
+
+
+// ══ MERCHANT GUILD ══
+const MGLD_KEY = 'k0509_mgld';
+const MGLD_RANKS = [
+  {name:'🪵 Apprentice',minRep:0,bonus:null},
+  {name:'🥉 Journeyman',minRep:200,bonus:'+3 INT'},
+  {name:'🥈 Merchant',minRep:600,bonus:'+5 All Stats'},
+  {name:'🥇 Master Merchant',minRep:1500,bonus:'+10 INT +5 AGI'},
+  {name:'💎 Guild Master',minRep:4000,bonus:'+15 All Stats +20KC'},
+];
+const MGLD_CONTRACTS = [
+  {id:'c1',icon:'🍎',name:'Food Delivery',tier:'bronze',req:'Have 200 coins',reward:{rep:10,coins:50},rdesc:'+10 Rep +50🪙',check:()=>(G.coins||0)>=200},
+  {id:'c2',icon:'⚔️',name:'Weapons Trade',tier:'bronze',req:'Have STR 15',reward:{rep:15,coins:80},rdesc:'+15 Rep +80🪙',check:()=>(G.str||0)>=15},
+  {id:'c3',icon:'📚',name:'Scroll Deal',tier:'bronze',req:'Have INT 15',reward:{rep:15,int:1},rdesc:'+15 Rep +1 INT',check:()=>(G.int||0)>=15},
+  {id:'c4',icon:'💨',name:'Courier Run',tier:'silver',req:'Have AGI 20',reward:{rep:25,coins:120},rdesc:'+25 Rep +120🪙',check:()=>(G.agi||0)>=20},
+  {id:'c5',icon:'💎',name:'Gem Appraisal',tier:'silver',req:'All stats 25+',reward:{rep:35,coins:200},rdesc:'+35 Rep +200🪙',check:()=>(G.str||0)>=25&&(G.int||0)>=25&&(G.agi||0)>=25},
+  {id:'c6',icon:'🏰',name:'Noble Supply',tier:'gold',req:'Have Level 20',reward:{rep:60,kc:3},rdesc:'+60 Rep +3KC',check:()=>(G.level||1)>=20},
+  {id:'c7',icon:'🌟',name:'Rare Artifact',tier:'gold',req:'All stats 40+',reward:{rep:100,coins:400,int:3},rdesc:'+100 Rep +400🪙 +3INT',check:()=>(G.str||0)>=40&&(G.int||0)>=40&&(G.agi||0)>=40},
+  {id:'c8',icon:'👑',name:'Royal Commission',tier:'diamond',req:'Have Level 40',reward:{rep:200,kc:10,coins:600},rdesc:'+200 Rep +10KC +600🪙',check:()=>(G.level||1)>=40},
+];
+function _mgldData(){
+  const d=JSON.parse(localStorage.getItem(MGLD_KEY)||'{}');
+  return {rep:d.rep||0,done:d.done||[],doneToday:d.doneToday||[],lastDay:d.lastDay||''};
+}
+function _mgldSave(d){localStorage.setItem(MGLD_KEY,JSON.stringify(d));}
+function mgldAccept(cid){
+  const d=_mgldData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.doneToday=[];d.lastDay=today;}
+  if(d.doneToday.includes(cid)){showFloatBubble('Done today!','bad');return;}
+  if(d.doneToday.length>=8){showFloatBubble('8 contracts done today!','bad');return;}
+  const c=MGLD_CONTRACTS.find(x=>x.id===cid);
+  if(!c.check()){showFloatBubble('Requirement not met!','bad');return;}
+  d.doneToday.push(cid);
+  if(!d.done.includes(cid))d.done.push(cid);
+  d.rep=(d.rep||0)+c.reward.rep;
+  // Check rank bonuses
+  const prevRank=MGLD_RANKS.filter(r=>r.minRep<=(d.rep-c.reward.rep)).pop();
+  const newRank=MGLD_RANKS.filter(r=>r.minRep<=d.rep).pop();
+  if(prevRank&&newRank&&prevRank.name!==newRank.name&&newRank.bonus){
+    showFloatBubble(`🏪 Rank Up: ${newRank.name}!`,'good');
+    if(newRank.minRep===200){G.int+=3;save();}
+    else if(newRank.minRep===600){G.str+=5;G.int+=5;G.agi+=5;save();}
+    else if(newRank.minRep===1500){G.int+=10;G.agi+=5;save();}
+    else if(newRank.minRep===4000){G.str+=15;G.int+=15;G.agi+=15;save();gainKC(20);}
+  }
+  _mgldSave(d);
+  if(c.reward.coins)gainCoins(c.reward.coins);
+  if(c.reward.kc)gainKC(c.reward.kc);
+  if(c.reward.int){G.int=(G.int||10)+c.reward.int;save();}
+  showFloatBubble(`🏪 ${c.name}: ${c.rdesc}`,'good');
+  checkAchievements();_renderMgld();
+}
+function openMgld(){$('mgldPanel').style.display='flex';_renderMgld();}
+function closeMgld(){$('mgldPanel').style.display='none';}
+function _renderMgld(){
+  const d=_mgldData();
+  const today=getTodayKey();
+  const doneToday=d.lastDay===today?d.doneToday.length:0;
+  const rank=MGLD_RANKS.filter(r=>r.minRep<=d.rep).pop();
+  const nextRank=MGLD_RANKS.find(r=>r.minRep>d.rep);
+  $('mgldRep').textContent=`Guild Rep: ${d.rep} | Contracts: ${doneToday}/8 done today`;
+  $('mgldRankTitle').textContent=rank.name;
+  const repForNext=nextRank?nextRank.minRep:MGLD_RANKS[MGLD_RANKS.length-1].minRep;
+  const pct=nextRank?Math.min(100,(d.rep-rank.minRep)/(nextRank.minRep-rank.minRep)*100):100;
+  $('mgldRepSub').textContent=`Rep: ${d.rep} / ${repForNext}`;
+  $('mgldRepFill').style.width=pct+'%';
+  const doneTodays=d.lastDay===today?d.doneToday:[];
+  $('mgldContracts').innerHTML=MGLD_CONTRACTS.map(c=>{
+    const done=doneTodays.includes(c.id);
+    const met=c.check();
+    return `<div class="mgld-contract ${done?'done':''}" onclick="mgldAccept('${c.id}')">
+      <div class="mc-head"><span class="mc-icon">${c.icon}</span><span class="mc-name">${c.name}</span><span class="mc-tier ${c.tier}">${c.tier}</span></div>
+      <div class="mc-task">${c.req}</div>
+      <div class="mc-reward">${c.rdesc} ${done?'✅':met?'✨':''}</div>
+    </div>`;
+  }).join('');
 }
 
 </script>
