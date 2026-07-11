@@ -1548,6 +1548,48 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ MILESTONES ══ */
+.mil-panel{position:fixed;inset:0;background:#020408;z-index:1061;display:none;flex-direction:column;overflow:hidden}
+.mil-panel.open{display:flex}
+.mil-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060a18,#020408)}
+.mil-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ffcc00,#ff8800,#ff44aa,#aa44ff,#4488ff,#ffcc00);background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:milShim 3s linear infinite}
+@keyframes milShim{0%{background-position:0%}100%{background-position:500%}}
+.mil-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Progress summary */
+.mil-summary{display:flex;gap:8px;margin-bottom:12px}
+.mil-sum-box{flex:1;background:rgba(255,200,0,.04);border:1px solid rgba(255,200,0,.15);border-radius:12px;padding:8px;text-align:center}
+.mil-sum-v{font:900 22px var(--ff-head);color:#ffcc00}
+.mil-sum-l{font:600 7px var(--ff-body);color:rgba(255,200,0,.4)}
+/* Progress bar overall */
+.mil-overall-wrap{margin-bottom:12px}
+.mil-overall-lbl{display:flex;justify-content:space-between;font:700 9px var(--ff-head);color:rgba(255,255,255,.3);margin-bottom:4px}
+.mil-overall-bar-bg{background:rgba(255,255,255,.06);border-radius:6px;height:8px;overflow:hidden}
+.mil-overall-bar{height:100%;border-radius:6px;background:linear-gradient(90deg,#ffcc00,#ff8800);transition:width .5s}
+/* Category tabs */
+.mil-tabs{display:flex;gap:5px;margin-bottom:10px;overflow-x:auto;padding-bottom:2px}
+.mil-tab{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:5px 10px;font:700 9px var(--ff-head);color:rgba(255,255,255,.4);cursor:pointer;flex-shrink:0}
+.mil-tab.active{background:rgba(255,200,0,.12);border-color:rgba(255,200,0,.3);color:#ffcc00}
+/* Milestone rows */
+.mil-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.mil-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 12px;position:relative;overflow:hidden}
+.mil-item.done{border-color:rgba(68,255,136,.3);background:rgba(68,255,136,.03)}
+.mil-item.claimable{border-color:rgba(255,200,0,.4);background:rgba(255,200,0,.06);animation:milPulse .8s ease-in-out infinite alternate}
+@keyframes milPulse{0%{box-shadow:0 0 0 rgba(255,200,0,0)}100%{box-shadow:0 0 12px rgba(255,200,0,.2)}}
+.mil-icon{font-size:26px;flex-shrink:0;width:32px;text-align:center}
+.mil-body{flex:1;min-width:0}
+.mil-name{font:700 11px var(--ff-head);color:#fff;margin-bottom:2px}
+.mil-item.done .mil-name{color:#44ff88}
+.mil-desc{font:600 8px var(--ff-body);color:rgba(255,255,255,.35);margin-bottom:4px}
+.mil-prog{background:rgba(255,255,255,.06);border-radius:4px;height:4px;overflow:hidden}
+.mil-prog-inner{height:100%;border-radius:4px;background:linear-gradient(90deg,#ffcc00,#44ff88);transition:width .4s}
+.mil-item.done .mil-prog-inner{background:#44ff88}
+.mil-rw{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
+.mil-rw-pill{background:rgba(255,200,0,.1);border:1px solid rgba(255,200,0,.2);border-radius:5px;padding:1px 5px;font:700 7px var(--ff-head);color:#ffcc00}
+.mil-claim-btn{background:linear-gradient(135deg,#2a1800,#5a4000);border:1.5px solid rgba(255,200,0,.5);border-radius:10px;padding:6px 12px;font:800 10px var(--ff-head);color:#ffcc00;cursor:pointer;flex-shrink:0}
+.mil-done-check{font-size:20px;color:#44ff88;flex-shrink:0}
+.mil-lock{font-size:16px;color:rgba(255,255,255,.2);flex-shrink:0}
+
 /* ══ AUCTION HOUSE ══ */
 .auc-panel{position:fixed;inset:0;background:#04020a;z-index:1060;display:none;flex-direction:column;overflow:hidden}
 .auc-panel.open{display:flex}
@@ -12387,6 +12429,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
+          <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12468,6 +12511,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
+          <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12532,6 +12576,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
+          <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12634,6 +12679,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openWf()"><div class="ddr-i">🌾</div>Väderfarmen</div>
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
+          <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13242,6 +13288,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- MILESTONES -->
+<div class="mil-panel" id="milPanel">
+  <div class="mil-header">
+    <div class="mil-title">🎯 MILSTOLPAR</div>
+    <button class="close-btn" onclick="closeMil()">✕</button>
+  </div>
+  <div class="mil-scroll">
+    <div class="mil-summary">
+      <div class="mil-sum-box"><div class="mil-sum-v" id="milDone">0</div><div class="mil-sum-l">Klara</div></div>
+      <div class="mil-sum-box"><div class="mil-sum-v" id="milTotal">0</div><div class="mil-sum-l">Totalt</div></div>
+      <div class="mil-sum-box"><div class="mil-sum-v" id="milKcEarned">0</div><div class="mil-sum-l">KC Tjänat</div></div>
+    </div>
+    <div class="mil-overall-wrap">
+      <div class="mil-overall-lbl"><span>Framsteg</span><span id="milOverallPct">0%</span></div>
+      <div class="mil-overall-bar-bg"><div class="mil-overall-bar" id="milOverallBar" style="width:0%"></div></div>
+    </div>
+    <div class="mil-tabs" id="milTabs">
+      <div class="mil-tab active" onclick="milSetFilter('all')">Alla</div>
+      <div class="mil-tab" onclick="milSetFilter('stats')">⚔️ Stats</div>
+      <div class="mil-tab" onclick="milSetFilter('level')">📈 Level</div>
+      <div class="mil-tab" onclick="milSetFilter('activity')">🎮 Aktivitet</div>
+      <div class="mil-tab" onclick="milSetFilter('wealth')">🪙 Rikedom</div>
+    </div>
+    <div class="mil-list" id="milList"></div>
+  </div>
+</div>
 
 <!-- AUCTION HOUSE -->
 <div class="auc-panel" id="aucPanel">
@@ -58117,6 +58191,126 @@ function _renderAuc(d){
       return '<div class="auc-owned-item">'+name+'</div>';
     }).join('');
   }
+}
+
+
+// MILESTONES
+const MIL_KEY = 'k0509_mil';
+const MIL_ALL = [
+  // Stats milestones
+  {id:'str10',  cat:'stats',   icon:'💪', name:'Nybörjarstyrka',  desc:'Nå STR 10',    check:function(){return (G.str||0)>=10;},   coins:50,  xp:30,  kc:0},
+  {id:'str50',  cat:'stats',   icon:'⚔️', name:'Kriger',           desc:'Nå STR 50',    check:function(){return (G.str||0)>=50;},   coins:150, xp:80,  kc:1},
+  {id:'str100', cat:'stats',   icon:'🗡️', name:'Stridsgud',        desc:'Nå STR 100',   check:function(){return (G.str||0)>=100;},  coins:400, xp:200, kc:2},
+  {id:'agi10',  cat:'stats',   icon:'💨', name:'Snabbfotad',       desc:'Nå AGI 10',    check:function(){return (G.agi||0)>=10;},   coins:50,  xp:30,  kc:0},
+  {id:'agi50',  cat:'stats',   icon:'⚡', name:'Skuggsprinter',    desc:'Nå AGI 50',    check:function(){return (G.agi||0)>=50;},   coins:150, xp:80,  kc:1},
+  {id:'int10',  cat:'stats',   icon:'📖', name:'Nyfiken',          desc:'Nå INT 10',    check:function(){return (G.int||0)>=10;},   coins:50,  xp:30,  kc:0},
+  {id:'int50',  cat:'stats',   icon:'🧠', name:'Vise Man',         desc:'Nå INT 50',    check:function(){return (G.int||0)>=50;},   coins:150, xp:80,  kc:1},
+  {id:'end10',  cat:'stats',   icon:'🛡️', name:'Uthållig',        desc:'Nå END 10',    check:function(){return (G.end||0)>=10;},   coins:50,  xp:30,  kc:0},
+  {id:'end50',  cat:'stats',   icon:'🏔️', name:'Bergfast',        desc:'Nå END 50',    check:function(){return (G.end||0)>=50;},   coins:150, xp:80,  kc:1},
+  {id:'lck10',  cat:'stats',   icon:'🍀', name:'Lyckosam',         desc:'Nå LCK 10',    check:function(){return (G.lck||0)>=10;},   coins:50,  xp:30,  kc:0},
+  {id:'lck50',  cat:'stats',   icon:'🌟', name:'Lyckogud',         desc:'Nå LCK 50',    check:function(){return (G.lck||0)>=50;},   coins:150, xp:80,  kc:1},
+  {id:'allstat25',cat:'stats', icon:'🌈', name:'Allsidig',         desc:'Alla stats ≥ 25',check:function(){return (G.str||0)>=25&&(G.agi||0)>=25&&(G.int||0)>=25&&(G.end||0)>=25&&(G.lck||0)>=25;},coins:300,xp:150,kc:2},
+  // Level milestones
+  {id:'lvl5',   cat:'level',   icon:'⭐', name:'Nykomling',        desc:'Nå level 5',   check:function(){return (G.lvl||1)>=5;},    coins:60,  xp:40,  kc:0},
+  {id:'lvl10',  cat:'level',   icon:'🌟', name:'Äventyrare',       desc:'Nå level 10',  check:function(){return (G.lvl||1)>=10;},   coins:100, xp:60,  kc:1},
+  {id:'lvl20',  cat:'level',   icon:'💫', name:'Veteran',          desc:'Nå level 20',  check:function(){return (G.lvl||1)>=20;},   coins:200, xp:100, kc:1},
+  {id:'lvl30',  cat:'level',   icon:'🏆', name:'Expert',           desc:'Nå level 30',  check:function(){return (G.lvl||1)>=30;},   coins:350, xp:150, kc:2},
+  {id:'lvl50',  cat:'level',   icon:'👑', name:'Legende',          desc:'Nå level 50',  check:function(){return (G.lvl||1)>=50;},   coins:600, xp:300, kc:3},
+  // Activity milestones
+  {id:'kc5',    cat:'activity',icon:'💠', name:'KC Samlare',       desc:'Nå 5 KC',      check:function(){return (G.kc||0)>=5;},     coins:100, xp:50,  kc:0},
+  {id:'kc20',   cat:'activity',icon:'💎', name:'KC Lord',          desc:'Nå 20 KC',     check:function(){return (G.kc||0)>=20;},    coins:300, xp:150, kc:0},
+  {id:'pres1',  cat:'activity',icon:'⭐', name:'Reborn',           desc:'Utför 1 Prestige',check:function(){try{var d=JSON.parse(localStorage.getItem('k0509_pres')||'{}');return (d.level||0)>=1;}catch(e){return false;}},coins:500,xp:250,kc:2},
+  {id:'rel5',   cat:'activity',icon:'🏺', name:'Reliksamlare',     desc:'Hitta 5 reliker',check:function(){try{var d=JSON.parse(localStorage.getItem('k0509_rel')||'{}');return Object.keys(d.owned||{}).length>=5;}catch(e){return false;}},coins:200,xp:100,kc:1},
+  {id:'rel15',  cat:'activity',icon:'🗿', name:'Relikmästare',     desc:'Hitta 15 reliker',check:function(){try{var d=JSON.parse(localStorage.getItem('k0509_rel')||'{}');return Object.keys(d.owned||{}).length>=15;}catch(e){return false;}},coins:500,xp:250,kc:2},
+  {id:'dng5',   cat:'activity',icon:'⚔️', name:'Fängelseutforskare',desc:'Nå Fängelsehåla våning 5',check:function(){try{var d=JSON.parse(localStorage.getItem('k0509_dng')||'{}');return (d.best||0)>=5;}catch(e){return false;}},coins:150,xp:80,kc:1},
+  // Wealth milestones
+  {id:'coins500', cat:'wealth',icon:'🪙', name:'Rik',              desc:'Nå 500 mynt',  check:function(){return (G.coins||0)>=500;},    coins:0,   xp:50,  kc:0},
+  {id:'coins2000',cat:'wealth',icon:'💰', name:'Förmögen',         desc:'Nå 2000 mynt', check:function(){return (G.coins||0)>=2000;},   coins:0,   xp:100, kc:1},
+  {id:'coins5000',cat:'wealth',icon:'🏦', name:'Skattkammare',     desc:'Nå 5000 mynt', check:function(){return (G.coins||0)>=5000;},   coins:0,   xp:200, kc:2},
+];
+
+var _milFilter='all';
+
+function _milData(){try{return JSON.parse(localStorage.getItem(MIL_KEY)||'null');}catch(e){return null;}}
+function _milSave(d){localStorage.setItem(MIL_KEY,JSON.stringify(d));}
+function _milGetData(){
+  var d=_milData();
+  if(!d) d={claimed:{}};
+  return d;
+}
+
+function milClaim(id){
+  var d=_milGetData();
+  if(d.claimed[id]) return;
+  var mil=MIL_ALL.find(function(m){return m.id===id;});
+  if(!mil||!mil.check()) return;
+  d.claimed[id]=true;
+  gainCoins(mil.coins);gainXP(mil.xp,'int');if(mil.kc) gainKC(mil.kc);
+  _milSave(d);
+  showFloatBubble('🎯 MILSTOLPE: '+mil.name+'! '+( mil.coins>0?'+'+mil.coins+'🪙 ':'')+'+'+mil.xp+'XP'+(mil.kc?' +'+mil.kc+'KC':''),'buff');
+  checkAchievements();
+  _renderMil(d);
+}
+
+function milSetFilter(f){
+  _milFilter=f;
+  document.querySelectorAll('.mil-tab').forEach(function(t,i){
+    var filters=['all','stats','level','activity','wealth'];
+    t.classList.toggle('active',filters[i]===f);
+  });
+  _renderMil();
+}
+
+// Auto-check milestones periodically
+function milAutoCheck(){
+  var d=_milGetData();
+  var any=false;
+  MIL_ALL.forEach(function(m){
+    if(!d.claimed[m.id]&&m.check()){
+      // Show notification but don't auto-claim
+      any=true;
+    }
+  });
+}
+
+function openMil(){$('milPanel').classList.add('open');_renderMil();}
+function closeMil(){$('milPanel').classList.remove('open');}
+
+function _renderMil(d){
+  if(!d) d=_milGetData();
+  var total=MIL_ALL.length;
+  var done=Object.keys(d.claimed).length;
+  var kcEarned=MIL_ALL.filter(function(m){return d.claimed[m.id]&&m.kc;}).reduce(function(a,m){return a+m.kc;},0);
+  var md=$('milDone');if(md) md.textContent=done;
+  var mt=$('milTotal');if(mt) mt.textContent=total;
+  var mk=$('milKcEarned');if(mk) mk.textContent=kcEarned;
+  var pct=Math.round(done/total*100);
+  var op=$('milOverallPct');if(op) op.textContent=pct+'%';
+  var ob=$('milOverallBar');if(ob) ob.style.width=pct+'%';
+  var list=$('milList');
+  if(!list) return;
+  var shown=MIL_ALL.filter(function(m){return _milFilter==='all'||m.cat===_milFilter;});
+  list.innerHTML=shown.map(function(m){
+    var isClaimed=!!d.claimed[m.id];
+    var isEarned=m.check();
+    var canClaim=isEarned&&!isClaimed;
+    var cls='mil-item'+(isClaimed?' done':canClaim?' claimable':'');
+    var rwHtml=(m.coins>0?'<div class="mil-rw-pill">+'+m.coins+'🪙</div>':'')+
+               '<div class="mil-rw-pill">+'+m.xp+'XP</div>'+
+               (m.kc?'<div class="mil-rw-pill">+'+m.kc+'KC</div>':'');
+    var rightHtml=isClaimed?'<div class="mil-done-check">✅</div>':
+      canClaim?'<button class="mil-claim-btn" onclick="milClaim(\''+m.id+'\')">Hämta!</button>':
+      '<div class="mil-lock">🔒</div>';
+    return '<div class="'+cls+'">'+
+      '<div class="mil-icon">'+m.icon+'</div>'+
+      '<div class="mil-body">'+
+        '<div class="mil-name">'+m.name+'</div>'+
+        '<div class="mil-desc">'+m.desc+'</div>'+
+        '<div class="mil-rw">'+rwHtml+'</div>'+
+      '</div>'+
+      rightHtml+
+    '</div>';
+  }).join('');
 }
 
 </script>
