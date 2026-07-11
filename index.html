@@ -2596,6 +2596,41 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ DESERT OASIS ══ */
+.doasis-panel{position:fixed;inset:0;background:linear-gradient(180deg,#120a00,#0a0600);z-index:1158;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.doasis-panel h2{color:#ffdd88;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #ddaa44}
+.doasis-oasis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:340px;background:rgba(30,18,0,.4);border:2px solid #664400;border-radius:14px;padding:10px;margin:6px 0}
+.doasis-tile{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;background:rgba(50,25,0,.4);border:1px solid #553300;font-size:1.3rem}
+.doasis-tile:hover{border-color:#ffdd88;transform:scale(1.06)}
+.doasis-tile.explored-tile{border-color:#cc8800;background:rgba(70,35,0,.4);opacity:.6}
+.doasis-tile .dt-lbl{font-size:.55rem;color:#aa7722;margin-top:2px;text-align:center}
+.doasis-camel{background:rgba(25,15,0,.4);border:1px solid #553300;border-radius:12px;padding:10px;width:100%;max-width:340px;text-align:center;margin-bottom:8px}
+.doasis-camel .dc-icon{font-size:2.5rem}
+.doasis-camel .dc-info{color:#cc9944;font-size:.75rem;margin-top:4px}
+.doasis-trades{display:flex;flex-direction:column;gap:6px;width:100%;max-width:340px;margin-top:4px}
+.doasis-trade{background:rgba(20,12,0,.4);border:1px solid #442200;border-radius:10px;padding:8px 12px;cursor:pointer;transition:all .2s}
+.doasis-trade:hover{border-color:#ffdd88;background:rgba(40,22,0,.5)}
+.doasis-trade .dtr-head{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.doasis-trade .dtr-icon{font-size:1.2rem}
+.doasis-trade .dtr-name{color:#ffdd88;font-size:.78rem;font-weight:700}
+.doasis-trade .dtr-cost{color:#cc8844;font-size:.62rem;margin-left:auto}
+.doasis-trade .dtr-reward{color:#88ccff;font-size:.62rem}
+.doasis-gold{background:rgba(20,12,0,.35);border:1px solid #442200;border-radius:8px;padding:5px 14px;color:#ffdd88;font-size:.8rem;margin-bottom:6px}
+
+/* ══ LIBRARY OF SECRETS ══ */
+.libr-panel{position:fixed;inset:0;background:linear-gradient(160deg,#060402,#080602);z-index:1157;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.libr-panel h2{color:#ddbb88;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #aa8844}
+.libr-shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;max-width:340px;background:rgba(25,15,0,.5);border:2px solid #604020;border-radius:14px;padding:10px;margin:6px 0}
+.libr-book{aspect-ratio:.7;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;cursor:pointer;transition:all .2s;padding:4px;font-size:1.6rem;position:relative}
+.libr-book:hover{transform:translateY(-6px) scale(1.05)}
+.libr-book.read{filter:none}
+.libr-book.unread{filter:grayscale(.6)}
+.libr-book .lb-title{font-size:.48rem;color:#ccaa66;margin-top:2px;text-align:center;line-height:1.1}
+.libr-reading{background:rgba(20,12,0,.4);border:1px solid #553300;border-radius:12px;padding:12px;width:100%;max-width:340px;min-height:80px;margin:6px 0}
+.libr-stats{background:rgba(15,10,0,.35);border:1px solid #442200;border-radius:8px;padding:5px 14px;color:#ddbb88;font-size:.8rem;margin-bottom:6px;text-align:center}
+.libr-read-btn{background:linear-gradient(135deg,#553300,#2a1800);border:1px solid #aa7744;color:#ddbb88;border-radius:10px;padding:8px 20px;font-size:.82rem;cursor:pointer;transition:all .2s}
+.libr-read-btn:hover{border-color:#ddbb88;box-shadow:0 0 8px rgba(180,140,80,.3)}
+
 /* ══ BLOOD MOON ══ */
 .bmoon-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 15%,#200008,#080002);z-index:1156;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .bmoon-panel h2{color:#ff6666;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 16px #cc0022}
@@ -17088,6 +17123,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   <div class="bmoon-moon"></div>
   <div style="color:#883333;font-size:.72rem;margin-bottom:8px">Perform dark rituals under the blood moon</div>
   <div class="bmoon-rituals" id="bmoonRituals"></div>
+</div>
+
+<!-- DESERT OASIS -->
+<div class="doasis-panel" id="doasisPanel" style="display:none">
+  <button onclick="closeDoasis()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ffdd88;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🌴 Desert Oasis</h2>
+  <div class="doasis-gold" id="doasisGold">Gold Coins: 0 | Explores: 0/5 today</div>
+  <div class="doasis-camel">
+    <div class="dc-icon">🐪</div>
+    <div class="dc-info">Your faithful caravan camel</div>
+  </div>
+  <div style="color:#886622;font-size:.72rem;margin-bottom:6px">Explore tiles and trade at the bazaar</div>
+  <div class="doasis-oasis" id="doasisMap"></div>
+  <div style="color:#ffdd88;font-size:.78rem;font-weight:700;margin:6px 0 4px;align-self:flex-start">🏪 Desert Bazaar</div>
+  <div class="doasis-trades" id="doasisTrades"></div>
+</div>
+
+<!-- LIBRARY OF SECRETS -->
+<div class="libr-panel" id="librPanel" style="display:none">
+  <button onclick="closeLibr()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ddbb88;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>📚 Library of Secrets</h2>
+  <div class="libr-stats" id="librStats">Books read: 0/12 | Knowledge: 0</div>
+  <div class="libr-shelf" id="librShelf"></div>
+  <div class="libr-reading" id="librReading"><div style="color:#7755aa;font-size:.75rem;text-align:center;padding:8px">Tap a book to read it</div></div>
+  <button class="libr-read-btn" id="librReadBtn" style="display:none" onclick="librRead()">📖 Read (once/day each)</button>
 </div>
 
 <!-- ENCHANTED GARDEN -->
@@ -72985,6 +73045,148 @@ function _renderBmoon(){
     return `<div class="bmoon-ritual ${isDone?'done':''}" onclick="bmoonRitual('${r.id}')">
       <div class="br-head"><span class="br-icon">${r.icon}</span><span class="br-name">${r.name}</span><span class="br-bonus">+${r.be} BE</span></div>
       <div class="br-desc">${r.desc} → ${r.bonus} ${isDone?'✅':''}</div>
+    </div>`;
+  }).join('');
+}
+
+
+// ══ LIBRARY OF SECRETS ══
+const LIBR_KEY = 'k0509_libr';
+const LIBR_BOOKS = [
+  {id:'b1',icon:'📕',title:'Art of War',genre:'Strategy',desc:'Ancient military tactics and wisdom.',reward:{str:4,kc:2},rdesc:'+4 STR +2KC'},
+  {id:'b2',icon:'📗',title:'Arcane Tome',genre:'Magic',desc:'Secrets of the arcane arts.',reward:{int:5,kc:2},rdesc:'+5 INT +2KC'},
+  {id:'b3',icon:'📘',title:'Swift Wind',genre:'Agility',desc:'Secrets of speed and motion.',reward:{agi:4,kc:2},rdesc:'+4 AGI +2KC'},
+  {id:'b4',icon:'📙',title:'Gold & Trade',genre:'Economy',desc:'How the wealthy became powerful.',reward:{coins:300,kc:3},rdesc:'+300🪙 +3KC'},
+  {id:'b5',icon:'📓',title:'Dragon Lore',genre:'Mythology',desc:'Dragons: their nature and power.',reward:{str:6,int:3},rdesc:'+6 STR +3 INT'},
+  {id:'b6',icon:'📔',title:'Shadow Arts',genre:'Stealth',desc:'The way of the unseen.',reward:{agi:6,int:3},rdesc:'+6 AGI +3 INT'},
+  {id:'b7',icon:'📒',title:'Cosmos Map',genre:'Astronomy',desc:'Charts of the known universe.',reward:{int:8,kc:4},rdesc:'+8 INT +4KC'},
+  {id:'b8',icon:'📖',title:'Hero's Path',genre:'Adventure',desc:'Tales of legendary heroes.',reward:{str:5,agi:5,kc:3},rdesc:'+5 STR +5 AGI +3KC'},
+  {id:'b9',icon:'🗂️',title:'Rune Script',genre:'Ancient',desc:'The language of the runes.',reward:{int:6,kc:5},rdesc:'+6 INT +5KC'},
+  {id:'b10',icon:'📜',title:'Book of Fate',genre:'Prophecy',desc:'Visions of things to come.',reward:{str:3,int:3,agi:3,kc:5},rdesc:'+3 All +5KC'},
+  {id:'b11',icon:'🔖',title:'Philosopher',genre:'Wisdom',desc:'On the nature of existence.',reward:{int:10,kc:8},rdesc:'+10 INT +8KC'},
+  {id:'b12',icon:'📰',title:'Grand Codex',genre:'Omnibus',desc:'All knowledge in one volume.',reward:{str:8,int:8,agi:8,kc:15},rdesc:'+8 All +15KC'},
+];
+var _librSelected = null;
+function _librData(){
+  const d=JSON.parse(localStorage.getItem(LIBR_KEY)||'{}');
+  return {knowledge:d.knowledge||0,read:d.read||[],readToday:d.readToday||[],lastDay:d.lastDay||''};
+}
+function _librSave(d){localStorage.setItem(LIBR_KEY,JSON.stringify(d));}
+function librSelect(bid){
+  _librSelected=bid;
+  const book=LIBR_BOOKS.find(b=>b.id===bid);
+  const d=_librData();
+  const today=getTodayKey();
+  const doneToday=d.lastDay===today&&d.readToday.includes(bid);
+  $('librReading').innerHTML=`<div style="font-size:1.8rem;margin-bottom:4px">${book.icon}</div>
+    <div style="color:#ddbb88;font-size:.9rem;font-weight:700">${book.title}</div>
+    <div style="color:#8877aa;font-size:.65rem;margin:2px 0">Genre: ${book.genre}</div>
+    <div style="color:#aa9966;font-size:.7rem;margin:4px 0;line-height:1.4">${book.desc}</div>
+    <div style="color:#88cc88;font-size:.68rem">Reward: ${book.rdesc}</div>
+    ${d.read.includes(bid)?'<div style="color:#44aa44;font-size:.65rem;margin-top:4px">✅ Read</div>':''}`;
+  $('librReadBtn').style.display=doneToday?'none':'block';
+  document.querySelectorAll('.libr-book').forEach(el=>{el.style.outline=el.dataset.id===bid?'2px solid #ddbb88':'none';});
+}
+function librRead(){
+  if(!_librSelected){showFloatBubble('Select a book first!','bad');return;}
+  const d=_librData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.readToday=[];d.lastDay=today;}
+  if(d.readToday.includes(_librSelected)){showFloatBubble('Read this today!','bad');return;}
+  const book=LIBR_BOOKS.find(b=>b.id===_librSelected);
+  d.readToday.push(_librSelected);
+  if(!d.read.includes(_librSelected)){d.read.push(_librSelected);d.knowledge+=20;}
+  _librSave(d);
+  const r=book.reward;
+  if(r.coins)gainCoins(r.coins);
+  if(r.kc)gainKC(r.kc);
+  if(r.str){G.str=(G.str||10)+r.str;save();}
+  if(r.int){G.int=(G.int||10)+r.int;save();}
+  if(r.agi){G.agi=(G.agi||10)+r.agi;save();}
+  showFloatBubble(`📖 ${book.title}: ${book.rdesc}`,'good');
+  $('librReadBtn').style.display='none';
+  checkAchievements();_renderLibr();
+}
+function openLibr(){$('librPanel').style.display='flex';_renderLibr();}
+function closeLibr(){$('librPanel').style.display='none';}
+function _renderLibr(){
+  const d=_librData();
+  $('librStats').textContent=`Books read: ${d.read.length}/12 | Knowledge: ${d.knowledge}`;
+  $('librShelf').innerHTML=LIBR_BOOKS.map(b=>`<div class="libr-book ${d.read.includes(b.id)?'read':'unread'}" data-id="${b.id}" onclick="librSelect('${b.id}')">
+    ${b.icon}<div class="lb-title">${b.title}</div>
+  </div>`).join('');
+}
+
+
+// ══ DESERT OASIS ══
+const DOASIS_KEY = 'k0509_doasis';
+const DOASIS_TILES = [
+  '🌵','🏺','🪨','🌊','💎','👻','🐍','🦂','🌴','🗿','⚱️','🏖️','🦁','🌟','🏕️','🐪','🌊','🏜️'
+];
+const DOASIS_TRADES = [
+  {id:'t1',icon:'🧂',name:'Spice Trade',cost:30,reward:{str:2,coins:60},rdesc:'+2 STR +60🪙'},
+  {id:'t2',icon:'🪴',name:'Plant Deal',cost:40,reward:{int:2,coins:80},rdesc:'+2 INT +80🪙'},
+  {id:'t3',icon:'💍',name:'Gem Exchange',cost:60,reward:{agi:3,kc:3},rdesc:'+3 AGI +3KC'},
+  {id:'t4',icon:'📜',name:'Scroll Trade',cost:80,reward:{int:4,kc:2},rdesc:'+4 INT +2KC'},
+  {id:'t5',icon:'⚔️',name:'Weapon Deal',cost:100,reward:{str:5,agi:3},rdesc:'+5 STR +3 AGI'},
+  {id:'t6',icon:'🌟',name:'Starstone',cost:150,reward:{str:4,int:4,agi:4,kc:5},rdesc:'+4 All +5KC'},
+];
+function _doasisData(){
+  const d=JSON.parse(localStorage.getItem(DOASIS_KEY)||'{}');
+  return {gold:d.gold||0,explored:d.explored||[],explores:d.explores||0,lastDay:d.lastDay||''};
+}
+function _doasisSave(d){localStorage.setItem(DOASIS_KEY,JSON.stringify(d));}
+function doasisExplore(idx){
+  const d=_doasisData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.explores=0;d.lastDay=today;}
+  if(d.explores>=5){showFloatBubble('5 explores done today!','bad');return;}
+  const tile=DOASIS_TILES[idx];
+  d.explores++;
+  if(!d.explored.includes(idx))d.explored.push(idx);
+  // Random rewards based on tile
+  let gold=10+Math.floor(Math.random()*30);
+  let bonus='';
+  if(tile==='💎'){gold+=100;bonus='+100 gold!';gainKC(3);}
+  else if(tile==='🌟'){gold+=60;bonus='+60 gold!';G.str+=2;G.int+=2;save();}
+  else if(tile==='🌊'){gold+=40;G.agi++;save();bonus='+1 AGI';}
+  else if(tile==='🏺'){gold+=50;G.int++;save();bonus='+1 INT';}
+  else if(tile==='🌵'){gold+=30;G.str++;save();bonus='+1 STR';}
+  d.gold+=gold;
+  _doasisSave(d);
+  gainCoins(gold);
+  showFloatBubble(`${tile} Found ${gold}🪙 ${bonus}`,'good');
+  checkAchievements();_renderDoasis();
+}
+function doasisTrade(tid){
+  const d=_doasisData();
+  const t=DOASIS_TRADES.find(x=>x.id===tid);
+  if(d.gold<t.cost){showFloatBubble(`Need ${t.cost} oasis gold!`,'bad');return;}
+  d.gold-=t.cost;
+  _doasisSave(d);
+  if(t.reward.coins)gainCoins(t.reward.coins);
+  if(t.reward.kc)gainKC(t.reward.kc);
+  if(t.reward.str){G.str=(G.str||10)+t.reward.str;save();}
+  if(t.reward.int){G.int=(G.int||10)+t.reward.int;save();}
+  if(t.reward.agi){G.agi=(G.agi||10)+t.reward.agi;save();}
+  showFloatBubble(`${t.icon} ${t.name}: ${t.rdesc}`,'good');
+  checkAchievements();_renderDoasis();
+}
+function openDoasis(){$('doasisPanel').style.display='flex';_renderDoasis();}
+function closeDoasis(){$('doasisPanel').style.display='none';}
+function _renderDoasis(){
+  const d=_doasisData();
+  const today=getTodayKey();
+  const explores=d.lastDay===today?d.explores:0;
+  $('doasisGold').textContent=`Oasis Gold: ${d.gold} | Explores: ${explores}/5 today`;
+  $('doasisMap').innerHTML=DOASIS_TILES.map((t,i)=>`<div class="doasis-tile ${d.explored.includes(i)?'explored-tile':''}" onclick="doasisExplore(${i})">
+    ${d.explored.includes(i)?t:'❓'}<div class="dt-lbl">${d.explored.includes(i)?'Explored':'Unexplored'}</div>
+  </div>`).join('');
+  $('doasisTrades').innerHTML=DOASIS_TRADES.map(t=>{
+    const canAfford=d.gold>=t.cost;
+    return `<div class="doasis-trade" onclick="doasisTrade('${t.id}')" style="${canAfford?'':'opacity:.5'}">
+      <div class="dtr-head"><span class="dtr-icon">${t.icon}</span><span class="dtr-name">${t.name}</span><span class="dtr-cost">${t.cost} gold</span></div>
+      <div class="dtr-reward">${t.rdesc}</div>
     </div>`;
   }).join('');
 }
