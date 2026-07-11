@@ -1542,6 +1542,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ TYPING SPEED ══ */
+.typ-panel{position:fixed;inset:0;background:#000c08;z-index:1055;display:none;flex-direction:column;overflow:hidden}
+.typ-panel.open{display:flex}
+.typ-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#001810,#000c08)}
+.typ-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#00ddcc,#4488ff,#44ff88);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:typShim 2s linear infinite}
+@keyframes typShim{0%{background-position:0%}100%{background-position:300%}}
+.typ-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px}
+.typ-hud{display:flex;gap:8px;margin-bottom:8px}
+.typ-hud-box{flex:1;background:rgba(68,255,136,.04);border:1px solid rgba(68,255,136,.15);border-radius:10px;padding:6px;text-align:center}
+.typ-hud-v{font:900 18px var(--ff-head);color:#44ff88}
+.typ-hud-l{font:500 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Text display */
+.typ-text-wrap{background:rgba(255,255,255,.02);border:2px solid rgba(68,255,136,.15);border-radius:16px;padding:14px;margin-bottom:8px;min-height:70px;position:relative}
+.typ-text{font:600 14px var(--ff-body);color:rgba(255,255,255,.5);line-height:1.6;letter-spacing:.3px;word-break:break-all}
+.typ-text .correct{color:#44ff88}
+.typ-text .wrong{color:#ff4444;text-decoration:underline}
+.typ-text .current{color:#fff;border-bottom:2px solid #4488ff}
+/* Input */
+.typ-input{width:100%;background:rgba(255,255,255,.04);border:2px solid rgba(68,255,136,.2);border-radius:12px;padding:10px 12px;font:600 14px var(--ff-body);color:#fff;outline:none;margin-bottom:8px;box-sizing:border-box;caret-color:#44ff88}
+.typ-input:focus{border-color:rgba(68,255,136,.5);background:rgba(68,255,136,.04)}
+.typ-input::placeholder{color:rgba(255,255,255,.2)}
+/* Timer bar */
+.typ-timer-wrap{background:rgba(255,255,255,.06);border-radius:6px;height:6px;margin-bottom:8px;overflow:hidden}
+.typ-timer-bar{height:100%;border-radius:6px;background:linear-gradient(90deg,#44ff88,#00ddcc);transition:width .1s}
+/* Stats */
+.typ-stats{display:flex;gap:6px;margin-bottom:8px}
+.typ-stat{flex:1;text-align:center}
+.typ-stat-v{font:900 20px var(--ff-head);color:#44ff88}
+.typ-stat-l{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+/* Over */
+.typ-over{display:none;flex-direction:column;align-items:center;gap:5px;padding:10px;background:rgba(0,0,0,.7);border:1.5px solid rgba(68,255,136,.3);border-radius:14px;margin-bottom:8px}
+.typ-over.show{display:flex}
+.typ-over-wpm{font:900 36px var(--ff-head);color:#44ff88}
+.typ-over-lbl{font:600 9px var(--ff-body);color:rgba(255,255,255,.4)}
+.typ-over-rw{font:700 12px var(--ff-head);color:#ffcc00}
+.typ-start-btn{width:100%;background:linear-gradient(135deg,#002210,#004420);border:none;border-radius:14px;padding:13px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.typ-start-btn:disabled{opacity:.4;cursor:default;background:rgba(255,255,255,.06)}
+.typ-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ MOOD TRACKER ══ */
 .mood-panel{position:fixed;inset:0;background:#030508;z-index:1054;display:none;flex-direction:column;overflow:hidden}
 .mood-panel.open{display:flex}
@@ -12140,6 +12180,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
           <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
+          <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12215,6 +12256,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
           <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
+          <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12273,6 +12315,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
           <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
+          <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12369,6 +12412,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openZod()"><div class="ddr-i">🌟</div>Zodiak</div>
           <div class="ddr" onclick="cM();openC4()"><div class="ddr-i">🔵</div>Fyra i Rad</div>
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
+          <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -12971,6 +13015,38 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- TYPING SPEED -->
+<div class="typ-panel" id="typPanel">
+  <div class="typ-header">
+    <div class="typ-title">⌨️ SKRIVHASTIGHET</div>
+    <button class="close-btn" onclick="closeTyp()">✕</button>
+  </div>
+  <div class="typ-scroll">
+    <div class="typ-hud">
+      <div class="typ-hud-box"><div class="typ-hud-v" id="typWpm">0</div><div class="typ-hud-l">WPM</div></div>
+      <div class="typ-hud-box"><div class="typ-hud-v" id="typAcc">100%</div><div class="typ-hud-l">Noggrannhet</div></div>
+      <div class="typ-hud-box"><div class="typ-hud-v" id="typPlays">0</div><div class="typ-hud-l">Tester kvar</div></div>
+    </div>
+    <div class="typ-timer-wrap"><div class="typ-timer-bar" id="typTimerBar" style="width:100%"></div></div>
+    <div class="typ-text-wrap"><div class="typ-text" id="typText">Tryck START för att börja...</div></div>
+    <input type="text" class="typ-input" id="typInput" placeholder="Skriv här..." oninput="typOnInput()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="display:none">
+    <div class="typ-stats">
+      <div class="typ-stat"><div class="typ-stat-v" id="typBest">0</div><div class="typ-stat-l">Rekord WPM</div></div>
+      <div class="typ-stat"><div class="typ-stat-v" id="typErrors">0</div><div class="typ-stat-l">Fel</div></div>
+      <div class="typ-stat"><div class="typ-stat-v" id="typProgress">0%</div><div class="typ-stat-l">Färdig</div></div>
+    </div>
+    <div class="typ-over" id="typOver">
+      <div class="typ-over-lbl">RESULTAT</div>
+      <div class="typ-over-wpm" id="typOverWpm">0 WPM</div>
+      <div class="typ-over-lbl" id="typOverAcc">100% noggrannhet</div>
+      <div class="typ-over-rw" id="typOverRw"></div>
+    </div>
+    <button class="typ-start-btn" id="typStartBtn" onclick="typStart()">⌨️ STARTA!</button>
+    <div class="typ-info">LCK = kortare text · AGI bonus WPM · 5 tester/dag</div>
+  </div>
+</div>
 
 <!-- MOOD TRACKER -->
 <div class="mood-panel" id="moodPanel">
@@ -56819,6 +56895,189 @@ function _renderMood(d){
       wrap.appendChild(lbl);
       hist.appendChild(wrap);
     });
+  }
+}
+
+
+// TYPING SPEED
+const TYP_KEY = 'k0509_typ';
+const TYP_MAX_PLAYS = 5;
+const TYP_TIME = 30; // seconds
+const TYP_SENTENCES = [
+  'Mitt husdjur är det bästa i hela världen och vi är bästa vänner.',
+  'Katten satt på mattan och tittade på fåglarna utanför fönstret.',
+  'Hunden leker glatt i parken och springer efter bollen hela dagen.',
+  'Draken flyger högt över bergen och sprutar eldslågor mot skyn.',
+  'Trollet bor djupt inne i skogen och samlar på magiska stenar.',
+  'Riddaren ridit på sin häst och söker efter det förlorade svärdet.',
+  'Feen dansar i månljuset och sprider glitter över hela ängen.',
+  'Havet är djupt och fullt av mystiska varelser som lever i mörkret.',
+  'Stjärnorna lyser klart på himlen en kall vinterkväll i norr.',
+  'Husdjuret lärde sig nya trick och belönades med godsaker varje dag.',
+  'Vargen ylade under fullmånen och vaknade hela byn med sitt läte.',
+  'Enhörningen galopperade fritt över ängen med manen i vinden.',
+  'Ugglan satt i eken och blinkade klokt med sina stora ögon.',
+  'Skattkistan var begravd djupt ner i marken under det gamla trädet.',
+  'Magikern trollade fram ett leende på barnens ansikten med sina konster.',
+];
+
+var _typState = null;
+var _typTimer = null;
+var _typTimerStart = 0;
+var _typTimerRaf = null;
+
+function _typData(){try{return JSON.parse(localStorage.getItem(TYP_KEY)||'null');}catch(e){return null;}}
+function _typSave(d){localStorage.setItem(TYP_KEY,JSON.stringify(d));}
+function _typGetData(){
+  var d=_typData();
+  if(!d) d={best:0,playsToday:0,lastDay:'',totalTests:0};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.playsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function typStart(){
+  var d=_typGetData();
+  if(d.playsToday>=TYP_MAX_PLAYS){showFloatBubble('Inga tester kvar idag!','debuff');return;}
+  var btn=$('typStartBtn');if(btn) btn.disabled=true;
+  var over=$('typOver');if(over) over.classList.remove('show');
+  // Pick random sentence (LCK = shorter)
+  var lck=G.lck||1;
+  var maxLen=100+Math.max(0,50-Math.floor(lck/2));
+  var candidates=TYP_SENTENCES.filter(function(s){return s.length<=maxLen;});
+  if(!candidates.length) candidates=TYP_SENTENCES;
+  var seed=Date.now()%candidates.length;
+  var text=candidates[seed%candidates.length];
+  _typState={running:true,text:text,typed:'',errors:0,startTime:0,started:false};
+  _typRenderText();
+  var inp=$('typInput');
+  if(inp){inp.style.display='block';inp.value='';inp.focus();}
+  var tw=$('typTimerBar');if(tw) tw.style.width='100%';
+  var st=$('typWpm');if(st) st.textContent='0';
+  var ac=$('typAcc');if(ac) ac.textContent='100%';
+  var pr=$('typProgress');if(pr) pr.textContent='0%';
+  var err=$('typErrors');if(err) err.textContent='0';
+}
+
+function typOnInput(){
+  var s=_typState;if(!s||!s.running) return;
+  var inp=$('typInput');if(!inp) return;
+  var val=inp.value;
+  if(!s.started&&val.length>0){
+    s.started=true;
+    s.startTime=Date.now();
+    _typTimerStart=s.startTime;
+    _typTimer=setTimeout(function(){_typEnd(false);},TYP_TIME*1000);
+    _typAnimTimer();
+  }
+  s.typed=val;
+  // Count errors
+  var errs=0;
+  for(var i=0;i<val.length;i++){
+    if(i<s.text.length&&val[i]!==s.text[i]) errs++;
+  }
+  s.errors=errs;
+  _typRenderText();
+  var errEl=$('typErrors');if(errEl) errEl.textContent=errs;
+  var pr=$('typProgress');if(pr) pr.textContent=Math.round(Math.min(100,val.length/s.text.length*100))+'%';
+  // WPM
+  if(s.started){
+    var elapsed=(Date.now()-s.startTime)/60000;
+    var words=val.split(' ').length;
+    var wpm=elapsed>0?Math.round(words/elapsed):0;
+    var wpmEl=$('typWpm');if(wpmEl) wpmEl.textContent=wpm;
+    var acc=val.length>0?Math.round((val.length-errs)/val.length*100):100;
+    var accEl=$('typAcc');if(accEl) accEl.textContent=acc+'%';
+  }
+  // Check complete
+  if(val===s.text){_typEnd(true);}
+}
+
+function _typAnimTimer(){
+  if(_typTimerRaf) cancelAnimationFrame(_typTimerRaf);
+  function tick(){
+    var elapsed=Date.now()-_typTimerStart;
+    var pct=Math.max(0,1-elapsed/(TYP_TIME*1000));
+    var bar=$('typTimerBar');
+    if(bar) bar.style.width=(pct*100)+'%';
+    if(pct>0&&_typState&&_typState.running) _typTimerRaf=requestAnimationFrame(tick);
+  }
+  _typTimerRaf=requestAnimationFrame(tick);
+}
+
+function _typRenderText(){
+  var s=_typState;var el=$('typText');
+  if(!el||!s) return;
+  var html='';
+  for(var i=0;i<s.text.length;i++){
+    var ch=s.text[i]==' '?'&nbsp;':s.text[i];
+    if(i<s.typed.length){
+      html+='<span class="'+(s.typed[i]===s.text[i]?'correct':'wrong')+'">'+ch+'</span>';
+    } else if(i===s.typed.length){
+      html+='<span class="current">'+ch+'</span>';
+    } else {
+      html+=ch;
+    }
+  }
+  el.innerHTML=html;
+}
+
+function _typEnd(completed){
+  var s=_typState;if(!s) return;
+  s.running=false;
+  if(_typTimer) clearTimeout(_typTimer);
+  if(_typTimerRaf) cancelAnimationFrame(_typTimerRaf);
+  var bar=$('typTimerBar');if(bar) bar.style.width='0%';
+  var inp=$('typInput');if(inp) inp.style.display='none';
+  var d=_typGetData();
+  d.playsToday=(d.playsToday||0)+1;
+  d.totalTests=(d.totalTests||0)+1;
+  // Calculate WPM
+  var wpm=0,acc=100;
+  if(s.started){
+    var elapsed=(Date.now()-s.startTime)/60000;
+    var typed=s.typed.length;
+    var words=s.typed.split(' ').length;
+    wpm=elapsed>0?Math.round(words/elapsed):0;
+    acc=typed>0?Math.round((typed-s.errors)/typed*100):100;
+  }
+  // AGI bonus
+  var agiBonus=Math.floor((G.agi||0)*0.5);
+  var effWpm=wpm+agiBonus;
+  var isNew=effWpm>d.best;
+  if(isNew) d.best=effWpm;
+  var coins=completed?effWpm*2:Math.max(5,wpm);
+  var xp=completed?effWpm*1.5:5;
+  gainCoins(Math.floor(coins));gainXP(Math.floor(xp),'agi');
+  if(completed&&effWpm>=50) gainKC(1);
+  _typSave(d);
+  checkAchievements();
+  var over=$('typOver');if(over) over.classList.add('show');
+  var ow=$('typOverWpm');if(ow) ow.textContent=wpm+' WPM'+(agiBonus>0?' (+'+agiBonus+' AGI)':'');
+  var oa=$('typOverAcc');if(oa) oa.textContent=acc+'% noggrannhet'+(isNew?' 🏆 REKORD!':'');
+  var orw=$('typOverRw');if(orw) orw.textContent='+'+Math.floor(coins)+'🪙 +'+Math.floor(xp)+'XP'+(completed&&effWpm>=50?' +1KC':'');
+  var bv=$('typBest');if(bv) bv.textContent=d.best;
+  var playsLeft=TYP_MAX_PLAYS-d.playsToday;
+  var btn=$('typStartBtn');
+  if(btn){btn.disabled=playsLeft<=0;btn.textContent=playsLeft>0?'⌨️ STARTA! ('+playsLeft+' kvar)':'✓ Klar för idag!';}
+}
+
+function openTyp(){$('typPanel').classList.add('open');_renderTyp();}
+function closeTyp(){
+  if(_typTimer) clearTimeout(_typTimer);
+  if(_typTimerRaf) cancelAnimationFrame(_typTimerRaf);
+  $('typPanel').classList.remove('open');
+}
+
+function _renderTyp(d){
+  if(!d) d=_typGetData();
+  var pl=$('typPlays');if(pl) pl.textContent=Math.max(0,TYP_MAX_PLAYS-(d.playsToday||0));
+  var bv=$('typBest');if(bv) bv.textContent=d.best||0;
+  var btn=$('typStartBtn');
+  if(btn&&!(_typState&&_typState.running)){
+    var left=TYP_MAX_PLAYS-(d.playsToday||0);
+    btn.disabled=left<=0;
+    btn.textContent=left>0?'⌨️ STARTA! ('+left+' kvar)':'✓ Klar för idag!';
   }
 }
 
