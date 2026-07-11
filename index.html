@@ -1733,6 +1733,85 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+
+/* ══ GALACTIC TRADE ══ */
+.gtrd-panel{position:fixed;inset:0;background:#020410;z-index:1107;display:none;flex-direction:column;overflow:hidden}
+.gtrd-panel.open{display:flex}
+.gtrd-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#020410,#040818)}
+.gtrd-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#4488ff,#aa44ff,#ff44aa,#4488ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gtrdShim 4s linear infinite}
+@keyframes gtrdShim{0%{background-position:0%}100%{background-position:300%}}
+.gtrd-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.gtrd-creds{display:flex;justify-content:space-between;align-items:center;background:rgba(68,136,255,.05);border:1.5px solid rgba(68,136,255,.15);border-radius:14px;padding:10px 14px;margin-bottom:10px}
+.gtrd-cred-v{font:800 22px var(--ff-head);color:#88aaff}
+.gtrd-cred-lbl{font:600 7px var(--ff-body);color:rgba(136,170,255,.35)}
+.gtrd-earn-btn{background:rgba(68,136,255,.1);border:1px solid rgba(68,136,255,.25);border-radius:9px;padding:6px 12px;font:700 8px var(--ff-head);color:#88aaff;cursor:pointer}
+.gtrd-civs{display:flex;flex-direction:column;gap:7px}
+.gtrd-civ{background:rgba(68,136,255,.04);border:1.5px solid rgba(68,136,255,.1);border-radius:16px;overflow:hidden}
+.gtrd-civ-hdr{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer}
+.gtrd-civ-icon{font-size:28px;flex-shrink:0}
+.gtrd-civ-info{flex:1}
+.gtrd-civ-name{font:700 11px var(--ff-head);color:rgba(200,210,255,.8)}
+.gtrd-civ-desc{font:600 7px var(--ff-body);color:rgba(150,170,220,.4)}
+.gtrd-civ-rel{font:700 8px var(--ff-head);color:rgba(100,150,255,.5);text-align:right;flex-shrink:0}
+.gtrd-goods{padding:0 12px 10px;display:flex;flex-direction:column;gap:5px}
+.gtrd-good{display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(68,136,255,.04);border:1px solid rgba(68,136,255,.1);border-radius:10px}
+.gtrd-good-icon{font-size:18px;flex-shrink:0}
+.gtrd-good-info{flex:1}
+.gtrd-good-name{font:700 8px var(--ff-head);color:rgba(200,210,255,.7)}
+.gtrd-good-eff{font:600 7px var(--ff-body);color:rgba(150,170,220,.4)}
+.gtrd-good-price{font:700 8px var(--ff-head);color:#88aaff;margin-right:6px;flex-shrink:0}
+.gtrd-buy-btn{background:rgba(68,136,255,.1);border:1px solid rgba(68,136,255,.25);border-radius:7px;padding:4px 9px;font:700 7px var(--ff-head);color:#88aaff;cursor:pointer;flex-shrink:0}
+.gtrd-buy-btn:disabled{opacity:.3;cursor:default}
+
+/* ══ MYSTERY CARD ══ */
+.mysc-panel{position:fixed;inset:0;background:#020a04;z-index:1106;display:none;flex-direction:column;overflow:hidden}
+.mysc-panel.open{display:flex}
+.mysc-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#020a04,#041208)}
+.mysc-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44ff88,#ffcc00,#ff44cc,#44ff88);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:myscShim 4s linear infinite}
+@keyframes myscShim{0%{background-position:0%}100%{background-position:300%}}
+.mysc-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.mysc-streak-row{display:flex;justify-content:space-between;align-items:center;background:rgba(68,255,136,.04);border:1.5px solid rgba(68,255,136,.12);border-radius:14px;padding:10px 14px;margin-bottom:10px}
+.mysc-streak-v{font:800 24px var(--ff-head);color:#44ff88}
+.mysc-streak-lbl{font:600 7px var(--ff-body);color:rgba(68,255,136,.35)}
+/* Card grid */
+.mysc-card-area{background:rgba(68,255,136,.03);border:2px solid rgba(68,255,136,.1);border-radius:20px;padding:14px;margin-bottom:10px;text-align:center}
+.mysc-card-lbl{font:700 9px var(--ff-head);color:rgba(68,255,136,.4);letter-spacing:1px;margin-bottom:10px}
+.mysc-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.mysc-card{aspect-ratio:.7;background:linear-gradient(135deg,#0a1a0c,#0f200f);border:2px solid rgba(68,255,136,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;font-size:36px;user-select:none}
+.mysc-card:hover{border-color:rgba(68,255,136,.5);transform:translateY(-2px)}
+.mysc-card.revealed{background:linear-gradient(135deg,#001a08,#003010);border-color:rgba(68,255,136,.4);cursor:default;transform:none;flex-direction:column;gap:4px}
+.mysc-card.revealed .mysc-card-val{font:700 8px var(--ff-head);color:rgba(68,255,136,.7)}
+.mysc-card.used{opacity:.4;cursor:default;pointer-events:none}
+.mysc-card-val{font:700 8px var(--ff-head);color:rgba(68,255,136,.7)}
+.mysc-reveal-btn{background:linear-gradient(135deg,#002a08,#005010);border:2px solid rgba(68,255,136,.35);border-radius:14px;padding:10px;font:900 12px var(--ff-head);color:#44ff88;cursor:pointer;width:100%}
+.mysc-reveal-btn:disabled{opacity:.3;cursor:default}
+.mysc-result-row{font:700 10px var(--ff-head);color:#44ff88;text-align:center;min-height:16px}
+
+/* ══ ELEMENTAL MASTERY 2 ══ */
+.elm2-panel{position:fixed;inset:0;background:#020808;z-index:1105;display:none;flex-direction:column;overflow:hidden}
+.elem-panel.open{display:flex}
+.elm2-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#020808,#041010)}
+.elm2-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4400,#0088ff,#44cc00,#ff88cc,#ff4400);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:elm2Shim 5s linear infinite}
+@keyframes elm2Shim{0%{background-position:0%}100%{background-position:400%}}
+.elm2-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.elm2-pts-bar{display:flex;justify-content:space-between;align-items:center;background:rgba(100,200,100,.05);border:1.5px solid rgba(100,200,100,.15);border-radius:14px;padding:10px 14px;margin-bottom:10px}
+.elm2-pts-v{font:800 22px var(--ff-head);color:#88ddaa}
+.elm2-pts-lbl{font:600 7px var(--ff-body);color:rgba(136,200,170,.35)}
+.elm2-elements{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.elm2-el{border:2px solid;border-radius:18px;padding:12px 14px;overflow:hidden}
+.elm2-el-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.elm2-el-icon{font-size:32px;flex-shrink:0}
+.elm2-el-info{flex:1}
+.elm2-el-name{font:700 12px var(--ff-head);margin-bottom:1px}
+.elm2-el-eff{font:600 8px var(--ff-body);margin-bottom:1px;opacity:.6}
+.elm2-el-lvl{font:700 9px var(--ff-head);text-align:right;flex-shrink:0}
+.elm2-el-bar{height:5px;border-radius:3px;margin-bottom:6px}
+.elm2-el-bar-fill{height:100%;border-radius:3px;transition:width .4s}
+.elm2-train-btn{background:rgba(0,0,0,.25);border:1.5px solid;border-radius:9px;padding:5px 12px;font:700 8px var(--ff-head);cursor:pointer;float:right}
+.elem-train-btn:disabled{opacity:.3;cursor:default}
+
 /* ══ WARRIOR GUILD ══ */
 .wgld-panel{position:fixed;inset:0;background:#08040a;z-index:1104;display:none;flex-direction:column;overflow:hidden}
 .wgld-panel.open{display:flex}
@@ -13979,6 +14058,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCasi()"><div class="ddr-i">🎰</div>Kosmisk Kasino</div>
           <div class="ddr" onclick="cM();openOcn()"><div class="ddr-i">🌊</div>Havets Djup</div>
           <div class="ddr" onclick="cM();openWgld()"><div class="ddr-i">⚔️</div>Krigargildet</div>
+          <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">✨</div>Elementlärlingen</div>
+          <div class="ddr" onclick="cM();openMysc()"><div class="ddr-i">🃏</div>Mysterikortet</div>
+          <div class="ddr" onclick="cM();openGtrd()"><div class="ddr-i">🚀</div>Galaktisk Handel</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14104,6 +14186,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCasi()"><div class="ddr-i">🎰</div>Kosmisk Kasino</div>
           <div class="ddr" onclick="cM();openOcn()"><div class="ddr-i">🌊</div>Havets Djup</div>
           <div class="ddr" onclick="cM();openWgld()"><div class="ddr-i">⚔️</div>Krigargildet</div>
+          <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">✨</div>Elementlärlingen</div>
+          <div class="ddr" onclick="cM();openMysc()"><div class="ddr-i">🃏</div>Mysterikortet</div>
+          <div class="ddr" onclick="cM();openGtrd()"><div class="ddr-i">🚀</div>Galaktisk Handel</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14212,6 +14297,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCasi()"><div class="ddr-i">🎰</div>Kosmisk Kasino</div>
           <div class="ddr" onclick="cM();openOcn()"><div class="ddr-i">🌊</div>Havets Djup</div>
           <div class="ddr" onclick="cM();openWgld()"><div class="ddr-i">⚔️</div>Krigargildet</div>
+          <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">✨</div>Elementlärlingen</div>
+          <div class="ddr" onclick="cM();openMysc()"><div class="ddr-i">🃏</div>Mysterikortet</div>
+          <div class="ddr" onclick="cM();openGtrd()"><div class="ddr-i">🚀</div>Galaktisk Handel</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14251,6 +14339,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCasi()"><div class="ddr-i">🎰</div>Kosmisk Kasino</div>
           <div class="ddr" onclick="cM();openOcn()"><div class="ddr-i">🌊</div>Havets Djup</div>
           <div class="ddr" onclick="cM();openWgld()"><div class="ddr-i">⚔️</div>Krigargildet</div>
+          <div class="ddr" onclick="cM();openElem()"><div class="ddr-i">✨</div>Elementlärlingen</div>
+          <div class="ddr" onclick="cM();openMysc()"><div class="ddr-i">🃏</div>Mysterikortet</div>
+          <div class="ddr" onclick="cM();openGtrd()"><div class="ddr-i">🚀</div>Galaktisk Handel</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -14371,6 +14462,9 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openCasi()"><div class="ddr-i">🎰</div>Kosmisk Kasino</div>
           <div class="ddr" onclick="cM();openOcn()"><div class="ddr-i">🌊</div>Havets Djup</div>
           <div class="ddr" onclick="cM();openWgld()"><div class="ddr-i">⚔️</div>Krigargildet</div>
+          <div class="ddr" onclick="cM();openElm2()"><div class="ddr-i">✨</div>Elementlärlingen</div>
+          <div class="ddr" onclick="cM();openMysc()"><div class="ddr-i">🃏</div>Mysterikortet</div>
+          <div class="ddr" onclick="cM();openGtrd()"><div class="ddr-i">🚀</div>Galaktisk Handel</div>
           <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
           <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
@@ -15145,6 +15239,67 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+
+<!-- GALACTIC TRADE -->
+<div class="gtrd-panel" id="gtrdPanel">
+  <div class="gtrd-header">
+    <div class="gtrd-title">🚀 GALAKTISK HANDEL</div>
+    <button class="close-btn" onclick="closeGtrd()">✕</button>
+  </div>
+  <div class="gtrd-scroll">
+    <div class="gtrd-creds">
+      <div>
+        <div class="gtrd-cred-lbl">GALAKTISKA KREDITER</div>
+        <div class="gtrd-cred-v" id="gtrdCredV">0 🌌</div>
+      </div>
+      <button class="gtrd-earn-btn" onclick="gtrdEarn()">+20 Arbeta</button>
+    </div>
+    <div class="gtrd-civs" id="gtrdCivs"></div>
+  </div>
+</div>
+
+<!-- MYSTERY CARD -->
+<div class="mysc-panel" id="myscPanel">
+  <div class="mysc-header">
+    <div class="mysc-title">🃏 MYSTERIKORTET</div>
+    <button class="close-btn" onclick="closeMysc()">✕</button>
+  </div>
+  <div class="mysc-scroll">
+    <div class="mysc-streak-row">
+      <div>
+        <div class="mysc-streak-lbl">DAGLIG STREAK</div>
+        <div class="mysc-streak-v" id="myscStreakV">🔥 0 dagar</div>
+      </div>
+    </div>
+    <div class="mysc-card-area">
+      <div class="mysc-card-lbl">VÄLJ ETT KORT — DAGLIG BELÖNING</div>
+      <div class="mysc-cards" id="myscCards"></div>
+      <div class="mysc-result-row" id="myscResult"></div>
+    </div>
+    <div style="font:600 9px var(--ff-body);color:rgba(68,255,136,.25);text-align:center">Välj ett kort varje dag. Streak ger bonusar! 🃏</div>
+  </div>
+</div>
+
+<!-- ELEMENTAL MASTERY 2 -->
+<div class="elm2-panel" id="elm2Panel">
+  <div class="elm2-header">
+    <div class="elm2-title">✨ ELEMENTLÄRLINGEN</div>
+    <button class="close-btn" onclick="closeElm2()">✕</button>
+  </div>
+  <div class="elm2-scroll">
+    <div class="elm2-pts-bar">
+      <div>
+        <div class="elm2-pts-lbl">ELEMENTPOÄNG</div>
+        <div class="elm2-pts-v" id="elm2PtsV">0 ✨</div>
+      </div>
+    </div>
+    <div class="elm2-elements" id="elm2Elements"></div>
+    <div style="font:600 9px var(--ff-body);color:rgba(136,200,170,.25);text-align:center">Träna elementen dagligen. Varje nivå ger permanenta passivar! ✨</div>
+  </div>
+</div>
 
 <!-- WARRIOR GUILD -->
 <div class="wgld-panel" id="wgldPanel">
@@ -66398,6 +66553,299 @@ function _renderWgld(d){
         '</button>'+
         (isAcc&&!isDone?'<button class="wgld-complete-btn" onclick="wgldComplete(\''+misId+'\')">Slutför</button>':'')+
       '</div>'+
+    '</div>';
+  }).join('');
+}
+
+
+// ELEMENTAL MASTERY
+var ELM2_KEY = 'k0509_elem';
+const ELEM_TYPES = [
+  {id:'fire',  icon:'🔥', name:'Eld',     color:'#ff6600', bgColor:'rgba(255,100,0,.08)',  borderColor:'rgba(255,100,0,.25)',  statPer:2, stat:'str', maxLvl:20, cost:10},
+  {id:'water', icon:'💧', name:'Vatten',  color:'#0088ff', bgColor:'rgba(0,136,255,.08)',   borderColor:'rgba(0,136,255,.25)', statPer:2, stat:'agi', maxLvl:20, cost:10},
+  {id:'earth', icon:'🌍', name:'Jord',    color:'#44aa00', bgColor:'rgba(68,170,0,.08)',    borderColor:'rgba(68,170,0,.25)', statPer:2, stat:'end', maxLvl:20, cost:10},
+  {id:'air',   icon:'💨', name:'Luft',    color:'#88ccff', bgColor:'rgba(136,200,255,.06)', borderColor:'rgba(136,200,255,.2)',statPer:2, stat:'agi', maxLvl:20, cost:12},
+  {id:'void',  icon:'🌑', name:'Tomrum',  color:'#cc88ff', bgColor:'rgba(200,136,255,.06)', borderColor:'rgba(200,136,255,.2)',statPer:3, stat:'int', maxLvl:20, cost:15},
+  {id:'light', icon:'⚡', name:'Ljus',    color:'#ffee44', bgColor:'rgba(255,238,68,.05)',  borderColor:'rgba(255,238,68,.2)', statPer:2, stat:'lck', maxLvl:20, cost:12},
+];
+
+function _elm2Data(){try{return JSON.parse(localStorage.getItem(ELM2_KEY)||'null');}catch(e){return null;}}
+function _elm2Save(d){localStorage.setItem(ELM2_KEY,JSON.stringify(d));}
+function _elm2GetData(){
+  var d=_elemData();
+  if(!d) d={pts:30,levels:{},trainedToday:{},lastDay:''};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.trainedToday={};d.lastDay=today;_elemSave(d);}
+  return d;
+}
+
+function elm2Train(elemId){
+  var d=_elemGetData();
+  if(d.trainedToday[elemId]){showFloatBubble('Redan tränat '+elemId+' idag!','debuff');return;}
+  var el=ELEM_TYPES.find(function(e){return e.id===elemId;});
+  if(!el) return;
+  var curLvl=d.levels[elemId]||0;
+  if(curLvl>=el.maxLvl){showFloatBubble('Max nivå nådd!','debuff');return;}
+  var cost=el.cost+curLvl*2;
+  if((d.pts||0)<cost){
+    // Earn pts first
+    d.pts=(d.pts||0)+5;
+    showFloatBubble('✨ +5 elementpoäng! ('+d.pts+' totalt)','buff');
+    _elemSave(d);_renderElem(d);return;
+  }
+  d.pts-=cost;
+  d.trainedToday[elemId]=true;
+  d.levels[elemId]=(curLvl||0)+1;
+  var newLvl=d.levels[elemId];
+  G[el.stat]=(G[el.stat]||0)+el.statPer;
+  save();
+  gainCoins(30+newLvl*5);gainXP(25+newLvl*4,el.stat);
+  showFloatBubble(el.icon+' '+el.name+' Lv.'+newLvl+'! +'+el.statPer+el.stat.toUpperCase(),'buff');
+  checkAchievements();
+  _elemSave(d);_renderElem(d);
+}
+
+function elm2EarnPts(){
+  var d=_elemGetData();
+  d.pts=(d.pts||0)+15;
+  gainXP(30,'int');
+  _elemSave(d);
+  showFloatBubble('✨ +15 Elementpoäng tjänade!','buff');
+  _renderElem(d);
+}
+
+function openElm2(){$('elm2Panel').classList.add('open');_renderElm2();}
+function closeElm2(){$('elm2Panel').classList.remove('open');}
+
+function _renderElm2(d){
+  if(!d) d=_elemGetData();
+  var pv=$('elm2PtsV');if(pv) pv.textContent=(d.pts||0)+' ✨';
+  var container=$('elm2Elements');if(!container) return;
+  container.innerHTML=ELEM_TYPES.map(function(el){
+    var lvl=d.levels[el.id]||0;
+    var trained=!!d.trainedToday[el.id];
+    var cost=el.cost+lvl*2;
+    var canAff=(d.pts||0)>=cost;
+    var pct=Math.round(lvl/el.maxLvl*100);
+    return '<div class="elem-el" style="background:'+el.bgColor+';border-color:'+el.borderColor+'">'+
+      '<div class="elem-el-top">'+
+        '<div class="elem-el-icon">'+el.icon+'</div>'+
+        '<div class="elem-el-info">'+
+          '<div class="elem-el-name" style="color:'+el.color+'">'+el.name+'</div>'+
+          '<div class="elem-el-eff">+'+el.statPer+' '+el.stat.toUpperCase()+' per nivå (aktiv: +'+(lvl*el.statPer)+' totalt)</div>'+
+        '</div>'+
+        '<div class="elem-el-lvl" style="color:'+el.color+'">Lv.'+lvl+'/'+el.maxLvl+'</div>'+
+      '</div>'+
+      '<div class="elem-el-bar" style="background:rgba(255,255,255,.06)">'+
+        '<div class="elem-el-bar-fill" style="width:'+pct+'%;background:'+el.color+'"></div>'+
+      '</div>'+
+      '<button class="elem-train-btn" style="color:'+el.color+';border-color:'+el.borderColor+'" onclick="elemTrain(\''+el.id+'\')" '+(trained||lvl>=el.maxLvl?'disabled':'')+'>'+
+        (lvl>=el.maxLvl?'MAX':trained?'✓ Klar':(!canAff?'+5✨':'Träna ('+cost+'✨)'))+
+      '</button>'+
+    '</div>';
+  }).join('');
+}
+
+
+// MYSTERY CARD
+const MYSC_KEY = 'k0509_mysc';
+const MYSC_PRIZES = [
+  {icon:'💰', name:'100 Mynt',     weight:30, fn:function(){gainCoins(100);}},
+  {icon:'💎', name:'500 Mynt',     weight:15, fn:function(){gainCoins(500);}},
+  {icon:'⭐', name:'200 XP',       weight:25, fn:function(){gainXP(200,'str');gainXP(200,'agi');}},
+  {icon:'💪', name:'+3 STR',       weight:12, fn:function(){G.str=(G.str||0)+3;save();}},
+  {icon:'🧠', name:'+3 INT',       weight:12, fn:function(){G.int=(G.int||0)+3;save();}},
+  {icon:'🍀', name:'+3 LCK',       weight:12, fn:function(){G.lck=(G.lck||0)+3;save();}},
+  {icon:'💎', name:'+1 KC',        weight:5,  fn:function(){gainKC(1);}},
+  {icon:'🔥', name:'+5 alla stats',weight:3,  fn:function(){G.str=(G.str||0)+5;G.agi=(G.agi||0)+5;G.int=(G.int||0)+5;G.lck=(G.lck||0)+5;G.end=(G.end||0)+5;save();}},
+  {icon:'🎁', name:'1000 Mynt',    weight:2,  fn:function(){gainCoins(1000);}},
+];
+
+function _myscData(){try{return JSON.parse(localStorage.getItem(MYSC_KEY)||'null');}catch(e){return null;}}
+function _myscSave(d){localStorage.setItem(MYSC_KEY,JSON.stringify(d));}
+function _myscGetData(){
+  var d=_myscData();
+  if(!d) d={streak:0,lastDay:'',chosen:null,cards:null};
+  var today=getTodayKey();
+  if(d.lastDay!==today){
+    // Generate 6 cards for today
+    var pool=[];
+    var totalWeight=MYSC_PRIZES.reduce(function(s,p){return s+p.weight;},0);
+    for(var i=0;i<6;i++){
+      var r=Math.random()*totalWeight, cum=0;
+      for(var j=0;j<MYSC_PRIZES.length;j++){cum+=MYSC_PRIZES[j].weight;if(r<cum){pool.push(j);break;}}
+      if(pool.length<i+1) pool.push(0);
+    }
+    d.cards=pool;
+    d.chosen=null;
+    // Streak: check if played yesterday
+    if(d.lastDay){
+      var prev=new Date(d.lastDay);
+      var todDate=new Date(today);
+      var diff=Math.round((todDate-prev)/(1000*60*60*24));
+      if(diff>1) d.streak=0;
+    }
+    d.lastDay=today;
+    _myscSave(d);
+  }
+  return d;
+}
+
+function myscChoose(idx){
+  var d=_myscGetData();
+  if(d.chosen!==null){showFloatBubble('Redan valt idag!','debuff');return;}
+  d.chosen=idx;
+  var prizeIdx=d.cards[idx];
+  var prize=MYSC_PRIZES[prizeIdx];
+  d.streak=(d.streak||0)+1;
+  var streakBonus=Math.floor(d.streak/7);
+  prize.fn();
+  gainXP(50+d.streak*5,'lck');
+  if(streakBonus>0) gainKC(streakBonus);
+  _myscSave(d);
+  var res=$('myscResult');
+  var bonusTxt=streakBonus>0?' +'+streakBonus+'KC streak bonus!':'';
+  if(res) res.textContent='🎉 '+prize.icon+' '+prize.name+' vunnet!'+bonusTxt;
+  showFloatBubble('🃏 '+prize.icon+' '+prize.name+'!'+(streakBonus>0?' +'+streakBonus+'KC':''),'buff');
+  checkAchievements();
+  _renderMysc(d);
+}
+
+function openMysc(){$('myscPanel').classList.add('open');_renderMysc();}
+function closeMysc(){$('myscPanel').classList.remove('open');}
+
+function _renderMysc(d){
+  if(!d) d=_myscGetData();
+  var sv=$('myscStreakV');if(sv) sv.textContent='🔥 '+(d.streak||0)+' dagar';
+  var container=$('myscCards');if(!container) return;
+  var chosen=d.chosen;
+  container.innerHTML=(d.cards||[]).map(function(prizeIdx,i){
+    var isChosen=chosen===i;
+    var isDone=chosen!==null;
+    var prize=MYSC_PRIZES[prizeIdx];
+    var cls='mysc-card'+(isChosen?' revealed':isDone?' used':'');
+    if(isChosen){
+      return '<div class="'+cls+'"><div style="font-size:32px">'+prize.icon+'</div><div class="mysc-card-val">'+prize.name+'</div></div>';
+    }
+    return '<div class="'+cls+'" onclick="myscChoose('+i+')">'+(isDone?'❌':'🃏')+'</div>';
+  }).join('');
+  var res=$('myscResult');
+  if(res&&chosen!==null&&!res.textContent){
+    var p=MYSC_PRIZES[d.cards[chosen]];
+    res.textContent='🎉 '+p.icon+' '+p.name+' vunnet!';
+  }
+}
+
+
+// GALACTIC TRADE
+const GTRD_KEY = 'k0509_gtrd';
+const GTRD_CIVS = [
+  {id:'zorn',   icon:'👽', name:'Zorn-riket',   desc:'Intelligenta vapensmeder', relation:'Neutral',
+   goods:[
+     {id:'zorn_blade',  icon:'⚔️', name:'Zorn-svärd',   eff:'+6 STR +3 END', price:35, bonus:{str:6,end:3}},
+     {id:'zorn_shield', icon:'🛡️', name:'Void-sköld',   eff:'+6 END +2 AGI', price:35, bonus:{end:6,agi:2}},
+   ]},
+  {id:'lyra',   icon:'🌺', name:'Lyrianer',     desc:'Mystiska naturfolk',      relation:'Vänlig',
+   goods:[
+     {id:'lyra_elixir', icon:'🧪', name:'Lyra-elixir',  eff:'+8 AGI permanent', price:40, bonus:{agi:8}},
+     {id:'lyra_seed',   icon:'🌱', name:'Sällsynt frö', eff:'+500 Mynt',        price:20, coins:500},
+   ]},
+  {id:'nexar',  icon:'🤖', name:'Nexar-cyborgs', desc:'Avancerad teknologi',    relation:'Misstänksam',
+   goods:[
+     {id:'nexar_chip',  icon:'💾', name:'Neural-chip',  eff:'+10 INT',          price:50, bonus:{int:10}},
+     {id:'nexar_boost', icon:'⚡', name:'Kraft-boost',  eff:'+200 XP alla',     price:30, xpBoost:200},
+   ]},
+  {id:'velath', icon:'🐉', name:'Velath-draker', desc:'Uråldriga drakfolk',     relation:'Respekt',
+   goods:[
+     {id:'velath_scale',icon:'🐉', name:'Drakfjäll',    eff:'+8 END +5 STR',    price:55, bonus:{end:8,str:5}},
+     {id:'velath_gem',  icon:'💎', name:'Drak-pärla',   eff:'+3 KC',            price:70, kc:3},
+   ]},
+];
+
+function _gtrdData(){try{return JSON.parse(localStorage.getItem(GTRD_KEY)||'null');}catch(e){return null;}}
+function _gtrdSave(d){localStorage.setItem(GTRD_KEY,JSON.stringify(d));}
+function _gtrdGetData(){
+  var d=_gtrdData();
+  if(!d) d={creds:30,bought:{},earnedToday:0,lastEarnDay:'',expanded:{}};
+  var today=getTodayKey();
+  if(d.lastEarnDay!==today){d.earnedToday=0;d.lastEarnDay=today;}
+  return d;
+}
+
+function gtrdEarn(){
+  var d=_gtrdGetData();
+  var today=getTodayKey();
+  if(d.lastEarnDay!==today){d.earnedToday=0;d.lastEarnDay=today;}
+  if((d.earnedToday||0)>=5){showFloatBubble('Max 5 jobb per dag!','debuff');return;}
+  d.creds=(d.creds||0)+20;
+  d.earnedToday=(d.earnedToday||0)+1;
+  gainXP(30,'int');
+  _gtrdSave(d);
+  showFloatBubble('🌌 +20 Galaktiska krediter! ('+(5-d.earnedToday)+' jobb kvar)','buff');
+  _renderGtrd(d);
+}
+
+function gtrdToggleCiv(civId){
+  var d=_gtrdGetData();
+  d.expanded=d.expanded||{};
+  d.expanded[civId]=!d.expanded[civId];
+  _gtrdSave(d);
+  _renderGtrd(d);
+}
+
+function gtrdBuy(civId, goodId){
+  var d=_gtrdGetData();
+  var civ=GTRD_CIVS.find(function(c){return c.id===civId;});
+  var good=civ&&civ.goods.find(function(g){return g.id===goodId;});
+  if(!good) return;
+  if((d.creds||0)<good.price){showFloatBubble('Behöver '+good.price+'🌌!','debuff');return;}
+  d.creds-=good.price;
+  d.bought[goodId]=(d.bought[goodId]||0)+1;
+  if(good.bonus) Object.keys(good.bonus).forEach(function(s){G[s]=(G[s]||0)+good.bonus[s];});
+  if(good.coins) gainCoins(good.coins);
+  if(good.kc) gainKC(good.kc);
+  if(good.xpBoost){gainXP(good.xpBoost,'str');gainXP(good.xpBoost,'agi');gainXP(good.xpBoost,'int');}
+  save();
+  _gtrdSave(d);
+  showFloatBubble('🌌 '+good.icon+' '+good.name+' köpt! '+good.eff,'buff');
+  checkAchievements();
+  _renderGtrd(d);
+}
+
+function openGtrd(){$('gtrdPanel').classList.add('open');_renderGtrd();}
+function closeGtrd(){$('gtrdPanel').classList.remove('open');}
+
+function _renderGtrd(d){
+  if(!d) d=_gtrdGetData();
+  var cv=$('gtrdCredV');if(cv) cv.textContent=(d.creds||0)+' 🌌';
+  var container=$('gtrdCivs');if(!container) return;
+  container.innerHTML=GTRD_CIVS.map(function(civ){
+    var expanded=d.expanded&&d.expanded[civ.id];
+    var goodsHTML='';
+    if(expanded){
+      goodsHTML='<div class="gtrd-goods">'+civ.goods.map(function(good){
+        var canAff=(d.creds||0)>=good.price;
+        return '<div class="gtrd-good">'+
+          '<div class="gtrd-good-icon">'+good.icon+'</div>'+
+          '<div class="gtrd-good-info">'+
+            '<div class="gtrd-good-name">'+good.name+'</div>'+
+            '<div class="gtrd-good-eff">'+good.eff+'</div>'+
+          '</div>'+
+          '<div class="gtrd-good-price">'+good.price+'🌌</div>'+
+          '<button class="gtrd-buy-btn" onclick="gtrdBuy(\''+civ.id+'\',\''+good.id+'\')" '+(canAff?'':'disabled')+'>Köp</button>'+
+        '</div>';
+      }).join('')+'</div>';
+    }
+    return '<div class="gtrd-civ">'+
+      '<div class="gtrd-civ-hdr" onclick="gtrdToggleCiv(\''+civ.id+'\')">'+
+        '<div class="gtrd-civ-icon">'+civ.icon+'</div>'+
+        '<div class="gtrd-civ-info">'+
+          '<div class="gtrd-civ-name">'+civ.name+'</div>'+
+          '<div class="gtrd-civ-desc">'+civ.desc+'</div>'+
+        '</div>'+
+        '<div class="gtrd-civ-rel">'+civ.relation+' '+(expanded?'▲':'▼')+'</div>'+
+      '</div>'+
+      goodsHTML+
     '</div>';
   }).join('');
 }
