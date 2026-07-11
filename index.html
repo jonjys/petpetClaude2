@@ -2596,6 +2596,46 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ SPIRIT FAMILIAR ══ */
+.sfam-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 40%,#060a18,#02040a);z-index:1137;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.sfam-panel h2{color:#aaddff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #88aaff}
+.sfam-stage{width:220px;height:180px;background:radial-gradient(ellipse,rgba(80,120,200,.12),transparent 70%);border:2px solid #1a3060;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:8px 0;position:relative;cursor:pointer}
+.sfam-stage:hover{border-color:#aaddff}
+.sfam-anim{font-size:4rem;animation:sfamFloat 3s ease-in-out infinite}
+@keyframes sfamFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.sfam-name-lbl{color:#88aadd;font-size:.85rem;margin-top:4px;font-style:italic}
+.sfam-bond{background:rgba(20,40,80,.3);border:1px solid #1a3060;border-radius:8px;padding:6px 14px;color:#aaddff;font-size:.82rem;margin-bottom:8px;text-align:center}
+.sfam-familiars{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:340px;margin:6px 0}
+.sfam-fam{background:rgba(15,30,60,.4);border:1px solid #1a3060;border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.sfam-fam:hover{border-color:#aaddff;background:rgba(30,55,110,.5)}
+.sfam-fam.bonded{border-color:#44aaff;background:rgba(40,80,160,.3);box-shadow:0 0 8px rgba(68,170,255,.3)}
+.sfam-fam .sf-icon{font-size:1.8rem}
+.sfam-fam .sf-name{font-size:.65rem;color:#8899cc;margin-top:3px}
+.sfam-fam .sf-bonus{font-size:.6rem;color:#44aaff;margin-top:1px}
+.sfam-collect-btn{background:linear-gradient(135deg,#1a3880,#0c1c50);border:1px solid #4488ff;color:#aaddff;border-radius:10px;padding:9px 22px;font-size:.84rem;cursor:pointer;margin:6px 0;transition:all .2s}
+.sfam-collect-btn:hover{background:linear-gradient(135deg,#2a4aa0,#162866);box-shadow:0 0 10px rgba(68,136,255,.4)}
+
+/* ══ ARENA BATTLE PASS ══ */
+.abp-panel{position:fixed;inset:0;background:linear-gradient(170deg,#08040a,#0a0614);z-index:1136;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.abp-panel h2{color:#ff6644;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #ff3300}
+.abp-header{background:rgba(60,20,10,.35);border:1px solid #803020;border-radius:10px;padding:8px 16px;color:#ff8866;font-size:.82rem;margin-bottom:8px;width:100%;max-width:320px;text-align:center}
+.abp-xp-bar{width:100%;max-width:320px;height:12px;background:rgba(50,15,5,.5);border-radius:6px;overflow:hidden;margin-bottom:10px;border:1px solid #602010}
+.abp-xp-fill{height:100%;background:linear-gradient(90deg,#cc3300,#ff6600);border-radius:6px;transition:width .4s}
+.abp-tiers{display:flex;flex-direction:column;gap:6px;width:100%;max-width:340px}
+.abp-tier{background:rgba(40,15,5,.4);border:1px solid #602010;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s}
+.abp-tier:hover{border-color:#ff6644;background:rgba(70,25,10,.5)}
+.abp-tier.unlocked{border-color:#ff8844;background:rgba(80,30,10,.45)}
+.abp-tier.claimed{border-color:#40cc80;background:rgba(20,50,20,.3);cursor:default}
+.abp-tier .at-num{color:#ff8866;font-size:1rem;font-weight:700;min-width:26px;text-align:center}
+.abp-tier .at-icon{font-size:1.4rem}
+.abp-tier .at-info{flex:1}
+.abp-tier .at-name{color:#ff8866;font-size:.78rem;font-weight:700}
+.abp-tier .at-req{color:#804030;font-size:.62rem;margin-top:1px}
+.abp-tier .at-reward{color:#ff9966;font-size:.62rem;margin-top:1px}
+.abp-tier .at-badge{font-size:.65rem;margin-left:auto;white-space:nowrap}
+.abp-earn-btn{background:linear-gradient(135deg,#882200,#441100);border:1px solid #ff4400;color:#ff8866;border-radius:10px;padding:9px 22px;font-size:.84rem;cursor:pointer;margin:6px 0;transition:all .2s}
+.abp-earn-btn:hover{background:linear-gradient(135deg,#cc3300,#662200);box-shadow:0 0 10px rgba(255,100,0,.4)}
+
 /* ══ SKILL TREE ══ */
 .sktr-panel{position:fixed;inset:0;background:linear-gradient(170deg,#08060a,#100810);z-index:1135;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .sktr-panel h2{color:#ee99ff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #cc44ff}
@@ -16559,6 +16599,31 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <div class="sktr-tab" onclick="sktrSetTab('rogue')">🗡️ Rogue</div>
   </div>
   <div class="sktr-tree" id="sktrTree"></div>
+</div>
+
+<!-- SPIRIT FAMILIAR -->
+<div class="sfam-panel" id="sfamPanel" style="display:none">
+  <button onclick="closeSfam()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#aaddff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🌿 Spirit Familiar</h2>
+  <div class="sfam-stage" onclick="sfamPet()">
+    <div class="sfam-anim" id="sfamIcon">🌟</div>
+    <div class="sfam-name-lbl" id="sfamActiveName">No familiar bonded</div>
+  </div>
+  <div class="sfam-bond" id="sfamBond">Bond Level: 0 | Daily bonus: None</div>
+  <button class="sfam-collect-btn" onclick="sfamCollect()">💫 Collect Daily Blessing</button>
+  <div style="color:#5577aa;font-size:.72rem;margin:4px 0 8px">Choose your spirit familiar:</div>
+  <div class="sfam-familiars" id="sfamFamiliars"></div>
+</div>
+
+<!-- ARENA BATTLE PASS -->
+<div class="abp-panel" id="abpPanel" style="display:none">
+  <button onclick="closeAbp()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ff6644;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🏆 Arena Battle Pass</h2>
+  <div class="abp-header" id="abpHeader">Battle Pass XP: 0 / 1000</div>
+  <div class="abp-xp-bar"><div class="abp-xp-fill" id="abpXpFill" style="width:0%"></div></div>
+  <button class="abp-earn-btn" onclick="abpEarnXP()">⚔️ Arena Fight (+50 BP XP)</button>
+  <div style="color:#cc5530;font-size:.72rem;margin:2px 0 8px">Complete tiers to claim rewards (weekly reset)</div>
+  <div class="abp-tiers" id="abpTiers"></div>
 </div>
 
 <!-- LOOT DUNGEON -->
@@ -70641,6 +70706,157 @@ function _renderSktr(){
       <span class="sn-status">${unlocked?'✅':reqMet?'🔓':'🔒'}</span>
     </div>`;
   }).join('');
+}
+
+
+// ══ ARENA BATTLE PASS ══
+const ABP_KEY = 'k0509_abp';
+const ABP_TIERS = [
+  {tier:1,icon:'🥉',name:'Bronze I',req:100,reward:{coins:100},rdesc:'+100🪙'},
+  {tier:2,icon:'🥉',name:'Bronze II',req:200,reward:{coins:150},rdesc:'+150🪙'},
+  {tier:3,icon:'🥈',name:'Silver I',req:350,reward:{coins:200,str:2},rdesc:'+200🪙 +2STR'},
+  {tier:4,icon:'🥈',name:'Silver II',req:500,reward:{coins:250,int:2},rdesc:'+250🪙 +2INT'},
+  {tier:5,icon:'🏅',name:'Gold I',req:650,reward:{coins:300,agi:2,kc:3},rdesc:'+300🪙 +2AGI +3KC'},
+  {tier:6,icon:'🏅',name:'Gold II',req:800,reward:{coins:350,str:3},rdesc:'+350🪙 +3STR'},
+  {tier:7,icon:'🥇',name:'Platinum I',req:950,reward:{coins:400,int:3,kc:5},rdesc:'+400🪙 +3INT +5KC'},
+  {tier:8,icon:'🥇',name:'Platinum II',req:1100,reward:{coins:500,agi:3},rdesc:'+500🪙 +3AGI'},
+  {tier:9,icon:'💎',name:'Diamond',req:1300,reward:{str:5,int:5,agi:5,kc:10},rdesc:'+5 All +10KC'},
+  {tier:10,icon:'👑',name:'Champion',req:1500,reward:{coins:1000,str:8,int:8,agi:8,kc:20},rdesc:'+1000🪙 +8 All +20KC'},
+];
+function _abpData(){
+  const d=JSON.parse(localStorage.getItem(ABP_KEY)||'{}');
+  return {xp:d.xp||0,claimed:d.claimed||[],lastFight:d.lastFight||'',fights:d.fights||0,weekStart:d.weekStart||''};
+}
+function _abpSave(d){localStorage.setItem(ABP_KEY,JSON.stringify(d));}
+function _abpWeek(){return Math.floor(Date.now()/(7*24*60*60*1000)).toString();}
+function abpEarnXP(){
+  const d=_abpData();
+  const today=getTodayKey();
+  if(d.lastFight===today&&d.fights>=5){showFloatBubble('5 fights done today!','bad');return;}
+  if(d.lastFight!==today){d.fights=0;d.lastFight=today;}
+  // Check weekly reset
+  const week=_abpWeek();
+  if(d.weekStart!==week){d.xp=0;d.claimed=[];d.weekStart=week;}
+  d.xp+=50;
+  d.fights++;
+  _abpSave(d);
+  showFloatBubble('+50 Battle Pass XP!','good');
+  _renderAbp();
+}
+function abpClaim(tier){
+  const d=_abpData();
+  const week=_abpWeek();
+  if(d.weekStart!==week){d.xp=0;d.claimed=[];d.weekStart=week;}
+  const t=ABP_TIERS.find(x=>x.tier===tier);
+  if(d.claimed.includes(tier)){showFloatBubble('Already claimed!','bad');return;}
+  if(d.xp<t.req){showFloatBubble(`Need ${t.req} BP XP! (${d.xp}/${t.req})`,'bad');return;}
+  d.claimed.push(tier);
+  _abpSave(d);
+  const r=t.reward;
+  if(r.coins)gainCoins(r.coins);
+  if(r.kc)gainKC(r.kc);
+  if(r.str){G.str=(G.str||10)+r.str;save();}
+  if(r.int){G.int=(G.int||10)+r.int;save();}
+  if(r.agi){G.agi=(G.agi||10)+r.agi;save();}
+  showFloatBubble(`🏆 Tier ${tier} claimed! ${t.rdesc}`,'good');
+  checkAchievements();
+  _renderAbp();
+}
+function openAbp(){$('abpPanel').style.display='flex';_renderAbp();}
+function closeAbp(){$('abpPanel').style.display='none';}
+function _renderAbp(){
+  const d=_abpData();
+  const week=_abpWeek();
+  const xp=d.weekStart===week?d.xp:0;
+  const claimed=d.weekStart===week?d.claimed:[];
+  const maxReq=ABP_TIERS[ABP_TIERS.length-1].req;
+  $('abpHeader').textContent=`Battle Pass XP: ${xp} / ${maxReq}`;
+  $('abpXpFill').style.width=Math.min(100,xp/maxReq*100)+'%';
+  $('abpTiers').innerHTML=ABP_TIERS.map(t=>{
+    const isClaimed=claimed.includes(t.tier);
+    const canClaim=xp>=t.req&&!isClaimed;
+    let cls='abp-tier';
+    if(isClaimed)cls+=' claimed';
+    else if(xp>=t.req)cls+=' unlocked';
+    return `<div class="${cls}" onclick="abpClaim(${t.tier})">
+      <div class="at-num">${t.tier}</div>
+      <div class="at-icon">${t.icon}</div>
+      <div class="at-info">
+        <div class="at-name">${t.name}</div>
+        <div class="at-req">Requires: ${t.req} XP</div>
+        <div class="at-reward">${t.rdesc}</div>
+      </div>
+      <div class="at-badge">${isClaimed?'✅':canClaim?'✨':'🔒'}</div>
+    </div>`;
+  }).join('');
+}
+
+
+// ══ SPIRIT FAMILIAR ══
+const SFAM_KEY = 'k0509_sfam';
+const SFAM_LIST = [
+  {id:'fox',icon:'🦊',name:'Spirit Fox',bonus:'+2 AGI/day',daily:()=>{G.agi=(G.agi||10)+2;save()}},
+  {id:'owl',icon:'🦉',name:'Wise Owl',bonus:'+2 INT/day',daily:()=>{G.int=(G.int||10)+2;save()}},
+  {id:'wolf',icon:'🐺',name:'Moon Wolf',bonus:'+2 STR/day',daily:()=>{G.str=(G.str||10)+2;save()}},
+  {id:'butterfly',icon:'🦋',name:'Dream Sprite',bonus:'+50 XP/day',daily:()=>gainXP(50,'int')},
+  {id:'phoenix',icon:'🦅',name:'Phoenix',bonus:'+100 Coins/day',daily:()=>gainCoins(100)},
+  {id:'dragon',icon:'🐲',name:'Mini Wyrm',bonus:'+1 KC/day',daily:()=>gainKC(1)},
+  {id:'cat',icon:'🐱',name:'Luck Cat',bonus:'+1 All Stats/day',daily:()=>{G.str++;G.int++;G.agi++;save()}},
+  {id:'unicorn',icon:'🦄',name:'Unicorn',bonus:'+3 All Stats/day',daily:()=>{G.str+=3;G.int+=3;G.agi+=3;save()}},
+  {id:'star',icon:'⭐',name:'Star Spirit',bonus:'+2 KC + 50🪙/day',daily:()=>{gainKC(2);gainCoins(50)}},
+];
+function _sfamData(){
+  const d=JSON.parse(localStorage.getItem(SFAM_KEY)||'{}');
+  return {active:d.active||null,bond:d.bond||0,lastCollect:d.lastCollect||'',lastPet:d.lastPet||''};
+}
+function _sfamSave(d){localStorage.setItem(SFAM_KEY,JSON.stringify(d));}
+function sfamBond(fid){
+  const d=_sfamData();
+  if(d.active===fid){showFloatBubble('Already bonded!','bad');return;}
+  d.active=fid;
+  d.bond=0;
+  _sfamSave(d);
+  const f=SFAM_LIST.find(x=>x.id===fid);
+  showFloatBubble(`${f.icon} Bonded with ${f.name}!`,'good');
+  _renderSfam();
+}
+function sfamPet(){
+  const d=_sfamData();
+  const today=getTodayKey();
+  if(!d.active){showFloatBubble('Bond with a familiar first!','bad');return;}
+  if(d.lastPet===today){showFloatBubble('Already petted today!','bad');return;}
+  d.lastPet=today;
+  d.bond=(d.bond||0)+1;
+  _sfamSave(d);
+  showFloatBubble('💖 Pet! Bond +1','good');
+  _renderSfam();
+}
+function sfamCollect(){
+  const d=_sfamData();
+  const today=getTodayKey();
+  if(!d.active){showFloatBubble('Bond with a familiar first!','bad');return;}
+  if(d.lastCollect===today){showFloatBubble('Already collected today!','bad');return;}
+  d.lastCollect=today;
+  _sfamSave(d);
+  const f=SFAM_LIST.find(x=>x.id===d.active);
+  f.daily();
+  showFloatBubble(`${f.icon} ${f.name}: ${f.bonus}`,'good');
+  checkAchievements();
+  _renderSfam();
+}
+function openSfam(){$('sfamPanel').style.display='flex';_renderSfam();}
+function closeSfam(){$('sfamPanel').style.display='none';}
+function _renderSfam(){
+  const d=_sfamData();
+  const f=SFAM_LIST.find(x=>x.id===d.active);
+  $('sfamIcon').textContent=f?f.icon:'🌟';
+  $('sfamActiveName').textContent=f?f.name:'No familiar bonded';
+  $('sfamBond').textContent=f?`Bond Level: ${d.bond||0} | Daily: ${f.bonus}`:'Bond Level: 0 | Daily bonus: None';
+  $('sfamFamiliars').innerHTML=SFAM_LIST.map(x=>`<div class="sfam-fam ${d.active===x.id?'bonded':''}" onclick="sfamBond('${x.id}')">
+    <div class="sf-icon">${x.icon}</div>
+    <div class="sf-name">${x.name}</div>
+    <div class="sf-bonus">${x.bonus}</div>
+  </div>`).join('');
 }
 
 </script>
