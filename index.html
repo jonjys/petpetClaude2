@@ -1544,6 +1544,46 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ PET BREEDING LAB ══ */
+.breed-panel{position:fixed;inset:0;background:#020508;z-index:1057;display:none;flex-direction:column;overflow:hidden}
+.breed-panel.open{display:flex}
+.breed-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#050a18,#020508)}
+.breed-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff44aa,#aa44ff,#44aaff,#44ffaa,#ff44aa);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:breedShim 3s linear infinite}
+@keyframes breedShim{0%{background-position:0%}100%{background-position:400%}}
+.breed-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Breed station */
+.breed-station{background:rgba(255,255,255,.02);border:2px solid rgba(255,68,170,.2);border-radius:22px;padding:16px;margin-bottom:12px}
+.breed-station-lbl{font:700 9px var(--ff-head);color:rgba(255,68,170,.5);letter-spacing:1px;margin-bottom:10px;text-align:center}
+.breed-parents{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.breed-parent{flex:1;background:rgba(255,255,255,.03);border:2px solid rgba(255,255,255,.1);border-radius:16px;padding:10px;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s}
+.breed-parent.selected{border-color:rgba(255,68,170,.5);background:rgba(255,68,170,.06)}
+.breed-parent-icon{font-size:34px;display:block;margin-bottom:4px}
+.breed-parent-name{font:700 9px var(--ff-head);color:#fff}
+.breed-parent-stats{font:600 7px var(--ff-body);color:rgba(255,255,255,.3);margin-top:2px}
+.breed-plus{font:900 24px var(--ff-head);color:rgba(255,255,255,.3);flex-shrink:0}
+/* DNA strand */
+.breed-dna{display:flex;justify-content:center;gap:3px;margin-bottom:10px;flex-wrap:wrap}
+.breed-dna-bit{width:10px;height:10px;border-radius:50%}
+/* Result area */
+.breed-result{background:rgba(255,255,255,.02);border:2px dashed rgba(255,255,255,.08);border-radius:16px;padding:14px;text-align:center;margin-bottom:10px;min-height:80px}
+.breed-result.has-result{border-color:rgba(68,255,136,.3);border-style:solid}
+.breed-result-icon{font-size:40px;display:block;margin-bottom:6px}
+.breed-result-name{font:800 14px var(--ff-head);color:#fff;margin-bottom:4px}
+.breed-result-stats{font:600 9px var(--ff-body);color:rgba(68,255,136,.6);margin-bottom:4px}
+.breed-result-rare{font:700 9px var(--ff-head);color:#ffcc00}
+/* Breed btn */
+.breed-btn{width:100%;background:linear-gradient(135deg,#200030,#500080);border:1.5px solid rgba(170,68,255,.4);border-radius:14px;padding:12px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;margin-bottom:8px}
+.breed-btn:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.05)}
+/* History */
+.breed-hist-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.breed-hist-list{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.breed-hist-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:7px 10px}
+.breed-hist-icons{font-size:14px;flex-shrink:0}
+.breed-hist-name{font:700 9px var(--ff-head);color:#fff;flex:1}
+.breed-hist-bonus{font:700 8px var(--ff-head);color:#44ff88}
+.breed-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ MEMORY MATCH ══ */
 .mem-panel{position:fixed;inset:0;background:#010408;z-index:1056;display:none;flex-direction:column;overflow:hidden}
 .mem-panel.open{display:flex}
@@ -12219,6 +12259,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
+          <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12296,6 +12337,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
+          <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12356,6 +12398,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
+          <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12454,6 +12497,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openMood()"><div class="ddr-i">💝</div>Humörlogg</div>
           <div class="ddr" onclick="cM();openTyp()"><div class="ddr-i">⌨️</div>Skrivhastighet</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🧩</div>Minnesspel</div>
+          <div class="ddr" onclick="cM();openBreed()"><div class="ddr-i">🧬</div>Avelslab</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13058,6 +13102,41 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- PET BREEDING LAB -->
+<div class="breed-panel" id="breedPanel">
+  <div class="breed-header">
+    <div class="breed-title">🧬 AVELSLAB</div>
+    <button class="close-btn" onclick="closeBreed()">✕</button>
+  </div>
+  <div class="breed-scroll">
+    <div class="breed-station">
+      <div class="breed-station-lbl">VÄLJ FÖRÄLDRAR</div>
+      <div class="breed-parents">
+        <div class="breed-parent" id="breedP1" onclick="breedSelectParent(0)">
+          <span class="breed-parent-icon" id="breedP1Icon">❓</span>
+          <div class="breed-parent-name">Förälder 1</div>
+          <div class="breed-parent-stats" id="breedP1Stats"></div>
+        </div>
+        <div class="breed-plus">+</div>
+        <div class="breed-parent" id="breedP2" onclick="breedSelectParent(1)">
+          <span class="breed-parent-icon" id="breedP2Icon">❓</span>
+          <div class="breed-parent-name">Förälder 2</div>
+          <div class="breed-parent-stats" id="breedP2Stats"></div>
+        </div>
+      </div>
+      <div class="breed-dna" id="breedDna"></div>
+      <div class="breed-result" id="breedResult">
+        <div style="font:600 10px var(--ff-body);color:rgba(255,255,255,.3)">Välj två föräldrar och tryck AVLA</div>
+      </div>
+    </div>
+    <button class="breed-btn" id="breedBtn" onclick="breedRun()" disabled>🧬 AVLA!</button>
+    <div class="breed-hist-lbl">TIDIGARE AVELSRESULTAT</div>
+    <div class="breed-hist-list" id="breedHistList"></div>
+    <div class="breed-info">LCK = chans för mutation · Avla för permanenta stat-bonusar · 3 gånger/dag</div>
+  </div>
+</div>
 
 <!-- MEMORY MATCH -->
 <div class="mem-panel" id="memPanel">
@@ -57301,6 +57380,174 @@ function _renderMem(d){
     btn.disabled=left<=0;
     btn.textContent=left>0?'🧩 NY OMGÅNG ('+left+' kvar)':'✓ Klar för idag!';
   }
+}
+
+
+// PET BREEDING LAB
+const BREED_KEY = 'k0509_breed';
+const BREED_MAX_PER_DAY = 3;
+const BREED_PETS = [
+  {id:'wolf',   icon:'🐺', name:'Varg',      stats:{str:8,agi:6,end:5,int:3,lck:4}},
+  {id:'cat',    icon:'🐱', name:'Katt',      stats:{str:3,agi:8,end:4,int:7,lck:6}},
+  {id:'bear',   icon:'🐻', name:'Björn',     stats:{str:9,agi:3,end:10,int:2,lck:2}},
+  {id:'fox',    icon:'🦊', name:'Räv',       stats:{str:4,agi:9,end:4,int:8,lck:7}},
+  {id:'eagle',  icon:'🦅', name:'Örn',       stats:{str:6,agi:10,end:5,int:6,lck:5}},
+  {id:'dragon', icon:'🐉', name:'Drake',     stats:{str:12,agi:7,end:8,int:6,lck:3}},
+  {id:'rabbit', icon:'🐰', name:'Kanin',     stats:{str:2,agi:10,end:3,int:5,lck:10}},
+  {id:'horse',  icon:'🐴', name:'Häst',      stats:{str:7,agi:8,end:8,int:4,lck:5}},
+];
+const BREED_HYBRIDS = [
+  {id:'wyrm',  p1:'wolf',   p2:'dragon', icon:'🐲', name:'Vargdrakel',    bonus:{str:10,end:6}},
+  {id:'fecat', p1:'fox',    p2:'cat',    icon:'🦋', name:'Rävkatt',       bonus:{agi:8,lck:6}},
+  {id:'griff', p1:'eagle',  p2:'horse',  icon:'🦅', name:'Grip',          bonus:{agi:10,str:5}},
+  {id:'frost', p1:'bear',   p2:'rabbit', icon:'❄️', name:'Frostkanin',    bonus:{end:8,lck:8}},
+  {id:'phobird',p1:'dragon',p2:'eagle',  icon:'🔥', name:'Fenixörn',      bonus:{str:8,agi:8}},
+  {id:'lunafox',p1:'fox',   p2:'rabbit', icon:'🌙', name:'Månräv',        bonus:{lck:12,agi:5}},
+];
+const BREED_MUTATIONS = [
+  {icon:'⭐', name:'Stjärn-mutation!',  bonus:{str:5,agi:5,int:5,end:5,lck:5}},
+  {icon:'🔥', name:'Eld-mutation!',     bonus:{str:15}},
+  {icon:'💎', name:'Kristall-mutation!',bonus:{end:15}},
+  {icon:'🌊', name:'Vatten-mutation!',  bonus:{agi:12,lck:5}},
+  {icon:'⚡', name:'Blixt-mutation!',   bonus:{agi:15}},
+];
+
+var _breedSelected=[null,null];
+
+function _breedData(){try{return JSON.parse(localStorage.getItem(BREED_KEY)||'null');}catch(e){return null;}}
+function _breedSave(d){localStorage.setItem(BREED_KEY,JSON.stringify(d));}
+function _breedGetData(){
+  var d=_breedData();
+  if(!d) d={breedsToday:0,lastDay:'',history:[]};
+  var today=getTodayKey();
+  if(d.lastDay!==today){d.breedsToday=0;d.lastDay=today;}
+  return d;
+}
+
+function breedSelectParent(slot){
+  // Cycle through pets
+  var cur=_breedSelected[slot];
+  var curIdx=cur?BREED_PETS.findIndex(function(p){return p.id===cur.id;}):-1;
+  var next=BREED_PETS[(curIdx+1)%BREED_PETS.length];
+  _breedSelected[slot]=next;
+  // Don't allow same pet in both slots
+  if(_breedSelected[0]&&_breedSelected[1]&&_breedSelected[0].id===_breedSelected[1].id){
+    _breedSelected[slot]=BREED_PETS[(curIdx+2)%BREED_PETS.length];
+  }
+  _breedRenderParents();
+  _breedCheckReady();
+}
+
+function _breedRenderParents(){
+  for(var i=0;i<2;i++){
+    var p=_breedSelected[i];
+    var pi=$('breedP'+(i+1)+'Icon');
+    var ps=$('breedP'+(i+1)+'Stats');
+    if(p){
+      if(pi) pi.textContent=p.icon;
+      if(ps) ps.textContent='STR'+p.stats.str+' AGI'+p.stats.agi+' END'+p.stats.end;
+    } else {
+      if(pi) pi.textContent='❓';
+      if(ps) ps.textContent='';
+    }
+  }
+  // DNA visualization
+  var dna=$('breedDna');
+  if(dna){
+    var colors=['#ff44aa','#aa44ff','#4488ff','#44ffcc','#44ff88','#ffcc00','#ff8800','#ff4444'];
+    var bits='';
+    for(var b=0;b<20;b++){
+      var c=_breedSelected[b%2<1?0:1];
+      var color=c?colors[BREED_PETS.indexOf(c)%colors.length]:'rgba(255,255,255,.1)';
+      bits+='<div class="breed-dna-bit" style="background:'+color+'"></div>';
+    }
+    dna.innerHTML=bits;
+  }
+}
+
+function _breedCheckReady(){
+  var d=_breedGetData();
+  var btn=$('breedBtn');
+  if(btn) btn.disabled=!_breedSelected[0]||!_breedSelected[1]||d.breedsToday>=BREED_MAX_PER_DAY;
+}
+
+function breedRun(){
+  var d=_breedGetData();
+  if(d.breedsToday>=BREED_MAX_PER_DAY){showFloatBubble('Max avlingar för idag!','debuff');return;}
+  if(!_breedSelected[0]||!_breedSelected[1]) return;
+  var p1=_breedSelected[0],p2=_breedSelected[1];
+  // Check hybrid
+  var hybrid=BREED_HYBRIDS.find(function(h){
+    return (h.p1===p1.id&&h.p2===p2.id)||(h.p1===p2.id&&h.p2===p1.id);
+  });
+  // Mutation chance based on LCK
+  var mutChance=Math.min(0.25,(G.lck||0)*0.005);
+  var mutation=Math.random()<mutChance?BREED_MUTATIONS[Math.floor(Math.random()*BREED_MUTATIONS.length)]:null;
+  var result;
+  if(hybrid){
+    result={icon:hybrid.icon,name:hybrid.name,bonus:hybrid.bonus,isHybrid:true};
+  } else {
+    // Average stats mix
+    var bonusStr=Math.floor((p1.stats.str+p2.stats.str)/4);
+    var bonusAgi=Math.floor((p1.stats.agi+p2.stats.agi)/4);
+    var bonusEnd=Math.floor((p1.stats.end+p2.stats.end)/4);
+    var bonusInt=Math.floor((p1.stats.int+p2.stats.int)/4);
+    var bonusLck=Math.floor((p1.stats.lck+p2.stats.lck)/4);
+    result={icon:p1.icon+p2.icon,name:p1.name+p2.name,bonus:{str:bonusStr,agi:bonusAgi,end:bonusEnd,int:bonusInt,lck:bonusLck},isHybrid:false};
+  }
+  if(mutation){
+    Object.keys(mutation.bonus).forEach(function(s){result.bonus[s]=(result.bonus[s]||0)+mutation.bonus[s];});
+    result.mutationName=mutation.name;result.mutationIcon=mutation.icon;
+  }
+  // Apply bonuses
+  Object.keys(result.bonus).forEach(function(s){if(result.bonus[s]>0) G[s]=(G[s]||0)+result.bonus[s];});
+  save();gainCoins(80);gainXP(50,'int');
+  d.breedsToday=(d.breedsToday||0)+1;
+  d.lastDay=getTodayKey();
+  d.history.unshift({p1:p1.icon,p2:p2.icon,name:result.name,icon:result.icon,bonus:result.bonus,mutation:mutation?mutation.name:null});
+  if(d.history.length>6) d.history=d.history.slice(0,6);
+  _breedSave(d);
+  checkAchievements();
+  // Render result
+  var bonusTxt=Object.keys(result.bonus).map(function(k){return '+'+result.bonus[k]+k.toUpperCase();}).join(' ');
+  var res=$('breedResult');
+  if(res){
+    res.className='breed-result has-result';
+    res.innerHTML='<span class="breed-result-icon">'+result.icon+'</span>'+
+      '<div class="breed-result-name">'+(result.mutationIcon||'')+(hybrid?'⭐ ':'')+result.name+'</div>'+
+      '<div class="breed-result-stats">'+bonusTxt+'</div>'+
+      (result.mutationName?'<div class="breed-result-rare">'+result.mutationIcon+' '+result.mutationName+'</div>':'')+
+      (hybrid?'<div class="breed-result-rare">⭐ Hybrid!</div>':'');
+  }
+  showFloatBubble('🧬 '+result.name+(mutation?' '+mutation.icon+' Mutation!':'')+'! '+bonusTxt,'buff');
+  _breedRenderHist(d);
+  _breedCheckReady();
+}
+
+function _breedRenderHist(d){
+  var list=$('breedHistList');if(!list) return;
+  if(!d) d=_breedGetData();
+  if(!d.history||!d.history.length){list.innerHTML='<div style="font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center;padding:8px">Inga avlingar än.</div>';return;}
+  list.innerHTML=d.history.map(function(h){
+    var bonusTxt=Object.keys(h.bonus).map(function(k){return '+'+h.bonus[k]+k.toUpperCase();}).join(' ');
+    return '<div class="breed-hist-item">'+
+      '<div class="breed-hist-icons">'+h.p1+'+'+h.p2+'</div>'+
+      '<div>'+
+        '<div class="breed-hist-name">'+h.icon+' '+h.name+(h.mutation?' ⭐':'')+'</div>'+
+      '</div>'+
+      '<div class="breed-hist-bonus">'+bonusTxt+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+function openBreed(){$('breedPanel').classList.add('open');_renderBreed();}
+function closeBreed(){$('breedPanel').classList.remove('open');}
+
+function _renderBreed(d){
+  if(!d) d=_breedGetData();
+  _breedRenderParents();
+  _breedCheckReady();
+  _breedRenderHist(d);
 }
 
 </script>
