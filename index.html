@@ -2596,6 +2596,40 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ POTION SHOP ══ */
+.potshop-panel{position:fixed;inset:0;background:linear-gradient(160deg,#05080a,#070500);z-index:1149;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.potshop-panel h2{color:#ffcc88;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #cc8800}
+.potshop-counter{background:rgba(30,20,0,.4);border:2px solid #604000;border-radius:14px;width:100%;max-width:340px;padding:12px;text-align:center;margin-bottom:8px;position:relative}
+.potshop-counter::before{content:'⚗️';position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:1.6rem}
+.potshop-inv{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:4px}
+.potshop-inv-item{background:rgba(50,30,0,.4);border:1px solid #664400;border-radius:8px;padding:4px 10px;font-size:.7rem;color:#ffaa44}
+.potshop-brew-list{display:flex;flex-direction:column;gap:6px;width:100%;max-width:340px;margin-top:4px}
+.potshop-recipe{background:rgba(25,15,0,.4);border:1px solid #553300;border-radius:10px;padding:9px 12px;cursor:pointer;transition:all .2s}
+.potshop-recipe:hover{border-color:#ffcc88;background:rgba(45,25,0,.5)}
+.potshop-recipe .pr-head{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.potshop-recipe .pr-icon{font-size:1.3rem}
+.potshop-recipe .pr-name{color:#ffcc88;font-size:.8rem;font-weight:700}
+.potshop-recipe .pr-price{color:#ffcc44;font-size:.65rem;margin-left:auto}
+.potshop-recipe .pr-ing{color:#886630;font-size:.62rem;margin-bottom:2px}
+.potshop-recipe .pr-effect{color:#88dd88;font-size:.62rem}
+.potshop-gold{background:rgba(30,20,0,.3);border:1px solid #553300;border-radius:8px;padding:5px 14px;color:#ffcc88;font-size:.82rem;margin-bottom:6px}
+
+/* ══ ICE KINGDOM ══ */
+.icek-panel{position:fixed;inset:0;background:linear-gradient(170deg,#040a18,#060c14);z-index:1148;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.icek-panel h2{color:#aaddff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #88ccff}
+.icek-kingdom{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:320px;background:rgba(5,15,30,.5);border:2px solid #1a3a5a;border-radius:14px;padding:10px;margin:6px 0}
+.icek-tile{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;background:rgba(10,25,45,.5);border:1px solid #1a3050}
+.icek-tile:hover{border-color:#88ccff;background:rgba(20,45,75,.6);transform:scale(1.05)}
+.icek-tile.built{border-color:#44aadd;background:rgba(20,50,80,.5)}
+.icek-tile .it-icon{font-size:1.3rem}
+.icek-tile .it-name{font-size:.55rem;color:#88aacc;margin-top:2px;text-align:center}
+.icek-tile .it-lvl{font-size:.6rem;color:#4488aa;font-weight:700}
+.icek-ice{background:rgba(8,20,40,.35);border:1px solid #1a3a60;border-radius:8px;padding:5px 14px;color:#aaddff;font-size:.8rem;margin-bottom:6px;text-align:center}
+.icek-actions{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}
+.icek-btn{background:linear-gradient(135deg,#1a3a6a,#0c1e3a);border:1px solid #3a88cc;color:#aaddff;border-radius:9px;padding:7px 14px;font-size:.76rem;cursor:pointer;transition:all .2s}
+.icek-btn:hover{border-color:#aaddff;box-shadow:0 0 8px rgba(136,204,255,.3)}
+.icek-log{background:rgba(5,15,30,.5);border:1px solid #1a3050;border-radius:8px;padding:8px;width:100%;max-width:320px;max-height:80px;overflow-y:auto;font-size:.67rem;color:#6090c0}
+
 /* ══ ARCANE DUEL ══ */
 .aduel-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 20%,#0a0520,#030108);z-index:1147;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .aduel-panel h2{color:#cc88ff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #8844ff}
@@ -16884,6 +16918,34 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
   </div>
   <div class="aduel-spells" id="aduelSpells"></div>
   <div class="aduel-log" id="aduelLog"><div>Cast a spell to begin the duel!</div></div>
+</div>
+
+<!-- ICE KINGDOM -->
+<div class="icek-panel" id="icekPanel" style="display:none">
+  <button onclick="closeIcek()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#aaddff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>❄️ Ice Kingdom</h2>
+  <div class="icek-ice" id="icekIce">Ice Crystals: 0 | Power: 0</div>
+  <div class="icek-kingdom" id="icekKingdom"></div>
+  <div class="icek-actions">
+    <button class="icek-btn" onclick="icekGather()">❄️ Harvest Ice</button>
+    <button class="icek-btn" onclick="icekCollect()">💎 Collect Power</button>
+  </div>
+  <div class="icek-log" id="icekLog"><div>Welcome to the Ice Kingdom!</div></div>
+</div>
+
+<!-- POTION SHOP -->
+<div class="potshop-panel" id="potshopPanel" style="display:none">
+  <button onclick="closePotshop()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ffcc88;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🧪 Potion Shop</h2>
+  <div class="potshop-gold" id="potshopGold">Shop Gold: 0 | Potions sold: 0</div>
+  <div class="potshop-counter">
+    <div style="color:#ffaa44;font-size:.78rem;margin-bottom:6px;margin-top:6px">Ingredient Stock</div>
+    <div class="potshop-inv" id="potshopInv"></div>
+    <button onclick="potshopRestock()" style="background:linear-gradient(135deg,#663300,#331800);border:1px solid #ffaa44;color:#ffcc88;border-radius:8px;padding:5px 14px;font-size:.74rem;cursor:pointer;margin-top:6px">🌿 Restock (once/day)</button>
+  </div>
+  <div style="color:#cc9933;font-size:.72rem;margin:4px 0 6px">Brew & sell potions for coins and stat bonuses</div>
+  <div style="color:#ffcc88;font-size:.78rem;font-weight:700;margin-bottom:4px;align-self:flex-start">⚗️ Brew & Sell</div>
+  <div class="potshop-brew-list" id="potshopList"></div>
 </div>
 
 <!-- SPACE EXPLORER -->
@@ -72015,6 +72077,162 @@ function _renderAduel(){
     </div>`
   ).join('');
   $('aduelLog').innerHTML=d.log.map(l=>`<div>${l}</div>`).join('')||'<div>Cast a spell to duel!</div>';
+}
+
+
+// ══ ICE KINGDOM ══
+const ICEK_KEY = 'k0509_icek';
+const ICEK_BLDGS = [
+  {id:'tower',icon:'🗼',name:'Ice Tower',power:5,cost:20,upgCost:40,maxLvl:8},
+  {id:'mine',icon:'💎',name:'Crystal Mine',power:8,cost:30,upgCost:50,maxLvl:8},
+  {id:'castle',icon:'🏰',name:'Frost Castle',power:15,cost:80,upgCost:100,maxLvl:5},
+  {id:'garden',icon:'🌿',name:'Ice Garden',power:4,cost:15,upgCost:30,maxLvl:10},
+  {id:'forge',icon:'⚒️',name:'Cold Forge',power:10,cost:50,upgCost:70,maxLvl:6},
+  {id:'gate',icon:'🌀',name:'Frost Gate',power:20,cost:120,upgCost:150,maxLvl:3},
+  {id:'throne',icon:'👑',name:'Throne Room',power:30,cost:200,upgCost:250,maxLvl:3},
+  {id:'lab',icon:'🧪',name:'Cryo Lab',power:12,cost:60,upgCost:90,maxLvl:6},
+  {id:'barracks',icon:'⚔️',name:'Ice Guard',power:7,cost:35,upgCost:55,maxLvl:7},
+];
+function _icekData(){
+  const d=JSON.parse(localStorage.getItem(ICEK_KEY)||'{}');
+  const bldgs={};ICEK_BLDGS.forEach(b=>{bldgs[b.id]=d.bldgs&&d.bldgs[b.id]||0;});
+  return {ice:d.ice||0,bldgs:bldgs,lastGather:d.lastGather||'',lastCollect:d.lastCollect||Date.now(),log:d.log||[]};
+}
+function _icekSave(d){localStorage.setItem(ICEK_KEY,JSON.stringify(d));}
+function _icekPower(d){return ICEK_BLDGS.reduce((s,b)=>s+(b.power*(d.bldgs[b.id]||0)),0);}
+function icekGather(){
+  const d=_icekData();
+  const today=getTodayKey();
+  if(d.lastGather===today){showFloatBubble('Already harvested today!','bad');return;}
+  const amt=5+Math.floor(Math.random()*6);
+  d.ice+=amt;d.lastGather=today;
+  d.log.unshift(`❄️ Harvested ${amt} ice crystals`);
+  _icekSave(d);
+  showFloatBubble(`❄️ +${amt} Ice Crystals!`,'good');
+  _renderIcek();
+}
+function icekCollect(){
+  const d=_icekData();
+  const power=_icekPower(d);
+  if(power===0){showFloatBubble('Build structures first!','bad');return;}
+  const now=Date.now();
+  const hrs=Math.min(8,(now-d.lastCollect)/(1000*60*60));
+  const earned=Math.floor(power*hrs);
+  if(earned<1){showFloatBubble('Come back in a bit!','bad');return;}
+  gainCoins(earned);
+  gainXP(Math.floor(earned/3),'int');
+  d.lastCollect=now;
+  d.log.unshift(`💎 Collected ${earned} power reward!`);
+  _icekSave(d);
+  showFloatBubble(`💎 +${earned} Coins!`,'good');
+  checkAchievements();
+  _renderIcek();
+}
+function icekBuild(bid){
+  const d=_icekData();
+  const b=ICEK_BLDGS.find(x=>x.id===bid);
+  const lvl=d.bldgs[bid];
+  if(lvl>=b.maxLvl){showFloatBubble('Max level!','bad');return;}
+  const cost=lvl===0?b.cost:b.upgCost*(lvl);
+  if(d.ice<cost){showFloatBubble(`Need ${cost} ice!`,'bad');return;}
+  d.ice-=cost;d.bldgs[bid]++;
+  d.log.unshift(`🏗️ ${b.name} Lv${d.bldgs[bid]}!`);
+  _icekSave(d);
+  // Bonus stats on build
+  if(d.bldgs[bid]===1){G.agi=(G.agi||10)+1;save();}
+  showFloatBubble(`${b.icon} ${b.name} Lv${d.bldgs[bid]}!`,'good');
+  checkAchievements();_renderIcek();
+}
+function openIcek(){$('icekPanel').style.display='flex';_renderIcek();}
+function closeIcek(){$('icekPanel').style.display='none';}
+function _renderIcek(){
+  const d=_icekData();
+  const power=_icekPower(d);
+  const hrs=Math.min(8,(Date.now()-d.lastCollect)/(1000*60*60));
+  const pending=Math.floor(power*hrs);
+  $('icekIce').textContent=`Ice: ${d.ice} | Power: ${power}/hr | Pending: ${pending}`;
+  $('icekKingdom').innerHTML=ICEK_BLDGS.map(b=>{
+    const lvl=d.bldgs[b.id];
+    const cost=lvl===0?b.cost:b.upgCost*lvl;
+    return `<div class="icek-tile ${lvl>0?'built':''}" onclick="icekBuild('${b.id}')">
+      <div class="it-icon">${lvl>0?b.icon:'+'}</div>
+      <div class="it-name">${lvl>0?b.name:'Empty'}</div>
+      ${lvl>0?`<div class="it-lvl">Lv${lvl}/${b.maxLvl}</div>`:`<div style="font-size:.52rem;color:#336688">${cost}❄️</div>`}
+    </div>`;
+  }).join('');
+  $('icekLog').innerHTML=d.log.slice(0,8).map(l=>`<div>${l}</div>`).join('')||'<div>Ice Kingdom awaits!</div>';
+}
+
+
+// ══ POTION SHOP ══
+const POTSHOP_KEY = 'k0509_potshop';
+const POTSHOP_INGS = [
+  {id:'herb',icon:'🌿',name:'Herb'},
+  {id:'mushroom',icon:'🍄',name:'Mushroom'},
+  {id:'crystal',icon:'💠',name:'Crystal'},
+  {id:'fire',icon:'🔥',name:'Fire Dust'},
+  {id:'moonwater',icon:'🌙',name:'Moonwater'},
+];
+const POTSHOP_RECIPES = [
+  {name:'Health Potion',icon:'❤️',needs:{herb:2},sellFor:50,effect:null,desc:'Pure healing brew'},
+  {name:'Strength Brew',icon:'💪',needs:{herb:1,mushroom:1},sellFor:80,effect:()=>{G.str=(G.str||10)+2;save()},desc:'+2 STR & sold for 80🪙'},
+  {name:'Speed Elixir',icon:'⚡',needs:{herb:1,crystal:1},sellFor:90,effect:()=>{G.agi=(G.agi||10)+2;save()},desc:'+2 AGI & 90🪙'},
+  {name:'Mana Potion',icon:'🔮',needs:{moonwater:2},sellFor:100,effect:()=>{G.int=(G.int||10)+2;save()},desc:'+2 INT & 100🪙'},
+  {name:'Fire Bomb',icon:'💣',needs:{fire:2,mushroom:1},sellFor:120,effect:()=>{G.str+=3;save()},desc:'+3 STR & 120🪙'},
+  {name:'Philosopher Stone',icon:'🌟',needs:{crystal:2,moonwater:1,fire:1},sellFor:250,effect:()=>{G.str+=3;G.int+=3;G.agi+=3;save();gainKC(3)},desc:'+3 All & 250🪙 & 3KC'},
+  {name:'Dragon Potion',icon:'🐲',needs:{fire:3,crystal:2},sellFor:300,effect:()=>{G.str+=5;save();gainKC(5)},desc:'+5 STR & 300🪙 & 5KC'},
+  {name:'Legendary Elixir',icon:'💫',needs:{herb:1,mushroom:1,crystal:1,fire:1,moonwater:1},sellFor:500,effect:()=>{G.str+=5;G.int+=5;G.agi+=5;save();gainKC(8)},desc:'+5 All & 500🪙 & 8KC'},
+];
+function _potshopData(){
+  const d=JSON.parse(localStorage.getItem(POTSHOP_KEY)||'{}');
+  const inv={};POTSHOP_INGS.forEach(i=>{inv[i.id]=d.inv&&d.inv[i.id]||0;});
+  return {shopGold:d.shopGold||0,sold:d.sold||0,inv:inv,lastRestock:d.lastRestock||''};
+}
+function _potshopSave(d){localStorage.setItem(POTSHOP_KEY,JSON.stringify(d));}
+function potshopRestock(){
+  const d=_potshopData();
+  const today=getTodayKey();
+  if(d.lastRestock===today){showFloatBubble('Already restocked today!','bad');return;}
+  POTSHOP_INGS.forEach(i=>{d.inv[i.id]=(d.inv[i.id]||0)+3;});
+  d.lastRestock=today;
+  _potshopSave(d);
+  showFloatBubble('🌿 Stocked: +3 each ingredient!','good');
+  _renderPotshop();
+}
+function potshopBrew(ridx){
+  const d=_potshopData();
+  const r=POTSHOP_RECIPES[ridx];
+  for(const [id,q] of Object.entries(r.needs)){
+    if((d.inv[id]||0)<q){showFloatBubble('Not enough ingredients!','bad');return;}
+  }
+  for(const [id,q] of Object.entries(r.needs)){d.inv[id]-=q;}
+  d.shopGold+=r.sellFor;
+  d.sold++;
+  _potshopSave(d);
+  gainCoins(r.sellFor);
+  if(r.effect)r.effect();
+  showFloatBubble(`${r.icon} ${r.name} sold! +${r.sellFor}🪙`,'good');
+  checkAchievements();
+  _renderPotshop();
+}
+function openPotshop(){$('potshopPanel').style.display='flex';_renderPotshop();}
+function closePotshop(){$('potshopPanel').style.display='none';}
+function _renderPotshop(){
+  const d=_potshopData();
+  $('potshopGold').textContent=`Shop Gold: ${d.shopGold} | Sold: ${d.sold}`;
+  $('potshopInv').innerHTML=POTSHOP_INGS.map(i=>`<div class="potshop-inv-item">${i.icon} ${d.inv[i.id]||0}</div>`).join('');
+  $('potshopList').innerHTML=POTSHOP_RECIPES.map((r,i)=>{
+    const canBrew=Object.entries(r.needs).every(([id,q])=>(d.inv[id]||0)>=q);
+    const ingStr=Object.entries(r.needs).map(([id,q])=>{
+      const ing=POTSHOP_INGS.find(x=>x.id===id);
+      return q+'×'+ing.icon;
+    }).join(' ');
+    return `<div class="potshop-recipe" onclick="potshopBrew(${i})" style="${canBrew?'':'opacity:.5'}">
+      <div class="pr-head"><span class="pr-icon">${r.icon}</span><span class="pr-name">${r.name}</span><span class="pr-price">+${r.sellFor}🪙</span></div>
+      <div class="pr-ing">Ingredients: ${ingStr}</div>
+      <div class="pr-effect">${r.desc}</div>
+    </div>`;
+  }).join('');
 }
 
 </script>
