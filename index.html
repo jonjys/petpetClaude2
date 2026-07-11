@@ -1724,6 +1724,78 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+
+/* ══ COSMIC FORGE ══ */
+.cosf-panel{position:fixed;inset:0;background:#010010;z-index:1097;display:none;flex-direction:column;overflow:hidden}
+.cosf-panel.open{display:flex}
+.cosf-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#020020,#010010)}
+.cosf-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#0088ff,#00ffcc,#8800ff,#0088ff);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:cosfShim 3s linear infinite}
+@keyframes cosfShim{0%{background-position:0%}100%{background-position:300%}}
+.cosf-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.cosf-forge{background:radial-gradient(ellipse at 50% 30%,rgba(0,136,255,.1),transparent);border:2px solid rgba(0,136,255,.18);border-radius:22px;padding:14px;margin-bottom:12px;text-align:center}
+.cosf-forge-icon{font-size:52px;display:block;margin-bottom:4px}
+.cosf-item-name{font:800 16px var(--ff-head);color:rgba(100,200,255,.9);margin-bottom:3px}
+.cosf-item-eff{font:700 10px var(--ff-head);color:rgba(0,200,255,.5);margin-bottom:6px}
+.cosf-mats-row{display:flex;justify-content:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.cosf-mat-slot{background:rgba(255,255,255,.04);border:1.5px dashed rgba(0,136,255,.25);border-radius:10px;padding:6px 10px;font:700 9px var(--ff-head);color:rgba(100,200,255,.6)}
+.cosf-mat-slot.have{border-style:solid;border-color:rgba(0,255,200,.4);background:rgba(0,255,200,.06)}
+.cosf-craft-btn{background:linear-gradient(135deg,#000028,#002088);border:1.5px solid rgba(0,136,255,.4);border-radius:14px;padding:11px;font:900 12px var(--ff-head);color:#fff;cursor:pointer;width:100%}
+.cosf-craft-btn:disabled{opacity:.3;cursor:default}
+.cosf-items-lbl{font:700 8px var(--ff-head);color:rgba(0,136,255,.4);letter-spacing:1px;margin-bottom:8px}
+.cosf-items{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.cosf-item{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.cosf-item:hover{background:rgba(0,136,255,.04);border-color:rgba(0,136,255,.2)}
+.cosf-item.selected{border-color:rgba(0,136,255,.4);background:rgba(0,136,255,.07)}
+.cosf-item.crafted{opacity:.4}
+.cosf-item-icon{font-size:28px;flex-shrink:0}
+.cosf-item-body{flex:1}
+.cosf-item-nm{font:700 11px var(--ff-head);color:rgba(100,200,255,.7);margin-bottom:2px}
+.cosf-item-req{font:600 8px var(--ff-body);color:rgba(0,136,255,.4);margin-bottom:2px}
+.cosf-item-bonus{font:700 8px var(--ff-head);color:rgba(0,200,255,.5)}
+.cosf-mats-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.2);letter-spacing:1px;margin-bottom:6px}
+.cosf-mat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+.cosf-mat-item{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:8px;text-align:center}
+.cosf-mat-icon{font-size:22px;margin-bottom:2px}
+.cosf-mat-name{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.cosf-mat-qty{font:700 8px var(--ff-head);color:rgba(0,200,255,.5)}
+.cosf-mat-earn{font:600 6px var(--ff-body);color:rgba(0,136,255,.3);margin-top:1px}
+.cosf-stats{display:flex;gap:5px;margin-bottom:8px}
+.cosf-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.cosf-stat-v{font:800 16px var(--ff-head);color:#0088ff}
+.cosf-stat-l{font:600 7px var(--ff-body);color:rgba(0,136,255,.3)}
+.cosf-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
+/* ══ PET RANCH ══ */
+.rnch-panel{position:fixed;inset:0;background:#030200;z-index:1096;display:none;flex-direction:column;overflow:hidden}
+.rnch-panel.open{display:flex}
+.rnch-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#060400,#030200)}
+.rnch-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#44cc44,#88ff44,#ffcc00,#44cc44);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:rnchShim 3s linear infinite}
+@keyframes rnchShim{0%{background-position:0%}100%{background-position:300%}}
+.rnch-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+.rnch-income{background:radial-gradient(ellipse at 50% 0,rgba(68,204,68,.08),transparent);border:2px solid rgba(68,204,68,.15);border-radius:20px;padding:13px;margin-bottom:12px;text-align:center}
+.rnch-income-v{font:900 32px var(--ff-head);color:rgba(136,255,68,.8);line-height:1}
+.rnch-income-l{font:700 8px var(--ff-head);color:rgba(68,204,68,.35);letter-spacing:2px}
+.rnch-income-rate{font:600 9px var(--ff-body);color:rgba(68,204,68,.4);margin-top:4px}
+.rnch-collect-btn{background:linear-gradient(135deg,#002000,#006000);border:1.5px solid rgba(68,204,68,.3);border-radius:12px;padding:9px 18px;font:800 10px var(--ff-head);color:rgba(136,255,68,.9);cursor:pointer;margin-top:6px}
+.rnch-collect-btn:disabled{opacity:.3;cursor:default}
+.rnch-animals-lbl{font:700 8px var(--ff-head);color:rgba(68,204,68,.4);letter-spacing:1px;margin-bottom:8px}
+.rnch-animals{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.rnch-anim{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+.rnch-anim-icon{font-size:30px;flex-shrink:0}
+.rnch-anim-body{flex:1}
+.rnch-anim-name{font:700 11px var(--ff-head);color:rgba(136,204,68,.7);margin-bottom:2px}
+.rnch-anim-desc{font:600 8px var(--ff-body);color:rgba(68,204,68,.4);margin-bottom:2px}
+.rnch-anim-rate{font:700 8px var(--ff-head);color:rgba(136,204,68,.5)}
+.rnch-anim-count{font:700 10px var(--ff-head);color:rgba(136,255,68,.6);min-width:20px;text-align:right}
+.rnch-buy-btn{background:rgba(68,204,68,.07);border:1px solid rgba(68,204,68,.25);border-radius:9px;padding:7px 12px;font:700 9px var(--ff-head);color:rgba(136,204,68,.8);cursor:pointer;flex-shrink:0}
+.rnch-buy-btn:disabled{opacity:.3;cursor:default}
+.rnch-stats{display:flex;gap:5px;margin-bottom:8px}
+.rnch-stat-box{flex:1;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:7px;text-align:center}
+.rnch-stat-v{font:800 16px var(--ff-head);color:#44cc44}
+.rnch-stat-l{font:600 7px var(--ff-body);color:rgba(68,204,68,.3)}
+.rnch-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.2);text-align:center}
+
 /* ══ CHAOS TRIALS ══ */
 .chtr-panel{position:fixed;inset:0;background:#030200;z-index:1095;display:none;flex-direction:column;overflow:hidden}
 .chtr-panel.open{display:flex}
@@ -13697,6 +13769,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
+          <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
           <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
@@ -13813,6 +13887,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
+          <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
           <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
@@ -13912,6 +13988,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
+          <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
           <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
@@ -13942,6 +14020,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openTown()"><div class="ddr-i">🏘</div>Stad</div>
           <div class="ddr" onclick="cM();openWard()"><div class="ddr-i">👗</div>Garderob</div>
           <div class="ddr" onclick="cM();openGach()"><div class="ddr-i">✨</div>Portal</div>
+          <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
+          <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
           <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic()"><div class="ddr-i">⛏</div>Reliker</div>
@@ -14053,6 +14133,8 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openDrag()"><div class="ddr-i">🐉</div>Draktämjaren</div>
           <div class="ddr" onclick="cM();openGach2()"><div class="ddr-i">⭐</div>Kosmisk Önskan</div>
           <div class="ddr" onclick="cM();openRest()"><div class="ddr-i">🍽️</div>Restaurang</div>
+          <div class="ddr" onclick="cM();openCosf()"><div class="ddr-i">⚡</div>Kosmiska Smidjan</div>
+          <div class="ddr" onclick="cM();openRnch()"><div class="ddr-i">🐄</div>Pettans Ranch</div>
           <div class="ddr" onclick="cM();openChtr()"><div class="ddr-i">💥</div>Kaosutmaningarna</div>
           <div class="ddr" onclick="cM();openSoul()"><div class="ddr-i">👁️</div>Sielsnexus</div>
           <div class="ddr" onclick="cM();openRelic2()"><div class="ddr-i">🏺</div>Reliktjägaren</div>
@@ -14816,6 +14898,59 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+
+<!-- COSMIC FORGE -->
+<div class="cosf-panel" id="cosfPanel">
+  <div class="cosf-header">
+    <div class="cosf-title">⚡ KOSMISKA SMIDJAN</div>
+    <button class="close-btn" onclick="closeCosf()">✕</button>
+  </div>
+  <div class="cosf-scroll">
+    <div class="cosf-stats">
+      <div class="cosf-stat-box"><div class="cosf-stat-v" id="cosfCraftedV">0</div><div class="cosf-stat-l">Smidda</div></div>
+      <div class="cosf-stat-box"><div class="cosf-stat-v" id="cosfPowerV">0</div><div class="cosf-stat-l">Total Kraft</div></div>
+      <div class="cosf-stat-box"><div class="cosf-stat-v" id="cosfMatsV">0</div><div class="cosf-stat-l">Material</div></div>
+    </div>
+    <div class="cosf-forge">
+      <span class="cosf-forge-icon" id="cosfSelIcon">⚡</span>
+      <div class="cosf-item-name" id="cosfSelName">Välj ett föremål</div>
+      <div class="cosf-item-eff" id="cosfSelEff">–</div>
+      <div class="cosf-mats-row" id="cosfSelMats"></div>
+      <button class="cosf-craft-btn" id="cosfCraftBtn" onclick="cosfCraft()" disabled>Smid!</button>
+    </div>
+    <div class="cosf-items-lbl">KOSMISKA FÖREMÅL</div>
+    <div class="cosf-items" id="cosfItemList"></div>
+    <div class="cosf-mats-lbl">DINA MATERIAL</div>
+    <div class="cosf-mat-grid" id="cosfMatGrid"></div>
+    <div class="cosf-info">Samla kosmiska material och smid legendariska föremål! Varje föremål ger permanenta bonusar. ⚡</div>
+  </div>
+</div>
+
+<!-- PET RANCH -->
+<div class="rnch-panel" id="rnchPanel">
+  <div class="rnch-header">
+    <div class="rnch-title">🐄 PETTANS RANCH</div>
+    <button class="close-btn" onclick="closeRnch()">✕</button>
+  </div>
+  <div class="rnch-scroll">
+    <div class="rnch-stats">
+      <div class="rnch-stat-box"><div class="rnch-stat-v" id="rnchAnimalsV">0</div><div class="rnch-stat-l">Djur</div></div>
+      <div class="rnch-stat-box"><div class="rnch-stat-v" id="rnchTotalV">0</div><div class="rnch-stat-l">Total Inkomst</div></div>
+      <div class="rnch-stat-box"><div class="rnch-stat-v" id="rnchRateV">0</div><div class="rnch-stat-l">Mynt/min</div></div>
+    </div>
+    <div class="rnch-income">
+      <div class="rnch-income-l">INSAMLAT</div>
+      <div class="rnch-income-v" id="rnchPendingV">0</div>
+      <div class="rnch-income-rate" id="rnchRateTxt">Köp djur för inkomst</div>
+      <button class="rnch-collect-btn" id="rnchCollectBtn" onclick="rnchCollect()" disabled>Samla in</button>
+    </div>
+    <div class="rnch-animals-lbl">RANCHDJUR</div>
+    <div class="rnch-animals" id="rnchAnimals"></div>
+    <div class="rnch-info">Köp djur för passiv myntinkomst! Samla regelbundet för max vinst. Max 10 per djurtyp. 🐄</div>
+  </div>
+</div>
 
 <!-- CHAOS TRIALS -->
 <div class="chtr-panel" id="chtrPanel">
@@ -64808,6 +64943,264 @@ function _renderChtr(d){
         '</div>';
       }).join('');
     }
+  }
+}
+
+
+// PET RANCH
+const RNCH_KEY = 'k0509_rnch';
+const RNCH_ANIMALS = [
+  {id:'chicken', icon:'C', name:'Höns',      desc:'Enkel och pålitlig',    cost:50,   rate:2,  maxCount:10, minLvl:1, bonus:{end:1,  costPer:1}},
+  {id:'cow',     icon:'V', name:'Ko',        desc:'Mjölk och arbete',      cost:120,  rate:5,  maxCount:10, minLvl:2, bonus:{end:2,  costPer:3}},
+  {id:'horse',   icon:'H', name:'Häst',      desc:'Snabb och stark',       cost:250,  rate:10, maxCount:10, minLvl:3, bonus:{agi:2,  costPer:6}},
+  {id:'dragon',  icon:'D', name:'Drakunge',  desc:'Magisk och kraftfull',  cost:600,  rate:25, maxCount:10, minLvl:6, bonus:{str:3,  costPer:15}},
+  {id:'unicorn', icon:'U', name:'Enhörning', desc:'Sällsynt och lyckosam', cost:1500, rate:60, maxCount:10, minLvl:10,bonus:{lck:4, costPer:40}},
+];
+
+function _rnchData(){try{return JSON.parse(localStorage.getItem(RNCH_KEY)||'null');}catch(e){return null;}}
+function _rnchSave(d){localStorage.setItem(RNCH_KEY,JSON.stringify(d));}
+function _rnchGetData(){
+  var d=_rnchData();
+  if(!d) d={animals:{},lastCollect:Date.now(),totalEarned:0};
+  return d;
+}
+
+function _rnchCalcPending(d){
+  var now=Date.now();
+  var elapsed=(now-(d.lastCollect||now))/1000; // seconds
+  var rate=0;
+  RNCH_ANIMALS.forEach(function(a){
+    var cnt=d.animals[a.id]||0;
+    rate+=cnt*a.rate;
+  });
+  var pendingPerMin=rate;
+  var pending=Math.floor(rate*elapsed/60);
+  return {pending:pending,rate:pendingPerMin};
+}
+
+function rnchBuy(animalId){
+  var d=_rnchGetData();
+  var animal=RNCH_ANIMALS.find(function(a){return a.id===animalId;});
+  if(!animal) return;
+  if((G.lvl||1)<animal.minLvl){showFloatBubble('Niva '+animal.minLvl+' kravs!','debuff');return;}
+  var cnt=d.animals[animalId]||0;
+  if(cnt>=animal.maxCount){showFloatBubble('Max '+animal.maxCount+' av detta djur!','debuff');return;}
+  var cost=animal.cost+cnt*animal.cost*0.5;
+  cost=Math.floor(cost);
+  if((G.coins||0)<cost){showFloatBubble('Behover '+cost+' mynt!','debuff');return;}
+  // Collect pending before buying
+  var calc=_rnchCalcPending(d);
+  if(calc.pending>0){gainCoins(calc.pending);d.totalEarned=(d.totalEarned||0)+calc.pending;d.lastCollect=Date.now();}
+  gainCoins(-cost);
+  d.animals[animalId]=(d.animals[animalId]||0)+1;
+  // Apply bonus stat on first of each type
+  if(d.animals[animalId]===1){
+    Object.keys(animal.bonus).filter(function(k){return k!='costPer';}).forEach(function(s){G[s]=(G[s]||0)+animal.bonus[s];});
+    save();
+  }
+  showFloatBubble(animal.icon+' '+animal.name+' köpt! Ranch tjänar nu '+_rnchCalcPending(d).rate+'/min','buff');
+  _rnchSave(d);
+  checkAchievements();
+  _renderRnch(d);
+}
+
+function rnchCollect(){
+  var d=_rnchGetData();
+  var calc=_rnchCalcPending(d);
+  if(calc.pending<1){showFloatBubble('Ingenting att samla in än!','debuff');return;}
+  gainCoins(calc.pending);
+  d.totalEarned=(d.totalEarned||0)+calc.pending;
+  d.lastCollect=Date.now();
+  showFloatBubble('Ranchen inkomst: +'+calc.pending+' mynt','buff');
+  _rnchSave(d);
+  _renderRnch(d);
+}
+
+function openRnch(){$('rnchPanel').classList.add('open');_renderRnch(_rnchGetData());}
+function closeRnch(){$('rnchPanel').classList.remove('open');}
+
+function _renderRnch(d){
+  if(!d) d=_rnchGetData();
+  var totalAnimals=Object.values(d.animals||{}).reduce(function(a,b){return a+b;},0);
+  var av=$('rnchAnimalsV');if(av) av.textContent=totalAnimals;
+  var tv=$('rnchTotalV');if(tv) tv.textContent=d.totalEarned||0;
+  var calc=_rnchCalcPending(d);
+  var rv=$('rnchRateV');if(rv) rv.textContent=calc.rate;
+  var pv=$('rnchPendingV');if(pv) pv.textContent=calc.pending;
+  var rt=$('rnchRateTxt');if(rt) rt.textContent='Tjänar '+calc.rate+' mynt/min';
+  var cb=$('rnchCollectBtn');if(cb) cb.disabled=calc.pending<1;
+  var lvl=G.lvl||1;
+  var animals=$('rnchAnimals');
+  if(animals){
+    animals.innerHTML=RNCH_ANIMALS.map(function(a){
+      var cnt=d.animals[a.id]||0;
+      var locked=lvl<a.minLvl;
+      var nextCost=Math.floor(a.cost+cnt*a.cost*0.5);
+      var maxed=cnt>=a.maxCount;
+      return '<div class="rnch-anim">'+
+        '<div class="rnch-anim-icon">'+a.icon+'</div>'+
+        '<div class="rnch-anim-body">'+
+          '<div class="rnch-anim-name">'+a.name+(locked?' (Niva '+a.minLvl+')':'')+'</div>'+
+          '<div class="rnch-anim-desc">'+a.desc+'</div>'+
+          '<div class="rnch-anim-rate">'+a.rate+' mynt/min · Ager: '+cnt+'/'+a.maxCount+(maxed?' (MAX)':'')+'</div>'+
+        '</div>'+
+        '<div class="rnch-anim-count">x'+cnt+'</div>'+
+        (!maxed&&!locked?'<button class="rnch-buy-btn" onclick="rnchBuy(\''+a.id+'\')" '+(locked?'disabled':'')+'>'+nextCost+' mynt</button>':'')+
+      '</div>';
+    }).join('');
+  }
+}
+
+
+// COSMIC FORGE
+const COSF_KEY = 'k0509_cosf';
+const COSF_MATS_LIST = [
+  {id:'stardust',  icon:'S', name:'Stjärndamm',  earnFrom:'Tävlingar'},
+  {id:'moonrock',  icon:'M', name:'Månsten',      earnFrom:'Nattaktiviteter'},
+  {id:'solarflare',icon:'F', name:'Solflamma',    earnFrom:'Dagliga quests'},
+  {id:'nebula',    icon:'N', name:'Nebulakärna',  earnFrom:'Hög-niva innehåll'},
+  {id:'voidcryst', icon:'V', name:'Tomkristall',  earnFrom:'Skuggriket'},
+  {id:'cosmosgem', icon:'G', name:'Kosmospärla',  earnFrom:'Alla aktiviteter'},
+];
+const COSF_ITEMS_LIST = [
+  {id:'sol_sword',  icon:'A', name:'Solvärjan',    eff:'+6 STR +4 END',       bonus:{str:6,end:4},       mats:{stardust:3,solarflare:2},              minLvl:3},
+  {id:'moon_staff', icon:'B', name:'Månstaven',    eff:'+6 INT +4 LCK',       bonus:{int:6,lck:4},       mats:{moonrock:3,nebula:2},                  minLvl:4},
+  {id:'void_cloak', icon:'C', name:'Tommantel',    eff:'+6 AGI +4 LCK',       bonus:{agi:6,lck:4},       mats:{voidcryst:3,stardust:2},               minLvl:5},
+  {id:'star_shield',icon:'D', name:'Stjärnskölden', eff:'+8 END +4 STR',      bonus:{end:8,str:4},       mats:{stardust:4,moonrock:2},                minLvl:6},
+  {id:'cosmos_helm',icon:'E', name:'Kosmoshjälmen',eff:'+8 INT +6 ALL',       bonus:{int:8,str:2,agi:2,lck:2,end:2},mats:{cosmosgem:4,nebula:3},      minLvl:10},
+  {id:'omega_blade',icon:'X', name:'Omegabladet',  eff:'+12 ALL',             bonus:{str:12,agi:12,int:12,lck:12,end:12},mats:{cosmosgem:5,voidcryst:4,nebula:3},minLvl:20,kc:3},
+];
+
+var _cosfSelItem = null;
+
+function _cosfData(){try{return JSON.parse(localStorage.getItem(COSF_KEY)||'null');}catch(e){return null;}}
+function _cosfSave(d){localStorage.setItem(COSF_KEY,JSON.stringify(d));}
+function _cosfGetData(){
+  var d=_cosfData();
+  if(!d) d={mats:{stardust:2,moonrock:1,solarflare:1},crafted:{},totalCrafted:0,totalPower:0};
+  return d;
+}
+
+// Give materials from activities
+function cosfGainMat(matId,qty){
+  var d=_cosfGetData();
+  d.mats[matId]=(d.mats[matId]||0)+(qty||1);
+  _cosfSave(d);
+}
+
+function cosfSelItem(itemId){
+  _cosfSelItem=_cosfSelItem===itemId?null:itemId;
+  _renderCosf(_cosfGetData());
+}
+
+function cosfCraft(){
+  if(!_cosfSelItem) return;
+  var d=_cosfGetData();
+  var item=COSF_ITEMS_LIST.find(function(i){return i.id===_cosfSelItem;});
+  if(!item) return;
+  if((G.lvl||1)<item.minLvl){showFloatBubble('Niva '+item.minLvl+' kravs!','debuff');return;}
+  // Check materials
+  var hasAll=Object.keys(item.mats).every(function(m){return (d.mats[m]||0)>=item.mats[m];});
+  if(!hasAll){showFloatBubble('Inte tillrackligt med material!','debuff');return;}
+  // Consume materials
+  Object.keys(item.mats).forEach(function(m){d.mats[m]=Math.max(0,(d.mats[m]||0)-item.mats[m]);});
+  d.crafted[item.id]=(d.crafted[item.id]||0)+1;
+  d.totalCrafted=(d.totalCrafted||0)+1;
+  var power=Object.values(item.bonus).reduce(function(a,b){return a+b;},0);
+  d.totalPower=(d.totalPower||0)+power;
+  Object.keys(item.bonus).forEach(function(s){G[s]=(G[s]||0)+item.bonus[s];});
+  save();
+  if(item.kc) gainKC(item.kc);
+  gainCoins(100*Object.values(item.bonus).length);
+  gainXP(200,'int');
+  var bonusTxt=Object.keys(item.bonus).map(function(s){return '+'+item.bonus[s]+s.toUpperCase();}).join(' ');
+  showFloatBubble(item.icon+' '+item.name+' smidd! '+bonusTxt+(item.kc?' +'+item.kc+'KC':''),'buff');
+  _cosfSelItem=null;
+  _cosfSave(d);
+  checkAchievements();
+  _renderCosf(d);
+}
+
+// Hook into gainCoins to give small chance of material drop
+var _cosfOrigGainCoins=null;
+
+function openCosf(){
+  $('cosfPanel').classList.add('open');
+  // Give some materials on open based on activities
+  var d=_cosfGetData();
+  var gained=false;
+  COSF_MATS_LIST.forEach(function(m,i){
+    if(Math.random()<0.3){
+      d.mats[m.id]=(d.mats[m.id]||0)+1;
+      gained=true;
+    }
+  });
+  if(gained){_cosfSave(d);showFloatBubble('Aktiviteter gav kosmiska material!','buff');}
+  _renderCosf(d);
+}
+function closeCosf(){$('cosfPanel').classList.remove('open');}
+
+function _renderCosf(d){
+  if(!d) d=_cosfGetData();
+  var cv=$('cosfCraftedV');if(cv) cv.textContent=d.totalCrafted||0;
+  var pv=$('cosfPowerV');if(pv) pv.textContent=d.totalPower||0;
+  var mv=$('cosfMatsV');if(mv) mv.textContent=Object.values(d.mats||{}).reduce(function(a,b){return a+b;},0);
+  // Selected item showcase
+  if(_cosfSelItem){
+    var item=COSF_ITEMS_LIST.find(function(i){return i.id===_cosfSelItem;});
+    if(item){
+      var si=$('cosfSelIcon');if(si) si.textContent=item.icon;
+      var sn=$('cosfSelName');if(sn) sn.textContent=item.name;
+      var se=$('cosfSelEff');if(se) se.textContent=item.eff;
+      var sm=$('cosfSelMats');
+      if(sm){
+        sm.innerHTML=Object.keys(item.mats).map(function(m){
+          var have=(d.mats[m]||0)>=item.mats[m];
+          return '<div class="cosf-mat-slot '+(have?'have':'')+'">'+m+' x'+item.mats[m]+'</div>';
+        }).join('');
+      }
+      var hasAll=Object.keys(item.mats).every(function(m){return (d.mats[m]||0)>=item.mats[m];});
+      var lvlOk=(G.lvl||1)>=item.minLvl;
+      var cb=$('cosfCraftBtn');if(cb) cb.disabled=!hasAll||!lvlOk;
+    }
+  } else {
+    var si2=$('cosfSelIcon');if(si2) si2.textContent='E';
+    var sn2=$('cosfSelName');if(sn2) sn2.textContent='Valj ett foremal';
+    var se2=$('cosfSelEff');if(se2) se2.textContent='-';
+    var sm2=$('cosfSelMats');if(sm2) sm2.innerHTML='';
+    var cb2=$('cosfCraftBtn');if(cb2) cb2.disabled=true;
+  }
+  var items=$('cosfItemList');
+  if(items){
+    var lvl=G.lvl||1;
+    items.innerHTML=COSF_ITEMS_LIST.map(function(item){
+      var crafted=d.crafted[item.id]||0;
+      var locked=lvl<item.minLvl;
+      var hasAll=!locked&&Object.keys(item.mats).every(function(m){return (d.mats[m]||0)>=item.mats[m];});
+      var isSel=_cosfSelItem===item.id;
+      var cls='cosf-item'+(isSel?' selected':crafted>0?' crafted':'');
+      var matsTxt=Object.keys(item.mats).map(function(m){return m+' x'+item.mats[m];}).join(', ');
+      return '<div class="'+cls+'" onclick="cosfSelItem(\''+item.id+'\')">'+
+        '<div class="cosf-item-icon">'+item.icon+'</div>'+
+        '<div class="cosf-item-body">'+
+          '<div class="cosf-item-nm">'+item.name+(locked?' (Niva '+item.minLvl+')':'')+(crafted>0?' ✓':'')+'</div>'+
+          '<div class="cosf-item-req">Krav: '+matsTxt+'</div>'+
+          '<div class="cosf-item-bonus">'+item.eff+'</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+  var matGrid=$('cosfMatGrid');
+  if(matGrid){
+    matGrid.innerHTML=COSF_MATS_LIST.map(function(m){
+      var qty=d.mats[m.id]||0;
+      return '<div class="cosf-mat-item">'+
+        '<div class="cosf-mat-icon">'+m.icon+'</div>'+
+        '<div class="cosf-mat-name">'+m.name+'</div>'+
+        '<div class="cosf-mat-qty">x'+qty+'</div>'+
+        '<div class="cosf-mat-earn">Från: '+m.earnFrom+'</div>'+
+      '</div>';
+    }).join('');
   }
 }
 
