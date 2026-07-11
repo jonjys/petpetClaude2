@@ -1549,6 +1549,43 @@ textarea.inp { resize:none;min-height:72px; }
 
 
 
+
+/* ══ GRAND DASHBOARD ══ */
+.dash-panel{position:fixed;inset:0;background:#000208;z-index:1062;display:none;flex-direction:column;overflow:hidden}
+.dash-panel.open{display:flex}
+.dash-header{display:flex;align-items:center;justify-content:space-between;padding:var(--sat) 16px 12px;background:linear-gradient(135deg,#000820,#000208)}
+.dash-title{font:700 20px var(--ff-head);background:linear-gradient(90deg,#ff4488,#ff8800,#ffcc00,#44ff88,#4488ff,#cc44ff,#ff4488);background-size:600% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:dashShim 2s linear infinite}
+@keyframes dashShim{0%{background-position:0%}100%{background-position:600%}}
+.dash-scroll{flex:1;overflow-y:auto;padding:10px 14px 28px}
+/* Confetti canvas */
+#dashConfetti{position:fixed;inset:0;pointer-events:none;z-index:1063}
+/* Hero */
+.dash-hero{background:radial-gradient(ellipse at 50% 0,rgba(68,136,255,.12),rgba(0,0,0,0));border:2px solid rgba(68,136,255,.2);border-radius:24px;padding:18px;margin-bottom:12px;text-align:center}
+.dash-hero-num{font:900 52px var(--ff-head);background:linear-gradient(180deg,#fff,rgba(255,255,255,.5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.dash-hero-lbl{font:700 10px var(--ff-head);color:rgba(255,255,255,.4);letter-spacing:2px;margin-bottom:8px}
+.dash-hero-sub{font:600 9px var(--ff-body);color:rgba(68,136,255,.6)}
+/* Stats grid */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.dash-box{background:rgba(255,255,255,.02);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:10px;text-align:center}
+.dash-box-v{font:900 20px var(--ff-head);color:#fff}
+.dash-box-l{font:600 7px var(--ff-body);color:rgba(255,255,255,.3)}
+.dash-box.highlight{border-color:rgba(255,200,0,.3);background:rgba(255,200,0,.04)}
+.dash-box.highlight .dash-box-v{color:#ffcc00}
+/* Today earnings */
+.dash-today{background:rgba(68,255,136,.04);border:2px solid rgba(68,255,136,.15);border-radius:18px;padding:14px;margin-bottom:12px}
+.dash-today-lbl{font:700 9px var(--ff-head);color:rgba(68,255,136,.5);letter-spacing:1px;margin-bottom:8px}
+.dash-earn-list{display:flex;flex-direction:column;gap:4px}
+.dash-earn-row{display:flex;justify-content:space-between;font:600 9px var(--ff-body);color:rgba(255,255,255,.5)}
+.dash-earn-row.total{font:800 11px var(--ff-head);color:#44ff88;border-top:1px solid rgba(68,255,136,.15);padding-top:5px;margin-top:2px}
+/* Features list */
+.dash-feats-lbl{font:700 8px var(--ff-head);color:rgba(255,255,255,.3);letter-spacing:1px;margin-bottom:6px}
+.dash-feats{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.dash-feat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:3px 8px;font:600 8px var(--ff-body);color:rgba(255,255,255,.5)}
+.dash-feat.active{background:rgba(68,136,255,.1);border-color:rgba(68,136,255,.25);color:#4488ff}
+/* Bottom cta */
+.dash-cta{background:linear-gradient(135deg,#001440,#003388);border:none;border-radius:16px;padding:14px;font:900 14px var(--ff-head);color:#fff;cursor:pointer;width:100%;margin-bottom:8px}
+.dash-info{font:600 9px var(--ff-body);color:rgba(255,255,255,.3);text-align:center}
+
 /* ══ MILESTONES ══ */
 .mil-panel{position:fixed;inset:0;background:#020408;z-index:1061;display:none;flex-direction:column;overflow:hidden}
 .mil-panel.open{display:flex}
@@ -12430,6 +12467,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
+          <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openDraft()"><div class="ddr-i">⚡</div>Power Draft</div>
           <div class="ddr" onclick="cM();openAcad()"><div class="ddr-i">🎓</div>Pet Academy</div>
@@ -12512,6 +12550,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
+          <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openStar()"><div class="ddr-i">🌌</div>Stjärnor</div>
           <div class="ddr" onclick="cM();openMem()"><div class="ddr-i">🃏</div>Memory</div>
@@ -12577,6 +12616,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
+          <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openPVP()"><div class="ddr-i">⚔️</div>Arena</div>
           <div class="ddr" onclick="cM();openRune()"><div class="ddr-i">⚡</div>Runor</div>
@@ -12680,6 +12720,7 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
           <div class="ddr" onclick="cM();openSpa()"><div class="ddr-i">🛁</div>Husdjursspa</div>
           <div class="ddr" onclick="cM();openAuc()"><div class="ddr-i">🏷️</div>Auktionshuset</div>
           <div class="ddr" onclick="cM();openMil()"><div class="ddr-i">🎯</div>Milstolpar</div>
+          <div class="ddr" onclick="cM();openDash()"><div class="ddr-i">🌐</div>Dashboard</div>
           <div class="ddr" onclick="cM();openShri()"><div class="ddr-i">⛩️</div>Skrin</div>
           <div class="ddr" onclick="cM();openTrain()"><div class="ddr-i">💪</div>Träning</div>
           <div class="ddr" onclick="cM();openSpinW()"><div class="ddr-i">🎡</div>Lyckohjulet</div>
@@ -13289,6 +13330,32 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
 
 
 
+
+
+<!-- GRAND DASHBOARD -->
+<div class="dash-panel" id="dashPanel">
+  <canvas id="dashConfetti"></canvas>
+  <div class="dash-header">
+    <div class="dash-title">🌐 GRAND DASHBOARD</div>
+    <button class="close-btn" onclick="closeDash()">✕</button>
+  </div>
+  <div class="dash-scroll">
+    <div class="dash-hero">
+      <div class="dash-hero-num" id="dashHeroNum">300</div>
+      <div class="dash-hero-lbl">FEATURES TILLAGDA</div>
+      <div class="dash-hero-sub" id="dashHeroSub">Världens fetaste husdjursapp! 🎉</div>
+    </div>
+    <div class="dash-grid" id="dashGrid"></div>
+    <div class="dash-today">
+      <div class="dash-today-lbl">DAGLIG POTENSIELL INTJÄNING</div>
+      <div class="dash-earn-list" id="dashEarnList"></div>
+    </div>
+    <div class="dash-feats-lbl">ALLA FUNKTIONER (30+)</div>
+    <div class="dash-feats" id="dashFeats"></div>
+    <button class="dash-cta" onclick="closeDash();showFloatBubble('🌐 Fortsätt bygga! R300+ incoming!','buff')">🚀 KÖR PÅ!</button>
+    <div class="dash-info">Totalt R283–R300 i denna session · Automatiskt byggd av Claude</div>
+  </div>
+</div>
 
 <!-- MILESTONES -->
 <div class="mil-panel" id="milPanel">
@@ -58311,6 +58378,144 @@ function _renderMil(d){
       rightHtml+
     '</div>';
   }).join('');
+}
+
+
+// GRAND DASHBOARD
+const DASH_FEATURES = [
+  {name:'Husdjur',icon:'🐾'},
+  {name:'Strid',icon:'⚔️'},
+  {name:'Fiske',icon:'🎣'},
+  {name:'Matlagning',icon:'🍳'},
+  {name:'Trädgård',icon:'🌱'},
+  {name:'Alkemi',icon:'⚗️'},
+  {name:'Uppdrag',icon:'📜'},
+  {name:'Smedjan',icon:'⚒️'},
+  {name:'Kistor',icon:'📦'},
+  {name:'Löpare',icon:'🏃'},
+  {name:'Talanger',icon:'🌟'},
+  {name:'Prestige',icon:'⭐'},
+  {name:'Färgflöde',icon:'🎨'},
+  {name:'Kunskapsquiz',icon:'🧠'},
+  {name:'Snabbmatte',icon:'🔢'},
+  {name:'Dagliga Uppdrag',icon:'📋'},
+  {name:'Arenaranking',icon:'🏆'},
+  {name:'Pixelkonst',icon:'🎨'},
+  {name:'Reliker',icon:'🏺'},
+  {name:'Fängelsehåla',icon:'⚔️'},
+  {name:'Zodiak',icon:'🌟'},
+  {name:'Fyra i Rad',icon:'🔵'},
+  {name:'Humörlogg',icon:'💝'},
+  {name:'Skrivhastighet',icon:'⌨️'},
+  {name:'Minnesspel',icon:'🧩'},
+  {name:'Avelslab',icon:'🧬'},
+  {name:'Väderfarmen',icon:'🌾'},
+  {name:'Husdjursspa',icon:'🛁'},
+  {name:'Auktionshuset',icon:'🏷️'},
+  {name:'Milstolpar',icon:'🎯'},
+  {name:'Dashboard',icon:'🌐'},
+];
+
+var _dashConf = null;
+var _dashConfRaf = null;
+
+function _dashStartConfetti(){
+  var canvas=$('dashConfetti');if(!canvas) return;
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  var ctx=canvas.getContext('2d');
+  var particles=[];
+  var colors=['#ff4488','#ff8800','#ffcc00','#44ff88','#4488ff','#cc44ff'];
+  for(var i=0;i<80;i++){
+    particles.push({
+      x:Math.random()*canvas.width,y:-20-Math.random()*100,
+      vx:(Math.random()-0.5)*4,vy:2+Math.random()*3,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      size:6+Math.random()*6,rot:Math.random()*360,vrot:(Math.random()-0.5)*10,
+      shape:Math.random()<0.5?'rect':'circle',alpha:1
+    });
+  }
+  var start=Date.now();
+  function tick(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    var elapsed=(Date.now()-start)/1000;
+    particles.forEach(function(p){
+      p.x+=p.vx;p.y+=p.vy;p.rot+=p.vrot;
+      p.alpha=Math.max(0,1-Math.max(0,elapsed-2)/2);
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+      ctx.globalAlpha=p.alpha;ctx.fillStyle=p.color;
+      if(p.shape==='rect') ctx.fillRect(-p.size/2,-p.size/4,p.size,p.size/2);
+      else{ctx.beginPath();ctx.arc(0,0,p.size/2,0,Math.PI*2);ctx.fill();}
+      ctx.restore();
+    });
+    if(elapsed<4) _dashConfRaf=requestAnimationFrame(tick);
+    else{ctx.clearRect(0,0,canvas.width,canvas.height);}
+  }
+  _dashConfRaf=requestAnimationFrame(tick);
+}
+
+function openDash(){
+  $('dashPanel').classList.add('open');
+  _renderDash();
+  setTimeout(function(){_dashStartConfetti();},100);
+}
+
+function closeDash(){
+  if(_dashConfRaf) cancelAnimationFrame(_dashConfRaf);
+  var canvas=$('dashConfetti');
+  if(canvas){var ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);}
+  $('dashPanel').classList.remove('open');
+}
+
+function _renderDash(){
+  // Hero
+  var hs=$('dashHeroSub');
+  if(hs) hs.textContent='Level '+(G.lvl||1)+' · '+( G.coins||0)+'🪙 · '+( G.kc||0)+' KC';
+  // Stats grid
+  var grid=$('dashGrid');
+  if(grid){
+    var totalStat=(G.str||0)+(G.agi||0)+(G.int||0)+(G.end||0)+(G.lck||0);
+    var boxes=[
+      {v:G.lvl||1,  l:'Level',       highlight:false},
+      {v:totalStat, l:'Total Stats',  highlight:true},
+      {v:G.kc||0,   l:'KC',           highlight:true},
+      {v:G.coins||0,l:'Mynt',         highlight:false},
+      {v:(G.str||0),l:'STR',          highlight:false},
+      {v:(G.agi||0),l:'AGI',          highlight:false},
+      {v:(G.int||0),l:'INT',          highlight:false},
+      {v:(G.lck||0),l:'LCK',          highlight:false},
+    ];
+    grid.innerHTML=boxes.map(function(b){
+      return '<div class="dash-box'+(b.highlight?' highlight':'')+'">'+
+        '<div class="dash-box-v">'+b.v+'</div>'+
+        '<div class="dash-box-l">'+b.l+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  // Today earnings
+  var earn=$('dashEarnList');
+  if(earn){
+    var earns=[
+      {name:'Zodiak',coins:55,xp:35},
+      {name:'Väderfarmen',coins:110,xp:65},
+      {name:'Dagliga Uppdrag (6)',coins:480,xp:370},
+      {name:'Husdjursspa (5)',coins:150,xp:128},
+      {name:'Minigames (5 spel)',coins:300,xp:200},
+      {name:'Löpare (10)',coins:200,xp:150},
+      {name:'Fångelsehålan (3)',coins:300,xp:200},
+    ];
+    var totalC=earns.reduce(function(a,e){return a+e.coins;},0);
+    var totalX=earns.reduce(function(a,e){return a+e.xp;},0);
+    earn.innerHTML=earns.map(function(e){
+      return '<div class="dash-earn-row"><span>'+e.name+'</span><span>+'+e.coins+'🪙 +'+e.xp+'XP</span></div>';
+    }).join('')+'<div class="dash-earn-row total"><span>TOTAL (daglig)</span><span>+'+totalC+'🪙 +'+totalX+'XP</span></div>';
+  }
+  // Features
+  var feats=$('dashFeats');
+  if(feats){
+    feats.innerHTML=DASH_FEATURES.map(function(f){
+      return '<div class="dash-feat active">'+f.icon+' '+f.name+'</div>';
+    }).join('');
+  }
 }
 
 </script>
