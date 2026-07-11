@@ -2596,6 +2596,54 @@ textarea.inp { resize:none;min-height:72px; }
 .lootb-hist-chip.legendary{background:rgba(255,200,0,.12);color:#ffcc00}
 .lootb-stats{font:600 8px var(--ff-body);color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
 
+/* ══ NINJA TRAINING ══ */
+.ninj-panel{position:fixed;inset:0;background:linear-gradient(170deg,#040406,#06040a);z-index:1145;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.ninj-panel h2{color:#aaaacc;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #666699}
+.ninj-dojo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:340px;margin:8px 0}
+.ninj-skill{background:rgba(15,12,25,.5);border:1px solid #2a2450;border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.ninj-skill:hover{border-color:#8888cc;background:rgba(30,26,55,.6)}
+.ninj-skill.mastered{border-color:#44ccaa;background:rgba(10,40,30,.4)}
+.ninj-skill.training{border-color:#ffaa44;background:rgba(50,30,5,.4)}
+.ninj-skill .nsk-icon{font-size:1.6rem}
+.ninj-skill .nsk-name{font-size:.65rem;color:#9999bb;margin-top:4px}
+.ninj-skill .nsk-level{font-size:.7rem;color:#8888cc;font-weight:700;margin-top:2px}
+.ninj-missions{display:flex;flex-direction:column;gap:6px;width:100%;max-width:340px;margin-top:4px}
+.ninj-mission{background:rgba(12,10,20,.4);border:1px solid #221f40;border-radius:10px;padding:8px 12px;cursor:pointer;transition:all .2s}
+.ninj-mission:hover{border-color:#8888cc;background:rgba(22,18,40,.5)}
+.ninj-mission.done{opacity:.55;cursor:default}
+.ninj-mission .nm-head{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.ninj-mission .nm-icon{font-size:1.2rem}
+.ninj-mission .nm-name{color:#aaaacc;font-size:.78rem;font-weight:700}
+.ninj-mission .nm-rank{font-size:.58rem;padding:1px 5px;border-radius:3px;margin-left:auto}
+.ninj-mission .nm-rank.d{background:#1a1a2a;color:#6666aa}
+.ninj-mission .nm-rank.c{background:#1a2a1a;color:#66aa66}
+.ninj-mission .nm-rank.b{background:#2a1a0a;color:#aaaa44}
+.ninj-mission .nm-rank.a{background:#2a0a0a;color:#cc6644}
+.ninj-mission .nm-rank.s{background:#1a0a2a;color:#cc44cc}
+.ninj-mission .nm-task{color:#666688;font-size:.63rem}
+.ninj-mission .nm-reward{color:#88aacc;font-size:.62rem;margin-top:2px}
+.ninj-xp{background:rgba(12,10,20,.35);border:1px solid #2a2450;border-radius:8px;padding:6px 14px;color:#aaaacc;font-size:.82rem;margin-bottom:6px}
+
+/* ══ TAROT READING ══ */
+.taro-panel{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 30%,#0a0420,#020108);z-index:1144;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
+.taro-panel h2{color:#ddbbff;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 14px #aa66ff}
+.taro-deck{display:flex;gap:10px;justify-content:center;margin:12px 0;perspective:600px}
+.taro-card-wrap{width:70px;height:110px;cursor:pointer;transition:transform .3s}
+.taro-card-wrap:hover{transform:translateY(-8px)}
+.taro-card-front{width:70px;height:110px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid #7744cc;backface-visibility:hidden;position:relative;overflow:hidden}
+.taro-card-front::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#1a0840,#0a0420)}
+.taro-card-icon{font-size:2.2rem;position:relative;z-index:1}
+.taro-card-name{font-size:.55rem;color:#cc99ff;margin-top:4px;position:relative;z-index:1;text-align:center;padding:0 4px}
+.taro-card-back{width:70px;height:110px;border-radius:10px;background:linear-gradient(135deg,#1a0840,#080320);border:2px solid #440088;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.taro-result{background:rgba(20,8,50,.4);border:1px solid #5533aa;border-radius:14px;padding:14px;width:100%;max-width:340px;min-height:80px;text-align:center;margin-top:4px}
+.taro-history{display:flex;flex-direction:column;gap:5px;width:100%;max-width:340px;margin-top:8px;max-height:160px;overflow-y:auto}
+.taro-history-row{background:rgba(15,5,35,.4);border:1px solid #330066;border-radius:8px;padding:6px 10px;display:flex;gap:8px;align-items:center}
+.taro-history-row .th-icon{font-size:1.1rem}
+.taro-history-row .th-info{flex:1}
+.taro-history-row .th-name{color:#ccaaff;font-size:.72rem}
+.taro-history-row .th-bonus{color:#8866cc;font-size:.62rem}
+.taro-history-row .th-date{font-size:.58rem;color:#553388;margin-left:auto}
+
 /* ══ SURVIVAL ISLAND ══ */
 .surv-panel{position:fixed;inset:0;background:linear-gradient(180deg,#042010,#061808);z-index:1143;display:flex;flex-direction:column;align-items:center;padding:16px;overflow-y:auto}
 .surv-panel h2{color:#88ffcc;font-size:1.4rem;margin-bottom:6px;text-shadow:0 0 12px #44cc88}
@@ -16758,6 +16806,30 @@ body.theme-fire { --green:#ff4422; --teal:#ff8844; }
     <button class="surv-btn" onclick="survAction('rest')">😴 Rest</button>
   </div>
   <div class="surv-log" id="survLog"></div>
+</div>
+
+<!-- NINJA TRAINING -->
+<div class="ninj-panel" id="ninjPanel" style="display:none">
+  <button onclick="closeNinj()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#aaaacc;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🥷 Ninja Training</h2>
+  <div class="ninj-xp" id="ninjXp">Ninja XP: 0 | Rank: Genin</div>
+  <div style="color:#555577;font-size:.72rem;margin-bottom:6px">Train skills and complete missions</div>
+  <div style="color:#aaaacc;font-size:.78rem;font-weight:700;margin-bottom:4px;align-self:flex-start">🥋 Dojo Skills (tap to train)</div>
+  <div class="ninj-dojo" id="ninjDojo"></div>
+  <div style="color:#aaaacc;font-size:.78rem;font-weight:700;margin:6px 0 4px;align-self:flex-start">📜 Missions</div>
+  <div class="ninj-missions" id="ninjMissions"></div>
+</div>
+
+<!-- TAROT READING -->
+<div class="taro-panel" id="taroPanel" style="display:none">
+  <button onclick="closeTaro()" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#ddbbff;font-size:1.5rem;cursor:pointer">✕</button>
+  <h2>🔮 Tarot Reading</h2>
+  <div style="color:#7744aa;font-size:.72rem;margin-bottom:6px">Draw a card daily to reveal your fate</div>
+  <div style="background:rgba(15,5,35,.35);border:1px solid #440088;border-radius:8px;padding:5px 14px;color:#ddbbff;font-size:.8rem;margin-bottom:8px" id="taroStatus">Readings today: 0/3</div>
+  <div class="taro-deck" id="taroDeck"></div>
+  <div class="taro-result" id="taroResult"><div style="color:#553388;font-size:.78rem">Tap a card to read your fortune</div></div>
+  <div style="color:#7744aa;font-size:.75rem;font-weight:700;margin:8px 0 4px;align-self:flex-start">📜 Reading History</div>
+  <div class="taro-history" id="taroHistory"></div>
 </div>
 
 <!-- ZODIAC SIGNS -->
@@ -71531,6 +71603,166 @@ function _renderSurv(){
   $('survDays').textContent=d.days;
   $('survIsland').innerHTML=SURV_TILES.map((t,i)=>`<div class="surv-tile ${d.explored.includes(i)?'explored':''}">${d.explored.includes(i)?t:'❓'}</div>`).join('');
   $('survLog').innerHTML=d.log.slice(0,12).map(l=>`<div>${l}</div>`).join('')||'<div>Start your survival adventure!</div>';
+}
+
+
+// ══ TAROT READING ══
+const TARO_KEY = 'k0509_taro';
+const TARO_CARDS = [
+  {id:'t1',icon:'☀️',name:'The Sun',meaning:'Fortune smiles',bonus:'+100 Coins',apply:()=>gainCoins(100)},
+  {id:'t2',icon:'🌙',name:'The Moon',meaning:'Hidden wisdom',bonus:'+3 INT',apply:()=>{G.int=(G.int||10)+3;save()}},
+  {id:'t3',icon:'⭐',name:'The Star',meaning:'Hope and guidance',bonus:'+2 All Stats',apply:()=>{G.str+=2;G.int+=2;G.agi+=2;save()}},
+  {id:'t4',icon:'⚡',name:'The Tower',meaning:'Sudden change',bonus:'+5 STR',apply:()=>{G.str=(G.str||10)+5;save()}},
+  {id:'t5',icon:'🏆',name:'The World',meaning:'Completion',bonus:'+5 KC',apply:()=>gainKC(5)},
+  {id:'t6',icon:'💀',name:'The Death',meaning:'Transformation',bonus:'+4 All Stats',apply:()=>{G.str+=4;G.int+=4;G.agi+=4;save()}},
+  {id:'t7',icon:'⚖️',name:'Justice',meaning:'Balance and truth',bonus:'+3 INT +3 AGI',apply:()=>{G.int+=3;G.agi+=3;save()}},
+  {id:'t8',icon:'💪',name:'The Strength',meaning:'Inner power',bonus:'+5 STR +2 AGI',apply:()=>{G.str+=5;G.agi+=2;save()}},
+  {id:'t9',icon:'🔮',name:'High Priestess',meaning:'Mystical knowledge',bonus:'+200 Coins',apply:()=>gainCoins(200)},
+  {id:'t10',icon:'🃏',name:'The Fool',meaning:'New beginnings',bonus:'+50 XP random stat',apply:()=>{const s=['str','int','agi'];gainXP(50,s[Math.floor(Math.random()*3)])}},
+  {id:'t11',icon:'🌊',name:'The Hermit',meaning:'Inner journey',bonus:'+3 INT +1 KC',apply:()=>{G.int+=3;save();gainKC(1)}},
+  {id:'t12',icon:'🌟',name:'The Magician',meaning:'Manifestation',bonus:'+3 All Stats +50 Coins',apply:()=>{G.str+=3;G.int+=3;G.agi+=3;save();gainCoins(50)}},
+];
+function _taroData(){
+  const d=JSON.parse(localStorage.getItem(TARO_KEY)||'{}');
+  return {reads:d.reads||0,lastDay:d.lastDay||'',history:d.history||[]};
+}
+function _taroSave(d){localStorage.setItem(TARO_KEY,JSON.stringify(d));}
+function taroRead(){
+  const d=_taroData();
+  const today=getTodayKey();
+  if(d.lastDay!==today){d.reads=0;d.lastDay=today;}
+  if(d.reads>=3){showFloatBubble('3 readings done today!','bad');return;}
+  const card=TARO_CARDS[Math.floor(Math.random()*TARO_CARDS.length)];
+  d.reads++;
+  d.history.unshift({icon:card.icon,name:card.name,bonus:card.bonus,date:today});
+  if(d.history.length>20)d.history.pop();
+  _taroSave(d);
+  card.apply();
+  $('taroResult').innerHTML=`<div style="font-size:2.5rem;margin-bottom:6px">${card.icon}</div>
+    <div style="color:#ddbbff;font-size:1rem;font-weight:700">${card.name}</div>
+    <div style="color:#9966cc;font-size:.72rem;margin:4px 0;font-style:italic">"${card.meaning}"</div>
+    <div style="color:#88ff88;font-size:.78rem;margin-top:6px">✨ ${card.bonus}</div>`;
+  showFloatBubble(`${card.icon} ${card.name}: ${card.bonus}`,'good');
+  checkAchievements();
+  _renderTaro();
+}
+function openTaro(){$('taroPanel').style.display='flex';_renderTaro();}
+function closeTaro(){$('taroPanel').style.display='none';}
+function _renderTaro(){
+  const d=_taroData();
+  const today=getTodayKey();
+  const reads=d.lastDay===today?d.reads:0;
+  $('taroStatus').textContent=`Readings today: ${reads}/3`;
+  // Show 3 face-down cards
+  $('taroDeck').innerHTML=Array(3).fill(0).map((_,i)=>
+    `<div class="taro-card-wrap" onclick="taroRead()">
+      <div class="taro-card-back">🔮</div>
+    </div>`
+  ).join('');
+  $('taroHistory').innerHTML=d.history.slice(0,8).map(h=>`<div class="taro-history-row">
+    <span class="th-icon">${h.icon}</span>
+    <div class="th-info"><div class="th-name">${h.name}</div><div class="th-bonus">${h.bonus}</div></div>
+    <span class="th-date">${h.date}</span>
+  </div>`).join('')||'<div style="color:#442266;font-size:.7rem;text-align:center;padding:10px">No readings yet</div>';
+}
+
+
+// ══ NINJA TRAINING ══
+const NINJ_KEY = 'k0509_ninj';
+const NINJ_SKILLS = [
+  {id:'shuriken',icon:'🌟',name:'Shuriken',maxLvl:10,statPer:1,stat:'agi',costPer:30},
+  {id:'stealth',icon:'🌑',name:'Stealth',maxLvl:10,statPer:1,stat:'agi',costPer:25},
+  {id:'katana',icon:'⚔️',name:'Katana',maxLvl:10,statPer:1,stat:'str',costPer:30},
+  {id:'ninjutsu',icon:'🔮',name:'Ninjutsu',maxLvl:10,statPer:1,stat:'int',costPer:35},
+  {id:'taijutsu',icon:'💪',name:'Taijutsu',maxLvl:10,statPer:1,stat:'str',costPer:28},
+  {id:'shadow',icon:'👥',name:'Shadow Clone',maxLvl:5,statPer:2,stat:'agi',costPer:80},
+];
+const NINJ_MISSIONS = [
+  {id:'m1',icon:'🦎',name:'Chase the Lizard',rank:'d',task:'Train any skill 1×',reward:{nxp:20,coins:30},rdesc:'+20 NXP +30🪙'},
+  {id:'m2',icon:'🕵️',name:'Spy Mission',rank:'c',task:'Train 3 different skills',reward:{nxp:40,coins:60,agi:1},rdesc:'+40 NXP +60🪙 +1AGI'},
+  {id:'m3',icon:'🐉',name:'Slay the Dragon',rank:'b',task:'Any skill Lv3+',reward:{nxp:80,coins:100,str:2},rdesc:'+80 NXP +100🪙 +2STR'},
+  {id:'m4',icon:'⚡',name:'Lightning Scroll',rank:'a',task:'Ninjutsu Lv5+',reward:{nxp:150,kc:5,int:3},rdesc:'+150 NXP +5KC +3INT'},
+  {id:'m5',icon:'💀',name:'Shadow Lord',rank:'s',task:'All skills Lv5+',reward:{nxp:300,kc:15,str:5,agi:5},rdesc:'+300 NXP +15KC +5STR+5AGI'},
+  {id:'m6',icon:'🌟',name:'Master of Shadows',rank:'s',task:'Any skill Lv10',reward:{nxp:500,kc:20,int:5,str:5,agi:5},rdesc:'+500 NXP +20KC +5 All'},
+];
+const NINJ_RANKS=['Genin','Chunin','Jonin','ANBU','Kage'];
+function _ninjData(){
+  const d=JSON.parse(localStorage.getItem(NINJ_KEY)||'{}');
+  const skills={};NINJ_SKILLS.forEach(s=>{skills[s.id]=d.skills&&d.skills[s.id]||0;});
+  return {nxp:d.nxp||0,skills:skills,done:d.done||[],trained:d.trained||0,lastTrain:d.lastTrain||'',trains:d.trains||0};
+}
+function _ninjSave(d){localStorage.setItem(NINJ_KEY,JSON.stringify(d));}
+function ninjTrain(sid){
+  const d=_ninjData();
+  const today=getTodayKey();
+  if(d.lastTrain!==today){d.trains=0;d.lastTrain=today;}
+  if(d.trains>=10){showFloatBubble('10 trainings done today!','bad');return;}
+  const skill=NINJ_SKILLS.find(s=>s.id===sid);
+  const lvl=d.skills[sid];
+  if(lvl>=skill.maxLvl){showFloatBubble('Skill maxed!','bad');return;}
+  const cost=skill.costPer*(lvl+1);
+  if((G.coins||0)<cost){showFloatBubble(`Need ${cost} coins!`,'bad');return;}
+  G.coins-=cost;save();
+  d.skills[sid]++;
+  d.nxp+=10*(d.skills[sid]);
+  d.trains++;
+  d.trained++;
+  if(skill.stat==='str')G.str=(G.str||10)+skill.statPer;
+  else if(skill.stat==='int')G.int=(G.int||10)+skill.statPer;
+  else G.agi=(G.agi||10)+skill.statPer;
+  save();
+  _ninjSave(d);
+  showFloatBubble(`🥷 ${skill.name} Lv${d.skills[sid]}! +1 ${skill.stat.toUpperCase()}`,'good');
+  checkAchievements();
+  _renderNinj();
+}
+function ninjClaimMission(mid){
+  const d=_ninjData();
+  if(d.done.includes(mid)){showFloatBubble('Already claimed!','bad');return;}
+  const m=NINJ_MISSIONS.find(x=>x.id===mid);
+  let met=false;
+  if(mid==='m1')met=d.trains>0||d.trained>0;
+  else if(mid==='m2')met=Object.values(d.skills).filter(v=>v>0).length>=3;
+  else if(mid==='m3')met=Object.values(d.skills).some(v=>v>=3);
+  else if(mid==='m4')met=(d.skills.ninjutsu||0)>=5;
+  else if(mid==='m5')met=Object.values(d.skills).every(v=>v>=5);
+  else if(mid==='m6')met=Object.values(d.skills).some(v=>v>=10);
+  if(!met){showFloatBubble('Mission requirement not met!','bad');return;}
+  d.done.push(mid);d.nxp+=m.reward.nxp||0;
+  _ninjSave(d);
+  if(m.reward.coins)gainCoins(m.reward.coins);
+  if(m.reward.kc)gainKC(m.reward.kc);
+  if(m.reward.str){G.str=(G.str||10)+m.reward.str;save();}
+  if(m.reward.int){G.int=(G.int||10)+m.reward.int;save();}
+  if(m.reward.agi){G.agi=(G.agi||10)+m.reward.agi;save();}
+  showFloatBubble(`🥷 ${m.name} complete! ${m.rdesc}`,'good');
+  checkAchievements();_renderNinj();
+}
+function openNinj(){$('ninjPanel').style.display='flex';_renderNinj();}
+function closeNinj(){$('ninjPanel').style.display='none';}
+function _renderNinj(){
+  const d=_ninjData();
+  const rank=NINJ_RANKS[Math.min(4,Math.floor(d.nxp/200))];
+  $('ninjXp').textContent=`Ninja XP: ${d.nxp} | Rank: ${rank}`;
+  $('ninjDojo').innerHTML=NINJ_SKILLS.map(s=>{
+    const lvl=d.skills[s.id];
+    const maxed=lvl>=s.maxLvl;
+    const cost=s.costPer*(lvl+1);
+    return `<div class="ninj-skill ${maxed?'mastered':''}" onclick="ninjTrain('${s.id}')">
+      <div class="nsk-icon">${s.icon}</div>
+      <div class="nsk-name">${s.name}</div>
+      <div class="nsk-level">Lv${lvl}/${s.maxLvl}</div>
+      <div style="font-size:.55rem;color:#666688;margin-top:1px">${maxed?'MAX':cost+'🪙'}</div>
+    </div>`;
+  }).join('');
+  $('ninjMissions').innerHTML=NINJ_MISSIONS.map(m=>{
+    const done=d.done.includes(m.id);
+    return `<div class="ninj-mission ${done?'done':''}" onclick="ninjClaimMission('${m.id}')">
+      <div class="nm-head"><span class="nm-icon">${m.icon}</span><span class="nm-name">${m.name}</span><span class="nm-rank ${m.rank}">${m.rank.toUpperCase()}-rank</span></div>
+      <div class="nm-task">${m.task}</div>
+      <div class="nm-reward">${m.rdesc} ${done?'✅':''}</div>
+    </div>`;
+  }).join('');
 }
 
 </script>
