@@ -1,0 +1,38 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+  background: var(--col-bg, #0a0a14);
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: var(--header-h, 56px);
+  padding-bottom: calc(var(--nav-h, 64px) + var(--sab, 0px));
+  -webkit-overflow-scrolling: touch;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.spinnerInner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(168,85,247,0.2);
+  border-top-color: var(--col-accent, #a855f7);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

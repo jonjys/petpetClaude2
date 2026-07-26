@@ -1,0 +1,217 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  padding-bottom: 24px;
+}
+
+/* Stats row */
+.statsRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.statBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statIcon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+.statVal {
+  font-size: 13px;
+  color: var(--col-text-muted, #888);
+  width: 28px;
+  text-align: right;
+}
+
+/* Level row */
+.levelRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.levelBadge {
+  font-family: var(--ff-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--col-gold, #fbbf24);
+  background: rgba(251, 191, 36, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 6px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.xpBarTrack {
+  flex: 1;
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.xpFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--col-accent, #a855f7), var(--col-accent2, #ec4899));
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.xpText {
+  font-size: 11px;
+  color: var(--col-text-muted, #888);
+  white-space: nowrap;
+}
+
+/* Tap area */
+.tapArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 220px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.15s;
+}
+
+.tapArea:active {
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.petEmoji {
+  font-size: 96px;
+  line-height: 1;
+  animation: petFloat 3s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes petFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.bounce {
+  animation: petBounce 0.35s ease-out forwards !important;
+}
+
+@keyframes petBounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.18) translateY(-6px); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.petName {
+  font-family: var(--ff-head);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--col-accent, #a855f7);
+}
+
+.tapHint {
+  font-size: 13px;
+  color: var(--col-text-muted, #888);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Ripple */
+:global(.ripple) {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.35);
+  pointer-events: none;
+  animation: rippleAnim 0.7s ease-out forwards;
+}
+
+@keyframes rippleAnim {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+.ripple {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.35);
+  pointer-events: none;
+  animation: rippleAnim 0.7s ease-out forwards;
+}
+
+/* Quick stats */
+.quickStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.quickStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 12px;
+  padding: 10px 4px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.qsEmoji {
+  font-size: 20px;
+}
+
+.qsVal {
+  font-family: var(--ff-head);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--col-text, #e8e8f0);
+}
+
+.qsLabel {
+  font-size: 10px;
+  color: var(--col-text-muted, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Daily bonus button */
+.dailyBtn {
+  width: 100%;
+  font-size: 16px;
+  padding: 14px;
+  margin-top: 4px;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { box-shadow: 0 0 12px rgba(168, 85, 247, 0.4); }
+  50% { box-shadow: 0 0 24px rgba(168, 85, 247, 0.7), 0 0 40px rgba(236, 72, 153, 0.3); }
+}
