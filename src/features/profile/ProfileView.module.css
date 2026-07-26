@@ -1,0 +1,219 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  padding-bottom: 24px;
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cardTitle {
+  font-family: var(--ff-head);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--col-text, #e8e8f0);
+}
+
+/* Pet identity */
+.emojiRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.emojiBtn {
+  font-size: 22px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background: rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emojiBtn.active {
+  border-color: var(--col-accent, #a855f7);
+  background: rgba(168, 85, 247, 0.2);
+}
+
+.emojiBtn:hover:not(.active) {
+  background: rgba(255,255,255,0.1);
+}
+
+.currentPet {
+  text-align: center;
+  font-size: 64px;
+  line-height: 1.1;
+}
+
+.petNameBtn {
+  background: none;
+  border: 1px dashed rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 8px 16px;
+  color: var(--col-accent, #a855f7);
+  font-family: var(--ff-head);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s;
+}
+
+.petNameBtn:hover {
+  border-color: var(--col-accent, #a855f7);
+}
+
+.nameEdit {
+  display: flex;
+  gap: 8px;
+}
+
+.nameInput {
+  flex: 1;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: var(--col-text, #e8e8f0);
+  font-family: var(--ff-head);
+  font-size: 16px;
+  outline: none;
+}
+
+.nameInput:focus {
+  border-color: var(--col-accent, #a855f7);
+}
+
+.petAge {
+  text-align: center;
+  font-size: 13px;
+  color: var(--col-text-muted, #888);
+}
+
+/* Stats grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  padding: 10px 6px;
+}
+
+.statEmoji {
+  font-size: 18px;
+}
+
+.statVal {
+  font-family: var(--ff-head);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--col-text, #e8e8f0);
+}
+
+.statLabel {
+  font-size: 10px;
+  color: var(--col-text-muted, #888);
+  text-align: center;
+}
+
+/* Toggle */
+.toggleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.toggleEmoji {
+  font-size: 18px;
+  width: 24px;
+}
+
+.toggleLabel {
+  flex: 1;
+  font-size: 14px;
+  color: var(--col-text, #e8e8f0);
+}
+
+.toggle {
+  width: 48px;
+  height: 26px;
+  border-radius: 13px;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.toggle.toggleOn {
+  background: var(--col-accent, #a855f7);
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+  display: block;
+}
+
+.toggle.toggleOn .toggleThumb {
+  transform: translateX(22px);
+}
+
+/* Slider */
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sliderLabel {
+  font-size: 14px;
+  color: var(--col-text, #e8e8f0);
+  width: 64px;
+}
+
+.slider {
+  flex: 1;
+  accent-color: var(--col-accent, #a855f7);
+  height: 4px;
+  cursor: pointer;
+}
+
+.sliderVal {
+  font-size: 13px;
+  color: var(--col-text-muted, #888);
+  width: 36px;
+  text-align: right;
+}
