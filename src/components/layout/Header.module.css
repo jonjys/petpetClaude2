@@ -1,100 +1,119 @@
 .header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  height: var(--header-h, 56px);
+  top: 0; left: 0; right: 0;
+  max-width: 430px;
+  margin: 0 auto;
+  height: calc(var(--header-h, 54px) + var(--sat, 0px));
+  padding-top: var(--sat, 0px);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 14px;
-  background: rgba(10, 10, 20, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  max-width: 480px;
-  margin: 0 auto;
+  padding-left: 14px;
+  padding-right: 14px;
+  gap: 8px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.95), rgba(0,0,4,.82));
+  backdrop-filter: blur(28px) saturate(1.8);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 1px 0 rgba(0,255,136,.1), 0 8px 32px rgba(0,0,0,.6);
+  z-index: 500;
 }
 
 .brand {
-  background: none;
-  border: none;
   font-family: var(--ff-head);
   font-size: 22px;
   font-weight: 900;
-  letter-spacing: 0.05em;
-  color: #e8e8f0;
-  cursor: pointer;
-  padding: 0;
-}
-
-.brandK {
-  background: linear-gradient(135deg, var(--col-accent, #a855f7), var(--col-accent2, #ec4899));
+  letter-spacing: 2px;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #00f0ff, #7b2fff, #ff2d78, #00f0ff);
+  background-size: 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: logoRainbow 4s linear infinite;
+  filter: drop-shadow(0 0 10px rgba(0,240,255,.35));
+  cursor: pointer;
+  border: none;
+  padding: 0;
 }
 
 .pills {
   display: flex;
+  gap: 5px;
+  flex: 1;
+  overflow: hidden;
   align-items: center;
-  gap: 6px;
+  min-width: 0;
+}
+
+.pott {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: linear-gradient(135deg, rgba(255,204,0,.15), rgba(255,136,0,.1));
+  border: 1px solid rgba(255,204,0,.4);
+  border-radius: 20px;
+  animation: pottPulse 2s ease-in-out infinite;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.pottLabel {
+  font: 900 8px/1 var(--ff-head);
+  color: var(--gold, #ffcc00);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.pottVal {
+  font: 900 11px/1 var(--ff-head);
+  color: var(--gold, #ffcc00);
+  text-shadow: 0 0 8px rgba(255,204,0,.5);
 }
 
 .pill {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
+  gap: 3px;
+  padding: 5px 9px;
   border-radius: 20px;
-  font-family: var(--ff-head);
-  font-size: 13px;
-  font-weight: 700;
+  font: 800 11px/1 var(--ff-head);
+  white-space: nowrap;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(8,5,24,.88);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
 }
+.streak { color: #ff4455; border-color: rgba(255,68,85,.3); }
+.coins  { color: #ffcc00; border-color: rgba(255,204,0,.25); text-shadow: 0 0 8px rgba(255,204,0,.4); }
+.kc     { color: #00f0ff; border-color: rgba(0,240,255,.25); text-shadow: 0 0 8px rgba(0,240,255,.4); }
 
-.coins {
-  background: rgba(251, 191, 36, 0.15);
-  border: 1px solid rgba(251, 191, 36, 0.3);
-  color: #fbbf24;
-}
-
-.kc {
-  background: rgba(168, 85, 247, 0.15);
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  color: #a855f7;
-}
-
-.streak {
-  background: rgba(239, 68, 68, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #f87171;
-}
-
-.bell {
-  position: relative;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
+.iconBtn {
+  width: 34px; height: 34px;
+  background: rgba(8,5,24,.88);
+  border: 1px solid rgba(80,60,200,.28);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  cursor: pointer;
   flex-shrink: 0;
+  backdrop-filter: blur(12px);
+  position: relative;
+  transition: transform .1s;
 }
+.iconBtn:active { transform: scale(.88); }
 
 .badge {
   position: absolute;
-  top: -4px;
-  right: -4px;
-  background: #ef4444;
+  top: -5px; right: -5px;
+  background: #ff4455;
   color: #fff;
-  font-size: 9px;
-  font-weight: 700;
-  border-radius: 10px;
-  padding: 1px 4px;
-  min-width: 16px;
-  text-align: center;
+  font: 800 9px/1 var(--ff-head);
+  min-width: 16px; height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  border: 1.5px solid #000;
 }

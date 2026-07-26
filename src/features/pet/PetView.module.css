@@ -1,65 +1,323 @@
-.root { display: flex; flex-direction: column; gap: 14px; padding: 14px; padding-bottom: 24px; }
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding-bottom: 16px;
+}
 
-/* Stats */
-.statsRow { display: flex; flex-direction: column; gap: 7px; }
-.statBar { display: flex; align-items: center; gap: 8px; }
-.statIcon { font-size: 18px; width: 24px; text-align: center; }
-.statTrack { height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
-.statFill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
-.statVal { font-size: 13px; color: var(--col-text-muted,#888); width: 28px; text-align: right; }
+/* ── Pet Stage ────────────────────────────────────────────────────────────────── */
+.stage {
+  width: 100%;
+  height: clamp(220px, 40vh, 280px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  background:
+    radial-gradient(ellipse 110% 70% at 50% 40%,
+      rgba(0,200,255,.1) 0%,
+      rgba(100,30,255,.07) 50%,
+      transparent 80%);
+  border-bottom: 1px solid rgba(0,200,255,.1);
+}
 
-/* Level */
-.levelRow { display: flex; align-items: center; gap: 8px; }
-.levelBadge { font-family: var(--ff-head); font-size: 13px; font-weight: 700; color: var(--col-gold,#fbbf24); background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.3); border-radius: 6px; padding: 2px 8px; white-space: nowrap; }
-.xpBarTrack { flex: 1; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
-.xpFill { height: 100%; background: linear-gradient(90deg, var(--col-accent,#a855f7), var(--col-accent2,#ec4899)); border-radius: 4px; transition: width 0.4s ease; }
-.xpText { font-size: 11px; color: var(--col-text-muted,#888); white-space: nowrap; }
+.stageBg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 60%, rgba(0,255,136,.22) 0%, rgba(68,136,255,.1) 35%, transparent 65%);
+  animation: bgpulse 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
 
-/* Tap area */
-.tapArea { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 200px; border-radius: 24px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); cursor: pointer; user-select: none; -webkit-user-select: none; position: relative; overflow: hidden; transition: background 0.15s; }
-.tapArea:active { background: rgba(168,85,247,0.08); }
-.petEmoji { font-size: 88px; line-height: 1; animation: petFloat 3s ease-in-out infinite; will-change: transform; }
-@keyframes petFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-.bounce { animation: petBounce 0.35s ease-out forwards !important; }
-@keyframes petBounce { 0%{transform:scale(1)} 30%{transform:scale(1.18) translateY(-6px)} 60%{transform:scale(0.95)} 100%{transform:scale(1)} }
-.petName { font-family: var(--ff-head); font-size: 20px; font-weight: 700; color: var(--col-accent,#a855f7); }
-.tapHint { font-size: 13px; color: var(--col-text-muted,#888); animation: pulse 2s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
-.ripple { position: absolute; width: 40px; height: 40px; margin-left: -20px; margin-top: -20px; border-radius: 50%; background: rgba(168,85,247,0.35); pointer-events: none; animation: rippleAnim 0.7s ease-out forwards; }
-@keyframes rippleAnim { 0%{transform:scale(0);opacity:1} 100%{transform:scale(4);opacity:0} }
+.aura {
+  position: absolute;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,136,.25) 0%, rgba(68,136,255,.1) 40%, transparent 70%);
+  box-shadow: 0 0 80px rgba(0,255,136,.25), 0 0 160px rgba(0,255,136,.08);
+  animation: aura 2s ease-in-out infinite;
+  pointer-events: none;
+}
 
-/* Care grid */
-.careGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.careBtn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 10px 4px; cursor: pointer; transition: all 0.15s; }
-.careBtn:active { transform: scale(0.94); background: rgba(168,85,247,0.12); }
-.careBtnAnim { animation: carePop 0.3s ease-out; }
-@keyframes carePop { 0%{transform:scale(1)} 50%{transform:scale(1.15)} 100%{transform:scale(1)} }
-.careBtnEmoji { font-size: 26px; }
-.careBtnLabel { font-size: 10px; font-weight: 700; color: var(--col-text,#e8e8f0); letter-spacing: 0.05em; }
-.careBtnSub { font-size: 9px; color: var(--col-text-muted,#888); }
+.petWrap {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
 
-/* Missions */
-.section { display: flex; flex-direction: column; gap: 8px; }
-.sectionTitle { font-family: var(--ff-head); font-size: 14px; font-weight: 700; color: var(--col-text,#e8e8f0); }
-.mission { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 10px 12px; border: 1px solid rgba(255,255,255,0.06); transition: opacity 0.2s; }
-.missionDone { opacity: 0.5; }
-.missionEmoji { font-size: 22px; width: 28px; text-align: center; }
-.missionInfo { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.missionLabel { font-size: 13px; color: var(--col-text,#e8e8f0); font-weight: 500; }
-.missionBar { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
-.missionFill { height: 100%; background: linear-gradient(90deg, var(--col-accent,#a855f7), var(--col-accent2,#ec4899)); border-radius: 2px; transition: width 0.3s ease; }
-.missionProg { font-size: 11px; color: var(--col-text-muted,#888); }
-.missionCheck { font-size: 18px; }
-.missionReward { font-size: 12px; color: var(--col-gold,#fbbf24); font-weight: 600; }
-.claimBtn { font-size: 12px; padding: 6px 10px; white-space: nowrap; }
+.petEmoji {
+  font-size: 96px;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 20;
+  filter:
+    drop-shadow(0 0 18px rgba(0,240,255,.7))
+    drop-shadow(0 0 36px rgba(0,200,255,.3))
+    drop-shadow(0 24px 20px rgba(0,0,0,.95));
+  animation: petFloat 3.2s ease-in-out infinite, petGlow 2.8s ease-in-out infinite;
+  transition: transform .1s;
+}
+.petEmoji:active { transform: scale(.92); }
 
-/* Quick stats */
-.quickStats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.quickStat { display: flex; flex-direction: column; align-items: center; gap: 2px; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 10px 4px; border: 1px solid rgba(255,255,255,0.06); }
-.qsEmoji { font-size: 18px; }
-.qsVal { font-family: var(--ff-head); font-size: 13px; font-weight: 700; color: var(--col-text,#e8e8f0); }
-.qsLabel { font-size: 9px; color: var(--col-text-muted,#888); text-transform: uppercase; letter-spacing: 0.05em; }
+.petName {
+  font: 700 11px/1 var(--ff-head);
+  letter-spacing: 3px;
+  color: rgba(0,230,255,.9);
+  text-shadow: 0 0 10px rgba(0,200,255,.5);
+  background: rgba(0,200,255,.12);
+  border: 1px solid rgba(0,200,255,.3);
+  border-radius: 20px;
+  padding: 4px 16px;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
 
-/* Daily bonus */
-.dailyBtn { width: 100%; font-size: 16px; padding: 14px; margin-top: 4px; animation: shimmer 2s ease-in-out infinite; }
-@keyframes shimmer { 0%,100%{box-shadow:0 0 12px rgba(168,85,247,0.4)} 50%{box-shadow:0 0 24px rgba(168,85,247,0.7),0 0 40px rgba(236,72,153,0.3)} }
+/* Vitals strip inside stage */
+.vitals {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(4,2,18,.85);
+  border-top: 1px solid rgba(0,200,255,.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 8px 16px;
+  display: flex;
+  gap: 12px;
+}
+.vitalItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.vitalLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.vitalEmoji { font-size: 11px; }
+.vitalPct { font: 800 9px/1 var(--ff-head); color: rgba(255,255,255,.5); }
+.vitalBar {
+  height: 4px;
+  background: rgba(255,255,255,.07);
+  border-radius: 99px;
+  overflow: hidden;
+  border-radius: 99px;
+}
+.vitalFill {
+  height: 100%;
+  border-radius: 99px;
+  box-shadow: 0 0 6px currentColor;
+  transition: width .5s ease;
+}
+.moodFill   { background: #ff3377; }
+.hungerFill { background: #ff8844; }
+.energyFill { background: #00ff88; }
+
+/* ── Level badge ──────────────────────────────────────────────────────────────── */
+.levelBadge {
+  position: absolute;
+  top: 10px; left: 14px;
+  background: linear-gradient(135deg, #00ff88, #4488ff);
+  color: #000;
+  font: 900 11px/1 var(--ff-head);
+  padding: 5px 10px;
+  border-radius: 20px;
+  box-shadow: 0 0 16px rgba(0,255,136,.4);
+}
+
+/* XP bar */
+.xpRow {
+  position: absolute;
+  top: 10px; right: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.xpBarWrap {
+  width: 80px;
+  height: 5px;
+  background: rgba(255,255,255,.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.xpFill {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff88, #4488ff, #aa66ff);
+  border-radius: 100px;
+  box-shadow: 0 0 10px rgba(0,255,136,.5);
+  transition: width .7s cubic-bezier(.34,1.56,.64,1);
+}
+.xpLabel {
+  font: 800 9px/1 var(--ff-head);
+  color: rgba(0,255,136,.6);
+}
+
+/* ── Care Section ─────────────────────────────────────────────────────────────── */
+.careHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px 6px;
+  border-top: 1px solid rgba(0,200,255,.08);
+}
+.careTitle {
+  font: 900 11px/1 var(--ff-head);
+  letter-spacing: 2px;
+  color: rgba(0,200,255,.7);
+  text-transform: uppercase;
+}
+
+.careGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 0 12px 8px;
+}
+
+.careBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 6px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(16,8,36,.9), rgba(8,4,20,.95));
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 4px 20px rgba(0,0,0,.5);
+  transition: all .15s cubic-bezier(.34,1.56,.64,1);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.careBtn:active { transform: scale(.91); box-shadow: 0 2px 8px rgba(0,0,0,.6); }
+
+.careBtnFeed    { border-color: rgba(255,136,68,.3); }
+.careBtnTrain   { border-color: rgba(68,136,255,.3); }
+.careBtnSleep   { border-color: rgba(170,102,255,.3); }
+.careBtnPlay    { border-color: rgba(0,255,136,.3); }
+
+.careBtnFeed:active  { background: rgba(255,136,68,.08); }
+.careBtnTrain:active { background: rgba(68,136,255,.08); }
+.careBtnSleep:active { background: rgba(170,102,255,.08); }
+.careBtnPlay:active  { background: rgba(0,255,136,.08); }
+
+.careIco { font-size: 26px; filter: drop-shadow(0 0 6px rgba(255,255,255,.3)); }
+.careLbl { font: 800 9px/1 var(--ff-head); color: rgba(255,255,255,.5); letter-spacing: .8px; text-transform: uppercase; }
+
+/* ── Daily Missions ───────────────────────────────────────────────────────────── */
+.section {
+  margin: 8px 12px 0;
+  background: linear-gradient(160deg, rgba(14,6,32,.95), rgba(6,2,16,.98));
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px;
+  padding: 14px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.6);
+}
+
+.sectionTitle {
+  font: 900 10px/1 var(--ff-head);
+  letter-spacing: 2px;
+  color: rgba(255,255,255,.3);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.missions { display: flex; flex-direction: column; gap: 10px; }
+
+.missionItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.missionEmoji { font-size: 22px; flex-shrink: 0; }
+.missionBody { flex: 1; min-width: 0; }
+.missionLabel { font: 700 12px/1.2 var(--ff-body); color: rgba(255,255,255,.8); margin-bottom: 5px; }
+.missionBar {
+  height: 4px;
+  background: rgba(255,255,255,.06);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.missionFill {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff88, #4488ff);
+  border-radius: 99px;
+  box-shadow: 0 0 6px rgba(0,255,136,.5);
+  transition: width .5s ease;
+}
+.missionProgress { font: 700 9px/1 var(--ff-head); color: rgba(255,255,255,.3); margin-top: 3px; }
+
+.claimBtn {
+  flex-shrink: 0;
+  padding: 7px 12px;
+  background: linear-gradient(135deg, #00ff88, #4488ff);
+  color: #000;
+  font: 900 10px/1 var(--ff-head);
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: transform .15s;
+  letter-spacing: .5px;
+}
+.claimBtn:active { transform: scale(.92); }
+.claimBtn:disabled {
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.25);
+  cursor: not-allowed;
+}
+
+/* ── Quick Stats Grid ────────────────────────────────────────────────────────── */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 14px;
+  padding: 10px 4px;
+}
+.statEmoji { font-size: 18px; }
+.statVal { font: 900 14px/1 var(--ff-head); color: var(--t1, #f2f2fa); }
+.statLbl { font: 600 8px/1 var(--ff-body); color: rgba(255,255,255,.35); letter-spacing: .5px; text-align: center; text-transform: uppercase; }
+
+/* ── Achievement toast ────────────────────────────────────────────────────────── */
+.achieveToast {
+  position: fixed;
+  top: calc(var(--sat, 0px) + 64px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5000;
+  background: linear-gradient(135deg, rgba(255,204,0,.15), rgba(255,136,0,.1));
+  border: 1px solid rgba(255,204,0,.5);
+  border-radius: 16px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.8), 0 0 20px rgba(255,204,0,.2);
+  animation: fadeIn .3s ease, slideDown .3s ease;
+  white-space: nowrap;
+}
+.achieveIcon { font-size: 28px; }
+.achieveText { font: 900 13px/1.3 var(--ff-head); color: #ffcc00; }
+.achieveLabel { font: 700 10px/1 var(--ff-body); color: rgba(255,204,0,.6); margin-top: 2px; }
+
+@keyframes slideDown {
+  from { transform: translateX(-50%) translateY(-10px); }
+  to   { transform: translateX(-50%) translateY(0); }
+}
