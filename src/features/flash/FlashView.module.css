@@ -1,112 +1,43 @@
-.root {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 16px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(255,255,255,0.04);
-  border-radius: 16px;
-  padding: 14px 16px;
-  border: 1px solid rgba(255,255,255,0.07);
-}
-
-.incomeDisplay {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.incomeLabel {
-  font-size: 11px;
-  color: var(--col-text-muted, #888);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.incomeValue {
-  font-family: var(--ff-head);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--col-gold, #fbbf24);
-}
-
-.collectBtn {
-  font-size: 15px;
-  padding: 10px 18px;
-  min-width: 130px;
-  transition: transform 0.1s;
-}
-
-.collectBtn:active:not(:disabled) {
-  transform: scale(0.96);
-}
-
-.grid {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(255,255,255,0.04);
-  border-radius: 14px;
-  padding: 12px 14px;
-  border: 1px solid rgba(255,255,255,0.07);
-  transition: opacity 0.2s;
-}
-
-.card.locked {
-  opacity: 0.5;
-}
-
-.cardEmoji {
-  font-size: 32px;
-  width: 40px;
-  text-align: center;
-}
-
-.cardInfo {
-  flex: 1;
-  min-width: 0;
-}
-
-.cardName {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--col-text, #e8e8f0);
-  margin-bottom: 3px;
-}
-
-.cardStats {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.owned {
-  font-size: 12px;
-  color: var(--col-accent, #a855f7);
-  font-weight: 700;
-  background: rgba(168, 85, 247, 0.15);
-  border-radius: 4px;
-  padding: 1px 6px;
-}
-
-.income {
-  font-size: 12px;
-  color: var(--col-gold, #fbbf24);
-}
-
-.buyBtn {
-  font-size: 13px;
-  padding: 8px 12px;
-  white-space: nowrap;
-}
+.root { display:flex; flex-direction:column; gap:12px; padding:14px; }
+.subTabs { display:flex; gap:4px; background:rgba(255,255,255,0.04); border-radius:12px; padding:4px; }
+.subTab { flex:1; padding:8px 6px; border-radius:8px; border:none; background:none; color:var(--col-text-muted,#888); font-size:12px; cursor:pointer; font-weight:600; transition:all 0.15s; }
+.subTabActive { background:rgba(168,85,247,0.2); color:var(--col-accent,#a855f7); }
+.trendStrip { display:flex; gap:6px; overflow-x:auto; -ms-overflow-style:none; scrollbar-width:none; padding-bottom:2px; }
+.trendStrip::-webkit-scrollbar { display:none; }
+.trendTag { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:4px 12px; font-size:12px; color:var(--col-text-muted,#888); white-space:nowrap; cursor:pointer; }
+.postBtn { width:100%; padding:14px; background:rgba(255,255,255,0.04); border:1px dashed rgba(255,255,255,0.15); border-radius:14px; color:var(--col-text-muted,#888); font-size:14px; cursor:pointer; text-align:left; transition:border-color 0.15s; }
+.postBtn:hover { border-color:var(--col-accent,#a855f7); }
+.postEditor { display:flex; flex-direction:column; gap:8px; background:rgba(255,255,255,0.04); border-radius:14px; padding:12px; border:1px solid rgba(168,85,247,0.3); }
+.postInput { background:none; border:none; color:var(--col-text,#e8e8f0); font-size:14px; resize:none; outline:none; }
+.postActions { display:flex; gap:8px; justify-content:flex-end; }
+.feed { display:flex; flex-direction:column; gap:10px; }
+.card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:14px; display:flex; flex-direction:column; gap:8px; }
+.cardHeader { display:flex; align-items:center; gap:10px; }
+.cardPet { font-size:28px; }
+.cardMeta { flex:1; display:flex; flex-direction:column; }
+.cardUsername { font-weight:700; font-size:14px; color:var(--col-text,#e8e8f0); }
+.cardLevel { font-size:11px; color:var(--col-accent,#a855f7); }
+.cardTag { font-size:11px; color:var(--col-accent2,#ec4899); background:rgba(236,72,153,0.1); border-radius:4px; padding:2px 6px; }
+.cardCaption { margin:0; font-size:14px; color:var(--col-text,#e8e8f0); line-height:1.4; }
+.cardFooter { display:flex; align-items:center; justify-content:space-between; }
+.likeBtn { background:none; border:none; color:var(--col-text-muted,#888); font-size:14px; cursor:pointer; padding:4px 8px; border-radius:8px; transition:all 0.15s; }
+.likeBtn.liked { color:#f87171; }
+.collectBtn { background:rgba(168,85,247,0.15); border:1px solid rgba(168,85,247,0.3); border-radius:8px; color:var(--col-accent,#a855f7); font-size:12px; padding:4px 10px; cursor:pointer; font-weight:600; }
+.explore { display:flex; flex-direction:column; gap:14px; }
+.exploreGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+.exploreCard { background:rgba(255,255,255,0.05); border-radius:12px; padding:16px 8px; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; transition:background 0.15s; border:1px solid rgba(255,255,255,0.06); }
+.exploreCard:hover { background:rgba(168,85,247,0.1); }
+.exploreEmoji { font-size:28px; }
+.exploreTag { font-size:10px; color:var(--col-accent2,#ec4899); }
+.hotSection { display:flex; flex-direction:column; gap:8px; }
+.hotTitle { font-family:var(--ff-head); font-size:15px; font-weight:700; color:var(--col-text,#e8e8f0); }
+.hotRow { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; background:rgba(255,255,255,0.03); border-radius:10px; }
+.hotTag { color:var(--col-accent,#a855f7); font-weight:600; font-size:14px; }
+.hotCount { font-size:12px; color:var(--col-text-muted,#888); }
+.missions { display:flex; flex-direction:column; gap:10px; }
+.missionCard { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:6px; }
+.missionSponsor { font-size:11px; color:var(--col-accent2,#ec4899); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; }
+.missionTitle { font-weight:700; font-size:15px; color:var(--col-text,#e8e8f0); }
+.missionDesc { font-size:13px; color:var(--col-text-muted,#888); }
+.missionFooter { display:flex; align-items:center; justify-content:space-between; margin-top:4px; }
+.missionReward { font-size:13px; color:var(--col-gold,#fbbf24); font-weight:600; }

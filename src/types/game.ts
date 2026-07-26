@@ -1,5 +1,12 @@
 // ── Core game state ──────────────────────────────────────────────────────────
 
+export interface Wardrobe {
+  hat: string
+  acc: string
+  aura: string
+  bg: string
+}
+
 export interface PetState {
   petName: string
   petEmoji: string
@@ -14,8 +21,48 @@ export interface PetState {
   totalTaps: number
   createdAt: number   // unix timestamp
   lastSeen: number
+  lastLoginDate: string
   sessionTaps: number
   sessionXP: number
+  // Progress stats
+  streak: number
+  battleWins: number
+  fishCaught: number
+  expeditionsDone: number
+  bountiesDone: number
+  postCount: number
+  runnerBest: number
+  questsCompleted: number
+  totalCoinsEarned: number
+  // Cosmetics
+  activeTheme: string
+  activeSkin: string
+  activeFrame: string
+  wardrobe: Wardrobe
+  ownedItems: string[]
+  // Prestige
+  prestigeLevel: number
+  // Battle pass
+  bpassXP: number
+}
+
+export interface DailyMission {
+  id: string
+  emoji: string
+  label: string
+  type: 'taps' | 'battle' | 'feed' | 'fish' | 'quest' | 'runner' | 'memory'
+  target: number
+  progress: number
+  reward: { coins: number; xp: number; kc?: number }
+  done: boolean
+}
+
+export interface Notification {
+  id: string
+  icon: string
+  text: string
+  ts: number
+  read: boolean
 }
 
 export interface InventoryItem {
@@ -23,7 +70,7 @@ export interface InventoryItem {
   name: string
   emoji: string
   description: string
-  effect?: Partial<PetState>
+  effect?: { mood?: number; hunger?: number; energy?: number; exp?: number }
   quantity: number
   rarity: 'common' | 'rare' | 'epic' | 'legendary'
 }
@@ -35,9 +82,8 @@ export interface ShopItem {
   description: string
   price: number
   currency: 'coins' | 'kc'
-  category: 'food' | 'toy' | 'cosmetic' | 'boost' | 'special'
-  effect?: Partial<PetState>
-  unlockLevel?: number
+  category: 'food' | 'toy' | 'cosmetic' | 'boost' | 'hat' | 'acc' | 'aura' | 'bg' | 'skin' | 'frame' | 'theme'
+  stat?: { mood?: number; hunger?: number; energy?: number; xpMult?: number }
 }
 
 export interface Quest {
@@ -57,10 +103,10 @@ export interface Quest {
 export interface Achievement {
   id: string
   title: string
-  description: string
   emoji: string
-  category: 'taps' | 'level' | 'coins' | 'games' | 'social' | 'special'
-  condition: (state: PetState) => boolean
+  description: string
+  rarity: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary'
+  condition: (s: PetState) => boolean
   reward: { xp: number; kc: number }
   unlockedAt?: number
 }
@@ -70,21 +116,33 @@ export interface Expedition {
   name: string
   emoji: string
   description: string
-  duration: number    // ms
+  duration: number    // minutes
   difficulty: 'easy' | 'normal' | 'hard'
-  reward: { xp: number; coins: number; kc?: number; items?: string[] }
+  reward: { xp: number; coins: number; kc?: number }
   unlockLevel: number
-  startedAt?: number
-  completedAt?: number
 }
 
-export interface GameRecord {
+export interface FlashPost {
+  id: string
+  username: string
+  petEmoji: string
+  petLevel: number
+  caption: string
+  likes: number
+  xpReward: number
+  tag: string
+  liked: boolean
+}
+
+export interface FishType {
   id: string
   name: string
   emoji: string
-  value: number
-  unit: string
-  recordAt?: number
+  rarity: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary'
+  weight: [number, number] // kg min/max
+  coins: number
+  xp: number
+  chance: number // 0-1
 }
 
 export type TabId = 'pet' | 'flash' | 'create' | 'games' | 'profile'
