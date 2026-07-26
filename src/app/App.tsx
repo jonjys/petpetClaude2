@@ -5,6 +5,7 @@ import { BottomNav } from '@/components/layout/BottomNav'
 import { Toast } from '@/components/ui/Toast'
 import { FloatText } from '@/components/ui/FloatText'
 import { Confetti } from '@/components/ui/Confetti'
+import { NotificationsPanel } from '@/components/ui/NotificationsPanel'
 import { PetView } from '@/features/pet/PetView'
 import { startAutoSave, startDecayTick } from '@/services/SaveService'
 import styles from './App.module.css'
@@ -22,6 +23,7 @@ const TabSpinner = () => (
 
 export const App = memo(function App() {
   const activeTab = useUIStore(s => s.activeTab)
+  const openPanel = useUIStore(s => s.openPanel)
 
   useEffect(() => {
     startAutoSave()
@@ -48,6 +50,7 @@ export const App = memo(function App() {
       <Toast />
       <FloatText />
       <Confetti />
+      {openPanel === 'notifications' && <NotificationsPanel />}
     </div>
   )
 })
