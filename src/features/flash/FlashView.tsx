@@ -40,6 +40,7 @@ export const FlashView = memo(function FlashView() {
   const [posting, setPosting] = useState(false)
   const [reactions, setReactions] = useState<Record<string, Record<string, number>>>({})
   const [seenStories, setSeenStories] = useState<Set<string>>(new Set())
+  const [myStoryPosted, setMyStoryPosted] = useState(false)
   const reactCooldown = useRef<Record<string, number>>({})
   const { awardXP, awardCoins } = useGame()
   const pet = useGameStore(s => s.pet)
@@ -89,12 +90,14 @@ export const FlashView = memo(function FlashView() {
     }
     setPosts(prev => [newPost, ...prev])
     setNewCaption('')
+    const isStory = newCaption.startsWith('📸 Min story:')
     setPosting(false)
-    awardXP(30, 'post')
-    awardCoins(10)
+    if (isStory) setMyStoryPosted(true)
+    awardXP(isStory ? 50 : 30, 'post')
+    awardCoins(isStory ? 15 : 10)
     recordPost()
-    pushNotif('📸', `Ditt Flash-inlägg publicerades!`)
-    showToast('📸 Inlägg publicerat! +30 XP +10💰', 'success')
+    pushNotif('📸', isStory ? 'Din Story är live! +50 XP' : 'Ditt Flash-inlägg publicerades!')
+    showToast(isStory ? '📸 Story live! +50 XP +15💰' : '📸 Inlägg publicerat! +30 XP +10💰', 'success')
     audio.achievement()
   }, [newCaption, pet, awardXP, awardCoins, showToast, pushNotif])
 
@@ -131,23 +134,44 @@ export const FlashView = memo(function FlashView() {
           {/* Stories strip */}
           <div style={{ display: 'flex', gap: 12, padding: '8px 14px 12px', overflowX: 'auto', scrollbarWidth: 'none' }}>
             {/* My story */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, flexShrink: 0, cursor: 'pointer' }}>
+            <div
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, flexShrink: 0, cursor: 'pointer' }}
+              onClick={() => {
+                if (myStoryPosted) { showToast('📸 Du har redan postat en story idag!', 'info'); return }
+                setPosting(true)
+                setNewCaption('📸 Min story: ')
+                audio.tap()
+              }}
+            >
               <div style={{
                 width: 54, height: 54, borderRadius: '50%',
-                background: 'linear-gradient(135deg, var(--pink), var(--purple))',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 28, position: 'relative',
+                background: myStoryPosted
+                  ? 'rgba(255,255,255,.05)'
+                  : 'conic-gradient(var(--pink), var(--purple), var(--pink))',
+                padding: 2, display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                {pet.petEmoji}
                 <div style={{
-                  position: 'absolute', bottom: -1, right: -1,
-                  width: 18, height: 18, borderRadius: '50%',
-                  background: 'var(--green)', border: '2px solid #000',
+                  width: 48, height: 48, borderRadius: '50%',
+                  background: '#111',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 10, fontWeight: 900, color: '#000',
-                }}>+</div>
+                  fontSize: 26, opacity: myStoryPosted ? 0.5 : 1,
+                  position: 'relative',
+                }}>
+                  {pet.petEmoji}
+                  {!myStoryPosted && (
+                    <div style={{
+                      position: 'absolute', bottom: -1, right: -1,
+                      width: 18, height: 18, borderRadius: '50%',
+                      background: 'var(--green)', border: '2px solid #000',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 10, fontWeight: 900, color: '#000',
+                    }}>+</div>
+                  )}
+                </div>
               </div>
-              <span style={{ fontSize: 9, color: 'var(--t3)', maxWidth: 52, textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>Din Story</span>
+              <span style={{ fontSize: 9, color: myStoryPosted ? 'var(--t3)' : 'var(--t2)', maxWidth: 52, textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {myStoryPosted ? 'Postad ✓' : 'Din Story'}
+              </span>
             </div>
             {STORIES.map(s => {
               const seen = seenStories.has(s.id)

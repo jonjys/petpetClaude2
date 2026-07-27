@@ -27,6 +27,8 @@ const DEFAULT_PET: PetState = {
   bondPoints: 0, bondTier: 0,
   activityLog: {},
   petTheme: 'dark',
+  x2xpExpiry: 0,
+  streakShields: 0,
 }
 
 function loadOrMigrate(): PetState {
@@ -68,6 +70,23 @@ function saveMissions(missions: DailyMission[]) {
   storageSet(MISSIONS_KEY, { date: todayKey(), missions })
 }
 
+const XP_BONUS: Record<string, number> = {
+  hat_party: 0.03, hat_grad: 0.10,
+  acc_star: 0.10,
+  aura_star: 0.08, aura_rainbow: 0.10,
+}
+const COIN_BONUS: Record<string, number> = {
+  hat_crown: 0.08,
+  aura_rainbow: 0.10,
+}
+
+function wardrobeXPMult(wardrobe: { hat: string; acc: string; aura: string; bg: string }): number {
+  return 1 + (XP_BONUS[wardrobe.hat] ?? 0) + (XP_BONUS[wardrobe.acc] ?? 0) + (XP_BONUS[wardrobe.aura] ?? 0)
+}
+function wardrobeCoinMult(wardrobe: { hat: string; acc: string; aura: string; bg: string }): number {
+  return 1 + (COIN_BONUS[wardrobe.hat] ?? 0) + (COIN_BONUS[wardrobe.aura] ?? 0)
+}
+
 interface GameStore {
   pet: PetState
   inventory: InventoryItem[]
@@ -95,7 +114,7 @@ interface GameStore {
   claimMission: (id: string) => void
   checkAchievements: () => string[]
   clearNewAchievement: () => void
-  checkStreak: () => { extended: boolean; newStreak: number; coins: number; kc: number }
+  checkStreak: () => { extended: boolean; newStreak: number; coins: number; kc: number; shieldUsed?: boolean }
   addInventoryItem: (item: InventoryItem) => void
   useInventoryItem: (itemId: string) => boolean
   setPetName: (name: string) => void
@@ -124,7 +143,8 @@ export const useGameStore = create<GameStore>()(
     tap() {
       const state = get()
       const xp = TAP_XP_BASE + Math.floor(state.pet.level * 0.5)
-      const coinGain = Math.random() < TAP_COIN_CHANCE ? 1 : 0
+      const rawCoin = Math.random() < TAP_COIN_CHANCE ? 1 : 0
+      const coinGain = rawCoin > 0 ? Math.round(rawCoin * wardrobeCoinMult(state.pet.wardrobe)) : 0
       const lvlUp = state.gainXP(xp, 'tap')
       set(s => ({
         pet: {
@@ -150,6 +170,8 @@ export const useGameStore = create<GameStore>()(
       let lvlUp = false
       set(s => {
         let { level, exp, expNext, sessionXP, bpassXP, coins, kc, totalCoinsEarned } = s.pet
+        const mult = wardrobeXPMult(s.pet.wardrobe) * (Date.now() < s.pet.x2xpExpiry ? 2 : 1)
+        amount = Math.round(amount * mult)
         exp += amount
         sessionXP += amount
         bpassXP += Math.floor(amount * 0.1)
@@ -254,6 +276,12 @@ export const useGameStore = create<GameStore>()(
       }
       if (itemId === 'kc_xp') get().gainXP(1000, 'shop')
       if (itemId === 'xp500') get().gainXP(500, 'shop')
+      if (itemId === 'kc_x2xp') {
+        set(s => ({ pet: { ...s.pet, x2xpExpiry: Date.now() + 30 * 60 * 1000 } }))
+      }
+      if (itemId === 'kc_shield') {
+        set(s => ({ pet: { ...s.pet, streakShields: s.pet.streakShields + 1 } }))
+      }
       get().save()
       return true
     },
@@ -330,7 +358,17 @@ export const useGameStore = create<GameStore>()(
       const yesterday = new Date()
       yesterday.setDate(yesterday.getDate() - 1)
       const yKey = yesterday.toISOString().slice(0, 10)
-      const newStreak = pet.lastLoginDate === yKey ? pet.streak + 1 : 1
+      const consecutive = pet.lastLoginDate === yKey
+      let newStreak: number
+      let shieldUsed = false
+      if (consecutive) {
+        newStreak = pet.streak + 1
+      } else if (pet.streakShields > 0) {
+        newStreak = pet.streak
+        shieldUsed = true
+      } else {
+        newStreak = 1
+      }
       const bonusCoins = 10 + Math.min(newStreak * 2, 40)
       const bonusKC = newStreak % 7 === 0 ? 5 : newStreak % 30 === 0 ? 25 : 0
       set(s => ({
@@ -341,10 +379,11 @@ export const useGameStore = create<GameStore>()(
           coins: s.pet.coins + bonusCoins,
           kc: s.pet.kc + bonusKC,
           totalCoinsEarned: s.pet.totalCoinsEarned + bonusCoins,
+          streakShields: shieldUsed ? Math.max(0, s.pet.streakShields - 1) : s.pet.streakShields,
         },
       }))
       get().save()
-      return { extended: true, newStreak, coins: bonusCoins, kc: bonusKC }
+      return { extended: true, newStreak, coins: bonusCoins, kc: bonusKC, shieldUsed }
     },
 
     addInventoryItem(item) {
