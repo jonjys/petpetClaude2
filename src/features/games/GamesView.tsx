@@ -42,6 +42,12 @@ export const GamesView = memo(function GamesView() {
     showToast(`+${formatNumber(coins)} 🪙 +${xp} XP`, 'success')
   }
 
+  const handle2048Win = (coins: number, xp: number) => {
+    awardCoins(coins); awardXP(xp, 'game'); audio.achievement()
+    showToast(`🔢 2048 CLEARED! +${formatNumber(coins)} 🪙 +${xp} XP`, 'success')
+    pushNotif('🔢', `Du klarade 2048! +${coins} mynt belöning!`)
+  }
+
   const handleBattleWin = (coins: number, xp: number) => {
     awardCoins(coins); awardXP(xp, 'battle'); audio.achievement()
     recordBattleWin()
@@ -68,7 +74,7 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'runner') return <RunnerGame onExit={() => setActiveGame(null)} onWin={handleRunnerWin} />
   if (activeGame === 'fishing') return <FishingGame onExit={() => setActiveGame(null)} onCatch={handleFishCatch} />
   if (activeGame === 'battle') return <BattleGame onExit={() => setActiveGame(null)} onWin={handleBattleWin} />
-  if (activeGame === 'puzzle2048') return <Puzzle2048 onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'puzzle2048') return <Puzzle2048 onExit={() => setActiveGame(null)} onWin={handle2048Win} />
 
   return (
     <>

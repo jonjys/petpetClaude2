@@ -227,12 +227,19 @@ export const PetView = memo(function PetView() {
             <div className="pet-name-big" id="petNameBig">{pet.petName}</div>
             <div className="pet-evol" id="petEvol">LV{pet.level} · {formatAge(pet.createdAt)} gammal</div>
           </div>
-          <div className="lv-ring-wrap">
-            <svg className="lv-ring" viewBox="0 0 52 52">
-              <circle className="lr-bg" cx="26" cy="26" r="22"/>
-              <circle className="lr-fill" cx="26" cy="26" r="22" strokeDasharray="138.2" strokeDashoffset={138.2 * (1 - xpPct / 100)}/>
-            </svg>
-            <div className="lv-num"><div className="lv-n">{pet.level}</div><div className="lv-l">LV</div></div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+            <div className="lv-ring-wrap">
+              <svg className="lv-ring" viewBox="0 0 52 52">
+                <circle className="lr-bg" cx="26" cy="26" r="22"/>
+                <circle className="lr-fill" cx="26" cy="26" r="22" strokeDasharray="138.2" strokeDashoffset={138.2 * (1 - xpPct / 100)}/>
+              </svg>
+              <div className="lv-num"><div className="lv-n">{pet.level}</div><div className="lv-l">LV</div></div>
+            </div>
+            {pet.prestigeLevel > 0 && (
+              <div style={{ fontSize: 10, color: 'var(--gold)', letterSpacing: 1, fontWeight: 900 }}>
+                {'⭐'.repeat(Math.min(pet.prestigeLevel, 5))}
+              </div>
+            )}
           </div>
         </div>
         <div className="xp-wrap">
