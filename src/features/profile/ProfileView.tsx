@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useState, useCallback } from 'react'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
 import { useSettingsStore } from '@/stores/settingsStore'
@@ -19,6 +19,25 @@ export const ProfileView = memo(function ProfileView() {
 
   const [editingName, setEditingName] = useState(false)
   const [nameInput, setNameInput] = useState(pet.petName)
+  const [pinnedAchievements, setPinnedAchievements] = useState<string[]>(() => {
+    try { return JSON.parse(localStorage.getItem('k0509_pinned_ach') || '[]') } catch { return [] }
+  })
+
+  const togglePin = useCallback((id: string) => {
+    setPinnedAchievements(prev => {
+      let next: string[]
+      if (prev.includes(id)) {
+        next = prev.filter(x => x !== id)
+      } else if (prev.length < 3) {
+        next = [...prev, id]
+      } else {
+        next = [...prev.slice(1), id]
+      }
+      localStorage.setItem('k0509_pinned_ach', JSON.stringify(next))
+      audio.click()
+      return next
+    })
+  }, [])
 
   const saveName = () => {
     if (nameInput.trim()) {
@@ -93,6 +112,9 @@ export const ProfileView = memo(function ProfileView() {
           </div>
         </div>
 
+        {/* Pinned achievements */}
+        <PinnedAchievementsSection pinnedIds={pinnedAchievements} unlocked={unlockedAchievements} />
+
         {/* Activity heatmap */}
         <ActivityHeatmap activityLog={pet.activityLog} />
 
@@ -125,7 +147,7 @@ export const ProfileView = memo(function ProfileView() {
       )}
 
       {/* Achievements gallery */}
-      <AchievementsGallery unlocked={unlockedAchievements} />
+      <AchievementsGallery unlocked={unlockedAchievements} pinned={pinnedAchievements} onTogglePin={togglePin} />
 
       {/* Pet avatar picker */}
       <div style={{ padding: '0 16px 16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -262,7 +284,92 @@ const RARITY_BORDER: Record<string, string> = {
   legendary: 'rgba(255,204,0,.5)',
 }
 
-const AchievementsGallery = memo(function AchievementsGallery({ unlocked }: { unlocked: string[] }) {
+const RARITY_LABEL: Record<string, string> = {
+  common: 'Vanlig', uncommon: 'Ovanlig', rare: 'Sällsynt', epic: 'Episk', legendary: 'LEGENDARY'
+}
+const RARITY_GLOW: Record<string, string> = {
+  common: 'none',
+  uncommon: '0 0 12px rgba(0,255,136,.3)',
+  rare: '0 0 14px rgba(68,136,255,.4)',
+  epic: '0 0 16px rgba(170,102,255,.5)',
+  legendary: '0 0 20px rgba(255,204,0,.6)',
+}
+
+const PinnedAchievementsSection = memo(function PinnedAchievementsSection({
+  pinnedIds, unlocked,
+}: { pinnedIds: string[]; unlocked: string[] }) {
+  const pinned = pinnedIds.map(id => ALL_ACHIEVEMENTS.find(a => a.id === id)).filter(Boolean) as typeof ALL_ACHIEVEMENTS
+
+  return (
+    <div style={{ margin: '10px 0 4px' }}>
+      <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', letterSpacing: 1, marginBottom: 7 }}>
+        📌 UTVALDA PRESTATIONER
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+        {Array.from({ length: 3 }).map((_, i) => {
+          const a = pinned[i]
+          const isUnlocked = a ? unlocked.includes(a.id) : false
+          if (!a) {
+            return (
+              <div
+                key={i}
+                style={{
+                  background: 'rgba(255,255,255,.02)',
+                  border: '1px dashed rgba(255,255,255,.1)',
+                  borderRadius: 14,
+                  padding: '12px 8px',
+                  textAlign: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 4,
+                  minHeight: 80,
+                  justifyContent: 'center',
+                }}
+              >
+                <div style={{ fontSize: 20, opacity: 0.2 }}>📌</div>
+                <div style={{ fontSize: 9, color: 'var(--t3)' }}>Tom slot</div>
+              </div>
+            )
+          }
+          return (
+            <div
+              key={a.id}
+              style={{
+                background: isUnlocked ? RARITY_COLORS[a.rarity] : 'rgba(255,255,255,.03)',
+                border: `1px solid ${isUnlocked ? RARITY_BORDER[a.rarity] : 'rgba(255,255,255,.06)'}`,
+                boxShadow: isUnlocked ? RARITY_GLOW[a.rarity] : 'none',
+                borderRadius: 14,
+                padding: '12px 8px',
+                textAlign: 'center',
+                opacity: isUnlocked ? 1 : 0.4,
+                filter: isUnlocked ? 'none' : 'grayscale(1)',
+                transition: 'all .2s',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 3,
+              }}
+            >
+              <div style={{ fontSize: 26, lineHeight: 1 }}>{a.emoji}</div>
+              <div style={{ fontSize: 9, fontWeight: 900, color: isUnlocked ? '#fff' : 'var(--t2)', lineHeight: 1.2 }}>{a.title}</div>
+              <div style={{ fontSize: 8, color: RARITY_BORDER[a.rarity], fontWeight: 700 }}>{RARITY_LABEL[a.rarity]}</div>
+            </div>
+          )
+        })}
+      </div>
+      {pinned.length === 0 && (
+        <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 6, textAlign: 'center' }}>
+          Tryck 📌 på en prestation nedan för att visa den här
+        </div>
+      )}
+    </div>
+  )
+})
+
+const AchievementsGallery = memo(function AchievementsGallery({
+  unlocked, pinned, onTogglePin,
+}: { unlocked: string[]; pinned: string[]; onTogglePin: (id: string) => void }) {
   const [expanded, setExpanded] = useState(false)
   const displayed = expanded ? ALL_ACHIEVEMENTS : ALL_ACHIEVEMENTS.slice(0, 8)
 
@@ -282,6 +389,7 @@ const AchievementsGallery = memo(function AchievementsGallery({ unlocked }: { un
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 7 }}>
         {displayed.map(a => {
           const isUnlocked = unlocked.includes(a.id)
+          const isPinned = pinned.includes(a.id)
           return (
             <div
               key={a.id}
@@ -290,13 +398,30 @@ const AchievementsGallery = memo(function AchievementsGallery({ unlocked }: { un
                 background: isUnlocked ? RARITY_COLORS[a.rarity] : 'rgba(255,255,255,.03)',
                 border: `1px solid ${isUnlocked ? RARITY_BORDER[a.rarity] : 'rgba(255,255,255,.06)'}`,
                 borderRadius: 12,
-                padding: '10px 6px',
+                padding: '10px 6px 6px',
                 textAlign: 'center',
                 opacity: isUnlocked ? 1 : 0.35,
                 filter: isUnlocked ? 'none' : 'grayscale(1)',
                 transition: 'all .2s',
+                position: 'relative',
               }}
             >
+              {isUnlocked && (
+                <button
+                  style={{
+                    position: 'absolute', top: 3, right: 3,
+                    background: isPinned ? 'rgba(255,204,0,.25)' : 'rgba(255,255,255,.06)',
+                    border: `1px solid ${isPinned ? 'rgba(255,204,0,.5)' : 'rgba(255,255,255,.1)'}`,
+                    borderRadius: 6, width: 18, height: 18,
+                    fontSize: 9, cursor: 'pointer', lineHeight: 1,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}
+                  onClick={e => { e.stopPropagation(); onTogglePin(a.id) }}
+                  title={isPinned ? 'Ta bort pin' : 'Fäst på profil'}
+                >
+                  📌
+                </button>
+              )}
               <div style={{ fontSize: 22, lineHeight: 1 }}>{a.emoji}</div>
               <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--t2)', marginTop: 4, lineHeight: 1.2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.title}</div>
             </div>
