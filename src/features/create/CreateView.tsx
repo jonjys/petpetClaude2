@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -63,6 +63,8 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
   const gainCoins = useGameStore(s => s.gainCoins)
   const gainKC = useGameStore(s => s.gainKC)
   const setStat = useGameStore(s => s.setStat)
+  const spendCoins = useGameStore(s => s.spendCoins)
+  const addInventoryItem = useGameStore(s => s.addInventoryItem)
   const equipItem = useGameStore(s => s.equipItem)
   const unlockedAchievements = useGameStore(s => s.unlockedAchievements)
   const showToast = useUIStore(s => s.showToast)
@@ -429,6 +431,61 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
             </div>
           </div>
         ))}
+      </div>
+    )
+  }
+
+  // ── Craft panel ─────────────────────────────────────────────────────────────
+  if (panel === 'craft') {
+    const RECIPES = [
+      { id: 'craft_feast', name: 'Stor Fest', emoji: '🍱', cost: 30, rarity: 'rare' as const, desc: 'Mättar husdjuret helt', effect: { hunger: 80 } },
+      { id: 'craft_elixir', name: 'Energi-Elixtir', emoji: '⚡', cost: 25, rarity: 'rare' as const, desc: 'Återställer all energi', effect: { energy: 80 } },
+      { id: 'craft_joy', name: 'Glädjebomb', emoji: '🎊', cost: 20, rarity: 'common' as const, desc: 'Höjer humöret maximalt', effect: { mood: 80 } },
+      { id: 'craft_xp_potion', name: 'XP-Dryck', emoji: '🧪', cost: 50, rarity: 'epic' as const, desc: '+200 XP direkt', effect: { exp: 200 } },
+      { id: 'craft_rainbow', name: 'Regnbåge-Kit', emoji: '🌈', cost: 80, rarity: 'legendary' as const, desc: 'Boostar allt +40', effect: { mood: 40, hunger: 40, energy: 40 } },
+      { id: 'craft_star', name: 'Lycko-Stjärna', emoji: '⭐', cost: 60, rarity: 'epic' as const, desc: '+100 XP +30 mynt', effect: { exp: 100 } },
+    ]
+    const RARITY_CLR: Record<string, string> = { common: '#aaa', rare: '#4488ff', epic: '#aa66ff', legendary: '#ffcc00' }
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>⚗️ Craftshop</div>
+        <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 12 }}>Kombinera mynt för att skapa föremål</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          {RECIPES.map(r => {
+            const canAfford = pet.coins >= r.cost
+            return (
+              <div
+                key={r.id}
+                style={{
+                  background: canAfford ? 'rgba(255,255,255,.05)' : 'rgba(255,255,255,.02)',
+                  border: `1px solid ${canAfford ? RARITY_CLR[r.rarity] + '55' : 'rgba(255,255,255,.06)'}`,
+                  borderRadius: 14,
+                  padding: 12,
+                  cursor: canAfford ? 'pointer' : 'not-allowed',
+                  opacity: canAfford ? 1 : 0.5,
+                  transition: 'all .15s',
+                }}
+                onClick={() => {
+                  if (!canAfford) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+                  spendCoins(r.cost)
+                  addInventoryItem({ id: r.id, name: r.name, emoji: r.emoji, description: r.desc, effect: r.effect, quantity: 1, rarity: r.rarity })
+                  showToast(`${r.emoji} ${r.name} craftat!`, 'success')
+                  audio.achievement()
+                  if (r.effect.exp) gainXP(r.effect.exp, 'craft')
+                  if (r.effect.mood) setStat('mood', Math.min(100, pet.mood + r.effect.mood))
+                  if (r.effect.hunger) setStat('hunger', Math.min(100, pet.hunger + r.effect.hunger))
+                  if (r.effect.energy) setStat('energy', Math.min(100, pet.energy + r.effect.energy))
+                }}
+              >
+                <div style={{ fontSize: 28, marginBottom: 4 }}>{r.emoji}</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: RARITY_CLR[r.rarity], marginBottom: 2 }}>{r.name}</div>
+                <div style={{ fontSize: 10, color: 'var(--t3)', marginBottom: 6 }}>{r.desc}</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--gold)' }}>💰 {r.cost}</div>
+              </div>
+            )
+          })}
+        </div>
       </div>
     )
   }
