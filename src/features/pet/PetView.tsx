@@ -55,7 +55,14 @@ export const PetView = memo(function PetView() {
 
   const newAchievementObj = newAchievement ? ALL_ACHIEVEMENTS.find(a => a.id === newAchievement) ?? null : null
 
-  useEffect(() => { checkStreak() }, [checkStreak])
+  useEffect(() => {
+    const result = checkStreak()
+    if (result.extended) {
+      showToast(`🔥 Streak ${result.newStreak} dag! +${result.coins}💰${result.kc > 0 ? ` +${result.kc}💎` : ''}`, 'success')
+      pushNotif('🔥', `Streak dag ${result.newStreak}! +${result.coins} mynt`)
+      if (result.kc > 0) audio.achievement()
+    }
+  }, [checkStreak, showToast, pushNotif])
 
   useEffect(() => {
     if (!newAchievementObj) return

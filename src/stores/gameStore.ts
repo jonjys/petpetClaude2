@@ -95,7 +95,7 @@ interface GameStore {
   claimMission: (id: string) => void
   checkAchievements: () => string[]
   clearNewAchievement: () => void
-  checkStreak: () => void
+  checkStreak: () => { extended: boolean; newStreak: number; coins: number; kc: number }
   addInventoryItem: (item: InventoryItem) => void
   useInventoryItem: (itemId: string) => boolean
   setPetName: (name: string) => void
@@ -326,13 +326,25 @@ export const useGameStore = create<GameStore>()(
     checkStreak() {
       const today = todayKey()
       const pet = get().pet
-      if (pet.lastLoginDate === today) return
+      if (pet.lastLoginDate === today) return { extended: false, newStreak: pet.streak, coins: 0, kc: 0 }
       const yesterday = new Date()
       yesterday.setDate(yesterday.getDate() - 1)
       const yKey = yesterday.toISOString().slice(0, 10)
       const newStreak = pet.lastLoginDate === yKey ? pet.streak + 1 : 1
-      set(s => ({ pet: { ...s.pet, streak: newStreak, lastLoginDate: today } }))
+      const bonusCoins = 10 + Math.min(newStreak * 2, 40)
+      const bonusKC = newStreak % 7 === 0 ? 5 : newStreak % 30 === 0 ? 25 : 0
+      set(s => ({
+        pet: {
+          ...s.pet,
+          streak: newStreak,
+          lastLoginDate: today,
+          coins: s.pet.coins + bonusCoins,
+          kc: s.pet.kc + bonusKC,
+          totalCoinsEarned: s.pet.totalCoinsEarned + bonusCoins,
+        },
+      }))
       get().save()
+      return { extended: true, newStreak, coins: bonusCoins, kc: bonusKC }
     },
 
     addInventoryItem(item) {
