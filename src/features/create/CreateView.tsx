@@ -410,15 +410,41 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
     <div className={styles.panelRoot}>
       <BackBtn />
       <div className={styles.panelTitle}>📊 Personliga Rekord</div>
+
+      {/* Session stats */}
+      <div style={{ background: 'rgba(0,255,136,.06)', border: '1px solid rgba(0,255,136,.2)', borderRadius: 12, padding: '10px 14px', marginBottom: 12 }}>
+        <div style={{ fontSize: 10, fontWeight: 900, color: 'var(--green)', letterSpacing: 1, marginBottom: 6 }}>📱 DENNA SESSION</div>
+        <div style={{ display: 'flex', gap: 16 }}>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: '#fff' }}>{formatNumber(pet.sessionTaps)}</div>
+            <div style={{ fontSize: 9, color: 'var(--t3)' }}>Pek</div>
+          </div>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: '#fff' }}>{formatNumber(pet.sessionXP)}</div>
+            <div style={{ fontSize: 9, color: 'var(--t3)' }}>XP</div>
+          </div>
+          {pet.prestigeLevel > 0 && (
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: 'var(--gold)' }}>{pet.prestigeLevel}</div>
+              <div style={{ fontSize: 9, color: 'var(--t3)' }}>Prestige</div>
+            </div>
+          )}
+        </div>
+      </div>
+
       <div className={styles.recordGrid}>
         <RecordRow emoji="👆" label="Totala pek" value={formatNumber(pet.totalTaps)} />
         <RecordRow emoji="⚔️" label="Strider vunna" value={formatNumber(pet.battleWins)} />
         <RecordRow emoji="🎣" label="Fiskar fångade" value={formatNumber(pet.fishCaught)} />
         <RecordRow emoji="🏃" label="Runner rekord" value={`${pet.runnerBest}m`} />
-        <RecordRow emoji="🔥" label="Bästa streak" value={`${pet.streak} dagar`} />
+        <RecordRow emoji="🔥" label="Streak just nu" value={`${pet.streak} dagar`} />
         <RecordRow emoji="💰" label="Totala mynt" value={formatNumber(pet.totalCoinsEarned)} />
-        <RecordRow emoji="🌟" label="Nuvarande nivå" value={`${pet.level}`} />
+        <RecordRow emoji="🌟" label="Nivå (total)" value={`${pet.level + pet.prestigeLevel * 30}`} />
         <RecordRow emoji="📋" label="Uppdrag klara" value={formatNumber(pet.questsCompleted)} />
+        <RecordRow emoji="💚" label="Bond" value={['Okänd','Bekant','Kompis','Vän','Bästis','Soulmate'][pet.bondTier] ?? '?'} />
+        <RecordRow emoji="⭐" label="Prestige" value={pet.prestigeLevel > 0 ? `×${pet.prestigeLevel}` : 'Ej prestiga'} />
+        <RecordRow emoji="🎫" label="BP XP" value={formatNumber(pet.bpassXP)} />
+        <RecordRow emoji="💎" label="KC samlat" value={formatNumber(pet.kc)} />
       </div>
     </div>
   )

@@ -28,9 +28,27 @@ const PET_THEMES = [
   { id: 'gold', label: '✨ Guld' },
 ]
 
-const TAP_BUBBLES = [
-  '😊', '🔥', '⚡', '💪', 'YO!', 'GG!', '💎', '🚀', 'NOICE', 'LFG!', '✨', 'EZ', 'POP!',
+const TAP_BUBBLES_HAPPY = [
+  '😊', '🔥', '⚡', '💪', 'YO!', 'GG!', '💎', '🚀', 'NOICE', 'LFG!', '✨', 'EZ', 'POP!', '🌟', 'LESGO!', '💫', '🎉',
 ]
+const TAP_BUBBLES_NEUTRAL = [
+  '👍', 'OK', '🙂', 'Hmm', '...', '🤔', '💤', 'Meh', '😐', 'Sure', '🌀',
+]
+const TAP_BUBBLES_SAD = [
+  '😓', '🥺', 'Hungrig!', 'Trött...', '😔', 'Snälla!', '💔', 'Äta?', 'Vila!', '😩',
+]
+function getTapBubble(mood: number, hunger: number, energy: number): string {
+  if (mood < 20 || hunger < 20 || energy < 20) {
+    const pool = [...TAP_BUBBLES_SAD]
+    if (hunger < 20) pool.push('🍖 Mat!', 'Hungrig!')
+    if (energy < 20) pool.push('💤 Sova...', 'Trött!')
+    return pool[Math.floor(Math.random() * pool.length)]
+  }
+  if (mood < 50 || hunger < 50 || energy < 50) {
+    return TAP_BUBBLES_NEUTRAL[Math.floor(Math.random() * TAP_BUBBLES_NEUTRAL.length)]
+  }
+  return TAP_BUBBLES_HAPPY[Math.floor(Math.random() * TAP_BUBBLES_HAPPY.length)]
+}
 
 function wardrobeEmoji(items: typeof SHOP_HATS, id: string): string {
   return items.find(i => i.id === id)?.emoji ?? ''
@@ -109,6 +127,8 @@ export const PetView = memo(function PetView() {
   const [bubble, setBubble] = useState('')
   const [splashVisible, setSplashVisible] = useState(false)
   const [eventDismissed, setEventDismissed] = useState(() => !!localStorage.getItem('k0509_event_dismissed'))
+  const prevBondTier = useRef(pet.bondTier)
+  const prevTapMilestone = useRef(Math.floor(pet.totalTaps / 1000))
 
   const newAchievementObj = newAchievement ? ALL_ACHIEVEMENTS.find(a => a.id === newAchievement) ?? null : null
 
@@ -144,6 +164,31 @@ export const PetView = memo(function PetView() {
     audio.levelUp()
     triggerConfetti()
   }, [levelUpInfo, triggerConfetti])
+
+  // Tap milestone celebration
+  useEffect(() => {
+    const milestone = Math.floor(pet.totalTaps / 1000)
+    if (milestone > prevTapMilestone.current && pet.totalTaps >= 1000) {
+      const taps = milestone * 1000
+      showToast(`🎯 ${taps.toLocaleString()} pek uppnådda! +100🪙`, 'success')
+      useGameStore.getState().gainCoins(100)
+      triggerConfetti()
+      audio.levelUp()
+    }
+    prevTapMilestone.current = milestone
+  }, [pet.totalTaps, showToast, triggerConfetti])
+
+  // Bond tier upgrade celebration
+  useEffect(() => {
+    if (pet.bondTier > prevBondTier.current) {
+      const tierName = ['Okänd', 'Bekant', 'Kompis', 'Vän', 'Bästis', 'Soulmate'][pet.bondTier] ?? '???'
+      showToast(`💚 Bond ${tierName}! Ditt husdjur älskar dig mer!`, 'success')
+      pushNotif('💚', `Bond tier uppgraderad till ${tierName}!`)
+      triggerConfetti()
+      audio.achievement()
+    }
+    prevBondTier.current = pet.bondTier
+  }, [pet.bondTier, showToast, pushNotif, triggerConfetti])
 
   // Low-stat notifications (fire once per crossing below threshold)
   const lowNotifRef = useRef<Record<string, boolean>>({})
@@ -203,7 +248,7 @@ export const PetView = memo(function PetView() {
     })
 
     // Speech bubble
-    setBubble(TAP_BUBBLES[Math.floor(Math.random() * TAP_BUBBLES.length)])
+    setBubble(getTapBubble(pet.mood, pet.hunger, pet.energy))
     if (bubbleRef.current) clearTimeout(bubbleRef.current)
     bubbleRef.current = setTimeout(() => setBubble(''), 1400)
   }
