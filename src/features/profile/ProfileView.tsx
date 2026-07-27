@@ -87,6 +87,9 @@ export const ProfileView = memo(function ProfileView() {
           </div>
         </div>
 
+        {/* Activity heatmap */}
+        <ActivityHeatmap activityLog={pet.activityLog} />
+
         {/* Stats grid */}
         <div className="prof-stats">
           <div className="ps"><div className="ps-ico">⚡</div><div className="ps-v">{formatNumber(pet.exp)}</div><div className="ps-l">XP</div></div>
@@ -158,6 +161,47 @@ export const ProfileView = memo(function ProfileView() {
 
       <div className="vend" />
     </>
+  )
+})
+
+const ActivityHeatmap = memo(function ActivityHeatmap({ activityLog }: { activityLog: Record<string, number> }) {
+  const days: { key: string; count: number; level: number; isToday: boolean }[] = []
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date()
+    d.setDate(d.getDate() - i)
+    const key = d.toISOString().slice(0, 10)
+    const count = activityLog[key] ?? 0
+    const level = count === 0 ? 0 : count < 5 ? 1 : count < 15 ? 2 : count < 30 ? 3 : 4
+    days.push({ key, count, level, isToday: i === 0 })
+  }
+
+  const totalTaps = Object.values(activityLog).reduce((s, v) => s + v, 0)
+  const activeDays = Object.values(activityLog).filter(v => v > 0).length
+  const maxDay = Math.max(...Object.values(activityLog), 0)
+
+  return (
+    <div style={{ margin: '10px 0 4px' }}>
+      <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', letterSpacing: 1, marginBottom: 7 }}>📅 30 DAGARS AKTIVITET</div>
+      <div className="ahm-grid">
+        {days.map(d => (
+          <div
+            key={d.key}
+            className={`ahm-day l${d.level}${d.isToday ? ' today' : ''}`}
+            title={`${d.key}: ${d.count} pek`}
+          />
+        ))}
+      </div>
+      <div className="ahm-stats-row">
+        <div><div className="ahm-sval">{totalTaps}</div><div className="ahm-slbl">Totalt</div></div>
+        <div><div className="ahm-sval">{activeDays}</div><div className="ahm-slbl">Aktiva dagar</div></div>
+        <div><div className="ahm-sval">{maxDay}</div><div className="ahm-slbl">Rekorddag</div></div>
+      </div>
+      <div className="ahm-legend">
+        <span style={{ fontSize: 9, color: 'var(--t3)' }}>Lite</span>
+        {[0,1,2,3,4].map(l => <span key={l} className={`ahm-day l${l}`} style={{ display: 'inline-block' }} />)}
+        <span style={{ fontSize: 9, color: 'var(--t3)' }}>Mycket</span>
+      </div>
+    </div>
   )
 })
 

@@ -24,6 +24,9 @@ const DEFAULT_PET: PetState = {
   activeTheme: 'default', activeSkin: 'default', activeFrame: 'none',
   wardrobe: { hat: 'none', acc: 'none', aura: 'none', bg: 'default' },
   ownedItems: [], prestigeLevel: 0, bpassXP: 0,
+  bondPoints: 0, bondTier: 0,
+  activityLog: {},
+  petTheme: 'dark',
 }
 
 function loadOrMigrate(): PetState {
@@ -69,6 +72,7 @@ interface GameStore {
   pet: PetState
   inventory: InventoryItem[]
   levelUpPending: boolean
+  levelUpInfo: { level: number; coins: number; kc: number } | null
   dailyMissions: DailyMission[]
   unlockedAchievements: string[]
   newAchievement: string | null
@@ -98,6 +102,10 @@ interface GameStore {
   setPetEmoji: (emoji: string) => void
   tick: () => void
   clearLevelUp: () => void
+  clearLevelUpInfo: () => void
+  gainBond: (amount: number) => void
+  setPetTheme: (theme: string) => void
+  logActivity: () => void
   save: () => void
   reset: () => void
 }
@@ -107,6 +115,7 @@ export const useGameStore = create<GameStore>()(
     pet: loadOrMigrate(),
     inventory: storageGet('k0509_inventory', []),
     levelUpPending: false,
+    levelUpInfo: null,
     dailyMissions: loadMissions(),
     unlockedAchievements: storageGet<string[]>('k0509_achievements', []),
     newAchievement: null,
@@ -129,6 +138,8 @@ export const useGameStore = create<GameStore>()(
         },
       }))
       get().recordMissionProgress('taps')
+      get().gainBond(1)
+      get().logActivity()
       get().checkAchievements()
       get().save()
       return { xp, coins: coinGain, lvlUp }
@@ -137,17 +148,26 @@ export const useGameStore = create<GameStore>()(
     gainXP(amount, _source) {
       let lvlUp = false
       set(s => {
-        let { level, exp, expNext, sessionXP, bpassXP } = s.pet
+        let { level, exp, expNext, sessionXP, bpassXP, coins, kc, totalCoinsEarned } = s.pet
         exp += amount
         sessionXP += amount
         bpassXP += Math.floor(amount * 0.1)
+        let bonusCoins = 0, bonusKC = 0
         while (exp >= expNext) {
           exp -= expNext
           level += 1
           expNext = xpForLevel(level + 1)
           lvlUp = true
+          bonusCoins += level * 10 + 20
+          bonusKC += 1
         }
-        return { pet: { ...s.pet, level, exp, expNext, sessionXP, bpassXP }, levelUpPending: lvlUp || s.levelUpPending }
+        if (bonusCoins > 0) { coins += bonusCoins; totalCoinsEarned += bonusCoins }
+        if (bonusKC > 0) kc += bonusKC
+        return {
+          pet: { ...s.pet, level, exp, expNext, sessionXP, bpassXP, coins, kc, totalCoinsEarned },
+          levelUpPending: lvlUp || s.levelUpPending,
+          ...(lvlUp ? { levelUpInfo: { level, coins: bonusCoins, kc: bonusKC } } : {}),
+        }
       })
       get().save()
       return lvlUp
@@ -364,6 +384,34 @@ export const useGameStore = create<GameStore>()(
     },
 
     clearLevelUp() { set({ levelUpPending: false }) },
+    clearLevelUpInfo() { set({ levelUpInfo: null }) },
+
+    gainBond(amount) {
+      const THRESHOLDS = [0, 50, 150, 350, 700, 1500]
+      set(s => {
+        const pts = s.pet.bondPoints + amount
+        let tier = s.pet.bondTier
+        while (tier < 5 && pts >= THRESHOLDS[tier + 1]) tier++
+        return { pet: { ...s.pet, bondPoints: pts, bondTier: tier } }
+      })
+    },
+
+    setPetTheme(theme) {
+      set(s => ({ pet: { ...s.pet, petTheme: theme } }))
+      get().save()
+    },
+
+    logActivity() {
+      const today = todayKey()
+      set(s => {
+        const log = { ...s.pet.activityLog }
+        log[today] = (log[today] ?? 0) + 1
+        const keys = Object.keys(log).sort()
+        if (keys.length > 30) delete log[keys[0]]
+        return { pet: { ...s.pet, activityLog: log } }
+      })
+    },
+
     save() { storageSet(SAVE_KEY, { ...get().pet, lastSeen: Date.now() }) },
     reset() { set({ pet: DEFAULT_PET, inventory: [], levelUpPending: false, dailyMissions: loadMissions() }); get().save() },
   }))
