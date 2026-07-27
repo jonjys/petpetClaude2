@@ -41,6 +41,22 @@ function levelRingColor(level: number): string {
   return '#00f0ff'
 }
 
+const EVOLUTION_STAGES = [
+  { minLevel: 1,  name: 'Nykling',   emoji: '🥚', nextAt: 5  },
+  { minLevel: 5,  name: 'Lärling',   emoji: '🐣', nextAt: 10 },
+  { minLevel: 10, name: 'Veteran',   emoji: '⭐', nextAt: 15 },
+  { minLevel: 15, name: 'Elite',     emoji: '🌟', nextAt: 20 },
+  { minLevel: 20, name: 'Master',    emoji: '💫', nextAt: 30 },
+  { minLevel: 30, name: 'Legend',    emoji: '👑', nextAt: null },
+]
+
+function getEvolutionStage(level: number) {
+  for (let i = EVOLUTION_STAGES.length - 1; i >= 0; i--) {
+    if (level >= EVOLUTION_STAGES[i].minLevel) return EVOLUTION_STAGES[i]
+  }
+  return EVOLUTION_STAGES[0]
+}
+
 export const PetView = memo(function PetView() {
   const pet = useGameStore(s => s.pet)
   const tap = useGameStore(s => s.tap)
@@ -152,6 +168,7 @@ export const PetView = memo(function PetView() {
   }
 
   const xpPct = Math.min(100, (pet.exp / pet.expNext) * 100)
+  const evolutionStage = getEvolutionStage(pet.level)
 
   // Bond progress to next tier
   const bondCurrent = pet.bondTier < 5 ? BOND_THRESHOLDS[pet.bondTier] : BOND_THRESHOLDS[4]
@@ -228,6 +245,15 @@ export const PetView = memo(function PetView() {
             </div>
           </div>
           <div className="pet-stage-name" id="petStageName">{pet.petName}</div>
+          <div style={{
+            fontSize: 11, fontWeight: 900, letterSpacing: 1,
+            color: levelRingColor(pet.level),
+            textShadow: `0 0 8px ${levelRingColor(pet.level)}`,
+            marginTop: 4,
+          }}>
+            {evolutionStage.emoji} {evolutionStage.name.toUpperCase()}
+            {evolutionStage.nextAt ? ` · LV${evolutionStage.nextAt}↑` : ' · MAX'}
+          </div>
         </div>
         {/* Vitals overlay */}
         <div className="pet-stage-vitals">
