@@ -65,6 +65,32 @@ class AudioService {
     this.tone(523, 0.1, 0.1, 'triangle')
     setTimeout(() => this.tone(659, 0.15, 0.12, 'triangle'), 80)
   }
+
+  combo(multiplier: number) {
+    const freq = 440 + multiplier * 80
+    this.tone(freq, 0.12, 0.12, 'sawtooth')
+    setTimeout(() => this.tone(freq * 1.5, 0.1, 0.08, 'square'), 60)
+  }
+
+  streak() {
+    const notes = [523, 659, 784, 659, 880]
+    notes.forEach((f, i) => setTimeout(() => this.tone(f, 0.15, 0.12, 'triangle'), i * 90))
+  }
+
+  powerUp() {
+    const notes = [440, 523, 659, 784, 1047, 1319]
+    notes.forEach((f, i) => setTimeout(() => this.tone(f, 0.12, 0.1, 'sine'), i * 60))
+  }
+
+  gameOver() {
+    const notes = [392, 330, 294, 220]
+    notes.forEach((f, i) => setTimeout(() => this.tone(f, 0.3, 0.12, 'sawtooth'), i * 120))
+  }
+
+  notification() {
+    this.tone(880, 0.08, 0.08, 'sine')
+    setTimeout(() => this.tone(1100, 0.1, 0.06, 'sine'), 100)
+  }
 }
 
 export const audio = new AudioService()

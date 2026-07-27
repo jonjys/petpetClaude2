@@ -159,6 +159,10 @@ export const PetView = memo(function PetView() {
       const next = c + 1
       if (comboRef.current) clearTimeout(comboRef.current)
       comboRef.current = setTimeout(() => setCombo(0), 1800)
+      if (next === 5 || next === 10 || next === 20 || next === 50) {
+        audio.combo(next)
+        spawnFloat(`🔥 ${next}× COMBO!`, clientX, clientY - 50, '#ff3377')
+      }
       return next
     })
 
