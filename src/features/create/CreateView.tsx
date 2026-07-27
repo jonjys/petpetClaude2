@@ -302,11 +302,26 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
             <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 700 }}>{currentExp.name}</div>
             {expDone ? (
               <>
-                <div style={{ color: '#4ade80', fontWeight: 700 }}>Expedition klar! 🎉</div>
+                <div style={{ color: '#4ade80', fontWeight: 700, marginBottom: 8 }}>Expedition klar! 🎉</div>
                 <button className="btn-gold" style={{ width: '100%', padding: 14, fontSize: 16 }} onClick={claimExp}>🏆 Hämta belöning!</button>
               </>
             ) : (
-              <div style={{ color: '#fbbf24', fontFamily: 'var(--ff-head)', fontSize: 24 }}>{mins}m {secs}s kvar</div>
+              <>
+                <div style={{ color: '#fbbf24', fontFamily: 'var(--ff-head)', fontSize: 22, marginBottom: 8 }}>{mins}m {secs}s kvar</div>
+                {(() => {
+                  const total = currentExp.duration * 60000
+                  const pct = Math.min(100, ((total - remaining) / total) * 100)
+                  const barColor = pct < 50 ? 'var(--blue)' : pct < 85 ? 'var(--gold)' : 'var(--green)'
+                  return (
+                    <div style={{ width: '100%', background: 'rgba(255,255,255,.08)', borderRadius: 6, height: 10, overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${pct}%`, background: barColor, borderRadius: 6, transition: 'width .8s, background .5s' }} />
+                    </div>
+                  )
+                })()}
+                <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 5 }}>
+                  Belöning: 🪙{currentExp.reward.coins} ⭐{currentExp.reward.xp}XP{currentExp.reward.kc ? ` 💎${currentExp.reward.kc}KC` : ''}
+                </div>
+              </>
             )}
           </div>
         ) : (
@@ -708,13 +723,19 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
       { id: 'craft_xp_potion', name: 'XP-Dryck', emoji: '🧪', cost: 50, rarity: 'epic' as const, desc: '+200 XP direkt', effect: { exp: 200 } },
       { id: 'craft_rainbow', name: 'Regnbåge-Kit', emoji: '🌈', cost: 80, rarity: 'legendary' as const, desc: 'Boostar allt +40', effect: { mood: 40, hunger: 40, energy: 40 } },
       { id: 'craft_star', name: 'Lycko-Stjärna', emoji: '⭐', cost: 60, rarity: 'epic' as const, desc: '+100 XP +30 mynt', effect: { exp: 100 } },
+      { id: 'craft_turbo', name: 'Turbo-Elixir', emoji: '🚀', cost: 90, rarity: 'epic' as const, desc: 'Alla stats +60', effect: { mood: 60, hunger: 60, energy: 60 } },
+      { id: 'craft_god_feast', name: 'Gudomlig Fest', emoji: '🏆', cost: 150, rarity: 'legendary' as const, desc: '+500 XP, allt till 100', effect: { mood: 100, hunger: 100, energy: 100, exp: 500 } },
+      { id: 'craft_bond_gem', name: 'Bond-Kristall', emoji: '💎', cost: 120, rarity: 'legendary' as const, desc: '+200 Bond-poäng', effect: {} },
     ]
     const RARITY_CLR: Record<string, string> = { common: '#aaa', rare: '#4488ff', epic: '#aa66ff', legendary: '#ffcc00' }
+    const RARITY_LBL: Record<string, string> = { common: 'Vanlig', rare: 'Sällsynt', epic: 'Episk', legendary: 'LEGENDARY' }
     return (
       <div className={styles.panelRoot}>
         <BackBtn />
         <div className={styles.panelTitle}>⚗️ Craftshop</div>
-        <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 12 }}>Kombinera mynt för att skapa föremål</div>
+        <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 14, textAlign: 'center' }}>
+          💰 {pet.coins} mynt tillgängliga
+        </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
           {RECIPES.map(r => {
             const canAfford = pet.coins >= r.cost
@@ -722,10 +743,10 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               <div
                 key={r.id}
                 style={{
-                  background: canAfford ? 'rgba(255,255,255,.05)' : 'rgba(255,255,255,.02)',
+                  position: 'relative',
+                  background: canAfford ? `rgba(${r.rarity === 'legendary' ? '255,204,0' : r.rarity === 'epic' ? '170,102,255' : r.rarity === 'rare' ? '68,136,255' : '255,255,255'},.06)` : 'rgba(255,255,255,.02)',
                   border: `1px solid ${canAfford ? RARITY_CLR[r.rarity] + '55' : 'rgba(255,255,255,.06)'}`,
-                  borderRadius: 14,
-                  padding: 12,
+                  borderRadius: 14, padding: 12,
                   cursor: canAfford ? 'pointer' : 'not-allowed',
                   opacity: canAfford ? 1 : 0.5,
                   transition: 'all .15s',
@@ -733,19 +754,27 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
                 onClick={() => {
                   if (!canAfford) { showToast('Inte tillräckligt med mynt!', 'error'); return }
                   spendCoins(r.cost)
-                  addInventoryItem({ id: r.id, name: r.name, emoji: r.emoji, description: r.desc, effect: r.effect, quantity: 1, rarity: r.rarity })
+                  if (r.id !== 'craft_bond_gem') {
+                    addInventoryItem({ id: r.id, name: r.name, emoji: r.emoji, description: r.desc, effect: r.effect, quantity: 1, rarity: r.rarity })
+                  }
                   showToast(`${r.emoji} ${r.name} craftat!`, 'success')
                   audio.achievement()
                   if (r.effect.exp) gainXP(r.effect.exp, 'craft')
                   if (r.effect.mood) setStat('mood', Math.min(100, pet.mood + r.effect.mood))
                   if (r.effect.hunger) setStat('hunger', Math.min(100, pet.hunger + r.effect.hunger))
                   if (r.effect.energy) setStat('energy', Math.min(100, pet.energy + r.effect.energy))
+                  if (r.id === 'craft_bond_gem') useGameStore.setState(s => ({ pet: { ...s.pet, bondPoints: s.pet.bondPoints + 200 } }))
                 }}
               >
+                <div style={{
+                  position: 'absolute', top: 5, right: 5, fontSize: 7, fontWeight: 900,
+                  color: RARITY_CLR[r.rarity], background: RARITY_CLR[r.rarity] + '22',
+                  border: `1px solid ${RARITY_CLR[r.rarity]}44`, borderRadius: 4, padding: '1px 4px',
+                }}>{RARITY_LBL[r.rarity]}</div>
                 <div style={{ fontSize: 28, marginBottom: 4 }}>{r.emoji}</div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: RARITY_CLR[r.rarity], marginBottom: 2 }}>{r.name}</div>
-                <div style={{ fontSize: 10, color: 'var(--t3)', marginBottom: 6 }}>{r.desc}</div>
-                <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--gold)' }}>💰 {r.cost}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: RARITY_CLR[r.rarity], marginBottom: 2 }}>{r.name}</div>
+                <div style={{ fontSize: 9, color: 'var(--t3)', marginBottom: 6, lineHeight: 1.3 }}>{r.desc}</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: canAfford ? 'var(--gold)' : '#666' }}>💰 {r.cost}</div>
               </div>
             )
           })}

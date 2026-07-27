@@ -588,6 +588,28 @@ export const PetView = memo(function PetView() {
         <div className="xp-wrap">
           <div className="xp-labels"><span>XP</span><span>{formatNumber(pet.exp)}/{formatNumber(pet.expNext)}</span></div>
           <div className="xp-track"><div className="xp-fill" style={{ width: `${xpPct}%` }} /></div>
+          {/* Next level unlock preview */}
+          {(() => {
+            const LEVEL_MILESTONES: Record<number, string> = {
+              5: '🗺️ Expedition', 10: '⭐ Veteran-tier', 15: '🌟 Elite-tier',
+              20: '💫 Master-tier', 25: '👾 Kosmisk Boss', 30: '👑 Legend-tier',
+            }
+            const next = Object.entries(LEVEL_MILESTONES)
+              .map(([k, v]) => ({ level: Number(k), label: v }))
+              .sort((a, b) => a.level - b.level)
+              .find(m => m.level > pet.level)
+            if (!next) return null
+            const away = next.level - pet.level
+            return (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 5 }}>
+                <span style={{ fontSize: 9, color: 'var(--t3)' }}>LV{next.level}:</span>
+                <span style={{ fontSize: 9, color: away <= 2 ? 'var(--green)' : 'var(--t3)', fontWeight: away <= 2 ? 700 : 400 }}>{next.label}</span>
+                {away <= 1 && (
+                  <span style={{ fontSize: 8, background: 'rgba(0,255,136,.15)', border: '1px solid rgba(0,255,136,.3)', borderRadius: 5, padding: '1px 4px', color: 'var(--green)', fontWeight: 900 }}>NÄSTA!</span>
+                )}
+              </div>
+            )
+          })()}
         </div>
         {/* Prestige button (level >= 10) */}
         {pet.level >= 10 && (

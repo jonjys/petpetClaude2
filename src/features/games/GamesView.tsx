@@ -202,18 +202,25 @@ export const GamesView = memo(function GamesView() {
       </div>
 
       <div className="games-grid-2027">
-        {GAMES.map(g => (
-          <button
-            key={g.id}
-            className={`game-card-2027${g.hot ? ' hot' : ''}`}
-            onClick={() => { setActiveGame(g.id); audio.click() }}
-          >
-            <div className="game-card-icon">{g.emoji}</div>
-            <div className="game-card-name">{g.name}</div>
-            <div className="game-card-xp">{g.desc}</div>
-            <div className="game-card-badge">{g.reward}</div>
-          </button>
-        ))}
+        {GAMES.map(g => {
+          const pb = g.id === 'battle' ? `⚔️ ${battleWins} seg.`
+            : g.id === 'runner' ? `🏃 ${runnerBest}m`
+            : g.id === 'fishing' ? `🎣 ${fishCaught} fisk`
+            : null
+          return (
+            <button
+              key={g.id}
+              className={`game-card-2027${g.hot ? ' hot' : ''}`}
+              onClick={() => { setActiveGame(g.id); audio.click() }}
+            >
+              <div className="game-card-icon">{g.emoji}</div>
+              <div className="game-card-name">{g.name}</div>
+              <div className="game-card-xp">{g.desc}</div>
+              <div className="game-card-badge">{g.reward}</div>
+              {pb && <div style={{ fontSize: 8, color: 'var(--t3)', marginTop: 2, fontWeight: 700 }}>{pb}</div>}
+            </button>
+          )
+        })}
       </div>
 
       <div className="vend" />
