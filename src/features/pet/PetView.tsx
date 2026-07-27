@@ -85,6 +85,7 @@ export const PetView = memo(function PetView() {
   const [combo, setCombo] = useState(0)
   const [bubble, setBubble] = useState('')
   const [splashVisible, setSplashVisible] = useState(false)
+  const [eventDismissed, setEventDismissed] = useState(() => !!localStorage.getItem('k0509_event_dismissed'))
 
   const newAchievementObj = newAchievement ? ALL_ACHIEVEMENTS.find(a => a.id === newAchievement) ?? null : null
 
@@ -206,6 +207,29 @@ export const PetView = memo(function PetView() {
           <div className="ach-name">{newAchievementObj.title}</div>
           <div className="ach-desc">{newAchievementObj.description ?? 'Prestation upplåst!'}</div>
           <div className="ach-tap">🔥 AWESOME!</div>
+        </div>
+      )}
+
+      {/* Seasonal Event Banner */}
+      {!eventDismissed && (
+        <div style={{
+          margin: '0 14px 8px',
+          background: 'linear-gradient(135deg, rgba(255,204,0,.15), rgba(255,136,68,.08))',
+          border: '1px solid rgba(255,204,0,.35)',
+          borderRadius: 16, padding: '10px 14px',
+          display: 'flex', alignItems: 'center', gap: 10,
+        }}>
+          <span style={{ fontSize: 22 }}>🌅</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 12, fontWeight: 900, color: 'var(--gold)', letterSpacing: 1 }}>
+              SOMMERFESTIVALEN 2026
+            </div>
+            <div style={{ fontSize: 10, color: 'var(--t3)' }}>+25% XP t.o.m. 31 aug</div>
+          </div>
+          <button
+            style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 16, cursor: 'pointer', padding: 4 }}
+            onClick={() => { setEventDismissed(true); localStorage.setItem('k0509_event_dismissed', '1') }}
+          >✕</button>
         </div>
       )}
 
