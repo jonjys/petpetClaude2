@@ -40,6 +40,7 @@ export const PetView = memo(function PetView() {
   const clearLevelUpInfo = useGameStore(s => s.clearLevelUpInfo)
   const setPetTheme = useGameStore(s => s.setPetTheme)
   const prestige = useGameStore(s => s.prestige)
+  const gainCoins = useGameStore(s => s.gainCoins)
   const spawnFloat = useUIStore(s => s.spawnFloat)
   const pushNotif = useUIStore(s => s.pushNotif)
   const showToast = useUIStore(s => s.showToast)
@@ -111,6 +112,14 @@ export const PetView = memo(function PetView() {
     audio.tap()
     spawnFloat(`+${result.xp}XP`, clientX, clientY, '#00f0ff')
     if (result.coins > 0) spawnFloat('+1💰', clientX + 20, clientY - 20, '#ffcc00')
+
+    // Lucky tap event (1% chance)
+    if (Math.random() < 0.01) {
+      const lucky = 10 + Math.floor(Math.random() * 20)
+      gainCoins(lucky)
+      spawnFloat(`💥 LUCKY +${lucky}💰`, clientX, clientY - 30, '#ffcc00')
+      audio.achievement()
+    }
 
     // Combo
     setCombo(c => {
