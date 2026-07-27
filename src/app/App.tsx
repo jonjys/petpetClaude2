@@ -45,6 +45,15 @@ export const App = memo(function App() {
 
   useEffect(() => {
     startAutoSave()
+    // Offline catch-up summary
+    const pet = useGameStore.getState().pet
+    const awayMs = Date.now() - pet.lastSeen
+    const awayMins = Math.floor(awayMs / 60000)
+    if (awayMins >= 30) {
+      const awayHrs = Math.floor(awayMins / 60)
+      const label = awayHrs >= 1 ? `${awayHrs}h ${awayMins % 60}m` : `${awayMins}m`
+      useUIStore.getState().showToast(`👋 Välkommen tillbaka! Borta ${label} — kolla ditt husdjur!`, 'info')
+    }
     startDecayTick()
     const result = useGameStore.getState().checkStreak()
     if (result.extended) {
