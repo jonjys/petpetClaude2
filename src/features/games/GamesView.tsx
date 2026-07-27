@@ -103,7 +103,7 @@ export const GamesView = memo(function GamesView() {
     showToast(`🏃 ${score}m! +${coins} 🪙`, 'success')
   }
 
-  if (activeGame === 'snake') return <SnakeGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'snake') return <SnakeGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
   if (activeGame === 'memory') return <MemoryGame onExit={() => setActiveGame(null)} onWin={(c, xp) => { handleGenericWin(c, xp); recordMissionProgress('memory') }} />
   if (activeGame === 'reaction') return <ReactionGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'runner') return <RunnerGame onExit={() => setActiveGame(null)} onWin={handleRunnerWin} petEmoji={petEmoji} runnerBest={runnerBest} />
