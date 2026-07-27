@@ -1,10 +1,13 @@
 import { memo, useState, useCallback } from 'react'
 import { BATTLE_NPCS } from '@/constants/config'
+import { useGameStore } from '@/stores/gameStore'
 import styles from './GamesView.module.css'
 
 interface Props { onExit: () => void; onWin: (coins: number, xp: number) => void }
 
 type Phase = 'pick' | 'fight' | 'win' | 'lose'
+
+const SPECIAL_COOLDOWN = 3
 
 export const BattleGame = memo(function BattleGame({ onExit, onWin }: Props) {
   const [phase, setPhase] = useState<Phase>('pick')
@@ -13,6 +16,8 @@ export const BattleGame = memo(function BattleGame({ onExit, onWin }: Props) {
   const [npcHP, setNpcHP] = useState(0)
   const [log, setLog] = useState<string[]>([])
   const [animating, setAnimating] = useState(false)
+  const [specialCooldown, setSpecialCooldown] = useState(0)
+  const petEmoji = useGameStore(s => s.pet.petEmoji)
 
   const npc = BATTLE_NPCS[npcIdx]
 
@@ -21,11 +26,13 @@ export const BattleGame = memo(function BattleGame({ onExit, onWin }: Props) {
     setPlayerHP(200)
     setNpcHP(BATTLE_NPCS[idx].hp)
     setLog([`⚔️ Strid mot ${BATTLE_NPCS[idx].name} börjar!`])
+    setSpecialCooldown(0)
     setPhase('fight')
   }, [])
 
   const doAction = useCallback((action: 'attack' | 'special' | 'defend') => {
     if (animating) return
+    if (action === 'special' && specialCooldown > 0) return
     setAnimating(true)
     const enemy = BATTLE_NPCS[npcIdx]
 
@@ -37,8 +44,9 @@ export const BattleGame = memo(function BattleGame({ onExit, onWin }: Props) {
       msg = `👊 Attackerar! -${pDmg}HP till fiende, -${nDmg}HP till dig`
     } else if (action === 'special') {
       pDmg = Math.max(0, 40 + Math.floor(Math.random() * 20) - enemy.def)
-      nDmg = Math.max(0, enemy.atk * 1.5 + Math.floor(Math.random() * 8) - 4)
+      nDmg = Math.max(0, Math.round(enemy.atk * 1.5) + Math.floor(Math.random() * 8) - 4)
       msg = `💥 SUPERATTACK! -${pDmg}HP fiende, -${nDmg}HP dig`
+      setSpecialCooldown(SPECIAL_COOLDOWN)
     } else {
       nDmg = Math.max(0, Math.floor((enemy.atk - 10) / 2))
       msg = `🛡️ Försvarar! Tar bara -${nDmg}HP skada`
@@ -58,6 +66,7 @@ export const BattleGame = memo(function BattleGame({ onExit, onWin }: Props) {
             setPhase('lose')
           }
           setAnimating(false)
+          setSpecialCooldown(c => Math.max(0, c - 1))
         }, 300)
         return nextPH
       })
@@ -104,7 +113,7 @@ export const BattleGame = memo(function BattleGame({ onExit, onWin }: Props) {
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
             {/* Player */}
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 32, textAlign: 'center' }}>🐉</div>
+              <div style={{ fontSize: 32, textAlign: 'center' }}>{petEmoji}</div>
               <div style={{ fontSize: 12, color: '#888', textAlign: 'center' }}>Du</div>
               <div style={{ height: 8, background: 'rgba(255,255,255,0.1)', borderRadius: 4, overflow: 'hidden', marginTop: 4 }}>
                 <div style={{ height: '100%', width: `${pPct}%`, background: '#4ade80', transition: 'width 0.3s' }} />
@@ -146,8 +155,8 @@ export const BattleGame = memo(function BattleGame({ onExit, onWin }: Props) {
             <button onClick={() => doAction('attack')} disabled={animating} style={{ ...actionBtn, background: 'rgba(239,68,68,0.2)', borderColor: 'rgba(239,68,68,0.4)', color: '#f87171' }}>
               ⚔️<br/><span style={{ fontSize: 11 }}>Attack</span>
             </button>
-            <button onClick={() => doAction('special')} disabled={animating} style={{ ...actionBtn, background: 'rgba(168,85,247,0.2)', borderColor: 'rgba(168,85,247,0.4)', color: '#a855f7' }}>
-              💥<br/><span style={{ fontSize: 11 }}>Special</span>
+            <button onClick={() => doAction('special')} disabled={animating || specialCooldown > 0} style={{ ...actionBtn, background: 'rgba(168,85,247,0.2)', borderColor: 'rgba(168,85,247,0.4)', color: specialCooldown > 0 ? '#666' : '#a855f7', opacity: specialCooldown > 0 ? 0.55 : 1 }}>
+              💥<br/><span style={{ fontSize: 11 }}>Special{specialCooldown > 0 ? ` (${specialCooldown})` : ''}</span>
             </button>
             <button onClick={() => doAction('defend')} disabled={animating} style={{ ...actionBtn, background: 'rgba(96,165,250,0.2)', borderColor: 'rgba(96,165,250,0.4)', color: '#60a5fa' }}>
               🛡️<br/><span style={{ fontSize: 11 }}>Försvara</span>

@@ -373,7 +373,13 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
       <WardSlot slot="hat" label="Hatt" items={SHOP_HATS} owned={pet.ownedItems} equipped={pet.wardrobe.hat} onEquip={(id) => { equipItem('hat', id); showToast('🎩 Hatt bytt!', 'success') }} />
       <WardSlot slot="acc" label="Accessoar" items={SHOP_ACC} owned={pet.ownedItems} equipped={pet.wardrobe.acc} onEquip={(id) => { equipItem('acc', id); showToast('✨ Accessoar bytt!', 'success') }} />
       <WardSlot slot="aura" label="Aura" items={SHOP_AURA} owned={pet.ownedItems} equipped={pet.wardrobe.aura} onEquip={(id) => { equipItem('aura', id); showToast('🌟 Aura bytt!', 'success') }} />
-      <div style={{ fontSize: 13, color: '#888', textAlign: 'center', marginTop: 8 }}>Köp fler föremål i Shoppen!</div>
+      <button
+        className="btn-primary"
+        style={{ width: '100%', marginTop: 10, fontSize: 13, padding: '10px' }}
+        onClick={onBack}
+      >
+        🛍️ Gå till Shoppen
+      </button>
     </div>
   )
 
@@ -448,36 +454,67 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
 
   // ── Battle Pass panel ────────────────────────────────────────────────────────
   if (panel === 'battlepass') {
+    const BP_SEASON_MAX = 2000
     const tiers = [
-      { xp: 100, free: '50🪙', premium: '150🪙 + 🎩' },
-      { xp: 300, free: '100🪙', premium: '300🪙 + 1💎KC' },
-      { xp: 600, free: '200🪙', premium: '500🪙 + 5💎KC' },
-      { xp: 1000, free: '3💎KC', premium: '1000🪙 + 20💎KC' },
-      { xp: 2000, free: 'Exklusiv titel', premium: 'Galax-aura + 50💎KC' },
+      { xp: 100, free: '50🪙',        freeCoins: 50,  freeKC: 0,  label: 'Tier 1' },
+      { xp: 300, free: '100🪙',       freeCoins: 100, freeKC: 0,  label: 'Tier 2' },
+      { xp: 600, free: '200🪙',       freeCoins: 200, freeKC: 0,  label: 'Tier 3' },
+      { xp: 1000, free: '3💎 KC',     freeCoins: 0,   freeKC: 3,  label: 'Tier 4' },
+      { xp: 2000, free: '10💎 KC',    freeCoins: 0,   freeKC: 10, label: 'Tier 5 MAX' },
     ]
+    const claimedKey = 'k0509_bp_claimed'
+    const claimed: number[] = JSON.parse(localStorage.getItem(claimedKey) ?? '[]')
+
+    const claimTier = (idx: number, coins: number, kc: number) => {
+      const next = [...claimed, idx]
+      localStorage.setItem(claimedKey, JSON.stringify(next))
+      if (coins > 0) gainCoins(coins)
+      if (kc > 0) gainKC(kc)
+      showToast(`🎫 Tier ${idx + 1} hämtad!${coins > 0 ? ` +${coins}🪙` : ''}${kc > 0 ? ` +${kc}💎` : ''}`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+
     return (
       <div className={styles.panelRoot}>
         <BackBtn />
         <div className={styles.panelTitle}>🎫 Battle Pass — Säsong 1</div>
         <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 12, padding: 12, marginBottom: 12 }}>
-          <div style={{ fontSize: 13, color: '#888', marginBottom: 6 }}>Säsong XP: {formatNumber(pet.bpassXP)}</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+            <div style={{ fontSize: 13, color: '#888' }}>Säsong XP: {formatNumber(pet.bpassXP)}</div>
+            <div style={{ fontSize: 11, color: 'var(--purple)', fontWeight: 700 }}>{Math.round((pet.bpassXP / BP_SEASON_MAX) * 100)}%</div>
+          </div>
           <div style={{ height: 10, background: 'rgba(255,255,255,0.08)', borderRadius: 5, overflow: 'hidden' }}>
-            <div style={{ height: '100%', width: `${Math.min(100, (pet.bpassXP / 2000) * 100)}%`, background: 'linear-gradient(90deg,#a855f7,#ec4899)', borderRadius: 5 }} />
+            <div style={{ height: '100%', width: `${Math.min(100, (pet.bpassXP / BP_SEASON_MAX) * 100)}%`, background: 'linear-gradient(90deg,#a855f7,#ec4899)', borderRadius: 5, transition: 'width .6s' }} />
           </div>
         </div>
         {tiers.map((t, i) => {
           const reached = pet.bpassXP >= t.xp
+          const isClaimed = claimed.includes(i)
+          const canClaim = reached && !isClaimed
           return (
-            <div key={i} style={{ display: 'flex', gap: 10, padding: '10px 12px', background: reached ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.03)', border: `1px solid ${reached ? 'rgba(168,85,247,0.3)' : 'rgba(255,255,255,0.06)'}`, borderRadius: 12, marginBottom: 8 }}>
-              <span style={{ fontSize: 16, width: 28 }}>{reached ? '✅' : '🔒'}</span>
+            <div key={i} style={{ display: 'flex', gap: 10, padding: '10px 12px', background: reached ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.03)', border: `1px solid ${reached ? 'rgba(168,85,247,0.3)' : 'rgba(255,255,255,0.06)'}`, borderRadius: 12, marginBottom: 8, alignItems: 'center' }}>
+              <span style={{ fontSize: 16, width: 28 }}>{isClaimed ? '✅' : reached ? '🎁' : '🔒'}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, color: '#888' }}>Nivå {i + 1} · {t.xp} XP</div>
-                <div style={{ fontSize: 13, color: '#e8e8f0' }}>Gratis: {t.free}</div>
-                <div style={{ fontSize: 13, color: '#fbbf24' }}>Premium: {t.premium}</div>
+                <div style={{ fontSize: 11, color: '#888' }}>{t.label} · {formatNumber(t.xp)} BP XP</div>
+                <div style={{ fontSize: 13, color: '#e8e8f0' }}>{t.free}</div>
               </div>
+              {canClaim && (
+                <button
+                  className="btn-primary"
+                  style={{ fontSize: 12, padding: '6px 12px', flexShrink: 0 }}
+                  onClick={() => { claimTier(i, t.freeCoins, t.freeKC) }}
+                >
+                  Hämta!
+                </button>
+              )}
+              {isClaimed && <span style={{ fontSize: 11, color: 'var(--green)', fontWeight: 700 }}>Hämtad</span>}
+              {!reached && <span style={{ fontSize: 11, color: '#555' }}>{formatNumber(t.xp - pet.bpassXP)} XP kvar</span>}
             </div>
           )
         })}
+        <div style={{ fontSize: 11, color: '#555', textAlign: 'center', marginTop: 8 }}>
+          Battle Pass XP = 10% av all tjänad XP
+        </div>
       </div>
     )
   }
