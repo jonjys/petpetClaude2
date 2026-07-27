@@ -5,7 +5,6 @@ import { useUIStore } from '@/stores/uiStore'
 import { audio } from '@/services/AudioService'
 import { formatNumber } from '@/utils/format'
 import type { FishType } from '@/types/game'
-import styles from './GamesView.module.css'
 import { SnakeGame } from './SnakeGame'
 import { MemoryGame } from './MemoryGame'
 import { ReactionGame } from './ReactionGame'
@@ -16,12 +15,12 @@ import { BattleGame } from './BattleGame'
 type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | null
 
 const GAMES = [
-  { id: 'battle' as const, emoji: '⚔️', name: 'Strid', desc: 'Turn-based PvE battle', reward: '🪙20-400' },
-  { id: 'runner' as const, emoji: '🏃', name: 'Runner', desc: 'Undvik hinder i full fart', reward: '🪙5-100' },
-  { id: 'fishing' as const, emoji: '🎣', name: 'Fiske', desc: 'Fånga sällsynta fiskar', reward: '🪙10-1000' },
-  { id: 'snake' as const, emoji: '🐍', name: 'Snake', desc: 'Klassiskt snake-spel', reward: '🪙5-50' },
-  { id: 'memory' as const, emoji: '🃏', name: 'Minne', desc: 'Para ihop korten', reward: '🪙10-30' },
-  { id: 'reaction' as const, emoji: '⚡', name: 'Reaktion', desc: 'Hur snabb är du?', reward: '🪙5-25' },
+  { id: 'battle' as const, emoji: '⚔️', name: 'Strid', desc: 'Turn-based PvE', reward: '🪙20-400', hot: true },
+  { id: 'runner' as const, emoji: '🏃', name: 'Runner', desc: 'Undvik hinder', reward: '🪙5-100', hot: false },
+  { id: 'fishing' as const, emoji: '🎣', name: 'Fiske', desc: 'Fånga fiskar', reward: '🪙10-1000', hot: false },
+  { id: 'snake' as const, emoji: '🐍', name: 'Snake', desc: 'Klassiskt', reward: '🪙5-50', hot: false },
+  { id: 'memory' as const, emoji: '🃏', name: 'Minne', desc: 'Para ihop kort', reward: '🪙10-30', hot: false },
+  { id: 'reaction' as const, emoji: '⚡', name: 'Reaktion', desc: 'Hur snabb?', reward: '🪙5-25', hot: false },
 ]
 
 export const GamesView = memo(function GamesView() {
@@ -69,32 +68,34 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'battle') return <BattleGame onExit={() => setActiveGame(null)} onWin={handleBattleWin} />
 
   return (
-    <div className={styles.root}>
-      <div className={styles.titleRow}>
-        <h2 className={styles.title}>🎮 Mini-spel</h2>
-        <span className={styles.sub}>Tjäna mynt & XP</span>
+    <>
+      <div className="games-header-2027">
+        <div className="games-title-2027">🎮 GAMES</div>
+        <div className="games-daily-xp-badge">+{(battleWins + fishCaught) * 10} XP idag</div>
       </div>
 
-      <div className={styles.statsRow}>
-        <div className={styles.statChip}>⚔️ {battleWins} segrar</div>
-        <div className={styles.statChip}>🏃 {runnerBest}m rekord</div>
-        <div className={styles.statChip}>🎣 {fishCaught} fisk</div>
+      <div style={{ display: 'flex', gap: 8, padding: '0 14px 12px', overflowX: 'auto', scrollbarWidth: 'none' }}>
+        <div style={{ background: 'rgba(255,68,85,.12)', border: '1px solid rgba(255,68,85,.3)', borderRadius: 12, padding: '6px 12px', fontSize: 12, fontWeight: 700, color: 'var(--red)', whiteSpace: 'nowrap' }}>⚔️ {battleWins} segrar</div>
+        <div style={{ background: 'rgba(0,255,136,.12)', border: '1px solid rgba(0,255,136,.3)', borderRadius: 12, padding: '6px 12px', fontSize: 12, fontWeight: 700, color: 'var(--green)', whiteSpace: 'nowrap' }}>🏃 {runnerBest}m rekord</div>
+        <div style={{ background: 'rgba(68,136,255,.12)', border: '1px solid rgba(68,136,255,.3)', borderRadius: 12, padding: '6px 12px', fontSize: 12, fontWeight: 700, color: 'var(--blue)', whiteSpace: 'nowrap' }}>🎣 {fishCaught} fisk</div>
       </div>
 
-      <div className={styles.grid}>
+      <div className="games-grid-2027">
         {GAMES.map(g => (
           <button
             key={g.id}
-            className={styles.gameCard}
+            className={`game-card-2027${g.hot ? ' hot' : ''}`}
             onClick={() => { setActiveGame(g.id); audio.click() }}
           >
-            <div className={styles.gameEmoji}>{g.emoji}</div>
-            <div className={styles.gameName}>{g.name}</div>
-            <div className={styles.gameDesc}>{g.desc}</div>
-            <div className={styles.gameReward}>{g.reward}</div>
+            <div className="game-card-icon">{g.emoji}</div>
+            <div className="game-card-name">{g.name}</div>
+            <div className="game-card-xp">{g.desc}</div>
+            <div className="game-card-badge">{g.reward}</div>
           </button>
         ))}
       </div>
-    </div>
+
+      <div className="vend" />
+    </>
   )
 })

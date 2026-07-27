@@ -3,7 +3,6 @@ import { useGameStore } from '@/stores/gameStore'
 import { useSettingsStore } from '@/stores/settingsStore'
 import { formatNumber, formatAge } from '@/utils/format'
 import { audio } from '@/services/AudioService'
-import styles from './ProfileView.module.css'
 
 const PET_EMOJIS = ['🐱', '🐶', '🦊', '🐻', '🐼', '🐨', '🦁', '🐯', '🐸', '🐙', '🦄', '🐲']
 
@@ -17,9 +16,7 @@ export const ProfileView = memo(function ProfileView() {
 
   const saveName = () => {
     if (nameInput.trim()) {
-      useGameStore.setState(s => ({
-        pet: { ...s.pet, petName: nameInput.trim() }
-      }))
+      useGameStore.setState(s => ({ pet: { ...s.pet, petName: nameInput.trim() } }))
       useGameStore.getState().save()
     }
     setEditingName(false)
@@ -32,134 +29,166 @@ export const ProfileView = memo(function ProfileView() {
   }
 
   return (
-    <div className={styles.root}>
-      {/* Pet identity card */}
-      <div className={styles.card}>
-        <div className={styles.emojiRow}>
-          {PET_EMOJIS.map(e => (
-            <button
-              key={e}
-              className={`${styles.emojiBtn} ${pet.petEmoji === e ? styles.active : ''}`}
-              onClick={() => setPetEmoji(e)}
-            >
-              {e}
-            </button>
-          ))}
+    <>
+      {/* Profile cover */}
+      <div className="prof-cover">
+        <div className="prof-cover-pat" />
+        <div className="prof-cover-glow" />
+      </div>
+
+      {/* Avatar */}
+      <div className="prof-ava-wr">
+        <div className="prof-ava">
+          <span>{pet.petEmoji}</span>
+          <div className="prof-trust">LV{pet.level}</div>
         </div>
-        <div className={styles.currentPet}>{pet.petEmoji}</div>
-        {editingName ? (
-          <div className={styles.nameEdit}>
-            <input
-              className={styles.nameInput}
-              value={nameInput}
-              onChange={e => setNameInput(e.target.value)}
-              onKeyDown={e => { if (e.key === 'Enter') saveName() }}
-              autoFocus
-              maxLength={20}
-            />
-            <button className="btn-primary" onClick={saveName}>Spara</button>
+      </div>
+
+      <div className="prof-content">
+        {/* Name */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 6 }}>
+          <div>
+            {editingName ? (
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <input
+                  style={{ background: 'rgba(255,255,255,.07)', border: '1px solid rgba(255,255,255,.15)', borderRadius: 10, padding: '6px 12px', color: '#fff', fontSize: 16, fontFamily: 'var(--ff-head)', fontWeight: 900, outline: 'none' }}
+                  value={nameInput}
+                  onChange={e => setNameInput(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') saveName() }}
+                  autoFocus
+                  maxLength={20}
+                />
+                <button className="btn btn-sm" onClick={saveName}>Spara</button>
+              </div>
+            ) : (
+              <div className="prof-name" onClick={() => setEditingName(true)} style={{ cursor: 'pointer' }}>
+                {pet.petName} <span style={{ fontSize: 14, opacity: 0.5 }}>✏️</span>
+              </div>
+            )}
+            <div className="prof-handle">@{pet.petName.toLowerCase().replace(/\s/g, '_')}</div>
           </div>
-        ) : (
-          <button className={styles.petNameBtn} onClick={() => setEditingName(true)}>
-            {pet.petName} ✏️
+        </div>
+
+        <div className="prof-bio">Ålder: {formatAge(pet.createdAt)} · LV{pet.level}</div>
+
+        {/* Follow stats */}
+        <div className="follow-row">
+          <div className="follow-stat">
+            <div className="follow-stat-n">{formatNumber(pet.totalTaps)}</div>
+            <div className="follow-stat-l">Pek</div>
+          </div>
+          <div className="follow-stat">
+            <div className="follow-stat-n">{formatNumber(pet.coins)}</div>
+            <div className="follow-stat-l">Mynt</div>
+          </div>
+          <div className="follow-stat">
+            <div className="follow-stat-n">{pet.streak}</div>
+            <div className="follow-stat-l">Streak</div>
+          </div>
+        </div>
+
+        {/* Stats grid */}
+        <div className="prof-stats">
+          <div className="ps"><div className="ps-ico">⚡</div><div className="ps-v">{formatNumber(pet.exp)}</div><div className="ps-l">XP</div></div>
+          <div className="ps"><div className="ps-ico">🎯</div><div className="ps-v">{pet.questsCompleted}</div><div className="ps-l">QUEST</div></div>
+          <div className="ps"><div className="ps-ico">💰</div><div className="ps-v">{formatNumber(pet.coins)}</div><div className="ps-l">MYNT</div></div>
+          <div className="ps"><div className="ps-ico">⭐</div><div className="ps-v">{pet.level}</div><div className="ps-l">LEVEL</div></div>
+          <div className="ps"><div className="ps-ico">⚔️</div><div className="ps-v">{pet.battleWins}</div><div className="ps-l">BATTLE</div></div>
+          <div className="ps"><div className="ps-ico">🎣</div><div className="ps-v">{pet.fishCaught}</div><div className="ps-l">FISK</div></div>
+          <div className="ps"><div className="ps-ico">💎</div><div className="ps-v">{formatNumber(pet.kc)}</div><div className="ps-l">KC</div></div>
+          <div className="ps"><div className="ps-ico">🔥</div><div className="ps-v">{pet.streak}</div><div className="ps-l">STREAK</div></div>
+        </div>
+      </div>
+
+      {/* Pet avatar picker */}
+      <div style={{ padding: '0 16px 16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div className="card" style={{ padding: 16 }}>
+          <div className="sh-t" style={{ marginBottom: 12 }}>VÄLJ HUSDJUR</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 8 }}>
+            {PET_EMOJIS.map(e => (
+              <button
+                key={e}
+                style={{
+                  background: pet.petEmoji === e ? 'rgba(0,255,136,.15)' : 'rgba(255,255,255,.04)',
+                  border: `1px solid ${pet.petEmoji === e ? 'rgba(0,255,136,.5)' : 'rgba(255,255,255,.08)'}`,
+                  borderRadius: 12,
+                  fontSize: 24,
+                  padding: 8,
+                  cursor: 'pointer',
+                  transition: 'all .15s',
+                }}
+                onClick={() => setPetEmoji(e)}
+              >
+                {e}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Settings */}
+        <div className="card" style={{ padding: '0 0 8px' }}>
+          <div style={{ padding: '12px 14px 7px', borderBottom: '1px solid var(--line)' }}>
+            <div className="sh-t">⚙️ INSTÄLLNINGAR</div>
+          </div>
+          <SettingToggle label="Ljud" emoji="🔊" value={settings.audioEnabled} onChange={v => { settings.setAudioEnabled(v); audio.click() }} />
+          <SettingToggle label="Vibration" emoji="📳" value={settings.hapticEnabled} onChange={settings.setHapticEnabled} />
+          <SettingToggle label="Reducerad rörelse" emoji="♿" value={settings.reducedMotion} onChange={settings.setReducedMotion} />
+          <div style={{ padding: '8px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 16 }}>🎵</span>
+            <span style={{ flex: 1, fontSize: 13, color: 'var(--t2)' }}>Musik</span>
+            <input type="range" min={0} max={1} step={0.05} value={settings.musicVolume} style={{ flex: 2 }} onChange={e => settings.setMusicVolume(+e.target.value)} />
+            <span style={{ fontSize: 11, color: 'var(--t3)', width: 30, textAlign: 'right' }}>{Math.round(settings.musicVolume * 100)}%</span>
+          </div>
+          <div style={{ padding: '8px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 16 }}>🔔</span>
+            <span style={{ flex: 1, fontSize: 13, color: 'var(--t2)' }}>Ljud</span>
+            <input type="range" min={0} max={1} step={0.05} value={settings.sfxVolume} style={{ flex: 2 }} onChange={e => settings.setSfxVolume(+e.target.value)} />
+            <span style={{ fontSize: 11, color: 'var(--t3)', width: 30, textAlign: 'right' }}>{Math.round(settings.sfxVolume * 100)}%</span>
+          </div>
+        </div>
+
+        {/* Dev card */}
+        <div className="card" style={{ padding: 14 }}>
+          <div className="sh-t" style={{ marginBottom: 12 }}>🧪 DEV</div>
+          <button className="btn btn-sm" style={{ width: '100%' }} onClick={() => { gainXP(500); audio.achievement() }}>
+            +500 XP (test)
           </button>
-        )}
-        <div className={styles.petAge}>Ålder: {formatAge(pet.createdAt)}</div>
-      </div>
-
-      {/* Stats overview */}
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>📊 Statistik</div>
-        <div className={styles.statsGrid}>
-          <StatItem label="Nivå" value={`${pet.level}`} emoji="⭐" />
-          <StatItem label="Totala pek" value={formatNumber(pet.totalTaps)} emoji="👆" />
-          <StatItem label="Mynt" value={formatNumber(pet.coins)} emoji="🪙" />
-          <StatItem label="KC" value={formatNumber(pet.kc)} emoji="✨" />
-          <StatItem label="XP" value={formatNumber(pet.exp)} emoji="💡" />
-          <StatItem label="Nästa nivå" value={formatNumber(pet.expNext)} emoji="🎯" />
         </div>
       </div>
 
-      {/* Settings */}
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>⚙️ Inställningar</div>
-
-        <Toggle
-          label="Ljud"
-          emoji="🔊"
-          value={settings.audioEnabled}
-          onChange={v => { settings.setAudioEnabled(v); audio.click() }}
-        />
-        <Toggle
-          label="Vibration"
-          emoji="📳"
-          value={settings.hapticEnabled}
-          onChange={settings.setHapticEnabled}
-        />
-        <Toggle
-          label="Reducerad rörelse"
-          emoji="♿"
-          value={settings.reducedMotion}
-          onChange={settings.setReducedMotion}
-        />
-
-        <div className={styles.sliderRow}>
-          <span className={styles.sliderLabel}>🎵 Musik</span>
-          <input
-            type="range" min={0} max={1} step={0.05}
-            value={settings.musicVolume}
-            className={styles.slider}
-            onChange={e => settings.setMusicVolume(+e.target.value)}
-          />
-          <span className={styles.sliderVal}>{Math.round(settings.musicVolume * 100)}%</span>
-        </div>
-        <div className={styles.sliderRow}>
-          <span className={styles.sliderLabel}>🔔 Ljud</span>
-          <input
-            type="range" min={0} max={1} step={0.05}
-            value={settings.sfxVolume}
-            className={styles.slider}
-            onChange={e => settings.setSfxVolume(+e.target.value)}
-          />
-          <span className={styles.sliderVal}>{Math.round(settings.sfxVolume * 100)}%</span>
-        </div>
-      </div>
-
-      {/* Danger zone */}
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>🧪 Dev</div>
-        <button className="btn-primary" style={{ width: '100%' }}
-          onClick={() => { gainXP(500); audio.achievement() }}>
-          +500 XP (test)
-        </button>
-      </div>
-    </div>
+      <div className="vend" />
+    </>
   )
 })
 
-const StatItem = memo(function StatItem({ label, value, emoji }: { label: string; value: string; emoji: string }) {
-  return (
-    <div className={styles.statItem}>
-      <span className={styles.statEmoji}>{emoji}</span>
-      <span className={styles.statVal}>{value}</span>
-      <span className={styles.statLabel}>{label}</span>
-    </div>
-  )
-})
-
-const Toggle = memo(function Toggle({ label, emoji, value, onChange }: {
+const SettingToggle = memo(function SettingToggle({ label, emoji, value, onChange }: {
   label: string; emoji: string; value: boolean; onChange: (v: boolean) => void
 }) {
   return (
-    <div className={styles.toggleRow}>
-      <span className={styles.toggleEmoji}>{emoji}</span>
-      <span className={styles.toggleLabel}>{label}</span>
+    <div style={{ padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10, borderBottom: '1px solid var(--line)' }}>
+      <span style={{ fontSize: 16 }}>{emoji}</span>
+      <span style={{ flex: 1, fontSize: 13, color: 'var(--t2)' }}>{label}</span>
       <button
-        className={`${styles.toggle} ${value ? styles.toggleOn : ''}`}
+        style={{
+          width: 44, height: 24,
+          borderRadius: 12,
+          background: value ? 'var(--green)' : 'rgba(255,255,255,.1)',
+          border: 'none',
+          cursor: 'pointer',
+          position: 'relative',
+          transition: 'background .2s',
+        }}
         onClick={() => onChange(!value)}
         aria-pressed={value}
       >
-        <span className={styles.toggleThumb} />
+        <span style={{
+          position: 'absolute',
+          top: 3, left: value ? 23 : 3,
+          width: 18, height: 18,
+          borderRadius: '50%',
+          background: '#fff',
+          transition: 'left .2s',
+        }} />
       </button>
     </div>
   )
