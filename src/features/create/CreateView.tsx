@@ -17,8 +17,27 @@ function weightedRandom<T extends { weight: number }>(items: T[]): T {
   return items[items.length - 1]
 }
 
+const ITEM_ACCENTS: Record<string, string> = {
+  spin: 'gold', lucky: 'purple', shop: 'green', expedition: 'blue',
+  achievements: 'gold', craft: 'purple', fortune: 'orange',
+  wardrobe: 'pink', battlepass: 'purple', leaderboard: 'gold',
+  quests: 'green', records: 'blue',
+}
+const ITEM_BADGES: Record<string, { label: string; color: string }> = {
+  spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
+  lucky:      { label: 'NY',     color: 'var(--purple)' },
+  battlepass: { label: 'S1',     color: 'var(--purple)' },
+  craft:      { label: 'CRAFT',  color: 'var(--blue)'   },
+  expedition: { label: 'ÄVENTYR',color: 'var(--green)'  },
+}
+
 export const CreateView = memo(function CreateView() {
   const [panel, setPanel] = useState<Panel>(null)
+  const dailyMissions = useGameStore(s => s.dailyMissions)
+  const todayStr = new Date().toDateString()
+  const canSpin = localStorage.getItem(SPIN_KEY) !== todayStr
+  const canLucky = localStorage.getItem(LUCKY_KEY) !== todayStr
+  const missionsDue = dailyMissions.filter(m => !m.done && m.progress >= m.target).length
 
   if (panel === 'shop') return (
     <div>
@@ -33,24 +52,70 @@ export const CreateView = memo(function CreateView() {
 
   return (
     <>
-      <div style={{ padding: '14px 14px 6px' }}>
-        <div style={{ fontFamily: 'var(--ff-head)', fontSize: 22, fontWeight: 900, color: 'var(--green)' }}>✨ Feature Hub</div>
-        <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>Allt på ett ställe</div>
+      <div style={{ padding: '14px 14px 8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 22, fontWeight: 900, color: 'var(--green)' }}>✨ Feature Hub</div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>Allt på ett ställe</div>
+        </div>
+        {missionsDue > 0 && (
+          <div style={{
+            background: 'rgba(255,204,0,.15)', border: '1px solid rgba(255,204,0,.4)',
+            borderRadius: 12, padding: '4px 10px', fontSize: 11, fontWeight: 900, color: 'var(--gold)',
+          }}>
+            {missionsDue} klara!
+          </div>
+        )}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, padding: '0 14px 14px' }}>
-        {FEATURE_HUB_ITEMS.map(item => (
-          <button
-            key={item.id}
-            className="care-btn"
-            data-accent="green"
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '14px 10px', minHeight: 80 }}
-            onClick={() => setPanel(item.id as Panel)}
-          >
-            <span style={{ fontSize: 28 }}>{item.emoji}</span>
-            <span style={{ fontSize: 12, fontWeight: 700, fontFamily: 'var(--ff-head)' }}>{item.label}</span>
-            <span style={{ fontSize: 10, color: 'var(--t3)' }}>{item.desc}</span>
-          </button>
-        ))}
+        {FEATURE_HUB_ITEMS.map(item => {
+          const badge = ITEM_BADGES[item.id]
+          const isAvailable = item.id === 'spin' ? canSpin : item.id === 'lucky' ? canLucky : true
+          const accent = ITEM_ACCENTS[item.id] ?? 'green'
+          const hasNotif = item.id === 'quests' && missionsDue > 0
+          return (
+            <button
+              key={item.id}
+              className="care-btn"
+              data-accent={accent}
+              style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+                padding: '14px 10px', minHeight: 80, position: 'relative',
+                opacity: !isAvailable ? 0.55 : 1,
+              }}
+              onClick={() => { setPanel(item.id as Panel); audio.click() }}
+            >
+              {badge && isAvailable && (
+                <span style={{
+                  position: 'absolute', top: 6, right: 6,
+                  background: badge.color + '22', border: `1px solid ${badge.color}66`,
+                  borderRadius: 6, fontSize: 7, fontWeight: 900, color: badge.color,
+                  padding: '1px 4px', letterSpacing: .5,
+                }}>
+                  {badge.label}
+                </span>
+              )}
+              {hasNotif && (
+                <span style={{
+                  position: 'absolute', top: 6, left: 6,
+                  width: 16, height: 16, borderRadius: '50%',
+                  background: 'var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 9, fontWeight: 900, color: '#000',
+                }}>
+                  {missionsDue}
+                </span>
+              )}
+              {!isAvailable && (
+                <span style={{
+                  position: 'absolute', top: 6, right: 6,
+                  fontSize: 9, color: 'var(--green)', fontWeight: 900,
+                }}>✅</span>
+              )}
+              <span style={{ fontSize: 28 }}>{item.emoji}</span>
+              <span style={{ fontSize: 12, fontWeight: 700, fontFamily: 'var(--ff-head)' }}>{item.label}</span>
+              <span style={{ fontSize: 10, color: 'var(--t3)' }}>{item.desc}</span>
+            </button>
+          )
+        })}
       </div>
     </>
   )
@@ -67,6 +132,8 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
   const addInventoryItem = useGameStore(s => s.addInventoryItem)
   const equipItem = useGameStore(s => s.equipItem)
   const unlockedAchievements = useGameStore(s => s.unlockedAchievements)
+  const dailyMissions = useGameStore(s => s.dailyMissions)
+  const claimMission = useGameStore(s => s.claimMission)
   const showToast = useUIStore(s => s.showToast)
   const pushNotif = useUIStore(s => s.pushNotif)
   const triggerConfetti = useUIStore(s => s.triggerConfetti)
@@ -417,27 +484,75 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
 
   // ── Quests panel ─────────────────────────────────────────────────────────────
   if (panel === 'quests') {
+    const allDone = dailyMissions.every(m => m.done)
+    const completedCount = dailyMissions.filter(m => m.done).length
     return (
       <div className={styles.panelRoot}>
         <BackBtn />
         <div className={styles.panelTitle}>📋 Dagliga Quests</div>
-        <div style={{ fontSize: 13, color: '#888', marginBottom: 12 }}>Klara quests för att tjäna KC och XP</div>
-        {[
-          { title: 'Peka 100 gånger', done: pet.totalTaps >= 100, reward: '3KC + 100XP' },
-          { title: 'Nå nivå 5', done: pet.level >= 5, reward: '5KC + 200XP' },
-          { title: 'Vinn en strid', done: pet.battleWins >= 1, reward: '2KC + 50XP' },
-          { title: 'Fånga 3 fiskar', done: pet.fishCaught >= 3, reward: '3KC + 80XP' },
-          { title: 'Spring 100m i Runner', done: pet.runnerBest >= 100, reward: '4KC + 120XP' },
-          { title: '7 dagars streak', done: pet.streak >= 7, reward: '10KC + 500XP' },
-        ].map((q, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(255,255,255,0.04)', border: `1px solid ${q.done ? 'rgba(74,222,128,0.3)' : 'rgba(255,255,255,0.07)'}`, borderRadius: 12, padding: '12px 14px', marginBottom: 8 }}>
-            <span style={{ fontSize: 20 }}>{q.done ? '✅' : '📋'}</span>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 14, color: q.done ? '#4ade80' : '#e8e8f0', fontWeight: 600 }}>{q.title}</div>
-              <div style={{ fontSize: 12, color: '#fbbf24' }}>Belöning: {q.reward}</div>
-            </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+          <div style={{ background: 'rgba(0,0,0,.3)', borderRadius: 8, height: 8, flex: 1, overflow: 'hidden' }}>
+            <div style={{
+              height: '100%',
+              width: `${dailyMissions.length > 0 ? (completedCount / dailyMissions.length) * 100 : 0}%`,
+              background: 'linear-gradient(90deg, var(--green), var(--blue))',
+              borderRadius: 8,
+              transition: 'width .4s',
+            }} />
           </div>
-        ))}
+          <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--gold)' }}>{completedCount}/{dailyMissions.length}</span>
+        </div>
+        {dailyMissions.map(m => {
+          const pct = Math.min(100, (m.progress / m.target) * 100)
+          const ready = m.progress >= m.target && !m.done
+          return (
+            <div
+              key={m.id}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                background: m.done ? 'rgba(0,255,136,.06)' : ready ? 'rgba(255,204,0,.06)' : 'rgba(255,255,255,.04)',
+                border: `1px solid ${m.done ? 'rgba(0,255,136,.25)' : ready ? 'rgba(255,204,0,.3)' : 'rgba(255,255,255,.07)'}`,
+                borderRadius: 14, padding: '12px 14px', marginBottom: 8,
+              }}
+            >
+              <span style={{ fontSize: 20 }}>{m.emoji}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: m.done ? 'var(--green)' : '#e8e8f0', marginBottom: 4 }}>{m.label}</div>
+                <div style={{ background: 'rgba(0,0,0,.3)', borderRadius: 4, height: 5, overflow: 'hidden', marginBottom: 3 }}>
+                  <div style={{ height: '100%', width: `${pct}%`, background: m.done ? 'var(--green)' : 'var(--blue)', borderRadius: 4, transition: 'width .3s' }} />
+                </div>
+                <div style={{ fontSize: 10, color: 'var(--t3)' }}>
+                  {m.progress}/{m.target} · Belöning: 🪙{m.reward.coins} +{m.reward.xp}XP
+                </div>
+              </div>
+              {m.done ? (
+                <span style={{ fontSize: 18 }}>✅</span>
+              ) : ready ? (
+                <button
+                  className="btn-gold"
+                  style={{ fontSize: 11, padding: '6px 10px' }}
+                  onClick={() => { claimMission(m.id); showToast(`✅ +${m.reward.coins}🪙 +${m.reward.xp}XP!`, 'success'); audio.achievement() }}
+                >
+                  Hämta!
+                </button>
+              ) : (
+                <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700 }}>{Math.round(pct)}%</span>
+              )}
+            </div>
+          )
+        })}
+        {allDone && (
+          <div style={{
+            textAlign: 'center', padding: '16px 12px',
+            background: 'rgba(255,204,0,.08)', border: '1px solid rgba(255,204,0,.25)', borderRadius: 14,
+          }}>
+            <div style={{ fontSize: 28 }}>🌟</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 15, fontWeight: 900, color: 'var(--gold)', marginTop: 6 }}>
+              Alla quests klara!
+            </div>
+            <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>Nya quests imorgon</div>
+          </div>
+        )}
       </div>
     )
   }
