@@ -19,6 +19,10 @@ export const FlashView = memo(function FlashView() {
   const pet = useGameStore(s => s.pet)
   const showToast = useUIStore(s => s.showToast)
   const pushNotif = useUIStore(s => s.pushNotif)
+  const recordPost = useCallback(() => {
+    useGameStore.setState(s => ({ pet: { ...s.pet, postCount: s.pet.postCount + 1 } }))
+    useGameStore.getState().save()
+  }, [])
 
   const handleLike = useCallback((id: string) => {
     setPosts(prev => prev.map(p => p.id === id ? { ...p, liked: !p.liked, likes: p.liked ? p.likes - 1 : p.likes + 1 } : p))
@@ -49,8 +53,9 @@ export const FlashView = memo(function FlashView() {
     setPosting(false)
     awardXP(30, 'post')
     awardCoins(10)
+    recordPost()
     pushNotif('📸', `Ditt Flash-inlägg publicerades!`)
-    showToast('📸 Inlägg publicerat! +30 XP', 'success')
+    showToast('📸 Inlägg publicerat! +30 XP +10💰', 'success')
     audio.achievement()
   }, [newCaption, pet, awardXP, awardCoins, showToast, pushNotif])
 

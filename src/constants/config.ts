@@ -177,6 +177,12 @@ export const FLASH_SAMPLE_POSTS = [
   { id: 'f6', username: 'NeonRacer', petEmoji: '🦊', petLevel: 10, caption: 'Runner highscore: 847m 🏃‍♂️💨', likes: 178, xpReward: 15, tag: '#runner', liked: false },
   { id: 'f7', username: 'MysticKat', petEmoji: '🐯', petLevel: 20, caption: 'Level 20 GOAT achievement unlocked 🔱 Det tog månader!', likes: 899, xpReward: 50, tag: '#achievement', liked: false },
   { id: 'f8', username: 'CosmicPup', petEmoji: '🐶', petLevel: 3, caption: 'Ny i spelet men älskar det! 🐾', likes: 64, xpReward: 8, tag: '#newplayer', liked: false },
+  { id: 'f9', username: 'PixelKing', petEmoji: '🦁', petLevel: 18, caption: '2048 CLEAR 🔢🏆 Hämtade 500 mynt direkt!', likes: 445, xpReward: 35, tag: '#2048', liked: false },
+  { id: 'f10', username: 'ShadowBear', petEmoji: '🐻', petLevel: 6, caption: 'Soulmate bond med min björn 💫 500 bond points!', likes: 203, xpReward: 20, tag: '#bond', liked: false },
+  { id: 'f11', username: 'GalaxPet', petEmoji: '🦄', petLevel: 25, caption: 'PRESTIGE LV3 erreicht 💎💎💎 vi ses i toppen!', likes: 1024, xpReward: 60, tag: '#prestige', liked: false },
+  { id: 'f12', username: 'TunaHunter', petEmoji: '🦈', petLevel: 9, caption: 'Fiskespelet gav mig 3 legendärer på rad 🎣🎣🎣', likes: 388, xpReward: 25, tag: '#fishing', liked: false },
+  { id: 'f13', username: 'QuietPanda', petEmoji: '🐼', petLevel: 4, caption: 'Craftat min första Regnbåge-Kit ✨ stats maxade!', likes: 77, xpReward: 12, tag: '#craft', liked: false },
+  { id: 'f14', username: 'EliteWolf', petEmoji: '🐺', petLevel: 30, caption: '100 stridssegrar!! Oövervinnerlig ⚔️👑', likes: 2048, xpReward: 75, tag: '#battle', liked: false },
 ]
 
 // ── Feature Hub entries ───────────────────────────────────────────────────────
