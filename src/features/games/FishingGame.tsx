@@ -152,10 +152,10 @@ export const FishingGame = memo(function FishingGame({ onExit, onCatch }: Props)
                 <div style={{ height: '100%', width: `${progress}%`, background: 'linear-gradient(90deg,#4ade80,#22c55e)', borderRadius: 5, transition: 'width 0.08s' }} />
               </div>
             </div>
-            {/* Controls */}
+            {/* Controls — hold to continuously move */}
             <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
-              <button style={{ ...dpad, flex: 1 }} onPointerDown={() => moveHook(-1)}>◀ Vänster</button>
-              <button style={{ ...dpad, flex: 1 }} onPointerDown={() => moveHook(1)}>Höger ▶</button>
+              <HoldButton label="◀ Vänster" dir={-1} onMove={moveHook} style={{ ...dpad, flex: 1 }} />
+              <HoldButton label="Höger ▶" dir={1} onMove={moveHook} style={{ ...dpad, flex: 1 }} />
             </div>
             <div style={{ textAlign: 'center', fontSize: 13, color: '#888' }}>Håll krokens i den gröna zonen!</div>
           </div>
@@ -173,3 +173,23 @@ export const FishingGame = memo(function FishingGame({ onExit, onCatch }: Props)
 })
 
 const dpad: React.CSSProperties = { padding: '12px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, color: '#e8e8f0', fontSize: 14, cursor: 'pointer' }
+
+const HoldButton = memo(function HoldButton({ label, dir, onMove, style }: {
+  label: string; dir: number; onMove: (dir: number) => void; style: React.CSSProperties
+}) {
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const start = () => {
+    onMove(dir)
+    intervalRef.current = setInterval(() => onMove(dir), 80)
+  }
+  const stop = () => { if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null } }
+  useEffect(() => () => stop(), [])
+  return (
+    <button
+      style={style}
+      onPointerDown={start}
+      onPointerUp={stop}
+      onPointerLeave={stop}
+    >{label}</button>
+  )
+})
