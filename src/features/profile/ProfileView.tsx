@@ -1,5 +1,6 @@
 import { memo, useState } from 'react'
 import { useGameStore } from '@/stores/gameStore'
+import { useUIStore } from '@/stores/uiStore'
 import { useSettingsStore } from '@/stores/settingsStore'
 import { formatNumber, formatAge } from '@/utils/format'
 import { audio } from '@/services/AudioService'
@@ -10,7 +11,10 @@ const PET_EMOJIS = ['🐱', '🐶', '🦊', '🐻', '🐼', '🐨', '🦁', '�
 export const ProfileView = memo(function ProfileView() {
   const pet = useGameStore(s => s.pet)
   const gainXP = useGameStore(s => s.gainXP)
+  const inventory = useGameStore(s => s.inventory)
+  const useInventoryItem = useGameStore(s => s.useInventoryItem)
   const unlockedAchievements = useGameStore(s => s.unlockedAchievements)
+  const showToast = useUIStore(s => s.showToast)
   const settings = useSettingsStore()
 
   const [editingName, setEditingName] = useState(false)
@@ -105,6 +109,18 @@ export const ProfileView = memo(function ProfileView() {
         </div>
       </div>
 
+      {/* Inventory */}
+      {inventory.length > 0 && (
+        <InventorySection
+          inventory={inventory}
+          onUse={(id, name) => {
+            useInventoryItem(id)
+            showToast(`✅ Använde ${name}!`, 'success')
+            audio.coin()
+          }}
+        />
+      )}
+
       {/* Achievements gallery */}
       <AchievementsGallery unlocked={unlockedAchievements} />
 
@@ -166,6 +182,43 @@ export const ProfileView = memo(function ProfileView() {
 
       <div className="vend" />
     </>
+  )
+})
+
+import type { InventoryItem } from '@/types/game'
+
+const InventorySection = memo(function InventorySection({
+  inventory, onUse,
+}: { inventory: InventoryItem[]; onUse: (id: string, name: string) => void }) {
+  const RARITY_CLR: Record<string, string> = { common: '#aaa', rare: '#4488ff', epic: '#aa66ff', legendary: '#ffcc00' }
+  return (
+    <div style={{ margin: '10px 0 4px' }}>
+      <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', letterSpacing: 1, marginBottom: 7 }}>🎒 RYGGSÄCK ({inventory.length})</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+        {inventory.map(item => (
+          <button
+            key={item.id}
+            style={{
+              background: 'rgba(255,255,255,.04)',
+              border: `1px solid ${RARITY_CLR[item.rarity]}44`,
+              borderRadius: 12,
+              padding: '10px 8px',
+              cursor: 'pointer',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 3,
+              transition: 'all .15s',
+            }}
+            onClick={() => onUse(item.id, item.name)}
+          >
+            <div style={{ fontSize: 24 }}>{item.emoji}</div>
+            <div style={{ fontSize: 10, fontWeight: 700, color: RARITY_CLR[item.rarity] }}>{item.name}</div>
+            <div style={{ fontSize: 9, color: 'var(--t3)' }}>×{item.quantity}</div>
+          </button>
+        ))}
+      </div>
+    </div>
   )
 })
 
