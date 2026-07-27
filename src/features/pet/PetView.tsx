@@ -1,9 +1,14 @@
 import { memo, useEffect, useRef, useState } from 'react'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
+import { useSettingsStore } from '@/stores/settingsStore'
 import { audio } from '@/services/AudioService'
 import { formatNumber, formatAge } from '@/utils/format'
 import { ALL_ACHIEVEMENTS } from '@/constants/config'
+
+function vibrate(ms: number) {
+  if (navigator.vibrate) navigator.vibrate(ms)
+}
 
 const BOND_TIERS = ['Okänd', 'Bekant', 'Kompis', 'Vän', 'Bästis', 'Soulmate']
 const BOND_THRESHOLDS = [0, 50, 150, 350, 700, 1500]
@@ -41,6 +46,7 @@ export const PetView = memo(function PetView() {
   const setPetTheme = useGameStore(s => s.setPetTheme)
   const prestige = useGameStore(s => s.prestige)
   const gainCoins = useGameStore(s => s.gainCoins)
+  const hapticEnabled = useSettingsStore(s => s.hapticEnabled)
   const spawnFloat = useUIStore(s => s.spawnFloat)
   const pushNotif = useUIStore(s => s.pushNotif)
   const showToast = useUIStore(s => s.showToast)
@@ -110,6 +116,7 @@ export const PetView = memo(function PetView() {
     const clientY = 'touches' in e ? e.touches[0]?.clientY ?? rect.top + rect.height / 2 : (e as React.MouseEvent).clientY
     const result = tap()
     audio.tap()
+    if (hapticEnabled) vibrate(result.lvlUp ? 200 : 20)
     spawnFloat(`+${result.xp}XP`, clientX, clientY, '#00f0ff')
     if (result.coins > 0) spawnFloat('+1💰', clientX + 20, clientY - 20, '#ffcc00')
 
