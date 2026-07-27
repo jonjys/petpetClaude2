@@ -43,6 +43,7 @@ export const PetView = memo(function PetView() {
   const spawnFloat = useUIStore(s => s.spawnFloat)
   const pushNotif = useUIStore(s => s.pushNotif)
   const showToast = useUIStore(s => s.showToast)
+  const triggerConfetti = useUIStore(s => s.triggerConfetti)
 
   const petRef = useRef<HTMLDivElement>(null)
   const comboRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -78,8 +79,9 @@ export const PetView = memo(function PetView() {
   useEffect(() => {
     if (!levelUpInfo) return
     setSplashVisible(true)
-    audio.achievement()
-  }, [levelUpInfo])
+    audio.levelUp()
+    triggerConfetti()
+  }, [levelUpInfo, triggerConfetti])
 
   // Low-stat notifications (fire once per crossing below threshold)
   const lowNotifRef = useRef<Record<string, boolean>>({})
