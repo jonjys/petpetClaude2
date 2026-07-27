@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import { useUIStore } from '@/stores/uiStore'
-import styles from './NotificationsPanel.module.css'
 
 export const NotificationsPanel = memo(function NotificationsPanel() {
   const notifications = useUIStore(s => s.notifications)
@@ -13,22 +12,30 @@ export const NotificationsPanel = memo(function NotificationsPanel() {
   }
 
   return (
-    <div className={styles.overlay} onClick={handleClose}>
-      <div className={styles.panel} onClick={e => e.stopPropagation()}>
-        <div className={styles.header}>
-          <span className={styles.title}>🔔 Notiser</span>
-          <button className={styles.closeBtn} onClick={handleClose}>✕</button>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 889 }} onClick={handleClose}>
+      <div className="notif-panel open" style={{ display: 'flex' }} onClick={e => e.stopPropagation()}>
+        <div className="notif-header">
+          <span className="notif-title">🔔 Notiser</span>
+          <button
+            style={{ background: 'rgba(255,255,255,.07)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 10, color: 'var(--t1)', fontSize: 16, width: 34, height: 34, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            onClick={handleClose}
+          >
+            ✕
+          </button>
         </div>
-        <div className={styles.list}>
+        <div className="notif-scroll">
           {notifications.length === 0 ? (
-            <div className={styles.empty}>Inga notiser ännu 👋</div>
+            <div className="notif-empty">
+              <div className="notif-empty-icon">🔔</div>
+              <div className="notif-empty-text">Inga notiser ännu 👋</div>
+            </div>
           ) : (
             notifications.map(n => (
-              <div key={n.id} className={`${styles.item} ${!n.read ? styles.unread : ''}`}>
-                <span className={styles.icon}>{n.icon}</span>
-                <div className={styles.content}>
-                  <span className={styles.text}>{n.text}</span>
-                  <span className={styles.time}>{formatRelativeTime(n.ts)}</span>
+              <div key={n.id} className={`notif-item${!n.read ? ' unread' : ''}`}>
+                <div className="notif-item-icon">{n.icon}</div>
+                <div className="notif-item-body">
+                  <div className="notif-item-title">{n.text}</div>
+                  <div className="notif-item-time">{formatRelativeTime(n.ts)}</div>
                 </div>
               </div>
             ))
