@@ -38,6 +38,7 @@ export const FlashView = memo(function FlashView() {
   const [posts, setPosts] = useState<FlashPost[]>(FLASH_SAMPLE_POSTS)
   const [newCaption, setNewCaption] = useState('')
   const [posting, setPosting] = useState(false)
+  const [activeTag, setActiveTag] = useState<string | null>(null)
   const [reactions, setReactions] = useState<Record<string, Record<string, number>>>({})
   const [seenStories, setSeenStories] = useState<Set<string>>(new Set())
   const [myStoryPosted, setMyStoryPosted] = useState(false)
@@ -124,8 +125,24 @@ export const FlashView = memo(function FlashView() {
 
       {/* Trending strip */}
       <div className="flash-trending-strip">
+        {activeTag && (
+          <div
+            className="flash-trend-chip"
+            style={{ background: 'rgba(255,68,85,.15)', border: '1px solid rgba(255,68,85,.4)', color: 'var(--red)' }}
+            onClick={() => setActiveTag(null)}
+          >
+            ✕ Rensa
+          </div>
+        )}
         {TRENDING.map(tag => (
-          <div key={tag} className="flash-trend-chip">{tag}</div>
+          <div
+            key={tag}
+            className="flash-trend-chip"
+            style={activeTag === tag ? { background: 'rgba(255,45,120,.2)', border: '1px solid rgba(255,45,120,.5)', color: 'var(--pink)' } : undefined}
+            onClick={() => { setActiveTag(t => t === tag ? null : tag); setSubTab('forYou'); audio.tap() }}
+          >
+            {tag}
+          </div>
         ))}
       </div>
 
@@ -242,8 +259,15 @@ export const FlashView = memo(function FlashView() {
             </div>
           )}
 
+          {activeTag && (
+            <div style={{ padding: '4px 14px 8px', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 11, color: 'var(--pink)', fontWeight: 700 }}>Filtrerat: {activeTag}</span>
+              <span style={{ fontSize: 10, color: 'var(--t3)' }}>({posts.filter(p => p.tag === activeTag || p.caption.includes(activeTag)).length} inlägg)</span>
+            </div>
+          )}
+
           {/* Feed */}
-          {posts.map(post => (
+          {(activeTag ? posts.filter(p => p.tag === activeTag || p.caption.includes(activeTag)) : posts).map(post => (
             <div key={post.id} style={{ padding: '4px 14px' }}>
               <div className="flash-post-card">
                 <div className="flash-post-header">

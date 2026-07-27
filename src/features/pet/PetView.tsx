@@ -4,7 +4,7 @@ import { useUIStore } from '@/stores/uiStore'
 import { useSettingsStore } from '@/stores/settingsStore'
 import { audio } from '@/services/AudioService'
 import { formatNumber, formatAge } from '@/utils/format'
-import { ALL_ACHIEVEMENTS } from '@/constants/config'
+import { ALL_ACHIEVEMENTS, SHOP_HATS, SHOP_ACC, SHOP_AURA } from '@/constants/config'
 
 function vibrate(ms: number) {
   if (navigator.vibrate) navigator.vibrate(ms)
@@ -31,6 +31,19 @@ const PET_THEMES = [
 const TAP_BUBBLES = [
   '😊', '🔥', '⚡', '💪', 'YO!', 'GG!', '💎', '🚀', 'NOICE', 'LFG!', '✨', 'EZ', 'POP!',
 ]
+
+function wardrobeEmoji(items: typeof SHOP_HATS, id: string): string {
+  return items.find(i => i.id === id)?.emoji ?? ''
+}
+
+const AURA_GLOW: Record<string, string> = {
+  aura_fire:    '0 0 20px rgba(255,100,0,.7)',
+  aura_glitter: '0 0 18px rgba(255,200,255,.6)',
+  aura_moon:    '0 0 22px rgba(180,180,255,.6)',
+  aura_rainbow: '0 0 24px rgba(255,255,100,.5)',
+  aura_star:    '0 0 20px rgba(255,255,200,.7)',
+  kc_aura:      '0 0 26px rgba(180,100,255,.8)',
+}
 
 const SKIN_FILTER: Record<string, string> = {
   skin_fire:   'drop-shadow(0 0 12px #ff4422) saturate(1.5) hue-rotate(-15deg)',
@@ -305,14 +318,45 @@ export const PetView = memo(function PetView() {
             {bubble && (
               <div className="pet-bubble">{bubble}</div>
             )}
-            <div
-              ref={petRef}
-              className="pet-emoji-big"
-              onClick={handleTap}
-              onTouchStart={handleTap}
-              style={SKIN_FILTER[pet.activeSkin] ? { filter: SKIN_FILTER[pet.activeSkin] } : undefined}
-            >
-              {pet.petEmoji}
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+              {/* Hat overlay */}
+              {pet.wardrobe.hat !== 'none' && wardrobeEmoji(SHOP_HATS, pet.wardrobe.hat) && (
+                <div style={{
+                  position: 'absolute', top: -28, left: '50%', transform: 'translateX(-50%)',
+                  fontSize: 30, lineHeight: 1, zIndex: 2, pointerEvents: 'none',
+                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,.5))',
+                }}>
+                  {wardrobeEmoji(SHOP_HATS, pet.wardrobe.hat)}
+                </div>
+              )}
+              {/* Acc overlay */}
+              {pet.wardrobe.acc !== 'none' && wardrobeEmoji(SHOP_ACC, pet.wardrobe.acc) && (
+                <div style={{
+                  position: 'absolute', bottom: 8, right: -22,
+                  fontSize: 22, lineHeight: 1, zIndex: 2, pointerEvents: 'none',
+                  filter: 'drop-shadow(0 1px 3px rgba(0,0,0,.5))',
+                }}>
+                  {wardrobeEmoji(SHOP_ACC, pet.wardrobe.acc)}
+                </div>
+              )}
+              {/* Aura glow ring */}
+              {pet.wardrobe.aura !== 'none' && AURA_GLOW[pet.wardrobe.aura] && (
+                <div style={{
+                  position: 'absolute', inset: -8, borderRadius: '50%',
+                  boxShadow: AURA_GLOW[pet.wardrobe.aura],
+                  pointerEvents: 'none', zIndex: 1,
+                  animation: 'auraPulse 2s ease-in-out infinite',
+                }} />
+              )}
+              <div
+                ref={petRef}
+                className="pet-emoji-big"
+                onClick={handleTap}
+                onTouchStart={handleTap}
+                style={SKIN_FILTER[pet.activeSkin] ? { filter: SKIN_FILTER[pet.activeSkin] } : undefined}
+              >
+                {pet.petEmoji}
+              </div>
             </div>
           </div>
           <div className="pet-stage-name" id="petStageName">{pet.petName}</div>

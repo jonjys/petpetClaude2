@@ -2,6 +2,7 @@ import { memo, useState } from 'react'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
 import { formatNumber } from '@/utils/format'
+import { audio } from '@/services/AudioService'
 
 const SONGS = [
   'Karma Vibes - Lo-Fi Beat',
@@ -23,7 +24,13 @@ export const Header = memo(function Header() {
   const [radioOn, setRadioOn] = useState(false)
   const [songIdx] = useState(() => Math.floor(Math.random() * SONGS.length))
 
-  const toggleRadio = () => setRadioOn(on => !on)
+  const toggleRadio = () => {
+    setRadioOn(on => {
+      if (!on) audio.startAmbient(0.03)
+      else audio.stopAmbient()
+      return !on
+    })
+  }
 
   return (
     <div className="topbar">
