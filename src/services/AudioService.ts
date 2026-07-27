@@ -3,6 +3,9 @@ class AudioService {
   private ctx: AudioContext | null = null
   private enabled = true
   private sfxVol = 0.7
+  private ambiNodes: OscillatorNode[] = []
+  private ambiGain: GainNode | null = null
+  private ambiRunning = false
 
   private getCtx(): AudioContext {
     if (!this.ctx) this.ctx = new AudioContext()
@@ -30,6 +33,42 @@ class AudioService {
     } catch {
       // AudioContext blocked
     }
+  }
+
+  startAmbient(volume = 0.04) {
+    if (!this.enabled || this.ambiRunning) return
+    try {
+      const ctx = this.getCtx()
+      this.ambiGain = ctx.createGain()
+      this.ambiGain.gain.setValueAtTime(0, ctx.currentTime)
+      this.ambiGain.gain.linearRampToValueAtTime(volume, ctx.currentTime + 2)
+      this.ambiGain.connect(ctx.destination)
+      const drones = [55, 110, 165]
+      this.ambiNodes = drones.map(freq => {
+        const osc = ctx.createOscillator()
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(freq, ctx.currentTime)
+        osc.connect(this.ambiGain!)
+        osc.start()
+        return osc
+      })
+      this.ambiRunning = true
+    } catch { /* blocked */ }
+  }
+
+  stopAmbient() {
+    if (!this.ambiRunning) return
+    try {
+      const ctx = this.getCtx()
+      if (this.ambiGain) {
+        this.ambiGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.5)
+      }
+      setTimeout(() => {
+        this.ambiNodes.forEach(o => { try { o.stop() } catch { /* ok */ } })
+        this.ambiNodes = []
+        this.ambiRunning = false
+      }, 1600)
+    } catch { /* blocked */ }
   }
 
   tap() {
