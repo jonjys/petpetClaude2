@@ -9,11 +9,12 @@ export const FloatText = memo(function FloatText() {
       {floatTexts.map(f => (
         <div
           key={f.id}
-          className="float-text"
+          className="fltxt"
           style={{
             left: f.x,
             top: f.y,
-            color: f.color ?? '#c084fc',
+            color: f.color ?? '#00ff88',
+            textShadow: `0 0 14px ${f.color ?? '#00ff88'}`,
           }}
         >
           {f.text}
