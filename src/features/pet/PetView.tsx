@@ -623,24 +623,28 @@ export const PetView = memo(function PetView() {
       {/* Vitals card */}
       <div className="vitals-card">
         <div className="vitals-title">VITALS</div>
-        <div className="vital-row">
-          <div className="vital-icon">🍖</div>
-          <div className="vital-name">HUNGER</div>
-          <div className="vital-track"><div className="vital-fill" style={{ width: `${pet.hunger}%`, background: 'var(--orange)' }} /></div>
-          <div className="vital-val" style={{ color: 'var(--orange)' }}>{Math.round(pet.hunger)}</div>
-        </div>
-        <div className="vital-row">
-          <div className="vital-icon">⚡</div>
-          <div className="vital-name">ENERGY</div>
-          <div className="vital-track"><div className="vital-fill" style={{ width: `${pet.energy}%`, background: 'var(--blue)' }} /></div>
-          <div className="vital-val" style={{ color: 'var(--blue)' }}>{Math.round(pet.energy)}</div>
-        </div>
-        <div className="vital-row">
-          <div className="vital-icon">💖</div>
-          <div className="vital-name">MOOD</div>
-          <div className="vital-track"><div className="vital-fill" style={{ width: `${pet.mood}%`, background: 'var(--purple)' }} /></div>
-          <div className="vital-val" style={{ color: 'var(--purple)' }}>{Math.round(pet.mood)}</div>
-        </div>
+        {([
+          { icon: '🍖', name: 'HUNGER', val: pet.hunger, color: 'var(--orange)', decay: 0.8 },
+          { icon: '⚡', name: 'ENERGY', val: pet.energy, color: 'var(--blue)',   decay: 0.3 },
+          { icon: '💖', name: 'MOOD',   val: pet.mood,   color: 'var(--purple)', decay: 0.5 },
+        ] as const).map(s => {
+          const minsToLow = s.val > 20 ? Math.round((s.val - 20) / s.decay) : 0
+          return (
+            <div key={s.name} className="vital-row">
+              <div className="vital-icon">{s.icon}</div>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div className="vital-name">{s.name}</div>
+                {minsToLow > 0 && minsToLow <= 60 && (
+                  <div style={{ fontSize: 8, color: minsToLow <= 15 ? 'var(--red)' : 'var(--t3)', marginTop: 1 }}>
+                    ~{minsToLow}m till låg
+                  </div>
+                )}
+              </div>
+              <div className="vital-track"><div className="vital-fill" style={{ width: `${s.val}%`, background: s.color }} /></div>
+              <div className="vital-val" style={{ color: s.color }}>{Math.round(s.val)}</div>
+            </div>
+          )
+        })}
       </div>
 
       {/* Care grid */}
@@ -662,6 +666,46 @@ export const PetView = memo(function PetView() {
           <span className="care-ico">🎮</span><span className="care-lbl">LEK</span><span className="care-cost">+5💰</span>
         </div>
       </div>
+
+      {/* 7-day streak calendar */}
+      {(() => {
+        const days: { label: string; key: string; active: boolean }[] = []
+        const LABELS = ['Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör', 'Sön']
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date(Date.now() - i * 86400000)
+          const key = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`
+          days.push({ label: LABELS[d.getDay() === 0 ? 6 : d.getDay() - 1], key, active: !!pet.activityLog[key] })
+        }
+        const streak = days.filter(d => d.active).length
+        return (
+          <div style={{
+            margin: '0 14px 10px',
+            background: 'rgba(255,204,0,.06)', border: '1px solid rgba(255,204,0,.2)',
+            borderRadius: 16, padding: '10px 14px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 11, fontWeight: 900, color: 'var(--gold)', letterSpacing: 1 }}>
+                🗓️ VECKANS AKTIVITET
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--t3)' }}>{streak}/7 dagar</div>
+            </div>
+            <div style={{ display: 'flex', gap: 4, justifyContent: 'space-between' }}>
+              {days.map((d, i) => (
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+                  <div style={{
+                    width: 32, height: 32, borderRadius: 8,
+                    background: d.active ? 'rgba(255,204,0,.25)' : 'rgba(255,255,255,.04)',
+                    border: d.active ? '1px solid rgba(255,204,0,.5)' : '1px solid rgba(255,255,255,.07)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 14,
+                  }}>{d.active ? '⭐' : ''}</div>
+                  <div style={{ fontSize: 8, color: d.active ? 'var(--gold)' : 'var(--t3)' }}>{d.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
 
       {/* Bond section */}
       <div className="bond-section">
