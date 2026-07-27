@@ -5,6 +5,28 @@ import { audio } from '@/services/AudioService'
 import { formatNumber, formatAge } from '@/utils/format'
 import { ALL_ACHIEVEMENTS } from '@/constants/config'
 
+const BOND_TIERS = ['Okänd', 'Bekant', 'Kompis', 'Vän', 'Bästis', 'Soulmate']
+const BOND_THRESHOLDS = [0, 50, 150, 350, 700, 1500]
+const BOND_PERKS = [
+  'Lär känna ditt husdjur!',
+  'Husdjuret litar lite på dig 🤝',
+  'Ni är riktiga kompisar! 😊',
+  'En äkta vänskap växer 💚',
+  'Bästisar för livet! ✨',
+  'Soulmates — odelbar förening 💫',
+]
+
+const PET_THEMES = [
+  { id: 'dark', label: '🌑 Mörk' },
+  { id: 'neon', label: '💚 Neon' },
+  { id: 'pink', label: '🌸 Rosa' },
+  { id: 'gold', label: '✨ Guld' },
+]
+
+const TAP_BUBBLES = [
+  '😊', '🔥', '⚡', '💪', 'YO!', 'GG!', '💎', '🚀', 'NOICE', 'LFG!', '✨', 'EZ', 'POP!',
+]
+
 export const PetView = memo(function PetView() {
   const pet = useGameStore(s => s.pet)
   const tap = useGameStore(s => s.tap)
@@ -14,10 +36,21 @@ export const PetView = memo(function PetView() {
   const newAchievement = useGameStore(s => s.newAchievement)
   const clearNewAchievement = useGameStore(s => s.clearNewAchievement)
   const checkStreak = useGameStore(s => s.checkStreak)
+  const levelUpInfo = useGameStore(s => s.levelUpInfo)
+  const clearLevelUpInfo = useGameStore(s => s.clearLevelUpInfo)
+  const setPetTheme = useGameStore(s => s.setPetTheme)
   const spawnFloat = useUIStore(s => s.spawnFloat)
   const pushNotif = useUIStore(s => s.pushNotif)
+
   const petRef = useRef<HTMLDivElement>(null)
+  const comboRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const bubbleRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const [achieveVisible, setAchieveVisible] = useState(false)
+  const [combo, setCombo] = useState(0)
+  const [bubble, setBubble] = useState('')
+  const [splashVisible, setSplashVisible] = useState(false)
+
   const newAchievementObj = newAchievement ? ALL_ACHIEVEMENTS.find(a => a.id === newAchievement) ?? null : null
 
   useEffect(() => { checkStreak() }, [checkStreak])
@@ -25,7 +58,7 @@ export const PetView = memo(function PetView() {
   useEffect(() => {
     if (!newAchievementObj) return
     setAchieveVisible(true)
-    pushNotif('🏆', `Prestation upplåst: ${newAchievementObj?.title}`)
+    pushNotif('🏆', `Prestation upplåst: ${newAchievementObj.title}`)
     const t = setTimeout(() => {
       setAchieveVisible(false)
       clearNewAchievement()
@@ -33,27 +66,73 @@ export const PetView = memo(function PetView() {
     return () => clearTimeout(t)
   }, [newAchievementObj, clearNewAchievement, pushNotif])
 
+  useEffect(() => {
+    if (!levelUpInfo) return
+    setSplashVisible(true)
+    audio.achievement()
+  }, [levelUpInfo])
+
   const handleTap = (e: React.MouseEvent | React.TouchEvent) => {
     const rect = petRef.current?.getBoundingClientRect()
     if (!rect) return
     const clientX = 'touches' in e ? e.touches[0]?.clientX ?? rect.left + rect.width / 2 : (e as React.MouseEvent).clientX
     const clientY = 'touches' in e ? e.touches[0]?.clientY ?? rect.top + rect.height / 2 : (e as React.MouseEvent).clientY
-    tap()
+    const result = tap()
     audio.tap()
-    spawnFloat(`+${5}XP`, clientX, clientY, '#00f0ff')
+    spawnFloat(`+${result.xp}XP`, clientX, clientY, '#00f0ff')
+    if (result.coins > 0) spawnFloat('+1💰', clientX + 20, clientY - 20, '#ffcc00')
+
+    // Combo
+    setCombo(c => {
+      const next = c + 1
+      if (comboRef.current) clearTimeout(comboRef.current)
+      comboRef.current = setTimeout(() => setCombo(0), 1800)
+      return next
+    })
+
+    // Speech bubble
+    setBubble(TAP_BUBBLES[Math.floor(Math.random() * TAP_BUBBLES.length)])
+    if (bubbleRef.current) clearTimeout(bubbleRef.current)
+    bubbleRef.current = setTimeout(() => setBubble(''), 1400)
   }
 
   const xpPct = Math.min(100, (pet.exp / pet.expNext) * 100)
 
+  // Bond progress to next tier
+  const bondCurrent = pet.bondTier < 5 ? BOND_THRESHOLDS[pet.bondTier] : BOND_THRESHOLDS[4]
+  const bondNext = pet.bondTier < 5 ? BOND_THRESHOLDS[pet.bondTier + 1] : BOND_THRESHOLDS[5]
+  const bondPct = pet.bondTier >= 5 ? 100 : Math.min(100, ((pet.bondPoints - bondCurrent) / (bondNext - bondCurrent)) * 100)
+
+  const dismissSplash = () => {
+    setSplashVisible(false)
+    clearLevelUpInfo()
+  }
+
   return (
     <>
+      {/* Level-up splash */}
+      {splashVisible && levelUpInfo && (
+        <div className="splash show" onClick={dismissSplash}>
+          <div className="lvl-badge">LV{levelUpInfo.level}</div>
+          <div className="sp-title">LEVEL UP!</div>
+          <div className="sp-sub">
+            Nivå {levelUpInfo.level} uppnådd!
+            {levelUpInfo.coins > 0 ? ` +${levelUpInfo.coins}💰` : ''}
+            {levelUpInfo.kc > 0 ? ` +${levelUpInfo.kc}💎` : ''}
+          </div>
+          <div className="lvl-stars">
+            {[0,1,2,3,4].map(i => <div key={i} className="lvl-star" />)}
+          </div>
+        </div>
+      )}
+
       {/* Achievement overlay */}
       {achieveVisible && newAchievementObj && (
         <div id="achieveOverlay" className="open" onClick={() => { setAchieveVisible(false); clearNewAchievement() }}>
-          <div className="ach-big">{newAchievementObj?.emoji}</div>
+          <div className="ach-big">{newAchievementObj.emoji}</div>
           <div className="ach-unlocked">✦ Badge Upplåst ✦</div>
-          <div className="ach-name">{newAchievementObj?.title}</div>
-          <div className="ach-desc">{newAchievementObj?.description ?? 'Prestation upplåst!'}</div>
+          <div className="ach-name">{newAchievementObj.title}</div>
+          <div className="ach-desc">{newAchievementObj.description ?? 'Prestation upplåst!'}</div>
           <div className="ach-tap">🔥 AWESOME!</div>
         </div>
       )}
@@ -65,6 +144,24 @@ export const PetView = memo(function PetView() {
         <div className="pet-main-wrap">
           <div className="pet-aura" />
           <div style={{ position: 'relative', display: 'inline-block' }}>
+            {/* XP ring SVG */}
+            <svg className="pet-stage-xp-ring" viewBox="0 0 140 140">
+              <circle className="psr-bg" cx="70" cy="70" r="62" />
+              <circle
+                className="psr-fill"
+                cx="70" cy="70" r="62"
+                strokeDasharray="389.6"
+                strokeDashoffset={389.6 * (1 - xpPct / 100)}
+              />
+            </svg>
+            {/* Combo badge */}
+            {combo >= 3 && (
+              <div className="combo-badge">🔥 ×{combo}</div>
+            )}
+            {/* Speech bubble */}
+            {bubble && (
+              <div className="pet-bubble">{bubble}</div>
+            )}
             <div
               ref={petRef}
               className="pet-emoji-big"
@@ -172,6 +269,36 @@ export const PetView = memo(function PetView() {
         <div className="care-btn" data-accent="purple" onClick={() => { careAction('play'); audio.click() }}>
           <span className="care-ico">🎮</span><span className="care-lbl">LEK</span><span className="care-cost">+5💰</span>
         </div>
+      </div>
+
+      {/* Bond section */}
+      <div className="bond-section">
+        <div className="bond-hdr">
+          <span className="bond-tier-name">{BOND_TIERS[pet.bondTier]}</span>
+          <span className="bond-pts">{pet.bondPoints} bp</span>
+        </div>
+        <div className="bond-dots">
+          {[0,1,2,3,4].map(i => (
+            <span key={i} className={`bond-dot${i < pet.bondTier ? ' filled' : ''}`} />
+          ))}
+        </div>
+        <div className="bond-bar-bg">
+          <div className="bond-bar-fill" style={{ width: `${bondPct}%` }} />
+        </div>
+        <div className="bond-perk">{BOND_PERKS[pet.bondTier]}</div>
+      </div>
+
+      {/* Theme picker */}
+      <div className="theme-row">
+        {PET_THEMES.map(t => (
+          <span
+            key={t.id}
+            className={`theme-chip${pet.petTheme === t.id ? ' on' : ''}`}
+            onClick={() => { setPetTheme(t.id); audio.click() }}
+          >
+            {t.label}
+          </span>
+        ))}
       </div>
 
       {/* Daily missions */}

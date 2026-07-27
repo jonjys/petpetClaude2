@@ -44,6 +44,13 @@ export interface PetState {
   prestigeLevel: number
   // Battle pass
   bpassXP: number
+  // Bond system
+  bondPoints: number
+  bondTier: number   // 0=Okänd 1=Bekant 2=Kompis 3=Vän 4=Bästis 5=Soulmate
+  // Activity tracking (30 days, keys = YYYY-MM-DD, values = tap count)
+  activityLog: Record<string, number>
+  // Pet theme
+  petTheme: string
 }
 
 export interface DailyMission {

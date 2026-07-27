@@ -3,6 +3,15 @@ import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
 import { formatNumber } from '@/utils/format'
 
+const SONGS = [
+  'Karma Vibes - Lo-Fi Beat',
+  'Night Grind - Synthwave',
+  'Pixel Flow - Chillhop',
+  'Level Up - Electro',
+  'Deep Dungeon - Dark Ambient',
+  'Sunrise Run - J-Beat',
+]
+
 export const Header = memo(function Header() {
   const coins    = useGameStore(s => s.pet.coins)
   const kc       = useGameStore(s => s.pet.kc)
@@ -11,10 +20,14 @@ export const Header = memo(function Header() {
   const openPanelId = useUIStore(s => s.openPanelId)
   const setTab      = useUIStore(s => s.setTab)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [radioOn, setRadioOn] = useState(false)
+  const [songIdx] = useState(() => Math.floor(Math.random() * SONGS.length))
+
+  const toggleRadio = () => setRadioOn(on => !on)
 
   return (
     <div className="topbar">
-      {/* KARMA logo — exact legacy structure: span wraps first letter */}
+      {/* KARMA logo */}
       <div className="logo" style={{ cursor: 'pointer' }} onClick={() => setTab('pet')}>
         <span>K</span>ARMA
       </div>
@@ -40,7 +53,23 @@ export const Header = memo(function Header() {
       </div>
 
       {/* Radio/music button */}
-      <div className="radio-btn">♪</div>
+      <div className={`radio-btn${radioOn ? ' on' : ''}`} onClick={toggleRadio}>♪</div>
+
+      {/* Now playing panel */}
+      <div id="radioNowPlaying" className={radioOn ? 'show' : ''}>
+        <div className="rnp-bars">
+          <div className="rnp-bar rnp-bar-a" />
+          <div className="rnp-bar rnp-bar-b" />
+          <div className="rnp-bar rnp-bar-c" />
+          <div className="rnp-bar rnp-bar-d" />
+          <div className="rnp-bar rnp-bar-e" />
+        </div>
+        <div className="rnp-info">
+          <div className="rnp-lbl">NOW PLAYING</div>
+          <div className="rnp-song">{SONGS[songIdx]}</div>
+        </div>
+        <div className="rnp-stop" onClick={toggleRadio}>■</div>
+      </div>
 
       {/* Notification bell */}
       <div className="notif-wrap">
