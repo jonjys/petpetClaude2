@@ -1,4 +1,4 @@
-import { memo, useState, useCallback } from 'react'
+import { memo, useState, useCallback, useRef } from 'react'
 import { useGame } from '@/hooks/useGame'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
@@ -28,6 +28,8 @@ export const FlashView = memo(function FlashView() {
   const [posts, setPosts] = useState<FlashPost[]>(FLASH_SAMPLE_POSTS)
   const [newCaption, setNewCaption] = useState('')
   const [posting, setPosting] = useState(false)
+  const [reactions, setReactions] = useState<Record<string, Record<string, number>>>({})
+  const reactCooldown = useRef<Record<string, number>>({})
   const { awardXP, awardCoins } = useGame()
   const pet = useGameStore(s => s.pet)
   const showToast = useUIStore(s => s.showToast)
@@ -41,6 +43,19 @@ export const FlashView = memo(function FlashView() {
     setPosts(prev => prev.map(p => p.id === id ? { ...p, liked: !p.liked, likes: p.liked ? p.likes - 1 : p.likes + 1 } : p))
     awardXP(5, 'like')
     audio.tap()
+  }, [awardXP])
+
+  const handleReact = useCallback((postId: string, emoji: string) => {
+    const now = Date.now()
+    const key = `${postId}_${emoji}`
+    if (reactCooldown.current[key] && now - reactCooldown.current[key] < 1000) return
+    reactCooldown.current[key] = now
+    setReactions(prev => ({
+      ...prev,
+      [postId]: { ...(prev[postId] ?? {}), [emoji]: ((prev[postId] ?? {})[emoji] ?? 0) + 1 },
+    }))
+    audio.tap()
+    awardXP(2, 'react')
   }, [awardXP])
 
   const handleCollect = useCallback((post: FlashPost) => {
@@ -154,6 +169,28 @@ export const FlashView = memo(function FlashView() {
                 </div>
                 <div className="flash-post-body">{post.caption}</div>
                 <div className="flash-post-tag">{post.tag}</div>
+                {/* Emoji reactions */}
+                <div style={{ display: 'flex', gap: 6, margin: '6px 0 2px', flexWrap: 'wrap' }}>
+                  {['🔥', '💎', '⚡', '❤️', '🏆'].map(emoji => {
+                    const count = (reactions[post.id] ?? {})[emoji] ?? 0
+                    return (
+                      <button
+                        key={emoji}
+                        style={{
+                          background: count > 0 ? 'rgba(255,255,255,.1)' : 'rgba(255,255,255,.04)',
+                          border: `1px solid ${count > 0 ? 'rgba(255,255,255,.2)' : 'rgba(255,255,255,.07)'}`,
+                          borderRadius: 20, padding: '3px 8px', cursor: 'pointer',
+                          fontSize: 12, display: 'flex', alignItems: 'center', gap: 3,
+                          transition: 'all .15s',
+                        }}
+                        onClick={() => handleReact(post.id, emoji)}
+                      >
+                        <span>{emoji}</span>
+                        {count > 0 && <span style={{ fontSize: 10, color: 'var(--t2)', fontWeight: 700 }}>{count}</span>}
+                      </button>
+                    )
+                  })}
+                </div>
                 <div className="flash-post-actions">
                   <button className={`flash-action-btn${post.liked ? ' liked' : ''}`} onClick={() => handleLike(post.id)}>
                     {post.liked ? '❤️' : '🤍'} {post.likes}
