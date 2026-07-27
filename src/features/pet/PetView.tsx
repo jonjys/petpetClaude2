@@ -285,8 +285,39 @@ export const PetView = memo(function PetView() {
 
   const PET_EMOJIS = ['🐉', '🦊', '🐺', '🐼', '🐱', '🐶', '🦁', '🐯', '🦄', '🐸', '🐧', '🦅', '🐙', '🦋', '🦖', '🌟', '🔥', '⚡', '🌈', '👾']
 
+  const setTab = useUIStore(s => s.setTab)
+  const expId = localStorage.getItem('k0509_activeExp')
+  const expEnd = Number(localStorage.getItem('k0509_expEnd') ?? 0)
+  const expReady = !!expId && Date.now() >= expEnd && expEnd > 0
+
   return (
     <>
+      {/* Expedition ready banner */}
+      {expReady && (
+        <div
+          style={{
+            margin: '0 14px 8px',
+            background: 'linear-gradient(135deg, rgba(0,255,136,.15), rgba(68,136,255,.08))',
+            border: '1px solid rgba(0,255,136,.4)',
+            borderRadius: 16, padding: '10px 14px',
+            display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer',
+          }}
+          onClick={() => setTab('create')}
+        >
+          <span style={{ fontSize: 22 }}>🗺️</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 12, fontWeight: 900, color: 'var(--green)', letterSpacing: 1 }}>
+              EXPEDITION KLAR!
+            </div>
+            <div style={{ fontSize: 10, color: 'var(--t2)' }}>Tryck för att hämta belöningen</div>
+          </div>
+          <div style={{
+            background: 'var(--green)', borderRadius: 8, padding: '4px 10px',
+            fontSize: 10, fontWeight: 900, color: '#000',
+          }}>Hämta!</div>
+        </div>
+      )}
+
       {/* Level-up splash */}
       {splashVisible && levelUpInfo && (
         <div className="splash show" onClick={dismissSplash}>

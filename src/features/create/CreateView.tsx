@@ -338,26 +338,48 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
   }
 
   // ── Achievements panel ──────────────────────────────────────────────────────
-  if (panel === 'achievements') return (
-    <div className={styles.panelRoot}>
-      <BackBtn />
-      <div className={styles.panelTitle}>🏆 Prestationer <span style={{ fontSize: 14, color: '#888' }}>{unlockedAchievements.length}/{ALL_ACHIEVEMENTS.length}</span></div>
-      <div className={styles.achGrid}>
-        {ALL_ACHIEVEMENTS.map(ach => {
-          const unlocked = unlockedAchievements.includes(ach.id)
-          const rarityColor = { common: '#888', uncommon: '#4ade80', rare: '#60a5fa', epic: '#a855f7', legendary: '#fbbf24' }[ach.rarity]
-          return (
-            <div key={ach.id} className={`${styles.achCard} ${!unlocked ? styles.achLocked : ''}`} style={{ borderColor: unlocked ? rarityColor : 'rgba(255,255,255,0.06)' }}>
-              <div className={styles.achEmoji}>{unlocked ? ach.emoji : '🔒'}</div>
-              <div className={styles.achTitle} style={{ color: unlocked ? rarityColor : '#555' }}>{ach.title}</div>
-              <div className={styles.achDesc}>{ach.description}</div>
-              {unlocked && <div className={styles.achReward}>+{ach.reward.xp}XP{ach.reward.kc ? ` +${ach.reward.kc}KC` : ''}</div>}
-            </div>
-          )
-        })}
+  if (panel === 'achievements') {
+    function getAchProgress(id: string): { current: number; max: number } | null {
+      if (id.startsWith('taps')) { const n = parseInt(id.replace('taps', '')); return isNaN(n) ? null : { current: Math.min(n, pet.totalTaps), max: n } }
+      if (id.startsWith('level')) { const n = parseInt(id.replace('level', '')); return isNaN(n) ? null : { current: Math.min(n, pet.level), max: n } }
+      if (id.startsWith('streak')) { const n = parseInt(id.replace('streak', '')); return isNaN(n) ? null : { current: Math.min(n, pet.streak), max: n } }
+      if (id.startsWith('battle')) { const n = parseInt(id.replace('battle', '')); return isNaN(n) ? null : { current: Math.min(n, pet.battleWins), max: n } }
+      if (id.startsWith('fish')) { const n = parseInt(id.replace('fish', '')); return isNaN(n) ? null : { current: Math.min(n, pet.fishCaught), max: n } }
+      if (id.startsWith('expedition')) { const n = parseInt(id.replace('expedition', '')); return isNaN(n) ? null : { current: Math.min(n, pet.expeditionsDone), max: n } }
+      if (id.startsWith('runner')) { const n = parseInt(id.replace('runner', '')); return isNaN(n) ? null : { current: Math.min(n, pet.runnerBest), max: n } }
+      return null
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🏆 Prestationer <span style={{ fontSize: 14, color: '#888' }}>{unlockedAchievements.length}/{ALL_ACHIEVEMENTS.length}</span></div>
+        <div className={styles.achGrid}>
+          {ALL_ACHIEVEMENTS.map(ach => {
+            const unlocked = unlockedAchievements.includes(ach.id)
+            const rarityColor = { common: '#888', uncommon: '#4ade80', rare: '#60a5fa', epic: '#a855f7', legendary: '#fbbf24' }[ach.rarity]
+            const prog = !unlocked ? getAchProgress(ach.id) : null
+            const pct = prog ? Math.round((prog.current / prog.max) * 100) : 0
+            return (
+              <div key={ach.id} className={`${styles.achCard} ${!unlocked ? styles.achLocked : ''}`} style={{ borderColor: unlocked ? rarityColor : pct >= 50 ? `${rarityColor}55` : 'rgba(255,255,255,0.06)' }}>
+                <div className={styles.achEmoji}>{unlocked ? ach.emoji : pct >= 75 ? '⏳' : '🔒'}</div>
+                <div className={styles.achTitle} style={{ color: unlocked ? rarityColor : pct >= 50 ? `${rarityColor}` : '#555' }}>{ach.title}</div>
+                <div className={styles.achDesc}>{ach.description}</div>
+                {unlocked && <div className={styles.achReward}>+{ach.reward.xp}XP{ach.reward.kc ? ` +${ach.reward.kc}KC` : ''}</div>}
+                {!unlocked && prog && (
+                  <div style={{ marginTop: 4, width: '100%' }}>
+                    <div style={{ background: 'rgba(0,0,0,.4)', borderRadius: 3, height: 3, overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${pct}%`, background: pct >= 75 ? rarityColor : 'rgba(255,255,255,.2)', borderRadius: 3, transition: 'width .3s' }} />
+                    </div>
+                    <div style={{ fontSize: 8, color: 'var(--t3)', marginTop: 2, textAlign: 'center' }}>{prog.current}/{prog.max}</div>
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 
   // ── Wardrobe panel ──────────────────────────────────────────────────────────
   if (panel === 'wardrobe') return (
@@ -451,29 +473,86 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
 
   // ── Leaderboard panel ───────────────────────────────────────────────────────
   if (panel === 'leaderboard') {
-    const FAKE_LB = [
-      { name: 'ZenMaster', emoji: '🐼', level: 42, taps: 98234 },
-      { name: 'VoidHunter', emoji: '🐺', level: 38, taps: 87122 },
-      { name: 'LunaDrake', emoji: '🐉', level: 35, taps: 72341 },
-      { name: pet.petName, emoji: pet.petEmoji, level: pet.level, taps: pet.totalTaps },
-      { name: 'StarPaws', emoji: '🐱', level: 28, taps: 45123 },
-      { name: 'AquaFisher', emoji: '🐸', level: 22, taps: 34567 },
+    const FAKE_ENTRIES = [
+      { name: 'DragonMaster99', emoji: '🐲', level: 87, taps: 524000, streak: 45 },
+      { name: 'UnicornQueen',   emoji: '🦄', level: 74, taps: 398300, streak: 32 },
+      { name: 'InfernoKing',    emoji: '🔥', level: 68, taps: 301200, streak: 28 },
+      { name: 'MoonWalker',     emoji: '🌙', level: 61, taps: 238700, streak: 21 },
+      { name: 'ZenMaster',      emoji: '🐼', level: 55, taps: 187500, streak: 18 },
+      { name: 'VoidHunter',     emoji: '🐺', level: 48, taps: 142300, streak: 14 },
+      { name: 'LunaDrake',      emoji: '🐉', level: 42, taps: 112100, streak: 11 },
+      { name: 'StarPaws',       emoji: '🐱', level: 35, taps: 84500,  streak: 9  },
+      { name: 'AquaFisher',     emoji: '🐸', level: 28, taps: 62300,  streak: 7  },
+      { name: 'NeonRacer',      emoji: '🦊', level: 22, taps: 43100,  streak: 5  },
+    ]
+    const allEntries = [
+      ...FAKE_ENTRIES,
+      { name: pet.petName, emoji: pet.petEmoji, level: pet.level, taps: pet.totalTaps, streak: pet.streak, isMe: true },
     ].sort((a, b) => b.taps - a.taps)
+    const userRank = allEntries.findIndex(e => 'isMe' in e && e.isMe) + 1
+    const top3 = allEntries.slice(0, 3)
+    const rest = allEntries.slice(3)
+    const MEDAL_COLOR = ['#ffcc00', '#aaaaaa', '#cd7f32']
     return (
       <div className={styles.panelRoot}>
         <BackBtn />
-        <div className={styles.panelTitle}>🏅 Topplista</div>
-        {FAKE_LB.map((p, i) => (
-          <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 12, background: p.name === pet.petName ? 'rgba(168,85,247,0.1)' : 'rgba(255,255,255,0.04)', border: `1px solid ${p.name === pet.petName ? 'rgba(168,85,247,0.3)' : 'rgba(255,255,255,0.07)'}`, borderRadius: 14, padding: '12px 14px', marginBottom: 8 }}>
-            <span style={{ fontFamily: 'var(--ff-head)', fontSize: 18, color: ['#fbbf24', '#888', '#cd7f32', '#888', '#888', '#888'][i], width: 28 }}>{['🥇', '🥈', '🥉', '4', '5', '6'][i]}</span>
-            <span style={{ fontSize: 28 }}>{p.emoji}</span>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 700, color: p.name === pet.petName ? '#a855f7' : '#e8e8f0' }}>{p.name}</div>
-              <div style={{ fontSize: 12, color: '#888' }}>LV{p.level}</div>
+        <div className={styles.panelTitle}>🏅 Global Topplista</div>
+        <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--t3)', marginBottom: 16 }}>
+          Din rank: <span style={{ color: 'var(--purple)', fontWeight: 900, fontSize: 14 }}>#{userRank}</span> av {allEntries.length}
+        </div>
+
+        {/* Podium top 3 */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 8, marginBottom: 18 }}>
+          {[top3[1], top3[0], top3[2]].map((p, podiumIdx) => {
+            const rank = podiumIdx === 0 ? 2 : podiumIdx === 1 ? 1 : 3
+            const height = podiumIdx === 1 ? 90 : podiumIdx === 0 ? 72 : 56
+            const isMe = 'isMe' in p && p.isMe
+            return (
+              <div key={p.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 90 }}>
+                <div style={{ fontSize: 28, marginBottom: 2 }}>{p.emoji}</div>
+                <div style={{ fontSize: 10, fontWeight: 900, color: isMe ? 'var(--purple)' : '#fff', marginBottom: 4, textAlign: 'center', maxWidth: 80, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>
+                <div style={{
+                  width: '100%', height,
+                  background: `linear-gradient(180deg, ${MEDAL_COLOR[rank - 1]}22, ${MEDAL_COLOR[rank - 1]}11)`,
+                  border: `1px solid ${MEDAL_COLOR[rank - 1]}55`,
+                  borderRadius: '8px 8px 0 0',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start',
+                  paddingTop: 8,
+                }}>
+                  <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, color: MEDAL_COLOR[rank - 1] }}>
+                    {rank === 1 ? '🥇' : rank === 2 ? '🥈' : '🥉'}
+                  </div>
+                  <div style={{ fontSize: 9, color: MEDAL_COLOR[rank - 1], fontWeight: 900 }}>{formatNumber(p.taps)}</div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Ranks 4+ */}
+        {rest.map((p, i) => {
+          const rank = i + 4
+          const isMe = 'isMe' in p && p.isMe
+          return (
+            <div key={p.name} style={{
+              display: 'flex', alignItems: 'center', gap: 12,
+              background: isMe ? 'rgba(170,102,255,.12)' : 'rgba(255,255,255,.04)',
+              border: `1px solid ${isMe ? 'rgba(170,102,255,.4)' : 'rgba(255,255,255,.07)'}`,
+              borderRadius: 14, padding: '10px 14px', marginBottom: 8,
+              boxShadow: isMe ? '0 0 16px rgba(170,102,255,.2)' : 'none',
+            }}>
+              <span style={{ fontFamily: 'var(--ff-head)', fontSize: 14, color: 'var(--t3)', width: 24, textAlign: 'center' }}>#{rank}</span>
+              <span style={{ fontSize: 24 }}>{p.emoji}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 13, color: isMe ? 'var(--purple)' : '#e8e8f0' }}>
+                  {p.name}{isMe ? ' 👈 Du' : ''}
+                </div>
+                <div style={{ fontSize: 10, color: 'var(--t3)' }}>LV{p.level} · {p.streak}🔥</div>
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--gold)', fontWeight: 700 }}>👆{formatNumber(p.taps)}</div>
             </div>
-            <div style={{ fontSize: 13, color: '#fbbf24' }}>👆{formatNumber(p.taps)}</div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     )
   }

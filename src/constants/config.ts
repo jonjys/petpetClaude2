@@ -206,6 +206,14 @@ export const FLASH_SAMPLE_POSTS = [
   { id: 'f12', username: 'TunaHunter', petEmoji: '🦈', petLevel: 9, caption: 'Fiskespelet gav mig 3 legendärer på rad 🎣🎣🎣', likes: 388, xpReward: 25, tag: '#fishing', liked: false },
   { id: 'f13', username: 'QuietPanda', petEmoji: '🐼', petLevel: 4, caption: 'Craftat min första Regnbåge-Kit ✨ stats maxade!', likes: 77, xpReward: 12, tag: '#craft', liked: false },
   { id: 'f14', username: 'EliteWolf', petEmoji: '🐺', petLevel: 30, caption: '100 stridssegrar!! Oövervinnerlig ⚔️👑', likes: 2048, xpReward: 75, tag: '#battle', liked: false },
+  { id: 'f15', username: 'CosmoKat', petEmoji: '🐱', petLevel: 14, caption: 'Lyckhjulet snurrade på 5 KC!! 🎰💎 Dag 3 av rad!', likes: 631, xpReward: 30, tag: '#lucky', liked: false },
+  { id: 'f16', username: 'SpeedRunner', petEmoji: '🦅', petLevel: 11, caption: 'NY REKORD 1243m i Runner! 🏃💨 Beat my old 890!', likes: 289, xpReward: 22, tag: '#runner', liked: false },
+  { id: 'f17', username: 'CrystalMage', petEmoji: '🦋', petLevel: 17, caption: 'Expedition till Astral Rift klar 🌌 +1500 XP värd varje minut!', likes: 540, xpReward: 40, tag: '#expedition', liked: false },
+  { id: 'f18', username: 'NovaFox', petEmoji: '🦊', petLevel: 13, caption: 'Soulmate tier med min räv!! Det tog 1500 bond points 💚', likes: 712, xpReward: 45, tag: '#bond', liked: false },
+  { id: 'f19', username: 'BlazeKnight', petEmoji: '🔥', petLevel: 22, caption: 'Skin "Fire" + Aura "Fire" = ultimate look 🔥🔥🔥 tryck på mig', likes: 853, xpReward: 35, tag: '#fashion', liked: false },
+  { id: 'f20', username: 'QuantumPup', petEmoji: '🐶', petLevel: 8, caption: 'Första veckan klar! Tipps till nya: mata varje dag 🍖🐾', likes: 156, xpReward: 15, tag: '#tips', liked: false },
+  { id: 'f21', username: 'TitanPanda', petEmoji: '🐼', petLevel: 45, caption: 'Level 45. Prestige 2. 50,000 pek. Det är dedication 🏆✨', likes: 3201, xpReward: 100, tag: '#milestone', liked: false },
+  { id: 'f22', username: 'GhostWhale', petEmoji: '👻', petLevel: 19, caption: 'Fångade Spöklax IGEN — twice in one session!! RNG GOD 🎣', likes: 924, xpReward: 50, tag: '#fishing', liked: false },
 ]
 
 // ── Feature Hub entries ───────────────────────────────────────────────────────
