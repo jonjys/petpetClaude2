@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useState, useEffect } from 'react'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
 import { formatNumber } from '@/utils/format'
@@ -119,6 +119,13 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
   // Expedition
   const [activeExp, setActiveExp] = useState<string | null>(localStorage.getItem('k0509_activeExp'))
   const [expEnd, setExpEnd] = useState<number>(Number(localStorage.getItem('k0509_expEnd') ?? 0))
+  const [now, setNow] = useState(Date.now())
+
+  useEffect(() => {
+    if (!activeExp) return
+    const iv = setInterval(() => setNow(Date.now()), 1000)
+    return () => clearInterval(iv)
+  }, [activeExp])
 
   const startExp = (id: string, minutes: number) => {
     const end = Date.now() + minutes * 60000
@@ -213,7 +220,6 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
 
   // ── Expedition panel ────────────────────────────────────────────────────────
   if (panel === 'expedition') {
-    const now = Date.now()
     const expDone = activeExp && now >= expEnd
     const currentExp = EXPEDITIONS.find(e => e.id === activeExp)
     const remaining = activeExp && !expDone ? Math.max(0, expEnd - now) : 0
