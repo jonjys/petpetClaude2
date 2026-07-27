@@ -51,6 +51,9 @@ export interface PetState {
   activityLog: Record<string, number>
   // Pet theme
   petTheme: string
+  // Active boosts
+  x2xpExpiry: number   // timestamp; 0 = inactive
+  streakShields: number
 }
 
 export interface DailyMission {

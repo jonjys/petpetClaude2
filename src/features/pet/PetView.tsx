@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState, useMemo } from 'react'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
 import { useSettingsStore } from '@/stores/settingsStore'
@@ -92,7 +92,11 @@ export const PetView = memo(function PetView() {
   useEffect(() => {
     const result = checkStreak()
     if (result.extended) {
-      showToast(`🔥 Streak ${result.newStreak} dag! +${result.coins}💰${result.kc > 0 ? ` +${result.kc}💎` : ''}`, 'success')
+      if (result.shieldUsed) {
+        showToast(`🛡️ Streak-sköld aktiverad! Streak ${result.newStreak} skyddad`, 'info')
+      } else {
+        showToast(`🔥 Streak ${result.newStreak} dag! +${result.coins}💰${result.kc > 0 ? ` +${result.kc}💎` : ''}`, 'success')
+      }
       pushNotif('🔥', `Streak dag ${result.newStreak}! +${result.coins} mynt`)
       if (result.kc > 0) audio.achievement()
     }
@@ -174,6 +178,8 @@ export const PetView = memo(function PetView() {
 
   const xpPct = Math.min(100, (pet.exp / pet.expNext) * 100)
   const evolutionStage = getEvolutionStage(pet.level)
+  const x2xpActive = useMemo(() => pet.x2xpExpiry > Date.now(), [pet.x2xpExpiry])
+  const x2xpMinsLeft = useMemo(() => Math.max(0, Math.ceil((pet.x2xpExpiry - Date.now()) / 60000)), [pet.x2xpExpiry])
 
   // Bond progress to next tier
   const bondCurrent = pet.bondTier < 5 ? BOND_THRESHOLDS[pet.bondTier] : BOND_THRESHOLDS[4]
@@ -234,6 +240,32 @@ export const PetView = memo(function PetView() {
             style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 16, cursor: 'pointer', padding: 4 }}
             onClick={() => { setEventDismissed(true); localStorage.setItem('k0509_event_dismissed', '1') }}
           >✕</button>
+        </div>
+      )}
+
+      {/* Active boost indicators */}
+      {(x2xpActive || pet.streakShields > 0) && (
+        <div style={{ display: 'flex', gap: 8, padding: '0 14px 8px' }}>
+          {x2xpActive && (
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 5,
+              background: 'rgba(68,136,255,.15)', border: '1px solid rgba(68,136,255,.4)',
+              borderRadius: 10, padding: '4px 10px',
+              fontFamily: 'var(--ff-head)', fontSize: 11, fontWeight: 900, color: 'var(--blue)',
+            }}>
+              ⚡ 2× XP <span style={{ fontSize: 9, fontWeight: 400, color: 'var(--t3)', marginLeft: 2 }}>{x2xpMinsLeft}min kvar</span>
+            </div>
+          )}
+          {pet.streakShields > 0 && (
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 5,
+              background: 'rgba(0,255,136,.1)', border: '1px solid rgba(0,255,136,.3)',
+              borderRadius: 10, padding: '4px 10px',
+              fontFamily: 'var(--ff-head)', fontSize: 11, fontWeight: 900, color: 'var(--green)',
+            }}>
+              🛡️ Streak sköld ×{pet.streakShields}
+            </div>
+          )}
         </div>
       )}
 
