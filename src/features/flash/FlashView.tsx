@@ -6,9 +6,22 @@ import { audio } from '@/services/AudioService'
 import { FLASH_SAMPLE_POSTS } from '@/constants/config'
 import type { FlashPost } from '@/types/game'
 
-type SubTab = 'forYou' | 'explore' | 'uppdrag'
+type SubTab = 'forYou' | 'explore' | 'uppdrag' | 'topplista'
 
 const TRENDING = ['#levelup', '#battle', '#fishing', '#streak', '#boss', '#karma', '#daily']
+
+const TOP_PLAYERS = [
+  { rank: 1,  emoji: '🐲', name: 'DragonMaster99', level: 87, coins: 142500, streak: 45, badge: '👑' },
+  { rank: 2,  emoji: '🦄', name: 'UnicornQueen',   level: 74, coins: 98300,  streak: 32, badge: '🥈' },
+  { rank: 3,  emoji: '🔥', name: 'InfernoKing',    level: 68, coins: 87000,  streak: 28, badge: '🥉' },
+  { rank: 4,  emoji: '🌙', name: 'MoonWalker',     level: 61, coins: 72100,  streak: 21, badge: '' },
+  { rank: 5,  emoji: '⚡', name: 'ThunderGod',     level: 55, coins: 65400,  streak: 19, badge: '' },
+  { rank: 6,  emoji: '🎯', name: 'PrecisionX',     level: 50, coins: 58800,  streak: 17, badge: '' },
+  { rank: 7,  emoji: '🌊', name: 'OceanBreeze',    level: 46, coins: 52000,  streak: 14, badge: '' },
+  { rank: 8,  emoji: '💎', name: 'CrystalKnight',  level: 42, coins: 47300,  streak: 12, badge: '' },
+  { rank: 9,  emoji: '🌸', name: 'SakuraPetal',    level: 39, coins: 41100,  streak: 10, badge: '' },
+  { rank: 10, emoji: '🤖', name: 'CyberBot2049',   level: 35, coins: 36500,  streak: 8,  badge: '' },
+]
 
 export const FlashView = memo(function FlashView() {
   const [subTab, setSubTab] = useState<SubTab>('forYou')
@@ -73,6 +86,9 @@ export const FlashView = memo(function FlashView() {
           </div>
           <div className={`ftab${subTab === 'uppdrag' ? ' on' : ''}`} onClick={() => setSubTab('uppdrag')}>
             Uppdrag<span className="ftab-cnt">3</span>
+          </div>
+          <div className={`ftab${subTab === 'topplista' ? ' on' : ''}`} onClick={() => setSubTab('topplista')}>
+            Topplista<span className="ftab-cnt">🏆</span>
           </div>
         </div>
       </div>
@@ -203,6 +219,53 @@ export const FlashView = memo(function FlashView() {
             disabled={pet.battleWins < 5}
             onClaim={() => { awardCoins(100); useGameStore.getState().gainKC(3); showToast('⚔️ +100🪙 +3 KC!', 'success') }}
           />
+          <div className="vend" />
+        </div>
+      )}
+
+      {subTab === 'topplista' && (
+        <div style={{ padding: '0 14px', overflowY: 'auto', paddingTop: 'calc(var(--sat, 0px) + 105px)', paddingBottom: 80 }}>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#fff', margin: '12px 0 16px', textAlign: 'center', letterSpacing: 1 }}>
+            🏆 TOPPLISTA — VECKANS BÄSTA
+          </div>
+          {TOP_PLAYERS.map((p, i) => (
+            <div
+              key={p.rank}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                background: i < 3
+                  ? `rgba(${i === 0 ? '255,204,0' : i === 1 ? '200,200,200' : '205,127,50'},.08)`
+                  : 'rgba(255,255,255,.03)',
+                border: `1px solid ${i < 3 ? `rgba(${i === 0 ? '255,204,0' : i === 1 ? '200,200,200' : '205,127,50'},.25)` : 'rgba(255,255,255,.06)'}`,
+                borderRadius: 14,
+                padding: '10px 12px',
+                marginBottom: 6,
+              }}
+            >
+              <div style={{ fontSize: 16, fontWeight: 900, color: i < 3 ? 'var(--gold)' : 'var(--t3)', width: 20, textAlign: 'center' }}>
+                {p.badge || `#${p.rank}`}
+              </div>
+              <div style={{ fontSize: 26 }}>{p.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color: '#fff' }}>{p.name}</div>
+                <div style={{ fontSize: 10, color: 'var(--t3)' }}>LV{p.level} · {p.streak}🔥 streak</div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--gold)' }}>🪙{(p.coins / 1000).toFixed(1)}k</div>
+              </div>
+            </div>
+          ))}
+          <div style={{ textAlign: 'center', padding: '16px 0', fontSize: 11, color: 'var(--t3)' }}>
+            Rankning uppdateras varje måndag 00:00
+          </div>
+          <div style={{ textAlign: 'center', padding: '8px 14px 20px' }}>
+            <div style={{ background: 'rgba(255,204,0,.08)', border: '1px solid rgba(255,204,0,.2)', borderRadius: 14, padding: '12px 16px' }}>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 4 }}>DIN PLACERING</div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: 'var(--gold)' }}>
+                #{Math.max(11, 11 + (100 - pet.level))} · LV{pet.level}
+              </div>
+            </div>
+          </div>
           <div className="vend" />
         </div>
       )}

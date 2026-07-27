@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useState, useMemo } from 'react'
 import { useGame } from '@/hooks/useGame'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
@@ -37,6 +37,17 @@ export const GamesView = memo(function GamesView() {
   const runnerBest = useGameStore(s => s.pet.runnerBest)
   const battleWins = useGameStore(s => s.pet.battleWins)
   const fishCaught = useGameStore(s => s.pet.fishCaught)
+
+  const weekChallenge = useMemo(() => {
+    const msPerWeek = 7 * 24 * 60 * 60 * 1000
+    const weekNum = Math.floor(Date.now() / msPerWeek)
+    const challenges = [
+      { title: 'Vinn 10 Strider', goal: 10, current: battleWins, game: 'battle', reward: '500 🪙 + 20 KC', emoji: '⚔️' },
+      { title: 'Fånga 20 Fiskar', goal: 20, current: fishCaught, game: 'fishing', reward: '400 🪙 + 15 KC', emoji: '🎣' },
+      { title: 'Spring 300m', goal: 300, current: runnerBest, game: 'runner', reward: '300 🪙 + 10 KC', emoji: '🏃' },
+    ]
+    return challenges[weekNum % challenges.length]
+  }, [battleWins, fishCaught, runnerBest])
 
   const handleGenericWin = (coins: number, xp: number) => {
     awardCoins(coins); awardXP(xp, 'game'); audio.achievement()
@@ -82,6 +93,42 @@ export const GamesView = memo(function GamesView() {
       <div className="games-header-2027">
         <div className="games-title-2027">🎮 GAMES</div>
         <div className="games-daily-xp-badge">+{(battleWins + fishCaught) * 10} XP idag</div>
+      </div>
+
+      {/* Weekly Challenge */}
+      <div style={{ padding: '0 14px 12px' }}>
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(170,102,255,.12), rgba(68,136,255,.08))',
+          border: '1px solid rgba(170,102,255,.3)',
+          borderRadius: 16,
+          padding: '12px 14px',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 16 }}>🗓️</span>
+              <span style={{ fontFamily: 'var(--ff-head)', fontSize: 12, fontWeight: 900, color: 'var(--purple)', letterSpacing: 1 }}>VECKANS UTMANING</span>
+            </div>
+            <span style={{ fontSize: 10, color: 'var(--t3)' }}>Återst. måndag</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 28 }}>{weekChallenge.emoji}</span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 700, color: '#fff', marginBottom: 4 }}>{weekChallenge.title}</div>
+              <div style={{ background: 'rgba(0,0,0,.3)', borderRadius: 6, height: 6, overflow: 'hidden' }}>
+                <div style={{
+                  height: '100%',
+                  width: `${Math.min(100, (weekChallenge.current / weekChallenge.goal) * 100)}%`,
+                  background: 'linear-gradient(90deg, var(--purple), var(--blue))',
+                  borderRadius: 6,
+                  transition: 'width .4s',
+                }} />
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 3 }}>
+                {Math.min(weekChallenge.current, weekChallenge.goal)}/{weekChallenge.goal} · {weekChallenge.reward}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: 8, padding: '0 14px 12px', overflowX: 'auto', scrollbarWidth: 'none' }}>

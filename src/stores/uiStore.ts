@@ -17,6 +17,8 @@ interface UIStore {
   confettiActive: boolean
   notifications: Notification[]
   notifCount: number
+  dailyBonusVisible: boolean
+  dailyBonusData: { streak: number; coins: number; kc: number } | null
 
   setTab: (tab: TabId) => void
   openPanelId: (id: string) => void
@@ -31,6 +33,8 @@ interface UIStore {
   triggerConfetti: () => void
   pushNotif: (icon: string, text: string) => void
   markNotifsRead: () => void
+  showDailyBonus: (data: { streak: number; coins: number; kc: number }) => void
+  hideDailyBonus: () => void
 }
 
 export const useUIStore = create<UIStore>()((set, get) => ({
@@ -43,6 +47,8 @@ export const useUIStore = create<UIStore>()((set, get) => ({
   confettiActive: false,
   notifications: storageGet<Notification[]>(NOTIFS_KEY, []).slice(0, 30),
   notifCount: storageGet<Notification[]>(NOTIFS_KEY, []).filter(n => !n.read).length,
+  dailyBonusVisible: false,
+  dailyBonusData: null,
 
   setTab(tab) { set({ activeTab: tab, openPanel: null, fabOpen: false }) },
   openPanelId(id) { set({ openPanel: id, fabOpen: false }) },
@@ -96,4 +102,7 @@ export const useUIStore = create<UIStore>()((set, get) => ({
       return { notifications: updated, notifCount: 0 }
     })
   },
+
+  showDailyBonus(data) { set({ dailyBonusVisible: true, dailyBonusData: data }) },
+  hideDailyBonus() { set({ dailyBonusVisible: false, dailyBonusData: null }) },
 }))

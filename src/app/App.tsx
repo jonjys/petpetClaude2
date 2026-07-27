@@ -1,11 +1,14 @@
 import { memo, useEffect, Suspense, lazy, useRef } from 'react'
 import { useUIStore } from '@/stores/uiStore'
+import { useGameStore } from '@/stores/gameStore'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { Toast } from '@/components/ui/Toast'
 import { FloatText } from '@/components/ui/FloatText'
 import { Confetti } from '@/components/ui/Confetti'
 import { NotificationsPanel } from '@/components/ui/NotificationsPanel'
+import { DailyBonusModal } from '@/components/ui/DailyBonusModal'
+import { AchievementUnlockOverlay } from '@/components/ui/AchievementUnlockOverlay'
 import { PetView } from '@/features/pet/PetView'
 import { startAutoSave, startDecayTick } from '@/services/SaveService'
 
@@ -36,12 +39,18 @@ const Spinner = () => (
 export const App = memo(function App() {
   const activeTab = useUIStore(s => s.activeTab)
   const openPanel = useUIStore(s => s.openPanel)
+  const dailyBonusVisible = useUIStore(s => s.dailyBonusVisible)
+  const showDailyBonus = useUIStore(s => s.showDailyBonus)
   const tickerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     startAutoSave()
     startDecayTick()
-  }, [])
+    const result = useGameStore.getState().checkStreak()
+    if (result.extended) {
+      showDailyBonus({ streak: result.newStreak, coins: result.coins, kc: result.kc })
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   /* Ambient emoji rain — same as legacy */
   useEffect(() => {
@@ -118,6 +127,8 @@ export const App = memo(function App() {
       <FloatText />
       <Confetti />
       {openPanel === 'notifications' && <NotificationsPanel />}
+      {dailyBonusVisible && <DailyBonusModal />}
+      <AchievementUnlockOverlay />
     </>
   )
 })
