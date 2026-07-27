@@ -32,6 +32,16 @@ const TAP_BUBBLES = [
   '😊', '🔥', '⚡', '💪', 'YO!', 'GG!', '💎', '🚀', 'NOICE', 'LFG!', '✨', 'EZ', 'POP!',
 ]
 
+const SKIN_FILTER: Record<string, string> = {
+  skin_fire:   'drop-shadow(0 0 12px #ff4422) saturate(1.5) hue-rotate(-15deg)',
+  skin_ice:    'drop-shadow(0 0 12px #44aaff) saturate(0.7) brightness(1.2)',
+  skin_gold:   'drop-shadow(0 0 14px #ffcc00) saturate(1.3) brightness(1.1)',
+  skin_galaxy: 'drop-shadow(0 0 16px #aa44ff) hue-rotate(20deg) saturate(1.4)',
+  skin_ghost:  'drop-shadow(0 0 10px #ffffff55) grayscale(0.7) brightness(1.3)',
+  skin_cyber:  'drop-shadow(0 0 12px #00ff88) saturate(1.6) hue-rotate(100deg)',
+  kc_dragon:   'drop-shadow(0 0 18px #ff44aa) saturate(1.8) hue-rotate(300deg)',
+}
+
 function levelRingColor(level: number): string {
   if (level >= 30) return '#ff3377'
   if (level >= 20) return '#ffcc00'
@@ -300,6 +310,7 @@ export const PetView = memo(function PetView() {
               className="pet-emoji-big"
               onClick={handleTap}
               onTouchStart={handleTap}
+              style={SKIN_FILTER[pet.activeSkin] ? { filter: SKIN_FILTER[pet.activeSkin] } : undefined}
             >
               {pet.petEmoji}
             </div>

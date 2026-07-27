@@ -293,17 +293,92 @@ export const FlashView = memo(function FlashView() {
       )}
 
       {subTab === 'explore' && (
-        <div className="explore-grid" style={{ display: 'grid', overflowY: 'auto', paddingTop: 'calc(var(--sat, 0px) + 105px)' }}>
-          {posts.slice(0, 6).map(post => (
-            <div
-              key={post.id}
-              style={{ background: 'rgba(255,45,120,.08)', borderRadius: 12, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, cursor: 'pointer', border: '1px solid rgba(255,45,120,.2)' }}
-              onClick={() => setSubTab('forYou')}
-            >
-              <span style={{ fontSize: 28 }}>{post.petEmoji}</span>
-              <span style={{ fontSize: 11, color: 'var(--pink)', fontWeight: 700 }}>{post.tag}</span>
+        <div style={{ overflowY: 'auto', paddingTop: 'calc(var(--sat, 0px) + 105px)', paddingBottom: 80 }}>
+          {/* Trending topics */}
+          <div style={{ padding: '4px 14px 14px' }}>
+            <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', letterSpacing: 1, marginBottom: 10 }}>🔥 TRENDAR NU</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
+              {TRENDING.map((tag, i) => {
+                const COLORS = ['var(--pink)', 'var(--purple)', 'var(--blue)', 'var(--green)', 'var(--gold)', 'var(--orange)', 'var(--red)']
+                const color = COLORS[i % COLORS.length]
+                const postsWithTag = posts.filter(p => p.tag === tag || p.caption.includes(tag))
+                return (
+                  <div
+                    key={tag}
+                    style={{
+                      background: `rgba(255,255,255,.04)`,
+                      border: `1px solid ${color}44`,
+                      borderRadius: 12, padding: '12px 14px', cursor: 'pointer',
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    }}
+                    onClick={() => {
+                      awardXP(3, 'explore')
+                      showToast(`${tag} · ${postsWithTag.length || Math.floor(Math.random() * 200 + 50)} inlägg`, 'info')
+                      audio.tap()
+                    }}
+                  >
+                    <div>
+                      <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color }}>{tag}</div>
+                      <div style={{ fontSize: 9, color: 'var(--t3)', marginTop: 2 }}>{Math.floor(Math.random() * 200 + 50) + i * 37} inlägg</div>
+                    </div>
+                    <span style={{ fontSize: 18, opacity: 0.6 }}>→</span>
+                  </div>
+                )
+              })}
             </div>
-          ))}
+          </div>
+
+          {/* Hot right now */}
+          <div style={{ padding: '0 14px 14px' }}>
+            <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', letterSpacing: 1, marginBottom: 10 }}>💥 HETT JUST NU</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[...posts].sort((a, b) => b.likes - a.likes).slice(0, 4).map(post => (
+                <div
+                  key={post.id}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 10,
+                    background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.07)',
+                    borderRadius: 12, padding: '10px 12px', cursor: 'pointer',
+                  }}
+                  onClick={() => { setSubTab('forYou'); audio.tap() }}
+                >
+                  <div style={{ fontSize: 28 }}>{post.petEmoji}</div>
+                  <div style={{ flex: 1, overflow: 'hidden' }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{post.username}</div>
+                    <div style={{ fontSize: 11, color: 'var(--t3)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{post.caption}</div>
+                  </div>
+                  <div style={{ fontSize: 11, color: 'var(--pink)', fontWeight: 700, flexShrink: 0 }}>❤️ {post.likes}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Suggested players */}
+          <div style={{ padding: '0 14px 14px' }}>
+            <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', letterSpacing: 1, marginBottom: 10 }}>👤 FÖRESLAGNA SPELARE</div>
+            <div style={{ display: 'flex', gap: 10, overflowX: 'auto', scrollbarWidth: 'none' }}>
+              {TOP_PLAYERS.slice(0, 6).map(p => (
+                <div
+                  key={p.name}
+                  style={{
+                    flex: '0 0 auto', minWidth: 80,
+                    background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)',
+                    borderRadius: 14, padding: '12px 10px', textAlign: 'center', cursor: 'pointer',
+                  }}
+                  onClick={() => { awardXP(2, 'explore'); audio.tap(); showToast(`➕ Följer ${p.name}!`, 'success') }}
+                >
+                  <div style={{ fontSize: 26 }}>{p.emoji}</div>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: '#fff', marginTop: 4, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 70 }}>{p.name}</div>
+                  <div style={{ fontSize: 8, color: 'var(--t3)', marginTop: 2 }}>LV{p.level}</div>
+                  <div style={{
+                    marginTop: 6, fontSize: 9, fontWeight: 700, color: 'var(--purple)',
+                    background: 'rgba(170,102,255,.15)', border: '1px solid rgba(170,102,255,.3)',
+                    borderRadius: 8, padding: '2px 6px',
+                  }}>+ Följ</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 

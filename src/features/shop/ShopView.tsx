@@ -38,12 +38,33 @@ const FEATURED_DEALS: (ShopItem & { originalPrice: number; discount: number })[]
   { ...SHOP_KC[2],     originalPrice: 20,  price: 15,  discount: 25 },
 ]
 
+const EQUIP_SLOT: Partial<Record<Tab, 'hat' | 'acc' | 'aura'>> = {
+  hats: 'hat', acc: 'acc', aura: 'aura',
+}
+
 export const ShopView = memo(function ShopView() {
   const [activeTab, setActiveTab] = useState<Tab>('featured')
   const pet = useGameStore(s => s.pet)
   const buyShopItem = useGameStore(s => s.buyShopItem)
+  const equipItem = useGameStore(s => s.equipItem)
   const showToast = useUIStore(s => s.showToast)
   const pushNotif = useUIStore(s => s.pushNotif)
+
+  const handleEquip = (item: ShopItem) => {
+    const slot = EQUIP_SLOT[activeTab as Tab]
+    if (slot) {
+      equipItem(slot, item.id)
+      showToast(`${item.emoji} ${item.name} utrustad!`, 'success')
+      audio.click()
+      return
+    }
+    if (activeTab === 'skins') {
+      useGameStore.setState(s => ({ pet: { ...s.pet, activeSkin: item.id } }))
+      useGameStore.getState().save()
+      showToast(`${item.emoji} ${item.name} aktiverad!`, 'success')
+      audio.click()
+    }
+  }
 
   const timeLeft = useMemo(() => {
     const now = Date.now()
@@ -155,19 +176,40 @@ export const ShopView = memo(function ShopView() {
           {ITEMS_MAP[activeTab as Exclude<Tab, 'featured'>].map(item => {
             const owned = pet.ownedItems.includes(item.id)
             const canAfford = (item.currency === 'coins' ? pet.coins : pet.kc) >= item.price
+            const slot = EQUIP_SLOT[activeTab as Tab]
+            const equipped = slot
+              ? pet.wardrobe[slot] === item.id
+              : activeTab === 'skins' ? pet.activeSkin === item.id : false
+            const isEquippable = owned && (slot !== undefined || activeTab === 'skins')
             return (
-              <div key={item.id} className={`${styles.card} ${!canAfford ? styles.locked : ''}`}>
+              <div
+                key={item.id}
+                className={`${styles.card} ${!canAfford && !owned ? styles.locked : ''} ${equipped ? styles.equipped ?? '' : ''}`}
+                style={equipped ? { border: '1px solid var(--green)', background: 'rgba(0,255,136,.07)' } : undefined}
+              >
                 <div className={styles.cardEmoji}>{item.emoji}</div>
                 <div className={styles.cardName}>{item.name}</div>
                 <div className={styles.cardDesc}>{item.description}</div>
-                <button
-                  className={owned ? `btn-ghost ${styles.ownedBtn}` : 'btn-primary'}
-                  style={{ width: '100%', marginTop: 6, fontSize: 13, padding: '7px 8px' }}
-                  onClick={() => !owned && handleBuy(item)}
-                  disabled={owned || !canAfford}
-                >
-                  {owned ? '✅ Äger' : `${item.currency === 'kc' ? '💎' : '🪙'}${formatNumber(item.price)}`}
-                </button>
+                {equipped && <div style={{ fontSize: 8, color: 'var(--green)', fontWeight: 900, letterSpacing: 1, marginTop: 2 }}>✓ UTRUSTAD</div>}
+                {isEquippable ? (
+                  <button
+                    className={equipped ? `btn-ghost ${styles.ownedBtn}` : 'btn-primary'}
+                    style={{ width: '100%', marginTop: 6, fontSize: 12, padding: '7px 8px' }}
+                    onClick={() => handleEquip(item)}
+                    disabled={equipped}
+                  >
+                    {equipped ? '✅ Aktivt' : '👕 Utrusta'}
+                  </button>
+                ) : (
+                  <button
+                    className={owned ? `btn-ghost ${styles.ownedBtn}` : 'btn-primary'}
+                    style={{ width: '100%', marginTop: 6, fontSize: 13, padding: '7px 8px' }}
+                    onClick={() => !owned && handleBuy(item)}
+                    disabled={owned || !canAfford}
+                  >
+                    {owned ? '✅ Äger' : `${item.currency === 'kc' ? '💎' : '🪙'}${formatNumber(item.price)}`}
+                  </button>
+                )}
               </div>
             )
           })}
