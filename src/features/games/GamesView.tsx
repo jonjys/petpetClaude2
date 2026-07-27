@@ -31,6 +31,7 @@ export const GamesView = memo(function GamesView() {
   const recordBattleWin = useGameStore(s => s.recordBattleWin)
   const recordFishCaught = useGameStore(s => s.recordFishCaught)
   const recordRunnerScore = useGameStore(s => s.recordRunnerScore)
+  const recordMissionProgress = useGameStore(s => s.recordMissionProgress)
   const showToast = useUIStore(s => s.showToast)
   const pushNotif = useUIStore(s => s.pushNotif)
   const runnerBest = useGameStore(s => s.pet.runnerBest)
@@ -69,7 +70,7 @@ export const GamesView = memo(function GamesView() {
   }
 
   if (activeGame === 'snake') return <SnakeGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
-  if (activeGame === 'memory') return <MemoryGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'memory') return <MemoryGame onExit={() => setActiveGame(null)} onWin={(c, xp) => { handleGenericWin(c, xp); recordMissionProgress('memory') }} />
   if (activeGame === 'reaction') return <ReactionGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'runner') return <RunnerGame onExit={() => setActiveGame(null)} onWin={handleRunnerWin} />
   if (activeGame === 'fishing') return <FishingGame onExit={() => setActiveGame(null)} onCatch={handleFishCatch} />
