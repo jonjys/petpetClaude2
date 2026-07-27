@@ -69,12 +69,14 @@ export const PetView = memo(function PetView() {
     if (!newAchievementObj) return
     setAchieveVisible(true)
     pushNotif('🏆', `Prestation upplåst: ${newAchievementObj.title}`)
+    triggerConfetti()
+    audio.achievement()
     const t = setTimeout(() => {
       setAchieveVisible(false)
       clearNewAchievement()
     }, 3500)
     return () => clearTimeout(t)
-  }, [newAchievementObj, clearNewAchievement, pushNotif])
+  }, [newAchievementObj, clearNewAchievement, pushNotif, triggerConfetti])
 
   useEffect(() => {
     if (!levelUpInfo) return
