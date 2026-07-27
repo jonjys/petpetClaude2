@@ -10,6 +10,16 @@ type SubTab = 'forYou' | 'explore' | 'uppdrag' | 'topplista'
 
 const TRENDING = ['#levelup', '#battle', '#fishing', '#streak', '#boss', '#karma', '#daily']
 
+const STORIES = [
+  { id: 's1', name: 'DragonX',    emoji: '🐉', ring: '#ff3377', seen: false },
+  { id: 's2', name: 'LunaPet',    emoji: '🌙', ring: '#4488ff', seen: false },
+  { id: 's3', name: 'ZenPanda',   emoji: '🐼', ring: '#00ff88', seen: false },
+  { id: 's4', name: 'StarKing',   emoji: '⭐', ring: '#ffcc00', seen: false },
+  { id: 's5', name: 'FireFox',    emoji: '🦊', ring: '#ff8844', seen: false },
+  { id: 's6', name: 'IceWolf',    emoji: '🐺', ring: '#00f0ff', seen: false },
+  { id: 's7', name: 'GalaxyBear', emoji: '🐻', ring: '#aa66ff', seen: false },
+]
+
 const TOP_PLAYERS = [
   { rank: 1,  emoji: '🐲', name: 'DragonMaster99', level: 87, coins: 142500, streak: 45, badge: '👑' },
   { rank: 2,  emoji: '🦄', name: 'UnicornQueen',   level: 74, coins: 98300,  streak: 32, badge: '🥈' },
@@ -29,6 +39,7 @@ export const FlashView = memo(function FlashView() {
   const [newCaption, setNewCaption] = useState('')
   const [posting, setPosting] = useState(false)
   const [reactions, setReactions] = useState<Record<string, Record<string, number>>>({})
+  const [seenStories, setSeenStories] = useState<Set<string>>(new Set())
   const reactCooldown = useRef<Record<string, number>>({})
   const { awardXP, awardCoins } = useGame()
   const pet = useGameStore(s => s.pet)
@@ -117,6 +128,58 @@ export const FlashView = memo(function FlashView() {
 
       {subTab === 'forYou' && (
         <div className="video-feed" id="videoFeed" style={{ overflowY: 'auto', paddingTop: 'calc(var(--sat, 0px) + 105px)', paddingBottom: 80 }}>
+          {/* Stories strip */}
+          <div style={{ display: 'flex', gap: 12, padding: '8px 14px 12px', overflowX: 'auto', scrollbarWidth: 'none' }}>
+            {/* My story */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, flexShrink: 0, cursor: 'pointer' }}>
+              <div style={{
+                width: 54, height: 54, borderRadius: '50%',
+                background: 'linear-gradient(135deg, var(--pink), var(--purple))',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 28, position: 'relative',
+              }}>
+                {pet.petEmoji}
+                <div style={{
+                  position: 'absolute', bottom: -1, right: -1,
+                  width: 18, height: 18, borderRadius: '50%',
+                  background: 'var(--green)', border: '2px solid #000',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 10, fontWeight: 900, color: '#000',
+                }}>+</div>
+              </div>
+              <span style={{ fontSize: 9, color: 'var(--t3)', maxWidth: 52, textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>Din Story</span>
+            </div>
+            {STORIES.map(s => {
+              const seen = seenStories.has(s.id)
+              return (
+                <div
+                  key={s.id}
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, flexShrink: 0, cursor: 'pointer' }}
+                  onClick={() => {
+                    setSeenStories(prev => new Set([...prev, s.id]))
+                    awardXP(3, 'story')
+                    audio.tap()
+                  }}
+                >
+                  <div style={{
+                    width: 54, height: 54, borderRadius: '50%',
+                    background: seen ? 'rgba(255,255,255,.05)' : `conic-gradient(${s.ring}, var(--purple), ${s.ring})`,
+                    padding: 2, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <div style={{
+                      width: 48, height: 48, borderRadius: '50%',
+                      background: '#111',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 26,
+                      opacity: seen ? 0.5 : 1,
+                    }}>{s.emoji}</div>
+                  </div>
+                  <span style={{ fontSize: 9, color: seen ? 'var(--t3)' : 'var(--t2)', maxWidth: 52, textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.name}</span>
+                </div>
+              )
+            })}
+          </div>
+
           {/* Post creator */}
           {!posting ? (
             <div style={{ padding: '8px 14px' }}>
