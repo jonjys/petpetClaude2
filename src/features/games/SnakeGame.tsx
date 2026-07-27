@@ -4,6 +4,7 @@ import styles from './GamesView.module.css'
 interface Props {
   onExit: () => void
   onWin: (coins: number, xp: number) => void
+  petEmoji?: string
 }
 
 const CELL = 20
@@ -22,8 +23,11 @@ function newFood(snake: Pt[]): Pt {
   return p
 }
 
-export const SnakeGame = memo(function SnakeGame({ onExit, onWin }: Props) {
+export const SnakeGame = memo(function SnakeGame({ onExit, onWin, petEmoji = '🐍' }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const petEmojiRef = useRef(petEmoji)
+  useEffect(() => { petEmojiRef.current = petEmoji }, [petEmoji])
+
   const stateRef = useRef({
     snake: [{ x: 7, y: 9 }] as Pt[],
     dir: 'R' as Dir,
@@ -44,18 +48,44 @@ export const SnakeGame = memo(function SnakeGame({ onExit, onWin }: Props) {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.fillStyle = '#0a0a14'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
-    // Food
+
+    // Subtle grid dots
+    ctx.fillStyle = 'rgba(255,255,255,0.03)'
+    for (let x = 0; x < COLS; x++) {
+      for (let y = 0; y < ROWS; y++) {
+        ctx.fillRect(x * CELL + CELL / 2 - 1, y * CELL + CELL / 2 - 1, 2, 2)
+      }
+    }
+
+    // Food with neon glow
+    ctx.shadowColor = '#f87171'
+    ctx.shadowBlur = 12
     ctx.fillStyle = '#f87171'
     ctx.beginPath()
     ctx.arc(s.food.x * CELL + CELL / 2, s.food.y * CELL + CELL / 2, CELL / 2 - 2, 0, Math.PI * 2)
     ctx.fill()
-    // Snake
-    s.snake.forEach((seg, i) => {
-      ctx.fillStyle = i === 0 ? '#a855f7' : '#7c3aed'
-      ctx.beginPath()
-      ctx.roundRect(seg.x * CELL + 1, seg.y * CELL + 1, CELL - 2, CELL - 2, 4)
-      ctx.fill()
-    })
+    ctx.shadowBlur = 0
+
+    // Snake: body first (back to front), then head on top
+    for (let i = s.snake.length - 1; i >= 0; i--) {
+      const seg = s.snake[i]
+      if (i === 0) {
+        // Head — petEmoji
+        ctx.font = `${CELL + 4}px serif`
+        ctx.textBaseline = 'top'
+        ctx.fillText(petEmojiRef.current, seg.x * CELL - 1, seg.y * CELL - 1)
+        ctx.textBaseline = 'alphabetic'
+      } else {
+        const fade = Math.max(0.3, 1 - i * 0.04)
+        ctx.fillStyle = `rgba(124,58,237,${fade})`
+        ctx.shadowColor = i <= 2 ? 'rgba(124,58,237,0.5)' : 'transparent'
+        ctx.shadowBlur = i <= 2 ? 5 : 0
+        ctx.beginPath()
+        ctx.roundRect(seg.x * CELL + 2, seg.y * CELL + 2, CELL - 4, CELL - 4, 4)
+        ctx.fill()
+        ctx.shadowBlur = 0
+      }
+    }
   }, [])
 
   const tick = useCallback(() => {
@@ -122,8 +152,10 @@ export const SnakeGame = memo(function SnakeGame({ onExit, onWin }: Props) {
       </div>
 
       {dead && (
-        <div style={{ textAlign: 'center', padding: '12px', color: '#f87171', fontWeight: 700 }}>
-          Game over! Poäng: {score} — Belöning tillagd 🪙
+        <div style={{ textAlign: 'center', padding: '12px' }}>
+          <div style={{ color: '#f87171', fontWeight: 700 }}>Game over! Poäng: {score}</div>
+          <div style={{ color: '#888', fontSize: 12, marginTop: 2 }}>Belöning tillagd 🪙</div>
+          <button className="btn-primary" style={{ margin: '8px auto', display: 'block' }} onClick={onExit}>Tillbaka</button>
         </div>
       )}
 

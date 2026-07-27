@@ -21,14 +21,24 @@ function getRarityColor(r: FishType['rarity']) {
   return { common: '#888', uncommon: '#4ade80', rare: '#60a5fa', epic: '#a855f7', legendary: '#fbbf24' }[r]
 }
 
+const RARITY_GLOW: Record<FishType['rarity'], string> = {
+  common:    '0 0 12px rgba(136,136,136,0.2)',
+  uncommon:  '0 0 16px rgba(74,222,128,0.35)',
+  rare:      '0 0 20px rgba(96,165,250,0.5)',
+  epic:      '0 0 28px rgba(168,85,247,0.6)',
+  legendary: '0 0 40px rgba(251,191,36,0.9)',
+}
+
+type CatchLogEntry = { emoji: string; name: string; rarity: FishType['rarity']; coins: number }
+
 export const FishingGame = memo(function FishingGame({ onExit, onCatch }: Props) {
   const [phase, setPhase] = useState<Phase>('idle')
-  const [barPos, setBarPos] = useState(50)
   const [targetPos, setTargetPos] = useState(30)
   const [hookPos, setHookPos] = useState(50)
   const [progress, setProgress] = useState(0)
   const [lastCatch, setLastCatch] = useState<FishType | null>(null)
   const [catches, setCatches] = useState(0)
+  const [catchLog, setCatchLog] = useState<CatchLogEntry[]>([])
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([])
   const animRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const progressRef = useRef(0)
@@ -60,7 +70,7 @@ export const FishingGame = memo(function FishingGame({ onExit, onCatch }: Props)
     progressRef.current = 0
     hookRef.current = 50
     targetRef.current = 30 + Math.random() * 40
-    setHookPos(50); setTargetPos(targetRef.current); setProgress(0); setBarPos(50)
+    setHookPos(50); setTargetPos(targetRef.current); setProgress(0)
 
     animRef.current = setInterval(() => {
       targetRef.current += (Math.random() - 0.5) * 8
@@ -77,6 +87,10 @@ export const FishingGame = memo(function FishingGame({ onExit, onCatch }: Props)
         const w = fish.weight[0] + Math.random() * (fish.weight[1] - fish.weight[0])
         setLastCatch({ ...fish, weight: [w, w] as [number, number] })
         setCatches(c => c + 1)
+        setCatchLog(prev => [
+          { emoji: fish.emoji, name: fish.name, rarity: fish.rarity, coins: fish.coins },
+          ...prev,
+        ].slice(0, 5))
         setPhase('result')
         onCatch(fish, fish.coins, fish.xp)
       }
@@ -104,14 +118,29 @@ export const FishingGame = memo(function FishingGame({ onExit, onCatch }: Props)
 
       <div style={{ padding: '0 16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
         {/* Water scene */}
-        <div style={{ background: 'linear-gradient(180deg, rgba(96,165,250,0.1), rgba(30,58,138,0.3))', borderRadius: 16, padding: 20, minHeight: 140, position: 'relative', border: '1px solid rgba(96,165,250,0.2)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
-          {phase === 'idle' && <button className="btn-primary" style={{ fontSize: 18, padding: '14px 32px' }} onClick={cast}>🎣 Kasta spöet!</button>}
+        <div style={{
+          background: 'linear-gradient(180deg, rgba(96,165,250,0.1), rgba(30,58,138,0.3))',
+          borderRadius: 16, padding: 20, minHeight: 140, position: 'relative',
+          border: `1px solid ${phase === 'result' && lastCatch ? getRarityColor(lastCatch.rarity) + '55' : 'rgba(96,165,250,0.2)'}`,
+          boxShadow: phase === 'result' && lastCatch ? RARITY_GLOW[lastCatch.rarity] : 'none',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12,
+          transition: 'box-shadow 0.4s, border-color 0.4s',
+        }}>
+          {phase === 'idle' && (
+            <button className="btn-primary" style={{ fontSize: 18, padding: '14px 32px' }} onClick={cast}>
+              🎣 Kasta spöet!
+            </button>
+          )}
           {phase === 'casting' && <div style={{ fontSize: 40, animation: 'bounce 0.5s infinite' }}>🎣</div>}
           {phase === 'waiting' && (
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 36 }}>🏝️</div>
               <div style={{ color: '#60a5fa', fontSize: 14, marginTop: 8 }}>Väntar på napp...</div>
-              <div style={{ fontSize: 24, marginTop: 4, animation: 'float 2s ease-in-out infinite' }}>〰️</div>
+              <div style={{ display: 'flex', gap: 10, marginTop: 10, justifyContent: 'center' }}>
+                {['🐠', '🐟', '🦈'].map((f, i) => (
+                  <span key={i} style={{ fontSize: 20, opacity: 0.45, animation: `float ${1.6 + i * 0.5}s ease-in-out infinite`, animationDelay: `${i * 0.35}s` }}>{f}</span>
+                ))}
+              </div>
             </div>
           )}
           {phase === 'bite' && (
@@ -123,13 +152,20 @@ export const FishingGame = memo(function FishingGame({ onExit, onCatch }: Props)
           {phase === 'result' && lastCatch && (
             <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
               <div style={{ fontSize: 52 }}>{lastCatch.emoji}</div>
-              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 20, fontWeight: 700, color: getRarityColor(lastCatch.rarity) }}>{lastCatch.name}!</div>
-              <div style={{ fontSize: 13, color: '#888' }}>{lastCatch.weight[0].toFixed(1)}kg · {lastCatch.rarity}</div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 20, fontWeight: 700, color: getRarityColor(lastCatch.rarity) }}>
+                {lastCatch.name}!
+              </div>
+              <div style={{ fontSize: 13, color: '#888' }}>
+                {lastCatch.weight[0].toFixed(1)}kg ·{' '}
+                <span style={{ color: getRarityColor(lastCatch.rarity), textTransform: 'capitalize' }}>{lastCatch.rarity}</span>
+              </div>
               <div style={{ display: 'flex', gap: 12, fontSize: 14 }}>
                 <span style={{ color: '#fbbf24' }}>+{lastCatch.coins} 🪙</span>
                 <span style={{ color: '#a855f7' }}>+{lastCatch.xp} XP</span>
               </div>
-              <button className="btn-primary" style={{ marginTop: 8 }} onClick={() => setPhase('idle')}>Fiska igen!</button>
+              <button className="btn-primary" style={{ marginTop: 8 }} onClick={() => setPhase('idle')}>
+                Fiska igen!
+              </button>
             </div>
           )}
         </div>
@@ -139,20 +175,16 @@ export const FishingGame = memo(function FishingGame({ onExit, onCatch }: Props)
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: 12, padding: '12px 16px' }}>
               <div style={{ position: 'relative', height: 28, background: 'rgba(255,255,255,0.08)', borderRadius: 6, overflow: 'hidden' }}>
-                {/* Target zone */}
                 <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${Math.max(0, targetPos - 12)}%`, width: '24%', background: 'rgba(74,222,128,0.3)', borderRadius: 4 }} />
-                {/* Hook */}
                 <div style={{ position: 'absolute', top: 4, bottom: 4, left: `${hookPos}%`, width: 4, background: '#a855f7', borderRadius: 2, transform: 'translateX(-2px)', transition: 'left 0.05s' }} />
                 <div style={{ position: 'absolute', top: '50%', left: `${hookPos}%`, transform: 'translate(-50%,-50%)', fontSize: 16 }}>🪝</div>
               </div>
             </div>
-            {/* Progress */}
             <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: 8, padding: 6 }}>
               <div style={{ height: 10, background: 'rgba(255,255,255,0.08)', borderRadius: 5, overflow: 'hidden' }}>
                 <div style={{ height: '100%', width: `${progress}%`, background: 'linear-gradient(90deg,#4ade80,#22c55e)', borderRadius: 5, transition: 'width 0.08s' }} />
               </div>
             </div>
-            {/* Controls — hold to continuously move */}
             <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
               <HoldButton label="◀ Vänster" dir={-1} onMove={moveHook} style={{ ...dpad, flex: 1 }} />
               <HoldButton label="Höger ▶" dir={1} onMove={moveHook} style={{ ...dpad, flex: 1 }} />
@@ -162,9 +194,22 @@ export const FishingGame = memo(function FishingGame({ onExit, onCatch }: Props)
         )}
 
         {/* Catch history */}
-        {catches > 0 && phase !== 'reel' && (
-          <div style={{ fontSize: 13, color: '#888', textAlign: 'center' }}>
-            Totalt fångade: {catches} 🐟
+        {catchLog.length > 0 && phase !== 'reel' && (
+          <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: 12, padding: '8px 12px' }}>
+            <div style={{ fontSize: 10, color: '#888', marginBottom: 6, fontWeight: 700, letterSpacing: 1 }}>SENASTE FÅNGSTER</div>
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              {catchLog.map((c, i) => (
+                <div key={i} style={{
+                  display: 'flex', alignItems: 'center', gap: 4,
+                  background: 'rgba(255,255,255,0.05)', borderRadius: 8, padding: '3px 8px',
+                  border: `1px solid ${getRarityColor(c.rarity)}44`,
+                }}>
+                  <span style={{ fontSize: 14 }}>{c.emoji}</span>
+                  <span style={{ fontSize: 10, color: getRarityColor(c.rarity) }}>{c.name}</span>
+                  <span style={{ fontSize: 9, color: '#fbbf24' }}>+{c.coins}🪙</span>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -172,7 +217,11 @@ export const FishingGame = memo(function FishingGame({ onExit, onCatch }: Props)
   )
 })
 
-const dpad: React.CSSProperties = { padding: '12px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, color: '#e8e8f0', fontSize: 14, cursor: 'pointer' }
+const dpad: React.CSSProperties = {
+  padding: '12px', background: 'rgba(255,255,255,0.08)',
+  border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10,
+  color: '#e8e8f0', fontSize: 14, cursor: 'pointer',
+}
 
 const HoldButton = memo(function HoldButton({ label, dir, onMove, style }: {
   label: string; dir: number; onMove: (dir: number) => void; style: React.CSSProperties
@@ -185,11 +234,8 @@ const HoldButton = memo(function HoldButton({ label, dir, onMove, style }: {
   const stop = () => { if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null } }
   useEffect(() => () => stop(), [])
   return (
-    <button
-      style={style}
-      onPointerDown={start}
-      onPointerUp={stop}
-      onPointerLeave={stop}
-    >{label}</button>
+    <button style={style} onPointerDown={start} onPointerUp={stop} onPointerLeave={stop}>
+      {label}
+    </button>
   )
 })

@@ -97,24 +97,22 @@ export const App = memo(function App() {
         <Header />
 
         <div className="main">
-          {/* Views */}
-          <Suspense fallback={<Spinner />}>
-            <div className={`view${activeTab === 'pet'     ? ' active' : ''}`} id="view-pet-react">
-              <PetView />
-            </div>
-            <div className={`view${activeTab === 'flash'   ? ' active' : ''}`} id="view-flash-react" style={{ padding: 0, position: 'relative' }}>
-              <FlashView />
-            </div>
-            <div className={`view${activeTab === 'create'  ? ' active' : ''}`} id="view-create-react">
-              <CreateView />
-            </div>
-            <div className={`view${activeTab === 'games'   ? ' active' : ''}`} id="view-games-react">
-              <GamesView />
-            </div>
-            <div className={`view${activeTab === 'profile' ? ' active' : ''}`} id="view-profile-react">
-              <ProfileView />
-            </div>
-          </Suspense>
+          {/* Each view has its own Suspense so lazy-loading one tab never blocks the others */}
+          <div className={`view${activeTab === 'pet'     ? ' active' : ''}`} id="view-pet-react">
+            <PetView />
+          </div>
+          <div className={`view${activeTab === 'flash'   ? ' active' : ''}`} id="view-flash-react" style={{ padding: 0, position: 'relative' }}>
+            <Suspense fallback={<Spinner />}><FlashView /></Suspense>
+          </div>
+          <div className={`view${activeTab === 'create'  ? ' active' : ''}`} id="view-create-react">
+            <Suspense fallback={<Spinner />}><CreateView /></Suspense>
+          </div>
+          <div className={`view${activeTab === 'games'   ? ' active' : ''}`} id="view-games-react">
+            <Suspense fallback={<Spinner />}><GamesView /></Suspense>
+          </div>
+          <div className={`view${activeTab === 'profile' ? ' active' : ''}`} id="view-profile-react">
+            <Suspense fallback={<Spinner />}><ProfileView /></Suspense>
+          </div>
         </div>
 
         <BottomNav />
