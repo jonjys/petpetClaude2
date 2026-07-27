@@ -87,6 +87,9 @@ export const SHOP_KC: ShopItem[] = [
   { id: 'kc_hat', name: 'Galax-krona', emoji: '🪐', description: 'Sällsynt hatt', price: 30, currency: 'kc', category: 'hat' },
   { id: 'kc_xp', name: 'Mega XP', emoji: '🚀', description: '+1000 XP direkt', price: 20, currency: 'kc', category: 'boost' },
   { id: 'kc_revive', name: 'Full Återhämtning', emoji: '💖', description: 'Alla stats till 100', price: 15, currency: 'kc', category: 'boost', stat: { mood: 100, hunger: 100, energy: 100 } },
+  { id: 'kc_shield', name: 'Streak-Sköld', emoji: '🛡️', description: 'Skyddar streaken en dag', price: 5, currency: 'kc', category: 'boost' },
+  { id: 'kc_x2xp', name: '2× XP Boost', emoji: '⚡', description: '2× XP i 30 minuter', price: 10, currency: 'kc', category: 'boost' },
+  { id: 'kc_dragon', name: 'Dragon-skin', emoji: '🐉', description: 'Exklusiv dragskin', price: 100, currency: 'kc', category: 'skin' },
 ]
 
 // ── Achievements ──────────────────────────────────────────────────────────────
@@ -148,12 +151,18 @@ export const FISH_TYPES: FishType[] = [
 
 // ── Mission pool (3 picked randomly each day) ─────────────────────────────────
 export const MISSION_POOL = [
-  { id: 'taps50', emoji: '👆', label: 'Tryck 50 gånger', type: 'taps' as const, target: 50, reward: { coins: 30, xp: 50 } },
-  { id: 'battle3', emoji: '⚔️', label: 'Vinn 3 strider', type: 'battle' as const, target: 3, reward: { coins: 80, xp: 100, kc: 2 } },
-  { id: 'feed3', emoji: '🍖', label: 'Mata 3 gånger', type: 'feed' as const, target: 3, reward: { coins: 40, xp: 60 } },
-  { id: 'fish3', emoji: '🎣', label: 'Fånga 3 fiskar', type: 'fish' as const, target: 3, reward: { coins: 60, xp: 80 } },
-  { id: 'runner200', emoji: '🏃', label: 'Spring 200m', type: 'runner' as const, target: 200, reward: { coins: 50, xp: 75 } },
-  { id: 'memory1', emoji: '🃏', label: 'Klara memory', type: 'memory' as const, target: 1, reward: { coins: 40, xp: 60 } },
+  { id: 'taps50',    emoji: '👆', label: 'Tryck 50 gånger',   type: 'taps'   as const, target: 50,  reward: { coins: 30,  xp: 50  } },
+  { id: 'taps100',   emoji: '⚡', label: 'Tryck 100 gånger',  type: 'taps'   as const, target: 100, reward: { coins: 60,  xp: 100 } },
+  { id: 'battle3',   emoji: '⚔️', label: 'Vinn 3 strider',   type: 'battle' as const, target: 3,   reward: { coins: 80,  xp: 100, kc: 2 } },
+  { id: 'battle5',   emoji: '🏆', label: 'Vinn 5 strider',   type: 'battle' as const, target: 5,   reward: { coins: 150, xp: 200, kc: 3 } },
+  { id: 'feed3',     emoji: '🍖', label: 'Mata 3 gånger',    type: 'feed'   as const, target: 3,   reward: { coins: 40,  xp: 60  } },
+  { id: 'feed5',     emoji: '🥩', label: 'Mata 5 gånger',    type: 'feed'   as const, target: 5,   reward: { coins: 70,  xp: 90  } },
+  { id: 'fish3',     emoji: '🎣', label: 'Fånga 3 fiskar',   type: 'fish'   as const, target: 3,   reward: { coins: 60,  xp: 80  } },
+  { id: 'fish7',     emoji: '🐟', label: 'Fånga 7 fiskar',   type: 'fish'   as const, target: 7,   reward: { coins: 120, xp: 150, kc: 1 } },
+  { id: 'runner100', emoji: '🏃', label: 'Spring 100m',      type: 'runner' as const, target: 100, reward: { coins: 40,  xp: 60  } },
+  { id: 'runner200', emoji: '💨', label: 'Spring 200m',      type: 'runner' as const, target: 200, reward: { coins: 80,  xp: 100 } },
+  { id: 'memory1',   emoji: '🃏', label: 'Klara Memory',     type: 'memory' as const, target: 1,   reward: { coins: 40,  xp: 60  } },
+  { id: 'memory3',   emoji: '🎴', label: 'Klara Memory 3×',  type: 'memory' as const, target: 3,   reward: { coins: 100, xp: 150, kc: 1 } },
 ]
 
 // ── Spin wheel ────────────────────────────────────────────────────────────────
@@ -170,11 +179,15 @@ export const SPIN_PRIZES = [
 
 // ── Battle NPCs ───────────────────────────────────────────────────────────────
 export const BATTLE_NPCS = [
-  { name: 'Katten Whiskers', emoji: '😺', hp: 80, atk: 8, def: 4, reward: { coins: 20, xp: 30 } },
-  { name: 'Draken Zorb', emoji: '🐲', hp: 120, atk: 12, def: 6, reward: { coins: 40, xp: 60 } },
-  { name: 'Björnen Grump', emoji: '🐻', hp: 200, atk: 18, def: 10, reward: { coins: 80, xp: 120 } },
-  { name: 'Tigern Raze', emoji: '🐯', hp: 350, atk: 28, def: 15, reward: { coins: 150, xp: 200 } },
-  { name: 'Kosmisk Boss', emoji: '👾', hp: 600, atk: 45, def: 25, reward: { coins: 400, xp: 500, kc: 10 } },
+  { name: 'Katten Whiskers',  emoji: '😺', hp: 80,   atk: 8,  def: 4,  reward: { coins: 20,  xp: 30  } },
+  { name: 'Draken Zorb',      emoji: '🐲', hp: 120,  atk: 12, def: 6,  reward: { coins: 40,  xp: 60  } },
+  { name: 'Björnen Grump',    emoji: '🐻', hp: 200,  atk: 18, def: 10, reward: { coins: 80,  xp: 120 } },
+  { name: 'Tigern Raze',      emoji: '🐯', hp: 350,  atk: 28, def: 15, reward: { coins: 150, xp: 200 } },
+  { name: 'Kosmisk Boss',     emoji: '👾', hp: 600,  atk: 45, def: 25, reward: { coins: 400, xp: 500, kc: 10 } },
+  { name: 'Varulven Hex',     emoji: '🐺', hp: 280,  atk: 22, def: 13, reward: { coins: 110, xp: 160 } },
+  { name: 'Eldspåren Inferno',emoji: '🔥', hp: 450,  atk: 35, def: 20, reward: { coins: 220, xp: 300, kc: 5 } },
+  { name: 'Isgolem Frostbyte',emoji: '❄️', hp: 800,  atk: 50, def: 35, reward: { coins: 500, xp: 700, kc: 15 } },
+  { name: 'Galaxkungen',       emoji: '🌌', hp: 1200, atk: 70, def: 45, reward: { coins: 800, xp: 1000, kc: 25 } },
 ]
 
 // ── Flash feed sample posts ───────────────────────────────────────────────────
