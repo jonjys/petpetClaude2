@@ -170,7 +170,16 @@ export const PetView = memo(function PetView() {
     const result = tap()
     audio.tap()
     if (hapticEnabled) vibrate(result.lvlUp ? 200 : 20)
-    spawnFloat(`+${result.xp}XP`, clientX, clientY, '#00f0ff')
+
+    // Combo XP bonus — applied *after* tap, using current combo count
+    const comboBonus = combo >= 50 ? 3 : combo >= 20 ? 2 : combo >= 10 ? 1.5 : combo >= 5 ? 1.2 : 1
+    const displayXP = Math.round(result.xp * comboBonus)
+    if (comboBonus > 1) {
+      useGameStore.getState().gainXP(Math.round(result.xp * (comboBonus - 1)), 'combo')
+      spawnFloat(`+${displayXP}XP 🔥`, clientX, clientY, '#ff3377')
+    } else {
+      spawnFloat(`+${result.xp}XP`, clientX, clientY, '#00f0ff')
+    }
     if (result.coins > 0) spawnFloat('+1💰', clientX + 20, clientY - 20, '#ffcc00')
 
     // Lucky tap event (1% chance)

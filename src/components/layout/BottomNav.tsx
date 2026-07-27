@@ -9,6 +9,7 @@ export const BottomNav = memo(function BottomNav() {
 
   const missionsDue = dailyMissions.filter(m => !m.done && m.progress >= m.target).length
   const missionsComplete = dailyMissions.filter(m => m.done).length !== dailyMissions.length
+  const notifCount = useUIStore(s => s.notifCount)
 
   return (
     <div className="bnav">
@@ -33,10 +34,15 @@ export const BottomNav = memo(function BottomNav() {
         <div className="ni">🎮</div>
         <div className="nl">Games</div>
       </button>
-      <button className={`nb${activeTab === 'profile' ? ' on' : ''}`} data-v="profile" onClick={() => setTab('profile')}>
+      <button className={`nb${activeTab === 'profile' ? ' on' : ''}`} data-v="profile" onClick={() => setTab('profile')} style={{ position: 'relative' }}>
         <div className="ni">👤</div>
         <div className="nl">Profil</div>
-        {missionsComplete && dailyMissions.length > 0 && dailyMissions.every(m => m.done) && (
+        {notifCount > 0 && (
+          <div style={{ position: 'absolute', top: 6, right: 8, width: 14, height: 14, background: 'var(--red)', borderRadius: '50%', fontSize: 8, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+            {notifCount > 9 ? '9+' : notifCount}
+          </div>
+        )}
+        {!notifCount && missionsComplete && dailyMissions.length > 0 && dailyMissions.every(m => m.done) && (
           <div style={{ position: 'absolute', top: 6, right: 10, width: 8, height: 8, background: 'var(--green)', borderRadius: '50%' }} />
         )}
       </button>
