@@ -3,12 +3,14 @@ import { useGameStore } from '@/stores/gameStore'
 import { useSettingsStore } from '@/stores/settingsStore'
 import { formatNumber, formatAge } from '@/utils/format'
 import { audio } from '@/services/AudioService'
+import { ALL_ACHIEVEMENTS } from '@/constants/config'
 
 const PET_EMOJIS = ['🐱', '🐶', '🦊', '🐻', '🐼', '🐨', '🦁', '🐯', '🐸', '🐙', '🦄', '🐲']
 
 export const ProfileView = memo(function ProfileView() {
   const pet = useGameStore(s => s.pet)
   const gainXP = useGameStore(s => s.gainXP)
+  const unlockedAchievements = useGameStore(s => s.unlockedAchievements)
   const settings = useSettingsStore()
 
   const [editingName, setEditingName] = useState(false)
@@ -103,6 +105,9 @@ export const ProfileView = memo(function ProfileView() {
         </div>
       </div>
 
+      {/* Achievements gallery */}
+      <AchievementsGallery unlocked={unlockedAchievements} />
+
       {/* Pet avatar picker */}
       <div style={{ padding: '0 16px 16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div className="card" style={{ padding: 16 }}>
@@ -161,6 +166,66 @@ export const ProfileView = memo(function ProfileView() {
 
       <div className="vend" />
     </>
+  )
+})
+
+const RARITY_COLORS: Record<string, string> = {
+  common: 'rgba(255,255,255,.08)',
+  uncommon: 'rgba(0,255,136,.12)',
+  rare: 'rgba(68,136,255,.15)',
+  epic: 'rgba(170,102,255,.2)',
+  legendary: 'rgba(255,204,0,.2)',
+}
+const RARITY_BORDER: Record<string, string> = {
+  common: 'rgba(255,255,255,.1)',
+  uncommon: 'rgba(0,255,136,.3)',
+  rare: 'rgba(68,136,255,.35)',
+  epic: 'rgba(170,102,255,.4)',
+  legendary: 'rgba(255,204,0,.5)',
+}
+
+const AchievementsGallery = memo(function AchievementsGallery({ unlocked }: { unlocked: string[] }) {
+  const [expanded, setExpanded] = useState(false)
+  const displayed = expanded ? ALL_ACHIEVEMENTS : ALL_ACHIEVEMENTS.slice(0, 8)
+
+  return (
+    <div style={{ margin: '12px 0 4px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+        <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', letterSpacing: 1 }}>
+          🏆 PRESTATIONER ({unlocked.length}/{ALL_ACHIEVEMENTS.length})
+        </div>
+        <button
+          style={{ fontSize: 11, color: 'var(--green)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 700 }}
+          onClick={() => setExpanded(e => !e)}
+        >
+          {expanded ? 'Visa mindre' : 'Visa alla'}
+        </button>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 7 }}>
+        {displayed.map(a => {
+          const isUnlocked = unlocked.includes(a.id)
+          return (
+            <div
+              key={a.id}
+              title={`${a.title}: ${a.description}`}
+              style={{
+                background: isUnlocked ? RARITY_COLORS[a.rarity] : 'rgba(255,255,255,.03)',
+                border: `1px solid ${isUnlocked ? RARITY_BORDER[a.rarity] : 'rgba(255,255,255,.06)'}`,
+                borderRadius: 12,
+                padding: '10px 6px',
+                textAlign: 'center',
+                opacity: isUnlocked ? 1 : 0.35,
+                filter: isUnlocked ? 'none' : 'grayscale(1)',
+                transition: 'all .2s',
+              }}
+            >
+              <div style={{ fontSize: 22, lineHeight: 1 }}>{a.emoji}</div>
+              <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--t2)', marginTop: 4, lineHeight: 1.2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.title}</div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 })
 

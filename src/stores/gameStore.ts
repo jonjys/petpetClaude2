@@ -106,6 +106,7 @@ interface GameStore {
   gainBond: (amount: number) => void
   setPetTheme: (theme: string) => void
   logActivity: () => void
+  prestige: () => boolean
   save: () => void
   reset: () => void
 }
@@ -410,6 +411,23 @@ export const useGameStore = create<GameStore>()(
         if (keys.length > 30) delete log[keys[0]]
         return { pet: { ...s.pet, activityLog: log } }
       })
+    },
+
+    prestige() {
+      const { pet } = get()
+      if (pet.level < 10) return false
+      set(s => ({
+        pet: {
+          ...s.pet,
+          level: 1,
+          exp: 0,
+          expNext: xpForLevel(2),
+          prestigeLevel: s.pet.prestigeLevel + 1,
+          kc: s.pet.kc + 50,
+        },
+      }))
+      get().save()
+      return true
     },
 
     save() { storageSet(SAVE_KEY, { ...get().pet, lastSeen: Date.now() }) },

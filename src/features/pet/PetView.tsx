@@ -39,8 +39,10 @@ export const PetView = memo(function PetView() {
   const levelUpInfo = useGameStore(s => s.levelUpInfo)
   const clearLevelUpInfo = useGameStore(s => s.clearLevelUpInfo)
   const setPetTheme = useGameStore(s => s.setPetTheme)
+  const prestige = useGameStore(s => s.prestige)
   const spawnFloat = useUIStore(s => s.spawnFloat)
   const pushNotif = useUIStore(s => s.pushNotif)
+  const showToast = useUIStore(s => s.showToast)
 
   const petRef = useRef<HTMLDivElement>(null)
   const comboRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -71,6 +73,23 @@ export const PetView = memo(function PetView() {
     setSplashVisible(true)
     audio.achievement()
   }, [levelUpInfo])
+
+  // Low-stat notifications (fire once per crossing below threshold)
+  const lowNotifRef = useRef<Record<string, boolean>>({})
+  useEffect(() => {
+    const check = (stat: string, val: number, emoji: string, name: string) => {
+      const key = `${stat}_low`
+      if (val < 20 && !lowNotifRef.current[key]) {
+        lowNotifRef.current[key] = true
+        pushNotif(emoji, `${name} är låg (${Math.round(val)})! Ta hand om ditt husdjur.`)
+      } else if (val >= 30) {
+        lowNotifRef.current[key] = false
+      }
+    }
+    check('hunger', pet.hunger, '🍖', 'Hunger')
+    check('energy', pet.energy, '⚡', 'Energi')
+    check('mood', pet.mood, '💖', 'Humör')
+  }, [pet.hunger, pet.energy, pet.mood, pushNotif])
 
   const handleTap = (e: React.MouseEvent | React.TouchEvent) => {
     const rect = petRef.current?.getBoundingClientRect()
@@ -209,6 +228,30 @@ export const PetView = memo(function PetView() {
           <div className="xp-labels"><span>XP</span><span>{formatNumber(pet.exp)}/{formatNumber(pet.expNext)}</span></div>
           <div className="xp-track"><div className="xp-fill" style={{ width: `${xpPct}%` }} /></div>
         </div>
+        {/* Prestige button (level >= 10) */}
+        {pet.level >= 10 && (
+          <div
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0 0', borderTop: '1px solid var(--line)', marginTop: 8 }}
+          >
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--gold)', letterSpacing: 1 }}>
+                ✦ PRESTIGE {pet.prestigeLevel > 0 ? `×${pet.prestigeLevel}` : 'TILLGÄNGLIG'}
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>Återstall LV1 · +50💎 KC</div>
+            </div>
+            <button
+              className="btn-gold"
+              style={{ fontSize: 12, padding: '6px 14px' }}
+              onClick={() => {
+                const ok = prestige()
+                if (ok) { showToast('✦ PRESTIGE! +50 KC', 'success'); audio.achievement() }
+              }}
+            >
+              PRESTIGE
+            </button>
+          </div>
+        )}
+
         <div className="stats-3">
           <div className="stat-box">
             <div className="stat-val" style={{ color: 'var(--red)' }}>{pet.battleWins}</div>
