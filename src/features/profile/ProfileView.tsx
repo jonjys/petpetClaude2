@@ -174,6 +174,28 @@ export const ProfileView = memo(function ProfileView() {
           </div>
         </div>
 
+        {/* Share card */}
+        <div className="card" style={{ padding: 14 }}>
+          <div className="sh-t" style={{ marginBottom: 10 }}>🔗 DELA & EXPORTERA</div>
+          <button
+            className="btn btn-sm"
+            style={{ width: '100%', marginBottom: 8 }}
+            onClick={() => {
+              const text = `🐾 Kolla mitt husdjur ${pet.petEmoji} ${pet.petName}!\n` +
+                `📊 LV${pet.level} · ${pet.streak}🔥 Streak · ${pet.totalTaps} pek\n` +
+                `⚔️ ${pet.battleWins} segrar · 🎣 ${pet.fishCaught} fiskar\n` +
+                `Spela PetPet 2026 → ladda ner appen!`
+              if (navigator.share) {
+                navigator.share({ title: `${pet.petName} på PetPet`, text })
+              } else {
+                navigator.clipboard.writeText(text).then(() => showToast('📋 Kopierat!', 'success'))
+              }
+            }}
+          >
+            🔗 Dela profil
+          </button>
+        </div>
+
         {/* Dev card */}
         <div className="card" style={{ padding: 14 }}>
           <div className="sh-t" style={{ marginBottom: 12 }}>🧪 DEV</div>
