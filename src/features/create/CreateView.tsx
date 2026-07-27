@@ -32,21 +32,27 @@ export const CreateView = memo(function CreateView() {
   if (panel !== null) return <PanelView panel={panel} onBack={() => setPanel(null)} />
 
   return (
-    <div className={styles.root}>
-      <div className={styles.header}>
-        <div className={styles.headerTitle}>✨ Feature Hub</div>
-        <div className={styles.headerSub}>Allt på ett ställe</div>
+    <>
+      <div style={{ padding: '14px 14px 6px' }}>
+        <div style={{ fontFamily: 'var(--ff-head)', fontSize: 22, fontWeight: 900, color: 'var(--green)' }}>✨ Feature Hub</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>Allt på ett ställe</div>
       </div>
-      <div className={styles.grid}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, padding: '0 14px 14px' }}>
         {FEATURE_HUB_ITEMS.map(item => (
-          <button key={item.id} className={styles.hubBtn} onClick={() => setPanel(item.id as Panel)}>
-            <span className={styles.hubEmoji}>{item.emoji}</span>
-            <span className={styles.hubLabel}>{item.label}</span>
-            <span className={styles.hubDesc}>{item.desc}</span>
+          <button
+            key={item.id}
+            className="care-btn"
+            data-accent="green"
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '14px 10px', minHeight: 80 }}
+            onClick={() => setPanel(item.id as Panel)}
+          >
+            <span style={{ fontSize: 28 }}>{item.emoji}</span>
+            <span style={{ fontSize: 12, fontWeight: 700, fontFamily: 'var(--ff-head)' }}>{item.label}</span>
+            <span style={{ fontSize: 10, color: 'var(--t3)' }}>{item.desc}</span>
           </button>
         ))}
       </div>
-    </div>
+    </>
   )
 })
 

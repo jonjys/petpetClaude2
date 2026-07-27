@@ -2,18 +2,16 @@ import { memo, useState, useCallback } from 'react'
 import { useGame } from '@/hooks/useGame'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
-import { formatNumber } from '@/utils/format'
 import { audio } from '@/services/AudioService'
 import { FLASH_SAMPLE_POSTS } from '@/constants/config'
 import type { FlashPost } from '@/types/game'
-import styles from './FlashView.module.css'
 
-type SubTab = 'feed' | 'explore' | 'missions'
+type SubTab = 'forYou' | 'explore' | 'uppdrag'
 
 const TRENDING = ['#levelup', '#battle', '#fishing', '#streak', '#boss', '#karma', '#daily']
 
 export const FlashView = memo(function FlashView() {
-  const [subTab, setSubTab] = useState<SubTab>('feed')
+  const [subTab, setSubTab] = useState<SubTab>('forYou')
   const [posts, setPosts] = useState<FlashPost[]>(FLASH_SAMPLE_POSTS)
   const [newCaption, setNewCaption] = useState('')
   const [posting, setPosting] = useState(false)
@@ -57,98 +55,115 @@ export const FlashView = memo(function FlashView() {
   }, [newCaption, pet, awardXP, awardCoins, showToast, pushNotif])
 
   return (
-    <div className={styles.root}>
-      {/* Sub-tab bar */}
-      <div className={styles.subTabs}>
-        {(['feed', 'explore', 'missions'] as const).map(t => (
-          <button key={t} className={`${styles.subTab} ${subTab === t ? styles.subTabActive : ''}`} onClick={() => setSubTab(t)}>
-            {t === 'feed' ? '🏠 För dig' : t === 'explore' ? '🔍 Utforska' : '📋 Uppdrag'}
-          </button>
-        ))}
+    <>
+      {/* Overlaid topbar */}
+      <div className="flash-topbar">
+        <div className="flash-title">⚡ Flash</div>
+        <div className="flash-tabs">
+          <div className={`ftab${subTab === 'forYou' ? ' on' : ''}`} onClick={() => setSubTab('forYou')}>
+            För dig<span className="ftab-cnt">4</span>
+          </div>
+          <div className={`ftab${subTab === 'explore' ? ' on' : ''}`} onClick={() => setSubTab('explore')}>
+            Utforska<span className="ftab-cnt">🔥</span>
+          </div>
+          <div className={`ftab${subTab === 'uppdrag' ? ' on' : ''}`} onClick={() => setSubTab('uppdrag')}>
+            Uppdrag<span className="ftab-cnt">3</span>
+          </div>
+        </div>
       </div>
 
       {/* Trending strip */}
-      <div className={styles.trendStrip}>
+      <div className="flash-trending-strip">
         {TRENDING.map(tag => (
-          <span key={tag} className={styles.trendTag}>{tag}</span>
+          <div key={tag} className="flash-trend-chip">{tag}</div>
         ))}
       </div>
 
-      {subTab === 'feed' && (
-        <>
+      {subTab === 'forYou' && (
+        <div className="video-feed" id="videoFeed" style={{ overflowY: 'auto', paddingTop: 'calc(var(--sat, 0px) + 105px)', paddingBottom: 80 }}>
           {/* Post creator */}
           {!posting ? (
-            <button className={styles.postBtn} onClick={() => setPosting(true)}>
-              {pet.petEmoji} Dela med dig... +30 XP
-            </button>
+            <div style={{ padding: '8px 14px' }}>
+              <button
+                className="flash-post-card"
+                style={{ width: '100%', textAlign: 'left', cursor: 'pointer', border: '1px dashed rgba(255,45,120,.3)', background: 'rgba(255,45,120,.05)' }}
+                onClick={() => setPosting(true)}
+              >
+                <span style={{ fontSize: 20 }}>{pet.petEmoji}</span>{' '}
+                <span style={{ color: 'rgba(255,255,255,.45)', fontSize: 14 }}>Dela med dig... +30 XP</span>
+              </button>
+            </div>
           ) : (
-            <div className={styles.postEditor}>
-              <textarea
-                className={styles.postInput}
-                placeholder="Vad händer med ditt husdjur?"
-                value={newCaption}
-                onChange={e => setNewCaption(e.target.value)}
-                rows={3}
-                maxLength={200}
-              />
-              <div className={styles.postActions}>
-                <button className="btn-ghost" onClick={() => setPosting(false)}>Avbryt</button>
-                <button className="btn-primary" onClick={handlePost} disabled={!newCaption.trim()}>Publicera 📸</button>
+            <div style={{ padding: '8px 14px' }}>
+              <div className="flash-post-card">
+                <textarea
+                  style={{ width: '100%', background: 'transparent', border: 'none', color: '#fff', fontSize: 14, resize: 'none', outline: 'none', minHeight: 72, fontFamily: 'var(--ff-body)' }}
+                  placeholder="Vad händer med ditt husdjur?"
+                  value={newCaption}
+                  onChange={e => setNewCaption(e.target.value)}
+                  rows={3}
+                  maxLength={200}
+                />
+                <div className="flash-post-actions" style={{ marginTop: 10 }}>
+                  <button className="flash-action-btn" onClick={() => setPosting(false)}>Avbryt</button>
+                  <button
+                    className="flash-action-btn"
+                    style={{ color: newCaption.trim() ? 'var(--pink)' : 'rgba(255,255,255,.2)', marginLeft: 'auto' }}
+                    onClick={handlePost}
+                    disabled={!newCaption.trim()}
+                  >
+                    Publicera 📸
+                  </button>
+                </div>
               </div>
             </div>
           )}
 
           {/* Feed */}
-          <div className={styles.feed}>
-            {posts.map(post => (
-              <div key={post.id} className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <span className={styles.cardPet}>{post.petEmoji}</span>
-                  <div className={styles.cardMeta}>
-                    <span className={styles.cardUsername}>{post.username}</span>
-                    <span className={styles.cardLevel}>LV{post.petLevel}</span>
+          {posts.map(post => (
+            <div key={post.id} style={{ padding: '4px 14px' }}>
+              <div className="flash-post-card">
+                <div className="flash-post-header">
+                  <div className="flash-post-avatar">{post.petEmoji}</div>
+                  <div className="flash-post-meta">
+                    <div className="flash-post-name">{post.username}</div>
+                    <div className="flash-post-time">LV{post.petLevel}</div>
                   </div>
-                  <span className={styles.cardTag}>{post.tag}</span>
+                  <div className="flash-post-xp-badge">+{post.xpReward} XP</div>
                 </div>
-                <p className={styles.cardCaption}>{post.caption}</p>
-                <div className={styles.cardFooter}>
-                  <button className={`${styles.likeBtn} ${post.liked ? styles.liked : ''}`} onClick={() => handleLike(post.id)}>
+                <div className="flash-post-body">{post.caption}</div>
+                <div className="flash-post-tag">{post.tag}</div>
+                <div className="flash-post-actions">
+                  <button className={`flash-action-btn${post.liked ? ' liked' : ''}`} onClick={() => handleLike(post.id)}>
                     {post.liked ? '❤️' : '🤍'} {post.likes}
                   </button>
-                  <button className={styles.collectBtn} onClick={() => handleCollect(post)}>
-                    ⭐ +{post.xpReward} XP
+                  <button className="flash-action-btn" onClick={() => handleCollect(post)}>
+                    ⭐ Collect
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
-        </>
-      )}
-
-      {subTab === 'explore' && (
-        <div className={styles.explore}>
-          <div className={styles.exploreGrid}>
-            {posts.slice(0, 6).map(post => (
-              <div key={post.id} className={styles.exploreCard} onClick={() => { setSubTab('feed') }}>
-                <span className={styles.exploreEmoji}>{post.petEmoji}</span>
-                <span className={styles.exploreTag}>{post.tag}</span>
-              </div>
-            ))}
-          </div>
-          <div className={styles.hotSection}>
-            <div className={styles.hotTitle}>🔥 Trendande nu</div>
-            {TRENDING.map(tag => (
-              <div key={tag} className={styles.hotRow}>
-                <span className={styles.hotTag}>{tag}</span>
-                <span className={styles.hotCount}>{Math.floor(Math.random() * 500 + 100)} inlägg</span>
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       )}
 
-      {subTab === 'missions' && (
-        <div className={styles.missions}>
+      {subTab === 'explore' && (
+        <div className="explore-grid" style={{ display: 'grid', overflowY: 'auto', paddingTop: 'calc(var(--sat, 0px) + 105px)' }}>
+          {posts.slice(0, 6).map(post => (
+            <div
+              key={post.id}
+              style={{ background: 'rgba(255,45,120,.08)', borderRadius: 12, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, cursor: 'pointer', border: '1px solid rgba(255,45,120,.2)' }}
+              onClick={() => setSubTab('forYou')}
+            >
+              <span style={{ fontSize: 28 }}>{post.petEmoji}</span>
+              <span style={{ fontSize: 11, color: 'var(--pink)', fontWeight: 700 }}>{post.tag}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {subTab === 'uppdrag' && (
+        <div style={{ padding: '0 14px', overflowY: 'auto', paddingTop: 'calc(var(--sat, 0px) + 105px)', paddingBottom: 80 }}>
           <MissionCard
             emoji="🎬"
             sponsor="Stadium × KARMA"
@@ -183,9 +198,10 @@ export const FlashView = memo(function FlashView() {
             disabled={pet.battleWins < 5}
             onClaim={() => { awardCoins(100); useGameStore.getState().gainKC(3); showToast('⚔️ +100🪙 +3 KC!', 'success') }}
           />
+          <div className="vend" />
         </div>
       )}
-    </div>
+    </>
   )
 })
 
@@ -194,20 +210,26 @@ const MissionCard = memo(function MissionCard({ emoji, sponsor, title, desc, rew
 }) {
   const [done, setDone] = useState(false)
   return (
-    <div className={styles.missionCard}>
-      <div className={styles.missionSponsor}>{emoji} {sponsor}</div>
-      <div className={styles.missionTitle}>{title}</div>
-      <div className={styles.missionDesc}>{desc}</div>
-      <div className={styles.missionFooter}>
-        <span className={styles.missionReward}>💰 {reward}</span>
-        <button
-          className={done ? 'btn-ghost' : 'btn-gold'}
-          style={{ fontSize: 13, padding: '7px 14px' }}
-          disabled={disabled || done}
-          onClick={() => { setDone(true); onClaim() }}
-        >
-          {done ? '✅ Klart' : disabled ? '🔒 Låst' : 'Hämta'}
-        </button>
+    <div className="uc-co" style={{ marginBottom: 10 }}>
+      <div className="uc-co-logo">{emoji}</div>
+      <div style={{ flex: 1 }}>
+        <div className="uc-co-name">{sponsor}</div>
+        <div className="uc-co-type">{title}</div>
+      </div>
+      <div className="uc-body" style={{ padding: 0 }}>
+        <div className="uc-desc">{desc}</div>
+        <div className="uc-bot">
+          <div className="uc-rewards">
+            <div className="uc-coins">{reward}</div>
+          </div>
+          <button
+            className={done ? 'btn btn-sm' : 'btn btn-y btn-sm'}
+            disabled={disabled || done}
+            onClick={() => { setDone(true); onClaim() }}
+          >
+            {done ? '✅ Klart' : disabled ? '🔒 Låst' : 'Hämta'}
+          </button>
+        </div>
       </div>
     </div>
   )
