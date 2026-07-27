@@ -12,18 +12,25 @@ import { RunnerGame } from './RunnerGame'
 import { FishingGame } from './FishingGame'
 import { BattleGame } from './BattleGame'
 import { Puzzle2048 } from './puzzle2048/Puzzle2048'
+import { SpinGame } from './SpinGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | null
 
 const GAMES = [
   { id: 'battle' as const, emoji: '⚔️', name: 'Strid', desc: 'Turn-based PvE', reward: '🪙20-400', hot: true },
-  { id: 'puzzle2048' as const, emoji: '🔢', name: '2048', desc: 'Slå ihop brickor', reward: '🪙500', hot: true },
+  { id: 'spin' as const, emoji: '🎰', name: 'Lyckhjulet', desc: 'Snurra & vinn', reward: '🪙25-200+', hot: true },
+  { id: 'puzzle2048' as const, emoji: '🔢', name: '2048', desc: 'Slå ihop brickor', reward: '🪙500', hot: false },
   { id: 'runner' as const, emoji: '🏃', name: 'Runner', desc: 'Undvik hinder', reward: '🪙5-100', hot: false },
   { id: 'fishing' as const, emoji: '🎣', name: 'Fiske', desc: 'Fånga fiskar', reward: '🪙10-1000', hot: false },
   { id: 'snake' as const, emoji: '🐍', name: 'Snake', desc: 'Klassiskt', reward: '🪙5-50', hot: false },
   { id: 'memory' as const, emoji: '🃏', name: 'Minne', desc: 'Para ihop kort', reward: '🪙10-30', hot: false },
   { id: 'reaction' as const, emoji: '⚡', name: 'Reaktion', desc: 'Hur snabb?', reward: '🪙5-25', hot: false },
 ]
+
+function weekKey() {
+  const msPerWeek = 7 * 24 * 60 * 60 * 1000
+  return `k0509_wk_${Math.floor(Date.now() / msPerWeek)}`
+}
 
 export const GamesView = memo(function GamesView() {
   const [activeGame, setActiveGame] = useState<GameId>(null)
@@ -34,20 +41,35 @@ export const GamesView = memo(function GamesView() {
   const recordMissionProgress = useGameStore(s => s.recordMissionProgress)
   const showToast = useUIStore(s => s.showToast)
   const pushNotif = useUIStore(s => s.pushNotif)
+  const triggerConfetti = useUIStore(s => s.triggerConfetti)
   const runnerBest = useGameStore(s => s.pet.runnerBest)
   const battleWins = useGameStore(s => s.pet.battleWins)
   const fishCaught = useGameStore(s => s.pet.fishCaught)
+  const gainKC = useGameStore(s => s.gainKC)
+  const [weeklyClaimed, setWeeklyClaimed] = useState(() => !!localStorage.getItem(weekKey()))
 
   const weekChallenge = useMemo(() => {
     const msPerWeek = 7 * 24 * 60 * 60 * 1000
     const weekNum = Math.floor(Date.now() / msPerWeek)
     const challenges = [
-      { title: 'Vinn 10 Strider', goal: 10, current: battleWins, game: 'battle', reward: '500 🪙 + 20 KC', emoji: '⚔️' },
-      { title: 'Fånga 20 Fiskar', goal: 20, current: fishCaught, game: 'fishing', reward: '400 🪙 + 15 KC', emoji: '🎣' },
-      { title: 'Spring 300m', goal: 300, current: runnerBest, game: 'runner', reward: '300 🪙 + 10 KC', emoji: '🏃' },
+      { title: 'Vinn 10 Strider', goal: 10, current: battleWins, game: 'battle', reward: '500 🪙 + 20 KC', emoji: '⚔️', coins: 500, kc: 20 },
+      { title: 'Fånga 20 Fiskar', goal: 20, current: fishCaught, game: 'fishing', reward: '400 🪙 + 15 KC', emoji: '🎣', coins: 400, kc: 15 },
+      { title: 'Spring 300m', goal: 300, current: runnerBest, game: 'runner', reward: '300 🪙 + 10 KC', emoji: '🏃', coins: 300, kc: 10 },
     ]
     return challenges[weekNum % challenges.length]
   }, [battleWins, fishCaught, runnerBest])
+
+  const claimWeekly = () => {
+    if (weeklyClaimed || weekChallenge.current < weekChallenge.goal) return
+    awardCoins(weekChallenge.coins)
+    gainKC(weekChallenge.kc)
+    localStorage.setItem(weekKey(), '1')
+    setWeeklyClaimed(true)
+    showToast(`🏆 Veckoutmaning klar! +${weekChallenge.coins}🪙 +${weekChallenge.kc}💎`, 'success')
+    pushNotif('🏆', `Veckans utmaning klar! +${weekChallenge.coins} mynt`)
+    triggerConfetti()
+    audio.achievement()
+  }
 
   const handleGenericWin = (coins: number, xp: number) => {
     awardCoins(coins); awardXP(xp, 'game'); audio.achievement()
@@ -87,6 +109,7 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'fishing') return <FishingGame onExit={() => setActiveGame(null)} onCatch={handleFishCatch} />
   if (activeGame === 'battle') return <BattleGame onExit={() => setActiveGame(null)} onWin={handleBattleWin} />
   if (activeGame === 'puzzle2048') return <Puzzle2048 onExit={() => setActiveGame(null)} onWin={handle2048Win} />
+  if (activeGame === 'spin') return <SpinGame onExit={() => setActiveGame(null)} onWin={(c, xp) => handleGenericWin(c, xp)} />
 
   return (
     <>
@@ -127,6 +150,20 @@ export const GamesView = memo(function GamesView() {
                 {Math.min(weekChallenge.current, weekChallenge.goal)}/{weekChallenge.goal} · {weekChallenge.reward}
               </div>
             </div>
+            {weekChallenge.current >= weekChallenge.goal && !weeklyClaimed && (
+              <button
+                onClick={claimWeekly}
+                style={{
+                  background: 'linear-gradient(135deg, var(--gold), #ff8844)',
+                  border: 'none', borderRadius: 10, padding: '8px 12px',
+                  fontFamily: 'var(--ff-head)', fontSize: 11, fontWeight: 900, color: '#000',
+                  cursor: 'pointer', flexShrink: 0,
+                }}
+              >Hämta!</button>
+            )}
+            {weeklyClaimed && (
+              <div style={{ fontSize: 11, color: 'var(--green)', fontWeight: 900, flexShrink: 0 }}>✓ Klar</div>
+            )}
           </div>
         </div>
       </div>
