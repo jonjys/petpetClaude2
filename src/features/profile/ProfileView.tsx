@@ -109,6 +109,9 @@ export const ProfileView = memo(function ProfileView() {
         </div>
       </div>
 
+      {/* Battle Pass */}
+      <BattlePassSection bpassXP={pet.bpassXP} />
+
       {/* Inventory */}
       {inventory.length > 0 && (
         <InventorySection
@@ -318,6 +321,78 @@ const ActivityHeatmap = memo(function ActivityHeatmap({ activityLog }: { activit
         <span style={{ fontSize: 9, color: 'var(--t3)' }}>Lite</span>
         {[0,1,2,3,4].map(l => <span key={l} className={`ahm-day l${l}`} style={{ display: 'inline-block' }} />)}
         <span style={{ fontSize: 9, color: 'var(--t3)' }}>Mycket</span>
+      </div>
+    </div>
+  )
+})
+
+const BPASS_TIERS = [
+  { xp: 100,  freeLabel: '🪙50',    premLabel: '💎2'   },
+  { xp: 200,  freeLabel: '🪙100',   premLabel: '🪙150' },
+  { xp: 300,  freeLabel: '⭐100XP', premLabel: '💎5'   },
+  { xp: 400,  freeLabel: '🪙150',   premLabel: '🪙250' },
+  { xp: 500,  freeLabel: '🍖Mat×3', premLabel: '🎩Hatt' },
+  { xp: 600,  freeLabel: '🪙200',   premLabel: '💎10'  },
+  { xp: 700,  freeLabel: '⭐300XP', premLabel: '🪙400' },
+  { xp: 800,  freeLabel: '💎3',     premLabel: '✨Aura' },
+  { xp: 900,  freeLabel: '🪙300',   premLabel: '💎15'  },
+  { xp: 1000, freeLabel: '👑Krona', premLabel: '🌌Galaxy' },
+]
+const SEASON_MAX = 1000
+
+const BattlePassSection = memo(function BattlePassSection({ bpassXP }: { bpassXP: number }) {
+  const pct = Math.min(100, (bpassXP / SEASON_MAX) * 100)
+  return (
+    <div style={{ padding: '0 16px 8px' }}>
+      <div className="card" style={{ padding: '14px 14px 16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+          <div>
+            <div className="sh-t">🎫 SÄSONGSPASS S1</div>
+            <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>Rise of the Dragon</div>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 900, color: 'var(--purple)' }}>{bpassXP}<span style={{ fontSize: 10, color: 'var(--t3)' }}>/{SEASON_MAX} BP</span></div>
+          </div>
+        </div>
+        {/* Progress bar */}
+        <div style={{ background: 'rgba(255,255,255,.06)', borderRadius: 8, height: 8, overflow: 'hidden', marginBottom: 12 }}>
+          <div style={{
+            height: '100%',
+            width: `${pct}%`,
+            background: 'linear-gradient(90deg, var(--purple), var(--blue), var(--green))',
+            borderRadius: 8,
+            transition: 'width .6s',
+          }} />
+        </div>
+        {/* Tier nodes */}
+        <div style={{ display: 'flex', gap: 4, overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: 4 }}>
+          {BPASS_TIERS.map(t => {
+            const claimed = bpassXP >= t.xp
+            return (
+              <div
+                key={t.xp}
+                style={{
+                  flex: '0 0 auto',
+                  minWidth: 60,
+                  background: claimed ? 'rgba(170,102,255,.15)' : 'rgba(255,255,255,.03)',
+                  border: `1px solid ${claimed ? 'rgba(170,102,255,.4)' : 'rgba(255,255,255,.06)'}`,
+                  borderRadius: 10,
+                  padding: '6px 4px',
+                  textAlign: 'center',
+                  opacity: claimed ? 1 : 0.55,
+                }}
+              >
+                <div style={{ fontSize: 9, color: 'var(--t3)', marginBottom: 3 }}>T{t.xp / 100}</div>
+                <div style={{ fontSize: 11, marginBottom: 2 }}>{claimed ? '✅' : '🔒'}</div>
+                <div style={{ fontSize: 8, color: 'var(--green)', lineHeight: 1.2 }}>{t.freeLabel}</div>
+                <div style={{ fontSize: 7, color: 'var(--purple)', marginTop: 1 }}>{t.premLabel}</div>
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 8, textAlign: 'center' }}>
+          BP tjänas automatiskt från XP · {Math.max(0, SEASON_MAX - bpassXP)} kvar till S1 max
+        </div>
       </div>
     </div>
   )

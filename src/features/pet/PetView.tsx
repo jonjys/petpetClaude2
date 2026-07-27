@@ -32,6 +32,15 @@ const TAP_BUBBLES = [
   '😊', '🔥', '⚡', '💪', 'YO!', 'GG!', '💎', '🚀', 'NOICE', 'LFG!', '✨', 'EZ', 'POP!',
 ]
 
+function levelRingColor(level: number): string {
+  if (level >= 30) return '#ff3377'
+  if (level >= 20) return '#ffcc00'
+  if (level >= 15) return '#aa66ff'
+  if (level >= 10) return '#4488ff'
+  if (level >= 5)  return '#00ff88'
+  return '#00f0ff'
+}
+
 export const PetView = memo(function PetView() {
   const pet = useGameStore(s => s.pet)
   const tap = useGameStore(s => s.tap)
@@ -198,6 +207,7 @@ export const PetView = memo(function PetView() {
                 cx="70" cy="70" r="62"
                 strokeDasharray="389.6"
                 strokeDashoffset={389.6 * (1 - xpPct / 100)}
+                stroke={levelRingColor(pet.level)}
               />
             </svg>
             {/* Combo badge */}
@@ -247,7 +257,7 @@ export const PetView = memo(function PetView() {
             <div className="lv-ring-wrap">
               <svg className="lv-ring" viewBox="0 0 52 52">
                 <circle className="lr-bg" cx="26" cy="26" r="22"/>
-                <circle className="lr-fill" cx="26" cy="26" r="22" strokeDasharray="138.2" strokeDashoffset={138.2 * (1 - xpPct / 100)}/>
+                <circle className="lr-fill" cx="26" cy="26" r="22" strokeDasharray="138.2" strokeDashoffset={138.2 * (1 - xpPct / 100)} stroke={levelRingColor(pet.level)}/>
               </svg>
               <div className="lv-num"><div className="lv-n">{pet.level}</div><div className="lv-l">LV</div></div>
             </div>
