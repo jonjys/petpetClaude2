@@ -116,6 +116,11 @@ export const ProfileView = memo(function ProfileView() {
         </div>
 
         <div className="prof-bio">Ålder: {formatAge(pet.createdAt)} · LV{pet.level}</div>
+        {pet.prestigeLevel > 0 && (
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(255,204,0,.1)', border: '1px solid rgba(255,204,0,.35)', borderRadius: 20, padding: '3px 10px', fontSize: 11, fontWeight: 700, color: 'var(--gold)', marginTop: 6 }}>
+            💎 Prestige {pet.prestigeLevel}
+          </div>
+        )}
 
         {/* Follow stats */}
         <div className="follow-row">
@@ -141,14 +146,14 @@ export const ProfileView = memo(function ProfileView() {
 
         {/* Stats grid */}
         <div className="prof-stats">
-          <div className="ps"><div className="ps-ico">⚡</div><div className="ps-v">{formatNumber(pet.exp)}</div><div className="ps-l">XP</div></div>
-          <div className="ps"><div className="ps-ico">🎯</div><div className="ps-v">{pet.questsCompleted}</div><div className="ps-l">QUEST</div></div>
-          <div className="ps"><div className="ps-ico">💰</div><div className="ps-v">{formatNumber(pet.coins)}</div><div className="ps-l">MYNT</div></div>
+          <div className="ps"><div className="ps-ico">👆</div><div className="ps-v">{formatNumber(pet.totalTaps)}</div><div className="ps-l">PEK</div></div>
           <div className="ps"><div className="ps-ico">⭐</div><div className="ps-v">{pet.level}</div><div className="ps-l">LEVEL</div></div>
+          <div className="ps"><div className="ps-ico">🔥</div><div className="ps-v">{pet.streak}</div><div className="ps-l">STREAK</div></div>
           <div className="ps"><div className="ps-ico">⚔️</div><div className="ps-v">{pet.battleWins}</div><div className="ps-l">BATTLE</div></div>
           <div className="ps"><div className="ps-ico">🎣</div><div className="ps-v">{pet.fishCaught}</div><div className="ps-l">FISK</div></div>
           <div className="ps"><div className="ps-ico">💎</div><div className="ps-v">{formatNumber(pet.kc)}</div><div className="ps-l">KC</div></div>
-          <div className="ps"><div className="ps-ico">🔥</div><div className="ps-v">{pet.streak}</div><div className="ps-l">STREAK</div></div>
+          <div className="ps"><div className="ps-ico">🌍</div><div className="ps-v">{pet.expeditionsDone}</div><div className="ps-l">EXP</div></div>
+          <div className="ps"><div className="ps-ico">📸</div><div className="ps-v">{pet.postCount}</div><div className="ps-l">INLÄGG</div></div>
         </div>
       </div>
 

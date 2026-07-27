@@ -4,7 +4,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
 import { audio } from '@/services/AudioService'
 import { FLASH_SAMPLE_POSTS } from '@/constants/config'
-import type { FlashPost } from '@/types/game'
+import type { FlashPost, PetState } from '@/types/game'
 
 type SubTab = 'forYou' | 'explore' | 'uppdrag' | 'topplista'
 
@@ -446,53 +446,107 @@ export const FlashView = memo(function FlashView() {
         </div>
       )}
 
-      {subTab === 'topplista' && (
-        <div style={{ padding: '0 14px', overflowY: 'auto', paddingTop: 'calc(var(--sat, 0px) + 105px)', paddingBottom: 80 }}>
-          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#fff', margin: '12px 0 16px', textAlign: 'center', letterSpacing: 1 }}>
-            🏆 TOPPLISTA — VECKANS BÄSTA
-          </div>
-          {TOP_PLAYERS.map((p, i) => (
-            <div
-              key={p.rank}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 10,
-                background: i < 3
-                  ? `rgba(${i === 0 ? '255,204,0' : i === 1 ? '200,200,200' : '205,127,50'},.08)`
-                  : 'rgba(255,255,255,.03)',
-                border: `1px solid ${i < 3 ? `rgba(${i === 0 ? '255,204,0' : i === 1 ? '200,200,200' : '205,127,50'},.25)` : 'rgba(255,255,255,.06)'}`,
-                borderRadius: 14,
-                padding: '10px 12px',
-                marginBottom: 6,
-              }}
-            >
-              <div style={{ fontSize: 16, fontWeight: 900, color: i < 3 ? 'var(--gold)' : 'var(--t3)', width: 20, textAlign: 'center' }}>
-                {p.badge || `#${p.rank}`}
-              </div>
-              <div style={{ fontSize: 26 }}>{p.emoji}</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color: '#fff' }}>{p.name}</div>
-                <div style={{ fontSize: 10, color: 'var(--t3)' }}>LV{p.level} · {p.streak}🔥 streak</div>
-              </div>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--gold)' }}>🪙{(p.coins / 1000).toFixed(1)}k</div>
-              </div>
-            </div>
-          ))}
-          <div style={{ textAlign: 'center', padding: '16px 0', fontSize: 11, color: 'var(--t3)' }}>
-            Rankning uppdateras varje måndag 00:00
-          </div>
-          <div style={{ textAlign: 'center', padding: '8px 14px 20px' }}>
-            <div style={{ background: 'rgba(255,204,0,.08)', border: '1px solid rgba(255,204,0,.2)', borderRadius: 14, padding: '12px 16px' }}>
-              <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 4 }}>DIN PLACERING</div>
-              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: 'var(--gold)' }}>
-                #{Math.max(11, 11 + (100 - pet.level))} · LV{pet.level}
-              </div>
-            </div>
-          </div>
-          <div className="vend" />
-        </div>
-      )}
+      {subTab === 'topplista' && <ToplistaTab pet={pet} />}
     </>
+  )
+})
+
+type LeagueKey = 'level' | 'coins' | 'streak'
+
+const ToplistaTab = memo(function ToplistaTab({ pet }: { pet: PetState }) {
+  const [league, setLeague] = useState<LeagueKey>('level')
+
+  type TopEntry = { rank: number; emoji: string; name: string; level: number; coins: number; streak: number; badge: string; isUser?: boolean }
+
+  const userEntry: TopEntry = {
+    rank: 0, emoji: pet.petEmoji, name: pet.petName,
+    level: pet.level, coins: pet.coins, streak: pet.streak, badge: '', isUser: true,
+  }
+
+  const combined: TopEntry[] = [...TOP_PLAYERS.map(p => ({ ...p, isUser: false })), userEntry]
+  const sortKey: Record<LeagueKey, keyof TopEntry> = { level: 'level', coins: 'coins', streak: 'streak' }
+  const sorted = [...combined].sort((a, b) => (b[sortKey[league]] as number) - (a[sortKey[league]] as number))
+  const userRank = sorted.findIndex(e => e.isUser) + 1
+  const MEDALS = ['👑', '🥈', '🥉']
+  const TIER_RGBA: Record<number, string> = { 0: '255,204,0', 1: '200,200,200', 2: '205,127,50' }
+
+  const formatVal = (entry: TopEntry) => {
+    if (league === 'coins') return `🪙${(entry.coins / 1000).toFixed(1)}k`
+    if (league === 'streak') return `🔥${entry.streak}`
+    return `LV${entry.level}`
+  }
+
+  return (
+    <div style={{ padding: '0 14px', overflowY: 'auto', paddingTop: 'calc(var(--sat, 0px) + 105px)', paddingBottom: 80 }}>
+      <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#fff', margin: '12px 0 10px', textAlign: 'center', letterSpacing: 1 }}>
+        🏆 TOPPLISTA
+      </div>
+      {/* League tabs */}
+      <div style={{ display: 'flex', gap: 6, marginBottom: 14, justifyContent: 'center' }}>
+        {(['level', 'coins', 'streak'] as LeagueKey[]).map(k => (
+          <button
+            key={k}
+            onClick={() => setLeague(k)}
+            style={{
+              padding: '5px 14px', borderRadius: 20, fontSize: 12, fontWeight: 700, cursor: 'pointer', border: '1px solid',
+              background: league === k ? 'rgba(255,204,0,.15)' : 'rgba(255,255,255,.04)',
+              borderColor: league === k ? 'rgba(255,204,0,.5)' : 'rgba(255,255,255,.1)',
+              color: league === k ? 'var(--gold)' : 'var(--t2)',
+              transition: 'all .15s',
+            }}
+          >
+            {k === 'level' ? '⭐ Nivå' : k === 'coins' ? '🪙 Mynt' : '🔥 Streak'}
+          </button>
+        ))}
+      </div>
+      {/* User rank pill */}
+      <div style={{ textAlign: 'center', marginBottom: 12 }}>
+        <span style={{
+          display: 'inline-block', background: 'rgba(170,102,255,.15)', border: '1px solid rgba(170,102,255,.4)',
+          borderRadius: 20, padding: '4px 14px', fontSize: 12, fontWeight: 700, color: 'var(--purple)',
+        }}>
+          Din placering: #{userRank} av {sorted.length}
+        </span>
+      </div>
+      {sorted.map((p, i) => {
+        const medal = i < 3 ? MEDALS[i] : null
+        const rgba = TIER_RGBA[i]
+        const isUser = !!p.isUser
+        return (
+          <div
+            key={isUser ? 'user' : p.name}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              background: isUser
+                ? 'rgba(170,102,255,.1)'
+                : i < 3 ? `rgba(${rgba},.08)` : 'rgba(255,255,255,.03)',
+              border: `1px solid ${isUser ? 'rgba(170,102,255,.4)' : i < 3 ? `rgba(${rgba},.25)` : 'rgba(255,255,255,.06)'}`,
+              borderRadius: 14, padding: '10px 12px', marginBottom: 6,
+            }}
+          >
+            <div style={{ fontSize: 14, fontWeight: 900, color: i < 3 ? 'var(--gold)' : 'var(--t3)', width: 22, textAlign: 'center', flexShrink: 0 }}>
+              {medal ?? `#${i + 1}`}
+            </div>
+            <div style={{ fontSize: 26, flexShrink: 0 }}>{p.emoji}</div>
+            <div style={{ flex: 1, overflow: 'hidden' }}>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color: isUser ? 'var(--purple)' : '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {p.name}{isUser ? ' 👈 Du' : ''}
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--t3)' }}>
+                {league !== 'level' ? `LV${p.level} · ` : ''}{p.streak}🔥
+              </div>
+            </div>
+            <div style={{ textAlign: 'right', flexShrink: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 900, color: isUser ? 'var(--purple)' : 'var(--gold)' }}>{formatVal(p)}</div>
+            </div>
+          </div>
+        )
+      })}
+      <div style={{ textAlign: 'center', padding: '14px 0 4px', fontSize: 10, color: 'var(--t3)' }}>
+        Rankning uppdateras varje måndag 00:00
+      </div>
+      <div className="vend" />
+    </div>
   )
 })
 
