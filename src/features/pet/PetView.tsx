@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState, useMemo } from 'react'
+import { memo, useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
 import { useSettingsStore } from '@/stores/settingsStore'
@@ -63,19 +63,6 @@ const AURA_GLOW: Record<string, string> = {
   kc_aura:      '0 0 26px rgba(180,100,255,.8)',
 }
 
-function wardrobeEmoji(items: typeof SHOP_HATS, id: string): string {
-  return items.find(i => i.id === id)?.emoji ?? ''
-}
-
-const AURA_GLOW: Record<string, string> = {
-  aura_fire:    '0 0 20px rgba(255,100,0,.7)',
-  aura_glitter: '0 0 18px rgba(255,200,255,.6)',
-  aura_moon:    '0 0 22px rgba(180,180,255,.6)',
-  aura_rainbow: '0 0 24px rgba(255,255,100,.5)',
-  aura_star:    '0 0 20px rgba(255,255,200,.7)',
-  kc_aura:      '0 0 26px rgba(180,100,255,.8)',
-}
-
 const SKIN_FILTER: Record<string, string> = {
   skin_fire:   'drop-shadow(0 0 12px #ff4422) saturate(1.5) hue-rotate(-15deg)',
   skin_ice:    'drop-shadow(0 0 12px #44aaff) saturate(0.7) brightness(1.2)',
@@ -123,6 +110,8 @@ export const PetView = memo(function PetView() {
   const levelUpInfo = useGameStore(s => s.levelUpInfo)
   const clearLevelUpInfo = useGameStore(s => s.clearLevelUpInfo)
   const setPetTheme = useGameStore(s => s.setPetTheme)
+  const setPetName = useGameStore(s => s.setPetName)
+  const setPetEmoji = useGameStore(s => s.setPetEmoji)
   const prestige = useGameStore(s => s.prestige)
   const gainCoins = useGameStore(s => s.gainCoins)
   const hapticEnabled = useSettingsStore(s => s.hapticEnabled)
@@ -140,6 +129,9 @@ export const PetView = memo(function PetView() {
   const [bubble, setBubble] = useState('')
   const [splashVisible, setSplashVisible] = useState(false)
   const [eventDismissed, setEventDismissed] = useState(() => !!localStorage.getItem('k0509_event_dismissed'))
+  const [editingName, setEditingName] = useState(false)
+  const [nameInput, setNameInput] = useState('')
+  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false)
   const prevBondTier = useRef(pet.bondTier)
   const prevTapMilestone = useRef(Math.floor(pet.totalTaps / 1000))
 
@@ -280,6 +272,18 @@ export const PetView = memo(function PetView() {
     setSplashVisible(false)
     clearLevelUpInfo()
   }
+
+  const commitName = useCallback(() => {
+    const trimmed = nameInput.trim()
+    if (trimmed.length >= 2 && trimmed.length <= 20) {
+      setPetName(trimmed)
+      showToast(`✏️ Namn ändrat till "${trimmed}"!`, 'success')
+    }
+    setEditingName(false)
+    setNameInput('')
+  }, [nameInput, setPetName, showToast])
+
+  const PET_EMOJIS = ['🐉', '🦊', '🐺', '🐼', '🐱', '🐶', '🦁', '🐯', '🦄', '🐸', '🐧', '🦅', '🐙', '🦋', '🦖', '🌟', '🔥', '⚡', '🌈', '👾']
 
   return (
     <>
@@ -454,11 +458,73 @@ export const PetView = memo(function PetView() {
         </div>
       </div>
 
+      {/* Emoji picker overlay */}
+      {emojiPickerOpen && (
+        <div
+          style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'rgba(0,0,0,.7)', display: 'flex', alignItems: 'flex-end' }}
+          onClick={() => setEmojiPickerOpen(false)}
+        >
+          <div
+            style={{ width: '100%', background: 'var(--s2)', borderRadius: '20px 20px 0 0', padding: '20px 16px 40px' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 900, color: '#fff', marginBottom: 14, textAlign: 'center' }}>
+              VÄLJ HUSDJURSEMOJI
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10 }}>
+              {PET_EMOJIS.map(e => (
+                <button
+                  key={e}
+                  onClick={() => { setPetEmoji(e); setEmojiPickerOpen(false); showToast(`Husdjur är nu ${e}!`, 'success'); audio.click() }}
+                  style={{
+                    background: pet.petEmoji === e ? 'rgba(0,255,136,.15)' : 'rgba(255,255,255,.05)',
+                    border: pet.petEmoji === e ? '1px solid var(--green)' : '1px solid rgba(255,255,255,.08)',
+                    borderRadius: 12, padding: 12, fontSize: 28, cursor: 'pointer',
+                  }}
+                >{e}</button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Pet info card */}
       <div className="pet-info-card">
         <div className="pet-name-row">
-          <div>
-            <div className="pet-name-big" id="petNameBig">{pet.petName}</div>
+          <div style={{ flex: 1 }}>
+            {editingName ? (
+              <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                <input
+                  autoFocus
+                  value={nameInput}
+                  onChange={e => setNameInput(e.target.value.slice(0, 20))}
+                  onKeyDown={e => { if (e.key === 'Enter') commitName(); if (e.key === 'Escape') setEditingName(false) }}
+                  style={{
+                    flex: 1, background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.2)',
+                    borderRadius: 8, padding: '6px 10px', color: '#fff', fontSize: 16, fontFamily: 'var(--ff-head)', fontWeight: 900,
+                    outline: 'none',
+                  }}
+                  placeholder="Nytt namn..."
+                  maxLength={20}
+                />
+                <button onClick={commitName} style={{ background: 'var(--green)', border: 'none', borderRadius: 8, padding: '6px 10px', fontSize: 13, fontWeight: 900, color: '#000', cursor: 'pointer' }}>✓</button>
+                <button onClick={() => setEditingName(false)} style={{ background: 'rgba(255,255,255,.08)', border: 'none', borderRadius: 8, padding: '6px 10px', fontSize: 13, color: 'var(--t2)', cursor: 'pointer' }}>✕</button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div className="pet-name-big" id="petNameBig">{pet.petName}</div>
+                <button
+                  onClick={() => { setNameInput(pet.petName); setEditingName(true) }}
+                  style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: 2 }}
+                  title="Byt namn"
+                >✏️</button>
+                <button
+                  onClick={() => setEmojiPickerOpen(true)}
+                  style={{ background: 'none', border: 'none', fontSize: 16, cursor: 'pointer', padding: 2 }}
+                  title="Byt emoji"
+                >{pet.petEmoji}</button>
+              </div>
+            )}
             <div className="pet-evol" id="petEvol">LV{pet.level} · {formatAge(pet.createdAt)} gammal</div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
