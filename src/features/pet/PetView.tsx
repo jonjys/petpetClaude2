@@ -262,6 +262,8 @@ export const PetView = memo(function PetView() {
   const evolutionStage = getEvolutionStage(pet.level)
   const x2xpActive = useMemo(() => pet.x2xpExpiry > Date.now(), [pet.x2xpExpiry])
   const x2xpMinsLeft = useMemo(() => Math.max(0, Math.ceil((pet.x2xpExpiry - Date.now()) / 60000)), [pet.x2xpExpiry])
+  const coinx2Active = useMemo(() => Date.now() < Number(localStorage.getItem('k0509_coinx2_expiry') ?? 0), [])
+  const coinx2MinsLeft = useMemo(() => Math.max(0, Math.ceil((Number(localStorage.getItem('k0509_coinx2_expiry') ?? 0) - Date.now()) / 60000)), [])
 
   // Bond progress to next tier
   const bondCurrent = pet.bondTier < 5 ? BOND_THRESHOLDS[pet.bondTier] : BOND_THRESHOLDS[4]
@@ -369,8 +371,8 @@ export const PetView = memo(function PetView() {
       )}
 
       {/* Active boost indicators */}
-      {(x2xpActive || pet.streakShields > 0) && (
-        <div style={{ display: 'flex', gap: 8, padding: '0 14px 8px' }}>
+      {(x2xpActive || coinx2Active || pet.streakShields > 0) && (
+        <div style={{ display: 'flex', gap: 6, padding: '0 14px 8px', flexWrap: 'wrap' }}>
           {x2xpActive && (
             <div style={{
               display: 'flex', alignItems: 'center', gap: 5,
@@ -378,7 +380,17 @@ export const PetView = memo(function PetView() {
               borderRadius: 10, padding: '4px 10px',
               fontFamily: 'var(--ff-head)', fontSize: 11, fontWeight: 900, color: 'var(--blue)',
             }}>
-              ⚡ 2× XP <span style={{ fontSize: 9, fontWeight: 400, color: 'var(--t3)', marginLeft: 2 }}>{x2xpMinsLeft}min kvar</span>
+              ⚡ 2× XP <span style={{ fontSize: 9, fontWeight: 400, color: 'var(--t3)', marginLeft: 2 }}>{x2xpMinsLeft}min</span>
+            </div>
+          )}
+          {coinx2Active && (
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 5,
+              background: 'rgba(255,204,0,.12)', border: '1px solid rgba(255,204,0,.4)',
+              borderRadius: 10, padding: '4px 10px',
+              fontFamily: 'var(--ff-head)', fontSize: 11, fontWeight: 900, color: 'var(--gold)',
+            }}>
+              🪙 2× Mynt <span style={{ fontSize: 9, fontWeight: 400, color: 'var(--t3)', marginLeft: 2 }}>{coinx2MinsLeft}min</span>
             </div>
           )}
           {pet.streakShields > 0 && (
