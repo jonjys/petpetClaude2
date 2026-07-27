@@ -1,15 +1,25 @@
 import { memo } from 'react'
 import { useUIStore } from '@/stores/uiStore'
+import { useGameStore } from '@/stores/gameStore'
 
 export const BottomNav = memo(function BottomNav() {
   const activeTab = useUIStore(s => s.activeTab)
   const setTab = useUIStore(s => s.setTab)
+  const dailyMissions = useGameStore(s => s.dailyMissions)
+
+  const missionsDue = dailyMissions.filter(m => !m.done && m.progress >= m.target).length
+  const missionsComplete = dailyMissions.filter(m => m.done).length !== dailyMissions.length
 
   return (
     <div className="bnav">
-      <button className={`nb${activeTab === 'pet' ? ' on' : ''}`} data-v="pet" onClick={() => setTab('pet')}>
+      <button className={`nb${activeTab === 'pet' ? ' on' : ''}`} data-v="pet" onClick={() => setTab('pet')} style={{ position: 'relative' }}>
         <div className="ni">🐾</div>
         <div className="nl">Pet</div>
+        {missionsDue > 0 && (
+          <div style={{ position: 'absolute', top: 6, right: 10, width: 14, height: 14, background: 'var(--gold)', borderRadius: '50%', fontSize: 9, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000' }}>
+            {missionsDue}
+          </div>
+        )}
       </button>
       <button className={`nb${activeTab === 'flash' ? ' on' : ''}`} data-v="flash" onClick={() => setTab('flash')}>
         <div className="ni">⚡</div>
@@ -26,6 +36,9 @@ export const BottomNav = memo(function BottomNav() {
       <button className={`nb${activeTab === 'profile' ? ' on' : ''}`} data-v="profile" onClick={() => setTab('profile')}>
         <div className="ni">👤</div>
         <div className="nl">Profil</div>
+        {missionsComplete && dailyMissions.length > 0 && dailyMissions.every(m => m.done) && (
+          <div style={{ position: 'absolute', top: 6, right: 10, width: 8, height: 8, background: 'var(--green)', borderRadius: '50%' }} />
+        )}
       </button>
     </div>
   )
