@@ -5,6 +5,7 @@ import {
   SAVE_KEY, MISSIONS_KEY, xpForLevel,
   TAP_XP_BASE, TAP_COIN_CHANCE, TAP_MOOD_BOOST, TAP_HUNGER_COST, TAP_ENERGY_COST,
   STAT_MIN, STAT_MAX, DECAY_RATES, MISSION_POOL, ALL_ACHIEVEMENTS,
+  SUMMER_FESTIVAL_END, SUMMER_FESTIVAL_MULT,
 } from '@/constants/config'
 import { storageGet, storageSet } from '@/utils/storage'
 import { clamp, todayKey } from '@/utils/format'
@@ -144,7 +145,8 @@ export const useGameStore = create<GameStore>()(
       const state = get()
       const xp = TAP_XP_BASE + Math.floor(state.pet.level * 0.5)
       const rawCoin = Math.random() < TAP_COIN_CHANCE ? 1 : 0
-      const coinGain = rawCoin > 0 ? Math.round(rawCoin * wardrobeCoinMult(state.pet.wardrobe)) : 0
+      const coinx2Active = Date.now() < Number(localStorage.getItem('k0509_coinx2_expiry') ?? 0)
+      const coinGain = rawCoin > 0 ? Math.round(rawCoin * wardrobeCoinMult(state.pet.wardrobe) * (coinx2Active ? 2 : 1)) : 0
       const lvlUp = state.gainXP(xp, 'tap')
       set(s => ({
         pet: {
@@ -170,7 +172,9 @@ export const useGameStore = create<GameStore>()(
       let lvlUp = false
       set(s => {
         let { level, exp, expNext, sessionXP, bpassXP, coins, kc, totalCoinsEarned } = s.pet
-        const mult = wardrobeXPMult(s.pet.wardrobe) * (Date.now() < s.pet.x2xpExpiry ? 2 : 1)
+        const now = Date.now()
+        const seasonalMult = now < SUMMER_FESTIVAL_END ? SUMMER_FESTIVAL_MULT : 1
+        const mult = wardrobeXPMult(s.pet.wardrobe) * (now < s.pet.x2xpExpiry ? 2 : 1) * seasonalMult
         amount = Math.round(amount * mult)
         exp += amount
         sessionXP += amount
@@ -275,12 +279,16 @@ export const useGameStore = create<GameStore>()(
         }))
       }
       if (itemId === 'kc_xp') get().gainXP(1000, 'shop')
+      if (itemId === 'kc_mega_xp') get().gainXP(3000, 'shop')
       if (itemId === 'xp500') get().gainXP(500, 'shop')
       if (itemId === 'kc_x2xp') {
         set(s => ({ pet: { ...s.pet, x2xpExpiry: Date.now() + 30 * 60 * 1000 } }))
       }
       if (itemId === 'kc_shield') {
         set(s => ({ pet: { ...s.pet, streakShields: s.pet.streakShields + 1 } }))
+      }
+      if (itemId === 'kc_coinx2') {
+        localStorage.setItem('k0509_coinx2_expiry', String(Date.now() + 60 * 60 * 1000))
       }
       get().save()
       return true

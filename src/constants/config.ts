@@ -90,6 +90,9 @@ export const SHOP_KC: ShopItem[] = [
   { id: 'kc_shield', name: 'Streak-Sköld', emoji: '🛡️', description: 'Skyddar streaken en dag', price: 5, currency: 'kc', category: 'boost' },
   { id: 'kc_x2xp', name: '2× XP Boost', emoji: '⚡', description: '2× XP i 30 minuter', price: 10, currency: 'kc', category: 'boost' },
   { id: 'kc_dragon', name: 'Dragon-skin', emoji: '🐉', description: 'Exklusiv dragskin', price: 100, currency: 'kc', category: 'skin' },
+  { id: 'kc_phoenix', name: 'Phoenix-skin', emoji: '🦅', description: 'Legendarisk fågel', price: 150, currency: 'kc', category: 'skin' },
+  { id: 'kc_mega_xp', name: 'Mega XP Explosion', emoji: '💥', description: '+3000 XP direkt', price: 50, currency: 'kc', category: 'boost' },
+  { id: 'kc_coinx2', name: 'Mynt Boost 1h', emoji: '🪙', description: '2× mynt i 1 timme', price: 15, currency: 'kc', category: 'boost' },
 ]
 
 // ── Achievements ──────────────────────────────────────────────────────────────
@@ -126,6 +129,11 @@ export const ALL_ACHIEVEMENTS: Achievement[] = [
   { id: 'expedition5', title: 'Vilde', emoji: '🌲', description: 'Klara 5 expeditioner', rarity: 'uncommon', condition: s => s.expeditionsDone >= 5, reward: { xp: 400, kc: 7 } },
   { id: 'lv25', title: 'LV 25 Master', emoji: '🔮', description: 'Nå nivå 25', rarity: 'legendary', condition: s => s.level >= 25, reward: { xp: 5000, kc: 50 } },
   { id: 'battle100', title: 'Oövervinnerlig', emoji: '👑', description: 'Vinn 100 strider', rarity: 'legendary', condition: s => s.battleWins >= 100, reward: { xp: 3000, kc: 40 } },
+  { id: 'taps50000', title: 'Tap Legend', emoji: '🌠', description: '50 000 pek', rarity: 'legendary', condition: s => s.totalTaps >= 50000, reward: { xp: 5000, kc: 60 } },
+  { id: 'expedition10', title: 'Världsresenär', emoji: '🌍', description: 'Klara 10 expeditioner', rarity: 'rare', condition: s => s.expeditionsDone >= 10, reward: { xp: 1000, kc: 15 } },
+  { id: 'runner1000', title: 'Marathon', emoji: '🏅', description: 'Spring 1000m', rarity: 'legendary', condition: s => s.runnerBest >= 1000, reward: { xp: 2000, kc: 25 } },
+  { id: 'fish100', title: 'Fiskegud', emoji: '🐠', description: 'Fånga 100 fiskar', rarity: 'legendary', condition: s => s.fishCaught >= 100, reward: { xp: 2500, kc: 35 } },
+  { id: 'coins100000', title: 'Kryptokonung', emoji: '💸', description: 'Tjäna 100 000 mynt', rarity: 'legendary', condition: s => s.totalCoinsEarned >= 100000, reward: { xp: 5000, kc: 50 } },
 ]
 
 // ── Expeditions ───────────────────────────────────────────────────────────────
@@ -188,7 +196,15 @@ export const BATTLE_NPCS = [
   { name: 'Eldspåren Inferno',emoji: '🔥', hp: 450,  atk: 35, def: 20, reward: { coins: 220, xp: 300, kc: 5 } },
   { name: 'Isgolem Frostbyte',emoji: '❄️', hp: 800,  atk: 50, def: 35, reward: { coins: 500, xp: 700, kc: 15 } },
   { name: 'Galaxkungen',       emoji: '🌌', hp: 1200, atk: 70, def: 45, reward: { coins: 800, xp: 1000, kc: 25 } },
+  { name: 'Sommargudinna',    emoji: '🌸', hp: 500,  atk: 40, def: 22, reward: { coins: 300, xp: 450, kc: 8 } },
+  { name: 'Neonvarg',        emoji: '🐺', hp: 900,  atk: 60, def: 38, reward: { coins: 600, xp: 850, kc: 20 } },
+  { name: 'Forntids-Phoenix', emoji: '🦅', hp: 1500, atk: 85, def: 55, reward: { coins: 1000, xp: 1400, kc: 35 } },
+  { name: 'Kaosguden',       emoji: '💀', hp: 2000, atk: 100, def: 65, reward: { coins: 1500, xp: 2000, kc: 50 } },
 ]
+
+// ── Seasonal event ─────────────────────────────────────────────────────────────
+export const SUMMER_FESTIVAL_END = new Date('2026-09-01').getTime()
+export const SUMMER_FESTIVAL_MULT = 1.25
 
 // ── Flash feed sample posts ───────────────────────────────────────────────────
 export const FLASH_SAMPLE_POSTS = [
