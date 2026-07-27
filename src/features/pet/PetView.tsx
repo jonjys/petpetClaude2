@@ -775,8 +775,20 @@ export const PetView = memo(function PetView() {
       <div className="missions-card" id="missionsCard">
         <div className="missions-hdr">
           <div className="missions-title">📅 Dagliga uppdrag</div>
-          <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--gold)' }}>
-            {dailyMissions.filter(m => m.done).length}/{dailyMissions.length}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {(() => {
+              const due = dailyMissions.filter(m => !m.done && m.progress >= m.target)
+              if (due.length < 2) return null
+              return (
+                <button
+                  style={{ background: 'var(--gold)', border: 'none', borderRadius: 8, padding: '3px 8px', fontSize: 10, fontWeight: 900, color: '#000', cursor: 'pointer' }}
+                  onClick={() => { due.forEach(m => claimMission(m.id)); audio.achievement(); showToast(`✅ Hämtade ${due.length} uppdrag!`, 'success') }}
+                >Hämta alla</button>
+              )
+            })()}
+            <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--gold)' }}>
+              {dailyMissions.filter(m => m.done).length}/{dailyMissions.length}
+            </div>
           </div>
         </div>
         <div id="missionsList">

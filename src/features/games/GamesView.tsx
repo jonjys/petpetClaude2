@@ -45,6 +45,7 @@ export const GamesView = memo(function GamesView() {
   const runnerBest = useGameStore(s => s.pet.runnerBest)
   const battleWins = useGameStore(s => s.pet.battleWins)
   const fishCaught = useGameStore(s => s.pet.fishCaught)
+  const petEmoji = useGameStore(s => s.pet.petEmoji)
   const gainKC = useGameStore(s => s.gainKC)
   const [weeklyClaimed, setWeeklyClaimed] = useState(() => !!localStorage.getItem(weekKey()))
 
@@ -105,7 +106,7 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'snake') return <SnakeGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'memory') return <MemoryGame onExit={() => setActiveGame(null)} onWin={(c, xp) => { handleGenericWin(c, xp); recordMissionProgress('memory') }} />
   if (activeGame === 'reaction') return <ReactionGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
-  if (activeGame === 'runner') return <RunnerGame onExit={() => setActiveGame(null)} onWin={handleRunnerWin} />
+  if (activeGame === 'runner') return <RunnerGame onExit={() => setActiveGame(null)} onWin={handleRunnerWin} petEmoji={petEmoji} runnerBest={runnerBest} />
   if (activeGame === 'fishing') return <FishingGame onExit={() => setActiveGame(null)} onCatch={handleFishCatch} />
   if (activeGame === 'battle') return <BattleGame onExit={() => setActiveGame(null)} onWin={handleBattleWin} />
   if (activeGame === 'puzzle2048') return <Puzzle2048 onExit={() => setActiveGame(null)} onWin={handle2048Win} />
