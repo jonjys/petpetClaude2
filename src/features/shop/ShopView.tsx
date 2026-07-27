@@ -42,6 +42,8 @@ const EQUIP_SLOT: Partial<Record<Tab, 'hat' | 'acc' | 'aura'>> = {
   hats: 'hat', acc: 'acc', aura: 'aura',
 }
 
+const NEW_ITEM_IDS = new Set(['kc_phoenix', 'kc_mega_xp', 'kc_coinx2'])
+
 export const ShopView = memo(function ShopView() {
   const [activeTab, setActiveTab] = useState<Tab>('featured')
   const pet = useGameStore(s => s.pet)
@@ -185,8 +187,16 @@ export const ShopView = memo(function ShopView() {
               <div
                 key={item.id}
                 className={`${styles.card} ${!canAfford && !owned ? styles.locked : ''} ${equipped ? styles.equipped ?? '' : ''}`}
-                style={equipped ? { border: '1px solid var(--green)', background: 'rgba(0,255,136,.07)' } : undefined}
+                style={{ position: 'relative', ...(equipped ? { border: '1px solid var(--green)', background: 'rgba(0,255,136,.07)' } : {}) }}
               >
+                {NEW_ITEM_IDS.has(item.id) && !owned && (
+                  <span style={{
+                    position: 'absolute', top: 4, right: 4,
+                    background: 'rgba(255,51,119,.2)', border: '1px solid rgba(255,51,119,.5)',
+                    borderRadius: 5, fontSize: 7, fontWeight: 900, color: 'var(--pink)',
+                    padding: '1px 4px', letterSpacing: .5, lineHeight: 1.4,
+                  }}>NY</span>
+                )}
                 <div className={styles.cardEmoji}>{item.emoji}</div>
                 <div className={styles.cardName}>{item.name}</div>
                 <div className={styles.cardDesc}>{item.description}</div>
