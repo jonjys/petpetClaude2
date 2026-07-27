@@ -113,6 +113,16 @@ export const ALL_ACHIEVEMENTS: Achievement[] = [
   { id: 'quest10', title: 'Uppdragsjägare', emoji: '📋', description: 'Klara 10 uppdrag', rarity: 'uncommon', condition: s => s.questsCompleted >= 10, reward: { xp: 250, kc: 4 } },
   { id: 'kc50', title: 'KC Samlare', emoji: '✨', description: 'Samla 50 KC', rarity: 'uncommon', condition: s => s.kc >= 50, reward: { xp: 200, kc: 0 } },
   { id: 'kc200', title: 'KC Rik', emoji: '💫', description: 'Samla 200 KC', rarity: 'rare', condition: s => s.kc >= 200, reward: { xp: 600, kc: 0 } },
+  { id: 'bond1', title: 'Bekant', emoji: '🤝', description: 'Nå Bond Tier 1', rarity: 'common', condition: s => s.bondTier >= 1, reward: { xp: 80, kc: 1 } },
+  { id: 'bond3', title: 'Vän för Livet', emoji: '💚', description: 'Nå Bond Tier 3 (Vän)', rarity: 'rare', condition: s => s.bondTier >= 3, reward: { xp: 400, kc: 8 } },
+  { id: 'bond5', title: 'Soulmate', emoji: '💫', description: 'Nå Bond Tier 5 — Soulmate', rarity: 'legendary', condition: s => s.bondTier >= 5, reward: { xp: 3000, kc: 50 } },
+  { id: 'prestige1', title: 'Återpräglad', emoji: '🔄', description: 'Prestige för första gången', rarity: 'epic', condition: s => s.prestigeLevel >= 1, reward: { xp: 1500, kc: 20 } },
+  { id: 'post1', title: 'Flash Debutant', emoji: '📸', description: 'Publicera ditt första inlägg', rarity: 'common', condition: s => s.postCount >= 1, reward: { xp: 50, kc: 1 } },
+  { id: 'post10', title: 'Flash Influencer', emoji: '⚡', description: 'Publicera 10 inlägg', rarity: 'uncommon', condition: s => s.postCount >= 10, reward: { xp: 300, kc: 5 } },
+  { id: 'expedition1', title: 'Äventyrare', emoji: '🗺️', description: 'Klara en expedition', rarity: 'common', condition: s => s.expeditionsDone >= 1, reward: { xp: 100, kc: 2 } },
+  { id: 'expedition5', title: 'Vilde', emoji: '🌲', description: 'Klara 5 expeditioner', rarity: 'uncommon', condition: s => s.expeditionsDone >= 5, reward: { xp: 400, kc: 7 } },
+  { id: 'lv25', title: 'LV 25 Master', emoji: '🔮', description: 'Nå nivå 25', rarity: 'legendary', condition: s => s.level >= 25, reward: { xp: 5000, kc: 50 } },
+  { id: 'battle100', title: 'Oövervinnerlig', emoji: '👑', description: 'Vinn 100 strider', rarity: 'legendary', condition: s => s.battleWins >= 100, reward: { xp: 3000, kc: 40 } },
 ]
 
 // ── Expeditions ───────────────────────────────────────────────────────────────

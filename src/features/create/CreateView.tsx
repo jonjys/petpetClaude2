@@ -134,6 +134,7 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
     if (!exp) return
     gainCoins(exp.reward.coins); gainXP(exp.reward.xp, 'expedition')
     if (exp.reward.kc) gainKC(exp.reward.kc)
+    useGameStore.setState(s => ({ pet: { ...s.pet, expeditionsDone: s.pet.expeditionsDone + 1 } }))
     localStorage.removeItem('k0509_activeExp'); localStorage.removeItem('k0509_expEnd')
     setActiveExp(null); setExpEnd(0)
     showToast(`🏆 Expedition klar! +${exp.reward.coins}🪙 +${exp.reward.xp}XP`, 'success')
