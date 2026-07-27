@@ -4,7 +4,7 @@ import { useUIStore } from '@/stores/uiStore'
 import { useSettingsStore } from '@/stores/settingsStore'
 import { formatNumber, formatAge } from '@/utils/format'
 import { audio } from '@/services/AudioService'
-import { ALL_ACHIEVEMENTS } from '@/constants/config'
+import { ALL_ACHIEVEMENTS, SHOP_HATS, SHOP_ACC, SHOP_AURA } from '@/constants/config'
 
 const PET_EMOJIS = ['🐱', '🐶', '🦊', '🐻', '🐼', '🐨', '🦁', '🐯', '🐸', '🐙', '🦄', '🐲']
 
@@ -63,10 +63,31 @@ export const ProfileView = memo(function ProfileView() {
 
       {/* Avatar */}
       <div className="prof-ava-wr">
-        <div className="prof-ava">
+        <div className="prof-ava" style={{ position: 'relative' }}>
+          {/* Hat overlay */}
+          {pet.wardrobe.hat !== 'none' && (() => {
+            const emoji = SHOP_HATS.find(i => i.id === pet.wardrobe.hat)?.emoji
+            return emoji ? (
+              <div style={{ position: 'absolute', top: -16, left: '50%', transform: 'translateX(-50%)', fontSize: 22, lineHeight: 1, zIndex: 2, pointerEvents: 'none' }}>{emoji}</div>
+            ) : null
+          })()}
           <span>{pet.petEmoji}</span>
+          {/* Acc overlay */}
+          {pet.wardrobe.acc !== 'none' && (() => {
+            const emoji = SHOP_ACC.find(i => i.id === pet.wardrobe.acc)?.emoji
+            return emoji ? (
+              <div style={{ position: 'absolute', bottom: 4, right: -8, fontSize: 16, lineHeight: 1, zIndex: 2, pointerEvents: 'none' }}>{emoji}</div>
+            ) : null
+          })()}
           <div className="prof-trust">LV{pet.level}</div>
         </div>
+        {/* Aura label */}
+        {pet.wardrobe.aura !== 'none' && (() => {
+          const item = SHOP_AURA.find(i => i.id === pet.wardrobe.aura)
+          return item ? (
+            <div style={{ fontSize: 9, color: 'var(--t3)', textAlign: 'center', marginTop: 4 }}>{item.emoji} {item.name}</div>
+          ) : null
+        })()}
       </div>
 
       <div className="prof-content">
