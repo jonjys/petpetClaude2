@@ -157,6 +157,11 @@ export const ProfileView = memo(function ProfileView() {
         </div>
       </div>
 
+      {/* Notification center */}
+      <div style={{ padding: '0 16px 8px' }}>
+        <NotificationCenter />
+      </div>
+
       {/* Battle Pass */}
       <BattlePassSection bpassXP={pet.bpassXP} />
 
@@ -567,6 +572,68 @@ const BattlePassSection = memo(function BattlePassSection({ bpassXP }: { bpassXP
           BP tjänas automatiskt från XP · {Math.max(0, SEASON_MAX - bpassXP)} kvar till S1 max
         </div>
       </div>
+    </div>
+  )
+})
+
+function timeAgo(ts: number): string {
+  const mins = Math.floor((Date.now() - ts) / 60000)
+  if (mins < 1) return 'just nu'
+  if (mins < 60) return `${mins}m sedan`
+  const hours = Math.floor(mins / 60)
+  if (hours < 24) return `${hours}t sedan`
+  return `${Math.floor(hours / 24)}d sedan`
+}
+
+const NotificationCenter = memo(function NotificationCenter() {
+  const notifications = useUIStore(s => s.notifications)
+  const notifCount = useUIStore(s => s.notifCount)
+  const markNotifsRead = useUIStore(s => s.markNotifsRead)
+
+  return (
+    <div className="card" style={{ padding: '12px 14px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+        <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', letterSpacing: 1 }}>
+          🔔 NOTISER
+          {notifCount > 0 && (
+            <span style={{
+              marginLeft: 6, background: 'var(--red)', borderRadius: 10, fontSize: 8, fontWeight: 900,
+              padding: '1px 5px', color: '#fff',
+            }}>{notifCount} ny</span>
+          )}
+        </div>
+        {notifCount > 0 && (
+          <button
+            onClick={markNotifsRead}
+            style={{ fontSize: 10, color: 'var(--green)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 700 }}
+          >Markera lästa</button>
+        )}
+      </div>
+      {notifications.length === 0 ? (
+        <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center', padding: '10px 0' }}>Inga notiser än</div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+          {notifications.slice(0, 12).map(n => (
+            <div
+              key={n.id}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                background: n.read ? 'rgba(255,255,255,.02)' : 'rgba(255,68,85,.06)',
+                border: `1px solid ${n.read ? 'rgba(255,255,255,.05)' : 'rgba(255,68,85,.2)'}`,
+                borderRadius: 10, padding: '7px 10px',
+              }}
+            >
+              <div style={{ fontSize: 16, flexShrink: 0 }}>{n.icon}</div>
+              <div style={{ flex: 1, fontSize: 11, color: n.read ? 'var(--t2)' : '#e8e8f0', lineHeight: 1.3 }}>{n.text}</div>
+              <div style={{ fontSize: 8, color: 'var(--t3)', flexShrink: 0, minWidth: 40, textAlign: 'right' }}>{timeAgo(n.ts)}</div>
+              {!n.read && <div style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--red)', flexShrink: 0 }} />}
+            </div>
+          ))}
+          {notifications.length > 12 && (
+            <div style={{ fontSize: 9, color: 'var(--t3)', textAlign: 'center', paddingTop: 4 }}>+{notifications.length - 12} äldre</div>
+          )}
+        </div>
+      )}
     </div>
   )
 })
