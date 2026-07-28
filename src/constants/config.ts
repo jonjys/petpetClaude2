@@ -242,6 +242,8 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'skilltree', emoji: '🌳', label: 'Kompetensträd', desc: 'Uppgradera passiva förmågor' },
   { id: 'tarot', emoji: '🔮', label: 'Tarotkort', desc: 'Daglig tarot-läsning' },
   { id: 'trophyroom', emoji: '🏆', label: 'Pokalrum', desc: 'Dina prestationstrofeer' },
+  { id: 'mine', emoji: '⛏️', label: 'Gruvan', desc: 'Passiv myntinkomst' },
+  { id: 'activitylog', emoji: '📜', label: 'Aktivitet', desc: 'Din spelhistorik' },
   { id: 'shop', emoji: '🛍️', label: 'Shop', desc: 'Köp kosmetika & boosts' },
   { id: 'expedition', emoji: '🗺️', label: 'Expedition', desc: 'Skicka husdjuret på äventyr' },
   { id: 'achievements', emoji: '🏆', label: 'Prestationer', desc: 'Se dina utmärkelser' },

@@ -18,12 +18,14 @@ import { DiceGame } from './DiceGame'
 import { SpeedMathGame } from './SpeedMathGame'
 import { WhackMoleGame } from './WhackMoleGame'
 import { QuizGame } from './QuizGame'
+import { ArenaGame } from './ArenaGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
-  { id: 'battle' as const, emoji: '⚔️', name: 'Strid', desc: 'Turn-based PvE', reward: '🪙20-400', hot: true },
+  { id: 'arena' as const, emoji: '⚔️', name: 'Arena', desc: 'PvP turn-based strid', reward: '🪙30-150', hot: true },
+  { id: 'battle' as const, emoji: '🗡️', name: 'Strid', desc: 'Turn-based PvE', reward: '🪙20-400', hot: true },
   { id: 'spin' as const, emoji: '🎰', name: 'Lyckhjulet', desc: 'Snurra & vinn', reward: '🪙25-200+', hot: true },
   { id: 'quiz' as const, emoji: '🧠', name: 'Quiz', desc: 'Trivia & kunskap', reward: '🪙10-120', hot: true },
   { id: 'whack' as const, emoji: '🐹', name: 'Hamra', desc: 'Tryck mullvadar', reward: '🪙0-90', hot: false },
@@ -138,6 +140,7 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'speedmath') return <SpeedMathGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'whack') return <WhackMoleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'quiz') return <QuizGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'arena') return <ArenaGame onExit={() => setActiveGame(null)} onWin={(c, xp) => { handleBattleWin(c, xp) }} petEmoji={petEmoji} />
 
   return (
     <>

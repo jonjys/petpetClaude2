@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -23,6 +23,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   wardrobe: 'pink', battlepass: 'purple', leaderboard: 'gold',
   quests: 'green', records: 'blue', chests: 'gold', bounty: 'red',
   fishpedia: 'blue', checkin: 'green', skilltree: 'green', tarot: 'purple', trophyroom: 'gold',
+  mine: 'gold', activitylog: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -36,6 +37,7 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   skilltree:  { label: 'NYA',    color: 'var(--green)'  },
   tarot:      { label: 'DAGLIG', color: 'var(--purple)' },
   trophyroom: { label: 'NY',     color: 'var(--gold)'   },
+  mine:       { label: 'NY',     color: 'var(--gold)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -582,23 +584,37 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
 
   // ── Battle Pass panel ────────────────────────────────────────────────────────
   if (panel === 'battlepass') {
-    const BP_SEASON_MAX = 2000
-    const tiers = [
-      { xp: 100, free: '50🪙',        freeCoins: 50,  freeKC: 0,  label: 'Tier 1' },
-      { xp: 300, free: '100🪙',       freeCoins: 100, freeKC: 0,  label: 'Tier 2' },
-      { xp: 600, free: '200🪙',       freeCoins: 200, freeKC: 0,  label: 'Tier 3' },
-      { xp: 1000, free: '3💎 KC',     freeCoins: 0,   freeKC: 3,  label: 'Tier 4' },
-      { xp: 2000, free: '10💎 KC',    freeCoins: 0,   freeKC: 10, label: 'Tier 5 MAX' },
+    const BP_SEASON_MAX = 15000
+    const BP_TIERS = [
+      { xp: 200,   free: '75🪙',         freeCoins: 75,  freeKC: 0,  emoji: '🪙', special: '' },
+      { xp: 500,   free: '150🪙',        freeCoins: 150, freeKC: 0,  emoji: '💰', special: '' },
+      { xp: 900,   free: '1💎 KC',       freeCoins: 0,   freeKC: 1,  emoji: '💎', special: '' },
+      { xp: 1400,  free: '250🪙',        freeCoins: 250, freeKC: 0,  emoji: '🪙', special: '' },
+      { xp: 2000,  free: '3💎 KC',       freeCoins: 0,   freeKC: 3,  emoji: '💎', special: '🌟 Milstolpe' },
+      { xp: 2700,  free: '400🪙',        freeCoins: 400, freeKC: 0,  emoji: '💰', special: '' },
+      { xp: 3500,  free: '2💎 KC',       freeCoins: 0,   freeKC: 2,  emoji: '💎', special: '' },
+      { xp: 4400,  free: '600🪙',        freeCoins: 600, freeKC: 0,  emoji: '🪙', special: '' },
+      { xp: 5400,  free: '5💎 KC',       freeCoins: 0,   freeKC: 5,  emoji: '💎', special: '' },
+      { xp: 6500,  free: '800🪙',        freeCoins: 800, freeKC: 0,  emoji: '🏅', special: '🏅 Halvvägs' },
+      { xp: 7700,  free: '3💎 KC',       freeCoins: 0,   freeKC: 3,  emoji: '💎', special: '' },
+      { xp: 9000,  free: '1 000🪙',      freeCoins: 1000,freeKC: 0,  emoji: '💰', special: '' },
+      { xp: 10400, free: '5💎 KC',       freeCoins: 0,   freeKC: 5,  emoji: '💎', special: '' },
+      { xp: 11900, free: '1 500🪙',      freeCoins: 1500,freeKC: 0,  emoji: '🪙', special: '' },
+      { xp: 13500, free: '8💎 KC',       freeCoins: 0,   freeKC: 8,  emoji: '💎', special: '' },
+      { xp: 15000, free: '2 000🪙+15💎', freeCoins: 2000,freeKC: 15, emoji: '🏆', special: '🏆 MAX TIER' },
     ]
     const claimedKey = 'k0509_bp_claimed'
-    const claimed: number[] = JSON.parse(localStorage.getItem(claimedKey) ?? '[]')
+    const [claimedLocal, setClaimedLocal] = useState<number[]>(() => JSON.parse(localStorage.getItem(claimedKey) ?? '[]'))
+    const pct = Math.min(100, (pet.bpassXP / BP_SEASON_MAX) * 100)
+    const currentTier = BP_TIERS.filter(t => pet.bpassXP >= t.xp).length
 
     const claimTier = (idx: number, coins: number, kc: number) => {
-      const next = [...claimed, idx]
+      const next = [...claimedLocal, idx]
       localStorage.setItem(claimedKey, JSON.stringify(next))
+      setClaimedLocal(next)
       if (coins > 0) gainCoins(coins)
       if (kc > 0) gainKC(kc)
-      showToast(`🎫 Tier ${idx + 1} hämtad!${coins > 0 ? ` +${coins}🪙` : ''}${kc > 0 ? ` +${kc}💎` : ''}`, 'success')
+      showToast(`🎫 BP Tier ${idx + 1} hämtad!${coins > 0 ? ` +${coins}🪙` : ''}${kc > 0 ? ` +${kc}💎` : ''}`, 'success')
       triggerConfetti(); audio.achievement()
     }
 
@@ -606,43 +622,46 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
       <div className={styles.panelRoot}>
         <BackBtn />
         <div className={styles.panelTitle}>🎫 Battle Pass — Säsong 1</div>
-        <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 12, padding: 12, marginBottom: 12 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-            <div style={{ fontSize: 13, color: '#888' }}>Säsong XP: {formatNumber(pet.bpassXP)}</div>
-            <div style={{ fontSize: 11, color: 'var(--purple)', fontWeight: 700 }}>{Math.round((pet.bpassXP / BP_SEASON_MAX) * 100)}%</div>
+        <div style={{ background: 'rgba(168,85,247,.06)', border: '1px solid rgba(168,85,247,.2)', borderRadius: 14, padding: 14, marginBottom: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+            <div>
+              <div style={{ fontSize: 13, color: '#fff', fontWeight: 700 }}>Tier {currentTier}/{BP_TIERS.length}</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)' }}>{formatNumber(pet.bpassXP)} / {formatNumber(BP_SEASON_MAX)} BP XP</div>
+            </div>
+            <div style={{ fontSize: 20, fontWeight: 900, color: 'var(--purple)' }}>{Math.round(pct)}%</div>
           </div>
           <div style={{ height: 10, background: 'rgba(255,255,255,0.08)', borderRadius: 5, overflow: 'hidden' }}>
-            <div style={{ height: '100%', width: `${Math.min(100, (pet.bpassXP / BP_SEASON_MAX) * 100)}%`, background: 'linear-gradient(90deg,#a855f7,#ec4899)', borderRadius: 5, transition: 'width .6s' }} />
+            <div style={{ height: '100%', width: `${pct}%`, background: 'linear-gradient(90deg,#a855f7,#ec4899)', borderRadius: 5, transition: 'width .6s' }} />
           </div>
+          <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 6 }}>BP XP = 10% av all tjänad XP</div>
         </div>
-        {tiers.map((t, i) => {
+        {BP_TIERS.map((t, i) => {
           const reached = pet.bpassXP >= t.xp
-          const isClaimed = claimed.includes(i)
+          const isClaimed = claimedLocal.includes(i)
           const canClaim = reached && !isClaimed
+          const isMax = i === BP_TIERS.length - 1
           return (
-            <div key={i} style={{ display: 'flex', gap: 10, padding: '10px 12px', background: reached ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.03)', border: `1px solid ${reached ? 'rgba(168,85,247,0.3)' : 'rgba(255,255,255,0.06)'}`, borderRadius: 12, marginBottom: 8, alignItems: 'center' }}>
-              <span style={{ fontSize: 16, width: 28 }}>{isClaimed ? '✅' : reached ? '🎁' : '🔒'}</span>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 11, color: '#888' }}>{t.label} · {formatNumber(t.xp)} BP XP</div>
-                <div style={{ fontSize: 13, color: '#e8e8f0' }}>{t.free}</div>
+            <div key={i} style={{
+              display: 'flex', gap: 10, padding: '10px 12px',
+              background: isMax && reached ? 'rgba(255,204,0,.08)' : reached ? 'rgba(168,85,247,0.07)' : 'rgba(255,255,255,0.03)',
+              border: `1px solid ${isMax && reached ? 'rgba(255,204,0,.35)' : reached ? 'rgba(168,85,247,0.25)' : 'rgba(255,255,255,0.06)'}`,
+              borderRadius: 12, marginBottom: 7, alignItems: 'center',
+            }}>
+              <div style={{ fontSize: 20, width: 28, textAlign: 'center', flexShrink: 0 }}>
+                {isClaimed ? '✅' : reached ? t.emoji : '🔒'}
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 10, color: '#666' }}>Tier {i + 1} · {formatNumber(t.xp)} XP{t.special ? ` · ${t.special}` : ''}</div>
+                <div style={{ fontSize: 13, color: '#e8e8f0', fontWeight: isClaimed ? 400 : 700, opacity: isClaimed ? 0.5 : 1 }}>{t.free}</div>
               </div>
               {canClaim && (
-                <button
-                  className="btn-primary"
-                  style={{ fontSize: 12, padding: '6px 12px', flexShrink: 0 }}
-                  onClick={() => { claimTier(i, t.freeCoins, t.freeKC) }}
-                >
-                  Hämta!
-                </button>
+                <button className="btn-primary" style={{ fontSize: 11, padding: '6px 10px', flexShrink: 0 }} onClick={() => claimTier(i, t.freeCoins, t.freeKC)}>Hämta!</button>
               )}
-              {isClaimed && <span style={{ fontSize: 11, color: 'var(--green)', fontWeight: 700 }}>Hämtad</span>}
-              {!reached && <span style={{ fontSize: 11, color: '#555' }}>{formatNumber(t.xp - pet.bpassXP)} XP kvar</span>}
+              {isClaimed && <span style={{ fontSize: 10, color: 'var(--green)', fontWeight: 700, flexShrink: 0 }}>✓ Klar</span>}
+              {!reached && <span style={{ fontSize: 10, color: '#555', flexShrink: 0 }}>{formatNumber(t.xp - pet.bpassXP)} kvar</span>}
             </div>
           )
         })}
-        <div style={{ fontSize: 11, color: '#555', textAlign: 'center', marginTop: 8 }}>
-          Battle Pass XP = 10% av all tjänad XP
-        </div>
       </div>
     )
   }
@@ -1337,6 +1356,159 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
             </div>
           </div>
         ))}
+      </div>
+    )
+  }
+
+  // ── Mine panel ───────────────────────────────────────────────────────────────
+  if (panel === 'mine') {
+    const MINE_UPGRADES = [
+      { level: 1, rate: 5,  capacity: 100,  upgradeCost: 0   },
+      { level: 2, rate: 10, capacity: 200,  upgradeCost: 150 },
+      { level: 3, rate: 20, capacity: 400,  upgradeCost: 400 },
+      { level: 4, rate: 40, capacity: 800,  upgradeCost: 900 },
+      { level: 5, rate: 80, capacity: 2000, upgradeCost: 2000 },
+    ]
+    const mineLevel = Number(localStorage.getItem('k0509_mine_level') ?? 1)
+    const mineLastCollect = Number(localStorage.getItem('k0509_mine_collect') ?? Date.now())
+    const [mineLvl, setMineLvl] = useState(mineLevel)
+    const [lastCollect, setLastCollect] = useState(mineLastCollect)
+    const [now, setNow] = useState(Date.now())
+
+    useEffect(() => {
+      const iv = setInterval(() => setNow(Date.now()), 5000)
+      return () => clearInterval(iv)
+    }, [])
+
+    const cfg = MINE_UPGRADES[mineLvl - 1]
+    const nextCfg = MINE_UPGRADES[mineLvl] ?? null
+    const elapsedMins = (now - lastCollect) / 60000
+    const accumulated = Math.min(cfg.capacity, Math.floor(elapsedMins * cfg.rate))
+    const pct = Math.min(100, (accumulated / cfg.capacity) * 100)
+
+    const collect = () => {
+      if (accumulated <= 0) return
+      gainCoins(accumulated)
+      const newTime = Date.now()
+      localStorage.setItem('k0509_mine_collect', String(newTime))
+      setLastCollect(newTime)
+      setNow(newTime)
+      showToast(`⛏️ +${accumulated}🪙 från gruvan!`, 'success')
+      audio.coin()
+    }
+
+    const upgrade = () => {
+      if (!nextCfg || pet.coins < nextCfg.upgradeCost) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      spendCoins(nextCfg.upgradeCost)
+      const newLvl = mineLvl + 1
+      localStorage.setItem('k0509_mine_level', String(newLvl))
+      setMineLvl(newLvl)
+      showToast(`⛏️ Gruvan uppgraderad till Nivå ${newLvl}!`, 'success')
+      audio.achievement(); triggerConfetti()
+    }
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>⛏️ Gruvan</div>
+        <div style={{ textAlign: 'center', fontSize: 13, color: 'var(--t3)', marginBottom: 16 }}>
+          Passiv inkomst medan du spelar!
+        </div>
+        <div style={{
+          background: 'rgba(255,204,0,.06)', border: '1px solid rgba(255,204,0,.2)',
+          borderRadius: 16, padding: '20px 16px', textAlign: 'center', marginBottom: 14,
+        }}>
+          <div style={{ fontSize: 56 }}>⛏️</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: '#fbbf24', marginTop: 8 }}>
+            Nivå {mineLvl} Gruva
+          </div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>
+            {cfg.rate} mynt/min · Kapacitet: {cfg.capacity}🪙
+          </div>
+          <div style={{ margin: '14px 0 8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 4 }}>
+              <span style={{ color: 'var(--t3)' }}>Samlade mynt</span>
+              <span style={{ color: '#fbbf24', fontWeight: 900 }}>{accumulated} / {cfg.capacity}</span>
+            </div>
+            <div style={{ height: 10, background: 'rgba(0,0,0,.3)', borderRadius: 5, overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${pct}%`, background: 'linear-gradient(90deg,#fbbf24,#f59e0b)', borderRadius: 5, transition: 'width .5s' }} />
+            </div>
+          </div>
+          <button
+            className="btn-gold"
+            style={{ width: '100%', padding: '14px', fontSize: 15, fontWeight: 900, marginTop: 4, opacity: accumulated <= 0 ? 0.5 : 1 }}
+            onClick={collect}
+            disabled={accumulated <= 0}
+          >
+            ⛏️ Samla {accumulated} mynt!
+          </button>
+        </div>
+        {nextCfg && (
+          <div style={{
+            background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.1)',
+            borderRadius: 14, padding: '14px 16px',
+          }}>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 900, color: '#fff', marginBottom: 6 }}>
+              Uppgradera till Nivå {nextCfg.level}
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 10 }}>
+              {nextCfg.rate} mynt/min · Kapacitet: {nextCfg.capacity}🪙
+            </div>
+            <button
+              className="btn-primary"
+              style={{ width: '100%', padding: 12, opacity: pet.coins >= nextCfg.upgradeCost ? 1 : 0.5 }}
+              onClick={upgrade}
+            >
+              Uppgradera — {nextCfg.upgradeCost}🪙
+            </button>
+          </div>
+        )}
+        {!nextCfg && (
+          <div style={{ textAlign: 'center', fontSize: 14, color: '#fbbf24', fontWeight: 900, padding: 16 }}>
+            🏆 MAX NIVÅ UPPNÅDD!
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // ── Activity Log panel ────────────────────────────────────────────────────────
+  if (panel === 'activitylog') {
+    const LOG_KEY = 'k0509_activity_log'
+    const rawLog: { emoji: string; text: string; ts: number }[] = JSON.parse(localStorage.getItem(LOG_KEY) ?? '[]')
+    const entries = rawLog.slice().reverse().slice(0, 30)
+    const now = Date.now()
+    const fmt = (ts: number) => {
+      const diff = Math.floor((now - ts) / 1000)
+      if (diff < 60) return `${diff}s sedan`
+      if (diff < 3600) return `${Math.floor(diff / 60)}min sedan`
+      if (diff < 86400) return `${Math.floor(diff / 3600)}h sedan`
+      return `${Math.floor(diff / 86400)}d sedan`
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>📜 Aktivitetslogg</div>
+        {entries.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '32px 16px', color: 'var(--t3)', fontSize: 14 }}>
+            <div style={{ fontSize: 40, marginBottom: 8 }}>📜</div>
+            Ingen aktivitet ännu — börja spela!
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+            {entries.map((e, i) => (
+              <div key={i} style={{
+                display: 'flex', gap: 10, alignItems: 'center',
+                padding: '9px 12px', borderRadius: 12,
+                background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.06)',
+              }}>
+                <span style={{ fontSize: 20, flexShrink: 0 }}>{e.emoji}</span>
+                <span style={{ flex: 1, fontSize: 12, color: '#e8e8f0' }}>{e.text}</span>
+                <span style={{ fontSize: 10, color: 'var(--t3)', flexShrink: 0 }}>{fmt(e.ts)}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     )
   }
