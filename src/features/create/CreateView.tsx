@@ -3,12 +3,12 @@ import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
 import { formatNumber } from '@/utils/format'
 import { audio } from '@/services/AudioService'
-import { SPIN_PRIZES, LUCKY_PRIZES, EXPEDITIONS, ALL_ACHIEVEMENTS, FEATURE_HUB_ITEMS, FORTUNE_MESSAGES, SHOP_HATS, SHOP_ACC, SHOP_AURA } from '@/constants/config'
+import { SPIN_PRIZES, LUCKY_PRIZES, EXPEDITIONS, ALL_ACHIEVEMENTS, FEATURE_HUB_ITEMS, FORTUNE_MESSAGES, SHOP_HATS, SHOP_ACC, SHOP_AURA, FISH_TYPES } from '@/constants/config'
 import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -21,7 +21,8 @@ const ITEM_ACCENTS: Record<string, string> = {
   spin: 'gold', lucky: 'purple', shop: 'green', expedition: 'blue',
   achievements: 'gold', craft: 'purple', fortune: 'orange',
   wardrobe: 'pink', battlepass: 'purple', leaderboard: 'gold',
-  quests: 'green', records: 'blue',
+  quests: 'green', records: 'blue', chests: 'gold', bounty: 'red',
+  fishpedia: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -29,6 +30,8 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   battlepass: { label: 'S1',     color: 'var(--purple)' },
   craft:      { label: 'CRAFT',  color: 'var(--blue)'   },
   expedition: { label: 'ÄVENTYR',color: 'var(--green)'  },
+  chests:     { label: 'DAGLIG', color: 'var(--gold)'   },
+  bounty:     { label: 'NYA',    color: 'var(--red)'    },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -778,6 +781,231 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               </div>
             )
           })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Chests panel ─────────────────────────────────────────────────────────────
+  if (panel === 'chests') {
+    const todayStr = new Date().toDateString()
+    const freeKey = 'k0509_chest_free'
+    const silverKey = 'k0509_chest_silver'
+    const goldKey = 'k0509_chest_gold'
+    const freeClaimed = localStorage.getItem(freeKey) === todayStr
+    const CHEST_TYPES = [
+      {
+        key: freeKey, id: 'free', name: 'Gratis Kista', emoji: '📦', color: '#888',
+        costType: 'free' as const, cost: 0, daily: true,
+        rewards: () => {
+          const coins = 10 + Math.floor(Math.random() * 40)
+          const xp = 20 + Math.floor(Math.random() * 30)
+          return { coins, xp, kc: 0, extra: '' }
+        },
+      },
+      {
+        key: silverKey, id: 'silver', name: 'Silver Kista', emoji: '🥈', color: '#9ca3af',
+        costType: 'coins' as const, cost: 50, daily: false,
+        rewards: () => {
+          const coins = 60 + Math.floor(Math.random() * 80)
+          const xp = 50 + Math.floor(Math.random() * 60)
+          const kc = Math.random() < 0.3 ? 1 : 0
+          return { coins, xp, kc, extra: kc > 0 ? '+1💎' : '' }
+        },
+      },
+      {
+        key: goldKey, id: 'gold', name: 'Guld Kista', emoji: '🏆', color: '#fbbf24',
+        costType: 'coins' as const, cost: 150, daily: false,
+        rewards: () => {
+          const coins = 150 + Math.floor(Math.random() * 150)
+          const xp = 100 + Math.floor(Math.random() * 100)
+          const kc = Math.floor(Math.random() * 3) + 1
+          return { coins, xp, kc, extra: `+${kc}💎` }
+        },
+      },
+    ]
+    const [opened, setOpened] = useState<Record<string, { coins: number; xp: number; kc: number; extra: string } | null>>({})
+    const open = (chest: (typeof CHEST_TYPES)[0]) => {
+      if (chest.daily && localStorage.getItem(chest.key) === todayStr) return
+      if (chest.costType === 'coins' && !spendCoins(chest.cost)) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      if (chest.daily) localStorage.setItem(chest.key, todayStr)
+      const r = chest.rewards()
+      gainCoins(r.coins)
+      gainXP(r.xp, 'chest')
+      if (r.kc > 0) gainKC(r.kc)
+      setOpened(prev => ({ ...prev, [chest.id]: r }))
+      showToast(`${chest.emoji} ${chest.name}! +${r.coins}🪙 +${r.xp}XP${r.extra}`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🎁 Kistor</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {CHEST_TYPES.map(chest => {
+            const result = opened[chest.id]
+            const dailyUsed = chest.daily && freeClaimed && !result
+            return (
+              <div
+                key={chest.id}
+                style={{
+                  background: `rgba(${chest.color === '#fbbf24' ? '251,191,36' : chest.color === '#9ca3af' ? '156,163,175' : '136,136,136'},.08)`,
+                  border: `1px solid ${chest.color}44`,
+                  borderRadius: 16, padding: '16px 14px',
+                  display: 'flex', alignItems: 'center', gap: 14,
+                }}
+              >
+                <span style={{ fontSize: 40 }}>{chest.emoji}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: 'var(--ff-head)', fontSize: 15, fontWeight: 900, color: '#fff' }}>{chest.name}</div>
+                  {result ? (
+                    <div style={{ fontSize: 13, color: '#4ade80', fontWeight: 700, marginTop: 4 }}>
+                      +{result.coins}🪙 +{result.xp}XP{result.extra}
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 3 }}>
+                      {chest.daily ? '1x per dag gratis' : `Kostar ${chest.cost}🪙`}
+                    </div>
+                  )}
+                </div>
+                {result ? (
+                  <div style={{ fontSize: 20 }}>✅</div>
+                ) : dailyUsed ? (
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>Imorgon</div>
+                ) : (
+                  <button
+                    className="btn-primary"
+                    style={{ fontSize: 13, padding: '8px 14px', flexShrink: 0 }}
+                    onClick={() => open(chest)}
+                  >
+                    {chest.daily ? 'Öppna!' : `${chest.cost}🪙`}
+                  </button>
+                )}
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ marginTop: 16, padding: '12px 14px', background: 'rgba(255,255,255,.03)', borderRadius: 12, fontSize: 11, color: 'var(--t3)' }}>
+          💡 Gratis kistan återställs varje dag vid midnatt
+        </div>
+      </div>
+    )
+  }
+
+  // ── Bounty Board panel ────────────────────────────────────────────────────────
+  if (panel === 'bounty') {
+    const BOUNTIES = [
+      { id: 'b_fish5', emoji: '🎣', title: 'Fångare', desc: 'Fånga 5 fiskar', type: 'fish', target: 5, coins: 75, xp: 60, kc: 1 },
+      { id: 'b_fish20', emoji: '🎣', title: 'Mästerfiskare', desc: 'Fånga 20 fiskar', type: 'fish', target: 20, coins: 250, xp: 200, kc: 3 },
+      { id: 'b_battle5', emoji: '⚔️', title: 'Krigare', desc: 'Vinn 5 strider', type: 'battle', target: 5, coins: 100, xp: 80, kc: 2 },
+      { id: 'b_battle20', emoji: '⚔️', title: 'Hjälte', desc: 'Vinn 20 strider', type: 'battle', target: 20, coins: 300, xp: 240, kc: 5 },
+      { id: 'b_tap100', emoji: '👆', title: 'Tapmaster', desc: '100 pekar totalt', type: 'taps', target: 100, coins: 50, xp: 40, kc: 0 },
+      { id: 'b_tap500', emoji: '👆', title: 'Peklegend', desc: '500 pekar totalt', type: 'taps', target: 500, coins: 200, xp: 150, kc: 2 },
+    ]
+    const claimed: string[] = JSON.parse(localStorage.getItem('k0509_bounties_claimed') ?? '[]')
+    const [claimedLocal, setClaimedLocal] = useState<string[]>(claimed)
+    const getProgress = (type: string) => {
+      if (type === 'fish') return pet.fishCaught
+      if (type === 'battle') return pet.battleWins
+      if (type === 'taps') return pet.totalTaps
+      return 0
+    }
+    const claimBounty = (b: (typeof BOUNTIES)[0]) => {
+      const next = [...claimedLocal, b.id]
+      localStorage.setItem('k0509_bounties_claimed', JSON.stringify(next))
+      setClaimedLocal(next)
+      gainCoins(b.coins)
+      gainXP(b.xp, 'bounty')
+      if (b.kc > 0) gainKC(b.kc)
+      showToast(`📌 ${b.title} klar! +${b.coins}🪙 +${b.xp}XP${b.kc > 0 ? ` +${b.kc}💎` : ''}`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>📌 Uppdragstavla</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {BOUNTIES.map(b => {
+            const prog = getProgress(b.type)
+            const pct = Math.min(100, (prog / b.target) * 100)
+            const done = prog >= b.target
+            const isClaimed = claimedLocal.includes(b.id)
+            return (
+              <div
+                key={b.id}
+                style={{
+                  display: 'flex', gap: 12, alignItems: 'center',
+                  background: isClaimed ? 'rgba(0,255,136,.05)' : done ? 'rgba(255,204,0,.06)' : 'rgba(255,255,255,.03)',
+                  border: `1px solid ${isClaimed ? 'rgba(0,255,136,.25)' : done ? 'rgba(255,204,0,.3)' : 'rgba(255,255,255,.07)'}`,
+                  borderRadius: 14, padding: '12px 14px',
+                }}
+              >
+                <span style={{ fontSize: 24 }}>{b.emoji}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 900, color: '#fff' }}>{b.title}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)', marginBottom: 4 }}>{b.desc}</div>
+                  <div style={{ height: 4, background: 'rgba(0,0,0,.3)', borderRadius: 2, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${pct}%`, background: isClaimed ? '#4ade80' : done ? '#fbbf24' : '#4488ff', borderRadius: 2, transition: 'width .4s' }} />
+                  </div>
+                  <div style={{ fontSize: 9, color: 'var(--t3)', marginTop: 2 }}>
+                    {Math.min(prog, b.target)}/{b.target} · +{b.coins}🪙 +{b.xp}XP{b.kc > 0 ? ` +${b.kc}💎` : ''}
+                  </div>
+                </div>
+                {isClaimed ? (
+                  <span style={{ fontSize: 18 }}>✅</span>
+                ) : done ? (
+                  <button
+                    className="btn-gold"
+                    style={{ fontSize: 11, padding: '6px 10px', flexShrink: 0 }}
+                    onClick={() => claimBounty(b)}
+                  >
+                    Hämta!
+                  </button>
+                ) : (
+                  <span style={{ fontSize: 11, color: 'var(--t3)', flexShrink: 0 }}>{Math.round(pct)}%</span>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Fish Encyclopedia panel ───────────────────────────────────────────────────
+  if (panel === 'fishpedia') {
+    const rarityColor: Record<string, string> = {
+      common: '#888', uncommon: '#4ade80', rare: '#60a5fa', epic: '#a855f7', legendary: '#fbbf24',
+    }
+    const rarityLabel: Record<string, string> = {
+      common: 'Vanlig', uncommon: 'Ovanlig', rare: 'Sällsynt', epic: 'Episk', legendary: 'LEGENDÄR',
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🐟 Fiskpedia</div>
+        <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 14, textAlign: 'center' }}>
+          {pet.fishCaught} fiskar fångade totalt · {FISH_TYPES.length} sorter
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          {FISH_TYPES.map(f => (
+            <div
+              key={f.id}
+              style={{
+                background: `rgba(${f.rarity === 'legendary' ? '251,191,36' : f.rarity === 'epic' ? '168,85,247' : f.rarity === 'rare' ? '96,165,250' : f.rarity === 'uncommon' ? '74,222,128' : '136,136,136'},.07)`,
+                border: `1px solid ${rarityColor[f.rarity]}44`,
+                borderRadius: 14, padding: '12px 10px', textAlign: 'center',
+              }}
+            >
+              <div style={{ fontSize: 32, marginBottom: 4 }}>{f.emoji}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: rarityColor[f.rarity] }}>{f.name}</div>
+              <div style={{ fontSize: 9, color: 'var(--t3)', marginTop: 2 }}>{rarityLabel[f.rarity]}</div>
+              <div style={{ fontSize: 9, color: '#fbbf24', marginTop: 3 }}>{f.coins}🪙 / {f.xp}XP</div>
+              <div style={{ fontSize: 8, color: 'var(--t3)', marginTop: 2 }}>
+                {f.weight[0]}-{f.weight[1]} kg · {Math.round(f.chance * 100)}% chans
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     )

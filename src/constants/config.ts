@@ -236,10 +236,13 @@ export const FLASH_SAMPLE_POSTS = [
 export const FEATURE_HUB_ITEMS = [
   { id: 'spin', emoji: '🎡', label: 'Daglig Spin', desc: 'Snurra hjulet dagligen' },
   { id: 'lucky', emoji: '📦', label: 'Lucky Box', desc: 'Öppna en belöningslåda' },
+  { id: 'chests', emoji: '🎁', label: 'Kistor', desc: 'Daglig gratis kista' },
+  { id: 'bounty', emoji: '📌', label: 'Uppdragstavla', desc: 'Hämta belöningar' },
   { id: 'shop', emoji: '🛍️', label: 'Shop', desc: 'Köp kosmetika & boosts' },
   { id: 'expedition', emoji: '🗺️', label: 'Expedition', desc: 'Skicka husdjuret på äventyr' },
   { id: 'achievements', emoji: '🏆', label: 'Prestationer', desc: 'Se dina utmärkelser' },
   { id: 'craft', emoji: '⚗️', label: 'Craftshop', desc: 'Skapa föremål' },
+  { id: 'fishpedia', emoji: '🐟', label: 'Fiskpedia', desc: 'Din fisksamling' },
   { id: 'fortune', emoji: '🥠', label: 'Lyckobudskap', desc: 'Daglig visdom' },
   { id: 'wardrobe', emoji: '👗', label: 'Garderob', desc: 'Klä din husdjur' },
   { id: 'battlepass', emoji: '🎫', label: 'Battle Pass', desc: 'Säsongsbelöningar' },
