@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -23,7 +23,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   wardrobe: 'pink', battlepass: 'purple', leaderboard: 'gold',
   quests: 'green', records: 'blue', chests: 'gold', bounty: 'red',
   fishpedia: 'blue', checkin: 'green', skilltree: 'green', tarot: 'purple', trophyroom: 'gold',
-  mine: 'gold', activitylog: 'blue',
+  mine: 'gold', activitylog: 'blue', farm: 'green', worldevents: 'purple',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -38,6 +38,8 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   tarot:      { label: 'DAGLIG', color: 'var(--purple)' },
   trophyroom: { label: 'NY',     color: 'var(--gold)'   },
   mine:       { label: 'NY',     color: 'var(--gold)'   },
+  farm:       { label: 'NY',     color: 'var(--green)'  },
+  worldevents:{ label: 'LIVE',   color: 'var(--purple)' },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -1468,6 +1470,209 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
             🏆 MAX NIVÅ UPPNÅDD!
           </div>
         )}
+      </div>
+    )
+  }
+
+  // ── Farm panel ───────────────────────────────────────────────────────────────
+  if (panel === 'farm') {
+    const CROPS = [
+      { id: 'carrot',  emoji: '🥕', name: 'Morot',     cost: 20,  durationMins: 3,  coins: 50,  xp: 20 },
+      { id: 'corn',    emoji: '🌽', name: 'Majs',      cost: 40,  durationMins: 8,  coins: 110, xp: 45 },
+      { id: 'pumpkin', emoji: '🎃', name: 'Pumpa',     cost: 80,  durationMins: 20, coins: 230, xp: 90 },
+      { id: 'rainbow', emoji: '🌈', name: 'Regnbågskål',cost: 200, durationMins: 60, coins: 650, xp: 250 },
+    ]
+    const SLOTS = 4
+    type CropSlot = { cropId: string; plantedAt: number } | null
+    const farmKey = 'k0509_farm_slots'
+    const [slots, setSlots] = useState<CropSlot[]>(() => JSON.parse(localStorage.getItem(farmKey) ?? 'null') ?? Array(SLOTS).fill(null))
+    const [now, setNow] = useState(Date.now())
+
+    useEffect(() => {
+      const iv = setInterval(() => setNow(Date.now()), 5000)
+      return () => clearInterval(iv)
+    }, [])
+
+    const saveSlots = (s: CropSlot[]) => {
+      localStorage.setItem(farmKey, JSON.stringify(s))
+      setSlots(s)
+    }
+
+    const plant = (slotIdx: number, cropId: string, cost: number) => {
+      if (pet.coins < cost) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      spendCoins(cost)
+      const next = [...slots]
+      next[slotIdx] = { cropId, plantedAt: Date.now() }
+      saveSlots(next)
+      showToast(`🌱 Planterade ${CROPS.find(c => c.id === cropId)?.name}!`, 'success')
+      audio.click()
+    }
+
+    const harvest = (slotIdx: number) => {
+      const slot = slots[slotIdx]
+      if (!slot) return
+      const crop = CROPS.find(c => c.id === slot.cropId)!
+      gainCoins(crop.coins)
+      gainXP(crop.xp, 'farm')
+      const next = [...slots]
+      next[slotIdx] = null
+      saveSlots(next)
+      showToast(`${crop.emoji} Skördade ${crop.name}! +${crop.coins}🪙 +${crop.xp}XP`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🌾 Gården</div>
+        <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>
+          Plantera grödor — vänta — skörda! · 💰 {pet.coins} tillgängliga
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+          {Array.from({ length: SLOTS }, (_, i) => {
+            const slot = slots[i]
+            const crop = slot ? CROPS.find(c => c.id === slot.cropId) : null
+            const elapsed = slot ? (now - slot.plantedAt) / 60000 : 0
+            const ready = crop ? elapsed >= crop.durationMins : false
+            const pct = crop ? Math.min(100, (elapsed / crop.durationMins) * 100) : 0
+            const minsLeft = crop ? Math.max(0, Math.ceil(crop.durationMins - elapsed)) : 0
+            return (
+              <div key={i} style={{
+                padding: '12px 14px', borderRadius: 14,
+                background: ready ? 'rgba(74,222,128,.08)' : slot ? 'rgba(255,255,255,.04)' : 'rgba(255,255,255,.02)',
+                border: `1px solid ${ready ? 'rgba(74,222,128,.3)' : slot ? 'rgba(255,255,255,.1)' : 'rgba(255,255,255,.06)'}`,
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: 28 }}>{slot && crop ? crop.emoji : '🟫'}</span>
+                  <div style={{ flex: 1 }}>
+                    {slot && crop ? (
+                      <>
+                        <div style={{ fontWeight: 700, fontSize: 13, color: ready ? '#4ade80' : '#fff' }}>{crop.name}</div>
+                        <div style={{ height: 4, background: 'rgba(0,0,0,.3)', borderRadius: 2, overflow: 'hidden', margin: '4px 0' }}>
+                          <div style={{ height: '100%', width: `${pct}%`, background: ready ? '#4ade80' : '#fbbf24', borderRadius: 2, transition: 'width .5s' }} />
+                        </div>
+                        <div style={{ fontSize: 10, color: 'var(--t3)' }}>
+                          {ready ? '✅ Klar för skörd!' : `${minsLeft} min kvar · +${crop.coins}🪙 +${crop.xp}XP`}
+                        </div>
+                      </>
+                    ) : (
+                      <div style={{ fontSize: 12, color: '#555' }}>Tom · Välj en gröda att plantera</div>
+                    )}
+                  </div>
+                  {ready && <button className="btn-gold" style={{ fontSize: 11, padding: '6px 10px', flexShrink: 0 }} onClick={() => harvest(i)}>Skörda!</button>}
+                </div>
+                {!slot && (
+                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
+                    {CROPS.map(c => (
+                      <button
+                        key={c.id}
+                        onClick={() => plant(i, c.id, c.cost)}
+                        style={{
+                          padding: '4px 8px', borderRadius: 8, fontSize: 10, fontWeight: 700,
+                          background: pet.coins >= c.cost ? 'rgba(74,222,128,.12)' : 'rgba(255,255,255,.03)',
+                          border: `1px solid ${pet.coins >= c.cost ? 'rgba(74,222,128,.35)' : 'rgba(255,255,255,.06)'}`,
+                          color: pet.coins >= c.cost ? '#4ade80' : '#555', cursor: pet.coins >= c.cost ? 'pointer' : 'not-allowed',
+                        }}
+                      >
+                        {c.emoji} {c.name} {c.cost}🪙
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── World Events panel ────────────────────────────────────────────────────────
+  if (panel === 'worldevents') {
+    const hour = new Date().getHours()
+    const day = new Date().getDay()
+    const dayName = ['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'][day]
+    const EVENTS = [
+      {
+        id: 'weekend', active: day === 0 || day === 6,
+        emoji: '🎉', name: 'Helgfestival',
+        desc: 'Alla spel ger +25% XP. Dubblad Quest-belöning!',
+        ends: 'Slutar söndag 23:59', color: '#aa66ff',
+      },
+      {
+        id: 'morning', active: hour >= 6 && hour < 10,
+        emoji: '🌅', name: 'Morgonrush',
+        desc: '+20% XP från alla aktiviteter. Passa på!',
+        ends: 'Aktivt 06:00-10:00', color: '#fbbf24',
+      },
+      {
+        id: 'lunch', active: hour >= 11 && hour < 14,
+        emoji: '🍽️', name: 'Lunchlycka',
+        desc: 'Fiske ger dubbel XP och mynt t.o.m. 14:00.',
+        ends: 'Aktivt 11:00-14:00', color: '#4ade80',
+      },
+      {
+        id: 'evening', active: hour >= 18 && hour < 22,
+        emoji: '🌆', name: 'Kvällsräd',
+        desc: 'Boss Raid och Dungeon ger +50% belöning!',
+        ends: 'Aktivt 18:00-22:00', color: '#f87171',
+      },
+      {
+        id: 'summer', active: true,
+        emoji: '☀️', name: 'Sommerfestivalen 2026',
+        desc: 'Säsongsevent! Exklusiva belöningar och bonusar hela veckan.',
+        ends: `Idag ${dayName} · Permanent event`, color: '#ffcc00',
+      },
+    ]
+    const activeNow = EVENTS.filter(e => e.active)
+    const upcoming = EVENTS.filter(e => !e.active)
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🌍 Världshändelser</div>
+        {activeNow.length > 0 && (
+          <>
+            <div style={{ fontSize: 11, fontWeight: 900, color: '#4ade80', letterSpacing: 1, marginBottom: 8 }}>🟢 AKTIVA NU</div>
+            {activeNow.map(e => (
+              <div key={e.id} style={{
+                background: `rgba(${e.color.replace('#','').match(/../g)?.map(h=>parseInt(h,16)).join(',')??'255,255,255'},.08)`,
+                border: `1px solid ${e.color}44`,
+                borderRadius: 14, padding: '14px 14px', marginBottom: 10,
+              }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 6 }}>
+                  <span style={{ fontSize: 28 }}>{e.emoji}</span>
+                  <div>
+                    <div style={{ fontFamily: 'var(--ff-head)', fontSize: 15, fontWeight: 900, color: e.color }}>{e.name}</div>
+                    <div style={{ fontSize: 10, color: 'var(--t3)' }}>{e.ends}</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: 12, color: '#e8e8f0' }}>{e.desc}</div>
+              </div>
+            ))}
+          </>
+        )}
+        {upcoming.length > 0 && (
+          <>
+            <div style={{ fontSize: 11, fontWeight: 900, color: '#555', letterSpacing: 1, margin: '8px 0' }}>⏳ KOMMER SNART</div>
+            {upcoming.map(e => (
+              <div key={e.id} style={{
+                background: 'rgba(255,255,255,.02)', border: '1px solid rgba(255,255,255,.06)',
+                borderRadius: 14, padding: '12px 14px', marginBottom: 8, opacity: 0.6,
+              }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                  <span style={{ fontSize: 24, filter: 'grayscale(1)' }}>{e.emoji}</span>
+                  <div>
+                    <div style={{ fontWeight: 700, fontSize: 13, color: '#888' }}>{e.name}</div>
+                    <div style={{ fontSize: 10, color: '#555' }}>{e.ends}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+        <div style={{ textAlign: 'center', padding: '12px', fontSize: 11, color: 'var(--t3)', background: 'rgba(255,255,255,.03)', borderRadius: 12, marginTop: 4 }}>
+          🌟 Händelser byts automatiskt ut baserat på tid och dag
+        </div>
       </div>
     )
   }

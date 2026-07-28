@@ -132,8 +132,11 @@ export const PetView = memo(function PetView() {
   const [editingName, setEditingName] = useState(false)
   const [nameInput, setNameInput] = useState('')
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false)
+  const [evolutionVisible, setEvolutionVisible] = useState(false)
+  const [evolutionStageInfo, setEvolutionStageInfo] = useState<typeof EVOLUTION_STAGES[0] | null>(null)
   const prevBondTier = useRef(pet.bondTier)
   const prevTapMilestone = useRef(Math.floor(pet.totalTaps / 1000))
+  const prevEvoStage = useRef(getEvolutionStage(pet.level).minLevel)
 
   const newAchievementObj = newAchievement ? ALL_ACHIEVEMENTS.find(a => a.id === newAchievement) ?? null : null
 
@@ -194,6 +197,18 @@ export const PetView = memo(function PetView() {
     }
     prevBondTier.current = pet.bondTier
   }, [pet.bondTier, showToast, pushNotif, triggerConfetti])
+
+  // Evolution stage change celebration
+  useEffect(() => {
+    const currentStage = getEvolutionStage(pet.level)
+    if (currentStage.minLevel > prevEvoStage.current) {
+      prevEvoStage.current = currentStage.minLevel
+      setEvolutionStageInfo(currentStage)
+      setEvolutionVisible(true)
+      triggerConfetti()
+      audio.achievement()
+    }
+  }, [pet.level, triggerConfetti])
 
   // Low-stat notifications (fire once per crossing below threshold)
   const lowNotifRef = useRef<Record<string, boolean>>({})
@@ -344,6 +359,35 @@ export const PetView = memo(function PetView() {
           <div className="ach-name">{newAchievementObj.title}</div>
           <div className="ach-desc">{newAchievementObj.description ?? 'Prestation upplåst!'}</div>
           <div className="ach-tap">🔥 AWESOME!</div>
+        </div>
+      )}
+
+      {/* Evolution milestone modal */}
+      {evolutionVisible && evolutionStageInfo && (
+        <div
+          onClick={() => setEvolutionVisible(false)}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 9000, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: 'rgba(0,0,0,.85)', backdropFilter: 'blur(8px)',
+          }}
+        >
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(168,85,247,.25), rgba(236,72,153,.15))',
+            border: '2px solid rgba(168,85,247,.6)',
+            borderRadius: 24, padding: '32px 28px', textAlign: 'center', maxWidth: 300,
+            animation: 'lvl-pop .4s cubic-bezier(.34,1.56,.64,1)',
+          }}>
+            <div style={{ fontSize: 64, marginBottom: 8 }}>{evolutionStageInfo.emoji}</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 11, letterSpacing: 2, color: '#a855f7', marginBottom: 6 }}>✦ EVOLUTION ✦</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 24, fontWeight: 900, color: '#fff', marginBottom: 4 }}>
+              {evolutionStageInfo.name}!
+            </div>
+            <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 20 }}>
+              Ditt husdjur har nått en ny form!
+              {evolutionStageInfo.nextAt ? ` Nästa evolution: nivå ${evolutionStageInfo.nextAt}` : ' MAX EVOLUTION!'}
+            </div>
+            <button className="btn-primary" style={{ padding: '12px 28px' }}>✨ Fantastiskt!</button>
+          </div>
         </div>
       )}
 

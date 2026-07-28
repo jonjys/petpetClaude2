@@ -243,6 +243,8 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'tarot', emoji: '🔮', label: 'Tarotkort', desc: 'Daglig tarot-läsning' },
   { id: 'trophyroom', emoji: '🏆', label: 'Pokalrum', desc: 'Dina prestationstrofeer' },
   { id: 'mine', emoji: '⛏️', label: 'Gruvan', desc: 'Passiv myntinkomst' },
+  { id: 'farm', emoji: '🌾', label: 'Gården', desc: 'Odla grödor & skörda' },
+  { id: 'worldevents', emoji: '🌍', label: 'Världshändelser', desc: 'Live events & bonusar' },
   { id: 'activitylog', emoji: '📜', label: 'Aktivitet', desc: 'Din spelhistorik' },
   { id: 'shop', emoji: '🛍️', label: 'Shop', desc: 'Köp kosmetika & boosts' },
   { id: 'expedition', emoji: '🗺️', label: 'Expedition', desc: 'Skicka husdjuret på äventyr' },
