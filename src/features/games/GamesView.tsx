@@ -19,12 +19,14 @@ import { SpeedMathGame } from './SpeedMathGame'
 import { WhackMoleGame } from './WhackMoleGame'
 import { QuizGame } from './QuizGame'
 import { ArenaGame } from './ArenaGame'
+import { DungeonGame } from './DungeonGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
   { id: 'arena' as const, emoji: '⚔️', name: 'Arena', desc: 'PvP turn-based strid', reward: '🪙30-150', hot: true },
+  { id: 'dungeon' as const, emoji: '🏰', name: 'Dungeon', desc: '5 rum med fiender', reward: '🪙20-400+', hot: true },
   { id: 'battle' as const, emoji: '🗡️', name: 'Strid', desc: 'Turn-based PvE', reward: '🪙20-400', hot: true },
   { id: 'spin' as const, emoji: '🎰', name: 'Lyckhjulet', desc: 'Snurra & vinn', reward: '🪙25-200+', hot: true },
   { id: 'quiz' as const, emoji: '🧠', name: 'Quiz', desc: 'Trivia & kunskap', reward: '🪙10-120', hot: true },
@@ -141,6 +143,7 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'whack') return <WhackMoleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'quiz') return <QuizGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'arena') return <ArenaGame onExit={() => setActiveGame(null)} onWin={(c, xp) => { handleBattleWin(c, xp) }} petEmoji={petEmoji} />
+  if (activeGame === 'dungeon') return <DungeonGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
 
   return (
     <>
