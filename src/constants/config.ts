@@ -270,6 +270,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'spa', emoji: '🛁', label: 'Pet Spa', desc: 'Pamper ditt husdjur' },
   { id: 'challenges', emoji: '🎯', label: 'Utmaningar', desc: 'Svåra dagliga uppdrag' },
   { id: 'traits', emoji: '🧬', label: 'Traits', desc: 'Passiva bonus-egenskaper' },
+  { id: 'roulette', emoji: '🎰', label: 'Roulette', desc: 'Satsa på röd, svart eller siffra' },
+  { id: 'mailbox', emoji: '📬', label: 'Brevlåda', desc: 'Presenter & meddelanden' },
+  { id: 'cookbook', emoji: '📖', label: 'Kokboken', desc: 'Laga speciella krafträtter' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
