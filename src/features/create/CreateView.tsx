@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -35,6 +35,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   forge: 'orange', enchant: 'purple', museum: 'gold',
   pvprank: 'red', inventory: 'blue', events: 'purple',
   stickers: 'gold', gifting: 'pink', pethome: 'green',
+  potions: 'purple', arena2: 'red', cosmetics: 'pink',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -83,6 +84,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   stickers:   { label: 'NY',     color: 'var(--gold)'   },
   gifting:    { label: 'NY',     color: 'var(--pink)'   },
   pethome:    { label: 'NY',     color: 'var(--green)'  },
+  potions:    { label: 'NY',     color: 'var(--purple)' },
+  arena2:     { label: 'NY',     color: 'var(--red)'    },
+  cosmetics:  { label: 'NY',     color: 'var(--pink)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -4108,6 +4112,145 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
             )
           })}
         </div>
+      </div>
+    )
+  }
+
+  // ── Potions ────────────────────────────────────────────────────────────────
+  if (panel === 'potions') {
+    const BREWS = [
+      { id: 'b1', emoji: '❤️', name: 'Livselixir',   desc: '+50 hunger +50 humör',    kc: 30,  dur: 0 },
+      { id: 'b2', emoji: '⚡', name: 'Energidryck',  desc: '+100 energi omedelbart',   kc: 40,  dur: 0 },
+      { id: 'b3', emoji: '🌟', name: 'XP-potion',    desc: '+500 XP direkt',           kc: 60,  dur: 0 },
+      { id: 'b4', emoji: '🍀', name: 'Luckpotion',   desc: '+20% drops i 1h',          kc: 80,  dur: 3600000 },
+      { id: 'b5', emoji: '💪', name: 'Styrkebrygd',  desc: '+25% battle power i 2h',   kc: 100, dur: 7200000 },
+      { id: 'b6', emoji: '🧠', name: 'Visdomsdryck', desc: '+30% XP i 3h',             kc: 150, dur: 10800000 },
+    ]
+    const active: Record<string, number> = JSON.parse(localStorage.getItem('k0509_potions') ?? '{}')
+    const now = Date.now()
+    const brew = (b: typeof BREWS[0]) => {
+      if (pet.kc < b.kc) { showToast('Inte tillräckligt KC!', 'error'); return }
+      if (b.dur && active[b.id] && active[b.id] > now) { showToast('Redan aktiv!', 'info'); return }
+      spendKC(b.kc)
+      if (b.id === 'b1') { setStat('hunger', Math.min(pet.hunger + 50, 100)); setStat('mood', Math.min(pet.mood + 50, 100)) }
+      if (b.id === 'b2') { setStat('energy', 100) }
+      if (b.id === 'b3') { gainXP(500, 'potion') }
+      if (b.dur) { active[b.id] = now + b.dur; localStorage.setItem('k0509_potions', JSON.stringify(active)) }
+      showToast(`🧪 ${b.name} brygd!`, 'success'); audio.achievement()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🧪 Bryggeriet</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>💎 {pet.kc} KC tillgängliga</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {BREWS.map(b => {
+            const isActive = b.dur && active[b.id] && active[b.id] > now
+            const remaining = isActive ? Math.ceil((active[b.id] - now) / 60000) : 0
+            return (
+              <div key={b.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', background: isActive ? 'rgba(168,85,247,.08)' : 'rgba(255,255,255,.04)', border: `1px solid ${isActive ? 'rgba(168,85,247,.3)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+                <div style={{ fontSize: 26 }}>{b.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 13, color: isActive ? '#c084fc' : '#e8e8f0' }}>{b.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{b.desc}</div>
+                  {isActive && <div style={{ fontSize: 10, color: '#c084fc', marginTop: 2 }}>⏱ {remaining}min kvar</div>}
+                </div>
+                {isActive ? <div style={{ fontSize: 12, color: '#c084fc' }}>✨</div> : (
+                  <button className="btn-gold" style={{ padding: '7px 12px', fontSize: 11, opacity: pet.kc >= b.kc ? 1 : 0.4 }}
+                    disabled={pet.kc < b.kc} onClick={() => brew(b)}>{b.kc}💎</button>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Arena 2 ────────────────────────────────────────────────────────────────
+  if (panel === 'arena2') {
+    const TIERS = ['Brons','Silver','Guld','Platina','Diamant','Legendarisk']
+    const wins = pet.battleWins
+    const tierIdx = Math.min(Math.floor(wins / 10), 5)
+    const tierName = TIERS[tierIdx]
+    const tierProgress = (wins % 10) / 10 * 100
+    const MATCHES = [
+      { name: 'QuickDuel',   desc: 'Snabb 1v1, 3 rundor',   reward: '🪙50-150',  cost: 0 },
+      { name: 'Ranked',      desc: 'Rankad match — kräver nivå 10+', reward: '🪙100-300', cost: 0 },
+      { name: 'Tournament',  desc: 'Eliminationsserie 8 spelare',    reward: '🪙500+',    cost: 20 },
+      { name: 'Championship',desc: 'Mästerskapsmatch — topptier',    reward: '🪙1000+',   cost: 50 },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🏟️ Grand Arena</div>
+        <div style={{ textAlign: 'center', marginBottom: 16 }}>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 22, fontWeight: 900, color: '#fbbf24' }}>{tierName}</div>
+          <div style={{ fontSize: 13, color: 'var(--t3)' }}>{wins} totala stridssegrar</div>
+          <div style={{ margin: '8px 16px 0', height: 6, background: 'rgba(255,255,255,.08)', borderRadius: 3, overflow: 'hidden' }}>
+            <div style={{ height: '100%', width: `${tierProgress}%`, background: '#fbbf24', borderRadius: 3, transition: 'width .4s' }} />
+          </div>
+          <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 4 }}>{wins % 10}/10 till nästa tier</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {MATCHES.map(m => (
+            <div key={m.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{m.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)' }}>{m.desc}</div>
+                <div style={{ fontSize: 11, color: '#fbbf24', marginTop: 2 }}>{m.reward}</div>
+              </div>
+              <button className="btn-primary" style={{ padding: '8px 14px', fontSize: 12 }}
+                onClick={() => { showToast(`⚔️ ${m.name} startar...`, 'info'); audio.click() }}>
+                {m.cost > 0 ? `${m.cost}💎 Gå med` : 'Gå med'}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Cosmetics ──────────────────────────────────────────────────────────────
+  if (panel === 'cosmetics') {
+    const ownedHatIds: string[] = (pet as unknown as Record<string, string[]>).ownedHats ?? []
+    const ownedAccIds: string[] = (pet as unknown as Record<string, string[]>).ownedAccessories ?? []
+    const ownedAuraIds: string[] = (pet as unknown as Record<string, string[]>).ownedAuras ?? []
+    const totalOwned = ownedHatIds.length + ownedAccIds.length + ownedAuraIds.length
+    const SECTIONS = [
+      { label: 'Hattar', emoji: '🎩', owned: ownedHatIds.length, total: SHOP_HATS.length },
+      { label: 'Accessoarer', emoji: '✨', owned: ownedAccIds.length, total: SHOP_ACC.length },
+      { label: 'Auror', emoji: '🌟', owned: ownedAuraIds.length, total: SHOP_AURA.length },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>💅 Kosmetika</div>
+        <div style={{ textAlign: 'center', marginBottom: 16 }}>
+          <div style={{ fontSize: 40 }}>{pet.petEmoji}</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 20, fontWeight: 900, color: '#e8e8f0', marginTop: 8 }}>{pet.petName}</div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>{totalOwned} kosmetika ägda</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {SECTIONS.map(s => (
+            <div key={s.label} style={{ padding: '14px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{s.emoji} {s.label}</div>
+                <div style={{ fontSize: 12, color: 'var(--t3)' }}>{s.owned}/{s.total}</div>
+              </div>
+              <div style={{ height: 4, background: 'rgba(255,255,255,.06)', borderRadius: 2, overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${s.total > 0 ? (s.owned/s.total)*100 : 0}%`, background: '#a855f7', borderRadius: 2 }} />
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 6 }}>
+                {s.owned === 0 ? 'Ingen ägd ännu — besök Shoppen!' : s.owned === s.total ? '✅ Komplett!' : `${s.total - s.owned} kvar att låsa upp`}
+              </div>
+            </div>
+          ))}
+        </div>
+        <button className="btn-primary" style={{ marginTop: 14, padding: '12px', width: '100%' }}
+          onClick={() => { showToast('Öppnar shoppen...', 'info'); onBack() }}>
+          🛍️ Gå till Shoppen
+        </button>
       </div>
     )
   }
