@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -39,6 +39,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   garden: 'green', rescue: 'blue', stats: 'gold',
   leaguetable: 'gold', badges: 'purple', wishlist: 'blue',
   meditation: 'blue', petdiary: 'purple', petshowcase: 'gold',
+  petgym: 'orange', hatchery: 'green', cosmicmap: 'purple',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -99,6 +100,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   meditation: { label: 'DAGLIG', color: 'var(--blue)'   },
   petdiary:   { label: 'NY',     color: 'var(--purple)' },
   petshowcase:{ label: 'NY',     color: 'var(--gold)'   },
+  petgym:     { label: 'NY',     color: 'var(--orange)'  },
+  hatchery:   { label: 'NY',     color: 'var(--green)'  },
+  cosmicmap:  { label: 'NY',     color: 'var(--purple)' },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -4718,6 +4722,182 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
           <button onClick={copyShare} style={{ padding: '12px 28px', borderRadius: 12, fontSize: 14, fontWeight: 900, background: copied ? 'rgba(74,222,128,.2)' : 'rgba(99,102,241,.15)', border: `1px solid ${copied ? 'rgba(74,222,128,.4)' : 'rgba(99,102,241,.3)'}`, color: copied ? '#4ade80' : '#818cf8', cursor: 'pointer', width: '100%' }}>
             {copied ? '✓ Kopierat!' : '📋 Dela ditt husdjur'}
           </button>
+        </div>
+      </div>
+    )
+  }
+
+  // ── Pet Gym ────────────────────────────────────────────────────────────────
+  if (panel === 'petgym') {
+    const gymKey = `k0509_gym_${new Date().toDateString()}`
+    const doneExercises: string[] = JSON.parse(localStorage.getItem(gymKey) ?? '[]')
+    const [done, setDone] = useState<string[]>(doneExercises)
+    const EXERCISES = [
+      { id: 'pushup', emoji: '💪', name: 'Armhävningar', desc: '+5 styrka', stat: 'energy' as const, boost: 5, xp: 20 },
+      { id: 'run', emoji: '🏃', name: 'Sprint', desc: '+5 energi', stat: 'energy' as const, boost: 5, xp: 25 },
+      { id: 'yoga', emoji: '🧘', name: 'Yoga', desc: '+5 humör', stat: 'mood' as const, boost: 5, xp: 20 },
+      { id: 'swim', emoji: '🏊', name: 'Simning', desc: '+4 energi +3 humör', stat: 'energy' as const, boost: 7, xp: 30 },
+    ]
+    const doExercise = (ex: typeof EXERCISES[0]) => {
+      if (done.includes(ex.id)) return
+      const newDone = [...done, ex.id]
+      setDone(newDone)
+      localStorage.setItem(gymKey, JSON.stringify(newDone))
+      setStat(ex.stat, Math.min(100, (pet[ex.stat] as number) + ex.boost))
+      gainXP(ex.xp, 'game')
+      gainCoins(5)
+      showToast(`${ex.emoji} ${ex.name} klar! +${ex.boost} ${ex.stat === 'mood' ? 'humör' : 'energi'} +${ex.xp} XP`, 'success')
+      audio.coin()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🏋️ Husdjursgym</div>
+        <div className={styles.panelNote}>Träna {pet.petName} varje dag för bättre stats</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {EXERCISES.map(ex => {
+            const isDone = done.includes(ex.id)
+            return (
+              <div key={ex.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: isDone ? 'rgba(74,222,128,.08)' : 'rgba(255,255,255,.04)', border: `1px solid ${isDone ? 'rgba(74,222,128,.2)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+                <div style={{ fontSize: 28 }}>{ex.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{ex.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{ex.desc} · +{ex.xp} XP · +5🪙</div>
+                </div>
+                <button onClick={() => doExercise(ex)} disabled={isDone} style={{ padding: '8px 16px', borderRadius: 10, fontSize: 12, fontWeight: 900, background: isDone ? 'rgba(74,222,128,.15)' : 'rgba(99,102,241,.15)', border: `1px solid ${isDone ? 'rgba(74,222,128,.3)' : 'rgba(99,102,241,.3)'}`, color: isDone ? '#4ade80' : '#818cf8', cursor: isDone ? 'default' : 'pointer' }}>
+                  {isDone ? '✓ Klar' : 'Träna!'}
+                </button>
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ marginTop: 12, padding: '10px 12px', background: 'rgba(255,255,255,.04)', borderRadius: 12, display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 12, color: 'var(--t3)' }}>Dagens träning</span>
+          <span style={{ fontSize: 13, fontWeight: 900, color: '#fbbf24' }}>{done.length}/{EXERCISES.length} övningar</span>
+        </div>
+      </div>
+    )
+  }
+
+  // ── Hatchery ───────────────────────────────────────────────────────────────
+  if (panel === 'hatchery') {
+    const EGGS = [
+      { id: 'common', emoji: '🥚', name: 'Vanligt ägg', cost: 50, time: 60, reward: '10-30🪙', coins: [10, 30] as [number, number] },
+      { id: 'rare', emoji: '🪺', name: 'Sällsynt ägg', cost: 200, time: 300, reward: '50-150🪙', coins: [50, 150] as [number, number] },
+      { id: 'epic', emoji: '✨', name: 'Episkt ägg', cost: 500, time: 900, reward: '200-500🪙', coins: [200, 500] as [number, number] },
+    ]
+    const hKey = 'k0509_hatchery'
+    const saved: { id: string; startTime: number } | null = JSON.parse(localStorage.getItem(hKey) ?? 'null')
+    const now = Date.now()
+    const [hatching, setHatching] = useState(saved)
+    const [justHatched, setJustHatched] = useState<string | null>(null)
+    const startHatch = (egg: typeof EGGS[0]) => {
+      if (!spendCoins(egg.cost)) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      const entry = { id: egg.id, startTime: now }
+      localStorage.setItem(hKey, JSON.stringify(entry))
+      setHatching(entry)
+      showToast(`${egg.emoji} Ägg ruvar! Kom tillbaka om ${egg.time >= 60 ? egg.time / 60 + ' min' : egg.time + 's'}`, 'success')
+      audio.coin()
+    }
+    const collectEgg = (egg: typeof EGGS[0]) => {
+      const coins = egg.coins[0] + Math.floor(Math.random() * (egg.coins[1] - egg.coins[0]))
+      gainCoins(coins)
+      gainXP(coins * 2, 'game')
+      localStorage.removeItem(hKey)
+      setHatching(null)
+      setJustHatched(egg.emoji)
+      showToast(`${egg.emoji} Ägg kläcktes! +${coins}🪙 +${coins * 2} XP`, 'success')
+      audio.achievement()
+      triggerConfetti()
+      setTimeout(() => setJustHatched(null), 2000)
+    }
+    const activeEgg = hatching ? EGGS.find(e => e.id === hatching.id) : null
+    const elapsed = hatching ? (now - hatching.startTime) / 1000 : 0
+    const isReady = activeEgg ? elapsed >= activeEgg.time : false
+    const progress = activeEgg ? Math.min(1, elapsed / activeEgg.time) : 0
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🥚 Ruveri</div>
+        <div className={styles.panelNote}>Kläck ägg och få belöningar</div>
+        {justHatched && <div style={{ textAlign: 'center', fontSize: 64, padding: '10px 0', animation: 'pulse 0.5s' }}>{justHatched}</div>}
+        {hatching && activeEgg ? (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '16px 0' }}>
+            <div style={{ fontSize: 56 }}>{isReady ? '🐣' : activeEgg.emoji}</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: '#e8e8f0' }}>{activeEgg.name}</div>
+            <div style={{ width: '100%', height: 8, background: 'rgba(255,255,255,.08)', borderRadius: 4, overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${progress * 100}%`, background: isReady ? '#4ade80' : '#818cf8', borderRadius: 4, transition: 'width .5s' }} />
+            </div>
+            {isReady
+              ? <button className="btn-primary" style={{ padding: '12px 32px', fontSize: 15 }} onClick={() => collectEgg(activeEgg)}>🐣 Kläck ägget!</button>
+              : <div style={{ fontSize: 12, color: 'var(--t3)' }}>Ruvar... {Math.round(progress * 100)}% klar</div>
+            }
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {EGGS.map(egg => (
+              <div key={egg.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+                <div style={{ fontSize: 28 }}>{egg.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{egg.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{egg.cost}🪙 · {egg.time >= 60 ? egg.time / 60 + ' min' : egg.time + 's'} · {egg.reward}</div>
+                </div>
+                <button onClick={() => startHatch(egg)} style={{ padding: '8px 14px', borderRadius: 10, fontSize: 12, fontWeight: 900, background: pet.coins >= egg.cost ? 'rgba(99,102,241,.2)' : 'rgba(255,255,255,.06)', border: `1px solid ${pet.coins >= egg.cost ? 'rgba(99,102,241,.4)' : 'rgba(255,255,255,.1)'}`, color: pet.coins >= egg.cost ? '#818cf8' : '#666', cursor: pet.coins >= egg.cost ? 'pointer' : 'default' }}>
+                  Ruva
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // ── Cosmic Map ─────────────────────────────────────────────────────────────
+  if (panel === 'cosmicmap') {
+    const ZONES = [
+      { id: 'moon', emoji: '🌙', name: 'Månen', desc: 'Nära hemmet', cost: 0, reward: 20, unlocked: true },
+      { id: 'mars', emoji: '🔴', name: 'Mars', desc: 'Det röda planeten', cost: 100, reward: 60, unlocked: pet.level >= 5 },
+      { id: 'asteroid', emoji: '☄️', name: 'Asteroidbältet', desc: 'Rikt på mineraler', cost: 300, reward: 150, unlocked: pet.level >= 10 },
+      { id: 'jupiter', emoji: '🪐', name: 'Jupiter', desc: 'Gasjätten', cost: 600, reward: 300, unlocked: pet.level >= 20 },
+      { id: 'blackhole', emoji: '🕳️', name: 'Svart hål', desc: 'Extremt farligt', cost: 1500, reward: 800, unlocked: pet.level >= 30 },
+    ]
+    const mapKey = `k0509_cosmap_${new Date().toDateString()}`
+    const visitedToday: string[] = JSON.parse(localStorage.getItem(mapKey) ?? '[]')
+    const [visited, setVisited] = useState<string[]>(visitedToday)
+    const explore = (zone: typeof ZONES[0]) => {
+      if (!zone.unlocked || visited.includes(zone.id)) return
+      if (zone.cost > 0 && !spendCoins(zone.cost)) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      const coins = zone.reward + Math.floor(Math.random() * zone.reward / 2)
+      const newVisited = [...visited, zone.id]
+      setVisited(newVisited)
+      localStorage.setItem(mapKey, JSON.stringify(newVisited))
+      gainCoins(coins)
+      gainXP(coins * 3, 'game')
+      showToast(`${zone.emoji} Utforskade ${zone.name}! +${coins}🪙`, 'success')
+      audio.achievement()
+      triggerConfetti()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🗺️ Kosmisk Karta</div>
+        <div className={styles.panelNote}>Utforska galaxen en gång per dag</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {ZONES.map(zone => {
+            const isDone = visited.includes(zone.id)
+            const locked = !zone.unlocked
+            return (
+              <div key={zone.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: isDone ? 'rgba(74,222,128,.08)' : locked ? 'rgba(255,255,255,.02)' : 'rgba(255,255,255,.04)', border: `1px solid ${isDone ? 'rgba(74,222,128,.2)' : locked ? 'rgba(255,255,255,.04)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14, opacity: locked ? 0.5 : 1 }}>
+                <div style={{ fontSize: 28 }}>{zone.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{zone.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{zone.desc} · {zone.cost > 0 ? `${zone.cost}🪙 · ` : ''}+{zone.reward}-{zone.reward + Math.floor(zone.reward / 2)}🪙</div>
+                  {locked && <div style={{ fontSize: 10, color: '#f87171' }}>🔒 Kräver nivå {zone.id === 'mars' ? 5 : zone.id === 'asteroid' ? 10 : zone.id === 'jupiter' ? 20 : 30}</div>}
+                </div>
+                <button onClick={() => explore(zone)} disabled={isDone || locked} style={{ padding: '8px 14px', borderRadius: 10, fontSize: 12, fontWeight: 900, background: isDone ? 'rgba(74,222,128,.15)' : locked ? 'rgba(255,255,255,.04)' : 'rgba(99,102,241,.2)', border: `1px solid ${isDone ? 'rgba(74,222,128,.3)' : 'rgba(99,102,241,.3)'}`, color: isDone ? '#4ade80' : locked ? '#555' : '#818cf8', cursor: isDone || locked ? 'default' : 'pointer' }}>
+                  {isDone ? '✓ Klar' : locked ? '🔒' : 'Utforska'}
+                </button>
+              </div>
+            )
+          })}
         </div>
       </div>
     )

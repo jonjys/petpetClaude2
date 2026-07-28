@@ -47,8 +47,10 @@ import { PinballGame } from './PinballGame'
 import { TypingSpeedGame } from './TypingSpeedGame'
 import { BrickBreakerGame } from './BrickBreakerGame'
 import { SlidingPuzzleGame } from './SlidingPuzzleGame'
+import { FlappyPetGame } from './FlappyPetGame'
+import { ColorSortGame } from './ColorSortGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -93,6 +95,8 @@ const GAMES = [
   { id: 'typing' as const, emoji: '⌨️', name: 'Skrivhastighet', desc: 'Skriv ord på 60 sekunder', reward: '🪙0-400', hot: false },
   { id: 'bricks' as const, emoji: '🧱', name: 'Brickbreaker', desc: 'Slå brickor med bollen', reward: '🪙0-500', hot: false },
   { id: 'slide' as const, emoji: '🧩', name: 'Glidpussel', desc: 'Ordna emoji-brickor 3×3', reward: '🪙10-100', hot: false },
+  { id: 'flappy' as const, emoji: '🪶', name: 'Flappy Pet', desc: 'Flyg genom rören!', reward: '🪙0-300', hot: true },
+  { id: 'csort' as const, emoji: '🎨', name: 'Färgsortering', desc: 'Sortera färger i rör', reward: '🪙20-200', hot: false },
 ]
 
 function weekKey() {
@@ -225,6 +229,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'typing') return <TypingSpeedGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'bricks') return <BrickBreakerGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'slide') return <SlidingPuzzleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'flappy') return <FlappyPetGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
+  if (activeGame === 'csort') return <ColorSortGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
