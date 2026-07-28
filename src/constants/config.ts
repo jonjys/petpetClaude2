@@ -330,6 +330,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'carnival', emoji: '🎡', label: 'Karneval', desc: 'Spel & priser på karnevalen' },
   { id: 'petbirthday', emoji: '🎂', label: 'Födelsedag', desc: 'Fira husdjurets födelsedag' },
   { id: 'royaltytree', emoji: '👑', label: 'Stamtavla', desc: 'Husdjurets familjeträd & arv' },
+  { id: 'speedrun', emoji: '⏱️', label: 'Speedrun', desc: 'Tidsutmaningar & rekordlistor' },
+  { id: 'collectibles', emoji: '🏺', label: 'Samlarföremål', desc: 'Sällsynta föremål & utställning' },
+  { id: 'petparade', emoji: '🎪', label: 'Husdjursparad', desc: 'Visa upp husdjuret i paraden' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
