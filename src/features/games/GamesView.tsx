@@ -49,8 +49,10 @@ import { BrickBreakerGame } from './BrickBreakerGame'
 import { SlidingPuzzleGame } from './SlidingPuzzleGame'
 import { FlappyPetGame } from './FlappyPetGame'
 import { ColorSortGame } from './ColorSortGame'
+import { SpaceShooterGame } from './SpaceShooterGame'
+import { DodgeBallGame } from './DodgeBallGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -97,6 +99,8 @@ const GAMES = [
   { id: 'slide' as const, emoji: '🧩', name: 'Glidpussel', desc: 'Ordna emoji-brickor 3×3', reward: '🪙10-100', hot: false },
   { id: 'flappy' as const, emoji: '🪶', name: 'Flappy Pet', desc: 'Flyg genom rören!', reward: '🪙0-300', hot: true },
   { id: 'csort' as const, emoji: '🎨', name: 'Färgsortering', desc: 'Sortera färger i rör', reward: '🪙20-200', hot: false },
+  { id: 'shooter' as const, emoji: '🚀', name: 'Space Shooter', desc: 'Skjut aliens i rymden', reward: '🪙0-600', hot: true },
+  { id: 'dodge' as const, emoji: '⚡', name: 'Dodgeball', desc: 'Undvik faror, samla stjärnor', reward: '🪙0-500', hot: false },
 ]
 
 function weekKey() {
@@ -231,6 +235,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'slide') return <SlidingPuzzleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'flappy') return <FlappyPetGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
   if (activeGame === 'csort') return <ColorSortGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'shooter') return <SpaceShooterGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'dodge') return <DodgeBallGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
 
   return (
     <>

@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -40,6 +40,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   leaguetable: 'gold', badges: 'purple', wishlist: 'blue',
   meditation: 'blue', petdiary: 'purple', petshowcase: 'gold',
   petgym: 'orange', hatchery: 'green', cosmicmap: 'purple',
+  petschool: 'blue', mysterybox: 'gold', petfusion: 'purple',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -103,6 +104,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   petgym:     { label: 'NY',     color: 'var(--orange)'  },
   hatchery:   { label: 'NY',     color: 'var(--green)'  },
   cosmicmap:  { label: 'NY',     color: 'var(--purple)' },
+  petschool:  { label: 'NY',     color: 'var(--blue)'   },
+  mysterybox: { label: 'DAGLIG', color: 'var(--gold)'   },
+  petfusion:  { label: 'NY',     color: 'var(--purple)' },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -4894,6 +4898,194 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
                 </div>
                 <button onClick={() => explore(zone)} disabled={isDone || locked} style={{ padding: '8px 14px', borderRadius: 10, fontSize: 12, fontWeight: 900, background: isDone ? 'rgba(74,222,128,.15)' : locked ? 'rgba(255,255,255,.04)' : 'rgba(99,102,241,.2)', border: `1px solid ${isDone ? 'rgba(74,222,128,.3)' : 'rgba(99,102,241,.3)'}`, color: isDone ? '#4ade80' : locked ? '#555' : '#818cf8', cursor: isDone || locked ? 'default' : 'pointer' }}>
                   {isDone ? '✓ Klar' : locked ? '🔒' : 'Utforska'}
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Pet School ─────────────────────────────────────────────────────────────
+  if (panel === 'petschool') {
+    const TRICKS = [
+      { id: 'sit', emoji: '🪑', name: 'Sitt', desc: 'Baslektionen', cost: 0, xp: 50, level: 1, stat: 'mood' as const, boost: 3 },
+      { id: 'paw', emoji: '🐾', name: 'Tass', desc: 'Skaka hand', cost: 30, xp: 80, level: 3, stat: 'mood' as const, boost: 5 },
+      { id: 'roll', emoji: '🔄', name: 'Rulla', desc: 'Rulla runt', cost: 60, xp: 120, level: 5, stat: 'energy' as const, boost: 5 },
+      { id: 'dance', emoji: '💃', name: 'Dansa', desc: 'Avancerad dans', cost: 150, xp: 200, level: 10, stat: 'mood' as const, boost: 10 },
+      { id: 'fly', emoji: '🦋', name: 'Flyg', desc: 'Magisk förmåga', cost: 400, xp: 500, level: 20, stat: 'energy' as const, boost: 15 },
+    ]
+    const schoolKey = 'k0509_school_learned'
+    const learned: string[] = JSON.parse(localStorage.getItem(schoolKey) ?? '[]')
+    const [learnedTricks, setLearnedTricks] = useState<string[]>(learned)
+    const learnTrick = (trick: typeof TRICKS[0]) => {
+      if (learnedTricks.includes(trick.id)) return
+      if (pet.level < trick.level) { showToast(`Kräver nivå ${trick.level}!`, 'error'); return }
+      if (trick.cost > 0 && !spendCoins(trick.cost)) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      const newLearned = [...learnedTricks, trick.id]
+      setLearnedTricks(newLearned)
+      localStorage.setItem(schoolKey, JSON.stringify(newLearned))
+      gainXP(trick.xp, 'game')
+      setStat(trick.stat, Math.min(100, (pet[trick.stat] as number) + trick.boost))
+      showToast(`${trick.emoji} ${pet.petName} lärde sig ${trick.name}! +${trick.xp} XP`, 'success')
+      audio.achievement()
+      triggerConfetti()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🎓 Husdjursskola</div>
+        <div className={styles.panelNote}>Lär {pet.petName} nya tricks · {learnedTricks.length}/{TRICKS.length} inlärda</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {TRICKS.map(trick => {
+            const isLearned = learnedTricks.includes(trick.id)
+            const locked = pet.level < trick.level
+            return (
+              <div key={trick.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: isLearned ? 'rgba(74,222,128,.08)' : locked ? 'rgba(255,255,255,.02)' : 'rgba(255,255,255,.04)', border: `1px solid ${isLearned ? 'rgba(74,222,128,.2)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14, opacity: locked ? 0.6 : 1 }}>
+                <div style={{ fontSize: 28 }}>{trick.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{trick.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{trick.desc} · Niv {trick.level}+ · {trick.cost > 0 ? `${trick.cost}🪙 · ` : 'Gratis · '}+{trick.xp} XP</div>
+                </div>
+                <button onClick={() => learnTrick(trick)} disabled={isLearned || locked} style={{ padding: '8px 14px', borderRadius: 10, fontSize: 12, fontWeight: 900, background: isLearned ? 'rgba(74,222,128,.15)' : locked ? 'rgba(255,255,255,.04)' : 'rgba(99,102,241,.2)', border: `1px solid ${isLearned ? 'rgba(74,222,128,.3)' : 'rgba(99,102,241,.3)'}`, color: isLearned ? '#4ade80' : locked ? '#555' : '#818cf8', cursor: isLearned || locked ? 'default' : 'pointer' }}>
+                  {isLearned ? '✓ Klar' : locked ? `Niv ${trick.level}` : 'Lär!'}
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Mystery Box ────────────────────────────────────────────────────────────
+  if (panel === 'mysterybox') {
+    const mbKey = `k0509_mb_${new Date().toDateString()}`
+    const openedToday = Number(localStorage.getItem(mbKey) ?? 0)
+    const MAX_DAILY = 3
+    const [opened, setOpened] = useState(openedToday)
+    const [lastReward, setLastReward] = useState<string | null>(null)
+    const BOX_COST = [0, 50, 150]
+    const openBox = (tier: number) => {
+      if (opened >= MAX_DAILY) { showToast('Max 3 lådor per dag!', 'error'); return }
+      const cost = BOX_COST[tier]
+      if (cost > 0 && !spendCoins(cost)) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      const roll = Math.random()
+      let reward = '', coins = 0, xp = 0
+      if (tier === 0) { coins = 10 + Math.floor(Math.random() * 40); xp = 20; reward = `+${coins}🪙 +${xp} XP` }
+      else if (tier === 1) {
+        if (roll < 0.05) { coins = 500; reward = '🎉 JACKPOT! +500🪙' }
+        else if (roll < 0.3) { coins = 100; reward = `+100🪙 +50 XP` }
+        else { coins = 30; reward = `+30🪙 +30 XP` }
+        xp = 50
+      } else {
+        if (roll < 0.1) { coins = 1000; reward = '🏆 MEGA JACKPOT! +1000🪙' }
+        else if (roll < 0.4) { coins = 300; reward = `+300🪙 +200 XP` }
+        else { coins = 100; reward = `+100🪙 +100 XP` }
+        xp = 100
+      }
+      gainCoins(coins); gainXP(xp, 'game')
+      const newOpened = opened + 1
+      setOpened(newOpened); localStorage.setItem(mbKey, String(newOpened))
+      setLastReward(reward)
+      showToast(`🎁 ${reward}`, 'success')
+      audio.achievement()
+      if (coins >= 500) triggerConfetti()
+    }
+    const TIERS = [
+      { emoji: '📦', name: 'Vanlig låda', cost: 0, desc: '10-50🪙' },
+      { emoji: '🎁', name: 'Silver låda', cost: 50, desc: '30-500🪙' },
+      { emoji: '💎', name: 'Guld låda', cost: 150, desc: '100-1000🪙' },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🎁 Mystery Box</div>
+        <div className={styles.panelNote}>{MAX_DAILY - opened} lådor kvar idag · Återställs vid midnatt</div>
+        {lastReward && <div style={{ textAlign: 'center', padding: '10px', background: 'rgba(251,191,36,.1)', border: '1px solid rgba(251,191,36,.2)', borderRadius: 12, fontSize: 14, color: '#fbbf24', fontWeight: 700 }}>🎉 {lastReward}</div>}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {TIERS.map((t, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 14px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+              <div style={{ fontSize: 32 }}>{t.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{t.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)' }}>{t.cost > 0 ? `${t.cost}🪙 · ` : 'Gratis · '}{t.desc}</div>
+              </div>
+              <button onClick={() => openBox(i)} disabled={opened >= MAX_DAILY} style={{ padding: '10px 16px', borderRadius: 10, fontSize: 13, fontWeight: 900, background: opened >= MAX_DAILY ? 'rgba(255,255,255,.04)' : 'rgba(251,191,36,.2)', border: `1px solid ${opened >= MAX_DAILY ? 'rgba(255,255,255,.1)' : 'rgba(251,191,36,.4)'}`, color: opened >= MAX_DAILY ? '#555' : '#fbbf24', cursor: opened >= MAX_DAILY ? 'default' : 'pointer' }}>
+                {opened >= MAX_DAILY ? '🔒' : 'Öppna!'}
+              </button>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 6, justifyContent: 'center', marginTop: 8 }}>
+          {Array.from({ length: MAX_DAILY }).map((_, i) => (
+            <div key={i} style={{ width: 24, height: 24, borderRadius: '50%', background: i < opened ? 'rgba(74,222,128,.4)' : 'rgba(255,255,255,.08)', border: `1px solid ${i < opened ? 'rgba(74,222,128,.5)' : 'rgba(255,255,255,.15)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12 }}>
+              {i < opened ? '✓' : ''}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Pet Fusion ─────────────────────────────────────────────────────────────
+  if (panel === 'petfusion') {
+    const ELEMENTS = [
+      { id: 'fire', emoji: '🔥', name: 'Eld', owned: pet.battleWins >= 5 },
+      { id: 'water', emoji: '💧', name: 'Vatten', owned: pet.fishCaught >= 5 },
+      { id: 'earth', emoji: '🌱', name: 'Jord', owned: pet.expeditionsDone >= 3 },
+      { id: 'air', emoji: '💨', name: 'Luft', owned: pet.level >= 5 },
+      { id: 'lightning', emoji: '⚡', name: 'Blixt', owned: pet.battleWins >= 20 },
+      { id: 'shadow', emoji: '🌑', name: 'Skugga', owned: pet.level >= 30 },
+    ]
+    const FUSIONS = [
+      { id: 'steam', emoji: '♨️', name: 'Ånga', requires: ['fire', 'water'], reward: 200, xp: 300 },
+      { id: 'storm', emoji: '⛈️', name: 'Storm', requires: ['air', 'lightning'], reward: 400, xp: 500 },
+      { id: 'magma', emoji: '🌋', name: 'Magma', requires: ['fire', 'earth'], reward: 350, xp: 400 },
+      { id: 'void', emoji: '🌀', name: 'Tomrum', requires: ['shadow', 'lightning'], reward: 1000, xp: 1000 },
+    ]
+    const fusionKey = 'k0509_fusions'
+    const done: string[] = JSON.parse(localStorage.getItem(fusionKey) ?? '[]')
+    const [fused, setFused] = useState<string[]>(done)
+    const doFusion = (fusion: typeof FUSIONS[0]) => {
+      if (fused.includes(fusion.id)) return
+      const missing = fusion.requires.filter(r => !ELEMENTS.find(e => e.id === r)?.owned)
+      if (missing.length > 0) { showToast(`Saknar element!`, 'error'); return }
+      const newFused = [...fused, fusion.id]
+      setFused(newFused)
+      localStorage.setItem(fusionKey, JSON.stringify(newFused))
+      gainCoins(fusion.reward)
+      gainXP(fusion.xp, 'game')
+      showToast(`${fusion.emoji} ${fusion.name} fusionerat! +${fusion.reward}🪙 +${fusion.xp} XP`, 'success')
+      audio.achievement(); triggerConfetti()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>⚗️ Pet Fusion</div>
+        <div className={styles.panelNote}>Kombinera element för kraftfulla belöningar</div>
+        <div style={{ marginBottom: 14 }}>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 8, fontWeight: 700 }}>Dina element</div>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {ELEMENTS.map(el => (
+              <div key={el.id} style={{ padding: '6px 12px', borderRadius: 10, fontSize: 13, background: el.owned ? 'rgba(99,102,241,.2)' : 'rgba(255,255,255,.04)', border: `1px solid ${el.owned ? 'rgba(99,102,241,.4)' : 'rgba(255,255,255,.08)'}`, color: el.owned ? '#e8e8f0' : '#444', opacity: el.owned ? 1 : 0.5 }}>
+                {el.emoji} {el.name}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 8, fontWeight: 700 }}>Fusioner</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {FUSIONS.map(fusion => {
+            const isDone = fused.includes(fusion.id)
+            const canDo = fusion.requires.every(r => ELEMENTS.find(e => e.id === r)?.owned)
+            return (
+              <div key={fusion.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: isDone ? 'rgba(74,222,128,.08)' : 'rgba(255,255,255,.04)', border: `1px solid ${isDone ? 'rgba(74,222,128,.2)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+                <div style={{ fontSize: 28 }}>{fusion.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{fusion.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{fusion.requires.map(r => ELEMENTS.find(e => e.id === r)?.emoji).join(' + ')} · +{fusion.reward}🪙 +{fusion.xp} XP</div>
+                </div>
+                <button onClick={() => doFusion(fusion)} disabled={isDone || !canDo} style={{ padding: '8px 14px', borderRadius: 10, fontSize: 12, fontWeight: 900, background: isDone ? 'rgba(74,222,128,.15)' : canDo ? 'rgba(168,85,247,.2)' : 'rgba(255,255,255,.04)', border: `1px solid ${isDone ? 'rgba(74,222,128,.3)' : canDo ? 'rgba(168,85,247,.4)' : 'rgba(255,255,255,.08)'}`, color: isDone ? '#4ade80' : canDo ? '#c084fc' : '#555', cursor: isDone || !canDo ? 'default' : 'pointer' }}>
+                  {isDone ? '✓ Klar' : !canDo ? '🔒' : 'Fusionera!'}
                 </button>
               </div>
             )
