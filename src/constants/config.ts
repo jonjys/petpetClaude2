@@ -312,6 +312,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'potions', emoji: '🧪', label: 'Bryggeriet', desc: 'Brygga mäktiga drycker' },
   { id: 'arena2', emoji: '🏟️', label: 'Grand Arena', desc: 'Avancerat PvP-läge' },
   { id: 'cosmetics', emoji: '💅', label: 'Kosmetika', desc: 'Se alla upplåsta utseenden' },
+  { id: 'garden', emoji: '🌻', label: 'Trädgård', desc: 'Plantera & skörda blommor' },
+  { id: 'rescue', emoji: '🦺', label: 'Räddningsuppdrag', desc: 'Rädda husdjur & få belöningar' },
+  { id: 'stats', emoji: '📈', label: 'Statistik', desc: 'Djupanalys av din spelhistorik' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
