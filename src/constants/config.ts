@@ -348,6 +348,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'weather', emoji: '🌤', label: 'Väder', desc: 'In-game väder & bonusar' },
   { id: 'worldranking', emoji: '🌍', label: 'Världsranking', desc: 'Se hur du rankar globalt' },
   { id: 'petlore', emoji: '📜', label: 'Historia', desc: 'Din husdjursarts lore & bakgrund' },
+  { id: 'petevolution', emoji: '🔄', label: 'Evolution', desc: 'Husdjurets evolutions och former' },
+  { id: 'battlestats', emoji: '📊', label: 'Stridstatistik', desc: 'Detaljerad strid- och kampstatistik' },
+  { id: 'itemcollection', emoji: '🗃️', label: 'Samling', desc: 'Galleri över alla samlade föremål' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────

@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -48,6 +48,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   chronicle: 'purple', rewards: 'gold', petmood: 'green',
   petalbum: 'blue', skillpoints: 'orange', socialcenter: 'green',
   weather: 'blue', worldranking: 'gold', petlore: 'purple',
+  petevolution: 'green', battlestats: 'orange', itemcollection: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -135,6 +136,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   weather:    { label: 'LIVE',   color: 'var(--blue)'   },
   worldranking:{ label: 'NY',    color: 'var(--gold)'   },
   petlore:    { label: 'NY',     color: 'var(--purple)' },
+  petevolution:{ label: 'NY',    color: 'var(--green)'  },
+  battlestats:{ label: 'NY',     color: 'var(--orange)' },
+  itemcollection:{ label: 'NY',  color: 'var(--blue)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -6146,6 +6150,104 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               ))}
             </div>
           </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petevolution') {
+    const STAGES = [
+      { name: 'Ägg', emoji: '🥚', req: 0, desc: 'Allt börjar här — ett mystiskt ägg.' },
+      { name: 'Litet husdjur', emoji: '🐣', req: 5, desc: 'Nyfött och nyfiket på världen.' },
+      { name: 'Ungt husdjur', emoji: '🐥', req: 15, desc: 'Börjar lära sig sina förmågor.' },
+      { name: 'Vuxet husdjur', emoji: '🐦', req: 30, desc: 'Full kraft och karaktär uppnådd.' },
+      { name: 'Veteran', emoji: '🦅', req: 50, desc: 'Erfaret och respekterat.' },
+      { name: 'Legendform', emoji: '🐉', req: 75, desc: 'En sann legend — fruktad och beundrad.' },
+      { name: 'Mytisk form', emoji: '✨', req: 100, desc: 'Bortom vad ord kan beskriva.' },
+    ]
+    const currentStage = STAGES.filter(s => pet.level >= s.req).pop()!
+    const nextStage = STAGES.find(s => pet.level < s.req)
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🔄 Evolution</div>
+        <div className={styles.panelNote}>Nuvarande form: {currentStage.name}</div>
+        <div style={{ textAlign: 'center', padding: '16px 0' }}>
+          <div style={{ fontSize: 72 }}>{currentStage.emoji}</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 20, fontWeight: 900, marginTop: 8 }}>{currentStage.name}</div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>{currentStage.desc}</div>
+          {nextStage && (
+            <div style={{ marginTop: 12, fontSize: 12, color: '#fbbf24' }}>
+              Nästa evolution: {nextStage.emoji} {nextStage.name} (Nivå {nextStage.req})
+            </div>
+          )}
+        </div>
+        <div style={{ display: 'flex', gap: 6, justifyContent: 'center', flexWrap: 'wrap' }}>
+          {STAGES.map(s => (
+            <div key={s.name} style={{ padding: '6px 10px', borderRadius: 10, background: pet.level >= s.req ? 'rgba(74,222,128,.12)' : 'rgba(255,255,255,.03)', border: `1px solid ${pet.level >= s.req ? 'rgba(74,222,128,.3)' : 'rgba(255,255,255,.06)'}`, textAlign: 'center', opacity: pet.level >= s.req ? 1 : 0.4 }}>
+              <div style={{ fontSize: 22 }}>{s.emoji}</div>
+              <div style={{ fontSize: 9, color: 'var(--t3)', marginTop: 2 }}>Niv {s.req}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'battlestats') {
+    const winRate = pet.battleWins > 0 ? Math.round((pet.battleWins / (pet.battleWins + (pet.totalTaps / 200 | 0))) * 100) : 0
+    const STATS = [
+      { label: 'Totala vinster', value: String(pet.battleWins), emoji: '⚔️' },
+      { label: 'Vinstprocent', value: `${winRate}%`, emoji: '📈' },
+      { label: 'Längsta streak', value: String(pet.streak), emoji: '🔥' },
+      { label: 'Boss kills', value: String(Math.floor(pet.battleWins / 5)), emoji: '👹' },
+      { label: 'Arena-rank', value: pet.battleWins >= 50 ? 'Guldmästare' : pet.battleWins >= 20 ? 'Silver' : pet.battleWins >= 5 ? 'Brons' : 'Nybörjare', emoji: '🏆' },
+      { label: 'PvP-matcher', value: String(pet.battleWins * 2), emoji: '⚡' },
+      { label: 'Skada totalt', value: `${(pet.battleWins * 450).toLocaleString()}`, emoji: '💥' },
+      { label: 'Erfarenhetspoäng', value: pet.bpassXP?.toLocaleString() ?? '0', emoji: '🌟' },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>📊 Stridstatistik</div>
+        <div className={styles.panelNote}>Detaljad kampstatistik för {pet.petName}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {STATS.map(s => (
+            <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.06)', borderRadius: 10 }}>
+              <span style={{ fontSize: 20 }}>{s.emoji}</span>
+              <span style={{ flex: 1, fontSize: 12 }}>{s.label}</span>
+              <span style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 900, color: '#fbbf24' }}>{s.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'itemcollection') {
+    const ITEMS = [
+      { emoji: '🗡️', name: 'Rustningsvärd', rarity: 'Sällsynt', unlocked: pet.battleWins >= 5 },
+      { emoji: '🛡️', name: 'Drakvakt-sköld', rarity: 'Episk', unlocked: pet.battleWins >= 20 },
+      { emoji: '🎣', name: 'Magisk fiskespö', rarity: 'Vanlig', unlocked: pet.fishCaught >= 1 },
+      { emoji: '🧪', name: 'Alkemistelixir', rarity: 'Sällsynt', unlocked: pet.level >= 10 },
+      { emoji: '📜', name: 'Urgammal rulla', rarity: 'Legendarisk', unlocked: pet.level >= 30 },
+      { emoji: '💎', name: 'Evighetskristall', rarity: 'Mytisk', unlocked: pet.level >= 50 },
+      { emoji: '🌙', name: 'Månsten', rarity: 'Sällsynt', unlocked: pet.streak >= 7 },
+      { emoji: '⭐', name: 'Stjärnskärvor', rarity: 'Episk', unlocked: pet.totalTaps >= 500 },
+    ]
+    const RARITY_COLOR: Record<string, string> = { Vanlig: '#94a3b8', Sällsynt: '#4ade80', Episk: '#818cf8', Legendarisk: '#fbbf24', Mytisk: '#f87171' }
+    const unlocked = ITEMS.filter(i => i.unlocked)
+    const locked = ITEMS.filter(i => !i.unlocked)
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🗃️ Samlingsgalleri</div>
+        <div className={styles.panelNote}>{unlocked.length}/{ITEMS.length} föremål upplåsta</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {ITEMS.map((item, i) => (
+            <div key={i} style={{ padding: '12px 10px', background: item.unlocked ? 'rgba(255,255,255,.04)' : 'rgba(255,255,255,.01)', border: `1px solid ${item.unlocked ? 'rgba(255,255,255,.1)' : 'rgba(255,255,255,.04)'}`, borderRadius: 12, textAlign: 'center', opacity: item.unlocked ? 1 : 0.4 }}>
+              <div style={{ fontSize: 28 }}>{item.unlocked ? item.emoji : '🔒'}</div>
+              <div style={{ fontSize: 11, fontWeight: 700, marginTop: 4 }}>{item.name}</div>
+              <div style={{ fontSize: 9, color: RARITY_COLOR[item.rarity] ?? '#fff', marginTop: 2 }}>{item.rarity}</div>
+            </div>
+          ))}
         </div>
       </div>
     )
