@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -41,6 +41,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   meditation: 'blue', petdiary: 'purple', petshowcase: 'gold',
   petgym: 'orange', hatchery: 'green', cosmicmap: 'purple',
   petschool: 'blue', mysterybox: 'gold', petfusion: 'purple',
+  carnival: 'orange', petbirthday: 'pink', royaltytree: 'gold',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -107,6 +108,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   petschool:  { label: 'NY',     color: 'var(--blue)'   },
   mysterybox: { label: 'DAGLIG', color: 'var(--gold)'   },
   petfusion:  { label: 'NY',     color: 'var(--purple)' },
+  carnival:   { label: 'NY',     color: 'var(--orange)' },
+  petbirthday:{ label: 'NY',     color: '#f472b6'       },
+  royaltytree:{ label: 'NY',     color: 'var(--gold)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -5090,6 +5094,138 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               </div>
             )
           })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Carnival ───────────────────────────────────────────────────────────────
+  if (panel === 'carnival') {
+    const carnKey = `k0509_carn_${new Date().toDateString()}`
+    const playsLeft = Math.max(0, 5 - Number(localStorage.getItem(carnKey) ?? 0))
+    const [plays, setPlays] = useState(5 - playsLeft)
+    const [lastResult, setLastResult] = useState<string | null>(null)
+    const GAMES2 = [
+      { id: 'darts', emoji: '🎯', name: 'Pilkast', cost: 20, maxReward: 100 },
+      { id: 'ring', emoji: '💍', name: 'Ringkastning', cost: 30, maxReward: 150 },
+      { id: 'balloon', emoji: '🎈', name: 'Ballongskjutning', cost: 50, maxReward: 300 },
+    ]
+    const play = (game: typeof GAMES2[0]) => {
+      if (plays >= 5) { showToast('Inga fler spel idag!', 'error'); return }
+      if (!spendCoins(game.cost)) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      const newPlays = plays + 1
+      setPlays(newPlays)
+      localStorage.setItem(carnKey, String(newPlays))
+      const roll = Math.random()
+      const coins = roll > 0.7 ? Math.floor(game.maxReward * (0.5 + Math.random() * 0.5)) : roll > 0.3 ? Math.floor(game.cost * 1.5) : 0
+      const won = coins > 0
+      if (won) { gainCoins(coins); gainXP(coins * 2, 'game') }
+      const res = won ? `🎉 Vann ${coins}🪙!` : '😢 Inte den här gången'
+      setLastResult(res)
+      showToast(`${game.emoji} ${res}`, won ? 'success' : 'error')
+      if (won) audio.coin(); else audio.click()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🎡 Karneval</div>
+        <div className={styles.panelNote}>{5 - plays} spel kvar idag · Återställs imorgon</div>
+        {lastResult && <div style={{ textAlign: 'center', padding: '8px', background: 'rgba(251,191,36,.1)', borderRadius: 10, fontSize: 13, color: '#fbbf24' }}>{lastResult}</div>}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {GAMES2.map(g => (
+            <div key={g.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+              <div style={{ fontSize: 28 }}>{g.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{g.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)' }}>{g.cost}🪙 · Vinn upp till {g.maxReward}🪙</div>
+              </div>
+              <button onClick={() => play(g)} disabled={plays >= 5} style={{ padding: '8px 14px', borderRadius: 10, fontSize: 12, fontWeight: 900, background: plays >= 5 ? 'rgba(255,255,255,.04)' : 'rgba(251,191,36,.2)', border: `1px solid ${plays >= 5 ? 'rgba(255,255,255,.08)' : 'rgba(251,191,36,.4)'}`, color: plays >= 5 ? '#555' : '#fbbf24', cursor: plays >= 5 ? 'default' : 'pointer' }}>
+                {plays >= 5 ? '🔒' : 'Spela!'}
+              </button>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 6, justifyContent: 'center', marginTop: 8 }}>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} style={{ width: 20, height: 20, borderRadius: '50%', background: i < plays ? 'rgba(251,191,36,.4)' : 'rgba(255,255,255,.08)', border: `1px solid ${i < plays ? 'rgba(251,191,36,.5)' : 'rgba(255,255,255,.15)'}` }} />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Pet Birthday ────────────────────────────────────────────────────────────
+  if (panel === 'petbirthday') {
+    const bdKey = 'k0509_birthday'
+    const lastBd = localStorage.getItem(bdKey)
+    const today = new Date().toDateString()
+    const [celebrated, setCelebrated] = useState(lastBd === today)
+    const celebrate = () => {
+      if (celebrated) return
+      localStorage.setItem(bdKey, today)
+      setCelebrated(true)
+      gainCoins(200); gainXP(500, 'game')
+      setStat('mood', 100); setStat('energy', 100)
+      showToast('🎂 Grattis på husdjursdagen! +200🪙 +500 XP +100 humör!', 'success')
+      audio.achievement(); triggerConfetti()
+    }
+    const age = Math.floor(pet.level / 10) + 1
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🎂 Husdjurets Födelsedag</div>
+        <div className={styles.panelNote}>Fira {pet.petName}s speciella dag!</div>
+        <div style={{ textAlign: 'center', padding: '20px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
+          <div style={{ fontSize: 72 }}>{pet.petEmoji}</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 22, fontWeight: 900, color: '#fff' }}>🎂 {age} år gammal!</div>
+          <div style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.6, maxWidth: 240 }}>
+            {pet.petName} har levt ett fantastiskt liv!<br />
+            Nivå {pet.level} · {pet.battleWins} strider · {pet.fishCaught} fiskar
+          </div>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+            {['🎂','🎁','🎈','🎉','🎊','🥳','🍰','🕯️'].map((e, i) => (
+              <span key={i} style={{ fontSize: 24 }}>{e}</span>
+            ))}
+          </div>
+          {!celebrated
+            ? <button className="btn-primary" style={{ padding: '14px 32px', fontSize: 16 }} onClick={celebrate}>🎂 Fira! (+200🪙 +500 XP)</button>
+            : <div style={{ padding: '12px 24px', borderRadius: 12, background: 'rgba(74,222,128,.1)', border: '1px solid rgba(74,222,128,.2)', fontSize: 14, color: '#4ade80', fontWeight: 700 }}>✓ Firat idag! 🎉</div>
+          }
+        </div>
+      </div>
+    )
+  }
+
+  // ── Royalty Tree ────────────────────────────────────────────────────────────
+  if (panel === 'royaltytree') {
+    const prestige = pet.prestigeLevel ?? 0
+    const ANCESTORS = [
+      { gen: 3, name: 'Urförälder', emoji: '👴', level: 1, coins: 100 },
+      { gen: 2, name: 'Farförälder', emoji: '🧓', level: 5, coins: 500 },
+      { gen: 1, name: 'Förälder', emoji: '🧑', level: 15, coins: 1500 },
+      { gen: 0, name: pet.petName, emoji: pet.petEmoji, level: pet.level, coins: pet.coins },
+    ]
+    const TITLE = pet.level >= 50 ? '👑 Kung/Drottning' : pet.level >= 30 ? '🏰 Prins/Prinsessa' : pet.level >= 15 ? '⚔️ Riddare' : pet.level >= 5 ? '🏅 Adelsman' : '🌱 Bonde'
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>👑 Stamtavla</div>
+        <div className={styles.panelNote}>{pet.petName}s kungliga arv · Prestige {prestige}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+          {ANCESTORS.map((a, i) => (
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              {i > 0 && <div style={{ width: 2, height: 20, background: 'rgba(251,191,36,.3)' }} />}
+              <div style={{ padding: '10px 20px', background: i === 3 ? 'rgba(251,191,36,.12)' : 'rgba(255,255,255,.04)', border: `1px solid ${i === 3 ? 'rgba(251,191,36,.3)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14, display: 'flex', alignItems: 'center', gap: 12, minWidth: 220 }}>
+                <div style={{ fontSize: 28 }}>{a.emoji}</div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{a.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>Niv {a.level} · {a.coins.toLocaleString()}🪙</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 16, textAlign: 'center', padding: '12px', background: 'rgba(251,191,36,.08)', border: '1px solid rgba(251,191,36,.2)', borderRadius: 12 }}>
+          <div style={{ fontSize: 20, marginBottom: 4 }}>👑</div>
+          <div style={{ fontWeight: 900, fontSize: 15, color: '#fbbf24' }}>{TITLE}</div>
+          <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>Prestige {prestige} · Nivå {pet.level}</div>
         </div>
       </div>
     )

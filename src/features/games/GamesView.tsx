@@ -51,8 +51,10 @@ import { FlappyPetGame } from './FlappyPetGame'
 import { ColorSortGame } from './ColorSortGame'
 import { SpaceShooterGame } from './SpaceShooterGame'
 import { DodgeBallGame } from './DodgeBallGame'
+import { NumberCrunchGame } from './NumberCrunchGame'
+import { TapRushGame } from './TapRushGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -101,6 +103,8 @@ const GAMES = [
   { id: 'csort' as const, emoji: '🎨', name: 'Färgsortering', desc: 'Sortera färger i rör', reward: '🪙20-200', hot: false },
   { id: 'shooter' as const, emoji: '🚀', name: 'Space Shooter', desc: 'Skjut aliens i rymden', reward: '🪙0-600', hot: true },
   { id: 'dodge' as const, emoji: '⚡', name: 'Dodgeball', desc: 'Undvik faror, samla stjärnor', reward: '🪙0-500', hot: false },
+  { id: 'numcrunch' as const, emoji: '🔢', name: 'Talknas', desc: 'Tryck 1-16 i ordning snabbt', reward: '🪙0-300', hot: false },
+  { id: 'taprush' as const, emoji: '👆', name: 'Tap Rush', desc: 'Samla bra, undvik dåligt 10s', reward: '🪙0-400', hot: false },
 ]
 
 function weekKey() {
@@ -237,6 +241,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'csort') return <ColorSortGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'shooter') return <SpaceShooterGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'dodge') return <DodgeBallGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
+  if (activeGame === 'numcrunch') return <NumberCrunchGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'taprush') return <TapRushGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
