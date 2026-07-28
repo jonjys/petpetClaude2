@@ -97,20 +97,26 @@ export const App = memo(function App() {
         <Header />
 
         <div className="main">
-          {/* Each view has its own Suspense so lazy-loading one tab never blocks the others */}
-          <div className={`view${activeTab === 'pet'     ? ' active' : ''}`} id="view-pet-react">
+          {/* Inline opacity/transform override bypasses the legacy CSS display→opacity transition bug
+              where opacity:0 on .view never transitions to 1 when display flips from none→flex */}
+          <div className={`view${activeTab === 'pet'     ? ' active' : ''}`} id="view-pet-react"
+            style={{ opacity: 1, transform: 'none', pointerEvents: 'auto' }}>
             <PetView />
           </div>
-          <div className={`view${activeTab === 'flash'   ? ' active' : ''}`} id="view-flash-react" style={{ padding: 0, position: 'relative' }}>
+          <div className={`view${activeTab === 'flash'   ? ' active' : ''}`} id="view-flash-react"
+            style={{ padding: 0, position: 'relative', opacity: 1, transform: 'none', pointerEvents: 'auto' }}>
             <Suspense fallback={<Spinner />}><FlashView /></Suspense>
           </div>
-          <div className={`view${activeTab === 'create'  ? ' active' : ''}`} id="view-create-react">
+          <div className={`view${activeTab === 'create'  ? ' active' : ''}`} id="view-create-react"
+            style={{ opacity: 1, transform: 'none', pointerEvents: 'auto' }}>
             <Suspense fallback={<Spinner />}><CreateView /></Suspense>
           </div>
-          <div className={`view${activeTab === 'games'   ? ' active' : ''}`} id="view-games-react">
+          <div className={`view${activeTab === 'games'   ? ' active' : ''}`} id="view-games-react"
+            style={{ opacity: 1, transform: 'none', pointerEvents: 'auto' }}>
             <Suspense fallback={<Spinner />}><GamesView /></Suspense>
           </div>
-          <div className={`view${activeTab === 'profile' ? ' active' : ''}`} id="view-profile-react">
+          <div className={`view${activeTab === 'profile' ? ' active' : ''}`} id="view-profile-react"
+            style={{ opacity: 1, transform: 'none', pointerEvents: 'auto' }}>
             <Suspense fallback={<Spinner />}><ProfileView /></Suspense>
           </div>
         </div>
