@@ -35,8 +35,10 @@ import { SpeedSortGame } from './SpeedSortGame'
 import { HigherLowerGame } from './HigherLowerGame'
 import { WordleGame } from './WordleGame'
 import { CardWarGame } from './CardWarGame'
+import { TriviaBlitzGame } from './TriviaBlitzGame'
+import { CatchFrenzyGame } from './CatchFrenzyGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -69,6 +71,8 @@ const GAMES = [
   { id: 'hl' as const, emoji: '📊', name: 'Högre/Lägre', desc: 'Är nästa siffra högre?', reward: '🪙0-192', hot: false },
   { id: 'wordle' as const, emoji: '🟩', name: 'Wordle SV', desc: 'Gissa 5-bokstavs ord, 6 försök', reward: '🪙60-300', hot: true },
   { id: 'war' as const, emoji: '🃏', name: 'Kortkrig', desc: 'Vänd kort — slå dealern!', reward: '🪙0-210', hot: false },
+  { id: 'trivia' as const, emoji: '⚡', name: 'Trivia Blitz', desc: '12 frågor, 5s var — snabba svar!', reward: '🪙0-270', hot: true },
+  { id: 'catch' as const, emoji: '🍎', name: 'Fångst Frenzy', desc: 'Fånga frukter, undvik bomber', reward: '🪙0-300', hot: false },
 ]
 
 function weekKey() {
@@ -189,6 +193,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'hl') return <HigherLowerGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'wordle') return <WordleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'war') return <CardWarGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'trivia') return <TriviaBlitzGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'catch') return <CatchFrenzyGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>

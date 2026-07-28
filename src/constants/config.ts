@@ -303,6 +303,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'forge', emoji: '⚒️', label: 'Smedjan', desc: 'Smid mäktiga föremål' },
   { id: 'enchant', emoji: '✨', label: 'Förtrollning', desc: 'Förtrolla för tillfälliga bonusar' },
   { id: 'museum', emoji: '🏛️', label: 'Museet', desc: 'Din samling & statistik' },
+  { id: 'pvprank', emoji: '🥊', label: 'PvP Rang', desc: 'Din rang bland alla spelare' },
+  { id: 'inventory', emoji: '🎒', label: 'Ryggsäck', desc: 'Alla dina ägda föremål' },
+  { id: 'events', emoji: '📆', label: 'Händelser', desc: 'Kommande event & bonusar' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
