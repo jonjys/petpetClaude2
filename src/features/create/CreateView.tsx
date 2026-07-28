@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -50,6 +50,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   weather: 'blue', worldranking: 'gold', petlore: 'purple',
   petevolution: 'green', battlestats: 'orange', itemcollection: 'blue',
   petspirit: 'purple', moodboard: 'pink', nightshift: 'blue',
+  petritual: 'gold', marketplace: 'green', encyclopedia: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -143,6 +144,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   petspirit:  { label: 'NY',     color: 'var(--purple)' },
   moodboard:  { label: 'NY',     color: '#f472b6'       },
   nightshift: { label: 'PASSIV', color: 'var(--blue)'   },
+  petritual:  { label: 'DAGLIG', color: 'var(--gold)'   },
+  marketplace:{ label: 'LIVE',   color: 'var(--green)'  },
+  encyclopedia:{ label: 'NY',    color: 'var(--blue)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -6389,6 +6393,126 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
             </button>
           )}
           <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center' }}>+30🪙 och +50 XP per timme · Max 8h</div>
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petritual') {
+    const todayStr = new Date().toDateString()
+    const RITUALS = [
+      { id: 'morning', emoji: '🌅', label: 'Morgonritual', desc: 'Klappa husdjuret 3 gånger', reward: '+30🪙', xp: 30, coins: 30 },
+      { id: 'meditation', emoji: '🧘', label: 'Meditation', desc: 'Öppna Meditationsmenyn', reward: '+50 XP', xp: 50, coins: 0 },
+      { id: 'gratitude', emoji: '🙏', label: 'Tacksamhet', desc: 'Logga in och spela ett spel', reward: '+20🪙 +40 XP', xp: 40, coins: 20 },
+      { id: 'training', emoji: '💪', label: 'Träning', desc: 'Besök Träningsmenyn', reward: '+25🪙', xp: 25, coins: 25 },
+    ]
+    const claimedKey = `k0509_ritual_${todayStr}`
+    const rawClaimed = JSON.parse(localStorage.getItem(claimedKey) ?? '[]') as string[]
+    const [claimed, setClaimed] = useState<string[]>(rawClaimed)
+    const claimRitual = (id: string, coins2: number, xp2: number) => {
+      if (claimed.includes(id)) return
+      const nc = [...claimed, id]
+      setClaimed(nc)
+      localStorage.setItem(claimedKey, JSON.stringify(nc))
+      gainCoins(coins2); gainXP(xp2)
+      if (nc.length === RITUALS.length) { audio.achievement(); triggerConfetti(); showToast('Alla ritualer klara! 🎉', 'success') }
+      else { audio.coin(); showToast(`+${coins2}🪙 +${xp2} XP Ritual klar!`, 'success') }
+    }
+    const allDone = claimed.length === RITUALS.length
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🕯️ Dagliga Ritualer</div>
+        <div className={styles.panelNote}>{claimed.length}/{RITUALS.length} klara idag</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {allDone && <div style={{ textAlign: 'center', padding: 12, background: 'rgba(74,222,128,.1)', border: '1px solid rgba(74,222,128,.3)', borderRadius: 12, fontSize: 14, fontWeight: 900, color: '#4ade80' }}>🎉 Alla ritualer klara för idag!</div>}
+          {RITUALS.map(r => (
+            <div key={r.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: claimed.includes(r.id) ? 'rgba(74,222,128,.06)' : 'rgba(255,255,255,.03)', border: `1px solid ${claimed.includes(r.id) ? 'rgba(74,222,128,.2)' : 'rgba(255,255,255,.06)'}`, borderRadius: 14 }}>
+              <span style={{ fontSize: 28 }}>{claimed.includes(r.id) ? '✅' : r.emoji}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 13 }}>{r.label}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)' }}>{r.desc}</div>
+                <div style={{ fontSize: 11, color: '#fbbf24', marginTop: 2 }}>{r.reward}</div>
+              </div>
+              {!claimed.includes(r.id) && (
+                <button onClick={() => claimRitual(r.id, r.coins, r.xp)} style={{ padding: '6px 12px', borderRadius: 8, background: 'rgba(251,191,36,.15)', border: '1px solid rgba(251,191,36,.2)', color: '#fbbf24', fontSize: 11, cursor: 'pointer', fontWeight: 700 }}>Klar!</button>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'marketplace') {
+    const LISTINGS = [
+      { seller: 'DragonX', emoji: '🗡️', item: 'Dragsvärd', price: 500, level: 15 },
+      { seller: 'StarCrafter', emoji: '🧪', item: 'Elixir ×3', price: 200, level: 8 },
+      { seller: 'MoonWatcher', emoji: '🎭', item: 'Festmask', price: 150, level: 5 },
+      { seller: 'CosmicPet', emoji: '🌙', item: 'Månstenen', price: 800, level: 20 },
+      { seller: 'PetLegend', emoji: '📜', item: 'Urgammal karta', price: 350, level: 12 },
+      { seller: 'LunarFox', emoji: '🦊', item: 'Rävskinnet', price: 120, level: 3 },
+    ]
+    const [bought, setBought] = useState<string[]>([])
+    const buyItem = (listing: typeof LISTINGS[0]) => {
+      if (pet.coins < listing.price) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      spendCoins(listing.price)
+      addInventoryItem({ id: `marketplace_${listing.item.replace(/\s+/g, '_').toLowerCase()}`, name: listing.item, emoji: listing.emoji, description: `Köpt från ${listing.seller} på marknaden`, quantity: 1, rarity: 'common' })
+      setBought(prev => [...prev, listing.item])
+      showToast(`Köpte ${listing.item}! 🛒`, 'success')
+      audio.coin()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🏪 Spelarmarknad</div>
+        <div className={styles.panelNote}>Köp föremål från andra spelare · {pet.coins}🪙 tillgängligt</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {LISTINGS.map((l, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.06)', borderRadius: 12 }}>
+              <span style={{ fontSize: 28 }}>{l.emoji}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 12 }}>{l.item}</div>
+                <div style={{ fontSize: 10, color: 'var(--t3)' }}>Säljare: {l.seller} · Kräver niv {l.level}</div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: '#fbbf24' }}>{l.price}🪙</div>
+                {bought.includes(l.item) ? (
+                  <div style={{ fontSize: 10, color: '#4ade80' }}>✓ Köpt</div>
+                ) : (
+                  <button onClick={() => buyItem(l)} disabled={pet.coins < l.price || pet.level < l.level} style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(251,191,36,.15)', border: '1px solid rgba(251,191,36,.2)', color: '#fbbf24', fontSize: 10, cursor: 'pointer', marginTop: 4, opacity: pet.coins < l.price || pet.level < l.level ? 0.4 : 1 }}>Köp</button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'encyclopedia') {
+    const ENTRIES = [
+      { emoji: '💎', title: 'Kristaller (KC)', body: 'Premium-valutan. Används för sällsynta köp i shoppar och för att snabba upp processer.' },
+      { emoji: '🪙', title: 'Mynt', body: 'Standardvalutan. Tjänas in via spel, uppdrag och daglig inloggning.' },
+      { emoji: '⭐', title: 'Erfarenhetspoäng (XP)', body: 'Fyller XP-baren för att levla upp. Högre nivå låser upp fler funktioner.' },
+      { emoji: '🔥', title: 'Streak', body: 'Antal dagar i rad du loggat in. Streak-bonusar vid 3, 7, 14 och 30 dagar.' },
+      { emoji: '💕', title: 'Bond', body: 'Mäter relationen till husdjuret. Klappar, mat och interaktion ökar Bond.' },
+      { emoji: '🏆', title: 'Battle Pass', body: 'Säsongsbaserade belöningar. Klara uppdrag för att låsa upp exklusiva kosmetika.' },
+      { emoji: '🌲', title: 'Expeditioner', body: 'Skicka husdjuret på uppdrag i tid. Belöningar baseras på expeditionens svårighet.' },
+      { emoji: '🎣', title: 'Fiske', body: 'Fånga fiskar för XP och mynt. Sällsynta fiskar ger mer belöning.' },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>📚 Encyklopedi</div>
+        <div className={styles.panelNote}>Allt du behöver veta om husdjursvärlden</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {ENTRIES.map((e, i) => (
+            <div key={i} style={{ padding: '12px 14px', background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.06)', borderRadius: 12 }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 4 }}>
+                <span style={{ fontSize: 20 }}>{e.emoji}</span>
+                <span style={{ fontWeight: 700, fontSize: 13 }}>{e.title}</span>
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--t3)', lineHeight: 1.6 }}>{e.body}</div>
+            </div>
+          ))}
         </div>
       </div>
     )
