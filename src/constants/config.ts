@@ -318,6 +318,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'leaguetable', emoji: '🥇', label: 'Ligatabell', desc: 'Veckovinnare & topplista' },
   { id: 'badges', emoji: '🎖️', label: 'Märken', desc: 'Specialmärken & utmärkelser' },
   { id: 'wishlist', emoji: '✍️', label: 'Önskelista', desc: 'Spara föremål du vill ha' },
+  { id: 'meditation', emoji: '🧘', label: 'Meditation', desc: 'Lugna ner & boosta humör' },
+  { id: 'petdiary', emoji: '📓', label: 'Husdjursdagbok', desc: 'Dagliga anteckningar & minnen' },
+  { id: 'petshowcase', emoji: '🌟', label: 'Showcase', desc: 'Visa upp ditt husdjur' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
