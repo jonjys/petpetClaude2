@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -26,6 +26,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   mine: 'gold', activitylog: 'blue', farm: 'green', worldevents: 'purple',
   dnalab: 'purple', bank: 'gold', worldboss: 'red', petjournal: 'blue',
   tournament: 'gold', companion: 'green', auction: 'purple',
+  prestigehall: 'gold', clan: 'blue', lottery: 'purple',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -48,6 +49,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   tournament: { label: 'LIVE',   color: 'var(--gold)'   },
   companion:  { label: 'NY',     color: 'var(--green)'  },
   auction:    { label: 'NY',     color: 'var(--purple)'  },
+  prestigehall:{ label: 'NY',   color: 'var(--gold)'   },
+  clan:       { label: 'NY',     color: 'var(--blue)'   },
+  lottery:    { label: 'DAGLIG', color: 'var(--purple)' },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -2321,6 +2325,270 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
         </div>
         <div style={{ textAlign: 'center', padding: '12px 0 0', fontSize: 10, color: '#555' }}>
           Auktioner roterar var 6:e timme · Vinnare får föremålet direkt
+        </div>
+      </div>
+    )
+  }
+
+  // ── Prestige Hall panel ───────────────────────────────────────────────────────
+  if (panel === 'prestigehall') {
+    const PRESTIGE_BONUSES = [
+      { level: 1, bonus: '+10% all XP', coins: 500, emoji: '🥉' },
+      { level: 2, bonus: '+20% all XP, +5% coins', coins: 750, emoji: '🥈' },
+      { level: 3, bonus: '+35% XP, +15% coins, +10% fish', coins: 1000, emoji: '🥇' },
+      { level: 4, bonus: '+50% XP, +25% coins, +20% battle', coins: 1500, emoji: '💎' },
+      { level: 5, bonus: '+75% all rewards, max bond faster', coins: 2000, emoji: '👑' },
+    ]
+    const prestigeXpRequired = 5000
+    const canPrestige = pet.level >= 30 && pet.exp >= prestigeXpRequired
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🔄 Prestige Hall</div>
+        {pet.prestigeLevel > 0 ? (
+          <div style={{
+            background: 'rgba(255,204,0,.08)', border: '1px solid rgba(255,204,0,.25)',
+            borderRadius: 14, padding: '14px', marginBottom: 14, textAlign: 'center',
+          }}>
+            <div style={{ fontSize: 32 }}>{PRESTIGE_BONUSES[Math.min(pet.prestigeLevel - 1, 4)].emoji}</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#fbbf24', marginTop: 6 }}>
+              Prestige {pet.prestigeLevel}
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>
+              {PRESTIGE_BONUSES[Math.min(pet.prestigeLevel - 1, 4)].bonus}
+            </div>
+          </div>
+        ) : (
+          <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>
+            Nå nivå 30 för att prestige — återställ och få permanenta bonusar!
+          </div>
+        )}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 14 }}>
+          {PRESTIGE_BONUSES.map((p, i) => {
+            const achieved = pet.prestigeLevel >= p.level
+            const isCurrent = pet.prestigeLevel === p.level
+            return (
+              <div key={i} style={{
+                display: 'flex', gap: 10, alignItems: 'center', padding: '10px 12px', borderRadius: 12,
+                background: achieved ? 'rgba(255,204,0,.07)' : 'rgba(255,255,255,.03)',
+                border: `1px solid ${isCurrent ? 'rgba(255,204,0,.5)' : achieved ? 'rgba(255,204,0,.2)' : 'rgba(255,255,255,.06)'}`,
+              }}>
+                <span style={{ fontSize: 22, opacity: achieved ? 1 : 0.4 }}>{p.emoji}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: achieved ? '#fbbf24' : '#666' }}>Prestige {p.level}{isCurrent ? ' ← Aktiv' : ''}</div>
+                  <div style={{ fontSize: 10, color: achieved ? 'var(--t3)' : '#444' }}>{p.bonus}</div>
+                </div>
+                <div style={{ fontSize: 11, color: achieved ? '#4ade80' : '#555' }}>+{p.coins}🪙</div>
+              </div>
+            )
+          })}
+        </div>
+        {canPrestige ? (
+          <button
+            className="btn-gold"
+            style={{ width: '100%', padding: 14, fontSize: 15, fontWeight: 900 }}
+            onClick={() => {
+              useGameStore.getState().prestige()
+              showToast(`🔄 Prestige ${pet.prestigeLevel + 1}! +${PRESTIGE_BONUSES[pet.prestigeLevel].coins}🪙`, 'success')
+              triggerConfetti(); audio.achievement()
+            }}
+          >
+            🔄 Prestige nu! (+{PRESTIGE_BONUSES[Math.min(pet.prestigeLevel, 4)].coins}🪙 bonus)
+          </button>
+        ) : (
+          <div style={{ textAlign: 'center', fontSize: 12, color: '#555', padding: 12, background: 'rgba(255,255,255,.03)', borderRadius: 12, border: '1px solid rgba(255,255,255,.06)' }}>
+            🔒 Kräver Nivå 30 för att prestige · Du är Lv{pet.level}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // ── Clan panel ────────────────────────────────────────────────────────────────
+  if (panel === 'clan') {
+    const CLANS = [
+      { id: 'dragon', emoji: '🐉', name: 'Dragon Legion', desc: 'Elitlagret för de starkaste', members: 47, level: 12, xp: 85000, bonus: '+15% Battle XP' },
+      { id: 'ocean',  emoji: '🌊', name: 'Ocean Riders',  desc: 'Fiskare och äventyrare',    members: 38, level: 9,  xp: 52000, bonus: '+20% Fish XP'   },
+      { id: 'star',   emoji: '⭐', name: 'Star Alliance', desc: 'Alla välkomna — snabb levl', members: 62, level: 7,  xp: 34000, bonus: '+10% All XP'   },
+    ]
+    const clanKey = 'k0509_my_clan'
+    const [myClan, setMyClan] = useState<string>(() => localStorage.getItem(clanKey) ?? '')
+    const joined = CLANS.find(c => c.id === myClan)
+
+    const join = (clanId: string) => {
+      localStorage.setItem(clanKey, clanId)
+      setMyClan(clanId)
+      const clan = CLANS.find(c => c.id === clanId)!
+      showToast(`${clan.emoji} Gick med i ${clan.name}!`, 'success')
+      gainXP(100, 'clan'); triggerConfetti(); audio.achievement()
+    }
+    const leave = () => {
+      localStorage.removeItem(clanKey)
+      setMyClan('')
+      showToast('Lämnade klanen', 'info')
+    }
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>⚔️ Klaner</div>
+        {joined ? (
+          <>
+            <div style={{
+              background: 'rgba(68,136,255,.08)', border: '1px solid rgba(68,136,255,.25)',
+              borderRadius: 16, padding: '16px', marginBottom: 14,
+            }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 10 }}>
+                <span style={{ fontSize: 36 }}>{joined.emoji}</span>
+                <div>
+                  <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#60a5fa' }}>{joined.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>Nivå {joined.level} · {joined.members} medlemmar</div>
+                </div>
+              </div>
+              <div style={{ height: 6, background: 'rgba(0,0,0,.3)', borderRadius: 3, overflow: 'hidden', marginBottom: 6 }}>
+                <div style={{ height: '100%', width: `${(joined.xp % 10000) / 100}%`, background: 'linear-gradient(90deg,#60a5fa,#4488ff)', borderRadius: 3 }} />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: 'var(--t3)' }}>
+                <span>Klan XP: {joined.xp.toLocaleString()}</span>
+                <span>Bonus: {joined.bonus}</span>
+              </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 14 }}>
+              {['DragonX 🐉', 'LunaPet 🌙', 'StarKing ⭐', `${pet.petName} ${pet.petEmoji} (Du)`, 'ZenPanda 🐼'].map((m, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: m.includes('Du') ? 'rgba(0,240,255,.06)' : 'rgba(255,255,255,.03)', borderRadius: 10, border: `1px solid ${m.includes('Du') ? 'rgba(0,240,255,.25)' : 'rgba(255,255,255,.06)'}`, fontSize: 12, color: m.includes('Du') ? '#00f0ff' : '#e8e8f0' }}>
+                  <span style={{ fontSize: 11, color: '#fbbf24', width: 16, textAlign: 'center', fontWeight: 900 }}>#{i + 1}</span>
+                  {m}
+                </div>
+              ))}
+            </div>
+            <button className="btn-ghost" style={{ width: '100%', padding: 10, fontSize: 12 }} onClick={leave}>Lämna klanen</button>
+          </>
+        ) : (
+          <>
+            <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>
+              Gå med i en klan för bonus XP och gemenskapen!
+            </div>
+            {CLANS.map(c => (
+              <div key={c.id} style={{ background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 14, padding: '14px', marginBottom: 10 }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 8 }}>
+                  <span style={{ fontSize: 32 }}>{c.emoji}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 900, fontSize: 14, color: '#fff' }}>{c.name}</div>
+                    <div style={{ fontSize: 10, color: 'var(--t3)' }}>{c.desc}</div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t3)', marginBottom: 8 }}>
+                  <span>👥 {c.members} medlemmar · Lv{c.level}</span>
+                  <span style={{ color: '#4ade80' }}>{c.bonus}</span>
+                </div>
+                <button className="btn-primary" style={{ width: '100%', padding: 10, fontSize: 12 }} onClick={() => join(c.id)}>
+                  Gå med!
+                </button>
+              </div>
+            ))}
+          </>
+        )}
+      </div>
+    )
+  }
+
+  // ── Lottery panel ─────────────────────────────────────────────────────────────
+  if (panel === 'lottery') {
+    const TICKET_COST = 50
+    const todayKey = `k0509_lottery_${new Date().toDateString()}`
+    const [tickets, setTickets] = useState<number[]>(() => JSON.parse(localStorage.getItem(todayKey) ?? '[]'))
+    const [drawn, setDrawn] = useState<boolean>(() => !!localStorage.getItem(`${todayKey}_drawn`))
+    const [winResult, setWinResult] = useState<{ prize: string; coins: number; kc: number } | null>(null)
+
+    const PRIZES = [
+      { prize: '🎰 JACKPOT! 5000🪙', coins: 5000, kc: 0, chance: 0.01 },
+      { prize: '💎 50 KC', coins: 0, kc: 50, chance: 0.02 },
+      { prize: '💰 1000🪙', coins: 1000, kc: 0, chance: 0.05 },
+      { prize: '⭐ 500🪙', coins: 500, kc: 0, chance: 0.10 },
+      { prize: '🪙 200🪙', coins: 200, kc: 0, chance: 0.20 },
+      { prize: '🎁 50🪙', coins: 50, kc: 0, chance: 0.30 },
+      { prize: '💔 Ingen vinst', coins: 0, kc: 0, chance: 1.0 },
+    ]
+
+    const buyTicket = () => {
+      if (pet.coins < TICKET_COST) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      if (tickets.length >= 5) { showToast('Max 5 lotter per dag!', 'error'); return }
+      spendCoins(TICKET_COST)
+      const num = Math.floor(Math.random() * 99) + 1
+      const next = [...tickets, num]
+      localStorage.setItem(todayKey, JSON.stringify(next))
+      setTickets(next)
+      showToast(`🎟️ Lott #${num} köpt!`, 'success')
+      audio.click()
+    }
+
+    const draw = () => {
+      if (tickets.length === 0 || drawn) return
+      const r = Math.random()
+      let cumulative = 0
+      const prize = PRIZES.find(p => { cumulative += p.chance; return r <= cumulative }) ?? PRIZES[PRIZES.length - 1]
+      setWinResult(prize)
+      setDrawn(true)
+      localStorage.setItem(`${todayKey}_drawn`, '1')
+      if (prize.coins > 0) gainCoins(prize.coins)
+      if (prize.kc > 0) gainKC(prize.kc)
+      if (prize.coins > 0 || prize.kc > 0) {
+        showToast(`🎉 ${prize.prize}`, 'success')
+        triggerConfetti(); audio.achievement()
+      } else {
+        showToast('Bättre lycka imorgon! 🎟️', 'info')
+      }
+    }
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🎟️ Dagslotteriet</div>
+        <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--t3)', marginBottom: 16 }}>
+          Köp max 5 lotter · Dragning sker när du är redo · Återställs varje dag
+        </div>
+        {winResult && (
+          <div style={{ background: winResult.coins > 0 || winResult.kc > 0 ? 'rgba(74,222,128,.1)' : 'rgba(255,255,255,.04)', border: `1px solid ${winResult.coins > 0 ? 'rgba(74,222,128,.35)' : 'rgba(255,255,255,.08)'}`, borderRadius: 16, padding: '16px', textAlign: 'center', marginBottom: 14 }}>
+            <div style={{ fontSize: 28, marginBottom: 6 }}>{winResult.coins > 500 || winResult.kc > 0 ? '🎉' : winResult.coins > 0 ? '😊' : '😢'}</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: winResult.coins > 0 || winResult.kc > 0 ? '#4ade80' : '#888' }}>{winResult.prize}</div>
+          </div>
+        )}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14, justifyContent: 'center' }}>
+          {tickets.map((n, i) => (
+            <div key={i} style={{ width: 52, height: 52, borderRadius: 12, background: 'rgba(168,85,247,.15)', border: '1px solid rgba(168,85,247,.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: '#a855f7' }}>{n}</div>
+          ))}
+          {Array.from({ length: 5 - tickets.length }, (_, i) => (
+            <div key={`empty-${i}`} style={{ width: 52, height: 52, borderRadius: 12, background: 'rgba(255,255,255,.03)', border: '1px dashed rgba(255,255,255,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, color: '#333' }}>🎟️</div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button
+            className="btn-primary"
+            style={{ flex: 1, padding: 12, opacity: tickets.length >= 5 || pet.coins < TICKET_COST ? 0.5 : 1 }}
+            onClick={buyTicket}
+            disabled={tickets.length >= 5 || pet.coins < TICKET_COST}
+          >
+            🎟️ Köp lott ({TICKET_COST}🪙)
+          </button>
+          <button
+            className="btn-gold"
+            style={{ flex: 1, padding: 12, opacity: tickets.length === 0 || drawn ? 0.5 : 1 }}
+            onClick={draw}
+            disabled={tickets.length === 0 || drawn}
+          >
+            🎰 Dra nu!
+          </button>
+        </div>
+        {drawn && !winResult && <div style={{ textAlign: 'center', fontSize: 11, color: '#555', marginTop: 10 }}>Redan dragen idag · Kom tillbaka imorgon!</div>}
+        <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <div style={{ fontSize: 10, color: '#555', marginBottom: 4 }}>Prislista:</div>
+          {PRIZES.slice(0, -1).map((p, i) => (
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: 'var(--t3)', padding: '2px 0' }}>
+              <span>{p.prize}</span>
+              <span>{Math.round(p.chance * 100)}%</span>
+            </div>
+          ))}
         </div>
       </div>
     )
