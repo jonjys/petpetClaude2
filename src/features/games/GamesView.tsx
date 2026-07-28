@@ -63,8 +63,10 @@ import { TicTacToeGame } from './TicTacToeGame'
 import { MastermindGame } from './MastermindGame'
 import { ConnectFourGame } from './ConnectFourGame'
 import { RockPaperScissorsGame } from './RockPaperScissorsGame'
+import { PongGame } from './PongGame'
+import { BlackjackGame } from './BlackjackGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -125,6 +127,8 @@ const GAMES = [
   { id: 'mastermind' as const, emoji: '🎯', name: 'Mastermind', desc: 'Knäck den hemliga koden', reward: '🪙0-700', hot: true },
   { id: 'c4' as const, emoji: '🔵', name: 'Fyra i rad', desc: 'Klassisk Connect Four mot AI', reward: '🪙0-600', hot: false },
   { id: 'rps' as const, emoji: '✂️', name: 'Sten Sax Påse', desc: 'Bäst av 5 mot datorn', reward: '🪙0-400', hot: false },
+  { id: 'pong' as const, emoji: '🏓', name: 'Pong', desc: 'Klassisk Pong mot AI', reward: '🪙0-350', hot: false },
+  { id: 'blackjack' as const, emoji: '🃏', name: 'Blackjack', desc: 'Kom närmast 21 mot dealer', reward: '🪙Variabel', hot: true },
 ]
 
 function weekKey() {
@@ -273,6 +277,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'mastermind') return <MastermindGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'c4') return <ConnectFourGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'rps') return <RockPaperScissorsGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'pong') return <PongGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'blackjack') return <BlackjackGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} coins={coins} />
 
   return (
     <>

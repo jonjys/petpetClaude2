@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -47,6 +47,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   habitat: 'green', petcoach: 'blue', nextevent: 'orange',
   chronicle: 'purple', rewards: 'gold', petmood: 'green',
   petalbum: 'blue', skillpoints: 'orange', socialcenter: 'green',
+  weather: 'blue', worldranking: 'gold', petlore: 'purple',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -131,6 +132,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   petalbum:   { label: 'NY',     color: 'var(--blue)'   },
   skillpoints:{ label: 'NY',     color: 'var(--orange)' },
   socialcenter:{ label: 'NY',    color: 'var(--green)'  },
+  weather:    { label: 'LIVE',   color: 'var(--blue)'   },
+  worldranking:{ label: 'NY',    color: 'var(--gold)'   },
+  petlore:    { label: 'NY',     color: 'var(--purple)' },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -5998,6 +6002,150 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'weather') {
+    const hour = new Date().getHours()
+    const seed = Math.floor(Date.now() / (1000 * 60 * 60 * 6))
+    const weathers = [
+      { emoji: '☀️', name: 'Soligt', desc: '+20% XP från alla aktiviteter', bonus: '+20% XP' },
+      { emoji: '⛅', name: 'Molnigt', desc: '+10% mynt från spel', bonus: '+10% Mynt' },
+      { emoji: '🌧️', name: 'Regnigt', desc: '+50% fiske-XP', bonus: '+50% Fiske XP' },
+      { emoji: '⛈️', name: 'Åskväder', desc: '+100% Boss Raid-skada', bonus: '+100% Boss' },
+      { emoji: '❄️', name: 'Snöigt', desc: '+30% Bond-poäng', bonus: '+30% Bond' },
+      { emoji: '🌈', name: 'Regnbåge', desc: '+50% mynt & XP hela dagen!', bonus: '+50% Allt' },
+    ]
+    const current = weathers[seed % weathers.length]
+    const next = weathers[(seed + 1) % weathers.length]
+    const forecast = [
+      weathers[(seed + 2) % weathers.length],
+      weathers[(seed + 3) % weathers.length],
+      weathers[(seed + 4) % weathers.length],
+    ]
+    const timeOfDay = hour >= 6 && hour < 12 ? 'Morgon' : hour >= 12 && hour < 18 ? 'Eftermiddag' : hour >= 18 && hour < 22 ? 'Kväll' : 'Natt'
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🌤 In-game Väder</div>
+        <div className={styles.panelNote}>{timeOfDay} · Uppdateras var 6:e timme</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ padding: 20, background: 'rgba(129,140,248,.08)', border: '1px solid rgba(129,140,248,.2)', borderRadius: 16, textAlign: 'center' }}>
+            <div style={{ fontSize: 52 }}>{current.emoji}</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 20, fontWeight: 900, marginBottom: 4 }}>{current.name}</div>
+            <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 8 }}>{current.desc}</div>
+            <div style={{ display: 'inline-block', padding: '4px 12px', background: 'rgba(251,191,36,.15)', border: '1px solid rgba(251,191,36,.3)', borderRadius: 20, fontSize: 12, color: '#fbbf24', fontWeight: 700 }}>{current.bonus}</div>
+          </div>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <div style={{ fontSize: 11, color: 'var(--t3)', flex: '0 0 60px' }}>Nästa:</div>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '8px 12px', background: 'rgba(255,255,255,.03)', borderRadius: 10, flex: 1 }}>
+              <span style={{ fontSize: 24 }}>{next.emoji}</span>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 700 }}>{next.name}</div>
+                <div style={{ fontSize: 10, color: '#fbbf24' }}>{next.bonus}</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 6 }}>Prognos (3 perioder)</div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              {forecast.map((f, i) => (
+                <div key={i} style={{ flex: 1, padding: '8px 6px', background: 'rgba(255,255,255,.03)', borderRadius: 10, textAlign: 'center' }}>
+                  <div style={{ fontSize: 22 }}>{f.emoji}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>{f.name}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'worldranking') {
+    const myScore = pet.level * 100 + pet.totalTaps + pet.battleWins * 50
+    const RANKINGS = [
+      { rank: 1, name: 'DragonMaster99', emoji: '🐉', score: 98420, country: '🇯🇵' },
+      { rank: 2, name: 'PetLegend', emoji: '🦁', score: 87650, country: '🇺🇸' },
+      { rank: 3, name: 'StarCrafter', emoji: '⭐', score: 76300, country: '🇩🇪' },
+      { rank: 4, name: 'MoonWatcher', emoji: '🌙', score: 65180, country: '🇧🇷' },
+      { rank: 5, name: 'CosmicPet', emoji: '🌌', score: 54200, country: '🇸🇪' },
+      { rank: 6, name: 'ThunderBolt', emoji: '⚡', score: 43800, country: '🇫🇷' },
+      { rank: 7, name: 'SilverFox', emoji: '🦊', score: 32100, country: '🇰🇷' },
+      { rank: 8, name: 'DiamondPaw', emoji: '💎', score: 28900, country: '🇨🇦' },
+    ]
+    const myRank = RANKINGS.filter(r => r.score > myScore).length + 1
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🌍 Världsranking</div>
+        <div className={styles.panelNote}>Din placering: #{myRank} · {myScore.toLocaleString()}p</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {RANKINGS.slice(0, 5).map(r => (
+            <div key={r.rank} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: r.rank <= 3 ? 'rgba(251,191,36,.06)' : 'rgba(255,255,255,.03)', border: `1px solid ${r.rank <= 3 ? 'rgba(251,191,36,.2)' : 'rgba(255,255,255,.06)'}`, borderRadius: 12 }}>
+              <span style={{ fontSize: 14, fontWeight: 900, color: r.rank === 1 ? '#fbbf24' : r.rank === 2 ? '#94a3b8' : r.rank === 3 ? '#d97706' : 'var(--t3)', minWidth: 20 }}>#{r.rank}</span>
+              <span style={{ fontSize: 22 }}>{r.emoji}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 700 }}>{r.name} <span style={{ fontSize: 14 }}>{r.country}</span></div>
+                <div style={{ fontSize: 10, color: 'var(--t3)' }}>{r.score.toLocaleString()}p</div>
+              </div>
+            </div>
+          ))}
+          <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--t3)', padding: '4px 0' }}>···</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: 'rgba(129,140,248,.08)', border: '1px solid rgba(129,140,248,.3)', borderRadius: 12 }}>
+            <span style={{ fontSize: 14, fontWeight: 900, color: '#818cf8', minWidth: 20 }}>#{myRank}</span>
+            <span style={{ fontSize: 22 }}>{pet.petEmoji}</span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#818cf8' }}>{pet.petName} (Du) 🇸🇪</div>
+              <div style={{ fontSize: 10, color: 'var(--t3)' }}>{myScore.toLocaleString()}p</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petlore') {
+    const LORE: Record<string, { title: string; story: string; traits: string[]; weakness: string; power: string }> = {
+      default: {
+        title: 'Det mystiska husdjuret',
+        story: `${pet.petEmoji} tillhör en uråldrig ras som vandrat i tusentals år. Deras ursprung spåras till de magiska Dimskogarna, där tid och rum rör sig annorlunda.`,
+        traits: ['Nyfiken', 'Loyal', 'Modig', 'Anpassningsbar'],
+        weakness: 'Ensamhet',
+        power: 'Vänskapsband',
+      }
+    }
+    const lore = LORE.default
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>📜 Husdjurets Historia</div>
+        <div className={styles.panelNote}>Lore för {pet.petEmoji} {pet.petName}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ textAlign: 'center', padding: 16 }}>
+            <div style={{ fontSize: 64 }}>{pet.petEmoji}</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, marginTop: 8 }}>{lore.title}</div>
+          </div>
+          <div style={{ padding: 14, background: 'rgba(255,255,255,.03)', borderRadius: 14, lineHeight: 1.8, fontSize: 12, color: '#c4c4d4' }}>
+            {lore.story}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+            <div style={{ padding: 12, background: 'rgba(74,222,128,.06)', border: '1px solid rgba(74,222,128,.2)', borderRadius: 12 }}>
+              <div style={{ fontSize: 11, color: '#4ade80', fontWeight: 700, marginBottom: 6 }}>⚡ Superkraft</div>
+              <div style={{ fontSize: 13, fontWeight: 700 }}>{lore.power}</div>
+            </div>
+            <div style={{ padding: 12, background: 'rgba(248,113,113,.06)', border: '1px solid rgba(248,113,113,.2)', borderRadius: 12 }}>
+              <div style={{ fontSize: 11, color: '#f87171', fontWeight: 700, marginBottom: 6 }}>💔 Svaghet</div>
+              <div style={{ fontSize: 13, fontWeight: 700 }}>{lore.weakness}</div>
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 8 }}>✨ Karaktärsdrag</div>
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              {lore.traits.map(t => (
+                <span key={t} style={{ padding: '4px 10px', borderRadius: 20, background: 'rgba(129,140,248,.15)', border: '1px solid rgba(129,140,248,.2)', fontSize: 11, color: '#818cf8' }}>{t}</span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     )
