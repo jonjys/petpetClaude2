@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -22,7 +22,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   achievements: 'gold', craft: 'purple', fortune: 'orange',
   wardrobe: 'pink', battlepass: 'purple', leaderboard: 'gold',
   quests: 'green', records: 'blue', chests: 'gold', bounty: 'red',
-  fishpedia: 'blue', checkin: 'green', skilltree: 'green',
+  fishpedia: 'blue', checkin: 'green', skilltree: 'green', tarot: 'purple', trophyroom: 'gold',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -34,6 +34,8 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   bounty:     { label: 'NYA',    color: 'var(--red)'    },
   checkin:    { label: 'DAGLIG', color: 'var(--green)'  },
   skilltree:  { label: 'NYA',    color: 'var(--green)'  },
+  tarot:      { label: 'DAGLIG', color: 'var(--purple)' },
+  trophyroom: { label: 'NY',     color: 'var(--gold)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -1187,6 +1189,154 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
         <div style={{ marginTop: 14, fontSize: 10, color: 'var(--t3)', textAlign: 'center' }}>
           Färdigheter aktiveras automatiskt — inga slottar behövs
         </div>
+      </div>
+    )
+  }
+
+  // ── Tarot panel ──────────────────────────────────────────────────────────────
+  if (panel === 'tarot') {
+    const todayStr = new Date().toDateString()
+    const tarotKey = 'k0509_tarot'
+    const tarotDone = localStorage.getItem(tarotKey) === todayStr
+    const [flipped, setFlipped] = useState(false)
+    const [claimed, setClaimedTarot] = useState(tarotDone)
+    const TAROT_CARDS = [
+      { name: 'Narren', emoji: '🃏', meaning: 'Nya börjar och äventyr', buff: '+15% XP idag', coins: 25, xp: 40 },
+      { name: 'Trollkarlen', emoji: '🔮', meaning: 'Kraft och vilja manifesteras', buff: '+20% mynt idag', coins: 40, xp: 30 },
+      { name: 'Stjärnan', emoji: '⭐', meaning: 'Hopp och inspiration lyser', buff: '+2 KC bonus', coins: 20, xp: 50, kc: 2 },
+      { name: 'Månen', emoji: '🌙', meaning: 'Mysterier och intuition', buff: '+30 XP gratis', coins: 15, xp: 80 },
+      { name: 'Solen', emoji: '☀️', meaning: 'Glädje, framgång och klarhet', buff: '+50 mynt & +25 XP', coins: 50, xp: 25 },
+      { name: 'Världen', emoji: '🌍', meaning: 'Fullbordelse och harmoni', buff: '+35 XP & +2 KC', coins: 20, xp: 35, kc: 2 },
+      { name: 'Rättvisan', emoji: '⚖️', meaning: 'Balans och sanning segrar', buff: '+25 mynt gratis', coins: 25, xp: 25 },
+      { name: 'Styrkan', emoji: '💪', meaning: 'Mod och inre kraft flödar', buff: '+20 XP & bond', coins: 20, xp: 40 },
+    ]
+    const dayIdx = Math.floor(Date.now() / 86400000) % TAROT_CARDS.length
+    const card = TAROT_CARDS[dayIdx]
+    const claimTarot = () => {
+      if (claimed) return
+      localStorage.setItem(tarotKey, todayStr)
+      setClaimedTarot(true)
+      gainCoins(card.coins)
+      gainXP(card.xp, 'tarot')
+      if ((card as { kc?: number }).kc) gainKC((card as { kc?: number }).kc ?? 0)
+      showToast(`🔮 ${card.name}! +${card.coins}🪙 +${card.xp}XP${(card as { kc?: number }).kc ? ` +${(card as { kc?: number }).kc}💎` : ''}`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🔮 Dagligt Tarotkort</div>
+        <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--t3)', marginBottom: 16 }}>
+          Ett nytt kort varje dag — klicka för att avslöja
+        </div>
+        <div
+          onClick={() => !flipped && setFlipped(true)}
+          style={{
+            margin: '0 auto 20px',
+            width: 160, background: flipped ? 'rgba(170,102,255,.12)' : 'rgba(255,255,255,.05)',
+            border: `2px solid ${flipped ? '#a855f7' : 'rgba(255,255,255,.15)'}`,
+            borderRadius: 20, padding: '28px 20px', textAlign: 'center',
+            cursor: flipped ? 'default' : 'pointer',
+            transition: 'all .3s',
+          }}
+        >
+          {flipped ? (
+            <>
+              <div style={{ fontSize: 52 }}>{card.emoji}</div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 900, color: '#a855f7', marginTop: 8 }}>{card.name}</div>
+              <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 4, lineHeight: 1.4 }}>{card.meaning}</div>
+              <div style={{ fontSize: 11, color: '#fbbf24', fontWeight: 700, marginTop: 8, background: 'rgba(251,191,36,.1)', borderRadius: 8, padding: '4px 8px' }}>{card.buff}</div>
+            </>
+          ) : (
+            <>
+              <div style={{ fontSize: 48 }}>🎴</div>
+              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 8 }}>Klicka för att avslöja</div>
+            </>
+          )}
+        </div>
+        {flipped && !claimed && (
+          <button className="btn-primary" style={{ width: '100%', padding: 14, fontSize: 14 }} onClick={claimTarot}>
+            ✨ Hämta kortets välsignelse!
+          </button>
+        )}
+        {claimed && (
+          <div style={{ textAlign: 'center', padding: '12px', background: 'rgba(0,255,136,.08)', borderRadius: 12, border: '1px solid rgba(0,255,136,.25)', fontSize: 13, color: '#4ade80', fontWeight: 700 }}>
+            ✅ Välsignelse hämtad! Kom tillbaka imorgon.
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // ── Trophy Room panel ─────────────────────────────────────────────────────────
+  if (panel === 'trophyroom') {
+    const TROPHY_CATEGORIES = [
+      {
+        id: 'pet', label: '🐾 HUSDJUR', trophies: [
+          { id: 'lv5', name: 'Lärling', emoji: '🥉', desc: 'Nå nivå 5', unlocked: pet.level >= 5, rarity: 'common' },
+          { id: 'lv10', name: 'Veteran', emoji: '🥈', desc: 'Nå nivå 10', unlocked: pet.level >= 10, rarity: 'rare' },
+          { id: 'lv25', name: 'Master', emoji: '🥇', desc: 'Nå nivå 25', unlocked: pet.level >= 25, rarity: 'epic' },
+          { id: 'lv50', name: 'Legend', emoji: '👑', desc: 'Nå nivå 50', unlocked: pet.level >= 50, rarity: 'legendary' },
+        ],
+      },
+      {
+        id: 'combat', label: '⚔️ STRID', trophies: [
+          { id: 'w1', name: 'Debytant', emoji: '🗡️', desc: '1 strid vunnen', unlocked: pet.battleWins >= 1, rarity: 'common' },
+          { id: 'w10', name: 'Krigare', emoji: '⚔️', desc: '10 strider vunna', unlocked: pet.battleWins >= 10, rarity: 'rare' },
+          { id: 'w50', name: 'Hjälte', emoji: '🛡️', desc: '50 strider vunna', unlocked: pet.battleWins >= 50, rarity: 'epic' },
+          { id: 'w100', name: 'Legendhjälte', emoji: '🏆', desc: '100 strider vunna', unlocked: pet.battleWins >= 100, rarity: 'legendary' },
+        ],
+      },
+      {
+        id: 'fishing', label: '🎣 FISKE', trophies: [
+          { id: 'f5', name: 'Hobbyfiskare', emoji: '🐟', desc: '5 fiskar fångade', unlocked: pet.fishCaught >= 5, rarity: 'common' },
+          { id: 'f25', name: 'Fiskare', emoji: '🎣', desc: '25 fiskar', unlocked: pet.fishCaught >= 25, rarity: 'rare' },
+          { id: 'f100', name: 'Mästerfiskare', emoji: '🐳', desc: '100 fiskar', unlocked: pet.fishCaught >= 100, rarity: 'epic' },
+        ],
+      },
+      {
+        id: 'streak', label: '🔥 STREAK', trophies: [
+          { id: 's3', name: 'Trogen', emoji: '🔥', desc: '3 dagars streak', unlocked: pet.streak >= 3, rarity: 'common' },
+          { id: 's7', name: 'Dedikerad', emoji: '🌟', desc: '7 dagars streak', unlocked: pet.streak >= 7, rarity: 'rare' },
+          { id: 's30', name: 'Oövervinnerlig', emoji: '💎', desc: '30 dagars streak', unlocked: pet.streak >= 30, rarity: 'legendary' },
+        ],
+      },
+    ]
+    const RARITY_CLR: Record<string, string> = { common: '#888', rare: '#4488ff', epic: '#aa66ff', legendary: '#ffcc00' }
+    const totalTrophies = TROPHY_CATEGORIES.reduce((s, c) => s + c.trophies.length, 0)
+    const unlockedCount = TROPHY_CATEGORIES.reduce((s, c) => s + c.trophies.filter(t => t.unlocked).length, 0)
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🏆 Pokalrum</div>
+        <div style={{ textAlign: 'center', fontSize: 12, color: 'var(--t3)', marginBottom: 14 }}>
+          {unlockedCount}/{totalTrophies} pokaler upplåsta
+        </div>
+        <div style={{ height: 6, background: 'rgba(255,255,255,.08)', borderRadius: 3, overflow: 'hidden', marginBottom: 16 }}>
+          <div style={{ height: '100%', width: `${(unlockedCount / totalTrophies) * 100}%`, background: 'linear-gradient(90deg, #fbbf24, #f59e0b)', borderRadius: 3, transition: 'width .6s' }} />
+        </div>
+        {TROPHY_CATEGORIES.map(cat => (
+          <div key={cat.id} style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', letterSpacing: 1, marginBottom: 8 }}>{cat.label}</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+              {cat.trophies.map(t => (
+                <div
+                  key={t.id}
+                  style={{
+                    textAlign: 'center', padding: '10px 6px',
+                    background: t.unlocked ? `rgba(${RARITY_CLR[t.rarity].replace('#','').match(/../g)?.map(h=>parseInt(h,16)).join(',')},.08)` : 'rgba(255,255,255,.03)',
+                    border: `1px solid ${t.unlocked ? RARITY_CLR[t.rarity] + '44' : 'rgba(255,255,255,.06)'}`,
+                    borderRadius: 12, opacity: t.unlocked ? 1 : 0.45,
+                  }}
+                >
+                  <div style={{ fontSize: 22 }}>{t.unlocked ? t.emoji : '🔒'}</div>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: t.unlocked ? RARITY_CLR[t.rarity] : '#555', marginTop: 4 }}>{t.name}</div>
+                  <div style={{ fontSize: 7, color: 'var(--t3)', marginTop: 2 }}>{t.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     )
   }
