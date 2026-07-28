@@ -16,13 +16,17 @@ import { SpinGame } from './SpinGame'
 import { BossRaidGame } from './BossRaidGame'
 import { DiceGame } from './DiceGame'
 import { SpeedMathGame } from './SpeedMathGame'
+import { WhackMoleGame } from './WhackMoleGame'
+import { QuizGame } from './QuizGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
   { id: 'battle' as const, emoji: '⚔️', name: 'Strid', desc: 'Turn-based PvE', reward: '🪙20-400', hot: true },
   { id: 'spin' as const, emoji: '🎰', name: 'Lyckhjulet', desc: 'Snurra & vinn', reward: '🪙25-200+', hot: true },
+  { id: 'quiz' as const, emoji: '🧠', name: 'Quiz', desc: 'Trivia & kunskap', reward: '🪙10-120', hot: true },
+  { id: 'whack' as const, emoji: '🐹', name: 'Hamra', desc: 'Tryck mullvadar', reward: '🪙0-90', hot: false },
   { id: 'dice' as const, emoji: '🎲', name: 'Tärning', desc: 'Satsa & rulla', reward: '🪙1.8-4x', hot: false },
   { id: 'speedmath' as const, emoji: '🧮', name: 'Snabbmatte', desc: '10 tal, 30 sek', reward: '🪙5-50', hot: false },
   { id: 'puzzle2048' as const, emoji: '🔢', name: '2048', desc: 'Slå ihop brickor', reward: '🪙500', hot: false },
@@ -132,6 +136,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'bossraid') return <BossRaidGame onExit={() => setActiveGame(null)} onWin={handleBattleWin} petEmoji={petEmoji} />
   if (activeGame === 'dice') return <DiceGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} coins={coins} spendCoins={spendCoins} />
   if (activeGame === 'speedmath') return <SpeedMathGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'whack') return <WhackMoleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'quiz') return <QuizGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>

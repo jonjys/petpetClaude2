@@ -240,6 +240,8 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'bounty', emoji: '📌', label: 'Uppdragstavla', desc: 'Hämta belöningar' },
   { id: 'checkin', emoji: '📅', label: 'Daglig Check-in', desc: 'Hämta daglig belöning' },
   { id: 'skilltree', emoji: '🌳', label: 'Kompetensträd', desc: 'Uppgradera passiva förmågor' },
+  { id: 'tarot', emoji: '🔮', label: 'Tarotkort', desc: 'Daglig tarot-läsning' },
+  { id: 'trophyroom', emoji: '🏆', label: 'Pokalrum', desc: 'Dina prestationstrofeer' },
   { id: 'shop', emoji: '🛍️', label: 'Shop', desc: 'Köp kosmetika & boosts' },
   { id: 'expedition', emoji: '🗺️', label: 'Expedition', desc: 'Skicka husdjuret på äventyr' },
   { id: 'achievements', emoji: '🏆', label: 'Prestationer', desc: 'Se dina utmärkelser' },
