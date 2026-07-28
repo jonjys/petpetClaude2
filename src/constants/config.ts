@@ -273,6 +273,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'roulette', emoji: '🎰', label: 'Roulette', desc: 'Satsa på röd, svart eller siffra' },
   { id: 'mailbox', emoji: '📬', label: 'Brevlåda', desc: 'Presenter & meddelanden' },
   { id: 'cookbook', emoji: '📖', label: 'Kokboken', desc: 'Laga speciella krafträtter' },
+  { id: 'bond', emoji: '💚', label: 'Band', desc: 'Din anknytning till husdjuret' },
+  { id: 'training', emoji: '💪', label: 'Träning', desc: 'Träna husdjurets förmågor' },
+  { id: 'petcare', emoji: '🩺', label: 'Husdjursvård', desc: 'Daglig vård & hälsostatus' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────

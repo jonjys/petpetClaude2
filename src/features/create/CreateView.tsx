@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -29,6 +29,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   prestigehall: 'gold', clan: 'blue', lottery: 'purple',
   spa: 'pink', challenges: 'red', traits: 'purple',
   roulette: 'red', mailbox: 'blue', cookbook: 'green',
+  bond: 'green', training: 'blue', petcare: 'green',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -60,6 +61,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   roulette:   { label: 'NY',     color: 'var(--red)'    },
   mailbox:    { label: 'NYTT',   color: 'var(--blue)'   },
   cookbook:   { label: 'NY',     color: 'var(--green)'  },
+  bond:       { label: 'NY',     color: 'var(--green)'  },
+  training:   { label: 'NY',     color: 'var(--blue)'   },
+  petcare:    { label: 'NY',     color: 'var(--green)'  },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -161,6 +165,7 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
   const setStat = useGameStore(s => s.setStat)
   const spendCoins = useGameStore(s => s.spendCoins)
   const spendKC = useGameStore(s => s.spendKC)
+  const gainBond = useGameStore(s => s.gainBond)
   const addInventoryItem = useGameStore(s => s.addInventoryItem)
   const equipItem = useGameStore(s => s.equipItem)
   const unlockedAchievements = useGameStore(s => s.unlockedAchievements)
@@ -2813,6 +2818,246 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               </div>
             )
           })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Bond panel ─────────────────────────────────────────────────────────────
+  if (panel === 'bond') {
+    const BOND_NAMES = ['Okänd', 'Bekant', 'Kompis', 'Vän', 'Bästis', 'Soulmate']
+    const BOND_EMOJIS = ['❓', '🤝', '😊', '💚', '🫶', '💫']
+    const BOND_THRESHOLDS = [0, 50, 150, 350, 700, 1500]
+    const BOND_COLORS = ['#888', '#60a5fa', '#4ade80', '#4ade80', '#f472b6', '#fbbf24']
+    const tier = pet.bondTier
+    const nextThresh = tier < 5 ? BOND_THRESHOLDS[tier + 1] : BOND_THRESHOLDS[5]
+    const currThresh = BOND_THRESHOLDS[tier]
+    const bondPct = tier >= 5 ? 100 : Math.min(100, ((pet.bondPoints - currThresh) / (nextThresh - currThresh)) * 100)
+    const BOND_ACTIONS = [
+      { id: 'pet', emoji: '🐾', name: 'Kela', desc: '+5 Bond · Ge husdjuret lite kärlek', cost: 0, bond: 5, cooldownMs: 60000 },
+      { id: 'play', emoji: '🎮', name: 'Lek tillsammans', desc: '+15 Bond · Spela ett spel', cost: 30, bond: 15, cooldownMs: 300000 },
+      { id: 'gift', emoji: '🎁', name: 'Ge en gåva', desc: '+30 Bond + 10 XP', cost: 100, bond: 30, cooldownMs: 3600000 },
+      { id: 'feast', emoji: '🍱', name: 'Kungsmåltid', desc: '+50 Bond + +60 mat', cost: 200, bond: 50, cooldownMs: 86400000 },
+    ]
+    const [bondCooldowns, setBondCooldowns] = useState<Record<string, number>>(() => {
+      try { return JSON.parse(localStorage.getItem('k0509_bond_cd') ?? '{}') } catch { return {} }
+    })
+    const doAction = (a: typeof BOND_ACTIONS[0]) => {
+      const now = Date.now()
+      if (bondCooldowns[a.id] && now - bondCooldowns[a.id] < a.cooldownMs) return
+      if (a.cost > 0 && !spendCoins(a.cost)) return
+      gainBond(a.bond)
+      if (a.id === 'feast') setStat('hunger', Math.min(100, pet.hunger + 60))
+      if (a.id === 'play') gainXP(10, 'bond')
+      if (a.id === 'gift') gainXP(10, 'bond')
+      const next = { ...bondCooldowns, [a.id]: now }
+      setBondCooldowns(next)
+      localStorage.setItem('k0509_bond_cd', JSON.stringify(next))
+      showToast(`${a.emoji} +${a.bond} Bond-poäng!`, 'success')
+      audio.coin()
+    }
+    const now = Date.now()
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>💚 Band</div>
+        <div style={{ textAlign: 'center', marginBottom: 16 }}>
+          <div style={{ fontSize: 48 }}>{BOND_EMOJIS[tier]}</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 20, fontWeight: 900, color: BOND_COLORS[tier], marginTop: 6 }}>{BOND_NAMES[tier]}</div>
+          <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>Band-tier {tier}/5 · {pet.bondPoints} poäng</div>
+          {tier < 5 && (
+            <div style={{ marginTop: 10, padding: '0 20px' }}>
+              <div style={{ height: 6, background: 'rgba(255,255,255,.08)', borderRadius: 3, overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${bondPct}%`, background: BOND_COLORS[tier], borderRadius: 3, transition: 'width .4s' }} />
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 4 }}>Nästa tier: {BOND_NAMES[tier + 1]} ({pet.bondPoints}/{nextThresh})</div>
+            </div>
+          )}
+          {tier >= 5 && <div style={{ fontSize: 12, color: '#fbbf24', marginTop: 8 }}>💫 Max band uppnådd!</div>}
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {BOND_ACTIONS.map(a => {
+            const cdRemaining = bondCooldowns[a.id] ? Math.max(0, a.cooldownMs - (now - bondCooldowns[a.id])) : 0
+            const onCd = cdRemaining > 0
+            const minLeft = Math.ceil(cdRemaining / 60000)
+            return (
+              <div key={a.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.04)', borderRadius: 14, border: '1px solid rgba(255,255,255,.08)' }}>
+                <div style={{ fontSize: 28 }}>{a.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{a.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{a.desc}</div>
+                  {onCd && <div style={{ fontSize: 10, color: '#fbbf24', marginTop: 2 }}>⏳ {minLeft < 60 ? `${minLeft}min` : `${Math.ceil(minLeft/60)}h`}</div>}
+                </div>
+                <button
+                  className="btn-primary"
+                  style={{ padding: '8px 14px', fontSize: 12, opacity: onCd || (a.cost > 0 && pet.coins < a.cost) ? 0.4 : 1 }}
+                  disabled={onCd || (a.cost > 0 && pet.coins < a.cost)}
+                  onClick={() => doAction(a)}
+                >
+                  {a.cost > 0 ? `${a.cost}🪙` : '💚'}
+                </button>
+              </div>
+            )
+          })}
+        </div>
+
+        <div style={{ marginTop: 14, padding: '12px 14px', background: 'rgba(255,255,255,.03)', borderRadius: 14 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', marginBottom: 8 }}>Band-förmåner per tier:</div>
+          {[['Bekant','Låser upp daglig spin-bonus'],['Kompis','+10% XP från pek'],['Vän','+20% alla belöningar'],['Bästis','+5% KC-inkomst'],['Soulmate','DUBBEL allt!']].map(([tier2, benefit], i) => (
+            <div key={i} style={{ display: 'flex', gap: 8, fontSize: 11, color: pet.bondTier > i ? '#4ade80' : 'var(--t3)', padding: '3px 0' }}>
+              <span>{pet.bondTier > i ? '✓' : '○'}</span>
+              <span style={{ fontWeight: 700 }}>{BOND_EMOJIS[i+1]} {tier2}:</span>
+              <span>{benefit}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Training panel ─────────────────────────────────────────────────────────
+  if (panel === 'training') {
+    const SKILLS = [
+      { id: 'str', emoji: '⚔️', name: 'Styrka', desc: '+battle-skada', maxLevel: 5, costPerLevel: 100 },
+      { id: 'agi', emoji: '⚡', name: 'Snabbhet', desc: '+reaktions-bonus', maxLevel: 5, costPerLevel: 100 },
+      { id: 'int', emoji: '🧠', name: 'Intelligens', desc: '+quiz-XP bonus', maxLevel: 5, costPerLevel: 120 },
+      { id: 'lck', emoji: '🍀', name: 'Tur', desc: '+fisk-chans', maxLevel: 5, costPerLevel: 80 },
+      { id: 'end', emoji: '💚', name: 'Uthållighet', desc: '+max energi (passiv)', maxLevel: 5, costPerLevel: 150 },
+    ]
+    const [levels, setLevels] = useState<Record<string, number>>(() => {
+      try { return JSON.parse(localStorage.getItem('k0509_training') ?? '{}') } catch { return {} }
+    })
+    const [trainCd, setTrainCd] = useState<Record<string, number>>(() => {
+      try { return JSON.parse(localStorage.getItem('k0509_train_cd') ?? '{}') } catch { return {} }
+    })
+    const now = Date.now()
+    const trainSkill = (id: string, costPerLevel: number, maxLevel: number) => {
+      const lvl = levels[id] ?? 0
+      if (lvl >= maxLevel) return
+      if (trainCd[id] && now - trainCd[id] < 3600000) return
+      const cost = costPerLevel * (lvl + 1)
+      if (!spendCoins(cost)) return
+      const nextLevels = { ...levels, [id]: lvl + 1 }
+      const nextCd = { ...trainCd, [id]: now }
+      setLevels(nextLevels)
+      setTrainCd(nextCd)
+      localStorage.setItem('k0509_training', JSON.stringify(nextLevels))
+      localStorage.setItem('k0509_train_cd', JSON.stringify(nextCd))
+      gainXP(50 * (lvl + 1), 'training')
+      showToast(`💪 Tränade ${id}! +${50 * (lvl+1)} XP`, 'success')
+      audio.achievement()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>💪 Träning</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>Träna husdjurets förmågor · 1 gång per förmåga per timme</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {SKILLS.map(s => {
+            const lvl = levels[s.id] ?? 0
+            const maxed = lvl >= s.maxLevel
+            const cdMs = trainCd[s.id] ? Math.max(0, 3600000 - (now - trainCd[s.id])) : 0
+            const onCd = cdMs > 0
+            const cost = s.costPerLevel * (lvl + 1)
+            return (
+              <div key={s.id} style={{ padding: '12px 14px', background: 'rgba(255,255,255,.04)', borderRadius: 14, border: '1px solid rgba(255,255,255,.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ fontSize: 26 }}>{s.emoji}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{s.name}</span>
+                      <span style={{ fontSize: 10, color: '#fbbf24' }}>LV{lvl}/{s.maxLevel}</span>
+                    </div>
+                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>{s.desc}</div>
+                    <div style={{ display: 'flex', gap: 3, marginTop: 4 }}>
+                      {Array.from({ length: s.maxLevel }, (_, i) => (
+                        <div key={i} style={{ width: 20, height: 4, borderRadius: 2, background: i < lvl ? '#4ade80' : 'rgba(255,255,255,.1)' }} />
+                      ))}
+                    </div>
+                  </div>
+                  {maxed ? (
+                    <div style={{ fontSize: 12, color: '#4ade80' }}>✓ MAX</div>
+                  ) : (
+                    <button
+                      className="btn-primary"
+                      style={{ padding: '8px 12px', fontSize: 11, opacity: onCd || pet.coins < cost ? 0.4 : 1, whiteSpace: 'nowrap' }}
+                      disabled={onCd || pet.coins < cost}
+                      onClick={() => trainSkill(s.id, s.costPerLevel, s.maxLevel)}
+                    >
+                      {onCd ? `${Math.ceil(cdMs/60000)}min` : `${cost}🪙`}
+                    </button>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Pet Care panel ─────────────────────────────────────────────────────────
+  if (panel === 'petcare') {
+    const today = new Date().toDateString()
+    const [careLog, setCareLog] = useState<Record<string, boolean>>(() => {
+      try {
+        const s = localStorage.getItem('k0509_petcare')
+        if (!s) return {}
+        const p = JSON.parse(s)
+        return p.date === today ? p.done : {}
+      } catch { return {} }
+    })
+    const CARE_TASKS = [
+      { id: 'brush', emoji: '🪥', name: 'Borsta tänderna', desc: '+10 humör', mood: 10, coins: 15 },
+      { id: 'walk', emoji: '🚶', name: 'Kvällspromenad', desc: '+20 energi', energy: 20, coins: 25 },
+      { id: 'groom', emoji: '✂️', name: 'Grooming', desc: '+15 humör', mood: 15, coins: 20 },
+      { id: 'medicine', emoji: '💊', name: 'Vitaminer', desc: '+20 hunger + 10 energi', hunger: 20, energy: 10, coins: 30 },
+      { id: 'story', emoji: '📖', name: 'Läs saga', desc: '+25 humör + Bond +10', mood: 25, bond: 10, coins: 20 },
+      { id: 'sleep', emoji: '😴', name: 'Lästid', desc: '+50 energi', energy: 50, coins: 40 },
+    ]
+    const doTask = (t: typeof CARE_TASKS[0]) => {
+      if (careLog[t.id]) return
+      if ((t as { mood?: number }).mood) setStat('mood', Math.min(100, pet.mood + ((t as { mood?: number }).mood ?? 0)))
+      if ((t as { energy?: number }).energy) setStat('energy', Math.min(100, pet.energy + ((t as { energy?: number }).energy ?? 0)))
+      if ((t as { hunger?: number }).hunger) setStat('hunger', Math.min(100, pet.hunger + ((t as { hunger?: number }).hunger ?? 0)))
+      if ((t as { bond?: number }).bond) gainBond((t as { bond?: number }).bond ?? 0)
+      gainCoins(t.coins)
+      const next = { ...careLog, [t.id]: true }
+      setCareLog(next)
+      localStorage.setItem('k0509_petcare', JSON.stringify({ date: today, done: next }))
+      showToast(`${t.emoji} ${t.name} klar! +${t.coins}🪙`, 'success')
+      audio.coin()
+    }
+    const doneCount = Object.values(careLog).filter(Boolean).length
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🩺 Husdjursvård</div>
+        <div style={{ textAlign: 'center', marginBottom: 14 }}>
+          <div style={{ fontSize: 11, color: 'var(--t3)' }}>Dagliga vårduppgifter: {doneCount}/{CARE_TASKS.length}</div>
+          <div style={{ height: 6, background: 'rgba(255,255,255,.08)', borderRadius: 3, overflow: 'hidden', marginTop: 8, marginInline: 20 }}>
+            <div style={{ height: '100%', width: `${(doneCount / CARE_TASKS.length) * 100}%`, background: '#4ade80', borderRadius: 3, transition: 'width .4s' }} />
+          </div>
+          {doneCount === CARE_TASKS.length && <div style={{ fontSize: 12, color: '#4ade80', marginTop: 8 }}>🌟 Perfekt vård idag!</div>}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {CARE_TASKS.map(t => (
+            <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: careLog[t.id] ? 'rgba(74,222,128,.08)' : 'rgba(255,255,255,.04)', border: `1px solid ${careLog[t.id] ? 'rgba(74,222,128,.3)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+              <div style={{ fontSize: 26 }}>{t.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{t.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)' }}>{t.desc}</div>
+              </div>
+              {careLog[t.id] ? (
+                <div style={{ fontSize: 20 }}>✅</div>
+              ) : (
+                <button className="btn-primary" style={{ padding: '8px 12px', fontSize: 12 }} onClick={() => doTask(t)}>
+                  +{t.coins}🪙
+                </button>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     )
