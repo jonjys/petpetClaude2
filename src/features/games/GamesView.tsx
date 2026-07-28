@@ -23,8 +23,10 @@ import { DungeonGame } from './DungeonGame'
 import { BubblePopGame } from './BubblePopGame'
 import { WordScrambleGame } from './WordScrambleGame'
 import { ColorMatchGame } from './ColorMatchGame'
+import { TypeRacerGame } from './TypeRacerGame'
+import { NumberMemoryGame } from './NumberMemoryGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -45,6 +47,8 @@ const GAMES = [
   { id: 'bubble' as const, emoji: '🫧', name: 'Bubblor', desc: 'Poppa bubblor!', reward: '🪙0-80', hot: false },
   { id: 'word' as const, emoji: '📝', name: 'Ordvrak', desc: 'Avkoda bokstäver', reward: '🪙0-150', hot: false },
   { id: 'color' as const, emoji: '🎨', name: 'Färgmatch', desc: 'Stroop-test — testa hjärnan!', reward: '🪙0-60', hot: false },
+  { id: 'typer' as const, emoji: '⌨️', name: 'Skrivrace', desc: 'Skriv snabbt & exakt', reward: '🪙0-130', hot: false },
+  { id: 'nummem' as const, emoji: '🔢', name: 'Sifferminne', desc: 'Memorera sekvenser', reward: '🪙0-230', hot: false },
 ]
 
 function weekKey() {
@@ -153,6 +157,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'bubble') return <BubblePopGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'word') return <WordScrambleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'color') return <ColorMatchGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'typer') return <TypeRacerGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'nummem') return <NumberMemoryGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
