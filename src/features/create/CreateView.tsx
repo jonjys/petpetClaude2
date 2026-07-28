@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -28,6 +28,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   tournament: 'gold', companion: 'green', auction: 'purple',
   prestigehall: 'gold', clan: 'blue', lottery: 'purple',
   spa: 'pink', challenges: 'red', traits: 'purple',
+  roulette: 'red', mailbox: 'blue', cookbook: 'green',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -56,6 +57,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spa:        { label: 'NY',     color: 'var(--pink)'   },
   challenges: { label: 'NYA',   color: 'var(--red)'    },
   traits:     { label: 'NY',     color: 'var(--purple)' },
+  roulette:   { label: 'NY',     color: 'var(--red)'    },
+  mailbox:    { label: 'NYTT',   color: 'var(--blue)'   },
+  cookbook:   { label: 'NY',     color: 'var(--green)'  },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -2804,6 +2808,211 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
                     onClick={() => buyTrait(t.id, t.cost, t.costType)}
                   >
                     {t.cost}{t.costType === 'kc' ? '💎' : '🪙'}
+                  </button>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Roulette panel ─────────────────────────────────────────────────────────
+  if (panel === 'roulette') {
+    const [rBet, setRBet] = useState(50)
+    const [rChoice, setRChoice] = useState<'red' | 'black' | 'green' | null>(null)
+    const [rResult, setRResult] = useState<{ color: string; num: number } | null>(null)
+    const [rSpinning, setRSpinning] = useState(false)
+
+    const REDS = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]
+    const spin = () => {
+      if (!rChoice || rSpinning || pet.coins < rBet) return
+      setRSpinning(true)
+      setRResult(null)
+      setTimeout(() => {
+        const num = Math.floor(Math.random() * 37)
+        const color = num === 0 ? 'green' : REDS.includes(num) ? 'red' : 'black'
+        setRResult({ color, num })
+        setRSpinning(false)
+        const won = color === rChoice
+        if (won) {
+          const mult = rChoice === 'green' ? 14 : 2
+          gainCoins(rBet * mult)
+          showToast(`🎰 ${num} ${color === 'red' ? '🔴' : color === 'black' ? '⚫' : '🟢'} — Vann! +${rBet * mult}🪙`, 'success')
+          audio.achievement()
+        } else {
+          spendCoins(rBet)
+          showToast(`🎰 ${num} — Förlorade ${rBet}🪙`, 'error')
+          audio.click()
+        }
+      }, 1500)
+    }
+
+    const COLOR_COLORS: Record<string, string> = { red: '#f87171', black: '#6b7280', green: '#4ade80' }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🎰 Roulette</div>
+        <div style={{ textAlign: 'center', marginBottom: 14 }}>
+          <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 8 }}>Saldo: {pet.coins}🪙</div>
+          {rResult && (
+            <div style={{ padding: '16px', background: `${COLOR_COLORS[rResult.color]}22`, border: `2px solid ${COLOR_COLORS[rResult.color]}66`, borderRadius: 16, marginBottom: 12, fontSize: 32, fontWeight: 900, color: COLOR_COLORS[rResult.color] }}>
+              {rResult.num} {rResult.color === 'red' ? '🔴' : rResult.color === 'black' ? '⚫' : '🟢'}
+            </div>
+          )}
+          {rSpinning && <div style={{ fontSize: 32, marginBottom: 12 }}>⏳ Snurrar...</div>}
+        </div>
+
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 8 }}>Välj insats:</div>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {[10, 25, 50, 100, 250, 500].map(b => (
+              <button key={b} className={rBet === b ? 'btn-gold' : 'btn-ghost'} style={{ padding: '6px 14px', fontSize: 13 }} onClick={() => setRBet(b)}>{b}🪙</button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 14 }}>
+          <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 8 }}>Satsa på:</div>
+          <div style={{ display: 'flex', gap: 10 }}>
+            {(['red', 'black', 'green'] as const).map(c => (
+              <button
+                key={c}
+                onClick={() => setRChoice(c)}
+                style={{ flex: 1, padding: 14, borderRadius: 14, fontSize: 13, fontWeight: 900, border: `2px solid ${rChoice === c ? COLOR_COLORS[c] : 'rgba(255,255,255,.1)'}`, background: rChoice === c ? `${COLOR_COLORS[c]}22` : 'rgba(255,255,255,.04)', color: COLOR_COLORS[c], cursor: 'pointer' }}
+              >
+                {c === 'red' ? '🔴 Röd' : c === 'black' ? '⚫ Svart' : '🟢 Grön'}<br />
+                <span style={{ fontSize: 10, fontWeight: 400, color: 'var(--t3)' }}>{c === 'green' ? '14×' : '2×'}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <button
+          className="btn-primary"
+          style={{ width: '100%', padding: 14, fontSize: 16, opacity: rChoice && pet.coins >= rBet && !rSpinning ? 1 : 0.4 }}
+          disabled={!rChoice || pet.coins < rBet || rSpinning}
+          onClick={spin}
+        >
+          🎰 Snurra! ({rBet}🪙)
+        </button>
+      </div>
+    )
+  }
+
+  // ── Mailbox panel ─────────────────────────────────────────────────────────
+  if (panel === 'mailbox') {
+    const MESSAGES = [
+      { id: 'm1', from: '🎮 Spelsystemet', subject: 'Välkommen!', body: 'Tack för att du spelar! Du får 100🪙 som välkomstgåva.', reward: { coins: 100 }, emoji: '🎁', date: 'Idag' },
+      { id: 'm2', from: '⚔️ Arenan', subject: 'Utmanar dig!', body: 'DragonSlayer999 utmanar dig till en arenaduell!', reward: null, emoji: '⚔️', date: 'Igår' },
+      { id: 'm3', from: '🐉 World Boss', subject: 'Boss Raid klar!', body: 'Du bidrog till att besegra Draconus! Belöning: 50🪙.', reward: { coins: 50 }, emoji: '🐉', date: '2 dagar sen' },
+      { id: 'm4', from: '🏆 Turneringen', subject: 'Rankninguppdatering', body: 'Du är nu i topp 100 på global topplista!', reward: null, emoji: '🏅', date: '3 dagar sen' },
+      { id: 'm5', from: '🌟 Karma Daily', subject: 'Daglig belöning', body: 'Håll koll på din streak för att låsa upp specialbelöningar!', reward: { coins: 25 }, emoji: '📅', date: '4 dagar sen' },
+    ]
+    const [claimed, setClaimed] = useState<string[]>(() => {
+      try { return JSON.parse(localStorage.getItem('k0509_mailbox_claimed') ?? '[]') } catch { return [] }
+    })
+    const claimMsg = (id: string, coins: number) => {
+      const next = [...claimed, id]
+      setClaimed(next)
+      localStorage.setItem('k0509_mailbox_claimed', JSON.stringify(next))
+      gainCoins(coins)
+      showToast(`📬 Belöning hämtad! +${coins}🪙`, 'success')
+      audio.coin()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>📬 Brevlåda</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>{MESSAGES.filter(m => !claimed.includes(m.id)).length} olästa meddelanden</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {MESSAGES.map(m => {
+            const isRead = claimed.includes(m.id) || !m.reward
+            const isClaimed = claimed.includes(m.id)
+            return (
+              <div key={m.id} style={{ padding: '14px 16px', background: isRead ? 'rgba(255,255,255,.03)' : 'rgba(99,102,241,.08)', border: `1px solid ${isRead ? 'rgba(255,255,255,.07)' : 'rgba(99,102,241,.3)'}`, borderRadius: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                  <div style={{ fontSize: 26, flexShrink: 0 }}>{m.emoji}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ fontSize: 11, color: 'var(--t3)' }}>{m.from}</div>
+                      <div style={{ fontSize: 10, color: '#444' }}>{m.date}</div>
+                    </div>
+                    <div style={{ fontWeight: 700, fontSize: 13, color: isRead ? '#888' : '#e8e8f0', marginTop: 2 }}>{m.subject}</div>
+                    <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4, lineHeight: 1.5 }}>{m.body}</div>
+                    {m.reward && !isClaimed && (
+                      <button className="btn-primary" style={{ marginTop: 8, padding: '6px 14px', fontSize: 12 }} onClick={() => claimMsg(m.id, m.reward!.coins)}>
+                        🎁 Hämta {m.reward.coins}🪙
+                      </button>
+                    )}
+                    {isClaimed && <div style={{ fontSize: 11, color: '#4ade80', marginTop: 6 }}>✓ Hämtad</div>}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Cookbook panel ─────────────────────────────────────────────────────────
+  if (panel === 'cookbook') {
+    const RECIPES = [
+      { id: 'r1', name: 'Energisoppa', emoji: '🍲', desc: '+80 energi + 50 XP', cost: 150, costType: 'coins' as const, energy: 80, xp: 50, mood: 0, hunger: 40 },
+      { id: 'r2', name: 'Lyckobulle', emoji: '🍞', desc: '+60 humör + 30 XP', cost: 120, costType: 'coins' as const, energy: 0, xp: 30, mood: 60, hunger: 30 },
+      { id: 'r3', name: 'Maktbanan', emoji: '🍌', desc: '+100 hunger + 40 XP', cost: 100, costType: 'coins' as const, energy: 20, xp: 40, mood: 10, hunger: 100 },
+      { id: 'r4', name: 'Kosmisk Gryta', emoji: '✨', desc: 'Alla stats +50 + 100 XP', cost: 300, costType: 'coins' as const, energy: 50, xp: 100, mood: 50, hunger: 50 },
+      { id: 'r5', name: 'Drakstek', emoji: '🐉', desc: 'Alla stats max + 200 XP', cost: 30, costType: 'kc' as const, energy: 100, xp: 200, mood: 100, hunger: 100 },
+      { id: 'r6', name: 'Stjärnsoppa', emoji: '🌟', desc: '+500 XP + 200🪙', cost: 20, costType: 'kc' as const, energy: 30, xp: 500, mood: 30, hunger: 30 },
+    ]
+    const today = new Date().toDateString()
+    const [cooked, setCooked] = useState<Record<string, string>>(() => {
+      try { return JSON.parse(localStorage.getItem('k0509_cookbook') ?? '{}') } catch { return {} }
+    })
+    const cook = (r: typeof RECIPES[0]) => {
+      if (cooked[r.id] === today) return
+      const canAfford = r.costType === 'coins' ? pet.coins >= r.cost : pet.kc >= r.cost
+      if (!canAfford) { showToast('Inte tillräckligt med resurser!', 'error'); return }
+      if (r.costType === 'coins') spendCoins(r.cost)
+      else if (!spendKC(r.cost)) return
+      if (r.mood) setStat('mood', Math.min(100, pet.mood + r.mood))
+      if (r.energy) setStat('energy', Math.min(100, pet.energy + r.energy))
+      if (r.hunger) setStat('hunger', Math.min(100, pet.hunger + r.hunger))
+      if (r.xp) gainXP(r.xp, 'cookbook')
+      const next = { ...cooked, [r.id]: today }
+      setCooked(next)
+      localStorage.setItem('k0509_cookbook', JSON.stringify(next))
+      showToast(`${r.emoji} ${r.name} lagad! +${r.xp} XP`, 'success')
+      audio.coin()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>📖 Kokboken</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>Laga krafträtter · 1 recept per dag per rätt</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {RECIPES.map(r => {
+            const cookedToday = cooked[r.id] === today
+            const canAfford = r.costType === 'coins' ? pet.coins >= r.cost : pet.kc >= r.cost
+            return (
+              <div key={r.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: cookedToday ? 'rgba(74,222,128,.08)' : 'rgba(255,255,255,.04)', border: `1px solid ${cookedToday ? 'rgba(74,222,128,.3)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+                <div style={{ fontSize: 28 }}>{r.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{r.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{r.desc}</div>
+                </div>
+                {cookedToday ? (
+                  <div style={{ fontSize: 12, color: '#4ade80' }}>✓ Lagad</div>
+                ) : (
+                  <button
+                    className={r.costType === 'kc' ? 'btn-gold' : 'btn-primary'}
+                    style={{ padding: '8px 14px', fontSize: 12, opacity: canAfford ? 1 : 0.4 }}
+                    disabled={!canAfford}
+                    onClick={() => cook(r)}
+                  >
+                    {r.cost}{r.costType === 'kc' ? '💎' : '🪙'}
                   </button>
                 )}
               </div>

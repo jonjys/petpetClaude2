@@ -25,8 +25,10 @@ import { WordScrambleGame } from './WordScrambleGame'
 import { ColorMatchGame } from './ColorMatchGame'
 import { TypeRacerGame } from './TypeRacerGame'
 import { NumberMemoryGame } from './NumberMemoryGame'
+import { EmojiPatternGame } from './EmojiPatternGame'
+import { TrueOrFalseGame } from './TrueOrFalseGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -49,6 +51,8 @@ const GAMES = [
   { id: 'color' as const, emoji: '🎨', name: 'Färgmatch', desc: 'Stroop-test — testa hjärnan!', reward: '🪙0-60', hot: false },
   { id: 'typer' as const, emoji: '⌨️', name: 'Skrivrace', desc: 'Skriv snabbt & exakt', reward: '🪙0-130', hot: false },
   { id: 'nummem' as const, emoji: '🔢', name: 'Sifferminne', desc: 'Memorera sekvenser', reward: '🪙0-230', hot: false },
+  { id: 'emoji' as const, emoji: '🎭', name: 'Emojimönster', desc: 'Vad är nästa i sekvensen?', reward: '🪙0-160', hot: false },
+  { id: 'tof' as const, emoji: '🤔', name: 'Sant/Falskt', desc: 'Trivia — sant eller falskt?', reward: '🪙0-200', hot: false },
 ]
 
 function weekKey() {
@@ -159,6 +163,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'color') return <ColorMatchGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'typer') return <TypeRacerGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'nummem') return <NumberMemoryGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'emoji') return <EmojiPatternGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'tof') return <TrueOrFalseGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
