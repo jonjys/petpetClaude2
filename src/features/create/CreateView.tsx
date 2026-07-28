@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -45,6 +45,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   speedrun: 'blue', collectibles: 'purple', petparade: 'orange',
   shrine: 'gold', timecapsule: 'purple', constellation: 'blue',
   habitat: 'green', petcoach: 'blue', nextevent: 'orange',
+  chronicle: 'purple', rewards: 'gold', petmood: 'green',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -123,6 +124,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   habitat:    { label: 'NY',     color: 'var(--green)'  },
   petcoach:   { label: 'DAGLIG', color: 'var(--blue)'   },
   nextevent:  { label: 'NY',     color: 'var(--orange)' },
+  chronicle:  { label: 'NY',     color: 'var(--purple)' },
+  rewards:    { label: 'DAGLIG', color: 'var(--gold)'   },
+  petmood:    { label: 'NY',     color: 'var(--green)'  },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -5682,6 +5686,166 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               </div>
             )
           })}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'chronicle') {
+    const events = [
+      { day: 1, text: `${pet.petName} vaknade upp för första gången och tittade nyfiket på världen.`, emoji: '🌅' },
+      { day: 3, text: 'Första fisketuren! En liten abborre fångades med stolthet.', emoji: '🎣' },
+      { day: 7, text: 'Klarade sin första strid mot en vild Blop. Mod visat!', emoji: '⚔️' },
+      { day: 14, text: 'Nådde nivå 5 och fick sin första ryggsäck.', emoji: '🎒' },
+      { day: 21, text: 'Genomförde en expedition till Förlorade skogen.', emoji: '🌲' },
+      { day: 30, text: `${pet.petName} firade en månad av äventyr!`, emoji: '🎉' },
+      { day: 50, text: 'Knäckte Mastermind-koden på 4 försök. Geni!', emoji: '🧠' },
+      { day: 60, text: 'Vann tre slag i rad i arenan. Oövervinnelig!', emoji: '🏆' },
+      { day: 90, text: 'Samlade 10 000 mynt — rikedom uppnådd!', emoji: '💰' },
+      { day: 100, text: `${pet.petName} är nu en legend i husdjursvärlden.`, emoji: '⭐' },
+    ]
+    const currentDay = Math.min(pet.level * 5 + pet.totalTaps / 100 | 0, 100)
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>📖 Krönika</div>
+        <div className={styles.panelNote}>Dag {currentDay} av {pet.petName}s äventyr</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {events.filter(e => e.day <= Math.max(currentDay, 1)).reverse().map((ev, i) => (
+            <div key={i} style={{ display: 'flex', gap: 12, padding: '10px 12px', background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.06)', borderRadius: 12 }}>
+              <div style={{ fontSize: 24, flexShrink: 0 }}>{ev.emoji}</div>
+              <div>
+                <div style={{ fontSize: 10, color: 'var(--t3)', marginBottom: 3 }}>Dag {ev.day}</div>
+                <div style={{ fontSize: 12, color: '#e8e8f0', lineHeight: 1.5 }}>{ev.text}</div>
+              </div>
+            </div>
+          ))}
+          {currentDay < 3 && (
+            <div style={{ textAlign: 'center', padding: 20, color: 'var(--t3)', fontSize: 12 }}>Äventyret har knappt börjat... Fortsätt spela för att skriva historia!</div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'rewards') {
+    const todayKey = `k0509_reward_${new Date().toDateString()}`
+    const weekKey2 = `k0509_wreward_${Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000))}`
+    const dailyClaimed = localStorage.getItem(todayKey) === '1'
+    const weeklyClaimed = localStorage.getItem(weekKey2) === '1'
+    const [rClaimedD, setRClaimedD] = useState(dailyClaimed)
+    const [rClaimedW, setRClaimedW] = useState(weeklyClaimed)
+    const claimDaily = () => {
+      if (rClaimedD) return
+      localStorage.setItem(todayKey, '1')
+      gainCoins(150); gainXP(100)
+      showToast('+150🪙 +100 XP Daglig belöning!', 'success')
+      audio.achievement(); triggerConfetti()
+      setRClaimedD(true)
+    }
+    const claimWeekly = () => {
+      if (rClaimedW) return
+      localStorage.setItem(weekKey2, '1')
+      gainCoins(800); gainXP(500); gainKC(5)
+      showToast('+800🪙 +500 XP +5KC Veckobelöning!', 'success')
+      audio.achievement(); triggerConfetti()
+      setRClaimedW(true)
+    }
+    const STREAKBONUS = [
+      { day: 3, reward: '+50🪙', claimed: pet.streak >= 3 },
+      { day: 7, reward: '+200🪙 +5KC', claimed: pet.streak >= 7 },
+      { day: 14, reward: '+500🪙 +15KC', claimed: pet.streak >= 14 },
+      { day: 30, reward: '+2000🪙 +50KC', claimed: pet.streak >= 30 },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🎁 Belöningscenter</div>
+        <div className={styles.panelNote}>Logga in varje dag för bonusar</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ padding: '14px', background: 'rgba(251,191,36,.08)', border: '1px solid rgba(251,191,36,.2)', borderRadius: 14 }}>
+            <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 6 }}>🌅 Daglig belöning</div>
+            <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 10 }}>+150🪙 +100 XP · Återställs varje dag</div>
+            <button className="btn-primary" onClick={claimDaily} disabled={rClaimedD} style={{ padding: '10px 20px', opacity: rClaimedD ? 0.5 : 1 }}>
+              {rClaimedD ? '✓ Hämtad idag' : 'Hämta daglig belöning'}
+            </button>
+          </div>
+          <div style={{ padding: '14px', background: 'rgba(129,140,248,.08)', border: '1px solid rgba(129,140,248,.2)', borderRadius: 14 }}>
+            <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 6 }}>📅 Veckobelöning</div>
+            <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 10 }}>+800🪙 +500 XP +5KC · Återställs varje vecka</div>
+            <button className="btn-primary" onClick={claimWeekly} disabled={rClaimedW} style={{ padding: '10px 20px', opacity: rClaimedW ? 0.5 : 1 }}>
+              {rClaimedW ? '✓ Hämtad denna vecka' : 'Hämta veckobelöning'}
+            </button>
+          </div>
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', marginBottom: 8 }}>🔥 Streakbonusar (Streak: {pet.streak} dagar)</div>
+            {STREAKBONUS.map((b, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: b.claimed ? 'rgba(74,222,128,.06)' : 'rgba(255,255,255,.03)', border: `1px solid ${b.claimed ? 'rgba(74,222,128,.2)' : 'rgba(255,255,255,.06)'}`, borderRadius: 10, marginBottom: 6 }}>
+                <span style={{ fontSize: 18 }}>{b.claimed ? '✅' : '🔒'}</span>
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: 12, fontWeight: 700 }}>{b.day} dagars streak</span>
+                  <span style={{ fontSize: 11, color: '#fbbf24', marginLeft: 8 }}>{b.reward}</span>
+                </div>
+                {pet.streak < b.day && <span style={{ fontSize: 10, color: 'var(--t3)' }}>{b.day - pet.streak}d kvar</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petmood') {
+    const mood = pet.mood ?? 80
+    const hunger = pet.hunger ?? 80
+    const energy = pet.energy ?? 80
+    const overall = Math.round((mood + hunger + energy) / 3)
+    const getColor = (v: number) => v >= 70 ? '#4ade80' : v >= 40 ? '#fbbf24' : '#f87171'
+    const getEmoji = (v: number) => v >= 70 ? '😊' : v >= 40 ? '😐' : '😢'
+    const TIPS = [
+      { cond: mood < 50, tip: 'Klappa husdjuret mer för att höja humöret!', emoji: '💕' },
+      { cond: hunger < 50, tip: 'Ge mat via Husdjursvård-menyn!', emoji: '🍎' },
+      { cond: energy < 50, tip: 'Lägg husdjuret i sängen för att ladda energi.', emoji: '😴' },
+      { cond: pet.streak < 3, tip: 'Logga in tre dagar i rad för streakbonus!', emoji: '🔥' },
+      { cond: overall >= 90, tip: 'Husdjuret mår fantastiskt — håll det uppe!', emoji: '🌟' },
+    ].filter(t => t.cond)
+    const STATS = [
+      { label: 'Humör', value: mood, emoji: '😊' },
+      { label: 'Hunger', value: hunger, emoji: '🍎' },
+      { label: 'Energi', value: energy, emoji: '⚡' },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>💆 Välmående</div>
+        <div className={styles.panelNote}>Övergripande välmående: {overall}% {getEmoji(overall)}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, padding: 16, background: 'rgba(255,255,255,.03)', borderRadius: 14 }}>
+            <div style={{ fontSize: 52 }}>{getEmoji(overall)}</div>
+            <div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 32, fontWeight: 900, color: getColor(overall) }}>{overall}%</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)' }}>Totalt välmående</div>
+            </div>
+          </div>
+          {STATS.map(s => (
+            <div key={s.label} style={{ padding: '12px 14px', background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.06)', borderRadius: 12 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                <span style={{ fontSize: 13, fontWeight: 700 }}>{s.emoji} {s.label}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: getColor(s.value) }}>{s.value}%</span>
+              </div>
+              <div style={{ height: 8, background: 'rgba(255,255,255,.08)', borderRadius: 4, overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${s.value}%`, background: getColor(s.value), borderRadius: 4, transition: 'width .5s' }} />
+              </div>
+            </div>
+          ))}
+          {TIPS.length > 0 && (
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', marginBottom: 6 }}>💡 Tips</div>
+              {TIPS.map((t, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, padding: '8px 10px', background: 'rgba(251,191,36,.06)', border: '1px solid rgba(251,191,36,.15)', borderRadius: 10, marginBottom: 6 }}>
+                  <span style={{ fontSize: 16 }}>{t.emoji}</span>
+                  <span style={{ fontSize: 12, color: '#fbbf24' }}>{t.tip}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     )
