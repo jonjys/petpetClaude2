@@ -315,6 +315,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'garden', emoji: '🌻', label: 'Trädgård', desc: 'Plantera & skörda blommor' },
   { id: 'rescue', emoji: '🦺', label: 'Räddningsuppdrag', desc: 'Rädda husdjur & få belöningar' },
   { id: 'stats', emoji: '📈', label: 'Statistik', desc: 'Djupanalys av din spelhistorik' },
+  { id: 'leaguetable', emoji: '🥇', label: 'Ligatabell', desc: 'Veckovinnare & topplista' },
+  { id: 'badges', emoji: '🎖️', label: 'Märken', desc: 'Specialmärken & utmärkelser' },
+  { id: 'wishlist', emoji: '✍️', label: 'Önskelista', desc: 'Spara föremål du vill ha' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
