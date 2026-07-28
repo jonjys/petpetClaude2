@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -24,6 +24,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   quests: 'green', records: 'blue', chests: 'gold', bounty: 'red',
   fishpedia: 'blue', checkin: 'green', skilltree: 'green', tarot: 'purple', trophyroom: 'gold',
   mine: 'gold', activitylog: 'blue', farm: 'green', worldevents: 'purple',
+  dnalab: 'purple', bank: 'gold', worldboss: 'red', petjournal: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -40,6 +41,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   mine:       { label: 'NY',     color: 'var(--gold)'   },
   farm:       { label: 'NY',     color: 'var(--green)'  },
   worldevents:{ label: 'LIVE',   color: 'var(--purple)' },
+  dnalab:     { label: 'NY',     color: 'var(--purple)' },
+  bank:       { label: 'NY',     color: 'var(--gold)'   },
+  worldboss:  { label: 'LIVE',   color: 'var(--red)'    },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -1714,6 +1718,382 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
             ))}
           </div>
         )}
+      </div>
+    )
+  }
+
+  // ── DNA Lab panel ─────────────────────────────────────────────────────────────
+  if (panel === 'dnalab') {
+    const INGREDIENTS = [
+      { id: 'fire',    emoji: '🔥', name: 'Eldkärna',    cost: 50  },
+      { id: 'water',   emoji: '💧', name: 'Vattendroppe', cost: 50  },
+      { id: 'earth',   emoji: '🌿', name: 'Jordkristall', cost: 50  },
+      { id: 'light',   emoji: '⭐', name: 'Ljusskärva',  cost: 100 },
+      { id: 'dark',    emoji: '🌑', name: 'Skuggshard',   cost: 100 },
+      { id: 'cosmic',  emoji: '🌌', name: 'Kosmisk Runa', cost: 200 },
+    ]
+    const FORMULAS = [
+      { ids: ['fire','water','earth'], name: 'Naturlig Fusion', emoji: '🌈', xp: 500, coins: 300, kc: 3, desc: 'Eld + Vatten + Jord = liv!' },
+      { ids: ['fire','fire','light'],  name: 'Flamherre',       emoji: '🔱', xp: 800, coins: 500, kc: 5, desc: 'Dubbel eld + ljus = makt!' },
+      { ids: ['dark','dark','cosmic'], name: 'Skugggud',        emoji: '👁️', xp: 1500, coins: 1000, kc: 12, desc: 'Extrem mörker + kosmos = legendarisk!' },
+      { ids: ['light','cosmic','earth'], name: 'Paradisfågel',  emoji: '🦅', xp: 1200, coins: 750, kc: 8, desc: 'Ljus + kosmos + jord = frihet!' },
+      { ids: ['water','dark','fire'],  name: 'Kaosdraken',      emoji: '🐉', xp: 1000, coins: 600, kc: 7, desc: 'Vatten + mörker + eld = drake!' },
+    ]
+    const labKey = 'k0509_dnalab'
+    const history: string[] = JSON.parse(localStorage.getItem(labKey) ?? '[]')
+    const [selected, setSelected] = useState<string[]>([])
+    const [result, setResult] = useState<(typeof FORMULAS)[0] | null>(null)
+    const [used, setUsed] = useState(false)
+
+    const totalCost = selected.reduce((s, id) => s + (INGREDIENTS.find(i => i.id === id)?.cost ?? 0), 0)
+    const canBrew = selected.length === 3
+
+    const brew = () => {
+      if (!canBrew || pet.coins < totalCost) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      spendCoins(totalCost)
+      const sorted = [...selected].sort()
+      const match = FORMULAS.find(f => [...f.ids].sort().join(',') === sorted.join(','))
+      const r = match ?? { ids: [], name: 'Mystisk Blandning', emoji: '❓', xp: 200, coins: 100, kc: 0, desc: 'Okänd formel...' }
+      setResult(r)
+      setUsed(true)
+      gainCoins(r.coins)
+      gainXP(r.xp, 'dnalab')
+      if (r.kc > 0) gainKC(r.kc)
+      const newHistory = [r.name, ...history].slice(0, 10)
+      localStorage.setItem(labKey, JSON.stringify(newHistory))
+      showToast(`🧬 ${r.emoji} ${r.name}! +${r.xp}XP +${r.coins}🪙${r.kc > 0 ? ` +${r.kc}💎` : ''}`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+
+    const toggle = (id: string) => {
+      if (used) return
+      setSelected(prev => {
+        if (prev.includes(id)) return prev.filter(x => x !== id)
+        if (prev.length >= 3) return prev
+        return [...prev, id]
+      })
+    }
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🧬 DNA Lab</div>
+        <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>
+          Välj 3 ingredienser och brygga en fusion! · 💰 {pet.coins}
+        </div>
+        {!result ? (
+          <>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, marginBottom: 12 }}>
+              {INGREDIENTS.map(ing => {
+                const sel = selected.includes(ing.id)
+                const count = selected.filter(x => x === ing.id).length
+                return (
+                  <button
+                    key={ing.id}
+                    onClick={() => toggle(ing.id)}
+                    style={{
+                      padding: '12px 8px', borderRadius: 14, textAlign: 'center',
+                      background: sel ? 'rgba(168,85,247,.2)' : 'rgba(255,255,255,.04)',
+                      border: `2px solid ${sel ? '#a855f7' : 'rgba(255,255,255,.1)'}`,
+                      cursor: 'pointer', transition: 'all .15s',
+                    }}
+                  >
+                    <div style={{ fontSize: 28 }}>{ing.emoji}</div>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: sel ? '#a855f7' : '#e8e8f0', marginTop: 4 }}>{ing.name}</div>
+                    <div style={{ fontSize: 10, color: 'var(--t3)' }}>{ing.cost}🪙{count > 0 ? ` ×${count}` : ''}</div>
+                  </button>
+                )
+              })}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 12 }}>
+              {Array.from({ length: 3 }, (_, i) => {
+                const ing = INGREDIENTS.find(x => x.id === selected[i])
+                return (
+                  <div key={i} style={{ width: 52, height: 52, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26, background: 'rgba(168,85,247,.08)', border: '1px dashed rgba(168,85,247,.4)' }}>
+                    {ing ? ing.emoji : '+'}
+                  </div>
+                )
+              })}
+            </div>
+            <button
+              className="btn-primary"
+              style={{ width: '100%', padding: 14, opacity: canBrew && pet.coins >= totalCost ? 1 : 0.5 }}
+              onClick={brew}
+              disabled={!canBrew || pet.coins < totalCost}
+            >
+              🧬 Brygg! (kostnad: {totalCost}🪙)
+            </button>
+            {history.length > 0 && (
+              <div style={{ marginTop: 14 }}>
+                <div style={{ fontSize: 10, color: '#555', marginBottom: 6 }}>Tidigare fusioner:</div>
+                {history.slice(0, 5).map((h, i) => <div key={i} style={{ fontSize: 11, color: 'var(--t3)', padding: '3px 0' }}>· {h}</div>)}
+              </div>
+            )}
+          </>
+        ) : (
+          <div style={{ textAlign: 'center', padding: '24px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+            <div style={{ fontSize: 56 }}>{result.emoji}</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 20, fontWeight: 900, color: '#fff' }}>{result.name}</div>
+            <div style={{ fontSize: 12, color: 'var(--t3)' }}>{result.desc}</div>
+            <div style={{ fontSize: 14, color: '#fbbf24', fontWeight: 900 }}>+{result.xp}XP +{result.coins}🪙{result.kc > 0 ? ` +${result.kc}💎` : ''}</div>
+            <button className="btn-primary" style={{ padding: '12px 28px' }} onClick={() => { setSelected([]); setResult(null); setUsed(false) }}>Brygg igen!</button>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // ── Bank panel ────────────────────────────────────────────────────────────────
+  if (panel === 'bank') {
+    const BANK_KEY = 'k0509_bank'
+    type BankData = { deposited: number; depositedAt: number; tier: number }
+    const TIERS = [
+      { name: 'Sparkonto',     interestPct: 2,  maxDeposit: 500,   icon: '🏦' },
+      { name: 'Premiumkonto',  interestPct: 5,  maxDeposit: 2000,  icon: '💳' },
+      { name: 'Platinumkonto', interestPct: 10, maxDeposit: 10000, icon: '💎' },
+    ]
+    const [bankData, setBankData] = useState<BankData>(() => JSON.parse(localStorage.getItem(BANK_KEY) ?? 'null') ?? { deposited: 0, depositedAt: 0, tier: 0 })
+    const [depositInput, setDepositInput] = useState('')
+    const [now] = useState(Date.now())
+
+    const hoursElapsed = bankData.deposited > 0 ? Math.floor((now - bankData.depositedAt) / 3600000) : 0
+    const tier = TIERS[bankData.tier]
+    const interest = Math.floor(bankData.deposited * (tier.interestPct / 100) * hoursElapsed)
+    const totalAvailable = bankData.deposited + interest
+
+    const save = (data: BankData) => { localStorage.setItem(BANK_KEY, JSON.stringify(data)); setBankData(data) }
+
+    const deposit = () => {
+      const amt = parseInt(depositInput)
+      if (isNaN(amt) || amt <= 0) { showToast('Ogiltigt belopp', 'error'); return }
+      if (pet.coins < amt) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      if (bankData.deposited + amt > tier.maxDeposit) { showToast(`Max ${tier.maxDeposit}🪙 för ${tier.name}!`, 'error'); return }
+      if (bankData.deposited > 0) { withdraw(); return }
+      spendCoins(amt)
+      save({ deposited: amt, depositedAt: now, tier: bankData.tier })
+      setDepositInput('')
+      showToast(`🏦 Deponerade ${amt}🪙 till ${tier.name}!`, 'success')
+      audio.coin()
+    }
+
+    const withdraw = () => {
+      if (bankData.deposited <= 0) return
+      gainCoins(totalAvailable)
+      showToast(`🏦 Tog ut ${bankData.deposited}🪙 + ${interest}🪙 ränta!`, 'success')
+      if (interest > 0) gainXP(Math.floor(interest / 5), 'bank')
+      save({ deposited: 0, depositedAt: 0, tier: bankData.tier })
+      triggerConfetti()
+      audio.achievement()
+    }
+
+    const upgradeTier = () => {
+      if (bankData.tier >= TIERS.length - 1) return
+      const cost = [500, 2000][bankData.tier]
+      if (pet.coins < cost) { showToast(`Behöver ${cost}🪙 för att uppgradera!`, 'error'); return }
+      spendCoins(cost)
+      save({ ...bankData, tier: bankData.tier + 1 })
+      showToast(`💳 Uppgraderat till ${TIERS[bankData.tier + 1].name}!`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🏦 Banken</div>
+        <div style={{
+          background: 'rgba(255,204,0,.06)', border: '1px solid rgba(255,204,0,.2)',
+          borderRadius: 16, padding: '16px', marginBottom: 14,
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+            <div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#fbbf24' }}>{tier.icon} {tier.name}</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)' }}>{tier.interestPct}% ränta/timme · Max {tier.maxDeposit}🪙</div>
+            </div>
+            {bankData.tier < TIERS.length - 1 && (
+              <button className="btn-gold" style={{ fontSize: 10, padding: '5px 8px' }} onClick={upgradeTier}>
+                Uppgradera ({[500, 2000][bankData.tier]}🪙)
+              </button>
+            )}
+          </div>
+          {bankData.deposited > 0 ? (
+            <>
+              <div style={{ fontSize: 13, color: '#fff', marginBottom: 4 }}>Deponerat: {bankData.deposited}🪙</div>
+              <div style={{ fontSize: 13, color: '#4ade80' }}>Ränta: +{interest}🪙 ({hoursElapsed}h)</div>
+              <div style={{ fontSize: 16, fontWeight: 900, color: '#fbbf24', marginTop: 8 }}>Totalt: {totalAvailable}🪙</div>
+              <button className="btn-primary" style={{ width: '100%', padding: 12, marginTop: 10 }} onClick={withdraw}>
+                💰 Ta ut allt ({totalAvailable}🪙)
+              </button>
+            </>
+          ) : (
+            <>
+              <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
+                <input
+                  type="number" placeholder="Belopp att deponera..."
+                  value={depositInput} onChange={e => setDepositInput(e.target.value)}
+                  style={{ flex: 1, padding: '10px 12px', borderRadius: 10, background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.15)', color: '#fff', fontSize: 13 }}
+                />
+                <button className="btn-primary" style={{ padding: '10px 14px' }} onClick={deposit}>Sätt in</button>
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 6 }}>Tillgängliga: {pet.coins}🪙</div>
+            </>
+          )}
+        </div>
+        <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 12, padding: '12px 14px' }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#888', marginBottom: 8 }}>Kontotyper</div>
+          {TIERS.map((t, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 0', borderBottom: i < TIERS.length - 1 ? '1px solid rgba(255,255,255,.05)' : 'none' }}>
+              <span style={{ fontSize: 18 }}>{t.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, color: bankData.tier === i ? '#fbbf24' : '#888', fontWeight: bankData.tier === i ? 700 : 400 }}>{t.name}</div>
+                <div style={{ fontSize: 10, color: '#555' }}>{t.interestPct}%/h · max {t.maxDeposit}🪙</div>
+              </div>
+              {bankData.tier === i && <span style={{ fontSize: 10, color: '#4ade80' }}>✓ Aktiv</span>}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── World Boss panel ──────────────────────────────────────────────────────────
+  if (panel === 'worldboss') {
+    const BOSS_KEY = 'k0509_worldboss'
+    const WEEK_MS = 7 * 24 * 3600000
+    const weekStart = Math.floor(Date.now() / WEEK_MS) * WEEK_MS
+    const weekBosses = [
+      { name: 'Kaosdraken Zyphos',    emoji: '🐉', maxHP: 100000, reward: { coins: 500, xp: 800, kc: 10 } },
+      { name: 'Eldguden Xymbra',      emoji: '🔥', maxHP: 150000, reward: { coins: 750, xp: 1200, kc: 15 } },
+      { name: 'Isdemonen Frostheim',  emoji: '❄️', maxHP: 200000, reward: { coins: 1000, xp: 1500, kc: 20 } },
+    ]
+    const bossIdx = Math.floor(weekStart / WEEK_MS) % weekBosses.length
+    const boss = weekBosses[bossIdx]
+    type BossData = { contributed: number; claimed: boolean; simulatedHP: number; participants: number }
+    const [bossData, setBossData] = useState<BossData>(() => {
+      const raw = JSON.parse(localStorage.getItem(BOSS_KEY) ?? 'null')
+      if (!raw || raw.weekStart !== weekStart) {
+        return { contributed: 0, claimed: false, simulatedHP: Math.floor(boss.maxHP * 0.35), participants: 1337 + Math.floor(Math.random() * 500) }
+      }
+      return raw
+    })
+
+    const attacked = bossData.contributed > 0
+    const bossCurrentHP = Math.max(0, bossData.simulatedHP - bossData.contributed * 100)
+    const bossPct = Math.max(0, (bossCurrentHP / boss.maxHP) * 100)
+    const bossDefeated = bossCurrentHP <= 0
+
+    const attack = () => {
+      const dmg = pet.level * 50 + Math.floor(Math.random() * 500)
+      const newData = { ...bossData, contributed: bossData.contributed + 1, simulatedHP: Math.max(0, bossData.simulatedHP - dmg) }
+      localStorage.setItem(BOSS_KEY, JSON.stringify({ ...newData, weekStart }))
+      setBossData(newData)
+      showToast(`⚔️ Träff! ${dmg} skada på ${boss.name}!`, 'success')
+      audio.coin()
+    }
+
+    const claim = () => {
+      if (!bossDefeated || bossData.claimed) return
+      gainCoins(boss.reward.coins); gainXP(boss.reward.xp, 'worldboss'); gainKC(boss.reward.kc)
+      const newData = { ...bossData, claimed: true }
+      localStorage.setItem(BOSS_KEY, JSON.stringify({ ...newData, weekStart }))
+      setBossData(newData)
+      showToast(`🏆 World Boss klar! +${boss.reward.coins}🪙 +${boss.reward.xp}XP +${boss.reward.kc}💎`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🌍 World Boss</div>
+        <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--t3)', marginBottom: 12 }}>
+          Veckans boss · {bossData.participants.toLocaleString()} spelare deltar
+        </div>
+        <div style={{
+          background: 'rgba(248,113,113,.06)', border: '1px solid rgba(248,113,113,.25)',
+          borderRadius: 16, padding: '20px', textAlign: 'center', marginBottom: 14,
+        }}>
+          <div style={{ fontSize: 64 }}>{boss.emoji}</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: '#f87171', marginTop: 8 }}>{boss.name}</div>
+          <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>VECKLIG WORLD BOSS</div>
+          <div style={{ margin: '14px 0 4px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 4 }}>
+              <span style={{ color: '#f87171' }}>HP Boss</span>
+              <span style={{ color: '#f87171', fontWeight: 900 }}>{bossCurrentHP.toLocaleString()} / {boss.maxHP.toLocaleString()}</span>
+            </div>
+            <div style={{ height: 12, background: 'rgba(0,0,0,.3)', borderRadius: 6, overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${bossPct}%`, background: 'linear-gradient(90deg,#f87171,#ef4444)', borderRadius: 6, transition: 'width .5s' }} />
+            </div>
+          </div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>Dina bidrag: {bossData.contributed} attacker</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {!bossDefeated ? (
+            <button className="btn-primary" style={{ padding: '16px', fontSize: 15, fontWeight: 900 }} onClick={attack}>
+              ⚔️ Anfalla Boss! (Nivå {pet.level} = ~{pet.level * 50}+ skada)
+            </button>
+          ) : bossData.claimed ? (
+            <div style={{ textAlign: 'center', padding: 16, background: 'rgba(74,222,128,.08)', borderRadius: 12, border: '1px solid rgba(74,222,128,.25)', color: '#4ade80', fontWeight: 700 }}>
+              ✅ Belöning hämtad! Ny boss på måndag.
+            </div>
+          ) : (
+            <button className="btn-gold" style={{ padding: '16px', fontSize: 15, fontWeight: 900 }} onClick={claim}>
+              🏆 Hämta segerbelöning!
+            </button>
+          )}
+          <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 12, padding: '12px 14px' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#888', marginBottom: 8 }}>Segerbelöning</div>
+            <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
+              <span style={{ fontSize: 12, color: '#fbbf24' }}>+{boss.reward.coins}🪙</span>
+              <span style={{ fontSize: 12, color: '#4ade80' }}>+{boss.reward.xp} XP</span>
+              <span style={{ fontSize: 12, color: '#a855f7' }}>+{boss.reward.kc}💎 KC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // ── Pet Journal panel ─────────────────────────────────────────────────────────
+  if (panel === 'petjournal') {
+    const n = pet.petName
+    const ageMs = Number(localStorage.getItem('k0509_born_at') ?? Date.now())
+    const age = Math.max(0, Math.floor((Date.now() - ageMs) / 86400000))
+    const JOURNAL_ENTRIES = [
+      { emoji: '🐣', text: `Dag 1: ${n} kom till världen och tittade nyfiket runt. En ny resa börjar!` },
+      pet.level >= 5  ? { emoji: '⭐', text: `Nivå 5: ${n} nådde sin första evolution och glänste med stolthet!` } : null,
+      pet.totalTaps >= 100 ? { emoji: '👆', text: `${pet.totalTaps.toLocaleString()} pekar! ${n} älskar din uppmärksamhet.` } : null,
+      pet.battleWins >= 1 ? { emoji: '⚔️', text: `${n} vann sin första strid och kände sig oslaglig!` } : null,
+      pet.fishCaught >= 1 ? { emoji: '🎣', text: `Första fisken fångad! ${n} visade sig vara ett talang till fiske.` } : null,
+      pet.streak >= 3  ? { emoji: '🔥', text: `${pet.streak} dagars streak! ${n} är imponerad av din dedikation.` } : null,
+      pet.level >= 10 ? { emoji: '🌟', text: `Nivå 10: ${n} har blivit en veteran och ser på världen med nya ögon.` } : null,
+      pet.battleWins >= 10 ? { emoji: '🏆', text: `10 strider vunna! ${n} är nu en fruktad krigare.` } : null,
+      pet.fishCaught >= 10 ? { emoji: '🐟', text: `10 fiskar fångade! Havet känner till ${n}s namn.` } : null,
+      pet.level >= 20 ? { emoji: '💫', text: `Nivå 20: ${n} har uppnått Masternivå — en sann legend!` } : null,
+      age >= 7 ? { emoji: '📅', text: `1 vecka gammal! ${n} firar med ett leende och en kram.` } : null,
+      pet.expeditionsDone >= 1 ? { emoji: '🗺️', text: `${n} återvände hem från sin första expedition, redo för nästa!` } : null,
+      pet.streak >= 7 ? { emoji: '🏅', text: `7 dagars streak! ${n} vet att du alltid kommer tillbaka.` } : null,
+      { emoji: '📖', text: `Idag: ${n} (Lv${pet.level}) tänker på alla äventyr ni har delat.` },
+    ].filter(Boolean) as { emoji: string; text: string }[]
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>📖 Husdjursdagbok</div>
+        <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center', marginBottom: 16 }}>
+          {n}s historia · Dag {age + 1} · Nivå {pet.level}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {JOURNAL_ENTRIES.map((entry, i) => (
+            <div key={i} style={{
+              display: 'flex', gap: 12, padding: '12px 14px',
+              background: i === JOURNAL_ENTRIES.length - 1 ? 'rgba(0,240,255,.05)' : 'rgba(255,255,255,.03)',
+              border: `1px solid ${i === JOURNAL_ENTRIES.length - 1 ? 'rgba(0,240,255,.2)' : 'rgba(255,255,255,.06)'}`,
+              borderRadius: 14,
+            }}>
+              <span style={{ fontSize: 22, flexShrink: 0 }}>{entry.emoji}</span>
+              <div style={{ fontSize: 12, color: '#d4d4f0', lineHeight: 1.5 }}>{entry.text}</div>
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
