@@ -20,18 +20,6 @@ const STORIES = [
   { id: 's7', name: 'GalaxyBear', emoji: '🐻', ring: '#aa66ff', seen: false },
 ]
 
-const TOP_PLAYERS = [
-  { rank: 1,  emoji: '🐲', name: 'DragonMaster99', level: 87, coins: 142500, streak: 45, badge: '👑' },
-  { rank: 2,  emoji: '🦄', name: 'UnicornQueen',   level: 74, coins: 98300,  streak: 32, badge: '🥈' },
-  { rank: 3,  emoji: '🔥', name: 'InfernoKing',    level: 68, coins: 87000,  streak: 28, badge: '🥉' },
-  { rank: 4,  emoji: '🌙', name: 'MoonWalker',     level: 61, coins: 72100,  streak: 21, badge: '' },
-  { rank: 5,  emoji: '⚡', name: 'ThunderGod',     level: 55, coins: 65400,  streak: 19, badge: '' },
-  { rank: 6,  emoji: '🎯', name: 'PrecisionX',     level: 50, coins: 58800,  streak: 17, badge: '' },
-  { rank: 7,  emoji: '🌊', name: 'OceanBreeze',    level: 46, coins: 52000,  streak: 14, badge: '' },
-  { rank: 8,  emoji: '💎', name: 'CrystalKnight',  level: 42, coins: 47300,  streak: 12, badge: '' },
-  { rank: 9,  emoji: '🌸', name: 'SakuraPetal',    level: 39, coins: 41100,  streak: 10, badge: '' },
-  { rank: 10, emoji: '🤖', name: 'CyberBot2049',   level: 35, coins: 36500,  streak: 8,  badge: '' },
-]
 
 export const FlashView = memo(function FlashView() {
   const [subTab, setSubTab] = useState<SubTab>('forYou')
@@ -381,7 +369,7 @@ export const FlashView = memo(function FlashView() {
           <div style={{ padding: '0 14px 14px' }}>
             <div style={{ fontSize: 11, fontWeight: 900, color: 'var(--t3)', letterSpacing: 1, marginBottom: 10 }}>👤 FÖRESLAGNA SPELARE</div>
             <div style={{ display: 'flex', gap: 10, overflowX: 'auto', scrollbarWidth: 'none' }}>
-              {TOP_PLAYERS.slice(0, 6).map(p => (
+              {EXTENDED_PLAYERS.slice(0, 6).map(p => (
                 <div
                   key={p.name}
                   style={{
@@ -451,51 +439,69 @@ export const FlashView = memo(function FlashView() {
   )
 })
 
-type LeagueKey = 'level' | 'coins' | 'streak'
+type LeagueKey = 'level' | 'coins' | 'streak' | 'fish' | 'battle'
+
+const LB_CONFIGS: Record<LeagueKey, { label: string; format: (e: TopEntry) => string; field: keyof TopEntry }> = {
+  level:  { label: '⭐ Nivå',     format: e => `LV${e.level}`,               field: 'level' },
+  coins:  { label: '🪙 Mynt',     format: e => `${(e.coins/1000).toFixed(1)}k🪙`, field: 'coins' },
+  streak: { label: '🔥 Streak',   format: e => `🔥${e.streak}d`,             field: 'streak' },
+  fish:   { label: '🎣 Fisk',     format: e => `🎣${e.fish}`,                field: 'fish' },
+  battle: { label: '⚔️ Strider',  format: e => `⚔️${e.battle}`,             field: 'battle' },
+}
+
+type TopEntry = { rank: number; emoji: string; name: string; level: number; coins: number; streak: number; fish: number; battle: number; badge: string; isUser?: boolean }
+
+const EXTENDED_PLAYERS: TopEntry[] = [
+  { rank: 1,  emoji: '🐲', name: 'DragonMaster99', level: 87, coins: 142500, streak: 45, fish: 312, battle: 187, badge: '👑' },
+  { rank: 2,  emoji: '🦄', name: 'UnicornQueen',   level: 74, coins: 98300,  streak: 32, fish: 240, battle: 142, badge: '🥈' },
+  { rank: 3,  emoji: '🔥', name: 'InfernoKing',    level: 68, coins: 87000,  streak: 28, fish: 198, battle: 203, badge: '🥉' },
+  { rank: 4,  emoji: '🌙', name: 'MoonWalker',     level: 61, coins: 72100,  streak: 21, fish: 167, battle: 98,  badge: '' },
+  { rank: 5,  emoji: '⚡', name: 'ThunderGod',     level: 55, coins: 65400,  streak: 19, fish: 145, battle: 156, badge: '' },
+  { rank: 6,  emoji: '🎯', name: 'PrecisionX',     level: 50, coins: 58800,  streak: 17, fish: 123, battle: 77,  badge: '' },
+  { rank: 7,  emoji: '🌊', name: 'OceanBreeze',    level: 46, coins: 52000,  streak: 14, fish: 289, battle: 54,  badge: '' },
+  { rank: 8,  emoji: '💎', name: 'CrystalKnight',  level: 42, coins: 47300,  streak: 12, fish: 98,  battle: 134, badge: '' },
+  { rank: 9,  emoji: '🌸', name: 'SakuraPetal',    level: 39, coins: 41100,  streak: 10, fish: 76,  battle: 43,  badge: '' },
+  { rank: 10, emoji: '🤖', name: 'CyberBot2049',   level: 35, coins: 36500,  streak: 8,  fish: 54,  battle: 67,  badge: '' },
+]
 
 const ToplistaTab = memo(function ToplistaTab({ pet }: { pet: PetState }) {
   const [league, setLeague] = useState<LeagueKey>('level')
 
-  type TopEntry = { rank: number; emoji: string; name: string; level: number; coins: number; streak: number; badge: string; isUser?: boolean }
-
   const userEntry: TopEntry = {
     rank: 0, emoji: pet.petEmoji, name: pet.petName,
-    level: pet.level, coins: pet.coins, streak: pet.streak, badge: '', isUser: true,
+    level: pet.level, coins: pet.coins, streak: pet.streak,
+    fish: (pet as unknown as { fishCaught?: number }).fishCaught ?? 0,
+    battle: (pet as unknown as { battleWins?: number }).battleWins ?? 0,
+    badge: '', isUser: true,
   }
 
-  const combined: TopEntry[] = [...TOP_PLAYERS.map(p => ({ ...p, isUser: false })), userEntry]
-  const sortKey: Record<LeagueKey, keyof TopEntry> = { level: 'level', coins: 'coins', streak: 'streak' }
-  const sorted = [...combined].sort((a, b) => (b[sortKey[league]] as number) - (a[sortKey[league]] as number))
+  const combined: TopEntry[] = [...EXTENDED_PLAYERS, userEntry]
+  const cfg = LB_CONFIGS[league]
+  const sorted = [...combined].sort((a, b) => (b[cfg.field] as number) - (a[cfg.field] as number))
   const userRank = sorted.findIndex(e => e.isUser) + 1
   const MEDALS = ['👑', '🥈', '🥉']
   const TIER_RGBA: Record<number, string> = { 0: '255,204,0', 1: '200,200,200', 2: '205,127,50' }
-
-  const formatVal = (entry: TopEntry) => {
-    if (league === 'coins') return `🪙${(entry.coins / 1000).toFixed(1)}k`
-    if (league === 'streak') return `🔥${entry.streak}`
-    return `LV${entry.level}`
-  }
 
   return (
     <div style={{ padding: '0 14px', overflowY: 'auto', paddingTop: 'calc(var(--sat, 0px) + 105px)', paddingBottom: 80 }}>
       <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#fff', margin: '12px 0 10px', textAlign: 'center', letterSpacing: 1 }}>
         🏆 TOPPLISTA
       </div>
-      {/* League tabs */}
-      <div style={{ display: 'flex', gap: 6, marginBottom: 14, justifyContent: 'center' }}>
-        {(['level', 'coins', 'streak'] as LeagueKey[]).map(k => (
+      {/* League tabs — scrollable row */}
+      <div style={{ display: 'flex', gap: 6, marginBottom: 14, overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: 2 }}>
+        {(Object.keys(LB_CONFIGS) as LeagueKey[]).map(k => (
           <button
             key={k}
             onClick={() => setLeague(k)}
             style={{
-              padding: '5px 14px', borderRadius: 20, fontSize: 12, fontWeight: 700, cursor: 'pointer', border: '1px solid',
+              padding: '5px 12px', borderRadius: 20, fontSize: 11, fontWeight: 700, cursor: 'pointer', border: '1px solid',
               background: league === k ? 'rgba(255,204,0,.15)' : 'rgba(255,255,255,.04)',
               borderColor: league === k ? 'rgba(255,204,0,.5)' : 'rgba(255,255,255,.1)',
               color: league === k ? 'var(--gold)' : 'var(--t2)',
-              transition: 'all .15s',
+              transition: 'all .15s', whiteSpace: 'nowrap', flexShrink: 0,
             }}
           >
-            {k === 'level' ? '⭐ Nivå' : k === 'coins' ? '🪙 Mynt' : '🔥 Streak'}
+            {LB_CONFIGS[k].label}
           </button>
         ))}
       </div>
@@ -537,7 +543,7 @@ const ToplistaTab = memo(function ToplistaTab({ pet }: { pet: PetState }) {
               </div>
             </div>
             <div style={{ textAlign: 'right', flexShrink: 0 }}>
-              <div style={{ fontSize: 13, fontWeight: 900, color: isUser ? 'var(--purple)' : 'var(--gold)' }}>{formatVal(p)}</div>
+              <div style={{ fontSize: 13, fontWeight: 900, color: isUser ? 'var(--purple)' : 'var(--gold)' }}>{cfg.format(p)}</div>
             </div>
           </div>
         )

@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -22,7 +22,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   achievements: 'gold', craft: 'purple', fortune: 'orange',
   wardrobe: 'pink', battlepass: 'purple', leaderboard: 'gold',
   quests: 'green', records: 'blue', chests: 'gold', bounty: 'red',
-  fishpedia: 'blue',
+  fishpedia: 'blue', checkin: 'green', skilltree: 'green',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -32,6 +32,8 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   expedition: { label: 'ÄVENTYR',color: 'var(--green)'  },
   chests:     { label: 'DAGLIG', color: 'var(--gold)'   },
   bounty:     { label: 'NYA',    color: 'var(--red)'    },
+  checkin:    { label: 'DAGLIG', color: 'var(--green)'  },
+  skilltree:  { label: 'NYA',    color: 'var(--green)'  },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -132,6 +134,7 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
   const gainKC = useGameStore(s => s.gainKC)
   const setStat = useGameStore(s => s.setStat)
   const spendCoins = useGameStore(s => s.spendCoins)
+  const spendKC = useGameStore(s => s.spendKC)
   const addInventoryItem = useGameStore(s => s.addInventoryItem)
   const equipItem = useGameStore(s => s.equipItem)
   const unlockedAchievements = useGameStore(s => s.unlockedAchievements)
@@ -1006,6 +1009,183 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Daily Check-in Calendar ───────────────────────────────────────────────────
+  if (panel === 'checkin') {
+    const todayKey = new Date().toISOString().slice(0, 10)
+    const claimedKey = 'k0509_checkin_claimed'
+    const claimed: string[] = JSON.parse(localStorage.getItem(claimedKey) ?? '[]')
+    const todayClaimed = claimed.includes(todayKey)
+    const [claimedToday, setClaimedToday] = useState(todayClaimed)
+
+    const currentStreak = pet.streak
+    const DAILY_REWARDS = [
+      { day: 1,  coins: 20,  xp: 15,  kc: 0, emoji: '🪙' },
+      { day: 2,  coins: 30,  xp: 20,  kc: 0, emoji: '🪙' },
+      { day: 3,  coins: 40,  xp: 30,  kc: 0, emoji: '🪙' },
+      { day: 4,  coins: 50,  xp: 40,  kc: 0, emoji: '💰' },
+      { day: 5,  coins: 75,  xp: 50,  kc: 1, emoji: '💰' },
+      { day: 6,  coins: 80,  xp: 60,  kc: 0, emoji: '💰' },
+      { day: 7,  coins: 150, xp: 100, kc: 3, emoji: '🏆' },
+      { day: 14, coins: 250, xp: 200, kc: 5, emoji: '👑' },
+      { day: 21, coins: 400, xp: 300, kc: 8, emoji: '💎' },
+      { day: 30, coins: 700, xp: 500, kc: 15, emoji: '🌟' },
+    ]
+    const getDayReward = (day: number) => {
+      for (let i = DAILY_REWARDS.length - 1; i >= 0; i--) {
+        if (day % DAILY_REWARDS[i].day === 0 || day === DAILY_REWARDS[i].day) {
+          if (day === DAILY_REWARDS[i].day) return DAILY_REWARDS[i]
+        }
+      }
+      const base = Math.min(Math.floor(day / 7), 5)
+      return { day, coins: 20 + base * 10, xp: 15 + base * 10, kc: 0, emoji: '🪙' }
+    }
+    const claim = () => {
+      if (claimedToday) return
+      const day = Math.max(1, currentStreak)
+      const reward = getDayReward(day)
+      const next = [...claimed, todayKey]
+      localStorage.setItem(claimedKey, JSON.stringify(next.slice(-60)))
+      setClaimedToday(true)
+      gainCoins(reward.coins)
+      gainXP(reward.xp, 'checkin')
+      if (reward.kc > 0) gainKC(reward.kc)
+      showToast(`📅 Check-in dag ${day}! +${reward.coins}🪙 +${reward.xp}XP${reward.kc > 0 ? ` +${reward.kc}💎` : ''}`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+    const todayReward = getDayReward(Math.max(1, currentStreak))
+    const DAYS = Array.from({ length: 30 }, (_, i) => i + 1)
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>📅 Daglig Check-in</div>
+        <div style={{ background: 'rgba(0,255,136,.08)', border: '1px solid rgba(0,255,136,.25)', borderRadius: 16, padding: '14px', marginBottom: 14 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+            <div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 15, fontWeight: 900, color: '#fff' }}>Dag {Math.max(1, currentStreak)}</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>🔥 {currentStreak} dagars streak</div>
+            </div>
+            <div style={{ textAlign: 'right', fontSize: 13, color: '#fbbf24', fontWeight: 700 }}>
+              {todayReward.emoji} +{todayReward.coins}🪙<br />
+              <span style={{ fontSize: 10, color: '#a855f7' }}>+{todayReward.xp}XP{todayReward.kc > 0 ? ` +${todayReward.kc}💎` : ''}</span>
+            </div>
+          </div>
+          {!claimedToday ? (
+            <button className="btn-primary" style={{ width: '100%', padding: '12px', fontSize: 14 }} onClick={claim}>
+              ✓ Hämta dagens belöning!
+            </button>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '10px', color: '#4ade80', fontWeight: 700 }}>✅ Redan hämtad idag — kom tillbaka imorgon!</div>
+          )}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4 }}>
+          {DAYS.map(d => {
+            const r = getDayReward(d)
+            const isToday = d === Math.max(1, currentStreak)
+            const isPast = d < Math.max(1, currentStreak)
+            const isMilestone = [7, 14, 21, 30].includes(d)
+            return (
+              <div
+                key={d}
+                style={{
+                  aspectRatio: '1', borderRadius: 8, display: 'flex', flexDirection: 'column',
+                  alignItems: 'center', justifyContent: 'center', gap: 1,
+                  background: isPast ? 'rgba(0,255,136,.15)' : isToday ? 'rgba(255,204,0,.2)' : 'rgba(255,255,255,.04)',
+                  border: `1px solid ${isMilestone ? '#fbbf2466' : isPast ? 'rgba(0,255,136,.3)' : isToday ? 'rgba(255,204,0,.5)' : 'rgba(255,255,255,.08)'}`,
+                }}
+              >
+                <div style={{ fontSize: 10 }}>{r.emoji}</div>
+                <div style={{ fontSize: 8, fontWeight: 900, color: isPast ? '#4ade80' : isToday ? '#fbbf24' : '#555' }}>{d}</div>
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ display: 'flex', gap: 10, marginTop: 14, fontSize: 9, color: 'var(--t3)', justifyContent: 'center' }}>
+          <span>🟢 Klar</span><span>🟡 Idag</span><span>⬛ Kommande</span>
+        </div>
+      </div>
+    )
+  }
+
+  // ── Skill Tree panel ──────────────────────────────────────────────────────────
+  if (panel === 'skilltree') {
+    const SKILLS = [
+      { id: 'sk_xp1',    name: 'XP Boost I',       emoji: '⭐', cost: 3,  effect: '+5% XP permanent',  unlocks: [] },
+      { id: 'sk_xp2',    name: 'XP Boost II',      emoji: '🌟', cost: 6,  effect: '+10% XP permanent', unlocks: ['sk_xp1'] },
+      { id: 'sk_coin1',  name: 'Guldhand I',        emoji: '💰', cost: 3,  effect: '+5% mynt permanent', unlocks: [] },
+      { id: 'sk_coin2',  name: 'Guldhand II',       emoji: '💎', cost: 6,  effect: '+10% mynt permanent',unlocks: ['sk_coin1'] },
+      { id: 'sk_bond1',  name: 'Vänskap I',         emoji: '💕', cost: 2,  effect: '+20% bond-poäng',    unlocks: [] },
+      { id: 'sk_fish1',  name: 'Fiskare',           emoji: '🎣', cost: 4,  effect: 'Fiske XP ×1.25',     unlocks: [] },
+      { id: 'sk_battle1',name: 'Krigare',           emoji: '⚔️', cost: 4,  effect: 'Strid coins ×1.25',  unlocks: [] },
+      { id: 'sk_lucky1', name: 'Lyckans Barn',      emoji: '🍀', cost: 5,  effect: '+15% chans chest', unlocks: [] },
+      { id: 'sk_energy1',name: 'Uthållighet',       emoji: '⚡', cost: 3,  effect: 'Energiförlust -20%', unlocks: [] },
+      { id: 'sk_streak1',name: 'Streakskydd',       emoji: '🔥', cost: 5,  effect: '+1 extra streak-sköld',unlocks: [] },
+      { id: 'sk_tap1',   name: 'Snabbtapp I',       emoji: '👆', cost: 2,  effect: '+2 XP per tap',      unlocks: [] },
+      { id: 'sk_tap2',   name: 'Snabbtapp II',      emoji: '🖐️', cost: 5,  effect: '+5 XP per tap',      unlocks: ['sk_tap1'] },
+    ]
+    const unlockedSkills: string[] = JSON.parse(localStorage.getItem('k0509_skills') ?? '[]')
+    const [unlocked, setUnlocked] = useState<string[]>(unlockedSkills)
+
+    const buySkill = (skill: (typeof SKILLS)[0]) => {
+      if (unlocked.includes(skill.id)) return
+      const missingReq = skill.unlocks.find(r => !unlocked.includes(r))
+      if (missingReq) { showToast('Lås upp förutsättningarna först!', 'error'); return }
+      if (!spendKC(skill.cost)) { showToast('Inte tillräckligt med KC!', 'error'); return }
+      const next = [...unlocked, skill.id]
+      localStorage.setItem('k0509_skills', JSON.stringify(next))
+      setUnlocked(next)
+      showToast(`🌳 ${skill.name} upplåst! ${skill.effect}`, 'success')
+      audio.achievement()
+      triggerConfetti()
+    }
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🌳 Kompetensträd</div>
+        <div style={{ textAlign: 'center', fontSize: 13, color: '#aa66ff', fontWeight: 700, marginBottom: 14 }}>
+          💎 {pet.kc} KC tillgängligt
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          {SKILLS.map(skill => {
+            const isUnlocked = unlocked.includes(skill.id)
+            const reqsMet = skill.unlocks.every(r => unlocked.includes(r))
+            const canAfford = pet.kc >= skill.cost
+            const canBuy = !isUnlocked && reqsMet && canAfford
+            return (
+              <div
+                key={skill.id}
+                onClick={() => canBuy && buySkill(skill)}
+                style={{
+                  background: isUnlocked ? 'rgba(0,255,136,.08)' : reqsMet ? 'rgba(255,255,255,.05)' : 'rgba(255,255,255,.02)',
+                  border: `1px solid ${isUnlocked ? 'rgba(0,255,136,.35)' : reqsMet ? 'rgba(255,255,255,.12)' : 'rgba(255,255,255,.05)'}`,
+                  borderRadius: 14, padding: '12px 10px', cursor: canBuy ? 'pointer' : 'default',
+                  opacity: !reqsMet ? 0.45 : 1,
+                  transition: 'all .15s',
+                }}
+              >
+                <div style={{ fontSize: 26, marginBottom: 4 }}>{skill.emoji}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: isUnlocked ? '#4ade80' : '#e8e8f0' }}>{skill.name}</div>
+                <div style={{ fontSize: 9, color: 'var(--t3)', marginTop: 2, lineHeight: 1.3 }}>{skill.effect}</div>
+                <div style={{ marginTop: 6 }}>
+                  {isUnlocked ? (
+                    <span style={{ fontSize: 10, color: '#4ade80', fontWeight: 900 }}>✓ Upplåst</span>
+                  ) : (
+                    <span style={{ fontSize: 11, fontWeight: 900, color: canAfford && reqsMet ? '#aa66ff' : '#555' }}>
+                      💎 {skill.cost} KC
+                    </span>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ marginTop: 14, fontSize: 10, color: 'var(--t3)', textAlign: 'center' }}>
+          Färdigheter aktiveras automatiskt — inga slottar behövs
         </div>
       </div>
     )

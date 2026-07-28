@@ -45,15 +45,40 @@ export const App = memo(function App() {
 
   useEffect(() => {
     startAutoSave()
-    // Offline catch-up summary
     const pet = useGameStore.getState().pet
+
+    // Offline catch-up with earned coins estimate
     const awayMs = Date.now() - pet.lastSeen
     const awayMins = Math.floor(awayMs / 60000)
     if (awayMins >= 30) {
       const awayHrs = Math.floor(awayMins / 60)
       const label = awayHrs >= 1 ? `${awayHrs}h ${awayMins % 60}m` : `${awayMins}m`
-      useUIStore.getState().showToast(`👋 Välkommen tillbaka! Borta ${label} — kolla ditt husdjur!`, 'info')
+      const passiveCoins = Math.min(200, Math.floor(awayMins / 10) * (1 + Math.floor(pet.level / 10)))
+      if (passiveCoins > 0) {
+        useGameStore.getState().gainCoins(passiveCoins)
+        useUIStore.getState().showToast(`👋 Välkommen! Borta ${label} — +${passiveCoins}🪙 passiv inkomst!`, 'info')
+      } else {
+        useUIStore.getState().showToast(`👋 Välkommen tillbaka! Borta ${label} — kolla ditt husdjur!`, 'info')
+      }
     }
+
+    // Weather/time-based bonus
+    const weatherKey = 'k0509_weather_bonus'
+    const lastWeather = localStorage.getItem(weatherKey) ?? ''
+    const hour = new Date().getHours()
+    const todayHour = `${new Date().toDateString()}_${hour}`
+    if (lastWeather !== todayHour) {
+      localStorage.setItem(weatherKey, todayHour)
+      if (hour >= 6 && hour < 10) {
+        useUIStore.getState().showToast('🌅 Morgonbonus! +25% XP nästa timme', 'info')
+      } else if (hour >= 20 && hour < 23) {
+        useUIStore.getState().showToast('🌙 Natt-bonus! +15% mynt nästa timme', 'info')
+      } else if (hour === 12) {
+        useUIStore.getState().showToast('☀️ Lunchbonus! +10 XP gratis', 'info')
+        useGameStore.getState().gainXP(10, 'weather')
+      }
+    }
+
     startDecayTick()
     const result = useGameStore.getState().checkStreak()
     if (result.extended) {

@@ -1,4 +1,4 @@
-import { memo, useState, useMemo } from 'react'
+import { memo, useState, useMemo, useCallback } from 'react'
 import { useGame } from '@/hooks/useGame'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
@@ -36,6 +36,16 @@ const GAMES = [
 function weekKey() {
   const msPerWeek = 7 * 24 * 60 * 60 * 1000
   return `k0509_wk_${Math.floor(Date.now() / msPerWeek)}`
+}
+
+function getActiveEvent() {
+  const hour = new Date().getHours()
+  const day = new Date().getDay()
+  if (day === 0 || day === 6) return { emoji: '🎉', name: 'HELGFESTIVAL', desc: 'Alla spel +25% XP', color: '#aa66ff', rgb: '170,102,255' }
+  if (hour >= 6 && hour < 10) return { emoji: '🌅', name: 'MORGONRUSH', desc: '+20% XP-bonus t.o.m. 10:00', color: '#ffcc00', rgb: '255,204,0' }
+  if (hour >= 11 && hour < 14) return { emoji: '🍽️', name: 'LUNCHLYCKA', desc: 'Fiske ger dubbel XP', color: '#4ade80', rgb: '74,222,128' }
+  if (hour >= 18 && hour < 22) return { emoji: '⚔️', name: 'KVÄLLSRÄD', desc: 'Boss Raid +50% belöning', color: '#f87171', rgb: '248,113,113' }
+  return { emoji: '🌅', name: 'SOMMERFESTIVALEN 2026', desc: 'Bonus XP +25% · Exklusiva belöningar', color: '#ffcc00', rgb: '255,204,0' }
 }
 
 export const GamesView = memo(function GamesView() {
@@ -186,32 +196,35 @@ export const GamesView = memo(function GamesView() {
         <div style={{ background: 'rgba(68,136,255,.12)', border: '1px solid rgba(68,136,255,.3)', borderRadius: 12, padding: '6px 12px', fontSize: 12, fontWeight: 700, color: 'var(--blue)', whiteSpace: 'nowrap' }}>🎣 {fishCaught} fisk</div>
       </div>
 
-      {/* Seasonal Event Banner */}
-      <div style={{ padding: '0 14px 12px' }}>
-        <div style={{
-          background: 'linear-gradient(135deg, rgba(255,204,0,.12), rgba(255,136,68,.08))',
-          border: '1px solid rgba(255,204,0,.3)',
-          borderRadius: 16, padding: '12px 14px',
-          display: 'flex', alignItems: 'center', gap: 12,
-        }}>
-          <div style={{ fontSize: 32 }}>🌅</div>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 900, color: 'var(--gold)', letterSpacing: 1 }}>
-              SOMMERFESTIVALEN 2026 🎉
-            </div>
-            <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
-              Bonus XP +25% · Exklusiva belöningar
+      {/* Dynamic Event Banner */}
+      {(() => {
+        const ev = getActiveEvent()
+        return (
+          <div style={{ padding: '0 14px 12px' }}>
+            <div style={{
+              background: `linear-gradient(135deg, rgba(${ev.rgb},.12), rgba(${ev.rgb},.05))`,
+              border: `1px solid rgba(${ev.rgb},.3)`,
+              borderRadius: 16, padding: '12px 14px',
+              display: 'flex', alignItems: 'center', gap: 12,
+            }}>
+              <div style={{ fontSize: 32 }}>{ev.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 900, color: ev.color, letterSpacing: 1 }}>
+                  {ev.name}
+                </div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{ev.desc}</div>
+              </div>
+              <div style={{
+                background: `rgba(${ev.rgb},.2)`, border: `1px solid rgba(${ev.rgb},.4)`,
+                borderRadius: 8, padding: '4px 8px', fontSize: 10, fontWeight: 900, color: ev.color,
+                whiteSpace: 'nowrap',
+              }}>
+                LIVE ●
+              </div>
             </div>
           </div>
-          <div style={{
-            background: 'rgba(255,204,0,.2)', border: '1px solid rgba(255,204,0,.4)',
-            borderRadius: 8, padding: '4px 8px', fontSize: 10, fontWeight: 900, color: 'var(--gold)',
-            whiteSpace: 'nowrap',
-          }}>
-            LIVE ●
-          </div>
-        </div>
-      </div>
+        )
+      })()}
 
       <div className="games-grid-2027">
         {GAMES.map(g => {
