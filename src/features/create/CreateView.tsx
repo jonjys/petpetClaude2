@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -37,6 +37,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   stickers: 'gold', gifting: 'pink', pethome: 'green',
   potions: 'purple', arena2: 'red', cosmetics: 'pink',
   garden: 'green', rescue: 'blue', stats: 'gold',
+  leaguetable: 'gold', badges: 'purple', wishlist: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -91,6 +92,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   garden:     { label: 'NY',     color: 'var(--green)'  },
   rescue:     { label: 'NY',     color: 'var(--blue)'   },
   stats:      { label: 'NY',     color: 'var(--gold)'   },
+  leaguetable:{ label: 'LIVE',   color: 'var(--gold)'   },
+  badges:     { label: 'NY',     color: 'var(--purple)' },
+  wishlist:   { label: 'NY',     color: 'var(--blue)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -4415,6 +4419,138 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>{m.label}</div>
             </div>
           ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── League Table ───────────────────────────────────────────────────────────
+  if (panel === 'leaguetable') {
+    const myScore = pet.level * 100 + pet.bpassXP / 10 + pet.battleWins * 20
+    const LEAGUE = [
+      { name: 'DragonLord',  emoji: '🐉', score: Math.round(myScore * 1.35), tier: 'Platina' },
+      { name: 'StarMage',    emoji: '🌟', score: Math.round(myScore * 1.18), tier: 'Guld' },
+      { name: 'CrystalFox',  emoji: '🦊', score: Math.round(myScore * 1.05), tier: 'Guld' },
+      { name: pet.petName || 'Du', emoji: pet.petEmoji, score: Math.round(myScore), tier: pet.level >= 30 ? 'Guld' : pet.level >= 15 ? 'Silver' : 'Brons' },
+      { name: 'NovaBear',    emoji: '🐻', score: Math.round(myScore * 0.92), tier: 'Silver' },
+      { name: 'QuickHawk',   emoji: '🦅', score: Math.round(myScore * 0.78), tier: 'Silver' },
+      { name: 'SwiftKitten', emoji: '🐱', score: Math.round(myScore * 0.61), tier: 'Brons' },
+      { name: 'WanderPup',   emoji: '🐶', score: Math.round(myScore * 0.44), tier: 'Brons' },
+    ].sort((a, b) => b.score - a.score)
+    const tierColor: Record<string, string> = { Platina: '#818cf8', Guld: '#fbbf24', Silver: '#c0c0c0', Brons: '#cd7f32' }
+    const myRank = LEAGUE.findIndex(e => e.name === (pet.petName || 'Du')) + 1
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🥇 Ligatabell</div>
+        <div style={{ textAlign: 'center', marginBottom: 12, fontSize: 12, color: 'var(--t3)' }}>
+          Din placering: #{myRank} · Veckoliga
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {LEAGUE.map((e, i) => {
+            const isMe = e.name === (pet.petName || 'Du')
+            const tc = tierColor[e.tier]
+            return (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: isMe ? 'rgba(99,102,241,.12)' : 'rgba(255,255,255,.04)', border: `1px solid ${isMe ? 'rgba(99,102,241,.3)' : 'rgba(255,255,255,.07)'}`, borderRadius: 12 }}>
+                <div style={{ fontSize: 13, fontWeight: 900, color: i < 3 ? '#fbbf24' : 'var(--t3)', minWidth: 22 }}>
+                  {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i+1}`}
+                </div>
+                <div style={{ fontSize: 20 }}>{e.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: isMe ? '#818cf8' : '#e8e8f0' }}>{e.name}</div>
+                  <div style={{ fontSize: 10, color: tc }}>{e.tier}</div>
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--t3)' }}>{e.score.toLocaleString()}</div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Badges ─────────────────────────────────────────────────────────────────
+  if (panel === 'badges') {
+    const ALL_BADGES = [
+      { id: 'b01', emoji: '🌱', name: 'Nybörjare',      desc: 'Nå nivå 1',               earned: pet.level >= 1 },
+      { id: 'b02', emoji: '⭐', name: 'Stigande',        desc: 'Nå nivå 10',              earned: pet.level >= 10 },
+      { id: 'b03', emoji: '🌟', name: 'Veteran',         desc: 'Nå nivå 25',              earned: pet.level >= 25 },
+      { id: 'b04', emoji: '💫', name: 'Legend',          desc: 'Nå nivå 50',              earned: pet.level >= 50 },
+      { id: 'b05', emoji: '🎣', name: 'Fiskaren',        desc: 'Fånga 5 fiskar',          earned: pet.fishCaught >= 5 },
+      { id: 'b06', emoji: '🎣', name: 'Mästerfiskare',   desc: 'Fånga 50 fiskar',         earned: pet.fishCaught >= 50 },
+      { id: 'b07', emoji: '⚔️', name: 'Krigaren',        desc: '10 stridssegrar',         earned: pet.battleWins >= 10 },
+      { id: 'b08', emoji: '⚔️', name: 'Krigsherren',     desc: '100 stridssegrar',        earned: pet.battleWins >= 100 },
+      { id: 'b09', emoji: '🔥', name: 'Dedikerad',       desc: '7 dagars streak',         earned: pet.streak >= 7 },
+      { id: 'b10', emoji: '🔥', name: 'Oövervinnerlig',  desc: '30 dagars streak',        earned: pet.streak >= 30 },
+      { id: 'b11', emoji: '🗺️', name: 'Äventyrare',     desc: '5 expeditioner',          earned: pet.expeditionsDone >= 5 },
+      { id: 'b12', emoji: '💎', name: 'Rik',             desc: 'Samla 1000 KC',           earned: pet.kc >= 1000 },
+      { id: 'b13', emoji: '🏆', name: 'Prestation',      desc: '10 prestationer',         earned: unlockedAchievements.length >= 10 },
+      { id: 'b14', emoji: '🏆', name: 'Samlaren',        desc: '30 prestationer',         earned: unlockedAchievements.length >= 30 },
+      { id: 'b15', emoji: '👆', name: 'Klickare',        desc: '1000 totala tryck',       earned: pet.totalTaps >= 1000 },
+      { id: 'b16', emoji: '💬', name: 'Social',          desc: '10 inlägg',               earned: pet.postCount >= 10 },
+    ]
+    const earnedCount = ALL_BADGES.filter(b => b.earned).length
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🎖️ Märken</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>{earnedCount}/{ALL_BADGES.length} upplåsta</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {ALL_BADGES.map(b => (
+            <div key={b.id} style={{ background: b.earned ? 'rgba(168,85,247,.1)' : 'rgba(255,255,255,.03)', border: `1px solid ${b.earned ? 'rgba(168,85,247,.3)' : 'rgba(255,255,255,.06)'}`, borderRadius: 12, padding: '10px', textAlign: 'center', opacity: b.earned ? 1 : 0.4 }}>
+              <div style={{ fontSize: 26 }}>{b.earned ? b.emoji : '🔒'}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: b.earned ? '#e8e8f0' : '#555', marginTop: 4 }}>{b.name}</div>
+              <div style={{ fontSize: 10, color: 'var(--t3)' }}>{b.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Wishlist ───────────────────────────────────────────────────────────────
+  if (panel === 'wishlist') {
+    const WISHABLE = [
+      { id: 'w1', emoji: '👑', name: 'Kungakronan', cost: 1500, type: 'Smedjan' },
+      { id: 'w2', emoji: '💎', name: 'Diamantaura', cost: 2000, type: 'Aura' },
+      { id: 'w3', emoji: '🐉', name: 'Drake-skin', cost: 3000, type: 'Skin' },
+      { id: 'w4', emoji: '🌟', name: 'Stjärntitel', cost: 500, type: 'Titel' },
+      { id: 'w5', emoji: '⚡', name: 'Åskbult-accessoar', cost: 800, type: 'Accessoar' },
+      { id: 'w6', emoji: '🔮', name: 'Kristallkula', cost: 1200, type: 'Dekor' },
+    ]
+    const wlKey = 'k0509_wishlist'
+    const wishlist: string[] = JSON.parse(localStorage.getItem(wlKey) ?? '[]')
+    const toggle = (id: string) => {
+      const next = wishlist.includes(id) ? wishlist.filter(w => w !== id) : [...wishlist, id]
+      localStorage.setItem(wlKey, JSON.stringify(next))
+      showToast(wishlist.includes(id) ? 'Borttagen från önskelista' : '✍️ Tillagd till önskelista!', 'success')
+      audio.click()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>✍️ Önskelista</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>
+          {wishlist.length} sparade · 🪙{pet.coins} tillgängliga
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {WISHABLE.map(item => {
+            const wished = wishlist.includes(item.id)
+            const canAfford = pet.coins >= item.cost
+            return (
+              <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', background: wished ? 'rgba(99,102,241,.1)' : 'rgba(255,255,255,.04)', border: `1px solid ${wished ? 'rgba(99,102,241,.3)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+                <div style={{ fontSize: 26 }}>{item.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 13, color: '#e8e8f0' }}>{item.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{item.type} · {item.cost}🪙</div>
+                  {canAfford && <div style={{ fontSize: 10, color: '#4ade80', marginTop: 2 }}>✓ Har råd!</div>}
+                </div>
+                <button onClick={() => toggle(item.id)} style={{ padding: '6px 12px', borderRadius: 8, fontSize: 11, fontWeight: 900, background: wished ? 'rgba(99,102,241,.2)' : 'rgba(255,255,255,.06)', border: `1px solid ${wished ? 'rgba(99,102,241,.4)' : 'rgba(255,255,255,.1)'}`, color: wished ? '#818cf8' : '#888', cursor: 'pointer' }}>
+                  {wished ? '✓ Önskad' : '+ Spara'}
+                </button>
+              </div>
+            )
+          })}
         </div>
       </div>
     )
