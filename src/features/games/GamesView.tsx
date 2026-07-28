@@ -29,8 +29,10 @@ import { EmojiPatternGame } from './EmojiPatternGame'
 import { TrueOrFalseGame } from './TrueOrFalseGame'
 import { GridTapGame } from './GridTapGame'
 import { MathSequenceGame } from './MathSequenceGame'
+import { HangmanGame } from './HangmanGame'
+import { SimonSaysGame } from './SimonSaysGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -57,6 +59,8 @@ const GAMES = [
   { id: 'tof' as const, emoji: '🤔', name: 'Sant/Falskt', desc: 'Trivia — sant eller falskt?', reward: '🪙0-200', hot: false },
   { id: 'grid' as const, emoji: '🔲', name: 'Grid Tap', desc: 'Tryck lysande rutor snabbt', reward: '🪙0-200', hot: false },
   { id: 'mathseq' as const, emoji: '🔣', name: 'Talsekvens', desc: 'Hitta det saknade talet', reward: '🪙0-240', hot: false },
+  { id: 'hangman' as const, emoji: '🔡', name: 'Hänga Gubbe', desc: 'Gissa dolda ord', reward: '🪙0-480', hot: false },
+  { id: 'simon' as const, emoji: '🔮', name: 'Simon Says', desc: 'Upprepa färgsekvensen', reward: '🪙0-360', hot: false },
 ]
 
 function weekKey() {
@@ -171,6 +175,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'tof') return <TrueOrFalseGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'grid') return <GridTapGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'mathseq') return <MathSequenceGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'hangman') return <HangmanGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'simon') return <SimonSaysGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>

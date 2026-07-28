@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -30,6 +30,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   spa: 'pink', challenges: 'red', traits: 'purple',
   roulette: 'red', mailbox: 'blue', cookbook: 'green',
   bond: 'green', training: 'blue', petcare: 'green',
+  flashsale: 'red', giftshop: 'purple',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -64,6 +65,8 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   bond:       { label: 'NY',     color: 'var(--green)'  },
   training:   { label: 'NY',     color: 'var(--blue)'   },
   petcare:    { label: 'NY',     color: 'var(--green)'  },
+  flashsale:  { label: 'LIVE',   color: 'var(--red)'    },
+  giftshop:   { label: 'NY',     color: 'var(--purple)' },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -3056,6 +3059,150 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
                   +{t.coins}🪙
                 </button>
               )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Flash Sale panel ────────────────────────────────────────────────────────
+  if (panel === 'flashsale') {
+    const hour = new Date().getHours()
+    const dayOfYear = Math.floor(Date.now() / 86400000)
+    const OFFERS = [
+      { id: 'f1', emoji: '⚡', name: 'XP Boost Pack', desc: '+800 XP direkt', origPrice: 300, salePrice: 150, currency: 'coins' as const, xp: 800 },
+      { id: 'f2', emoji: '💰', name: 'Mynt-explosion', desc: '+1500 mynt direkt', origPrice: 400, salePrice: 200, currency: 'coins' as const, coins: 1500 },
+      { id: 'f3', emoji: '🌟', name: 'KC Bundle', desc: '+15 KC till pris av 10', origPrice: 600, salePrice: 300, currency: 'coins' as const, kc: 15 },
+      { id: 'f4', emoji: '🎁', name: 'Stat Reset', desc: 'Alla stats → 100', origPrice: 500, salePrice: 250, currency: 'coins' as const, stats: true },
+      { id: 'f5', emoji: '🔥', name: 'Streak Shield x3', desc: 'Skyddar streaken 3 dagar', origPrice: 20, salePrice: 10, currency: 'kc' as const, shields: 3 },
+      { id: 'f6', emoji: '💎', name: 'Premium Pack', desc: '+30 KC + 2000 mynt', origPrice: 50, salePrice: 25, currency: 'kc' as const, kc: 30, coins: 2000 },
+    ]
+    const available = OFFERS.slice((dayOfYear * 3 + hour) % OFFERS.length, ((dayOfYear * 3 + hour) % OFFERS.length) + 3).concat(
+      OFFERS.slice(0, Math.max(0, 3 - (OFFERS.length - (dayOfYear * 3 + hour) % OFFERS.length)))
+    )
+    const [purchased, setPurchased] = useState<string[]>(() => {
+      try {
+        const s = localStorage.getItem('k0509_flashsale')
+        if (!s) return []
+        const p = JSON.parse(s)
+        return p.date === new Date().toDateString() ? p.ids : []
+      } catch { return [] }
+    })
+    const buy = (o: typeof OFFERS[0]) => {
+      if (purchased.includes(o.id)) return
+      const canAfford = o.currency === 'coins' ? pet.coins >= o.salePrice : pet.kc >= o.salePrice
+      if (!canAfford) { showToast('Inte tillräckligt med resurser!', 'error'); return }
+      if (o.currency === 'coins') spendCoins(o.salePrice)
+      else if (!spendKC(o.salePrice)) return
+      if ((o as { xp?: number }).xp) gainXP((o as { xp?: number }).xp ?? 0, 'flashsale')
+      if ((o as { coins?: number }).coins) gainCoins((o as { coins?: number }).coins ?? 0)
+      if ((o as { kc?: number }).kc) gainKC((o as { kc?: number }).kc ?? 0)
+      if ((o as { stats?: boolean }).stats) { setStat('mood', 100); setStat('energy', 100); setStat('hunger', 100) }
+      const next = [...purchased, o.id]
+      setPurchased(next)
+      localStorage.setItem('k0509_flashsale', JSON.stringify({ date: new Date().toDateString(), ids: next }))
+      showToast(`⚡ ${o.name} köpt! ${o.desc}`, 'success')
+      audio.achievement()
+    }
+    const timeLeft = 60 - new Date().getMinutes()
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>⚡ Flash Sale</div>
+        <div style={{ textAlign: 'center', marginBottom: 14 }}>
+          <div style={{ fontSize: 12, color: '#f87171', fontWeight: 700 }}>⏰ Erbjudanden uppdateras om {timeLeft}min</div>
+          <div style={{ fontSize: 11, color: 'var(--t3)' }}>50% rabatt · Begränsad mängd!</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {available.map(o => {
+            const isBought = purchased.includes(o.id)
+            const canAfford = o.currency === 'coins' ? pet.coins >= o.salePrice : pet.kc >= o.salePrice
+            return (
+              <div key={o.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: isBought ? 'rgba(74,222,128,.06)' : 'rgba(255,68,68,.08)', border: `1px solid ${isBought ? 'rgba(74,222,128,.3)' : 'rgba(255,68,68,.25)'}`, borderRadius: 14 }}>
+                <div style={{ fontSize: 28 }}>{o.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{o.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{o.desc}</div>
+                  <div style={{ fontSize: 10, marginTop: 2 }}>
+                    <span style={{ color: '#888', textDecoration: 'line-through' }}>{o.origPrice}{o.currency === 'kc' ? '💎' : '🪙'}</span>
+                    <span style={{ color: '#f87171', fontWeight: 900, marginLeft: 6 }}>{o.salePrice}{o.currency === 'kc' ? '💎' : '🪙'}</span>
+                    <span style={{ color: '#4ade80', fontSize: 10, marginLeft: 6 }}>-50%</span>
+                  </div>
+                </div>
+                {isBought ? (
+                  <div style={{ fontSize: 12, color: '#4ade80' }}>✓ Köpt</div>
+                ) : (
+                  <button
+                    className="btn-primary"
+                    style={{ padding: '8px 12px', fontSize: 12, opacity: canAfford ? 1 : 0.4 }}
+                    disabled={!canAfford}
+                    onClick={() => buy(o)}
+                  >
+                    Köp
+                  </button>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Gift Shop panel ─────────────────────────────────────────────────────────
+  if (panel === 'giftshop') {
+    const GIFTS = [
+      { id: 'g1', emoji: '🌈', name: 'Regnbåge-aura', desc: 'Exklusiv aura (équivalent 350🪙 värde)', price: 25, type: 'aura' as const, itemId: 'aura_rainbow' },
+      { id: 'g2', emoji: '🐉', name: 'Dragon-skin', desc: 'Sällsynt drakskin', price: 100, type: 'skin' as const, itemId: 'kc_dragon' },
+      { id: 'g3', emoji: '🌟', name: 'Mega XP Explosion', desc: '+3000 XP direkt', price: 50, type: 'xp' as const, xp: 3000 },
+      { id: 'g4', emoji: '🪙', name: 'Mynt Geyser', desc: '+5000 mynt', price: 40, type: 'coins' as const, coins: 5000 },
+      { id: 'g5', emoji: '🛡️', name: 'Streak Shield x5', desc: 'Skyddar streaken 5 dagar', price: 15, type: 'shield' as const, shields: 5 },
+      { id: 'g6', emoji: '🎭', name: 'Mystisk Kista', desc: 'Slumpmässig sällsynt belöning', price: 10, type: 'mystery' as const },
+      { id: 'g7', emoji: '🔮', name: 'XP × 2 boost', desc: '2× XP i 1 timme', price: 10, type: 'boost' as const },
+      { id: 'g8', emoji: '💖', name: 'Full Återhämtning', desc: 'Alla stats → 100', price: 15, type: 'revive' as const },
+    ]
+    const buy = (g: typeof GIFTS[0]) => {
+      if (pet.kc < g.price) { showToast('Inte tillräckligt med KC!', 'error'); return }
+      if (!spendKC(g.price)) return
+      if (g.type === 'xp') gainXP(g.xp ?? 0, 'giftshop')
+      if (g.type === 'coins') gainCoins(g.coins ?? 0)
+      if (g.type === 'revive') { setStat('mood', 100); setStat('energy', 100); setStat('hunger', 100) }
+      if (g.type === 'mystery') {
+        const r = Math.random()
+        if (r < 0.3) { gainCoins(2000); showToast('🎭 Mysterium: +2000🪙!', 'success') }
+        else if (r < 0.6) { gainXP(1000, 'giftshop'); showToast('🎭 Mysterium: +1000 XP!', 'success') }
+        else if (r < 0.85) { gainKC(20); showToast('🎭 Mysterium: +20 KC!', 'success') }
+        else { gainKC(100); showToast('🎭 JACKPOT! +100 KC!!!', 'success'); triggerConfetti() }
+        audio.achievement()
+        return
+      }
+      showToast(`🎁 ${g.name} aktiverad!`, 'success')
+      audio.achievement()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🎁 Presentbutik</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>
+          Exklusiva gåvor för KC · Ditt KC: {pet.kc}💎
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {GIFTS.map(g => (
+            <div key={g.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.04)', borderRadius: 14, border: '1px solid rgba(255,255,255,.08)' }}>
+              <div style={{ fontSize: 28 }}>{g.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{g.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)' }}>{g.desc}</div>
+              </div>
+              <button
+                className="btn-gold"
+                style={{ padding: '8px 12px', fontSize: 12, opacity: pet.kc >= g.price ? 1 : 0.4 }}
+                disabled={pet.kc < g.price}
+                onClick={() => buy(g)}
+              >
+                {g.price}💎
+              </button>
             </div>
           ))}
         </div>
