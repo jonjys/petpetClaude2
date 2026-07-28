@@ -39,8 +39,10 @@ import { TriviaBlitzGame } from './TriviaBlitzGame'
 import { CatchFrenzyGame } from './CatchFrenzyGame'
 import { MinesweeperGame } from './MinesweeperGame'
 import { RhythmTapGame } from './RhythmTapGame'
+import { SudokuGame } from './SudokuGame'
+import { PetRaceGame } from './PetRaceGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -77,6 +79,8 @@ const GAMES = [
   { id: 'catch' as const, emoji: '🍎', name: 'Fångst Frenzy', desc: 'Fånga frukter, undvik bomber', reward: '🪙0-300', hot: false },
   { id: 'minesweeper' as const, emoji: '💣', name: 'Minröjning', desc: 'Klassisk minsökning 8×8', reward: '🪙100-500', hot: true },
   { id: 'rhythm' as const, emoji: '🥁', name: 'Rhythm Tap', desc: 'Tryck i takt med rytmen', reward: '🪙0-400', hot: false },
+  { id: 'sudoku' as const, emoji: '🔢', name: 'Sudoku', desc: 'Klassisk sifferpussel 9×9', reward: '🪙200-800', hot: true },
+  { id: 'race' as const, emoji: '🏁', name: 'Husdjursrace', desc: 'Tryck snabbt & vinn loppet', reward: '🪙50-400', hot: true },
 ]
 
 function weekKey() {
@@ -201,6 +205,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'catch') return <CatchFrenzyGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'minesweeper') return <MinesweeperGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'rhythm') return <RhythmTapGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'sudoku') return <SudokuGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'race') return <PetRaceGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
 
   return (
     <>

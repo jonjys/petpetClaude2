@@ -309,6 +309,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'stickers', emoji: '🌟', label: 'Klistermärken', desc: 'Samla & visa klistermärken' },
   { id: 'gifting', emoji: '🎀', label: 'Gåvor', desc: 'Skicka gåvor till vänner' },
   { id: 'pethome', emoji: '🏠', label: 'Husdjurshus', desc: 'Bygg & dekorera hemmet' },
+  { id: 'potions', emoji: '🧪', label: 'Bryggeriet', desc: 'Brygga mäktiga drycker' },
+  { id: 'arena2', emoji: '🏟️', label: 'Grand Arena', desc: 'Avancerat PvP-läge' },
+  { id: 'cosmetics', emoji: '💅', label: 'Kosmetika', desc: 'Se alla upplåsta utseenden' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
