@@ -20,8 +20,10 @@ import { WhackMoleGame } from './WhackMoleGame'
 import { QuizGame } from './QuizGame'
 import { ArenaGame } from './ArenaGame'
 import { DungeonGame } from './DungeonGame'
+import { BubblePopGame } from './BubblePopGame'
+import { WordScrambleGame } from './WordScrambleGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -39,6 +41,8 @@ const GAMES = [
   { id: 'snake' as const, emoji: '🐍', name: 'Snake', desc: 'Klassiskt', reward: '🪙5-50', hot: false },
   { id: 'memory' as const, emoji: '🃏', name: 'Minne', desc: 'Para ihop kort', reward: '🪙10-30', hot: false },
   { id: 'reaction' as const, emoji: '⚡', name: 'Reaktion', desc: 'Hur snabb?', reward: '🪙5-25', hot: false },
+  { id: 'bubble' as const, emoji: '🫧', name: 'Bubblor', desc: 'Poppa bubblor!', reward: '🪙0-80', hot: false },
+  { id: 'word' as const, emoji: '📝', name: 'Ordvrak', desc: 'Avkoda bokstäver', reward: '🪙0-150', hot: false },
 ]
 
 function weekKey() {
@@ -144,6 +148,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'quiz') return <QuizGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'arena') return <ArenaGame onExit={() => setActiveGame(null)} onWin={(c, xp) => { handleBattleWin(c, xp) }} petEmoji={petEmoji} />
   if (activeGame === 'dungeon') return <DungeonGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
+  if (activeGame === 'bubble') return <BubblePopGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'word') return <WordScrambleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
