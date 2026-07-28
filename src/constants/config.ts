@@ -264,6 +264,12 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'leaderboard', emoji: '🏅', label: 'Topplista', desc: 'Se rankningen' },
   { id: 'quests', emoji: '📋', label: 'Dagliga Quests', desc: 'Klara uppdrag' },
   { id: 'records', emoji: '📊', label: 'Rekord', desc: 'Dina personliga rekord' },
+  { id: 'prestigehall', emoji: '🔱', label: 'Prestige Hall', desc: 'Prestige & legendariska belöningar' },
+  { id: 'clan', emoji: '🛡️', label: 'Klanen', desc: 'Gå med i ett klan' },
+  { id: 'lottery', emoji: '🎟️', label: 'Lotteriet', desc: 'Daglig chans på storvinst' },
+  { id: 'spa', emoji: '🛁', label: 'Pet Spa', desc: 'Pamper ditt husdjur' },
+  { id: 'challenges', emoji: '🎯', label: 'Utmaningar', desc: 'Svåra dagliga uppdrag' },
+  { id: 'traits', emoji: '🧬', label: 'Traits', desc: 'Passiva bonus-egenskaper' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────

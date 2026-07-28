@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -27,6 +27,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   dnalab: 'purple', bank: 'gold', worldboss: 'red', petjournal: 'blue',
   tournament: 'gold', companion: 'green', auction: 'purple',
   prestigehall: 'gold', clan: 'blue', lottery: 'purple',
+  spa: 'pink', challenges: 'red', traits: 'purple',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -52,6 +53,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   prestigehall:{ label: 'NY',   color: 'var(--gold)'   },
   clan:       { label: 'NY',     color: 'var(--blue)'   },
   lottery:    { label: 'DAGLIG', color: 'var(--purple)' },
+  spa:        { label: 'NY',     color: 'var(--pink)'   },
+  challenges: { label: 'NYA',   color: 'var(--red)'    },
+  traits:     { label: 'NY',     color: 'var(--purple)' },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -2589,6 +2593,222 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               <span>{Math.round(p.chance * 100)}%</span>
             </div>
           ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Pet Spa panel ───────────────────────────────────────────────────────────
+  if (panel === 'spa') {
+    const SPA_TREATMENTS = [
+      { id: 'bubblebath', emoji: '🛁', name: 'Bubbelbad', desc: '+40 humör +20 energi', cost: 80, currency: 'coins' as const, mood: 40, energy: 20, hunger: 0 },
+      { id: 'massage', emoji: '💆', name: 'Massage', desc: '+50 energi +20 humör', cost: 120, currency: 'coins' as const, mood: 20, energy: 50, hunger: 0 },
+      { id: 'grooming', emoji: '✂️', name: 'Grooming', desc: '+30 humör +30 mat', cost: 100, currency: 'coins' as const, mood: 30, energy: 0, hunger: 30 },
+      { id: 'aromatherapy', emoji: '🌸', name: 'Aromaterapi', desc: '+60 humör', cost: 150, currency: 'coins' as const, mood: 60, energy: 0, hunger: 0 },
+      { id: 'fullspa', emoji: '💎', name: 'Full Spa-dag', desc: 'Alla stats +80', cost: 300, currency: 'coins' as const, mood: 80, energy: 80, hunger: 80 },
+      { id: 'kcspa', emoji: '🌟', name: 'Lyxspa', desc: '+200 XP + alla stats max', cost: 15, currency: 'kc' as const, mood: 100, energy: 100, hunger: 100 },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🛁 Pet Spa</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 12 }}>Pamper ditt husdjur med lyxiga behandlingar!</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {SPA_TREATMENTS.map(t => {
+            const canAfford = t.currency === 'coins' ? pet.coins >= t.cost : pet.kc >= t.cost
+            return (
+              <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.04)', borderRadius: 14, border: '1px solid rgba(255,255,255,.08)' }}>
+                <div style={{ fontSize: 28 }}>{t.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{t.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{t.desc}</div>
+                </div>
+                <button
+                  className={t.currency === 'kc' ? 'btn-gold' : 'btn-primary'}
+                  style={{ padding: '8px 14px', fontSize: 12, opacity: canAfford ? 1 : 0.4 }}
+                  disabled={!canAfford}
+                  onClick={() => {
+                    if (!canAfford) return
+                    if (t.currency === 'coins') spendCoins(t.cost)
+                    else { if (!spendKC(t.cost)) return }
+                    if (t.mood) setStat('mood', Math.min(100, pet.mood + t.mood))
+                    if (t.energy) setStat('energy', Math.min(100, pet.energy + t.energy))
+                    if (t.hunger) setStat('hunger', Math.min(100, pet.hunger + t.hunger))
+                    if (t.id === 'kcspa') gainXP(200, 'spa')
+                    showToast(`${t.emoji} ${t.name} klar! Ditt husdjur mår jättebra!`, 'success')
+                    audio.coin()
+                  }}
+                >
+                  {t.cost}{t.currency === 'kc' ? '💎' : '🪙'}
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Daily Challenges panel ────────────────────────────────────────────────
+  if (panel === 'challenges') {
+    const today = new Date().toDateString()
+    const storedChallenges = (() => {
+      try {
+        const s = localStorage.getItem('k0509_challenges')
+        if (!s) return null
+        const parsed = JSON.parse(s)
+        return parsed.date === today ? parsed : null
+      } catch { return null }
+    })()
+    const CHALLENGE_POOL = [
+      { id: 'taps300', emoji: '👆', name: 'Tryck 300 gånger', desc: 'Peka på husdjuret 300 ggr idag', reward: '250🪙 + 15KC', coins: 250, kc: 15, xp: 200 },
+      { id: 'win5games', emoji: '🎮', name: 'Vinn 5 spel', desc: 'Klara 5 minigames med belöning', reward: '200🪙 + 10KC', coins: 200, kc: 10, xp: 150 },
+      { id: 'streak3', emoji: '🔥', name: '3 dagars streak', desc: 'Ha minst 3 dagars streak', reward: '300🪙 + 20KC', coins: 300, kc: 20, xp: 300 },
+      { id: 'fish5', emoji: '🎣', name: 'Fånga 5 fiskar', desc: 'Fiska tills du har 5 fiskar totalt', reward: '150🪙 + 8KC', coins: 150, kc: 8, xp: 120 },
+      { id: 'lvlcheck', emoji: '⭐', name: 'Var nivå 5+', desc: 'Ha din husdjur på nivå 5 eller högre', reward: '100🪙 + 5KC', coins: 100, kc: 5, xp: 80 },
+      { id: 'coins500', emoji: '💰', name: 'Tjäna 500 mynt', desc: 'Spela spel och tjäna 500 mynt', reward: '180🪙 + 10KC', coins: 180, kc: 10, xp: 150 },
+    ]
+    const dayOfYear = Math.floor(Date.now() / 86400000)
+    const selected = [
+      CHALLENGE_POOL[dayOfYear % CHALLENGE_POOL.length],
+      CHALLENGE_POOL[(dayOfYear + 2) % CHALLENGE_POOL.length],
+      CHALLENGE_POOL[(dayOfYear + 4) % CHALLENGE_POOL.length],
+    ]
+    const claimed: string[] = storedChallenges?.claimed ?? []
+    const claimChallenge = (id: string, coins: number, kc: number, xp: number) => {
+      const newClaimed = [...claimed, id]
+      localStorage.setItem('k0509_challenges', JSON.stringify({ date: today, claimed: newClaimed }))
+      gainCoins(coins)
+      gainKC(kc)
+      gainXP(xp, 'challenge')
+      showToast(`🎯 Utmaning klar! +${coins}🪙 +${kc}💎`, 'success')
+      triggerConfetti()
+      audio.achievement()
+    }
+    const checkMet = (id: string) => {
+      if (id === 'taps300') return pet.totalTaps >= 300
+      if (id === 'win5games') return pet.battleWins >= 5
+      if (id === 'streak3') return pet.streak >= 3
+      if (id === 'fish5') return pet.fishCaught >= 5
+      if (id === 'lvlcheck') return pet.level >= 5
+      if (id === 'coins500') return pet.coins >= 500
+      return false
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🎯 Dagliga Utmaningar</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>Svårare utmaningar med större belöningar · Återställs varje dag</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {selected.map(ch => {
+            const done = claimed.includes(ch.id)
+            const met = checkMet(ch.id)
+            return (
+              <div key={ch.id} style={{ padding: '14px 16px', background: done ? 'rgba(74,222,128,.08)' : 'rgba(255,255,255,.04)', border: `1px solid ${done ? 'rgba(74,222,128,.3)' : 'rgba(255,255,255,.1)'}`, borderRadius: 16 }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                  <div style={{ fontSize: 28 }}>{ch.emoji}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 700, fontSize: 14, color: done ? '#4ade80' : '#e8e8f0' }}>{ch.name}</div>
+                    <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{ch.desc}</div>
+                    <div style={{ fontSize: 11, color: '#fbbf24', marginTop: 4 }}>Belöning: {ch.reward}</div>
+                  </div>
+                  {done ? (
+                    <div style={{ fontSize: 20 }}>✅</div>
+                  ) : (
+                    <button
+                      className="btn-primary"
+                      style={{ padding: '8px 14px', fontSize: 12, opacity: met ? 1 : 0.4 }}
+                      disabled={!met}
+                      onClick={() => claimChallenge(ch.id, ch.coins, ch.kc, ch.xp)}
+                    >
+                      Hämta
+                    </button>
+                  )}
+                </div>
+                {!done && <div style={{ marginTop: 8, height: 4, background: 'rgba(255,255,255,.06)', borderRadius: 2 }}>
+                  <div style={{ height: '100%', width: met ? '100%' : '30%', background: met ? '#4ade80' : '#fbbf24', borderRadius: 2, transition: 'width .4s' }} />
+                </div>}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Traits panel ─────────────────────────────────────────────────────────
+  if (panel === 'traits') {
+    const TRAITS = [
+      { id: 'swift', emoji: '⚡', name: 'Snabb', desc: '+15% XP från spel', rarity: 'common', cost: 200, costType: 'coins' as const },
+      { id: 'lucky', emoji: '🍀', name: 'Lycklig', desc: '+20% chans på rare fisk', rarity: 'uncommon', cost: 500, costType: 'coins' as const },
+      { id: 'strong', emoji: '💪', name: 'Stark', desc: '+25% skada i strider', rarity: 'uncommon', cost: 600, costType: 'coins' as const },
+      { id: 'wise', emoji: '📚', name: 'Vis', desc: '+20% XP från quiz', rarity: 'rare', cost: 30, costType: 'kc' as const },
+      { id: 'golden', emoji: '✨', name: 'Gyllene', desc: '+10% alla mynt-belöningar', rarity: 'rare', cost: 40, costType: 'kc' as const },
+      { id: 'cosmic', emoji: '🌌', name: 'Kosmisk', desc: '+30% XP i alla aktiviteter', rarity: 'legendary', cost: 100, costType: 'kc' as const },
+    ]
+    const rarityColors: Record<string, string> = { common: '#888', uncommon: '#4ade80', rare: '#60a5fa', legendary: '#fbbf24' }
+    const owned: string[] = (() => {
+      try { return JSON.parse(localStorage.getItem('k0509_traits') ?? '[]') } catch { return [] }
+    })()
+    const active: string[] = (() => {
+      try { return JSON.parse(localStorage.getItem('k0509_traits_active') ?? '[]') } catch { return [] }
+    })()
+    const buyTrait = (id: string, cost: number, costType: 'coins' | 'kc') => {
+      if (owned.includes(id)) return
+      if (costType === 'coins') { if (!spendCoins(cost)) return }
+      else { if (!spendKC(cost)) return }
+      const newOwned = [...owned, id]
+      localStorage.setItem('k0509_traits', JSON.stringify(newOwned))
+      showToast('✨ Trait upplåst!', 'success')
+      audio.achievement()
+    }
+    const toggleTrait = (id: string) => {
+      let next = active.includes(id) ? active.filter(a => a !== id) : active.length >= 3 ? active : [...active, id]
+      localStorage.setItem('k0509_traits_active', JSON.stringify(next))
+      audio.click()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🧬 Traits</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 4 }}>Upp till 3 aktiva traits · Passiva bonusar</div>
+        <div style={{ fontSize: 11, color: '#fbbf24', textAlign: 'center', marginBottom: 14 }}>Aktiva: {active.length}/3</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {TRAITS.map(t => {
+            const isOwned = owned.includes(t.id)
+            const isActive = active.includes(t.id)
+            const canAfford = t.costType === 'coins' ? pet.coins >= t.cost : pet.kc >= t.cost
+            return (
+              <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: isActive ? 'rgba(168,85,247,.1)' : 'rgba(255,255,255,.04)', borderRadius: 14, border: `1px solid ${isActive ? 'rgba(168,85,247,.4)' : 'rgba(255,255,255,.08)'}` }}>
+                <div style={{ fontSize: 26 }}>{t.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{t.name}</span>
+                    <span style={{ fontSize: 9, fontWeight: 900, color: rarityColors[t.rarity], textTransform: 'uppercase' }}>{t.rarity}</span>
+                  </div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{t.desc}</div>
+                </div>
+                {isOwned ? (
+                  <button
+                    className={isActive ? 'btn-gold' : 'btn-ghost'}
+                    style={{ padding: '8px 12px', fontSize: 12 }}
+                    onClick={() => toggleTrait(t.id)}
+                  >
+                    {isActive ? '✓ Aktiv' : 'Aktivera'}
+                  </button>
+                ) : (
+                  <button
+                    className="btn-primary"
+                    style={{ padding: '8px 12px', fontSize: 12, opacity: canAfford ? 1 : 0.4 }}
+                    disabled={!canAfford}
+                    onClick={() => buyTrait(t.id, t.cost, t.costType)}
+                  >
+                    {t.cost}{t.costType === 'kc' ? '💎' : '🪙'}
+                  </button>
+                )}
+              </div>
+            )
+          })}
         </div>
       </div>
     )
