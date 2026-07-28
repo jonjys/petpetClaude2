@@ -297,6 +297,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petcare', emoji: '🩺', label: 'Husdjursvård', desc: 'Daglig vård & hälsostatus' },
   { id: 'flashsale', emoji: '⚡', label: 'Flash Sale', desc: 'Tidsbegränsade erbjudanden' },
   { id: 'giftshop', emoji: '🎁', label: 'Presentbutik', desc: 'Exklusiva KC-gåvor' },
+  { id: 'milestones', emoji: '🏁', label: 'Milstolpar', desc: 'Livsmålande milstolpar' },
+  { id: 'seasonal', emoji: '🌸', label: 'Säsongspass', desc: 'Säsongens specialuppdrag' },
+  { id: 'trading', emoji: '🔄', label: 'Handelspost', desc: 'Köp & sälj föremål' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
