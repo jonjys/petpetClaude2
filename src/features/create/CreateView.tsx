@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -38,6 +38,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   potions: 'purple', arena2: 'red', cosmetics: 'pink',
   garden: 'green', rescue: 'blue', stats: 'gold',
   leaguetable: 'gold', badges: 'purple', wishlist: 'blue',
+  meditation: 'blue', petdiary: 'purple', petshowcase: 'gold',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -95,6 +96,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   leaguetable:{ label: 'LIVE',   color: 'var(--gold)'   },
   badges:     { label: 'NY',     color: 'var(--purple)' },
   wishlist:   { label: 'NY',     color: 'var(--blue)'   },
+  meditation: { label: 'DAGLIG', color: 'var(--blue)'   },
+  petdiary:   { label: 'NY',     color: 'var(--purple)' },
+  petshowcase:{ label: 'NY',     color: 'var(--gold)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -4551,6 +4555,169 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               </div>
             )
           })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Meditation ─────────────────────────────────────────────────────────────
+  if (panel === 'meditation') {
+    const [medState, setMedState] = useState<'idle' | 'breathing' | 'done'>('idle')
+    const [breathCount, setBreathCount] = useState(0)
+    const BREATHS = 5
+    const startMed = () => { setMedState('breathing'); setBreathCount(0) }
+    const doBreath = () => {
+      const next = breathCount + 1
+      setBreathCount(next)
+      audio.tap()
+      if (next >= BREATHS) {
+        setMedState('done')
+        gainXP(30, 'game')
+        setStat('mood', Math.min(100, pet.mood + 20))
+        setStat('energy', Math.min(100, pet.energy + 10))
+        showToast('🧘 Meditation klar! +20 humör +10 energi', 'success')
+      }
+    }
+    const medKey = `k0509_med_${new Date().toDateString()}`
+    const alreadyDone = !!localStorage.getItem(medKey)
+    if (medState === 'done' && !alreadyDone) localStorage.setItem(medKey, '1')
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🧘 Meditation</div>
+        <div className={styles.panelNote}>Lugna ner husdjuret & boosta humör</div>
+        <div style={{ textAlign: 'center', padding: '20px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+          {medState === 'idle' && (
+            <>
+              <div style={{ fontSize: 64 }}>🧘</div>
+              <div style={{ fontSize: 13, color: 'var(--t3)', maxWidth: 240, lineHeight: 1.6 }}>
+                Andas djupt {BREATHS} gånger för att lugna ditt husdjur.<br />
+                Bonus: +20 humör, +10 energi, +30 XP
+              </div>
+              {alreadyDone && <div style={{ fontSize: 12, color: '#fbbf24' }}>✓ Redan mediterat idag</div>}
+              <button className="btn-primary" style={{ padding: '14px 32px', fontSize: 16 }} onClick={startMed}>Börja meditera</button>
+            </>
+          )}
+          {medState === 'breathing' && (
+            <>
+              <div style={{ fontSize: 64, animation: 'pulse 2s ease-in-out infinite' }}>🫁</div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: '#60a5fa' }}>
+                Andetag {breathCount}/{BREATHS}
+              </div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                {Array.from({ length: BREATHS }).map((_, i) => (
+                  <div key={i} style={{ width: 12, height: 12, borderRadius: '50%', background: i < breathCount ? '#4ade80' : 'rgba(255,255,255,.15)' }} />
+                ))}
+              </div>
+              <button style={{ padding: '18px 40px', borderRadius: 16, fontSize: 18, fontWeight: 900, background: 'rgba(96,165,250,.2)', border: '2px solid rgba(96,165,250,.4)', color: '#60a5fa', cursor: 'pointer' }} onClick={doBreath}>
+                🫁 Andas in
+              </button>
+            </>
+          )}
+          {medState === 'done' && (
+            <>
+              <div style={{ fontSize: 64 }}>✨</div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 20, fontWeight: 900, color: '#4ade80' }}>Meditationen klar!</div>
+              <div style={{ fontSize: 13, color: 'var(--t3)' }}>+20 humör · +10 energi · +30 XP</div>
+              <button className="btn-primary" style={{ padding: '12px 28px' }} onClick={startMed}>Meditera igen</button>
+            </>
+          )}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 8 }}>
+          {[['😊', 'Humör', pet.mood], ['⚡', 'Energi', pet.energy], ['🍖', 'Hunger', pet.hunger], ['💖', 'Välmående', Math.round((pet.mood + pet.energy) / 2)]].map(([em, label, val]) => (
+            <div key={String(label)} style={{ textAlign: 'center', padding: '10px', background: 'rgba(255,255,255,.04)', borderRadius: 12, border: '1px solid rgba(255,255,255,.06)' }}>
+              <div style={{ fontSize: 22 }}>{em}</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>{label}</div>
+              <div style={{ fontWeight: 900, fontSize: 16, color: Number(val) >= 70 ? '#4ade80' : Number(val) >= 40 ? '#fbbf24' : '#f87171' }}>{Math.round(Number(val))}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Pet Diary ──────────────────────────────────────────────────────────────
+  if (panel === 'petdiary') {
+    const diaryKey = 'k0509_diary_entries'
+    const entries: { date: string; text: string }[] = JSON.parse(localStorage.getItem(diaryKey) ?? '[]')
+    const today = new Date().toLocaleDateString('sv-SE')
+    const autoEntry = `${pet.petEmoji} ${pet.petName} är på nivå ${pet.level} med ${pet.coins}🪙. Humör: ${Math.round(pet.mood)}/100, Energi: ${Math.round(pet.energy)}/100. Totalt ${pet.totalTaps} tryck, ${pet.fishCaught} fiskar fångade, ${pet.battleWins} strider vunna.`
+    const hasToday = entries.some(e => e.date === today)
+    const [diaryEntries, setDiaryEntries] = useState(entries)
+    const addEntry = () => {
+      if (hasToday) return
+      const newEntries = [{ date: today, text: autoEntry }, ...entries].slice(0, 30)
+      localStorage.setItem(diaryKey, JSON.stringify(newEntries))
+      setDiaryEntries(newEntries)
+      gainXP(15, 'game')
+      showToast('📓 Dagboksanteckning sparad! +15 XP', 'success')
+      audio.coin()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>📓 Husdjursdagbok</div>
+        <div className={styles.panelNote}>Automatiska dagliga anteckningar om {pet.petName}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ padding: '12px 14px', background: 'rgba(251,191,36,.08)', border: '1px solid rgba(251,191,36,.2)', borderRadius: 14 }}>
+            <div style={{ fontSize: 12, color: '#fbbf24', fontWeight: 700, marginBottom: 6 }}>📅 Dagens anteckning</div>
+            <div style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.6 }}>{autoEntry}</div>
+            {hasToday
+              ? <div style={{ fontSize: 11, color: '#4ade80', marginTop: 8 }}>✓ Redan sparad idag</div>
+              : <button className="btn-primary" style={{ marginTop: 10, padding: '8px 20px', fontSize: 13 }} onClick={addEntry}>Spara i dagboken</button>
+            }
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 700 }}>Tidigare anteckningar ({diaryEntries.length})</div>
+          {diaryEntries.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '20px', color: 'var(--t3)', fontSize: 13 }}>Inga anteckningar än</div>
+          )}
+          {diaryEntries.map((e, i) => (
+            <div key={i} style={{ padding: '10px 12px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.06)', borderRadius: 12 }}>
+              <div style={{ fontSize: 11, color: '#818cf8', fontWeight: 700, marginBottom: 4 }}>📅 {e.date}</div>
+              <div style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.5 }}>{e.text}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Pet Showcase ───────────────────────────────────────────────────────────
+  if (panel === 'petshowcase') {
+    const bondLabel = ['Okänd', 'Bekant', 'Vän', 'Nära vän', 'Bestis', 'Odelbar'][Math.min(5, pet.bondTier ?? 0)]
+    const prestige = pet.prestigeLevel ?? 0
+    const shareText = `${pet.petEmoji} ${pet.petName} · Nivå ${pet.level} · ${bondLabel} · ${pet.coins}🪙`
+    const [copied, setCopied] = useState(false)
+    const copyShare = () => {
+      navigator.clipboard?.writeText(shareText).catch(() => {})
+      setCopied(true)
+      showToast('📋 Kopierat till urklipp!', 'success')
+      audio.coin()
+      setTimeout(() => setCopied(false), 2000)
+    }
+    const rankBadge = pet.level >= 50 ? '👑 Legendarisk' : pet.level >= 30 ? '💎 Diamant' : pet.level >= 20 ? '🥇 Guld' : pet.level >= 10 ? '🥈 Silver' : '🥉 Brons'
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🌟 Husdjurs-Showcase</div>
+        <div className={styles.panelNote}>Visa upp {pet.petName} för världen</div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+          <div style={{ textAlign: 'center', padding: '20px 16px', background: 'linear-gradient(135deg, rgba(99,102,241,.15), rgba(168,85,247,.1))', border: '2px solid rgba(99,102,241,.3)', borderRadius: 20, width: '100%' }}>
+            <div style={{ fontSize: 72 }}>{pet.petEmoji}</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 22, fontWeight: 900, color: '#fff', marginTop: 8 }}>{pet.petName}</div>
+            <div style={{ fontSize: 13, color: '#818cf8', marginTop: 4 }}>{rankBadge} · Nivå {pet.level}</div>
+            {prestige > 0 && <div style={{ fontSize: 12, color: '#fbbf24', marginTop: 4 }}>✨ Prestige {prestige}</div>}
+            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>{bondLabel} 💕</div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, width: '100%' }}>
+            {[['🪙', 'Mynt', pet.coins], ['⭐', 'XP', pet.bpassXP], ['💎', 'KC', pet.kc], ['⚔️', 'Strider', pet.battleWins], ['🎣', 'Fiskar', pet.fishCaught], ['👆', 'Tryck', pet.totalTaps]].map(([em, label, val]) => (
+              <div key={String(label)} style={{ textAlign: 'center', padding: '8px 4px', background: 'rgba(255,255,255,.04)', borderRadius: 10 }}>
+                <div style={{ fontSize: 20 }}>{em}</div>
+                <div style={{ fontSize: 10, color: 'var(--t3)' }}>{label}</div>
+                <div style={{ fontWeight: 900, fontSize: 14, color: '#e8e8f0' }}>{Number(val).toLocaleString()}</div>
+              </div>
+            ))}
+          </div>
+          <button onClick={copyShare} style={{ padding: '12px 28px', borderRadius: 12, fontSize: 14, fontWeight: 900, background: copied ? 'rgba(74,222,128,.2)' : 'rgba(99,102,241,.15)', border: `1px solid ${copied ? 'rgba(74,222,128,.4)' : 'rgba(99,102,241,.3)'}`, color: copied ? '#4ade80' : '#818cf8', cursor: 'pointer', width: '100%' }}>
+            {copied ? '✓ Kopierat!' : '📋 Dela ditt husdjur'}
+          </button>
         </div>
       </div>
     )

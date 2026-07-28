@@ -45,8 +45,10 @@ import { TowerDefenseGame } from './TowerDefenseGame'
 import { SlotMachineGame } from './SlotMachineGame'
 import { PinballGame } from './PinballGame'
 import { TypingSpeedGame } from './TypingSpeedGame'
+import { BrickBreakerGame } from './BrickBreakerGame'
+import { SlidingPuzzleGame } from './SlidingPuzzleGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -89,6 +91,8 @@ const GAMES = [
   { id: 'slots' as const, emoji: '🎰', name: 'Slots', desc: 'Snurra hjulen — tre lika vinner!', reward: '🪙0-10000', hot: true },
   { id: 'pinball' as const, emoji: '🎯', name: 'Pinball', desc: 'Håll bollen uppe med flipprarna', reward: '🪙0-800', hot: false },
   { id: 'typing' as const, emoji: '⌨️', name: 'Skrivhastighet', desc: 'Skriv ord på 60 sekunder', reward: '🪙0-400', hot: false },
+  { id: 'bricks' as const, emoji: '🧱', name: 'Brickbreaker', desc: 'Slå brickor med bollen', reward: '🪙0-500', hot: false },
+  { id: 'slide' as const, emoji: '🧩', name: 'Glidpussel', desc: 'Ordna emoji-brickor 3×3', reward: '🪙10-100', hot: false },
 ]
 
 function weekKey() {
@@ -219,6 +223,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'slots') return <SlotMachineGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} coins={coins} />
   if (activeGame === 'pinball') return <PinballGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'typing') return <TypingSpeedGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'bricks') return <BrickBreakerGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'slide') return <SlidingPuzzleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
