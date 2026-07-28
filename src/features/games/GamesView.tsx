@@ -22,8 +22,9 @@ import { ArenaGame } from './ArenaGame'
 import { DungeonGame } from './DungeonGame'
 import { BubblePopGame } from './BubblePopGame'
 import { WordScrambleGame } from './WordScrambleGame'
+import { ColorMatchGame } from './ColorMatchGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -43,6 +44,7 @@ const GAMES = [
   { id: 'reaction' as const, emoji: '⚡', name: 'Reaktion', desc: 'Hur snabb?', reward: '🪙5-25', hot: false },
   { id: 'bubble' as const, emoji: '🫧', name: 'Bubblor', desc: 'Poppa bubblor!', reward: '🪙0-80', hot: false },
   { id: 'word' as const, emoji: '📝', name: 'Ordvrak', desc: 'Avkoda bokstäver', reward: '🪙0-150', hot: false },
+  { id: 'color' as const, emoji: '🎨', name: 'Färgmatch', desc: 'Stroop-test — testa hjärnan!', reward: '🪙0-60', hot: false },
 ]
 
 function weekKey() {
@@ -150,6 +152,7 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'dungeon') return <DungeonGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
   if (activeGame === 'bubble') return <BubblePopGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'word') return <WordScrambleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'color') return <ColorMatchGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
