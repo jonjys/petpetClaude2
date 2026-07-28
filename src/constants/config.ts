@@ -306,6 +306,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'pvprank', emoji: '🥊', label: 'PvP Rang', desc: 'Din rang bland alla spelare' },
   { id: 'inventory', emoji: '🎒', label: 'Ryggsäck', desc: 'Alla dina ägda föremål' },
   { id: 'events', emoji: '📆', label: 'Händelser', desc: 'Kommande event & bonusar' },
+  { id: 'stickers', emoji: '🌟', label: 'Klistermärken', desc: 'Samla & visa klistermärken' },
+  { id: 'gifting', emoji: '🎀', label: 'Gåvor', desc: 'Skicka gåvor till vänner' },
+  { id: 'pethome', emoji: '🏠', label: 'Husdjurshus', desc: 'Bygg & dekorera hemmet' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────

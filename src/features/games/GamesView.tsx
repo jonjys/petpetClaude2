@@ -37,8 +37,10 @@ import { WordleGame } from './WordleGame'
 import { CardWarGame } from './CardWarGame'
 import { TriviaBlitzGame } from './TriviaBlitzGame'
 import { CatchFrenzyGame } from './CatchFrenzyGame'
+import { MinesweeperGame } from './MinesweeperGame'
+import { RhythmTapGame } from './RhythmTapGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -73,6 +75,8 @@ const GAMES = [
   { id: 'war' as const, emoji: '🃏', name: 'Kortkrig', desc: 'Vänd kort — slå dealern!', reward: '🪙0-210', hot: false },
   { id: 'trivia' as const, emoji: '⚡', name: 'Trivia Blitz', desc: '12 frågor, 5s var — snabba svar!', reward: '🪙0-270', hot: true },
   { id: 'catch' as const, emoji: '🍎', name: 'Fångst Frenzy', desc: 'Fånga frukter, undvik bomber', reward: '🪙0-300', hot: false },
+  { id: 'minesweeper' as const, emoji: '💣', name: 'Minröjning', desc: 'Klassisk minsökning 8×8', reward: '🪙100-500', hot: true },
+  { id: 'rhythm' as const, emoji: '🥁', name: 'Rhythm Tap', desc: 'Tryck i takt med rytmen', reward: '🪙0-400', hot: false },
 ]
 
 function weekKey() {
@@ -195,6 +199,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'war') return <CardWarGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'trivia') return <TriviaBlitzGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'catch') return <CatchFrenzyGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'minesweeper') return <MinesweeperGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'rhythm') return <RhythmTapGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
