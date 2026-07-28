@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -25,6 +25,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   fishpedia: 'blue', checkin: 'green', skilltree: 'green', tarot: 'purple', trophyroom: 'gold',
   mine: 'gold', activitylog: 'blue', farm: 'green', worldevents: 'purple',
   dnalab: 'purple', bank: 'gold', worldboss: 'red', petjournal: 'blue',
+  tournament: 'gold', companion: 'green', auction: 'purple',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -44,6 +45,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   dnalab:     { label: 'NY',     color: 'var(--purple)' },
   bank:       { label: 'NY',     color: 'var(--gold)'   },
   worldboss:  { label: 'LIVE',   color: 'var(--red)'    },
+  tournament: { label: 'LIVE',   color: 'var(--gold)'   },
+  companion:  { label: 'NY',     color: 'var(--green)'  },
+  auction:    { label: 'NY',     color: 'var(--purple)'  },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -2093,6 +2097,230 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               <div style={{ fontSize: 12, color: '#d4d4f0', lineHeight: 1.5 }}>{entry.text}</div>
             </div>
           ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Tournament panel ──────────────────────────────────────────────────────────
+  if (panel === 'tournament') {
+    const TOURNAMENTS = [
+      { id: 't_taps', emoji: '👆', name: 'Pek-Mästerskap', desc: 'Flest pek vinner!', metric: pet.totalTaps, unit: 'pek', prizes: ['500🪙+10💎', '300🪙+5💎', '150🪙+2💎'] },
+      { id: 't_battle', emoji: '⚔️', name: 'Strids-Grand Prix', desc: 'Flest stridsvinster!', metric: pet.battleWins, unit: 'vinster', prizes: ['750🪙+15💎', '400🪙+8💎', '200🪙+3💎'] },
+      { id: 't_fish', emoji: '🎣', name: 'Fiske-SM', desc: 'Flest fiskar fångade!', metric: pet.fishCaught, unit: 'fiskar', prizes: ['600🪙+12💎', '350🪙+6💎', '175🪙+2💎'] },
+    ]
+    const dayOfWeek = new Date().getDay()
+    const activeTournament = TOURNAMENTS[dayOfWeek % TOURNAMENTS.length]
+    const LEADERBOARD = [
+      { name: 'PixelKong99', emoji: '🦍', score: activeTournament.metric * 3 + 1500 },
+      { name: 'StarChaser7', emoji: '⭐', score: activeTournament.metric * 2 + 800 },
+      { name: 'NeonWolf',    emoji: '🐺', score: activeTournament.metric + 300 },
+      { name: 'Du',          emoji: pet.petEmoji, score: activeTournament.metric, isUser: true },
+      { name: 'CryptoFox',   emoji: '🦊', score: Math.max(0, activeTournament.metric - 100) },
+    ].sort((a, b) => b.score - a.score)
+    const userRank = LEADERBOARD.findIndex(e => e.isUser) + 1
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🏆 Turnering</div>
+        <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--t3)', marginBottom: 14 }}>
+          Återställs varje dag kl 00:00
+        </div>
+        <div style={{
+          background: 'rgba(255,204,0,.08)', border: '1px solid rgba(255,204,0,.25)',
+          borderRadius: 16, padding: '14px', marginBottom: 14,
+        }}>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 10 }}>
+            <span style={{ fontSize: 32 }}>{activeTournament.emoji}</span>
+            <div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#fbbf24' }}>{activeTournament.name}</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)' }}>{activeTournament.desc}</div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 6, justifyContent: 'center', flexWrap: 'wrap' }}>
+            {['🥇', '🥈', '🥉'].map((medal, i) => (
+              <div key={i} style={{ fontSize: 10, color: i === 0 ? '#fbbf24' : i === 1 ? '#ccc' : '#cd7f32', background: 'rgba(255,255,255,.05)', borderRadius: 8, padding: '4px 8px' }}>
+                {medal} {activeTournament.prizes[i]}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {LEADERBOARD.map((entry, i) => (
+            <div key={entry.name} style={{
+              display: 'flex', gap: 10, padding: '10px 12px', borderRadius: 12, alignItems: 'center',
+              background: entry.isUser ? 'rgba(0,240,255,.08)' : 'rgba(255,255,255,.03)',
+              border: `1px solid ${entry.isUser ? 'rgba(0,240,255,.3)' : 'rgba(255,255,255,.07)'}`,
+            }}>
+              <div style={{ fontSize: 14, fontWeight: 900, color: i === 0 ? '#fbbf24' : i === 1 ? '#ccc' : i === 2 ? '#cd7f32' : '#555', width: 20, textAlign: 'center' }}>
+                {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i + 1}`}
+              </div>
+              <span style={{ fontSize: 20 }}>{entry.emoji}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: entry.isUser ? '#00f0ff' : '#fff' }}>{entry.name}</div>
+                <div style={{ fontSize: 10, color: 'var(--t3)' }}>{entry.score.toLocaleString()} {activeTournament.unit}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ textAlign: 'center', padding: '12px 0 0', fontSize: 12, color: userRank <= 3 ? '#4ade80' : 'var(--t3)', fontWeight: userRank <= 3 ? 900 : 400 }}>
+          Din placering: #{userRank} {userRank <= 3 ? '🏆 Du är i pris-zononen!' : '— fortsätt för att ta dig in i topp 3!'}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Companion panel ───────────────────────────────────────────────────────────
+  if (panel === 'companion') {
+    const COMPANIONS = [
+      { id: 'c_mini',    emoji: '🐣', name: 'Mini-Klon',   cost: 200, bonus: '+5% XP från alla aktiviteter',  kc: 0 },
+      { id: 'c_dragon',  emoji: '🐉', name: 'Drake-Unge',  cost: 500, bonus: '+10% Mynt från alla källor',    kc: 0 },
+      { id: 'c_star',    emoji: '⭐', name: 'Stjärn-Väktare', cost: 0, bonus: '+3% Alla stats',              kc: 15 },
+      { id: 'c_ghost',   emoji: '👻', name: 'Spök-Hjälpare', cost: 0, bonus: 'Samlar mynt automatiskt +1/min', kc: 25 },
+      { id: 'c_phoenix', emoji: '🦅', name: 'Fenix',         cost: 0, bonus: '+15% XP och skyddar streak',   kc: 50 },
+    ]
+    const ownedKey = 'k0509_companions'
+    const [owned, setOwned] = useState<string[]>(() => JSON.parse(localStorage.getItem(ownedKey) ?? '[]'))
+    const activeKey = 'k0509_active_companion'
+    const [active, setActive] = useState<string>(() => localStorage.getItem(activeKey) ?? '')
+
+    const buyCompanion = (c: (typeof COMPANIONS)[0]) => {
+      if (owned.includes(c.id)) {
+        const newActive = c.id === active ? '' : c.id
+        localStorage.setItem(activeKey, newActive)
+        setActive(newActive)
+        showToast(newActive ? `${c.emoji} ${c.name} aktiverad!` : `${c.emoji} Följeslagare avaktiverad`, 'success')
+        return
+      }
+      if (c.kc > 0) {
+        if (pet.kc < c.kc) { showToast('Inte tillräckligt med KC!', 'error'); return }
+        spendKC(c.kc)
+      } else {
+        if (pet.coins < c.cost) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+        spendCoins(c.cost)
+      }
+      const next = [...owned, c.id]
+      localStorage.setItem(ownedKey, JSON.stringify(next))
+      localStorage.setItem(activeKey, c.id)
+      setOwned(next); setActive(c.id)
+      showToast(`${c.emoji} ${c.name} köpt och aktiverad!`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🐾 Följeslagare</div>
+        <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>
+          Aktivera en följeslagare för passiva bonusar · 💰{pet.coins} · 💎{pet.kc}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {COMPANIONS.map(c => {
+            const isOwned = owned.includes(c.id)
+            const isActive = active === c.id
+            return (
+              <button
+                key={c.id}
+                onClick={() => buyCompanion(c)}
+                style={{
+                  display: 'flex', gap: 12, padding: '12px 14px', borderRadius: 14, textAlign: 'left',
+                  background: isActive ? 'rgba(74,222,128,.1)' : isOwned ? 'rgba(255,255,255,.05)' : 'rgba(255,255,255,.03)',
+                  border: `1px solid ${isActive ? 'rgba(74,222,128,.4)' : isOwned ? 'rgba(255,255,255,.12)' : 'rgba(255,255,255,.06)'}`,
+                  cursor: 'pointer', transition: 'all .15s',
+                }}
+              >
+                <span style={{ fontSize: 32, flexShrink: 0 }}>{c.emoji}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 900, fontSize: 14, color: isActive ? '#4ade80' : '#fff' }}>{c.name}{isActive ? ' ✓ Aktiv' : ''}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{c.bonus}</div>
+                  <div style={{ fontSize: 11, color: '#fbbf24', marginTop: 4 }}>
+                    {isOwned ? (isActive ? 'Klicka för att avaktivera' : 'Klicka för att aktivera') : c.kc > 0 ? `${c.kc}💎 KC` : `${c.cost}🪙`}
+                  </div>
+                </div>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Auction House panel ───────────────────────────────────────────────────────
+  if (panel === 'auction') {
+    const HOUR_MS = 3600000
+    const weekSlot = Math.floor(Date.now() / (HOUR_MS * 6))
+    const AUCTIONS = [
+      { id: 'a1', emoji: '👑', name: 'Legendarisk Krona', desc: '+20% XP bonus', currentBid: 1200 + (weekSlot * 73) % 800, endHours: 3 + (weekSlot % 5) },
+      { id: 'a2', emoji: '🔱', name: 'Gudoms-Sköld', desc: 'Skyddar streaken 3 dagar', currentBid: 2500 + (weekSlot * 37) % 500, endHours: 1 + (weekSlot % 8) },
+      { id: 'a3', emoji: '🌌', name: 'Galaxhud', desc: 'Exklusiv legendarisk skin', currentBid: 4000 + (weekSlot * 53) % 2000, endHours: 5 + (weekSlot % 6) },
+      { id: 'a4', emoji: '🧬', name: 'DNA-Essens', desc: 'Unikt DNA-Lab recept', currentBid: 800 + (weekSlot * 29) % 600, endHours: 2 + (weekSlot % 4) },
+    ]
+    const bidsKey = 'k0509_auction_bids'
+    const [myBids, setMyBids] = useState<Record<string, number>>(() => JSON.parse(localStorage.getItem(bidsKey) ?? '{}'))
+    const [bidInputs, setBidInputs] = useState<Record<string, string>>({})
+
+    const placeBid = (auctionId: string, currentBid: number) => {
+      const input = parseInt(bidInputs[auctionId] ?? '')
+      if (isNaN(input) || input <= currentBid) { showToast(`Bud måste vara högre än ${currentBid}🪙!`, 'error'); return }
+      if (pet.coins < input) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      const next = { ...myBids, [auctionId]: input }
+      localStorage.setItem(bidsKey, JSON.stringify(next))
+      setMyBids(next)
+      setBidInputs(prev => ({ ...prev, [auctionId]: '' }))
+      showToast(`🔨 Bud ${input}🪙 placerat!`, 'success')
+      audio.coin()
+    }
+
+    return (
+      <div className={styles.panelRoot}>
+        <BackBtn />
+        <div className={styles.panelTitle}>🔨 Auktionshuset</div>
+        <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>
+          Bjud på sällsynta föremål! · 💰 {pet.coins} tillgängliga
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {AUCTIONS.map(a => {
+            const myBid = myBids[a.id]
+            const isHighBidder = myBid && myBid > a.currentBid
+            return (
+              <div key={a.id} style={{
+                borderRadius: 16, padding: '14px',
+                background: isHighBidder ? 'rgba(74,222,128,.06)' : 'rgba(255,255,255,.04)',
+                border: `1px solid ${isHighBidder ? 'rgba(74,222,128,.3)' : 'rgba(255,255,255,.1)'}`,
+              }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 10 }}>
+                  <span style={{ fontSize: 32 }}>{a.emoji}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 900, fontSize: 14, color: '#fff' }}>{a.name}</div>
+                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>{a.desc}</div>
+                    <div style={{ fontSize: 10, color: '#f87171' }}>⏰ {a.endHours}h kvar</div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>Nuvarande bud:</span>
+                  <span style={{ fontSize: 14, fontWeight: 900, color: '#fbbf24' }}>{(myBid ?? a.currentBid).toLocaleString()}🪙</span>
+                </div>
+                {isHighBidder ? (
+                  <div style={{ textAlign: 'center', fontSize: 12, color: '#4ade80', fontWeight: 700, padding: '6px 0' }}>✓ Du leder budgivningen!</div>
+                ) : (
+                  <div style={{ display: 'flex', gap: 8 }}>
+                    <input
+                      type="number"
+                      placeholder={`Min ${a.currentBid + 100}🪙`}
+                      value={bidInputs[a.id] ?? ''}
+                      onChange={e => setBidInputs(prev => ({ ...prev, [a.id]: e.target.value }))}
+                      style={{ flex: 1, padding: '8px 10px', borderRadius: 10, background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.15)', color: '#fff', fontSize: 12 }}
+                    />
+                    <button className="btn-primary" style={{ padding: '8px 12px', fontSize: 11 }} onClick={() => placeBid(a.id, a.currentBid)}>Bjud!</button>
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+        <div style={{ textAlign: 'center', padding: '12px 0 0', fontSize: 10, color: '#555' }}>
+          Auktioner roterar var 6:e timme · Vinnare får föremålet direkt
         </div>
       </div>
     )
