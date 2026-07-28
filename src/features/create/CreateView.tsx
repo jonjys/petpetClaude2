@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -32,6 +32,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   bond: 'green', training: 'blue', petcare: 'green',
   flashsale: 'red', giftshop: 'purple',
   milestones: 'gold', seasonal: 'green', trading: 'blue',
+  forge: 'orange', enchant: 'purple', museum: 'gold',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -71,6 +72,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   milestones: { label: 'NY',     color: 'var(--gold)'   },
   seasonal:   { label: 'LIVE',   color: 'var(--green)'  },
   trading:    { label: 'NY',     color: 'var(--blue)'   },
+  forge:      { label: 'NY',     color: 'var(--orange)' },
+  enchant:    { label: 'NY',     color: 'var(--purple)' },
+  museum:     { label: 'NY',     color: 'var(--gold)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -3616,6 +3620,162 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               </div>
             )
           })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Forge ──────────────────────────────────────────────────────────────────
+  if (panel === 'forge') {
+    const FORGE_ITEMS = [
+      { id: 'sword', emoji: '⚔️', name: 'Järnsvärd', desc: '+10% skada i strid', cost: 200, tier: 'common' },
+      { id: 'shield', emoji: '🛡️', name: 'Stålsköld', desc: '+15% försvar', cost: 350, tier: 'uncommon' },
+      { id: 'amulet', emoji: '📿', name: 'Lyckoamuletten', desc: '+10% XP från alla källor', cost: 500, tier: 'rare' },
+      { id: 'staff', emoji: '🪄', name: 'Magistaven', desc: '+20% magi & +5% allt', cost: 800, tier: 'epic' },
+      { id: 'crown', emoji: '👑', name: 'Kungakronan', desc: 'Ultimat prestigenivå-föremål', cost: 1500, tier: 'legendary' },
+    ]
+    const tierColor: Record<string, string> = { common: '#9ca3af', uncommon: '#4ade80', rare: '#818cf8', epic: '#c084fc', legendary: '#fbbf24' }
+    const forged: string[] = JSON.parse(localStorage.getItem('k0509_forged') ?? '[]')
+    const doForge = (item: typeof FORGE_ITEMS[0]) => {
+      if (pet.coins < item.cost) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      if (forged.includes(item.id)) { showToast('Redan smitt!', 'info'); return }
+      spendCoins(item.cost)
+      const next = [...forged, item.id]
+      localStorage.setItem('k0509_forged', JSON.stringify(next))
+      gainXP(80, 'forge')
+      showToast(`⚒️ ${item.name} smitt!`, 'success')
+      pushNotif('⚒️', `${item.name} är nu ditt!`)
+      triggerConfetti()
+      audio.achievement()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>⚒️ Smedjan</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>
+          Smid mäktiga föremål · 🪙{pet.coins} tillgängliga
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {FORGE_ITEMS.map(item => {
+            const owned = forged.includes(item.id)
+            const canAfford = pet.coins >= item.cost
+            const tc = tierColor[item.tier]
+            return (
+              <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: owned ? 'rgba(251,191,36,.06)' : 'rgba(255,255,255,.04)', border: `1px solid ${owned ? 'rgba(251,191,36,.3)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+                <div style={{ fontSize: 30 }}>{item.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: tc }}>{item.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{item.desc}</div>
+                  <div style={{ fontSize: 10, color: tc, textTransform: 'uppercase', marginTop: 2 }}>{item.tier}</div>
+                </div>
+                {owned ? (
+                  <div style={{ fontSize: 12, color: '#fbbf24', fontWeight: 900 }}>✓ Äger</div>
+                ) : (
+                  <button className="btn-primary" style={{ padding: '8px 12px', fontSize: 12, opacity: canAfford ? 1 : 0.4 }}
+                    disabled={!canAfford} onClick={() => doForge(item)}>
+                    {item.cost}🪙
+                  </button>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Enchant ────────────────────────────────────────────────────────────────
+  if (panel === 'enchant') {
+    const ENCHANTS = [
+      { id: 'speed',    emoji: '💨', name: 'Hastighet',   desc: '+10% XP från spel i 24h',      cost: 50,  dur: 86400000 },
+      { id: 'strength', emoji: '💪', name: 'Styrka',      desc: '+15% stridspower i 24h',        cost: 75,  dur: 86400000 },
+      { id: 'wisdom',   emoji: '🧠', name: 'Visdom',      desc: '+20% XP från alla källor i 24h', cost: 100, dur: 86400000 },
+      { id: 'fortune',  emoji: '🍀', name: 'Lycka',       desc: '+15% mynt från allt i 24h',     cost: 125, dur: 86400000 },
+    ]
+    const now = Date.now()
+    const active: Record<string, number> = JSON.parse(localStorage.getItem('k0509_enchant') ?? '{}')
+    const doEnchant = (e: typeof ENCHANTS[0]) => {
+      if (pet.kc < e.cost) { showToast('Inte tillräckligt med KC!', 'error'); return }
+      if (active[e.id] && active[e.id] > now) { showToast('Redan aktiv!', 'info'); return }
+      spendKC(e.cost)
+      active[e.id] = now + e.dur
+      localStorage.setItem('k0509_enchant', JSON.stringify(active))
+      gainXP(60, 'enchant')
+      showToast(`✨ ${e.name} aktiverad i 24h!`, 'success')
+      audio.achievement()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>✨ Förtrollning</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>
+          Aktiva förtrollningar · 💎{pet.kc} KC
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {ENCHANTS.map(e => {
+            const isActive = active[e.id] && active[e.id] > now
+            const remaining = isActive ? Math.ceil((active[e.id] - now) / 3600000) : 0
+            const canAfford = pet.kc >= e.cost
+            return (
+              <div key={e.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: isActive ? 'rgba(168,85,247,.1)' : 'rgba(255,255,255,.04)', border: `1px solid ${isActive ? 'rgba(168,85,247,.35)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+                <div style={{ fontSize: 30 }}>{e.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: isActive ? '#c084fc' : '#e8e8f0' }}>{e.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{e.desc}</div>
+                  {isActive && <div style={{ fontSize: 10, color: '#c084fc', marginTop: 2 }}>⏱ {remaining}h kvar</div>}
+                </div>
+                {isActive ? (
+                  <div style={{ fontSize: 12, color: '#c084fc', fontWeight: 900 }}>✨ Aktiv</div>
+                ) : (
+                  <button className="btn-gold" style={{ padding: '8px 12px', fontSize: 12, opacity: canAfford ? 1 : 0.4 }}
+                    disabled={!canAfford} onClick={() => doEnchant(e)}>
+                    {e.cost}💎
+                  </button>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Museum ─────────────────────────────────────────────────────────────────
+  if (panel === 'museum') {
+    const forged: string[] = JSON.parse(localStorage.getItem('k0509_forged') ?? '[]')
+    void FISH_TYPES
+    const achCount = unlockedAchievements.length
+    const totalAch = 57
+    const collScore = achCount * 10 + forged.length * 20 + pet.battleWins * 2 + Math.min(pet.fishCaught, 200)
+    const SECTIONS = [
+      { emoji: '🏆', label: 'Prestationer', value: `${achCount}/${totalAch}`, sub: `${Math.round(achCount / totalAch * 100)}% klart` },
+      { emoji: '⚔️', label: 'Stridssegrar', value: String(pet.battleWins), sub: 'totala vinster' },
+      { emoji: '🎣', label: 'Fångade fiskar', value: String(pet.fishCaught), sub: 'totalt' },
+      { emoji: '⚒️', label: 'Smidda föremål', value: `${forged.length}/5`, sub: 'smedjan' },
+      { emoji: '🗺️', label: 'Expeditioner', value: String(pet.expeditionsDone), sub: 'genomförda' },
+      { emoji: '💬', label: 'Inlägg', value: String(pet.postCount), sub: 'i communityn' },
+      { emoji: '⭐', label: 'Nuvarande nivå', value: String(pet.level), sub: `${pet.bpassXP} total XP` },
+      { emoji: '🪙', label: 'Totala tryckar', value: String(pet.totalTaps), sub: 'husdjurstryckar' },
+    ]
+    const tierLabel = collScore >= 1000 ? '🏛️ Museumsmästare' : collScore >= 500 ? '🥇 Samlare' : collScore >= 200 ? '🥈 Nybörjare' : '🥉 Ny'
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🏛️ Museet</div>
+        <div style={{ textAlign: 'center', marginBottom: 14 }}>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 28, fontWeight: 900, color: '#fbbf24' }}>{collScore}</div>
+          <div style={{ fontSize: 12, color: '#fbbf24' }}>{tierLabel}</div>
+          <div style={{ fontSize: 11, color: 'var(--t3)' }}>Samlarpoäng</div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {SECTIONS.map(s => (
+            <div key={s.label} style={{ background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 12, padding: '12px 10px', textAlign: 'center' }}>
+              <div style={{ fontSize: 22 }}>{s.emoji}</div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: '#e8e8f0', marginTop: 4 }}>{s.value}</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)' }}>{s.label}</div>
+              <div style={{ fontSize: 10, color: '#666', marginTop: 2 }}>{s.sub}</div>
+            </div>
+          ))}
         </div>
       </div>
     )
