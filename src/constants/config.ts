@@ -134,6 +134,25 @@ export const ALL_ACHIEVEMENTS: Achievement[] = [
   { id: 'runner1000', title: 'Marathon', emoji: '🏅', description: 'Spring 1000m', rarity: 'legendary', condition: s => s.runnerBest >= 1000, reward: { xp: 2000, kc: 25 } },
   { id: 'fish100', title: 'Fiskegud', emoji: '🐠', description: 'Fånga 100 fiskar', rarity: 'legendary', condition: s => s.fishCaught >= 100, reward: { xp: 2500, kc: 35 } },
   { id: 'coins100000', title: 'Kryptokonung', emoji: '💸', description: 'Tjäna 100 000 mynt', rarity: 'legendary', condition: s => s.totalCoinsEarned >= 100000, reward: { xp: 5000, kc: 50 } },
+  { id: 'lv30', title: 'LV 30 Transcendent', emoji: '🌌', description: 'Nå nivå 30', rarity: 'legendary', condition: s => s.level >= 30, reward: { xp: 10000, kc: 100 } },
+  { id: 'streak100', title: 'Centurion Streak', emoji: '🔥', description: '100 dagars streak', rarity: 'legendary', condition: s => s.streak >= 100, reward: { xp: 5000, kc: 100 } },
+  { id: 'streak60', title: '60 Dagars Streak', emoji: '🔥', description: '60 dagar i rad', rarity: 'rare', condition: s => s.streak >= 60, reward: { xp: 2000, kc: 30 } },
+  { id: 'taps5000', title: 'Pektusare', emoji: '👆', description: '5 000 pek', rarity: 'rare', condition: s => s.totalTaps >= 5000, reward: { xp: 500, kc: 8 } },
+  { id: 'taps100000', title: 'Mega Tap God', emoji: '🌟', description: '100 000 pek', rarity: 'legendary', condition: s => s.totalTaps >= 100000, reward: { xp: 10000, kc: 100 } },
+  { id: 'battle50', title: 'Veteran', emoji: '🛡️', description: 'Vinn 50 strider', rarity: 'rare', condition: s => s.battleWins >= 50, reward: { xp: 1500, kc: 20 } },
+  { id: 'fish25', title: 'Fritidsfiskare', emoji: '🐠', description: 'Fånga 25 fiskar', rarity: 'rare', condition: s => s.fishCaught >= 25, reward: { xp: 500, kc: 8 } },
+  { id: 'kc500', title: 'KC Miljonär', emoji: '💎', description: 'Samla 500 KC', rarity: 'legendary', condition: s => s.kc >= 500, reward: { xp: 3000, kc: 0 } },
+  { id: 'bond2', title: 'Kompis', emoji: '😊', description: 'Nå Bond Tier 2 (Kompis)', rarity: 'uncommon', condition: s => s.bondTier >= 2, reward: { xp: 200, kc: 3 } },
+  { id: 'bond4', title: 'Bästis', emoji: '🫶', description: 'Nå Bond Tier 4 (Bästis)', rarity: 'epic', condition: s => s.bondTier >= 4, reward: { xp: 1000, kc: 15 } },
+  { id: 'prestige3', title: 'Tredubbel Prestige', emoji: '🔱', description: 'Prestige 3 gånger', rarity: 'legendary', condition: s => s.prestigeLevel >= 3, reward: { xp: 5000, kc: 75 } },
+  { id: 'post25', title: 'Flash Megastar', emoji: '⭐', description: 'Publicera 25 inlägg', rarity: 'rare', condition: s => s.postCount >= 25, reward: { xp: 800, kc: 12 } },
+  { id: 'expedition3', title: 'Expeditör', emoji: '🌿', description: 'Klara 3 expeditioner', rarity: 'common', condition: s => s.expeditionsDone >= 3, reward: { xp: 150, kc: 3 } },
+  { id: 'expedition20', title: 'Globetrotter', emoji: '🌐', description: 'Klara 20 expeditioner', rarity: 'epic', condition: s => s.expeditionsDone >= 20, reward: { xp: 2000, kc: 30 } },
+  { id: 'coins10000', title: 'Mynt-samlare', emoji: '🪙', description: 'Tjäna 10 000 mynt', rarity: 'rare', condition: s => s.totalCoinsEarned >= 10000, reward: { xp: 600, kc: 10 } },
+  { id: 'runner250', title: 'Halvmaraton', emoji: '🏃', description: 'Spring 250m', rarity: 'rare', condition: s => s.runnerBest >= 250, reward: { xp: 400, kc: 6 } },
+  { id: 'quest50', title: 'Quest Master', emoji: '📜', description: 'Klara 50 uppdrag', rarity: 'epic', condition: s => s.questsCompleted >= 50, reward: { xp: 1500, kc: 20 } },
+  { id: 'quest100', title: 'Quest Legend', emoji: '🏆', description: 'Klara 100 uppdrag', rarity: 'legendary', condition: s => s.questsCompleted >= 100, reward: { xp: 5000, kc: 50 } },
+  { id: 'lv40', title: 'LV 40 Gudomlig', emoji: '✨', description: 'Nå nivå 40', rarity: 'legendary', condition: s => s.level >= 40, reward: { xp: 20000, kc: 200 } },
 ]
 
 // ── Expeditions ───────────────────────────────────────────────────────────────
@@ -276,6 +295,8 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'bond', emoji: '💚', label: 'Band', desc: 'Din anknytning till husdjuret' },
   { id: 'training', emoji: '💪', label: 'Träning', desc: 'Träna husdjurets förmågor' },
   { id: 'petcare', emoji: '🩺', label: 'Husdjursvård', desc: 'Daglig vård & hälsostatus' },
+  { id: 'flashsale', emoji: '⚡', label: 'Flash Sale', desc: 'Tidsbegränsade erbjudanden' },
+  { id: 'giftshop', emoji: '🎁', label: 'Presentbutik', desc: 'Exklusiva KC-gåvor' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
