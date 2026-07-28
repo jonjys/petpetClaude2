@@ -351,6 +351,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petevolution', emoji: '🔄', label: 'Evolution', desc: 'Husdjurets evolutions och former' },
   { id: 'battlestats', emoji: '📊', label: 'Stridstatistik', desc: 'Detaljerad strid- och kampstatistik' },
   { id: 'itemcollection', emoji: '🗃️', label: 'Samling', desc: 'Galleri över alla samlade föremål' },
+  { id: 'petspirit', emoji: '🔮', label: 'Andedjur', desc: 'Husdjurets andedjur & stjärntecken' },
+  { id: 'moodboard', emoji: '🎨', label: 'Moodboard', desc: 'Visuell inspirationstavla' },
+  { id: 'nightshift', emoji: '🌙', label: 'Nattskift', desc: 'Passiv intjäning medan du sover' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────

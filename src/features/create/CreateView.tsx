@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -49,6 +49,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   petalbum: 'blue', skillpoints: 'orange', socialcenter: 'green',
   weather: 'blue', worldranking: 'gold', petlore: 'purple',
   petevolution: 'green', battlestats: 'orange', itemcollection: 'blue',
+  petspirit: 'purple', moodboard: 'pink', nightshift: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -139,6 +140,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   petevolution:{ label: 'NY',    color: 'var(--green)'  },
   battlestats:{ label: 'NY',     color: 'var(--orange)' },
   itemcollection:{ label: 'NY',  color: 'var(--blue)'   },
+  petspirit:  { label: 'NY',     color: 'var(--purple)' },
+  moodboard:  { label: 'NY',     color: '#f472b6'       },
+  nightshift: { label: 'PASSIV', color: 'var(--blue)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -6248,6 +6252,143 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               <div style={{ fontSize: 9, color: RARITY_COLOR[item.rarity] ?? '#fff', marginTop: 2 }}>{item.rarity}</div>
             </div>
           ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petspirit') {
+    const month = new Date().getMonth()
+    const SPIRITS = [
+      { sign: 'Väduren', emoji: '🐏', dates: 'Mar-Apr', element: 'Eld', power: 'Mod & Ledarskap', spirit: '🦁', spiritName: 'Lejonet' },
+      { sign: 'Oxen', emoji: '🐂', dates: 'Apr-Maj', element: 'Jord', power: 'Uthållighet', spirit: '🐻', spiritName: 'Björnen' },
+      { sign: 'Tvillingarna', emoji: '♊', dates: 'Maj-Jun', element: 'Luft', power: 'Kommunikation', spirit: '🦊', spiritName: 'Räven' },
+      { sign: 'Kräftan', emoji: '🦀', dates: 'Jun-Jul', element: 'Vatten', power: 'Intuition', spirit: '🐬', spiritName: 'Delfinen' },
+      { sign: 'Lejonet', emoji: '♌', dates: 'Jul-Aug', element: 'Eld', power: 'Karisma', spirit: '🦅', spiritName: 'Örnen' },
+      { sign: 'Jungfrun', emoji: '♍', dates: 'Aug-Sep', element: 'Jord', power: 'Precision', spirit: '🦉', spiritName: 'Ugglan' },
+      { sign: 'Vågen', emoji: '⚖️', dates: 'Sep-Okt', element: 'Luft', power: 'Balans', spirit: '🦋', spiritName: 'Fjärilen' },
+      { sign: 'Skorpionen', emoji: '🦂', dates: 'Okt-Nov', element: 'Vatten', power: 'Transformation', spirit: '🐺', spiritName: 'Vargen' },
+      { sign: 'Skytten', emoji: '🏹', dates: 'Nov-Dec', element: 'Eld', power: 'Frihet', spirit: '🦌', spiritName: 'Hjorten' },
+      { sign: 'Stenbocken', emoji: '🐐', dates: 'Dec-Jan', element: 'Jord', power: 'Disciplin', spirit: '🦬', spiritName: 'Bison' },
+      { sign: 'Vattumannen', emoji: '♒', dates: 'Jan-Feb', element: 'Luft', power: 'Innovation', spirit: '🦚', spiritName: 'Påfågeln' },
+      { sign: 'Fiskarna', emoji: '🐟', dates: 'Feb-Mar', element: 'Vatten', power: 'Empati', spirit: '🐋', spiritName: 'Valen' },
+    ]
+    const zodiac = SPIRITS[month]
+    const ELEMENT_COLOR: Record<string, string> = { Eld: '#f87171', Jord: '#4ade80', Luft: '#818cf8', Vatten: '#38bdf8' }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🔮 Andedjur</div>
+        <div className={styles.panelNote}>{zodiac.sign} · {zodiac.dates}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ display: 'flex', gap: 16, padding: 16, background: 'rgba(255,255,255,.03)', borderRadius: 16 }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 52 }}>{zodiac.spirit}</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>Andedjur</div>
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900 }}>{zodiac.spiritName}</div>
+              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>Stjärntecken: {zodiac.sign} {zodiac.emoji}</div>
+              <div style={{ marginTop: 8, display: 'inline-block', padding: '3px 10px', borderRadius: 20, background: `rgba(${ELEMENT_COLOR[zodiac.element] === '#f87171' ? '248,113,113' : ELEMENT_COLOR[zodiac.element] === '#4ade80' ? '74,222,128' : ELEMENT_COLOR[zodiac.element] === '#818cf8' ? '129,140,248' : '56,189,248'},.15)`, border: `1px solid ${ELEMENT_COLOR[zodiac.element]}40`, fontSize: 11, color: ELEMENT_COLOR[zodiac.element] }}>{zodiac.element}selement</div>
+            </div>
+          </div>
+          <div style={{ padding: 14, background: 'rgba(255,255,255,.03)', borderRadius: 14 }}>
+            <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 6 }}>⚡ Superkraft</div>
+            <div style={{ fontSize: 16, fontWeight: 700 }}>{zodiac.power}</div>
+          </div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center' }}>
+            {pet.petName}s andedjur är {zodiac.spiritName} {zodiac.spirit} — en källa till visdom och styrka.
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'moodboard') {
+    const THEMES = [
+      { emoji: '🌅', label: 'Soluppgång', colors: ['#fbbf24', '#f97316', '#ef4444'] },
+      { emoji: '🌊', label: 'Havet', colors: ['#0ea5e9', '#06b6d4', '#3b82f6'] },
+      { emoji: '🌲', label: 'Skogen', colors: ['#4ade80', '#22c55e', '#15803d'] },
+      { emoji: '🌸', label: 'Blomster', colors: ['#f472b6', '#e879f9', '#a855f7'] },
+      { emoji: '🌌', label: 'Natten', colors: ['#312e81', '#4338ca', '#818cf8'] },
+      { emoji: '❄️', label: 'Vintervit', colors: ['#e2e8f0', '#94a3b8', '#64748b'] },
+    ]
+    const MOOD_KEY = 'k0509_mood_theme'
+    const [activeTheme, setActiveTheme] = useState(localStorage.getItem(MOOD_KEY) ?? 'Soluppgång')
+    const pickTheme = (t: typeof THEMES[0]) => {
+      localStorage.setItem(MOOD_KEY, t.label)
+      setActiveTheme(t.label)
+      showToast(`Tema: ${t.emoji} ${t.label}`, 'success')
+      audio.coin()
+    }
+    const current = THEMES.find(t => t.label === activeTheme) ?? THEMES[0]
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🎨 Moodboard</div>
+        <div className={styles.panelNote}>Nuvarande tema: {current.emoji} {current.label}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ height: 80, borderRadius: 14, background: `linear-gradient(135deg, ${current.colors.join(', ')})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40 }}>{current.emoji}</div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+            {THEMES.map(t => (
+              <button key={t.label} onClick={() => pickTheme(t)} style={{ padding: '12px 8px', borderRadius: 12, background: `linear-gradient(135deg, ${t.colors.join(', ')})`, border: `2px solid ${activeTheme === t.label ? '#fff' : 'transparent'}`, cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                <span style={{ fontSize: 24 }}>{t.emoji}</span>
+                <span style={{ fontSize: 10, color: '#fff', fontWeight: 700, textShadow: '0 1px 3px rgba(0,0,0,.5)' }}>{t.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'nightshift') {
+    const LAST_KEY = 'k0509_nightshift_last'
+    const last = Number(localStorage.getItem(LAST_KEY) ?? 0)
+    const now = Date.now()
+    const hoursAway = Math.min(8, (now - last) / (1000 * 60 * 60))
+    const earnedCoins = Math.floor(hoursAway * 30)
+    const earnedXP = Math.floor(hoursAway * 50)
+    const canClaim = hoursAway >= 1
+    const [claimed, setClaimed] = useState(!canClaim && last > 0)
+    const [claimResult, setClaimResult] = useState<{ coins: number; xp: number } | null>(null)
+    const claim = () => {
+      if (!canClaim || claimed) return
+      localStorage.setItem(LAST_KEY, String(now))
+      gainCoins(earnedCoins); gainXP(earnedXP)
+      setClaimResult({ coins: earnedCoins, xp: earnedXP })
+      setClaimed(true)
+      showToast(`Nattskift: +${earnedCoins}🪙 +${earnedXP} XP!`, 'success')
+      audio.achievement(); triggerConfetti()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🌙 Nattskift</div>
+        <div className={styles.panelNote}>Passiv intjäning — upp till 8h per session</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ textAlign: 'center', padding: 20, background: 'rgba(129,140,248,.06)', border: '1px solid rgba(129,140,248,.2)', borderRadius: 16 }}>
+            <div style={{ fontSize: 52 }}>🌙</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 22, fontWeight: 900, color: '#818cf8', marginTop: 8 }}>{hoursAway.toFixed(1)}h borta</div>
+            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>Maximal insamlingstid: 8h</div>
+          </div>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <div style={{ flex: 1, padding: 14, background: 'rgba(251,191,36,.06)', border: '1px solid rgba(251,191,36,.15)', borderRadius: 12, textAlign: 'center' }}>
+              <div style={{ fontSize: 24 }}>🪙</div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 20, fontWeight: 900, color: '#fbbf24' }}>{earnedCoins}</div>
+              <div style={{ fontSize: 10, color: 'var(--t3)' }}>Mynt</div>
+            </div>
+            <div style={{ flex: 1, padding: 14, background: 'rgba(129,140,248,.06)', border: '1px solid rgba(129,140,248,.15)', borderRadius: 12, textAlign: 'center' }}>
+              <div style={{ fontSize: 24 }}>⭐</div>
+              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 20, fontWeight: 900, color: '#818cf8' }}>{earnedXP}</div>
+              <div style={{ fontSize: 10, color: 'var(--t3)' }}>XP</div>
+            </div>
+          </div>
+          {claimResult ? (
+            <div style={{ textAlign: 'center', fontSize: 14, fontWeight: 900, color: '#4ade80' }}>✓ Hämtade +{claimResult.coins}🪙 +{claimResult.xp} XP!</div>
+          ) : (
+            <button className="btn-primary" onClick={claim} disabled={!canClaim} style={{ padding: '14px', fontSize: 15, opacity: canClaim ? 1 : 0.5 }}>
+              {canClaim ? `Hämta nattskift (+${earnedCoins}🪙)` : 'Behöver minst 1 timme borta'}
+            </button>
+          )}
+          <div style={{ fontSize: 11, color: 'var(--t3)', textAlign: 'center' }}>+30🪙 och +50 XP per timme · Max 8h</div>
         </div>
       </div>
     )
