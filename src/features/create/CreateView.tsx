@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -46,6 +46,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   shrine: 'gold', timecapsule: 'purple', constellation: 'blue',
   habitat: 'green', petcoach: 'blue', nextevent: 'orange',
   chronicle: 'purple', rewards: 'gold', petmood: 'green',
+  petalbum: 'blue', skillpoints: 'orange', socialcenter: 'green',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -127,6 +128,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   chronicle:  { label: 'NY',     color: 'var(--purple)' },
   rewards:    { label: 'DAGLIG', color: 'var(--gold)'   },
   petmood:    { label: 'NY',     color: 'var(--green)'  },
+  petalbum:   { label: 'NY',     color: 'var(--blue)'   },
+  skillpoints:{ label: 'NY',     color: 'var(--orange)' },
+  socialcenter:{ label: 'NY',    color: 'var(--green)'  },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -5846,6 +5850,154 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               ))}
             </div>
           )}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petalbum') {
+    const MEMORIES = [
+      { emoji: '🎂', title: 'Skapelsedagen', desc: `${pet.petName} skapades och äventyret börjades!`, unlocked: true },
+      { emoji: '⚔️', title: 'Första striden', desc: 'Modig nog att utmana en vild fiende', unlocked: pet.battleWins >= 1 },
+      { emoji: '🎣', title: 'Fiskedagen', desc: 'Fångade sin första fisk med stolthet', unlocked: pet.fishCaught >= 1 },
+      { emoji: '🌲', title: 'Expedition', desc: 'Ger sig ut på en episk expedition', unlocked: pet.expeditionsDone >= 1 },
+      { emoji: '🔥', title: '7 dagars streak', desc: 'Inloggad 7 dagar i rad — trofasthet!', unlocked: pet.streak >= 7 },
+      { emoji: '💰', title: 'Tusenmiljonären', desc: 'Samlat 1000 mynt', unlocked: pet.coins >= 1000 },
+      { emoji: '⭐', title: 'Nivå 10', desc: 'Nått den imponerande nivå 10', unlocked: pet.level >= 10 },
+      { emoji: '🏆', title: 'Legendstatus', desc: 'Nått nivå 50 — en sann legend', unlocked: pet.level >= 50 },
+    ]
+    const unlocked = MEMORIES.filter(m => m.unlocked)
+    const locked = MEMORIES.filter(m => !m.unlocked)
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>📸 Minnesalbum</div>
+        <div className={styles.panelNote}>{unlocked.length}/{MEMORIES.length} minnen upplåsta</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {unlocked.map((m, i) => (
+            <div key={i} style={{ display: 'flex', gap: 12, padding: '12px 14px', background: 'rgba(129,140,248,.08)', border: '1px solid rgba(129,140,248,.2)', borderRadius: 14 }}>
+              <div style={{ fontSize: 28, flexShrink: 0 }}>{m.emoji}</div>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 13 }}>{m.title}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{m.desc}</div>
+              </div>
+            </div>
+          ))}
+          {locked.length > 0 && (
+            <>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4, fontWeight: 700 }}>🔒 Kommande minnen</div>
+              {locked.map((m, i) => (
+                <div key={i} style={{ display: 'flex', gap: 12, padding: '10px 14px', background: 'rgba(255,255,255,.02)', border: '1px solid rgba(255,255,255,.05)', borderRadius: 12, opacity: 0.5 }}>
+                  <div style={{ fontSize: 24, flexShrink: 0 }}>🔒</div>
+                  <div style={{ fontSize: 12, color: 'var(--t3)', alignSelf: 'center' }}>Fortsätt äventyret för att låsa upp...</div>
+                </div>
+              ))}
+            </>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'skillpoints') {
+    const SP_KEY = 'k0509_skillpts'
+    const ALLOC_KEY = 'k0509_skillalloc'
+    const totalSP = pet.level * 2
+    const rawAlloc = JSON.parse(localStorage.getItem(ALLOC_KEY) ?? '{}') as Record<string, number>
+    const [alloc, setAlloc] = useState<Record<string, number>>(rawAlloc)
+    const spent = Object.values(alloc).reduce((a, b) => a + b, 0)
+    const available = Math.max(0, totalSP - spent)
+    const SKILLS = [
+      { id: 'attack', emoji: '⚔️', label: 'Attack', desc: '+% skada i strider' },
+      { id: 'defense', emoji: '🛡️', label: 'Försvar', desc: '+% liv i strider' },
+      { id: 'luck', emoji: '🍀', label: 'Tur', desc: '+% mynt från spel' },
+      { id: 'speed', emoji: '⚡', label: 'Snabbhet', desc: '+% XP från expeditioner' },
+      { id: 'wisdom', emoji: '🧠', label: 'Visdom', desc: '+% XP generellt' },
+      { id: 'charm', emoji: '💫', label: 'Charm', desc: '+% bond-poäng' },
+    ]
+    const adjust = (id: string, delta: number) => {
+      const cur = alloc[id] ?? 0
+      if (delta > 0 && available <= 0) return
+      if (delta < 0 && cur <= 0) return
+      const newAlloc = { ...alloc, [id]: Math.max(0, cur + delta) }
+      setAlloc(newAlloc)
+      localStorage.setItem(ALLOC_KEY, JSON.stringify(newAlloc))
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🎓 Färdighetspoäng</div>
+        <div className={styles.panelNote}>Tillgängliga: {available} / {totalSP} SP (nivå {pet.level} × 2)</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {SKILLS.map(sk => {
+            const pts = alloc[sk.id] ?? 0
+            return (
+              <div key={sk.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.06)', borderRadius: 12 }}>
+                <span style={{ fontSize: 22, flexShrink: 0 }}>{sk.emoji}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 12 }}>{sk.label} <span style={{ color: '#818cf8' }}>{pts > 0 ? `+${pts * 5}%` : ''}</span></div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)' }}>{sk.desc}</div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <button onClick={() => adjust(sk.id, -1)} style={{ width: 28, height: 28, borderRadius: 8, background: 'rgba(248,113,113,.15)', border: '1px solid rgba(248,113,113,.2)', color: '#f87171', cursor: 'pointer' }}>-</button>
+                  <span style={{ fontFamily: 'var(--ff-head)', fontWeight: 900, minWidth: 20, textAlign: 'center' }}>{pts}</span>
+                  <button onClick={() => adjust(sk.id, 1)} disabled={available <= 0} style={{ width: 28, height: 28, borderRadius: 8, background: 'rgba(74,222,128,.15)', border: '1px solid rgba(74,222,128,.2)', color: '#4ade80', cursor: 'pointer', opacity: available <= 0 ? 0.4 : 1 }}>+</button>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'socialcenter') {
+    const FRIENDS = [
+      { name: 'Björn', emoji: '🐻', level: 12, online: true },
+      { name: 'Luna', emoji: '🦊', level: 8, online: false },
+      { name: 'Kalle', emoji: '🐱', level: 23, online: true },
+      { name: 'Saga', emoji: '🐰', level: 5, online: false },
+      { name: 'Rex', emoji: '🦁', level: 31, online: true },
+    ]
+    const GIFTS = [
+      { emoji: '🍎', label: 'Äpple', cost: 20 },
+      { emoji: '🎁', label: 'Paketet', cost: 50 },
+      { emoji: '💎', label: 'Kristall', cost: 150 },
+      { emoji: '⭐', label: 'Stjärna', cost: 300 },
+    ]
+    const [sentGift, setSentGift] = useState<string | null>(null)
+    const sendGift = (friend: string, gift: typeof GIFTS[0]) => {
+      if (pet.coins < gift.cost) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      spendCoins(gift.cost)
+      gainBond(10)
+      setSentGift(friend)
+      showToast(`Skickade ${gift.emoji} till ${friend}! +10 Bond`, 'success')
+      audio.coin()
+      setTimeout(() => setSentGift(null), 2000)
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🤝 Socialt Center</div>
+        <div className={styles.panelNote}>Skicka gåvor & interagera med vänner</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {FRIENDS.map((f, i) => (
+            <div key={i} style={{ padding: '12px 14px', background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.06)', borderRadius: 14 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                <span style={{ fontSize: 28 }}>{f.emoji}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 13 }}>{f.name} <span style={{ fontSize: 10, color: f.online ? '#4ade80' : 'var(--t3)' }}>● {f.online ? 'Online' : 'Offline'}</span></div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>Nivå {f.level}</div>
+                </div>
+                {sentGift === f.name && <span style={{ fontSize: 18 }}>✉️</span>}
+              </div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                {GIFTS.map(g => (
+                  <button key={g.label} onClick={() => sendGift(f.name, g)} style={{ flex: 1, padding: '6px 4px', borderRadius: 8, background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', cursor: 'pointer', fontSize: 11, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                    <span style={{ fontSize: 16 }}>{g.emoji}</span>
+                    <span style={{ color: '#fbbf24', fontSize: 10 }}>{g.cost}🪙</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     )
