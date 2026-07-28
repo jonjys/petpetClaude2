@@ -57,8 +57,10 @@ import { AnagramGame } from './AnagramGame'
 import { PairMatchGame } from './PairMatchGame'
 import { LightningMathGame } from './LightningMathGame'
 import { EmojiGuesserGame } from './EmojiGuesserGame'
+import { WordChainGame } from './WordChainGame'
+import { StealthGame } from './StealthGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -113,6 +115,8 @@ const GAMES = [
   { id: 'pairmatch' as const, emoji: '🎴', name: 'Para Kort', desc: 'Hitta matchande emoji-par 4×4', reward: '🪙20-200', hot: false },
   { id: 'lmath' as const, emoji: '⚡', name: 'Blixttabell', desc: 'Välj rätt svar! 60s med streak', reward: '🪙0-600', hot: true },
   { id: 'eguess' as const, emoji: '🤔', name: 'Emoji-Gissare', desc: 'Vad föreställer emojis?', reward: '🪙0-400', hot: false },
+  { id: 'wchain' as const, emoji: '🔗', name: 'Ordkedja', desc: 'Bygg ordkedja mot datorn', reward: '🪙0-500', hot: false },
+  { id: 'stealth' as const, emoji: '🕵️', name: 'Smygare', desc: 'Undvik vakter & nå skatten', reward: '🪙0-600', hot: true },
 ]
 
 function weekKey() {
@@ -255,6 +259,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'pairmatch') return <PairMatchGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'lmath') return <LightningMathGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'eguess') return <EmojiGuesserGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'wchain') return <WordChainGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'stealth') return <StealthGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
 
   return (
     <>
