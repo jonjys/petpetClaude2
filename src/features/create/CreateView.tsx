@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -34,6 +34,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   milestones: 'gold', seasonal: 'green', trading: 'blue',
   forge: 'orange', enchant: 'purple', museum: 'gold',
   pvprank: 'red', inventory: 'blue', events: 'purple',
+  stickers: 'gold', gifting: 'pink', pethome: 'green',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -79,6 +80,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   pvprank:    { label: 'LIVE',   color: 'var(--red)'    },
   inventory:  { label: 'NY',     color: 'var(--blue)'   },
   events:     { label: 'NY',     color: 'var(--purple)' },
+  stickers:   { label: 'NY',     color: 'var(--gold)'   },
+  gifting:    { label: 'NY',     color: 'var(--pink)'   },
+  pethome:    { label: 'NY',     color: 'var(--green)'  },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -3931,6 +3935,178 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               <div style={{ fontSize: 10, color: '#818cf8', fontWeight: 700 }}>{e.date}</div>
             </div>
           ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Stickers ───────────────────────────────────────────────────────────────
+  if (panel === 'stickers') {
+    const ALL_STICKERS = [
+      { id: 's1', emoji: '⭐', name: 'Stjärna',      unlock: () => pet.level >= 5 },
+      { id: 's2', emoji: '🔥', name: 'Eldkraft',     unlock: () => pet.totalTaps >= 100 },
+      { id: 's3', emoji: '🎣', name: 'Fiskaren',     unlock: () => pet.fishCaught >= 10 },
+      { id: 's4', emoji: '⚔️', name: 'Krigaren',     unlock: () => pet.battleWins >= 5 },
+      { id: 's5', emoji: '🏆', name: 'Mästaren',     unlock: () => pet.level >= 20 },
+      { id: 's6', emoji: '💎', name: 'Diamant',      unlock: () => pet.kc >= 50 },
+      { id: 's7', emoji: '🌈', name: 'Regnbåge',     unlock: () => pet.streak >= 7 },
+      { id: 's8', emoji: '🚀', name: 'Raket',        unlock: () => pet.expeditionsDone >= 3 },
+      { id: 's9', emoji: '🧠', name: 'Geniet',       unlock: () => unlockedAchievements.length >= 10 },
+      { id: 's10',emoji: '👑', name: 'Kung/Drottning',unlock: () => pet.level >= 50 },
+      { id: 's11',emoji: '🌙', name: 'Nattlig',      unlock: () => new Date().getHours() >= 22 || new Date().getHours() < 6 },
+      { id: 's12',emoji: '🐉', name: 'Drakjägare',   unlock: () => pet.battleWins >= 50 },
+    ]
+    const equippedKey = 'k0509_sticker_equipped'
+    const equipped: string[] = JSON.parse(localStorage.getItem(equippedKey) ?? '[]')
+    const toggleSticker = (id: string) => {
+      const next = equipped.includes(id) ? equipped.filter(e => e !== id) : equipped.length < 3 ? [...equipped, id] : equipped
+      localStorage.setItem(equippedKey, JSON.stringify(next))
+      showToast(equipped.includes(id) ? 'Klistermärke borttaget' : 'Klistermärke utrustat!', 'success')
+      audio.click()
+    }
+    const unlockedCount = ALL_STICKERS.filter(s => s.unlock()).length
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🌟 Klistermärken</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 6 }}>
+          {unlockedCount}/{ALL_STICKERS.length} upplåsta · Utrusta upp till 3 st
+        </div>
+        <div style={{ display: 'flex', gap: 6, justifyContent: 'center', marginBottom: 12 }}>
+          {equipped.length === 0 ? <span style={{ fontSize: 12, color: 'var(--t3)' }}>Inga utrustade</span> : equipped.map(id => {
+            const s = ALL_STICKERS.find(s => s.id === id)
+            return s ? <span key={id} style={{ fontSize: 28 }}>{s.emoji}</span> : null
+          })}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {ALL_STICKERS.map(s => {
+            const unlocked = s.unlock()
+            const isEquipped = equipped.includes(s.id)
+            return (
+              <button key={s.id} onClick={() => unlocked && toggleSticker(s.id)} style={{
+                padding: '12px 10px', borderRadius: 12, textAlign: 'center', cursor: unlocked ? 'pointer' : 'default',
+                background: isEquipped ? 'rgba(251,191,36,.15)' : unlocked ? 'rgba(255,255,255,.06)' : 'rgba(255,255,255,.02)',
+                border: `1px solid ${isEquipped ? 'rgba(251,191,36,.4)' : unlocked ? 'rgba(255,255,255,.1)' : 'rgba(255,255,255,.04)'}`,
+                opacity: unlocked ? 1 : 0.45,
+              }}>
+                <div style={{ fontSize: 30 }}>{unlocked ? s.emoji : '🔒'}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: unlocked ? '#e8e8f0' : '#555', marginTop: 4 }}>{s.name}</div>
+                {isEquipped && <div style={{ fontSize: 10, color: '#fbbf24' }}>✓ Utrustad</div>}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Gifting ────────────────────────────────────────────────────────────────
+  if (panel === 'gifting') {
+    const GIFTS = [
+      { id: 'g1', emoji: '🍎', name: 'Äppelpåse',   desc: '+30 hunger till mottagaren', cost: 30 },
+      { id: 'g2', emoji: '💝', name: 'Hjärtat',      desc: '+20 bond till mottagaren',   cost: 50 },
+      { id: 'g3', emoji: '⭐', name: 'Stjärna',      desc: '+200 XP till mottagaren',    cost: 100 },
+      { id: 'g4', emoji: '🎁', name: 'Mysterielåda', desc: 'Slumpad belöning x3',        cost: 200 },
+      { id: 'g5', emoji: '👑', name: 'Kungsgåva',    desc: '+1000 mynt till mottagaren', cost: 500 },
+    ]
+    const FAKE_FRIENDS = ['StarWolf 🐺','CrystalFox 🦊','NovaHawk 🦅','DragonCat 🐱','BlazeKnight 🔥']
+    const [selFriend, setSelFriend] = useState(FAKE_FRIENDS[0])
+    const giftToday = localStorage.getItem('k0509_gift_today') === new Date().toDateString()
+    const sendGift = (gift: typeof GIFTS[0]) => {
+      if (pet.coins < gift.cost) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      if (giftToday) { showToast('Redan skickat en gåva idag!', 'info'); return }
+      spendCoins(gift.cost)
+      localStorage.setItem('k0509_gift_today', new Date().toDateString())
+      gainXP(50, 'gift')
+      showToast(`🎀 Skickade ${gift.name} till ${selFriend}!`, 'success')
+      pushNotif('🎀', `Gåva skickad till ${selFriend}!`)
+      audio.achievement()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🎀 Gåvor</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 12 }}>
+          Skicka 1 gåva per dag · 🪙{pet.coins}
+        </div>
+        <div style={{ fontSize: 12, color: '#888', marginBottom: 6 }}>Välj mottagare:</div>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
+          {FAKE_FRIENDS.map(f => (
+            <button key={f} onClick={() => setSelFriend(f)} style={{ padding: '5px 10px', borderRadius: 10, fontSize: 11, fontWeight: 700, background: selFriend === f ? 'rgba(99,102,241,.2)' : 'rgba(255,255,255,.05)', border: `1px solid ${selFriend === f ? 'rgba(99,102,241,.4)' : 'rgba(255,255,255,.1)'}`, color: selFriend === f ? '#818cf8' : '#888', cursor: 'pointer' }}>
+              {f}
+            </button>
+          ))}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {GIFTS.map(gift => (
+            <div key={gift.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+              <div style={{ fontSize: 26 }}>{gift.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 13, color: '#e8e8f0' }}>{gift.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)' }}>{gift.desc}</div>
+              </div>
+              <button className="btn-primary" style={{ padding: '7px 12px', fontSize: 11, opacity: (!giftToday && pet.coins >= gift.cost) ? 1 : 0.4 }}
+                disabled={giftToday || pet.coins < gift.cost} onClick={() => sendGift(gift)}>
+                {gift.cost}🪙
+              </button>
+            </div>
+          ))}
+        </div>
+        {giftToday && <div style={{ textAlign: 'center', marginTop: 10, fontSize: 12, color: '#4ade80' }}>✓ Gåva skickad idag!</div>}
+      </div>
+    )
+  }
+
+  // ── Pet Home ───────────────────────────────────────────────────────────────
+  if (panel === 'pethome') {
+    const HOME_ITEMS = [
+      { id: 'h1', emoji: '🛋️', name: 'Soffa',       desc: '+5 energi/dag', cost: 300 },
+      { id: 'h2', emoji: '🌿', name: 'Krukväxt',     desc: '+3 humör/dag',  cost: 150 },
+      { id: 'h3', emoji: '🖼️', name: 'Tavla',        desc: '+5% XP hemma',  cost: 400 },
+      { id: 'h4', emoji: '🎮', name: 'Spelkonsol',   desc: '+10% game XP',  cost: 600 },
+      { id: 'h5', emoji: '🏊', name: 'Pool',         desc: '+8 humör/dag',  cost: 800 },
+      { id: 'h6', emoji: '🌟', name: 'Stjärnlampa',  desc: '+5% alla bonusar',cost:1200 },
+    ]
+    const owned: string[] = JSON.parse(localStorage.getItem('k0509_home') ?? '[]')
+    const buyItem = (item: typeof HOME_ITEMS[0]) => {
+      if (pet.coins < item.cost) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      if (owned.includes(item.id)) { showToast('Redan köpt!', 'info'); return }
+      spendCoins(item.cost); gainXP(100, 'home')
+      const next = [...owned, item.id]; localStorage.setItem('k0509_home', JSON.stringify(next))
+      showToast(`🏠 ${item.name} köpt!`, 'success'); triggerConfetti(); audio.achievement()
+    }
+    const homeScore = owned.length * 20
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🏠 Husdjurshus</div>
+        <div style={{ textAlign: 'center', marginBottom: 12 }}>
+          <div style={{ fontSize: 40 }}>{pet.petEmoji}</div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>Hemnivå: {homeScore} · {owned.length}/{HOME_ITEMS.length} möbler</div>
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center', padding: '8px 0', marginBottom: 12, background: 'rgba(255,255,255,.02)', borderRadius: 12 }}>
+          {owned.length === 0 ? <span style={{ fontSize: 12, color: 'var(--t3)', padding: '8px 0' }}>Hemmet är tomt — köp möbler!</span>
+            : owned.map(id => { const item = HOME_ITEMS.find(i => i.id === id); return item ? <span key={id} style={{ fontSize: 28 }}>{item.emoji}</span> : null })}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {HOME_ITEMS.map(item => {
+            const isOwned = owned.includes(item.id)
+            return (
+              <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', background: isOwned ? 'rgba(74,222,128,.06)' : 'rgba(255,255,255,.04)', border: `1px solid ${isOwned ? 'rgba(74,222,128,.25)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+                <div style={{ fontSize: 26 }}>{item.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 13, color: '#e8e8f0' }}>{item.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{item.desc}</div>
+                </div>
+                {isOwned ? <div style={{ fontSize: 12, color: '#4ade80' }}>✓ Köpt</div> : (
+                  <button className="btn-primary" style={{ padding: '7px 12px', fontSize: 11, opacity: pet.coins >= item.cost ? 1 : 0.4 }}
+                    disabled={pet.coins < item.cost} onClick={() => buyItem(item)}>
+                    {item.cost}🪙
+                  </button>
+                )}
+              </div>
+            )
+          })}
         </div>
       </div>
     )
