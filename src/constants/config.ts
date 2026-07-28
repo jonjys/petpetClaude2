@@ -357,6 +357,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petritual', emoji: '🕯️', label: 'Ritualer', desc: 'Dagliga ritualer för bonusar' },
   { id: 'marketplace', emoji: '🏪', label: 'Marknad', desc: 'Köp & sälj med andra spelare' },
   { id: 'encyclopedia', emoji: '📚', label: 'Encyklopedi', desc: 'Allt om husdjursvärlden' },
+  { id: 'petgoals', emoji: '🎯', label: 'Mål', desc: 'Sätt och följ upp personliga mål' },
+  { id: 'energyboost', emoji: '⚡', label: 'Energiboost', desc: 'Köp tillfälliga energiboosters' },
+  { id: 'petfunfacts', emoji: '🤓', label: 'Husdjursfakta', desc: 'Roliga fakta om ditt husdjur' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
