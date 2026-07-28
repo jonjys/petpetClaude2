@@ -31,8 +31,10 @@ import { GridTapGame } from './GridTapGame'
 import { MathSequenceGame } from './MathSequenceGame'
 import { HangmanGame } from './HangmanGame'
 import { SimonSaysGame } from './SimonSaysGame'
+import { SpeedSortGame } from './SpeedSortGame'
+import { HigherLowerGame } from './HigherLowerGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -61,6 +63,8 @@ const GAMES = [
   { id: 'mathseq' as const, emoji: '🔣', name: 'Talsekvens', desc: 'Hitta det saknade talet', reward: '🪙0-240', hot: false },
   { id: 'hangman' as const, emoji: '🔡', name: 'Hänga Gubbe', desc: 'Gissa dolda ord', reward: '🪙0-480', hot: false },
   { id: 'simon' as const, emoji: '🔮', name: 'Simon Says', desc: 'Upprepa färgsekvensen', reward: '🪙0-360', hot: false },
+  { id: 'sort' as const, emoji: '⚡', name: 'Snabbsortera', desc: 'Sortera emojis till kategori', reward: '🪙0-200', hot: false },
+  { id: 'hl' as const, emoji: '📊', name: 'Högre/Lägre', desc: 'Är nästa siffra högre?', reward: '🪙0-192', hot: false },
 ]
 
 function weekKey() {
@@ -177,6 +181,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'mathseq') return <MathSequenceGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'hangman') return <HangmanGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'simon') return <SimonSaysGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'sort') return <SpeedSortGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'hl') return <HigherLowerGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>

@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -31,6 +31,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   roulette: 'red', mailbox: 'blue', cookbook: 'green',
   bond: 'green', training: 'blue', petcare: 'green',
   flashsale: 'red', giftshop: 'purple',
+  milestones: 'gold', seasonal: 'green', trading: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -67,6 +68,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   petcare:    { label: 'NY',     color: 'var(--green)'  },
   flashsale:  { label: 'LIVE',   color: 'var(--red)'    },
   giftshop:   { label: 'NY',     color: 'var(--purple)' },
+  milestones: { label: 'NY',     color: 'var(--gold)'   },
+  seasonal:   { label: 'LIVE',   color: 'var(--green)'  },
+  trading:    { label: 'NY',     color: 'var(--blue)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -3061,6 +3065,208 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               )}
             </div>
           ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Milestones panel ────────────────────────────────────────────────────────
+  if (panel === 'milestones') {
+    const MILESTONES = [
+      { id: 'first_tap', emoji: '👆', name: 'Första pek', desc: 'Tryckte på husdjuret för första gången', achieved: pet.totalTaps >= 1, reward: 50 },
+      { id: 'first_game', emoji: '🎮', name: 'Spelnörd', desc: 'Vann första spelet', achieved: pet.battleWins >= 1 || pet.fishCaught >= 1, reward: 100 },
+      { id: 'first_level', emoji: '⭐', name: 'Nivå upp!', desc: 'Nådde nivå 2', achieved: pet.level >= 2, reward: 75 },
+      { id: 'first_fish', emoji: '🎣', name: 'Fiskaren', desc: 'Fångade sin första fisk', achieved: pet.fishCaught >= 1, reward: 50 },
+      { id: 'first_battle', emoji: '⚔️', name: 'Krigar', desc: 'Vann första striden', achieved: pet.battleWins >= 1, reward: 75 },
+      { id: 'first_streak', emoji: '🔥', name: '3 dagars streak', desc: 'Logga in 3 dagar i rad', achieved: pet.streak >= 3, reward: 150 },
+      { id: 'first_post', emoji: '📸', name: 'Influencer', desc: 'Publicerade första inlägget', achieved: pet.postCount >= 1, reward: 100 },
+      { id: 'first_expedition', emoji: '🗺️', name: 'Äventyrare', desc: 'Klarade första expeditionen', achieved: pet.expeditionsDone >= 1, reward: 200 },
+      { id: 'lv10', emoji: '🌟', name: 'Veteran', desc: 'Nådde nivå 10', achieved: pet.level >= 10, reward: 500 },
+      { id: 'lv20', emoji: '🔱', name: 'Elitspelare', desc: 'Nådde nivå 20', achieved: pet.level >= 20, reward: 1000 },
+      { id: 'taps1k', emoji: '⚡', name: 'Tusen pek', desc: '1000 pek totalt', achieved: pet.totalTaps >= 1000, reward: 300 },
+      { id: 'coins5k', emoji: '💰', name: 'Pengamagnat', desc: 'Tjänade 5000 mynt totalt', achieved: pet.totalCoinsEarned >= 5000, reward: 400 },
+      { id: 'bond_mate', emoji: '💚', name: 'Bästis för livet', desc: 'Nådde Bond Tier 3', achieved: pet.bondTier >= 3, reward: 750 },
+      { id: 'streak30', emoji: '🏅', name: '30 dagars streak', desc: 'Logga in 30 dagar i rad', achieved: pet.streak >= 30, reward: 2000 },
+    ]
+    const [claimed, setClaimed] = useState<string[]>(() => {
+      try { return JSON.parse(localStorage.getItem('k0509_milestones_claimed') ?? '[]') } catch { return [] }
+    })
+    const claimMilestone = (id: string, reward: number) => {
+      const next = [...claimed, id]
+      setClaimed(next)
+      localStorage.setItem('k0509_milestones_claimed', JSON.stringify(next))
+      gainCoins(reward)
+      showToast(`🏁 Milstolpe uppnådd! +${reward}🪙`, 'success')
+      triggerConfetti()
+      audio.achievement()
+    }
+    const total = MILESTONES.filter(m => m.achieved && !claimed.includes(m.id)).length
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🏁 Milstolpar</div>
+        {total > 0 && <div style={{ textAlign: 'center', fontSize: 12, color: '#4ade80', marginBottom: 12 }}>{total} uppnådda milstolpar att hämta!</div>}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {MILESTONES.map(m => {
+            const done = claimed.includes(m.id)
+            const ready = m.achieved && !done
+            return (
+              <div key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: done ? 'rgba(74,222,128,.06)' : m.achieved ? 'rgba(251,191,36,.06)' : 'rgba(255,255,255,.03)', border: `1px solid ${done ? 'rgba(74,222,128,.2)' : m.achieved ? 'rgba(251,191,36,.25)' : 'rgba(255,255,255,.06)'}`, borderRadius: 12 }}>
+                <div style={{ fontSize: 22, opacity: m.achieved ? 1 : 0.3 }}>{m.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 13, color: m.achieved ? '#e8e8f0' : '#555' }}>{m.name}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)' }}>{m.desc}</div>
+                </div>
+                {done ? (
+                  <div style={{ fontSize: 11, color: '#4ade80' }}>✓</div>
+                ) : ready ? (
+                  <button className="btn-primary" style={{ padding: '6px 12px', fontSize: 11 }} onClick={() => claimMilestone(m.id, m.reward)}>
+                    +{m.reward}🪙
+                  </button>
+                ) : (
+                  <div style={{ fontSize: 11, color: '#555' }}>Låst</div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Seasonal pass panel ─────────────────────────────────────────────────────
+  if (panel === 'seasonal') {
+    const season = 'Sommar 2026'
+    const SEASONAL_QUESTS = [
+      { id: 'sq1', emoji: '☀️', name: 'Sommarpek', desc: 'Peka 500 gånger denna säsong', target: 500, current: Math.min(500, pet.totalTaps), reward: 200, kc: 5 },
+      { id: 'sq2', emoji: '🏊', name: 'Sommarsimmare', desc: 'Fånga 10 fiskar', target: 10, current: Math.min(10, pet.fishCaught), reward: 300, kc: 8 },
+      { id: 'sq3', emoji: '🌴', name: 'Semesterkrigare', desc: 'Vinn 5 strider', target: 5, current: Math.min(5, pet.battleWins), reward: 250, kc: 6 },
+      { id: 'sq4', emoji: '🎆', name: 'Fest-streak', desc: 'Uppnå 7 dagars streak', target: 7, current: Math.min(7, pet.streak), reward: 400, kc: 10 },
+      { id: 'sq5', emoji: '🌅', name: 'Sommarexpedition', desc: 'Klara 3 expeditioner', target: 3, current: Math.min(3, pet.expeditionsDone), reward: 350, kc: 9 },
+      { id: 'sq6', emoji: '🏆', name: 'Sommarlegend', desc: 'Nå nivå 10', target: 10, current: Math.min(10, pet.level), reward: 1000, kc: 25 },
+    ]
+    const [sClaimed, setSClaimed] = useState<string[]>(() => {
+      try { return JSON.parse(localStorage.getItem('k0509_seasonal_claimed') ?? '[]') } catch { return [] }
+    })
+    const claimSQ = (id: string, reward: number, kc: number) => {
+      const next = [...sClaimed, id]
+      setSClaimed(next)
+      localStorage.setItem('k0509_seasonal_claimed', JSON.stringify(next))
+      gainCoins(reward); gainKC(kc)
+      showToast(`🌸 Säsongsuppdrag klarat! +${reward}🪙 +${kc}💎`, 'success')
+      audio.achievement()
+    }
+    const totalDone = SEASONAL_QUESTS.filter(q => q.current >= q.target).length
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🌸 {season}</div>
+        <div style={{ textAlign: 'center', marginBottom: 14 }}>
+          <div style={{ fontSize: 12, color: 'var(--t3)' }}>Säsongspass · {totalDone}/{SEASONAL_QUESTS.length} klara</div>
+          <div style={{ height: 6, background: 'rgba(255,255,255,.08)', borderRadius: 3, overflow: 'hidden', marginTop: 8, marginInline: 16 }}>
+            <div style={{ height: '100%', width: `${(totalDone / SEASONAL_QUESTS.length) * 100}%`, background: '#4ade80', borderRadius: 3 }} />
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {SEASONAL_QUESTS.map(q => {
+            const done = sClaimed.includes(q.id)
+            const met = q.current >= q.target
+            return (
+              <div key={q.id} style={{ padding: '12px 14px', background: done ? 'rgba(74,222,128,.07)' : 'rgba(255,255,255,.04)', border: `1px solid ${done ? 'rgba(74,222,128,.25)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ fontSize: 24 }}>{q.emoji}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 700, fontSize: 13, color: done ? '#4ade80' : '#e8e8f0' }}>{q.name}</div>
+                    <div style={{ fontSize: 10, color: 'var(--t3)' }}>{q.desc}</div>
+                    <div style={{ fontSize: 10, color: '#fbbf24' }}>+{q.reward}🪙 +{q.kc}💎</div>
+                  </div>
+                  {done ? <div style={{ fontSize: 18 }}>✅</div> : (
+                    <button className="btn-primary" style={{ padding: '6px 12px', fontSize: 11, opacity: met ? 1 : 0.4 }} disabled={!met} onClick={() => claimSQ(q.id, q.reward, q.kc)}>
+                      Hämta
+                    </button>
+                  )}
+                </div>
+                <div style={{ marginTop: 8, height: 3, background: 'rgba(255,255,255,.06)', borderRadius: 2 }}>
+                  <div style={{ height: '100%', width: `${(q.current / q.target) * 100}%`, background: met ? '#4ade80' : '#fbbf24', borderRadius: 2 }} />
+                </div>
+                <div style={{ fontSize: 9, color: 'var(--t3)', marginTop: 2 }}>{q.current}/{q.target}</div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Trading Post panel ──────────────────────────────────────────────────────
+  if (panel === 'trading') {
+    const TRADE_ITEMS = [
+      { id: 't1', emoji: '⚡', name: 'XP Boost (500)', sellFor: 80, buyFor: 150 },
+      { id: 't2', emoji: '🍎', name: 'Äpplet', sellFor: 20, buyFor: 40 },
+      { id: 't3', emoji: '🔮', name: 'Magisk Sten', sellFor: 120, buyFor: 220 },
+      { id: 't4', emoji: '🌟', name: 'Stjärnstoft', sellFor: 200, buyFor: 380 },
+      { id: 't5', emoji: '🐉', name: 'Dragfjäll', sellFor: 500, buyFor: 900 },
+      { id: 't6', emoji: '🌊', name: 'Havsessens', sellFor: 300, buyFor: 550 },
+    ]
+    const [holdings, setHoldings] = useState<Record<string, number>>(() => {
+      try { return JSON.parse(localStorage.getItem('k0509_trading') ?? '{}') } catch { return {} }
+    })
+    const trade = (id: string, buy: boolean, price: number) => {
+      if (buy) {
+        if (!spendCoins(price)) return
+        const next = { ...holdings, [id]: (holdings[id] ?? 0) + 1 }
+        setHoldings(next)
+        localStorage.setItem('k0509_trading', JSON.stringify(next))
+        showToast(`📦 Köpte 1 st!`, 'success')
+        audio.coin()
+      } else {
+        if ((holdings[id] ?? 0) < 1) return
+        gainCoins(price)
+        const next = { ...holdings, [id]: (holdings[id] ?? 0) - 1 }
+        setHoldings(next)
+        localStorage.setItem('k0509_trading', JSON.stringify(next))
+        showToast(`💰 Sålde för ${price}🪙!`, 'success')
+        audio.coin()
+      }
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <button className={styles.backBtn} onClick={onBack}>←</button>
+        <div className={styles.panelTitle}>🔄 Handelspost</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>Köp lågt, sälj högt · Ditt kapital: {pet.coins}🪙</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {TRADE_ITEMS.map(t => {
+            const qty = holdings[t.id] ?? 0
+            return (
+              <div key={t.id} style={{ padding: '12px 14px', background: 'rgba(255,255,255,.04)', borderRadius: 14, border: '1px solid rgba(255,255,255,.08)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                  <div style={{ fontSize: 24 }}>{t.emoji}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{t.name}</div>
+                    <div style={{ fontSize: 10, color: 'var(--t3)' }}>Innehav: {qty} st</div>
+                  </div>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                  <button
+                    className="btn-primary"
+                    style={{ padding: '8px 0', fontSize: 12, opacity: pet.coins >= t.buyFor ? 1 : 0.4 }}
+                    disabled={pet.coins < t.buyFor}
+                    onClick={() => trade(t.id, true, t.buyFor)}
+                  >
+                    Köp {t.buyFor}🪙
+                  </button>
+                  <button
+                    className="btn-ghost"
+                    style={{ padding: '8px 0', fontSize: 12, opacity: qty > 0 ? 1 : 0.4 }}
+                    disabled={qty < 1}
+                    onClick={() => trade(t.id, false, t.sellFor)}
+                  >
+                    Sälj {t.sellFor}🪙
+                  </button>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     )
