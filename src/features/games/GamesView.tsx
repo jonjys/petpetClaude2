@@ -13,12 +13,18 @@ import { FishingGame } from './FishingGame'
 import { BattleGame } from './BattleGame'
 import { Puzzle2048 } from './puzzle2048/Puzzle2048'
 import { SpinGame } from './SpinGame'
+import { BossRaidGame } from './BossRaidGame'
+import { DiceGame } from './DiceGame'
+import { SpeedMathGame } from './SpeedMathGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | null
 
 const GAMES = [
+  { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
   { id: 'battle' as const, emoji: '⚔️', name: 'Strid', desc: 'Turn-based PvE', reward: '🪙20-400', hot: true },
   { id: 'spin' as const, emoji: '🎰', name: 'Lyckhjulet', desc: 'Snurra & vinn', reward: '🪙25-200+', hot: true },
+  { id: 'dice' as const, emoji: '🎲', name: 'Tärning', desc: 'Satsa & rulla', reward: '🪙1.8-4x', hot: false },
+  { id: 'speedmath' as const, emoji: '🧮', name: 'Snabbmatte', desc: '10 tal, 30 sek', reward: '🪙5-50', hot: false },
   { id: 'puzzle2048' as const, emoji: '🔢', name: '2048', desc: 'Slå ihop brickor', reward: '🪙500', hot: false },
   { id: 'runner' as const, emoji: '🏃', name: 'Runner', desc: 'Undvik hinder', reward: '🪙5-100', hot: false },
   { id: 'fishing' as const, emoji: '🎣', name: 'Fiske', desc: 'Fånga fiskar', reward: '🪙10-1000', hot: false },
@@ -46,6 +52,8 @@ export const GamesView = memo(function GamesView() {
   const battleWins = useGameStore(s => s.pet.battleWins)
   const fishCaught = useGameStore(s => s.pet.fishCaught)
   const petEmoji = useGameStore(s => s.pet.petEmoji)
+  const coins = useGameStore(s => s.pet.coins)
+  const spendCoins = useGameStore(s => s.spendCoins)
   const gainKC = useGameStore(s => s.gainKC)
   const [weeklyClaimed, setWeeklyClaimed] = useState(() => !!localStorage.getItem(weekKey()))
 
@@ -111,6 +119,9 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'battle') return <BattleGame onExit={() => setActiveGame(null)} onWin={handleBattleWin} />
   if (activeGame === 'puzzle2048') return <Puzzle2048 onExit={() => setActiveGame(null)} onWin={handle2048Win} />
   if (activeGame === 'spin') return <SpinGame onExit={() => setActiveGame(null)} onWin={(c, xp) => handleGenericWin(c, xp)} />
+  if (activeGame === 'bossraid') return <BossRaidGame onExit={() => setActiveGame(null)} onWin={handleBattleWin} petEmoji={petEmoji} />
+  if (activeGame === 'dice') return <DiceGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} coins={coins} spendCoins={spendCoins} />
+  if (activeGame === 'speedmath') return <SpeedMathGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
