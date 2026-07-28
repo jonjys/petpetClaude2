@@ -67,8 +67,10 @@ import { PongGame } from './PongGame'
 import { BlackjackGame } from './BlackjackGame'
 import { FlagQuizGame } from './FlagQuizGame'
 import { BalanceBallGame } from './BalanceBallGame'
+import { WordSearchGame } from './WordSearchGame'
+import { SpeedTapGame } from './SpeedTapGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -133,6 +135,8 @@ const GAMES = [
   { id: 'blackjack' as const, emoji: '🃏', name: 'Blackjack', desc: 'Kom närmast 21 mot dealer', reward: '🪙Variabel', hot: true },
   { id: 'flagquiz' as const, emoji: '🌍', name: 'Flaggquiz', desc: 'Gissa landet från flaggan', reward: '🪙0-450', hot: false },
   { id: 'balance' as const, emoji: '⚖️', name: 'Balans', desc: 'Studsa bollen på racket', reward: '🪙0-500', hot: false },
+  { id: 'wordsearch' as const, emoji: '🔤', name: 'Ordsökning', desc: 'Hitta dolda djurnamn', reward: '🪙0-480', hot: false },
+  { id: 'speedtap' as const, emoji: '👆', name: 'Speed Tap', desc: 'Tryck snabbast möjligt 10s', reward: '🪙0-500', hot: true },
 ]
 
 function weekKey() {
@@ -285,6 +289,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'blackjack') return <BlackjackGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} coins={coins} />
   if (activeGame === 'flagquiz') return <FlagQuizGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'balance') return <BalanceBallGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'wordsearch') return <WordSearchGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'speedtap') return <SpeedTapGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
