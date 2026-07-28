@@ -333,6 +333,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'speedrun', emoji: '⏱️', label: 'Speedrun', desc: 'Tidsutmaningar & rekordlistor' },
   { id: 'collectibles', emoji: '🏺', label: 'Samlarföremål', desc: 'Sällsynta föremål & utställning' },
   { id: 'petparade', emoji: '🎪', label: 'Husdjursparad', desc: 'Visa upp husdjuret i paraden' },
+  { id: 'shrine', emoji: '⛩️', label: 'Altaret', desc: 'Offra & välsigna ditt husdjur' },
+  { id: 'timecapsule', emoji: '💌', label: 'Tidskapsel', desc: 'Skicka meddelanden till framtiden' },
+  { id: 'constellation', emoji: '✨', label: 'Stjärnbild', desc: 'Hitta ditt husdjurs stjärntecken' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────

@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -43,6 +43,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   petschool: 'blue', mysterybox: 'gold', petfusion: 'purple',
   carnival: 'orange', petbirthday: 'pink', royaltytree: 'gold',
   speedrun: 'blue', collectibles: 'purple', petparade: 'orange',
+  shrine: 'gold', timecapsule: 'purple', constellation: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -115,6 +116,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   speedrun:   { label: 'NY',     color: 'var(--blue)'   },
   collectibles:{ label: 'NY',   color: 'var(--purple)' },
   petparade:  { label: 'NY',     color: 'var(--orange)' },
+  shrine:     { label: 'DAGLIG', color: 'var(--gold)'   },
+  timecapsule:{ label: 'NY',     color: 'var(--purple)' },
+  constellation:{ label: 'NY',  color: 'var(--blue)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -5365,6 +5369,161 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
           ? <button className="btn-primary" style={{ marginTop: 10, padding: '12px' }} onClick={joinParade}>🎪 Gå med i paraden! (+50🪙)</button>
           : <div style={{ marginTop: 10, textAlign: 'center', fontSize: 13, color: '#4ade80', padding: '10px', background: 'rgba(74,222,128,.08)', borderRadius: 10 }}>✓ Du är med i dagens parade!</div>
         }
+      </div>
+    )
+  }
+
+  // ── Shrine ─────────────────────────────────────────────────────────────────
+  if (panel === 'shrine') {
+    const shrineKey = `k0509_shrine_${new Date().toDateString()}`
+    const offeredToday = Number(localStorage.getItem(shrineKey) ?? 0)
+    const MAX_OFFERINGS = 3
+    const [offerings, setOfferings] = useState(offeredToday)
+    const [blessing, setBlessing] = useState<string | null>(null)
+    const OFFERINGS2 = [
+      { id: 'flower', emoji: '🌸', name: 'Blomma', cost: 10, blessingType: 'mood' },
+      { id: 'candle', emoji: '🕯️', name: 'Ljus', cost: 25, blessingType: 'energy' },
+      { id: 'gem', emoji: '💎', name: 'Ädelsten', cost: 100, blessingType: 'luck' },
+    ]
+    const offer = (o: typeof OFFERINGS2[0]) => {
+      if (offerings >= MAX_OFFERINGS) { showToast('Max 3 offer per dag!', 'error'); return }
+      if (!spendCoins(o.cost)) { showToast('Inte tillräckligt med mynt!', 'error'); return }
+      const newOffs = offerings + 1
+      setOfferings(newOffs)
+      localStorage.setItem(shrineKey, String(newOffs))
+      let b = ''
+      if (o.blessingType === 'mood') { setStat('mood', Math.min(100, pet.mood + 15)); b = '+15 humör ✨' }
+      else if (o.blessingType === 'energy') { setStat('energy', Math.min(100, pet.energy + 15)); b = '+15 energi ✨' }
+      else { gainCoins(200); b = '+200🪙 ✨' }
+      gainXP(50, 'game')
+      setBlessing(b)
+      showToast(`⛩️ Altaret välsignade dig! ${b}`, 'success')
+      audio.achievement()
+      setTimeout(() => setBlessing(null), 3000)
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>⛩️ Altaret</div>
+        <div className={styles.panelNote}>Offra för välsignelser · {MAX_OFFERINGS - offerings} kvar idag</div>
+        {blessing && <div style={{ textAlign: 'center', fontSize: 14, color: '#fbbf24', padding: '8px', background: 'rgba(251,191,36,.1)', borderRadius: 10 }}>⛩️ {blessing}</div>}
+        <div style={{ textAlign: 'center', fontSize: 56, padding: '16px 0' }}>⛩️</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {OFFERINGS2.map(o => (
+            <div key={o.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+              <div style={{ fontSize: 28 }}>{o.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 14, color: '#e8e8f0' }}>{o.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)' }}>{o.cost}🪙 · {o.blessingType === 'mood' ? '+15 humör' : o.blessingType === 'energy' ? '+15 energi' : '+200🪙'}</div>
+              </div>
+              <button onClick={() => offer(o)} disabled={offerings >= MAX_OFFERINGS} style={{ padding: '8px 14px', borderRadius: 10, fontSize: 12, fontWeight: 900, background: offerings >= MAX_OFFERINGS ? 'rgba(255,255,255,.04)' : 'rgba(251,191,36,.2)', border: `1px solid ${offerings >= MAX_OFFERINGS ? 'rgba(255,255,255,.08)' : 'rgba(251,191,36,.4)'}`, color: offerings >= MAX_OFFERINGS ? '#555' : '#fbbf24', cursor: offerings >= MAX_OFFERINGS ? 'default' : 'pointer' }}>
+                {offerings >= MAX_OFFERINGS ? '🙏 Klart' : 'Offra'}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Time Capsule ────────────────────────────────────────────────────────────
+  if (panel === 'timecapsule') {
+    const tcKey = 'k0509_timecapsule'
+    const capsules: { date: string; message: string; open: string }[] = JSON.parse(localStorage.getItem(tcKey) ?? '[]')
+    const [list, setList] = useState(capsules)
+    const [draft, setDraft] = useState('')
+    const [days, setDays] = useState(7)
+    const today = new Date()
+    const openDate = new Date(today.getTime() + days * 24 * 60 * 60 * 1000)
+    const addCapsule = () => {
+      if (!draft.trim()) return
+      const entry = { date: today.toLocaleDateString('sv-SE'), message: draft.trim(), open: openDate.toLocaleDateString('sv-SE') }
+      const newList = [entry, ...list].slice(0, 5)
+      setList(newList); localStorage.setItem(tcKey, JSON.stringify(newList)); setDraft('')
+      gainXP(30, 'game'); gainCoins(10)
+      showToast('💌 Tidskapsel förseglas! Öppnas om ' + days + ' dagar.', 'success')
+      audio.coin()
+    }
+    const isOpen = (openStr: string) => new Date(openStr.split('.').reverse().join('-')) <= today
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>💌 Tidskapsel</div>
+        <div className={styles.panelNote}>Skriv ett meddelande till ditt framtida jag</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 14 }}>
+          <textarea
+            value={draft}
+            onChange={e => setDraft(e.target.value)}
+            maxLength={200}
+            style={{ padding: '10px 12px', borderRadius: 12, fontSize: 13, background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.12)', color: '#e8e8f0', resize: 'none', height: 80, outline: 'none', lineHeight: 1.5 }}
+            placeholder={`Hej framtida ${pet.petName}! Idag är...`}
+          />
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>Öppna om:</span>
+            {[3, 7, 30].map(d => (
+              <button key={d} onClick={() => setDays(d)} style={{ padding: '4px 10px', borderRadius: 8, fontSize: 12, fontWeight: days === d ? 900 : 400, background: days === d ? 'rgba(129,140,248,.2)' : 'rgba(255,255,255,.04)', border: `1px solid ${days === d ? 'rgba(129,140,248,.4)' : 'rgba(255,255,255,.1)'}`, color: days === d ? '#818cf8' : '#888', cursor: 'pointer' }}>
+                {d}d
+              </button>
+            ))}
+          </div>
+          <button className="btn-primary" onClick={addCapsule} disabled={!draft.trim()} style={{ padding: '10px' }}>💌 Försegla kapsel</button>
+        </div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 700, marginBottom: 8 }}>Dina kapslar ({list.length}/5)</div>
+        {list.map((c, i) => {
+          const open = isOpen(c.open)
+          return (
+            <div key={i} style={{ padding: '10px 12px', background: open ? 'rgba(74,222,128,.06)' : 'rgba(255,255,255,.03)', border: `1px solid ${open ? 'rgba(74,222,128,.2)' : 'rgba(255,255,255,.06)'}`, borderRadius: 12, marginBottom: 8 }}>
+              <div style={{ fontSize: 11, color: open ? '#4ade80' : '#fbbf24', fontWeight: 700, marginBottom: 4 }}>
+                {open ? '📬 Öppnad!' : `🔒 Öppnas ${c.open}`} · Skapad {c.date}
+              </div>
+              <div style={{ fontSize: 12, color: open ? '#e8e8f0' : 'rgba(255,255,255,.2)', lineHeight: 1.5 }}>
+                {open ? c.message : '████████████████'}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
+  // ── Constellation ──────────────────────────────────────────────────────────
+  if (panel === 'constellation') {
+    const month = new Date().getMonth()
+    const SIGNS = [
+      { name: 'Stenbocken', emoji: '♑', months: [11, 0], trait: 'Disciplinerad & tålmodig', bonus: 'Fiske ger +10% XP' },
+      { name: 'Vattumannen', emoji: '♒', months: [1, 2], trait: 'Kreativ & frihetälskande', bonus: 'Craft kostar -5%' },
+      { name: 'Fiskarnas', emoji: '♓', months: [2, 3], trait: 'Empatisk & drömmare', bonus: '+5 humör på meditation' },
+      { name: 'Vädurens', emoji: '♈', months: [3, 4], trait: 'Modig & energisk', bonus: 'Strid ger +10% belöning' },
+      { name: 'Oxens', emoji: '♉', months: [4, 5], trait: 'Stabil & uthållig', bonus: 'Bank ger +5% ränta' },
+      { name: 'Tvillingarnas', emoji: '♊', months: [5, 6], trait: 'Nyfiken & anpassningsbar', bonus: 'Expedition XP +15%' },
+      { name: 'Krabban', emoji: '♋', months: [6, 7], trait: 'Omtänksam & intuitiv', bonus: 'Husdjurets humör +2/dag' },
+      { name: 'Lejonets', emoji: '♌', months: [7, 8], trait: 'Karismatisk & generös', bonus: 'Boss Raid +20% belöning' },
+      { name: 'Jungfruns', emoji: '♍', months: [8, 9], trait: 'Analytisk & noggrann', bonus: 'Sudoku ger 2× XP' },
+      { name: 'Vågens', emoji: '♎', months: [9, 10], trait: 'Diplomatisk & rättvis', bonus: 'Auktionspris +5%' },
+      { name: 'Skorpionens', emoji: '♏', months: [10, 11], trait: 'Intensiv & passionerad', bonus: 'Boss HP -10%' },
+      { name: 'Skytten', emoji: '♐', months: [11, 0], trait: 'Optimistisk & äventyrlig', bonus: 'Expedition tid -10%' },
+    ]
+    const mySign = SIGNS.find(s => s.months.includes(month)) ?? SIGNS[0]
+    const petSign = SIGNS[pet.level % SIGNS.length]
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>✨ Stjärnbild</div>
+        <div className={styles.panelNote}>{pet.petName}s kosmiska öde</div>
+        <div style={{ textAlign: 'center', padding: '16px 0' }}>
+          <div style={{ fontSize: 64 }}>{petSign.emoji}</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 22, fontWeight: 900, color: '#fff', marginTop: 8 }}>{petSign.name}</div>
+          <div style={{ fontSize: 13, color: '#818cf8', marginTop: 4 }}>{petSign.trait}</div>
+          <div style={{ fontSize: 12, color: '#fbbf24', marginTop: 8, padding: '8px 16px', background: 'rgba(251,191,36,.08)', borderRadius: 10 }}>⭐ {petSign.bonus}</div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+          {SIGNS.map((s, i) => (
+            <div key={i} style={{ textAlign: 'center', padding: '8px 4px', background: s.name === petSign.name ? 'rgba(129,140,248,.15)' : s.name === mySign.name ? 'rgba(251,191,36,.08)' : 'rgba(255,255,255,.03)', border: `1px solid ${s.name === petSign.name ? 'rgba(129,140,248,.3)' : 'rgba(255,255,255,.06)'}`, borderRadius: 10 }}>
+              <div style={{ fontSize: 18 }}>{s.emoji}</div>
+              <div style={{ fontSize: 9, color: 'var(--t3)', marginTop: 2 }}>{s.name.split(' ')[0]}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 12, fontSize: 11, color: 'var(--t3)', textAlign: 'center' }}>
+          {pet.petName} är under {petSign.name} (Nivå {pet.level % SIGNS.length === 0 ? SIGNS.length : pet.level % SIGNS.length})
+        </div>
       </div>
     )
   }
