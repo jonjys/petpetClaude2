@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -42,6 +42,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   petgym: 'orange', hatchery: 'green', cosmicmap: 'purple',
   petschool: 'blue', mysterybox: 'gold', petfusion: 'purple',
   carnival: 'orange', petbirthday: 'pink', royaltytree: 'gold',
+  speedrun: 'blue', collectibles: 'purple', petparade: 'orange',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -111,6 +112,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   carnival:   { label: 'NY',     color: 'var(--orange)' },
   petbirthday:{ label: 'NY',     color: '#f472b6'       },
   royaltytree:{ label: 'NY',     color: 'var(--gold)'   },
+  speedrun:   { label: 'NY',     color: 'var(--blue)'   },
+  collectibles:{ label: 'NY',   color: 'var(--purple)' },
+  petparade:  { label: 'NY',     color: 'var(--orange)' },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -5227,6 +5231,140 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
           <div style={{ fontWeight: 900, fontSize: 15, color: '#fbbf24' }}>{TITLE}</div>
           <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>Prestige {prestige} · Nivå {pet.level}</div>
         </div>
+      </div>
+    )
+  }
+
+  // ── Speedrun ────────────────────────────────────────────────────────────────
+  if (panel === 'speedrun') {
+    const CHALLENGES = [
+      { id: 'taps100', emoji: '👆', name: '100 Tryck', goal: 100, current: pet.totalTaps, unit: 'tryck', reward: 300 },
+      { id: 'battles10', emoji: '⚔️', name: '10 Strider', goal: 10, current: pet.battleWins, unit: 'vinster', reward: 500 },
+      { id: 'fish20', emoji: '🎣', name: '20 Fiskar', goal: 20, current: pet.fishCaught, unit: 'fångade', reward: 400 },
+      { id: 'level10', emoji: '⬆️', name: 'Nivå 10', goal: 10, current: pet.level, unit: 'nivå', reward: 600 },
+      { id: 'kc50', emoji: '💎', name: '50 KC', goal: 50, current: pet.kc, unit: 'KC', reward: 800 },
+    ]
+    const srKey = 'k0509_speedrun_claimed'
+    const claimed: string[] = JSON.parse(localStorage.getItem(srKey) ?? '[]')
+    const [claimedList, setClaimedList] = useState<string[]>(claimed)
+    const claimReward = (ch: typeof CHALLENGES[0]) => {
+      if (claimedList.includes(ch.id) || ch.current < ch.goal) return
+      const newClaimed = [...claimedList, ch.id]
+      setClaimedList(newClaimed)
+      localStorage.setItem(srKey, JSON.stringify(newClaimed))
+      gainCoins(ch.reward); gainXP(ch.reward * 2, 'game')
+      showToast(`⏱️ ${ch.name} klar! +${ch.reward}🪙`, 'success')
+      audio.achievement(); triggerConfetti()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>⏱️ Speedrun-utmaningar</div>
+        <div className={styles.panelNote}>Nå milstolpar för bonusar</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {CHALLENGES.map(ch => {
+            const done = claimedList.includes(ch.id)
+            const progress = Math.min(1, ch.current / ch.goal)
+            const ready = ch.current >= ch.goal && !done
+            return (
+              <div key={ch.id} style={{ padding: '12px 14px', background: done ? 'rgba(74,222,128,.06)' : 'rgba(255,255,255,.04)', border: `1px solid ${done ? 'rgba(74,222,128,.2)' : ready ? 'rgba(251,191,36,.3)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 20 }}>{ch.emoji}</span>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: 13, color: '#e8e8f0' }}>{ch.name}</div>
+                      <div style={{ fontSize: 11, color: 'var(--t3)' }}>{ch.current}/{ch.goal} {ch.unit} · +{ch.reward}🪙</div>
+                    </div>
+                  </div>
+                  {done
+                    ? <span style={{ fontSize: 16 }}>✅</span>
+                    : ready
+                    ? <button onClick={() => claimReward(ch)} style={{ padding: '6px 14px', borderRadius: 8, fontSize: 12, fontWeight: 900, background: 'rgba(251,191,36,.2)', border: '1px solid rgba(251,191,36,.4)', color: '#fbbf24', cursor: 'pointer' }}>Hämta!</button>
+                    : null
+                  }
+                </div>
+                <div style={{ height: 4, background: 'rgba(255,255,255,.08)', borderRadius: 2, overflow: 'hidden' }}>
+                  <div style={{ height: '100%', width: `${progress * 100}%`, background: done ? '#4ade80' : ready ? '#fbbf24' : '#818cf8', borderRadius: 2 }} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Collectibles ────────────────────────────────────────────────────────────
+  if (panel === 'collectibles') {
+    const ITEMS = [
+      { id: 'c1', emoji: '🏺', name: 'Urna', rarity: 'Vanlig', unlock: pet.level >= 1 },
+      { id: 'c2', emoji: '🗝️', name: 'Gammal nyckel', rarity: 'Vanlig', unlock: pet.battleWins >= 1 },
+      { id: 'c3', emoji: '🪬', name: 'Amuletten', rarity: 'Sällsynt', unlock: pet.fishCaught >= 10 },
+      { id: 'c4', emoji: '🔮', name: 'Kristallkula', rarity: 'Sällsynt', unlock: pet.level >= 10 },
+      { id: 'c5', emoji: '🏅', name: 'Guldmedalj', rarity: 'Episk', unlock: pet.battleWins >= 20 },
+      { id: 'c6', emoji: '👑', name: 'Kronan', rarity: 'Legendarisk', unlock: pet.level >= 50 },
+      { id: 'c7', emoji: '🌌', name: 'Galaxsten', rarity: 'Legendarisk', unlock: pet.kc >= 200 },
+      { id: 'c8', emoji: '⚡', name: 'Blixtjuvel', rarity: 'Episk', unlock: pet.totalTaps >= 500 },
+    ]
+    const rarityColor: Record<string, string> = { 'Vanlig': '#9ca3af', 'Sällsynt': '#60a5fa', 'Episk': '#a855f7', 'Legendarisk': '#fbbf24' }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🏺 Samlarföremål</div>
+        <div className={styles.panelNote}>{ITEMS.filter(i => i.unlock).length}/{ITEMS.length} upplåsta föremål</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          {ITEMS.map(item => (
+            <div key={item.id} style={{ padding: '12px', background: item.unlock ? 'rgba(255,255,255,.05)' : 'rgba(255,255,255,.02)', border: `1px solid ${item.unlock ? rarityColor[item.rarity] + '30' : 'rgba(255,255,255,.06)'}`, borderRadius: 14, textAlign: 'center', opacity: item.unlock ? 1 : 0.4 }}>
+              <div style={{ fontSize: 36, filter: item.unlock ? 'none' : 'grayscale(1)' }}>{item.unlock ? item.emoji : '❓'}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#e8e8f0', marginTop: 6 }}>{item.unlock ? item.name : '???'}</div>
+              <div style={{ fontSize: 10, color: rarityColor[item.rarity], marginTop: 2 }}>{item.rarity}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Pet Parade ──────────────────────────────────────────────────────────────
+  if (panel === 'petparade') {
+    const PETS_IN_PARADE = [
+      { emoji: '🐱', name: 'Whiskers', level: 12, score: 1200 },
+      { emoji: '🦊', name: 'Foxy', level: 18, score: 1800 },
+      { emoji: '🐶', name: 'Buddy', level: 8, score: 800 },
+      { emoji: pet.petEmoji, name: pet.petName, level: pet.level, score: pet.level * 100 + pet.battleWins * 10 },
+      { emoji: '🐸', name: 'Croaky', level: 15, score: 1500 },
+      { emoji: '🐻', name: 'Bruno', level: 22, score: 2200 },
+    ].sort((a, b) => b.score - a.score)
+    const myRank = PETS_IN_PARADE.findIndex(p => p.name === pet.petName) + 1
+    const ppKey = `k0509_parade_${new Date().toDateString()}`
+    const [joined, setJoined] = useState(!!localStorage.getItem(ppKey))
+    const joinParade = () => {
+      if (joined) return
+      localStorage.setItem(ppKey, '1')
+      setJoined(true)
+      gainCoins(50); gainXP(100, 'game')
+      showToast('🎪 Du gick med i paraden! +50🪙 +100 XP', 'success')
+      audio.achievement()
+    }
+    return (
+      <div className={styles.panelRoot}>
+        <div className={styles.panelTitle}>🎪 Husdjursparad</div>
+        <div className={styles.panelNote}>Daglig parade · Din plats: #{myRank}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {PETS_IN_PARADE.map((p, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', background: p.name === pet.petName ? 'rgba(129,140,248,.1)' : 'rgba(255,255,255,.04)', border: `1px solid ${p.name === pet.petName ? 'rgba(129,140,248,.3)' : 'rgba(255,255,255,.08)'}`, borderRadius: 12 }}>
+              <span style={{ fontSize: 16, fontWeight: 900, color: i === 0 ? '#fbbf24' : i === 1 ? '#9ca3af' : i === 2 ? '#fb923c' : '#555', minWidth: 20 }}>#{i + 1}</span>
+              <span style={{ fontSize: 24 }}>{p.emoji}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: p.name === pet.petName ? '#818cf8' : '#e8e8f0' }}>{p.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)' }}>Niv {p.level}</div>
+              </div>
+              <span style={{ fontSize: 12, fontWeight: 900, color: '#fbbf24' }}>{p.score}p</span>
+            </div>
+          ))}
+        </div>
+        {!joined
+          ? <button className="btn-primary" style={{ marginTop: 10, padding: '12px' }} onClick={joinParade}>🎪 Gå med i paraden! (+50🪙)</button>
+          : <div style={{ marginTop: 10, textAlign: 'center', fontSize: 13, color: '#4ade80', padding: '10px', background: 'rgba(74,222,128,.08)', borderRadius: 10 }}>✓ Du är med i dagens parade!</div>
+        }
       </div>
     )
   }

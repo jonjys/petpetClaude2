@@ -53,8 +53,10 @@ import { SpaceShooterGame } from './SpaceShooterGame'
 import { DodgeBallGame } from './DodgeBallGame'
 import { NumberCrunchGame } from './NumberCrunchGame'
 import { TapRushGame } from './TapRushGame'
+import { AnagramGame } from './AnagramGame'
+import { PairMatchGame } from './PairMatchGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -105,6 +107,8 @@ const GAMES = [
   { id: 'dodge' as const, emoji: '⚡', name: 'Dodgeball', desc: 'Undvik faror, samla stjärnor', reward: '🪙0-500', hot: false },
   { id: 'numcrunch' as const, emoji: '🔢', name: 'Talknas', desc: 'Tryck 1-16 i ordning snabbt', reward: '🪙0-300', hot: false },
   { id: 'taprush' as const, emoji: '👆', name: 'Tap Rush', desc: 'Samla bra, undvik dåligt 10s', reward: '🪙0-400', hot: false },
+  { id: 'anagram' as const, emoji: '🔤', name: 'Anagram', desc: 'Blanda om bokstäver till ord', reward: '🪙0-400', hot: false },
+  { id: 'pairmatch' as const, emoji: '🎴', name: 'Para Kort', desc: 'Hitta matchande emoji-par 4×4', reward: '🪙20-200', hot: false },
 ]
 
 function weekKey() {
@@ -243,6 +247,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'dodge') return <DodgeBallGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} petEmoji={petEmoji} />
   if (activeGame === 'numcrunch') return <NumberCrunchGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'taprush') return <TapRushGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'anagram') return <AnagramGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'pairmatch') return <PairMatchGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
