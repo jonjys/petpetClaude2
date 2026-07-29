@@ -369,6 +369,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'pettavern', emoji: '🍺', label: 'Krog', desc: 'Träffa NPC-karaktärer och utbyt uppdrag' },
   { id: 'relicvault', emoji: '🏺', label: 'Relikvalv', desc: 'Samla och utforska sällsynta reliker' },
   { id: 'petastrology', emoji: '🌙', label: 'Astrologi', desc: 'Husdjurets stjärntecken och horoskop' },
+  { id: 'petcalendar', emoji: '📅', label: 'Kalender', desc: 'Planera och spåra husdjurshändelser' },
+  { id: 'petmemories', emoji: '📸', label: 'Minnen', desc: 'Galleri med husdjurets bästa stunder' },
+  { id: 'alchemylab', emoji: '🧪', label: 'Alkemin', desc: 'Kombinera ingredienser för kraftfulla effekter' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
