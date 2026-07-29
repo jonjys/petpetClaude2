@@ -77,8 +77,10 @@ import { BubbleShooterGame } from './BubbleShooterGame'
 import { LightsOutGame } from './LightsOutGame'
 import { OddOneOutGame } from './OddOneOutGame'
 import { ReflexColorGame } from './ReflexColorGame'
+import { MathDuelGame } from './MathDuelGame'
+import { TreasureHuntGame } from './TreasureHuntGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -153,6 +155,8 @@ const GAMES = [
   { id: 'lights' as const, emoji: '💡', name: 'Lights Out', desc: 'Klicka celler — släck alla lampor', reward: '🪙0-700', hot: false },
   { id: 'oddout' as const, emoji: '🔍', name: 'Hitta Skillnaden', desc: 'Spot the odd emoji in the grid', reward: '🪙0-600', hot: true },
   { id: 'reflexcolor' as const, emoji: '🌈', name: 'Reflex Färg', desc: 'Tryck rätt färg så snabbt du kan!', reward: '🪙0-500', hot: true },
+  { id: 'mathduel' as const, emoji: '⚔️', name: 'Matteduel', desc: 'Lös matte mot klockan, streak bonus', reward: '🪙0-700', hot: true },
+  { id: 'treasure' as const, emoji: '🗺️', name: 'Skattjakt', desc: 'Hitta skatter, undvik fällor i rutnät', reward: '🪙0-800', hot: true },
 ]
 
 function weekKey() {
@@ -315,6 +319,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'lights') return <LightsOutGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'oddout') return <OddOneOutGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'reflexcolor') return <ReflexColorGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'mathduel') return <MathDuelGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'treasure') return <TreasureHuntGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>

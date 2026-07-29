@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -54,6 +54,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   petgoals: 'orange', energyboost: 'gold', petfunfacts: 'purple',
   petvillage: 'green', powerups: 'orange', petrank: 'gold',
   dreamworld: 'purple', elementals: 'blue', petlegacy: 'gold',
+  pettavern: 'orange', relicvault: 'gold', petastrology: 'purple',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -159,6 +160,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   dreamworld: { label: 'NY',     color: 'var(--purple)' },
   elementals: { label: 'NY',     color: 'var(--blue)'   },
   petlegacy:  { label: 'NY',     color: 'var(--gold)'   },
+  pettavern:  { label: 'NY',     color: 'var(--orange)' },
+  relicvault: { label: 'NY',     color: 'var(--gold)'   },
+  petastrology:{ label: 'DAGLIG',color: 'var(--purple)' },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -6872,6 +6876,111 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
             </div>
           ))}
         </div>
+      </div>
+    )
+  }
+
+  if (panel === 'pettavern') {
+    const npcs = [
+      { emoji: '🧙', name: 'Trollkarlen Miro', quest: 'Vinn 5 strider', reward: '300 🪙', done: pet.battleWins >= 5 },
+      { emoji: '🧝', name: 'Alven Sira', quest: 'Fånga 10 fiskar', reward: '200 🪙 + 5 KC', done: pet.fishCaught >= 10 },
+      { emoji: '🤴', name: 'Prinsen Alder', quest: 'Nå nivå 10', reward: '500 🪙', done: pet.level >= 10 },
+      { emoji: '👹', name: 'Goblinen Krix', quest: 'Samla 1000 mynt', reward: '50 KC', done: pet.coins >= 1000 },
+    ]
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🍺 Krogen</span>
+        </div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', textAlign: 'center', marginBottom: 14 }}>Träffa NPC:er och hämta uppdrag</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {npcs.map(npc => (
+            <div key={npc.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: npc.done ? 'rgba(74,222,128,.06)' : 'rgba(255,255,255,.04)', border: `1px solid ${npc.done ? 'rgba(74,222,128,.2)' : 'rgba(255,255,255,.08)'}`, borderRadius: 14 }}>
+              <div style={{ fontSize: 32, flexShrink: 0 }}>{npc.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color: '#fff' }}>{npc.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>📋 {npc.quest}</div>
+                <div style={{ fontSize: 11, color: '#fbbf24', marginTop: 2 }}>🎁 {npc.reward}</div>
+              </div>
+              {npc.done
+                ? <button onClick={() => { gainCoins(300); showToast(`${npc.emoji} Uppdrag klart! +300🪙`, 'success'); audio.achievement() }} style={{ padding: '8px 12px', borderRadius: 10, background: 'rgba(74,222,128,.15)', border: '1px solid rgba(74,222,128,.3)', color: '#4ade80', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Hämta!</button>
+                : <div style={{ fontSize: 10, color: 'var(--t3)' }}>Pågår...</div>
+              }
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'relicvault') {
+    const relics = [
+      { emoji: '⚗️', name: 'Alkemistens Flaska', rarity: 'Sällsynt', desc: '+25% XP permanent', found: pet.level >= 8, color: '#818cf8' },
+      { emoji: '🗡️', name: 'Hjältens Svärd', rarity: 'Episk', desc: '+30% stridsattack', found: pet.battleWins >= 15, color: '#a855f7' },
+      { emoji: '🔮', name: 'Orakelkristall', rarity: 'Legendär', desc: 'Avslöjar framtida händelser', found: pet.level >= 20, color: '#fbbf24' },
+      { emoji: '🏺', name: 'Antik Urna', rarity: 'Vanlig', desc: '+10 mynt per dag', found: true, color: '#4ade80' },
+      { emoji: '🪬', name: 'Skyddsamulett', rarity: 'Sällsynt', desc: 'Skyddar mot stat-förlust', found: pet.streak >= 5, color: '#818cf8' },
+      { emoji: '📜', name: 'Urgammal Karta', rarity: 'Episk', desc: '+50% expeditionsbelöning', found: pet.expeditionsDone >= 5, color: '#a855f7' },
+    ]
+    const foundCount = relics.filter(r => r.found).length
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🏺 Relikvalv</span>
+        </div>
+        <div style={{ textAlign: 'center', marginBottom: 12, fontSize: 12, color: 'var(--t3)' }}>{foundCount}/{relics.length} reliker upplåsta</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          {relics.map(r => (
+            <div key={r.name} style={{ background: r.found ? `rgba(${r.color === '#4ade80' ? '74,222,128' : r.color === '#818cf8' ? '129,140,248' : r.color === '#a855f7' ? '168,85,247' : '251,191,36'},.08)` : 'rgba(255,255,255,.04)', border: `1px solid ${r.found ? r.color + '44' : 'rgba(255,255,255,.08)'}`, borderRadius: 12, padding: '12px 10px', textAlign: 'center', filter: r.found ? 'none' : 'grayscale(1) opacity(0.5)' }}>
+              <div style={{ fontSize: 28, marginBottom: 6 }}>{r.found ? r.emoji : '🔒'}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: r.found ? r.color : 'var(--t3)' }}>{r.name}</div>
+              <div style={{ fontSize: 9, color: 'var(--t3)', marginTop: 2 }}>{r.rarity}</div>
+              {r.found && <div style={{ fontSize: 9, color: r.color, marginTop: 4 }}>{r.desc}</div>}
+            </div>
+          ))}
+        </div>
+        <div className={styles.panelNote}>Reliker upplåses genom att uppnå milstolpar</div>
+      </div>
+    )
+  }
+
+  if (panel === 'petastrology') {
+    const signs = ['♈ Väduren', '♉ Oxen', '♊ Tvillingarna', '♋ Kräftan', '♌ Lejonet', '♍ Jungfrun', '♎ Vågen', '♏ Skorpionen', '♐ Skytten', '♑ Stenbocken', '♒ Vattumannen', '♓ Fiskarna']
+    const petSign = signs[pet.level % signs.length]
+    const horoscopes = [
+      'Stjärnorna kräver tapperhet — din tid att skina är nu! ⭐',
+      'Universum sänder positiv energi din väg. Ta chansen! 🌟',
+      'En overäntat belöning väntar den som söker äventyr. 🎁',
+      'Ditt hjärta och sinne är i perfekt harmoni idag. 💫',
+      'Undvik risker idag — läkande och vila ger styrka. 🌙',
+    ]
+    const todayHoroscope = horoscopes[new Date().getDate() % horoscopes.length]
+    const luckyColor = ['Gyllene', 'Kristallblå', 'Smaragdgrön', 'Purpurröd', 'Silvervit'][new Date().getDay() % 5]
+    const luckyNum = ((pet.level + pet.battleWins + new Date().getDate()) % 99) + 1
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🌙 Astrologi</span>
+        </div>
+        <div style={{ background: 'linear-gradient(135deg, rgba(168,85,247,.12), rgba(59,130,246,.08))', border: '1px solid rgba(168,85,247,.2)', borderRadius: 16, padding: '16px', textAlign: 'center', marginBottom: 14 }}>
+          <div style={{ fontSize: 40, marginBottom: 8 }}>🌙</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 18, fontWeight: 900, color: '#a855f7' }}>{petSign}</div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 8, lineHeight: 1.8 }}>{todayHoroscope}</div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 14 }}>
+          <div style={{ background: 'rgba(255,255,255,.04)', borderRadius: 12, padding: '12px', textAlign: 'center' }}>
+            <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 4 }}>Lyckofärg idag</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 700, color: '#fbbf24' }}>✨ {luckyColor}</div>
+          </div>
+          <div style={{ background: 'rgba(255,255,255,.04)', borderRadius: 12, padding: '12px', textAlign: 'center' }}>
+            <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 4 }}>Lyckotal idag</div>
+            <div style={{ fontFamily: 'var(--ff-head)', fontSize: 24, fontWeight: 900, color: '#4ade80' }}>{luckyNum}</div>
+          </div>
+        </div>
+        <button onClick={() => { gainXP(30, 'astrology'); showToast('🌙 Stärnkraft +30 XP', 'success'); audio.coin() }} style={{ width: '100%', padding: '12px', borderRadius: 12, background: 'rgba(168,85,247,.15)', border: '1px solid rgba(168,85,247,.3)', color: '#a855f7', cursor: 'pointer', fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700 }}>🌙 Daglig stärnbön (+30 XP)</button>
       </div>
     )
   }
