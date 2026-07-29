@@ -109,8 +109,10 @@ import { TruthOrDareGame } from './TruthOrDareGame'
 import { BeatBuilderGame } from './BeatBuilderGame'
 import { WordGuesserGame } from './WordGuesserGame'
 import { NumberPuzzleGame } from './NumberPuzzleGame'
+import { TileMatchGame } from './TileMatchGame'
+import { DirectionGame } from './DirectionGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -217,6 +219,8 @@ const GAMES = [
   { id: 'beatbuilder' as const, emoji: '🎹', name: 'Beat Builder', desc: 'Bygg och spela upp din trummaskin', reward: '🪙0-800', hot: true },
   { id: 'wordguess' as const, emoji: '🔤', name: 'Ordgissaren', desc: 'Gissa svenska ord bokstav för bokstav', reward: '🪙0-750', hot: false },
   { id: 'numpuzzle' as const, emoji: '🔣', name: 'Taloperatorn', desc: 'Välj rätt operator för ekvationen', reward: '🪙0-700', hot: true },
+  { id: 'tilematch' as const, emoji: '🍎', name: 'Frukttrio', desc: 'Para frukter på 6×8 bräde — 60 sekunder', reward: '🪙0-800', hot: true },
+  { id: 'direction' as const, emoji: '🧭', name: 'Pilkompassen', desc: 'Tryck pilsekvenser snabbt och exakt', reward: '🪙0-700', hot: false },
 ]
 
 function weekKey() {
@@ -411,6 +415,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'beatbuilder') return <BeatBuilderGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'wordguess') return <WordGuesserGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'numpuzzle') return <NumberPuzzleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'tilematch') return <TileMatchGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'direction') return <DirectionGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
