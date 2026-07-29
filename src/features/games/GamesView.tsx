@@ -95,8 +95,10 @@ import { FactFictionGame } from './FactFictionGame'
 import { GridRememberGame } from './GridRememberGame'
 import { QuickSumGame } from './QuickSumGame'
 import { AnimalSoundGame } from './AnimalSoundGame'
+import { ColorMixGame2 } from './ColorMixGame2'
+import { SnapCardGame } from './SnapCardGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -189,6 +191,8 @@ const GAMES = [
   { id: 'gridremem' as const, emoji: '🟩', name: 'Rutnätsminne', desc: 'Memorera och återskapa rutmönster', reward: '🪙0-800', hot: false },
   { id: 'quicksum' as const, emoji: '➕', name: 'Snabbsumma', desc: 'Hitta paret som summerar till målet!', reward: '🪙0-700', hot: true },
   { id: 'animalsound' as const, emoji: '🔊', name: 'Djurljud', desc: 'Vilket ljud gör djuret? 10 frågor', reward: '🪙0-600', hot: false },
+  { id: 'colormix2' as const, emoji: '🎨', name: 'Färgblandning', desc: 'Vilka färger blandar till denna? 10 runder', reward: '🪙0-600', hot: false },
+  { id: 'snapcard' as const, emoji: '🃏', name: 'SNAP!', desc: 'Tryck SNAP när samma kort visas igen!', reward: '🪙0-700', hot: true },
 ]
 
 function weekKey() {
@@ -369,6 +373,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'gridremem') return <GridRememberGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'quicksum') return <QuickSumGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'animalsound') return <AnimalSoundGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'colormix2') return <ColorMixGame2 onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'snapcard') return <SnapCardGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
