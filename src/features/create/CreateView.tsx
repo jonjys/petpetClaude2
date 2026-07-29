@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab' | 'petsanctuary' | 'cosmicshop' | 'petprowess'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab' | 'petsanctuary' | 'cosmicshop' | 'petprowess' | 'pettraining2' | 'guildhouse' | 'seasonpass'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -57,6 +57,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   pettavern: 'orange', relicvault: 'gold', petastrology: 'purple',
   petcalendar: 'blue', petmemories: 'pink', alchemylab: 'green',
   petsanctuary: 'green', cosmicshop: 'purple', petprowess: 'orange',
+  pettraining2: 'red', guildhouse: 'gold', seasonpass: 'purple',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -171,6 +172,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   petsanctuary:{ label: 'NY',    color: 'var(--green)'  },
   cosmicshop: { label: 'NY',     color: 'var(--purple)' },
   petprowess: { label: 'NY',     color: 'var(--orange)' },
+  pettraining2:{ label: 'NY',    color: 'var(--red)'    },
+  guildhouse: { label: 'NY',     color: 'var(--gold)'   },
+  seasonpass: { label: 'S2',     color: 'var(--purple)' },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -7210,6 +7214,129 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
               {ab.level < ab.max && (
                 <button onClick={() => { gainXP(-ab.xpCost, 'prowess'); showToast(`${ab.emoji} ${ab.name} uppgraderad!`, 'success'); audio.coin() }} style={{ fontSize: 11, padding: '6px 12px', borderRadius: 8, background: `${ab.color}22`, border: `1px solid ${ab.color}44`, color: ab.color, cursor: 'pointer', fontWeight: 700 }}>Uppgradera (-{ab.xpCost} XP)</button>
               )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'pettraining2') {
+    const drills = [
+      { emoji: '🏃', name: 'Uthållighetslöpning', stat: 'energy', boost: 15, cost: 100, desc: '+15 energi' },
+      { emoji: '🥊', name: 'Boxningspass', stat: 'mood', boost: 20, cost: 120, desc: '+20 humör' },
+      { emoji: '🧘', name: 'Yoga-session', stat: 'mood', boost: 10, cost: 80, desc: '+10 humör & +5 energi' },
+      { emoji: '🏋️', name: 'Tyngdlyftning', stat: 'energy', boost: 25, cost: 150, desc: '+25 energi' },
+      { emoji: '🤸', name: 'Gymnastik', stat: 'mood', boost: 15, cost: 100, desc: '+15 humör' },
+    ]
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🏋️ Träningsläger</span>
+        </div>
+        <div style={{ background: 'rgba(248,113,113,.08)', border: '1px solid rgba(248,113,113,.2)', borderRadius: 12, padding: '10px 14px', marginBottom: 14 }}>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 4 }}>Nuvarande form</div>
+          <div style={{ display: 'flex', gap: 16 }}>
+            <span style={{ fontSize: 12, color: '#4ade80' }}>⚡ Energi: {pet.energy}%</span>
+            <span style={{ fontSize: 12, color: '#818cf8' }}>😊 Humör: {pet.mood}%</span>
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {drills.map(d => (
+            <div key={d.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+              <span style={{ fontSize: 28, flexShrink: 0 }}>{d.emoji}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color: '#fff' }}>{d.name}</div>
+                <div style={{ fontSize: 11, color: '#4ade80', marginTop: 2 }}>✨ {d.desc}</div>
+              </div>
+              <button onClick={() => { spendCoins(d.cost); setStat(d.stat as 'energy' | 'mood', Math.min(100, (d.stat === 'energy' ? pet.energy : pet.mood) + d.boost)); gainXP(30, 'training'); showToast(`${d.emoji} ${d.name} klar! +${d.boost} ${d.stat}`, 'success'); audio.coin() }} style={{ padding: '8px 12px', borderRadius: 10, background: 'rgba(248,113,113,.15)', border: '1px solid rgba(248,113,113,.3)', color: '#f87171', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>🪙 {d.cost}</button>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'guildhouse') {
+    const guildName = 'Dragonpaw Gillet'
+    const members = ['🐉 DragonMaster', '🦊 FoxQueen', '🐺 WolfPack', `${pet.petEmoji} ${pet.petName} (Du)`, '🦁 LionHeart']
+    const tasks = [
+      { emoji: '⚔️', name: 'Slå Boss Raid', progress: Math.min(pet.battleWins, 5), goal: 5, reward: '200 🪙' },
+      { emoji: '🎣', name: 'Fånga 10 fiskar', progress: Math.min(pet.fishCaught, 10), goal: 10, reward: '150 🪙' },
+      { emoji: '🌟', name: 'Samla 500 XP', progress: Math.min(pet.bpassXP ?? 0, 500), goal: 500, reward: '50 KC' },
+    ]
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🏰 Gillesal</span>
+        </div>
+        <div style={{ background: 'linear-gradient(135deg, rgba(251,191,36,.1), rgba(251,191,36,.04))', border: '1px solid rgba(251,191,36,.2)', borderRadius: 14, padding: '12px 14px', marginBottom: 14 }}>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#fbbf24' }}>⚔️ {guildName}</div>
+          <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>{members.length} medlemmar · Rang: Silver II</div>
+        </div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 8 }}>Gilleuppdrag</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 14 }}>
+          {tasks.map(t => (
+            <div key={t.name} style={{ padding: '10px 12px', background: 'rgba(255,255,255,.04)', borderRadius: 10 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                <span style={{ fontSize: 12, color: '#fff' }}>{t.emoji} {t.name}</span>
+                <span style={{ fontSize: 11, color: '#fbbf24' }}>{t.reward}</span>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,.3)', borderRadius: 4, height: 5, overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${(t.progress / t.goal) * 100}%`, background: '#fbbf24', borderRadius: 4 }} />
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>{t.progress}/{t.goal}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 8 }}>Gillemedlemmar</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {members.map(m => <div key={m} style={{ fontSize: 13, color: '#e8e8f0', padding: '8px 10px', background: 'rgba(255,255,255,.04)', borderRadius: 8 }}>{m}</div>)}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'seasonpass') {
+    const tiers = [
+      { tier: 1, reward: '100 🪙', xpReq: 0, emoji: '🥉', claimed: true },
+      { tier: 2, reward: '⭐ 200 XP', xpReq: 500, emoji: '🥈', claimed: (pet.bpassXP ?? 0) >= 500 },
+      { tier: 3, reward: '💎 10 KC', xpReq: 1000, emoji: '🥇', claimed: (pet.bpassXP ?? 0) >= 1000 },
+      { tier: 4, reward: '🎭 Exklusiv emote', xpReq: 2000, emoji: '💠', claimed: (pet.bpassXP ?? 0) >= 2000 },
+      { tier: 5, reward: '👑 Säsongsavatar', xpReq: 3500, emoji: '👑', claimed: (pet.bpassXP ?? 0) >= 3500 },
+    ]
+    const bpassXP = pet.bpassXP ?? 0
+    const maxXP = 3500
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🎫 Säsongspass S2</span>
+        </div>
+        <div style={{ background: 'linear-gradient(135deg, rgba(168,85,247,.12), rgba(129,140,248,.08))', border: '1px solid rgba(168,85,247,.2)', borderRadius: 14, padding: '12px 14px', marginBottom: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+            <span style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 700, color: '#a855f7' }}>Säsong 2</span>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>{bpassXP}/{maxXP} XP</span>
+          </div>
+          <div style={{ background: 'rgba(0,0,0,.3)', borderRadius: 8, height: 8, overflow: 'hidden' }}>
+            <div style={{ height: '100%', width: `${Math.min(100, (bpassXP / maxXP) * 100)}%`, background: 'linear-gradient(90deg, #a855f7, #818cf8)', borderRadius: 8 }} />
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {tiers.map(t => (
+            <div key={t.tier} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: t.claimed ? 'rgba(74,222,128,.06)' : 'rgba(255,255,255,.04)', border: `1px solid ${t.claimed ? 'rgba(74,222,128,.2)' : 'rgba(255,255,255,.08)'}`, borderRadius: 12 }}>
+              <div style={{ fontSize: 26, flexShrink: 0 }}>{t.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color: '#fff' }}>Nivå {t.tier}</div>
+                <div style={{ fontSize: 12, color: '#fbbf24' }}>{t.reward}</div>
+                {!t.claimed && <div style={{ fontSize: 10, color: 'var(--t3)' }}>Kräver {t.xpReq} XP</div>}
+              </div>
+              {t.claimed
+                ? <div style={{ fontSize: 11, color: '#4ade80', fontWeight: 700 }}>✓ Hämtat</div>
+                : bpassXP >= t.xpReq && <button onClick={() => { gainCoins(100); showToast(`${t.emoji} Säsongspass Lv${t.tier} belöning hämtad!`, 'success'); audio.achievement() }} style={{ padding: '8px 12px', borderRadius: 10, background: 'rgba(168,85,247,.15)', border: '1px solid rgba(168,85,247,.3)', color: '#a855f7', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Hämta!</button>
+              }
             </div>
           ))}
         </div>
