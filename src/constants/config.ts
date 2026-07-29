@@ -405,6 +405,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petgallery', emoji: '🖼️', label: 'Konstgalleriet', desc: 'Visa upp ditt husdjurs konstverk och samla fans' },
   { id: 'petvolcano', emoji: '🌋', label: 'Vulkanbasen', desc: 'Dykäventyr i lava — extrem belöning för det modiga' },
   { id: 'petcrossroads', emoji: '🔮', label: 'Korsvägen', desc: 'Välj din öde väg vid den magiska korsvägen' },
+  { id: 'petlabyrint', emoji: '🌀', label: 'Husdjurslabyrint', desc: 'Navigera labyrinten och hitta de dolda skatterna' },
+  { id: 'petairdrop', emoji: '🪂', label: 'Luftlandning', desc: 'Fallskärmshopp med ditt husdjur för bonusar' },
+  { id: 'petatelier', emoji: '🎨', label: 'Konstnärsateliern', desc: 'Skapa mästerverk och sälj dem på konstmarknaden' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
