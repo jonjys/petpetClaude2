@@ -103,8 +103,10 @@ import { PathfinderGame } from './PathfinderGame'
 import { TypingRainGame } from './TypingRainGame'
 import { ColorSequenceGame } from './ColorSequenceGame'
 import { SpeedCountGame } from './SpeedCountGame'
+import { MemoryFlipGame } from './MemoryFlipGame'
+import { MirrorDrawGame } from './MirrorDrawGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -205,6 +207,8 @@ const GAMES = [
   { id: 'typingrain' as const, emoji: '🌧️', name: 'Ordregn', desc: 'Skriv fallande ord innan de träffar marken', reward: '🪙0-700', hot: false },
   { id: 'colorseq' as const, emoji: '🌈', name: 'Färgsekvens', desc: 'Memorera och upprepa färgordningen', reward: '🪙0-900', hot: true },
   { id: 'speedcount' as const, emoji: '🔢', name: 'Snabbräknaren', desc: 'Räkna emojis snabbt — välj rätt antal', reward: '🪙0-700', hot: false },
+  { id: 'memflip' as const, emoji: '🔀', name: 'Flip & Match', desc: 'Vänd och para 8 emoji-par på 4×4', reward: '🪙0-800', hot: false },
+  { id: 'mirrordraw' as const, emoji: '🪞', name: 'Spegelritning', desc: 'Rita spegelbilden av mönstret — 8 runder', reward: '🪙0-900', hot: true },
 ]
 
 function weekKey() {
@@ -393,6 +397,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'typingrain') return <TypingRainGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'colorseq') return <ColorSequenceGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'speedcount') return <SpeedCountGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'memflip') return <MemoryFlipGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'mirrordraw') return <MirrorDrawGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
