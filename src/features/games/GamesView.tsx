@@ -75,8 +75,10 @@ import { CatchFruitGame } from './CatchFruitGame'
 import { CountdownGame } from './CountdownGame'
 import { BubbleShooterGame } from './BubbleShooterGame'
 import { LightsOutGame } from './LightsOutGame'
+import { OddOneOutGame } from './OddOneOutGame'
+import { ReflexColorGame } from './ReflexColorGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -149,6 +151,8 @@ const GAMES = [
   { id: 'countdown' as const, emoji: '🔢', name: 'Countdown', desc: 'Nå målvärdet med siffror', reward: '🪙0-600', hot: true },
   { id: 'bubshoot' as const, emoji: '🎯', name: 'Bubbel Shooter', desc: 'Skjut bubblor & gör grupper om 3+', reward: '🪙0-800', hot: true },
   { id: 'lights' as const, emoji: '💡', name: 'Lights Out', desc: 'Klicka celler — släck alla lampor', reward: '🪙0-700', hot: false },
+  { id: 'oddout' as const, emoji: '🔍', name: 'Hitta Skillnaden', desc: 'Spot the odd emoji in the grid', reward: '🪙0-600', hot: true },
+  { id: 'reflexcolor' as const, emoji: '🌈', name: 'Reflex Färg', desc: 'Tryck rätt färg så snabbt du kan!', reward: '🪙0-500', hot: true },
 ]
 
 function weekKey() {
@@ -309,6 +313,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'countdown') return <CountdownGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'bubshoot') return <BubbleShooterGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'lights') return <LightsOutGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'oddout') return <OddOneOutGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'reflexcolor') return <ReflexColorGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
