@@ -85,8 +85,10 @@ import { PuzzlePairsGame } from './PuzzlePairsGame'
 import { EmojiCodeGame } from './EmojiCodeGame'
 import { PatternRepeatGame } from './PatternRepeatGame'
 import { TargetClickGame } from './TargetClickGame'
+import { WordBombGame } from './WordBombGame'
+import { NumberLineGame } from './NumberLineGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -169,6 +171,8 @@ const GAMES = [
   { id: 'emojicode' as const, emoji: '🔑', name: 'Emoji-Kod', desc: 'Gissa vilket ord emojis representerar', reward: '🪙0-800', hot: true },
   { id: 'patternrep' as const, emoji: '🔮', name: 'Mönsterminne', desc: 'Memorera och upprepa ljussekvenser', reward: '🪙0-900', hot: true },
   { id: 'targetclick' as const, emoji: '🎯', name: 'Måljakt', desc: 'Klicka mål, undvik bomber 25s', reward: '🪙0-600', hot: true },
+  { id: 'wordbomb' as const, emoji: '💣', name: 'Ordbömbaren', desc: 'Skriv ord med stavelsen innan bomben', reward: '🪙0-700', hot: true },
+  { id: 'numline' as const, emoji: '📏', name: 'Nummerlinje', desc: 'Tryck rätt plats på 0-100 linjen', reward: '🪙0-1000', hot: false },
 ]
 
 function weekKey() {
@@ -339,6 +343,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'emojicode') return <EmojiCodeGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'patternrep') return <PatternRepeatGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'targetclick') return <TargetClickGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'wordbomb') return <WordBombGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'numline') return <NumberLineGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
