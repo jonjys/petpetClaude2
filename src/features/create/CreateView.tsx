@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab' | 'petsanctuary' | 'cosmicshop' | 'petprowess' | 'pettraining2' | 'guildhouse' | 'seasonpass' | 'petkarma' | 'worldmap' | 'petfestival' | 'dailychest' | 'petcircus' | 'stargazing'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab' | 'petsanctuary' | 'cosmicshop' | 'petprowess' | 'pettraining2' | 'guildhouse' | 'seasonpass' | 'petkarma' | 'worldmap' | 'petfestival' | 'dailychest' | 'petcircus' | 'stargazing' | 'petdojo' | 'timetravel' | 'petnews'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -60,6 +60,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   pettraining2: 'red', guildhouse: 'gold', seasonpass: 'purple',
   petkarma: 'green', worldmap: 'blue', petfestival: 'gold',
   dailychest: 'gold', petcircus: 'purple', stargazing: 'blue',
+  petdojo: 'red', timetravel: 'purple', petnews: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -183,6 +184,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   dailychest: { label: 'NY',     color: 'var(--gold)'   },
   petcircus:  { label: 'NY',     color: 'var(--purple)' },
   stargazing: { label: '✨',     color: 'var(--blue)'   },
+  petdojo:    { label: 'NY',     color: 'var(--red)'    },
+  timetravel: { label: 'NY',     color: 'var(--purple)' },
+  petnews:    { label: 'NY',     color: 'var(--blue)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -7661,6 +7665,128 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
         >
           {observed ? '✓ Observerat idag' : '🔭 Observera stjärnorna!'}
         </button>
+      </div>
+    )
+  }
+
+  if (panel === 'petdojo') {
+    const techniques = [
+      { id: 'punch', emoji: '👊', name: 'Grundpunch', belt: '🤍 Vit bälte', xp: 30, wins: 0 },
+      { id: 'kick', emoji: '🦶', name: 'Rondsparka', belt: '💛 Gult bälte', xp: 50, wins: 3 },
+      { id: 'block', emoji: '🛡️', name: 'Perfektblock', belt: '🟠 Orange bälte', xp: 70, wins: 6 },
+      { id: 'throw', emoji: '🌪️', name: 'Kast-teknik', belt: '🟢 Grönt bälte', xp: 100, wins: 10 },
+      { id: 'special', emoji: '⚡', name: 'Specialattack', belt: '🖤 Svart bälte', xp: 150, wins: 20 },
+    ]
+    const wins = pet.battleWins ?? 0
+    const dojoKey = (id: string) => `k0509_dojo_${id}_${new Date().toDateString()}`
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🥋 Husdjursdojo</span>
+        </div>
+        <div style={{ background: 'linear-gradient(135deg, rgba(239,68,68,.1), rgba(220,38,38,.05))', border: '1px solid rgba(239,68,68,.2)', borderRadius: 14, padding: '12px', marginBottom: 16, textAlign: 'center' }}>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 900, color: '#f87171' }}>⚔️ {wins} stridseger{wins === 1 ? '' : 's'}</div>
+          <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>Vinn strider för att låsa upp fler tekniker!</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {techniques.map(t => {
+            const unlocked = wins >= t.wins
+            const trained = !!localStorage.getItem(dojoKey(t.id))
+            return (
+              <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px', background: unlocked ? 'rgba(255,255,255,.05)' : 'rgba(0,0,0,.2)', border: `1px solid ${unlocked ? 'rgba(255,255,255,.1)' : 'rgba(255,255,255,.03)'}`, borderRadius: 14, opacity: unlocked ? 1 : 0.5 }}>
+                <div style={{ fontSize: 28, flexShrink: 0 }}>{t.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color: '#fff' }}>{t.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{t.belt}</div>
+                  <div style={{ fontSize: 11, color: '#f87171', marginTop: 2 }}>+{t.xp} XP{t.wins > 0 ? ` · Kräver ${t.wins} segrar` : ''}</div>
+                </div>
+                {!unlocked && <div style={{ fontSize: 18 }}>🔒</div>}
+                {unlocked && (trained
+                  ? <div style={{ fontSize: 11, color: '#4ade80', fontWeight: 700 }}>✓ Tränat</div>
+                  : <button onClick={() => { gainXP(t.xp); localStorage.setItem(dojoKey(t.id), '1'); showToast(`${t.emoji} ${t.name} tränad! +${t.xp} XP`, 'success'); audio.achievement() }} style={{ padding: '10px 14px', borderRadius: 12, background: 'rgba(239,68,68,.12)', border: '1px solid rgba(239,68,68,.3)', color: '#f87171', cursor: 'pointer', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>Träna!</button>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'timetravel') {
+    const eras = [
+      { id: 'ancient', emoji: '🏛️', name: 'Antiken', year: '500 f.Kr', desc: 'Träffa antika husdjur och lär gamla hemligheter', reward: 40 },
+      { id: 'medieval', emoji: '⚔️', name: 'Medeltiden', year: '1200 e.Kr', desc: 'Kämpa som riddarens trogna sällskap', reward: 60 },
+      { id: 'future', emoji: '🤖', name: 'Framtiden', year: '2150 e.Kr', desc: 'Utforska en värld av cyber-husdjur', reward: 80 },
+      { id: 'dino', emoji: '🦕', name: 'Dinosaurietiden', year: '65 Mya', desc: 'Möt förhistoriska jättar ansikte mot ansikte', reward: 100 },
+    ]
+    const eraKey = (id: string) => `k0509_era_${id}_${new Date().toDateString()}`
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>⏳ Tidsresor</span>
+        </div>
+        <div style={{ textAlign: 'center', fontSize: 13, color: 'var(--t3)', marginBottom: 14 }}>
+          Res tillbaka och framåt i tiden med ditt husdjur!
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {eras.map(era => {
+            const visited = !!localStorage.getItem(eraKey(era.id))
+            return (
+              <div key={era.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px', background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 14 }}>
+                <div style={{ fontSize: 32, flexShrink: 0 }}>{era.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 700, color: '#fff' }}>{era.name}</div>
+                  <div style={{ fontSize: 11, color: '#818cf8' }}>{era.year}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{era.desc}</div>
+                  <div style={{ fontSize: 11, color: '#a855f7', marginTop: 2 }}>+{era.reward} XP</div>
+                </div>
+                {visited
+                  ? <div style={{ fontSize: 11, color: '#4ade80', fontWeight: 700 }}>✓ Besökt</div>
+                  : <button onClick={() => { gainXP(era.reward); localStorage.setItem(eraKey(era.id), '1'); showToast(`${era.emoji} Reste till ${era.name}! +${era.reward} XP`, 'success'); audio.achievement() }} style={{ padding: '10px 14px', borderRadius: 12, background: 'rgba(129,140,248,.12)', border: '1px solid rgba(129,140,248,.3)', color: '#818cf8', cursor: 'pointer', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>Res!</button>
+                }
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petnews') {
+    const news = [
+      { emoji: '⚡', title: 'Boss Raid uppdatering!', body: 'Ny mega-boss tillgänglig — Kämpa mot Urdrakonen!', time: '2t sedan', tag: 'Spel' },
+      { emoji: '🎉', title: 'Sommarfestivalen startar!', body: 'Exklusiva evenemang och belöningar hela sommaren.', time: '5t sedan', tag: 'Event' },
+      { emoji: '💎', title: 'Dubbel KC-helg', body: 'Tjäna dubbelt KC i alla spel helgen 27-28 juli.', time: '1d sedan', tag: 'Bonus' },
+      { emoji: '🏆', title: 'Säsong 2 Toppranking', body: 'Rankingen för Säsong 2 är nu live. Kämpa om topplacering!', time: '2d sedan', tag: 'Ranking' },
+      { emoji: '🐾', title: 'Nya husdjursarter', body: 'Tre nya sällsynta husdjursarter har lagts till i spelet.', time: '3d sedan', tag: 'Innehåll' },
+    ]
+    const tagColors: Record<string, string> = { Spel: 'var(--red)', Event: 'var(--gold)', Bonus: 'var(--green)', Ranking: 'var(--purple)', Innehåll: 'var(--blue)' }
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>📰 Husdjursnyheter</span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {news.map((n, i) => (
+            <div key={i} style={{ padding: '14px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                <div style={{ fontSize: 28, flexShrink: 0 }}>{n.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                    <span style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color: '#fff' }}>{n.title}</span>
+                    <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 6, background: `rgba(${tagColors[n.tag] ?? 'var(--blue)'},.15)`, color: tagColors[n.tag] ?? 'var(--blue)', border: `1px solid ${tagColors[n.tag] ?? 'var(--blue)'}40` }}>{n.tag}</span>
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.5 }}>{n.body}</div>
+                  <div style={{ fontSize: 10, color: '#444', marginTop: 4 }}>🕐 {n.time}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
