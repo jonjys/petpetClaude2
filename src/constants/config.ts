@@ -381,6 +381,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petkarma', emoji: '🪬', label: 'Karma', desc: 'Goda handlingar ger karma och XP-bonusar' },
   { id: 'worldmap', emoji: '🗺️', label: 'Världskarta', desc: 'Utforska zoner och lås upp belöningar' },
   { id: 'petfestival', emoji: '🎪', label: 'Festival', desc: 'Säsongsfestival med exklusiva event-belöningar' },
+  { id: 'dailychest', emoji: '📦', label: 'Daglig Kista', desc: 'Öppna en kista varje dag för slumpmässiga belöningar' },
+  { id: 'petcircus', emoji: '🎡', label: 'Husdjurscirkus', desc: 'Cirkusakter och trick för XP och roliga belöningar' },
+  { id: 'stargazing', emoji: '🌠', label: 'Stjärnkikare', desc: 'Observera nattskyn och samla stjärnkraft' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────

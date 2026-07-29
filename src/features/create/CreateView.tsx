@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab' | 'petsanctuary' | 'cosmicshop' | 'petprowess' | 'pettraining2' | 'guildhouse' | 'seasonpass' | 'petkarma' | 'worldmap' | 'petfestival'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab' | 'petsanctuary' | 'cosmicshop' | 'petprowess' | 'pettraining2' | 'guildhouse' | 'seasonpass' | 'petkarma' | 'worldmap' | 'petfestival' | 'dailychest' | 'petcircus' | 'stargazing'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -59,6 +59,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   petsanctuary: 'green', cosmicshop: 'purple', petprowess: 'orange',
   pettraining2: 'red', guildhouse: 'gold', seasonpass: 'purple',
   petkarma: 'green', worldmap: 'blue', petfestival: 'gold',
+  dailychest: 'gold', petcircus: 'purple', stargazing: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -179,6 +180,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   petkarma:   { label: 'NY',     color: 'var(--green)'  },
   worldmap:   { label: 'NY',     color: 'var(--blue)'   },
   petfestival:{ label: '🎪',     color: 'var(--gold)'   },
+  dailychest: { label: 'NY',     color: 'var(--gold)'   },
+  petcircus:  { label: 'NY',     color: 'var(--purple)' },
+  stargazing: { label: '✨',     color: 'var(--blue)'   },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -7496,6 +7500,167 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
             )
           })}
         </div>
+      </div>
+    )
+  }
+
+  if (panel === 'dailychest') {
+    const chestKey = 'k0509_chest_' + new Date().toDateString()
+    const opened = !!localStorage.getItem(chestKey)
+    const prizes = [
+      { emoji: '💰', label: '300 Mynt', coins: 300, kc: 0, xp: 0 },
+      { emoji: '⭐', label: '150 XP', coins: 0, kc: 0, xp: 150 },
+      { emoji: '💎', label: '8 KC', coins: 0, kc: 8, xp: 0 },
+      { emoji: '🎁', label: '500 Mynt + 50 XP', coins: 500, kc: 0, xp: 50 },
+      { emoji: '🌟', label: '20 KC', coins: 0, kc: 20, xp: 0 },
+      { emoji: '🍀', label: '1000 Mynt', coins: 1000, kc: 0, xp: 0 },
+    ]
+    const openChest = () => {
+      const p = prizes[Math.floor(Math.random() * prizes.length)]
+      if (p.coins) gainCoins(p.coins)
+      if (p.xp) gainXP(p.xp)
+      if (p.kc) gainKC(p.kc)
+      localStorage.setItem(chestKey, p.label)
+      showToast(`📦 Kista öppnad! ${p.emoji} ${p.label}`, 'success')
+      triggerConfetti(); audio.achievement()
+    }
+    const lastPrize = localStorage.getItem(chestKey)
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>📦 Daglig Kista</span>
+        </div>
+        <div style={{ textAlign: 'center', marginBottom: 20 }}>
+          <div style={{ fontSize: 80, marginBottom: 8 }}>{opened ? '🔓' : '📦'}</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: opened ? '#4ade80' : '#fbbf24' }}>
+            {opened ? 'Dagens kista öppnad!' : 'Daglig kista väntar!'}
+          </div>
+          {opened && lastPrize && <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 6 }}>Du fick: {lastPrize}</div>}
+          {!opened && <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 6 }}>Öppna för en slumpmässig belöning</div>}
+        </div>
+        {!opened && (
+          <button className="btn-primary" style={{ width: '100%', padding: '16px', fontSize: 16 }} onClick={openChest}>
+            🎁 Öppna kista!
+          </button>
+        )}
+        <div style={{ marginTop: 16 }}>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 10 }}>Möjliga belöningar:</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            {prizes.map(p => (
+              <div key={p.label} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 10px', background: 'rgba(255,255,255,.04)', borderRadius: 10, fontSize: 12, color: '#e8e8f0' }}>
+                <span>{p.emoji}</span><span>{p.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petcircus') {
+    const acts = [
+      { id: 'juggle', emoji: '🤹', name: 'Jonglering', desc: 'Husdjuret jonglerar för publiken', reward: 40, cost: 0 },
+      { id: 'tightrope', emoji: '🎪', name: 'Lina-akrobat', desc: 'Balansera på den höga linan', reward: 60, cost: 0 },
+      { id: 'magic', emoji: '🎩', name: 'Trollkonstnär', desc: 'Magitrick som förvånar alla', reward: 80, cost: 10 },
+      { id: 'fire', emoji: '🔥', name: 'Eldsprutare', desc: 'Avancerat eldnummer för extra XP', reward: 120, cost: 20 },
+    ]
+    const actKey = (id: string) => `k0509_circus_${id}_${new Date().toDateString()}`
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🎡 Husdjurscirkus</span>
+        </div>
+        <div style={{ background: 'linear-gradient(135deg, rgba(168,85,247,.1), rgba(129,140,248,.06))', border: '1px solid rgba(168,85,247,.2)', borderRadius: 14, padding: '12px', marginBottom: 16, textAlign: 'center' }}>
+          <div style={{ fontSize: 36, marginBottom: 4 }}>🎡</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 900, color: '#a855f7' }}>CIRKUS MAXIMUS 2026</div>
+          <div style={{ fontSize: 11, color: 'var(--t3)' }}>Dagliga uppträdanden — ett per akt!</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {acts.map(act => {
+            const done = !!localStorage.getItem(actKey(act.id))
+            const canAfford = pet.coins >= act.cost
+            return (
+              <div key={act.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px', background: done ? 'rgba(74,222,128,.05)' : 'rgba(255,255,255,.05)', border: `1px solid ${done ? 'rgba(74,222,128,.15)' : 'rgba(255,255,255,.1)'}`, borderRadius: 14 }}>
+                <div style={{ fontSize: 28, flexShrink: 0 }}>{act.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 700, color: '#fff' }}>{act.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>{act.desc}</div>
+                  <div style={{ fontSize: 11, color: '#a855f7', marginTop: 2 }}>+{act.reward} XP{act.cost > 0 ? ` · Kostar ${act.cost} 🪙` : ''}</div>
+                </div>
+                {done
+                  ? <div style={{ fontSize: 11, color: '#4ade80', fontWeight: 700 }}>✓ Klar</div>
+                  : <button
+                      disabled={!canAfford}
+                      onClick={() => {
+                        if (act.cost > 0) spendCoins(act.cost)
+                        gainXP(act.reward)
+                        localStorage.setItem(actKey(act.id), '1')
+                        showToast(`${act.emoji} ${act.name} +${act.reward} XP!`, 'success')
+                        audio.achievement()
+                      }}
+                      style={{ padding: '10px 14px', borderRadius: 12, background: canAfford ? 'rgba(168,85,247,.15)' : 'rgba(255,255,255,.05)', border: `1px solid ${canAfford ? 'rgba(168,85,247,.3)' : 'rgba(255,255,255,.08)'}`, color: canAfford ? '#a855f7' : 'var(--t3)', cursor: canAfford ? 'pointer' : 'not-allowed', fontSize: 12, fontWeight: 700, flexShrink: 0 }}
+                    >Uppträd!</button>
+                }
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'stargazing') {
+    const stars = [
+      { id: 'aries', emoji: '♈', name: 'Väduren', bonus: '+10% XP idag', xp: 25 },
+      { id: 'leo', emoji: '♌', name: 'Lejonet', bonus: '+15% myntchans', xp: 35 },
+      { id: 'scorpio', emoji: '♏', name: 'Skorpionen', bonus: '+20% strid XP', xp: 45 },
+      { id: 'aquarius', emoji: '♒', name: 'Vattumannen', bonus: 'Energi fylls snabbare', xp: 30 },
+    ]
+    const starKey = 'k0509_star_' + new Date().toDateString()
+    const observed = !!localStorage.getItem(starKey)
+    const hour = new Date().getHours()
+    const isNight = hour >= 20 || hour < 6
+    const todayStar = stars[new Date().getDay() % stars.length]
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🌠 Stjärnkikare</span>
+        </div>
+        <div style={{ background: 'linear-gradient(135deg, rgba(15,23,42,1), rgba(30,27,75,.9))', border: '1px solid rgba(99,102,241,.3)', borderRadius: 16, padding: '20px', marginBottom: 16, textAlign: 'center' }}>
+          <div style={{ fontSize: 60, marginBottom: 8 }}>{todayStar.emoji}</div>
+          <div style={{ fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#818cf8' }}>Dagens stjärntecken</div>
+          <div style={{ fontSize: 20, fontWeight: 700, color: '#fff', margin: '4px 0' }}>{todayStar.name}</div>
+          <div style={{ fontSize: 12, color: '#94a3b8' }}>{todayStar.bonus}</div>
+          {!isNight && <div style={{ fontSize: 11, color: '#f59e0b', marginTop: 8 }}>🌞 Bäst att titta på natten (20:00–06:00)</div>}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {stars.map(s => (
+            <div key={s.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px', background: 'rgba(255,255,255,.04)', borderRadius: 12 }}>
+              <div style={{ fontSize: 24 }}>{s.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, color: '#e2e8f0', fontWeight: 700 }}>{s.name}</div>
+                <div style={{ fontSize: 11, color: '#64748b' }}>{s.bonus}</div>
+              </div>
+              <div style={{ fontSize: 11, color: '#818cf8' }}>+{s.xp} XP</div>
+            </div>
+          ))}
+        </div>
+        <button
+          className="btn-primary"
+          style={{ width: '100%', padding: '14px', marginTop: 14, fontSize: 14, opacity: observed ? 0.5 : 1 }}
+          disabled={observed}
+          onClick={() => {
+            gainXP(todayStar.xp)
+            localStorage.setItem(starKey, '1')
+            showToast(`${todayStar.emoji} Stjärnobservation! +${todayStar.xp} XP`, 'success')
+            audio.achievement()
+          }}
+        >
+          {observed ? '✓ Observerat idag' : '🔭 Observera stjärnorna!'}
+        </button>
       </div>
     )
   }
