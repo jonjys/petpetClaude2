@@ -91,8 +91,10 @@ import { PressMeterGame } from './PressMeterGame'
 import { SumFlashGame } from './SumFlashGame'
 import { DartsGame } from './DartsGame'
 import { LetterChaosGame } from './LetterChaosGame'
+import { FactFictionGame } from './FactFictionGame'
+import { GridRememberGame } from './GridRememberGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -181,6 +183,8 @@ const GAMES = [
   { id: 'sumflash' as const, emoji: '🔢', name: 'Summaflash', desc: '5 siffror blinkar — addera i huvudet!', reward: '🪙0-700', hot: true },
   { id: 'darts' as const, emoji: '🎯', name: 'Pilkastning', desc: 'Timing-spel — tryck när korset är i mitten', reward: '🪙0-500', hot: false },
   { id: 'letterchaos' as const, emoji: '🔤', name: 'Bokstavkaos', desc: 'Tryck bokstäver, undvik bomber 30s', reward: '🪙0-800', hot: true },
+  { id: 'factfiction' as const, emoji: '🧐', name: 'Fakta/Fiktion', desc: 'Sant eller falskt? Djurfakta 10 frågor', reward: '🪙0-600', hot: true },
+  { id: 'gridremem' as const, emoji: '🟩', name: 'Rutnätsminne', desc: 'Memorera och återskapa rutmönster', reward: '🪙0-800', hot: false },
 ]
 
 function weekKey() {
@@ -357,6 +361,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'sumflash') return <SumFlashGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'darts') return <DartsGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'letterchaos') return <LetterChaosGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'factfiction') return <FactFictionGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'gridremem') return <GridRememberGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
