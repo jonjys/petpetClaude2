@@ -73,8 +73,10 @@ import { GemSwapGame } from './GemSwapGame'
 import { TypingDuelGame } from './TypingDuelGame'
 import { CatchFruitGame } from './CatchFruitGame'
 import { CountdownGame } from './CountdownGame'
+import { BubbleShooterGame } from './BubbleShooterGame'
+import { LightsOutGame } from './LightsOutGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -145,6 +147,8 @@ const GAMES = [
   { id: 'typeduel' as const, emoji: '⌨️', name: 'Typduell', desc: 'Skriv fallande ord i tid', reward: '🪙0-700', hot: false },
   { id: 'catchfruit' as const, emoji: '🍎', name: 'Fånga Frukter', desc: 'Fånga frukter undvik bomber', reward: '🪙0-500', hot: false },
   { id: 'countdown' as const, emoji: '🔢', name: 'Countdown', desc: 'Nå målvärdet med siffror', reward: '🪙0-600', hot: true },
+  { id: 'bubshoot' as const, emoji: '🎯', name: 'Bubbel Shooter', desc: 'Skjut bubblor & gör grupper om 3+', reward: '🪙0-800', hot: true },
+  { id: 'lights' as const, emoji: '💡', name: 'Lights Out', desc: 'Klicka celler — släck alla lampor', reward: '🪙0-700', hot: false },
 ]
 
 function weekKey() {
@@ -303,6 +307,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'typeduel') return <TypingDuelGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'catchfruit') return <CatchFruitGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'countdown') return <CountdownGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'bubshoot') return <BubbleShooterGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'lights') return <LightsOutGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
