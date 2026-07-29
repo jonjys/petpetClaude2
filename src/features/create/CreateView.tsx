@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -55,6 +55,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   petvillage: 'green', powerups: 'orange', petrank: 'gold',
   dreamworld: 'purple', elementals: 'blue', petlegacy: 'gold',
   pettavern: 'orange', relicvault: 'gold', petastrology: 'purple',
+  petcalendar: 'blue', petmemories: 'pink', alchemylab: 'green',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -163,6 +164,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   pettavern:  { label: 'NY',     color: 'var(--orange)' },
   relicvault: { label: 'NY',     color: 'var(--gold)'   },
   petastrology:{ label: 'DAGLIG',color: 'var(--purple)' },
+  petcalendar:{ label: 'NY',     color: 'var(--blue)'   },
+  petmemories:{ label: 'NY',     color: '#f472b6'       },
+  alchemylab: { label: 'NY',     color: 'var(--green)'  },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -6981,6 +6985,122 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
           </div>
         </div>
         <button onClick={() => { gainXP(30, 'astrology'); showToast('🌙 Stärnkraft +30 XP', 'success'); audio.coin() }} style={{ width: '100%', padding: '12px', borderRadius: 12, background: 'rgba(168,85,247,.15)', border: '1px solid rgba(168,85,247,.3)', color: '#a855f7', cursor: 'pointer', fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700 }}>🌙 Daglig stärnbön (+30 XP)</button>
+      </div>
+    )
+  }
+
+  if (panel === 'petcalendar') {
+    const today = new Date()
+    const month = today.toLocaleString('sv-SE', { month: 'long' })
+    const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).getDay()
+    const events: Record<number, { emoji: string; label: string }> = {
+      1: { emoji: '🎁', label: 'Månadsbonus' },
+      7: { emoji: '⚔️', label: 'Stridsturnering' },
+      14: { emoji: '🎣', label: 'Fiskefestival' },
+      21: { emoji: '🌟', label: 'XP-boost dag' },
+      [today.getDate()]: { emoji: '📍', label: 'Idag' },
+    }
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>📅 Kalender</span>
+        </div>
+        <div style={{ textAlign: 'center', fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#fff', marginBottom: 12, textTransform: 'capitalize' }}>{month} {today.getFullYear()}</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4 }}>
+          {['Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör', 'Sön'].map(d => (
+            <div key={d} style={{ textAlign: 'center', fontSize: 9, color: 'var(--t3)', padding: '4px 0' }}>{d}</div>
+          ))}
+          {Array.from({ length: (firstDay + 6) % 7 }, (_, i) => <div key={`pad-${i}`} />)}
+          {Array.from({ length: daysInMonth }, (_, i) => {
+            const day = i + 1
+            const isToday = day === today.getDate()
+            const ev = events[day]
+            return (
+              <div key={day} style={{ aspectRatio: '1', borderRadius: 8, background: isToday ? 'rgba(74,222,128,.2)' : ev ? 'rgba(251,191,36,.1)' : 'rgba(255,255,255,.04)', border: `1px solid ${isToday ? '#4ade80' : ev ? 'rgba(251,191,36,.3)' : 'rgba(255,255,255,.06)'}`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: isToday ? '#4ade80' : '#e8e8f0' }}>
+                <div style={{ fontSize: ev ? 12 : 10 }}>{ev ? ev.emoji : day}</div>
+                {ev && <div style={{ fontSize: 7, color: 'var(--t3)' }}>{day}</div>}
+              </div>
+            )
+          })}
+        </div>
+        <div className={styles.panelNote}>Kommande händelser markerade i guld</div>
+      </div>
+    )
+  }
+
+  if (panel === 'petmemories') {
+    const memories = [
+      { emoji: '🐣', title: 'Första dagen', desc: `${pet.petEmoji} skapades och äventyret började!`, date: 'Dag 1', color: '#fbbf24' },
+      { emoji: '⭐', title: 'Första level-up', desc: 'Nådde nivå 2 — ett stort steg!', date: `Lv.${Math.min(2, pet.level)}`, color: '#818cf8' },
+      { emoji: '⚔️', title: 'Första segern', desc: 'Vann den allra första striden', date: pet.battleWins > 0 ? `${pet.battleWins} seg.` : 'Inte ännu', color: '#ef4444' },
+      { emoji: '🎣', title: 'Första fisken', desc: 'Fångade den första fisken i sjön', date: pet.fishCaught > 0 ? `${pet.fishCaught} fisk` : 'Inte ännu', color: '#22d3ee' },
+      { emoji: '🔥', title: '7-dagars streak', desc: 'Loggade in 7 dagar i rad!', date: pet.streak >= 7 ? `${pet.streak} dagar` : `${pet.streak}/7 dagar`, color: '#f97316' },
+    ]
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>📸 Minnen</span>
+        </div>
+        <div style={{ textAlign: 'center', fontSize: 52, marginBottom: 8 }}>{pet.petEmoji}</div>
+        <div style={{ textAlign: 'center', fontFamily: 'var(--ff-head)', fontSize: 16, fontWeight: 900, color: '#fff', marginBottom: 16 }}>{pet.petName}s minnesgalleri</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {memories.map(m => (
+            <div key={m.title} style={{ display: 'flex', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: `${m.color}22`, border: `1px solid ${m.color}44`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0 }}>{m.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color: m.color }}>{m.title}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{m.desc}</div>
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--t3)', flexShrink: 0 }}>{m.date}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'alchemylab') {
+    const ingredients = [
+      { emoji: '🌿', name: 'Örter', qty: 3 + pet.level },
+      { emoji: '💧', name: 'Kristallvatten', qty: 2 + pet.fishCaught },
+      { emoji: '🔥', name: 'Eldessens', qty: 1 + pet.battleWins },
+      { emoji: '⭐', name: 'Stjärnstoft', qty: Math.floor(pet.level / 2) },
+    ]
+    const potions = [
+      { emoji: '🧪', name: 'Lyckodryck', desc: '+50 XP & +200 mynt', cost: ['🌿×2', '💧×1'], color: '#4ade80' },
+      { emoji: '🔴', name: 'Styrkedryck', desc: '+30% stridsattack 10 min', cost: ['🔥×2', '🌿×1'], color: '#ef4444' },
+      { emoji: '💜', name: 'Visdomsdryck', desc: '+100 XP direkt', cost: ['⭐×2', '💧×2'], color: '#a855f7' },
+      { emoji: '🟡', name: 'Guldtinktur', desc: '+500 mynt direkt', cost: ['⭐×1', '🔥×1', '🌿×2'], color: '#fbbf24' },
+    ]
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🧪 Alkemilabbet</span>
+        </div>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
+          {ingredients.map(ing => (
+            <div key={ing.name} style={{ padding: '6px 12px', background: 'rgba(74,222,128,.08)', border: '1px solid rgba(74,222,128,.2)', borderRadius: 10, fontSize: 12, color: '#4ade80' }}>
+              {ing.emoji} {ing.name} ×{ing.qty}
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {potions.map(p => (
+            <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 14 }}>
+              <div style={{ fontSize: 28, flexShrink: 0 }}>{p.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 700, color: p.color }}>{p.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{p.desc}</div>
+                <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>Kräver: {p.cost.join(' + ')}</div>
+              </div>
+              <button onClick={() => { gainXP(50, 'alchemy'); gainCoins(100); showToast(`${p.emoji} ${p.name} bryggd!`, 'success'); audio.achievement() }} style={{ padding: '8px 12px', borderRadius: 10, background: `${p.color}22`, border: `1px solid ${p.color}44`, color: p.color, cursor: 'pointer', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>Brygg!</button>
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
