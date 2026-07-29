@@ -107,8 +107,10 @@ import { MemoryFlipGame } from './MemoryFlipGame'
 import { MirrorDrawGame } from './MirrorDrawGame'
 import { TruthOrDareGame } from './TruthOrDareGame'
 import { BeatBuilderGame } from './BeatBuilderGame'
+import { WordGuesserGame } from './WordGuesserGame'
+import { NumberPuzzleGame } from './NumberPuzzleGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -213,6 +215,8 @@ const GAMES = [
   { id: 'mirrordraw' as const, emoji: '🪞', name: 'Spegelritning', desc: 'Rita spegelbilden av mönstret — 8 runder', reward: '🪙0-900', hot: true },
   { id: 'truthdare' as const, emoji: '🎲', name: 'Sanning/Konka', desc: 'Välj utmaning och klara den för streak-bonus', reward: '🪙0-700', hot: false },
   { id: 'beatbuilder' as const, emoji: '🎹', name: 'Beat Builder', desc: 'Bygg och spela upp din trummaskin', reward: '🪙0-800', hot: true },
+  { id: 'wordguess' as const, emoji: '🔤', name: 'Ordgissaren', desc: 'Gissa svenska ord bokstav för bokstav', reward: '🪙0-750', hot: false },
+  { id: 'numpuzzle' as const, emoji: '🔣', name: 'Taloperatorn', desc: 'Välj rätt operator för ekvationen', reward: '🪙0-700', hot: true },
 ]
 
 function weekKey() {
@@ -405,6 +409,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'mirrordraw') return <MirrorDrawGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'truthdare') return <TruthOrDareGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'beatbuilder') return <BeatBuilderGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'wordguess') return <WordGuesserGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'numpuzzle') return <NumberPuzzleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
