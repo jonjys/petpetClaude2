@@ -81,8 +81,10 @@ import { MathDuelGame } from './MathDuelGame'
 import { TreasureHuntGame } from './TreasureHuntGame'
 import { ShadowMatchGame } from './ShadowMatchGame'
 import { StackTowerGame } from './StackTowerGame'
+import { PuzzlePairsGame } from './PuzzlePairsGame'
+import { EmojiCodeGame } from './EmojiCodeGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -161,6 +163,8 @@ const GAMES = [
   { id: 'treasure' as const, emoji: '🗺️', name: 'Skattjakt', desc: 'Hitta skatter, undvik fällor i rutnät', reward: '🪙0-800', hot: true },
   { id: 'shadowmatch' as const, emoji: '👤', name: 'Skugg-Match', desc: 'Matcha skugga med rätt emoji', reward: '🪙0-700', hot: false },
   { id: 'stacktower' as const, emoji: '🏗️', name: 'Stapla Torn', desc: 'Tryck rätt — stapla block högt!', reward: '🪙0-600', hot: true },
+  { id: 'ppairs' as const, emoji: '🎴', name: 'Par-Pussel', desc: 'Hitta matchande emoji-par mot klockan', reward: '🪙0-700', hot: false },
+  { id: 'emojicode' as const, emoji: '🔑', name: 'Emoji-Kod', desc: 'Gissa vilket ord emojis representerar', reward: '🪙0-800', hot: true },
 ]
 
 function weekKey() {
@@ -327,6 +331,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'treasure') return <TreasureHuntGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'shadowmatch') return <ShadowMatchGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'stacktower') return <StackTowerGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'ppairs') return <PuzzlePairsGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'emojicode') return <EmojiCodeGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
