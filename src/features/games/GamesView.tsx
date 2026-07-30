@@ -125,8 +125,10 @@ import { StopClockGame } from './StopClockGame'
 import { WordSnapGame } from './WordSnapGame'
 import { NumBubbleGame } from './NumBubbleGame'
 import { HoldFoldGame } from './HoldFoldGame'
+import { CatchBallGame } from './CatchBallGame'
+import { MathPathGame } from './MathPathGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | 'balloons' | 'mathmaze' | 'gridflood' | 'emojifind' | 'mathblind' | 'colorflash' | 'chameleon' | 'multiplyrace' | 'swapsort' | 'fraction' | 'stopclock' | 'wordsnap' | 'numbubble' | 'holdfold' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | 'balloons' | 'mathmaze' | 'gridflood' | 'emojifind' | 'mathblind' | 'colorflash' | 'chameleon' | 'multiplyrace' | 'swapsort' | 'fraction' | 'stopclock' | 'wordsnap' | 'numbubble' | 'holdfold' | 'catchball' | 'mathpath' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -249,6 +251,8 @@ const GAMES = [
   { id: 'wordsnap' as const, emoji: '🎯', name: 'Word Snap', desc: 'SNAP om ordet tillhör kategorin!', reward: '🪙0-500', hot: true },
   { id: 'numbubble' as const, emoji: '🫧', name: 'Talbubblan', desc: 'Poppa bubblor i stigande ordning 35s', reward: '🪙0-400', hot: true },
   { id: 'holdfold' as const, emoji: '💣', name: 'Hold or Fold', desc: 'Multiplicera värdet — håll nerven!', reward: '🪙0-500', hot: true },
+  { id: 'catchball' as const, emoji: '⚽', name: 'Fånga Bollen', desc: 'Studsa bollen — tryck den 30s!', reward: '🪙0-300', hot: true },
+  { id: 'mathpath' as const, emoji: '🗺️', name: 'Talstigen', desc: 'Navigera rutnätet — max summa!', reward: '🪙0-600', hot: false },
 ]
 
 function weekKey() {
@@ -459,6 +463,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'wordsnap') return <WordSnapGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'numbubble') return <NumBubbleGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'holdfold') return <HoldFoldGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'catchball') return <CatchBallGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'mathpath') return <MathPathGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
