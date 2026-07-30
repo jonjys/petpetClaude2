@@ -429,6 +429,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petgarden3', emoji: '🌼', label: 'Trädgård III', desc: 'Säsongsbaserad trädgård med unika växter' },
   { id: 'petspacebase', emoji: '🛸', label: 'Rymdbasen', desc: 'Hantera din rymdstation och forska' },
   { id: 'petclinic', emoji: '🏥', label: 'Kliniken', desc: 'Bota sjuka djur och tjäna mynt' },
+  { id: 'petdiner', emoji: '🍔', label: 'Dinern', desc: 'Servera mat och tjäna mynt i restaurangen' },
+  { id: 'petskatepark', emoji: '🛹', label: 'Skatepark', desc: 'Utför tricks med husdjuret för XP' },
+  { id: 'petstudio', emoji: '🎬', label: 'Studion', desc: 'Spela in videos med ditt husdjur för bond' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────

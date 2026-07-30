@@ -119,8 +119,10 @@ import { MathBlindGame } from './MathBlindGame'
 import { ColorFlashGame } from './ColorFlashGame'
 import { ChameleonGame } from './ChameleonGame'
 import { MultiplyRaceGame } from './MultiplyRaceGame'
+import { SwapSortGame } from './SwapSortGame'
+import { FractionGame } from './FractionGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | 'balloons' | 'mathmaze' | 'gridflood' | 'emojifind' | 'mathblind' | 'colorflash' | 'chameleon' | 'multiplyrace' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | 'balloons' | 'mathmaze' | 'gridflood' | 'emojifind' | 'mathblind' | 'colorflash' | 'chameleon' | 'multiplyrace' | 'swapsort' | 'fraction' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -237,6 +239,8 @@ const GAMES = [
   { id: 'colorflash' as const, emoji: '🌈', name: 'Färgminne', desc: 'Vilken färg blinkade mest? 10 runder', reward: '🪙0-700', hot: true },
   { id: 'chameleon' as const, emoji: '🦎', name: 'Kameleont', desc: 'Hitta rutan med annan nyans i rutnätet', reward: '🪙0-800', hot: true },
   { id: 'multiplyrace' as const, emoji: '✖️', name: 'Tabellrace', desc: 'Multiplikationstabeller i ordning 45s', reward: '🪙0-700', hot: false },
+  { id: 'swapsort' as const, emoji: '🔀', name: 'Byt & Sortera', desc: 'Sortera siffror med så få byten som möjligt', reward: '🪙0-700', hot: true },
+  { id: 'fraction' as const, emoji: '➗', name: 'Bråkduellen', desc: 'Vilket bråk är störst? 15 frågor 4s var', reward: '🪙0-600', hot: false },
 ]
 
 function weekKey() {
@@ -441,6 +445,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'colorflash') return <ColorFlashGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'chameleon') return <ChameleonGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'multiplyrace') return <MultiplyRaceGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'swapsort') return <SwapSortGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'fraction') return <FractionGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
