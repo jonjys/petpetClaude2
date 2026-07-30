@@ -115,8 +115,10 @@ import { BalloonSortGame } from './BalloonSortGame'
 import { MathMazeGame } from './MathMazeGame'
 import { GridFloodGame } from './GridFloodGame'
 import { EmojiFindGame } from './EmojiFindGame'
+import { MathBlindGame } from './MathBlindGame'
+import { ColorFlashGame } from './ColorFlashGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | 'balloons' | 'mathmaze' | 'gridflood' | 'emojifind' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | 'balloons' | 'mathmaze' | 'gridflood' | 'emojifind' | 'mathblind' | 'colorflash' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -229,6 +231,8 @@ const GAMES = [
   { id: 'mathmaze' as const, emoji: '🔢', name: 'Mattematrisen', desc: 'Tryck alla uttryck lika med måltalet', reward: '🪙0-700', hot: true },
   { id: 'gridflood' as const, emoji: '🌊', name: 'Färgflod', desc: 'Flood-fill hela brädet på 22 drag!', reward: '🪙0-900', hot: true },
   { id: 'emojifind' as const, emoji: '🔍', name: 'Emojijakt', desc: 'Hitta och tryck alla målemojis', reward: '🪙0-700', hot: false },
+  { id: 'mathblind' as const, emoji: '🧠', name: 'Blindmatte', desc: 'Uppgift visas 1.5s — minns och svara!', reward: '🪙0-800', hot: true },
+  { id: 'colorflash' as const, emoji: '🌈', name: 'Färgminne', desc: 'Vilken färg blinkade mest? 10 runder', reward: '🪙0-700', hot: true },
 ]
 
 function weekKey() {
@@ -429,6 +433,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'mathmaze') return <MathMazeGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'gridflood') return <GridFloodGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'emojifind') return <EmojiFindGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'mathblind') return <MathBlindGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'colorflash') return <ColorFlashGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
