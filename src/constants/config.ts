@@ -456,6 +456,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petcryptmine', emoji: '⛏️', label: 'Kryptogruvan', desc: 'Mina digitala kristaller för mynt' },
   { id: 'petsolartower', emoji: '☀️', label: 'Solartornet', desc: 'Samla solenergi och konvertera till XP' },
   { id: 'pettidalcave', emoji: '🌊', label: 'Tidsgrottan', desc: 'Dykarexpedition med tidsportaler' },
+  { id: 'petcandylab', emoji: '🍭', label: 'Godislabbet', desc: 'Skapa godis och sälj för mynt' },
+  { id: 'petspacestation', emoji: '🛸', label: 'Rymdstationen', desc: 'Bemanna stationen och forska för XP' },
+  { id: 'petmysticforest', emoji: '🌲', label: 'Mystiska Skogen', desc: 'Utforska trollskogen och samla bond' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
