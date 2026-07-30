@@ -127,8 +127,10 @@ import { NumBubbleGame } from './NumBubbleGame'
 import { HoldFoldGame } from './HoldFoldGame'
 import { CatchBallGame } from './CatchBallGame'
 import { MathPathGame } from './MathPathGame'
+import { PatternMatrixGame } from './PatternMatrixGame'
+import { ZapGridGame } from './ZapGridGame'
 
-type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | 'balloons' | 'mathmaze' | 'gridflood' | 'emojifind' | 'mathblind' | 'colorflash' | 'chameleon' | 'multiplyrace' | 'swapsort' | 'fraction' | 'stopclock' | 'wordsnap' | 'numbubble' | 'holdfold' | 'catchball' | 'mathpath' | null
+type GameId = 'snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | 'balloons' | 'mathmaze' | 'gridflood' | 'emojifind' | 'mathblind' | 'colorflash' | 'chameleon' | 'multiplyrace' | 'swapsort' | 'fraction' | 'stopclock' | 'wordsnap' | 'numbubble' | 'holdfold' | 'catchball' | 'mathpath' | 'patmat' | 'zapgrid' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -253,6 +255,8 @@ const GAMES = [
   { id: 'holdfold' as const, emoji: '💣', name: 'Hold or Fold', desc: 'Multiplicera värdet — håll nerven!', reward: '🪙0-500', hot: true },
   { id: 'catchball' as const, emoji: '⚽', name: 'Fånga Bollen', desc: 'Studsa bollen — tryck den 30s!', reward: '🪙0-300', hot: true },
   { id: 'mathpath' as const, emoji: '🗺️', name: 'Talstigen', desc: 'Navigera rutnätet — max summa!', reward: '🪙0-600', hot: false },
+  { id: 'patmat' as const, emoji: '🔲', name: 'Matris', desc: 'Hitta det saknade emojit i 3×3 matrisen', reward: '🪙0-200', hot: true },
+  { id: 'zapgrid' as const, emoji: '⚡', name: 'Zap Grid', desc: 'Tryck blixtar i rutnätet innan de försvinner', reward: '🪙0-400', hot: true },
 ]
 
 function weekKey() {
@@ -465,6 +469,8 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'holdfold') return <HoldFoldGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'catchball') return <CatchBallGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'mathpath') return <MathPathGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'patmat') return <PatternMatrixGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'zapgrid') return <ZapGridGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
