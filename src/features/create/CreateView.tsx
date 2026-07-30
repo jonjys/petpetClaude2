@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab' | 'petsanctuary' | 'cosmicshop' | 'petprowess' | 'pettraining2' | 'guildhouse' | 'seasonpass' | 'petkarma' | 'worldmap' | 'petfestival' | 'dailychest' | 'petcircus' | 'stargazing' | 'petdojo' | 'timetravel' | 'petnews' | 'petlotus' | 'speedrune' | 'pethive' | 'petgarden2' | 'petmuseum2' | 'petdisco' | 'petspa2' | 'petpolarexp' | 'petgauntlet' | 'petodyssey' | 'petarcade' | 'petchampion' | 'petlibrary' | 'petsorcerer' | 'pettheatre' | 'petgallery' | 'petvolcano' | 'petcrossroads' | 'petlabyrint' | 'petairdrop' | 'petatelier' | 'petunderworld' | 'petcosmos' | 'pethonorhall' | 'petsummit' | 'petpirate' | 'petmechanic' | 'petdungeon2' | 'petaquarium' | 'petbakery' | 'petflorist' | 'petworkshop' | 'petmuseum3' | 'petjungle' | 'petsalon2' | 'petcamp' | 'petisland' | 'petlighthouse' | 'petbeekeeper' | 'petgarden3' | 'petspacebase' | 'petclinic' | 'petdiner' | 'petskatepark' | 'petstudio' | 'petspeedway' | 'petsunset' | 'petmarket' | 'petobservatory' | 'petbowling' | 'petcinema' | 'petvolleyball' | 'petgreenhouse' | 'petchef' | 'petmoonbase' | 'petsurfer' | 'petlaboratory' | 'petvolcanolair' | 'petrobotics' | 'petjunglecamp' | 'peticecastle' | 'petpirateship' | 'petmagictower' | 'petdragonlair' | 'petskyisland' | 'petstormkeep' | 'petcryptmine' | 'petsolartower' | 'pettidalcave' | 'petcandylab' | 'petspacestation' | 'petmysticforest'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab' | 'petsanctuary' | 'cosmicshop' | 'petprowess' | 'pettraining2' | 'guildhouse' | 'seasonpass' | 'petkarma' | 'worldmap' | 'petfestival' | 'dailychest' | 'petcircus' | 'stargazing' | 'petdojo' | 'timetravel' | 'petnews' | 'petlotus' | 'speedrune' | 'pethive' | 'petgarden2' | 'petmuseum2' | 'petdisco' | 'petspa2' | 'petpolarexp' | 'petgauntlet' | 'petodyssey' | 'petarcade' | 'petchampion' | 'petlibrary' | 'petsorcerer' | 'pettheatre' | 'petgallery' | 'petvolcano' | 'petcrossroads' | 'petlabyrint' | 'petairdrop' | 'petatelier' | 'petunderworld' | 'petcosmos' | 'pethonorhall' | 'petsummit' | 'petpirate' | 'petmechanic' | 'petdungeon2' | 'petaquarium' | 'petbakery' | 'petflorist' | 'petworkshop' | 'petmuseum3' | 'petjungle' | 'petsalon2' | 'petcamp' | 'petisland' | 'petlighthouse' | 'petbeekeeper' | 'petgarden3' | 'petspacebase' | 'petclinic' | 'petdiner' | 'petskatepark' | 'petstudio' | 'petspeedway' | 'petsunset' | 'petmarket' | 'petobservatory' | 'petbowling' | 'petcinema' | 'petvolleyball' | 'petgreenhouse' | 'petchef' | 'petmoonbase' | 'petsurfer' | 'petlaboratory' | 'petvolcanolair' | 'petrobotics' | 'petjunglecamp' | 'peticecastle' | 'petpirateship' | 'petmagictower' | 'petdragonlair' | 'petskyisland' | 'petstormkeep' | 'petcryptmine' | 'petsolartower' | 'pettidalcave' | 'petcandylab' | 'petspacestation' | 'petmysticforest' | 'petvolcanicforge' | 'petcloudrider' | 'petarcticsled'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -85,6 +85,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   petdragonlair: 'red', petskyisland: 'blue', petstormkeep: 'purple',
   petcryptmine: 'gold', petsolartower: 'gold', pettidalcave: 'blue',
   petcandylab: 'pink', petspacestation: 'purple', petmysticforest: 'green',
+  petvolcanicforge: 'orange', petcloudrider: 'blue', petarcticsled: 'blue',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -283,6 +284,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   petcandylab:  { label: '🍭',   color: '#f472b6'       },
   petspacestation:{ label: '🛸', color: 'var(--purple)' },
   petmysticforest:{ label: '🌲', color: 'var(--green)'  },
+  petvolcanicforge:{ label: '🌋', color: '#f97316'     },
+  petcloudrider:   { label: '☁️', color: '#60a5fa'     },
+  petarcticsled:   { label: '🛷', color: '#38bdf8'     },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -11270,6 +11274,147 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
           })}
         </div>
         <p className={styles.panelNote}>Utforska trollskogen — djupare stigar ger mer bond och mynt!</p>
+      </div>
+    )
+  }
+
+  if (panel === 'petvolcanicforge') {
+    const forges = [
+      { emoji: '🔨', name: 'Järnsvärd', cd: 0.5, coins: 22, xp: 30 },
+      { emoji: '⚔️', name: 'Stålaxe', cd: 1.5, coins: 60, xp: 80 },
+      { emoji: '🗡️', name: 'Eldklinga', cd: 4, coins: 150, xp: 200 },
+      { emoji: '🌋', name: 'Vulkanvapen', cd: 10, coins: 360, xp: 450 },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+          <button className={styles.backBtn} onClick={onBack}>←</button>
+          <span className={styles.panelTitle}>🌋 Vulkansmeden</span>
+        </div>
+        <div style={{ background: 'rgba(249,115,22,.07)', border: '1px solid rgba(249,115,22,.2)', borderRadius: 14, padding: 12, marginBottom: 14, textAlign: 'center' }}>
+          <div style={{ fontSize: 36 }}>🌋</div>
+          <div style={{ fontSize: 12, color: '#f97316', fontWeight: 700, marginTop: 4 }}>{pet.petEmoji} smidar vapen i lavan — sälj för mynt och XP!</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {forges.map((f, i) => {
+            const key = 'k0509_vf_' + i
+            const last = Number(localStorage.getItem(key) ?? 0)
+            const cdMs = f.cd * 3600000
+            const ready = Date.now() - last >= cdMs
+            const minsLeft = ready ? 0 : Math.ceil((cdMs - (Date.now() - last)) / 60000)
+            const display = minsLeft >= 60 ? `${Math.ceil(minsLeft / 60)}h` : `${minsLeft}min`
+            return (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 12 }}>
+                <div style={{ fontSize: 26 }}>{f.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, color: '#fff', fontWeight: 700 }}>{f.name}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)' }}>Smidtid: {f.cd < 1 ? `${f.cd * 60}min` : `${f.cd}h`}</div>
+                  <div style={{ fontSize: 11, color: '#f97316', marginTop: 2 }}>+{f.coins}🪙 · +{f.xp}XP</div>
+                </div>
+                {ready ? (
+                  <button onClick={() => { gainCoins(f.coins); gainXP(f.xp); localStorage.setItem(key, String(Date.now())); showToast(`${f.emoji} ${f.name} smitt! +${f.coins}🪙 +${f.xp}XP`, 'success'); audio.coin() }} style={{ padding: '8px 10px', borderRadius: 10, background: 'rgba(249,115,22,.18)', border: '1px solid rgba(249,115,22,.3)', color: '#f97316', cursor: 'pointer', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>Smid!</button>
+                ) : (
+                  <div style={{ fontSize: 10, color: 'var(--t3)', flexShrink: 0 }}>{display}</div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+        <p className={styles.panelNote}>Smid mäktiga vapen i vulkanen — starkare vapen ger mer belöning!</p>
+      </div>
+    )
+  }
+
+  if (panel === 'petcloudrider') {
+    const clouds = [
+      { emoji: '⛅', name: 'Kumulus', cd: 0.25, bond: 6, coins: 10 },
+      { emoji: '🌤️', name: 'Altokumulus', cd: 0.75, bond: 18, coins: 28 },
+      { emoji: '🌈', name: 'Regnbågsmoln', cd: 2, bond: 50, coins: 70 },
+      { emoji: '☁️', name: 'Stormryttaren', cd: 6, bond: 120, coins: 160 },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+          <button className={styles.backBtn} onClick={onBack}>←</button>
+          <span className={styles.panelTitle}>☁️ Molnryttaren</span>
+        </div>
+        <div style={{ background: 'rgba(96,165,250,.07)', border: '1px solid rgba(96,165,250,.2)', borderRadius: 14, padding: 12, marginBottom: 14, textAlign: 'center' }}>
+          <div style={{ fontSize: 36 }}>☁️</div>
+          <div style={{ fontSize: 12, color: '#60a5fa', fontWeight: 700, marginTop: 4 }}>{pet.petEmoji} rider på moln — samla stjärnor och bond!</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {clouds.map((c, i) => {
+            const key = 'k0509_cr_' + i
+            const last = Number(localStorage.getItem(key) ?? 0)
+            const cdMs = c.cd * 3600000
+            const ready = Date.now() - last >= cdMs
+            const minsLeft = ready ? 0 : Math.ceil((cdMs - (Date.now() - last)) / 60000)
+            const display = minsLeft >= 60 ? `${Math.ceil(minsLeft / 60)}h` : `${minsLeft}min`
+            return (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 12 }}>
+                <div style={{ fontSize: 26 }}>{c.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, color: '#fff', fontWeight: 700 }}>{c.name}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)' }}>Ritt: {c.cd < 1 ? `${Math.round(c.cd * 60)}min` : `${c.cd}h`}</div>
+                  <div style={{ fontSize: 11, color: '#60a5fa', marginTop: 2 }}>+{c.bond} Bond · +{c.coins}🪙</div>
+                </div>
+                {ready ? (
+                  <button onClick={() => { gainBond(c.bond); gainCoins(c.coins); localStorage.setItem(key, String(Date.now())); showToast(`${c.emoji} ${c.name}! +${c.bond}Bond +${c.coins}🪙`, 'success'); audio.tap() }} style={{ padding: '8px 10px', borderRadius: 10, background: 'rgba(96,165,250,.18)', border: '1px solid rgba(96,165,250,.3)', color: '#60a5fa', cursor: 'pointer', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>Rid!</button>
+                ) : (
+                  <div style={{ fontSize: 10, color: 'var(--t3)', flexShrink: 0 }}>{display}</div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+        <p className={styles.panelNote}>Rid på moln högt ovan himlen — längre rittar ger mer bond och mynt!</p>
+      </div>
+    )
+  }
+
+  if (panel === 'petarcticsled') {
+    const routes = [
+      { emoji: '🐕', name: 'Snöspåret', cd: 0.5, kc: 2, coins: 12 },
+      { emoji: '🏔️', name: 'Glaciärleden', cd: 1.5, kc: 6, coins: 32 },
+      { emoji: '❄️', name: 'Polarnatten', cd: 4, kc: 14, coins: 80 },
+      { emoji: '🛷', name: 'Arktisexpressen', cd: 10, kc: 32, coins: 180 },
+    ]
+    return (
+      <div className={styles.panelRoot}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+          <button className={styles.backBtn} onClick={onBack}>←</button>
+          <span className={styles.panelTitle}>🛷 Arktisslädden</span>
+        </div>
+        <div style={{ background: 'rgba(56,189,248,.07)', border: '1px solid rgba(56,189,248,.2)', borderRadius: 14, padding: 12, marginBottom: 14, textAlign: 'center' }}>
+          <div style={{ fontSize: 36 }}>🛷</div>
+          <div style={{ fontSize: 12, color: '#38bdf8', fontWeight: 700, marginTop: 4 }}>{pet.petEmoji} kör hundspann i arktis — hämta KC-poäng!</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {routes.map((r, i) => {
+            const key = 'k0509_asl_' + i
+            const last = Number(localStorage.getItem(key) ?? 0)
+            const cdMs = r.cd * 3600000
+            const ready = Date.now() - last >= cdMs
+            const minsLeft = ready ? 0 : Math.ceil((cdMs - (Date.now() - last)) / 60000)
+            const display = minsLeft >= 60 ? `${Math.ceil(minsLeft / 60)}h` : `${minsLeft}min`
+            return (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 12 }}>
+                <div style={{ fontSize: 26 }}>{r.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, color: '#fff', fontWeight: 700 }}>{r.name}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)' }}>Körning: {r.cd < 1 ? `${r.cd * 60}min` : `${r.cd}h`}</div>
+                  <div style={{ fontSize: 11, color: '#38bdf8', marginTop: 2 }}>+{r.kc}KC · +{r.coins}🪙</div>
+                </div>
+                {ready ? (
+                  <button onClick={() => { gainKC(r.kc); gainCoins(r.coins); localStorage.setItem(key, String(Date.now())); showToast(`${r.emoji} ${r.name}! +${r.kc}KC +${r.coins}🪙`, 'success'); audio.coin() }} style={{ padding: '8px 10px', borderRadius: 10, background: 'rgba(56,189,248,.18)', border: '1px solid rgba(56,189,248,.3)', color: '#38bdf8', cursor: 'pointer', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>Kör!</button>
+                ) : (
+                  <div style={{ fontSize: 10, color: 'var(--t3)', flexShrink: 0 }}>{display}</div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+        <p className={styles.panelNote}>Kör hundspann i arktis — längre rutter ger mer KC och mynt!</p>
       </div>
     )
   }
