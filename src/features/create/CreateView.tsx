@@ -8,7 +8,7 @@ import { SPIN_KEY, LUCKY_KEY } from '@/constants/config'
 import styles from './CreateView.module.css'
 import { ShopView } from '@/features/shop/ShopView'
 
-type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab' | 'petsanctuary' | 'cosmicshop' | 'petprowess' | 'pettraining2' | 'guildhouse' | 'seasonpass' | 'petkarma' | 'worldmap' | 'petfestival' | 'dailychest' | 'petcircus' | 'stargazing' | 'petdojo' | 'timetravel' | 'petnews' | 'petlotus' | 'speedrune' | 'pethive' | 'petgarden2' | 'petmuseum2' | 'petdisco' | 'petspa2' | 'petpolarexp' | 'petgauntlet' | 'petodyssey' | 'petarcade' | 'petchampion' | 'petlibrary' | 'petsorcerer' | 'pettheatre' | 'petgallery' | 'petvolcano' | 'petcrossroads' | 'petlabyrint' | 'petairdrop' | 'petatelier' | 'petunderworld' | 'petcosmos' | 'pethonorhall' | 'petsummit' | 'petpirate' | 'petmechanic' | 'petdungeon2' | 'petaquarium' | 'petbakery' | 'petflorist' | 'petworkshop' | 'petmuseum3' | 'petjungle' | 'petsalon2' | 'petcamp' | 'petisland' | 'petlighthouse' | 'petbeekeeper' | 'petgarden3' | 'petspacebase' | 'petclinic' | 'petdiner' | 'petskatepark' | 'petstudio' | 'petspeedway' | 'petsunset' | 'petmarket'
+type Panel = null | 'spin' | 'lucky' | 'expedition' | 'achievements' | 'wardrobe' | 'fortune' | 'shop' | 'records' | 'leaderboard' | 'battlepass' | 'quests' | 'craft' | 'chests' | 'bounty' | 'fishpedia' | 'checkin' | 'skilltree' | 'tarot' | 'trophyroom' | 'mine' | 'activitylog' | 'farm' | 'worldevents' | 'dnalab' | 'bank' | 'worldboss' | 'petjournal' | 'tournament' | 'companion' | 'auction' | 'prestigehall' | 'clan' | 'lottery' | 'spa' | 'challenges' | 'traits' | 'roulette' | 'mailbox' | 'cookbook' | 'bond' | 'training' | 'petcare' | 'flashsale' | 'giftshop' | 'milestones' | 'seasonal' | 'trading' | 'forge' | 'enchant' | 'museum' | 'pvprank' | 'inventory' | 'events' | 'stickers' | 'gifting' | 'pethome' | 'potions' | 'arena2' | 'cosmetics' | 'garden' | 'rescue' | 'stats' | 'leaguetable' | 'badges' | 'wishlist' | 'meditation' | 'petdiary' | 'petshowcase' | 'petgym' | 'hatchery' | 'cosmicmap' | 'petschool' | 'mysterybox' | 'petfusion' | 'carnival' | 'petbirthday' | 'royaltytree' | 'speedrun' | 'collectibles' | 'petparade' | 'shrine' | 'timecapsule' | 'constellation' | 'habitat' | 'petcoach' | 'nextevent' | 'chronicle' | 'rewards' | 'petmood' | 'petalbum' | 'skillpoints' | 'socialcenter' | 'weather' | 'worldranking' | 'petlore' | 'petevolution' | 'battlestats' | 'itemcollection' | 'petspirit' | 'moodboard' | 'nightshift' | 'petritual' | 'marketplace' | 'encyclopedia' | 'petgoals' | 'energyboost' | 'petfunfacts' | 'petvillage' | 'powerups' | 'petrank' | 'dreamworld' | 'elementals' | 'petlegacy' | 'pettavern' | 'relicvault' | 'petastrology' | 'petcalendar' | 'petmemories' | 'alchemylab' | 'petsanctuary' | 'cosmicshop' | 'petprowess' | 'pettraining2' | 'guildhouse' | 'seasonpass' | 'petkarma' | 'worldmap' | 'petfestival' | 'dailychest' | 'petcircus' | 'stargazing' | 'petdojo' | 'timetravel' | 'petnews' | 'petlotus' | 'speedrune' | 'pethive' | 'petgarden2' | 'petmuseum2' | 'petdisco' | 'petspa2' | 'petpolarexp' | 'petgauntlet' | 'petodyssey' | 'petarcade' | 'petchampion' | 'petlibrary' | 'petsorcerer' | 'pettheatre' | 'petgallery' | 'petvolcano' | 'petcrossroads' | 'petlabyrint' | 'petairdrop' | 'petatelier' | 'petunderworld' | 'petcosmos' | 'pethonorhall' | 'petsummit' | 'petpirate' | 'petmechanic' | 'petdungeon2' | 'petaquarium' | 'petbakery' | 'petflorist' | 'petworkshop' | 'petmuseum3' | 'petjungle' | 'petsalon2' | 'petcamp' | 'petisland' | 'petlighthouse' | 'petbeekeeper' | 'petgarden3' | 'petspacebase' | 'petclinic' | 'petdiner' | 'petskatepark' | 'petstudio' | 'petspeedway' | 'petsunset' | 'petmarket' | 'petobservatory' | 'petbowling' | 'petcinema'
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0)
@@ -77,6 +77,7 @@ const ITEM_ACCENTS: Record<string, string> = {
   petgarden3: 'green', petspacebase: 'purple', petclinic: 'blue',
   petdiner: 'gold', petskatepark: 'red', petstudio: 'purple',
   petspeedway: 'red', petsunset: 'gold', petmarket: 'green',
+  petobservatory: 'purple', petbowling: 'blue', petcinema: 'red',
 }
 const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   spin:       { label: 'DAGLIG', color: 'var(--gold)'   },
@@ -251,6 +252,9 @@ const ITEM_BADGES: Record<string, { label: string; color: string }> = {
   petspeedway:{ label: '🏎️',    color: 'var(--red)'    },
   petsunset:  { label: '🌅',     color: 'var(--gold)'   },
   petmarket:  { label: '🏪',     color: 'var(--green)'  },
+  petobservatory:{ label: '🔭',  color: 'var(--purple)' },
+  petbowling: { label: '🎳',     color: 'var(--blue)'   },
+  petcinema:  { label: '🎥',     color: 'var(--red)'    },
 }
 
 export const CreateView = memo(function CreateView() {
@@ -10116,6 +10120,144 @@ const PanelView = memo(function PanelView({ panel, onBack }: { panel: Panel; onB
                   <button onClick={() => { if (pet.coins < g.buyCost) { showToast('Inte tillräckligt med mynt!', 'error'); return } spendCoins(g.buyCost); localStorage.setItem(heldKey, String(held + 1)); showToast(`${g.emoji} Köpte ${g.name}!`, 'success'); audio.tap() }} disabled={pet.coins < g.buyCost} style={{ flex: 1, padding: '8px 0', borderRadius: 8, background: 'rgba(248,113,113,.15)', border: '1px solid rgba(248,113,113,.3)', color: '#f87171', cursor: pet.coins < g.buyCost ? 'not-allowed' : 'pointer', fontSize: 12, fontWeight: 700, opacity: pet.coins < g.buyCost ? 0.5 : 1 }}>Köp {g.buyCost}🪙</button>
                   <button onClick={() => { if (held < 1) { showToast('Inget att sälja!', 'error'); return } gainCoins(g.sellFor); localStorage.setItem(heldKey, String(held - 1)); showToast(`${g.emoji} Sålde ${g.name} för ${g.sellFor}🪙!`, 'success'); audio.coin() }} disabled={held < 1} style={{ flex: 1, padding: '8px 0', borderRadius: 8, background: 'rgba(74,222,128,.15)', border: '1px solid rgba(74,222,128,.3)', color: '#4ade80', cursor: held < 1 ? 'not-allowed' : 'pointer', fontSize: 12, fontWeight: 700, opacity: held < 1 ? 0.5 : 1 }}>Sälj {g.sellFor}🪙</button>
                 </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petobservatory') {
+    const observations = [
+      { emoji: '🌙', name: 'Månfas', xp: 40, cd: 3 },
+      { emoji: '⭐', name: 'Stjärnkarta', xp: 80, cd: 6 },
+      { emoji: '🪐', name: 'Planetpassage', xp: 140, cd: 12 },
+      { emoji: '🌌', name: 'Galaxstudie', xp: 260, cd: 24 },
+    ]
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🔭 Observatoriet</span>
+        </div>
+        <div style={{ background: 'rgba(192,132,252,.07)', border: '1px solid rgba(192,132,252,.2)', borderRadius: 14, padding: 12, marginBottom: 14, textAlign: 'center' }}>
+          <div style={{ fontSize: 36 }}>🔭</div>
+          <div style={{ fontSize: 12, color: '#c084fc', fontWeight: 700, marginTop: 4 }}>Observera universum med {pet.petEmoji} och samla kosmisk XP!</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {observations.map((o, i) => {
+            const key = 'k0509_obs_' + i
+            const last = Number(localStorage.getItem(key) ?? 0)
+            const cdMs = o.cd * 3600000
+            const ready = Date.now() - last >= cdMs
+            const minsLeft = ready ? 0 : Math.ceil((cdMs - (Date.now() - last)) / 60000)
+            const display = minsLeft >= 60 ? `${Math.ceil(minsLeft / 60)}h` : `${minsLeft}min`
+            return (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 12 }}>
+                <div style={{ fontSize: 26 }}>{o.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, color: '#fff', fontWeight: 700 }}>{o.name}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)' }}>Observationstid: {o.cd}h</div>
+                  <div style={{ fontSize: 11, color: '#c084fc', marginTop: 2 }}>+{o.xp} XP</div>
+                </div>
+                {ready ? (
+                  <button onClick={() => { gainXP(o.xp); localStorage.setItem(key, String(Date.now())); showToast(`${o.emoji} ${o.name} klar! +${o.xp}XP`, 'success'); audio.coin() }} style={{ padding: '8px 10px', borderRadius: 10, background: 'rgba(192,132,252,.18)', border: '1px solid rgba(192,132,252,.3)', color: '#c084fc', cursor: 'pointer', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>Observera</button>
+                ) : (
+                  <div style={{ fontSize: 10, color: 'var(--t3)', flexShrink: 0 }}>{display}</div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petbowling') {
+    const lanes = [
+      { emoji: '🎳', name: 'Vänlig bana', coins: 25, maxPins: 10, cd: 1 },
+      { emoji: '🏆', name: 'Turneringsbana', coins: 80, maxPins: 10, cd: 4 },
+      { emoji: '⚡', name: 'Snabbspår', coins: 50, maxPins: 5, cd: 2 },
+    ]
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🎳 Bowlinghallen</span>
+        </div>
+        <div style={{ background: 'rgba(68,136,255,.07)', border: '1px solid rgba(68,136,255,.2)', borderRadius: 14, padding: 12, marginBottom: 14, textAlign: 'center' }}>
+          <div style={{ fontSize: 36 }}>🎳</div>
+          <div style={{ fontSize: 12, color: '#60a5fa', fontWeight: 700, marginTop: 4 }}>{pet.petEmoji} kastar klot — slå alla käglar och vinn!</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {lanes.map((l, i) => {
+            const key = 'k0509_bowl_' + i
+            const last = Number(localStorage.getItem(key) ?? 0)
+            const cdMs = l.cd * 3600000
+            const ready = Date.now() - last >= cdMs
+            const minsLeft = ready ? 0 : Math.ceil((cdMs - (Date.now() - last)) / 60000)
+            const display = minsLeft >= 60 ? `${Math.ceil(minsLeft / 60)}h` : `${minsLeft}min`
+            const pins = Math.ceil(Math.random() * l.maxPins)
+            return (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 12 }}>
+                <div style={{ fontSize: 26 }}>{l.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, color: '#fff', fontWeight: 700 }}>{l.name}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)' }}>Väntetid: {l.cd}h</div>
+                  <div style={{ fontSize: 11, color: '#60a5fa', marginTop: 2 }}>Upp till +{l.coins}🪙</div>
+                </div>
+                {ready ? (
+                  <button onClick={() => { const earned = Math.round(l.coins * (pins / l.maxPins)); gainCoins(earned); localStorage.setItem(key, String(Date.now())); showToast(`${l.emoji} ${pins}/${l.maxPins} käglar! +${earned}🪙`, 'success'); audio.coin() }} style={{ padding: '8px 10px', borderRadius: 10, background: 'rgba(68,136,255,.18)', border: '1px solid rgba(68,136,255,.3)', color: '#60a5fa', cursor: 'pointer', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>Kasta!</button>
+                ) : (
+                  <div style={{ fontSize: 10, color: 'var(--t3)', flexShrink: 0 }}>{display}</div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  if (panel === 'petcinema') {
+    const movies = [
+      { emoji: '🎬', name: 'Kortfilm', bond: 15, xp: 20, cd: 1 },
+      { emoji: '🍿', name: 'Actionfilm', bond: 35, xp: 45, cd: 3 },
+      { emoji: '🏆', name: 'Premiär', bond: 70, xp: 90, cd: 8 },
+      { emoji: '🌌', name: 'Eposfilm', bond: 130, xp: 160, cd: 16 },
+    ]
+    return (
+      <div style={{ padding: '0 14px 20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <button className="btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }} onClick={onBack}>← Tillbaka</button>
+          <span className={styles.panelTitle}>🎥 Biografen</span>
+        </div>
+        <div style={{ background: 'rgba(248,113,113,.07)', border: '1px solid rgba(248,113,113,.2)', borderRadius: 14, padding: 12, marginBottom: 14, textAlign: 'center' }}>
+          <div style={{ fontSize: 36 }}>🎥</div>
+          <div style={{ fontSize: 12, color: '#f87171', fontWeight: 700, marginTop: 4 }}>Se film med {pet.petEmoji} — bond stärks på biografen!</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {movies.map((m, i) => {
+            const key = 'k0509_cin_' + i
+            const last = Number(localStorage.getItem(key) ?? 0)
+            const cdMs = m.cd * 3600000
+            const ready = Date.now() - last >= cdMs
+            const minsLeft = ready ? 0 : Math.ceil((cdMs - (Date.now() - last)) / 60000)
+            const display = minsLeft >= 60 ? `${Math.ceil(minsLeft / 60)}h` : `${minsLeft}min`
+            return (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 12 }}>
+                <div style={{ fontSize: 26 }}>{m.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, color: '#fff', fontWeight: 700 }}>{m.name}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t3)' }}>Visning: {m.cd}h</div>
+                  <div style={{ fontSize: 11, color: '#f87171', marginTop: 2 }}>+{m.bond} Bond · +{m.xp}XP</div>
+                </div>
+                {ready ? (
+                  <button onClick={() => { gainBond(m.bond); gainXP(m.xp); localStorage.setItem(key, String(Date.now())); showToast(`${m.emoji} ${m.name} klar! +${m.bond}Bond +${m.xp}XP`, 'success'); audio.coin() }} style={{ padding: '8px 10px', borderRadius: 10, background: 'rgba(248,113,113,.18)', border: '1px solid rgba(248,113,113,.3)', color: '#f87171', cursor: 'pointer', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>Se film</button>
+                ) : (
+                  <div style={{ fontSize: 10, color: 'var(--t3)', flexShrink: 0 }}>{display}</div>
+                )}
               </div>
             )
           })}
