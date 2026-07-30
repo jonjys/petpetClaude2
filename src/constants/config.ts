@@ -480,6 +480,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petbeekeeper2', emoji: '🍯', label: 'Biodlaren', desc: 'Skörda honung och sälj på marknaden för mynt' },
   { id: 'petrobotfactory', emoji: '🤖', label: 'Robotfabriken', desc: 'Bygg robotar och tjäna KC och XP' },
   { id: 'petherbgarden', emoji: '🌿', label: 'Örtagården', desc: 'Odla örter och brygga te för bond' },
+  { id: 'petpirateisland', emoji: '🏴‍☠️', label: 'Piratön', desc: 'Gräv efter skatten och hämta mynt och XP' },
+  { id: 'petlighthouse2', emoji: '💡', label: 'Fyrtornet', desc: 'Guida skepp säkert hem och samla mynt och bond' },
+  { id: 'petastronautbase', emoji: '🚀', label: 'Astronautbasen', desc: 'Träna astronauter och forska för XP och KC' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
