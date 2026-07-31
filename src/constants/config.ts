@@ -516,6 +516,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petstormhaven', emoji: '⛈️', label: 'Stormhavnen', desc: 'Skydda husdjuret från stormen och samla XP och KC' },
   { id: 'petlunartemple', emoji: '🌕', label: 'Måntemplet', desc: 'Genomför månritualer och tjäna bond och mynt' },
   { id: 'petdriftwood', emoji: '🪵', label: 'Drivvedsön', desc: 'Bygg flotte av drivved och utforska havet för KC' },
+  { id: 'petcherrytree', emoji: '🌸', label: 'Körsbärsträdet', desc: 'Bevaka blommandet och tjäna bond och mynt varje säsong' },
+  { id: 'petlighthousekeeper', emoji: '🗼', label: 'Fyrvaktaren', desc: 'Håll fyren tänd och guida skepp för KC och XP' },
+  { id: 'petcauldron', emoji: '🫕', label: 'Trollkitteln', desc: 'Laga trolldrycker och tjäna KC och bond' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
