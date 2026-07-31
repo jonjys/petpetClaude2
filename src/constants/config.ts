@@ -522,6 +522,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petpuppetshow', emoji: '🎪', label: 'Dockteater', desc: 'Spela upp dockteaterpjäser och samla mynt och bond' },
   { id: 'petcrystalcave', emoji: '💎', label: 'Kristallgrottan', desc: 'Gräv kristaller och sälj på marknaden för XP och mynt' },
   { id: 'petfoxden', emoji: '🦊', label: 'Rävstugan', desc: 'Vårda räven och lär den tricks för bond och KC' },
+  { id: 'petpottery', emoji: '🏺', label: 'Krukmakaren', desc: 'Dreja keramik och sälj på marknaden för mynt och XP' },
+  { id: 'petnightsky', emoji: '🌠', label: 'Natthimlen', desc: 'Observera stjärnfall och meteorregn för KC och bond' },
+  { id: 'petcandyshop', emoji: '🍬', label: 'Godisbutiken', desc: 'Tillverka och sälj godis för mynt och bond' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
