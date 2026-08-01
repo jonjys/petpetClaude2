@@ -118,10 +118,10 @@ export const App = memo(function App() {
   return (
     <>
       {/* App shell — exact legacy structure */}
-      <div id="app" style={{ display: 'flex' }}>
+      <div id="app" style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
         <Header />
 
-        <div className="main">
+        <div className="main" style={{ flex: 1, minHeight: 0, position: 'relative', overflow: 'hidden' }}>
           {/* Inline opacity/transform override bypasses the legacy CSS display→opacity transition bug
               where opacity:0 on .view never transitions to 1 when display flips from none→flex */}
           <div className={`view${activeTab === 'pet'     ? ' active' : ''}`} id="view-pet-react"
