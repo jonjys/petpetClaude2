@@ -552,6 +552,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petarcticbase', emoji: '🧊', label: 'Arktisbasen', desc: 'Bygg och forska vid arktisbasen för KC och XP' },
   { id: 'petfairygrove', emoji: '🧚', label: 'Felundgrottan', desc: 'Samla magisk trolldamm med feer för bond och mynt' },
   { id: 'petzeppelinship', emoji: '🎈', label: 'Luftskeppet', desc: 'Fly med luftskeppet och samla vindar och XP' },
+  { id: 'petjadegarden', emoji: '🌿', label: 'Jadeterassen', desc: 'Vårda jadeterassen och tjäna bond och KC' },
+  { id: 'petstarlibrary', emoji: '📚', label: 'Stjärnbiblioteket', desc: 'Samla kosmisk kunskap och tjäna XP och KC' },
+  { id: 'petsandstorm', emoji: '🌪️', label: 'Sandstormen', desc: 'Överlev sandstormen och samla sällsynta stenar' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
