@@ -549,6 +549,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petaquarium', emoji: '🐠', label: 'Akvariet', desc: 'Köp fiskar, bygg ditt akvarium och samla XP passivt' },
   { id: 'petcosmos', emoji: '🌌', label: 'Kosmosresan', desc: 'Res till galaxer och samla stardust och XP' },
   { id: 'petpottery', emoji: '🏺', label: 'Krukmakaren', desc: 'Dreja keramik och sälj på marknaden för mynt och XP' },
+  { id: 'petfoxden', emoji: '🦊', label: 'Rävlyan', desc: 'Besök rävens lya och samla bond och KC' },
+  { id: 'petnightsky', emoji: '🌠', label: 'Natthimlen', desc: 'Stjärnkika under natten och samla stardust och XP' },
+  { id: 'petcandyshop', emoji: '🍭', label: 'Godisbutiken', desc: 'Tillverka och sälj godis för mynt och bond' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
