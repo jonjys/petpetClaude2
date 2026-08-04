@@ -1,0 +1,119 @@
+/* components/GamesHub.module.css */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.title {
+  font-family: var(--ff-head);
+  font-size: 26px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--nb-white);
+  -webkit-text-stroke: 1px var(--nb-black);
+}
+.subtitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.statsRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.statChip {
+  font-size: 11px;
+  font-weight: 900;
+  background: var(--nb-white);
+  color: var(--nb-black);
+  border: 3px solid var(--nb-black);
+  box-shadow: var(--nb-shadow-sm);
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 10px 16px;
+  background: var(--nb-black);
+  border: var(--nb-border);
+  box-shadow: var(--nb-shadow);
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+  text-align: center;
+}
+.card:active {
+  transform: translate(4px, 4px);
+  box-shadow: var(--nb-shadow-active);
+}
+.cardEmoji { font-size: 44px; line-height: 1; }
+.cardName {
+  font-family: var(--ff-head);
+  font-size: 15px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--nb-white);
+}
+.cardDesc {
+  font-size: 11px;
+  color: #aaa;
+  font-weight: 600;
+}
+.cardStat {
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--nb-black);
+  background: var(--nb-green);
+  border: 2px solid var(--nb-black);
+  padding: 2px 8px;
+}
+
+.cardGreen { border-color: var(--nb-black); background: linear-gradient(180deg, #001a05, var(--nb-black)); }
+.cardGreen .cardEmoji { filter: drop-shadow(0 0 0 var(--nb-green)); }
+.cardPink  { background: linear-gradient(180deg, #1a0010, var(--nb-black)); }
+.cardBlue  { background: linear-gradient(180deg, #001a1a, var(--nb-black)); }
+
+.cardLocked {
+  cursor: default;
+  opacity: 0.55;
+  filter: grayscale(0.6);
+}
+.cardLocked:active { transform: none; box-shadow: var(--nb-shadow); }
+.lockedBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 9px;
+  font-weight: 900;
+  background: var(--nb-pink);
+  color: var(--nb-white);
+  border: 2px solid var(--nb-black);
+  padding: 2px 6px;
+  text-transform: uppercase;
+}

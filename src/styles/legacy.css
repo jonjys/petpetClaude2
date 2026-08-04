@@ -45616,3 +45616,58 @@ button, [onclick]:not(script), .care-btn, .nb, .nb-center,
   0%, 100% { box-shadow: 0 0 8px rgba(0,255,136,.3); }
   50%       { box-shadow: 0 0 20px rgba(0,255,136,.7); }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Neo-Brutalism tokens (2026 core-gameplay pass)
+   Scoped to the 4 core-gameplay surfaces (games hub, Judgement Ring) via the
+   .nb-theme class below — every rule above this point is untouched, so the
+   200+ hidden-but-not-deleted minigames keep rendering exactly as before.
+   A second :root block is valid CSS and simply adds these custom
+   properties alongside the ones already declared near the top of this file.
+   ══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --nb-black:  #000000;
+  --nb-white:  #ffffff;
+  --nb-green:  #39ff14;
+  --nb-pink:   #ff007f;
+  --nb-blue:   #00f0ff;
+  --nb-border: 4px solid var(--nb-black);
+  --nb-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+  --nb-shadow-sm: 3px 3px 0px 0px rgba(0,0,0,1);
+  --nb-shadow-active: 2px 2px 0px 0px rgba(0,0,0,1);
+}
+
+.nb-theme {
+  --ff-head: 'Syne', sans-serif;
+  font-family: var(--ff-body);
+}
+.nb-theme, .nb-theme * { border-radius: 0 !important; }
+.nb-card {
+  background: var(--nb-black);
+  border: var(--nb-border);
+  box-shadow: var(--nb-shadow);
+  color: var(--nb-white);
+}
+.nb-btn {
+  background: var(--nb-white);
+  color: var(--nb-black);
+  border: var(--nb-border);
+  box-shadow: var(--nb-shadow-sm);
+  font-family: var(--ff-head);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: transform 0.08s, box-shadow 0.08s;
+  cursor: pointer;
+}
+.nb-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: var(--nb-shadow-active);
+}
+.nb-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.nb-btn-green  { background: var(--nb-green); }
+.nb-btn-pink   { background: var(--nb-pink); color: var(--nb-white); }
+.nb-btn-blue   { background: var(--nb-blue); }

@@ -5,6 +5,7 @@ import { useUIStore } from '@/stores/uiStore'
 import { audio } from '@/services/AudioService'
 import { formatNumber } from '@/utils/format'
 import type { FishType } from '@/types/game'
+import hubStyles from './GamesHub.module.css'
 import { SnakeGame } from './SnakeGame'
 import { MemoryGame } from './MemoryGame'
 import { ReactionGame } from './ReactionGame'
@@ -877,26 +878,55 @@ export const GamesView = memo(function GamesView() {
         )
       })()}
 
-      <div className="games-grid-2027">
-        {GAMES.map(g => {
-          const pb = g.id === 'battle' ? `⚔️ ${battleWins} seg.`
-            : g.id === 'runner' ? `🏃 ${runnerBest}m`
-            : g.id === 'fishing' ? `🎣 ${fishCaught} fisk`
-            : null
-          return (
-            <button
-              key={g.id}
-              className={`game-card-2027${g.hot ? ' hot' : ''}`}
-              onClick={() => { setActiveGame(g.id); audio.click() }}
-            >
-              <div className="game-card-icon">{g.emoji}</div>
-              <div className="game-card-name">{g.name}</div>
-              <div className="game-card-xp">{g.desc}</div>
-              <div className="game-card-badge">{g.reward}</div>
-              {pb && <div style={{ fontSize: 8, color: 'var(--t3)', marginTop: 2, fontWeight: 700 }}>{pb}</div>}
-            </button>
-          )
-        })}
+      {/* 4 core moments — every other minigame is hidden (not deleted) behind
+          this hub per the neo-brutalism/core-gameplay pass. Their code and
+          the routing above still work if activeGame is ever set to one of
+          their ids again; this grid just stops offering that entry point. */}
+      <div className={`nb-theme ${hubStyles.root}`} style={{ padding: '0 14px' }}>
+        <div className={hubStyles.header}>
+          <span className={hubStyles.title}>Core Play</span>
+          <span className={hubStyles.subtitle}>4 moment</span>
+        </div>
+        <div className={hubStyles.statsRow}>
+          <span className={hubStyles.statChip}>⚔️ {battleWins} SEGRAR</span>
+          <span className={hubStyles.statChip}>🏃 {runnerBest}M REKORD</span>
+          <span className={hubStyles.statChip}>🎣 {fishCaught} FISK</span>
+        </div>
+        <div className={hubStyles.grid}>
+          <button
+            className={`${hubStyles.card} ${hubStyles.cardBlue}`}
+            onClick={() => { setActiveGame('fishing'); audio.click() }}
+          >
+            <div className={hubStyles.cardEmoji}>🎣</div>
+            <div className={hubStyles.cardName}>Fiske</div>
+            <div className={hubStyles.cardDesc}>Fånga fiskar & DNA-bett</div>
+            <div className={hubStyles.cardStat}>{fishCaught} fångade</div>
+          </button>
+          <button
+            className={`${hubStyles.card} ${hubStyles.cardGreen}`}
+            onClick={() => { setActiveGame('runner'); audio.click() }}
+          >
+            <div className={hubStyles.cardEmoji}>🏃</div>
+            <div className={hubStyles.cardName}>Pet Runner</div>
+            <div className={hubStyles.cardDesc}>Spring, undvik hinder</div>
+            <div className={hubStyles.cardStat}>{runnerBest}m rekord</div>
+          </button>
+          <button
+            className={`${hubStyles.card} ${hubStyles.cardPink}`}
+            onClick={() => { setActiveGame('battle'); audio.click() }}
+          >
+            <div className={hubStyles.cardEmoji}>⚔️</div>
+            <div className={hubStyles.cardName}>Pet Battle 2.0</div>
+            <div className={hubStyles.cardDesc}>Judgement Ring-strid</div>
+            <div className={hubStyles.cardStat}>{battleWins} segrar</div>
+          </button>
+          <div className={`${hubStyles.card} ${hubStyles.cardLocked}`}>
+            <span className={hubStyles.lockedBadge}>Snart</span>
+            <div className={hubStyles.cardEmoji}>🧬</div>
+            <div className={hubStyles.cardName}>DNA Splice Lab</div>
+            <div className={hubStyles.cardDesc}>Kombinera DNA — under uppbyggnad</div>
+          </div>
+        </div>
       </div>
 
       <div className="vend" />
