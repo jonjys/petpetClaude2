@@ -214,8 +214,28 @@ import { MultiStepMathGame } from './MultiStepMathGame'
 import { WordLengthGame } from './WordLengthGame'
 import { SyllableCountGame } from './SyllableCountGame'
 import { GeographyQuizGame } from './GeographyQuizGame'
+import { SpeedSquareGame } from './SpeedSquareGame'
+import { AlgebraGame } from './AlgebraGame'
+import { TypoFindGame } from './TypoFindGame'
+import { EstimateGame } from './EstimateGame'
+import { SweHistoryGame } from './SweHistoryGame'
+import { CubeNumberGame } from './CubeNumberGame'
+import { SpeedSubtractGame } from './SpeedSubtractGame'
+import { NordicQuizGame } from './NordicQuizGame'
+import { AreaGame } from './AreaGame'
+import { ScienceQuizGame } from './ScienceQuizGame'
+import { NumberRoundGame } from './NumberRoundGame'
+import { CapitalEuropeGame } from './CapitalEuropeGame'
+import { MultiplyChainGame } from './MultiplyChainGame'
+import { SpeedReadSweGame } from './SpeedReadSweGame'
+import { TimeCalcGame } from './TimeCalcGame'
+import { PercentGame } from './PercentGame'
+import { SweGeographyGame } from './SweGeographyGame'
+import { FractionDuelGame } from './FractionDuelGame'
+import { MentalArithGame } from './MentalArithGame'
+import { AnimalKingdomGame } from './AnimalKingdomGame'
 
-type GameId ='snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | 'balloons' | 'mathmaze' | 'gridflood' | 'emojifind' | 'mathblind' | 'colorflash' | 'chameleon' | 'multiplyrace' | 'swapsort' | 'fraction' | 'stopclock' | 'wordsnap' | 'numbubble' | 'holdfold' | 'catchball' | 'mathpath' | 'patmat' | 'zapgrid' | 'capitals' | 'typecatch' | 'mathgrid' | 'wordflow' | 'colorblind' | 'memchain' | 'speedcd' | 'emojihunt' | 'taptarget' | 'numsort' | 'mathblitz' | 'letterdrop' | 'colorword' | 'speedtyping' | 'balloonpop' | 'quickfire' | 'pingpong2' | 'wordunscramble' | 'digitmemo' | 'emojistory' | 'neondodge' | 'currencyquiz' | 'multitap' | 'spellingbee' | 'aimtrainer' | 'mathsprint' | 'shapematch' | 'speedread' | 'numchain' | 'wordcross' | 'picguess' | 'reacchain' | 'stackdrop' | 'soundmatch' | 'quickclick' | 'mathpyramid' | 'typingchallenge' | 'colorflood' | 'bubblecount' | 'iconrecall' | 'mathorder' | 'alphaorder' | 'primehunt' | 'flipcard' | 'wordladder' | 'reflextap' | 'speedmultiply' | 'clickfrenzy' | 'oddeven' | 'towerbuilder' | 'seqrepeat' | 'targetsum' | 'lettergrid' | 'evensum' | 'emojimath' | 'tappattern' | 'wordtypo' | 'speeddivide' | 'speedadd' | 'mathfact' | 'subblitz' | 'colorname' | 'numbond' | 'emojicount' | 'letterorder' | 'multitable' | 'speedread2' | 'highnum' | 'oddorevblitz' | 'lownum' | 'divblitz' | 'missingop' | 'pctgame' | 'clockread' | 'roman' | 'sqroot' | 'tempgame' | 'bingame' | 'tzgame' | 'primeornot' | 'msmmath' | 'wordlen' | 'syllable' | 'geoquiz' | null
+type GameId ='snake' | 'memory' | 'reaction' | 'runner' | 'fishing' | 'battle' | 'puzzle2048' | 'spin' | 'bossraid' | 'dice' | 'speedmath' | 'whack' | 'quiz' | 'arena' | 'dungeon' | 'bubble' | 'word' | 'color' | 'typer' | 'nummem' | 'emoji' | 'tof' | 'grid' | 'mathseq' | 'hangman' | 'simon' | 'sort' | 'hl' | 'wordle' | 'war' | 'trivia' | 'catch' | 'minesweeper' | 'rhythm' | 'sudoku' | 'race' | 'tower' | 'slots' | 'pinball' | 'typing' | 'bricks' | 'slide' | 'flappy' | 'csort' | 'shooter' | 'dodge' | 'numcrunch' | 'taprush' | 'anagram' | 'pairmatch' | 'lmath' | 'eguess' | 'wchain' | 'stealth' | 'ttt' | 'mastermind' | 'c4' | 'rps' | 'pong' | 'blackjack' | 'flagquiz' | 'balance' | 'wordsearch' | 'speedtap' | 'gemswap' | 'typeduel' | 'catchfruit' | 'countdown' | 'bubshoot' | 'lights' | 'oddout' | 'reflexcolor' | 'mathduel' | 'treasure' | 'shadowmatch' | 'stacktower' | 'ppairs' | 'emojicode' | 'patternrep' | 'targetclick' | 'wordbomb' | 'numline' | 'pressmeter' | 'sumflash' | 'darts' | 'letterchaos' | 'factfiction' | 'gridremem' | 'quicksum' | 'animalsound' | 'colormix2' | 'snapcard' | 'spellingg' | 'bubblemath' | 'pathfinder' | 'typingrain' | 'colorseq' | 'speedcount' | 'memflip' | 'mirrordraw' | 'truthdare' | 'beatbuilder' | 'wordguess' | 'numpuzzle' | 'tilematch' | 'direction' | 'balloons' | 'mathmaze' | 'gridflood' | 'emojifind' | 'mathblind' | 'colorflash' | 'chameleon' | 'multiplyrace' | 'swapsort' | 'fraction' | 'stopclock' | 'wordsnap' | 'numbubble' | 'holdfold' | 'catchball' | 'mathpath' | 'patmat' | 'zapgrid' | 'capitals' | 'typecatch' | 'mathgrid' | 'wordflow' | 'colorblind' | 'memchain' | 'speedcd' | 'emojihunt' | 'taptarget' | 'numsort' | 'mathblitz' | 'letterdrop' | 'colorword' | 'speedtyping' | 'balloonpop' | 'quickfire' | 'pingpong2' | 'wordunscramble' | 'digitmemo' | 'emojistory' | 'neondodge' | 'currencyquiz' | 'multitap' | 'spellingbee' | 'aimtrainer' | 'mathsprint' | 'shapematch' | 'speedread' | 'numchain' | 'wordcross' | 'picguess' | 'reacchain' | 'stackdrop' | 'soundmatch' | 'quickclick' | 'mathpyramid' | 'typingchallenge' | 'colorflood' | 'bubblecount' | 'iconrecall' | 'mathorder' | 'alphaorder' | 'primehunt' | 'flipcard' | 'wordladder' | 'reflextap' | 'speedmultiply' | 'clickfrenzy' | 'oddeven' | 'towerbuilder' | 'seqrepeat' | 'targetsum' | 'lettergrid' | 'evensum' | 'emojimath' | 'tappattern' | 'wordtypo' | 'speeddivide' | 'speedadd' | 'mathfact' | 'subblitz' | 'colorname' | 'numbond' | 'emojicount' | 'letterorder' | 'multitable' | 'speedread2' | 'highnum' | 'oddorevblitz' | 'lownum' | 'divblitz' | 'missingop' | 'pctgame' | 'clockread' | 'roman' | 'sqroot' | 'tempgame' | 'bingame' | 'tzgame' | 'primeornot' | 'msmmath' | 'wordlen' | 'syllable' | 'geoquiz' | 'speedsq' | 'algebra' | 'typofind' | 'estimate' | 'swehistory' | 'cubenum' | 'speedsub' | 'nordicquiz' | 'areagame' | 'sciencequiz' | 'numround' | 'capeurope' | 'mulchain' | 'speedreadswe' | 'timecalc' | 'percalc' | 'swegeo' | 'fracduel' | 'mentalarith' | 'animalkingdom' | null
 
 const GAMES = [
   { id: 'bossraid' as const, emoji: '🐲', name: 'Boss Raid', desc: 'Besegra giganter', reward: '🪙120-350', hot: true },
@@ -426,6 +446,26 @@ const GAMES = [
   { id: 'wordlen' as const, emoji: '📏', name: 'Ordlängd', desc: 'Hur många bokstäver har ordet? 5 sek, 12 ronder!', reward: '🪙0-144', hot: false },
   { id: 'syllable' as const, emoji: '🎵', name: 'Stavelser', desc: 'Räkna stavelserna i det svenska ordet — 5 sek, 12 ronder!', reward: '🪙0-156', hot: false },
   { id: 'geoquiz' as const, emoji: '🌍', name: 'Geografi', desc: 'Geografi-trivia på svenska — 8 sek, 12 ronder!', reward: '🪙0-180', hot: true },
+  { id: 'speedsq' as const, emoji: '²', name: 'Kvadrering', desc: 'Vad är n²? 4 sekunder, 15 ronder — tal upp till 30!', reward: '🪙0-210', hot: true },
+  { id: 'algebra' as const, emoji: '🔣', name: 'Algebra', desc: 'Lös för x — 8 sekunder, 12 ronder, svårare ekvationer!', reward: '🪙0-180', hot: false },
+  { id: 'typofind' as const, emoji: '🔍', name: 'Stavfelet', desc: 'Hitta det felstavade ordet bland fyra — 7 sek, 12 ronder!', reward: '🪙0-156', hot: true },
+  { id: 'estimate' as const, emoji: '👁️', name: 'Uppskattning', desc: 'Emojis blinkar — uppskatta hur många! 10 ronder.', reward: '🪙0-170', hot: false },
+  { id: 'swehistory' as const, emoji: '🇸🇪', name: 'Sverigehistoria', desc: 'Historia-trivia om Sverige — 9 sek, 10 ronder!', reward: '🪙0-160', hot: true },
+  { id: 'cubenum' as const, emoji: '³', name: 'Kubning', desc: 'Vad är n³? 5 sekunder, 12 ronder — tal upp till 10!', reward: '🪙0-180', hot: false },
+  { id: 'speedsub' as const, emoji: '➖', name: 'Snabbsubtrahering', desc: 'Subtrahera snabbt! 4 sek, 15 ronder — tal upp till 100!', reward: '🪙0-165', hot: true },
+  { id: 'nordicquiz' as const, emoji: '🧭', name: 'Norden', desc: 'Nordisk geografi och fakta — 9 sek, 10 ronder!', reward: '🪙0-150', hot: false },
+  { id: 'areagame' as const, emoji: '📐', name: 'Area & Omkrets', desc: 'Beräkna area och omkrets! 7 sek, 12 ronder — trianglar tillkommer!', reward: '🪙0-192', hot: true },
+  { id: 'sciencequiz' as const, emoji: '🔬', name: 'Naturvetenskap', desc: 'Fysik, kemi och biologi-trivia — 9 sek, 10 ronder!', reward: '🪙0-160', hot: false },
+  { id: 'numround' as const, emoji: '🔄', name: 'Avrundning', desc: 'Avrunda tal till tiotals, hundratals eller heltal! 5 sek, 12 ronder.', reward: '🪙0-156', hot: false },
+  { id: 'capeurope' as const, emoji: '🏛️', name: 'Europas Städer', desc: 'Gissa europeiska huvudstäder med flaggor — 7 sek, 12 ronder!', reward: '🪙0-168', hot: true },
+  { id: 'mulchain' as const, emoji: '✖️', name: 'Multiplikationskedja', desc: 'Lös multiplikation på 6 sek — tal upp till 15×15, bygg streak!', reward: '🪙0-168', hot: true },
+  { id: 'speedreadswe' as const, emoji: '📖', name: 'Läsförståelse', desc: 'Läs meningen — den försvinner! Svara på frågan. 10 ronder.', reward: '🪙0-160', hot: false },
+  { id: 'timecalc' as const, emoji: '⏰', name: 'Tidsräkning', desc: 'Lägg till minuter, beräkna duration & konvertera! 8 sek, 10 ronder.', reward: '🪙0-160', hot: true },
+  { id: 'percalc' as const, emoji: '📊', name: 'Procentkalkyl', desc: 'X% av Y, hur många % och bakvänt — 8 sekunder, 10 ronder!', reward: '🪙0-160', hot: false },
+  { id: 'swegeo' as const, emoji: '🗺️', name: 'Sverigekarta', desc: 'Geografi om Sverige — landskap, sjöar, berg! 8 sek, 12 ronder.', reward: '🪙0-180', hot: true },
+  { id: 'fracduel' as const, emoji: '➗', name: 'Bråkduellen', desc: 'Jämför, addera och multiplicera bråk — 6 sek, 12 ronder!', reward: '🪙0-180', hot: false },
+  { id: 'mentalarith' as const, emoji: '🧠', name: 'Huvudräkning', desc: 'Räkna i huvudet — 2 till 3-siffriga tal, 5 sek, 15 ronder!', reward: '🪙0-195', hot: true },
+  { id: 'animalkingdom' as const, emoji: '🦁', name: 'Djurriket', desc: 'Djurfakta från hela världen — 9 sek, 10 ronder!', reward: '🪙0-160', hot: false },
 ]
 
 function weekKey() {
@@ -724,6 +764,26 @@ export const GamesView = memo(function GamesView() {
   if (activeGame === 'wordlen') return <WordLengthGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'syllable') return <SyllableCountGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
   if (activeGame === 'geoquiz') return <GeographyQuizGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'speedsq') return <SpeedSquareGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'algebra') return <AlgebraGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'typofind') return <TypoFindGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'estimate') return <EstimateGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'swehistory') return <SweHistoryGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'cubenum') return <CubeNumberGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'speedsub') return <SpeedSubtractGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'nordicquiz') return <NordicQuizGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'areagame') return <AreaGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'sciencequiz') return <ScienceQuizGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'numround') return <NumberRoundGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'capeurope') return <CapitalEuropeGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'mulchain') return <MultiplyChainGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'speedreadswe') return <SpeedReadSweGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'timecalc') return <TimeCalcGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'percalc') return <PercentGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'swegeo') return <SweGeographyGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'fracduel') return <FractionDuelGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'mentalarith') return <MentalArithGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
+  if (activeGame === 'animalkingdom') return <AnimalKingdomGame onExit={() => setActiveGame(null)} onWin={handleGenericWin} />
 
   return (
     <>
