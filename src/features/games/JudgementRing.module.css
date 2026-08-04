@@ -1,0 +1,92 @@
+/* components/JudgementRing.module.css */
+
+.wrap {
+  position: relative;
+  width: min(260px, 72vw);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  touch-action: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.needle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 44%;
+  background: var(--nb-white);
+  border: 2px solid var(--nb-black);
+  transform-origin: 50% 100%;
+  transform: translate(-50%, -100%) rotate(0deg);
+  will-change: transform;
+  pointer-events: none;
+  box-shadow: var(--nb-shadow-sm);
+}
+
+.hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22%;
+  height: 22%;
+  transform: translate(-50%, -50%);
+  background: var(--nb-black);
+  border: 4px solid var(--nb-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ff-head);
+  font-weight: 900;
+  font-size: clamp(11px, 3.2vw, 14px);
+  color: var(--nb-white);
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+
+.flash {
+  position: absolute;
+  inset: -8px;
+  pointer-events: none;
+  opacity: 0;
+}
+.flashHit {
+  background: var(--nb-green);
+  animation: flashPulse 0.22s ease-out;
+}
+.flashCrit {
+  background: var(--nb-pink);
+  animation: flashPulse 0.32s ease-out;
+}
+.flashMiss {
+  background: #ff3333;
+  animation: flashPulse 0.28s ease-out;
+}
+@keyframes flashPulse {
+  0%   { opacity: 0.85; }
+  100% { opacity: 0; }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+.dot {
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--nb-black);
+  background: var(--nb-white);
+}
+.dotHit  { background: var(--nb-green); }
+.dotCrit { background: var(--nb-pink); }
+.dotMiss { background: #ff3333; }
