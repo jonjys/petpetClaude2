@@ -22,25 +22,39 @@ function fracStr(n: number, d: number): string {
   return rd === 1 ? `${rn}` : `${rn}/${rd}`
 }
 
+function uniqueFour(answer: string, candidates: string[]): string[] {
+  const seen = new Set([answer])
+  const opts = [answer]
+  for (const c of candidates) {
+    if (opts.length === 4) break
+    if (!seen.has(c)) { seen.add(c); opts.push(c) }
+  }
+  let i = 1
+  while (opts.length < 4) {
+    const fallback = fracStr(i + 1, 12)
+    if (!seen.has(fallback)) { seen.add(fallback); opts.push(fallback) }
+    i++
+  }
+  return opts.sort(() => Math.random() - 0.5)
+}
+
 function makeQ(difficulty: number): Q {
   const tier = difficulty < 4 ? 0 : difficulty < 8 ? 1 : 2
 
   if (tier === 0) {
-    // Compare two fractions: which is bigger?
+    // Pick 4 distinct fractions, ask which is biggest
     const denoms = [2, 3, 4, 5, 6, 8]
-    const d1 = denoms[Math.floor(Math.random() * denoms.length)]
-    const d2 = denoms[Math.floor(Math.random() * denoms.length)]
-    const n1 = 1 + Math.floor(Math.random() * (d1 - 1))
-    let n2 = 1 + Math.floor(Math.random() * (d2 - 1))
-    while (n1 * d2 === n2 * d1) n2 = 1 + Math.floor(Math.random() * (d2 - 1))
-    const a = fracStr(n1, d1), b = fracStr(n2, d2)
-    const answer = n1 * d2 > n2 * d1 ? a : b
-    const wrong = answer === a ? b : a
-    const wrong2 = fracStr(1 + Math.floor(Math.random() * (d1 - 1)), d1)
-    const wrong3 = fracStr(1 + Math.floor(Math.random() * (d2 - 1)), d2)
-    const opts = Array.from(new Set([answer, wrong, wrong2, wrong3])).slice(0, 4)
-    while (opts.length < 4) opts.push(fracStr(Math.floor(Math.random() * 5) + 1, 6))
-    return { question: `Vilket bråk är störst? ${a} eller ${b}?`, answer, options: opts.sort(() => Math.random() - 0.5) }
+    const seen = new Set<string>()
+    const fracs: { str: string; val: number }[] = []
+    let safety = 0
+    while (fracs.length < 4 && safety++ < 200) {
+      const d = denoms[Math.floor(Math.random() * denoms.length)]
+      const n = 1 + Math.floor(Math.random() * (d - 1))
+      const str = fracStr(n, d)
+      if (!seen.has(str)) { seen.add(str); fracs.push({ str, val: n / d }) }
+    }
+    const answer = fracs.reduce((best, f) => f.val > best.val ? f : best).str
+    return { question: 'Vilket bråk är störst?', answer, options: fracs.map(f => f.str).sort(() => Math.random() - 0.5) }
   } else if (tier === 1) {
     // Add fractions with same denominator
     const d = [2, 3, 4, 5, 6][Math.floor(Math.random() * 5)]
@@ -48,20 +62,25 @@ function makeQ(difficulty: number): Q {
     const n2 = 1 + Math.floor(Math.random() * (d - 1))
     const sumN = n1 + n2
     const answer = fracStr(sumN, d)
-    const makeWrong = () => fracStr(sumN + (Math.random() < 0.5 ? 1 : -1), d)
-    const opts = Array.from(new Set([answer, makeWrong(), makeWrong(), fracStr(sumN, d + 1)])).slice(0, 4)
-    while (opts.length < 4) opts.push(fracStr(sumN + opts.length, d))
-    return { question: `${fracStr(n1, d)} + ${fracStr(n2, d)} = ?`, answer, options: opts.sort(() => Math.random() - 0.5) }
+    const candidates = [
+      fracStr(sumN + 1, d), fracStr(Math.max(1, sumN - 1), d),
+      fracStr(sumN + 2, d), fracStr(Math.max(1, sumN - 2), d),
+      fracStr(sumN, d + 1), fracStr(sumN + 1, d + 1),
+    ]
+    return { question: `${fracStr(n1, d)} + ${fracStr(n2, d)} = ?`, answer, options: uniqueFour(answer, candidates) }
   } else {
-    // Multiply a fraction by a whole number
+    // Multiply fraction by whole number
     const d = [2, 3, 4, 5][Math.floor(Math.random() * 4)]
     const n = 1 + Math.floor(Math.random() * (d - 1))
     const whole = 2 + Math.floor(Math.random() * 4)
-    const answer = fracStr(n * whole, d)
-    const makeWrong = () => fracStr(n * whole + (Math.random() < 0.5 ? 1 : -1), d)
-    const opts = Array.from(new Set([answer, makeWrong(), makeWrong(), fracStr(n * whole, d + 1)])).slice(0, 4)
-    while (opts.length < 4) opts.push(fracStr(n * whole + opts.length, d))
-    return { question: `${fracStr(n, d)} × ${whole} = ?`, answer, options: opts.sort(() => Math.random() - 0.5) }
+    const res = n * whole
+    const answer = fracStr(res, d)
+    const candidates = [
+      fracStr(res + 1, d), fracStr(Math.max(1, res - 1), d),
+      fracStr(res + 2, d), fracStr(Math.max(1, res - 2), d),
+      fracStr(res, d + 1), fracStr(res + whole, d),
+    ]
+    return { question: `${fracStr(n, d)} × ${whole} = ?`, answer, options: uniqueFour(answer, candidates) }
   }
 }
 
