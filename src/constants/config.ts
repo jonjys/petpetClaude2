@@ -609,6 +609,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petsciencelab', emoji: '🔬', label: 'NO-labbet', desc: 'Experimentera med fysik och kemi för KC och XP' },
   { id: 'petmulticlub', emoji: '✖️', label: 'Tabellklubben', desc: 'Träna multiplikationstabellerna och tjäna dagliga mynt' },
   { id: 'petartgallery', emoji: '🎨', label: 'Konstgalleriet', desc: 'Ställ ut konst och attrahera besökare för bond och KC' },
+  { id: 'pethistorymuseum', emoji: '📜', label: 'Historiemuseet', desc: 'Samla historiska artefakter och öppna utställningar för KC' },
+  { id: 'petmathacademy2', emoji: '👁️', label: 'Uppskattningsstationen', desc: 'Träna uppskattning och estimering för dagliga mynt' },
+  { id: 'petcinema', emoji: '🎬', label: 'Biografen', desc: 'Visa filmer och tjäna biljettintäkter i mynt och bond' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
