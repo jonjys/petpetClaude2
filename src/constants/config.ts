@@ -585,6 +585,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petsavannah', emoji: '🦁', label: 'Savannen', desc: 'Vakta djur på savannen och lås upp sällsynta arter' },
   { id: 'petaquacenter', emoji: '🐬', label: 'Akvacenter', desc: 'Träna delfiner och tjäna XP för varje trick' },
   { id: 'petarithlab', emoji: '🧮', label: 'Räknelabbet', desc: 'Lös huvudräkning och samla matematikprestiger' },
+  { id: 'petchessclub', emoji: '♟️', label: 'Schackklubben', desc: 'Lös schackproblem och tjäna XP och mynt' },
+  { id: 'petchemlab', emoji: '🧪', label: 'Kemlabbet', desc: 'Blanda ämnen och lär dig kemi för KC och XP' },
+  { id: 'petarcheryguild', emoji: '🏹', label: 'Bågskyttegillet', desc: 'Sikta rätt och tjäna XP och mynt per prick' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
