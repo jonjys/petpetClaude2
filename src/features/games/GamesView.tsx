@@ -1,4 +1,4 @@
-import { memo, useState, useMemo, useCallback } from 'react'
+import { memo, useState } from 'react'
 import { useGame } from '@/hooks/useGame'
 import { useGameStore } from '@/stores/gameStore'
 import { useUIStore } from '@/stores/uiStore'
@@ -468,21 +468,6 @@ const GAMES = [
   { id: 'animalkingdom' as const, emoji: '🦁', name: 'Djurriket', desc: 'Djurfakta från hela världen — 9 sek, 10 ronder!', reward: '🪙0-160', hot: false },
 ]
 
-function weekKey() {
-  const msPerWeek = 7 * 24 * 60 * 60 * 1000
-  return `k0509_wk_${Math.floor(Date.now() / msPerWeek)}`
-}
-
-function getActiveEvent() {
-  const hour = new Date().getHours()
-  const day = new Date().getDay()
-  if (day === 0 || day === 6) return { emoji: '🎉', name: 'HELGFESTIVAL', desc: 'Alla spel +25% XP', color: '#aa66ff', rgb: '170,102,255' }
-  if (hour >= 6 && hour < 10) return { emoji: '🌅', name: 'MORGONRUSH', desc: '+20% XP-bonus t.o.m. 10:00', color: '#ffcc00', rgb: '255,204,0' }
-  if (hour >= 11 && hour < 14) return { emoji: '🍽️', name: 'LUNCHLYCKA', desc: 'Fiske ger dubbel XP', color: '#4ade80', rgb: '74,222,128' }
-  if (hour >= 18 && hour < 22) return { emoji: '⚔️', name: 'KVÄLLSRÄD', desc: 'Boss Raid +50% belöning', color: '#f87171', rgb: '248,113,113' }
-  return { emoji: '🌅', name: 'SOMMERFESTIVALEN 2026', desc: 'Bonus XP +25% · Exklusiva belöningar', color: '#ffcc00', rgb: '255,204,0' }
-}
-
 export const GamesView = memo(function GamesView() {
   const [activeGame, setActiveGame] = useState<GameId>(null)
   const { awardCoins, awardXP } = useGame()
@@ -492,38 +477,12 @@ export const GamesView = memo(function GamesView() {
   const recordMissionProgress = useGameStore(s => s.recordMissionProgress)
   const showToast = useUIStore(s => s.showToast)
   const pushNotif = useUIStore(s => s.pushNotif)
-  const triggerConfetti = useUIStore(s => s.triggerConfetti)
   const runnerBest = useGameStore(s => s.pet.runnerBest)
   const battleWins = useGameStore(s => s.pet.battleWins)
   const fishCaught = useGameStore(s => s.pet.fishCaught)
   const petEmoji = useGameStore(s => s.pet.petEmoji)
   const coins = useGameStore(s => s.pet.coins)
   const spendCoins = useGameStore(s => s.spendCoins)
-  const gainKC = useGameStore(s => s.gainKC)
-  const [weeklyClaimed, setWeeklyClaimed] = useState(() => !!localStorage.getItem(weekKey()))
-
-  const weekChallenge = useMemo(() => {
-    const msPerWeek = 7 * 24 * 60 * 60 * 1000
-    const weekNum = Math.floor(Date.now() / msPerWeek)
-    const challenges = [
-      { title: 'Vinn 10 Strider', goal: 10, current: battleWins, game: 'battle', reward: '500 🪙 + 20 KC', emoji: '⚔️', coins: 500, kc: 20 },
-      { title: 'Fånga 20 Fiskar', goal: 20, current: fishCaught, game: 'fishing', reward: '400 🪙 + 15 KC', emoji: '🎣', coins: 400, kc: 15 },
-      { title: 'Spring 300m', goal: 300, current: runnerBest, game: 'runner', reward: '300 🪙 + 10 KC', emoji: '🏃', coins: 300, kc: 10 },
-    ]
-    return challenges[weekNum % challenges.length]
-  }, [battleWins, fishCaught, runnerBest])
-
-  const claimWeekly = () => {
-    if (weeklyClaimed || weekChallenge.current < weekChallenge.goal) return
-    awardCoins(weekChallenge.coins)
-    gainKC(weekChallenge.kc)
-    localStorage.setItem(weekKey(), '1')
-    setWeeklyClaimed(true)
-    showToast(`🏆 Veckoutmaning klar! +${weekChallenge.coins}🪙 +${weekChallenge.kc}💎`, 'success')
-    pushNotif('🏆', `Veckans utmaning klar! +${weekChallenge.coins} mynt`)
-    triggerConfetti()
-    audio.achievement()
-  }
 
   const handleGenericWin = (coins: number, xp: number) => {
     awardCoins(coins); awardXP(xp, 'game'); audio.achievement()
@@ -787,101 +746,12 @@ export const GamesView = memo(function GamesView() {
 
   return (
     <>
-      <div className="games-header-2027">
-        <div className="games-title-2027">🎮 GAMES</div>
-        <div className="games-daily-xp-badge">+{(battleWins + fishCaught) * 10} XP idag</div>
-      </div>
-
-      {/* Weekly Challenge */}
-      <div style={{ padding: '0 14px 12px' }}>
-        <div style={{
-          background: 'linear-gradient(135deg, rgba(170,102,255,.12), rgba(68,136,255,.08))',
-          border: '1px solid rgba(170,102,255,.3)',
-          borderRadius: 16,
-          padding: '12px 14px',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 16 }}>🗓️</span>
-              <span style={{ fontFamily: 'var(--ff-head)', fontSize: 12, fontWeight: 900, color: 'var(--purple)', letterSpacing: 1 }}>VECKANS UTMANING</span>
-            </div>
-            <span style={{ fontSize: 10, color: 'var(--t3)' }}>Återst. måndag</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 28 }}>{weekChallenge.emoji}</span>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontFamily: 'var(--ff-head)', fontSize: 14, fontWeight: 700, color: '#fff', marginBottom: 4 }}>{weekChallenge.title}</div>
-              <div style={{ background: 'rgba(0,0,0,.3)', borderRadius: 6, height: 6, overflow: 'hidden' }}>
-                <div style={{
-                  height: '100%',
-                  width: `${Math.min(100, (weekChallenge.current / weekChallenge.goal) * 100)}%`,
-                  background: 'linear-gradient(90deg, var(--purple), var(--blue))',
-                  borderRadius: 6,
-                  transition: 'width .4s',
-                }} />
-              </div>
-              <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 3 }}>
-                {Math.min(weekChallenge.current, weekChallenge.goal)}/{weekChallenge.goal} · {weekChallenge.reward}
-              </div>
-            </div>
-            {weekChallenge.current >= weekChallenge.goal && !weeklyClaimed && (
-              <button
-                onClick={claimWeekly}
-                style={{
-                  background: 'linear-gradient(135deg, var(--gold), #ff8844)',
-                  border: 'none', borderRadius: 10, padding: '8px 12px',
-                  fontFamily: 'var(--ff-head)', fontSize: 11, fontWeight: 900, color: '#000',
-                  cursor: 'pointer', flexShrink: 0,
-                }}
-              >Hämta!</button>
-            )}
-            {weeklyClaimed && (
-              <div style={{ fontSize: 11, color: 'var(--green)', fontWeight: 900, flexShrink: 0 }}>✓ Klar</div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div style={{ display: 'flex', gap: 8, padding: '0 14px 12px', overflowX: 'auto', scrollbarWidth: 'none' }}>
-        <div style={{ background: 'rgba(255,68,85,.12)', border: '1px solid rgba(255,68,85,.3)', borderRadius: 12, padding: '6px 12px', fontSize: 12, fontWeight: 700, color: 'var(--red)', whiteSpace: 'nowrap' }}>⚔️ {battleWins} segrar</div>
-        <div style={{ background: 'rgba(0,255,136,.12)', border: '1px solid rgba(0,255,136,.3)', borderRadius: 12, padding: '6px 12px', fontSize: 12, fontWeight: 700, color: 'var(--green)', whiteSpace: 'nowrap' }}>🏃 {runnerBest}m rekord</div>
-        <div style={{ background: 'rgba(68,136,255,.12)', border: '1px solid rgba(68,136,255,.3)', borderRadius: 12, padding: '6px 12px', fontSize: 12, fontWeight: 700, color: 'var(--blue)', whiteSpace: 'nowrap' }}>🎣 {fishCaught} fisk</div>
-      </div>
-
-      {/* Dynamic Event Banner */}
-      {(() => {
-        const ev = getActiveEvent()
-        return (
-          <div style={{ padding: '0 14px 12px' }}>
-            <div style={{
-              background: `linear-gradient(135deg, rgba(${ev.rgb},.12), rgba(${ev.rgb},.05))`,
-              border: `1px solid rgba(${ev.rgb},.3)`,
-              borderRadius: 16, padding: '12px 14px',
-              display: 'flex', alignItems: 'center', gap: 12,
-            }}>
-              <div style={{ fontSize: 32 }}>{ev.emoji}</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: 'var(--ff-head)', fontSize: 13, fontWeight: 900, color: ev.color, letterSpacing: 1 }}>
-                  {ev.name}
-                </div>
-                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{ev.desc}</div>
-              </div>
-              <div style={{
-                background: `rgba(${ev.rgb},.2)`, border: `1px solid rgba(${ev.rgb},.4)`,
-                borderRadius: 8, padding: '4px 8px', fontSize: 10, fontWeight: 900, color: ev.color,
-                whiteSpace: 'nowrap',
-              }}>
-                LIVE ●
-              </div>
-            </div>
-          </div>
-        )
-      })()}
-
-      {/* 4 core moments — every other minigame is hidden (not deleted) behind
-          this hub per the neo-brutalism/core-gameplay pass. Their code and
-          the routing above still work if activeGame is ever set to one of
-          their ids again; this grid just stops offering that entry point. */}
+      {/* Per the brief: "huvudmenyn för spel ska BARA innehålla" the 4 core
+          moments. The old header/weekly-challenge card/event banner that
+          used to live here were cut, not just visually hidden — they were
+          soft-gradient, rounded-corner UI clashing hard against the flat
+          neo-brutalist cards below, AND they pushed those cards down far
+          enough to collide with the fixed live-ticker overlay on load. */}
       <div className={`nb-theme ${hubStyles.root}`} style={{ padding: '0 14px' }}>
         <div className={hubStyles.header}>
           <span className={hubStyles.title}>Core Play</span>
