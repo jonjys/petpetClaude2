@@ -12,6 +12,19 @@ const TIME_LIMIT = 8
 
 type Q = { question: string; answer: string; options: string[] }
 
+function uniqueFourStr(answer: string, gen: () => string): string[] {
+  const seen = new Set([answer])
+  const opts = [answer]
+  let safety = 0
+  while (opts.length < 4 && safety++ < 300) {
+    const w = gen()
+    if (!seen.has(w)) { seen.add(w); opts.push(w) }
+  }
+  let e = 0
+  while (opts.length < 4) { const fb = `??${++e}`; if (!seen.has(fb)) { seen.add(fb); opts.push(fb) } }
+  return opts.sort(() => Math.random() - 0.5)
+}
+
 function makeQ(difficulty: number): Q {
   const tier = difficulty < 4 ? 0 : difficulty < 7 ? 1 : 2
 
@@ -27,9 +40,7 @@ function makeQ(difficulty: number): Q {
       const delta = [5, 10, 15, 20][Math.floor(Math.random() * 4)]
       return `${Math.max(1, ans + (Math.random() < 0.5 ? delta : -delta))}`
     }
-    const opts = Array.from(new Set([answer, makeWrong(), makeWrong(), makeWrong()])).slice(0, 4)
-    while (opts.length < 4) opts.push(`${ans + opts.length}`)
-    return { question: `${pct}% av ${base} = ?`, answer, options: opts.sort(() => Math.random() - 0.5) }
+    return { question: `${pct}% av ${base} = ?`, answer, options: uniqueFourStr(answer, makeWrong) }
   } else if (tier === 1) {
     // What percent is X of Y
     const pairs: [number, number, number][] = [
@@ -41,8 +52,7 @@ function makeQ(difficulty: number): Q {
     const answer = `${pct}%`
     const pctWrongs = [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 75, 80].filter(p => p !== pct)
     const makeWrong = () => `${pctWrongs[Math.floor(Math.random() * pctWrongs.length)]}%`
-    const opts = Array.from(new Set([answer, makeWrong(), makeWrong(), makeWrong()])).slice(0, 4)
-    return { question: `Hur många procent är ${x} av ${y}?`, answer, options: opts.sort(() => Math.random() - 0.5) }
+    return { question: `Hur många procent är ${x} av ${y}?`, answer, options: uniqueFourStr(answer, makeWrong) }
   } else {
     // X is Y% of what?
     const pcts = [10, 20, 25, 50]
@@ -55,9 +65,7 @@ function makeQ(difficulty: number): Q {
       const delta = [10, 20, 40, 50][Math.floor(Math.random() * 4)]
       return `${Math.max(10, total + (Math.random() < 0.5 ? delta : -delta))}`
     }
-    const opts = Array.from(new Set([answer, makeWrong(), makeWrong(), makeWrong()])).slice(0, 4)
-    while (opts.length < 4) opts.push(`${total + opts.length * 10}`)
-    return { question: `${part} är ${pct}% av?`, answer, options: opts.sort(() => Math.random() - 0.5) }
+    return { question: `${part} är ${pct}% av?`, answer, options: uniqueFourStr(answer, makeWrong) }
   }
 }
 

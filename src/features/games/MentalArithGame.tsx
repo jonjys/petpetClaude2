@@ -12,6 +12,19 @@ const TIME_LIMIT = 5
 
 type Q = { question: string; answer: number; options: number[] }
 
+function uniqueFourNum(answer: number, gen: () => number): number[] {
+  const seen = new Set([answer])
+  const opts = [answer]
+  let safety = 0
+  while (opts.length < 4 && safety++ < 300) {
+    const w = gen()
+    if (!seen.has(w)) { seen.add(w); opts.push(w) }
+  }
+  let e = 0
+  while (opts.length < 4) { const fb = answer + (++e) * 999; if (!seen.has(fb)) { seen.add(fb); opts.push(fb) } }
+  return opts.sort(() => Math.random() - 0.5)
+}
+
 function makeQ(difficulty: number): Q {
   const tier = difficulty < 5 ? 0 : difficulty < 10 ? 1 : 2
 
@@ -66,9 +79,7 @@ function makeQ(difficulty: number): Q {
 
   const range = Math.max(3, Math.floor(Math.abs(answer) * 0.12))
   const makeWrong = () => Math.max(1, answer + (Math.random() < 0.5 ? 1 : -1) * (1 + Math.floor(Math.random() * range)))
-  const opts = Array.from(new Set([answer, makeWrong(), makeWrong(), makeWrong()])).slice(0, 4)
-  while (opts.length < 4) opts.push(answer + opts.length * (range + 1))
-  return { question, answer, options: opts.sort(() => Math.random() - 0.5) }
+  return { question, answer, options: uniqueFourNum(answer, makeWrong) }
 }
 
 export const MentalArithGame = memo(function MentalArithGame({ onExit, onWin }: Props) {

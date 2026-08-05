@@ -14,6 +14,19 @@ type Q = { question: string; answer: string; options: string[] }
 
 function pad(n: number) { return String(n).padStart(2, '0') }
 
+function uniqueFourStr(answer: string, gen: () => string): string[] {
+  const seen = new Set([answer])
+  const opts = [answer]
+  let safety = 0
+  while (opts.length < 4 && safety++ < 300) {
+    const w = gen()
+    if (!seen.has(w)) { seen.add(w); opts.push(w) }
+  }
+  let e = 0
+  while (opts.length < 4) { const fb = `??${++e}`; if (!seen.has(fb)) { seen.add(fb); opts.push(fb) } }
+  return opts.sort(() => Math.random() - 0.5)
+}
+
 function makeQ(difficulty: number): Q {
   const tier = difficulty < 4 ? 0 : difficulty < 7 ? 1 : 2
 
@@ -32,8 +45,7 @@ function makeQ(difficulty: number): Q {
       const t = (endTotal + (Math.random() < 0.5 ? delta : -delta) + 1440) % 1440
       return `${pad(Math.floor(t / 60))}:${pad(t % 60)}`
     }
-    const opts = Array.from(new Set([answer, makeWrong(), makeWrong(), makeWrong()])).slice(0, 4)
-    return { question: `Kl ${pad(h)}:${pad(m)} + ${addMin} min = ?`, answer, options: opts.sort(() => Math.random() - 0.5) }
+    return { question: `Kl ${pad(h)}:${pad(m)} + ${addMin} min = ?`, answer, options: uniqueFourStr(answer, makeWrong) }
   } else if (tier === 1) {
     // Duration between two times
     const h1 = Math.floor(Math.random() * 8) + 6
@@ -49,8 +61,7 @@ function makeQ(difficulty: number): Q {
       const dM = [0, 15, 30, 45][Math.floor(Math.random() * 4)]
       return Math.max(dH, 0) === 0 ? `${dM} min` : `${Math.max(dH, 0)} tim ${dM} min`
     }
-    const opts = Array.from(new Set([answer, makeWrong(), makeWrong(), makeWrong()])).slice(0, 4)
-    return { question: `Från ${pad(h1)}:${pad(m1)} till ${pad(h2)}:${pad(m2)} — hur lång tid?`, answer, options: opts.sort(() => Math.random() - 0.5) }
+    return { question: `Från ${pad(h1)}:${pad(m1)} till ${pad(h2)}:${pad(m2)} — hur lång tid?`, answer, options: uniqueFourStr(answer, makeWrong) }
   } else {
     // Convert hours+minutes to minutes
     const h = 1 + Math.floor(Math.random() * 4)
@@ -58,10 +69,9 @@ function makeQ(difficulty: number): Q {
     const answer = `${h * 60 + m} min`
     const makeWrong = () => {
       const delta = [15, 30, 45, 60][Math.floor(Math.random() * 4)]
-      return `${h * 60 + m + (Math.random() < 0.5 ? delta : -delta)} min`
+      return `${Math.max(1, h * 60 + m + (Math.random() < 0.5 ? delta : -delta))} min`
     }
-    const opts = Array.from(new Set([answer, makeWrong(), makeWrong(), makeWrong()])).slice(0, 4)
-    return { question: `${h} timmar${m ? ` och ${m} minuter` : ''} = ? minuter`, answer, options: opts.sort(() => Math.random() - 0.5) }
+    return { question: `${h} timmar${m ? ` och ${m} minuter` : ''} = ? minuter`, answer, options: uniqueFourStr(answer, makeWrong) }
   }
 }
 
