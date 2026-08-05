@@ -606,6 +606,9 @@ export const FEATURE_HUB_ITEMS = [
   { id: 'petalgebracenter', emoji: '🔣', label: 'Algebracentret', desc: 'Lös ekvationer och tjäna XP och KC per korrekt svar' },
   { id: 'petgrammarhouse', emoji: '📚', label: 'Grammatikhuset', desc: 'Öva grammatik och lås upp språkliga prestiger' },
   { id: 'petobservatory', emoji: '🔭', label: 'Observatoriet', desc: 'Studera planeter och stjärnor för KC och XP' },
+  { id: 'petsciencelab', emoji: '🔬', label: 'NO-labbet', desc: 'Experimentera med fysik och kemi för KC och XP' },
+  { id: 'petmulticlub', emoji: '✖️', label: 'Tabellklubben', desc: 'Träna multiplikationstabellerna och tjäna dagliga mynt' },
+  { id: 'petartgallery', emoji: '🎨', label: 'Konstgalleriet', desc: 'Ställ ut konst och attrahera besökare för bond och KC' },
 ]
 
 // ── Fortune cookie messages ────────────────────────────────────────────────────
