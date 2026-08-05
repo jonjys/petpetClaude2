@@ -149,16 +149,20 @@ export const App = memo(function App() {
         <BottomNav />
       </div>
 
-      {/* Live lore ticker */}
-      <div id="liveTicker">
-        <div className="lt-live">
-          <div className="lt-dot" />
-          LIVE
+      {/* Live lore ticker — hidden on the Games tab: it's a fixed overlay
+          near the bottom nav, and it visually collided with the neo-
+          brutalist core-gameplay hub's cards there. */}
+      {activeTab !== 'games' && (
+        <div id="liveTicker">
+          <div className="lt-live">
+            <div className="lt-dot" />
+            LIVE
+          </div>
+          <div className="lt-scroll-wrap">
+            <div className="lt-scroll" ref={tickerRef}>{tickerText}</div>
+          </div>
         </div>
-        <div className="lt-scroll-wrap">
-          <div className="lt-scroll" ref={tickerRef}>{tickerText}</div>
-        </div>
-      </div>
+      )}
 
       {/* Overlays */}
       <Toast />
